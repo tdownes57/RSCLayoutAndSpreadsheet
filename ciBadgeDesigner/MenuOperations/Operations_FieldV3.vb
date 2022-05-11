@@ -81,7 +81,8 @@ Public Class Operations_FieldV3
         Dim bIsCustomField As Boolean ''Added 12/14/2021 
         Const c_boolTryNewSub As Boolean = True ''Added 12/14/2021 td
 
-        bIsCustomField = (CtlCurrentElementField.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
+        ''5/11/2022 td''bIsCustomField = (CtlCurrentElementField.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
+        bIsCustomField = (CtlCurrentElementField.FieldIsCustom)
 
         If (bIsCustomField And c_boolTryNewSub) Then
 

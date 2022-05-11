@@ -54,7 +54,12 @@ namespace ciBadgeGenerator
                 structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
 
                 if (par_listFieldsNotIncluded != null)
-                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - LeftEdge < 0"); }
+                { 
+                    par_listFieldsNotIncluded
+                        //.Add(par_elementField.FieldNm_CaptionText()
+                        .Add(par_elementField.FieldNameCaptionText()
+                        + " - LeftEdge < 0"); 
+                }
 
             }
 
@@ -68,7 +73,12 @@ namespace ciBadgeGenerator
                 structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
 
                 if (par_listFieldsNotIncluded != null)
-                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - TopEdge < 0"); }
+                { 
+                    // 5-11-2022 ''par_listFieldsNotIncluded
+                    //''    .Add(par_elementField.FieldNm_CaptionText() + " - TopEdge < 0");
+                    par_listFieldsNotIncluded
+                        .Add(par_elementField.FieldEnum.ToString() + " - TopEdge < 0");
+                }
 
             }
 
@@ -85,7 +95,12 @@ namespace ciBadgeGenerator
                 structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
 
                 if (par_listFieldsNotIncluded != null)
-                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - RightEdge > BadgeWidth"); }
+                { 
+                    par_listFieldsNotIncluded
+                        //.Add(par_elementField.FieldNm_CaptionText()
+                        .Add(par_elementField.FieldNameCaptionText()
+                         + " - RightEdge > BadgeWidth"); 
+                }
 
             }
 

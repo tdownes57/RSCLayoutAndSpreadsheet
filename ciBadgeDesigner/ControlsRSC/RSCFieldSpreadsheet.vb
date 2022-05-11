@@ -881,6 +881,7 @@ Public Class RSCFieldSpreadsheet
                 each_field = New ciBadgeFields.ClassFieldAny()
                 ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
                 each_field.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax).CIBField
+
                 ''3/20/2022 td''eachColumn = GenerateRSCFieldColumn(each_field, intNeededIndex)
                 each_Column = GenerateRSCFieldColumn_Special(each_field, intNeededIndex)
                 intCurrentPropertyLeft = intNextPropertyLeft ''Check prior iteration.

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;   //Added 10/5/2019 td
 using ciLayoutPrintLib; //Added 10/5/2019 td
+using ciBadgeFields;    //Added 05/11/2022 td
 using ciBadgeElements;  //Added 10/5/2019 td
 using ciBadgeInterfaces; //Added 10/5/2019 td
 using ciBadgeElemImage; //Added 10/14/2019 td  
@@ -1146,6 +1147,7 @@ namespace ciBadgeGenerator
 
         public void LoadImageWithElementFields(ref Image par_imageBadgeCard,
                                           ref DateTime par_datetimeLastUpdated,
+                                          ClassElementsCache_Deprecated par_cache,
                                           IEnumerable<ClassElementFieldV3> par_elementFieldsV3,
                                           IEnumerable<ClassElementFieldV4> par_elementFieldsV4,
                                           IRecipient par_iRecipientInfo = null,
@@ -1212,7 +1214,7 @@ namespace ciBadgeGenerator
 
                 intEachIndexV3 += 1;
 
-                if (each_elementFieldV3.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
+                if (each_elementFieldV3.Visible)  //.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
                 {
                     //Encapsulated 10/17/2019 td  
                     AddElementFieldToImageV3(each_elementFieldV3, par_imageBadgeCard,
@@ -1239,12 +1241,19 @@ namespace ciBadgeGenerator
                 par_datetimeLastUpdated = MaxDateTime(each_elementFieldV4.DatetimeUpdated,
                     par_datetimeLastUpdated);
 
+                // Added 5/11/2022 td
+                ModEnumsAndStructs.EnumCIBFields each_eCIBField = each_elementFieldV4.FieldEnum; 
+                ClassFieldAny each_field_any = par_cache.GetFieldByFieldEnum(each_eCIBField);
+
                 intEachIndexV4 += 1;
 
-                if (each_elementFieldV4.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
+                // 5-11-2022 if (each_elementFieldV4.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
+                if (each_elementFieldV4.Visible) // Added 1/24/2022 thomas d.
                 {
-                    //Encapsulated 10/17/2019 td  
-                    AddElementFieldToImageV4(each_elementFieldV4, par_imageBadgeCard,
+                   //Encapsulated 10/17/2019 td  
+                   AddElementFieldToImageV4(each_elementFieldV4, 
+                           each_field_any,
+                           par_imageBadgeCard,
                            gr_Badge, bOutputListOfAllImages, par_listTextImages,
                            par_iRecipientInfo,
                            par_listMessages,
@@ -1609,7 +1618,7 @@ namespace ciBadgeGenerator
             {
                 //Added 11/9/2021 td
                 if (par_listFieldsNotIncluded != null)
-                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldEnum.ToString()
                         + $"  - (\"{par_elementField.FieldInfo.DataEntryText}\") "
                         + " since !IsDisplayedOnBadge_Visibly(). "
                         + structWhyOmittedV1.OmitFieldMsg()
@@ -1635,7 +1644,7 @@ namespace ciBadgeGenerator
                 //End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
                 if (par_listMessages != null)
                     par_listMessages.Add("We cannot scale the placement of the image...." +
-                            par_elementField.FieldInfo.CIBadgeField);
+                            par_elementField.FieldEnum.ToString());
 
             }
 
@@ -1724,7 +1733,7 @@ namespace ciBadgeGenerator
 
                 //Added 11/9/2021 thomas downes
                 if (par_listFieldsIncluded != null)
-                    par_listFieldsIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+                    par_listFieldsIncluded.Add(par_elementField.FieldEnum.ToString());
 
             }
             //            Catch ex_draw_invalid As InvalidOperationException
@@ -1737,7 +1746,7 @@ namespace ciBadgeGenerator
 
                 //---throw new Exception("Let's throw the message.", ex_draw_invalid);
                 if (par_listMessages != null)
-                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
+                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementField.FieldEnum.ToString());
 
                 //                ''Added 8/24 thomas d.
                 //                MessageBox.Show(strMessage_Invalid, "10303",
@@ -1746,7 +1755,7 @@ namespace ciBadgeGenerator
 
                 //Added 11/9/2021 thomas downes
                 if (par_listFieldsNotIncluded != null)
-                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldEnum.ToString());
 
             }
             //            Catch ex_draw_any As System.Exception
@@ -1759,7 +1768,7 @@ namespace ciBadgeGenerator
                 strMessage_any = ex_draw_any.Message;
                 //---throw new Exception("Let's throw the message.", ex_draw_any);
                 if (par_listMessages != null)
-                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
+                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementField.FieldEnum.ToString());
 
                 //                ''Added 8/24 thomas d.
                 //                MessageBox.Show(strMessage_any, "99943800",
@@ -1769,7 +1778,7 @@ namespace ciBadgeGenerator
                 //        End With ''End of "With par_elementField"
                 //Added 11/9/2021 thomas downes
                 if (par_listFieldsNotIncluded != null)
-                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldEnum.ToString());
 
             }
             //
@@ -1780,6 +1789,7 @@ namespace ciBadgeGenerator
 
 
         private void AddElementFieldToImageV4(ClassElementFieldV4 par_elementField,
+                            ClassFieldAny par_field_any,
                             Image par_imageBadgeCard,
                             Graphics par_graphics,
                             bool pboolReturnListOfImages,
@@ -1807,7 +1817,12 @@ namespace ciBadgeGenerator
                 structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
 
                 if (par_listFieldsNotIncluded != null)
-                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - LeftEdge < 0"); }
+                { 
+                    // 5-11-2022 par_listFieldsNotIncluded
+                    //     .Add(par_elementField.FieldNm_CaptionText() + " - LeftEdge < 0");
+                    par_listFieldsNotIncluded
+                        .Add(par_elementField.FieldNameCaptionText() + " - LeftEdge < 0");
+                }
 
             }
 
@@ -1821,7 +1836,12 @@ namespace ciBadgeGenerator
                 structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
 
                 if (par_listFieldsNotIncluded != null)
-                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - TopEdge < 0"); }
+                { 
+                    // 5-11-2022 par_listFieldsNotIncluded
+                    //    .Add(par_elementField.FieldNm_CaptionText() + " - TopEdge < 0");
+                    par_listFieldsNotIncluded
+                        .Add(par_elementField.FieldNameCaptionText() + " - TopEdge < 0");
+                }
 
             }
 
@@ -1838,7 +1858,12 @@ namespace ciBadgeGenerator
                 structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
 
                 if (par_listFieldsNotIncluded != null)
-                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - RightEdge > BadgeWidth"); }
+                { 
+                    //''par_listFieldsNotIncluded
+                    //''    .Add(par_elementField.FieldNm_CaptionText() + " - RightEdge > BadgeWidth");
+                    par_listFieldsNotIncluded
+                        .Add(par_elementField.FieldNameCaptionText() + " - RightEdge > BadgeWidth");
+                }
 
             }
 
@@ -1856,7 +1881,12 @@ namespace ciBadgeGenerator
                 structWhyOmittedV2.SetDateTime(DateTime.Now); //Added 1/23/2022 td
 
                 if (par_listFieldsNotIncluded != null)
-                { par_listFieldsNotIncluded.Add(par_elementField.FieldNm_CaptionText() + " - BottomEdge > BadgeHeight"); }
+                { 
+                    //5-11-2022 par_listFieldsNotIncluded
+                    //    .Add(par_elementField.FieldNm_CaptionText() + " - BottomEdge > BadgeHeight");
+                    par_listFieldsNotIncluded
+                        .Add(par_elementField.FieldNameCaptionText() + " - BottomEdge > BadgeHeight");
+                }
 
             }
 
@@ -1865,8 +1895,10 @@ namespace ciBadgeGenerator
             {
                 //Added 11/9/2021 td
                 if (par_listFieldsNotIncluded != null)
-                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField
-                        + $"  - (\"{par_elementField.FieldInfo.DataEntryText}\") "
+                    //par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField
+                    //    + $"  - (\"{par_elementField.FieldInfo.DataEntryText}\") "
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldEnum.ToString()
+                        + $"  - (\"{par_field_any.DataEntryText}\") "
                         + " since !IsDisplayedOnBadge_Visibly(). "
                         + structWhyOmittedV1.OmitFieldMsg()
                         + structWhyOmittedV1.OmitElementMsg());
@@ -1886,7 +1918,7 @@ namespace ciBadgeGenerator
                 //End If ''ENd of "If (0 = .Position_BL.BadgeLayout.Width_Pixels) Then"
                 if (par_listMessages != null)
                     par_listMessages.Add("We cannot scale the placement of the image...." +
-                            par_elementField.FieldInfo.CIBadgeField);
+                            par_elementField.FieldEnum.ToString());
 
             }
 
@@ -1914,7 +1946,7 @@ namespace ciBadgeGenerator
                                    new PointF(intDesiredLeft, intDesiredTop));
 
                 if (par_listFieldsIncluded != null)
-                    par_listFieldsIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+                    par_listFieldsIncluded.Add(par_elementField.FieldEnum.ToString());
 
             }
             catch (InvalidOperationException ex_draw_invalid)
@@ -1922,10 +1954,10 @@ namespace ciBadgeGenerator
                 string strMessage_Invalid = ex_draw_invalid.Message;
 
                 if (par_listMessages != null)
-                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
+                    par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementField.FieldEnum.ToString());
 
                 if (par_listFieldsNotIncluded != null)
-                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldEnum.ToString());
 
             }
             catch (Exception ex_draw_any)
@@ -1933,10 +1965,10 @@ namespace ciBadgeGenerator
                 string strMessage_any;
                 strMessage_any = ex_draw_any.Message;
                 if (par_listMessages != null)
-                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementField.FieldInfo.CIBadgeField);
+                    par_listMessages.Add(ex_draw_any.Message + "..." + par_elementField.FieldEnum.ToString());
 
                 if (par_listFieldsNotIncluded != null)
-                    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
+                    par_listFieldsNotIncluded.Add(par_elementField.FieldEnum.ToString());
 
             }
 

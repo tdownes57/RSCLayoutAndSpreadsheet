@@ -478,14 +478,14 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub CheckCacheIsLatestForEdits()"
 
 
-        Public Function CheckAllElementsHaveCorrectFieldInfo(ByRef pbAllFine As Boolean,
-                                                 ByRef pstrMessage As String) As Boolean
-            ''
-            ''Added 11/19/2021 td 
-            '' 
-            Return mod_cacheEdits.CheckAllElementsHaveCorrectFieldInfo(pbAllFine, pstrMessage)
+        ''5/11/2022 td''Public Function CheckAllElementsHaveCorrectFieldInfo(ByRef pbAllFine As Boolean,
+        ''                                         ByRef pstrMessage As String) As Boolean
+        ''    ''
+        ''    ''Added 11/19/2021 td 
+        ''    '' 
+        ''    Return mod_cacheEdits.CheckAllElementsHaveCorrectFieldInfo(pbAllFine, pstrMessage)
 
-        End Function ''End of "Public Function CheckAllElementsHaveCorrectFieldInfo"
+        ''End Function ''End of "Public Function CheckAllElementsHaveCorrectFieldInfo"
 
 
         Public Sub LoadField_ByEnum_Deprecated(par_enumCIB As EnumCIBFields, pboolIsCustomField As Boolean)

@@ -62,8 +62,10 @@ Public Class FormDesignProtoThree
         ''
         FlowMenu.Visible = True
 
-        MessageBox.Show(par_control.ElementClass_ObjV3.FieldInfo.CIBadgeField, "",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ''5/2022 MessageBox.Show(par_control.ElementClass_ObjV3.FieldInfo.CIBadgeField, "",
+        ''5/2022      MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBoxTD.Show_Statement("The right-clicked  element is for the field...",
+                                    par_control.ElementClass_ObjV3.FieldNm_CaptionText())
 
     End Sub
 End Class

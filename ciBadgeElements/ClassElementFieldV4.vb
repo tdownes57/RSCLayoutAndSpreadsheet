@@ -59,11 +59,56 @@ Public Class ClassElementFieldV4
 
     ''Added 10/12/2019 thomas downes
     Public Property FieldEnum As EnumCIBFields Implements IElement_TextField.FieldEnum
+    Public Property FieldIsCustomizable As Boolean Implements IElement_TextField.FieldIsCustomizable ''Added 5/11/2022
 
     ''--5/10/2022--<Xml.Serialization.XmlIgnore>
     ''--5/10/2022--Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
 
     Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td
+
+
+    Public Sub New(par_control As Control)
+
+        ''Added 7/19/2019 td
+        ''
+        Me.FormControl = par_control
+
+    End Sub
+
+
+    Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
+                   par_intLeft_Pixels As Integer,
+                   par_intTop_Pixels As Integer,
+                   par_intHeight_Pixels As Integer)
+        ''9/17 td''Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+        ''
+        ''Added 5/11/2022 & 9/15/2019 td
+        ''
+        If (par_fieldInfo Is Nothing) Then Throw New ArgumentException("Null parameter.")
+
+        ''5/10/2022 td''Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
+        Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
+        Me.FieldIsCustomizable = par_fieldInfo.IsCustomizable ''Added 5/11/2022 td
+
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+
+        Me.LeftEdge_Pixels = par_intLeft_Pixels
+        Me.TopEdge_Pixels = par_intTop_Pixels
+        Me.Height_Pixels = par_intHeight_Pixels
+
+        ''---''Added 4/22/2020 thomas downes
+        ''---Me.FieldIndex`
+
+    End Sub
+
+    Public Sub New()
+        ''
+        ''Added 5/11/2022 & 7/29/2019 td
+        ''
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+
+    End Sub
+
 
     Public Sub LoadFieldAny(parFieldAny As ClassFieldAny)
         ''
@@ -202,6 +247,13 @@ Public Class ClassElementFieldV4
     ''    ''//Added 11/10/2021 thomas downes
     ''    Return (FieldInfo.CIBadgeField & "/" & FieldInfo.DataEntryText)
     ''End Function
+
+    Public Function FieldNameCaptionText() As String
+        ''//Added 11/10/2021 thomas downes
+        ''5/11/2022 td''Return (FieldInfo.CIBadgeField & "/" & FieldInfo.DataEntryText)
+        Return (FieldEnum.ToString())
+
+    End Function ''End of ""Public Function FieldNmCaptionText() As String""
 
 
     Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean,

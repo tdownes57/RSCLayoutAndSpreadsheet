@@ -221,7 +221,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         With CtlGraphicFldLabel1
 
-            .FieldInfo = Me.ElementObject_CopyV4.FieldInfo
+            ''5/11/2022 td''.FieldInfo = Me.ElementObject_CopyV4.FieldInfo
+            .FieldEnumValue = Me.ElementObject_CopyV4.FieldEnum
+            .FieldIsCustom = Me.ElementObject_CopyV4.FieldIsCustomizable ''Added 5/11/2022 td
 
             ''Added 1/5/2022 td
             ''  Populate the handy interface references.

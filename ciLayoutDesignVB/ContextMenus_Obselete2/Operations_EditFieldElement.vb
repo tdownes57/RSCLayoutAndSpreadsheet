@@ -70,7 +70,11 @@ Public Class Operations_EditFieldElement
         Dim bIsCustomField As Boolean ''Added 12/14/2021 
         Const c_boolTryNewSub As Boolean = True ''Added 12/14/2021 td
 
-        bIsCustomField = (CtlCurrentElement.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
+        ''5/11/2022 ''bIsCustomField = (CtlCurrentElement.ElementClass_ObjV3.FieldObjectCustom
+        ''5/11/2022 ''                   IsNot Nothing)
+        Dim currentField As ciBadgeFields.ClassFieldAny
+        currentField = CacheOfFieldsEtc.GetFieldByFieldEnum(CtlCurrentElement.FieldEnumValue)
+        bIsCustomField = currentField.IsCustomizable
 
         If (bIsCustomField And c_boolTryNewSub) Then
 
@@ -95,19 +99,27 @@ Public Class Operations_EditFieldElement
         ''Encapsulated 12/14/2021 thomas d. 
         ''
         Dim form_ToShow As New ListCustomFieldsFlow
-
         Dim boolExitEarly As Boolean ''Added 8/13/2019 td
+
         ''10/10/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
+        Dim currentField_Any As ciBadgeFields.ClassFieldAny ''Added 5/2022
+        Dim currentField_Stan As ciBadgeFields.ClassFieldStandard ''Added 5/2022
+        Dim currentField_Cust As ciBadgeFields.ClassFieldCustomized ''Added 5/2022
+        currentField_Any = CacheOfFieldsEtc.GetFieldByFieldEnum(CtlCurrentElement.FieldEnumValue)
+        currentField_Stan = CacheOfFieldsEtc.GetFieldByFieldEnum_Standard(CtlCurrentElement.FieldEnumValue)
+        currentField_Cust = CacheOfFieldsEtc.GetFieldByFieldEnum_Custom(CtlCurrentElement.FieldEnumValue)
+
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
-        form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
+        ''5/11/2022 td''form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
+        form_ToShow.JustOneField_Index = currentField_Any.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        form_ToShow.JustOneField_Any = CtlCurrentElement.ElementClass_ObjV3.FieldObjectAny
-        form_ToShow.JustOneField_Custom = CtlCurrentElement.ElementClass_ObjV3.FieldObjectCustom
-        form_ToShow.JustOneField_Standard = CtlCurrentElement.ElementClass_ObjV3.FieldObjectStandard
+        form_ToShow.JustOneField_Any = currentField_Any '' CtlCurrentElement.ElementClass_ObjV3.FieldObjectAny
+        form_ToShow.JustOneField_Custom = currentField_Cust '' CtlCurrentElement.ElementClass_ObjV3.FieldObjectCustom
+        form_ToShow.JustOneField_Standard = currentField_Stan '' CtlCurrentElement.ElementClass_ObjV3.FieldObjectStandard
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -130,14 +142,26 @@ Public Class Operations_EditFieldElement
         ''10/10/2019 td''CreateVisibleButton_Master("Choose a background color", AddressOf OpenDialog_Color, boolExitEarly)
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
+        Dim currentField_Any As ciBadgeFields.ClassFieldAny ''Added 5/2022
+        Dim currentField_Stan As ciBadgeFields.ClassFieldStandard ''Added 5/2022
+        Dim currentField_Cust As ciBadgeFields.ClassFieldCustomized ''Added 5/2022
+
+        currentField_Any = CacheOfFieldsEtc.GetFieldByFieldEnum(CtlCurrentElement.FieldEnumValue)
+        currentField_Stan = CacheOfFieldsEtc.GetFieldByFieldEnum_Standard(CtlCurrentElement.FieldEnumValue)
+        currentField_Cust = CacheOfFieldsEtc.GetFieldByFieldEnum_Custom(CtlCurrentElement.FieldEnumValue)
+
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
-        par_form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
+        ''5/11/2022 td''par_form_ToShow.JustOneField_Index = CtlCurrentElement.FieldInfo.FieldIndex
+        par_form_ToShow.JustOneField_Index = currentField_Any.FieldIndex
 
         ''Added 12/13/2021 thomas downes
-        par_form_ToShow.JustOneField_Any = CtlCurrentElement.ElementClass_ObjV3.FieldObjectAny
-        par_form_ToShow.JustOneField_Custom = CtlCurrentElement.ElementClass_ObjV3.FieldObjectCustom
-        par_form_ToShow.JustOneField_Standard = CtlCurrentElement.ElementClass_ObjV3.FieldObjectStandard
+        ''5/11/2022 td''par_form_ToShow.JustOneField_Any = CtlCurrentElement.ElementClass_ObjV3.FieldObjectAny
+        ''5/11/2022 td''par_form_ToShow.JustOneField_Custom = CtlCurrentElement.ElementClass_ObjV3.FieldObjectCustom
+        ''5/11/2022 td''par_form_ToShow.JustOneField_Standard = CtlCurrentElement.ElementClass_ObjV3.FieldObjectStandard
+        par_form_ToShow.JustOneField_Any = currentField_Any
+        par_form_ToShow.JustOneField_Custom = currentField_Cust
+        par_form_ToShow.JustOneField_Standard = currentField_Stan
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom

@@ -162,7 +162,9 @@ Public Class CtlGraphicFieldV3
 
     ''7/26/2019 td''Public FieldInfo As ClassFieldCustomized
     ''7/26/2019 td''Public ElementInfo As ClassElementText
-    Public FieldInfo As ICIBFieldStandardOrCustom
+    ''5/11/2019 td''Public FieldInfo As ICIBFieldStandardOrCustom
+    Public FieldEnumValue As EnumCIBFields ''Added 5/11/2022 td
+    Public FieldIsCustom As Boolean ''Added 5/11/2022 td
 
     Public Enum_ReminderMsg As EnumReminderMsg = EnumReminderMsg.NotCurrentlyInUse ''Added 10/17/2019 td 
 
@@ -276,8 +278,13 @@ Public Class CtlGraphicFieldV3
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''
         ' Add any initialization after the InitializeComponent() call.
-        Me.FieldInfo = par_elementField.FieldInfo
+        ''
+        ''5/11/2022 Me.FieldInfo = par_elementField.FieldInfo
+        Me.FieldEnumValue = par_elementField.FieldEnum ''Added 5/11/2022
+        Me.FieldIsCustom = par_elementField.FieldIsCustomizable ''Added 5/11/2022
+
         Me.ParentDesigner = par_oDesigner ''Added 1/5/2022 td
 
         Me.ElementClass_ObjV3 = par_elementField

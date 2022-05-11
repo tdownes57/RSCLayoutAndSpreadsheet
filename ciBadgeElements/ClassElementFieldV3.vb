@@ -214,6 +214,7 @@ Public Class ClassElementFieldV3
 
     ''Added 10/12/2019 thomas downes
     Public Property FieldEnum As EnumCIBFields Implements IElement_TextField.FieldEnum
+    Public Property FieldIsCustomizable As Boolean Implements IElement_TextField.FieldIsCustomizable
 
     ''Added 9/17/2019 td 
     ''--5/10/2022--<Xml.Serialization.XmlIgnore>
@@ -530,6 +531,7 @@ Public Class ClassElementFieldV3
 
         ''5/10/2022 td''Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
         Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
+        Me.FieldIsCustomizable = par_fieldInfo.IsCustomizable ''Added 5/11/2022 td
 
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
 
@@ -573,20 +575,21 @@ Public Class ClassElementFieldV3
     End Sub ''End of "Public Sub LoadFieldAny(par_fieldAny As ClassFieldAny)"
 
 
-    Public Function ElementIndexIsFieldIndex() As Integer
-        ''//
-        ''// Added 11/18/2021 td 
-        ''//
-        Return FieldInfo.FieldIndex
-
-    End Function ''End of Public Function ElementIndexIsFieldIndex 
+    ''5/11/2022 td''Public Function ElementIndexIsFieldIndex() As Integer
+    ''    ''//
+    ''    ''// Added 11/18/2021 td 
+    ''    ''//
+    ''    Return FieldInfo.FieldIndex
+    ''
+    ''End Function ''End of Public Function ElementIndexIsFieldIndex 
 
 
 
     Public Function FieldNm_CaptionText() As String
         ''//Added 11/10/2021 thomas downes
-        Return (FieldInfo.CIBadgeField & "/" & FieldInfo.DataEntryText)
-    End Function
+        ''5/11/2022 td''Return (FieldInfo.CIBadgeField & "/" & FieldInfo.DataEntryText)
+        Return (FieldEnum.ToString())
+    End Function ''End of ""Public Function FieldNm_CaptionText() As String""
 
 
     Public Function IsDisplayedOnBadge_Visibly() As Boolean
@@ -609,7 +612,11 @@ Public Class ClassElementFieldV3
         ''
         ''Added 9/19/2019 td  
         ''
-        Return True ''Added 5/10/2022 thomas d. 
+        ''5/11/2022  Return True ''Added 5/10/2022 thomas d. 
+
+        par_whyOmitV2.OmitInvisibleElement = (Not Me.Visible)
+        par_whyOmitV1.ElementVisibleIsFalse = (Not Me.Visible) ''Added 12/6/2021 thomas d.
+        Return Me.Visible ''Added 5/11/2022 thomas d. 
 
         ''Dim bIncludedAndVisible As Boolean ''Added 1/24/2022 td
         ''Dim bRelevantToPersonality As Boolean ''Added 1/24/2022 td

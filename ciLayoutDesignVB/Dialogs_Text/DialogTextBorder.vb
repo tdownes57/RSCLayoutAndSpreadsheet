@@ -120,7 +120,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         With CtlGraphicFldLabel1
 
-            .FieldInfo = Me.ElementObject_Copy.FieldInfo
+            ''5/11/2022 .FieldInfo = Me.ElementObject_Copy.FieldInfo
+            .FieldEnumValue = Me.ElementObject_Copy.FieldEnum
 
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base

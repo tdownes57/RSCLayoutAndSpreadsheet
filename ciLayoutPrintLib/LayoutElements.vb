@@ -715,13 +715,14 @@ ExitHandler:
 
                 ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
                 Dim bWeWontIncludeField As Boolean = False ''Added 11/9/2021 td
-                If (.FieldInfo Is Nothing) Then bWeWontIncludeField = True ''11/9/2021 Continue For ''Added 10/13/2019 td
-                If (Not .FieldInfo.IsDisplayedOnBadge) Then bWeWontIncludeField = True ''11/9/2021 Continue For
+                ''5/2022 If (.FieldInfo Is Nothing) Then bWeWontIncludeField = True ''11/9/2021 Continue For ''Added 10/13/2019 td
+                ''5/2022 If (Not .FieldInfo.IsDisplayedOnBadge) Then bWeWontIncludeField = True ''11/9/2021 Continue For
+                If (Not .Visible) Then bWeWontIncludeField = True ''11/9/2021 Continue For
 
                 If (bWeWontIncludeField) Then
                     If (par_bOutputListsOfFields) Then
                         ''List fields which are being skipped/omitted.
-                        par_listFieldsNotIncluded.Add(each_elementField.FieldInfo.CIBadgeField)
+                        par_listFieldsNotIncluded.Add(each_elementField.FieldEnum.ToString())
                     End If ''End of "If (par_bListFieldsForOutput) Then"
                     ''
                     ''Skip this element.
@@ -808,7 +809,7 @@ ExitHandler:
                     ''
                     If (par_bOutputListsOfFields) Then
                         ''Add it to the list of included fields.
-                        par_listFieldsIncluded.Add(each_elementField.FieldInfo.CIBadgeField)
+                        par_listFieldsIncluded.Add(each_elementField.FieldEnum.ToString())
                     End If ''End of "If (par_bOutputListsOfFields) Then"
 
                 Catch ex_draw_invalid As InvalidOperationException
@@ -881,7 +882,7 @@ ExitHandler:
                 If (bWeWontIncludeField) Then
                     If (par_bOutputListsOfFields) Then
                         ''List fields which are being skipped/omitted.
-                        par_listFieldsNotIncluded.Add(each_elementField.FieldInfo.CIBadgeField)
+                        par_listFieldsNotIncluded.Add(each_elementField.FieldEnum.ToString())
                     End If ''End of "If (par_bListFieldsForOutput) Then"
                     ''
                     ''Skip this element.
@@ -968,7 +969,7 @@ ExitHandler:
                     ''
                     If (par_bOutputListsOfFields) Then
                         ''Add it to the list of included fields.
-                        par_listFieldsIncluded.Add(each_elementField.FieldInfo.CIBadgeField)
+                        par_listFieldsIncluded.Add(each_elementField.FieldEnum.ToString())
                     End If ''End of "If (par_bOutputListsOfFields) Then"
 
                 Catch ex_draw_invalid As InvalidOperationException

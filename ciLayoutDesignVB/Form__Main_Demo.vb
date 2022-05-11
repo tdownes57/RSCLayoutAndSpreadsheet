@@ -1263,211 +1263,212 @@ Public Class Form__Main_Demo
 
 
     Private Sub RefreshTheSetOfDisplayedElements_Deprecated(Optional pboolRemoveAndRebuild As Boolean = False)
+        ''    ''
+        ''    ''Step 1 of 5.   Create a dictionary of elements. 
+        ''    ''
+        ''    ''Dim dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
+
+        ''    ''Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
+        ''    ''Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
+        ''    ''Dim dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
+        ''    Dim intControlCount As Integer ''Added 10/13/2019 td  
+
+        ''    ''Added 11/26/2021 
+        ''    ''  Throw away the controls that are already on the form.  
+        ''    ''
+        ''    If (pboolRemoveAndRebuild) Then
+        ''        For Each each_control As CtlGraphicFieldV3 In dictonary_elmntInfo_control.Values
+        ''            each_control.Visible = False
+        ''            Me.Controls.Remove(each_control)
+        ''        Next each_control
+        ''        ''Added 11/26/2021 thomas downes
+        ''        dictonary_elmntInfo_control.Clear()
+        ''        dictonary_elmntObj_captions.Clear()
+        ''        dictonary_field_control.Clear()
+        ''    End If ''End of "If (pboolRemoveAndRebuild) Then"
+
+        ''    ''
+        ''    ''Step 2 of 5.   Refresh the existing controls. 
+        ''    ''
+        ''    ''Added 7/31/2019 td
+        ''    For Each each_control As Control In Me.Controls
+
+        ''        ''9/5 td''If (TypeOf each_control Is CtlGraphicFldLabel) Then Me.Controls.Remove(each_control)
+        ''        ''9/5 td''If (TypeOf each_control Is CtlGraphicPortrait) Then Me.Controls.Remove(each_control)
+
+        ''        ''9/5 td''Select Case True
+        ''        ''    Case (TypeOf each_control Is CtlGraphicFldLabel)
+        ''        ''        each_control.Visible = False
+        ''        ''        Me.Controls.Remove(each_control)
+        ''        ''    Case (TypeOf each_control Is CtlGraphicPortrait)
+        ''        ''        each_control.Visible = False
+        ''        ''        Me.Controls.Remove(each_control)
+        ''        ''End of 9/5 td''End Select
+
+        ''        ''Added 9/5/2019 td
+        ''        If (TypeOf each_control Is CtlGraphicPortrait) Then Continue For
+
+        ''        ''Added 9/5/2019 td
+        ''        If (Not (TypeOf each_control Is CtlGraphicFieldV3)) Then Continue For
+
+        ''        ''Added 9/5/2019 td
+        ''        Dim each_field_control As CtlGraphicFieldV3 = CType(each_control, CtlGraphicFieldV3)
+        ''        each_field_control.Refresh_Master()
+        ''        each_field_control.Refresh()
+
+        ''        intControlCount += 1
+
+        ''        ''Added 9/6/2019 td 
+        ''        ''
+        ''        ''   Build a dictionary of control-element.
+        ''        ''
+        ''        If (pboolRemoveAndRebuild) Then ''Added 11/26/2021 
+
+        ''            Try
+        ''                dictonary_elmntInfo_control.Add(each_field_control.ElementClass_ObjV3, each_field_control)
+        ''            Catch
+        ''                MsgBox("Likely duplicate of element Interface/Information.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
+        ''            End Try
+
+        ''            dictonary_field_control.Add(each_field_control.FieldInfo, each_field_control)
+
+        ''            ''Added 9/17/2019 td
+        ''            Try
+        ''                dictonary_elmntObj_control.Add(each_field_control.ElementClass_ObjV3, each_field_control)
+
+        ''                ''Added 11/24/21 thomas downes
+        ''                ''  This will help to prevent duplicates. 
+        ''                dictonary_elmntObj_captions.Add(each_field_control.ElementClass_ObjV3.FieldNm_CaptionText, each_field_control)
+
+        ''            Catch
+        ''                MsgBox("Possible duplicate of Element Object.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
+        ''            End Try
+
+        ''        End If ''end of "If (pboolRemoveAndRebuild) Then"
+
+        ''    Next each_control
+
+        ''    ''
+        ''    ''Step 3 of 5.   Make a list of the elements which are not yet populated on the form. 
+        ''    ''
+        ''    ''---Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
+        ''    ''---Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
+
+        ''    ''Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
+        ''    ''Dim list_elementsNotLoadedYet_Any As New List(Of ClassElementField) ''Added 9/17/2019 td  
+        ''    ''Dim list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
+        ''    ''Dim list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementField) ''Added 9/17/2019 td  
+
+        ''    list_fieldsNotLoadedYet_Any.Clear()
+        ''    list_elementsNotLoadedYet_Any.Clear()
+
+        ''    Dim boolMissingFromForm As Boolean
+        ''    Dim boolNotDisplayed_ButShouldBe As Boolean
+
+        ''    ''
+        ''    ''Step #3(a)  List the undisplayed fields.  
+        ''    ''
+        ''    For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
+        ''        ''
+        ''        ''Added 9/6/2019 td
+        ''        ''
+        ''        boolMissingFromForm = (Not dictonary_field_control.ContainsKey(each_field))
+
+        ''        boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_field.IsDisplayedOnBadge)
+
+        ''        If (boolNotDisplayed_ButShouldBe) Then
+        ''            ''
+        ''            ''Add it to a list. 
+        ''            ''
+        ''            list_fieldsNotLoadedYet_Any.Add(each_field)
+
+        ''        End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
+
+        ''    Next each_field
+
+        ''    ''
+        ''    ''Step #3(b)  List the undisplayed elements.    ---Added 9/17/2019 td
+        ''    ''
+        ''    Dim bWeCanCheckPriorLoad As Boolean ''Added 11/28/2021 thomas downes
+        ''    Dim each_element As ClassElementFieldV3 ''Added 11/28/2021 td
+        ''    bWeCanCheckPriorLoad = (0 < dictonary_elmntInfo_control.Count)
+
+        ''    If (bWeCanCheckPriorLoad) Then
+        ''        ''
+        ''        ''We have a list of the field-elements previously added, so therefore
+        ''        ''   we can check the current list against that list (and see if there
+        ''        ''   are field-elements which need to exist, but don't exist yet). 
+        ''        ''   ---11/28/2021 
+        ''        ''
+        ''        For Each each_element In Me.ElementsCache_Edits.ListFieldElementsV3()
+        ''            ''
+        ''            ''Added 9/17/2019 td
+        ''            ''
+        ''            ''9/17/2019 td''boolMissingFromForm = (Not dictonary_elmntInfo_control.ContainsKey(each_element))
+        ''            boolMissingFromForm = (Not dictonary_elmntObj_control.ContainsKey(each_element))
+
+        ''            boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_element.FieldInfo.IsDisplayedOnBadge)
+
+        ''            If (boolNotDisplayed_ButShouldBe) Then
+        ''                ''
+        ''                ''Add it to a list. 
+        ''                ''
+        ''                list_elementsNotLoadedYet_Any.Add(each_element)
+
+        ''            End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
+
+        ''        Next each_element
+
+        ''    End If ''End of "If (bWeCanCheckPriorLoad) Then"
+
+        ''    ''
+        ''    ''Step 4 of 5.   Load the missing elements onto the form, if any.  
+        ''    ''
+        ''    Dim bSomeDisplayableFldsAreNotLoaded As Boolean
+
+        ''    bSomeDisplayableFldsAreNotLoaded = (0 < list_fieldsNotLoadedYet_Any.Count)
+
+        ''    If (bSomeDisplayableFldsAreNotLoaded) Then
+        ''        ''Load the missing elements. 
+        ''        ''9/6/2019 td''Load_Fields_ByList(list_elementsNotLoadedYet_Any)
+        ''        ''9/17/2019 td''LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any,
+        ''        ''9/17/2019 td''                            True, False, True)
+        ''        ''10/3/2019 tdLoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
+
+        ''        Dim strWhyCalled As String
+        ''        strWhyCalled = "RefreshTheSetOfDisplayedElements - bSomeDisplayableFieldsAreNotLoaded"
+
+        ''        ''#1_11/28/2021 td''mod_designer.LoadDesigner()
+        ''        '' #2_11/28/2021 td''mod_designer.LoadDesigner(strWhyCalled)
+        ''        '' #2_11/28/2021 td''mod_designer.LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
+        ''        ''1/5/2022''mod_designer.LoadDesigner(strWhyCalled)
+        ''        ''1/26/2022''mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents)
+        ''        mod_designer.StartWithBacksideOfCard = Me.LetsRefresh_CardBackside
+
+        ''        ''5/4/2022 ''mod_designer.LoadDesigner(strWhyCalled,
+        ''        ''                             mod_oGroupMoveEvents,
+        ''        ''                             Me.LetsRefresh_CardBackside)
+        ''        mod_designer.LoadDesigner(strWhyCalled,
+        ''                                  Startup.PreloadElementsForDemo,
+        ''                                  mod_oGroupMoveEvents,
+        ''                                  Me.LetsRefresh_CardBackside)
+
+        ''    End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
+
+        ''    ''
+        ''    ''Step 5 of 5.   Regenerate the form. 
+        ''    ''
+        ''    ''9/5/2019 td''Me.Refresh()
+        ''    Application.DoEvents()
+
+        ''    ''
+        ''    ''Step 6 of 6.   Reload the fields onto the form. 
+        ''    ''
+        ''    ''9/3/2019 td''Load_Form()
+        ''    ''9/5/2019 td''LoadElements_Fields_Master(False, False)
         ''
-        ''Step 1 of 5.   Create a dictionary of elements. 
-        ''
-        ''Dim dictonary_elmntInfo_control As New Dictionary(Of IElement_Base, CtlGraphicFldLabel)
-
-        ''Dim dictonary_field_control As New Dictionary(Of ICIBFieldStandardOrCustom, CtlGraphicFldLabel)
-        ''Dim dictonary_elmntObj_control As New Dictionary(Of ClassElementField, CtlGraphicFldLabel) ''Added 9/17/2019 td
-        ''Dim dictonary_elmntObj_captions As New Dictionary(Of String, CtlGraphicFldLabel) ''Added 11/24/2019 td
-        Dim intControlCount As Integer ''Added 10/13/2019 td  
-
-        ''Added 11/26/2021 
-        ''  Throw away the controls that are already on the form.  
-        ''
-        If (pboolRemoveAndRebuild) Then
-            For Each each_control As CtlGraphicFieldV3 In dictonary_elmntInfo_control.Values
-                each_control.Visible = False
-                Me.Controls.Remove(each_control)
-            Next each_control
-            ''Added 11/26/2021 thomas downes
-            dictonary_elmntInfo_control.Clear()
-            dictonary_elmntObj_captions.Clear()
-            dictonary_field_control.Clear()
-        End If ''End of "If (pboolRemoveAndRebuild) Then"
-
-        ''
-        ''Step 2 of 5.   Refresh the existing controls. 
-        ''
-        ''Added 7/31/2019 td
-        For Each each_control As Control In Me.Controls
-
-            ''9/5 td''If (TypeOf each_control Is CtlGraphicFldLabel) Then Me.Controls.Remove(each_control)
-            ''9/5 td''If (TypeOf each_control Is CtlGraphicPortrait) Then Me.Controls.Remove(each_control)
-
-            ''9/5 td''Select Case True
-            ''    Case (TypeOf each_control Is CtlGraphicFldLabel)
-            ''        each_control.Visible = False
-            ''        Me.Controls.Remove(each_control)
-            ''    Case (TypeOf each_control Is CtlGraphicPortrait)
-            ''        each_control.Visible = False
-            ''        Me.Controls.Remove(each_control)
-            ''End of 9/5 td''End Select
-
-            ''Added 9/5/2019 td
-            If (TypeOf each_control Is CtlGraphicPortrait) Then Continue For
-
-            ''Added 9/5/2019 td
-            If (Not (TypeOf each_control Is CtlGraphicFieldV3)) Then Continue For
-
-            ''Added 9/5/2019 td
-            Dim each_field_control As CtlGraphicFieldV3 = CType(each_control, CtlGraphicFieldV3)
-            each_field_control.Refresh_Master()
-            each_field_control.Refresh()
-
-            intControlCount += 1
-
-            ''Added 9/6/2019 td 
-            ''
-            ''   Build a dictionary of control-element.
-            ''
-            If (pboolRemoveAndRebuild) Then ''Added 11/26/2021 
-
-                Try
-                    dictonary_elmntInfo_control.Add(each_field_control.ElementClass_ObjV3, each_field_control)
-                Catch
-                    MsgBox("Likely duplicate of element Interface/Information.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
-                End Try
-
-                dictonary_field_control.Add(each_field_control.FieldInfo, each_field_control)
-
-                ''Added 9/17/2019 td
-                Try
-                    dictonary_elmntObj_control.Add(each_field_control.ElementClass_ObjV3, each_field_control)
-
-                    ''Added 11/24/21 thomas downes
-                    ''  This will help to prevent duplicates. 
-                    dictonary_elmntObj_captions.Add(each_field_control.ElementClass_ObjV3.FieldNm_CaptionText, each_field_control)
-
-                Catch
-                    MsgBox("Possible duplicate of Element Object.", MsgBoxStyle.Exclamation, "RefreshTheSetOfDisplayedElements")
-                End Try
-
-            End If ''end of "If (pboolRemoveAndRebuild) Then"
-
-        Next each_control
-
-        ''
-        ''Step 3 of 5.   Make a list of the elements which are not yet populated on the form. 
-        ''
-        ''---Dim list_fieldsNotLoadedYet_Custom As New List(Of ClassFieldCustomized)
-        ''---Dim list_fieldsNotLoadedYet_Standrd As New List(Of ClassFieldStandard)
-
-        ''Dim list_fieldsNotLoadedYet_Any As New List(Of ICIBFieldStandardOrCustom)
-        ''Dim list_elementsNotLoadedYet_Any As New List(Of ClassElementField) ''Added 9/17/2019 td  
-        ''Dim list_fieldsNotLoadedYet_Any As New HashSet(Of ICIBFieldStandardOrCustom)
-        ''Dim list_elementsNotLoadedYet_Any As New HashSet(Of ClassElementField) ''Added 9/17/2019 td  
-
-        list_fieldsNotLoadedYet_Any.Clear()
-        list_elementsNotLoadedYet_Any.Clear()
-
-        Dim boolMissingFromForm As Boolean
-        Dim boolNotDisplayed_ButShouldBe As Boolean
-
-        ''
-        ''Step #3(a)  List the undisplayed fields.  
-        ''
-        For Each each_field As ICIBFieldStandardOrCustom In ClassFields.ListAllFields()
-            ''
-            ''Added 9/6/2019 td
-            ''
-            boolMissingFromForm = (Not dictonary_field_control.ContainsKey(each_field))
-
-            boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_field.IsDisplayedOnBadge)
-
-            If (boolNotDisplayed_ButShouldBe) Then
-                ''
-                ''Add it to a list. 
-                ''
-                list_fieldsNotLoadedYet_Any.Add(each_field)
-
-            End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
-
-        Next each_field
-
-        ''
-        ''Step #3(b)  List the undisplayed elements.    ---Added 9/17/2019 td
-        ''
-        Dim bWeCanCheckPriorLoad As Boolean ''Added 11/28/2021 thomas downes
-        Dim each_element As ClassElementFieldV3 ''Added 11/28/2021 td
-        bWeCanCheckPriorLoad = (0 < dictonary_elmntInfo_control.Count)
-
-        If (bWeCanCheckPriorLoad) Then
-            ''
-            ''We have a list of the field-elements previously added, so therefore
-            ''   we can check the current list against that list (and see if there
-            ''   are field-elements which need to exist, but don't exist yet). 
-            ''   ---11/28/2021 
-            ''
-            For Each each_element In Me.ElementsCache_Edits.ListFieldElementsV3()
-                ''
-                ''Added 9/17/2019 td
-                ''
-                ''9/17/2019 td''boolMissingFromForm = (Not dictonary_elmntInfo_control.ContainsKey(each_element))
-                boolMissingFromForm = (Not dictonary_elmntObj_control.ContainsKey(each_element))
-
-                boolNotDisplayed_ButShouldBe = (boolMissingFromForm And each_element.FieldInfo.IsDisplayedOnBadge)
-
-                If (boolNotDisplayed_ButShouldBe) Then
-                    ''
-                    ''Add it to a list. 
-                    ''
-                    list_elementsNotLoadedYet_Any.Add(each_element)
-
-                End If ''End of "If (boolNotDisplayed_ButShouldBe) Then"
-
-            Next each_element
-
-        End If ''End of "If (bWeCanCheckPriorLoad) Then"
-
-        ''
-        ''Step 4 of 5.   Load the missing elements onto the form, if any.  
-        ''
-        Dim bSomeDisplayableFldsAreNotLoaded As Boolean
-
-        bSomeDisplayableFldsAreNotLoaded = (0 < list_fieldsNotLoadedYet_Any.Count)
-
-        If (bSomeDisplayableFldsAreNotLoaded) Then
-            ''Load the missing elements. 
-            ''9/6/2019 td''Load_Fields_ByList(list_elementsNotLoadedYet_Any)
-            ''9/17/2019 td''LoadElements_ByListOfFields(list_fieldsNotLoadedYet_Any,
-            ''9/17/2019 td''                            True, False, True)
-            ''10/3/2019 tdLoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
-
-            Dim strWhyCalled As String
-            strWhyCalled = "RefreshTheSetOfDisplayedElements - bSomeDisplayableFieldsAreNotLoaded"
-
-            ''#1_11/28/2021 td''mod_designer.LoadDesigner()
-            '' #2_11/28/2021 td''mod_designer.LoadDesigner(strWhyCalled)
-            '' #2_11/28/2021 td''mod_designer.LoadFieldControls_ByListOfElements(list_elementsNotLoadedYet_Any, True, False, True)
-            ''1/5/2022''mod_designer.LoadDesigner(strWhyCalled)
-            ''1/26/2022''mod_designer.LoadDesigner(strWhyCalled, mod_oGroupMoveEvents)
-            mod_designer.StartWithBacksideOfCard = Me.LetsRefresh_CardBackside
-
-            ''5/4/2022 ''mod_designer.LoadDesigner(strWhyCalled,
-            ''                             mod_oGroupMoveEvents,
-            ''                             Me.LetsRefresh_CardBackside)
-            mod_designer.LoadDesigner(strWhyCalled,
-                                      Startup.PreloadElementsForDemo,
-                                      mod_oGroupMoveEvents,
-                                      Me.LetsRefresh_CardBackside)
-
-        End If ''End of "If (bSomeDisplayableFieldsAreNotLoaded) Then"
-
-        ''
-        ''Step 5 of 5.   Regenerate the form. 
-        ''
-        ''9/5/2019 td''Me.Refresh()
-        Application.DoEvents()
-
-        ''
-        ''Step 6 of 6.   Reload the fields onto the form. 
-        ''
-        ''9/3/2019 td''Load_Form()
-        ''9/5/2019 td''LoadElements_Fields_Master(False, False)
-
     End Sub ''ENd of "Private Sub RefreshTheSetOfDisplayedElements"
+
 
     ''Public Sub AutoPreview_IfChecked() Implements ILayoutFunctions.AutoPreview_IfChecked
     ''    ''
@@ -1815,7 +1816,7 @@ Public Class Form__Main_Demo
                 ''9/20/2019 td''each_controlField.FormDesigner = Nothing
                 each_controlField.LayoutFunctions = Nothing ''Added 9/20/2019 td
                 each_controlField.Parent = Nothing
-                each_controlField.FieldInfo = Nothing
+                ''5/11/2022 td ''each_controlField.FieldInfo = Nothing
                 each_controlField.ElementInfo_Base = Nothing
                 each_controlField.ElementInfo_TextOnly = Nothing
 
@@ -2238,7 +2239,7 @@ Public Class Form__Main_Demo
             ''Added 10/13/2019 td
             For Each each_ctl As CtlGraphicFieldV3 In mod_designer.ListOfFieldLabelsV3()
 
-                each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldInfo.FieldEnumValue)
+                each_element = Me.ElementsCache_Edits.GetElementByFieldEnum(each_ctl.FieldEnumValue)
                 each_ctl.ElementClass_ObjV3 = each_element
                 each_ctl.ElementInfo_Base = each_element
                 ''Jan2 2022 td''each_ctl.ElementInfo_Field = each_element
@@ -2869,7 +2870,9 @@ ExitHandler:
             If boolIsFieldElement Then
                 eachFieldLabel = CType(eachControl, CtlGraphicFieldV3)
                 ''strListedData.AppendLine(eachFieldLabel.FieldInfo.FieldLabelCaption)
-                arrayElemCaptions.Add(eachFieldLabel.FieldInfo.FieldLabelCaption &
+                ''5/11/2022 arrayElemCaptions.Add(eachFieldLabel.FieldInfo.FieldLabelCaption &
+                ''                      "..." & eachFieldLabel.WhyWasICreated)
+                arrayElemCaptions.Add(eachFieldLabel.FieldEnumValue.ToString() &
                                       "..." & eachFieldLabel.WhyWasICreated)
             End If ''End of "If boolIsFieldElement Then"
 

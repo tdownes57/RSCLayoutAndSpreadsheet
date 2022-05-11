@@ -107,7 +107,7 @@ Public Class DialogTextOffset
         OriginalElementControl_ForApplyOnlyV4 = par_parentControlV4
 
         ''Added 9/18/2019 td 
-        Me.FieldInfo_Denigrated = Me.ElementObject_CopyForEditingV3.FieldInfo ''Added 9/18/2019 td 
+        ''5/11/2022 ''Me.FieldInfo_Denigrated = Me.ElementObject_CopyForEditingV3.FieldInfo ''Added 9/18/2019 td 
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 
@@ -187,7 +187,9 @@ Public Class DialogTextOffset
 
         With CtlGraphicFldLabel1
 
-            .FieldInfo = Me.ElementObject_CopyForEditingV3.FieldInfo
+            ''5/11/2022 .FieldInfo = Me.ElementObject_CopyForEditingV3.FieldInfo
+            .FieldEnumValue = Me.ElementObject_CopyForEditingV3.FieldEnum
+            .FieldIsCustom = Me.ElementObject_CopyForEditingV3.FieldIsCustomizable
 
             ''Added 9/18/2019 td 
             .ElementClass_ObjV3 = Me.ElementObject_CopyForEditingV3 ''Added 9/19/2019 td 

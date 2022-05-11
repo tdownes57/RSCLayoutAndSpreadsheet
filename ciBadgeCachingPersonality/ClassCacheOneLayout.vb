@@ -231,7 +231,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
                 ''Added 9/18/2019 td
                 new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-                new_elementField.FieldInfo = each_field
+                ''5/11/2022 new_elementField.FieldInfo = each_field
                 new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
                 ''Added 10/13/2019 td
@@ -483,37 +483,39 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
         End Function ''End of "Public Function Copy() As ClassElementsCache"
 
-        Public Sub LinkElementsToFields()
-            ''
-            ''Added 10/12/2019 thomas d. 
-            ''
-            Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
 
-            ''Added 9/29/2019 thomas downes  
-            For Each each_field As ClassFieldAny In Personality.ListOfFields_Any() ''10/14/2019 td''In mod_listFields
-                Try
-                    dictionaryFields.Add(each_field.FieldEnumValue, each_field)
-                Catch ex_AddFailed As Exception
-                    ''Added 10/12/2019 td
-                    System.Diagnostics.Debugger.Break()
-                End Try
-            Next each_field
+        ''Public Sub LinkElementsToFields()
+        ''    ''
+        ''    ''Added 10/12/2019 thomas d. 
+        ''    ''
+        ''    Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
 
-            Dim found_field As ClassFieldAny ''Added 10/12/2019 td
+        ''    ''Added 9/29/2019 thomas downes  
+        ''    For Each each_field As ClassFieldAny In Personality.ListOfFields_Any() ''10/14/2019 td''In mod_listFields
+        ''        Try
+        ''            dictionaryFields.Add(each_field.FieldEnumValue, each_field)
+        ''        Catch ex_AddFailed As Exception
+        ''            ''Added 10/12/2019 td
+        ''            System.Diagnostics.Debugger.Break()
+        ''        End Try
+        ''    Next each_field
+        ''
+        ''    Dim found_field As ClassFieldAny ''Added 10/12/2019 td
+        ''
+        ''    For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
+        ''
+        ''        found_field = Nothing ''Initialize. ----10/12/2019 td
+        ''
+        ''        dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
+        ''
+        ''        each_elementField.FieldObjectAny = found_field
+        ''        each_elementField.FieldInfo = found_field
+        ''        each_elementField.LoadFieldAny(found_field) ''Added 12/13/2021 thomas d. 
+        ''
+        ''    Next each_elementField
+        ''
+        ''End Sub ''End of "Public Sub LinkElementsToFields()"
 
-            For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
-
-                found_field = Nothing ''Initialize. ----10/12/2019 td
-
-                dictionaryFields.TryGetValue(each_elementField.FieldEnum, found_field)
-
-                each_elementField.FieldObjectAny = found_field
-                each_elementField.FieldInfo = found_field
-                each_elementField.LoadFieldAny(found_field) ''Added 12/13/2021 thomas d. 
-
-            Next each_elementField
-
-        End Sub ''End of "Public Sub LinkElementsToFields()"
 
         Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementFieldV3
             ''
@@ -561,10 +563,12 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''
             For Each each_elementField As ClassElementFieldV3 In mod_listElementFields
                 With each_elementField
-                    ''Run a double-check of data alignment. 
-                    If (.FieldEnum <> .FieldObjectAny.FieldEnumValue) Then
-                        Throw New DataMisalignedException() ''This is a double-check that the Enum value matches. 
-                    End If
+                    ''
+                    ''Run a double-check of data alignment.
+                    ''
+                    ''5/10/2022 If (.FieldEnum <> .FieldObjectAny.FieldEnumValue) Then
+                    ''5/10/2022    Throw New DataMisalignedException() ''This is a double-check that the Enum value matches. 
+                    ''5/10/2022 End If
 
                     If (.FieldEnum = par_enum) Then Return each_elementField
 

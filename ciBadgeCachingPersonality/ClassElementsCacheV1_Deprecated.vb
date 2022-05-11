@@ -954,7 +954,8 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''Major call. 
                 ''
-                boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
+                ''---5/3/2022 td---boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
+                boolOnDisplay = each_element.Visible ''Added 5/11/2022 td
 
                 If (boolOnDisplay) Then
                     new_list.Add(each_element)
@@ -1000,7 +1001,8 @@ Namespace ciBadgeCachePersonality
                 ''Major call. 
                 ''
                 ''Jan24 2022''boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmit)
-                boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
+                ''5/03/022 td''boolOnDisplay = each_element.IsDisplayedOnBadge_Visibly(structWhyOmitV1, structWhyOmitV2)
+                boolOnDisplay = each_element.Visible
 
                 If (boolOnDisplay) Then
                     new_list.Add(each_element)
@@ -2423,35 +2425,70 @@ Namespace ciBadgeCachePersonality
             For Each objFld As ClassFieldStandard In mod_listFields_Standard
                 ''Find the right field, by it's enumerated value.
                 If (objFld.FieldEnumValue = par_enum) Then Return objFld
-            Next
+            Next objFld
 
             ''Second, check custom fields. 
             For Each objFld As ClassFieldCustomized In mod_listFields_Custom
                 ''Find the right field, by it's enumerated value.
                 If (objFld.FieldEnumValue = par_enum) Then Return objFld
-            Next
+            Next objFld
+
+            Return Nothing ''Not found.  Added 5/11/2022
 
         End Function ''ENd of "Public Function GetFieldByFieldEnum  
 
 
-        Public Function GetElementIndexByFieldIndex_1stTry(pintFieldIndex As Integer) As Integer
+        Public Function GetFieldByFieldEnum_Standard(par_enum As EnumCIBFields) As ClassFieldStandard
             ''
-            ''Added 11/17/2021 Thomas Downes 
+            ''Added 5/11/2022 & 11/17/2021 td
+            ''Check across all standard fields. 
             ''
-            Throw New Exception("It sucks to compare FieldEnum & FieldIndex.")
+            For Each objFld As ClassFieldStandard In mod_listFields_Standard
+                ''Find the right field, by it's enumerated value.
+                If (objFld.FieldEnumValue = par_enum) Then Return objFld
+            Next objFld
 
-            For Each objFldElement As ClassElementFieldV3 In mod_listElementFields_FrontV3
-                ''Find the right FieldElement, by it's enumerated
-                ''   field value.  ----11/19/2021 
-                If (objFldElement.FieldEnum = pintFieldIndex) Then
-                    ''Added 11/17 td
-                    Return objFldElement.ElementIndexIsFieldIndex()
-                End If ''End of "If (objFldElement.FieldEnum = pintFieldIndex) Then"
-            Next objFldElement
+            Return Nothing ''Not found among the Standard fields.  Added 5/11/2022
 
-            Throw New Exception("Can't find element w/ FieldIndex")
+        End Function ''ENd of "Public Function GetFieldByFieldEnum_Standard  
 
-        End Function ''End of "Public Function GetElementIndexByFieldIndex_ThisSucks"
+
+        Public Function GetFieldByFieldEnum_Custom(par_enum As EnumCIBFields) As ClassFieldCustomized
+            ''
+            ''Added 5/11/2022 & 11/17/2021 td
+            ''
+            ''Check all custom fields.
+            ''
+            For Each objFld As ClassFieldCustomized In mod_listFields_Custom
+                ''Find the right field, by it's enumerated value.
+                If (objFld.FieldEnumValue = par_enum) Then Return objFld
+
+            Next objFld
+
+            Return Nothing ''Not found among the Customizible fields.  Added 5/11/2022
+
+        End Function ''ENd of "Public Function GetFieldByFieldEnum_Custom  
+
+
+        ''Public Function GetElementIndexByFieldIndex_1stTry(pintFieldIndex As Integer) As Integer
+        ''    ''
+        ''    ''Added 11/17/2021 Thomas Downes 
+        ''    ''
+        ''    Throw New Exception("It sucks to compare FieldEnum & FieldIndex.")
+        ''
+        ''    For Each objFldElement As ClassElementFieldV3 In mod_listElementFields_FrontV3
+        ''        ''Find the right FieldElement, by it's enumerated
+        ''        ''   field value.  ----11/19/2021 
+        ''        If (objFldElement.FieldEnum = pintFieldIndex) Then
+        ''            ''Added 11/17 td
+        ''            Return objFldElement.ElementIndexIsFieldIndex()
+        ''
+        ''        End If ''End of "If (objFldElement.FieldEnum = pintFieldIndex) Then"
+        ''    Next objFldElement
+        ''
+        ''    Throw New Exception("Can't find element w/ FieldIndex")
+        ''
+        ''End Function ''End of "Public Function GetElementIndexByFieldIndex_ThisSucks"
 
         Public Function GetElementIndexByFieldIndex_2ndTry(pintFieldIndex As Integer) As Integer
             ''
@@ -2470,55 +2507,55 @@ Namespace ciBadgeCachePersonality
                 End If
             Next each_field
 
-            For Each each_element As ClassElementFieldV3 In mod_listElementFields_FrontV3
-                If (each_element.FieldInfo Is objRelevantFieldAny) Then
-                    ''
-                    ''Added 11/19 td
-                    ''
-                    ''---Return objFldElement.ElementIndexIsFieldIndex()
-                    Return each_element.ElementIndexIsFieldIndex()
-
-                End If ''End of "If (objFldElement.FieldEnum = pintFieldIndex) Then"
-            Next each_element
+            ''5/11/2022 For Each each_element As ClassElementFieldV3 In mod_listElementFields_FrontV3
+            ''    If (each_element.FieldInfo Is objRelevantFieldAny) Then
+            ''        ''
+            ''        ''Added 11/19 td
+            ''        ''
+            ''        ''---Return objFldElement.ElementIndexIsFieldIndex()
+            ''        Return each_element.ElementIndexIsFieldIndex()
+            ''
+            ''    End If ''End of "If (objFldElement.FieldEnum = pintFieldIndex) Then"
+            ''Next each_element
 
             Throw New Exception("Can't find element w/ matching Field.")
 
         End Function ''End of "Public Function GetElementIndexByFieldIndex_ThisSucks"
 
 
-        Public Function MapElementFieldIndex_OmitUnneeded(par_indexElementField As Integer) As Integer
-            ''Jan8 2022 ''Public Function MapElementIndex_OmitUnneeded(par_indexElement As Integer) As Integer
-            ''
-            ''  Added 11/24/2021 thomas downes
-            ''
-            ''---Throw New NotImplementedException("See BadgeSetupElements() instead.")
-            ''===Throw New NotImplementedException(My.Resources.ErrorUseBadgeSetupElements)
-            ''//Const strError_Msg As String = "See BadgeSetupElements() instead."
-            ''//Throw New NotImplementedException(strError_Msg)
-            ''Throw New NotImplementedException(My.Resources.ErrorUseBadgeSetupElements)
-
-            ''Dim objList As List(Of ClassElementField)
-            ''objList = ListOfBadgeDisplayElements_Flds();
-
-            Dim boolMatch As Boolean
-            Dim indexDisplay As Integer
-            Dim listBadgeElements_Front As List(Of ClassElementFieldV3) ''Added 1/8/2022 td
-            Dim each_elementField As ClassElementFieldV3 ''Added 1/8/2022 thomas d.  
-
-            listBadgeElements_Front = ListOfBadgeDisplayElements_Flds_FrontV3()
-
-            ''Jan8 2022 td''For indexDisplay = 0 To mod_listBadgeElements_Front.Count - 1
-            For indexDisplay = 0 To listBadgeElements_Front.Count - 1
-
-                each_elementField = listBadgeElements_Front(indexDisplay)
-                boolMatch = (par_indexElementField = each_elementField.ElementIndexIsFieldIndex())
-                If (boolMatch) Then Return indexDisplay
-
-            Next indexDisplay
-
-            Return -1
-
-        End Function ''End of "Public Function MapElementIndex_OmitUnneeded(int par_indexElement)"
+        ''5/11/2022 td ''Public Function MapElementFieldIndex_OmitUnneeded(par_indexElementField As Integer) As Integer
+        ''    ''Jan8 2022 ''Public Function MapElementIndex_OmitUnneeded(par_indexElement As Integer) As Integer
+        ''    ''
+        ''    ''  Added 11/24/2021 thomas downes
+        ''    ''
+        ''    ''---Throw New NotImplementedException("See BadgeSetupElements() instead.")
+        ''    ''===Throw New NotImplementedException(My.Resources.ErrorUseBadgeSetupElements)
+        ''    ''//Const strError_Msg As String = "See BadgeSetupElements() instead."
+        ''    ''//Throw New NotImplementedException(strError_Msg)
+        ''    ''Throw New NotImplementedException(My.Resources.ErrorUseBadgeSetupElements)
+        ''
+        ''    ''Dim objList As List(Of ClassElementField)
+        ''    ''objList = ListOfBadgeDisplayElements_Flds();
+        ''
+        ''    Dim boolMatch As Boolean
+        ''    Dim indexDisplay As Integer
+        ''    Dim listBadgeElements_Front As List(Of ClassElementFieldV3) ''Added 1/8/2022 td
+        ''    Dim each_elementField As ClassElementFieldV3 ''Added 1/8/2022 thomas d.  
+        ''
+        ''    listBadgeElements_Front = ListOfBadgeDisplayElements_Flds_FrontV3()
+        ''
+        ''    ''Jan8 2022 td''For indexDisplay = 0 To mod_listBadgeElements_Front.Count - 1
+        ''    For indexDisplay = 0 To listBadgeElements_Front.Count - 1
+        ''
+        ''        each_elementField = listBadgeElements_Front(indexDisplay)
+        ''        boolMatch = (par_indexElementField = each_elementField.ElementIndexIsFieldIndex())
+        ''        If (boolMatch) Then Return indexDisplay
+        ''
+        ''    Next indexDisplay
+        ''
+        ''    Return -1
+        ''
+        ''End Function ''End of "Public Function MapElementIndex_OmitUnneeded(int par_indexElement)"
 
 
         Public Function GetElementByLabelCaption(par_caption As String) As ClassElementFieldV3
