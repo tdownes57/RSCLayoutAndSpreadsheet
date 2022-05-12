@@ -670,10 +670,14 @@ ExitHandler:
         Const c_boolUseNewestProjectReference As Boolean = True ''Added 9/20/2019 td 
         If (c_boolUseNewestProjectReference) Then
 
+            ''Added 5/12/2022 td
+            Dim objFieldAny As ciBadgeFields.ClassFieldAny ''Added 5/12/2022 td
+            objFieldAny = ElementsCache.GetFieldByFieldEnum(Me.ElementClass_ObjV3.FieldEnum)
+
             ''Added 11-18-2019 td 
             Dim strTextToDisplay As String ''Added 11/18/2019 td
             strTextToDisplay = Me.ElementClass_ObjV3.LabelText_ToDisplay(True, Nothing,
-                         CtlGraphicFieldV3.UseExampleValues)
+                         CtlGraphicFieldV3.UseExampleValues, objFieldAny)
 
             ''Added 12/21/2021 td
             strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_ObjV3.CaptionSuffixIfNeeded).TrimEnd())

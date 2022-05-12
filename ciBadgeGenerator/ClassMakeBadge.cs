@@ -1494,7 +1494,8 @@ namespace ciBadgeGenerator
             //Encapsulated 10/17/2019 td
             //
             // Dec14 2021 // string strTextToDisplay = par_elementField.LabelText_ToDisplay(false);
-            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false, par_iRecipientInfo, false);
+            string strTextToDisplay = par_elementField.LabelText_ToDisplay(false, 
+                par_iRecipientInfo, false, par_field_any);
 
             //Added 11/10/2021 td
             WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();

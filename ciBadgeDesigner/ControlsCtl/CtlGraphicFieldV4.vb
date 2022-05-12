@@ -434,6 +434,11 @@ Public Class CtlGraphicFieldV4
         Const c_boolUseNewestProjectReference As Boolean = True ''Added 9/20/2019 td 
         If (c_boolUseNewestProjectReference) Then
 
+            ''Added 5/12/2022 td
+            Dim objFieldAny As ciBadgeFields.ClassFieldAny ''Added 5/12/2022 td
+            objFieldAny = ElementsCache.GetFieldByFieldEnum(Me.ElementClass_ObjV4.FieldEnum)
+            strTextToDisplay = objFieldAny.FieldLabelCaption
+
             ''Added 11-18-2019 td 
             ''Moved to the top. 2/1/2022 td''Dim strTextToDisplay As String ''Added 11/18/2019 td
             ''Feb1 2022 td''strTextToDisplay = Me.ElementClass_Obj.LabelText_ToDisplay(True, Nothing,

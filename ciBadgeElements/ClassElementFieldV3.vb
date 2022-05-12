@@ -985,9 +985,11 @@ Public Class ClassElementFieldV3
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfText()"
 
+
     Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean,
                                         Optional par_iRecipInfo As IRecipient = Nothing,
-                                        Optional pbAllowExampleValues As Boolean = True) As String
+                                        Optional pbAllowExampleValues As Boolean = True,
+                                        Optional par_fieldAny As ClassFieldAny = Nothing) As String
         ''
         ''Added 10/16/2016 & 7/25/2019 thomas d 
         ''
@@ -1042,6 +1044,12 @@ Public Class ClassElementFieldV3
                 ''    ''Me.ElementInfo.Info.Text = Me.FieldInfo.ExampleValue
                 ''    Return Me.FieldInfo.FieldLabelCaption
 
+            Case (par_fieldAny IsNot Nothing) ''Added 5/12/2022 td
+
+                ''Added 5/12/2022 td
+                Return par_fieldAny.FieldLabelCaption
+
+
             Case Else
 
                 ''Default value.
@@ -1055,7 +1063,10 @@ Public Class ClassElementFieldV3
 
     End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
+
     Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
         Throw New NotImplementedException()
     End Function
+
+
 End Class ''End of "Class ClassElementField"  

@@ -2835,6 +2835,9 @@ ExitHandler:
             ''mod_designer.UnloadDesigner()
             ''mod_designer.LoadDesigner()
 
+            ''Added 5/12/2022 td
+            Me.mod_designer.AutoPreview_IfChecked()
+
         End If ''End of "If (objShow.Selected) Then"
 
     End Sub ''End of ""Public Sub BackgroundImage_Upload()""
