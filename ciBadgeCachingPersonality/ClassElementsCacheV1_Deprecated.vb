@@ -581,6 +581,23 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Function ListOfFields_Any(par_recipInfo As IRecipient) As List(Of ClassFieldAny)"
 
+
+        Public Function ListOfFields_AnyRelevent() As List(Of ClassFieldAny)
+            ''
+            ''Added 5/12/2022 td
+            ''
+            Dim output_list As New List(Of ClassFieldAny)
+            For Each each_stan As ClassFieldStandard In mod_listFields_Standard
+                If (each_stan.IsRelevantToPersonality) Then output_list.Add(each_stan)
+            Next
+            For Each each_cust As ClassFieldCustomized In mod_listFields_Custom
+                If (each_cust.IsRelevantToPersonality) Then output_list.Add(each_cust)
+            Next
+            Return output_list
+
+        End Function ''End of ""Public Function ListOfFields_AnyRelevent()""
+
+
         Public Shared DeserializationCompleted As Boolean = True ''Default is True. Added 5/10/2022
 
         Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) ''10/17 ''As List(Of ClassFieldStandard)
@@ -605,10 +622,12 @@ Namespace ciBadgeCachePersonality
                 Return mod_listFields_Standard
 
             End Get
+
             Set(value As HashSet(Of ClassFieldStandard))
                 ''Added 10/14/2019 td td
                 mod_listFields_Standard = value
             End Set
+
         End Property
 
 
@@ -642,10 +661,12 @@ Namespace ciBadgeCachePersonality
 
 
             End Get
+
             Set(value As HashSet(Of ClassFieldCustomized)) '' List(Of ClassFieldCustomized))
                 ''Added 10/14/2019 td td
                 mod_listFields_Custom = value
             End Set
+
         End Property
 
 

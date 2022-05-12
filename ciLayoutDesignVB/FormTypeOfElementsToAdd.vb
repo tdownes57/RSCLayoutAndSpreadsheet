@@ -1,6 +1,7 @@
 ﻿Imports ciBadgeInterfaces ''Added 5/3/2022 td 
 Imports ciBadgeDesigner ''Added 5/4/2022 td
 Imports ciBadgeCachePersonality ''Added 5/5/2022 td
+Imports ciBadgeFields ''Added 5/12/2022 td 
 ''----Imports __RSCWindowsControlLibrary ''Added 5/3/2022 td
 ''
 ''Added 5/3/2022 thomas d. 
@@ -41,6 +42,7 @@ Public Class FormTypeOfElementsToAdd
 
     ''Added 5/5/2022 td
     Private mod_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated
+    Private mod_listRelevantFields As List(Of ClassFieldAny) ''Added 5/12/2022 td
 
     Public Sub New()
 
@@ -51,7 +53,8 @@ Public Class FormTypeOfElementsToAdd
 
     End Sub
 
-    Public Sub New(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+    Public Sub New(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated,
+                   par_listRelevantFs As List(Of ClassFieldAny))
         ''
         ''Added 5/5/2022 thomas downes
         ''
@@ -60,6 +63,8 @@ Public Class FormTypeOfElementsToAdd
 
         ' Add any initialization after the InitializeComponent() call.
         mod_cache = par_cache
+        mod_listRelevantFields = par_listRelevantFs ''Added 5/12/2022 td
+
         ''RscSelectCIBField1.Load_FieldsFromCache(par_cache)
         ''RscSelectCIBField2.Load_FieldsFromCache(par_cache)
         ''RscSelectCIBField3.Load_FieldsFromCache(par_cache)
@@ -351,6 +356,25 @@ Public Class FormTypeOfElementsToAdd
     End Sub ''end of "Public Sub Load_FieldsFromCache"
 
 
+    Private Sub Load_FieldsFromFieldList(par_control As RSCSelectCIBField,
+                                     par_listOfFields As List(Of ClassFieldAny))
+        ''
+        ''Added 5/12/2022 td
+        ''
+        If (par_listOfFields Is Nothing) Then Throw New ArgumentException("List of Fields is null")
+
+        With par_control
+            .Loading = True ''Added 4/1/2022
+            .ElementsCache_Deprecated = mod_cache
+            .Load_FieldsFromList(par_listOfFields)
+        End With
+
+        Application.DoEvents()
+        par_control.Loading = False ''Return to default, i.e. idle.
+
+    End Sub ''end of "Public Sub Load_FieldsFromFieldList"
+
+
     Private Function HasBorder(par_control As UserControl) As Boolean
         ''
         ''Added 5/5/2022 td
@@ -390,7 +414,26 @@ Public Class FormTypeOfElementsToAdd
 
         Return (Not boolNotDetermined)
 
-    End Function
+    End Function ''End of ""Private Function HasValue(par_control As RSCSelectCIBField)""
+
+
+    Private Function GetCopyOfFieldsList(par_list As List(Of ClassFieldAny)) As List(Of ClassFieldAny)
+        ''
+        ''Added 5/12/2022 
+        ''
+        Dim output_list As New List(Of ClassFieldAny) ''Added 5/12/2022 
+
+        For Each each_any As ClassFieldAny In par_list
+
+            Dim new_any As New ClassFieldAny ''Added 5/12/2022 
+            new_any.LoadbyCopyingMembers(each_any)
+            output_list.Add(new_any)
+
+        Next each_any
+
+        Return output_list
+
+    End Function ''End of ""Private Function GetCopyOfFieldsList""
 
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
@@ -499,13 +542,34 @@ Public Class FormTypeOfElementsToAdd
         ''RscSelectCIBField4.Load_FieldsFromCache(mod_cache)
         ''RscSelectCIBField5.Load_FieldsFromCache(mod_cache)
 
-        Load_FieldsFromCache(RscSelectCIBField1, mod_cache)
-        Load_FieldsFromCache(RscSelectCIBField2, mod_cache)
-        Load_FieldsFromCache(RscSelectCIBField3, mod_cache)
-        Load_FieldsFromCache(RscSelectCIBField4, mod_cache)
-        Load_FieldsFromCache(RscSelectCIBField5, mod_cache)
+        Const c_boolUseElementsCache As Boolean = False ''Added 5/12/2022 td
+        If (c_boolUseElementsCache) Then ''Added 5/12/2022 td
 
-    End Sub
+            Load_FieldsFromCache(RscSelectCIBField1, mod_cache)
+            Load_FieldsFromCache(RscSelectCIBField2, mod_cache)
+            Load_FieldsFromCache(RscSelectCIBField3, mod_cache)
+            Load_FieldsFromCache(RscSelectCIBField4, mod_cache)
+            Load_FieldsFromCache(RscSelectCIBField5, mod_cache)
+
+        ElseIf (mod_listRelevantFields IsNot Nothing) Then
+            ''
+            ''Added 5/12/2022 td
+            ''
+            Dim listCopyFields1 As List(Of ClassFieldAny) = GetCopyOfFieldsList(mod_listRelevantFields)
+            Dim listCopyFields2 As List(Of ClassFieldAny) = GetCopyOfFieldsList(mod_listRelevantFields)
+            Dim listCopyFields3 As List(Of ClassFieldAny) = GetCopyOfFieldsList(mod_listRelevantFields)
+            Dim listCopyFields4 As List(Of ClassFieldAny) = GetCopyOfFieldsList(mod_listRelevantFields)
+            Dim listCopyFields5 As List(Of ClassFieldAny) = GetCopyOfFieldsList(mod_listRelevantFields)
+
+            Load_FieldsFromFieldList(RscSelectCIBField1, listCopyFields1)
+            Load_FieldsFromFieldList(RscSelectCIBField2, listCopyFields2)
+            Load_FieldsFromFieldList(RscSelectCIBField3, listCopyFields3)
+            Load_FieldsFromFieldList(RscSelectCIBField4, listCopyFields4)
+            Load_FieldsFromFieldList(RscSelectCIBField5, listCopyFields5)
+
+        End If ''End of ""If (c_boolUseCached) Then.... Else....
+
+    End Sub ''End of Handles Form_Load  
 
     Private Sub CtlGraphicPortrait1_RSCControlClicked() Handles CtlGraphicPortrait1.RSCControlClicked
 

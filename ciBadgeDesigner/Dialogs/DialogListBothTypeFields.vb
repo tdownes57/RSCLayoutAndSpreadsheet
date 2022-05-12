@@ -35,6 +35,8 @@ Public Class DialogListBothTypeFields
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
 
+    Public Property SimpleMode As Boolean Implements InterfaceShowListFields.SimpleMode ''Added 5/12/2022 td
+
     Private mod_structLoad As StructLoadWhatFields ''Added 4/30/2022 td
 
     Public Overloads Function ShowDialog() As DialogResult Implements InterfaceShowListFields.ShowDialog
@@ -132,7 +134,8 @@ Public Class DialogListBothTypeFields
                 Dim objListOfJustOneField_Stan As New HashSet(Of ClassFieldStandard)
                 objListOfJustOneField_Stan.Add(Me.JustOneField_Standard)
                 ''April 30/2022''LoadFields_All_Standard(objListOfJustOneField_Stan, Me.JustOneField_Standard)
-                LoadFields_All_Standard(objListOfJustOneField_Stan, par_structLoad, Me.JustOneField_Standard)
+                LoadFields_All_Standard(objListOfJustOneField_Stan, par_structLoad,
+                                        Me.JustOneField_Standard)
 
             End If ''End of "If (Me.JustOneField_Standard Is Nothing) Then... Else..."
 
@@ -140,7 +143,8 @@ Public Class DialogListBothTypeFields
             ''April 30, 2022 ''Else
             ''Dec14 2021 td''LoadCustomFields_All()
             ''April 30/2022''LoadFields_All_Standard(Me.ListOfFields_Standard, Me.JustOneField_Standard)
-            LoadFields_All_Standard(Me.ListOfFields_Standard, par_structLoad, Me.JustOneField_Standard)
+            LoadFields_All_Standard(Me.ListOfFields_Standard, par_structLoad,
+                                    Me.JustOneField_Standard)
 
         End If ''End of "If (Me.ListOfFields_Standard Is Nothing) Then ... Else ..."
 
@@ -206,12 +210,19 @@ Public Class DialogListBothTypeFields
             boolProceed = (par_JustOneField Is Nothing Or
                 (par_JustOneField Is each_customField))
 
-            If (boolProceed) Then
+            If (boolProceed And Me.SimpleMode) Then
+                ''
+                ''Major call!!
+                ''
+                LoadCustomField_Each_Simple(each_customField, par_checkLoad)
+
+            ElseIf (boolProceed) Then
                 ''
                 ''Major call!!
                 ''
                 LoadCustomField_Each(each_customField, par_checkLoad)
-            End If ''End of "If (boolProceed) Then"
+
+            End If ''End of "If (boolProceed And Me.SimpleMode) Then .... ElseIf...."
 
         Next each_customField
 
@@ -221,6 +232,7 @@ Public Class DialogListBothTypeFields
         FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
 
     End Sub ''End of "Private Sub LoadFields_All_Custom()"  
+
 
     Private Sub LoadCustomField_Each(par_customfld As ClassFieldCustomized,
                                      par_checkLoad As StructLoadWhatFields)
@@ -258,6 +270,49 @@ Public Class DialogListBothTypeFields
 
 
     End Sub ''End of "Private Sub LoadCustomField_Each(par_customfld As ClassCustomField)"
+
+
+    Private Sub LoadCustomField_Each_Simple(par_customfld As ClassFieldCustomized,
+                                     par_checkLoad As StructLoadWhatFields)
+        ''
+        ''Added 7/ 21/2019
+        ''
+        ''5/12/2022 Dim userControl As CtlConfigFldCustom
+        ''5/12/2022 Dim userControl_Irrelevant As CtlConfigFldCustRelevancy ''Added 3/21/2022
+        Dim userControl As CtlConfigFldSimpleCustom
+        Dim userControl_Irrelevant As CtlConfigFldSimpleCustom
+        Dim boolIrrelevant As Boolean ''Added 3/21/2022 td
+
+        ''Added 3/21/2022 td
+        boolIrrelevant = (Not par_customfld.IsRelevantToPersonality)
+
+        ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
+
+        If (boolIrrelevant) Then ''Added 3/21/2022 td
+            ''Added 3/21/2022 td
+            ''Added 4/30/2022 td
+            If (par_checkLoad.NonrelevantFields) Then
+                ''5/12/2022 userControl_Irrelevant = New CtlConfigFldCustRelevancy
+                userControl_Irrelevant = New CtlConfigFldSimpleCustom
+                userControl_Irrelevant.Load_CustomControl(par_customfld)
+                userControl_Irrelevant.Visible = True
+                FlowLayoutPanel1.Controls.Add(userControl_Irrelevant)
+            End If ''End of ""If (par_checkLoad.NonrelevantFields) Then""
+
+        ElseIf (par_checkLoad.RelevantFields) Then ''Conditioned 4/30/2022
+            ''4/30/2022 td
+            ''5/12/2022 userControl = New CtlConfigFldCustom
+            userControl = New CtlConfigFldSimpleCustom
+            ''9/17/2019 td''userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
+            userControl.Load_CustomControl(par_customfld)
+            userControl.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControl)
+
+        End If ''End of "If (boolIrrelevant) Then //// else ///"
+
+
+    End Sub ''End of "Private Sub LoadCustomField_Each_Simple(par_customfld As ClassCustomField)"
+
 
     Private Sub FormCustomFieldsFlow_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         ''
@@ -313,6 +368,8 @@ Public Class DialogListBothTypeFields
         Dim each_ctl_configure_field_Custom As CtlConfigFldCustom
         Dim each_ctl_configure_field_StandRelevy As CtlConfigFldStdRelevancy ''Added 3/23/2022 td
         Dim each_ctl_configure_field_CustRelevy As CtlConfigFldCustRelevancy ''Added 3/23/2022 td
+        Dim each_ctl_Standard_Simple As CtlConfigFldSimpleStandard ''Added 5/12/2022 td
+        Dim each_ctl_Custom_Simple As CtlConfigFldSimpleCustom ''Added 5/12/2022 td
 
         For Each each_control As Control In FlowLayoutPanel1.Controls
 
@@ -323,14 +380,19 @@ Public Class DialogListBothTypeFields
 
             Dim bControlIsCustom As Boolean = False ''Added 3/23/2022 td
             Dim bControlIsCustom_Relevancy As Boolean = False ''Added 3/23/2022 td
+            Dim bControlIsCustom_Simple As Boolean = False ''Added 5/12/2022 td
             Dim bControlIsStandard As Boolean = False ''Added 3/23/2022 td
             Dim bControlIsStandard_Relevancy As Boolean = False ''Added 3/23/2022 td
+            Dim bControlIsStandard_Simple As Boolean = False ''Added 5/12/2022 td
 
             ''Added 3/23/2022 td
             If (TypeOf each_control Is CtlConfigFldStandard) Then bControlIsStandard = True
             If (TypeOf each_control Is CtlConfigFldStdRelevancy) Then bControlIsStandard_Relevancy = True
             If (TypeOf each_control Is CtlConfigFldCustom) Then bControlIsCustom = True
             If (TypeOf each_control Is CtlConfigFldCustRelevancy) Then bControlIsCustom_Relevancy = True
+            ''Added 3/23/2022 td
+            If (TypeOf each_control Is CtlConfigFldSimpleStandard) Then bControlIsStandard_Simple = True
+            If (TypeOf each_control Is CtlConfigFldSimpleCustom) Then bControlIsCustom_Simple = True
 
             Select Case True
 
@@ -386,6 +448,51 @@ Public Class DialogListBothTypeFields
                         If (.NewlyAdded) Then Me.ListOfFields_Custom.Add(.Field_Customized)
                     End With ''End of "With each_ctl_configure_field_Standard"
 
+                Case bControlIsStandard_Simple
+                    ''
+                    ''Standard-Field Control, simple.   ---5/12/2022
+                    ''
+                    each_ctl_Standard_Simple = CType(each_control, CtlConfigFldSimpleStandard)
+                    With each_ctl_Standard_Simple
+                        .Save_StandardControl()
+                        ''Added 5/12/2022 td
+                        Dim field_fromMeList As ClassFieldStandard
+                        Dim boolBooleanDiffers As Boolean
+                        field_fromMeList = GetFieldFromList_Standard(Me.ListOfFields_Standard,
+                                               .ModelFieldInfo.FieldEnumValue)
+                        boolBooleanDiffers = (field_fromMeList.IsRelevantToPersonality =
+                                              .ModelFieldInfo.IsRelevantToPersonality)
+                        If (boolBooleanDiffers) Then
+                            ''Resolve the discrepancy. ---5/12/2022 td
+                            field_fromMeList.IsRelevantToPersonality =
+                                .ModelFieldInfo.IsRelevantToPersonality
+                        End If ''End of ""If (boolBooleanDiffers) Then""
+
+                        If (.NewlyAdded) Then
+                            Me.ListOfFields_Standard.Add(.Field_Standard)
+                        End If ''End of ""If (.NewlyAdded) Then""
+                    End With ''End of "With each_ctl_Standard_Simple"
+
+
+                Case bControlIsCustom_Simple
+                    ''
+                    ''Custom-Field Control
+                    ''
+                    each_ctl_Custom_Simple = CType(each_control, CtlConfigFldSimpleCustom)
+                    With each_ctl_Custom_Simple
+
+                        .Save_CustomControl()
+
+                        If (.NewlyAdded) Then
+                            Me.ListOfFields_Custom.Add(.Field_Customized)
+                        End If ''End of "If (.NewlyAdded) Then"
+
+                    End With ''End of "With each_ctl_Custom_Simple"
+
+                Case Else
+                    ''Added 5/12/2022 td
+                    System.Diagnostics.Debugger.Break()
+
             End Select ''End of ""Select Case True""
 
         Next each_control
@@ -435,12 +542,17 @@ Public Class DialogListBothTypeFields
             boolProceed = (par_JustOneField Is Nothing Or
                 (par_JustOneField Is each_standardField))
 
-            If (boolProceed) Then
+            If (boolProceed And Me.SimpleMode) Then ''Added 5/12/2022 td
+
+                ''Added 5/12/2022 thomas downes
+                LoadStandardField_Each_Simple(each_standardField, par_checkLoad)
+
+            ElseIf (boolProceed) Then
 
                 ''April 30, 2022 ''LoadStandardField_Each(each_standardField)
                 LoadStandardField_Each(each_standardField, par_checkLoad)
 
-            End If ''end of " If (boolProceed) Then"
+            End If ''end of " If (boolProceed And Me.SimpleMode) Then... ElseIf...."
 
         Next each_standardField
 
@@ -450,7 +562,8 @@ Public Class DialogListBothTypeFields
         ''8/22/2019 td''FlowLayoutPanel1.Controls.Add(New CtlAddCustomField())
         ''---FlowLayoutPanel1.Controls.Add(New CtlAddStandardField())
 
-    End Sub ''End of "Private Sub LoadFields()"  
+    End Sub ''End of "Private Sub LoadFields_All_Standard()"  
+
 
     Private Sub LoadStandardField_Each(par_standardFld As ClassFieldStandard,
                                        par_checkLoad As StructLoadWhatFields)
@@ -488,6 +601,45 @@ Public Class DialogListBothTypeFields
     End Sub ''End of "Private Sub LoadStandardField_Each(par_standardFld As ClassStandardField)"
 
 
+    Private Sub LoadStandardField_Each_Simple(par_standardFld As ClassFieldStandard,
+                                              par_checkLoad As StructLoadWhatFields)
+        ''
+        ''Added 5/12/2022
+        ''
+        Dim userControl As CtlConfigFldSimpleStandard
+        Dim userControl_Irrelevant As CtlConfigFldSimpleStandard
+        Dim boolIrrelevant As Boolean ''Added 3/21/2022 td
+
+        ''Added 3/21/2022 td
+        boolIrrelevant = (Not par_standardFld.IsRelevantToPersonality)
+
+        ''5/12/2022 td ''Dim userControl_Irrelevant As CtlConfigFldStdRelevancy ''Added 3/23/2022
+
+        If (boolIrrelevant) Then ''Added 3/23/2022 td
+            ''Added 4/30/2022 td
+            If (par_checkLoad.NonrelevantFields) Then
+                ''Added 3/23/2022 td
+                ''5/11/2022 td''userControl_Irrelevant = New CtlConfigFldStdRelevancy
+                userControl_Irrelevant = New CtlConfigFldSimpleStandard
+                ''3/23/2022 td''userControl_Irrelevant.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+                userControl_Irrelevant.Load_StandardControl(par_standardFld) '', ICIBFieldStandardOrCustom))
+                userControl_Irrelevant.Visible = True
+                FlowLayoutPanel1.Controls.Add(userControl_Irrelevant)
+            End If ''End of ""If (par_checkLoad.NonrelevantFields) Then""
+
+        ElseIf (par_checkLoad.RelevantFields) Then ''Condition added 4/30/2022
+            ''April 30, 2022 td'' Else
+            ''5/11/2022 tdd '' userControl = New CtlConfigFldStandard
+            userControl = New CtlConfigFldSimpleStandard
+            userControl.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+            userControl.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControl)
+
+        End If ''End of "If (boolIrrelevant) Then .... ElseIf ...."
+
+    End Sub ''End of "Private Sub LoadStandardField_Each(par_standardFld As ClassStandardField)"
+
+
     Public Function ConfirmAutoSave() As Boolean
 
         ''Added 4/30/2022 thomas downes
@@ -498,6 +650,22 @@ Public Class DialogListBothTypeFields
         Return boolConfirmed
 
     End Function ''End of "Public Function ConfirmAutoSave() As Boolean"
+
+
+    Private Function GetFieldFromList_Standard(par_ListOfFields_Standard As HashSet(Of ClassFieldStandard),
+                                               par_FieldEnumValue As EnumCIBFields) _
+                            As ClassFieldStandard
+        ''
+        ''Added 5/12/2022 td
+        ''
+        Dim boolMatch As Boolean
+        For Each each_field As ClassFieldStandard In par_ListOfFields_Standard
+            boolMatch = (each_field.FieldEnumValue = par_FieldEnumValue)
+            If (boolMatch) Then Return each_field
+        Next each_field
+        Return Nothing
+
+    End Function ''End of ""Private Function GetFieldFromList_Standard""
 
 
     Private Sub LinkLabelRefresh_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkLabelRefresh.LinkClicked

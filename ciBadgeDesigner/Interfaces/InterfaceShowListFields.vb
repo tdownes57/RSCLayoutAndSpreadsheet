@@ -23,6 +23,8 @@ Public Interface InterfaceShowListFields
 
     Property ClosingOK_SoSaveWork As Boolean
 
+    Property SimpleMode As Boolean ''Added 5/12/2022 thomas d. 
+
     ''Added 12/6/2021 thomas downes 
     Function ShowDialog() As DialogResult
 

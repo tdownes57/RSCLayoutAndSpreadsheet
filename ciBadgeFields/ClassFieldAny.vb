@@ -160,6 +160,13 @@ Public Class ClassFieldAny
         ''Added 9/30/2019 thomas downes
         ''10/01/2019 td''Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
 
+        ''Added 5/12/2022 thomas downes 
+        Me.IsRelevantToPersonality = par_FieldInfo.IsRelevantToPersonality
+        Me.IsDisplayedForEdits = par_FieldInfo.IsDisplayedForEdits
+        Me.IsDisplayedOnBadge = par_FieldInfo.IsDisplayedOnBadge
+        Me.IsDisplayedOnBadge_Front = par_FieldInfo.IsDisplayedOnBadge_Front
+        Me.IsDisplayedOnBadge_Backside = par_FieldInfo.IsDisplayedOnBadge_Backside
+
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
     ''12/2/2019 td''Public Function CurrentRecipValue() As String

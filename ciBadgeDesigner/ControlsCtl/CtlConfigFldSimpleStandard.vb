@@ -16,6 +16,7 @@ Public Class CtlConfigFldSimpleStandard
     ''
     ''8/29/2019 td''Public Model As ClassFieldStandard ''Added 8/19/2019 thomas d.
     Public ModelFieldInfo As ICIBFieldStandardOrCustom ''Added 8/29/2019 thomas d. 
+    Public Event ModifiedField(par_field As ClassFieldStandard) ''Added 5/12/2022 
 
     Public NewlyAdded As Boolean ''Add 8/19/2019 td 
 
@@ -67,9 +68,9 @@ Public Class CtlConfigFldSimpleStandard
             mod_s_ExampleValue = .ExampleValue
 
             ''checkHasPresetValues.Checked = .HasPresetValues
-            textFieldLabel.Text = .FieldLabelCaption
-            checkIsFieldForDates.Checked = .IsFieldForDates
-            checkIsLocked.Checked = .IsLocked
+            ''textFieldLabel.Text = .FieldLabelCaption
+            ''checkIsFieldForDates.Checked = .IsFieldForDates
+            ''checkIsLocked.Checked = .IsLocked
             ''checkIsAdditionalField.Checked = .IsAdditionalField
 
             ''If (.ArrayOfValues IsNot Nothing) Then
@@ -77,16 +78,17 @@ Public Class CtlConfigFldSimpleStandard
             ''End If ''End of "If (.ArrayOfValues IsNot Nothing) Then"
 
             ''Added 8/22/2019 thomas d.
-            checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
-            checkDisplayForEdits.Checked = .IsDisplayedForEdits
+            ''checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
+            ''checkDisplayForEdits.Checked = .IsDisplayedForEdits
 
             ''Added 12/7/2021 thomas d.
-            checkRelevantToPersonality.Checked = .IsRelevantToPersonality
+            ''5/12/2022 td''checkRelevantToPersonality.Checked = .IsRelevantToPersonality
+            CheckBoxRelevant.Checked = .IsRelevantToPersonality
 
             ''Added 12/6/2021 thomas downes
             ''  Make it pretty clear to user that there's a ON-OFF relationship here. 
-            checkDisplayForEdits.Enabled = .IsRelevantToPersonality ''False
-            checkDisplayOnBadge.Enabled = .IsRelevantToPersonality ''False
+            ''checkDisplayForEdits.Enabled = .IsRelevantToPersonality ''False
+            ''checkDisplayOnBadge.Enabled = .IsRelevantToPersonality ''False
 
         End With ''End of "With par_info"  
 
@@ -123,9 +125,9 @@ ExitHandler:
             mod_s_ExampleValue = .ExampleValue
 
             ''checkHasPresetValues.Checked = .HasPresetValues
-            textFieldLabel.Text = .FieldLabelCaption
-            checkIsFieldForDates.Checked = .IsFieldForDates
-            checkIsLocked.Checked = .IsLocked
+            ''textFieldLabel.Text = .FieldLabelCaption
+            ''checkIsFieldForDates.Checked = .IsFieldForDates
+            ''checkIsLocked.Checked = .IsLocked
             ''checkIsAdditionalField.Checked = .IsAdditionalField
 
             ''If (.ArrayOfValues IsNot Nothing) Then
@@ -136,7 +138,7 @@ ExitHandler:
             ''checkDisplayOnBadge.Checked = .IsDisplayedOnBadge
             ''checkDisplayForEdits.Checked = .IsDisplayedForEdits
 
-            ''Added 12/7/2021 thomas d.
+            ''Added  12/7/2021 thomas d.
             ''5/11/2022 checkRelevantToPersonality.Checked = .IsRelevantToPersonality
             CheckBoxRelevant.Checked = .IsRelevantToPersonality
 
@@ -202,6 +204,7 @@ ExitHandler:
                 ''objFontStyle.Underline = True
                 .Font = New Drawing.Font(.Font, Drawing.FontStyle.Underline Or
                                                Drawing.FontStyle.Bold)
+                .Text = "Relevant!" ''Added 5/12/2022
 
             Else
 
@@ -210,7 +213,11 @@ ExitHandler:
                 ''objFontStyle.Underline = True
                 .Font = New Drawing.Font(.Font, Drawing.FontStyle.Regular)
 
-            End If
+                .Text = "Relevant" ''Added 5/12/2022
+
+            End If ''Endof ""If (.Checked) Then... Else....
+
+
         End With
 
     End Sub ''end of Public Sub LoadCheckboxFontStyle()
@@ -221,7 +228,14 @@ ExitHandler:
         ''
         ''Added 5/11/2022 td
         ''
-        LoadCheckboxFontStyle()
+        LoadCheckboxFontStyle() ''Add boldface and underlining.
+
+        ''Added 5/12/2022 td
+        Dim new_field As New ClassFieldStandard ''Added 5/12/2022 td
+        new_field.IsRelevantToPersonality = CheckBoxRelevant.Checked
+        new_field.FieldEnumValue = mod_model_info.FieldEnumValue
+        new_field.DateEdited = Now
+        RaiseEvent ModifiedField(new_field) ''Added 5/12/2022 td
 
         ''With CheckBoxRelevant
         ''    If (.Checked) Then

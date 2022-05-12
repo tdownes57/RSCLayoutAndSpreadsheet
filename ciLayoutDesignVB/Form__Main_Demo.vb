@@ -1634,19 +1634,22 @@ Public Class Form__Main_Demo
         ''Added 7/17/2019 thomas downes
         ''Encapsulated 12/6/2021 thomas downes
         ''
-        ShowFieldsToEdit_Custom()
+        ''5/12/2022 td''ShowFieldsToEdit_Custom()
+        ShowFieldsToEdit_Custom(True)
 
     End Sub
 
 
-    Private Sub ShowFieldsToEdit_Custom()
+    Private Sub ShowFieldsToEdit_Custom(par_bSimpleMode As Boolean)
         ''
         ''Encapsulated 12/6/2021 thomas downes
         ''
         Const c_boolDebugMode As Boolean = True ''Added 12/6/2021 td 
 
         ''Major call !!
-        modAllowFieldEdits.ShowFieldsToEdit_Custom(Me.ElementsCache_ManageBoth, Me.ElementsCache_Edits, c_boolDebugMode)
+        modAllowFieldEdits.ShowFieldsToEdit_Custom(Me.ElementsCache_ManageBoth,
+                                                   Me.ElementsCache_Edits,
+                                                   c_boolDebugMode, par_bSimpleMode)
 
         ''Refresh the form.  
         ''Dec.10, 2021''RefreshTheSetOfDisplayedElements()
@@ -1654,10 +1657,12 @@ Public Class Form__Main_Demo
         pictureBackgroundFront.SendToBack()
         pictureJustAButton.SendToBack() ''Added 1/21/2022 td
 
-    End Sub
+
+    End Sub ''End of ""Private Sub ShowFieldsToEdit_Custom""
 
 
-    Private Sub ShowFieldsToEdit_AnySC()
+    Private Sub ShowFieldsToEdit_AnySC(par_cache As ClassElementsCache_Deprecated,
+                                       par_bSimpleMode As Boolean)
         ''
         ''Added 5/11/2022 thomas downes
         ''
@@ -1666,8 +1671,15 @@ Public Class Form__Main_Demo
         Const c_boolDebugMode As Boolean = True ''Added 12/6/2021 td 
 
         ''Major call !!
-        modAllowFieldEdits.ShowFieldsToEdit_AnySC(Me.ElementsCache_ManageBoth,
-                                                  Me.ElementsCache_Edits, c_boolDebugMode)
+        If (par_cache Is Nothing) Then
+            modAllowFieldEdits.ShowFieldsToEdit_AnySC(Me.ElementsCache_ManageBoth,
+                                                  Me.ElementsCache_Edits, c_boolDebugMode,
+                                                  par_bSimpleMode)
+        Else
+            ''Added 5/12/2022 td 
+            modAllowFieldEdits.ShowFieldsToEdit_AnySC(Nothing, par_cache, c_boolDebugMode,
+                                                  par_bSimpleMode)
+        End If ''End of ""If (par_cache Is Nothing) Then... Else...."
 
         ''Refresh the form.  
         RefreshTheSetOfDisplayedElements(False)
@@ -1716,7 +1728,7 @@ Public Class Form__Main_Demo
 
     End Sub
 
-    Private Sub ShowFieldsToEdit_Standard()
+    Private Sub ShowFieldsToEdit_Standard(Optional pboolSimpleMode As Boolean = True)
         ''
         ''Encapsulated 12/6/2021 thomas downes  
         ''Modified 12/6/2021 thomas d. 
@@ -1724,7 +1736,9 @@ Public Class Form__Main_Demo
         Const c_boolDebugMode As Boolean = True ''Added 12/6/2021 td 
 
         ''Major call !!
-        modAllowFieldEdits.ShowFieldsToEdit_Standard(Me.ElementsCache_ManageBoth, Me.ElementsCache_Edits, c_boolDebugMode)
+        modAllowFieldEdits.ShowFieldsToEdit_Standard(Me.ElementsCache_ManageBoth,
+                                                     Me.ElementsCache_Edits, c_boolDebugMode,
+                                                       pboolSimpleMode)
 
         ''Refresh the form.  
         ''Dec. 10, 2021''RefreshTheSetOfDisplayedElements()
@@ -3422,11 +3436,13 @@ ExitHandler:
         ''Added 5/4/2022 td
         ''
         Dim objFormToShowFE As New FormFieldsVsElements
+        objFormToShowFE.StartPosition = FormStartPosition.CenterScreen
         objFormToShowFE.ShowDialog()
         If (objFormToShowFE.DialogResult = DialogResult.Cancel) Then Exit Sub
         If (objFormToShowFE.AddFields) Then
-            ShowFieldsToEdit_AnySC()
-            Exit Sub
+            ''5/11/2022 ShowFieldsToEdit_AnySC()
+            ShowFieldsToEdit_AnySC(Me.ElementsCache_Edits, True)
+            ''5/12/2022 Exit Sub
         End If ''End of ""If (objFormToShowFE.AddFields) Then""
 
         Dim boolAddField1 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
@@ -3448,8 +3464,13 @@ ExitHandler:
         Dim enumAddField5_Enum As EnumCIBFields ''Added 5/10/2022 td
 
         ''Added 5/4/2022 td
-        Dim objFormToShow As New FormTypeOfElementsToAdd(Me.ElementsCache_Edits)
+        ''5/12/2022 Dim objFormToShow As New FormTypeOfElementsToAdd(Me.ElementsCache_Edits)
+        Dim objFormToShow As FormTypeOfElementsToAdd
+        Dim listOfRelevantFields As List(Of ClassFieldAny)
         Dim diag_res As DialogResult ''Added 5/10/2022 td
+
+        listOfRelevantFields = Me.ElementsCache_Edits.ListOfFields_AnyRelevent()
+        objFormToShow = New FormTypeOfElementsToAdd(Me.ElementsCache_Edits, listOfRelevantFields)
 
         diag_res = objFormToShow.ShowDialog()
         If (diag_res = DialogResult.Cancel) Then Exit Sub ''Added 5/10/2022 td
@@ -3526,7 +3547,9 @@ ExitHandler:
     Private Sub BothStandardCustomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BothStandardCustomToolStripMenuItem.Click
 
         ''Added 5/11/2022 thomas downes
-        ShowFieldsToEdit_AnySC()
+        ''5/12/2022 ''ShowFieldsToEdit_AnySC()
+        ''5/12/2022 ''ShowFieldsToEdit_AnySC(True)
+        ShowFieldsToEdit_AnySC(Me.ElementsCache_Edits, True)
 
     End Sub
 

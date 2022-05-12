@@ -714,30 +714,33 @@ Public Class ClassFieldCustomized
             ''
             ''Text Fields
             ''
-            If (prior_enum_text = EnumCIBFields.TextField25) Then Exit For ''5/10/2022 current_enum = EnumCIBFields.DateField01
-            If (prior_enum_text = EnumCIBFields.TextField24) Then current_enum = EnumCIBFields.TextField25
-            If (prior_enum_text = EnumCIBFields.TextField23) Then current_enum = EnumCIBFields.TextField24
-            If (prior_enum_text = EnumCIBFields.TextField22) Then current_enum = EnumCIBFields.TextField23
-            If (prior_enum_text = EnumCIBFields.TextField21) Then current_enum = EnumCIBFields.TextField22
-            If (prior_enum_text = EnumCIBFields.TextField20) Then current_enum = EnumCIBFields.TextField21
+            ''If (prior_enum_text = EnumCIBFields.TextField25) Then Exit For ''5/10/2022 current_enum = EnumCIBFields.DateField01
+            ''If (prior_enum_text = EnumCIBFields.TextField24) Then current_enum = EnumCIBFields.TextField25
+            ''If (prior_enum_text = EnumCIBFields.TextField23) Then current_enum = EnumCIBFields.TextField24
+            ''If (prior_enum_text = EnumCIBFields.TextField22) Then current_enum = EnumCIBFields.TextField23
+            ''If (prior_enum_text = EnumCIBFields.TextField21) Then current_enum = EnumCIBFields.TextField22
+            ''If (prior_enum_text = EnumCIBFields.TextField20) Then current_enum = EnumCIBFields.TextField21
 
-            If (prior_enum_text = EnumCIBFields.TextField19) Then current_enum = EnumCIBFields.TextField20
-            If (prior_enum_text = EnumCIBFields.TextField18) Then current_enum = EnumCIBFields.TextField19
-            If (prior_enum_text = EnumCIBFields.TextField17) Then current_enum = EnumCIBFields.TextField18
-            If (prior_enum_text = EnumCIBFields.TextField16) Then current_enum = EnumCIBFields.TextField17
-            If (prior_enum_text = EnumCIBFields.TextField15) Then current_enum = EnumCIBFields.TextField16
+            ''If (prior_enum_text = EnumCIBFields.TextField19) Then current_enum = EnumCIBFields.TextField20
+            ''If (prior_enum_text = EnumCIBFields.TextField18) Then current_enum = EnumCIBFields.TextField19
+            ''If (prior_enum_text = EnumCIBFields.TextField17) Then current_enum = EnumCIBFields.TextField18
+            ''If (prior_enum_text = EnumCIBFields.TextField16) Then current_enum = EnumCIBFields.TextField17
+            ''If (prior_enum_text = EnumCIBFields.TextField15) Then current_enum = EnumCIBFields.TextField16
 
-            If (prior_enum_text = EnumCIBFields.TextField14) Then current_enum = EnumCIBFields.TextField15
-            If (prior_enum_text = EnumCIBFields.TextField13) Then current_enum = EnumCIBFields.TextField14
-            If (prior_enum_text = EnumCIBFields.TextField12) Then current_enum = EnumCIBFields.TextField13
-            If (prior_enum_text = EnumCIBFields.TextField11) Then current_enum = EnumCIBFields.TextField12
-            If (prior_enum_text = EnumCIBFields.TextField10) Then current_enum = EnumCIBFields.TextField11
+            ''If (prior_enum_text = EnumCIBFields.TextField14) Then current_enum = EnumCIBFields.TextField15
+            ''If (prior_enum_text = EnumCIBFields.TextField13) Then current_enum = EnumCIBFields.TextField14
+            ''If (prior_enum_text = EnumCIBFields.TextField12) Then current_enum = EnumCIBFields.TextField13
+            ''If (prior_enum_text = EnumCIBFields.TextField11) Then current_enum = EnumCIBFields.TextField12
+            ''If (prior_enum_text = EnumCIBFields.TextField10) Then current_enum = EnumCIBFields.TextField11
 
-            If (prior_enum_text = EnumCIBFields.TextField09) Then current_enum = EnumCIBFields.TextField10
-            If (prior_enum_text = EnumCIBFields.TextField08) Then current_enum = EnumCIBFields.TextField09
-            If (prior_enum_text = EnumCIBFields.TextField07) Then current_enum = EnumCIBFields.TextField08
-            If (prior_enum_text = EnumCIBFields.TextField06) Then current_enum = EnumCIBFields.TextField07
-            If (prior_enum_text = EnumCIBFields.TextField05) Then current_enum = EnumCIBFields.TextField06
+            ''If (prior_enum_text = EnumCIBFields.TextField09) Then current_enum = EnumCIBFields.TextField10
+            ''If (prior_enum_text = EnumCIBFields.TextField08) Then current_enum = EnumCIBFields.TextField09
+            ''If (prior_enum_text = EnumCIBFields.TextField07) Then current_enum = EnumCIBFields.TextField08
+            ''If (prior_enum_text = EnumCIBFields.TextField06) Then current_enum = EnumCIBFields.TextField07
+            ''If (prior_enum_text = EnumCIBFields.TextField05) Then current_enum = EnumCIBFields.TextField06
+
+            ''We don't need all 25 at this early phase. ----Added 5/12/2022 td
+            If (prior_enum_text = EnumCIBFields.TextField05) Then Exit For ''5/10/2022 current_enum = EnumCIBFields.DateField01
 
             If (prior_enum_text = EnumCIBFields.TextField04) Then current_enum = EnumCIBFields.TextField05
             If (prior_enum_text = EnumCIBFields.TextField03) Then current_enum = EnumCIBFields.TextField04
@@ -1113,6 +1116,13 @@ ExitHandler:
 
         Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
 
+        ''Added 5/12/2022 thomas downes 
+        ''See 4 lines above.5/12/2022''Me.IsRelevantToPersonality = par_info.IsRelevantToPersonality
+        Me.IsDisplayedForEdits = par_info.IsDisplayedForEdits
+        Me.IsDisplayedOnBadge = par_info.IsDisplayedOnBadge
+        Me.IsDisplayedOnBadge_Front = par_info.IsDisplayedOnBadge_Front
+        Me.IsDisplayedOnBadge_Backside = par_info.IsDisplayedOnBadge_Backside
+
     End Sub ''End of "Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)"
 
     ''9/18/2019 td''Public Function GetValue_Recipient_String(par_enum As EnumCIBFields) As String
@@ -1227,6 +1237,13 @@ ExitHandler:
 
         ''Added 9/30/2019 thomas downes
         ''10/01/2019 td''Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
+
+        ''Added 5/12/2022 thomas downes 
+        ''See 4 lines above.5/12/2022''Me.IsRelevantToPersonality = par_info.IsRelevantToPersonality
+        Me.IsDisplayedForEdits = par_objectClass.IsDisplayedForEdits
+        Me.IsDisplayedOnBadge = par_objectClass.IsDisplayedOnBadge
+        Me.IsDisplayedOnBadge_Front = par_objectClass.IsDisplayedOnBadge_Front
+        Me.IsDisplayedOnBadge_Backside = par_objectClass.IsDisplayedOnBadge_Backside
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 

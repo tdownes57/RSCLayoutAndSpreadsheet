@@ -25,6 +25,8 @@ Public Class DialogListStandardFields
     Public Property JustOneField_Standard As ClassFieldStandard Implements InterfaceShowListFields.JustOneField_Standard ''Added 12/13/2021 thomas d. 
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
+    Public Property SimpleMode As Boolean Implements InterfaceShowListFields.SimpleMode ''Added 5/12/2022 thomas downes
+
 
     ''Jan2 2022 td''Private mod_listFields As List(Of ClassFieldStandard) ''Added 1/2/2022 td
 
@@ -153,16 +155,27 @@ Public Class DialogListStandardFields
 
     End Sub ''End of "Private Sub LoadStandardFields_All()"  
 
+
     Private Sub LoadStandardField_Each(par_standardFld As ClassFieldStandard)
         ''
         ''Added 8/19/2019
         ''
-        Dim userControl As New CtlConfigFldStandard
+        If (Me.SimpleMode) Then ''Added 5/12/2022 td
+            ''Added 5/12/2022 td
+            Dim userControlSim As New CtlConfigFldSimpleStandard
+            userControlSim.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+            userControlSim.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControlSim)
 
-        userControl.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
-        userControl.Visible = True
+        Else
+            Dim userControl As New CtlConfigFldStandard
 
-        FlowLayoutPanel1.Controls.Add(userControl)
+            userControl.Load_StandardControl(CType(par_standardFld, ICIBFieldStandardOrCustom))
+            userControl.Visible = True
+
+            FlowLayoutPanel1.Controls.Add(userControl)
+
+        End If ''End of ""If (Me.SimpleMode) Then.... Else..."
 
     End Sub ''End of "Private Sub LoadStandardField_Each(par_standardFld As ClassStandardField)"
 

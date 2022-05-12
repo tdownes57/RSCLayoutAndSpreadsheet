@@ -1545,6 +1545,13 @@ ExitHandler:
         Me.FieldType_TD = par_info.FieldType_TD
         Me.OtherDbField_Optional = par_info.OtherDbField_Optional  ''Added 7/23/2019 td 
 
+        ''Added 5/12/2022 thomas downes 
+        Me.IsRelevantToPersonality = par_info.IsRelevantToPersonality
+        Me.IsDisplayedForEdits = par_info.IsDisplayedForEdits
+        Me.IsDisplayedOnBadge = par_info.IsDisplayedOnBadge
+        Me.IsDisplayedOnBadge_Front = par_info.IsDisplayedOnBadge_Front
+        Me.IsDisplayedOnBadge_Backside = par_info.IsDisplayedOnBadge_Backside
+
     End Sub ''End of "Public Sub Load_ByCopyingMembers(par_info As ICIBFieldStandardOrCustom)"
 
     ''---Fields cannot link outward to elements.---9/18/2019 td
@@ -1590,6 +1597,7 @@ ExitHandler:
 
     End Function ''End of "Public Function Copy_FieldStandard() As ClassElementField"
 
+
     Public Sub LoadbyCopyingMembers_Standard(par_objectClass As ClassFieldStandard)
         ''
         ''Added 10/14 & 9/30/2019 thomas downes
@@ -1627,9 +1635,14 @@ ExitHandler:
         Me.SublayoutLookup = par_objectClass.SublayoutLookup
         Me.Text_orDate = par_objectClass.Text_orDate
 
+        ''Added 5/12/2022 td
+        Me.IsDisplayedOnBadge_Backside = par_objectClass.IsDisplayedOnBadge_Backside
+        Me.IsDisplayedOnBadge_Front = par_objectClass.IsDisplayedOnBadge_Front
+
         ''Added 9/30/2019 thomas downes
         ''10/01/2019 td''Throw New NotImplementedException("Not all the members are programmed yet (i.e. the commands for copying their values haven't been written yet).")
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
+
 
 End Class ''End of "Public Class ClassFieldStandard"

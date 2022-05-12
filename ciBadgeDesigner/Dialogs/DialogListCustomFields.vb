@@ -25,6 +25,7 @@ Public Class DialogListCustomFields
     Public Property PersonalityConfig As ClassPersonalityConfig ''Added 12/13/2021 thomas downes
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
+    Public Property SimpleMode As Boolean Implements InterfaceShowListFields.SimpleMode ''Added 5/12/2022
 
     Public Overloads Function ShowDialog() As DialogResult Implements InterfaceShowListFields.ShowDialog
         ''
@@ -45,6 +46,7 @@ Public Class DialogListCustomFields
 
     Private Const vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
+
     Public Sub AdjustHeightOfWindow()
         ''Added 7/23/2019 thomas downes
         Static s_bEveryOtherCall As Boolean
@@ -55,6 +57,7 @@ Public Class DialogListCustomFields
         s_bEveryOtherCall = Not s_bEveryOtherCall
 
     End Sub ''End of "Public Sub AdjustHeightOfWindow()"
+
 
     Private Sub FormCustomFieldsFlow_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -130,19 +133,31 @@ Public Class DialogListCustomFields
 
     End Sub ''End of "Private Sub LoadFields()"  
 
+
     Private Sub LoadCustomField_Each(par_customfld As ClassFieldCustomized)
         ''
         ''Added 7/ 21/2019
         ''
-        Dim userControl As New CtlConfigFldCustom
+        If (Me.SimpleMode) Then ''Added 5/12/2022 td
+            ''Added 5/12/2022 td
+            Dim userControlSim As New CtlConfigFldSimpleStandard
+            userControlSim.Load_StandardControl(CType(par_customfld, ICIBFieldStandardOrCustom))
+            userControlSim.Visible = True
+            FlowLayoutPanel1.Controls.Add(userControlSim)
 
-        ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
+        Else
+            Dim userControl As New CtlConfigFldCustom
 
-        ''9/17/2019 td''userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
-        userControl.Load_CustomControl(par_customfld)
-        userControl.Visible = True
+            ''7/21/2019 td''FlowLayoutPanel1.Controls.Add(New UserCustomFieldCtl())
 
-        FlowLayoutPanel1.Controls.Add(userControl)
+            ''9/17/2019 td''userControl.Load_CustomControl(CType(par_customfld, ICIBFieldStandardOrCustom))
+            userControl.Load_CustomControl(par_customfld)
+            userControl.Visible = True
+
+            FlowLayoutPanel1.Controls.Add(userControl)
+
+        End If ''End of ""If (Me.SimpleMode) Then... Else..."
+
 
     End Sub ''End of "Private Sub LoadCustomField_Each(par_customfld As ClassCustomField)"
 

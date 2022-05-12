@@ -120,6 +120,44 @@ Public Class RSCSelectCIBField
     End Sub ''End of "Public Sub Load_Fields()"
 
 
+    Public Sub Load_FieldsFromList(par_listOfFields As List(Of ClassFieldAny))
+        ''
+        ''Added 5/12/2022 thomas downes
+        ''
+        ''Is this is an overload function? No, it's not. 
+        ''
+        Dim bLoadStartingValue As Boolean ''Added 4/1/2022 td
+
+        bLoadStartingValue = mod_bLoading ''Added 4/1/2022 td
+        mod_bLoading = True ''Added 4/1/2022 td
+
+        ''Added 4/13/2022 td
+        ''To restore later, let's save the value which is currently selected.
+        ''
+        Dim enum_field_saveForLater As EnumCIBFields
+        enum_field_saveForLater = CType(comboBoxRelevantFields.SelectedValue, EnumCIBFields)
+
+        ''Added 3/18/2022
+        comboBoxRelevantFields.DisplayMember = "FieldLabelCaption"
+        comboBoxRelevantFields.ValueMember = "FieldEnumValue"
+
+        ''
+        ''Calling this function's original overload!!
+        ''
+        comboBoxRelevantFields.DataSource = Nothing ''Clear out the DataSource, to allow the drop-down list to be cleared. ---4/13/2022
+        Application.DoEvents()
+        comboBoxRelevantFields.DataSource = par_listOfFields
+
+        ''Restore the value which was previously selected. ---4/13/2022
+        Dim enum_field_restore As EnumCIBFields
+        enum_field_restore = enum_field_saveForLater
+        comboBoxRelevantFields.SelectedValue = enum_field_restore
+
+        mod_bLoading = bLoadStartingValue ''Added 4/1/2022 td
+
+    End Sub ''End of "Public Sub Load_Fields()"
+
+
     Public Sub Load_Control(par_list As List(Of ClassFieldAny), Optional par_enum _
                             As ciBadgeInterfaces.EnumCIBFields = EnumCIBFields.Undetermined)
         ''

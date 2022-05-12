@@ -17,7 +17,8 @@ Module modAllowFieldEdits
 
     Public Sub ShowFieldsToEdit_Standard(par_ElementsCache_Manage As ClassCacheManagement,
                                         par_ElementsCache_Edits As ClassElementsCache_Deprecated,
-                                        par_boolDebugMode As Boolean)
+                                        par_boolDebugMode As Boolean,
+                                         par_boolSimpleMode As Boolean)
         ''
         ''Encapsulated 12/6/2021 thomas downes
         ''
@@ -25,14 +26,16 @@ Module modAllowFieldEdits
         ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage,
                                 par_ElementsCache_Edits,
                                 par_boolDebugMode,
-                                EnumStandardCustom.Standard)
+                                EnumStandardCustom.Standard,
+                                par_boolSimpleMode)
 
-    End Sub
+    End Sub ''End of ""Public Sub ShowFieldsToEdit_Standard""
 
 
     Public Sub ShowFieldsToEdit_Custom(par_ElementsCache_Manage As ClassCacheManagement,
                                         par_ElementsCache_Edits As ClassElementsCache_Deprecated,
-                                        par_boolDebugMode As Boolean)
+                                        par_boolDebugMode As Boolean,
+                                       par_boolSimpleMode As Boolean)
         ''
         ''Encapsulated 12/6/2021 thomas downes
         ''
@@ -40,21 +43,24 @@ Module modAllowFieldEdits
         ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage,
                                 par_ElementsCache_Edits,
                                 par_boolDebugMode,
-                                EnumStandardCustom.Custom)
+                                EnumStandardCustom.Custom,
+                                par_boolSimpleMode)
 
-    End Sub
+    End Sub ''End of ""Public Sub ShowFieldsToEdit_Custom""
 
 
     Public Sub ShowFieldsToEdit_AnySC(par_ElementsCache_Manage As ClassCacheManagement,
                                         par_ElementsCache_Edits As ClassElementsCache_Deprecated,
-                                        par_boolDebugMode As Boolean)
+                                        par_boolDebugMode As Boolean,
+                                      par_boolSimpleMode As Boolean)
         ''
         ''Encapsulated 5/11/2022 thomas downes
         ''
         ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage,
                                 par_ElementsCache_Edits,
                                 par_boolDebugMode,
-                                EnumStandardCustom.Any_Either)
+                                EnumStandardCustom.Any_Either,
+                                par_boolSimpleMode)
 
     End Sub ''End of Public Sub ShowFieldsToEdit_AnySC
 
@@ -62,7 +68,8 @@ Module modAllowFieldEdits
     Private Sub ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage As ClassCacheManagement,
                                         par_ElementsCache_Edits As ClassElementsCache_Deprecated,
                                         par_boolDebugMode As Boolean,
-                                        par_enumType As EnumStandardCustom)
+                                        par_enumType As EnumStandardCustom,
+                                              par_boolSimpleMode As Boolean)
         ''
         ''Encapsulated 12/6/2021 thomas downes
         ''
@@ -90,6 +97,9 @@ Module modAllowFieldEdits
             If (bool__Custom) Then frm_ToShowFields = New ciBadgeDesigner.DialogListCustomFields
             If (bool__Either) Then frm_ToShowFields = New ciBadgeDesigner.DialogListBothTypeFields
 
+            ''Added 5/12/2022 td
+            frm_ToShowFields.SimpleMode = par_boolSimpleMode
+
             ''Dim each_field As ciBadgeFields.ClassFieldCustomized
             ''Dim each_element As ciBadgeElements.ClassElementField
             Dim strListOfBadgeFields As String = ""
@@ -114,15 +124,29 @@ Module modAllowFieldEdits
             ''1/24/2022 td''frm_ToShowFields.ListOfFields_Custom = par_ElementsCache_Manage.CacheForEditing.ListOfFields_Custom
 
             ''Modified 1/24/2022 td
-            frm_ToShowFields.ListOfFields_Standard = par_ElementsCache_Edits.ListOfFields_Standard
-            frm_ToShowFields.ListOfFields_Custom = par_ElementsCache_Edits.ListOfFields_Custom
+            ''5/12/2022 frm_ToShowFields.ListOfFields_Standard = par_ElementsCache_Edits.ListOfFields_Standard
+            ''5/12/2022 frm_ToShowFields.ListOfFields_Custom = par_ElementsCache_Edits.ListOfFields_Custom
+            If (par_ElementsCache_Manage IsNot Nothing) Then
+                With par_ElementsCache_Manage.CacheForEditing
+                    frm_ToShowFields.ListOfFields_Standard = .ListOfFields_Standard
+                    frm_ToShowFields.ListOfFields_Custom = .ListOfFields_Custom
+                End With
+            Else
+                ''We can't use the cache-manager, so we will use the cache itself. ---5/12/2022
+                With par_ElementsCache_Edits
+                    frm_ToShowFields.ListOfFields_Standard = .ListOfFields_Standard
+                    frm_ToShowFields.ListOfFields_Custom = .ListOfFields_Custom
+                End With
+            End If ''End of ""If (par_ElementsCache_Manage IsNot Nothing) Then .... Else..."
 
             ''Added 1/24/2022 td
-            Dim boolCachesMatch As Boolean ''Added 1/24/2022 td
-            boolCachesMatch = (par_ElementsCache_Edits Is par_ElementsCache_Manage.CacheForEditing)
-            If (Not boolCachesMatch) Then
-                System.Diagnostics.Debugger.Break()
-            End If ''End of "If (Not boolCachesMatch) Then"
+            If (par_ElementsCache_Manage IsNot Nothing) Then
+                Dim boolCachesMatch As Boolean ''Added 1/24/2022 td
+                boolCachesMatch = (par_ElementsCache_Edits Is par_ElementsCache_Manage.CacheForEditing)
+                If (Not boolCachesMatch) Then
+                    System.Diagnostics.Debugger.Break()
+                End If ''End of "If (Not boolCachesMatch) Then"
+            End If ''End of ""If (par_ElementsCache_Manage IsNot Nothing) Then""
 
             ''Dec. 6, 2021 td
             If (c_boolCreateTextFile) Then
@@ -149,9 +173,31 @@ Module modAllowFieldEdits
             boolOkayToSave = frm_ToShowFields.ClosingOK_SoSaveWork
             If (boolOkayToSave) Then
 
+                ''Added 5/12/2022 td
+                If (par_ElementsCache_Manage IsNot Nothing) Then
+                    ''Let's use the cache-manager. ---5/12/2022
+                    With par_ElementsCache_Manage.CacheForEditing
+                        .ListOfFields_Standard = frm_ToShowFields.ListOfFields_Standard
+                        .ListOfFields_Custom = frm_ToShowFields.ListOfFields_Custom
+                    End With
+                Else
+                    ''Let's use the cache directly, bypassing the manager. ---5/12/2022
+                    With par_ElementsCache_Edits
+                        .ListOfFields_Standard = frm_ToShowFields.ListOfFields_Standard
+                        .ListOfFields_Custom = frm_ToShowFields.ListOfFields_Custom
+                    End With
+
+                End If ''End of ""If (par_ElementsCache_Manage IsNot Nothing) Then... Else.."
+
                 ''Dec14 2021''par_ElementsCache_Manage.Save()
                 Const c_SaveToFile As Boolean = True
-                par_ElementsCache_Manage.Save(c_SaveToFile)
+                If (par_ElementsCache_Manage IsNot Nothing) Then ''Added 5/12/2022
+                    par_ElementsCache_Manage.Save(c_SaveToFile)
+                Else
+                    ''Added 5/12/2022
+                    '' Let's bypass the manager, calling .SaveToXML directly on the cache.--5/12/2022
+                    par_ElementsCache_Edits.SaveToXML()
+                End If ''Endof ""If (par_ElementsCache_Manage IsNot Nothing) Then... Else..."
 
             End If ''End of "If (boolOkayToSave) Then"
 
@@ -165,7 +211,9 @@ Module modAllowFieldEdits
             Dim strListOfCustomFields As String = ""
 
             If (par_boolDebugMode) Then
-                par_ElementsCache_Manage.CheckEditedFieldsHaveElementsIfNeeded_Custom(strListOfCustomFields, strErrorMessage)
+                If (par_ElementsCache_Manage IsNot Nothing) Then ''Added 5/12/2022
+                    par_ElementsCache_Manage.CheckEditedFieldsHaveElementsIfNeeded_Custom(strListOfCustomFields, strErrorMessage)
+                End If
                 If (False) Then DisplayStringDataInNotepad(strListOfBadgeFields)
             End If ''End of "If (par_boolDebugMode) Then"
 
@@ -175,19 +223,21 @@ Module modAllowFieldEdits
             ''Added 12/5/2021 thomas downes
             If (Not par_boolDebugMode) Then Exit For
 
-            If (boolOkayToSave) Then
+            If (boolOkayToSave And (intReview = 1)) Then
                 ''Allow user to review the saved settings (all over again!). 
+                ''5/2022If (intReview = 1) Then
                 Dim dresult As DialogResult
                 dresult = MessageBox.Show("Want to check/confirm your work was saved?", "Check/Confirm?",
                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 If (dresult = DialogResult.OK) Then dresult = DialogResult.Yes
                 If (dresult <> DialogResult.Yes) Then Exit For
+                ''5/2022End If ''end of ""If (intReview = 1) Then""
             Else
                 ''No need to loop again if the user cancelled out of the dialog box. 
                 Exit For
             End If ''end of "If (boolOkayToSave) Then .... Else ...."
 
-        Next intReview
+        Next intReview ''End of ""For intReview As Integer = 1 To 2""
 
         ''RefreshTheSetOfDisplayedElements()
         ''PictureBox1.SendToBack()
