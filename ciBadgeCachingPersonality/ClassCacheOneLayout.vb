@@ -192,8 +192,9 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
                 ''Added 9/18/2019 td
                 new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-                new_elementField.FieldInfo = each_field
+                ''5/11/2022 ''new_elementField.FieldInfo = each_field
                 new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
+                new_elementField.FieldIsCustomizable = each_field.IsCustomizable ''Added 5/11/2022
 
                 ''Added 10/13/2019 td
                 new_elementField.BadgeLayout = par_layout

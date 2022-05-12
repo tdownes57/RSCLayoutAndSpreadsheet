@@ -876,8 +876,10 @@ ExitHandler:
 
                 ''9/3/2019 td''If (Not .IsDisplayedOnBadge) Then Continue For
                 Dim bWeWontIncludeField As Boolean = False ''Added 11/9/2021 td
-                If (.FieldInfo Is Nothing) Then bWeWontIncludeField = True ''11/9/2021 Continue For ''Added 10/13/2019 td
-                If (Not .FieldInfo.IsDisplayedOnBadge) Then bWeWontIncludeField = True ''11/9/2021 Continue For
+                ''5/2022 If (.FieldInfo Is Nothing) Then bWeWontIncludeField = True ''11/9/2021 Continue For ''Added 10/13/2019 td
+                If (.FieldEnum = EnumCIBFields.Undetermined) Then bWeWontIncludeField = True ''11/9/2021 Continue For ''Added 10/13/2019 td
+                ''5/2022 If (Not .FieldInfo.IsDisplayedOnBadge) Then bWeWontIncludeField = True ''11/9/2021 Continue For
+                If (Not .Visible) Then bWeWontIncludeField = True ''11/9/2021 Continue For
 
                 If (bWeWontIncludeField) Then
                     If (par_bOutputListsOfFields) Then

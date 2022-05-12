@@ -232,6 +232,7 @@ namespace ciBadgeGenerator
 
         public Image MakeBadgeImage_AnySide(IBadgeLayoutDimensions par_layoutDims,
                                     IBadgeSideLayoutElementsV1 par_layoutElements,
+                                    ClassElementsCache_Deprecated par_cache,
                                     int par_newBadge_width_pixels,
                                     int par_newBadge_height_pixels,
                                     IRecipient par_iRecipientInfo = null,
@@ -311,10 +312,12 @@ namespace ciBadgeGenerator
                 //
                 DateTime dateMostRecentUpdate = DateTime.MinValue;  // Default value.
 
+                //
                 // I think this procedure is ready for testing. ---11/9/2021  
                 //
                 LoadImageWithElementFields(ref obj_imageOutput,
                         ref dateMostRecentUpdate,
+                        par_cache,
                         listOfElementFieldsV3,
                         listOfElementFieldsV4,
                           par_iRecipientInfo, null,
@@ -636,6 +639,7 @@ namespace ciBadgeGenerator
                 //
                 LoadImageWithElementFields(ref obj_imageOutput,
                         ref dateMostRecentUpdate,
+                        par_cache,
                         listOfElementFieldsV3,
                         listOfElementFieldsV4,
                           par_iRecipientInfo, null,
@@ -1216,8 +1220,13 @@ namespace ciBadgeGenerator
 
                 if (each_elementFieldV3.Visible)  //.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
                 {
+                    //Added 5/11/2022 
+                    ClassFieldAny each_field_any = 
+                        par_cache.GetFieldByFieldEnum(each_elementFieldV3.FieldEnum);
+
                     //Encapsulated 10/17/2019 td  
-                    AddElementFieldToImageV3(each_elementFieldV3, par_imageBadgeCard,
+                    AddElementFieldToImageV3(each_elementFieldV3, each_field_any,
+                           par_imageBadgeCard,
                            gr_Badge, bOutputListOfAllImages, par_listTextImages,
                            par_iRecipientInfo,
                            par_listMessages,
@@ -1471,6 +1480,7 @@ namespace ciBadgeGenerator
 
 
         private void AddElementFieldToImageV3(ClassElementFieldV3 par_elementField,
+                                            ClassFieldAny par_field_any,
                                             Image par_imageBadgeCard,
                                             Graphics par_graphics,
                                             bool pboolReturnListOfImages,
@@ -1616,10 +1626,14 @@ namespace ciBadgeGenerator
             //Jan24 2022 td //if (bElementSuppressed)
             if (structWhyOmittedV2.__Omitted)
             {
+                //Added 5/11/2022 td
+                string strDataEntryText = par_field_any.DataEntryText;
+
                 //Added 11/9/2021 td
                 if (par_listFieldsNotIncluded != null)
                     par_listFieldsNotIncluded.Add(par_elementField.FieldEnum.ToString()
-                        + $"  - (\"{par_elementField.FieldInfo.DataEntryText}\") "
+                        //  + $"  - (\"{par_elementField.FieldInfo.DataEntryText}\") "
+                        + $"  - (\"{strDataEntryText}\") "
                         + " since !IsDisplayedOnBadge_Visibly(). "
                         + structWhyOmittedV1.OmitFieldMsg()
                         + structWhyOmittedV1.OmitElementMsg());

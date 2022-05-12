@@ -2004,10 +2004,12 @@ Public Class ClassDesigner
             ''Added 9/3/2019 thomas d. 
             ''9/17/2019 td''boolIncludeOnBadge = (par_boolLoadingForm And each_element.IsDisplayedOnBadge)
 
-            If (each_elementV3.FieldInfo Is Nothing) Then
+            ''5/11/2022 If (each_elementV3.FieldInfo Is Nothing) Then
+            If (each_elementV3.FieldEnum = EnumCIBFields.Undetermined) Then
                 intUndeterminedField += 1
             Else
-                boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.FieldInfo.IsDisplayedOnBadge)
+                ''5/11/2022 td ''boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.FieldInfo.IsDisplayedOnBadge)
+                boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.Visible)
             End If ''END OF "If (each_element.FieldInfo Is Nothing) Then .... Else ...."
 
             If (Not boolIncludeOnBadge) Then
@@ -2098,7 +2100,8 @@ Public Class ClassDesigner
                                                         mod_oGroupMoveEvents)
 
             ''Moved below. 9/5 td''label_control.Refresh_Master()
-            label_controlV3.Visible = each_elementV3.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
+            ''5/11/2022 td''label_controlV3.Visible = each_elementV3.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
+            label_controlV3.Visible = each_elementV3.Visible ''BL = Badge Layout
             intCountControlsAdded += 1
             label_controlV3.Name = "FieldControl" & CStr(intCountControlsAdded)
 
@@ -2131,7 +2134,8 @@ Public Class ClassDesigner
                 End With ''End of " With each_field.ElementInfo_Base"
             End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
 
-            boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.FieldInfo.IsDisplayedOnBadge)
+            ''5/11/2022 td''boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.FieldInfo.IsDisplayedOnBadge)
+            boolIncludeOnBadge = (par_boolLoadingForm And each_elementV3.Visible)
 
             If (boolIncludeOnBadge) Then
 
@@ -2200,14 +2204,17 @@ Public Class ClassDesigner
         For Each each_elementV4 As ClassElementFieldV4 In par_listElementsV4
 
             ''  Let's track the count of the element per repeated caption, e.g. "#4" to make "Last Name #4". 
-            each_elementV4.CaptionSuffixIfNeeded = dictionaryOfCaptions.AddCaption_GetSuffix(each_elementV4.FieldNm_CaptionText)
+            each_elementV4.CaptionSuffixIfNeeded =
+                dictionaryOfCaptions.AddCaption_GetSuffix(each_elementV4.FieldNameCaptionText)
 
             Dim label_controlV4 As CtlGraphicFieldV4
 
-            If (each_elementV4.FieldInfo Is Nothing) Then
+            ''5/2022 If (each_elementV4.FieldInfo Is Nothing) Then
+            If (each_elementV4.FieldEnum = EnumCIBFields.Undetermined) Then
                 intUndeterminedField += 1
             Else
-                boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.FieldInfo.IsDisplayedOnBadge)
+                ''5/11/2022 boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.FieldInfo.IsDisplayedOnBadge)
+                boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.Visible)
             End If ''END OF "If (each_elementV4.FieldInfo Is Nothing) Then .... Else ...."
 
             If (Not boolIncludeOnBadge) Then
@@ -2266,7 +2273,8 @@ Public Class ClassDesigner
                                     mod_ctlLasttouched,
                                     mod_oGroupMoveEvents)
 
-            label_controlV4.Visible = each_elementV4.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
+            ''5/11/2022 td''label_controlV4.Visible = each_elementV4.FieldInfo.IsDisplayedOnBadge ''BL = Badge Layout
+            label_controlV4.Visible = each_elementV4.Visible ''BL = Badge Layout
             intCountControlsAdded += 1
             label_controlV4.Name = "FieldControl" & CStr(intCountControlsAdded)
 
@@ -2289,7 +2297,8 @@ Public Class ClassDesigner
                 End With ''End of " With each_field.ElementInfo_Base"
             End If ''ENd of "If (0 = each_field.ElementInfo_Base.TopEdge_Pixels) Then"
 
-            boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.FieldInfo.IsDisplayedOnBadge)
+            ''5/11/2022 boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.FieldInfo.IsDisplayedOnBadge)
+            boolIncludeOnBadge = (par_boolLoadingForm And each_elementV4.Visible)
 
             If (boolIncludeOnBadge) Then
 
@@ -2388,10 +2397,12 @@ Public Class ClassDesigner
         ''
         Dim new_linkLabel As New LinkLabel
 
-        If (par_elementFieldV3.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
+        ''5/11/2022''If (par_elementFieldV3.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
+        If (par_elementFieldV3.FieldEnum = EnumCIBFields.Undetermined) Then Exit Sub ''Added 10/13/2019 td
 
         new_linkLabel.Tag = par_elementFieldV3
-        new_linkLabel.Text = par_elementFieldV3.FieldInfo.FieldLabelCaption
+        ''5/11/2022 ''new_linkLabel.Text = par_elementFieldV3.FieldInfo.FieldLabelCaption
+        new_linkLabel.Text = par_elementFieldV3.FieldEnum.ToString()
         FlowFieldsNotListed.Controls.Add(new_linkLabel)
         new_linkLabel.Visible = True
         AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
@@ -2404,9 +2415,11 @@ Public Class ClassDesigner
         ''Added 2/07/2022 td
         ''
         Dim new_linkLabel As New LinkLabel
-        If (par_elementFieldV4.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
+        ''5/2022 If (par_elementFieldV4.FieldInfo Is Nothing) Then Exit Sub ''Added 10/13/2019 td
+        If (par_elementFieldV4.FieldEnum = EnumCIBFields.Undetermined) Then Exit Sub ''Added 10/13/2019 td
         new_linkLabel.Tag = par_elementFieldV4
-        new_linkLabel.Text = par_elementFieldV4.FieldInfo.FieldLabelCaption
+        ''5/2022 new_linkLabel.Text = par_elementFieldV4.FieldInfo.FieldLabelCaption
+        new_linkLabel.Text = par_elementFieldV4.FieldEnum.ToString()
         FlowFieldsNotListed.Controls.Add(new_linkLabel)
         new_linkLabel.Visible = True
         AddHandler new_linkLabel.LinkClicked, AddressOf AddField_LinkClicked
@@ -2427,7 +2440,8 @@ Public Class ClassDesigner
         Dim element_to_add As ClassElementFieldV3 ''Added 9/17/2019 td
         element_to_add = CType(CType(sender, LinkLabel).Tag, ClassElementFieldV3)
         If (element_to_add Is Nothing) Then Exit Sub
-        element_to_add.FieldInfo.IsDisplayedOnBadge = True
+        ''5/11/2022 td''element_to_add.FieldInfo.IsDisplayedOnBadge = True
+        element_to_add.Visible = True
         LoadFieldControl_JustOneV3(element_to_add) ''Modified 9/17/2019 td
 
         FlowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))

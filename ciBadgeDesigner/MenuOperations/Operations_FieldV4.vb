@@ -136,7 +136,8 @@ Public Class Operations_FieldV4
 
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
-        form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
+        ''5/11/2022 form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
+        form_ToShow.JustOneField_Index = GetFieldObjectAny().FieldIndex
 
         ''Added 12/13/2021 thomas downes
         form_ToShow.JustOneField_Any = GetFieldObjectAny() ''5/2022 CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
@@ -171,15 +172,15 @@ Public Class Operations_FieldV4
         ''Can (should) we just show a single field? ''form_ToShow.JustOneField = Me.FieldInfo
         ''10/2/2019 td''form_ToShow.JustOneField_Index = Me.FieldInfo.FieldIndex
         ''5/11/2022 td''par_form_ToShow.JustOneField_Index = CtlCurrentElementFieldV4.FieldInfo.FieldIndex
-        par_form_ToShow.JustOneField_Index = GetFieldAny().FieldIndex
+        par_form_ToShow.JustOneField_Index = GetFieldObjectAny().FieldIndex
 
         ''Added 12/13/2021 thomas downes
         ''5/2022 par_form_ToShow.JustOneField_Any = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectAny
         ''5/2022 par_form_ToShow.JustOneField_Custom = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectCustom
         ''5/2022 par_form_ToShow.JustOneField_Standard = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldObjectStandard
-        par_form_ToShow.JustOneField_Any = GetFieldObjectAny
-        par_form_ToShow.JustOneField_Custom = GetFieldObjectCustom
-        par_form_ToShow.JustOneField_Standard = GetFieldObjectStandard
+        par_form_ToShow.JustOneField_Any = GetFieldObjectAny()
+        par_form_ToShow.JustOneField_Custom = GetFieldObjectCustom()
+        par_form_ToShow.JustOneField_Standard = GetFieldObjectStandard()
 
         ''Added 12/12/2021 td
         ''--form_ToShow.ListOfFields_Custom = MenuCache_ElemFlds.CacheOfFieldsEtc.ListOfFields_Custom
@@ -761,7 +762,11 @@ Public Class Operations_FieldV4
     Private Function GetFieldObjectAny() As ciBadgeFields.ClassFieldAny
 
         ''Added 5/11/2022 thomas downes
-        Me.CacheOfFieldsEtc_Deprecated.GetFieldByFieldEnum(CtlCurrentElementFieldV4.FieldEnum)
+        Dim enumCIBField As EnumCIBFields
+        enumCIBField = CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldEnum
+        With Me.CacheOfFieldsEtc_Deprecated
+            Return .GetFieldByFieldEnum(enumCIBField)
+        End With
 
     End Function
 
@@ -769,7 +774,11 @@ Public Class Operations_FieldV4
     Private Function GetFieldObjectCustom() As ciBadgeFields.ClassFieldCustomized
 
         ''Added 5/11/2022 thomas downes
-        Me.CacheOfFieldsEtc_Deprecated.GetFieldByFieldEnum_Custom(CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldEnum)
+        Dim enumCIBField As EnumCIBFields
+        enumCIBField = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldEnum
+        With Me.CacheOfFieldsEtc_Deprecated
+            Return .GetFieldByFieldEnum_Custom(enumCIBField)
+        End With
 
     End Function
 
@@ -778,7 +787,6 @@ Public Class Operations_FieldV4
 
         ''Added 5/11/2022 thomas downes
         Dim enum_field As EnumCIBFields
-
         enum_field = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldEnum
         With Me.CacheOfFieldsEtc_Deprecated
             Return .GetFieldByFieldEnum_Standard(enum_field)

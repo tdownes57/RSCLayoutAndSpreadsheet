@@ -14,6 +14,7 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 ''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
 ''Imports AutoMapper ''Added 11/17/2021 thomas d. 
+Imports System.Windows.Forms ''Added 5/11/2022
 
 Public Class ClassElementFieldV4
     Inherits ClassElementFieldOrTextV4
