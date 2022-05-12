@@ -157,6 +157,7 @@ Public Class Operations_Background
     ''    Me.Designer.BackgroundBox_Front.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
     ''End Sub ''End of "Public Sub Change_Background_Image()"
 
+
     Public Sub Select_background_image_EB100(sender As Object, e As EventArgs)
         ''
         ''Added 10/15/2019 td
@@ -164,19 +165,32 @@ Public Class Operations_Background
         ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
-        Dim open_image As Bitmap ''Added 10/15/2019 thomas d. 
-        Dim strFullPathToBitmap As String
+        Me.DesignerClass.BackgroundImage_Select()
 
-        If OpenFileDialog1 Is Nothing Then OpenFileDialog1 = New OpenFileDialog
-        OpenFileDialog1.ShowDialog()
-        strFullPathToBitmap = OpenFileDialog1.FileName
+        ''Dim open_image As Bitmap ''Added 10/15/2019 thomas d. 
+        ''Dim strFullPathToBitmap As String
 
-        If ("" <> strFullPathToBitmap) Then
-            open_image = New Bitmap(strFullPathToBitmap)
-            Me.DesignerClass.BackgroundBox_Front.Image = open_image
-        End If ''End of "If ("" = strFullPathToBitmap) Then"
+        ''If OpenFileDialog1 Is Nothing Then OpenFileDialog1 = New OpenFileDialog
+        ''OpenFileDialog1.ShowDialog()
+        ''strFullPathToBitmap = OpenFileDialog1.FileName
 
-    End Sub ''End of "Public Sub Change_Background_Image()"
+        ''If ("" <> strFullPathToBitmap) Then
+        ''    open_image = New Bitmap(strFullPathToBitmap)
+        ''    Me.DesignerClass.BackgroundBox_Front.Image = open_image
+        ''End If ''End of "If ("" = strFullPathToBitmap) Then"
+
+    End Sub ''End of "Public Sub Select_background_image_EB100()"
+
+    Public Sub Upload_background_image_EB103(sender As Object, e As EventArgs)
+        ''
+        ''Added 10/15/2019 td
+        ''       
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_Generic_Partial.Generate_BasicEdits().)
+        ''
+        Me.DesignerClass.BackgroundImage_Upload()
+
+    End Sub ''End of "Public Sub Upload_background_image_EB103()"
 
 
     ''Public Sub How_Context_Menus_Are_Generated_EB9001(sender As Object, e As EventArgs)

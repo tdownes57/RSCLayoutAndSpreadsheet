@@ -2797,6 +2797,15 @@ ExitHandler:
         ''bConfirmFileExists = System.IO.File.Exists(OpenFileDialog1.FileName)
         ''If (Not bConfirmFileExists) Then Return
 
+        ''Encapsulated 5/12/2022 td
+        BackgroundImage_Upload()
+
+    End Sub
+
+    Public Sub BackgroundImage_Upload() Implements IDesignerForm.BackgroundImage_Upload
+        ''
+        ''Encapsulated 5/12/2022 td
+        ''
         Dim objShow As New FormUploadBackground
         '' 12/3/2021 td''objShow.Show()
         objShow.ShowDialog()
@@ -2828,7 +2837,8 @@ ExitHandler:
 
         End If ''End of "If (objShow.Selected) Then"
 
-    End Sub
+    End Sub ''End of ""Public Sub BackgroundImage_Upload()""
+
 
     Private Sub SelectFromExistingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectFromExistingToolStripMenuItem.Click
         ''
@@ -2836,6 +2846,15 @@ ExitHandler:
         ''
         ''
         ''Added 11/25/2021 td
+        ''
+        BackgroundImage_Select()
+
+    End Sub
+
+    Public Sub BackgroundImage_Select() Implements IDesignerForm.BackgroundImage_Select
+        ''
+        ''Encapsulated 5/12/2022 td
+        ''Program code written 11/25/2021 td
         ''
         Dim objShow As New FormListBackgrounds
         objShow.ShowDialog()
@@ -2873,7 +2892,8 @@ ExitHandler:
 
         End If ''If (objShow.ImageFileInfo IsNot Nothing) Then
 
-    End Sub
+    End Sub ''End of ""Public Sub BackgroundImage_Select""
+
 
     Private Sub UploadBackgroundToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UploadBackgroundToolStripMenuItem.Click
         ''

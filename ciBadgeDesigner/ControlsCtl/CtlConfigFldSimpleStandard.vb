@@ -204,7 +204,7 @@ ExitHandler:
                 ''objFontStyle.Underline = True
                 .Font = New Drawing.Font(.Font, Drawing.FontStyle.Underline Or
                                                Drawing.FontStyle.Bold)
-                .Text = "Relevant!" ''Added 5/12/2022
+                .Text = "Relevant ...yes" ''Added 5/12/2022
 
             Else
 

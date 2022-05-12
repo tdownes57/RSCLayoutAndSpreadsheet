@@ -3856,6 +3856,22 @@ Public Class ClassDesigner
     End Sub
 
 
+    Public Sub BackgroundImage_Select()
+
+        ''Added 5/12/2022 td
+        Me.DesignerForm_Interface.BackgroundImage_Select()
+
+    End Sub ''End of ""Public Sub BackgroundImage_Select()""
+
+
+    Public Sub BackgroundImage_Upload()
+
+        ''Added 5/12/2022 td
+        Me.DesignerForm_Interface.BackgroundImage_Upload()
+
+    End Sub ''End of ""Public Sub BackgroundImage_Upload()""
+
+
     Private Sub ElementField_Clicked(par_control As CtlGraphicFieldV3)
         ''
         ''Added 10/1/2019 thomas d.

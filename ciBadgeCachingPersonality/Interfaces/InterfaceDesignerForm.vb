@@ -30,6 +30,11 @@ Namespace ciBadgeCachePersonality
         ''Added 1/26/2022 thomas downes
         Sub ProceedToBackSide_SetupBacksideLabels()
 
+        ''Added 5/12/2022 td
+        Sub BackgroundImage_Select()
+        Sub BackgroundImage_Upload()
+
+
     End Interface
 
 End Namespace
