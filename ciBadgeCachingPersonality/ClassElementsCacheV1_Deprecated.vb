@@ -68,6 +68,10 @@ Namespace ciBadgeCachePersonality
         ''Added 12/12/2021 Thomas Downes
         Public Property BadgeHasTwoSidesOfCard As Boolean ''Added 12/12/2021 td  
 
+        ''Added 5/11/2022 Thomas Downes
+        Public Property UserHasDeletedElements As Boolean ''Added 5/11/2022 td  
+
+
         ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
 
         ''10/17/2019 td''Private mod_listFields_Standard As New List(Of ClassFieldStandard) ''Added 10/14/2019 td  
@@ -1612,6 +1616,10 @@ Namespace ciBadgeCachePersonality
             ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
             For Each each_field As ClassFieldAny In Me.ListOfFields_SC_Any()
 
+                ''Added 5/11/2022 td
+                ''  Only relevant fields. 
+                If (Not each_field.IsRelevantToPersonality) Then Continue For
+
                 ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
 
                 ''Added 9/16/2019 td  
@@ -1683,7 +1691,7 @@ Namespace ciBadgeCachePersonality
         End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As Image)"
 
 
-        Public Sub LoadNewElement_Field(par_enumField As EnumCIBFields,
+        Public Sub LoadNewElement_FieldV3(par_enumField As EnumCIBFields,
                                         par_intLeft_Pixels As Integer,
                                         par_intTop_Pixels As Integer,
                                         par_layout As BadgeLayoutClass,
@@ -1717,7 +1725,39 @@ Namespace ciBadgeCachePersonality
                 mod_listElementFields_FrontV3.Add(new_elementField)
             End If
 
-        End Sub ''End of ""Public Sub LoadNewElement_Field()""
+        End Sub ''End of ""Public Sub LoadNewElement_FieldV3()""
+
+
+        Public Sub LoadNewElement_FieldV4(par_enumField As EnumCIBFields,
+                                        par_intLeft_Pixels As Integer,
+                                        par_intTop_Pixels As Integer,
+                                        par_layout As BadgeLayoutClass,
+                  Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+            ''
+            ''Added 5/11/2022 thomas downes
+            ''
+            Dim obj_field As ClassFieldAny
+            Dim new_elementField As ClassElementFieldV4 ''Added 9/18/2019 td
+            Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
+
+            obj_field = GetFieldByFieldEnum(par_enumField)
+
+            new_elementField = New ClassElementFieldV4(obj_field,
+                                    par_intLeft_Pixels,
+                                    par_intTop_Pixels,
+                                    c_intHeight_Pixels)
+
+            new_elementField.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
+            new_elementField.BadgeLayout = par_layout
+            new_elementField.DatetimeUpdated = DateTime.Now
+
+            If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then
+                mod_listElementFields_BacksideV4.Add(new_elementField)
+            Else
+                mod_listElementFields_FrontV4.Add(new_elementField)
+            End If
+
+        End Sub ''End of ""Public Sub LoadNewElement_FieldV4()""
 
 
         Public Sub LoadNewElement_Pic(par_intLeft As Integer, par_intTop As Integer,

@@ -127,10 +127,22 @@
     <Compile Include="ControlsCtl\CtlConfigFldCustRelevancy.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsCtl\CtlConfigFldSimpleCustom.Designer.vb">
+      <DependentUpon>CtlConfigFldSimpleCustom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlConfigFldSimpleCustom.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsCtl\CtlConfigFldStandard.designer.vb">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
     </Compile>
     <Compile Include="ControlsCtl\CtlConfigFldStandard.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlConfigFldSimpleStandard.Designer.vb">
+      <DependentUpon>CtlConfigFldSimpleStandard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlConfigFldSimpleStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlsCtl\CtlGraphicBackground.Designer.vb">
@@ -462,9 +474,15 @@
       <DependentUpon>CtlConfigFldCustRelevancy.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ControlsCtl\CtlConfigFldSimpleCustom.resx">
+      <DependentUpon>CtlConfigFldSimpleCustom.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldStandard.resx">
       <DependentUpon>CtlConfigFldStandard.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsCtl\CtlConfigFldSimpleStandard.resx">
+      <DependentUpon>CtlConfigFldSimpleStandard.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlGraphicBackground.resx">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>

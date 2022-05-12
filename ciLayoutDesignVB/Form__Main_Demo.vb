@@ -1638,6 +1638,7 @@ Public Class Form__Main_Demo
 
     End Sub
 
+
     Private Sub ShowFieldsToEdit_Custom()
         ''
         ''Encapsulated 12/6/2021 thomas downes
@@ -1654,6 +1655,26 @@ Public Class Form__Main_Demo
         pictureJustAButton.SendToBack() ''Added 1/21/2022 td
 
     End Sub
+
+
+    Private Sub ShowFieldsToEdit_AnySC()
+        ''
+        ''Added 5/11/2022 thomas downes
+        ''
+        ''SC = Standard & Custom 
+        ''
+        Const c_boolDebugMode As Boolean = True ''Added 12/6/2021 td 
+
+        ''Major call !!
+        modAllowFieldEdits.ShowFieldsToEdit_AnySC(Me.ElementsCache_ManageBoth,
+                                                  Me.ElementsCache_Edits, c_boolDebugMode)
+
+        ''Refresh the form.  
+        RefreshTheSetOfDisplayedElements(False)
+        pictureBackgroundFront.SendToBack()
+        pictureJustAButton.SendToBack() ''Added 1/21/2022 td
+
+    End Sub ''End of ""Private Sub ShowFieldsToEdit_AnySC()""
 
 
     Private Sub ShowFieldsToEdit_Custom_Deprecated()
@@ -3400,6 +3421,14 @@ ExitHandler:
         ''
         ''Added 5/4/2022 td
         ''
+        Dim objFormToShowFE As New FormFieldsVsElements
+        objFormToShowFE.ShowDialog()
+        If (objFormToShowFE.DialogResult = DialogResult.Cancel) Then Exit Sub
+        If (objFormToShowFE.AddFields) Then
+            ShowFieldsToEdit_AnySC()
+            Exit Sub
+        End If ''End of ""If (objFormToShowFE.AddFields) Then""
+
         Dim boolAddField1 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
         Dim boolAddField2 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
         Dim boolAddField3 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
@@ -3493,6 +3522,13 @@ ExitHandler:
         RefreshCardPreview()
 
     End Sub ''Handles ButtonAddElements_Click"
+
+    Private Sub BothStandardCustomToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BothStandardCustomToolStripMenuItem.Click
+
+        ''Added 5/11/2022 thomas downes
+        ShowFieldsToEdit_AnySC()
+
+    End Sub
 
 
     ''Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordLastTouched.RecordElementLastTouched

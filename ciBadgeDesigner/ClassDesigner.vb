@@ -612,14 +612,14 @@ Public Class ClassDesigner
         End If ''end of "If (boolMissingAnyFields) Then"
 
         Dim boolMissingAnyFieldElements As Boolean ''Added 10/10/2019 td 
-        boolMissingAnyFieldElements = (Me.ElementsCache_UseEdits.MissingTheElementFields())
-        If (boolMissingAnyFieldElements) Then
-            ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
-            Me.ElementsCache_UseEdits.LoadFieldElements(Me.BackgroundBox_Front, Me.BadgeLayout_Class)
-        End If ''end of "If (boolMissingAnyFields) Then"
-
-
-
+        With Me.ElementsCache_UseEdits
+            boolMissingAnyFieldElements = (.MissingTheElementFields()) And
+                     (Not .UserHasDeletedElements)
+            If (boolMissingAnyFieldElements) Then
+                ''10/1/2019 td''Me.ElementsCache_Saved.LoadFieldElements(Me.BackgroundBox)
+                .LoadFieldElements(Me.BackgroundBox_Front, Me.BadgeLayout_Class)
+            End If ''End of "If (boolMissingAnyFields) Then"
+        End With ''End of ""With Me.ElementsCache_UseEdits""
 
         ''
         ''Major call!!  
@@ -906,13 +906,13 @@ Public Class ClassDesigner
         ''        Number generator and determining pixel position. 
         ''        --5/6/2022 thomas d.
         ''
-        Me.ElementsCache_UseEdits.LoadNewElement_Field(par_enumField,
+        Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
                              intPicLeft, intPicTop,
                              Me.BadgeLayout_Class,
                              EnumSideOfCard_Current)
         ''                   ''intPicWidth, intPicHeight,
 
-    End Sub ''End of ""Public Sub Load_NewElement_PortraitPic()""
+    End Sub ''End of ""Public Sub Load_NewElement_Field()""
 
 
 
@@ -2805,7 +2805,7 @@ Public Class ClassDesigner
             ''Major call !!
             ''
             obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
-                               par_objMakeBadgeElements,
+                               par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
                                Me.PreviewBox.Width,
                                Me.PreviewBox.Height,
                                par_recipient,
@@ -3038,7 +3038,7 @@ Public Class ClassDesigner
             ''Major call !!
             ''
             obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
-                               objMakeBadgeElements,
+                               objMakeBadgeElements, Me.ElementsCache_UseEdits,
                                Me.PreviewBox.Width,
                                Me.PreviewBox.Height,
                                par_recipient,

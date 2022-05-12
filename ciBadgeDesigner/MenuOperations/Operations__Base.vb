@@ -141,6 +141,8 @@ Public MustInherit Class Operations__Base
             ''Remove the control.  
             Me.CtlCurrentForm.Controls.Remove(CtlCurrentControl)
             Me.InfoRefresh.RefreshCardPreview() ''Added 5/10/2022 td
+            ''Added 5/11/2022 td 
+            Me.ElementsCacheManager.CacheForEditing.UserHasDeletedElements = True
 
         Else
             ''Added 1/21/2022 td 

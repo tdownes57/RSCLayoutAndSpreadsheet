@@ -12,6 +12,7 @@ Module modAllowFieldEdits
         Undefined
         Standard
         Custom
+        Any_Either ''Aded 5/11/2022 td
     End Enum
 
     Public Sub ShowFieldsToEdit_Standard(par_ElementsCache_Manage As ClassCacheManagement,
@@ -20,12 +21,14 @@ Module modAllowFieldEdits
         ''
         ''Encapsulated 12/6/2021 thomas downes
         ''
-        ShowFieldsToEdit_Either(par_ElementsCache_Manage,
+        ''5/11/2022 ---ShowFieldsToEdit_Either(par_ElementsCache_Manage,
+        ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage,
                                 par_ElementsCache_Edits,
                                 par_boolDebugMode,
                                 EnumStandardCustom.Standard)
 
     End Sub
+
 
     Public Sub ShowFieldsToEdit_Custom(par_ElementsCache_Manage As ClassCacheManagement,
                                         par_ElementsCache_Edits As ClassElementsCache_Deprecated,
@@ -33,14 +36,30 @@ Module modAllowFieldEdits
         ''
         ''Encapsulated 12/6/2021 thomas downes
         ''
-        ShowFieldsToEdit_Either(par_ElementsCache_Manage,
+        ''5/11/2022 ---ShowFieldsToEdit_Either(par_ElementsCache_Manage,
+        ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage,
                                 par_ElementsCache_Edits,
                                 par_boolDebugMode,
                                 EnumStandardCustom.Custom)
 
     End Sub
 
-    Private Sub ShowFieldsToEdit_Either(par_ElementsCache_Manage As ClassCacheManagement,
+
+    Public Sub ShowFieldsToEdit_AnySC(par_ElementsCache_Manage As ClassCacheManagement,
+                                        par_ElementsCache_Edits As ClassElementsCache_Deprecated,
+                                        par_boolDebugMode As Boolean)
+        ''
+        ''Encapsulated 5/11/2022 thomas downes
+        ''
+        ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage,
+                                par_ElementsCache_Edits,
+                                par_boolDebugMode,
+                                EnumStandardCustom.Any_Either)
+
+    End Sub ''End of Public Sub ShowFieldsToEdit_AnySC
+
+
+    Private Sub ShowFieldsToEdit_PerEnumValue(par_ElementsCache_Manage As ClassCacheManagement,
                                         par_ElementsCache_Edits As ClassElementsCache_Deprecated,
                                         par_boolDebugMode As Boolean,
                                         par_enumType As EnumStandardCustom)
@@ -51,14 +70,25 @@ Module modAllowFieldEdits
         Dim boolOkayToSave As Boolean ''Added 12/6/2021 
         Dim boolStandard As Boolean = (par_enumType = EnumStandardCustom.Standard)
         Dim bool__Custom As Boolean = (par_enumType = EnumStandardCustom.Custom)
+        ''Added 5/11/2022 thomas  
+        Dim bool__Either As Boolean = (par_enumType = EnumStandardCustom.Any_Either)
 
+        ''
+        ''Allow the user (or tester/programmer) to loop twice
+        ''   (to confirm edits are saved).
+        ''
         For intReview As Integer = 1 To 2
 
             ''--Dim frm_ToShow_AllCustomFields As New ListCustomFieldsFlow()
-            Dim frm_ToShowFields As InterfaceShowListFields ''ListCustomFieldsFlow()
+            ''5/11/2022 ''Dim frm_ToShowFields As InterfaceShowListFields = Nothing ''ListCustomFieldsFlow()
+            Dim frm_ToShowFields As ciBadgeDesigner.InterfaceShowListFields = Nothing ''ListCustomFieldsFlow()
 
-            If (boolStandard) Then frm_ToShowFields = New DialogListStandardFields
-            If (bool__Custom) Then frm_ToShowFields = New ListCustomFieldsFlow
+            ''If (boolStandard) Then frm_ToShowFields = New DialogListStandardFields
+            ''If (bool__Custom) Then frm_ToShowFields = New ListCustomFieldsFlow
+            ''If (bool__Either) Then frm_ToShowFields = New DialogListBothTypeFields
+            If (boolStandard) Then frm_ToShowFields = New ciBadgeDesigner.DialogListStandardFields
+            If (bool__Custom) Then frm_ToShowFields = New ciBadgeDesigner.DialogListCustomFields
+            If (bool__Either) Then frm_ToShowFields = New ciBadgeDesigner.DialogListBothTypeFields
 
             ''Dim each_field As ciBadgeFields.ClassFieldCustomized
             ''Dim each_element As ciBadgeElements.ClassElementField

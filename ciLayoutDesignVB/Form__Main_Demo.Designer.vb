@@ -130,6 +130,7 @@ Partial Class Form__Main_Demo
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonAddElementsV = New System.Windows.Forms.Button()
         Me.ButtonAddElementsH = New System.Windows.Forms.Button()
+        Me.BothStandardCustomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -232,21 +233,21 @@ Partial Class Form__Main_Demo
         '
         'ConfigurationOfFieldsEtcToolStripMenuItem
         '
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem})
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardFieldsToolStripMenuItem, Me.CustomFieldsToolStripMenuItem, Me.BothStandardCustomToolStripMenuItem})
         Me.ConfigurationOfFieldsEtcToolStripMenuItem.Name = "ConfigurationOfFieldsEtcToolStripMenuItem"
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(165, 19)
-        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Configuration of Fields, Etc."
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Size = New System.Drawing.Size(76, 19)
+        Me.ConfigurationOfFieldsEtcToolStripMenuItem.Text = "Data Fields"
         '
         'StandardFieldsToolStripMenuItem
         '
         Me.StandardFieldsToolStripMenuItem.Name = "StandardFieldsToolStripMenuItem"
-        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
+        Me.StandardFieldsToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.StandardFieldsToolStripMenuItem.Text = "Standard Fields"
         '
         'CustomFieldsToolStripMenuItem
         '
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
-        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(154, 22)
+        Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
         '
         'DesignLayoutToolStripMenuItem
@@ -1050,6 +1051,12 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH.TabIndex = 93
         Me.ButtonAddElementsH.UseVisualStyleBackColor = False
         '
+        'BothStandardCustomToolStripMenuItem
+        '
+        Me.BothStandardCustomToolStripMenuItem.Name = "BothStandardCustomToolStripMenuItem"
+        Me.BothStandardCustomToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
+        Me.BothStandardCustomToolStripMenuItem.Text = "Both Standard && Custom"
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1235,4 +1242,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonAddElementsV As Button
     Friend WithEvents ButtonAddElementsH As Button
+    Friend WithEvents BothStandardCustomToolStripMenuItem As ToolStripMenuItem
 End Class
