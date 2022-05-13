@@ -319,7 +319,7 @@ Namespace ciBadgeCachePersonality
 
             Return objSide
 
-        End Function ''End of "Public Function GetBadgeSideLayout"
+        End Function ''End of "Public Function GetAllBadgeSideLayoutElements"
 
 
         Public Function ListOfFields_SC_Any() As List(Of ClassFieldAny)
@@ -1716,7 +1716,8 @@ Namespace ciBadgeCachePersonality
                                         par_intLeft_Pixels As Integer,
                                         par_intTop_Pixels As Integer,
                                         par_layout As BadgeLayoutClass,
-                  Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+                                        par_enumSide As EnumWhichSideOfCard,
+                       Optional par_newElementFieldV3 As ClassElementFieldV3 = Nothing)  '' = EnumWhichSideOfCard.EnumFrontside)
             ''
             ''Added 5/6/2022 thomas downes
             ''
@@ -1726,7 +1727,26 @@ Namespace ciBadgeCachePersonality
             Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
             Dim intTop_Pixels As Integer ''Added 9/18/2019 td
             Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
+            Dim intCountElements_Before As Integer = 0 ''Added 5/12/2022 td
+            Dim intCountElements_After As Integer = 0 ''Added 5/12/2022 td
 
+            ''
+            ''Part 1 of 5.  Get the "Before" count.
+            ''
+            ''Added 5/12/2022 td
+            If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then
+                ''Count the backside field elements. 
+                intCountElements_Before = mod_listElementFields_BacksideV3.Count ''--- +
+                '-------------------------mod_listElementFields_BacksideV4.Count
+            Else
+                ''Count the frontside field elements. 
+                intCountElements_Before = mod_listElementFields_FrontV3.Count ''--- +
+                '-------------------------mod_listElementFields_FrontV4.Count
+            End If
+
+            ''
+            ''Part 2 of 5.  Do the work of creating the new element.
+            ''
             obj_field = GetFieldByFieldEnum(par_enumField)
 
             ''----intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
@@ -1739,12 +1759,38 @@ Namespace ciBadgeCachePersonality
             new_elementField.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
             new_elementField.BadgeLayout = par_layout
             new_elementField.DatetimeUpdated = DateTime.Now
+            par_newElementFieldV3 = new_elementField ''Added 5/12/2022 
 
+            ''
+            ''Part 3 of 5.  Do the work of adding the new element to the list of elements.
+            ''
             If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then
                 mod_listElementFields_BacksideV3.Add(new_elementField)
             Else
                 mod_listElementFields_FrontV3.Add(new_elementField)
             End If
+
+            ''
+            ''Part 4 of 5.  Count the number of items in the list, for the "After" count.
+            ''
+            If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then
+                ''Count the backside field elements. 
+                intCountElements_After = mod_listElementFields_BacksideV3.Count ''--- +
+                '-------------------------mod_listElementFields_BacksideV4.Count
+            Else
+                ''Count the frontside field elements. 
+                intCountElements_After = mod_listElementFields_FrontV3.Count ''--- +
+                '-------------------------mod_listElementFields_FrontV4.Count
+            End If
+
+            ''
+            ''Compare the Before & After counts.  
+            ''
+            Dim intCountDifference As Integer
+            intCountDifference = (intCountElements_After - intCountElements_Before)
+            If (intCountDifference = 0) Then
+                System.Diagnostics.Debugger.Break()
+            End If ''End of""If (intCountDifference = 0) Then""
 
         End Sub ''End of ""Public Sub LoadNewElement_FieldV3()""
 
@@ -1773,10 +1819,19 @@ Namespace ciBadgeCachePersonality
             new_elementField.DatetimeUpdated = DateTime.Now
 
             If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then
+                ''
+                ''Back side of card. 
+                ''
+                new_elementField.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside
                 mod_listElementFields_BacksideV4.Add(new_elementField)
             Else
+                ''
+                ''Front side of card. 
+                ''
+                new_elementField.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
                 mod_listElementFields_FrontV4.Add(new_elementField)
-            End If
+
+            End If ''End of ""If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then... Else ....""
 
         End Sub ''End of ""Public Sub LoadNewElement_FieldV4()""
 

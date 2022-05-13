@@ -26,6 +26,7 @@ Public Class RSCFieldColumnV2
     ''Added 5/01/2022 td''Public ListRecipients As IEnumerable(Of ClassRecipient) ''Added 3/22/2022 td
     Public ListRecipients As List(Of ClassRecipient) ''Added 3/22/2022 td
     Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 td
+    Public FocusRelated_UserHasSelectedColumn As Boolean ''Added 5/13/2022 td  
 
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
     ''April 13 2022 ''Private mod_columnWidthAndData As ClassColumnWidthAndData_NotInUse ''Added 3/18/2022  
@@ -487,6 +488,44 @@ Public Class RSCFieldColumnV2
 
     End Function ''End of ""Public Function GetIndexOfColumn() As Integer""
 
+
+    Public Function FocusRelated_HasFocus() As Boolean
+        ''---5/13/2022 Public Function HasFocus() 
+        ''
+        ''Added 5/13/2022 td
+        ''
+        Dim each_boolHasFocus As Boolean ''Added 4/30/2022 td
+        ''boolHasFocus = Textbox1a.Focused
+        Dim each_RSCDataCell As RSCDataCell
+
+        ''
+        ''Looping to check for focus. 
+        ''
+        For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+
+            each_boolHasFocus = (each_RSCDataCell.HasFocus())
+            If (each_boolHasFocus) Then Return True
+
+        Next each_RSCDataCell
+
+        ''Added 5/13/2022 thomas downes
+        Return Me.FocusRelated_UserHasSelectedColumn
+
+    End Function ''End of ""Public Function FocusRelated_HasFocus() As Boolean""  
+
+
+    Public Sub Handle_CellHasFocus(sender As Object, e As EventArgs)
+        ''
+        ''Added 5/13/2022 
+        ''
+        ''Added 5/13/2022 td 
+        Me.ParentSpreadsheet.ClearHighlightingOfSelectedColumns()
+        Me.FocusRelated_UserHasSelectedColumn = True
+        Me.FocusRelated_SetHighlightingOn()
+
+    End Sub ''End of ""Public Sub Handle_CellHasFocus""
+
+
     Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumnV2)
         ''
         ''Added 4/1/2022 thomas 
@@ -714,7 +753,41 @@ Public Class RSCFieldColumnV2
 
         End If ''End of "If (bExpectedLength) Then..... ElseIf (...) ... Else...."
 
-    End Sub ''End of "Private Sub ClearDataFromColumn_Undo()"
+    End Sub ''End of "Public Sub ClearDataFromColumn_Undo()"
+
+
+    Public Sub PasteDataFromClipboard()
+        ''
+        ''Added 5/13/2022 td 
+        ''
+        Dim objFirstCell As RSCDataCell
+        Dim boolHasDataAlready As Boolean
+        Dim boolUserConfirmedPaste As Boolean
+
+        objFirstCell = GetFirstRSCDataCell()
+        With objFirstCell
+
+            boolHasDataAlready = (Not String.IsNullOrWhiteSpace(.Text_CellValue))
+            If (boolHasDataAlready) Then
+
+                boolUserConfirmedPaste = MessageBoxTD.Show_Confirmed("Overwrite existing data?", "", False)
+
+            Else
+                boolUserConfirmedPaste = True ''Force to True, since we don't anticipate
+                ''  any problems of overwriting data, as no data has been detected. 
+
+            End If ''End of ""If (boolHasDataAlready) Then""
+
+            If (boolUserConfirmedPaste) Then
+                ''Major call!! 
+                .PasteDataFromClipboard(boolUserConfirmedPaste)
+
+            End If ''end of ""If (boolUserConfirmedPaste) Then""
+
+
+        End With
+
+    End Sub ''End of ""Public Sub PasteDataFromClipboard()""
 
 
     Public Function CountOfRows() As Integer
@@ -1026,8 +1099,16 @@ Public Class RSCFieldColumnV2
         boolNoRecipients_zero = (0 = intCountRecipients)
         If (boolNoRecipients_zero) Then
             pref_bNoRecipientList = True
-            Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")
-            Return
+            Const c_boolAllowForBlankSlate As Boolean = True
+            If (c_boolAllowForBlankSlate) Then
+                ''Allow the user to start from scratch.  We are NOT(!) supplying
+                ''  the user with a list of hard-coded (fake) recipients.
+                ''  ----5/13/2022 td
+            Else
+                ''Throw an error. Where in heck is the list of fake hard-coded recipients? 
+                Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")
+                Return
+            End If ''ENd of ""If (c_boolAllowForBlankSlate) Then... Else..."
         End If ''ENd of ""If (boo lNoRecipients_zero) Then""
 
         ''
@@ -1863,6 +1944,24 @@ Public Class RSCFieldColumnV2
 
     End Sub ''End of ""Public Sub Load_EmptyRows_CreateRows()""
 
+    Public Sub FocusRelated_SetHighlightingOn()
+        ''
+        ''Added 5/13/2022 
+        ''
+        ''----Me.BackColor = RSCDataCell.BackColor_WithCellFocus
+        Me.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+
+    End Sub ''End of ""Public Sub FocusRelated_SetHighlightingOn()""
+
+
+    Public Sub FocusRelated_SetHighlightingOff()
+        ''
+        ''Added 5/13/2022 
+        ''
+        Me.BackColor = RSCDataCell.BackColor_NoEmphasis
+
+    End Sub ''End of ""Public Sub FocusRelated_SetHighlightingOff()""
+
 
     Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
                                    par_intRowIndex_End As Integer,
@@ -1925,7 +2024,7 @@ Public Class RSCFieldColumnV2
                 each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
                 ''each_cell.BackColor = Color.LightGray
                 ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
-                each_cell.BackColor = RSCDataCell.Backcolor_WithEmphasisOnRow
+                each_cell.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
             End If ''End of "If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then"
 
         Next intRowIndex
@@ -1944,7 +2043,7 @@ Public Class RSCFieldColumnV2
                     each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
                     ''each_cell.BackColor = Color.White
                     ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
-                    each_cell.BackColor = RSCDataCell.Backcolor_NoEmphasis
+                    each_cell.BackColor = RSCDataCell.BackColor_NoEmphasis
                 Next intRowIndex
             End If ''End of ""If (par_intRowIndex_Start > 1) Then""
 
@@ -1961,7 +2060,7 @@ Public Class RSCFieldColumnV2
                     ''each_cell.BackColor = Color.White
                     ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
                     ''///each_cell.BackColor = CellsBackcolor_NoEmphasis
-                    each_cell.BackColor = RSCDataCell.Backcolor_NoEmphasis
+                    each_cell.BackColor = RSCDataCell.BackColor_NoEmphasis
                 Next intRowIndex
             End If ''end of If (intRowIndex_End < intRowIndexMaximum) Then
 
@@ -2185,6 +2284,11 @@ Public Class RSCFieldColumnV2
     End Sub
 
     Private Sub RSCFieldColumn_MouseUp(par_sender As Object, par_e As MouseEventArgs) Handles MyBase.MouseUp
+
+        ''Added 5/13/2022 td 
+        Me.ParentSpreadsheet.ClearHighlightingOfSelectedColumns()
+        Me.FocusRelated_UserHasSelectedColumn = True
+        Me.FocusRelated_SetHighlightingOn()
 
         ''Added 3/11/2022 thomas downes
         If mod_bHandleMouseMoveEvents_ByVB6 Then

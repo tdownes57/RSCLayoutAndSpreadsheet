@@ -81,11 +81,23 @@
     <Compile Include="ClassFieldCache.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="ClassCacheListRecipients.vb" />
+    <Compile Include="MinorClasses\FormSpecialButton.Designer.vb">
+      <DependentUpon>FormSpecialButton.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MinorClasses\FormSpecialButton.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV2.vb" />
     <Compile Include="MinorClasses\FormHowMany.Designer.vb">
       <DependentUpon>FormHowMany.vb</DependentUpon>
     </Compile>
     <Compile Include="MinorClasses\FormHowMany.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MinorClasses\FormMessageLongform.Designer.vb">
+      <DependentUpon>FormMessageLongform.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MinorClasses\FormMessageLongform.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MinorClasses\FormTextEditor.Designer.vb">
@@ -131,8 +143,14 @@
     <Compile Include="PersonalityCache_NotInUse.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MinorClasses\FormSpecialButton.resx">
+      <DependentUpon>FormSpecialButton.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MinorClasses\FormHowMany.resx">
       <DependentUpon>FormHowMany.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MinorClasses\FormMessageLongform.resx">
+      <DependentUpon>FormMessageLongform.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MinorClasses\FormTextEditor.resx">
       <DependentUpon>FormTextEditor.vb</DependentUpon>

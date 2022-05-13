@@ -193,11 +193,84 @@ Public Module ModEnumsAndStructs
         Dim enum_item As EnumCIBFields
         For Each enum_item In arrayEnumItems
             objList.Add(enum_item)
-        Next
+        Next enum_item
 
         Return objList
 
-    End Function
+    End Function ''End of ""Public Function GetListOfAllFieldEnums() As List(Of EnumCIBFields)""
+
+
+    Public Function GetListOfAllFieldEnums_Relevant(par_allFieldInfos As List(Of ICIBFieldStandardOrCustom)) _
+                                 As List(Of EnumCIBFields)
+        ''
+        ''Added 5/5/2022 td
+        ''
+        ''As currently written (5.5.2022) this will likely produce a run-time error. 
+        ''
+        Dim objList As New List(Of EnumCIBFields)
+
+        ''objList = new List(Of EnumCIBFields)
+        ''For intIndex = 0 To 1000
+        ''
+        ''    objList.Add(CType(intIndex, EnumCIBFields))
+        ''
+        ''Next intIndex
+
+        ''https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/constants-enums/how-to-iterate-through-an-enumeration
+        ''To iterate through an enumeration
+        ''Declare an array And convert the enumeration to it with the GetValues method before passing the array as you would any other variable. The following example displays each member of the enumeration FirstDayOfWeek as it iterates through the enumeration.()
+        ''
+        ''    Dim items As Array
+        ''    items = System.Enum.GetValues(GetType(FirstDayOfWeek))
+        ''    Dim item As String
+        ''    For Each item In items
+        ''       MsgBox(item)
+        ''    Next
+
+        Dim arrayEnumItems As Array
+        arrayEnumItems = System.Enum.GetValues(GetType(EnumCIBFields))
+        Dim enum_item As EnumCIBFields
+        Dim each_infoField As ICIBFieldStandardOrCustom ''Added 5/13/2022 td
+        Dim each_matchingFieldInfo As ICIBFieldStandardOrCustom ''Added 5/13/2022 td
+        Dim boolMatchesEnum As Boolean
+
+        ''
+        ''Loop through all of the array items. 
+        ''
+        For Each enum_item In arrayEnumItems
+
+            each_matchingFieldInfo = Nothing ''Reinitialize. 
+
+            ''
+            ''Find the relevant field information (interface). 
+            ''
+            For Each each_infoField In par_allFieldInfos
+
+                boolMatchesEnum = (each_infoField.FieldEnumValue = enum_item)
+                If (boolMatchesEnum) Then
+                    each_matchingFieldInfo = each_infoField
+                    Exit For
+                End If
+
+            Next each_infoField
+
+            ''
+            ''If relevant, add it to the output list. 
+            ''
+            If (each_matchingFieldInfo IsNot Nothing) Then
+                If (each_matchingFieldInfo.IsRelevantToPersonality) Then
+                    objList.Add(enum_item)
+                End If
+            End If
+
+        Next enum_item
+
+        ''
+        ''ExitHandler 
+        ''
+        Return objList
+
+    End Function ''End of ""Public Function GetListOfAllFieldEnums() As List(Of EnumCIBFields)""
 
 
 

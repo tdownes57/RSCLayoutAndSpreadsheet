@@ -871,7 +871,8 @@ Public Class ClassDesigner
 
 
     Public Sub Load_NewElement_Field(par_enumField As EnumCIBFields,
-                                     par_rect As Rectangle)
+                                     par_rect As Rectangle,
+                    Optional ByRef par_newElementFieldV3 As ClassElementFieldV3 = Nothing)
         ''
         ''Added 5/6/2022 thomas d.
         ''
@@ -906,11 +907,26 @@ Public Class ClassDesigner
         ''        Number generator and determining pixel position. 
         ''        --5/6/2022 thomas d.
         ''
-        Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
-                             intPicLeft, intPicTop,
-                             Me.BadgeLayout_Class,
-                             EnumSideOfCard_Current)
-        ''                   ''intPicWidth, intPicHeight,
+        Const c_boolVersion4_TestingOK As Boolean = False ''Added 5/12/2022 td
+
+        If (c_boolVersion4_TestingOK) Then
+
+            ''Version 4, is not working at all... bummer! ----5/12/2022 
+            Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
+                                 intPicLeft, intPicTop,
+                                 Me.BadgeLayout_Class,
+                                 EnumSideOfCard_Current)
+            ''---------        ''intPicWidth, intPicHeight,
+
+        Else
+            ''Version 3, is tried & true. ----5/12/2022 
+            Me.ElementsCache_UseEdits.LoadNewElement_FieldV3(par_enumField,
+                                 intPicLeft, intPicTop,
+                                 Me.BadgeLayout_Class,
+                                 EnumSideOfCard_Current,
+                                   par_newElementFieldV3)
+
+        End If ''End of ""If (c_boolVersion4_TestingOK) Then... Else...."
 
     End Sub ''End of ""Public Sub Load_NewElement_Field()""
 
@@ -2344,7 +2360,7 @@ Public Class ClassDesigner
     End Sub ''End of ''Private Sub LoadElements_ByListOfElementsV4()''
 
 
-    Private Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)
+    Public Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)
         ''
         ''Added 9/17/2019 thomas d.  
         ''
@@ -2360,7 +2376,7 @@ Public Class ClassDesigner
         ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
         LoadElements_FieldElementsV3(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControlsV3)
 
-    End Sub ''End of "Private Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)"
+    End Sub ''End of "Public Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)"
 
 
     Private Sub LoadFieldControl_JustOneV4(par_elementField As ClassElementFieldV4)

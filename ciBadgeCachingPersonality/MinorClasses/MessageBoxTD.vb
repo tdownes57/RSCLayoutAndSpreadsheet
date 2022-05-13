@@ -159,7 +159,8 @@ Public Class MessageBoxTD
                     psingLimitOfNumberMin As Single,
                     psingLimitOfNumberMax As Single,
                     Optional pboolUseTextbox As Boolean = False,
-                    Optional pboolDecimalValuesOK As Boolean = False) As Integer
+                    Optional pboolDecimalValuesOK As Boolean = False,
+                    Optional ByRef prefUserCancelled As Boolean = False) As Integer
         ''
         ''Added 12/28/2021 thomas downes
         ''
@@ -170,8 +171,13 @@ Public Class MessageBoxTD
 
         formToShow.ShowDialog()
 
-        If (formToShow.DialogResult = DialogResult.Cancel) Then Return -1
-        If (formToShow.DialogResult <> DialogResult.OK) Then Return -1
+        If (formToShow.DialogResult = DialogResult.Cancel) Then
+            prefUserCancelled = True  ''Aded 5/13/2022
+            Return -1
+        ElseIf (formToShow.DialogResult <> DialogResult.OK) Then
+            prefUserCancelled = True  ''Aded 5/13/2022
+            Return -1
+        End If
 
         Return formToShow.HowManySpecified
 
@@ -210,6 +216,47 @@ Public Class MessageBoxTD
         Return formToShow.DialogResult
 
     End Function ''End of "Public Shared Function Show_Editor"
+
+
+    Public Shared Function Show_StatementLongform(pstrHeading As String,
+                                       pstrTextInLongorm As String,
+                 psingFactorWidth As Single,
+                 psingFactorHeight As Single) As DialogResult
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Dim formToShow As FormMessageLongform
+
+        formToShow = New FormMessageLongform(pstrHeading,
+                                     psingFactorWidth, psingFactorHeight,
+                                      pstrTextInLongorm)
+
+        formToShow.ShowDialog()
+        Return formToShow.DialogResult
+
+    End Function ''End of "Public Shared Function Show_StatementLongform"
+
+
+    Public Shared Function Show_SpecialButton(pstrHeading As String,
+                                       pstrTextInLongorm As String,
+                 psingFactorWidth As Single,
+                 psingFactorHeight As Single,
+                 pstrCaptionOfButton As String,
+                 ByRef pref_bUserPressedIt As Boolean) As DialogResult
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Dim formToShow As FormSpecialButton
+
+        formToShow = New FormSpecialButton(pstrHeading,
+                                     psingFactorWidth, psingFactorHeight,
+                                      pstrTextInLongorm, pstrCaptionOfButton)
+
+        formToShow.ShowDialog()
+        pref_bUserPressedIt = formToShow.SpecialButtonWasPressed
+        Return formToShow.DialogResult
+
+    End Function ''End of "Public Shared Function Show_SpecialButton"
 
 
 End Class

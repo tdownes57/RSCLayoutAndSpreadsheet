@@ -38,6 +38,7 @@ Partial Class Form__Main_Demo
         Me.ConfigurationOfFieldsEtcToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StandardFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CustomFieldsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BothStandardCustomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DesignLayoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenControlPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UploadBackgroundToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -130,7 +131,7 @@ Partial Class Form__Main_Demo
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonAddElementsV = New System.Windows.Forms.Button()
         Me.ButtonAddElementsH = New System.Windows.Forms.Button()
-        Me.BothStandardCustomToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -249,6 +250,12 @@ Partial Class Form__Main_Demo
         Me.CustomFieldsToolStripMenuItem.Name = "CustomFieldsToolStripMenuItem"
         Me.CustomFieldsToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
         Me.CustomFieldsToolStripMenuItem.Text = "Custom Fields"
+        '
+        'BothStandardCustomToolStripMenuItem
+        '
+        Me.BothStandardCustomToolStripMenuItem.Name = "BothStandardCustomToolStripMenuItem"
+        Me.BothStandardCustomToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
+        Me.BothStandardCustomToolStripMenuItem.Text = "Both Standard && Custom"
         '
         'DesignLayoutToolStripMenuItem
         '
@@ -1051,11 +1058,17 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH.TabIndex = 93
         Me.ButtonAddElementsH.UseVisualStyleBackColor = False
         '
-        'BothStandardCustomToolStripMenuItem
+        'ButtonRecipients
         '
-        Me.BothStandardCustomToolStripMenuItem.Name = "BothStandardCustomToolStripMenuItem"
-        Me.BothStandardCustomToolStripMenuItem.Size = New System.Drawing.Size(207, 22)
-        Me.BothStandardCustomToolStripMenuItem.Text = "Both Standard && Custom"
+        Me.ButtonRecipients.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonRecipients.Location = New System.Drawing.Point(1071, 457)
+        Me.ButtonRecipients.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonRecipients.Name = "ButtonRecipients"
+        Me.ButtonRecipients.Size = New System.Drawing.Size(128, 72)
+        Me.ButtonRecipients.TabIndex = 100
+        Me.ButtonRecipients.Text = "Recipients / Members"
+        Me.ToolTip1.SetToolTip(Me.ButtonRecipients, "Enter or edit recipients' data (students / staff / members)")
+        Me.ButtonRecipients.UseVisualStyleBackColor = True
         '
         'Form__Main_Demo
         '
@@ -1063,6 +1076,7 @@ Partial Class Form__Main_Demo
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.ButtonRecipients)
         Me.Controls.Add(Me.ButtonAddElementsH)
         Me.Controls.Add(Me.ButtonAddElementsV)
         Me.Controls.Add(Me.ButtonCancel)
@@ -1243,4 +1257,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents ButtonAddElementsV As Button
     Friend WithEvents ButtonAddElementsH As Button
     Friend WithEvents BothStandardCustomToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ButtonRecipients As Button
 End Class

@@ -18,6 +18,7 @@ Public Class RSCDataCell
     Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
     Public Shared CellOfKeyDownTabKey As RSCDataCell ''Added 4/12/2022 td
     Public RowIndex_NeededIfDeleted As Integer ''Added 4/25/2022 td
+    Public Event GotFocus_Cell(sender As Object, e As EventArgs) ''Added 5/13/2022
 
     Public Shared BackColor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
     Public Shared BackColor_WithEmphasisOnRow As System.Drawing.Color = System.Drawing.Color.LightGray
@@ -259,6 +260,15 @@ Public Class RSCDataCell
     End Function ''End of ""Public Function GetFirstCell_NextRowDown() As RSCDataCell""
 
 
+    Public Function HasFocus() As Boolean
+
+        ''Added 4/30/2022 td
+        Dim boolHasFocus As Boolean ''Added 4/30/2022 td
+        boolHasFocus = Textbox1a.Focused
+
+    End Function ''End of ""Public Function HasFocus() As Boolean""  
+
+
     Public Sub SaveDataToRecipientField(par_enumCIBField As EnumCIBFields)
         ''
         ''Added 4/12/2022 
@@ -487,6 +497,40 @@ Public Class RSCDataCell
         Return intCountCRs
 
     End Function
+
+
+    Public Sub PasteDataFromClipboard(pbUserConfirmedOverwrite As Boolean)
+        ''
+        ''Added 5/13/2022 td 
+        ''
+        Dim boolHasDataAlready As Boolean
+        Dim boolUserConfirmedPaste As Boolean
+        Dim boolCheckWithUser As Boolean
+
+        boolHasDataAlready = (Not String.IsNullOrWhiteSpace(Me.Text_CellValue))
+        boolCheckWithUser = (boolHasDataAlready And (Not pbUserConfirmedOverwrite))
+
+        If (boolCheckWithUser) Then
+
+            boolUserConfirmedPaste = MessageBoxTD.Show_Confirmed("Overwrite existing data?", "", False)
+
+        Else
+            boolUserConfirmedPaste = True ''Force to True, since we don't anticipate
+            ''  any problems of overwriting data, as no data has been detected. 
+
+        End If ''End of ""If (boolCheckWithUser) Then... Else...""
+
+        ''
+        ''Proceed w/ the pasting of the clipboard data, if all is okay.
+        ''
+        If (boolUserConfirmedPaste) Then
+            ''Major call!! 
+            Text_CellValue = Clipboard.GetText
+        End If ''end of ""If (boolUserConfirmedPaste) Then""
+
+
+    End Sub ''End of ""Public Sub PasteDataFromClipboard()""
+
 
 
     Private Sub Textbox1a_TextChanged(sender As Object, e As EventArgs) Handles Textbox1a.TextChanged
@@ -792,6 +836,16 @@ Public Class RSCDataCell
         Textbox1a.BorderStyle = BorderStyle.FixedSingle ''Add a border to the current cell.
         Textbox1a.BackColor = Drawing.Color.White ''Added 4/29/2022 
         Me.ParentColumn.ClearBorderStyle_PriorCell(Me)
+
+    End Sub
+
+    Private Sub Textbox1a_GotFocus(sender As Object, e As EventArgs) Handles Textbox1a.GotFocus
+
+        ''Added 5/13/2022 td 
+        RaiseEvent GotFocus_Cell(sender, e)
+
+        ''Added 5/13/2022 td 
+        Me.ParentColumn.Handle_CellHasFocus(sender, e)
 
     End Sub
 End Class

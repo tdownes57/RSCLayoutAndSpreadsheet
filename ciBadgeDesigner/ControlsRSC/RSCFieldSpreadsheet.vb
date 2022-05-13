@@ -308,6 +308,8 @@ Public Class RSCFieldSpreadsheet
         Dim objectStringBuilder1FC As New System.Text.StringBuilder(150)
         Dim objectStringBuilder2CF As New System.Text.StringBuilder(150)
         Dim objectStringBuilder1FC_Expanded As System.Text.StringBuilder
+        Dim dictionary1FC_Expanded As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        Dim bUserWantsFieldsManager As Boolean = False ''Added 5/13/2022
 
         For Each eachRSCColumn In mod_array_RSCColumns
             ''
@@ -330,8 +332,11 @@ Public Class RSCFieldSpreadsheet
             ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary. 
             ''
             ''
-            MessageBoxTD.Show_Statement("Here is the list of Columns & corresponding Fields:",
-                                        objectStringBuilder2CF.ToString())
+            ''5/13/2022 MessageBoxTD.Show_Statement("Here is the list of Columns & corresponding Fields:",
+            ''                  objectStringBuilder2CF.ToString())
+            MessageBoxTD.Show_StatementLongform("Here is the list of Columns & corresponding Fields:",
+                                        objectStringBuilder2CF.ToString(),
+                                        1.0, 1.0)
 
             ''
             ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
@@ -341,27 +346,132 @@ Public Class RSCFieldSpreadsheet
 
                 ''Added 4/30/2022 td
                 objectStringBuilder1FC_Expanded = New System.Text.StringBuilder(200)
-                ExpandDictionary1FC(dictionary1FC_FieldsToRSCColumn, objectStringBuilder1FC_Expanded)
+                dictionary1FC_Expanded =
+                   ExpandDictionary1FC(dictionary1FC_FieldsToRSCColumn, objectStringBuilder1FC_Expanded)
+                ''MessageBoxTD.Show_Statement("Here is the list of Relevant Fields & corresponding columns.",
+                ''    objectStringBuilder1FC_Expanded.ToString())
+                Const c_showFieldsButton As Boolean = True ''Added 5/13/2022
+                Dim bUserPressedButton As Boolean = False ''Added 5/13/2022
+
+                If (c_showFieldsButton) Then
+                    ''Added 5/13/2022
+                    MessageBoxTD.Show_SpecialButton("Here is the list of Fields & corresponding columns:",
+                                            objectStringBuilder1FC_Expanded.ToString(),
+                                            1.0, 2.0, "Manage Fields", bUserPressedButton)
+                    bUserWantsFieldsManager = bUserPressedButton
+
+                Else
+                    ''Added 5/13/2022
+                    MessageBoxTD.Show_StatementLongform("Here is the list of Fields & corresponding columns:",
+                                            objectStringBuilder1FC_Expanded.ToString(),
+                                            1.0, 2.0)
+                End If ''End of ""If (c_showFieldsButton) Then.... Else..."
 
             Else
                 ''Added 4/30/2022
-                MessageBoxTD.Show_Statement("Here is the list of Relevant Fields & corresponding column.",
-                                        objectStringBuilder1FC.ToString())
+                ''MessageBoxTD.Show_Statement("Here is the list of Fields & corresponding columns.",
+                ''                        objectStringBuilder1FC.ToString())
+                MessageBoxTD.Show_StatementLongform("Here is the list of Fields & corresponding columns:",
+                                        objectStringBuilder1FC.ToString(),
+                                        1.0, 2.0)
+
             End If ''End of "If (c_expandToShowAllRelevantFields) Then... Else..."
 
         End If ''End of ""If (pboolMessageUser) Then""
 
+        ''
+        ''Show Fields Manager, if appopriate.  ---5/13/2022 td
+        ''
+        If (bUserWantsFieldsManager) Then ShowFieldsManagement()
+
+
     End Sub ''End of ""Public Sub ReviewColumnDisplayForRelevantFields()""
 
 
-    Private Sub ExpandDictionary1FC(par_dictionary1FC_FieldsToColumn As Dictionary(Of EnumCIBFields, RSCFieldColumnV2),
-                                    par_stringbuilder As System.Text.StringBuilder)
+    Private Sub ShowFieldsManagement()
+        ''
+        ''Added 5/13/2022 td
+        ''
+        Dim form_ToShow As New DialogListBothTypeFields
+        Dim dialog_result As DialogResult ''Added 3/23/2022 td
+
+        ''Added 3/21/2022 td
+        form_ToShow.ListOfFields_Standard = Me.ElementsCache_Deprecated.ListOfFields_Standard
+        form_ToShow.ListOfFields_Custom = Me.ElementsCache_Deprecated.ListOfFields_Custom
+
+        dialog_result =
+           form_ToShow.ShowDialog()
+
+        ''Added 3/23/2022 td
+        If (dialog_result = DialogResult.OK) Then
+            ''Added 3/23/2022 td
+            Me.ElementsCache_Deprecated.SaveToXML()
+
+            ''Added 4/13/2022 td
+            ''----For Each each_colV2 As RSCFieldColumnV2 In mod_array_RSCColumns
+
+            Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+
+            ''---Next each_colV2
+
+        End If ''End of ""If (dialog_result = ...)"
+
+
+    End Sub ''End of ""Private Sub ShowFieldsManagement()""
+
+
+    Private Function ExpandDictionary1FC(par_dictionary1FC_FieldsToColumn As Dictionary(Of EnumCIBFields, RSCFieldColumnV2),
+                                    par_stringbuilder As System.Text.StringBuilder) _
+                                As Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
         ''
         ''Added 4/30/2022 thomas d.
         ''
+        Dim output_dictionary As Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        ''--Dim list_enumFieldsRelevant As List(Of EnumCIBFields)
+        Dim list_fieldsRelevant As List(Of ClassFieldAny)
+        ''---list_enumFieldsRelevant = ModEnumsAndStructs.GetListOfAllFieldEnums_Relevant()
+        Dim each_fieldRelevant As ClassFieldAny
+        Dim each_enumRelevant As EnumCIBFields
+        Dim each_RSCColumn As RSCFieldColumnV2
+        Dim boolFoundColumn As Boolean
 
+        par_stringbuilder.AppendLine()
 
-    End Sub
+        list_fieldsRelevant = Me.ElementsCache_Deprecated.ListOfFields_AnyRelevent()
+        output_dictionary = New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)()
+
+        For Each each_fieldRelevant In list_fieldsRelevant
+
+            each_RSCColumn = Nothing ''Reinitialize. 
+            each_enumRelevant = each_fieldRelevant.FieldEnumValue
+            boolFoundColumn = par_dictionary1FC_FieldsToColumn.ContainsKey(each_enumRelevant)
+
+            ''Will this return a Null value?
+            If (boolFoundColumn) Then
+                each_RSCColumn = par_dictionary1FC_FieldsToColumn.Item(each_enumRelevant)
+                output_dictionary.Add(each_enumRelevant, each_RSCColumn)
+                ''Added 5/13/2022
+                par_stringbuilder.AppendLine("Field """ + each_fieldRelevant.FieldLabelCaption + """" +
+                                             " is assigned to Column # " +
+                                             each_RSCColumn.GetIndexOfColumn().ToString())
+
+            Else
+                ''Enter a null value.  
+                output_dictionary.Add(each_enumRelevant, Nothing)
+                ''Added 5/13/2022
+                par_stringbuilder.AppendLine("Field """ + each_fieldRelevant.FieldLabelCaption + """" +
+                                             " is not assigned to any column.")
+
+            End If ''end of ""If (boolFoundColumn) Then ... Else ""
+
+        Next each_fieldRelevant
+
+        ''
+        ''Exit Handler
+        ''
+        Return output_dictionary
+
+    End Function ''End of ""Private Sub ExpandDictionary1FC""
 
 
     Private Function ReviewPastedData_IsOkay(par_stringPastedData As String,
@@ -765,6 +875,20 @@ Public Class RSCFieldSpreadsheet
         Next each_column
 
     End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_NoConfirm()""
+
+
+    Public Sub ClearHighlightingOfSelectedColumns()
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Dim objRSCFieldColumn As RSCFieldColumnV2
+        For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
+            objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+            objRSCFieldColumn.FocusRelated_UserHasSelectedColumn = False
+            objRSCFieldColumn.FocusRelated_SetHighlightingOff()
+        Next each_column
+
+    End Sub
 
 
     Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)
@@ -1298,23 +1422,30 @@ Public Class RSCFieldSpreadsheet
     End Sub ''end of "Private Sub RemoveRSCColumnsFromDesignTime()"
 
 
-    Public Sub AddColumns(par_intNumber As Integer)
+    Public Sub AddColumnsToRighthandSide(par_intNumber As Integer)
         ''
         ''Added 3/16/2022 Thomas Downes 
         ''
-        Dim each_columnData As ClassRSCColumnWidthAndData ''4/13/2022 As ClassColumnWidthAndData
-
-        For intIndex = 1 To par_intNumber
-
-            each_columnData = New ClassRSCColumnWidthAndData ''4/13/2022 ClassColumnWidthAndData
-            each_columnData.CIBField = EnumCIBFields.Undetermined
-            each_columnData.Width = -1
-            each_columnData.Rows = -1
-            each_columnData.ColumnData = New List(Of String)()
-
-            Me.ColumnDataCache.ListOfColumns.Add(each_columnData)
-
+        ''Not needed.''Dim objLastColumnGoingRight As RSCFieldColumnV2
+        ''Not needed.''objLastColumnGoingRight = GetLastColumn()
+        For intIndex As Integer = 1 To par_intNumber
+            ''Not needed.''objLastColumnGoingRight.AddToEdgeOfSpreadsheet_Column()
+            AddToEdgeOfSpreadsheet_Column()
         Next intIndex
+
+        ''Dim each_columnData As ClassRSCColumnWidthAndData ''4/13/2022 As ClassColumnWidthAndData
+        ''
+        ''For intIndex = 1 To par_intNumber
+        ''
+        ''    each_columnData = New ClassRSCColumnWidthAndData ''4/13/2022 ClassColumnWidthAndData
+        ''    each_columnData.CIBField = EnumCIBFields.Undetermined
+        ''    each_columnData.Width = -1
+        ''    each_columnData.Rows = -1
+        ''    each_columnData.ColumnData = New List(Of String)()
+        ''
+        ''    Me.ColumnDataCache.ListOfColumns.Add(each_columnData)
+        ''
+        ''Next intIndex
 
     End Sub ''End of "Public Sub AddColumns()"
 
@@ -1940,4 +2071,88 @@ Public Class RSCFieldSpreadsheet
         MyBase.MoveableControl_MouseUp(Me, new_args)
 
     End Sub
+
+    Private Sub ButtonAddColumns_Click(sender As Object, e As EventArgs) _
+        Handles ButtonAddColumns1.Click, ButtonAddColumns2.Click
+        ''
+        ''Added 5/13/2022 thomas downes  
+        ''
+        Dim intHowMany As Integer
+        Dim boolCancelled As Boolean = False
+
+        intHowMany = MessageBoxTD.AskHowMany("How many columns do you want?",
+                1.0, 1.0, 1, 9, False, False, boolCancelled)
+        If (boolCancelled) Then
+            MessageBoxTD.Show_Statement("User has cancelled.")
+        Else
+            ''Major call!!
+            AddColumnsToRighthandSide(intHowMany)
+
+            ''added 5/13/2022
+            Const c_boolKeepUILookingClean As Boolean = True
+            If c_boolKeepUILookingClean Then
+                ''Hide the buttons which formerly occupied the blank area
+                '' of the spreadsheet. ---5/13/2022 
+                ButtonAddColumns2.Visible = False
+                ButtonPasteData2.Visible = False
+            End If ''End of ""If c_boolKeepUILookingClean Then""
+
+        End If ''End of""If (boolCancelled) Then.... Else...."
+
+        ''Dim columnRighHandMost As RSCFieldColumnV2 = Nothing
+        ''Dim boolException As Boolean
+        ''Dim exceptionRSC As Exception
+
+        ''Try
+        ''    columnLeftHandMost = mod_array_RSCColumns(0)
+        ''    If (columnLeftHandMost Is Nothing) Then
+        ''        columnLeftHandMost = mod_array_RSCColumns(1)
+        ''    End If
+        ''Catch exceptionRSC
+        ''    boolException = True
+        ''End Try
+
+        ''AddColumns(5)
+
+    End Sub
+
+    Private Sub ButtonPasteData_Click(sender As Object, e As EventArgs) _
+        Handles ButtonPasteData1.Click, ButtonPasteData2.Click
+        ''
+        ''Added 5/13/2022 thomas downes  
+        ''
+        Dim columnLeftHandMost As RSCFieldColumnV2 = Nothing
+        Dim boolException As Boolean
+        Dim exceptionRSC As Exception
+        Dim bColumnHasFocus As Boolean
+
+        Try
+            columnLeftHandMost = mod_array_RSCColumns(0)
+            If (columnLeftHandMost Is Nothing) Then
+                columnLeftHandMost = mod_array_RSCColumns(1)
+            End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
+
+        Catch exceptionRSC
+            boolException = True
+        End Try
+
+        ''---bColumnHasFocus = columnLeftHandMost.HasFocus
+        bColumnHasFocus = columnLeftHandMost.FocusRelated_HasFocus
+
+        If (bColumnHasFocus) Then
+            ''Major data.  
+            columnLeftHandMost.PasteDataFromClipboard()
+
+        Else
+            ''Modified 5/13/2022 thomas downes
+            MessageBoxTD.Show_Statement("To use the Paste button, " +
+                                        "please select the left-most column.",
+               "(To select a column, click one of the cells inside the column.)" + vbCrLf_Deux +
+               "(Alternatively, you may perform the CTRL-V operation from inside any data cell.")
+
+        End If ''End of ""If (bColumnHasFocus) Then... Else..."
+
+    End Sub
+
+
 End Class

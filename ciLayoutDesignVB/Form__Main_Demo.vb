@@ -47,6 +47,8 @@ Public Class Form__Main_Demo
     Public Property UserWantsToExitApplication As Boolean ''Added 2/6/2022 thomas downes
     Public Property UserPressedButtonsOKCancel As Boolean ''Added 5/3/2022 td
 
+    Public Property UserEditedRecipients As Boolean ''Added 5/13/2022 td 
+
     ''Public Property LastTouchedMoveableElement As IMoveableElement ''Added 12/17/2021 td
     ''Public Property LastTouchedClickableElement As IClickableElement ''Added 12/17/2021 td
 
@@ -3524,45 +3526,70 @@ ExitHandler:
             ''If (.AddField1_Enum = -1) Then System.Diagnostics.Debugger.Break()
 
             ''Field #1
-            rectangleControl = .GetRectangle_Field1(0.5, 2.0)
-            If (boolAddField1) Then mod_designer.Load_NewElement_Field(enumAddField1_Enum, rectangleControl)
+            If (boolAddField1) Then
+                rectangleControl = .GetRectangle_Field1(0.5, 2.0)
+                Dim new_elementFieldV3 As ClassElementFieldV3 = Nothing ''Added 5/12/2022 td
+                mod_designer.Load_NewElement_Field(enumAddField1_Enum,
+                                                   rectangleControl,
+                                                   new_elementFieldV3)
+                mod_designer.LoadFieldControl_JustOneV3(new_elementFieldV3)
+            End If ''End of ""If (boolAddField1) Then""
 
             ''Field #2
-            rectangleControl = .GetRectangle_Field2(0.5, 2.0)
-            If (boolAddField2) Then mod_designer.Load_NewElement_Field(enumAddField2_Enum, rectangleControl)
+            If (boolAddField2) Then
+                rectangleControl = .GetRectangle_Field2(0.5, 2.0)
+                mod_designer.Load_NewElement_Field(enumAddField2_Enum, rectangleControl)
+            End If
 
             ''Field #3
-            rectangleControl = .GetRectangle_Field3(0.5, 2.0)
-            If (boolAddField3) Then mod_designer.Load_NewElement_Field(enumAddField3_Enum, rectangleControl)
+            If (boolAddField3) Then
+                rectangleControl = .GetRectangle_Field3(0.5, 2.0)
+                If (boolAddField3) Then mod_designer.Load_NewElement_Field(enumAddField3_Enum, rectangleControl)
+            End If
 
             ''Field #4
-            rectangleControl = .GetRectangle_Field4(0.5, 2.0)
-            If (boolAddField4) Then mod_designer.Load_NewElement_Field(enumAddField4_Enum, rectangleControl)
+            If (boolAddField4) Then
+                rectangleControl = .GetRectangle_Field4(0.5, 2.0)
+                If (boolAddField4) Then mod_designer.Load_NewElement_Field(enumAddField4_Enum, rectangleControl)
+            End If
 
             ''Field #5
-            rectangleControl = .GetRectangle_Field5(0.5, 2.0)
-            If (boolAddField5) Then mod_designer.Load_NewElement_Field(enumAddField5_Enum, rectangleControl)
+            If (boolAddField5) Then
+                rectangleControl = .GetRectangle_Field5(0.5, 2.0)
+                If (boolAddField5) Then mod_designer.Load_NewElement_Field(enumAddField5_Enum, rectangleControl)
+            End If
 
-            rectangleControl = .GetRectangle_PortraitPic()
-            If (boolAddPortraitPic) Then mod_designer.Load_NewElement_PortraitPic(rectangleControl)
+            If (boolAddPortraitPic) Then
+                rectangleControl = .GetRectangle_PortraitPic()
+                mod_designer.Load_NewElement_PortraitPic(rectangleControl)
+            End If
 
-            rectangleControl = .GetRectangle_QRCode()
-            If (boolAddQRCode) Then mod_designer.Load_NewElement_QRCode(rectangleControl)
+            If (boolAddQRCode) Then
+                rectangleControl = .GetRectangle_QRCode()
+                mod_designer.Load_NewElement_QRCode(rectangleControl)
+            End If
 
-            rectangleControl = .GetRectangle_Signature()
-            If (boolAddSignature) Then mod_designer.Load_NewElement_Signature(rectangleControl)
+            If (boolAddSignature) Then
+                rectangleControl = .GetRectangle_Signature()
+                mod_designer.Load_NewElement_Signature(rectangleControl)
+            End If
 
-            rectangleControl = .GetRectangle_StaticGraphic()
-            If (boolAddGraphic) Then mod_designer.Load_NewElement_StaticGraphic(rectangleControl)
+            If (boolAddGraphic) Then
+                rectangleControl = .GetRectangle_StaticGraphic()
+                mod_designer.Load_NewElement_StaticGraphic(rectangleControl)
+            End If
 
-            rectangleControl = .GetRectangle_StaticText()
-            If (boolAddStaticText) Then mod_designer.Load_NewElement_StaticText(rectangleControl)
+            If (boolAddStaticText) Then
+                rectangleControl = .GetRectangle_StaticText()
+                mod_designer.Load_NewElement_StaticText(rectangleControl)
+            End If
 
         End With ''End of ""With objFormToShow""
 
         ''mod_designer.UnloadDesigner()
         ''mod_designer.RedrawForm()
-        RefreshTheSetOfDisplayedElements(False)
+        ''RefreshTheSetOfDisplayedElements(False)
+        ''mod_designer.LoadDesigner_ByListOfElements(list_local)
         RefreshCardPreview()
 
     End Sub ''Handles ButtonAddElements_Click"
@@ -3573,6 +3600,53 @@ ExitHandler:
         ''5/12/2022 ''ShowFieldsToEdit_AnySC()
         ''5/12/2022 ''ShowFieldsToEdit_AnySC(True)
         ShowFieldsToEdit_AnySC(Me.ElementsCache_Edits, True)
+
+    End Sub
+
+    Private Sub ButtonRecipients_Click(sender As Object, e As EventArgs) Handles ButtonRecipients.Click
+        ''
+        '' Added 5/13/2022 & 2/22/2022 td
+        ''
+        Dim frm_ToShow As DialogEditRecipients
+        Dim cache_elements As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
+        Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
+        Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
+
+        ''Added 5/13/2022 td
+        cache_elements = Me.ElementsCache_Edits
+
+        ''
+        ''Added 3/26/2022 td
+        ''
+        Dim list_recips As List(Of ClassRecipient) ''Added 10/11/2019 thomas downes
+        list_recips = Me.PersonalityCache_Recipients.ListOfRecipients
+
+        ''Added 12/3/2021 td
+        If (list_recips Is Nothing) Then
+
+            Const c_boolLoadHardcodedExamples As Boolean = False ''Added 5/13/2022 
+            If (c_boolLoadHardcodedExamples) Then
+                ''Added 12/3/2021 td
+                list_recips = Startup.LoadData_Recipients_Students()
+                Me.PersonalityCache_Recipients.ListOfRecipients = list_recips
+            Else
+                ''Create an empty list of recipients. ---5/13/2022  
+                list_recips = New List(Of ClassRecipient)
+                Me.PersonalityCache_Recipients.ListOfRecipients = list_recips
+
+            End If ''End of ""If (c_boolLoadHardcodedExamples) Then.... Else ..."
+
+        End If ''End of "If (list_recips Is Nothing) Then"
+
+        ''March 15 2022 td''frm_ToShow = New DialogEditRecipients() ''March 15 2022 td ''(cache_elements) ''added 3/14/2022
+        ''March 15 2022 td''frm_ToShow.LoadForm_ByCache(cache_elements) ''added 3/14/2022
+        ''March 28 2022 td''frm_ToShow = New DialogEditRecipients(cache_elements) ''added 3/14/2022
+        frm_ToShow = New DialogEditRecipients(cache_elements,
+                                          Me.PersonalityCache_Recipients) ''added 3/14/2022
+
+        ''March21 2022 ''frm_ToShow.Show()
+        Me.UserEditedRecipients = True
+        frm_ToShow.ShowDialog()
 
     End Sub
 
