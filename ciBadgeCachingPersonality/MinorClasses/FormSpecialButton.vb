@@ -42,18 +42,30 @@ Public Class FormSpecialButton
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
+        ''Added 5/13/2022 td
+        Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
 
     End Sub
 
     Private Sub ButtonSpecialButton_Click(sender As Object, e As EventArgs) Handles ButtonSpecialButton.Click
 
+        ''Added 5/13/2022 td
+        Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.SpecialButtonWasPressed = True
         Me.Close()
 
     End Sub
 
     Private Sub FormSpecialButton_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+
+        ''Added 5/13/2022 td
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        Me.Close()
 
     End Sub
 End Class

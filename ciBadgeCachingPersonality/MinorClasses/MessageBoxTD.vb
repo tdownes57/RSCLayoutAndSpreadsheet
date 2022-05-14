@@ -221,7 +221,8 @@ Public Class MessageBoxTD
     Public Shared Function Show_StatementLongform(pstrHeading As String,
                                        pstrTextInLongorm As String,
                  psingFactorWidth As Single,
-                 psingFactorHeight As Single) As DialogResult
+                 psingFactorHeight As Single,
+                 Optional pboolShowCancelButton As Boolean = True) As DialogResult
         ''
         ''Added 5/13/2022 thomas downes
         ''
@@ -229,7 +230,7 @@ Public Class MessageBoxTD
 
         formToShow = New FormMessageLongform(pstrHeading,
                                      psingFactorWidth, psingFactorHeight,
-                                      pstrTextInLongorm)
+                                      pstrTextInLongorm, pboolShowCancelButton)
 
         formToShow.ShowDialog()
         Return formToShow.DialogResult

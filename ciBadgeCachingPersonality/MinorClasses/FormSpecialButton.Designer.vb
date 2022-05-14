@@ -26,6 +26,7 @@ Partial Class FormSpecialButton
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.LabelMainPrompt = New System.Windows.Forms.Label()
         Me.ButtonSpecialButton = New System.Windows.Forms.Button()
+        Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'TextBox1
@@ -37,7 +38,7 @@ Partial Class FormSpecialButton
         Me.TextBox1.Location = New System.Drawing.Point(12, 46)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(479, 159)
+        Me.TextBox1.Size = New System.Drawing.Size(529, 159)
         Me.TextBox1.TabIndex = 32
         '
         'ButtonOK
@@ -45,7 +46,7 @@ Partial Class FormSpecialButton
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOK.Location = New System.Drawing.Point(371, 210)
+        Me.ButtonOK.Location = New System.Drawing.Point(296, 210)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(121, 48)
@@ -60,7 +61,7 @@ Partial Class FormSpecialButton
         Me.LabelMainPrompt.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelMainPrompt.Location = New System.Drawing.Point(7, 10)
         Me.LabelMainPrompt.Name = "LabelMainPrompt"
-        Me.LabelMainPrompt.Size = New System.Drawing.Size(484, 33)
+        Me.LabelMainPrompt.Size = New System.Drawing.Size(534, 33)
         Me.LabelMainPrompt.TabIndex = 30
         Me.LabelMainPrompt.Text = "Here is the entire message. "
         '
@@ -77,11 +78,25 @@ Partial Class FormSpecialButton
         Me.ButtonSpecialButton.Text = "This is a special button."
         Me.ButtonSpecialButton.UseVisualStyleBackColor = False
         '
+        'ButtonCancel
+        '
+        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonCancel.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCancel.Location = New System.Drawing.Point(421, 210)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonCancel.Name = "ButtonCancel"
+        Me.ButtonCancel.Size = New System.Drawing.Size(121, 48)
+        Me.ButtonCancel.TabIndex = 34
+        Me.ButtonCancel.Text = "Cancel"
+        Me.ButtonCancel.UseVisualStyleBackColor = False
+        '
         'FormSpecialButton
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(503, 269)
+        Me.ClientSize = New System.Drawing.Size(553, 269)
+        Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonSpecialButton)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.ButtonOK)
@@ -97,4 +112,5 @@ Partial Class FormSpecialButton
     Friend WithEvents ButtonOK As Windows.Forms.Button
     Friend WithEvents LabelMainPrompt As Windows.Forms.Label
     Friend WithEvents ButtonSpecialButton As Windows.Forms.Button
+    Friend WithEvents ButtonCancel As Windows.Forms.Button
 End Class

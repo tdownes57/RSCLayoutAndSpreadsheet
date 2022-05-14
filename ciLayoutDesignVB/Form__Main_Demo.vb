@@ -2856,6 +2856,28 @@ ExitHandler:
 
     End Sub
 
+
+    Public Sub BackgroundImage_SelectOrUpload() Implements IDesignerForm.BackgroundImage_SelectOrUpload
+        ''
+        ''Added 5/12/2022 td
+        ''
+        Dim objShow As New FormSelectOrUpload
+        objShow.ShowDialog()
+
+        Dim boolLetsSelect As Boolean
+        Dim boolLetsUpload As Boolean
+        Dim boolLetsPickDemoImages As Boolean
+
+        boolLetsUpload = objShow.UserWantsUpload
+        boolLetsSelect = objShow.UserWantsSelect
+        boolLetsPickDemoImages = objShow.UserWantsDemoImages
+
+
+
+
+    End Sub
+
+
     Public Sub BackgroundImage_Select() Implements IDesignerForm.BackgroundImage_Select
         ''
         ''Encapsulated 5/12/2022 td
@@ -3464,12 +3486,25 @@ ExitHandler:
         objFormToShowFE.StartPosition = FormStartPosition.CenterScreen
         objFormToShowFE.ShowDialog()
         If (objFormToShowFE.DialogResult = DialogResult.Cancel) Then Exit Sub
+
         If (objFormToShowFE.AddFields) Then
             ''5/11/2022 ShowFieldsToEdit_AnySC()
             ShowFieldsToEdit_AnySC(Me.ElementsCache_Edits, True)
             ''5/12/2022 Exit Sub
+
+        ElseIf (objFormToShowFE.AddBackgroundImage) Then
+            ''
+            ''Added 5/13/2022 
+            ''
+            ''Select or Upload an background image. 
+            ''
+            BackgroundImage_SelectOrUpload()
+
         End If ''End of ""If (objFormToShowFE.AddFields) Then""
 
+        ''
+        ''Adding elements to the ID Card. 
+        ''
         Dim boolAddField1 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
         Dim boolAddField2 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
         Dim boolAddField3 As Boolean '' = (RscSelectCIBField1.BorderStyle <> BorderStyle.None)
@@ -3527,46 +3562,65 @@ ExitHandler:
 
             ''Field #1
             If (boolAddField1) Then
-                rectangleControl = .GetRectangle_Field1(0.5, 2.0)
-                Dim new_elementFieldV3 As ClassElementFieldV3 = Nothing ''Added 5/12/2022 td
-                mod_designer.Load_NewElement_Field(enumAddField1_Enum,
-                                                   rectangleControl,
-                                                   new_elementFieldV3)
-                mod_designer.LoadFieldControl_JustOneV3(new_elementFieldV3)
+                rectangleControl = .GetRectangle_Field1(1.5, 0.5)
+                ''Added 5/13/2022 td
+                mod_designer.Load_NewElementIntoCache_AndForm(enumAddField1_Enum,
+                                                   rectangleControl)
+
+                ''Dim new_elementFieldV3 As ClassElementFieldV3 = Nothing ''Added 5/12/2022 td
+                ''With mod_designer
+                ''    new_elementFieldV3 = .Load_NewElementIntoCache_Field(enumAddField1_Enum,
+                ''                                   rectangleControl)
+                ''    If (new_elementFieldV3 Is Nothing) Then System.Diagnostics.Debugger.Break()
+                ''    .LoadFieldControl_JustOneV3(new_elementFieldV3)
+                ''End With
+
             End If ''End of ""If (boolAddField1) Then""
 
             ''Field #2
             If (boolAddField2) Then
                 rectangleControl = .GetRectangle_Field2(0.5, 2.0)
-                mod_designer.Load_NewElement_Field(enumAddField2_Enum, rectangleControl)
-            End If
+                ''Added 5/13/2022 td
+                mod_designer.Load_NewElementIntoCache_AndForm(enumAddField1_Enum,
+                                                   rectangleControl)
+
+            End If ''If (boolAddField2) Then
 
             ''Field #3
             If (boolAddField3) Then
                 rectangleControl = .GetRectangle_Field3(0.5, 2.0)
-                If (boolAddField3) Then mod_designer.Load_NewElement_Field(enumAddField3_Enum, rectangleControl)
-            End If
+                ''Added 5/13/2022 td
+                mod_designer.Load_NewElementIntoCache_AndForm(enumAddField1_Enum,
+                                                   rectangleControl)
+
+            End If ''If (boolAddField3) Then
 
             ''Field #4
             If (boolAddField4) Then
                 rectangleControl = .GetRectangle_Field4(0.5, 2.0)
-                If (boolAddField4) Then mod_designer.Load_NewElement_Field(enumAddField4_Enum, rectangleControl)
-            End If
+                ''Added 5/13/2022 td
+                mod_designer.Load_NewElementIntoCache_AndForm(enumAddField4_Enum,
+                                                   rectangleControl)
+
+            End If ''If (boolAddField4) Then
 
             ''Field #5
             If (boolAddField5) Then
                 rectangleControl = .GetRectangle_Field5(0.5, 2.0)
-                If (boolAddField5) Then mod_designer.Load_NewElement_Field(enumAddField5_Enum, rectangleControl)
-            End If
+                ''Added 5/13/2022 td
+                mod_designer.Load_NewElementIntoCache_AndForm(enumAddField5_Enum,
+                                                   rectangleControl)
+
+            End If ''end of If (boolAddField5) Then 
 
             If (boolAddPortraitPic) Then
                 rectangleControl = .GetRectangle_PortraitPic()
-                mod_designer.Load_NewElement_PortraitPic(rectangleControl)
-            End If
+                mod_designer.Load_NewElementIntoCache_PortraitPic(rectangleControl)
+            End If ''If (boolAddPortraitPic) Then
 
             If (boolAddQRCode) Then
                 rectangleControl = .GetRectangle_QRCode()
-                mod_designer.Load_NewElement_QRCode(rectangleControl)
+                mod_designer.Load_NewElementIntoCache_QRCode(rectangleControl)
             End If
 
             If (boolAddSignature) Then

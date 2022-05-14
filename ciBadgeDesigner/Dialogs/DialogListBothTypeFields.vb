@@ -35,9 +35,11 @@ Public Class DialogListBothTypeFields
 
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
 
-    Public Property SimpleMode As Boolean Implements InterfaceShowListFields.SimpleMode ''Added 5/12/2022 td
+    Public Property SimpleMode As Boolean = True Implements InterfaceShowListFields.SimpleMode ''Added 5/12/2022 td
 
     Private mod_structLoad As StructLoadWhatFields ''Added 4/30/2022 td
+    Private mod_colorWarning As Drawing.Color = Drawing.Color.Gold ''Added 5/13/2022
+
 
     Public Overloads Function ShowDialog() As DialogResult Implements InterfaceShowListFields.ShowDialog
         ''
@@ -77,6 +79,9 @@ Public Class DialogListBothTypeFields
         ''
         Dim struct_Load As New StructLoadWhatFields
         Dim bTargettingSingleField As Boolean
+
+        ''Added 5/13/2022 thomas
+        mod_colorWarning = LabelHeaderWarning.BackColor
 
         bTargettingSingleField = (Me.JustOneField_Standard IsNot Nothing) Or
                                  (Me.JustOneField_Custom IsNot Nothing)
@@ -839,18 +844,68 @@ Public Class DialogListBothTypeFields
         ''LabelHeaderCaption2.Visible = (Not boolConfirmed)
         If (boolConfirmed) Then
             ''Make the color the same as the form's background color. 
-            LabelHeaderCaption2.BackColor = Me.BackColor
+            LabelHeaderWarning.BackColor = Me.BackColor
             CheckBoxGotIt.BackColor = Me.BackColor
         ElseIf (Not boolConfirmed) Then
-            LabelHeaderCaption2.BackColor = Drawing.Color.AliceBlue
-            CheckBoxGotIt.BackColor = Drawing.Color.AliceBlue
-        End If ''End of ""If (Not boolConfirmed) Then""
+            LabelHeaderWarning.BackColor = mod_colorWarning '' Drawing.Color.AliceBlue
+            CheckBoxGotIt.BackColor = mod_colorWarning '' Drawing.Color.AliceBlue
+        End If ''End of ""If (boolConfirmed) Then.... ElseIf...""
 
         If (boolConfirmed) Then CheckBoxGotIt.Checked = True
         If (Not boolConfirmed) Then CheckBoxGotIt.Checked = False
 
     End Sub
 
+    Private Sub CheckBoxGotIt_CheckedChanged_1(sender As Object, e As EventArgs) Handles CheckBoxGotIt.CheckedChanged
 
+    End Sub
+
+    Private Sub LinkLabelSimpleMode_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelSimpleMode.LinkClicked
+
+        ''Added 5/13/2022 thomas
+        Me.SimpleMode = True
+
+        If (ConfirmAutoSave()) Then ''Added 4/30/2022 td
+
+            SaveControls() ''Added 4/30/2022 td
+
+            LoadFields_Master(mod_structLoad)
+
+        End If ''End of ""If (ConfirmAutoSave()) Then"
+
+    End Sub
+
+    Private Sub LinkLabelAdvancedMode_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAdvancedMode.LinkClicked
+
+        ''Added 5/13/2022 thomas
+        Me.SimpleMode = False ''False, for Advanced Mode. 
+
+        If (ConfirmAutoSave()) Then ''Added 4/30/2022 td
+
+            SaveControls() ''Added 4/30/2022 td
+
+            LoadFields_Master(mod_structLoad)
+
+        End If ''End of ""If (ConfirmAutoSave()) Then"
+
+    End Sub
+
+    Private Sub LinkShowOnlyCustomFields_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkShowOnlyCustomFields.LinkClicked
+
+        ''Added 4/30/2022 td 
+        With mod_structLoad
+            .StandardFields = False
+            .CustomFields = True
+        End With
+
+        If (ConfirmAutoSave()) Then ''Added 4/30/2022 td
+
+            SaveControls() ''Added 4/30/2022 td
+
+            LoadFields_Master(mod_structLoad)
+
+        End If ''End of ""If (ConfirmAutoSave()) Then"
+
+    End Sub
 
 End Class

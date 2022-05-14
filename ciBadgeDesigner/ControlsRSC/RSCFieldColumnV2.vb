@@ -28,6 +28,9 @@ Public Class RSCFieldColumnV2
     Public ParentSpreadsheet As RSCFieldSpreadsheet ''Added 4/11/2022 td
     Public FocusRelated_UserHasSelectedColumn As Boolean ''Added 5/13/2022 td  
 
+    Public Shared BackColor_NoEmphasis As Drawing.Color = Drawing.Color.Plum ''.Magenta ''Aded 5/13/2022
+    Public Shared BackColor_WithEmphasis As Drawing.Color = Drawing.Color.Cyan ''Aded 5/13/2022
+
     Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
     ''April 13 2022 ''Private mod_columnWidthAndData As ClassColumnWidthAndData_NotInUse ''Added 3/18/2022  
     Private mod_columnWidthAndData As ClassRSCColumnWidthAndData ''Added 3/18/2022  
@@ -480,6 +483,17 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub DisplayColumnIndex(par_intColumnIndex As Integer)""
 
 
+    Public Sub MoveTextCaretToNewRow(par_intNewRowIndex As Integer)
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Dim objRSCDatacell As RSCDataCell
+        objRSCDatacell = GetRSCDataCell_ByRowIndex(par_intNewRowIndex)
+        objRSCDatacell.FocusRelated_SetFocus()
+
+    End Sub ''End of ""Public Sub MoveTextCaretToNewRow()" 
+
+
     Public Function GetIndexOfColumn() As Integer
         ''
         ''Added 4/30/2022 thomas
@@ -489,7 +503,7 @@ Public Class RSCFieldColumnV2
     End Function ''End of ""Public Function GetIndexOfColumn() As Integer""
 
 
-    Public Function FocusRelated_HasFocus() As Boolean
+    Public Function FocusRelated_ColumnHasCellFocus(Optional pboolStrictVersion As Boolean = True) As Boolean
         ''---5/13/2022 Public Function HasFocus() 
         ''
         ''Added 5/13/2022 td
@@ -497,21 +511,67 @@ Public Class RSCFieldColumnV2
         Dim each_boolHasFocus As Boolean ''Added 4/30/2022 td
         ''boolHasFocus = Textbox1a.Focused
         Dim each_RSCDataCell As RSCDataCell
+        Dim intForRowIndex As Integer
+        Dim bWeFoundACellWithFocus As Boolean ''Added 5/13/2022 td
 
         ''
         ''Looping to check for focus. 
         ''
-        For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+        ''5/13/2022 ''For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+        ''
+        ''    ''5/13/2022 ''each_boolHasFocus = (each_RSCDataCell.HasFocus())
+        ''    each_boolHasFocus = (each_RSCDataCell.FocusRelated_CellHasFocus())
+        ''    If (each_boolHasFocus) Then Return True
+        ''
+        ''Next each_RSCDataCell
 
-            each_boolHasFocus = (each_RSCDataCell.HasFocus())
-            If (each_boolHasFocus) Then Return True
+        For intForRowIndex = 1 To mod_listRSCDataCellsByRow.Count
+            If (mod_listRSCDataCellsByRow.ContainsKey(intForRowIndex)) Then
 
-        Next each_RSCDataCell
+                each_RSCDataCell = mod_listRSCDataCellsByRow(intForRowIndex)
+
+                If (pboolStrictVersion) Then
+                    each_boolHasFocus = (each_RSCDataCell.FocusRelated_TextboxHasFocus())
+                Else
+                    each_boolHasFocus = (each_RSCDataCell.FocusRelated_CellHasFocus())
+                End If
+
+                If (each_boolHasFocus) Then
+                    ''Return True 
+                    bWeFoundACellWithFocus = True
+                    Exit For
+                End If ''End of ""If (each_boolHasFocus) Then""
+
+            Else
+                ''The row has been deleted by the user. 
+                ''---5/01/2022 thomas d. 
+            End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
+        Next intForRowIndex
+
 
         ''Added 5/13/2022 thomas downes
-        Return Me.FocusRelated_UserHasSelectedColumn
+        ''5/13/2022 td''Return Me.FocusRelated_UserHasSelectedColumn
+        If (pboolStrictVersion) Then
+            ''We are strictly concerned with the TextBox having the TextCaret, 
+            ''   which is 99% certain to be determined by the TextBox.HasFocus()
+            ''   property.  ----5/13/2022 td
+            Return bWeFoundACellWithFocus
 
-    End Function ''End of ""Public Function FocusRelated_HasFocus() As Boolean""  
+        ElseIf (bWeFoundACellWithFocus) Then
+
+            Return True ''---Return bWeFoundACellWithFocus
+
+        Else
+            ''
+            ''We are not using strict mode, so we can check to see if the user has
+            ''  somehow selected the column (maybe by clicking on the column header).
+            ''  ---5/13/2022 td
+            ''
+            Return Me.FocusRelated_UserHasSelectedColumn
+
+        End If ''End of ""If (pbStrictVersion) Then... ElseIf... Else ""
+
+    End Function ''End of ""Public Function FocusRelated_ColumnHasCellFocus() As Boolean""  
 
 
     Public Sub Handle_CellHasFocus(sender As Object, e As EventArgs)
@@ -760,12 +820,36 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 5/13/2022 td 
         ''
-        Dim objFirstCell As RSCDataCell
+        ''5/2022 ''Dim objFirstCell As RSCDataCell
+        Dim objTargetCell As RSCDataCell
         Dim boolHasDataAlready As Boolean
         Dim boolUserConfirmedPaste As Boolean
+        Dim bCellOrHeaderHasFocus As Boolean
 
-        objFirstCell = GetFirstRSCDataCell()
-        With objFirstCell
+        objTargetCell = GetFirstRSCDataCell()
+
+        ''Added 5/13/2022 thomas downes
+        ''  Check the cells to see which has the text-caret focus ("editing focus").
+        ''
+        For Each each_cell As RSCDataCell In ListOfRSCDataCells_TopToBottom()
+            ''May 13, 2022 ''If (each_cell.HasFocus()) Then
+            ''May 13, 2022 ''if (each_cell.RowHeaderHasFocus()) Then"
+
+            With each_cell
+                bCellOrHeaderHasFocus = (.FocusRelated_CellHasFocus() Or
+                                          .FocusRelated_RowHeaderHasFocus())
+            End With
+
+            If (bCellOrHeaderHasFocus) Then
+                objTargetCell = each_cell
+                Exit For
+            End If ''End of ""If (each_cell.HasFocus()) Then""
+        Next each_cell
+
+        ''
+        ''Perform operations on the appropriate cell.  
+        ''
+        With objTargetCell
 
             boolHasDataAlready = (Not String.IsNullOrWhiteSpace(.Text_CellValue))
             If (boolHasDataAlready) Then
@@ -1949,7 +2033,8 @@ Public Class RSCFieldColumnV2
         ''Added 5/13/2022 
         ''
         ''----Me.BackColor = RSCDataCell.BackColor_WithCellFocus
-        Me.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+        ''5/13/2022 td''Me.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+        Me.BackColor = RSCFieldColumnV2.BackColor_WithEmphasis
 
     End Sub ''End of ""Public Sub FocusRelated_SetHighlightingOn()""
 
@@ -1958,7 +2043,8 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 5/13/2022 
         ''
-        Me.BackColor = RSCDataCell.BackColor_NoEmphasis
+        ''5/13/2022 ''Me.BackColor = RSCDataCell.BackColor_NoEmphasis
+        Me.BackColor = RSCFieldColumnV2.BackColor_NoEmphasis
 
     End Sub ''End of ""Public Sub FocusRelated_SetHighlightingOff()""
 

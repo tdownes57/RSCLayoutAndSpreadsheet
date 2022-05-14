@@ -55,7 +55,55 @@ Public Class RSCRowHeader
     End Property
 
 
-    Private Sub textRowHeader1_MouseUp(sender As Object, e As MouseEventArgs) Handles textRowHeader1.MouseUp
+    Public Sub FocusRelated_EmphasizeRow()
+        ''
+        ''Added 5/13/2022 td 
+        ''
+        With Me.ParentRSCRowHeaders
+            ''Added 5/13/2022 td 
+            .EmphasisRowIndex_Start = Me.RowIndex
+            .EmphasisRowIndex_End = -1
+
+            ''Let the user know (via color-coding) that the emphasis has taken place.
+            .EmphasizeRows_Highlight(False,
+                    .EmphasisRowIndex_Start,
+                    .EmphasisRowIndex_End)
+
+            ''Added 5/13/2022
+            ''  The DataCell with the blinking TextCaret should change from
+            ''  the cell in the previously-focused row to the cell in the 
+            ''  currently-focused row. ----5/13/2022 td
+            ''
+            With .ParentRSCSpreadsheet
+                .MoveTextCaret_IfNeeded(Me.RowIndex)
+            End With
+
+        End With ''End of ""With Me.ParentRSCRowHeaders""
+
+    End Sub ''eND OF ""Public Sub FocusRelated_EmphasizeRow()""
+
+
+    Public Function FocusRelated_RowHasEmphasis() As Boolean
+        ''
+        ''Added 5/13/2022 td 
+        ''
+        Dim boolOkayStart As Boolean
+        Dim boolOkayEnd As Boolean
+
+        With Me.ParentRSCRowHeaders
+            ''Added 5/13/2022 td 
+            boolOkayStart = (.EmphasisRowIndex_Start = Me.RowIndex)
+            boolOkayEnd = (-1 = .EmphasisRowIndex_End)
+
+        End With ''End of ""With Me.ParentRSCRowHeaders""
+
+        Return (boolOkayStart And boolOkayEnd)
+
+    End Function ''eND OF ""Public Sub FocusRelated_RowHasEmphasis()""
+
+
+    Private Sub textRowHeader1_MouseUp(sender As Object, e As MouseEventArgs) _
+        Handles textRowHeader1.MouseUp
 
         ''Added 4/12/2022 td 
         Const c_bGiveHeightMsg As Boolean = False

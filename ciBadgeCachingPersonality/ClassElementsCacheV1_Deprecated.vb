@@ -1712,12 +1712,13 @@ Namespace ciBadgeCachePersonality
         End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As Image)"
 
 
-        Public Sub LoadNewElement_FieldV3(par_enumField As EnumCIBFields,
+        Public Function LoadNewElement_FieldV3(par_enumField As EnumCIBFields,
                                         par_intLeft_Pixels As Integer,
                                         par_intTop_Pixels As Integer,
                                         par_layout As BadgeLayoutClass,
-                                        par_enumSide As EnumWhichSideOfCard,
-                       Optional par_newElementFieldV3 As ClassElementFieldV3 = Nothing)  '' = EnumWhichSideOfCard.EnumFrontside)
+                                        par_enumSide As EnumWhichSideOfCard) _
+                                        As ClassElementFieldV3 ''5/13/2022 = Nothing
+            '' = EnumWhichSideOfCard.EnumFrontside)
             ''
             ''Added 5/6/2022 thomas downes
             ''
@@ -1759,7 +1760,7 @@ Namespace ciBadgeCachePersonality
             new_elementField.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
             new_elementField.BadgeLayout = par_layout
             new_elementField.DatetimeUpdated = DateTime.Now
-            par_newElementFieldV3 = new_elementField ''Added 5/12/2022 
+            ''5/13/2022 td''par_newElementFieldV3 = new_elementField ''Added 5/12/2022 
 
             ''
             ''Part 3 of 5.  Do the work of adding the new element to the list of elements.
@@ -1792,14 +1793,20 @@ Namespace ciBadgeCachePersonality
                 System.Diagnostics.Debugger.Break()
             End If ''End of""If (intCountDifference = 0) Then""
 
-        End Sub ''End of ""Public Sub LoadNewElement_FieldV3()""
+            ''
+            ''Exit Handler
+            ''
+            Return new_elementField
+
+        End Function ''End of ""Public Function LoadNewElement_FieldV3()""
 
 
-        Public Sub LoadNewElement_FieldV4(par_enumField As EnumCIBFields,
+        Public Function LoadNewElement_FieldV4(par_enumField As EnumCIBFields,
                                         par_intLeft_Pixels As Integer,
                                         par_intTop_Pixels As Integer,
                                         par_layout As BadgeLayoutClass,
-                  Optional par_enumSide As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+                  par_enumSide As EnumWhichSideOfCard) _
+                  As ClassElementFieldV4
             ''
             ''Added 5/11/2022 thomas downes
             ''
@@ -1833,7 +1840,9 @@ Namespace ciBadgeCachePersonality
 
             End If ''End of ""If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then... Else ....""
 
-        End Sub ''End of ""Public Sub LoadNewElement_FieldV4()""
+            Return new_elementField ''Added 5/13/2022 td
+
+        End Function ''End of ""Public Function LoadNewElement_FieldV4()""
 
 
         Public Sub LoadNewElement_Pic(par_intLeft As Integer, par_intTop As Integer,

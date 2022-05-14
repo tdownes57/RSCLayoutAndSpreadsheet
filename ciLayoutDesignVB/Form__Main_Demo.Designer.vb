@@ -115,6 +115,7 @@ Partial Class Form__Main_Demo
         Me.LabelFieldsNotYetDisplayed = New System.Windows.Forms.Label()
         Me.pictureJustAButton = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
@@ -131,7 +132,6 @@ Partial Class Form__Main_Demo
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonAddElementsV = New System.Windows.Forms.Button()
         Me.ButtonAddElementsH = New System.Windows.Forms.Button()
-        Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -896,6 +896,18 @@ Partial Class Form__Main_Demo
         Me.ToolTip1.SetToolTip(Me.pictureJustAButton, "This indicates the back side of the ID Card. Click to view.")
         Me.pictureJustAButton.Visible = False
         '
+        'ButtonRecipients
+        '
+        Me.ButtonRecipients.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonRecipients.Location = New System.Drawing.Point(733, 463)
+        Me.ButtonRecipients.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonRecipients.Name = "ButtonRecipients"
+        Me.ButtonRecipients.Size = New System.Drawing.Size(466, 47)
+        Me.ButtonRecipients.TabIndex = 100
+        Me.ButtonRecipients.Text = "Manage Recipients / Members"
+        Me.ToolTip1.SetToolTip(Me.ButtonRecipients, "Enter or edit recipients' data (students / staff / members)")
+        Me.ButtonRecipients.UseVisualStyleBackColor = True
+        '
         'CtlGraphicQRCode1
         '
         Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
@@ -1057,18 +1069,6 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH.Size = New System.Drawing.Size(582, 32)
         Me.ButtonAddElementsH.TabIndex = 93
         Me.ButtonAddElementsH.UseVisualStyleBackColor = False
-        '
-        'ButtonRecipients
-        '
-        Me.ButtonRecipients.Font = New System.Drawing.Font("Arial", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonRecipients.Location = New System.Drawing.Point(1071, 457)
-        Me.ButtonRecipients.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonRecipients.Name = "ButtonRecipients"
-        Me.ButtonRecipients.Size = New System.Drawing.Size(128, 72)
-        Me.ButtonRecipients.TabIndex = 100
-        Me.ButtonRecipients.Text = "Recipients / Members"
-        Me.ToolTip1.SetToolTip(Me.ButtonRecipients, "Enter or edit recipients' data (students / staff / members)")
-        Me.ButtonRecipients.UseVisualStyleBackColor = True
         '
         'Form__Main_Demo
         '

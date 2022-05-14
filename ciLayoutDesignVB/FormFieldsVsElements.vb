@@ -4,6 +4,7 @@
 Public Class FormFieldsVsElements
 
     Public AddFields As Boolean
+    Public AddBackgroundImage As Boolean ''Added 5/13/2022 td
     Public AddElements As Boolean
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
@@ -29,6 +30,15 @@ Public Class FormFieldsVsElements
 
         ''Added 5/11/2022 td
         Me.AddElements = True
+        Me.DialogResult = DialogResult.OK
+        Me.Close()
+
+    End Sub
+
+    Private Sub ButtonBackground_Click(sender As Object, e As EventArgs) Handles ButtonBackgroundImage.Click
+
+        ''Added 5/11/2022 td
+        Me.AddBackgroundImage = True
         Me.DialogResult = DialogResult.OK
         Me.Close()
 

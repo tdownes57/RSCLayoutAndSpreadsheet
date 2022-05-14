@@ -33,7 +33,7 @@ Partial Class CtlConfigFldSimpleCustom
         'textFieldLabel
         '
         Me.textFieldLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textFieldLabel.Location = New System.Drawing.Point(340, 0)
+        Me.textFieldLabel.Location = New System.Drawing.Point(442, 0)
         Me.textFieldLabel.Margin = New System.Windows.Forms.Padding(2)
         Me.textFieldLabel.Name = "textFieldLabel"
         Me.textFieldLabel.Size = New System.Drawing.Size(162, 26)
@@ -56,16 +56,16 @@ Partial Class CtlConfigFldSimpleCustom
         Me.LabelHeaderTop.Location = New System.Drawing.Point(2, 0)
         Me.LabelHeaderTop.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeaderTop.Name = "LabelHeaderTop"
-        Me.LabelHeaderTop.Size = New System.Drawing.Size(142, 26)
+        Me.LabelHeaderTop.Size = New System.Drawing.Size(224, 26)
         Me.LabelHeaderTop.TabIndex = 28
-        Me.LabelHeaderTop.Text = "Text Field # 1"
+        Me.LabelHeaderTop.Text = "Custom Text Field # 1"
         Me.LabelHeaderTop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'LabelFieldLabelCaption
         '
         Me.LabelFieldLabelCaption.BackColor = System.Drawing.Color.Transparent
         Me.LabelFieldLabelCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(187, 4)
+        Me.LabelFieldLabelCaption.Location = New System.Drawing.Point(289, 4)
         Me.LabelFieldLabelCaption.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelFieldLabelCaption.Name = "LabelFieldLabelCaption"
         Me.LabelFieldLabelCaption.Size = New System.Drawing.Size(150, 20)
@@ -76,11 +76,10 @@ Partial Class CtlConfigFldSimpleCustom
         '
         Me.CheckBoxRelevant.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CheckBoxRelevant.AutoSize = True
         Me.CheckBoxRelevant.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxRelevant.Location = New System.Drawing.Point(439, 48)
+        Me.CheckBoxRelevant.Location = New System.Drawing.Point(455, 48)
         Me.CheckBoxRelevant.Name = "CheckBoxRelevant"
-        Me.CheckBoxRelevant.Size = New System.Drawing.Size(91, 24)
+        Me.CheckBoxRelevant.Size = New System.Drawing.Size(184, 24)
         Me.CheckBoxRelevant.TabIndex = 31
         Me.CheckBoxRelevant.Text = "Relevant"
         Me.CheckBoxRelevant.UseVisualStyleBackColor = True
@@ -98,6 +97,7 @@ Partial Class CtlConfigFldSimpleCustom
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.LightGreen
         Me.Controls.Add(Me.CheckBoxRelevant)
         Me.Controls.Add(Me.LabelQuestion)
         Me.Controls.Add(Me.textFieldLabel)
@@ -105,7 +105,7 @@ Partial Class CtlConfigFldSimpleCustom
         Me.Controls.Add(Me.LabelHeaderTop)
         Me.Controls.Add(Me.LabelFieldLabelCaption)
         Me.Name = "CtlConfigFldSimpleCustom"
-        Me.Size = New System.Drawing.Size(559, 74)
+        Me.Size = New System.Drawing.Size(642, 74)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

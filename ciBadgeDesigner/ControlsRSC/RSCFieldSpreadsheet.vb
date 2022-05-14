@@ -227,15 +227,71 @@ Public Class RSCFieldSpreadsheet
     End Property
 
 
-    Public Sub PasteData(par_stringPastedData As String)
+    Public Sub PasteData_FirstTry_NotInUse(par_stringPastedData As String)
         ''
         ''Added 2/22/2022 td
         ''
+        Dim boolDataIsOkay As Boolean
+        Dim strWarningMessage As String = ""
+        Dim intNumRowLines As Integer = 0
+        Dim intNumColumns As Integer = 0
 
+        boolDataIsOkay = ReviewPastedData_IsOkay(Clipboard.GetText(), strWarningMessage,
+              intNumRowLines, intNumColumns)
 
-
+        ''
+        ''Not completed.  See Public Sub PasteData_SecondTry()
+        ''
+        System.Diagnostics.Debugger.Break()
 
     End Sub ''ENd of "Public Sub PasteData(par_stringPastedData As String)"
+
+
+    Public Sub PasteData_SecondTry()
+        ''
+        ''Added 5/13/2022 thomas downes  
+        ''
+        Dim columnLeftHandMost As RSCFieldColumnV2 = Nothing
+        Dim boolException As Boolean
+        Dim exceptionRSC As Exception
+        Dim bColumnHasFocus As Boolean
+        Dim boolDataIsOkay As Boolean
+        Dim strWarningMsg As String = ""
+        Dim intNumLines As Integer
+        Dim intNumColumns As Integer
+
+        boolDataIsOkay = ReviewPastedData_IsOkay(Clipboard.GetText(), strWarningMsg,
+                                                 intNumLines, intNumColumns)
+
+
+        Try
+            columnLeftHandMost = mod_array_RSCColumns(0)
+            If (columnLeftHandMost Is Nothing) Then
+                columnLeftHandMost = mod_array_RSCColumns(1)
+            End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
+
+        Catch exceptionRSC
+            boolException = True
+        End Try
+
+        ''---bColumnHasFocus = columnLeftHandMost.HasFocus
+        Const c_bNeedsToHaveTextCaret As Boolean = False ''Added 5/13/2022
+        bColumnHasFocus = columnLeftHandMost.FocusRelated_ColumnHasCellFocus(c_bNeedsToHaveTextCaret)
+
+        If (bColumnHasFocus) Then
+            ''Major data.  
+            columnLeftHandMost.PasteDataFromClipboard()
+
+        Else
+            ''Modified 5/13/2022 thomas downes
+            MessageBoxTD.Show_Statement("To use the Paste button, " +
+                                        "please select the left-most column.",
+               "(To select a column, click one of the cells inside the column.)" + vbCrLf_Deux +
+               "(Alternatively, you may perform the CTRL-V operation from inside any data cell.")
+
+        End If ''End of ""If (bColumnHasFocus) Then... Else..."
+
+    End Sub ''End of ""Public Sub PasteData_SecondTry()""
 
 
     Public Sub ReviewForAbnormalLengthValues(Optional ByRef pboolOneOrMore As Boolean = False,
@@ -270,6 +326,30 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of ""Public Sub ReviewForAbnormalLengthValues()""
 
 
+    Public Sub MoveTextCaret_IfNeeded(par_intNewRowIndex As Integer)
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Const c_bMustHaveCaret As Boolean = False ''False, since when the user clicks on the 
+        ''  spreadsheet's row-header control, the Textbox in the RSCDataCell no longer
+        ''  pass "True" from the function Textbox.HasFocus(). ----5/13/2022
+
+        For Each each_RSColumn As RSCFieldColumnV2 In mod_array_RSCColumns
+
+            If (each_RSColumn Is Nothing) Then Continue For
+
+            If (each_RSColumn.FocusRelated_ColumnHasCellFocus(c_bMustHaveCaret)) Then
+
+                each_RSColumn.MoveTextCaretToNewRow(par_intNewRowIndex)
+                Exit For ''Leave the "For Each" loop.
+
+            End If ''End of ""If (each_RSColumn.FocusRelated_ColumnHasCellFocus()) Then""
+
+        Next each_RSColumn
+
+    End Sub ''End of ""Public Sub MoveTextCaret_IfNeeded()" 
+
+
     Public Function GetRecipientByRowIndex(par_intRowIndex As Integer) As ciBadgeRecipients.ClassRecipient
         ''
         ''Added 4/14/2022 td
@@ -294,7 +374,8 @@ Public Class RSCFieldSpreadsheet
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
 
 
-    Public Sub ReviewColumnDisplayForRelevantFields_1to1(pboolMessageUser As Boolean)
+    Public Function ReviewColumnDisplayForRelevantFields_1to1(pboolMessageUser As Boolean) As DialogResult
+        ''5/2022 ''Public Sub ReviewColumnDisplayForRelevantFields_1to1
         ''
         ''Added 4/26/2022 thomas 
         ''
@@ -310,11 +391,14 @@ Public Class RSCFieldSpreadsheet
         Dim objectStringBuilder1FC_Expanded As System.Text.StringBuilder
         Dim dictionary1FC_Expanded As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
         Dim bUserWantsFieldsManager As Boolean = False ''Added 5/13/2022
+        Dim output_dialogResult As DialogResult ''Added 5/13/2022 
 
         For Each eachRSCColumn In mod_array_RSCColumns
             ''
             ''Build the dictionaries. 
             ''
+            If (eachRSCColumn Is Nothing) Then Continue For
+
             eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionary1FC_FieldsToRSCColumn,
                 dictionary2CF_ColumnToEnumField,
                 objectStringBuilder1FC,
@@ -334,9 +418,10 @@ Public Class RSCFieldSpreadsheet
             ''
             ''5/13/2022 MessageBoxTD.Show_Statement("Here is the list of Columns & corresponding Fields:",
             ''                  objectStringBuilder2CF.ToString())
-            MessageBoxTD.Show_StatementLongform("Here is the list of Columns & corresponding Fields:",
+            output_dialogResult =
+            MessageBoxTD.Show_StatementLongform("Here is the list of Columns && corresponding Fields:",
                                         objectStringBuilder2CF.ToString(),
-                                        1.0, 1.0)
+                                        1.7, 1.0, False)
 
             ''
             ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
@@ -355,22 +440,25 @@ Public Class RSCFieldSpreadsheet
 
                 If (c_showFieldsButton) Then
                     ''Added 5/13/2022
-                    MessageBoxTD.Show_SpecialButton("Here is the list of Fields & corresponding columns:",
+                    output_dialogResult =
+                    MessageBoxTD.Show_SpecialButton("Here is the list of Fields && corresponding columns:",
                                             objectStringBuilder1FC_Expanded.ToString(),
-                                            1.0, 2.0, "Manage Fields", bUserPressedButton)
+                                            1.7, 2.0, "Manage Fields", bUserPressedButton)
                     bUserWantsFieldsManager = bUserPressedButton
 
                 Else
                     ''Added 5/13/2022
-                    MessageBoxTD.Show_StatementLongform("Here is the list of Fields & corresponding columns:",
+                    output_dialogResult =
+                    MessageBoxTD.Show_StatementLongform("Here is the list of Fields && corresponding columns:",
                                             objectStringBuilder1FC_Expanded.ToString(),
-                                            1.0, 2.0)
+                                            1.7, 2.0)
                 End If ''End of ""If (c_showFieldsButton) Then.... Else..."
 
             Else
                 ''Added 4/30/2022
                 ''MessageBoxTD.Show_Statement("Here is the list of Fields & corresponding columns.",
                 ''                        objectStringBuilder1FC.ToString())
+                output_dialogResult =
                 MessageBoxTD.Show_StatementLongform("Here is the list of Fields & corresponding columns:",
                                         objectStringBuilder1FC.ToString(),
                                         1.0, 2.0)
@@ -384,8 +472,10 @@ Public Class RSCFieldSpreadsheet
         ''
         If (bUserWantsFieldsManager) Then ShowFieldsManagement()
 
+        ''Added 5/13/2022 td
+        Return output_dialogResult
 
-    End Sub ''End of ""Public Sub ReviewColumnDisplayForRelevantFields()""
+    End Function ''End of ""Public Sub ReviewColumnDisplayForRelevantFields()""
 
 
     Private Sub ShowFieldsManagement()
@@ -586,6 +676,19 @@ Public Class RSCFieldSpreadsheet
         Return mod_array_RSCColumns(0)
 
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
+
+
+    Public Function GetRowHeaderByRowIndex(par_intRowIndex As Integer) As RSCRowHeader
+
+        ''Added 5/13/2002 
+        Dim objRowHeader As RSCRowHeader
+
+        objRowHeader =
+        RscRowHeaders1.GetRowHeaderByRowIndex(par_intRowIndex)
+
+        Return objRowHeader
+
+    End Function ''Endof ""Public Function GetRowHeaderByRowIndex""
 
 
     Private Sub RSCFieldSpreadsheet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -2121,38 +2224,15 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 5/13/2022 thomas downes  
         ''
-        Dim columnLeftHandMost As RSCFieldColumnV2 = Nothing
-        Dim boolException As Boolean
-        Dim exceptionRSC As Exception
-        Dim bColumnHasFocus As Boolean
-
-        Try
-            columnLeftHandMost = mod_array_RSCColumns(0)
-            If (columnLeftHandMost Is Nothing) Then
-                columnLeftHandMost = mod_array_RSCColumns(1)
-            End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
-
-        Catch exceptionRSC
-            boolException = True
-        End Try
-
-        ''---bColumnHasFocus = columnLeftHandMost.HasFocus
-        bColumnHasFocus = columnLeftHandMost.FocusRelated_HasFocus
-
-        If (bColumnHasFocus) Then
-            ''Major data.  
-            columnLeftHandMost.PasteDataFromClipboard()
-
-        Else
-            ''Modified 5/13/2022 thomas downes
-            MessageBoxTD.Show_Statement("To use the Paste button, " +
-                                        "please select the left-most column.",
-               "(To select a column, click one of the cells inside the column.)" + vbCrLf_Deux +
-               "(Alternatively, you may perform the CTRL-V operation from inside any data cell.")
-
-        End If ''End of ""If (bColumnHasFocus) Then... Else..."
+        PasteData_SecondTry()
 
     End Sub
+
+
+
+
+
+
 
 
 End Class

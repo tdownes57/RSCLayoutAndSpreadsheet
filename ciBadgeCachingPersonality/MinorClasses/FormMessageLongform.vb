@@ -11,7 +11,8 @@
     Public Sub New(pstrMainHeading As String,
                     psingFactorWidth As Single,
                     psingFactorHeight As Single,
-                   pstrOriginalTextValue As String)
+                   pstrOriginalTextValue As String,
+                   pboolShowCancelButton As Boolean)
 
         ''psingLimitOfNumberMin As Single,
         ''psingLimitOfNumberMax As Single,
@@ -37,6 +38,9 @@
         Me.Width = CInt(Me.Width * psingFactorWidth)
         Me.Height = CInt(Me.Height * psingFactorHeight)
 
+        ''Added 5/13/2022
+        Me.ButtonCancel.Visible = pboolShowCancelButton
+
         ''//If (pboolUseTextbox) Then textHowMany.Visible = pboolUseTextbox 
         ''textHowMany.Visible = pboolUseTextbox
         ''NumericUpDown1.Visible = (Not pboolUseTextbox)
@@ -45,4 +49,22 @@
 
     End Sub
 
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+
+        ''Added 5/13/2022
+        Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.Close()
+
+
+    End Sub
+
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+
+        ''Added 5/13/2022
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        Me.Close()
+
+    End Sub
 End Class

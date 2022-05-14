@@ -25,6 +25,7 @@ Partial Class FormMessageLongform
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.LabelMainPrompt = New System.Windows.Forms.Label()
+        Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'TextBox1
@@ -44,7 +45,7 @@ Partial Class FormMessageLongform
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.BackColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOK.Location = New System.Drawing.Point(351, 263)
+        Me.ButtonOK.Location = New System.Drawing.Point(226, 263)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(139, 48)
@@ -63,11 +64,25 @@ Partial Class FormMessageLongform
         Me.LabelMainPrompt.TabIndex = 26
         Me.LabelMainPrompt.Text = "Here is the entire message. "
         '
+        'ButtonCancel
+        '
+        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonCancel.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCancel.Location = New System.Drawing.Point(369, 263)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonCancel.Name = "ButtonCancel"
+        Me.ButtonCancel.Size = New System.Drawing.Size(121, 48)
+        Me.ButtonCancel.TabIndex = 35
+        Me.ButtonCancel.Text = "Cancel"
+        Me.ButtonCancel.UseVisualStyleBackColor = False
+        '
         'FormMessageLongform
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(502, 322)
+        Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelMainPrompt)
@@ -81,4 +96,5 @@ Partial Class FormMessageLongform
     Friend WithEvents TextBox1 As Windows.Forms.TextBox
     Friend WithEvents ButtonOK As Windows.Forms.Button
     Friend WithEvents LabelMainPrompt As Windows.Forms.Label
+    Friend WithEvents ButtonCancel As Windows.Forms.Button
 End Class

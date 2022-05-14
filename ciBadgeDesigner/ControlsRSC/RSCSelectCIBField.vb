@@ -87,7 +87,8 @@ Public Class RSCSelectCIBField
         mod_bLoading = True ''Added 4/1/2022 td
 
         ''3/19/2022''listOfFields = par_cache.ListOfFields_SC_ForEditing()
-        listOfFields = par_cache.ListOfFields_SC_ForEditing(True)
+        ''5/13/2022 td''listOfFields = par_cache.ListOfFields_SC_ForEditing(True)
+        listOfFields = par_cache.ListOfFields_AnyRelevent()
 
         ''Added 4/13/2022 td
         ''To restore later, let's save the value which is currently selected.

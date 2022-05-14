@@ -131,8 +131,8 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/6/2022
         ''
         ''---Return CtlGraphicPortrait1.RectangleToClient()
-        Dim intPixelsTop As Integer
-        Dim intPixelsLeft As Integer
+        Dim intPixelsLeftX As Integer
+        Dim intPixelsTopY As Integer
         Dim intPixelsWidth As Integer
         Dim intPixelsHeight As Integer
         Dim objRectOfControl As Rectangle
@@ -141,18 +141,17 @@ Public Class FormTypeOfElementsToAdd
         objRectOfControl = GetRectangleOf(par_controlField)
 
         With objRectOfControl
-            intPixelsTop = .Top
-            intPixelsLeft = .Left
+            intPixelsLeftX = .Left
+            intPixelsTopY = .Top
             intPixelsWidth = .Width * psingleFactorWidth
             intPixelsHeight = .Height * psingleFactorHeight
         End With
 
-        Return New Rectangle(New Point(intPixelsTop, intPixelsLeft),
+        ''---Return New Rectangle(New Point(intPixelsTop, intPixelsLeft),
+        Return New Rectangle(New Point(intPixelsLeftX, intPixelsTopY),
                              New Size(intPixelsWidth, intPixelsHeight))
 
-    End Function
-
-
+    End Function ''eND OF ""Private Function GetRectangle_FieldControl""
 
 
     Public Function GetRectangle_PortraitPic() As Drawing.Rectangle
@@ -301,7 +300,7 @@ Public Class FormTypeOfElementsToAdd
             enumCIBField = .GetFieldEnumSelected()
             bSubstantiveField = (enumCIBField <> EnumCIBFields.Undetermined)
             ''5/5/2022 bSelectionBorder = (.BorderStyle <> BorderStyle.None)
-            bSelectionBorder = HasBorder(par_RSCSelectField)
+            bSelectionBorder = HasBorder_IsSelected(par_RSCSelectField)
             ''#1 5/5/2022 td ''pref_bMismatch = (bSubstantiveField <> bSelectionBorder)
             ''#2 5/5/2022 td ''boolMismatch = ((bSubstantiveField <> bSelectionBorder)
             boolMismatch = ((bSubstantiveField <> bSelectionBorder) And
@@ -375,7 +374,7 @@ Public Class FormTypeOfElementsToAdd
     End Sub ''end of "Public Sub Load_FieldsFromFieldList"
 
 
-    Private Function HasBorder(par_control As UserControl) As Boolean
+    Private Function HasBorder_IsSelected(par_control As UserControl) As Boolean
         ''
         ''Added 5/5/2022 td
         ''
@@ -401,7 +400,7 @@ Public Class FormTypeOfElementsToAdd
         End If ''end of ""If (TypeOf par_control Is CtlGraphicStaticTextV3) Then....ElseIf..."
 
 
-    End Function ''End of ""Private Function HasBorder(par_control As Control) As Boolean""
+    End Function ''End of ""Private Function HasBorder_IsSelected(par_control As Control) As Boolean""
 
 
     Private Function HasValue(par_control As RSCSelectCIBField)
@@ -455,11 +454,11 @@ Public Class FormTypeOfElementsToAdd
         ''Me.AddField5_Enum = GetCIBFieldToAdd(RscSelectCIBField5, 5) ''5.BorderStyle <> BorderStyle.None)
 
         ''Added 5/5/2022 td
-        Me.AddField1 = (HasBorder(RscSelectCIBField1) Or HasValue(RscSelectCIBField1)) ''GetCIBFieldToAdd(RscSelectCIBField1, 1) ''1.BorderStyle <> BorderStyle.None)
-        Me.AddField2 = (HasBorder(RscSelectCIBField2) Or HasValue(RscSelectCIBField2)) ''GetCIBFieldToAdd(RscSelectCIBField2, 2) ''2.BorderStyle <> BorderStyle.None)
-        Me.AddField3 = (HasBorder(RscSelectCIBField3) Or HasValue(RscSelectCIBField3)) ''GetCIBFieldToAdd(RscSelectCIBField3, 3) ''3.BorderStyle <> BorderStyle.None)
-        Me.AddField4 = (HasBorder(RscSelectCIBField4) Or HasValue(RscSelectCIBField4)) ''GetCIBFieldToAdd(RscSelectCIBField4, 4) ''4.BorderStyle <> BorderStyle.None)
-        Me.AddField5 = (HasBorder(RscSelectCIBField5) Or HasValue(RscSelectCIBField5)) ''GetCIBFieldToAdd(RscSelectCIBField5, 5) ''5.BorderStyle <> BorderStyle.None)
+        Me.AddField1 = (HasBorder_IsSelected(RscSelectCIBField1) Or HasValue(RscSelectCIBField1)) ''GetCIBFieldToAdd(RscSelectCIBField1, 1) ''1.BorderStyle <> BorderStyle.None)
+        Me.AddField2 = (HasBorder_IsSelected(RscSelectCIBField2) Or HasValue(RscSelectCIBField2)) ''GetCIBFieldToAdd(RscSelectCIBField2, 2) ''2.BorderStyle <> BorderStyle.None)
+        Me.AddField3 = (HasBorder_IsSelected(RscSelectCIBField3) Or HasValue(RscSelectCIBField3)) ''GetCIBFieldToAdd(RscSelectCIBField3, 3) ''3.BorderStyle <> BorderStyle.None)
+        Me.AddField4 = (HasBorder_IsSelected(RscSelectCIBField4) Or HasValue(RscSelectCIBField4)) ''GetCIBFieldToAdd(RscSelectCIBField4, 4) ''4.BorderStyle <> BorderStyle.None)
+        Me.AddField5 = (HasBorder_IsSelected(RscSelectCIBField5) Or HasValue(RscSelectCIBField5)) ''GetCIBFieldToAdd(RscSelectCIBField5, 5) ''5.BorderStyle <> BorderStyle.None)
 
         ''Conditions added 5/5/2022 td
         If (Me.AddField1) Then Me.AddField1_Enum = GetCIBFieldToAdd(RscSelectCIBField1, 1, True, bMismatchOfIntention) ''1.BorderStyle <> BorderStyle.None)
@@ -470,11 +469,17 @@ Public Class FormTypeOfElementsToAdd
 
         If (bMismatchOfIntention) Then Exit Sub ''Added 5/5/2022 td
 
-        Me.AddQRCode = (CtlGraphicQRCode1.BorderStyle <> BorderStyle.None)
-        Me.AddSignature = (CtlGraphicSignature1.BorderStyle <> BorderStyle.None)
-        Me.AddGraphic = (CtlGraphicStaticGraphic1.BorderStyle <> BorderStyle.None)
-        Me.AddPortraitPic = (CtlGraphicPortrait1.BorderStyle <> BorderStyle.None)
-        Me.AddStaticText = (CtlGraphicStaticText1.BorderStyle <> BorderStyle.None)
+        ''5/13/2022 td''Me.AddQRCode = (CtlGraphicQRCode1.BorderStyle <> BorderStyle.None)
+        ''5/13/2022 td''Me.AddSignature = (CtlGraphicSignature1.BorderStyle <> BorderStyle.None)
+        ''5/13/2022 td''Me.AddGraphic = (CtlGraphicStaticGraphic1.BorderStyle <> BorderStyle.None)
+        ''5/13/2022 td''Me.AddPortraitPic = (CtlGraphicPortrait1.BorderStyle <> BorderStyle.None)
+        ''5/13/2022 td''Me.AddStaticText = (CtlGraphicStaticText1.BorderStyle <> BorderStyle.None)
+
+        Me.AddQRCode = HasBorder_IsSelected(CtlGraphicQRCode1)
+        Me.AddSignature = HasBorder_IsSelected(CtlGraphicSignature1)
+        Me.AddGraphic = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        Me.AddPortraitPic = HasBorder_IsSelected(CtlGraphicPortrait1)
+        Me.AddStaticText = HasBorder_IsSelected(CtlGraphicStaticText1)
 
         Me.DialogResult = DialogResult.OK
         Me.Close()

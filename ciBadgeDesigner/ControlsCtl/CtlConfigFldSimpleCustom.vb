@@ -158,6 +158,7 @@ ExitHandler:
                 ''objFontStyle.Underline = True
                 .Font = New Drawing.Font(.Font, Drawing.FontStyle.Underline Or
                                                Drawing.FontStyle.Bold)
+                .Text = "Relevant...yes!"
 
             Else
 
@@ -165,8 +166,10 @@ ExitHandler:
                 ''objFontStyle.Bold = True
                 ''objFontStyle.Underline = True
                 .Font = New Drawing.Font(.Font, Drawing.FontStyle.Regular)
+                .Text = "Relevant"
 
-            End If
+            End If ''Ednod of  "" If (.Checked) Then... Else...."
+
         End With
 
     End Sub ''end of Public Sub LoadCheckboxFontStyle()

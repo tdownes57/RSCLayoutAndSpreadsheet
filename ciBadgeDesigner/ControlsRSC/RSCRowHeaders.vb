@@ -28,7 +28,7 @@ Public Class RSCRowHeaders
 
     ''Added 4/29/2022 td
     Private mod_colorHeadersBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.SystemColors.ButtonFace
-    Private mod_colorHeadersBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.Gray
+    Private mod_colorHeadersBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.Cyan ''5/13/2022 .Gray
 
     Private mod_array_RSCColumns As RSCFieldColumnV1() ''Added 3/14/2022 td
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
@@ -85,6 +85,19 @@ Public Class RSCRowHeaders
         Return oList
 
     End Function ''ENd of "Public Function ListOfColumns() As List(Of RSCFieldColumn)"
+
+
+    Public Function GetRowHeaderByRowIndex(par_intRowIndex As Integer) As RSCRowHeader
+        ''
+        ''Added 5/13/2022 td
+        ''
+        Dim objRowHeader As RSCRowHeader
+        objRowHeader =
+            mod_listTextboxesByRow.Item(par_intRowIndex)
+
+        Return objRowHeader
+
+    End Function ''End of""Public Function GetRowHeaderByRowIndex()"
 
 
     Public Shared Function GetRSCRowHeaders(par_designer As ClassDesigner,

@@ -870,9 +870,26 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub LoadDesigner"
 
 
-    Public Sub Load_NewElement_Field(par_enumField As EnumCIBFields,
-                                     par_rect As Rectangle,
-                    Optional ByRef par_newElementFieldV3 As ClassElementFieldV3 = Nothing)
+    Public Sub Load_NewElementIntoCache_AndForm(par_enumField As EnumCIBFields,
+                                     par_rectForElement As Rectangle)
+        ''
+        ''Added 5/13/2022 td
+        ''
+        Dim new_elementFieldV3 As ClassElementFieldV3 = Nothing ''Added 5/12/2022 td
+
+        new_elementFieldV3 = Load_NewElementIntoCache_FieldV3(par_enumField,
+                                                   par_rectForElement)
+
+        If (new_elementFieldV3 Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        LoadFieldControl_JustOneV3(new_elementFieldV3)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementIntoCache_AndForm()""
+
+
+    Public Function Load_NewElementIntoCache_FieldV3(par_enumField As EnumCIBFields,
+                                     par_rect As Rectangle) As ClassElementFieldV3
         ''
         ''Added 5/6/2022 thomas d.
         ''
@@ -880,13 +897,15 @@ Public Class ClassDesigner
         Dim intPicTop As Integer
         Dim intPicWidth As Integer
         Dim intPicHeight As Integer
+        Dim objNewElementFieldV3 As ClassElementFieldV3
+        Dim objNewElementFieldV4 As ClassElementFieldV3
 
         Static s_countCalls As Integer = 0
 
         ''Added 5/10/2022 td
         If (par_enumField = EnumCIBFields.Undetermined) Then
             System.Diagnostics.Debugger.Break()
-            Exit Sub
+            ''-----Exit Sub
         End If ''End of ""If (par_enumField = EnumCIBFields.Undetermined) Then""
 
 
@@ -911,28 +930,101 @@ Public Class ClassDesigner
 
         If (c_boolVersion4_TestingOK) Then
 
-            ''Version 4, is not working at all... bummer! ----5/12/2022 
-            Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
-                                 intPicLeft, intPicTop,
-                                 Me.BadgeLayout_Class,
-                                 EnumSideOfCard_Current)
-            ''---------        ''intPicWidth, intPicHeight,
+            ''''Version 4, is not working at all... bummer! ----5/12/2022 
+            ''objNewElementFieldV4 =
+            ''Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
+            ''                     intPicLeft, intPicTop,
+            ''                     Me.BadgeLayout_Class,
+            ''                     EnumSideOfCard_Current)
+            ''''---------        ''intPicWidth, intPicHeight,
+            ''Return objNewElementFieldV4
+            Return Nothing ''Revised 5/13/2022 td
 
         Else
-            ''Version 3, is tried & true. ----5/12/2022 
+            ''Version 3, is tried & true. ----5/12/2022
+            objNewElementFieldV3 =
             Me.ElementsCache_UseEdits.LoadNewElement_FieldV3(par_enumField,
                                  intPicLeft, intPicTop,
                                  Me.BadgeLayout_Class,
-                                 EnumSideOfCard_Current,
-                                   par_newElementFieldV3)
+                                 EnumSideOfCard_Current)
+
+            Return objNewElementFieldV3
 
         End If ''End of ""If (c_boolVersion4_TestingOK) Then... Else...."
 
-    End Sub ''End of ""Public Sub Load_NewElement_Field()""
+    End Function ''End of ""Public Sub Load_NewElementIntoCache_FieldV3()""
+
+
+    Public Function Load_NewElementIntoCache_FieldV4(par_enumField As EnumCIBFields,
+                                     par_rect As Rectangle) As ClassElementFieldV4
+        ''
+        ''Added 5/13/2022 thomas d.
+        ''
+        Dim intPicLeft As Integer
+        Dim intPicTop As Integer
+        Dim intPicWidth As Integer
+        Dim intPicHeight As Integer
+        ''Dim objNewElementFieldV3 As ClassElementFieldV3
+        Dim objNewElementFieldV4 As ClassElementFieldV4
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 5/10/2022 td
+        If (par_enumField = EnumCIBFields.Undetermined) Then
+            System.Diagnostics.Debugger.Break()
+            ''-----Exit Sub
+        End If ''End of ""If (par_enumField = EnumCIBFields.Undetermined) Then""
+
+
+        ''Added 10/01/2019 td
+        intPicLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intPicTop = par_rect.Top '' Me.Initial_Pic_Top
+        intPicWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intPicHeight = par_rect.Height '' Me.Initial_Pic_Height
+
+        ''TO DO:  Create a form which displays the badge as a white background
+        ''        and overlays a blue rectangle which the correct WH ratio 
+        ''        and placed on a random part of the badge. Have a heading 
+        ''        which says, "We have placed the new element at a random position
+        ''        on the badge, as indicated below.  The only reason for this
+        ''        dialog is to let you know where it's been placed.  You cannot
+        ''        modify use this dialog to move the element.  Hit OK to close dialog."
+        ''        That dialog can have the responsibility of calling the Random
+        ''        Number generator and determining pixel position. 
+        ''        --5/6/2022 thomas d.
+        ''
+        Const c_boolVersion4_TestingOK As Boolean = True ''False ''Added 5/12/2022 td
+
+        If (c_boolVersion4_TestingOK) Then
+
+            ''''Version 4, is not working at all... bummer! ----5/12/2022 
+            ''objNewElementFieldV4 =
+            ''Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
+            ''                     intPicLeft, intPicTop,
+            ''                     Me.BadgeLayout_Class,
+            ''                     EnumSideOfCard_Current)
+            ''''---------        ''intPicWidth, intPicHeight,
+            ''Return objNewElementFieldV4
+            ''Return Nothing ''Revised 5/13/2022 td
+            Return objNewElementFieldV4
+
+        Else
+            ''Version 3, is tried & true. ----5/12/2022
+            ''objNewElementFieldV3 =
+            ''Me.ElementsCache_UseEdits.LoadNewElement_FieldV3(par_enumField,
+            ''                     intPicLeft, intPicTop,
+            ''                     Me.BadgeLayout_Class,
+            ''                     EnumSideOfCard_Current)
+
+            ''Return objNewElementFieldV3
+
+        End If ''End of ""If (c_boolVersion4_TestingOK) Then... Else...."
+
+    End Function ''End of ""Public Sub Load_NewElementIntoCache_FieldV4()""
 
 
 
-    Public Sub Load_NewElement_PortraitPic(par_rect As Rectangle)
+    Public Sub Load_NewElementIntoCache_PortraitPic(par_rect As Rectangle)
         ''
         ''Added 5/6/2022 thomas d.
         ''
@@ -965,10 +1057,10 @@ Public Class ClassDesigner
                              Me.BackgroundBox_Front,
                              EnumSideOfCard_Current)
 
-    End Sub ''End of ""Public Sub Load_NewElement_PortraitPic()""
+    End Sub ''End of ""Public Sub Load_NewElementIntoCache_PortraitPic()""
 
 
-    Public Sub Load_NewElement_QRCode(par_rect As Rectangle)
+    Public Sub Load_NewElementIntoCache_QRCode(par_rect As Rectangle)
         ''
         ''Added 5/06/2022 td
         ''
@@ -991,7 +1083,7 @@ Public Class ClassDesigner
                              Me.BackgroundBox_Front,
                              EnumSideOfCard_Current)
 
-    End Sub ''End of ""Public Sub Load_NewElement_QRCode()""
+    End Sub ''End of ""Public Sub Load_NewElementIntoCache_QRCode()""
 
 
     Public Sub Load_NewElement_Signature(par_rect As Rectangle)

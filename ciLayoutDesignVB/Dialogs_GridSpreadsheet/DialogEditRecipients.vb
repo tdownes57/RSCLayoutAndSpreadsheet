@@ -59,12 +59,24 @@ Public Class DialogEditRecipients
         ''
         mod_stringPastedData = Clipboard.GetText()
 
+        Dim boolDataIsOkay As Boolean ''Added 5/13/2022 
+        Dim strWarningMessage As String = "" ''Added 5/13/2022 
+
+        boolDataIsOkay = ReviewPastedData_IsOkay(mod_stringPastedData, strWarningMessage)
+
+        If (boolDataIsOkay) Then
+            ''Great news!!
+        Else
+            MessageBoxTD.Show_Statement(strWarningMessage)
+
+        End If ''End of ""If (boolDataIsOkay) Then.... Else..."
+
 
 ExitHandler:
         ''
         ''Pass the data on.  
         ''
-        RscFieldSpreadsheet1.PasteData(mod_stringPastedData)
+        RscFieldSpreadsheet1.PasteData_SecondTry() ''---mod_stringPastedData)
 
     End Sub
 
@@ -209,6 +221,9 @@ ExitHandler:
             Me.Size = mod_cacheColumnWidthsAndData.FormSize
         End If
 
+        ''Added 5/13/2022 td
+        ButtonOK.BringToFront()
+
     End Sub
 
     Private Sub LinkLabelOpenFields_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenFieldsDialog.LinkClicked
@@ -266,9 +281,26 @@ ExitHandler:
         ''
         ''Added 3/18/2022 
         ''
-        RscFieldSpreadsheet1.SaveDataColumnByColumn()
+        Dim dialog_result As DialogResult
+
+        ''Added 5/13/2022 td
+        With Me.RscFieldSpreadsheet1
+
+            ''Added 5/13/2022 
+            dialog_result = .ReviewColumnDisplayForRelevantFields_1to1(True)
+
+            ''Added 5/13/2022 
+            If (dialog_result = DialogResult.Cancel) Then
+                MessageBoxTD.Show_Statement("User has opted to stay in the Edit-Recipients dialog.", "", "")
+                Exit Sub
+            End If ''End of ""If (dialog_result = DialogResult.Cancel) Then""
+
+            RscFieldSpreadsheet1.SaveDataColumnByColumn()
+
+        End With
+
         Me.RecipientsCache.SaveToXML() ''Added 4/12/2022 td
-        Me.DialogResult = DialogResult.OK ''Added 3/31/2022 td
+            Me.DialogResult = DialogResult.OK ''Added 3/31/2022 td
         Me.Close()
 
     End Sub

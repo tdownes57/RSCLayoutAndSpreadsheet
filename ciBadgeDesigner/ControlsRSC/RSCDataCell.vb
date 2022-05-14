@@ -260,13 +260,39 @@ Public Class RSCDataCell
     End Function ''End of ""Public Function GetFirstCell_NextRowDown() As RSCDataCell""
 
 
-    Public Function HasFocus() As Boolean
+    Public Function FocusRelated_CellHasFocus() As Boolean
+        ''5/13/2022 Public Function HasFocus()
 
         ''Added 4/30/2022 td
         Dim boolHasFocus As Boolean ''Added 4/30/2022 td
         boolHasFocus = Textbox1a.Focused
 
-    End Function ''End of ""Public Function HasFocus() As Boolean""  
+    End Function ''End of ""Public Function FocusRelated_CellHasFocus() As Boolean""  
+
+
+    Public Function FocusRelated_TextboxHasFocus() As Boolean
+        ''5/13/2022 Public Function FocusRelated_TextboxHasFocus()
+
+        ''Added 4/30/2022 td
+        Dim boolHasFocus As Boolean ''Added 4/30/2022 td
+        boolHasFocus = Textbox1a.Focused
+
+    End Function ''End of ""Public Function FocusRelated_TextboxHasFocus() As Boolean""  
+
+
+    Public Function FocusRelated_RowHeaderHasFocus() As Boolean
+        ''
+        ''Added 5/13/2022 thomas d.
+        ''
+        Dim objRowHeader As RSCRowHeader
+        Dim boolHasFocus As Boolean
+
+        ''Added 5/13/2022 thomas d.
+        objRowHeader = Me.GetParentRowHeader()
+        boolHasFocus = objRowHeader.FocusRelated_RowHasEmphasis()
+        Return boolHasFocus
+
+    End Function ''End of ""Public Function FocusRelated_RowHeaderHasFocus() As Boolean""  
 
 
     Public Sub SaveDataToRecipientField(par_enumCIBField As EnumCIBFields)
@@ -441,14 +467,14 @@ Public Class RSCDataCell
     End Sub ''End of "Public Sub LoadTabbedData()"
 
 
-    Public Sub SetFocus()
+    Public Sub FocusRelated_SetFocus()
         ''
         ''Added 4/12/2022 td
         ''
         Textbox1a.Focus()
         Textbox1a.SelectAll()
 
-    End Sub ''End of ""Public Sub SetFocus()""
+    End Sub ''End of ""Public Sub FocusRelated_SetFocus()""
 
 
     Public Sub ReviewForAbnormalLengthValues(ByRef pboolHasAbnormalLength As Boolean)
@@ -497,6 +523,22 @@ Public Class RSCDataCell
         Return intCountCRs
 
     End Function
+
+
+    Private Function GetParentRowHeader() As RSCRowHeader
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Dim intRowIndex As Integer
+        Dim outputRowHeader As RSCRowHeader
+
+        intRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        With Me.ParentColumn.ParentSpreadsheet
+            outputRowHeader = .GetRowHeaderByRowIndex(intRowIndex)
+        End With
+        Return outputRowHeader
+
+    End Function ''End of ""Private Function GetParentRowHeader() As RSCRowHeader""
 
 
     Public Sub PasteDataFromClipboard(pbUserConfirmedOverwrite As Boolean)
@@ -720,7 +762,7 @@ Public Class RSCDataCell
 
             ''Goto the next cell. 
             Textbox1a.BorderStyle = BorderStyle.None ''Clear the border of the current cell.
-            objNextCell.SetFocus()
+            objNextCell.FocusRelated_SetFocus()
             objNextCell.BorderStyle_Textbox = BorderStyle.FixedSingle ''4/28/2022 td
             Me.ParentColumn.ClearBorderStyle_PriorCell(objNextCell)
 
@@ -839,13 +881,44 @@ Public Class RSCDataCell
 
     End Sub
 
-    Private Sub Textbox1a_GotFocus(sender As Object, e As EventArgs) Handles Textbox1a.GotFocus
 
+    Private Sub FocusRelated_HandleGotFocus(sender As Object, e As EventArgs)
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
         ''Added 5/13/2022 td 
         RaiseEvent GotFocus_Cell(sender, e)
 
         ''Added 5/13/2022 td 
         Me.ParentColumn.Handle_CellHasFocus(sender, e)
 
+        ''5/13/2022 Me.ParentRowHeader().Handle_CellHasFocus(sender, e)
+        Dim objRowHeader As RSCRowHeader
+        objRowHeader = Me.GetParentRowHeader()
+        If (objRowHeader IsNot Nothing) Then
+            objRowHeader.FocusRelated_EmphasizeRow()
+        End If ''End of ""If (objRowHeader IsNot Nothing) Then""
+
+    End Sub ''End of ""Private Sub FocusRelated_HandleGotFocus""
+
+
+    Private Sub Textbox1a_GotFocus(sender As Object, e As EventArgs) Handles Textbox1a.GotFocus
+
+        ''Encapsulated 5/13/2022 td
+        FocusRelated_HandleGotFocus(sender, e)
+
+        ''''Added 5/13/2022 td 
+        ''RaiseEvent GotFocus_Cell(sender, e)
+
+        ''''Added 5/13/2022 td 
+        ''Me.ParentColumn.Handle_CellHasFocus(sender, e)
+        ''''5/13/2022 Me.ParentRowHeader().Handle_CellHasFocus(sender, e)
+        ''Dim objRowHeader As RSCRowHeader
+        ''objRowHeader = Me.GetParentRowHeader()
+        ''If (objRowHeader IsNot Nothing) Then
+        ''    objRowHeader.FocusRelated_EmphasizeRow()
+        ''End If
+
     End Sub
+
 End Class
