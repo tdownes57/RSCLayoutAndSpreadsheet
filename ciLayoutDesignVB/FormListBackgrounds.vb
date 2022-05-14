@@ -5,6 +5,7 @@ Imports ciLayoutPrintLib ''added 11/25
 
 Public Class FormListBackgrounds
 
+    Public DemoMode As Boolean ''Added 5/13/2022 thomas downes
     Public ImageFilePath As String
     Public ImageFileInfo As System.IO.FileInfo
 
@@ -13,6 +14,22 @@ Public Class FormListBackgrounds
     ''
     ''Added 11/25/2021 thomas downes
     ''
+    Public Sub ChangeHeaderLabelCaption()
+        ''
+        ''Added 5/13/2022 
+        ''
+        If (Me.DemoMode) Then
+
+            LabelHeading1.Text = "Background, Demo Mode"
+
+        Else
+            LabelHeading1.Text = "Select Background Image"
+
+        End If ''End of ""If (Me.DemoMode) Then... Else ..." 
+
+    End Sub ''Endof ""Public Sub ChangeHeaderLabelCaption()""
+
+
     Public Sub LoadSelection(par_controlBack As CtlBackground)
         ''
         ''Added 11/25/2021 thomas downes
@@ -36,7 +53,11 @@ Public Class FormListBackgrounds
         ''
         DeleteControlsDevoidOfData()
 
-        LoadControlsFromFolderImagesBack()
+        ''5/13/2022 td ''LoadControlsFromFolderImagesBack()
+        LoadControlsFromFolderImagesBack(Me.DemoMode)
+
+        ''Added 5/13/2022 
+        ChangeHeaderLabelCaption()
 
     End Sub
 
@@ -51,9 +72,12 @@ Public Class FormListBackgrounds
         ''Open the dialog for addressing dimensional ratios.
         ''---12/2/2021 thomas d.
         ''
-        Dim objChildDialog As New FormUploadDimensionsMsg
-        objChildDialog.UploadedImageFile(Me.ImageFilePath)
-        objChildDialog.ShowDialog()
+        Const c_bAddressDimensionalRatio As Boolean = False
+        If (c_bAddressDimensionalRatio) Then
+            Dim objChildDialog As New FormUploadDimensionsMsg
+            objChildDialog.UploadedImageFile(Me.ImageFilePath)
+            objChildDialog.ShowDialog()
+        End If ''end of ""If (c_bAddressDimensionalRatio) Then""
 
         ''Close the form.  
         Me.Close()
@@ -74,11 +98,10 @@ Public Class FormListBackgrounds
             ''Throw New Exception("Controls still left in FlowLayoutPanel.")
             FlowLayoutPanel1.Controls.Clear()
         End If
-    End Sub
+    End Sub ''End of ""Private Sub DeleteControlsDevoidOfData()""
 
 
-
-    Private Sub LoadControlsFromFolderImagesBack()
+    Private Sub LoadControlsFromFolderImagesBack(pboolExampleDemoImages As Boolean)
         ''
         '' added 11/25
         ''
@@ -87,7 +110,13 @@ Public Class FormListBackgrounds
 
         BackImageExamples.CurrentIndex += 1
 
-        strFolderPath = DiskFolders.PathToFolder_BackExamples
+        If (pboolExampleDemoImages) Then
+            strFolderPath = DiskFolders.PathToFolder_BackExampleDemos
+        Else
+            ''Added 5/13/2022 thomas downes
+            strFolderPath = DiskFolders.PathToFolder_BackgroundImages
+        End If ''End of "If (pboolExampleDemoImages) Then ... Else... "
+
         BackImageExamples.PathToFolderWithBacks = strFolderPath
 
         ''//------Me.Designer.BackgroundBox.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
@@ -128,13 +157,49 @@ Public Class FormListBackgrounds
 
     End Sub
 
-    Private Sub buttonUpload_Click(sender As Object, e As EventArgs) Handles buttonUpload.Click
+    Private Sub buttonUpload_Click(sender As Object, e As EventArgs) _
+        Handles buttonUpload1.Click, buttonUpload2.Click
         ''
         ''Added 12/10/2021 thomas downes
         ''
         Dim objFormToShow As New FormUploadBackground
         objFormToShow.AutoShowOpenFileDialog = True
         objFormToShow.ShowDialog()
+
+    End Sub
+
+
+    Private Sub ButtonShowDemos_Click(sender As Object, e As EventArgs) _
+        Handles ButtonShowDemos1.Click, ButtonShowDemos2.Click
+        ''
+        ''Added 5/13/2022 td
+        ''
+        Me.DemoMode = True ''True, so that DemoMode is activated. . 
+        ButtonShowDemos1.Visible = False
+        ButtonShowDemos2.Visible = False
+        ButtonRegularMode1.Visible = True ''True, so that Demo Mode can be turned off. 
+        ButtonRegularMode2.Visible = True ''True, so that Demo Mode can be turned off. 
+        FlowLayoutPanel1.Controls.Clear()
+        LoadControlsFromFolderImagesBack(Me.DemoMode)
+        ''Added 5/13/2022 
+        ChangeHeaderLabelCaption()
+
+    End Sub
+
+    Private Sub ButtonRegularMode2_Click(sender As Object, e As EventArgs) _
+        Handles ButtonRegularMode2.Click, ButtonRegularMode1.Click
+        ''
+        ''Added 5/13/2022 td
+        ''
+        Me.DemoMode = False ''False, so we can have Regular Mode instead. 
+        ButtonShowDemos1.Visible = True ''True, so that Demo Mode can be turned on, if desired. 
+        ButtonShowDemos2.Visible = True ''True, so that Demo Mode can be turned on, if desired. 
+        ButtonRegularMode1.Visible = False
+        ButtonRegularMode2.Visible = False
+        FlowLayoutPanel1.Controls.Clear()
+        LoadControlsFromFolderImagesBack(Me.DemoMode)
+        ''Added 5/13/2022 
+        ChangeHeaderLabelCaption()
 
     End Sub
 End Class

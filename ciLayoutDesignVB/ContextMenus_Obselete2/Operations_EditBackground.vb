@@ -53,7 +53,7 @@ Public Class Operations_EditBackground
         Dim boolNoneFound As Boolean ''Added 10/15/2019 td 
 
         BackImageExamples.CurrentIndex += 1
-        BackImageExamples.PathToFolderWithBacks = DiskFolders.PathToFolder_BackExamples
+        BackImageExamples.PathToFolderWithBacks = DiskFolders.PathToFolder_BackExampleDemos
         Me.Designer.BackgroundBox_Front.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
 
 

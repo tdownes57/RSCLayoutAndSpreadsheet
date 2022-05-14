@@ -494,6 +494,33 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub MoveTextCaretToNewRow()" 
 
 
+    Public Function HasIdentifyingData() As Boolean
+        ''
+        ''Added 5/14/2022 
+        ''
+        '' Let's check to see if there are five(5) unique values
+        ''   among the top five(5) data cells. 
+        ''
+        Dim intRowIndex As Integer
+        Dim hash_trackData As New Dictionary(Of String, Boolean)
+
+        For intRowIndex = 1 To 5
+
+            Dim objRSCDatacell As RSCDataCell
+            objRSCDatacell = GetRSCDataCell_ByRowIndex(intRowIndex)
+            Try
+                hash_trackData.Add(objRSCDatacell.Text_CellValue, True)
+            Catch ex As Exception
+                Return False
+            End Try
+        Next intRowIndex
+
+        Return True
+
+    End Function ''End of ""Public Function HasIdentifyingData() As Boolean""
+
+
+
     Public Function GetIndexOfColumn() As Integer
         ''
         ''Added 4/30/2022 thomas

@@ -8,6 +8,7 @@ Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
 Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 Imports System.Drawing ''Added 3/20/2022 thomas downes
 
+
 Public Class RSCRowHeaders
     ''
     ''Added 2/21/2022 td
@@ -18,6 +19,7 @@ Public Class RSCRowHeaders
     Public ElementsCache_Deprecated As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''Added 3/10/2022 td
     Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
     ''Probably not good to have circular references.3/25/2022 ''Public RSCSpreadsheet As RSCFieldSpreadsheet ''Added 3/24/2022 thomas downes
+    Public ListRecipients As List(Of ciBadgeRecipients.ClassRecipient) ''Added 5/14/2022 td
 
     Public EmphasisRowIndex_Start As Integer = -1 ''Added 5/01/2022 thomas d.
     Public EmphasisRowIndex_End As Integer = -1 ''Added 5/01/2022 thomas d.
@@ -37,7 +39,8 @@ Public Class RSCRowHeaders
     Private mod_intPixelsFromRowToRow As Integer = 0 ''Added 4/04/2022 td
     ''Added 4/04/2022 thomas downes
     ''4/5/2022 Private mod_listTextboxesByRow As New Dictionary(Of Integer, TextBox)
-    Private mod_listTextboxesByRow As New Dictionary(Of Integer, RSCRowHeader)
+    ''5/14/2022 td''Private mod_listTextboxesByRow As New Dictionary(Of Integer, RSCRowHeader)
+    Private mod_listRowHeadersByRow As New Dictionary(Of Integer, RSCRowHeader)
 
     ''Added 4/04/2022 thomas downes
     ''Private Structure StructLabelAndRowSeparator
@@ -69,7 +72,7 @@ Public Class RSCRowHeaders
         ''4/5/2022 Dim listBoxes As List(Of TextBox)
         Dim listBoxes As List(Of RSCRowHeader) ''4/5/2022 TextBox)
         Const c_boolSkipSorting As Boolean = True
-        listBoxes = ListOfTextboxes_TopToBottom(c_boolSkipSorting)
+        listBoxes = ListOfRowHeaders_TopToBottom(c_boolSkipSorting)
         Return listBoxes.Count
 
     End Function ''End of ""Public Function CountOfRows() As Integer""
@@ -93,7 +96,7 @@ Public Class RSCRowHeaders
         ''
         Dim objRowHeader As RSCRowHeader
         objRowHeader =
-            mod_listTextboxesByRow.Item(par_intRowIndex)
+            mod_listRowHeadersByRow.Item(par_intRowIndex)
 
         Return objRowHeader
 
@@ -224,8 +227,8 @@ Public Class RSCRowHeaders
         Dim each_header As RSCRowHeader
 
         ''Added 4/25/2022 td
-        For Each each_key As Integer In mod_listTextboxesByRow.Keys
-            each_header = mod_listTextboxesByRow.Values(each_key)
+        For Each each_key As Integer In mod_listRowHeadersByRow.Keys
+            each_header = mod_listRowHeadersByRow.Values(each_key)
             If (each_header Is par_oRowHeader) Then
                 Return CInt(each_key)
             End If ''End of ""If (each_header Is par_oRowHeader) Then""
@@ -293,7 +296,7 @@ Public Class RSCRowHeaders
         textRowHeader1.Text = "1"
         textRowHeader1.ParentRSCRowHeaders = Me
         ''textRowHeader1.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listTextboxesByRow.Add(1, textRowHeader1)
+        mod_listRowHeadersByRow.Add(1, textRowHeader1)
         ''Dim struct1 As New StructLabelAndRowSeparator()
         ''struct1.Cellbox = textRowHeader1
         ''struct1.BottomBar = PictureBox1a
@@ -303,7 +306,7 @@ Public Class RSCRowHeaders
         textRowHeader2.Text = "2"
         textRowHeader2.ParentRSCRowHeaders = Me
         ''textRowHeader2.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listTextboxesByRow.Add(2, textRowHeader2)
+        mod_listRowHeadersByRow.Add(2, textRowHeader2)
         ''Dim struct2 As New StructLabelAndRowSeparator()
         ''struct2.Cellbox = textRowHeader2
         ''struct2.BottomBar = PictureBox2a
@@ -313,7 +316,7 @@ Public Class RSCRowHeaders
         textRowHeader3.Text = "3"
         textRowHeader3.ParentRSCRowHeaders = Me
         ''textRowHeader3.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listTextboxesByRow.Add(3, textRowHeader3)
+        mod_listRowHeadersByRow.Add(3, textRowHeader3)
         ''Dim struct3 As New StructLabelAndRowSeparator()
         ''struct3.Cellbox = textRowHeader3
         ''struct3.BottomBar = PictureBox3a
@@ -326,7 +329,7 @@ Public Class RSCRowHeaders
         textRowHeader4.Text = "4"
         textRowHeader4.ParentRSCRowHeaders = Me
         ''textRowHeader4.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listTextboxesByRow.Add(4, textRowHeader4)
+        mod_listRowHeadersByRow.Add(4, textRowHeader4)
         ''Dim struct4 As New StructLabelAndRowSeparator()
         ''struct4.Cellbox = textRowHeader4
         ''struct4.BottomBar = PictureBox4a
@@ -335,7 +338,7 @@ Public Class RSCRowHeaders
         textRowHeader5.RowIndex = 5
         textRowHeader5.Text = "5"
         textRowHeader5.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(5, textRowHeader5)
+        mod_listRowHeadersByRow.Add(5, textRowHeader5)
         ''Dim struct5 As New StructLabelAndRowSeparator()
         ''struct5.Cellbox = textRowHeader5
         ''struct5.BottomBar = PictureBox5a
@@ -344,7 +347,7 @@ Public Class RSCRowHeaders
         textRowHeader6.RowIndex = 6
         textRowHeader6.Text = "6"
         textRowHeader6.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(6, textRowHeader6)
+        mod_listRowHeadersByRow.Add(6, textRowHeader6)
         ''Dim struct6 As New StructLabelAndRowSeparator()
         ''struct6.Cellbox = textRowHeader6
         ''struct6.BottomBar = PictureBox6a
@@ -356,7 +359,7 @@ Public Class RSCRowHeaders
         textRowHeader7.RowIndex = 7
         textRowHeader7.Text = "7"
         textRowHeader7.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(7, textRowHeader7)
+        mod_listRowHeadersByRow.Add(7, textRowHeader7)
         ''Dim struct7 As New StructLabelAndRowSeparator()
         ''struct7.Cellbox = textRowHeader7
         ''struct7.BottomBar = PictureBox7a
@@ -365,7 +368,7 @@ Public Class RSCRowHeaders
         textRowHeader8.RowIndex = 8
         textRowHeader8.Text = "8"
         textRowHeader8.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(8, textRowHeader8)
+        mod_listRowHeadersByRow.Add(8, textRowHeader8)
         ''Dim struct8 As New StructLabelAndRowSeparator()
         ''struct8.Cellbox = textRowHeader8
         ''struct8.BottomBar = PictureBox8a
@@ -374,7 +377,7 @@ Public Class RSCRowHeaders
         textRowHeader9.RowIndex = 9
         textRowHeader9.Text = "9"
         textRowHeader9.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(9, textRowHeader9)
+        mod_listRowHeadersByRow.Add(9, textRowHeader9)
         ''Dim struct9 As New StructLabelAndRowSeparator()
         ''struct9.Cellbox = textRowHeader9
         ''struct9.BottomBar = PictureBox9a
@@ -386,7 +389,7 @@ Public Class RSCRowHeaders
         textRowHeader10.RowIndex = 10
         textRowHeader10.Text = "10"
         textRowHeader10.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(10, textRowHeader10)
+        mod_listRowHeadersByRow.Add(10, textRowHeader10)
         ''Dim struct10 As New StructLabelAndRowSeparator()
         ''struct10.Cellbox = textRowHeader10
         ''struct10.BottomBar = PictureBox10a
@@ -395,7 +398,7 @@ Public Class RSCRowHeaders
         textRowHeader11.RowIndex = 11
         textRowHeader11.Text = "11"
         textRowHeader11.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(11, textRowHeader11)
+        mod_listRowHeadersByRow.Add(11, textRowHeader11)
         ''Dim struct11 As New StructLabelAndRowSeparator()
         ''struct11.Cellbox = textRowHeader11
         ''struct11.BottomBar = PictureBox11a
@@ -404,7 +407,7 @@ Public Class RSCRowHeaders
         textRowHeader12.RowIndex = 12
         textRowHeader12.Text = "12"
         textRowHeader12.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(12, textRowHeader12)
+        mod_listRowHeadersByRow.Add(12, textRowHeader12)
         ''Dim struct12 As New StructLabelAndRowSeparator()
         ''struct12.Cellbox = textRowHeader12
         ''struct12.BottomBar = PictureBox12a
@@ -416,7 +419,7 @@ Public Class RSCRowHeaders
         textRowHeader13.RowIndex = 13
         textRowHeader13.Text = "13"
         textRowHeader13.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(13, textRowHeader13)
+        mod_listRowHeadersByRow.Add(13, textRowHeader13)
         ''Dim struct13 As New StructLabelAndRowSeparator()
         ''struct13.Cellbox = textRowHeader13
         ''struct13.BottomBar = PictureBox13a
@@ -425,7 +428,7 @@ Public Class RSCRowHeaders
         textRowHeader14.RowIndex = 14
         textRowHeader14.Text = "14"
         textRowHeader14.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(14, textRowHeader14)
+        mod_listRowHeadersByRow.Add(14, textRowHeader14)
         ''Dim struct14 As New StructLabelAndRowSeparator()
         ''struct14.Cellbox = textRowHeader14
         ''struct14.BottomBar = PictureBox14a
@@ -434,7 +437,7 @@ Public Class RSCRowHeaders
         textRowHeader15.RowIndex = 15
         textRowHeader15.Text = "15"
         textRowHeader15.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(15, textRowHeader15)
+        mod_listRowHeadersByRow.Add(15, textRowHeader15)
         ''Dim struct15 As New StructLabelAndRowSeparator()
         ''struct15.Cellbox = textRowHeader15
         ''struct15.BottomBar = PictureBox15a
@@ -446,7 +449,7 @@ Public Class RSCRowHeaders
         textRowHeader16.RowIndex = 16
         textRowHeader16.Text = "16"
         textRowHeader16.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(16, textRowHeader16)
+        mod_listRowHeadersByRow.Add(16, textRowHeader16)
         ''Dim struct16 As New StructLabelAndRowSeparator()
         ''struct16.Cellbox = textRowHeader16
         ''struct16.BottomBar = PictureBox16a
@@ -455,7 +458,7 @@ Public Class RSCRowHeaders
         textRowHeader17.RowIndex = 17
         textRowHeader17.Text = "17"
         textRowHeader17.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(17, textRowHeader17)
+        mod_listRowHeadersByRow.Add(17, textRowHeader17)
         ''Dim struct17 As New StructLabelAndRowSeparator()
         ''struct17.Cellbox = textRowHeader17
         ''struct17.BottomBar = PictureBox17a
@@ -464,7 +467,7 @@ Public Class RSCRowHeaders
         textRowHeader18.RowIndex = 18
         textRowHeader18.Text = "18"
         textRowHeader18.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(18, textRowHeader18)
+        mod_listRowHeadersByRow.Add(18, textRowHeader18)
         ''Dim struct18 As New StructLabelAndRowSeparator()
         ''struct18.Cellbox = textRowHeader18
         ''struct18.BottomBar = PictureBox18a
@@ -476,7 +479,7 @@ Public Class RSCRowHeaders
         textRowHeader19.RowIndex = 19
         textRowHeader19.Text = "19"
         textRowHeader19.ParentRSCRowHeaders = Me
-        mod_listTextboxesByRow.Add(19, textRowHeader19)
+        mod_listRowHeadersByRow.Add(19, textRowHeader19)
         ''Dim struct19 As New TextboxAndRowSeparator()
         ''struct19.Cellbox = TextBox19a
         ''struct19.BottomBar = PictureBox19a
@@ -493,7 +496,7 @@ Public Class RSCRowHeaders
         ''Added 4/04/2022 thomas downes
         ''
         Dim objFirstTextbox As RSCRowHeader ''4/5/2022 TextBox
-        objFirstTextbox = ListOfTextboxes_TopToBottom().First()
+        objFirstTextbox = ListOfRowHeaders_TopToBottom().First()
         Return objFirstTextbox
 
     End Function ''End of ""Public Function GetFirstTextbox() As TextBox""
@@ -552,7 +555,7 @@ Public Class RSCRowHeaders
 
         ''4/9/2022 td ''listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
         listBoxesColumn1 = par_controlColumnOne.ListOfRSCDataCells_TopToBottom()
-        listBoxesRowHdrs = ListOfTextboxes_TopToBottom()
+        listBoxesRowHdrs = ListOfRowHeaders_TopToBottom()
         listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
         ''4/8/2022 listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
 
@@ -629,14 +632,14 @@ Public Class RSCRowHeaders
         ''
         ''---mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_WithEmphasis
         ''
-        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+        mod_listRowHeadersByRow(par_intRowIndex_Start).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
 
         ''Added 5/2/2022 thomas d.
         Dim intRowIndex As Integer ''Added 5/02/2022 td
         If (par_intRowIndex_End > par_intRowIndex_Start) Then
             For intRowIndex = par_intRowIndex_Start To par_intRowIndex_End
                 ''---mod_listTextboxesByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_WithEmphasis
-                mod_listTextboxesByRow(intRowIndex).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+                mod_listRowHeadersByRow(intRowIndex).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
             Next intRowIndex
         End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
 
@@ -649,14 +652,14 @@ Public Class RSCRowHeaders
         ''
         ''Added 4/28/2022 td
         ''
-        mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+        mod_listRowHeadersByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_NoEmphasis
 
         ''Added 5/2/2022 thomas d.
         Dim intRowIndex As Integer ''Added 5/02/2022 td
         If (par_intRowIndex_End > par_intRowIndex_Start) Then
             For intRowIndex = par_intRowIndex_Start To par_intRowIndex_End
                 ''April 2, 2022''mod_listTextboxesByRow(intRowIndex).BackColor = RSCDataCell.BackColor_NoEmphasis
-                mod_listTextboxesByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+                mod_listRowHeadersByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_NoEmphasis
             Next intRowIndex
         End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
 
@@ -720,7 +723,7 @@ Public Class RSCRowHeaders
 
         ''Added 3/30/2022 thomas downes
         Load_EmptyRows(par_listBoxesColumn.Count)
-        par_listBoxesRowHdrs = Me.ListOfTextboxes_TopToBottom()
+        par_listBoxesRowHdrs = Me.ListOfRowHeaders_TopToBottom()
 
         ''
         ''Loop through the rows
@@ -863,7 +866,7 @@ Public Class RSCRowHeaders
         ''
         Dim bRowIndexLocated As Boolean
 
-        With mod_listTextboxesByRow
+        With mod_listRowHeadersByRow
             bRowIndexLocated = (.ContainsKey(par_intRowIndex))
         End With
 
@@ -874,7 +877,7 @@ Public Class RSCRowHeaders
         ElseIf (bRowIndexLocated) Then
 
             ''Added 4/29/2022 thomas d. 
-            mod_listTextboxesByRow(par_intRowIndex).RowIndex = par_intRowIndex
+            mod_listRowHeadersByRow(par_intRowIndex).RowIndex = par_intRowIndex
 
             Exit Sub
 
@@ -891,7 +894,7 @@ Public Class RSCRowHeaders
         ''Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
 
         If (bRowIndexLocated) Then
-            objTextbox = mod_listTextboxesByRow.Item(par_intRowIndex)
+            objTextbox = mod_listRowHeadersByRow.Item(par_intRowIndex)
             ''objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
 
             ''Added 4/25/2022 td
@@ -901,7 +904,7 @@ Public Class RSCRowHeaders
             ''4/4/2022 td''Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
             objTextbox = New RSCRowHeader ''4/5/2022 TextBox ''Added 3/29/2022 thomas downes
             objTextbox.RowIndex = par_intRowIndex ''Added 4/25/2022 td
-            mod_listTextboxesByRow.Add(par_intRowIndex, objTextbox)
+            mod_listRowHeadersByRow.Add(par_intRowIndex, objTextbox)
             ''objBottomBar = GetBottomBarForRow()
             ''Dim new_struct As New StructLabelAndRowSeparator
             ''new_struct.BottomBar = objBottomBar
@@ -997,7 +1000,7 @@ Public Class RSCRowHeaders
 
         ''4/5/2022 td''Dim listOfBoxes As List(Of TextBox)
         Dim listOfBoxes As List(Of RSCRowHeader)
-        listOfBoxes = ListOfTextboxes_TopToBottom()
+        listOfBoxes = ListOfRowHeaders_TopToBottom()
         textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
         Me.Height = (textbox_BottomLast.Top + textbox_BottomLast.Height +
                     Me.PixelsFromRowToRow)  ''April 5, 2022 td ''mc_intPixelsFromRowToRow)
@@ -1016,7 +1019,7 @@ Public Class RSCRowHeaders
         ''CountOfBoxesWithData(ref_intCountRows)
         ''intCountRows = ref_intCountRows
         ''4/8/2022 td''intCountRows = ListOfBottomBars_TopToBottom().Count
-        intCountRows = ListOfTextboxes_TopToBottom().Count
+        intCountRows = ListOfRowHeaders_TopToBottom().Count
 
         Const c_bUseFirstTry As Boolean = False ''Added 4/5/2022 td
 
@@ -1039,19 +1042,193 @@ Public Class RSCRowHeaders
     End Sub ''End of ""Public Sub Load_EmptyRows()""
 
 
+    Public Sub LoadRecipientList(Optional ByRef pref_bNoRecipientList As Boolean = False,
+                                 Optional ByRef pref_boolRows_TooFew As Boolean = False,
+                                 Optional ByRef pref_boolRows_TooMany As Boolean = False)
+        ''
+        ''Added 5/14/2022 & 3/22/2022 td
+        ''
+        Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
+        Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
+
+        ''Moved here from below.---4/23/2022 td
+        Dim intCountRecipients As Integer
+        intCountRecipients = Me.ListRecipients.Count
+        Load_EmptyRows(intCountRecipients)
+
+        Dim intCountCellsWithData_Edited As Integer
+        ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
+        ''April 01 2023''intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
+        ''April 10 2023''intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot)
+        Dim strListExamples As String = "" ''Added 4/10/2022 thomas
+        Dim strMessage As String = "" ''Added 4/11/2022 thomas
+        Dim bool_Confirm As Boolean ''4/11 DialogResult ''Added 4/11/2022 td
+
+        ''intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot, strListExamples)
+        ''If (0 <> intCountCellsWithData_Edited) Then ''.... <> 0) Then
+        ''    pboolErrorCellsHaveValues = True
+        ''    ''4/11/2022 td''Throw New Exception("Warning, non-zero >0 cells with data edited already. Edits would be lost.")
+        ''    strMessage = "Warning, non-zero >0 cells with data edited already. Edits would be lost.  Continue?"
+        ''    bool_Confirm = MessageBoxTD.Show_Confirmed(strMessage, strListExamples, True)
+        ''    If (Not bool_Confirm) Then Return ''Added 4/11/2022 td
+        ''End If ''End of ""If (intCountCellsWithData_Edited <> 0) Then""
+
+        ''Dim enumFieldSelected As EnumCIBFields
+        ''enumFieldSelected = RscSelectCIBField1.SelectedValue
+        ''If (enumFieldSelected = EnumCIBFields.Undetermined) Then
+        ''    pref_bNoFieldSelected = True
+        ''    If (Not MsgOnce_UnspecifiedField) Then
+        ''        MessageBoxTD.Show_Statement("Warning, not all columns have a specified field. GE45")
+        ''        MsgOnce_UnspecifiedField = True
+        ''    End If ''If (Not MsgUnspecifiedField) Then
+        ''    Return
+        ''End If ''End of ""If (enumFieldSelected = EnumCIBFields.Undetermined) Then""
+
+        Dim boolNoRecipList As Boolean
+        boolNoRecipList = (Me.ListRecipients Is Nothing)
+        pref_bNoRecipientList = boolNoRecipList
+        If (pref_bNoRecipientList) Then
+            Throw New Exception("ListRecipients is a Null reference.")
+            Return
+        End If ''End of ""If (pref_bNoRecipientList) Then""
+
+        ''Moved above. 4/23/2022 td''Dim intCountRecipients As Integer
+        ''Moved above. 4/23/2022 td''intCountRecipients = Me.ListRecipients.Count
+
+        Dim boolNoRecipients_zero As Boolean
+        boolNoRecipients_zero = (0 = intCountRecipients)
+        If (boolNoRecipients_zero) Then
+            pref_bNoRecipientList = True
+            Const c_boolAllowForBlankSlate As Boolean = True
+            If (c_boolAllowForBlankSlate) Then
+                ''Allow the user to start from scratch.  We are NOT(!) supplying
+                ''  the user with a list of hard-coded (fake) recipients.
+                ''  ----5/13/2022 td
+            Else
+                ''Throw an error. Where in heck is the list of fake hard-coded recipients? 
+                Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")
+                Return
+            End If ''ENd of ""If (c_boolAllowForBlankSlate) Then... Else..."
+        End If ''ENd of ""If (boo lNoRecipients_zero) Then""
+
+        ''
+        ''Added 3/29/2022 thomas downes
+        ''
+        ''Moved above. 4/23/2022 td''Load_EmptyRows(intCountRecipients)
+
+        ''CountOfBoxesWithData(intCountBoxesEmptyOrNot) ''Update the value of var. intCountBoxesEmptyOrNot.
+
+        ''3/29/2022 thomas d.''Dim boolMismatchOfCounts As Boolean
+        Dim boolMismatchOfCounts_Less As Boolean
+        Dim boolMismatchOfCounts_More As Boolean
+
+        ''intCountAllBoxesOrRows = intCountBoxesEmptyOrNot
+        ''March29 2022''boolMismatchOfCounts_Less = (intCountAllBoxesOrRows <> Me.ListRecipients.Count) ''Then
+        ''boolMismatchOfCounts_Less = (intCountAllBoxesOrRows < Me.ListRecipients.Count) ''Then
+        ''boolMismatchOfCounts_More = (intCountAllBoxesOrRows > Me.ListRecipients.Count) ''Then
+
+        ''If (boolMismatchOfCounts_Less) Then
+        ''    ''3/29/2022 td''pboolErrorCellsHaveValues = True
+        ''    pref_boolRows_TooFew = True
+        ''    ''---Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
+        ''    Throw New Exception("Warning, we have less RSCDataCelles than required. Data would be lost.")
+
+        ''ElseIf (boolMismatchOfCounts_More) Then
+        ''    ''3/29/2022 td''pboolErrorCellsHaveValues = True
+        ''    pref_boolRows_TooMany = True
+        ''    ''---Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
+        ''    Throw New Exception("Warning, we have more RSCDataCelles than required. Rows will be left blank.")
+        ''End If ''End of ""If (boolMismatchOfCounts) then""
+
+        ''-----------------------------------------------------------
+
+        ''March25 2022 td''Dim listBoxes As IOrderedEnumerable(Of RSCDataCell)
+        ''5/14/2022 Dim listBoxes As List(Of RSCDataCell)
+        Dim listHeaders As List(Of RSCRowHeader)
+        Dim intRowIndex As Integer = -1
+        Dim each_value As String
+        Dim boolMiscountOfRows As Boolean
+        Dim intRowsInSpreadsheet As Integer
+        Dim listValuesForStatistics As New List(Of String) ''Added 4/26/2022 td
+
+        ''5/14/2022 listHeaders = ListOfRSCDataCells_TopToBottom()
+        listHeaders = ListOfRowHeaders_TopToBottom()
+
+        ''Added 4/11/2022
+        intRowsInSpreadsheet = Me.CountOfRows() ''Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
+        boolMiscountOfRows = (listHeaders.Count <> intRowsInSpreadsheet)
+        If (boolMiscountOfRows) Then
+            System.Diagnostics.Debugger.Break()
+        End If ''End of ""If (boolMiscountOfRows) Then""
+
+        ''
+        ''Looping 
+        ''
+        For Each each_rowheader As RSCRowHeader In listHeaders
+
+            intRowIndex += 1
+            each_rowheader.Recipient = Me.ListRecipients(intRowIndex)
+
+            ''''4/11 td''each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+            ''''Added 4/11/2022 td
+            ''each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+
+            ''''Added 4/25/2022 td
+            ''listValuesForStatistics.Add(each_value)
+
+            ''''Added 4/15/2022
+            ''Dim strCellDataBeforeLoadingRecip As String
+            ''Dim strCellDataFromColumnData As String
+            ''Dim boolMismatch_ColumnData As Boolean
+            ''If (pboolCheck_ColumnWidthAndData) Then
+            ''    ''Compare the Recipient data to the ColumnWidthAndData data.
+            ''    ''   ---4/14/2022
+            ''    strCellDataBeforeLoadingRecip = each_rowheader.Text.Trim() ''5/01/2022 td''each_box.Text
+            ''    strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex).Trim() ''Added .Trim() on 5/01/2022
+            ''    boolMismatch_ColumnData = (strCellDataFromColumnData <> each_value)
+            ''    If (boolMismatch_ColumnData) Then
+            ''        ''---System.Diagnostics.Debugger.Break()
+            ''        MessageBoxTD.Show_Statement("Due to a mismatch of data, we are not able to continue " &
+            ''                                    " to load the recipient data into this column.")
+            ''        Exit Sub
+            ''    End If ''End of ""If (boolMismatch_ColumnData) Then""
+            ''End If ''End of ""If (pboolCheck_ColumnWidthAndData) Then""
+
+            ''''5/1/2022 td''each_box.Text = each_value
+            ''each_box.Text = each_value.Trim()
+
+            ''Added 4/12/2022 thomas d.
+            ''Moved up. 5/14/2022 each_rowheader.Recipient = Me.ListRecipients(intRowIndex)
+
+            ''4/11/2022 td''each_box.Tag = each_box.Text ''added 4/1/2022
+            ''each_box.Tag_Text = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
+            ''each_box.Tag = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
+
+        Next each_rowheader
+
+        ''
+        ''Build statistics to describe the general number of letters & digits in the data. 
+        ''  --4/26/2022 td
+        ''
+        ''mod_statistics = ClassMathStats.GetMeanAndStdDeviation_FourStats(listValuesForStatistics)
+
+
+    End Sub ''End of "Public Sub LoadRecipientList()"
+
+
     Public Sub RefreshHeightOfHeaders(Optional par_intNumberOfRows As Integer = 0)
         ''
         '' Added 4/6/2022 thomas downes
         ''
         If (0 = par_intNumberOfRows) Then
-            par_intNumberOfRows = mod_listTextboxesByRow.Count
+            par_intNumberOfRows = mod_listRowHeadersByRow.Count
         End If ''End of ""If (0 = par_intNumberOfRows) Then""
 
         For intRowIndex As Integer = 1 To par_intNumberOfRows
 
             ''Added 4/4/2022 td
-            mod_listTextboxesByRow(intRowIndex).Height = (mod_intPixelsFromRowToRow - 1)
-            mod_listTextboxesByRow(intRowIndex).Width = Me.GetFirstTextbox().Width
+            mod_listRowHeadersByRow(intRowIndex).Height = (mod_intPixelsFromRowToRow - 1)
+            mod_listRowHeadersByRow(intRowIndex).Width = Me.GetFirstTextbox().Width
 
         Next intRowIndex
 
@@ -1071,7 +1248,7 @@ Public Class RSCRowHeaders
         Dim intIndex__End As Integer
         Dim intTopGap As Integer
 
-        listOfBoxes = ListOfTextboxes_TopToBottom()
+        listOfBoxes = ListOfRowHeaders_TopToBottom()
         textbox_Top = listOfBoxes(0)
 
         textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
@@ -1121,18 +1298,20 @@ Public Class RSCRowHeaders
 
 
 
-    Public Function ListOfTextboxes_TopToBottom(Optional par_noSorting As Boolean = False) As List(Of RSCRowHeader) ''IOrderedEnumerable(Of TextBox)
+    Public Function ListOfRowHeaders_TopToBottom(Optional par_noSorting As Boolean = False) As List(Of RSCRowHeader) ''IOrderedEnumerable(Of TextBox)
+        ''5/14/2022 Public Function ListOfRowHeaders_TopToBottom
         ''
         ''Added 3/19/2022 td
         ''
-        Dim objListOfTextboxes As New List(Of RSCRowHeader) ''4/5/2022 TextBox)
+        ''5/14/2022 Dim objListOfTextboxes As New List(Of RSCRowHeader) ''4/5/2022 TextBox)
+        Dim objListOfRowHeaders As New List(Of RSCRowHeader) ''4/5/2022 TextBox)
         ''Dim objListOfTextboxes_Ordered ''As New IOrderedEnumerable(Of(Of TextBox)
 
         For Each eachCtl As Control In Me.Controls
             ''4/5/2022 If (TypeOf eachCtl Is TextBox) Then
             If (TypeOf eachCtl Is RSCRowHeader) Then
                 ''Strangely, .Visible is False???? 3/25/2022 td''If (eachCtl.Visible) Then
-                objListOfTextboxes.Add(CType(eachCtl, RSCRowHeader)) ''4/5/2022 TextBox))
+                objListOfRowHeaders.Add(CType(eachCtl, RSCRowHeader)) ''4/5/2022 TextBox))
                 ''End If
             End If ''End of "If (TypeOf eachCtl Is RSCRowHeader) Then"
         Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
@@ -1146,11 +1325,11 @@ Public Class RSCRowHeaders
         ''    Order By objTextbox.Top
 
         ''Added 4/2/2022 td
-        If (par_noSorting) Then Return objListOfTextboxes
+        If (par_noSorting) Then Return objListOfRowHeaders
 
         ''4/5/2022 Dim objListOfTextboxes_Ordered As List(Of TextBox)
         Dim objListOfTextboxes_Ordered As List(Of RSCRowHeader) ''4/5/2022 TextBox)
-        objListOfTextboxes_Ordered = objListOfTextboxes.OrderBy(Of Integer)(Function(a) a.Top).ToList()
+        objListOfTextboxes_Ordered = objListOfRowHeaders.OrderBy(Of Integer)(Function(a) a.Top).ToList()
 
         Return objListOfTextboxes_Ordered
 

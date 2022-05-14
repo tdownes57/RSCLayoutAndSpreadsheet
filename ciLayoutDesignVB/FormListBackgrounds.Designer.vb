@@ -23,13 +23,18 @@ Partial Class FormListBackgrounds
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.Labelesding1 = New System.Windows.Forms.Label()
-        Me.buttonCancel = New System.Windows.Forms.Button()
-        Me.buttonOK = New System.Windows.Forms.Button()
         Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
         Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
         Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
-        Me.buttonUpload = New System.Windows.Forms.Button()
+        Me.LabelHeading1 = New System.Windows.Forms.Label()
+        Me.buttonCancel = New System.Windows.Forms.Button()
+        Me.buttonOK = New System.Windows.Forms.Button()
+        Me.buttonUpload1 = New System.Windows.Forms.Button()
+        Me.ButtonShowDemos1 = New System.Windows.Forms.Button()
+        Me.ButtonShowDemos2 = New System.Windows.Forms.Button()
+        Me.buttonUpload2 = New System.Windows.Forms.Button()
+        Me.ButtonRegularMode1 = New System.Windows.Forms.Button()
+        Me.ButtonRegularMode2 = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -45,29 +50,62 @@ Partial Class FormListBackgrounds
         Me.FlowLayoutPanel1.Controls.Add(Me.CtlBackground3)
         Me.FlowLayoutPanel1.Controls.Add(Me.CtlBackground1)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(12, 72)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(9, 58)
+        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1024, 434)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(768, 353)
         Me.FlowLayoutPanel1.TabIndex = 13
         Me.FlowLayoutPanel1.WrapContents = False
         '
-        'Labelesding1
+        'CtlBackground2
         '
-        Me.Labelesding1.AutoSize = True
-        Me.Labelesding1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Labelesding1.Location = New System.Drawing.Point(12, 20)
-        Me.Labelesding1.Name = "Labelesding1"
-        Me.Labelesding1.Size = New System.Drawing.Size(378, 36)
-        Me.Labelesding1.TabIndex = 14
-        Me.Labelesding1.Text = "Select a Background Image"
+        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground2.IsNotSelectableItemOfAList = False
+        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
+        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground2.Name = "CtlBackground2"
+        Me.CtlBackground2.Size = New System.Drawing.Size(628, 262)
+        Me.CtlBackground2.TabIndex = 1
+        '
+        'CtlBackground3
+        '
+        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground3.IsNotSelectableItemOfAList = False
+        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
+        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground3.Name = "CtlBackground3"
+        Me.CtlBackground3.Size = New System.Drawing.Size(628, 262)
+        Me.CtlBackground3.TabIndex = 2
+        '
+        'CtlBackground1
+        '
+        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground1.IsNotSelectableItemOfAList = False
+        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
+        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground1.Name = "CtlBackground1"
+        Me.CtlBackground1.Size = New System.Drawing.Size(628, 262)
+        Me.CtlBackground1.TabIndex = 0
+        '
+        'LabelHeading1
+        '
+        Me.LabelHeading1.AutoSize = True
+        Me.LabelHeading1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeading1.Location = New System.Drawing.Point(9, 16)
+        Me.LabelHeading1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelHeading1.Name = "LabelHeading1"
+        Me.LabelHeading1.Size = New System.Drawing.Size(287, 29)
+        Me.LabelHeading1.TabIndex = 14
+        Me.LabelHeading1.Tag = "Select Background Image"
+        Me.LabelHeading1.Text = "Background, Demo Mode"
         '
         'buttonCancel
         '
         Me.buttonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonCancel.Location = New System.Drawing.Point(907, 531)
+        Me.buttonCancel.Location = New System.Drawing.Point(680, 431)
+        Me.buttonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonCancel.Name = "buttonCancel"
-        Me.buttonCancel.Size = New System.Drawing.Size(108, 34)
+        Me.buttonCancel.Size = New System.Drawing.Size(81, 28)
         Me.buttonCancel.TabIndex = 16
         Me.buttonCancel.Text = "Cancel"
         Me.buttonCancel.UseVisualStyleBackColor = True
@@ -75,57 +113,98 @@ Partial Class FormListBackgrounds
         'buttonOK
         '
         Me.buttonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonOK.Location = New System.Drawing.Point(763, 531)
+        Me.buttonOK.Location = New System.Drawing.Point(572, 431)
+        Me.buttonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonOK.Name = "buttonOK"
-        Me.buttonOK.Size = New System.Drawing.Size(108, 34)
+        Me.buttonOK.Size = New System.Drawing.Size(104, 28)
         Me.buttonOK.TabIndex = 15
         Me.buttonOK.Text = "OK"
         Me.buttonOK.UseVisualStyleBackColor = True
         '
-        'CtlBackground2
+        'buttonUpload1
         '
-        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground2.Location = New System.Drawing.Point(3, 3)
-        Me.CtlBackground2.Name = "CtlBackground2"
-        Me.CtlBackground2.Size = New System.Drawing.Size(838, 323)
-        Me.CtlBackground2.TabIndex = 1
+        Me.buttonUpload1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.buttonUpload1.Location = New System.Drawing.Point(445, 11)
+        Me.buttonUpload1.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonUpload1.Name = "buttonUpload1"
+        Me.buttonUpload1.Size = New System.Drawing.Size(316, 39)
+        Me.buttonUpload1.TabIndex = 17
+        Me.buttonUpload1.Text = "Upload / Select Background Image From File System"
+        Me.buttonUpload1.UseVisualStyleBackColor = True
         '
-        'CtlBackground3
+        'ButtonShowDemos1
         '
-        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground3.Location = New System.Drawing.Point(3, 332)
-        Me.CtlBackground3.Name = "CtlBackground3"
-        Me.CtlBackground3.Size = New System.Drawing.Size(838, 323)
-        Me.CtlBackground3.TabIndex = 2
+        Me.ButtonShowDemos1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonShowDemos1.Location = New System.Drawing.Point(321, 11)
+        Me.ButtonShowDemos1.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonShowDemos1.Name = "ButtonShowDemos1"
+        Me.ButtonShowDemos1.Size = New System.Drawing.Size(120, 39)
+        Me.ButtonShowDemos1.TabIndex = 18
+        Me.ButtonShowDemos1.Text = "Demos / Examples"
+        Me.ButtonShowDemos1.UseVisualStyleBackColor = True
         '
-        'CtlBackground1
+        'ButtonShowDemos2
         '
-        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground1.Location = New System.Drawing.Point(3, 661)
-        Me.CtlBackground1.Name = "CtlBackground1"
-        Me.CtlBackground1.Size = New System.Drawing.Size(838, 323)
-        Me.CtlBackground1.TabIndex = 0
+        Me.ButtonShowDemos2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ButtonShowDemos2.Location = New System.Drawing.Point(10, 426)
+        Me.ButtonShowDemos2.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonShowDemos2.Name = "ButtonShowDemos2"
+        Me.ButtonShowDemos2.Size = New System.Drawing.Size(120, 39)
+        Me.ButtonShowDemos2.TabIndex = 20
+        Me.ButtonShowDemos2.Text = "Demos / Examples"
+        Me.ButtonShowDemos2.UseVisualStyleBackColor = True
         '
-        'buttonUpload
+        'buttonUpload2
         '
-        Me.buttonUpload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonUpload.Location = New System.Drawing.Point(704, 27)
-        Me.buttonUpload.Name = "buttonUpload"
-        Me.buttonUpload.Size = New System.Drawing.Size(311, 34)
-        Me.buttonUpload.TabIndex = 17
-        Me.buttonUpload.Text = "Select Background Image From File System"
-        Me.buttonUpload.UseVisualStyleBackColor = True
+        Me.buttonUpload2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.buttonUpload2.Location = New System.Drawing.Point(148, 426)
+        Me.buttonUpload2.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonUpload2.Name = "buttonUpload2"
+        Me.buttonUpload2.Size = New System.Drawing.Size(316, 39)
+        Me.buttonUpload2.TabIndex = 19
+        Me.buttonUpload2.Text = "Upload / Select Background Image From File System"
+        Me.buttonUpload2.UseVisualStyleBackColor = True
+        '
+        'ButtonRegularMode1
+        '
+        Me.ButtonRegularMode1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonRegularMode1.Location = New System.Drawing.Point(321, 11)
+        Me.ButtonRegularMode1.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonRegularMode1.Name = "ButtonRegularMode1"
+        Me.ButtonRegularMode1.Size = New System.Drawing.Size(120, 39)
+        Me.ButtonRegularMode1.TabIndex = 21
+        Me.ButtonRegularMode1.Text = "Regular Mode"
+        Me.ButtonRegularMode1.UseVisualStyleBackColor = True
+        Me.ButtonRegularMode1.Visible = False
+        '
+        'ButtonRegularMode2
+        '
+        Me.ButtonRegularMode2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonRegularMode2.Location = New System.Drawing.Point(14, 426)
+        Me.ButtonRegularMode2.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonRegularMode2.Name = "ButtonRegularMode2"
+        Me.ButtonRegularMode2.Size = New System.Drawing.Size(120, 39)
+        Me.ButtonRegularMode2.TabIndex = 22
+        Me.ButtonRegularMode2.Text = "Regular Mode"
+        Me.ButtonRegularMode2.UseVisualStyleBackColor = True
+        Me.ButtonRegularMode2.Visible = False
         '
         'FormListBackgrounds
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1068, 593)
-        Me.Controls.Add(Me.buttonUpload)
+        Me.ClientSize = New System.Drawing.Size(801, 482)
+        Me.Controls.Add(Me.ButtonRegularMode2)
+        Me.Controls.Add(Me.ButtonShowDemos2)
+        Me.Controls.Add(Me.buttonUpload2)
+        Me.Controls.Add(Me.ButtonShowDemos1)
+        Me.Controls.Add(Me.buttonUpload1)
         Me.Controls.Add(Me.buttonCancel)
         Me.Controls.Add(Me.buttonOK)
-        Me.Controls.Add(Me.Labelesding1)
+        Me.Controls.Add(Me.LabelHeading1)
         Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.Controls.Add(Me.ButtonRegularMode1)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormListBackgrounds"
         Me.Text = "FormListBackgrounds"
         Me.FlowLayoutPanel1.ResumeLayout(False)
@@ -138,8 +217,13 @@ Partial Class FormListBackgrounds
     Friend WithEvents CtlBackground1 As CtlBackground
     Friend WithEvents CtlBackground2 As CtlBackground
     Friend WithEvents CtlBackground3 As CtlBackground
-    Friend WithEvents Labelesding1 As Label
+    Friend WithEvents LabelHeading1 As Label
     Friend WithEvents buttonCancel As Button
     Friend WithEvents buttonOK As Button
-    Friend WithEvents buttonUpload As Button
+    Friend WithEvents buttonUpload1 As Button
+    Friend WithEvents ButtonShowDemos1 As Button
+    Friend WithEvents ButtonShowDemos2 As Button
+    Friend WithEvents buttonUpload2 As Button
+    Friend WithEvents ButtonRegularMode1 As Button
+    Friend WithEvents ButtonRegularMode2 As Button
 End Class

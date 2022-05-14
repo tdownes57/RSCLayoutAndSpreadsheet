@@ -2861,19 +2861,36 @@ ExitHandler:
         ''
         ''Added 5/12/2022 td
         ''
-        Dim objShow As New FormSelectOrUpload
-        objShow.ShowDialog()
+        Dim objShow1 As New FormSelectOrUpload
+        objShow1.ShowDialog()
 
         Dim boolLetsSelect As Boolean
         Dim boolLetsUpload As Boolean
         Dim boolLetsPickDemoImages As Boolean
 
-        boolLetsUpload = objShow.UserWantsUpload
-        boolLetsSelect = objShow.UserWantsSelect
-        boolLetsPickDemoImages = objShow.UserWantsDemoImages
+        boolLetsUpload = objShow1.UserWantsToUpload
+        boolLetsSelect = objShow1.UserWantsToSelect
+        boolLetsPickDemoImages = objShow1.UserWantsToSeeDemos
 
+        Select Case True
+            Case boolLetsPickDemoImages
 
+                Dim objShow2a As New FormListBackgrounds
+                objShow2a.DemoMode = boolLetsPickDemoImages
+                objShow2a.ShowDialog()
 
+            Case boolLetsSelect
+
+                Dim objShow2b As New FormListBackgrounds
+                objShow2b.DemoMode = False ''False for DemoMode, so use RegularMode.
+                objShow2b.ShowDialog()
+
+            Case boolLetsPickDemoImages
+
+                Dim objShow2c As New FormUploadBackground
+                objShow2c.ShowDialog()
+
+        End Select ''End of ""Select Case True""
 
     End Sub
 
@@ -3657,7 +3674,8 @@ ExitHandler:
 
     End Sub
 
-    Private Sub ButtonRecipients_Click(sender As Object, e As EventArgs) Handles ButtonRecipients.Click
+    Private Sub ButtonRecipients_Click(sender As Object, e As EventArgs) _
+                  Handles ButtonRecipients.Click, ButtonManageRecipientsH.Click
         ''
         '' Added 5/13/2022 & 2/22/2022 td
         ''

@@ -8,6 +8,8 @@ Public Class RSCRowHeader
     Public ParentRSCRowHeaders As RSCRowHeaders
     Public Property RowIndex As Integer ''Added 4/24/2022 td
 
+    Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
+
     ''Added 4/29/2022 td
     ''5/1/2022 Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
     ''5/1/2022 Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
@@ -53,6 +55,17 @@ Public Class RSCRowHeader
             MyBase.BackColor = value
         End Set
     End Property
+
+
+    Public Sub ShowRecipientsIDCard()
+        ''
+        ''Added 5/14/2022 thomas downes
+        ''
+
+
+
+
+    End Sub ''End of ""Public Sub ShowRecipientsIDCard()""
 
 
     Public Sub FocusRelated_EmphasizeRow()
@@ -182,6 +195,13 @@ Public Class RSCRowHeader
             End With ''End of ""With Me.ParentRSCRowHeaders""
 
         End If ''End of "If (e.Button = MouseButtons.Right) Then .... ElseIf ... Else ...."
+
+    End Sub
+
+    Private Sub LinkLabelShowID_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelShowID.LinkClicked
+
+        ''Added 5/14/2022
+        ShowRecipientsIDCard()
 
     End Sub
 

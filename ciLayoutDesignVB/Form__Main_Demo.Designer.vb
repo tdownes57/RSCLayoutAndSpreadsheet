@@ -132,6 +132,8 @@ Partial Class Form__Main_Demo
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonAddElementsV = New System.Windows.Forms.Button()
         Me.ButtonAddElementsH = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.ButtonManageRecipientsH = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -577,6 +579,7 @@ Partial Class Form__Main_Demo
         Me.linkRemoveElements.TabIndex = 48
         Me.linkRemoveElements.TabStop = True
         Me.linkRemoveElements.Text = "Remove Elements"
+        Me.linkRemoveElements.Visible = False
         '
         'LinkLabelSave2
         '
@@ -605,7 +608,7 @@ Partial Class Form__Main_Demo
         Me.flowlayoutOmittedBin.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowlayoutOmittedBin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowlayoutOmittedBin.Controls.Add(Me.lblFieldsNotCurrentlyShownHdr)
-        Me.flowlayoutOmittedBin.Location = New System.Drawing.Point(35, 553)
+        Me.flowlayoutOmittedBin.Location = New System.Drawing.Point(32, 596)
         Me.flowlayoutOmittedBin.Name = "flowlayoutOmittedBin"
         Me.flowlayoutOmittedBin.Size = New System.Drawing.Size(292, 24)
         Me.flowlayoutOmittedBin.TabIndex = 52
@@ -852,6 +855,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabel3.TabIndex = 81
         Me.LinkLabel3.TabStop = True
         Me.LinkLabel3.Text = "Turn on drag-&&-drop for last-touched element."
+        Me.LinkLabel3.Visible = False
         '
         'Label1
         '
@@ -878,7 +882,7 @@ Partial Class Form__Main_Demo
         'LabelFieldsNotYetDisplayed
         '
         Me.LabelFieldsNotYetDisplayed.AutoSize = True
-        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(29, 537)
+        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(26, 580)
         Me.LabelFieldsNotYetDisplayed.Name = "LabelFieldsNotYetDisplayed"
         Me.LabelFieldsNotYetDisplayed.Size = New System.Drawing.Size(81, 17)
         Me.LabelFieldsNotYetDisplayed.TabIndex = 84
@@ -931,7 +935,7 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 181)
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 180)
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
         'CtlGraphicSignature1
@@ -974,7 +978,7 @@ Partial Class Form__Main_Demo
         Me.flowlayoutIncludedBin.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowlayoutIncludedBin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.flowlayoutIncludedBin.Controls.Add(Me.Label2)
-        Me.flowlayoutIncludedBin.Location = New System.Drawing.Point(333, 553)
+        Me.flowlayoutIncludedBin.Location = New System.Drawing.Point(330, 596)
         Me.flowlayoutIncludedBin.Name = "flowlayoutIncludedBin"
         Me.flowlayoutIncludedBin.Size = New System.Drawing.Size(292, 24)
         Me.flowlayoutIncludedBin.TabIndex = 86
@@ -993,7 +997,7 @@ Partial Class Form__Main_Demo
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(327, 537)
+        Me.Label3.Location = New System.Drawing.Point(324, 580)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(85, 17)
         Me.Label3.TabIndex = 87
@@ -1070,12 +1074,38 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH.TabIndex = 93
         Me.ButtonAddElementsH.UseVisualStyleBackColor = False
         '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.RosyBrown
+        Me.Button1.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
+        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Button1.Location = New System.Drawing.Point(3, 18)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(582, 32)
+        Me.Button1.TabIndex = 101
+        Me.Button1.UseVisualStyleBackColor = False
+        '
+        'ButtonManageRecipientsH
+        '
+        Me.ButtonManageRecipientsH.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.ButtonManageRecipientsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Manage_Recipients_H
+        Me.ButtonManageRecipientsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.ButtonManageRecipientsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonManageRecipientsH.Location = New System.Drawing.Point(35, 540)
+        Me.ButtonManageRecipientsH.Name = "ButtonManageRecipientsH"
+        Me.ButtonManageRecipientsH.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonManageRecipientsH.TabIndex = 102
+        Me.ButtonManageRecipientsH.UseVisualStyleBackColor = False
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.ButtonManageRecipientsH)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ButtonRecipients)
         Me.Controls.Add(Me.ButtonAddElementsH)
         Me.Controls.Add(Me.ButtonAddElementsV)
@@ -1258,4 +1288,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents ButtonAddElementsH As Button
     Friend WithEvents BothStandardCustomToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ButtonRecipients As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents ButtonManageRecipientsH As Button
 End Class

@@ -27,8 +27,8 @@ Partial Class FormSelectOrUpload
         Me.LabelAddingElementsHdr = New System.Windows.Forms.Label()
         Me.LabelFooter1 = New System.Windows.Forms.Label()
         Me.LabelFooter2 = New System.Windows.Forms.Label()
-        Me.ButtonSelectDemos = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
+        Me.ButtonSelectDemos = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ButtonUploadImage
@@ -72,9 +72,10 @@ Partial Class FormSelectOrUpload
         Me.LabelFooter1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelFooter1.Location = New System.Drawing.Point(2, 120)
         Me.LabelFooter1.Name = "LabelFooter1"
-        Me.LabelFooter1.Size = New System.Drawing.Size(428, 17)
+        Me.LabelFooter1.Size = New System.Drawing.Size(566, 17)
         Me.LabelFooter1.TabIndex = 9
-        Me.LabelFooter1.Text = "* You will see a button asking you to select an image from your PC."
+        Me.LabelFooter1.Text = "* You will see a button asking you to select an image from your PC or laptop's ha" &
+    "rd drive."
         '
         'LabelFooter2
         '
@@ -86,34 +87,34 @@ Partial Class FormSelectOrUpload
         Me.LabelFooter2.TabIndex = 11
         Me.LabelFooter2.Text = "** This is available if you have up already loaded two (2) or more images."
         '
+        'ButtonCancel
+        '
+        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonCancel.Location = New System.Drawing.Point(454, 315)
+        Me.ButtonCancel.Name = "ButtonCancel"
+        Me.ButtonCancel.Size = New System.Drawing.Size(146, 35)
+        Me.ButtonCancel.TabIndex = 13
+        Me.ButtonCancel.Text = "Cancel"
+        Me.ButtonCancel.UseVisualStyleBackColor = True
+        '
         'ButtonSelectDemos
         '
         Me.ButtonSelectDemos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectDemos.Enabled = False
-        Me.ButtonSelectDemos.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonSelectDemos.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonSelectDemos.Location = New System.Drawing.Point(32, 246)
         Me.ButtonSelectDemos.Name = "ButtonSelectDemos"
-        Me.ButtonSelectDemos.Size = New System.Drawing.Size(505, 37)
+        Me.ButtonSelectDemos.Size = New System.Drawing.Size(505, 57)
         Me.ButtonSelectDemos.TabIndex = 12
-        Me.ButtonSelectDemos.Text = "Browse Pre-Loaded Demo Images"
+        Me.ButtonSelectDemos.Text = "(Browse Pre-Loaded Demo Images)"
         Me.ButtonSelectDemos.UseVisualStyleBackColor = True
-        '
-        'ButtonCancel
-        '
-        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(496, 294)
-        Me.ButtonCancel.Name = "ButtonCancel"
-        Me.ButtonCancel.Size = New System.Drawing.Size(104, 35)
-        Me.ButtonCancel.TabIndex = 13
-        Me.ButtonCancel.Text = "Cancel"
-        Me.ButtonCancel.UseVisualStyleBackColor = True
         '
         'FormSelectOrUpload
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(612, 341)
+        Me.ClientSize = New System.Drawing.Size(612, 362)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonSelectDemos)
         Me.Controls.Add(Me.LabelFooter2)
@@ -133,6 +134,6 @@ Partial Class FormSelectOrUpload
     Friend WithEvents LabelAddingElementsHdr As Label
     Friend WithEvents LabelFooter1 As Label
     Friend WithEvents LabelFooter2 As Label
-    Friend WithEvents ButtonSelectDemos As Button
     Friend WithEvents ButtonCancel As Button
+    Friend WithEvents ButtonSelectDemos As Button
 End Class

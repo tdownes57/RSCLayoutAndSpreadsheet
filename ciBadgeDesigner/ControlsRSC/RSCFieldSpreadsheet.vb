@@ -771,6 +771,12 @@ Public Class RSCFieldSpreadsheet
             ''Moved below. 4/6/2022 ''RscRowHeaders1.RefreshHeightOfHeaders(intNumberOfRecipients) ''Added 4/6/2022 td
 
             ''
+            ''Load the data into the RSCRowHeaders control.---5/14/2022
+            ''
+            RscRowHeaders1.ListRecipients = Me.RecipientsCache.ListOfRecipients
+            RscRowHeaders1.LoadRecipientList(bListHasNoRecipients)
+
+            ''
             ''Fill each of the columns. 
             ''
             For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
@@ -1305,7 +1311,7 @@ Public Class RSCFieldSpreadsheet
 
         ''4/09/2022 td ''listBoxesColumn = RscFieldColumn1.ListOfTextBoxes_TopToBottom()
         listBoxesColumn = RscFieldColumn1.ListOfRSCDataCells_TopToBottom()
-        listBoxesRowHeader = RscRowHeaders1.ListOfTextboxes_TopToBottom()
+        listBoxesRowHeader = RscRowHeaders1.ListOfRowHeaders_TopToBottom()
 
         ''March25 2022''RscRowHeaders1.AlignControlsWithSpreadsheet(listBoxesColumn)
         RscRowHeaders1.AlignControlsWithSpreadsheet(RscFieldColumn1)
@@ -1369,6 +1375,27 @@ Public Class RSCFieldSpreadsheet
         Next each_col
 
     End Sub ''End of ""Public Sub EmphasizeRows_Highlight"
+
+
+    Public Function HasIndentifyingData() As Boolean
+        ''
+        ''Added 5/14/2022 thomas downes 
+        ''
+        Dim each_column As RSCFieldColumnV2
+        Dim bColHasIdentifyingData As Boolean
+
+        For Each each_column In mod_array_RSCColumns
+
+            If (each_column Is Nothing) Then Continue For
+
+            bColHasIdentifyingData = each_column.HasIdentifyingData()
+            If (bColHasIdentifyingData) Then Return True
+
+        Next each_column
+
+        Return False
+
+    End Function ''End of ""Public Function HasIndentifyingData() As Boolean""
 
 
     Private Function GenerateRSCFieldColumn_General(p_intIndexCurrent As Integer,

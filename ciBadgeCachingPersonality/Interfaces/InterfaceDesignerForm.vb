@@ -33,6 +33,7 @@ Namespace ciBadgeCachePersonality
         ''Added 5/12/2022 td
         Sub BackgroundImage_Select()
         Sub BackgroundImage_Upload()
+        Sub BackgroundImage_SelectOrUpload()  ''Added 5/13/2022 thomas downes
 
 
     End Interface

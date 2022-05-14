@@ -407,11 +407,23 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Dialogs_GridSpreadsheet\ClassTextRowCustomer_NotInUse.vb" />
+    <Compile Include="Dialogs_GridSpreadsheet\DialogManageColumns.Designer.vb">
+      <DependentUpon>DialogManageColumns.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs_GridSpreadsheet\DialogManageColumns.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs_GridSpreadsheet\DialogEditRecipients.Designer.vb">
       <DependentUpon>DialogEditRecipients.vb</DependentUpon>
     </Compile>
     <Compile Include="Dialogs_GridSpreadsheet\DialogEditRecipients.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs_GridSpreadsheet\FieldSelector.Designer.vb">
+      <DependentUpon>FieldSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs_GridSpreadsheet\FieldSelector.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Dialogs_Text\ClassColumnWidthsEtc_NotInUse.vb" />
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
@@ -755,8 +767,14 @@
     <EmbeddedResource Include="Controls\CtlWidthHeight.resx">
       <DependentUpon>CtlWidthHeight.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs_GridSpreadsheet\DialogManageColumns.resx">
+      <DependentUpon>DialogManageColumns.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_GridSpreadsheet\DialogEditRecipients.resx">
       <DependentUpon>DialogEditRecipients.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs_GridSpreadsheet\FieldSelector.resx">
+      <DependentUpon>FieldSelector.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Text\DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
@@ -906,28 +924,28 @@
     <Content Include="Images\AdjustWHColor_V101.jpg" />
     <Content Include="Images\AdjustWHColor_V102.jpg" />
     <Content Include="Images\AdjustWHColor_V103.jpg" />
-    <Content Include="Images\BackExamples\CI_Logo.jpg">
+    <Content Include="Images\BackExampleDemos\CI_Logo.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\BackExamples\ExampleBack.jpg">
+    <Content Include="Images\BackExampleDemos\ExampleBack.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\BackExamples\feather logo RSC for CodeNinjas-margin1.jpg" />
-    <Content Include="Images\BackExamples\feather logo RSC for CodeNinjas.jpg" />
-    <Content Include="Images\BackExamples\feather logo RSC.jpg" />
-    <Content Include="Images\BackExamples\layout_BW.bmp">
+    <Content Include="Images\BackExampleDemos\feather logo RSC for CodeNinjas-margin1.jpg" />
+    <Content Include="Images\BackExampleDemos\feather logo RSC for CodeNinjas.jpg" />
+    <Content Include="Images\BackExampleDemos\feather logo RSC.jpg" />
+    <Content Include="Images\BackExampleDemos\layout_BW.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\BackExamples\ORO835 - OrovilleHS.PNG">
+    <Content Include="Images\BackExampleDemos\ORO835 - OrovilleHS.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\BackExamples\RotatedLayout.png">
+    <Content Include="Images\BackExampleDemos\RotatedLayout.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\BackExamples\SOU735-SADDLEBACK-VENDOR.jpg">
+    <Content Include="Images\BackExampleDemos\SOU735-SADDLEBACK-VENDOR.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\BackExamples\ValleyValleyColl.jpg">
+    <Content Include="Images\BackExampleDemos\ValleyValleyColl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\BadgeLayoutImages\BadgeLayoutImages - Read me.txt">
@@ -1079,7 +1097,7 @@
     <Content Include="test__WorksWellInChrome.htm" />
     <None Include="Resources\JaneMulvey_1015.JPG" />
     <None Include="Resources\V381.jpg" />
-    <Content Include="Images\BackExamples\SOU735-IVC-VENDOR.jpg">
+    <Content Include="Images\BackExampleDemos\SOU735-IVC-VENDOR.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SOU735-SADDLEBACK-VENDOR.jpg" />
@@ -1148,6 +1166,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Images\BackgroundImages\" />
     <Folder Include="Laysections\" />
     <Folder Include="__BlakemoreWebAPIs\" />
     <Folder Include="__ErrorLog\" />

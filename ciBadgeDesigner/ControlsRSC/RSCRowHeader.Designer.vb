@@ -24,6 +24,7 @@ Partial Class RSCRowHeader
     Private Sub InitializeComponent()
         Me.PictureBox1a = New System.Windows.Forms.PictureBox()
         Me.textRowHeader1 = New System.Windows.Forms.Label()
+        Me.LinkLabelShowID = New System.Windows.Forms.LinkLabel()
         CType(Me.PictureBox1a, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -55,10 +56,22 @@ Partial Class RSCRowHeader
         Me.textRowHeader1.Text = "1"
         Me.textRowHeader1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'LinkLabelShowID
+        '
+        Me.LinkLabelShowID.AutoSize = True
+        Me.LinkLabelShowID.Location = New System.Drawing.Point(-3, 0)
+        Me.LinkLabelShowID.Name = "LinkLabelShowID"
+        Me.LinkLabelShowID.Size = New System.Drawing.Size(48, 13)
+        Me.LinkLabelShowID.TabIndex = 97
+        Me.LinkLabelShowID.TabStop = True
+        Me.LinkLabelShowID.Text = "Show ID"
+        Me.LinkLabelShowID.Visible = False
+        '
         'RSCRowHeader
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.LinkLabelShowID)
         Me.Controls.Add(Me.PictureBox1a)
         Me.Controls.Add(Me.textRowHeader1)
         Me.Margin = New System.Windows.Forms.Padding(0)
@@ -66,9 +79,11 @@ Partial Class RSCRowHeader
         Me.Size = New System.Drawing.Size(150, 24)
         CType(Me.PictureBox1a, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents PictureBox1a As PictureBox
     Friend WithEvents textRowHeader1 As Label
+    Friend WithEvents LinkLabelShowID As LinkLabel
 End Class
