@@ -838,7 +838,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''Added 10/14/2019 thomas d. 
             ''Dec17 2021 ''obj_cache_elements.LoadElement_Text(strStaticText,
             ''Jan19 2022 ''obj_cache_elements.LoadNewElement_StaticText_IfNeeded(strStaticText,
-            obj_cache_elements.LoadNewElement_StaticText(strStaticText,
+            ''5/14/2022  ''obj_cache_elements.LoadNewElement_StaticText(strStaticText,
+            obj_cache_elements.LoadNewElement_StaticTextV3(strStaticText,
                                                 intLeft_Text, intTop_Text,
                                                 intWidth_Text, intHeight_Text,
                                                obj_designForm.pictureBack,

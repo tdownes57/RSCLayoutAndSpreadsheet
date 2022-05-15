@@ -1930,6 +1930,8 @@ Namespace ciBadgeCachePersonality
 
             End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
+            Return objElementQR ''Added 5/14/2022 td
+
         End Function ''End of "Public Function LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
 
@@ -1967,7 +1969,7 @@ Namespace ciBadgeCachePersonality
 
             End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
-            Return objElementSig
+            Return objElementSig ''Added 5/14/2022 td 
 
         End Function ''End of "Public Function LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 

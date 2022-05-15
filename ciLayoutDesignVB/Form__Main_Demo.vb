@@ -270,11 +270,18 @@ Public Class Form__Main_Demo
 
         ''Added 10/13/2019 thomas d. 
         ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
-        mod_designer.CtlGraphic_Portrait = Nothing ''Jan14 2022 td''CtlGraphicPortrait_Lady
-        ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
-        mod_designer.CtlGraphic_QRCode = Nothing ''Jan14 2022 td''CtlGraphicQRCode1
-        ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
-        mod_designer.CtlGraphic_Signat = Nothing ''Jan14 2022 td''CtlGraphicSignature1
+        Const c_bRemoveObjectReferences As Boolean = False
+        If (c_bRemoveObjectReferences) Then
+            ''5/15/2022 td''mod_designer.CtlGraphic_Portrait = Nothing ''Jan14 2022 td''CtlGraphicPortrait_Lady
+            ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
+            ''5/15/2022 td''mod_designer.CtlGraphic_QRCode = Nothing ''Jan14 2022 td''CtlGraphicQRCode1
+            ''11/28/2021 Encapsulated to Load_Designer. 11/28/2021''
+            ''5/15/2022 td''mod_designer.CtlGraphic_Signat = Nothing ''Jan14 2022 td''CtlGraphicSignature1
+            mod_designer.ClearObjectReferences(GetType(CtlGraphicPortrait))
+            mod_designer.ClearObjectReferences(GetType(CtlGraphicQRCode))
+            mod_designer.ClearObjectReferences(GetType(CtlGraphicSignature))
+
+        End If ''End of ""If (c_bRemoveObjectReferences) Then"
 
         ''Added 11/29/2021 thomas downes
         ''++++/++++ I have removed the object reference from the mod_designer class.---1/8/2022 td
@@ -485,10 +492,12 @@ Public Class Form__Main_Demo
         ''Added 10/13/2019 thomas d. 
         Const c_bLoadControlReferencesWithoutCheckingCache As Boolean = True ''False ''True
         If (c_bLoadControlReferencesWithoutCheckingCache) Then
+
             ''This code makes no reference to the elements cache, and so is pretty suspect!! ----1/14/2022
-            mod_designer.CtlGraphic_Portrait = CtlGraphicPortrait_Lady
-            mod_designer.CtlGraphic_QRCode = CtlGraphicQRCode1
-            mod_designer.CtlGraphic_Signat = CtlGraphicSignature1
+            mod_designer.CtlGraphic_Portrait_Deprecated = CtlGraphicPortrait_Lady
+            mod_designer.CtlGraphic_QRCode_Deprecated = CtlGraphicQRCode1
+            mod_designer.CtlGraphic_Signat_Deprecated = CtlGraphicSignature1
+
         End If ''End of "If (c_boolLoadControlReferencesWithoutCheckingCache) Then"
         ''+++/+++ I have removed this object reference from the mod_designer class. Jan8 2022 td
         ''+++mod_designer.CtlGraphic_StaticText_temp = CtlGraphicStaticText1 ''Added 11/30/2021 td
@@ -864,7 +873,10 @@ Public Class Form__Main_Demo
                 With ElementsCache_ManageBoth
                     .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg_Front)
                 End With ''End of " With ElementsCache_ManageBoth"
-            Else
+
+            ElseIf (Me.picturePreview.Image IsNot Nothing) Then ''Added condition 5/14/2022 
+                ''5/14/2022 ''Else 
+
                 Dim strPathToFileJpg_Back As String = ""
                 strPathToFileJpg_Back = strPathToXML.Replace(".xml", "_Back.jpg")
                 ''Create an image file (in JPEG form). ---1/5/2022 td 

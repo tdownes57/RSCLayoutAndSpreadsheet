@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPS_VectorImagingByAspose",
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ciPictures_VB", "..\abcBadge__Web\ciPictures_VB\ciPictures_VB.vbproj", "{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Can_Types_Be_Compared", "Can_Types_Be_Compared\Can_Types_Be_Compared.vbproj", "{F034477E-6111-43D0-9D39-5197AD313D27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -321,6 +323,14 @@ Global
 		{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}.Release|x86.ActiveCfg = Release|Any CPU
 		{A5FE9F7B-4075-43C5-892B-01E2CFEC342C}.Release|x86.Build.0 = Release|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Debug|x86.Build.0 = Debug|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Release|x86.ActiveCfg = Release|Any CPU
+		{F034477E-6111-43D0-9D39-5197AD313D27}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

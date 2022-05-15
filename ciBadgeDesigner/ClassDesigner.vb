@@ -73,12 +73,40 @@ Public Class ClassDesigner
     Public Property FlowFieldsNotListed As FlowLayoutPanel ''Added 10/1/2019 td
     Public Property StatusLabelWarningLabel As ToolStripStatusLabel ''Added 12/22/2021 td
 
-    Public Property CtlGraphic_Portrait As CtlGraphicPortrait ''Added 10/1/2019 td
 
     Public Property PathToSigFile As String ''Added 10/12/2019 td
 
-    Public Property CtlGraphic_Signat As CtlGraphicSignature ''Added 10/10/2019 td
-    Public Property CtlGraphic_QRCode As CtlGraphicQRCode ''Added 10/10/2019 td
+    ''5/15/2022 Public Property CtlGraphic_Portrait 
+    ''5/15/2022 Public Property CtlGraphic_Signat_1st As CtlGraphicSignature ''Deprecated 5/15/2022 Added 10/10/2019 td
+    ''5/15/2022 Public Property CtlGraphic_QRCode_1st As CtlGraphicQRCode ''Deprecated 5/15/2022 Added 10/10/2019 td
+
+    Public Function CtlGraphic_Portrait_1st() As CtlGraphicPortrait
+        ''5/15/2022 Public Property CtlGraphic_Portrait 
+
+    End Function ''End of ""Public Function CtlGraphic_Signat_1st()""
+
+    Public Function CtlGraphic_Signat_1st() As CtlGraphicSignature
+        ''5/15/2022 Public Property CtlGraphic_Signat_1st As CtlGraphicSignature ''Deprecated 5/15/2022 Added 10/10/2019 td
+
+    End Function ''End of ""Public Function CtlGraphic_Signat_1st()""
+
+    Public Function CtlGraphic_QRCode_1st() As CtlGraphicQRCode
+        ''5/15/2022 Public Property CtlGraphic_QRCode_1st As CtlGraphicQRCode ''Deprecated 5/15/2022 Added 10/10/2019 td
+
+    End Function ''End of ""Public Function CtlGraphic_QRCode_1st()""
+
+
+    ''Added 5/12/2022
+    Public Function CtlGraphic_Portrait_List() As List(Of CtlGraphicPortrait)
+        ''Added 5/15/2022 td
+    End Function
+    Public Function CtlGraphic_Signat_List() As List(Of CtlGraphicSignature)
+        ''Added 5/15/2022 
+    End Function
+    Public Function CtlGraphic_QRCode_List() As List(Of CtlGraphicQRCode)
+        ''Added 5/15/2022 
+    End Function
+
 
     ''Jan7 2022 td''Public Property CtlGraphic_StaticText_temp As CtlGraphicStaticText ''Added 11/29/2019 td
     Public Property ListCtlGraphic_StaticTextsV3 As New HashSet(Of CtlGraphicStaticTextV3) ''Added 12/18/2021 td
@@ -330,10 +358,10 @@ Public Class ClassDesigner
         ''
         ''Added 1/14/2021 td 
         ''
-        If (CtlGraphic_Portrait IsNot Nothing) Then
-            CtlGraphic_Portrait.Dispose() ''Added Dec. 8, 2021
-            Me.DesignerForm.Controls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(CtlGraphic_Portrait) ''Added Dec. 8, 2021
+        If (CtlGraphic_Portrait_Deprecated IsNot Nothing) Then
+            CtlGraphic_Portrait_Deprecated.Dispose() ''Added Dec. 8, 2021
+            Me.DesignerForm.Controls.Remove(CtlGraphic_Portrait_Deprecated) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(CtlGraphic_Portrait_Deprecated) ''Added Dec. 8, 2021
         End If ''End of "If (CtlGraphic_Portrait IsNot Nothing) Then"
 
     End Sub ''End of "Public Sub UnloadDesigner_Portrait()"
@@ -363,11 +391,21 @@ Public Class ClassDesigner
         ''    End If ''End of "If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then"
         ''End With ''End of "With mod_designerListener"
 
-        If (CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/24/2022 td
-            CtlGraphic_QRCode.Dispose() ''Added Dec. 8, 2021
-            Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(CtlGraphic_QRCode) ''Added Dec. 8, 2021
+        If (CtlGraphic_QRCode_Deprecated IsNot Nothing) Then ''Added 1/24/2022 td
+            CtlGraphic_QRCode_Deprecated.Dispose() ''Added Dec. 8, 2021
+            Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode_Deprecated) ''Added Dec. 8, 2021
+            mod_listOfDesignerControls.Remove(CtlGraphic_QRCode_Deprecated) ''Added Dec. 8, 2021
         End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+
+        ''Added 5/13/2022
+        For Each each_ctl_qrcode As CtlGraphicQRCode In Me.CtlGraphic_QRCode_List
+            If (each_ctl_qrcode IsNot Nothing) Then ''Added 1/24/2022 td
+                each_ctl_qrcode.Dispose() ''Added Dec. 8, 2021
+                Me.DesignerForm.Controls.Remove(each_ctl_qrcode) ''Added Dec. 8, 2021
+                mod_listOfDesignerControls.Remove(each_ctl_qrcode) ''Added Dec. 8, 2021
+            End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+        Next each_ctl_qrcode
+
 
     End Sub ''End of "Public Sub UnloadDesigner_QRCode()"
 
@@ -751,121 +789,121 @@ Public Class ClassDesigner
         ''10/1/2019 td''Me.BackgroundBox.SendToBack()
         Me.PreviewBox.SendToBack()
 
-            ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
+        ResizeLayoutBackgroundImage_ToFitPictureBox() ''Added 8/25/2019 td
 
-            ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
-            If (Me.DontAutoRefreshPreview) Then
-                ''Don't refresh.  ====3/11/2022
-            Else
-                RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
-            End If ''End of "If (Me.DontAutoRefreshPreview) Then ... Else ..."
+        ''1/14/2022''RefreshPreview_Redux_Front() ''Added 8/24/2019 td
+        If (Me.DontAutoRefreshPreview) Then
+            ''Don't refresh.  ====3/11/2022
+        Else
+            RefreshPreview_CurrentSide() ''Modified 1/14/2022 td
+        End If ''End of "If (Me.DontAutoRefreshPreview) Then ... Else ..."
 
-            ''Dec10 2021 td''Me.BackgroundBox_Front.SendToBack()
-            If (ShowingTheBackside()) Then
-                ''Show the backside of card. 
-                Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
-                Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
-                Me.BackgroundBox_JustAButton.SendToBack() ''1/21/2022
-            Else
-                ''Show the frontside of card. 
-                Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
-                Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
-                Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
-            End If ''End of "If (ShowingBackside()) Then ... Else ..."
+        ''Dec10 2021 td''Me.BackgroundBox_Front.SendToBack()
+        If (ShowingTheBackside()) Then
+            ''Show the backside of card. 
+            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_JustAButton.SendToBack() ''1/21/2022
+        Else
+            ''Show the frontside of card. 
+            Me.BackgroundBox_Front.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_Backside.SendToBack() ''Added 12/10/2021 td
+            Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
+        End If ''End of "If (ShowingBackside()) Then ... Else ..."
 
-            ''------------------------------------------------------------------------
-            ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
+        ''------------------------------------------------------------------------
+        ''Const c_boolBreakpoint As Boolean = True  ''Added 9//13/2019 td
 
-            ''''Badge Preview is also moveable/sizeable, mostly to impress
-            ''''    management.  ----9/8/2019 td
-            ''''
-            ''If (mc_bUseNonStaticMovers) Then
-            ''    ''Added 11/29/2021 td 
-            ''    Dim objMover As New ControlMove_NonStatic_TD
-            ''    objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
-            ''                      c_boolBreakpoint)
-            ''    mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
+        ''''Badge Preview is also moveable/sizeable, mostly to impress
+        ''''    management.  ----9/8/2019 td
+        ''''
+        ''If (mc_bUseNonStaticMovers) Then
+        ''    ''Added 11/29/2021 td 
+        ''    Dim objMover As New ControlMove_NonStatic_TD
+        ''    objMover.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
+        ''                      c_boolBreakpoint)
+        ''    mod_dictyControlMoveBoxesEtc.Add(Me.PreviewBox, objMover)
 
-            ''Else
-            ''    ControlMoverOrResizer_TD.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
-            ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-            ''End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
+        ''Else
+        ''    ControlMoverOrResizer_TD.Init(Me.PreviewBox, Me.PreviewBox, 10, False,
+        ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        ''End If ''End of "If (mc_bUseNonStaticMovers) Then .... Else If...."
 
-            ''If it won't conflict with the Rubber-Band Selector, 
-            ''    then let's make the Badge Layout Background 
-            ''    also moveable / sizeable.
-            ''    ----9/8/2019 td
-            ''
-            ''Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
+        ''If it won't conflict with the Rubber-Band Selector, 
+        ''    then let's make the Badge Layout Background 
+        ''    also moveable / sizeable.
+        ''    ----9/8/2019 td
+        ''
+        ''Const c_LayoutBackIsMoveable As Boolean = False ''Added 9/8/2019 td 
 
-            ''If (c_LayoutBackIsMoveable And mc_bUseNonStaticMovers) Then
-            ''    ''Badge Layout Background is also moveable/sizeable.
-            ''    Dim objMover As New ControlMove_NonStatic_TD
-            ''    objMover.Init(Me.BackgroundBox,
-            ''                  Me.BackgroundBox, 10, False,
-            ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-            ''ElseIf (c_LayoutBackIsMoveable) Then
-            ''    ''Badge Layout Background is also moveable/sizeable.
-            ''    ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
-            ''                      Me.BackgroundBox, 10, False,
-            ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
-            ''End If ''End of "If (c_LayoutBackIsMoveable) Then"
-            ''---------------------------------------------------------------------------------
+        ''If (c_LayoutBackIsMoveable And mc_bUseNonStaticMovers) Then
+        ''    ''Badge Layout Background is also moveable/sizeable.
+        ''    Dim objMover As New ControlMove_NonStatic_TD
+        ''    objMover.Init(Me.BackgroundBox,
+        ''                  Me.BackgroundBox, 10, False,
+        ''                  c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        ''ElseIf (c_LayoutBackIsMoveable) Then
+        ''    ''Badge Layout Background is also moveable/sizeable.
+        ''    ControlMoverOrResizer_TD.Init(Me.BackgroundBox,
+        ''                      Me.BackgroundBox, 10, False,
+        ''                      c_boolBreakpoint) ''Added 9/08/2019 thomas downes
+        ''End If ''End of "If (c_LayoutBackIsMoveable) Then"
+        ''---------------------------------------------------------------------------------
 
-            ''Moved from above, 9/20/2019 td 
-            ''1/12/2022 td''Initiate_RubberbandSelector(mod_listOfFieldControls,
+        ''Moved from above, 9/20/2019 td 
+        ''1/12/2022 td''Initiate_RubberbandSelector(mod_listOfFieldControls,
 
-            ''This will allow the user to easily select multiple elements at once.
-            ''  ----1/14/2022 td  
-            Const c_bLoadRubberband As Boolean = False ''False, since I just encountered a runtime error,
-            ''  related to the rubberband, and I am not prepared to debug this just yet.
-            ''  ----Added 1/4/2022 td
-            If (c_bLoadRubberband) Then ''Added 1/4/2022 td
-                Initiate_RubberbandSelector(mod_listOfDesignerControls,
+        ''This will allow the user to easily select multiple elements at once.
+        ''  ----1/14/2022 td  
+        Const c_bLoadRubberband As Boolean = False ''False, since I just encountered a runtime error,
+        ''  related to the rubberband, and I am not prepared to debug this just yet.
+        ''  ----Added 1/4/2022 td
+        If (c_bLoadRubberband) Then ''Added 1/4/2022 td
+            Initiate_RubberbandSelector(mod_listOfDesignerControls,
                                  mod_selectedCtls) ''Added 9/8/2019 thomas d. 
-            End If ''End of "If (c_bLoadRubberband) Then"
+        End If ''End of "If (c_bLoadRubberband) Then"
 
-            ''
-            ''Added 11/29/2021
-            ''
-            ''Jan5 2022''mod_designerListener = New ClassDesignerEventListener(Me, mc_bAddBorderOnlyWhileResizing)
-            mod_designerListener = New ClassDesignerEventListener(Me, mod_oGroupMoveEvents,
+        ''
+        ''Added 11/29/2021
+        ''
+        ''Jan5 2022''mod_designerListener = New ClassDesignerEventListener(Me, mc_bAddBorderOnlyWhileResizing)
+        mod_designerListener = New ClassDesignerEventListener(Me, mod_oGroupMoveEvents,
                                                               mc_bAddBorderOnlyWhileResizing)
 
-            ''
-            ''Major call !!
-            ''
-            ''Feb102022 td''mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
-            ''                                       mod_listOfDesignerControls)
-            mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
+        ''
+        ''Major call !!
+        ''
+        ''Feb102022 td''mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
+        ''                                       mod_listOfDesignerControls)
+        mod_designerListener.LoadDesigner(mod_listOfFieldControlsV3,
                                           mod_listOfFieldControlsV4,
                                           mod_listOfDesignerControls)
 
-            ''Added 1/14/2022 td
-            ''  Maybe this will cause the portrait-element control to appear. 
-            Me.DesignerForm.Refresh()
+        ''Added 1/14/2022 td
+        ''  Maybe this will cause the portrait-element control to appear. 
+        Me.DesignerForm.Refresh()
 
-            ''Added 1/14/2022 td
-            Dim boolRefMatches As Boolean ''Added 1/14/2022 td
-            boolRefMatches = (Me.DesignerForm_DoubleCheckRef IsNot Nothing) AndAlso
+        ''Added 1/14/2022 td
+        Dim boolRefMatches As Boolean ''Added 1/14/2022 td
+        boolRefMatches = (Me.DesignerForm_DoubleCheckRef IsNot Nothing) AndAlso
                   (Me.DesignerForm Is Me.DesignerForm_DoubleCheckRef)
-            If (boolRefMatches) Then
-                '' Great, as expected. ---1/14/2022
-            Else
-                ''Added 1/14/2022 td
-                MessageBoxTD.Show_Statement("Houston, we have a problem!!!  Our form is orphaned.")
-            End If ''End of "If (boolRefMatches) Then .... Else ....."
+        If (boolRefMatches) Then
+            '' Great, as expected. ---1/14/2022
+        Else
+            ''Added 1/14/2022 td
+            MessageBoxTD.Show_Statement("Houston, we have a problem!!!  Our form is orphaned.")
+        End If ''End of "If (boolRefMatches) Then .... Else ....."
 
-            ''Copied & modified, from above calls to .SendToBack(). Added 1/14/2022
-            If (Not ShowingTheBackside()) Then Me.BackgroundBox_Front.SendToBack()
-            If (ShowingTheBackside()) Then Me.BackgroundBox_Backside.SendToBack()
-            Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
+        ''Copied & modified, from above calls to .SendToBack(). Added 1/14/2022
+        If (Not ShowingTheBackside()) Then Me.BackgroundBox_Front.SendToBack()
+        If (ShowingTheBackside()) Then Me.BackgroundBox_Backside.SendToBack()
+        Me.BackgroundBox_JustAButton.SendToBack() ''Added 1/21/2022 td
 
+        ''Added 1/26/2022 td
+        If (pbStartWithBackside) Then
             ''Added 1/26/2022 td
-            If (pbStartWithBackside) Then
-                ''Added 1/26/2022 td
-                Me.DesignerForm_Interface.ProceedToBackSide_SetupBacksideLabels()
-            End If ''End of "If (pbStartWithBackside) Then"
+            Me.DesignerForm_Interface.ProceedToBackSide_SetupBacksideLabels()
+        End If ''End of "If (pbStartWithBackside) Then"
 
     End Sub ''End of "Public Sub LoadDesigner"
 
@@ -1775,7 +1813,7 @@ Public Class ClassDesigner
         oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
         ''Jan4 2022 td''CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
-        CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(oGetControlParameters,
+        CtlGraphic_Portrait_Deprecated = CtlGraphicPortrait.GetPortrait(oGetControlParameters,
                                                              par_elementPic, Me.DesignerForm,
                                                              "CtlGraphic_Portrait",
                                                              Me, True, mod_ctlLasttouched, Me,
@@ -1783,12 +1821,15 @@ Public Class ClassDesigner
         ''                                                 ''May5 2022  mod_oGroupMoveEvents)
 
         ''10/1/2019 td''Me.Controls.Add(CtlGraphicPortrait_Lady)
-        Me.DesignerForm.Controls.Add(CtlGraphic_Portrait)
+        Me.DesignerForm.Controls.Add(CtlGraphic_Portrait_Deprecated)
+
+        ''Added 5/15/2022 td
+        CtlGraphic_Portrait_Deprecated.BringToFront()
 
         ''Added 11/28/2021 td
-        mod_listOfDesignerControls.Add(CtlGraphic_Portrait)
+        mod_listOfDesignerControls.Add(CtlGraphic_Portrait_Deprecated)
 
-        With CtlGraphic_Portrait
+        With CtlGraphic_Portrait_Deprecated
 
             ''9/17/2019 td''.Top = ClassElementPic.ElementPicture.TopEdge_Pixels
             ''9/17/2019 td''.Left = ClassElementPic.ElementPicture.LeftEdge_Pixels
@@ -1867,14 +1908,15 @@ Public Class ClassDesigner
         ''
         ''Added 12/22/2021 thomas downes
         ''
-        If (Me.CtlGraphic_QRCode IsNot Nothing) Then
-            Me.CtlGraphic_QRCode.Dispose()
-            Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
-        End If ''ENd of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
+        ''5/14/2022 If (Me.CtlGraphic_QRCode IsNot Nothing) Then
+        ''  Me.CtlGraphic_QRCode.Dispose()
+        ''  Me.DesignerForm.Controls.Remove(Me.CtlGraphic_QRCode)
+        ''End If ''ENd of "If (Me.CtlGraphic_QRCode IsNot Nothing) Then"
 
         ''Added 1/16/2022 thomas d. 
         ''  Check to see if this badge-side (e.g. front side) contains a QR code. 
         If (par_elementQR Is Nothing) Then
+            System.Diagnostics.Debugger.Break() ''Added 5/15/2022
             Return ''Added 1/16/2022 td
         End If ''End of "If (par_elementQR Is Nothing) Then"
 
@@ -3140,10 +3182,10 @@ Public Class ClassDesigner
             ''
             ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
             ''
-            If (CtlGraphic_Portrait IsNot Nothing) Then
+            If (CtlGraphic_Portrait_Deprecated IsNot Nothing) Then
                 If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
                     ''Take the picture from the Element Control. ---1/5/2022 
-                    par_objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait.Pic_CloneOfInitialImage
+                    par_objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait_Deprecated.Pic_CloneOfInitialImage
                 End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
             End If ''End of "If (CtlGraphic_Portrait IsNot Nothing) Then"
 
@@ -3342,7 +3384,7 @@ Public Class ClassDesigner
                                                      obj_image_clone_resized,
                                                       Me.PreviewBox.Width,
                                                       Me.PreviewBox.Height,
-                                                     Me.CtlGraphic_Portrait.picturePortrait.Image,
+                                                     Me.CtlGraphic_Portrait_Deprecated.picturePortrait.Image,
                                                       Me.ElementsCache_UseEdits,
                                                       par_recipient,
                                                       listOfElementTextFieldsV3,
@@ -3350,7 +3392,7 @@ Public Class ClassDesigner
                                                       listOfElementStaticTextsV3,
                                                       listOfElementStaticTextsV4,
                                                       listOfElementGraphics,
-                                                      Me.CtlGraphic_Portrait.ElementClass_Obj,
+                                                      Me.CtlGraphic_Portrait_Deprecated.ElementClass_Obj,
                                                       Me.CtlGraphic_QRCode.ElementClass_Obj,
                                                       Me.CtlGraphic_Signat.ElementClass_Obj,
                                                       Nothing, Nothing, Nothing,
@@ -3377,7 +3419,7 @@ Public Class ClassDesigner
             ''
             If (objMakeBadgeElements.RecipientPic Is Nothing) Then
                 ''Take the picture from the Element Control. ---1/5/2022 
-                objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait.Pic_CloneOfInitialImage
+                objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait_Deprecated.Pic_CloneOfInitialImage
             End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
 
             ''
@@ -3487,9 +3529,9 @@ Public Class ClassDesigner
         objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
                                           Me.Layout_Width_Pixels(),
                                           obj_image_clone_resized,
-                                           CtlGraphic_Portrait.ElementInfo_Base,
-                                           CtlGraphic_Portrait.ElementInfo_Pic,
-                                          CtlGraphic_Portrait.picturePortrait.Image)
+                                           CtlGraphic_Portrait_Deprecated.ElementInfo_Base,
+                                           CtlGraphic_Portrait_Deprecated.ElementInfo_Pic,
+                                          CtlGraphic_Portrait_Deprecated.picturePortrait.Image)
 
         ''Added 9/8/2019 td
         ''Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td
@@ -4533,6 +4575,26 @@ Public Class ClassDesigner
 
     End Function ''End of "Public Function GetParametersToGetElementControl() As ClassGetElementControlParams"
 
+
+    Public Sub ClearObjectReferences(par_type As Type)
+        ''
+        ''Added 5/15/2022 thomas d.
+        ''
+        ''5/15/2022 If (TypeOf par_type Is TypeOf CtlGraphicPortrait) Then
+        If (par_type.Equals(GetType(CtlGraphicPortrait))) Then
+
+            Me.CtlGraphic_Portrait_List.Clear()
+
+        End If
+
+        If (par_type.Equals(GetType(CtlGraphicPortrait))) Then
+
+            Me.CtlGraphic_Portrait_List.Clear()
+
+        End If
+
+
+    End Sub ''End of ""Public Sub ClearObjectReferences(par_type As Type)""
 
 
 

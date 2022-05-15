@@ -313,8 +313,11 @@ Public Class Operations_Desktop
                                                intImageWidth_Reduced,
                                                intImageHeight_Reduced)
 
+        ''5/14/2022 objElementStaticGraphic = New ClassElementGraphic(objRect,
+        ''                                                  Me.DesignerClass.BackgroundBox_Front,
+        ''                                                  strPathToGraphicImage)
         objElementStaticGraphic = New ClassElementGraphic(objRect,
-                                                          Me.DesignerClass.BackgroundBox_Front,
+                                                          Me.DesignerClass.BadgeLayout_Class,
                                                           strPathToGraphicImage)
 
         obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
