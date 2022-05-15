@@ -1845,10 +1845,11 @@ Namespace ciBadgeCachePersonality
         End Function ''End of ""Public Function LoadNewElement_FieldV4()""
 
 
-        Public Sub LoadNewElement_Pic(par_intLeft As Integer, par_intTop As Integer,
+        Public Function LoadNewElement_Pic(par_intLeft As Integer, par_intTop As Integer,
                                    par_intWidth As Integer, par_intHeight As Integer,
                                    par_pictureBackground As PictureBox,
-            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+                                   par_enum As EnumWhichSideOfCard) _
+                                   As ClassElementPortrait
             ''10/10/2019 td''Public Sub LoadPicElement(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)
             '' 
             ''Added 9/16/2019 td  
@@ -1883,13 +1884,17 @@ Namespace ciBadgeCachePersonality
 
             End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
-        End Sub ''End of "Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+            ''Added 5/14/2022 td
+            Return objElementPic
+
+        End Function ''End of "Public Sub LoadElement_Pic(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
 
-        Public Sub LoadNewElement_QRCode(par_intLeft As Integer, par_intTop As Integer,
+        Public Function LoadNewElement_QRCode(par_intLeft As Integer, par_intTop As Integer,
                                       par_intWidth As Integer, par_intHeight As Integer,
                                       par_pictureBackground As PictureBox,
-            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+                                      par_enum As EnumWhichSideOfCard) _
+                                      As ClassElementQRCode
             ''
             ''Added 10/10/2019 td  
             ''
@@ -1925,7 +1930,7 @@ Namespace ciBadgeCachePersonality
 
             End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
-        End Sub ''End of "Public Sub LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+        End Function ''End of "Public Function LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
 
         Public Sub LoadNewElement_Signature(par_intLeft As Integer, par_intTop As Integer,

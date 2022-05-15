@@ -132,7 +132,6 @@ Partial Class Form__Main_Demo
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonAddElementsV = New System.Windows.Forms.Button()
         Me.ButtonAddElementsH = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.ButtonManageRecipientsH = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
@@ -1074,18 +1073,6 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH.TabIndex = 93
         Me.ButtonAddElementsH.UseVisualStyleBackColor = False
         '
-        'Button1
-        '
-        Me.Button1.BackColor = System.Drawing.Color.RosyBrown
-        Me.Button1.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
-        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Button1.Location = New System.Drawing.Point(3, 18)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(582, 32)
-        Me.Button1.TabIndex = 101
-        Me.Button1.UseVisualStyleBackColor = False
-        '
         'ButtonManageRecipientsH
         '
         Me.ButtonManageRecipientsH.BackColor = System.Drawing.Color.DeepSkyBlue
@@ -1105,7 +1092,6 @@ Partial Class Form__Main_Demo
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
         Me.Controls.Add(Me.ButtonManageRecipientsH)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ButtonRecipients)
         Me.Controls.Add(Me.ButtonAddElementsH)
         Me.Controls.Add(Me.ButtonAddElementsV)
@@ -1288,6 +1274,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents ButtonAddElementsH As Button
     Friend WithEvents BothStandardCustomToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ButtonRecipients As Button
-    Friend WithEvents Button1 As Button
     Friend WithEvents ButtonManageRecipientsH As Button
 End Class

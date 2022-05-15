@@ -870,22 +870,77 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub LoadDesigner"
 
 
-    Public Sub Load_NewElementIntoCache_AndForm(par_enumField As EnumCIBFields,
+    Public Sub Load_NewElementToCacheAndForm_FieldV3(par_enumField As EnumCIBFields,
                                      par_rectForElement As Rectangle)
         ''
         ''Added 5/13/2022 td
         ''
         Dim new_elementFieldV3 As ClassElementFieldV3 = Nothing ''Added 5/12/2022 td
 
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
         new_elementFieldV3 = Load_NewElementIntoCache_FieldV3(par_enumField,
                                                    par_rectForElement)
 
         If (new_elementFieldV3 Is Nothing) Then System.Diagnostics.Debugger.Break()
 
-        LoadFieldControl_JustOneV3(new_elementFieldV3)
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        LoadFieldControlIntoForm_JustOneV3(new_elementFieldV3)
 
 
-    End Sub ''End of ""Public Sub Load_NewElementIntoCache_AndForm()""
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_FieldV3()""
+
+
+    Public Sub Load_NewElementToCacheAndForm_Graphic(par_rectForElement As Rectangle)
+        ''
+        ''Added 5/13/2022 td
+        ''
+        Dim new_elementGraphic As ClassElementGraphic = Nothing ''Added 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_elementGraphic = Load_NewElementIntoCache_StaticGraphic(par_rectForElement)
+
+        If (new_elementGraphic Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        Dim new_list As New HashSet(Of ClassElementGraphic)
+        ''----Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
+        new_list.Add(new_elementGraphic)
+        LoadFormwElements_StaticGraphics(new_list)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
+
+
+    Public Sub Load_NewElementToCacheAndForm_Portrait(par_rectForElement As Rectangle)
+        ''
+        ''Added 5/14/2022 td
+        ''
+        Dim new_element As ClassElementPortrait = Nothing ''Added 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_element = Load_NewElementIntoCache_PortraitPic(par_rectForElement)
+
+        If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        ''5/14/2022 td''LoadFieldControl_OnePortrait(new_element)
+        LoadElementToForm_Picture(new_element)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Portrait()""
+
 
 
     Public Function Load_NewElementIntoCache_FieldV3(par_enumField As EnumCIBFields,
@@ -1006,6 +1061,7 @@ Public Class ClassDesigner
             ''''---------        ''intPicWidth, intPicHeight,
             ''Return objNewElementFieldV4
             ''Return Nothing ''Revised 5/13/2022 td
+            objNewElementFieldV4 = Nothing
             Return objNewElementFieldV4
 
         Else
@@ -1024,10 +1080,11 @@ Public Class ClassDesigner
 
 
 
-    Public Sub Load_NewElementIntoCache_PortraitPic(par_rect As Rectangle)
+    Public Function Load_NewElementIntoCache_PortraitPic(par_rect As Rectangle) As ClassElementPortrait
         ''
         ''Added 5/6/2022 thomas d.
         ''
+        Dim objElement As ClassElementPortrait ''Added 5/14/2022 td
         Dim intPicLeft As Integer
         Dim intPicTop As Integer
         Dim intPicWidth As Integer
@@ -1052,18 +1109,23 @@ Public Class ClassDesigner
         ''        Number generator and determining pixel position. 
         ''        --5/6/2022 thomas d.
         ''
+        objElement =
         Me.ElementsCache_UseEdits.LoadNewElement_Pic(intPicLeft, intPicTop,
                              intPicWidth, intPicHeight,
                              Me.BackgroundBox_Front,
                              EnumSideOfCard_Current)
 
-    End Sub ''End of ""Public Sub Load_NewElementIntoCache_PortraitPic()""
+        Return objElement ''Added 5/14/2022 
+
+    End Function ''End of ""Public Function Load_NewElementIntoCache_PortraitPic()""
 
 
-    Public Sub Load_NewElementIntoCache_QRCode(par_rect As Rectangle)
+    Public Function Load_NewElementIntoCache_QRCode(par_rect As Rectangle) As ClassElementQRCode
+        ''5/14/2022  Public Sub Load_NewElementIntoCache_QRCode
         ''
         ''Added 5/06/2022 td
         ''
+        Dim newElementQRCode As ClassElementQRCode ''Added 5/14/2022 
         Dim intLeft As Integer
         Dim intTop As Integer
         Dim intWidth As Integer
@@ -1078,35 +1140,18 @@ Public Class ClassDesigner
         intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
         ''Added 5/06/2022 td
+        newElementQRCode =
         Me.ElementsCache_UseEdits.LoadNewElement_QRCode(intLeft, intTop,
                              intWidth, intHeight,
                              Me.BackgroundBox_Front,
                              EnumSideOfCard_Current)
 
-    End Sub ''End of ""Public Sub Load_NewElementIntoCache_QRCode()""
+        Return newElementQRCode
+
+    End Function ''End of ""Public Sub Load_NewElementIntoCache_QRCode()""
 
 
-    Public Sub Load_NewElement_Signature(par_rect As Rectangle)
-
-        ''Added 5/06/2022 td
-        Dim intLeft As Integer
-        Dim intTop As Integer
-        Dim intWidth As Integer
-        Dim intHeight As Integer
-
-        Static s_countCalls As Integer = 0
-
-        ''Added 10/01/2019 td
-        intLeft = par_rect.Left '' Me.Initial_Pic_Left
-        intTop = par_rect.Top '' Me.Initial_Pic_Top
-        intWidth = par_rect.Width '' Me.Initial_Pic_Width
-        intHeight = par_rect.Height '' Me.Initial_Pic_Height
-
-
-    End Sub ''End of ""Public Sub Load_NewElement_Signature()""
-
-
-    Public Sub Load_NewElement_StaticGraphic(par_rect As Rectangle)
+    Public Sub Load_NewElementIntoCache_Signature(par_rect As Rectangle)
 
         ''Added 5/06/2022 td
         Dim intLeft As Integer
@@ -1123,10 +1168,30 @@ Public Class ClassDesigner
         intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
 
-    End Sub ''End of ""Public Sub Load_NewElement_StaticGraphic()""
+    End Sub ''End of ""Public Sub Load_NewElementIntoCache_Signature()""
 
 
-    Public Sub Load_NewElement_StaticText(par_rect As Rectangle)
+    Public Sub Load_NewElementIntoCache_StaticGraphic(par_rect As Rectangle)
+
+        ''Added 5/06/2022 td
+        Dim intLeft As Integer
+        Dim intTop As Integer
+        Dim intWidth As Integer
+        Dim intHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        ''Added 10/01/2019 td
+        intLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intTop = par_rect.Top '' Me.Initial_Pic_Top
+        intWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intHeight = par_rect.Height '' Me.Initial_Pic_Height
+
+
+    End Sub ''End of ""Public Sub Load_NewElementIntoCache_StaticGraphic()""
+
+
+    Public Sub Load_NewElementIntoCache_StaticText(par_rect As Rectangle)
 
         ''Added 5/06/2022 td
         Dim intLeft As Integer
@@ -1144,7 +1209,7 @@ Public Class ClassDesigner
 
 
 
-    End Sub ''End of ""Public Sub Load_NewElement_StaticText()""
+    End Sub ''End of ""Public Sub Load_NewElementIntoCache_StaticText()""
 
 
     Public Sub UnselectHighlightedElements()
@@ -1361,7 +1426,7 @@ Public Class ClassDesigner
         ''5/05/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPortrait_1st, True)
         Const c_boolLimitOnePerCustomer_Pic As Boolean = False ''Added 5/6/2022 thomas
         If (c_boolLimitOnePerCustomer_Pic) Then
-            LoadElements_Picture(iBadgeSideElements.ElementPortrait_1st, par_oMoveEvents, True)
+            LoadElementToForm_Picture(iBadgeSideElements.ElementPortrait_1st, par_oMoveEvents, True)
         Else
             LoadElements_AllPortraits(iBadgeSideElements.ListElementPortraits(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
         End If ''End of ""If (c_boolLimitOnePerCustomer_QRCode) Then... Else..."
@@ -1512,21 +1577,27 @@ Public Class ClassDesigner
     ''End Sub ''End of "Private Sub ControlMoverResizer_AddField"
 
 
-    Private Sub LoadElements_AllPortraits(par_listElements As HashSet(Of ClassElementPortrait),
+    Private Sub LoadFormwElements_AllPortraits(par_listElements As HashSet(Of ClassElementPortrait),
                                     par_oMoveEvents As GroupMoveEvents_Singleton,
                                     Optional pbIfNothingThenExit As Boolean = True)
+        ''5/14/2022  Private Sub LoadElements_AllPortraits
+
         ''Added 5/5/2022 td
         For Each each_elem As ClassElementPortrait In par_listElements
-            LoadElements_Picture(each_elem, par_oMoveEvents, pbIfNothingThenExit)
+            ''Major call!!
+            ''5/14/2022 LoadElements_Picture(each_elem, par_oMoveEvents, pbIfNothingThenExit)
+            LoadElementToForm_Picture(each_elem, par_oMoveEvents, pbIfNothingThenExit)
+
         Next each_elem
 
-    End Sub ''End of ""Private Sub LoadElements_AllPortraits""
+    End Sub ''End of ""Private Sub LoadFormwElements_AllPortraits""
 
 
-    Private Sub LoadElements_Picture(par_elementPic As ClassElementPortrait,
+    Public Sub LoadElementToForm_Picture(par_elementPic As ClassElementPortrait,
                                        par_oGroupMoveEvents As GroupMoveEvents_Singleton,
                         pbIfNothingThenExit As Boolean,
                         Optional pbIfNothingThrowException As Boolean = False)
+        ''5/14/2022 Private Sub LoadElements_Picture
         ''
         ''Added 7/31/2019 thomas downes
         ''Parameter par_elementPic added 9/17/2019 td
@@ -1615,22 +1686,26 @@ Public Class ClassDesigner
 
         End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
-    End Sub ''End of " Private Sub LoadElements_Picture()"
+    End Sub ''End of " Private Sub LoadElementToForm_Picture()"
 
 
-    Private Sub LoadElements_AllQRCodes(par_listElementsQR As HashSet(Of ClassElementQRCode),
+    Private Sub LoadFormwElements_AllQRCodes(par_listElementsQR As HashSet(Of ClassElementQRCode),
                                     par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''5/14/2022  Private Sub LoadElements_AllQRCodes
         ''
         ''Added 5/5/2022 td
         ''
         For Each each_elem As ClassElementQRCode In par_listElementsQR
-            LoadElements_QRCode(each_elem, par_oMoveEvents)
+            ''Major call!!
+            ''5/14/2022 LoadElements_QRCode(each_elem, par_oMoveEvents)
+            LoadElementToForm_QRCode(each_elem, par_oMoveEvents)
         Next each_elem
 
-    End Sub ''Endof ""Private Sub LoadElements_AllQRCodes""
+    End Sub ''Endof ""Private Sub LoadFormwElements_AllQRCodes""
 
-    Private Sub LoadElements_QRCode(par_elementQR As ClassElementQRCode,
+    Public Sub LoadElementToForm_QRCode(par_elementQR As ClassElementQRCode,
                                     par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''5/14/2022 td''Private Sub LoadElements_QRCode
         ''--#2 Dec22 2021 td''--Private Sub LoadElements_QRCode()
         ''--#1 Dec22 2021 td''--Private Sub LoadDesigner_QRCode()
         ''
@@ -1712,21 +1787,24 @@ Public Class ClassDesigner
 
         End If ''End of "If (elementQRCode.WhichSideOfCard = Me.EnumSideOfCard) Then"
 
-    End Sub ''ENd of "Private Sub LoadElements_QRCode"
+    End Sub ''ENd of "Private Sub LoadElementToForm_QRCode"
 
 
-    Private Sub LoadElements_AllSignatures(par_listElements As HashSet(Of ClassElementSignature),
+    Private Sub LoadFormwElements_AllSignatures(par_listElements As HashSet(Of ClassElementSignature),
                                     par_oMoveEvents As GroupMoveEvents_Singleton)
         ''Added 5/5/2022 td
         For Each each_elem As ClassElementSignature In par_listElements
-            LoadElements_Signature(each_elem, par_oMoveEvents)
+            ''Major call !!
+            LoadElementToForm_Signature(each_elem, par_oMoveEvents)
+
         Next each_elem
 
-    End Sub ''Endof ""Private Sub LoadElements_AllSignatures""
+    End Sub ''Endof ""Private Sub LoadFormwElements_AllSignatures""
 
 
-    Private Sub LoadElements_Signature(par_elementSig As ClassElementSignature,
+    Public Sub LoadElementToForm_Signature(par_elementSig As ClassElementSignature,
                                        par_oMoveEvents As GroupMoveEvents_Singleton)
+        ''5/14/2022 td''Private Sub LoadElements_Signature
         ''
         ''Added 10/12/2019 thomas d. 
         ''
@@ -1802,10 +1880,11 @@ Public Class ClassDesigner
 
         End If ''End of "If (Me.LetEventListenerAddMoveability) Then ... Else ..."
 
-    End Sub ''End of "Private Sub LoadElements_Signature"
+    End Sub ''End of "Private Sub LoadElementToForm_Signature"
 
 
-    Private Sub LoadElements_StaticTextsV3(par_listStaticTexts As HashSet(Of ClassElementStaticTextV3))
+    Private Sub LoadFormwElements_StaticTextsV3(par_listStaticTexts As HashSet(Of ClassElementStaticTextV3))
+        ''5/14/2022  Private Sub LoadElements_StaticTextsV3
         ''
         ''Added 12/18/2021 thomas d. 
         ''
@@ -1888,10 +1967,10 @@ Public Class ClassDesigner
 
         Next each_element_staticV3
 
-    End Sub ''End of "Private Sub LoadElements_StaticTextsV3"
+    End Sub ''End of "Private Sub LoadFormwElements_StaticTextsV3"
 
 
-    Private Sub LoadElements_StaticTextsV4(par_listStaticTexts As HashSet(Of ClassElementStaticTextV4))
+    Private Sub LoadFormwElements_StaticTextsV4(par_listStaticTexts As HashSet(Of ClassElementStaticTextV4))
         ''
         ''Added 1/31/2022 thomas d. 
         ''
@@ -1959,11 +2038,11 @@ Public Class ClassDesigner
 
         Next each_element_staticV4
 
-    End Sub ''End of "Private Sub LoadElements_StaticTextsV3"
+    End Sub ''End of "Private Sub LoadFormwElements_StaticTextsV3"
 
 
-
-    Private Sub LoadElements_StaticGraphics(par_listStaticGraphics As HashSet(Of ClassElementGraphic))
+    Private Sub LoadFormwElements_StaticGraphics(par_listStaticGraphics As HashSet(Of ClassElementGraphic))
+        ''5/14/2022  Private Sub LoadElements_StaticGraphics
         ''
         ''Added 1/22/2022 thomas d. 
         ''
@@ -2044,7 +2123,7 @@ Public Class ClassDesigner
 
         Next each_element_static
 
-    End Sub ''End of "Private Sub LoadElements_StaticGraphics"
+    End Sub ''End of "Private Sub LoadFormwElements_StaticGraphics"
 
 
 
@@ -2196,7 +2275,7 @@ Public Class ClassDesigner
             Dim sizeNeeded As New Size() ''Added 1/26/2022 td
 
             ''
-            ''Get the new Field Element. 
+            ''Get the new Field-Element Control. 
             ''
             label_controlV3 = CtlGraphicFieldV3.GetFieldElement(oGetControlParameters,
                                                                each_elementV3, Me.DesignerForm, Me,
@@ -2291,7 +2370,7 @@ Public Class ClassDesigner
         ''9/5/2019 td''MessageBox.Show($"Number of field controls now on the form: {intCountControlsAdded}", "",
         ''     MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-    End Sub ''End of ''Private Sub LoadElements_ByListOfElementsV3()''
+    End Sub ''End of ''Private Sub LoadElements_FieldElementsV3()''
 
 
     Private Sub LoadElements_FieldElementsV4(par_listElementsV4 As List(Of ClassElementFieldV4),
@@ -2452,7 +2531,8 @@ Public Class ClassDesigner
     End Sub ''End of ''Private Sub LoadElements_ByListOfElementsV4()''
 
 
-    Public Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)
+    Public Sub LoadFieldControlIntoForm_JustOneV3(par_elementField As ClassElementFieldV3)
+        ''5/14/2022  Public Sub LoadFieldControl_JustOneV3 
         ''
         ''Added 9/17/2019 thomas d.  
         ''
@@ -2468,10 +2548,10 @@ Public Class ClassDesigner
         ''9/24/2019 td''LoadFieldControls_ByListOfElements(new_list, True, False, c_bAddToMoveableClass)
         LoadElements_FieldElementsV3(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControlsV3)
 
-    End Sub ''End of "Public Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV3)"
+    End Sub ''End of "Public Sub LoadFieldControlIntoForm_JustOneV3(par_elementField As ClassElementFieldV3)"
 
 
-    Private Sub LoadFieldControl_JustOneV4(par_elementField As ClassElementFieldV4)
+    Private Sub LoadFieldControlIntoForm_JustOneV4(par_elementField As ClassElementFieldV4)
         ''
         ''Added 9/17/2019 thomas d.  
         ''
@@ -2480,7 +2560,7 @@ Public Class ClassDesigner
         new_list.Add(par_elementField)
         LoadElements_FieldElementsV4(new_list, True, False, c_bAddToMoveableClass, mod_listOfFieldControlsV4)
 
-    End Sub ''End of "Private Sub LoadFieldControl_JustOneV3(par_elementField As ClassElementFieldV4)"
+    End Sub ''End of "Private Sub LoadFieldControlIntoForm_JustOneV3(par_elementField As ClassElementFieldV4)"
 
 
 
