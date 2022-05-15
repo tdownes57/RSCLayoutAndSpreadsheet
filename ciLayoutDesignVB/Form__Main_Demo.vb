@@ -192,7 +192,9 @@ Public Class Form__Main_Demo
                     Me.ElementsCache_Edits.LoadNewElement_Signature(0, 0,
                                 CtlGraphicSignature1.Width,
                                 CtlGraphicSignature1.Height,
-                                pictureBackgroundFront)
+                                pictureBackgroundFront,
+                                EnumWhichSideOfCard.EnumFrontside)
+
                 End If ''End of "If (Me.ElementsCache_Edits.MissingTheSignature()) Then"
 
                 .ElementClass_Obj = Me.ElementsCache_Edits.GetElementSig(False)
@@ -3666,7 +3668,7 @@ ExitHandler:
 
             If (boolAddGraphic) Then
                 rectangleControl = .GetRectangle_StaticGraphic()
-                mod_designer.Load_NewElementToCacheAndForm_StaticGraphic(rectangleControl)
+                mod_designer.Load_NewElementToCacheAndForm_Graphic(rectangleControl)
             End If
 
             If (boolAddStaticText) Then

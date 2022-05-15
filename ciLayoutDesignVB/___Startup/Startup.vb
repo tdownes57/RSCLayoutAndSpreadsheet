@@ -1011,16 +1011,19 @@ Public Class Startup
             ''10/10/2019 td''Me.ElementsCache_Saved.LoadPicElement(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight, pictureBack) ''Added 9/19/2019 td
             obj_cache_elements.LoadNewElement_Pic(intLeft_Portrait, intTop_Portrait, intWidth_Portrait, intHeight_Portrait,
-                                               par_designForm.pictureBackgroundFront) ''Added 9/19/2019 td
+                                               par_designForm.pictureBackgroundFront,
+                                               EnumWhichSideOfCard.EnumFrontside) ''Added 9/19/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadNewElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
-                                               par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
+                                               par_designForm.pictureBackgroundFront,
+                                               EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
             obj_cache_elements.LoadNewElement_Signature(intLeft_Signature, intTop_Signature,
                                                      intWidth_Signature, intHeight_Signature,
-                                               par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
+                                               par_designForm.pictureBackgroundFront,
+                                               EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
             ''Added 10/14/2019 thomas d. 
             ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,

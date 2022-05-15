@@ -894,29 +894,28 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_FieldV3()""
 
 
-    Public Sub Load_NewElementToCacheAndForm_Graphic(par_rectForElement As Rectangle)
-        ''
-        ''Added 5/13/2022 td
-        ''
-        Dim new_elementGraphic As ClassElementGraphic = Nothing ''Added 5/12/2022 td
+    ''Public Sub Load_NewElementToCacheAndForm_Graphic(par_rectForElement As Rectangle)
+    ''    ''
+    ''    ''Added 5/13/2022 td
+    ''    ''
+    ''    Dim new_elementGraphic As ClassElementGraphic = Nothing ''Added 5/12/2022 td
 
-        ''
-        ''Part 1. Create the Element & load it into the cache. 
-        ''
-        new_elementGraphic = Load_NewElementIntoCache_StaticGraphic(par_rectForElement)
-
-        If (new_elementGraphic Is Nothing) Then System.Diagnostics.Debugger.Break()
-
-        ''
-        ''Part 2. Display the Element on the Designer Form. 
-        ''
-        Dim new_list As New HashSet(Of ClassElementGraphic)
-        ''----Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
-        new_list.Add(new_elementGraphic)
-        LoadFormwElements_StaticGraphics(new_list)
-
-
-    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
+    ''    ''
+    ''    ''Part 1. Create the Element & load it into the cache. 
+    ''    ''
+    ''    new_elementGraphic = Load_NewElementIntoCache_StaticGraphic(par_rectForElement)
+    ''
+    ''    If (new_elementGraphic Is Nothing) Then System.Diagnostics.Debugger.Break()
+    ''
+    ''    ''
+    ''    ''Part 2. Display the Element on the Designer Form. 
+    ''    ''
+    ''    Dim new_list As New HashSet(Of ClassElementGraphic)
+    ''    ''----Const c_bAddToMoveableClass As Boolean = True ''Added 9/8/2019 td 
+    ''    new_list.Add(new_elementGraphic)
+    ''    LoadFormwElements_StaticGraphics(new_list)
+    ''
+    ''End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
 
 
     Public Sub Load_NewElementToCacheAndForm_Portrait(par_rectForElement As Rectangle)
@@ -935,12 +934,116 @@ Public Class ClassDesigner
         ''
         ''Part 2. Display the Element on the Designer Form. 
         ''
-        ''5/14/2022 td''LoadFieldControl_OnePortrait(new_element)
-        LoadElementToForm_Picture(new_element)
+        ''#1 5/14/2022 td''LoadFieldControl_OnePortrait(new_element)
+        ''#2 5/14/2022 td''LoadElementToForm_Picture(new_element)
+        Dim new_list As New HashSet(Of ClassElementPortrait)
+        new_list.Add(new_element)
+        LoadFormwElements_AllPortraits(new_list, mod_oGroupMoveEvents)
 
 
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Portrait()""
 
+
+    Public Sub Load_NewElementToCacheAndForm_Signature(par_rectForElement As Rectangle)
+        ''
+        ''Added 5/14/2022 td
+        ''
+        Dim new_element As ClassElementSignature = Nothing ''Added 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_element = Load_NewElementIntoCache_Signature(par_rectForElement)
+
+        If (new_element Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+        End If
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        ''#1 5/14/2022 td''LoadFieldControl_OnePortrait(new_element)
+        ''#2 5/14/2022 td''LoadElementToForm_Picture(new_element)
+        Dim new_list As New HashSet(Of ClassElementSignature)
+        new_list.Add(new_element)
+        LoadFormwElements_AllSignatures(new_list, mod_oGroupMoveEvents)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Signature()""
+
+
+    Public Sub Load_NewElementToCacheAndForm_Graphic(par_rectForElement As Rectangle)
+        ''
+        ''Added 5/14/2022 td
+        ''
+        Dim new_element As ClassElementGraphic = Nothing ''Added 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_element = Load_NewElementIntoCache_StaticGraphic(par_rectForElement)
+
+        If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        ''#1 5/14/2022 td''LoadFieldControl_OnePortrait(new_element)
+        ''#2 5/14/2022 td''LoadElementToForm_Picture(new_element)
+        Dim new_list As New HashSet(Of ClassElementGraphic)
+        new_list.Add(new_element)
+        LoadFormwElements_StaticGraphics(new_list) '', mod_oGroupMoveEvents)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
+
+
+    Public Sub Load_NewElementToCacheAndForm_QRCode(par_rectForElement As Rectangle)
+        ''
+        ''Added 5/14/2022 td
+        ''
+        Dim new_element As ClassElementQRCode = Nothing ''Added 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_element = Load_NewElementIntoCache_QRCode(par_rectForElement)
+
+        If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        Dim new_list As New HashSet(Of ClassElementQRCode)
+        new_list.Add(new_element)
+        LoadFormwElements_AllQRCodes(new_list, mod_oGroupMoveEvents)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_QRCode()""
+
+
+    Public Sub Load_NewElementToCacheAndForm_StaticText(par_rectForElement As Rectangle)
+        ''
+        ''Added 5/14/2022 td
+        ''
+        Dim new_element As ClassElementStaticTextV4 = Nothing ''Added 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_element = Load_NewElementIntoCache_StaticText(par_rectForElement)
+
+        If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        Dim new_list As New HashSet(Of ClassElementStaticTextV4)
+        new_list.Add(new_element)
+        LoadFormwElements_StaticTextsV4(new_list) '', mod_oGroupMoveEvents)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
 
 
     Public Function Load_NewElementIntoCache_FieldV3(par_enumField As EnumCIBFields,
@@ -1151,7 +1254,36 @@ Public Class ClassDesigner
     End Function ''End of ""Public Sub Load_NewElementIntoCache_QRCode()""
 
 
-    Public Sub Load_NewElementIntoCache_Signature(par_rect As Rectangle)
+    Public Function Load_NewElementIntoCache_Signature(par_rect As Rectangle) As ClassElementSignature
+        ''5/14/2022 TD  Public Sub Load_NewElementIntoCache_Signature
+
+        ''Added 5/06/2022 td
+        Dim intLeft As Integer
+        Dim intTop As Integer
+        Dim intWidth As Integer
+        Dim intHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        intLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intTop = par_rect.Top '' Me.Initial_Pic_Top
+        intWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intHeight = par_rect.Height '' Me.Initial_Pic_Height
+
+        Dim newElement As ClassElementSignature
+        newElement =
+        Me.ElementsCache_UseEdits.LoadNewElement_Signature(intLeft, intTop,
+                             intWidth, intHeight,
+                             Me.BackgroundBox_Front,
+                             EnumSideOfCard_Current)
+
+        Return newElement
+
+    End Function ''End of ""Public Function Load_NewElementIntoCache_Signature()""
+
+
+    Public Function Load_NewElementIntoCache_StaticGraphic(par_rect As Rectangle)
+        ''5/14/2022  Public Sub Load_NewElementIntoCache_StaticGraphic
 
         ''Added 5/06/2022 td
         Dim intLeft As Integer
@@ -1167,28 +1299,16 @@ Public Class ClassDesigner
         intWidth = par_rect.Width '' Me.Initial_Pic_Width
         intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
+        Dim newElement As ClassElementGraphic
+        newElement =
+        Me.ElementsCache_UseEdits.LoadNewElement_StaticGraphic(intLeft, intTop,
+                             intWidth, intHeight,
+                             Me.BackgroundBox_Front,
+                             EnumSideOfCard_Current)
 
-    End Sub ''End of ""Public Sub Load_NewElementIntoCache_Signature()""
+        Return newElement
 
-
-    Public Sub Load_NewElementIntoCache_StaticGraphic(par_rect As Rectangle)
-
-        ''Added 5/06/2022 td
-        Dim intLeft As Integer
-        Dim intTop As Integer
-        Dim intWidth As Integer
-        Dim intHeight As Integer
-
-        Static s_countCalls As Integer = 0
-
-        ''Added 10/01/2019 td
-        intLeft = par_rect.Left '' Me.Initial_Pic_Left
-        intTop = par_rect.Top '' Me.Initial_Pic_Top
-        intWidth = par_rect.Width '' Me.Initial_Pic_Width
-        intHeight = par_rect.Height '' Me.Initial_Pic_Height
-
-
-    End Sub ''End of ""Public Sub Load_NewElementIntoCache_StaticGraphic()""
+    End Function ''End of ""Public Function Load_NewElementIntoCache_StaticGraphic()""
 
 
     Public Sub Load_NewElementIntoCache_StaticText(par_rect As Rectangle)

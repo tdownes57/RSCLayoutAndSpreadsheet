@@ -1933,10 +1933,11 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function LoadElement_QRCode(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
 
-        Public Sub LoadNewElement_Signature(par_intLeft As Integer, par_intTop As Integer,
+        Public Function LoadNewElement_Signature(par_intLeft As Integer, par_intTop As Integer,
                                          par_intWidth As Integer, par_intHeight As Integer,
                                          par_pictureBackground As PictureBox,
-            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+                                         par_enum As EnumWhichSideOfCard) As ClassElementSignature
+            ''5/14/2022  Public Sub LoadNewElement_Signature 
             ''
             ''Added 10/10/2019 td  
             ''
@@ -1966,7 +1967,9 @@ Namespace ciBadgeCachePersonality
 
             End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
-        End Sub ''End of "Public Sub LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
+            Return objElementSig
+
+        End Function ''End of "Public Function LoadElement_Signature(par_intLeft As Integer, par_intTop As Integer, par_intWidth As Integer, par_intHeight As Integer, par_pictureBackground As PictureBox)"
 
 
         Public Sub LoadNewElement_Portrait(par_picturePortrait As PictureBox,
