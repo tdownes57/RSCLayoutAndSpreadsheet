@@ -2084,18 +2084,75 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub LoadNewElement_QRCode(par_picQRCode As PictureBox, par_pictureBackground As PictureBox)"
 
 
-        Public Sub LoadNewElement_StaticText(par_DisplayText As String,
+        Public Function LoadNewElement_Graphic(par_intLeft As Integer, par_intTop As Integer,
+                                    par_intWidth As Integer, par_intHeight As Integer,
+                                    par_pictureBackground As PictureBox,
+                                    par_enum As EnumWhichSideOfCard,
+                                    par_layoutOfBadge As BadgeLayoutClass) As ClassElementGraphic
+            ''
+            ''Added 5/14/2022 td  
+            ''
+            Dim objElement As ClassElementGraphic ''Added 10/10/2019 td 
+            Dim objRectangleOfControl As Rectangle ''Added 10/10/2019 td  
+            Dim intLeft As Integer
+            Dim intTop As Integer
+            Dim strPathToGraphicsFile As String ''Added 5/14/2022 td 
+
+            ''Added 5/14/2022 td 
+            strPathToGraphicsFile = DiskFilesVB.Path_ToGraphicsImageFile
+
+            ''Dim bMissingBack As Boolean ''Added 12/17/2021 td
+            ''Dim bMissingFront As Boolean ''Added 12/17/2021 td
+            ''Dim bMissingBackAndFront As Boolean ''Added 12/17/2021 td
+            ''Dim bProceedWithMakingNew As Boolean ''Added 1/19/2021 td
+
+            ''Added 12/17/2021 td
+            ''bMissingFront = (0 = mod_listElementGraphics_Front.Count)
+            ''bMissingBack = (0 = mod_listElementGraphics_Backside.Count)
+            ''bMissingBackAndFront = (bMissingFront And bMissingBack)
+
+            ''''Added 1/19/2022 td
+            ''bProceedWithMakingNew = (bMissingBackAndFront Or (Not pbOnlyIfMissingFrontAndBack))
+
+            ''''Jan19 2022''If bMissingBackAndFront Then ''Added 12/17/2021 td 
+            ''If bProceedWithMakingNew Then ''Added 12/17/2021 td 
+
+            intLeft = (par_intLeft - par_pictureBackground.Left)
+            intTop = (par_intTop - par_pictureBackground.Top)
+
+            objRectangleOfControl = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+            ''5/14/2022 objElement = New ClassElementGraphic(intLeft, intTop, par_intHeight)
+            objElement = New ClassElementGraphic(objRectangleOfControl,
+                                                 par_layoutOfBadge,
+                                                 strPathToGraphicsFile)
+
+            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+                mod_listElementGraphics_Backside.Add(objElement)
+            Else
+                mod_listElementGraphics_Front.Add(objElement)
+            End If
+
+            ''End If ''end of "If bProceedWithMakingNew Then"
+
+            Return objElement
+
+        End Function ''End of "Public Function LoadNewElement_Graphic(par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+
+
+        Public Function LoadNewElement_StaticTextV3(par_DisplayText As String,
                                     par_intLeft As Integer, par_intTop As Integer,
                                     par_intWidth As Integer, par_intHeight As Integer,
                                     par_pictureBackground As PictureBox,
-            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside,
-                                    Optional pbOnlyIfMissingFrontAndBack As Boolean = False)
+                                    par_enum As EnumWhichSideOfCard,
+                                    Optional pbOnlyIfMissingFrontAndBack As Boolean = False) _
+                                    As ClassElementStaticTextV3
             ''---Jan19 2022---LoadNewElement_StaticText_IfNeeded
             ''---Dec17 2021---Public Sub LoadElement_Text
             ''
             ''Added 10/10/2019 td  
             ''
-            Dim objElementText As ClassElementStaticTextV3 ''Added 10/10/2019 td 
+            Dim objElementText As ClassElementStaticTextV3 = Nothing ''Added 10/10/2019 td 
             Dim objRectangle As Rectangle ''Added 10/10/2019 td  
             Dim intLeft As Integer
             Dim intTop As Integer
@@ -2130,8 +2187,11 @@ Namespace ciBadgeCachePersonality
 
             End If ''end of "If bProceedWithMakingNew Then"
 
+            ''Added 5/14/2022 td
+            Return objElementText
 
-        End Sub ''End of "Public Sub LoadNewElement_StaticText_IfNeeded(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+
+        End Function ''End of "Public Function LoadNewElement_StaticText(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
 
 
         Public Sub LoadRecipient(par_recipient As ClassRecipient)
@@ -3057,7 +3117,7 @@ Namespace ciBadgeCachePersonality
             ''Added 10/14/2019 thomas d. 
             ''Dec17 2021 td''obj_cache_elements.LoadElement_Text(strStaticText,
             ''Jan19 2022 td''obj_cache_elements.LoadNewElement_StaticText_IfNeeded(strStaticText,
-            obj_cache_elements.LoadNewElement_StaticText(strStaticText,
+            obj_cache_elements.LoadNewElement_StaticTextV3(strStaticText,
                             intLeft_Text, intTop_Text,
                             intWidth_Text, intHeight_Text,
                             obj_designForm.pictureBack,

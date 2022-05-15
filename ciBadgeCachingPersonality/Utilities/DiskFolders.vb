@@ -57,6 +57,15 @@ Public Class DiskFolders
     End Function ''End of "Public Shared Function PathToFolder_Signatures() As String"
 
 
+    Public Shared Function PathToFolder_Graphics() As String
+        ''
+        ''Added 5/14/2022 Thomas Downes    
+        ''
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\Graphics")
+
+    End Function ''End of "Public Shared Function PathToFolder_Graphics() As String"
+
+
     Public Shared Function PathToFolder_XML() As String
         ''
         ''Added 12/14/2021 thomas 

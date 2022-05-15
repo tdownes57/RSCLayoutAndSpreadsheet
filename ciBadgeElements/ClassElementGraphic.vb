@@ -247,20 +247,23 @@ Public Class ClassElementGraphic
 
     End Sub
 
-    Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox,
+    Public Sub New(par_rectangleOfElement As Rectangle,
+                   par_badeLayout As BadgeLayoutClass,
                    par_strPathToGraphicsFile As String)
         ''
         ''Added 9/16/2019 td
+        ''Revised 5/14/2022 td
         ''
-        BadgeLayout = New BadgeLayoutClass(par_layout)
+        ''5/14/2022 Me.BadgeLayout = New BadgeLayoutClass(par_layout)
+        Me.BadgeLayout = par_badeLayout ''5/14/2022  New BadgeLayoutClass(par_layout)
 
         ''Added 9/16/2019 td
-        Me.LeftEdge_Pixels = par_rectangle.Left
-        Me.TopEdge_Pixels = par_rectangle.Top
+        Me.LeftEdge_Pixels = par_rectangleOfElement.Left
+        Me.TopEdge_Pixels = par_rectangleOfElement.Top
 
         ''Added 9/16/2019 td
-        Me.Width_Pixels = par_rectangle.Width
-        Me.Height_Pixels = par_rectangle.Height
+        Me.Width_Pixels = par_rectangleOfElement.Width
+        Me.Height_Pixels = par_rectangleOfElement.Height
 
         ''Added 1/22/2022 thomas d.
         If (IO.File.Exists(par_strPathToGraphicsFile)) Then
@@ -274,6 +277,7 @@ Public Class ClassElementGraphic
         End If ''End of "If (IO.File.Exists(par_strPathToGraphicsFile)) Then"
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
+
 
     Public Function Copy() As ClassElementGraphic ''Dec8 2021'' ClassElementQRCode
         ''

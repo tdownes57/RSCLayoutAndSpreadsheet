@@ -77,6 +77,20 @@ Public Module DiskFilesVB
 
     End Function ''End of "Public Function Path_ToSignatureImageFile()"
 
+
+    Public Function Path_ToGraphicsImageFile() As String
+        ''
+        ''Added 5/14/2022 thomas downes
+        ''
+        Dim strPathToFolderForGraphics As String
+
+        strPathToFolderForGraphics = DiskFolders.PathToFolder_Graphics
+
+        Return IO.Path.Combine(strPathToFolderForGraphics, "code-ninjas-logo.jpg")
+
+    End Function ''End of "Public Function Path_ToGraphicsImageFile()"
+
+
     Public Function PathToNotes_HowContextMenusAreGenerated() As String
         ''
         ''Added 12/12/2021 Thomas Downes    

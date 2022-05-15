@@ -695,7 +695,7 @@ Public Class ClassDesigner
                 ''Added 10/10/2019 td
                 ''Dec17 2021''Me.ElementsCache_UseEdits.LoadElement_Text("This is text which will be the same for everyone.",
                 ''Jan19 2022''Me.ElementsCache_UseEdits.LoadElement_StaticText_IfNeeded("This is text which will be the same for everyone.",
-                Me.ElementsCache_UseEdits.LoadNewElement_StaticText("The same text for everyone.",
+                Me.ElementsCache_UseEdits.LoadNewElement_StaticTextV3("The same text for everyone.",
                                     Initial_Text_Left, Initial_Text_Top,
                                     Initial_Text_Width, Initial_Text_Height,
                                     Me.BackgroundBox_Front,
@@ -1022,25 +1022,25 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_QRCode()""
 
 
-    Public Sub Load_NewElementToCacheAndForm_StaticText(par_rectForElement As Rectangle)
+    Public Sub Load_NewElementToCacheAndForm_StaticTextV3(par_rectForElement As Rectangle)
         ''
         ''Added 5/14/2022 td
         ''
-        Dim new_element As ClassElementStaticTextV4 = Nothing ''Added 5/12/2022 td
+        Dim new_element As ClassElementStaticTextV3 = Nothing ''Added 5/12/2022 td
 
         ''
         ''Part 1. Create the Element & load it into the cache. 
         ''
-        new_element = Load_NewElementIntoCache_StaticText(par_rectForElement)
+        new_element = Load_NewElementIntoCache_StaticTextV3(par_rectForElement)
 
         If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
 
         ''
         ''Part 2. Display the Element on the Designer Form. 
         ''
-        Dim new_list As New HashSet(Of ClassElementStaticTextV4)
+        Dim new_list As New HashSet(Of ClassElementStaticTextV3)
         new_list.Add(new_element)
-        LoadFormwElements_StaticTextsV4(new_list) '', mod_oGroupMoveEvents)
+        LoadFormwElements_StaticTextsV3(new_list) '', mod_oGroupMoveEvents)
 
 
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
@@ -1282,7 +1282,7 @@ Public Class ClassDesigner
     End Function ''End of ""Public Function Load_NewElementIntoCache_Signature()""
 
 
-    Public Function Load_NewElementIntoCache_StaticGraphic(par_rect As Rectangle)
+    Public Function Load_NewElementIntoCache_StaticGraphic(par_rect As Rectangle) As ClassElementGraphic
         ''5/14/2022  Public Sub Load_NewElementIntoCache_StaticGraphic
 
         ''Added 5/06/2022 td
@@ -1299,19 +1299,23 @@ Public Class ClassDesigner
         intWidth = par_rect.Width '' Me.Initial_Pic_Width
         intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
-        Dim newElement As ClassElementGraphic
+        Dim newElement As ClassElementGraphic ''Added 5/14/2022 
+
+        ''5/14/2022 Me.ElementsCache_UseEdits.LoadNewElement_StaticGraphic(intLeft, intTop,
         newElement =
-        Me.ElementsCache_UseEdits.LoadNewElement_StaticGraphic(intLeft, intTop,
+        Me.ElementsCache_UseEdits.LoadNewElement_Graphic(intLeft, intTop,
                              intWidth, intHeight,
                              Me.BackgroundBox_Front,
-                             EnumSideOfCard_Current)
+                             EnumSideOfCard_Current,
+                             Me.BadgeLayout_Class)
 
         Return newElement
 
     End Function ''End of ""Public Function Load_NewElementIntoCache_StaticGraphic()""
 
 
-    Public Sub Load_NewElementIntoCache_StaticText(par_rect As Rectangle)
+    Public Function Load_NewElementIntoCache_StaticTextV3(par_rect As Rectangle) As ClassElementStaticTextV3
+        ''5/14/2022  Public Sub Load_NewElementIntoCache_StaticText
 
         ''Added 5/06/2022 td
         Dim intLeft As Integer
@@ -1327,9 +1331,18 @@ Public Class ClassDesigner
         intWidth = par_rect.Width '' Me.Initial_Pic_Width
         intHeight = par_rect.Height '' Me.Initial_Pic_Height
 
+        Dim newElement As ClassElementStaticTextV3
+        newElement =
+        Me.ElementsCache_UseEdits.LoadNewElement_StaticTextV3("This is for static text.",
+                             intLeft, intTop,
+                             intWidth, intHeight,
+                             Me.BackgroundBox_Front,
+                             EnumSideOfCard_Current)
+
+        Return newElement
 
 
-    End Sub ''End of ""Public Sub Load_NewElementIntoCache_StaticText()""
+    End Function ''End of ""Public Function Load_NewElementIntoCache_StaticTextV3()""
 
 
     Public Sub UnselectHighlightedElements()
@@ -1536,20 +1549,32 @@ Public Class ClassDesigner
         ''5/5/2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
         Const c_boolLimitOnePerCustomer_QRCode As Boolean = False ''Added 5/6/2022 thomas
         If (c_boolLimitOnePerCustomer_QRCode) Then
-            LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            ''
+            ''Only load exactly one(1) QR Code. ---5/14/2022 
+            ''
+            ''5/14/2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            LoadElementToForm_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+
         Else
-            LoadElements_AllQRCodes(iBadgeSideElements.ListElementQRCodes(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            ''5/14/2022 td''LoadElements_AllQRCodes(iBadgeSideElements.ListElementQRCodes(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            LoadFormwElements_AllQRCodes(iBadgeSideElements.ListElementQRCodes(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+
         End If ''End of ""If (c_boolLimitOnePerCustomer_QRCode) Then... Else..."
 
         ''12/22/2021 td''LoadElements_Picture(par_cache.PicElement_Front())
         ''01/5/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPic)
         ''5/05/2022 td''LoadElements_Picture(iBadgeSideElements.ElementPortrait_1st, True)
-        Const c_boolLimitOnePerCustomer_Pic As Boolean = False ''Added 5/6/2022 thomas
-        If (c_boolLimitOnePerCustomer_Pic) Then
+        Const c_boolLimitOnePerCustomer_PortPic As Boolean = False ''Added 5/6/2022 thomas
+        If (c_boolLimitOnePerCustomer_PortPic) Then
+            ''
+            ''Only load exactly one(1) Potrait Picture. ---5/14/2022 
+            ''
             LoadElementToForm_Picture(iBadgeSideElements.ElementPortrait_1st, par_oMoveEvents, True)
         Else
-            LoadElements_AllPortraits(iBadgeSideElements.ListElementPortraits(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
-        End If ''End of ""If (c_boolLimitOnePerCustomer_QRCode) Then... Else..."
+            ''5/14/2022 td'' LoadElement_AllPortraits(iBadgeSideElements.ListElementPortraits(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            LoadFormwElements_AllPortraits(iBadgeSideElements.ListElementPortraits(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+
+        End If ''End of ""If (c_boolLimitOnePerCustomer_PortPic) Then... Else..."
 
         ''12/22/2021 td''LoadElements_Signature(par_cache.ElementSignature) ''Added 10/12/2019 thomas d.
         ''1/4/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSig) ''Modified 12/22/2021 thomas d.
@@ -1557,9 +1582,16 @@ Public Class ClassDesigner
 
         Const c_boolLimitOnePerCustomer_Sig As Boolean = False ''Added 5/6/2022 thomas
         If (c_boolLimitOnePerCustomer_Sig) Then
-            LoadElements_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents)
+            ''
+            ''Only load exactly one(1) Signature. ---5/14/2022 
+            ''
+            ''5/14/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents)
+            LoadElementToForm_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents)
+
         Else
-            LoadElements_AllSignatures(iBadgeSideElements.ListElementSignatures(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            ''5/14/2022 td'' LoadElements_AllSignatures(iBadgeSideElements.ListElementSignatures(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            LoadFormwElements_AllSignatures(iBadgeSideElements.ListElementSignatures(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+
         End If ''End of ""If (c_boolLimitOnePerCustomer_Sig) Then... Else..."
 
         ''Added 12/18/2021 td 
@@ -1567,11 +1599,15 @@ Public Class ClassDesigner
         ''Dec22 2021''ListCtlGraphic_StaticTexts = New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 thomas d. 
         ''Dec22 2021''LoadElements_StaticTexts(par_cache.ListOfElementTexts_Front) ''Added 12/18/2021 thomas d.
 
-        LoadElements_StaticTextsV3(iBadgeSideElements.ListElementStaticTextsV3) ''Added 12/22/2021 thomas d.
-        ''Added 1/22/2022 Thomas D.
-        LoadElements_StaticTextsV4(iBadgeSideElements.ListElementStaticTextsV4) ''Added 1/31/2022 thomas d.
+        ''5/14/2022 ''LoadElements_StaticTextsV3(iBadgeSideElements.ListElementStaticTextsV3) ''Added 12/22/2021 thomas d.
+        LoadFormwElements_StaticTextsV3(iBadgeSideElements.ListElementStaticTextsV3) ''Added 12/22/2021 thomas d.
 
-        LoadElements_StaticGraphics(iBadgeSideElements.ListElementGraphics) ''Added 1/22/2022 Thomas D.
+        ''Added 1/22/2022 Thomas D.
+        ''5/14/2022 ''LoadElements_StaticTextsV4(iBadgeSideElements.ListElementStaticTextsV4) ''Added 1/31/2022 thomas d.
+        LoadFormwElements_StaticTextsV4(iBadgeSideElements.ListElementStaticTextsV4) ''Added 1/31/2022 thomas d.
+
+        ''5/14/2022 ''LoadElements_StaticGraphics(iBadgeSideElements.ListElementGraphics) ''Added 1/22/2022 Thomas D.
+        LoadFormwElements_StaticGraphics(iBadgeSideElements.ListElementGraphics) ''Added 1/22/2022 Thomas D.
 
         ''12/22/2021 td''End If ''End of "If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then ... Else..."
 
@@ -2750,7 +2786,9 @@ Public Class ClassDesigner
         If (element_to_add Is Nothing) Then Exit Sub
         ''5/11/2022 td''element_to_add.FieldInfo.IsDisplayedOnBadge = True
         element_to_add.Visible = True
-        LoadFieldControl_JustOneV3(element_to_add) ''Modified 9/17/2019 td
+
+        ''5/14/2022 LoadFieldControl_JustOneV3(element_to_add) ''Modified 9/17/2019 td
+        LoadFieldControlIntoForm_JustOneV3(element_to_add) ''Modified 9/17/2019 td
 
         FlowFieldsNotListed.Controls.Remove(CType(sender, LinkLabel))
 

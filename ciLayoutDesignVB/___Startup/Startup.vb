@@ -1028,10 +1028,11 @@ Public Class Startup
             ''Added 10/14/2019 thomas d. 
             ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
             strStaticText = "This is the same text for everyone."
-            obj_cache_elements.LoadNewElement_StaticText(strStaticText,
+            obj_cache_elements.LoadNewElement_StaticTextV3(strStaticText,
                                                 intLeft_StaticText, intTop_StaticText,
                                                 intWidth_StaticText, intHeight_StaticText,
-                                               par_designForm.pictureBackgroundFront) ''Added 10/14/2019 td
+                                               par_designForm.pictureBackgroundFront,
+                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
         End If ''End of "If (pboolNewFileXML And mc_boolPreloadElements) Then"
 

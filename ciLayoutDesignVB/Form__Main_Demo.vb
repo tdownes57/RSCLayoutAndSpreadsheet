@@ -3673,7 +3673,7 @@ ExitHandler:
 
             If (boolAddStaticText) Then
                 rectangleControl = .GetRectangle_StaticText()
-                mod_designer.Load_NewElementToCacheAndForm_StaticText(rectangleControl)
+                mod_designer.Load_NewElementToCacheAndForm_StaticTextV3(rectangleControl)
             End If
 
         End With ''End of ""With objFormToShow""
