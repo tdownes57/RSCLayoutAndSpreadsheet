@@ -1,6 +1,8 @@
 ﻿''
 ''Added 5/15/2022 
 ''
+Imports System.Windows.Forms ''Added 5/15/2022 
+
 Public Class ClassTypeComarisons
     ''
     ''Added 5/15/2022 
@@ -68,20 +70,64 @@ Public Class ClassTypeComarisons
     End Function ''End of ""Public Shared Function IsPassedTypeAnException()""
 
 
-    Public Shared Function IsAFormAUserControl()
+    Public Shared Function IsAFormAUserControl_TypeOf()
         ''
         ''Added 5/15/2022 
         ''
-        Dim boolSameType As Boolean
+        Dim boolSameType1 As Boolean
+        Dim boolSameType2 As Boolean
+        Dim boolSameType3 As Boolean
+        Dim boolSameType4 As Boolean
+
+        Dim objForm As New System.Windows.Forms.Form
+        Dim objUserControl As New System.Windows.Forms.UserControl
+        Dim objObject As New Object
+
+        ''Doesn't compile. ''boolSameType1 = (TypeOf objUserControl Is Form)
+        ''Doesn't compile. ''boolSameType2 = (TypeOf objForm Is UserControl)
+        boolSameType3 = (TypeOf objForm Is Object)
+        boolSameType4 = (TypeOf objObject Is Object)
+
+        ''---Return boolSameType1
+        Return boolSameType3
+
+    End Function ''End of ""Public Shared Function IsAFormAUserControl_TypeOf()""
 
 
+    Public Shared Function IsArgumentExceptionAnException_TypeOf()
+        ''
+        ''Added 5/15/2022 
+        ''
+        Dim boolSameType1 As Boolean
+
+        Dim objException As Exception
+
+        objException = New ArgumentException()
+
+        boolSameType1 = (TypeOf objException Is Exception)
+
+        ''---Return boolSameType1
+        Return boolSameType1
+
+    End Function ''End of ""Public Shared Function IsArgumentExceptionAnException_TypeOf()""
 
 
-        Return boolSameType
+    Public Shared Function IsExceptionAnArgumentException_TypeOf()
+        ''
+        ''Added 5/15/2022 
+        ''
+        Dim boolSameType1 As Boolean
 
-    End Function ''End of ""Public Shared Function IsPassedObjectAnException()""
+        Dim objException As Exception
 
+        objException = New ApplicationException
 
+        boolSameType1 = (TypeOf objException Is ArgumentException)
+
+        ''---Return boolSameType1
+        Return boolSameType1
+
+    End Function ''End of ""Public Shared Function IsExceptionAnArgumentException_TypeOf()""
 
 
 
