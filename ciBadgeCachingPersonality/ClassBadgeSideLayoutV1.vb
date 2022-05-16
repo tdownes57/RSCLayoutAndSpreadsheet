@@ -88,7 +88,7 @@ Public Class ClassBadgeSideLayoutV1
     ''    End Set
     ''End Property
 
-    Public Property ElementPortrait_1st As ClassElementPortrait Implements IBadgeSideLayoutElementsV1.ElementPortrait_1st
+    ''5/15/2022 td''Public Property ElementPortrait_1st As ClassElementPortrait Implements IBadgeSideLayoutElementsV1.ElementPortrait_1st
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -97,7 +97,7 @@ Public Class ClassBadgeSideLayoutV1
     ''    End Set
     ''End Property
 
-    Public Property ElementQRCode_1st As ClassElementQRCode Implements IBadgeSideLayoutElementsV1.ElementQRCode_1st
+    ''5/15/2022 td''Public Property ElementQRCode_1st As ClassElementQRCode Implements IBadgeSideLayoutElementsV1.ElementQRCode_1st
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -106,7 +106,7 @@ Public Class ClassBadgeSideLayoutV1
     ''    End Set
     ''End Property
 
-    Public Property ElementSignature_1st As ClassElementSignature Implements IBadgeSideLayoutElementsV1.ElementSignature_1st
+    ''5/15/2022 td''Public Property ElementSignature_1st As ClassElementSignature Implements IBadgeSideLayoutElementsV1.ElementSignature_1st
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get

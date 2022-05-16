@@ -386,14 +386,18 @@ namespace ciBadgeGenerator
 
                 // Nov. 29 2021 //ClassElementPic obj_elementPic = par_cache.ListOfElementPics.FirstOrDefault();
                 ClassElementPortrait obj_elementPic = null;
-                if (par_layoutElements.ElementPortrait_1st == null)
+                HashSet<ClassElementPortrait> obj_elementPicList = null;
+
+                // May 15, 2022 //if (par_layoutElements.ElementPortrait_1st == null)
+                if (0 == par_layoutElements.ListElementPortraits.Count)
                 {
                     bMissingElementPortrait = true; //Added 1/14/2022 td
                     if (bMissingElementPortrait) { }  //Added 1/14/2022 td
                 }
                 else
                 {
-                    obj_elementPic = par_layoutElements.ElementPortrait_1st;
+                    //''5/15/2022 td''obj_elementPic = par_layoutElements.ElementPortrait_1st;
+                    obj_elementPicList = par_layoutElements.ListElementPortraits;
 
                 } // End of "if (par_layoutElements.ElementPortrait != null)"
 
@@ -435,7 +439,8 @@ namespace ciBadgeGenerator
             //
             //--Nov. 29 2021--//if (par_cache.MissingTheSignature())
             //--Dec18 2021 //if (par_cache.MissingTheSignature() && (par_elementSig == null))
-            if (par_layoutElements.ElementSignature_1st == null)
+            //--May 15, 2022 //if (par_layoutElements.ElementSignature_1st == null)
+            if (0 == par_layoutElements.ListElementSignatures.Count)
             {
                 //
                 //There is not any Signature to display.
@@ -446,18 +451,28 @@ namespace ciBadgeGenerator
                 //
                 //Add the Signature. 
                 //
-                ClassElementSignature obj_elementSig = par_layoutElements.ElementSignature_1st;
+                //05-15-2022 TD //ClassElementSignature obj_elementSig = par_layoutElements.ElementSignature_1st;
+
                 //Added 11/29/2021 td
-                if (par_layoutElements.ElementSignature_1st != null) obj_elementSig = par_layoutElements.ElementSignature_1st;
+                //05-15-2022 TD //if (par_layoutElements.ElementSignature_1st != null) 
+                //05-15-2022 TD //    obj_elementSig = par_layoutElements.ElementSignature_1st;
 
                 string strPathToSigFile = this.PathToFile_Sig; //Added 10/12/2019 td
 
-                LoadImageWithSignature(par_newBadge_width_pixels,
-                                    par_layoutDims.Width_Pixels,
-                                    ref obj_imageOutput,
-                                    (IElement_Base)obj_elementSig,
-                                    (IElementSig)obj_elementSig,
-                                    strPathToSigFile);
+                foreach (ClassElementSignature each_elementSig 
+                          in par_layoutElements.ListElementSignatures)
+                {
+                    //
+                    // Major call!!
+                    //
+                    LoadImageWithSignature(par_newBadge_width_pixels,
+                                        par_layoutDims.Width_Pixels,
+                                        ref obj_imageOutput,
+                                        (IElement_Base)each_elementSig,
+                                        (IElementSig)each_elementSig,
+                                        strPathToSigFile);
+                }
+
 
                 // 10-12-2019 td //ref par_recipientPic);
 
@@ -477,11 +492,19 @@ namespace ciBadgeGenerator
             //                           par_layoutElements.ElementQR,
             //                             par_newBadge_width_pixels, par_layoutDims,
             //                             ref obj_imageOutput);
-            LoadImageWithQRCode_IfNeeded(par_layoutElements,
-                               par_layoutElements.ElementQRCode_1st,
+
+            foreach (ClassElementQRCode each_elementQR
+                      in par_layoutElements.ListElementQRCodes)
+            {
+                //
+                // Major call!!
+                //
+                LoadImageWithQRCode_IfNeeded(par_layoutElements,
+                               //par_layoutElements.ElementQRCode_1st,
+                               each_elementQR,
                                par_newBadge_width_pixels, par_layoutDims,
                                ref obj_imageOutput);
-
+            }
 
             //
             //Static-Text Elements, Version 3 

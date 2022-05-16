@@ -865,16 +865,16 @@ Public Class ClassDesignerEventListener
     ''    Else
     ''        par_iSave.SaveToModel() ''Added 12/17/2021 td
     ''    End If
-
+    ''
     ''    ''Update what the user sees (preview).
     ''    mod_designer.AutoPreview_IfChecked()
-
+    ''
     ''End Sub
 
     Private Sub Move_sizingSig_events_Resizing_End() ''12/17/2021''Handles mod_sizingEvents_Sig.Resizing_End
 
         ''Added 10/9/2019 td 
-        mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/16/2021 td 
+        ''5/15/2022 td ''mod_designer.CtlGraphic_Signat.SaveToModel() ''Added 12/16/2021 td 
         mod_designer.AutoPreview_IfChecked()
 
     End Sub

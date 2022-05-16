@@ -1643,7 +1643,11 @@ Public Class ClassDesigner
             ''Only load exactly one(1) QR Code. ---5/14/2022 
             ''
             ''5/14/2022 td''LoadElements_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
-            LoadElementToForm_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            ''5/15/2022 td''LoadElementToForm_QRCode(iBadgeSideElements.ElementQRCode_1st, par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            If (0 < iBadgeSideElements.ListElementQRCodes.Count) Then
+                ''Major call!!
+                LoadElementToForm_QRCode(iBadgeSideElements.ListElementQRCodes(0), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            End If ''End of ""If (0 < iBadgeSideElements.ListElementQRCodes.Count) Then""
 
         Else
             ''5/14/2022 td''LoadElements_AllQRCodes(iBadgeSideElements.ListElementQRCodes(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
@@ -1659,7 +1663,12 @@ Public Class ClassDesigner
             ''
             ''Only load exactly one(1) Potrait Picture. ---5/14/2022 
             ''
-            LoadElementToForm_Picture(iBadgeSideElements.ElementPortrait_1st, par_oMoveEvents, True)
+            ''5/15/2022 td''LoadElementToForm_Picture(iBadgeSideElements.ElementPortrait_1st, par_oMoveEvents, True)
+            If (0 < iBadgeSideElements.ListElementPortraits.Count) Then
+                ''Major call!!
+                LoadElementToForm_Picture(iBadgeSideElements.ListElementPortraits(0), par_oMoveEvents, True) ''Dec22 2021 td''LoadDesigner_QRCode()
+            End If ''End of ""If (0 < iBadgeSideElements.ListElementPortraits.Count) Then""
+
         Else
             ''5/14/2022 td'' LoadElement_AllPortraits(iBadgeSideElements.ListElementPortraits(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
             LoadFormwElements_AllPortraits(iBadgeSideElements.ListElementPortraits(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
@@ -1676,7 +1685,11 @@ Public Class ClassDesigner
             ''Only load exactly one(1) Signature. ---5/14/2022 
             ''
             ''5/14/2022 td''LoadElements_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents)
-            LoadElementToForm_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents)
+            ''5/15/2022 td''LoadElementToForm_Signature(iBadgeSideElements.ElementSignature_1st, par_oMoveEvents)
+            If (0 < iBadgeSideElements.ListElementSignatures.Count) Then
+                ''Major call!!
+                LoadElementToForm_Signature(iBadgeSideElements.ListElementSignatures(0), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
+            End If ''End of ""If (0 < iBadgeSideElements.ListElementSignatures.Count) Then""
 
         Else
             ''5/14/2022 td'' LoadElements_AllSignatures(iBadgeSideElements.ListElementSignatures(), par_oMoveEvents) ''Dec22 2021 td''LoadDesigner_QRCode()
@@ -1685,9 +1698,9 @@ Public Class ClassDesigner
         End If ''End of ""If (c_boolLimitOnePerCustomer_Sig) Then... Else..."
 
         ''Added 12/18/2021 td 
-        ''Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
-        ''Dec22 2021''ListCtlGraphic_StaticTexts = New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 thomas d. 
-        ''Dec22 2021''LoadElements_StaticTexts(par_cache.ListOfElementTexts_Front) ''Added 12/18/2021 thomas d.
+        '' Dec18 2021''LoadElements_StaticText1(par_cache.ListOfElementTexts_Front.GetEnumerator().Current) ''Added 10/12/2019 thomas d.
+        '' Dec22 2021''ListCtlGraphic_StaticTexts = New HashSet(Of CtlGraphicStaticText) ''Added 12/18/2021 thomas d. 
+        '' Dec22 2021''LoadElements_StaticTexts(par_cache.ListOfElementTexts_Front) ''Added 12/18/2021 thomas d.
 
         ''5/14/2022 ''LoadElements_StaticTextsV3(iBadgeSideElements.ListElementStaticTextsV3) ''Added 12/22/2021 thomas d.
         LoadFormwElements_StaticTextsV3(iBadgeSideElements.ListElementStaticTextsV3) ''Added 12/22/2021 thomas d.
@@ -3172,11 +3185,16 @@ Public Class ClassDesigner
 
         obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
 
-        If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then ''Added 1/24/2022 td
-            If (CtlGraphic_QRCode IsNot Nothing) Then ''Added 1/24/2022 td
-                obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
+        ''
+        ''QR Code 
+        ''
+        Dim local_ctlGraphicQRCode As CtlGraphicQRCode ''Added 5/15/2022
+        local_ctlGraphicQRCode = Me.CtlGraphic_QRCode_1st() ''Added 5/15/2022
+        ''5/15/2022 td'' If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then ''Added 1/24/2022 td
+        If (local_ctlGraphicQRCode IsNot Nothing) Then ''Added 1/24/2022 td
+                obj_generator.ImageQRCode = local_ctlGraphicQRCode.pictureQRCode.Image ''Added 10/14 td
             End If ''ENd of "If (CtlGraphic_QRCode IsNot Nothing) Then"
-        End If ''End of "If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then"
+        ''5/15/2022 td'' End If ''End of "If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then"
 
         Try
             ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "RefreshPreview_Redux #1")
@@ -3242,12 +3260,13 @@ Public Class ClassDesigner
             ''
             ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
             ''
-            If (CtlGraphic_Portrait_Deprecated IsNot Nothing) Then
+            If (CtlGraphic_Portrait_1st() IsNot Nothing) Then
                 If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
                     ''Take the picture from the Element Control. ---1/5/2022 
-                    par_objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait_Deprecated.Pic_CloneOfInitialImage
+                    par_objMakeBadgeElements.RecipientPic =
+                        CtlGraphic_Portrait_1st().Pic_CloneOfInitialImage
                 End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
-            End If ''End of "If (CtlGraphic_Portrait IsNot Nothing) Then"
+            End If ''End of "If (CtlGraphic_Portrait_1st() IsNot Nothing) Then"
 
             ''
             ''Major call !!
@@ -3303,7 +3322,11 @@ Public Class ClassDesigner
         If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
 
         obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
-        obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
+
+        ''5/15/2022 ''obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
+        If (CtlGraphic_QRCode_1st() IsNot Nothing) Then ''Added 5/15/2022
+            obj_generator.ImageQRCode = CtlGraphic_QRCode_1st().pictureQRCode.Image ''Added 10/14 td
+        End If
 
         ''
         ''How is the following list used?   ---11/29/2021 td 
@@ -3589,9 +3612,9 @@ Public Class ClassDesigner
         objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
                                           Me.Layout_Width_Pixels(),
                                           obj_image_clone_resized,
-                                           CtlGraphic_Portrait_Deprecated.ElementInfo_Base,
-                                           CtlGraphic_Portrait_Deprecated.ElementInfo_Pic,
-                                          CtlGraphic_Portrait_Deprecated.picturePortrait.Image)
+                                           CtlGraphic_Portrait_1st().ElementInfo_Base,
+                                           CtlGraphic_Portrait_1st().ElementInfo_Pic,
+                                          CtlGraphic_Portrait_1st().picturePortrait.Image)
 
         ''Added 9/8/2019 td
         ''Const c_bListEachElementImage As Boolean = False ''Added 9/8/2019 td

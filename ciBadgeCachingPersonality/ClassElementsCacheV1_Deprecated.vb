@@ -171,10 +171,10 @@ Namespace ciBadgeCachePersonality
                 ''
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
-                objSide.ElementPortrait_1st = Me.ListOfElementPics_Back().FirstOrDefault()
+                ''May15 2022 ''objSide.ElementPortrait_1st = Me.ListOfElementPics_Back().FirstOrDefault()
 
-                objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementQR_RefCopy
-                objSide.ElementSignature_1st = Me.ListOfElementSignatures_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementSig_RefCopy
+                ''May15 2022 ''objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementQR_RefCopy
+                ''May15 2022 ''objSide.ElementSignature_1st = Me.ListOfElementSignatures_Back().FirstOrDefault() ''Jan16 2022 td''Me.ElementSig_RefCopy
 
                 ''Added 1/17/2022 td
                 ''If (objSide.ElementQRCode Is Nothing) Then Me.ElementQR_RefCopy = Nothing
@@ -234,7 +234,7 @@ Namespace ciBadgeCachePersonality
                 ''
                 objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
                 ''Jan13 2022 ''objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
-                objSide.ElementPortrait_1st = Me.ListOfElementPics_Front().FirstOrDefault()
+                ''May15 2022 ''objSide.ElementPortrait_1st = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFieldsV3 = Me.ListOfElementFields_FrontV3
@@ -243,8 +243,8 @@ Namespace ciBadgeCachePersonality
                 objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Front ''Added 2/1/2022 td
 
                 ''Added 1/16/2022 td
-                objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Front().FirstOrDefault()
-                objSide.ElementSignature_1st = Me.ListOfElementSignatures_Front().FirstOrDefault()
+                ''May15 2022 ''objSide.ElementQRCode_1st = Me.ListOfElementQRCodes_Front().FirstOrDefault()
+                ''May15 2022 ''objSide.ElementSignature_1st = Me.ListOfElementSignatures_Front().FirstOrDefault()
 
                 ''Added 1/14/2022 thomas
                 objSide.ListElementPortraits = Me.ListOfElementPics_Front
@@ -295,26 +295,32 @@ Namespace ciBadgeCachePersonality
             ''Added 1/17/2022 td  
             ''
             If (mod_bOkayToUseExampleQRCode) Then
-                If (objSide.ElementQRCode_1st IsNot Nothing) Then
-                    With objSide.ElementQRCode_1st
-                        If (.Image_BL Is Nothing) Then
-                            .Image_BL = My.Resources.ExampleQRCode
-                        End If
-                    End With
-                End If
+                ''5/15/2022 If (objSide.ElementQRCode_1st IsNot Nothing) Then
+                ''5/15/2022 With objSide.ElementQRCode_1st
+                For Each each_ElemQRCode As ClassElementQRCode In objSide.ListElementQRCodes
+                    If (each_ElemQRCode.Image_BL Is Nothing) Then
+                        each_ElemQRCode.Image_BL = My.Resources.ExampleQRCode
+                    End If ''End of ""If (each_ElemQRCode.Image_BL Is Nothing) Then""
+                Next each_ElemQRCode
+                ''5/15/2022 End With
             End If ''End of "If (mod_bOkayToUseExampleQRCode) Then"
 
             ''
             ''Added 1/17/2022 td  
             ''
             If (mod_bOkayToUseExampleSignature) Then
-                If (objSide.ElementSignature_1st IsNot Nothing) Then
-                    With objSide.ElementSignature_1st
-                        If (.Image_BL Is Nothing) Then
-                            .Image_BL = My.Resources.ExampleSignature
-                        End If
-                    End With
-                End If
+                ''5/15/2022 If (objSide.ElementSignature_1st IsNot Nothing) Then
+                ''    With objSide.ElementSignature_1st
+                ''        If (.Image_BL Is Nothing) Then
+                ''            .Image_BL = My.Resources.ExampleSignature
+                ''        End If
+                ''    End With
+                ''End If
+                For Each each_ElemSig As ClassElementSignature In objSide.ListElementSignatures
+                    If (each_ElemSig.Image_BL Is Nothing) Then
+                        each_ElemSig.Image_BL = My.Resources.ExampleQRCode
+                    End If ''End of ""If (each_ElemQRCode.Image_BL Is Nothing) Then""
+                Next each_ElemSig
             End If ''End of "If (mod_bOkayToUseExampleSignature) Then"
 
             Return objSide
