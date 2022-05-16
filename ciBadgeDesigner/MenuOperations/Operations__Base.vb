@@ -107,6 +107,8 @@ Public MustInherit Class Operations__Base
         bElementIsQRCode = (CtlCurrentElement.ElemIfApplicable_IQR IsNot Nothing)
         bElementIsSig = (CtlCurrentElement.ElemIfApplicable_ISig IsNot Nothing)
 
+        Application.DoEvents() ''Added 5/15/2022 
+
         ElementsCacheManager.DeleteElementFromCache(CtlCurrentElement.ElementInfo_Base,
                                                     Me.Element_Type, boolSuccess)
 

@@ -3688,7 +3688,7 @@ ExitHandler:
             If (boolAddStaticText) Then
                 rectangleControl = .GetRectangle_StaticText()
                 mod_designer.Load_NewElementToCacheAndForm_StaticTextV3(rectangleControl)
-            End If
+            End If ''End of ""If (boolAddStaticText) Then""
 
         End With ''End of ""With objFormToShow""
 
@@ -3696,7 +3696,9 @@ ExitHandler:
         ''mod_designer.RedrawForm()
         ''RefreshTheSetOfDisplayedElements(False)
         ''mod_designer.LoadDesigner_ByListOfElements(list_local)
+
         RefreshCardPreview()
+        Me.Invalidate()
 
     End Sub ''Handles ButtonAddElements_Click"
 

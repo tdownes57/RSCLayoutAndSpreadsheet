@@ -1899,7 +1899,7 @@ Namespace ciBadgeCachePersonality
         Public Function LoadNewElement_QRCode(par_intLeft As Integer, par_intTop As Integer,
                                       par_intWidth As Integer, par_intHeight As Integer,
                                       par_pictureBackground As PictureBox,
-                                      par_enum As EnumWhichSideOfCard) _
+                                      par_enumWhichSide As EnumWhichSideOfCard) _
                                       As ClassElementQRCode
             ''
             ''Added 10/10/2019 td  
@@ -1918,6 +1918,7 @@ Namespace ciBadgeCachePersonality
             objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
             objElementQR = New ClassElementQRCode(objRectangle, par_pictureBackground)
+            objElementQR.WhichSideOfCard = par_enumWhichSide ''Added 5/15/2022 td 
 
             ''10/10/2019 td''objElementQR.PicFileIndex = 1
             ''10/10/2019 td''mod_listElementPics.Add(objElementPic)
@@ -1927,14 +1928,14 @@ Namespace ciBadgeCachePersonality
             ''
             ''Add the new element to the appropriate list in the cache. ---1/19/2022 
             ''
-            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+            If (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside) Then
 
                 ListOfElementQRCodes_Back.Add(objElementQR)
 
             Else
                 ListOfElementQRCodes_Front.Add(objElementQR)
 
-            End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
+            End If ''Endof "If (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
             Return objElementQR ''Added 5/14/2022 td
 
@@ -1944,7 +1945,7 @@ Namespace ciBadgeCachePersonality
         Public Function LoadNewElement_Signature(par_intLeft As Integer, par_intTop As Integer,
                                          par_intWidth As Integer, par_intHeight As Integer,
                                          par_pictureBackground As PictureBox,
-                                         par_enum As EnumWhichSideOfCard) As ClassElementSignature
+                                         par_enumWhichSide As EnumWhichSideOfCard) As ClassElementSignature
             ''5/14/2022  Public Sub LoadNewElement_Signature 
             ''
             ''Added 10/10/2019 td  
@@ -1961,19 +1962,20 @@ Namespace ciBadgeCachePersonality
 
             objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
             objElementSig = New ClassElementSignature(objRectangle, par_pictureBackground)
+            objElementSig.WhichSideOfCard = par_enumWhichSide ''Added 5/15/2022 td 
 
             ''No longer needed.1/19/2022''Me.ElementSig_RefCopy = objElementSig
 
             ''
             ''Add the new element to the appropriate list in the cache. ---1/19/2022 
             ''
-            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+            If (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside) Then
                 ListOfElementSignatures_Back.Add(objElementSig)
 
             Else
                 ListOfElementSignatures_Front.Add(objElementSig)
 
-            End If ''Endof "If (par_enum = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
+            End If ''Endof "If (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside) Then... Else ..."
 
             Return objElementSig ''Added 5/14/2022 td 
 
@@ -1982,7 +1984,7 @@ Namespace ciBadgeCachePersonality
 
         Public Sub LoadNewElement_Portrait(par_picturePortrait As PictureBox,
                                            par_pictureBackground As PictureBox,
-            Optional par_enum As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
+            Optional par_enumWhichSide As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside)
             ''10/8/2019 td''Public Sub LoadPicElement(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)
             ''
             ''Added 9/16/2019 td  
@@ -2002,13 +2004,14 @@ Namespace ciBadgeCachePersonality
             objElementPic = New ClassElementPortrait(objRectangle, par_pictureBackground)
 
             objElementPic.PicFileIndex = 1
+            objElementPic.WhichSideOfCard = par_enumWhichSide ''Added 5/15/2022 td 
 
-            If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+            If (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside) Then
                 ''Added 1/19/2022 td
                 mod_listElementPics_Backside.Add(objElementPic)
             Else
                 mod_listElementPics_Front.Add(objElementPic)
-            End If
+            End If ''End of ""If (par_enumWhichSide =....) Then ... Else..." 
 
         End Sub ''End of "Public Sub LoadNewElement_Portrait(par_picturePortrait As PictureBox, par_pictureBackground As PictureBox)"
 

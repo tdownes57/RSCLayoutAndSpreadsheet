@@ -145,7 +145,9 @@ Public Class CtlGraphicQRCode
             ''.Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementQRCode
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
-            .Element_Type = Enum_ElementType.StaticGraphic
+            ''5/15/2022 .Element_Type = Enum_ElementType.StaticGraphic
+            .Element_Type = Enum_ElementType.QRCode
+
             .EventsForMoveability_Group = par_oMoveEventsGroupedCtls
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes

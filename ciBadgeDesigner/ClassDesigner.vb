@@ -1013,11 +1013,13 @@ Public Class ClassDesigner
         ''Added 5/14/2022 td
         ''
         Dim new_element As ClassElementPortrait = Nothing ''Added 5/12/2022 td
-
+        Dim enumWhichSide As EnumWhichSideOfCard ''Added 5/15/2022 
         ''
         ''Part 1. Create the Element & load it into the cache. 
         ''
-        new_element = Load_NewElementIntoCache_PortraitPic(par_rectForElement)
+        enumWhichSide = Me.EnumSideOfCard_Current
+        new_element = Load_NewElementIntoCache_PortraitPic(par_rectForElement,
+                          enumWhichSide)
 
         If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
 
@@ -1039,11 +1041,13 @@ Public Class ClassDesigner
         ''Added 5/14/2022 td
         ''
         Dim new_element As ClassElementSignature = Nothing ''Added 5/12/2022 td
-
+        Dim enumWhichCardSide As EnumWhichSideOfCard ''Added 5/12/2022 td
         ''
         ''Part 1. Create the Element & load it into the cache. 
         ''
-        new_element = Load_NewElementIntoCache_Signature(par_rectForElement)
+        enumWhichCardSide = EnumSideOfCard_Current
+        new_element = Load_NewElementIntoCache_Signature(par_rectForElement,
+                           enumWhichCardSide)
 
         If (new_element Is Nothing) Then
             System.Diagnostics.Debugger.Break()
@@ -1093,11 +1097,13 @@ Public Class ClassDesigner
         ''Added 5/14/2022 td
         ''
         Dim new_element As ClassElementQRCode = Nothing ''Added 5/12/2022 td
+        Dim enumWhichSide As EnumWhichSideOfCard ''Added 5/15/2022 
 
         ''
         ''Part 1. Create the Element & load it into the cache. 
         ''
-        new_element = Load_NewElementIntoCache_QRCode(par_rectForElement)
+        enumWhichSide = EnumSideOfCard_Current
+        new_element = Load_NewElementIntoCache_QRCode(par_rectForElement, enumWhichSide)
 
         If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
 
@@ -1273,7 +1279,8 @@ Public Class ClassDesigner
 
 
 
-    Public Function Load_NewElementIntoCache_PortraitPic(par_rect As Rectangle) As ClassElementPortrait
+    Public Function Load_NewElementIntoCache_PortraitPic(par_rect As Rectangle,
+                                             par_enumCardSide As EnumWhichSideOfCard) As ClassElementPortrait
         ''
         ''Added 5/6/2022 thomas d.
         ''
@@ -1306,14 +1313,15 @@ Public Class ClassDesigner
         Me.ElementsCache_UseEdits.LoadNewElement_Pic(intPicLeft, intPicTop,
                              intPicWidth, intPicHeight,
                              Me.BackgroundBox_Front,
-                             EnumSideOfCard_Current)
+                             par_enumCardSide) ''---EnumCurrentSideOfCard
 
         Return objElement ''Added 5/14/2022 
 
     End Function ''End of ""Public Function Load_NewElementIntoCache_PortraitPic()""
 
 
-    Public Function Load_NewElementIntoCache_QRCode(par_rect As Rectangle) As ClassElementQRCode
+    Public Function Load_NewElementIntoCache_QRCode(par_rect As Rectangle,
+                                                    par_enumSide As EnumWhichSideOfCard) As ClassElementQRCode
         ''5/14/2022  Public Sub Load_NewElementIntoCache_QRCode
         ''
         ''Added 5/06/2022 td
@@ -1337,14 +1345,15 @@ Public Class ClassDesigner
         Me.ElementsCache_UseEdits.LoadNewElement_QRCode(intLeft, intTop,
                              intWidth, intHeight,
                              Me.BackgroundBox_Front,
-                             EnumSideOfCard_Current)
+                             par_enumSide)
 
         Return newElementQRCode
 
     End Function ''End of ""Public Sub Load_NewElementIntoCache_QRCode()""
 
 
-    Public Function Load_NewElementIntoCache_Signature(par_rect As Rectangle) As ClassElementSignature
+    Public Function Load_NewElementIntoCache_Signature(par_rect As Rectangle,
+                                         par_enumWhichSide As EnumWhichSideOfCard) As ClassElementSignature
         ''5/14/2022 TD  Public Sub Load_NewElementIntoCache_Signature
 
         ''Added 5/06/2022 td
@@ -1365,7 +1374,7 @@ Public Class ClassDesigner
         Me.ElementsCache_UseEdits.LoadNewElement_Signature(intLeft, intTop,
                              intWidth, intHeight,
                              Me.BackgroundBox_Front,
-                             EnumSideOfCard_Current)
+                             par_enumWhichSide) '' EnumSideOfCard_Current)
 
         Return newElement
 
@@ -2023,6 +2032,7 @@ Public Class ClassDesigner
             With local_ctlGraphic_QRCODE
                 ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
                 .Visible = True
+                .BringToFront() ''Added 5/15/2022 
 
                 ''Dec.8 2021''.Left = elementQRCode.LeftEdge_Pixels
                 ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
@@ -2104,6 +2114,7 @@ Public Class ClassDesigner
         ''1/2/2022 td''              ''Jan2 2022 td''dummySaveToModel,
 
         Me.DesignerForm.Controls.Add(local_ctlGraphic_Signat)
+        local_ctlGraphic_Signat.BringToFront() ''Added 5/15/2022 
 
         ''Added 11/28/2021 td
         mod_listOfDesignerControls.Add(local_ctlGraphic_Signat)
