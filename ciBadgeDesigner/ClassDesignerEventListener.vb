@@ -847,7 +847,7 @@ Public Class ClassDesignerEventListener
         ''#2 12/17/21 td''Handles mod_sizing_QR_Events.Resizing_End
 
         ''Added 10/9/2019 td 
-        mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
+        ''5/15/2022 td''mod_designer.CtlGraphic_QRCode.SaveToModel() ''Added 12/16/2021 td 
         par_iSave.SaveToModel() ''Added 12/172021
 
         ''Update what the user sees (preview).

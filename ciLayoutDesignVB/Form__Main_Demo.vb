@@ -490,13 +490,15 @@ Public Class Form__Main_Demo
         End If ''End of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
         ''Added 10/13/2019 thomas d. 
-        Const c_bLoadControlReferencesWithoutCheckingCache As Boolean = True ''False ''True
+        Const c_bLoadControlReferencesWithoutCheckingCache As Boolean = False ''True ''False ''True
         If (c_bLoadControlReferencesWithoutCheckingCache) Then
 
-            ''This code makes no reference to the elements cache, and so is pretty suspect!! ----1/14/2022
-            mod_designer.CtlGraphic_Portrait_Deprecated = CtlGraphicPortrait_Lady
-            mod_designer.CtlGraphic_QRCode_Deprecated = CtlGraphicQRCode1
-            mod_designer.CtlGraphic_Signat_Deprecated = CtlGraphicSignature1
+            ''This code makes no reference to the elements cache, and so
+            ''   is pretty suspect!! ----1/14/2022
+            ''
+            ''Bad practice. 5/14/2022 mod_designer.CtlGraphic_Portrait_1st = CtlGraphicPortrait_Lady
+            ''Bad practice. 5/14/2022 mod_designer.CtlGraphic_QRCode_1st = CtlGraphicQRCode1
+            ''Bad practice. 5/14/2022 mod_designer.CtlGraphic_Signat_1st = CtlGraphicSignature1
 
         End If ''End of "If (c_boolLoadControlReferencesWithoutCheckingCache) Then"
         ''+++/+++ I have removed this object reference from the mod_designer class. Jan8 2022 td

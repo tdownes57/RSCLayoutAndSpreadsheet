@@ -358,11 +358,32 @@ Public Class ClassDesigner
         ''
         ''Added 1/14/2021 td 
         ''
-        If (CtlGraphic_Portrait_Deprecated IsNot Nothing) Then
-            CtlGraphic_Portrait_Deprecated.Dispose() ''Added Dec. 8, 2021
-            Me.DesignerForm.Controls.Remove(CtlGraphic_Portrait_Deprecated) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(CtlGraphic_Portrait_Deprecated) ''Added Dec. 8, 2021
-        End If ''End of "If (CtlGraphic_Portrait IsNot Nothing) Then"
+        If (CtlGraphic_Portrait_1st() IsNot Nothing) Then
+            ''May 15, 2022 ''CtlGraphic_Portrait_Deprecated.Dispose() ''Added Dec. 8, 2021
+            ''May 15, 2022 ''Me.DesignerForm.Controls.Remove(CtlGraphic_Portrait_Deprecated) ''Added Dec. 8, 2021
+            ''May 15, 2022 ''mod_listOfDesignerControls.Remove(CtlGraphic_Portrait_Deprecated) ''Added Dec. 8, 2021
+        End If ''End of "If (CtlGraphic_Portrait_1st() IsNot Nothing) Then"
+
+        ''Added 5/15/2022
+        Dim each_control As Control
+        Dim each_ctlPortrait As CtlGraphicPortrait
+        For Each each_control In Me.DesignerForm.Controls
+            If (TypeOf each_control Is CtlGraphicPortrait) Then
+                Me.DesignerForm.Controls.Remove(each_control)
+                each_ctlPortrait = CType(each_control, CtlGraphicPortrait)
+                mod_listOfDesignerControls.Remove(each_ctlPortrait)
+            End If ''End of ""If (TypeOf each_control Is ....) Then"
+        Next each_control
+
+        ''Added 5/15/2022
+        For Each each_ctl_portrait As CtlGraphicPortrait In Me.CtlGraphic_Portrait_List
+            If (each_ctl_portrait IsNot Nothing) Then ''Added 1/24/2022 td
+                each_ctl_portrait.Dispose() ''Added Dec. 8, 2021
+                Me.DesignerForm.Controls.Remove(each_ctl_portrait) ''Added Dec. 8, 2021
+                mod_listOfDesignerControls.Remove(each_ctl_portrait) ''Added Dec. 8, 2021
+            End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+        Next each_ctl_portrait
+
 
     End Sub ''End of "Public Sub UnloadDesigner_Portrait()"
 
@@ -391,11 +412,22 @@ Public Class ClassDesigner
         ''    End If ''End of "If (.DictyControlResizing.ContainsKey(CtlGraphic_QRCode)) Then"
         ''End With ''End of "With mod_designerListener"
 
-        If (CtlGraphic_QRCode_Deprecated IsNot Nothing) Then ''Added 1/24/2022 td
-            CtlGraphic_QRCode_Deprecated.Dispose() ''Added Dec. 8, 2021
-            Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode_Deprecated) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(CtlGraphic_QRCode_Deprecated) ''Added Dec. 8, 2021
-        End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+        ''If (CtlGraphic_QRCode_Deprecated IsNot Nothing) Then ''Added 1/24/2022 td
+        ''    CtlGraphic_QRCode_Deprecated.Dispose() ''Added Dec. 8, 2021
+        ''    Me.DesignerForm.Controls.Remove(CtlGraphic_QRCode_Deprecated) ''Added Dec. 8, 2021
+        ''    mod_listOfDesignerControls.Remove(CtlGraphic_QRCode_Deprecated) ''Added Dec. 8, 2021
+        ''End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+
+        ''Added 5/15/2022
+        Dim each_control As Control
+        Dim each_ctlQRCode As CtlGraphicQRCode
+        For Each each_control In Me.DesignerForm.Controls
+            If (TypeOf each_control Is CtlGraphicQRCode) Then
+                Me.DesignerForm.Controls.Remove(each_control)
+                each_ctlQRCode = CType(each_control, CtlGraphicQRCode)
+                mod_listOfDesignerControls.Remove(each_ctlQRCode)
+            End If ''End of ""If (TypeOf each_control Is ....) Then"
+        Next each_control
 
         ''Added 5/13/2022
         For Each each_ctl_qrcode As CtlGraphicQRCode In Me.CtlGraphic_QRCode_List
@@ -437,11 +469,31 @@ Public Class ClassDesigner
 
         ''End If ''End of "If (boolListenerFound1) Then ... ElseIf (...) ... Else ..."
 
-        If (CtlGraphic_Signat IsNot Nothing) Then ''Added 1/24/2022 td
-            CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
-            Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
-        End If ''End of "If (CtlGraphic_Signat IsNot Nothing) Then"
+        ''5/15/2022 If (CtlGraphic_Signat IsNot Nothing) Then ''Added 1/24/2022 td
+        ''    CtlGraphic_Signat.Dispose() ''Added Dec. 8, 2021
+        ''    Me.DesignerForm.Controls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
+        ''    mod_listOfDesignerControls.Remove(CtlGraphic_Signat) ''Added Dec. 8, 2021
+        ''5/15/2022 End If ''End of "If (CtlGraphic_Signat IsNot Nothing) Then"
+
+        ''Added 5/15/2022
+        Dim each_control As Control
+        Dim each_ctlSignature As CtlGraphicSignature
+        For Each each_control In Me.DesignerForm.Controls
+            If (TypeOf each_control Is CtlGraphicSignature) Then
+                Me.DesignerForm.Controls.Remove(each_control)
+                each_ctlSignature = CType(each_control, CtlGraphicSignature)
+                mod_listOfDesignerControls.Remove(each_ctlSignature)
+            End If ''End of ""If (TypeOf each_control Is ....) Then"
+        Next each_control
+
+        ''Added 5/13/2022
+        For Each each_ctl_signature As CtlGraphicSignature In Me.CtlGraphic_Signat_List
+            If (each_ctl_signature IsNot Nothing) Then ''Added 1/24/2022 td
+                each_ctl_signature.Dispose() ''Added Dec. 8, 2021
+                Me.DesignerForm.Controls.Remove(each_ctl_signature) ''Added Dec. 8, 2021
+                mod_listOfDesignerControls.Remove(each_ctl_signature) ''Added Dec. 8, 2021
+            End If ''End of "If (CtlGraphic_Signature IsNot Nothing) Then"
+        Next each_ctl_signature
 
     End Sub ''End of "Public Sub UnloadDesigner_Signature()"
 
@@ -583,8 +635,8 @@ Public Class ClassDesigner
         mod_imageExamplePortrait = Me.ExampleImage_Portrait ''Added 10/1/2019 td
 
         ''Modified 1/10/2022 td
-        If (Me.CtlGraphic_Signat IsNot Nothing) Then
-            mod_imageExampleSignat = Me.CtlGraphic_Signat.pictureSignature.Image ''Added 10/14/2019 td
+        If (Me.CtlGraphic_Signat_1st() IsNot Nothing) Then
+            mod_imageExampleSignat = Me.CtlGraphic_Signat_1st().pictureSignature.Image ''Added 10/14/2019 td
         End If ''End of "If (Me.CtlGraphic_Signat IsNot Nothing) Then"
         ''---Dec.7 2021---mod_imageExampleQRCode = Me.CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14/2019 td
 
@@ -1813,23 +1865,25 @@ Public Class ClassDesigner
         oGetControlParameters = Me.GetParametersToGetElementControl() ''Added 1/17/2022 thomas d.
 
         ''Jan4 2022 td''CtlGraphic_Portrait = New CtlGraphicPortrait(par_elementPic, Me)
-        CtlGraphic_Portrait_Deprecated = CtlGraphicPortrait.GetPortrait(oGetControlParameters,
-                                                             par_elementPic, Me.DesignerForm,
-                                                             "CtlGraphic_Portrait",
-                                                             Me, True, mod_ctlLasttouched, Me,
-                                                                par_oGroupMoveEvents)
-        ''                                                 ''May5 2022  mod_oGroupMoveEvents)
+        Dim local_CtlGraphic_Portrait As CtlGraphicPortrait ''Added 5/15/2022 td
+        local_CtlGraphic_Portrait = CtlGraphicPortrait.GetPortrait(oGetControlParameters,
+                                par_elementPic, Me.DesignerForm,
+                                "CtlGraphic_Portrait",
+                                Me, True, mod_ctlLasttouched, Me,
+                                par_oGroupMoveEvents)
+        ''                    ''May5 2022  mod_oGroupMoveEvents)
 
         ''10/1/2019 td''Me.Controls.Add(CtlGraphicPortrait_Lady)
-        Me.DesignerForm.Controls.Add(CtlGraphic_Portrait_Deprecated)
+        ''5/15/2022 Me.DesignerForm.Controls.Add(CtlGraphic_Portrait_Deprecated)
+        Me.DesignerForm.Controls.Add(local_CtlGraphic_Portrait)
 
         ''Added 5/15/2022 td
-        CtlGraphic_Portrait_Deprecated.BringToFront()
+        local_CtlGraphic_Portrait.BringToFront()
 
         ''Added 11/28/2021 td
-        mod_listOfDesignerControls.Add(CtlGraphic_Portrait_Deprecated)
+        mod_listOfDesignerControls.Add(local_CtlGraphic_Portrait)
 
-        With CtlGraphic_Portrait_Deprecated
+        With local_CtlGraphic_Portrait
 
             ''9/17/2019 td''.Top = ClassElementPic.ElementPicture.TopEdge_Pixels
             ''9/17/2019 td''.Left = ClassElementPic.ElementPicture.LeftEdge_Pixels
@@ -1936,7 +1990,9 @@ Public Class ClassDesigner
             Dim sizeDesired As Size = New Size() ''Added 1/26/2022 td
 
             ''12/30/2021 td''Me.CtlGraphic_QRCode = New CtlGraphicQRCode(par_elementQR, CType(Me, ILayoutFunctions))
-            Me.CtlGraphic_QRCode = CtlGraphicQRCode.GetQRCode(oGetControlParameters, par_elementQR, Me.DesignerForm,
+            Dim local_ctlGraphic_QRCODE As CtlGraphicQRCode ''Added 5/15/2022 td
+            local_ctlGraphic_QRCODE = CtlGraphicQRCode.GetQRCode(oGetControlParameters,
+                                                                par_elementQR, Me.DesignerForm,
                                                               "CtlGraphic_QRCode",
                                                               CType(Me, ILayoutFunctions),
                                                               sizeDesired,
@@ -1945,10 +2001,13 @@ Public Class ClassDesigner
                                                               par_oMoveEvents)
             ''1/2/2022 td''                                   ''Jan2 2022 td''dummySaveToModel,
 
-            Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
-            mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
+            ''5/15/2022 td''Me.DesignerForm.Controls.Add(Me.CtlGraphic_QRCode)
+            ''5/15/2022 td''mod_listOfDesignerControls.Add(Me.CtlGraphic_QRCode) ''Added 12/8/2021 td
+            Me.DesignerForm.Controls.Add(local_ctlGraphic_QRCODE)
+            mod_listOfDesignerControls.Add(local_ctlGraphic_QRCODE) ''Added 12/8/2021 td
 
-            With Me.CtlGraphic_QRCode
+            ''5/15/2022 With Me.CtlGraphic_QRCode
+            With local_ctlGraphic_QRCODE
                 ''Me.CtlGraphic_QRCode.Visible = True ''Dec. 7, 2021
                 .Visible = True
 
@@ -2021,7 +2080,8 @@ Public Class ClassDesigner
 
         ''10//12/2019 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me)
         ''1/2/2022 td''CtlGraphic_Signat = New CtlGraphicSignature(par_elementSig, Me, Me.PathToSigFile)
-        CtlGraphic_Signat = CtlGraphicSignature.GetSignature(oGetControlParameters,
+        Dim local_ctlGraphic_Signat As CtlGraphicSignature ''Added 5/15/2022 thomas d. 
+        local_ctlGraphic_Signat = CtlGraphicSignature.GetSignature(oGetControlParameters,
                                                              par_elementSig, Me.DesignerForm,
                                                              "CtlGraphic_Signat",
                                                 CType(Me, ILayoutFunctions), sizeDesired,
@@ -2030,12 +2090,12 @@ Public Class ClassDesigner
                                                 Me.PathToSigFile)
         ''1/2/2022 td''              ''Jan2 2022 td''dummySaveToModel,
 
-        Me.DesignerForm.Controls.Add(CtlGraphic_Signat)
+        Me.DesignerForm.Controls.Add(local_ctlGraphic_Signat)
 
         ''Added 11/28/2021 td
-        mod_listOfDesignerControls.Add(CtlGraphic_Signat)
+        mod_listOfDesignerControls.Add(local_ctlGraphic_Signat)
 
-        With CtlGraphic_Signat
+        With local_ctlGraphic_Signat ''5/15/2022 CtlGraphic_Signat
 
             .Top = par_elementSig.TopEdge_Pixels
             .Left = par_elementSig.LeftEdge_Pixels
@@ -2046,7 +2106,7 @@ Public Class ClassDesigner
 
             .Refresh_Master()
 
-        End With ''End of "With CtlGraphic_Signat"
+        End With ''End of "With local_ctlGraphic_Signat"
 
         ''Added 12/15/2021 td
         ''   Pass on the event of right-clicking a element-signature control.
@@ -3384,7 +3444,7 @@ Public Class ClassDesigner
                                                      obj_image_clone_resized,
                                                       Me.PreviewBox.Width,
                                                       Me.PreviewBox.Height,
-                                                     Me.CtlGraphic_Portrait_Deprecated.picturePortrait.Image,
+                                                     Me.CtlGraphic_Portrait_1st().picturePortrait.Image,
                                                       Me.ElementsCache_UseEdits,
                                                       par_recipient,
                                                       listOfElementTextFieldsV3,
@@ -3392,9 +3452,9 @@ Public Class ClassDesigner
                                                       listOfElementStaticTextsV3,
                                                       listOfElementStaticTextsV4,
                                                       listOfElementGraphics,
-                                                      Me.CtlGraphic_Portrait_Deprecated.ElementClass_Obj,
-                                                      Me.CtlGraphic_QRCode.ElementClass_Obj,
-                                                      Me.CtlGraphic_Signat.ElementClass_Obj,
+                                                      Me.CtlGraphic_Portrait_1st().ElementClass_Obj,
+                                                      Me.CtlGraphic_QRCode_1st().ElementClass_Obj,
+                                                      Me.CtlGraphic_Signat_1st().ElementClass_Obj,
                                                       Nothing, Nothing, Nothing,
                                                       par_recentlyMoved)
 
@@ -3419,7 +3479,7 @@ Public Class ClassDesigner
             ''
             If (objMakeBadgeElements.RecipientPic Is Nothing) Then
                 ''Take the picture from the Element Control. ---1/5/2022 
-                objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait_Deprecated.Pic_CloneOfInitialImage
+                objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait_1st().Pic_CloneOfInitialImage
             End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
 
             ''
@@ -4197,26 +4257,26 @@ Public Class ClassDesigner
 
             ''Refresh the Preview Box (a PictureBox control).
             If (TypeOf par_controlElement Is CtlGraphicFieldV3) Then
-                    ''Added 11/29/2021 td
-                    Dim objElementField As ClassElementFieldV3
-                    objElementField = CType(par_controlElement,
-                                     CtlGraphicFieldV3).ElementClass_ObjV3
-                    ''
-                    ''Major call!!
-                    ''
-                    ''Jan14 2022 td''RefreshPreview_Redux_Front(objElementField)
-                    RefreshPreview_CurrentSide(objElementField)
+                ''Added 11/29/2021 td
+                Dim objElementField As ClassElementFieldV3
+                objElementField = CType(par_controlElement,
+                                 CtlGraphicFieldV3).ElementClass_ObjV3
+                ''
+                ''Major call!!
+                ''
+                ''Jan14 2022 td''RefreshPreview_Redux_Front(objElementField)
+                RefreshPreview_CurrentSide(objElementField)
 
-                Else
-                    ''
-                    ''Major call!!
-                    ''
-                    ''Jan14 2022 td''RefreshPreview_Redux_Front()
-                    RefreshPreview_CurrentSide()
+            Else
+                ''
+                ''Major call!!
+                ''
+                ''Jan14 2022 td''RefreshPreview_Redux_Front()
+                RefreshPreview_CurrentSide()
 
-                End If ''End of "If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then... Else"
+            End If ''End of "If (TypeOf par_controlElement Is CtlGraphicFldLabel) Then... Else"
 
-            End If ''End of "If (checkAutoPreview.Checked) Then"
+        End If ''End of "If (checkAutoPreview.Checked) Then"
 
     End Sub ''End of  "Private Sub AutoPreview_IfChecked()"
 
@@ -4587,9 +4647,15 @@ Public Class ClassDesigner
 
         End If
 
-        If (par_type.Equals(GetType(CtlGraphicPortrait))) Then
+        If (par_type.Equals(GetType(CtlGraphicSignature))) Then
 
-            Me.CtlGraphic_Portrait_List.Clear()
+            Me.CtlGraphic_Signat_List.Clear()
+
+        End If
+
+        If (par_type.Equals(GetType(CtlGraphicQRCode))) Then
+
+            Me.CtlGraphic_QRCode_List.Clear()
 
         End If
 
