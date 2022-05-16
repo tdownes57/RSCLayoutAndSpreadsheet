@@ -142,7 +142,8 @@ Public Class CtlGraphicSignature
             ''.Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementSig
             .ElementsCacheManager = par_parameters.ElementsCacheManager
-            .Element_Type = Enum_ElementType.StaticGraphic
+            ''5/16/2022 td''.Element_Type = Enum_ElementType.StaticGraphic
+            .Element_Type = Enum_ElementType.Signature ''Added 5/16/2022 
             .EventsForMoveability_Group = par_oMoveEventsGroupedControls
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes

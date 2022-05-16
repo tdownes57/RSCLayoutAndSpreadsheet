@@ -831,12 +831,12 @@ Namespace ciBadgeCachePersonality
             ''Added 5/05/2022 thomas d. 
             ''
             Dim objElementPortraitPic As ClassElementPortrait
-            Dim b1 As Boolean
-            Dim b2 As Boolean
-            Dim b3 As Boolean
-            Dim b4 As Boolean
-            Dim b5 As Boolean
-            Dim b6 As Boolean
+            Dim b1 As Boolean ''Added 5/05/2022 thomas d.
+            Dim b2 As Boolean ''Added 5/05/2022 thomas d.
+            Dim b3 As Boolean ''Added 5/05/2022 thomas d.
+            Dim b4 As Boolean ''Added 5/05/2022 thomas d.
+            Dim b5 As Boolean ''Added 5/05/2022 thomas d.
+            Dim b6 As Boolean ''Added 5/05/2022 thomas d.
 
             objElementPortraitPic = GetElement_FromInfo_Pic(par_infoPortrait)
 
@@ -872,19 +872,30 @@ ExitHandler:
             ''Added 5/05/2022 thomas d. 
             ''
             Dim objElementQRCode As ClassElementQRCode
+            Dim b1 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b2 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b3 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b4 As Boolean ''Added 5/16/2022 thomas d.
+
             objElementQRCode = GetElement_FromInfo_QRCode(par_infoQRCode)
 
             If (Not par_bLetsSpecifySide) Then
+                ''
                 ''Execute "Remove" on both sides of the badge.
-                Me.mod_cacheEdits.ListOfElementQRCodes_Front.Remove(objElementQRCode)
-                Me.mod_cacheEdits.ListOfElementQRCodes_Back.Remove(objElementQRCode)
+                ''
+                b1 = Me.mod_cacheEdits.ListOfElementQRCodes_Front.Remove(objElementQRCode)
+                b2 = Me.mod_cacheEdits.ListOfElementQRCodes_Back.Remove(objElementQRCode)
 
             ElseIf (par_bSideIsBackside) Then
-                Me.mod_cacheEdits.ListOfElementQRCodes_Back.Remove(objElementQRCode)
+                b3 = Me.mod_cacheEdits.ListOfElementQRCodes_Back.Remove(objElementQRCode)
             Else
-                Me.mod_cacheEdits.ListOfElementQRCodes_Front.Remove(objElementQRCode)
+                b4 = Me.mod_cacheEdits.ListOfElementQRCodes_Front.Remove(objElementQRCode)
 
             End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+ExitHandler:
+            ''Add 5/6/2022 td
+            pref_boolSuccess = (b1 Or b2 Or b3 Or b4)
 
         End Sub ''end of ""Public Sub DeleteElementFromCache_QR""
 
@@ -899,19 +910,28 @@ ExitHandler:
             ''  Sig = Signature
             ''
             Dim objElementSig As ClassElementSignature
+            Dim b1 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b2 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b3 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b4 As Boolean ''Added 5/16/2022 thomas d.
+
             objElementSig = GetElement_FromInfo_Sig(par_infoSig)
 
             If (Not par_bLetsSpecifySide) Then
                 ''Execute "Remove" on both sides of the badge.
-                Me.mod_cacheEdits.ListOfElementSignatures_Front.Remove(objElementSig)
-                Me.mod_cacheEdits.ListOfElementSignatures_Back.Remove(objElementSig)
+                b1 = Me.mod_cacheEdits.ListOfElementSignatures_Front.Remove(objElementSig)
+                b2 = Me.mod_cacheEdits.ListOfElementSignatures_Back.Remove(objElementSig)
 
             ElseIf (par_bSideIsBackside) Then
-                Me.mod_cacheEdits.ListOfElementSignatures_Back.Remove(objElementSig)
+                b3 = Me.mod_cacheEdits.ListOfElementSignatures_Back.Remove(objElementSig)
             Else
-                Me.mod_cacheEdits.ListOfElementSignatures_Front.Remove(objElementSig)
+                b4 = Me.mod_cacheEdits.ListOfElementSignatures_Front.Remove(objElementSig)
 
             End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+ExitHandler:
+            ''Add 5/6/2022 td
+            pref_boolSuccess = (b1 Or b2 Or b3 Or b4)
 
         End Sub ''end of ""Public Sub DeleteElementFromCache_Sig""
 
