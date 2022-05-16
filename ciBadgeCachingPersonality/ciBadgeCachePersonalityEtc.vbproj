@@ -81,6 +81,7 @@
     <Compile Include="ClassFieldCache.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="ClassCacheListRecipients.vb" />
+    <Compile Include="MinorClasses\ClassListOfElements_FieldsV4.vb" />
     <Compile Include="MinorClasses\FormSpecialButton.Designer.vb">
       <DependentUpon>FormSpecialButton.vb</DependentUpon>
     </Compile>
@@ -107,7 +108,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RSCCache\ClassRSCColumnWidthAndData.vb" />
-    <Compile Include="MinorClasses\ClassListOfElements_Fields.vb" />
+    <Compile Include="MinorClasses\ClassListOfElements_FieldsV3.vb" />
     <Compile Include="MinorClasses\ClassListOfElements.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_Graphics.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_Portraits.vb" />

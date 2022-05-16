@@ -88,6 +88,8 @@ Public MustInherit Class Operations__Base
         Dim bElementIsPortraitPic As Boolean ''5/5/2022
         Dim bElementIsQRCode As Boolean ''5/5/2022
         Dim bElementIsSig As Boolean ''5/5/2022
+        Dim bElementIsGraphic As Boolean ''5/16/2022
+        Dim bElementIsStaticText As Boolean ''5/16/2022
 
         Dim bConfirmDelete As Boolean ''Added 5/5/20222
         Dim strTextForElement As String ''Added 5/10/2022 
@@ -104,8 +106,10 @@ Public MustInherit Class Operations__Base
         If (Not bConfirmDelete) Then Exit Sub
 
         bElementIsPortraitPic = (CtlCurrentElement.ElemIfApplicable_IPic IsNot Nothing)
-        bElementIsQRCode = (CtlCurrentElement.ElemIfApplicable_IQR IsNot Nothing)
+        bElementIsQRCode = (CtlCurrentElement.ElemIfApplicable_IQRCode IsNot Nothing)
         bElementIsSig = (CtlCurrentElement.ElemIfApplicable_ISig IsNot Nothing)
+        bElementIsGraphic = (CtlCurrentElement.ElemIfApplicable_IGraphic IsNot Nothing)
+        bElementIsStaticText = (CtlCurrentElement.ElemIfApplicable_ITextOnly IsNot Nothing)
 
         Application.DoEvents() ''Added 5/15/2022 
 
@@ -126,11 +130,28 @@ Public MustInherit Class Operations__Base
 
             ElseIf ((Not boolSuccess) And bElementIsQRCode) Then
                 ''QR = QR Code
-                .DeleteElementFromCache_QR(oRSC.ElemIfApplicable_IQR, False, False, boolSuccess)
+                .DeleteElementFromCache_QR(oRSC.ElemIfApplicable_IQRCode, False, False, boolSuccess)
 
             ElseIf ((Not boolSuccess) And bElementIsSig) Then
                 ''Sig = Signature
                 .DeleteElementFromCache_Sig(oRSC.ElemIfApplicable_ISig, False, False, boolSuccess)
+
+            ElseIf ((Not boolSuccess) And bElementIsGraphic) Then
+                ''Graphic = Static Graphic
+                .DeleteElementFromCache_Graphic(oRSC.ElemIfApplicable_IGraphic, False, False, boolSuccess)
+
+            ElseIf ((Not boolSuccess) And bElementIsStaticText) Then
+                ''
+                ''Text = Static Text
+                ''
+                ''VersionV3
+                If (Not boolSuccess) Then
+                    .DeleteElementFromCache_StaticTextV3(oRSC.ElemIfApplicable_ITextOnly, False, False, boolSuccess)
+                End If
+                ''Version V4
+                If (Not boolSuccess) Then
+                    .DeleteElementFromCache_StaticTextV4(oRSC.ElemIfApplicable_ITextOnly, False, False, boolSuccess)
+                End If
 
             End If ''End of ""If ((Not boolSuccess) And bElementIsPortraitPic) Then... ElseIf... ElseIf...
         End With ''End of ""With ElementsCacheManager""

@@ -936,6 +936,114 @@ ExitHandler:
         End Sub ''end of ""Public Sub DeleteElementFromCache_Sig""
 
 
+        Public Sub DeleteElementFromCache_Graphic(par_infoGraphic As IElementGraphic,
+                                              par_bLetsSpecifySide As Boolean,
+                                              par_bSideIsBackside As Boolean,
+                                              ByRef pref_boolSuccess As Boolean)
+            ''
+            ''Added 5/15/2022 thomas d. 
+            ''
+            ''  Graphic = Static Graphic
+            ''
+            Dim objElementGraphic As ClassElementGraphic
+            Dim b1 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b2 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b3 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b4 As Boolean ''Added 5/16/2022 thomas d.
+
+            objElementGraphic = GetElement_FromInfo_Graphic(par_infoGraphic)
+
+            If (Not par_bLetsSpecifySide) Then
+                ''Execute "Remove" on both sides of the badge.
+                b1 = Me.mod_cacheEdits.ListOfElementGraphics_Front.Remove(objElementGraphic)
+                b2 = Me.mod_cacheEdits.ListOfElementGraphics_Backside.Remove(objElementGraphic)
+
+            ElseIf (par_bSideIsBackside) Then
+                b3 = Me.mod_cacheEdits.ListOfElementGraphics_Backside.Remove(objElementGraphic)
+            Else
+                b4 = Me.mod_cacheEdits.ListOfElementGraphics_Front.Remove(objElementGraphic)
+
+            End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+ExitHandler:
+            ''Add 5/6/2022 td
+            pref_boolSuccess = (b1 Or b2 Or b3 Or b4)
+
+        End Sub ''end of ""Public Sub DeleteElementFromCache_Graphic""
+
+
+        Public Sub DeleteElementFromCache_StaticTextV3(par_infoTextOnly As IElement_TextOnly,
+                                              par_bLetsSpecifySide As Boolean,
+                                              par_bSideIsBackside As Boolean,
+                                              ByRef pref_boolSuccess As Boolean)
+            ''
+            ''Added 5/16/2022 thomas d. 
+            ''
+            ''  Text = Static Text
+            ''
+            Dim objElementV3 As ClassElementStaticTextV3
+            Dim b1 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b2 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b3 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b4 As Boolean ''Added 5/16/2022 thomas d.
+
+            objElementV3 = GetElement_FromInfo_TextOnlyV3(par_infoTextOnly)
+
+            If (Not par_bLetsSpecifySide) Then
+                ''Execute "Remove" on both sides of the badge.
+                b1 = Me.mod_cacheEdits.ListOfElementTextsV3_Front.Remove(objElementV3)
+                b2 = Me.mod_cacheEdits.ListOfElementTextsV3_Backside.Remove(objElementV3)
+
+            ElseIf (par_bSideIsBackside) Then
+                b3 = Me.mod_cacheEdits.ListOfElementTextsV3_Backside.Remove(objElementV3)
+            Else
+                b4 = Me.mod_cacheEdits.ListOfElementTextsV3_Front.Remove(objElementV3)
+
+            End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+ExitHandler:
+            ''Add 5/6/2022 td
+            pref_boolSuccess = (b1 Or b2 Or b3 Or b4)
+
+        End Sub ''end of ""Public Sub DeleteElementFromCache_StaticTextV3""
+
+
+        Public Sub DeleteElementFromCache_StaticTextV4(par_infoTextOnly As IElement_TextOnly,
+                                              par_bLetsSpecifySide As Boolean,
+                                              par_bSideIsBackside As Boolean,
+                                              ByRef pref_boolSuccess As Boolean)
+            ''
+            ''Added 5/16/2022 thomas d. 
+            ''
+            ''  Text = Static Text
+            ''
+            Dim objElementV4 As ClassElementStaticTextV4
+            Dim b1 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b2 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b3 As Boolean ''Added 5/16/2022 thomas d.
+            Dim b4 As Boolean ''Added 5/16/2022 thomas d.
+
+            objElementV4 = GetElement_FromInfo_TextOnlyV4(par_infoTextOnly)
+
+            If (Not par_bLetsSpecifySide) Then
+                ''Execute "Remove" on both sides of the badge.
+                b1 = Me.mod_cacheEdits.ListOfElementTextsV4_Front.Remove(objElementV4)
+                b2 = Me.mod_cacheEdits.ListOfElementTextsV4_Backside.Remove(objElementV4)
+
+            ElseIf (par_bSideIsBackside) Then
+                b3 = Me.mod_cacheEdits.ListOfElementTextsV4_Backside.Remove(objElementV4)
+            Else
+                b4 = Me.mod_cacheEdits.ListOfElementTextsV4_Front.Remove(objElementV4)
+
+            End If ''end of ""If (Not par_bLetsSpecifySide) Then... ElseIf... Else..."
+
+ExitHandler:
+            ''Add 5/6/2022 td
+            pref_boolSuccess = (b1 Or b2 Or b3 Or b4)
+
+        End Sub ''end of ""Public Sub DeleteElementFromCache_StaticTextV4""
+
+
         Public Sub DeleteElementFromCache(par_infoBase As ciBadgeInterfaces.IElement_Base,
                                   par_enum As ciBadgeInterfaces.Enum_ElementType,
                                 ByRef pref_boolSuccess As Boolean)
@@ -1030,6 +1138,68 @@ ExitHandler:
             Return Nothing
         End Function ''end of "Private Function GetElement_FromInfo_Sig"" 
 
+
+        Private Function GetElement_FromInfo_Graphic(par_info As IElementGraphic) As ClassElementGraphic
+            ''
+            ''Added 5/16/2022 td
+            ''
+            Dim boolMatch As Boolean
+
+            For Each each_elem As ClassElementGraphic In Me.mod_cacheEdits.ListOfElementGraphics_Front
+                boolMatch = (par_info Is CType(each_elem, IElementGraphic))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            For Each each_elem As ClassElementGraphic In Me.mod_cacheEdits.ListOfElementGraphics_Backside
+                boolMatch = (par_info Is CType(each_elem, IElementGraphic))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            Return Nothing
+
+        End Function ''end of "Private Function GetElement_FromInfo_Graphic"" 
+
+
+        Private Function GetElement_FromInfo_TextOnlyV3(par_info As IElement_TextOnly) As ClassElementStaticTextV3
+            ''
+            ''Added 5/16/2022 td
+            ''
+            Dim boolMatch As Boolean
+
+            For Each each_elem As ClassElementStaticTextV3 In Me.mod_cacheEdits.ListOfElementTextsV3_Front
+                boolMatch = (par_info Is CType(each_elem, IElement_TextOnly))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            For Each each_elem As ClassElementStaticTextV3 In Me.mod_cacheEdits.ListOfElementTextsV3_Backside
+                boolMatch = (par_info Is CType(each_elem, IElement_TextOnly))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            Return Nothing
+
+        End Function ''end of "Private Function GetElement_FromInfo_TextOnlyV3"" 
+
+
+        Private Function GetElement_FromInfo_TextOnlyV4(par_info As IElement_TextOnly) As ClassElementStaticTextV4
+            ''
+            ''Added 5/16/2022 td
+            ''
+            Dim boolMatch As Boolean
+
+            For Each each_elem As ClassElementStaticTextV4 In Me.mod_cacheEdits.ListOfElementTextsV4_Front
+                boolMatch = (par_info Is CType(each_elem, IElement_TextOnly))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            For Each each_elem As ClassElementStaticTextV4 In Me.mod_cacheEdits.ListOfElementTextsV4_Backside
+                boolMatch = (par_info Is CType(each_elem, IElement_TextOnly))
+                If (boolMatch) Then Return each_elem
+            Next each_elem
+
+            Return Nothing
+
+        End Function ''end of "Private Function GetElement_FromInfo_TextOnlyV4"" 
 
 
         Public Sub SwitchElementToOtherSideOfCard(par_infoBase As ciBadgeInterfaces.IElement_Base,

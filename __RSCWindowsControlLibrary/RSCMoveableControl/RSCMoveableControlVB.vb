@@ -228,7 +228,10 @@ Public Class RSCMoveableControlVB
     ''Added 5/6/2022 td
     Public ElemIfApplicable_IPic As ciBadgeInterfaces.IElementPic
     Public ElemIfApplicable_ISig As ciBadgeInterfaces.IElementSig
-    Public ElemIfApplicable_IQR As ciBadgeInterfaces.IElementQRCode
+    Public ElemIfApplicable_IQRCode As ciBadgeInterfaces.IElementQRCode
+    ''Added 5/16/2022 td
+    Public ElemIfApplicable_IGraphic As ciBadgeInterfaces.IElementGraphic
+    Public ElemIfApplicable_ITextOnly As ciBadgeInterfaces.IElement_TextOnly
 
     Public Event RSCControlClicked() ''Added 5/4/2022 td
 

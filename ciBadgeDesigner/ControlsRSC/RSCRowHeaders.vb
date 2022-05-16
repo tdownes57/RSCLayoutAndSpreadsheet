@@ -1104,6 +1104,7 @@ Public Class RSCRowHeaders
                 ''Allow the user to start from scratch.  We are NOT(!) supplying
                 ''  the user with a list of hard-coded (fake) recipients.
                 ''  ----5/13/2022 td
+                Return ''Added 5/16/2022 
             Else
                 ''Throw an error. Where in heck is the list of fake hard-coded recipients? 
                 Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")

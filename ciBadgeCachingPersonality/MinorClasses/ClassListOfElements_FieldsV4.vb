@@ -1,18 +1,18 @@
 ﻿''
-''Added 1/19/2022 thomas downes
+''Added 5/16/2022 & 1/19/2022 thomas downes
 ''
 Imports ciBadgeInterfaces
 Imports ciBadgeElements
 
-Public Class ClassListOfElements_Fields
+Public Class ClassListOfElements_FieldsV4
     Inherits ClassListOfElements
     ''
-    ''Added 1/19/2022 thomas downes
+    ''Added 5/16/2022 & 1/19/2022 thomas downes
     ''
     ''Public Overrides Property ListOfElements_Front As List(Of ClassElementField)
     ''Public Overrides Property ListOfElements_Back As List(Of ClassElementField)
-    Public Property ListOfElements_Front As HashSet(Of ClassElementFieldV3)
-    Public Property ListOfElements_Backside As HashSet(Of ClassElementFieldV3)
+    Public Property ListOfElements_Front As HashSet(Of ClassElementFieldV4)
+    Public Property ListOfElements_Backside As HashSet(Of ClassElementFieldV4)
 
 
     Public Overrides Sub SwitchElementToOtherSideOfCard(par_infoBase As IElement_Base,

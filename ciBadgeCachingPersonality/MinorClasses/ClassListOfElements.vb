@@ -11,7 +11,10 @@ Public MustInherit Class ClassListOfElements
     ''Public MustOverride Property ListOfElements_Front As Object ''List(Of ClassElementField)
     ''Public MustOverride Property ListOfElements_Back As Object ''List(Of ClassElementField)
 
-    Public Shared ClassList_Fields As New ClassListOfElements_Fields
+    ''5/16/2022 td Public Shared ClassList_Fields As New ClassListOfElements_FieldsV3
+    Public Shared ClassList_FieldsV3 As New ClassListOfElements_FieldsV3 ''Suffixed 5/16/2022
+    Public Shared ClassList_FieldsV4 As New ClassListOfElements_FieldsV4 ''Added 5/16/2022
+
     Public Shared ClassList_Graphics As New ClassListOfElements_Graphics
     Public Shared ClassList_Portraits As New ClassListOfElements_Portraits
     Public Shared ClassList_QRCodes As New ClassListOfElements_QRCodes
@@ -32,7 +35,10 @@ Public MustInherit Class ClassListOfElements
         ''ClassList_StaticTexts = Nothing
 
         ''Added 1/21/2022
-        ClassList_Fields.ListOfElements_Front = Nothing
+        ClassList_FieldsV3.ListOfElements_Front = Nothing
+        ClassList_FieldsV4.ListOfElements_Front = Nothing ''Added 5/16/2022 
+
+        ''Added 1/21/2022
         ClassList_Graphics.ListOfElements_Front = Nothing
         ClassList_Portraits.ListOfElements_Front = Nothing
         ClassList_QRCodes.ListOfElements_Front = Nothing
@@ -41,7 +47,9 @@ Public MustInherit Class ClassListOfElements
         ClassList_StaticTextsV3.ListOfElements_Front = Nothing
         ClassList_StaticTextsV4.ListOfElements_Front = Nothing
 
-        ClassList_Fields.ListOfElements_Backside = Nothing
+        ClassList_FieldsV3.ListOfElements_Backside = Nothing
+        ClassList_FieldsV4.ListOfElements_Backside = Nothing ''Added 5/16/2022 
+
         ClassList_Graphics.ListOfElements_Backside = Nothing
         ClassList_Portraits.ListOfElements_Backside = Nothing
         ClassList_QRCodes.ListOfElements_Backside = Nothing
@@ -58,12 +66,13 @@ Public MustInherit Class ClassListOfElements
         ''Added 1/21/2022 thomas downes
         ''
         Dim bProbablyUnitialized As Boolean
-        bProbablyUnitialized = (ClassList_Fields.ListOfElements_Backside Is Nothing)
+        bProbablyUnitialized = (ClassList_FieldsV3.ListOfElements_Backside Is Nothing)
 
         If (bProbablyUnitialized) Then
             With par_cache
 
                 Load_AllLists(.ListOfElementFields_FrontV3, .ListOfElementFields_BacksideV3,
+                              .ListOfElementFields_FrontV4, .ListOfElementFields_BacksideV4,
                               .ListOfElementGraphics_Front, .ListOfElementGraphics_Backside,
                               .ListOfElementPics_Front, .ListOfElementPics_Back,
                               .ListOfElementQRCodes_Front, .ListOfElementQRCodes_Back,
@@ -78,8 +87,10 @@ Public MustInherit Class ClassListOfElements
     End Sub ''ENd of "Public Shared Sub Initialize_IfNeeded()"
 
 
-    Public Shared Sub Load_AllLists(par_listF_Fr As HashSet(Of ClassElementFieldV3),
-                                    par_listF_Ba As HashSet(Of ClassElementFieldV3),
+    Public Shared Sub Load_AllLists(par_listFv3_Fr As HashSet(Of ClassElementFieldV3),
+                                    par_listFv3_Ba As HashSet(Of ClassElementFieldV3),
+                                    par_listFv4_Fr As HashSet(Of ClassElementFieldV4),
+                                    par_listFv4_Ba As HashSet(Of ClassElementFieldV4),
                                     par_listG_Fr As HashSet(Of ClassElementGraphic),
                                     par_listG_Ba As HashSet(Of ClassElementGraphic),
                                     par_listP_Fr As HashSet(Of ClassElementPortrait),
@@ -95,8 +106,12 @@ Public MustInherit Class ClassListOfElements
         ''
         ''Added 1/19/2022 td
         ''
-        ClassList_Fields.ListOfElements_Backside = par_listF_Ba
-        ClassList_Fields.ListOfElements_Front = par_listF_Fr
+        ClassList_FieldsV3.ListOfElements_Backside = par_listFv3_Ba
+        ClassList_FieldsV3.ListOfElements_Front = par_listFv3_Fr
+
+        ''Added 5/16/2022 thomas d
+        ClassList_FieldsV4.ListOfElements_Backside = par_listFv4_Ba
+        ClassList_FieldsV4.ListOfElements_Front = par_listFv4_Fr
 
         ClassList_Graphics.ListOfElements_Backside = par_listG_Ba
         ClassList_Graphics.ListOfElements_Front = par_listG_Fr
@@ -127,7 +142,7 @@ Public MustInherit Class ClassListOfElements
         ''Added 1/19/2022 thomas downes
         ''
         Select Case par_enum
-            Case Enum_ElementType.Field : Return ClassList_Fields
+            Case Enum_ElementType.Field : Return ClassList_FieldsV3
             Case Enum_ElementType.Portrait : Return ClassList_Portraits
             Case Enum_ElementType.QRCode : Return ClassList_QRCodes
             Case Enum_ElementType.Signature : Return ClassList_Signatures
@@ -148,7 +163,7 @@ Public MustInherit Class ClassListOfElements
         ''
         ''Added 2/3/2022 thomas downes  
         ''
-        If (Not pref_bSuccess) Then ClassList_Fields.RemoveElement(par_infoBase, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_FieldsV3.RemoveElement(par_infoBase, pref_bSuccess)
         If (Not pref_bSuccess) Then ClassList_Graphics.RemoveElement(par_infoBase, pref_bSuccess)
         If (Not pref_bSuccess) Then ClassList_Portraits.RemoveElement(par_infoBase, pref_bSuccess)
         If (Not pref_bSuccess) Then ClassList_QRCodes.RemoveElement(par_infoBase, pref_bSuccess)
@@ -173,7 +188,7 @@ Public MustInherit Class ClassListOfElements
         ''
         ''Added 2/5/2022 thomas downes  
         ''
-        If (Not pref_bSuccess) Then ClassList_Fields.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
+        If (Not pref_bSuccess) Then ClassList_FieldsV3.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
         If (Not pref_bSuccess) Then ClassList_Graphics.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
         If (Not pref_bSuccess) Then ClassList_Portraits.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)
         If (Not pref_bSuccess) Then ClassList_QRCodes.SwitchElementToOtherSideOfCard(par_infoBaseToMatch, pref_bSuccess)

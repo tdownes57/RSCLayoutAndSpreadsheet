@@ -2200,6 +2200,9 @@ Public Class ClassDesigner
 
             With each_ctlStaticTextV3
 
+                .Visible = True ''Added 5/16/2022 td
+                .BringToFront() ''Added 5/16/2022v 
+
                 ''Added 12/18/2021 td
                 ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
 
@@ -2284,6 +2287,9 @@ Public Class ClassDesigner
 
             With each_ctlStaticTextV4
 
+                .Visible = True ''Added 5/16/2022 td
+                .BringToFront() ''Added 5/16/2022v 
+
                 ''Added 12/18/2021 td
                 ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
 
@@ -2355,6 +2361,9 @@ Public Class ClassDesigner
             mod_listOfDesignerControls.Add(each_ctlStaticGraphic)
 
             With each_ctlStaticGraphic
+
+                .Visible = True ''Added 5/16/2022 td
+                .BringToFront() ''Added 5/16/2022v 
 
                 ''Added 12/18/2021 td
                 ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
@@ -3203,8 +3212,8 @@ Public Class ClassDesigner
         local_ctlGraphicQRCode = Me.CtlGraphic_QRCode_1st() ''Added 5/15/2022
         ''5/15/2022 td'' If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then ''Added 1/24/2022 td
         If (local_ctlGraphicQRCode IsNot Nothing) Then ''Added 1/24/2022 td
-                obj_generator.ImageQRCode = local_ctlGraphicQRCode.pictureQRCode.Image ''Added 10/14 td
-            End If ''ENd of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+            obj_generator.ImageQRCode = local_ctlGraphicQRCode.pictureQRCode.Image ''Added 10/14 td
+        End If ''ENd of "If (CtlGraphic_QRCode IsNot Nothing) Then"
         ''5/15/2022 td'' End If ''End of "If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then"
 
         Try
@@ -3512,19 +3521,21 @@ Public Class ClassDesigner
             ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
             ''
             If (objMakeBadgeElements.RecipientPic Is Nothing) Then
-                ''Take the picture from the Element Control. ---1/5/2022 
-                objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait_1st().Pic_CloneOfInitialImage
+                ''Take the picture from the Element Control. ---1/5/2022
+                If (CtlGraphic_Portrait_1st() IsNot Nothing) Then
+                    objMakeBadgeElements.RecipientPic = CtlGraphic_Portrait_1st().Pic_CloneOfInitialImage
+                End If ''End of ""If (CtlGraphic_Portrait_1st() IsNot Nothing) Then""
             End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
 
             ''
             ''Major call !!
             ''
             obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
-                               objMakeBadgeElements, Me.ElementsCache_UseEdits,
-                               Me.PreviewBox.Width,
-                               Me.PreviewBox.Height,
-                               par_recipient,
-                               Nothing, Nothing, Nothing, par_recentlyMoved)
+                           objMakeBadgeElements, Me.ElementsCache_UseEdits,
+                           Me.PreviewBox.Width,
+                           Me.PreviewBox.Height,
+                           par_recipient,
+                           Nothing, Nothing, Nothing, par_recentlyMoved)
 
         End If ''End of "If (Function2021) Then ... ElseIf (Function2022) Then ..."
 

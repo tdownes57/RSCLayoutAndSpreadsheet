@@ -244,7 +244,7 @@ Public Class CtlGraphicQRCode
 
         ''Added 5/6/2022 td
         ''  This will be used by Operations__Base.Delete_Element_From_Badge_BA1019
-        Me.ElemIfApplicable_IQR = CType(par_elementQR, IElementQRCode)
+        Me.ElemIfApplicable_IQRCode = CType(par_elementQR, IElementQRCode)
 
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_iLayoutFunctions ''Added 9/4/2019 td

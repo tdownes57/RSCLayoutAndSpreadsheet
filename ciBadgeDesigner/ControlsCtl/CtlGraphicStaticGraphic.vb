@@ -255,6 +255,10 @@ Public Class CtlGraphicStaticGraphic
         ''Me.ElementInfo_Pic = CType(par_elementPic, IElementPic)
         Me.ElementInfo_Graphic = CType(par_elementGraphic, IElementGraphic)
 
+        ''Added 5/16/2022 td
+        ''  This will be used by Operations__Base.Delete_Element_From_Badge_BA1019
+        Me.ElemIfApplicable_IGraphic = CType(par_elementGraphic, IElementGraphic)
+
         ''9/20/2019 td''Me.FormDesigner = par_formLayout ''Added 9/4/2019 td
         Me.LayoutFunctions = par_iLayoutFunctions ''Added 9/4/2019 td
 

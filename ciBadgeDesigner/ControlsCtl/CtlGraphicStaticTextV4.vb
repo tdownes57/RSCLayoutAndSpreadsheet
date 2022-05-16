@@ -276,6 +276,10 @@ Public Class CtlGraphicStaticTextV4
         ''1/2/2022 td''Me.ElementInfo_Field = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
         Me.Element_StaticTextV4 = par_elementField ''Added 2/2/2022 thomas d. 
 
+        ''Added 5/16/2022 td
+        ''  This will be used by Operations__Base.Delete_Element_From_Badge_BA1019
+        Me.ElemIfApplicable_ITextOnly = CType(par_elementField, IElement_TextOnly)
+
         Try
             Me.ElementInfo_TextField = CType(par_elementField, IElement_TextField) ''Added 10/12/2019 td
             mod_intFieldTexts += 1

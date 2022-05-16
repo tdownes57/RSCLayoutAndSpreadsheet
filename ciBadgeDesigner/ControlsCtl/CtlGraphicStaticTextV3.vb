@@ -178,6 +178,7 @@ Public Class CtlGraphicStaticTextV3
         infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
         ''Added 1/19/2022 td
+        objOperationsST_V3.CtlCurrentForm = par_oParentForm ''Added 5/16/2022
         objOperationsST_V3.CtlCurrentElement = CtlStaticText1
         objOperationsST_V3.CtlCurrentElementStaticText = CtlStaticText1
         objOperationsST_V3.ElementInfo_Base = par_elementStaticText
@@ -268,6 +269,10 @@ Public Class CtlGraphicStaticTextV3
         Me.ElementInfo_Base = par_element
         Me.Element_StaticText = par_element
         Me.ElementClass_Obj = par_element ''Added 1/8/2022 td
+
+        ''Added 5/16/2022 td
+        ''  This will be used by Operations__Base.Delete_Element_From_Badge_BA1019
+        Me.ElemIfApplicable_ITextOnly = CType(par_element, IElement_TextOnly)
 
         ''Added 12/27/2021 thomas downes
         ''   This is making use of the Dependency Injection pattern.
