@@ -83,7 +83,14 @@ Public Class ClassDesigner
     Public Function CtlGraphic_Portrait_1st() As CtlGraphicPortrait
         ''5/15/2022 Public Property CtlGraphic_Portrait 
 
-    End Function ''End of ""Public Function CtlGraphic_Signat_1st()""
+        ''---Return Me.ElementsCache_UseEdits.ListOfElementPics_Front.FirstOrDefault
+        For Each each_ctl As RSCMoveableControlVB In mod_listOfDesignerControls
+            If (TypeOf each_ctl Is CtlGraphicPortrait) Then
+                Return CType(each_ctl, CtlGraphicPortrait)
+            End If ''End of ""If (TypeOf each_ctl Is ClassElementPortrait) Then""
+        Next each_ctl
+
+    End Function ''End of ""Public Function CtlGraphic_Portrait_1st()""
 
     Public Function CtlGraphic_Signat_1st() As CtlGraphicSignature
         ''5/15/2022 Public Property CtlGraphic_Signat_1st As CtlGraphicSignature ''Deprecated 5/15/2022 Added 10/10/2019 td
@@ -3306,13 +3313,14 @@ Public Class ClassDesigner
             ''
             ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
             ''
-            If (CtlGraphic_Portrait_1st() IsNot Nothing) Then
+            Dim objCtlPortrait As CtlGraphicPortrait
+            objCtlPortrait = CtlGraphic_Portrait_1st()
+            If (objCtlPortrait IsNot Nothing) Then
                 If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
                     ''Take the picture from the Element Control. ---1/5/2022 
-                    par_objMakeBadgeElements.RecipientPic =
-                        CtlGraphic_Portrait_1st().Pic_CloneOfInitialImage
-                End If ''End of "If (objMakeBadgeElements.ElementPic Is Nothing) Then"
-            End If ''End of "If (CtlGraphic_Portrait_1st() IsNot Nothing) Then"
+                    par_objMakeBadgeElements.RecipientPic = objCtlPortrait.Pic_CloneOfInitialImage
+                End If ''End of "If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then"
+            End If ''End of "If (objCtlPortrait IsNot Nothing) Then"
 
             ''
             ''Major call !!

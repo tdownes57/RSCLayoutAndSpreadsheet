@@ -414,6 +414,26 @@ namespace ciBadgeGenerator
                     //
                     // The badge, or this side of the badge, has not any Portrait (by design!).  ---1/14/2022
                     //
+                    // Let's check the list of portraits. ---5/16/2022 td
+                    //
+                    foreach (ClassElementPortrait each_elementPic
+                              in par_layoutElements.ListElementPortraits)
+                    {
+                        //Check to see if our Image reference is null.  ---5/16/2022
+                        if (img_Step3Picture == null)
+                        {
+                            System.Diagnostics.Debugger.Break();
+                        }
+
+                        // Major call. ---5/16/2022 td
+                        LoadImageWithPortrait_OrGraphic(img_Step3Picture,
+                                        par_newBadge_width_pixels,
+                                        par_layoutDims.Width_Pixels,
+                                        ref obj_imageOutput,
+                                        (IElement_Base)each_elementPic,
+                                        (IElementPic)each_elementPic);
+                    }
+
                 }
                 else if (img_Step3Picture != null)
                 {
