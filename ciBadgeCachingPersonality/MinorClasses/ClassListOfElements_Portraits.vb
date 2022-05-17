@@ -67,22 +67,26 @@ Public Class ClassListOfElements_Portraits
         ''
         ''Fields
         ''
+        ''Frontside 
         For Each each_element In ListOfElements_Front()
             each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
-                ListOfElements_Front.Remove(each_element)
-                pref_bSuccess = True ''Added 1/21/2022 td
+                ''5/16/2022  ListOfElements_Front.Remove(each_element)
+                ''5/16/2022  pref_bSuccess = True ''Added 1/21/2022 td
+                pref_bSuccess = ListOfElements_Front.Remove(each_element)
                 Exit Sub
             End If
         Next each_element
 
+        ''Backside 
         For Each each_element In ListOfElements_Backside()
             each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
-                ListOfElements_Backside.Remove(each_element)
-                pref_bSuccess = True ''Added 1/21/2022 td
+                ''5/16/2022 ListOfElements_Backside.Remove(each_element)
+                ''5/16/2022 pref_bSuccess = True ''Added 1/21/2022 td
+                pref_bSuccess = ListOfElements_Backside.Remove(each_element)
                 Exit Sub
             End If
         Next each_element

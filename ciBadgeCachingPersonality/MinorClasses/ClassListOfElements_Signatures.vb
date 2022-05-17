@@ -71,7 +71,8 @@ Public Class ClassListOfElements_Signatures
             each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
-                ListOfElements_Front.Remove(each_element)
+                ''5/16/2022 td''ListOfElements_Front.Remove(each_element)
+                pref_bSuccess = ListOfElements_Front.Remove(each_element)
                 Exit Sub
             End If
         Next each_element
@@ -80,7 +81,8 @@ Public Class ClassListOfElements_Signatures
             each_infoBase = CType(each_element, ciBadgeInterfaces.IElement_Base)
             boolMatch = (par_infoBase Is each_infoBase)
             If (boolMatch) Then
-                ListOfElements_Backside.Remove(each_element)
+                ''5/16/2022 td''ListOfElements_Backside.Remove(each_element)
+                pref_bSuccess = ListOfElements_Backside.Remove(each_element)
                 Exit Sub
             End If
         Next each_element
