@@ -133,6 +133,8 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsV = New System.Windows.Forms.Button()
         Me.ButtonAddElementsH = New System.Windows.Forms.Button()
         Me.ButtonManageRecipientsH = New System.Windows.Forms.Button()
+        Me.ButtonEditBackground = New System.Windows.Forms.Button()
+        Me.SelectOrUploadOrToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -352,7 +354,7 @@ Partial Class Form__Main_Demo
         '
         'BackgroundImagesToolStripMenuItem
         '
-        Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem})
+        Me.BackgroundImagesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.UploadNewToolStripMenuItem, Me.SelectFromExistingToolStripMenuItem, Me.SelectOrUploadOrToolStripMenuItem})
         Me.BackgroundImagesToolStripMenuItem.Name = "BackgroundImagesToolStripMenuItem"
         Me.BackgroundImagesToolStripMenuItem.Size = New System.Drawing.Size(124, 19)
         Me.BackgroundImagesToolStripMenuItem.Text = "Background Images"
@@ -1067,7 +1069,7 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
         Me.ButtonAddElementsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonAddElementsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonAddElementsH.Location = New System.Drawing.Point(36, 502)
+        Me.ButtonAddElementsH.Location = New System.Drawing.Point(35, 535)
         Me.ButtonAddElementsH.Name = "ButtonAddElementsH"
         Me.ButtonAddElementsH.Size = New System.Drawing.Size(582, 32)
         Me.ButtonAddElementsH.TabIndex = 93
@@ -1079,11 +1081,29 @@ Partial Class Form__Main_Demo
         Me.ButtonManageRecipientsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Manage_Recipients_H
         Me.ButtonManageRecipientsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonManageRecipientsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonManageRecipientsH.Location = New System.Drawing.Point(35, 540)
+        Me.ButtonManageRecipientsH.Location = New System.Drawing.Point(35, 568)
         Me.ButtonManageRecipientsH.Name = "ButtonManageRecipientsH"
         Me.ButtonManageRecipientsH.Size = New System.Drawing.Size(582, 32)
         Me.ButtonManageRecipientsH.TabIndex = 102
         Me.ButtonManageRecipientsH.UseVisualStyleBackColor = False
+        '
+        'ButtonEditBackground
+        '
+        Me.ButtonEditBackground.BackColor = System.Drawing.Color.MediumAquamarine
+        Me.ButtonEditBackground.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Background_Image_H
+        Me.ButtonEditBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.ButtonEditBackground.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonEditBackground.Location = New System.Drawing.Point(35, 502)
+        Me.ButtonEditBackground.Name = "ButtonEditBackground"
+        Me.ButtonEditBackground.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonEditBackground.TabIndex = 103
+        Me.ButtonEditBackground.UseVisualStyleBackColor = False
+        '
+        'SelectOrUploadOrToolStripMenuItem
+        '
+        Me.SelectOrUploadOrToolStripMenuItem.Name = "SelectOrUploadOrToolStripMenuItem"
+        Me.SelectOrUploadOrToolStripMenuItem.Size = New System.Drawing.Size(271, 22)
+        Me.SelectOrUploadOrToolStripMenuItem.Text = "Select or Upload or Edit...."
         '
         'Form__Main_Demo
         '
@@ -1091,6 +1111,7 @@ Partial Class Form__Main_Demo
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.ButtonEditBackground)
         Me.Controls.Add(Me.ButtonManageRecipientsH)
         Me.Controls.Add(Me.ButtonRecipients)
         Me.Controls.Add(Me.ButtonAddElementsH)
@@ -1275,4 +1296,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents BothStandardCustomToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ButtonRecipients As Button
     Friend WithEvents ButtonManageRecipientsH As Button
+    Friend WithEvents ButtonEditBackground As Button
+    Friend WithEvents SelectOrUploadOrToolStripMenuItem As ToolStripMenuItem
 End Class

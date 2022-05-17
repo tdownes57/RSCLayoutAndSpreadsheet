@@ -1,4 +1,6 @@
-﻿''
+﻿Option Explicit On ''5/17/2022 thomas downes
+Option Strict On ''5/17/2022 thomas downes
+''
 ''Added 11/25/2021 thomas downes
 ''
 Imports ciLayoutPrintLib ''added 11/25 
@@ -10,6 +12,44 @@ Public Class FormListBackgrounds
     Public ImageFileInfo As System.IO.FileInfo
 
     Public TemporarySelectedFileInfo As System.IO.FileInfo
+
+
+    Public Shared Function HasOneOrMoreBackgrounds() As Boolean
+        ''
+        ''5/17/2022 thomas downes
+        ''
+        Dim strPathToFolderWithBackgrounds As String = ""
+        Dim objFolderInfo As IO.DirectoryInfo
+        Dim each_fileInfo As IO.FileInfo
+        Dim bOneOrMoreImagesExist As Boolean
+        Dim bJpegFilesExist As Boolean ''Aded 5/17/2022
+        Dim bPngFilesExist As Boolean ''Aded 5/17/2022
+
+        strPathToFolderWithBackgrounds = DiskFolders.PathToFolder_BackgroundImages
+        objFolderInfo = New IO.DirectoryInfo(strPathToFolderWithBackgrounds)
+
+        ''Look for any Jpeg-format image files which exist. 
+        For Each each_fileInfo In objFolderInfo.GetFiles("*.jpg", IO.SearchOption.TopDirectoryOnly)
+            bJpegFilesExist = True
+            If (bJpegFilesExist) Then
+                bOneOrMoreImagesExist = True
+                Exit For
+            End If ''End of ""If (bJpegFilesExist) Then""
+        Next each_fileInfo
+
+        ''Look for any PNG-format image files which exist. 
+        For Each each_fileInfo In objFolderInfo.GetFiles("*.png", IO.SearchOption.TopDirectoryOnly)
+            bPngFilesExist = True
+            If (bPngFilesExist) Then
+                bOneOrMoreImagesExist = True
+                Exit For
+            End If ''End of ""If (bPngFilesExist) Then""
+        Next each_fileInfo
+
+        Return bOneOrMoreImagesExist
+
+    End Function ''End of ""Public Shared Function HasOneOrMoreBackgrounds() As Boolean""
+
 
     ''
     ''Added 11/25/2021 thomas downes
@@ -111,7 +151,7 @@ Public Class FormListBackgrounds
         BackImageExamples.CurrentIndex += 1
 
         If (pboolExampleDemoImages) Then
-            strFolderPath = DiskFolders.PathToFolder_BackExampleDemos
+            strFolderPath = DiskFolders.PathToFolder_BackgroundExampleDemos
         Else
             ''Added 5/13/2022 thomas downes
             strFolderPath = DiskFolders.PathToFolder_BackgroundImages

@@ -4386,7 +4386,9 @@ Public Class ClassDesigner
     Public Sub BackgroundImage_Select()
 
         ''Added 5/12/2022 td
-        Me.DesignerForm_Interface.BackgroundImage_Select()
+        ''5/17/2022 td''Me.DesignerForm_Interface.BackgroundImage_Select()
+        Me.DesignerForm_Interface.BackgroundImage_Select(False)
+
 
     End Sub ''End of ""Public Sub BackgroundImage_Select()""
 

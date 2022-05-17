@@ -16,7 +16,7 @@ Public Class DiskFilesVB
         ''Return My.Application.Info.DirectoryPath & "\Images\Signatures\Declaration_bmp.bmp"
         ''Return System.IO.Path.Combine(DiskFolders.PathToFolder_BackExamples(), "Declaration_bmp.bmp")
 
-        Dim objFolderInfo As New DirectoryInfo(DiskFolders.PathToFolder_BackExampleDemos())
+        Dim objFolderInfo As New DirectoryInfo(DiskFolders.PathToFolder_BackgroundExampleDemos())
         Dim objFileInfo As FileInfo
         objFileInfo = objFolderInfo.GetFiles().FirstOrDefault
         pstrFileTitle = objFileInfo.Name ''Save the file title, i.e. the file's name (without the path preceding it).

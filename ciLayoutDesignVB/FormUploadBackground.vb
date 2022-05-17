@@ -77,7 +77,8 @@
         Dim strFileExtension As String
 
         ''---strDestFilePath = modFileFolders.ImageBackgroundFolder
-        strDestFolderPath = DiskFolders.PathToFolder_BackExampleDemos
+        ''5/17/2022 td''strDestFolderPath = DiskFolders.PathToFolder_BackExampleDemos
+        strDestFolderPath = DiskFolders.PathToFolder_BackgroundImages
 
         ''Added 12/10/2021 td
         strFileTitle_Original = Me.ImageFileInfo.Name

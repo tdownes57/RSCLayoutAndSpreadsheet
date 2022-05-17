@@ -62,9 +62,9 @@ Partial Class FormSelectOrUpload
         Me.LabelAddingElementsHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelAddingElementsHdr.Location = New System.Drawing.Point(12, 25)
         Me.LabelAddingElementsHdr.Name = "LabelAddingElementsHdr"
-        Me.LabelAddingElementsHdr.Size = New System.Drawing.Size(207, 20)
+        Me.LabelAddingElementsHdr.Size = New System.Drawing.Size(218, 20)
         Me.LabelAddingElementsHdr.TabIndex = 10
-        Me.LabelAddingElementsHdr.Text = "Adding Elements to ID Card"
+        Me.LabelAddingElementsHdr.Text = "Managing Background Image"
         '
         'LabelFooter1
         '
@@ -83,9 +83,9 @@ Partial Class FormSelectOrUpload
         Me.LabelFooter2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelFooter2.Location = New System.Drawing.Point(2, 212)
         Me.LabelFooter2.Name = "LabelFooter2"
-        Me.LabelFooter2.Size = New System.Drawing.Size(467, 17)
+        Me.LabelFooter2.Size = New System.Drawing.Size(470, 17)
         Me.LabelFooter2.TabIndex = 11
-        Me.LabelFooter2.Text = "** This is available if you have up already loaded two (2) or more images."
+        Me.LabelFooter2.Text = "** This is available if you have up already loaded one (1) or more images."
         '
         'ButtonCancel
         '
@@ -101,7 +101,6 @@ Partial Class FormSelectOrUpload
         '
         Me.ButtonSelectDemos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonSelectDemos.Enabled = False
         Me.ButtonSelectDemos.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonSelectDemos.Location = New System.Drawing.Point(32, 246)
         Me.ButtonSelectDemos.Name = "ButtonSelectDemos"

@@ -7,14 +7,12 @@ Thank you for helping us to test our software.
 
 Major known issues with RSC ID Card:
 
-    1. Not all types of Elements are ready to be added to the ID Card, e.g. QR Codes & Signatures.
-   
-    2. Portraits are not functional. We do not yet have a fully-developed system for
+    1. Portraits are not functional. We do not yet have a fully-developed system for
      uploading photos of Card-Recipients (students, members, staff). 
 
-    3. The spreadsheet for managing Recipient data has not exhaustively tested. 
+    2. The spreadsheet for managing Recipient data has not exhaustively tested. 
 
-    4. Conditional Expressions has not been released, or if so, is not ready for use. 
+    3. Conditional Expressions has not been released, or if so, is not ready for use. 
    Conditional Expressions will allow you to specify whether or not a graphic or text-label
    will appear for each ID Card in a batch (grouped set) of Cards. 
    (Stated differently, Conditional Expressions will allow Elements to appear for a subset 

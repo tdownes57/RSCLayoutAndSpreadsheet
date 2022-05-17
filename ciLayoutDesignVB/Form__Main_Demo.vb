@@ -859,21 +859,30 @@ Public Class Form__Main_Demo
             strPathToFileJpg = strPathToXML.Replace(".xml", ".jpg")
             ''Create an image file (in JPEG form). ---1/5/2022 td 
             With ElementsCache_ManageBoth
-                If (Me.picturePreview.Image IsNot Nothing) Then
+                If (Me.picturePreview.Image Is Nothing) Then
+                    ''Added 5/17/2022 
+                    System.Diagnostics.Debugger.Break()
+                Else
                     .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg)
-                End If ''End of ""If (Me.picturePreview.Image IsNot Nothing) Then""
+                End If ''End of ""If (Me.picturePreview.Image IsNot Nothing) Then ... Else...""
             End With ''End of " With ElementsCache_ManageBoth"
 
             Dim bCurrentsideIsFront As Boolean ''Added 2/1/2022 td
             bCurrentsideIsFront = (mod_designer.EnumSideOfCard_Current =
                                 EnumWhichSideOfCard.EnumFrontside) ''Added 2/1/2022 td
+
             ''Added 2/1/2022 td
             If (bCurrentsideIsFront) Then
                 Dim strPathToFileJpg_Front As String = ""
                 strPathToFileJpg_Front = strPathToXML.Replace(".xml", "_Front.jpg")
                 ''Create an image file (in JPEG form). ---1/5/2022 td 
                 With ElementsCache_ManageBoth
-                    .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg_Front)
+                    If (Me.picturePreview.Image Is Nothing) Then
+                        ''Added 5/17/2022 
+                        System.Diagnostics.Debugger.Break()
+                    Else
+                        .CreateBadgeLayoutImageFile(Me.picturePreview.Image, strPathToFileJpg_Front)
+                    End If ''End of ""If (Me.picturePreview.Image IsNot Nothing) Then""
                 End With ''End of " With ElementsCache_ManageBoth"
 
             ElseIf (Me.picturePreview.Image IsNot Nothing) Then ''Added condition 5/14/2022 
@@ -2868,7 +2877,8 @@ ExitHandler:
         ''
         ''Added 11/25/2021 td
         ''
-        BackgroundImage_Select()
+        ''5/17/2022 td''BackgroundImage_Select()
+        BackgroundImage_Select(False)
 
     End Sub
 
@@ -2880,43 +2890,65 @@ ExitHandler:
         Dim objShow1 As New FormSelectOrUpload
         objShow1.ShowDialog()
 
-        Dim boolLetsSelect As Boolean
-        Dim boolLetsUpload As Boolean
-        Dim boolLetsPickDemoImages As Boolean
+        Dim boolStep1_LetsUpload As Boolean
+        Dim boolStep2_LetsSelect As Boolean
+        Dim boolStep3_LetsPickDemoImages As Boolean
+        Dim strNewPathToJpeg As String ''Added 5/17/2022 
 
-        boolLetsUpload = objShow1.UserWantsToUpload
-        boolLetsSelect = objShow1.UserWantsToSelect
-        boolLetsPickDemoImages = objShow1.UserWantsToSeeDemos
+        boolStep1_LetsUpload = objShow1.UserWantsToUpload
+        boolStep2_LetsSelect = objShow1.UserWantsToSelect
+        boolStep3_LetsPickDemoImages = objShow1.UserWantsToSeeDemos
 
         Select Case True
-            Case boolLetsPickDemoImages
 
-                Dim objShow2a As New FormListBackgrounds
-                objShow2a.DemoMode = boolLetsPickDemoImages
-                objShow2a.ShowDialog()
+            Case boolStep1_LetsUpload ''5/17/2022  boolLetsPickDemoImages
 
-            Case boolLetsSelect
+                ''Dim objShow2c As New FormUploadBackground
+                ''objShow2c.ShowDialog()
+                ''''Add 5/17/2022 td  
+                ''If (objShow2c.DialogResult = DialogResult.OK) Then
+                ''    strNewPathToJpeg = objShow2c.ImageFilePath
+                ''End If ''End of ""If (objShow2a.DialogResult = ...) Then"
 
-                Dim objShow2b As New FormListBackgrounds
-                objShow2b.DemoMode = False ''False for DemoMode, so use RegularMode.
-                objShow2b.ShowDialog()
+                BackgroundImage_Upload()
 
-            Case boolLetsPickDemoImages
+            Case boolStep2_LetsSelect ''This is NOT the demo mode.  Only uploaded images are shown. 
 
-                Dim objShow2c As New FormUploadBackground
-                objShow2c.ShowDialog()
+                ''Dim objShow2b As New FormListBackgrounds
+                ''objShow2b.DemoMode = False ''False for DemoMode, so use RegularMode.
+                ''objShow2b.ShowDialog()
+                ''''Add 5/17/2022 td  
+                ''If (objShow2b.DialogResult = DialogResult.OK) Then
+                ''    strNewPathToJpeg = objShow2b.ImageFilePath
+                ''End If ''End of ""If (objShow2a.DialogResult = ...) Then"
+
+                BackgroundImage_Select(False)
+
+            Case boolStep3_LetsPickDemoImages
+
+                ''Dim objShow2a As New FormListBackgrounds
+                ''objShow2a.DemoMode = boolLetsPickDemoImages
+                ''objShow2a.ShowDialog()
+                ''''Add 5/17/2022 td  
+                ''If (objShow2a.DialogResult = DialogResult.OK) Then
+                ''    strNewPathToJpeg = objShow2a.ImageFilePath
+                ''End If ''End of ""If (objShow2a.DialogResult = ...) Then"
+
+                BackgroundImage_Select(boolStep3_LetsPickDemoImages)
 
         End Select ''End of ""Select Case True""
 
     End Sub
 
 
-    Public Sub BackgroundImage_Select() Implements IDesignerForm.BackgroundImage_Select
+    Public Sub BackgroundImage_Select(pboolDemoMode As Boolean) Implements IDesignerForm.BackgroundImage_Select
         ''
         ''Encapsulated 5/12/2022 td
         ''Program code written 11/25/2021 td
         ''
         Dim objShow As New FormListBackgrounds
+
+        objShow.DemoMode = pboolDemoMode ''Added 5/17/2022 td
         objShow.ShowDialog()
 
         Dim strPathToFilename As String
@@ -3756,6 +3788,22 @@ ExitHandler:
         ''March21 2022 ''frm_ToShow.Show()
         Me.UserEditedRecipients = True
         frm_ToShow.ShowDialog()
+
+    End Sub
+
+    Private Sub SelectOrUploadOrToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectOrUploadOrToolStripMenuItem.Click
+        ''
+        ''Added 5/17/2022 td
+        ''
+        BackgroundImage_SelectOrUpload()
+
+    End Sub
+
+    Private Sub ButtonEditBackground_Click(sender As Object, e As EventArgs) Handles ButtonEditBackground.Click
+        ''
+        ''Added 5/17/2022 td
+        ''
+        BackgroundImage_SelectOrUpload()
 
     End Sub
 

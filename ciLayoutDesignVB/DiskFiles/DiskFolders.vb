@@ -31,14 +31,15 @@ Public Class DiskFolders
     End Function ''Endo f "Public Shared Function PathToFile_Preview() As String"
 
 
-    Public Shared Function PathToFolder_BackExampleDemos() As String
+    Public Shared Function PathToFolder_BackgroundExampleDemos() As String
         ''
         ''Added 10/12/2019 Thomas Downes    
         ''
         ''5/13/2022 td''Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
-        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExampleDemos")
+        ''5/17/2022 td''Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExampleDemos")
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundExampleDemos")
 
-    End Function ''End of "Public Shared Function PathToFolder_BackExampleDemos() As String"
+    End Function ''End of "Public Shared Function PathToFolder_BackgroundExampleDemos() As String"
 
 
     Public Shared Function PathToFolder_BackgroundImages() As String
@@ -47,7 +48,8 @@ Public Class DiskFolders
         ''
         ''#1 5/13/2022 Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
         ''#2 5/13/2022 Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExampleDemos")
-        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImages")
+        ''5/17/2022 td'' Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImages")
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImagesUploaded")
 
     End Function ''End of "Public Shared Function PathToFolder_BackgroundImages() As String"
 
