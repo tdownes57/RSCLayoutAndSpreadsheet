@@ -20,6 +20,7 @@ Imports ciBadgeFields ''Added 5/12/2022 td
 ''  -----5/4/2022 td
 ''
 Public Class FormTypeOfElementsToAdd
+    ''5/16/2022 td ''Implements ILayoutFunctions ''Added 5/16/2022 td 
     ''
     ''Added 5/3/2022 thomas d. 
     ''
@@ -71,7 +72,34 @@ Public Class FormTypeOfElementsToAdd
         ''RscSelectCIBField4.Load_FieldsFromCache(par_cache)
         ''RscSelectCIBField5.Load_FieldsFromCache(par_cache)
 
-    End Sub
+    End Sub ''End of New(ClassElementsCache_Deprecated, List(Of ClassFieldAny)) 
+
+
+    Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer ''5/16/2022 Implements ILayoutFunctions.Layout_Margin_Left_Omit
+        ''Added 9/5/2019 thomas downes
+
+        ''Added 9/05/2019 td 
+        Return (par_intPixelsLeft - pictureBackground.Left)
+
+    End Function ''End of "Public Function Layout_Margin_Left_Omit() As Integer"
+
+    Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer ''5/16/2022 Implements ILayoutFunctions.Layout_Margin_Left_Add
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsLeft + pictureBackground.Left)
+
+    End Function ''End of "Public Function Layout_Margin_Left_Add() As Integer"
+
+    Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer ''5/16/2022 Implements ILayoutFunctions.Layout_Margin_Top_Omit
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsTop - pictureBackground.Top)
+
+    End Function ''End of "Public Function Layout_Margin_Top_Omit() As Integer"
+
+    Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer ''5/16/2022 Implements ILayoutFunctions.Layout_Margin_Top_Add
+        ''Added 9/5/2019 thomas downes
+        Return (par_intPixelsTop + pictureBackground.Top)
+
+    End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
 
     Public Function GetRectangle_Field1(psingleFactorWidth As Single,
@@ -138,13 +166,43 @@ Public Class FormTypeOfElementsToAdd
         Dim objRectOfControl As Rectangle
 
         ''---objRectOfControl = GetRectangleOf(RscSelectCIBField1)
-        objRectOfControl = GetRectangleOf(par_controlField)
+        Const c_bLetsDoLayoutAdjustmentLocally As Boolean = True ''Added 5/16/2022 
+        If (c_bLetsDoLayoutAdjustmentLocally) Then ''Added 5/16/2022
+            ''
+            ''Let's first call the function GetRectangleOf_NoLayoutAdjustment(...)
+            ''  and then (after calling the aforementioned function) call the functions
+            ''     Layout_Margin_Left_Omit(...)
+            ''     Layout_Margin_Top_Omit(...)
+            ''----5/16/2022 thomas d.
+            ''
+            objRectOfControl = GetRectangleOf_NoLayoutAdjustment(par_controlField)
+            With objRectOfControl
+                ''5/16/2022 td''intPixelsLeftX = .Left
+                ''5/16/2022 td''intPixelsTopY = .Top
+                intPixelsLeftX = Layout_Margin_Left_Omit(.Left)
+                intPixelsTopY = Layout_Margin_Top_Omit(.Top)
+            End With
+
+        Else
+            ''
+            ''Let's rely on the function GetRectangleOf_wLayoutAdjustment(...)
+            ''  to call the functions
+            ''     Layout_Margin_Left_Omit(...)
+            ''     Layout_Margin_Top_Omit(...)
+            ''----5/16/2022 thomas d.
+            ''
+            objRectOfControl = GetRectangleOf_wLayoutAdjustment(par_controlField)
+            With objRectOfControl
+                intPixelsLeftX = .Left
+                intPixelsTopY = .Top
+            End With
+
+        End If ''End of ""If (c_bLetsDoLayoutAdjustmentLocally) Then... Else ..."
+
 
         With objRectOfControl
-            intPixelsLeftX = .Left
-            intPixelsTopY = .Top
-            intPixelsWidth = .Width * psingleFactorWidth
-            intPixelsHeight = .Height * psingleFactorHeight
+                intPixelsWidth = .Width * psingleFactorWidth
+                intPixelsHeight = .Height * psingleFactorHeight
         End With
 
         ''---Return New Rectangle(New Point(intPixelsTop, intPixelsLeft),
@@ -159,7 +217,9 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/6/2022
         ''
         ''---Return CtlGraphicPortrait1.RectangleToClient()
-        Return GetRectangleOf(CtlGraphicPortrait1)
+        ''#1 5/16/2022 td''Return GetRectangleOf(CtlGraphicPortrait1)
+        ''#2 5/16/2022 td''Return GetRectangleOf_NoLayoutAdjustment(CtlGraphicPortrait1)
+        Return GetRectangleOf_wLayoutAdjustment(CtlGraphicPortrait1)
 
     End Function
 
@@ -169,7 +229,9 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/6/2022
         ''
         ''---Return CtlGraphicPortrait1.RectangleToClient()
-        Return GetRectangleOf(CtlGraphicQRCode1)
+        ''#1 5/16/2022 Return GetRectangleOf(CtlGraphicQRCode1)
+        ''#2 5/16/2022 Return GetRectangleOf_NoLayoutAdjustment(CtlGraphicQRCode1)
+        Return GetRectangleOf_wLayoutAdjustment(CtlGraphicQRCode1)
 
     End Function
 
@@ -179,8 +241,9 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/6/2022
         ''
         ''---Return CtlGraphicPortrait1.RectangleToClient()
-        Return GetRectangleOf(CtlGraphicSignature1)
-
+        ''#1 5/16/2022 Return GetRectangleOf(CtlGraphicSignature1)
+        ''#2 5/16/2022 Return GetRectangleOf_NoLayoutAdjustment(CtlGraphicSignature1)
+        Return GetRectangleOf_wLayoutAdjustment(CtlGraphicSignature1)
 
     End Function
 
@@ -190,8 +253,9 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/6/2022
         ''
         ''---Return CtlGraphicPortrait1.RectangleToClient()
-        Return GetRectangleOf(CtlGraphicStaticGraphic1)
-
+        ''#1 5/16/2022 Return GetRectangleOf(CtlGraphicStaticGraphic1)
+        ''#2 5/16/2022 Return GetRectangleOf_NoLayoutAdjustment(CtlGraphicStaticGraphic1)
+        Return GetRectangleOf_wLayoutAdjustment(CtlGraphicStaticGraphic1)
 
     End Function
 
@@ -201,21 +265,29 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/6/2022
         ''
         ''---Return CtlGraphicPortrait1.RectangleToClient()
-        Return GetRectangleOf(CtlGraphicStaticText1)
+        ''#1 5/16/2022 Return GetRectangleOf_NoLayoutAdjustment(CtlGraphicStaticText1)
+        ''#2 5/16/2022 Return GetRectangleOf_NoLayoutAdjustment(CtlGraphicStaticText1)
+        Return GetRectangleOf_wLayoutAdjustment(CtlGraphicStaticText1)
 
     End Function
 
-    Private Function GetRectangleOf(par_control As UserControl) As Rectangle
+
+    Private Function GetRectangleOf_wLayoutAdjustment(par_control As UserControl) As Rectangle
+        ''Private Function GetRectangleOf
         ''
-        ''Added 5/6/2022 thomas downes  
+        ''Added 5/16/2022 thomas downes  
         ''
         Dim new_rect As Drawing.Rectangle
         Dim new_size As New Drawing.Size ''Rectangle
         Dim new_location As New Drawing.Point ''Rectangle
         ''With new_rect
 
-        new_location.Y = -1 * pictureBackgroundFront.Top + par_control.Top
-        new_location.X = -1 * pictureBackgroundFront.Left + par_control.Left
+        ''5/16/2022 new_location.X = -1 * pictureBackground.Left + par_control.Left
+        ''5/16/2022 new_location.Y = -1 * pictureBackground.Top + par_control.Top
+
+        new_location.X = Layout_Margin_Left_Omit(par_control.Left)
+        new_location.Y = Layout_Margin_Top_Omit(par_control.Top)
+
         new_size.Width = par_control.Width
         new_size.Height = par_control.Height
 
@@ -225,7 +297,35 @@ Public Class FormTypeOfElementsToAdd
 
         Return new_rect
 
-    End Function ''End of ""Private Function GetRectangleOf""
+    End Function ''End of ""Private Function GetRectangleOf_NoLayoutAdjustment""
+
+
+    Private Function GetRectangleOf_NoLayoutAdjustment(par_control As UserControl) As Rectangle
+        ''Private Function GetRectangleOf
+        ''
+        ''Added 5/6/2022 thomas downes  
+        ''
+        Dim new_rect As Drawing.Rectangle
+        Dim new_size As New Drawing.Size ''Rectangle
+        Dim new_location As New Drawing.Point ''Rectangle
+        ''With new_rect
+
+        ''5/16/2022 new_location.X = -1 * pictureBackground.Left + par_control.Left
+        ''5/16/2022 new_location.Y = -1 * pictureBackground.Top + par_control.Top
+
+        new_location.X = par_control.Left
+        new_location.Y = par_control.Top
+
+        new_size.Width = par_control.Width
+        new_size.Height = par_control.Height
+
+        new_rect = New Drawing.Rectangle(new_location, new_size)
+
+        ''End With
+
+        Return new_rect
+
+    End Function ''End of ""Private Function GetRectangleOf_NoLayoutAdjustment""
 
 
     Private Sub ToggleBorder(par_control As UserControl, par_panel As Panel) ''---As RSCMoveableControlVB) ''As Control)

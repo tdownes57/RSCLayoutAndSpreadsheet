@@ -1912,8 +1912,13 @@ Public Class ClassDesigner
             ''9/17/2019 td''.Width = ClassElementPic.ElementPicture.Width_Pixels
             ''9/17/2019 td''.Height = ClassElementPic.ElementPicture.Height_Pixels
 
-            .Top = par_elementPic.TopEdge_Pixels
-            .Left = par_elementPic.LeftEdge_Pixels
+            ''5/16/2022 td'' .Top = par_elementPic.TopEdge_Pixels
+            ''5/16/2022 td'' .Left = par_elementPic.LeftEdge_Pixels
+
+            ''Added 5/16/2022 td
+            .Top = Me.Layout_Margin_Top_Add(par_elementPic.TopEdge_Pixels)
+            .Left = Me.Layout_Margin_Left_Add(par_elementPic.LeftEdge_Pixels)
+
             .Width = par_elementPic.Width_Pixels
             .Height = par_elementPic.Height_Pixels
 
@@ -2038,6 +2043,7 @@ Public Class ClassDesigner
                 ''Dec.8 2021''.Top = elementQRCode.TopEdge_Pixels
                 .Left = Me.Layout_Margin_Left_Add(par_elementQR.LeftEdge_Pixels)
                 .Top = Me.Layout_Margin_Top_Add(par_elementQR.TopEdge_Pixels)
+
                 .Width = par_elementQR.Width_Pixels
                 .Height = par_elementQR.Height_Pixels
 
@@ -2121,8 +2127,13 @@ Public Class ClassDesigner
 
         With local_ctlGraphic_Signat ''5/15/2022 CtlGraphic_Signat
 
-            .Top = par_elementSig.TopEdge_Pixels
-            .Left = par_elementSig.LeftEdge_Pixels
+            ''5/16/2022 .Top = par_elementSig.TopEdge_Pixels
+            ''5/16/2022 .Left = par_elementSig.LeftEdge_Pixels
+
+            ''Added 5/16/2022 td
+            .Top = Me.Layout_Margin_Top_Add(par_elementSig.TopEdge_Pixels)
+            .Left = Me.Layout_Margin_Left_Add(par_elementSig.LeftEdge_Pixels)
+
             .Width = par_elementSig.Width_Pixels
             .Height = par_elementSig.Height_Pixels
 
@@ -2206,8 +2217,13 @@ Public Class ClassDesigner
                 ''Added 12/18/2021 td
                 ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
 
-                .Top = each_element_staticV3.TopEdge_Pixels
-                .Left = each_element_staticV3.LeftEdge_Pixels
+                ''5/2022  ''.Top = each_element_staticV3.TopEdge_Pixels
+                ''5/2022  ''.Left = each_element_staticV3.LeftEdge_Pixels
+
+                ''5/16/2022 td 
+                .Top = Me.Layout_Margin_Top_Add(each_element_staticV3.TopEdge_Pixels)
+                .Left = Me.Layout_Margin_Left_Add(each_element_staticV3.LeftEdge_Pixels)
+
                 .Width = each_element_staticV3.Width_Pixels
                 .Height = each_element_staticV3.Height_Pixels
 
@@ -2293,8 +2309,13 @@ Public Class ClassDesigner
                 ''Added 12/18/2021 td
                 ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
 
-                .Top = each_element_staticV4.TopEdge_Pixels
-                .Left = each_element_staticV4.LeftEdge_Pixels
+                ''5/16/2022  .Top = each_element_staticV4.TopEdge_Pixels
+                ''5/16/2022  .Left = each_element_staticV4.LeftEdge_Pixels
+
+                ''5/16/2022 td 
+                .Top = Me.Layout_Margin_Top_Add(each_element_staticV4.TopEdge_Pixels)
+                .Left = Me.Layout_Margin_Left_Add(each_element_staticV4.LeftEdge_Pixels)
+
                 .Width = each_element_staticV4.Width_Pixels
                 .Height = each_element_staticV4.Height_Pixels
 
@@ -2368,8 +2389,13 @@ Public Class ClassDesigner
                 ''Added 12/18/2021 td
                 ''Not needed here. Jan8 2022''.LayoutFunctions = CType(Me, ILayoutFunctions)
 
-                .Top = each_element_static.TopEdge_Pixels
-                .Left = each_element_static.LeftEdge_Pixels
+                ''5/16/2022 td .Top = each_element_static.TopEdge_Pixels
+                ''5/16/2022 td .Left = each_element_static.LeftEdge_Pixels
+
+                ''5/16/2022 td 
+                .Left = Me.Layout_Margin_Left_Add(each_element_static.LeftEdge_Pixels)
+                .Top = Me.Layout_Margin_Top_Add(each_element_static.TopEdge_Pixels)
+
                 .Width = each_element_static.Width_Pixels
                 .Height = each_element_static.Height_Pixels
 

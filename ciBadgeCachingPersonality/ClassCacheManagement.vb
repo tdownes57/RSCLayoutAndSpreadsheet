@@ -1052,9 +1052,19 @@ ExitHandler:
             ''
             Dim objClassLists As ClassListOfElements
             ''Dim boolSuccess As Boolean ''Addded 1/21/2022 td
+            Dim bUseOlderVersionOfField As Boolean ''Added 5/16/2022 
 
             ClassListOfElements.Initialize_IfNeeded(Me.CacheForEditing)
-            objClassLists = ClassListOfElements.GetListOfElements(par_enum)
+            ''5/16/2022 td''objClassLists = ClassListOfElements.GetListOfElements(par_enum)
+
+            ''Use Older Version (e.g. V3 (e.g. ClassList_FieldsV3)) 
+            bUseOlderVersionOfField = True ''Added 5/16/2022
+            objClassLists = ClassListOfElements.GetListOfElements(par_enum, bUseOlderVersionOfField)
+            objClassLists.RemoveElement(par_infoBase, pref_boolSuccess)
+
+            ''Use newer, less-old Version (e.g. V4 (e.g. ClassList_FieldsV4)) 
+            bUseOlderVersionOfField = False ''Added 5/16/2022
+            objClassLists = ClassListOfElements.GetListOfElements(par_enum, bUseOlderVersionOfField)
             objClassLists.RemoveElement(par_infoBase, pref_boolSuccess)
 
             ''

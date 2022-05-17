@@ -23,7 +23,7 @@ Partial Class FormTypeOfElementsToAdd
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.pictureBackgroundFront = New System.Windows.Forms.PictureBox()
+        Me.pictureBackground = New System.Windows.Forms.PictureBox()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.LabelMainHeader1 = New System.Windows.Forms.Label()
@@ -53,19 +53,19 @@ Partial Class FormTypeOfElementsToAdd
         Me.panelField3 = New System.Windows.Forms.Panel()
         Me.panelField4 = New System.Windows.Forms.Panel()
         Me.panelField5 = New System.Windows.Forms.Panel()
-        CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureBackground, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'pictureBackgroundFront
+        'pictureBackground
         '
-        Me.pictureBackgroundFront.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.pictureBackgroundFront.BackColor = System.Drawing.Color.White
-        Me.pictureBackgroundFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBackgroundFront.Location = New System.Drawing.Point(20, 146)
-        Me.pictureBackgroundFront.Name = "pictureBackgroundFront"
-        Me.pictureBackgroundFront.Size = New System.Drawing.Size(603, 380)
-        Me.pictureBackgroundFront.TabIndex = 75
-        Me.pictureBackgroundFront.TabStop = False
+        Me.pictureBackground.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.pictureBackground.BackColor = System.Drawing.Color.White
+        Me.pictureBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pictureBackground.Location = New System.Drawing.Point(20, 146)
+        Me.pictureBackground.Name = "pictureBackground"
+        Me.pictureBackground.Size = New System.Drawing.Size(603, 380)
+        Me.pictureBackground.TabIndex = 75
+        Me.pictureBackground.TabStop = False
         '
         'ButtonCancel
         '
@@ -411,19 +411,19 @@ Partial Class FormTypeOfElementsToAdd
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelFooter1)
-        Me.Controls.Add(Me.pictureBackgroundFront)
+        Me.Controls.Add(Me.pictureBackground)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormTypeOfElementsToAdd"
         Me.Text = "FormTypeOfElementsToAdd"
-        CType(Me.pictureBackgroundFront, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureBackground, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents pictureBackgroundFront As PictureBox
+    Friend WithEvents pictureBackground As PictureBox
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents LabelMainHeader1 As Label

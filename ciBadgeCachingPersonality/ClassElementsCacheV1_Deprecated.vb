@@ -2128,8 +2128,10 @@ Namespace ciBadgeCachePersonality
             ''''Jan19 2022''If bMissingBackAndFront Then ''Added 12/17/2021 td 
             ''If bProceedWithMakingNew Then ''Added 12/17/2021 td 
 
-            intLeft = (par_intLeft - par_pictureBackground.Left)
-            intTop = (par_intTop - par_pictureBackground.Top)
+            ''Layout adjustment is probably not needed here.5/16/2022 ''intLeft = (par_intLeft - par_pictureBackground.Left)
+            ''Layout adjustment is probably not needed here.5/16/2022 intTop = (par_intTop - par_pictureBackground.Top)
+            intLeft = (par_intLeft) ''Layout adjustment is not needed here.5/16/2022 - par_pictureBackground.Left)
+            intTop = (par_intTop) ''Layout adjustment is not needed here.5/16/2022 - par_pictureBackground.Top)
 
             objRectangleOfControl = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
@@ -2183,8 +2185,10 @@ Namespace ciBadgeCachePersonality
             ''Jan19 2022''If bMissingBackAndFront Then ''Added 12/17/2021 td 
             If bProceedWithMakingNew Then ''Added 12/17/2021 td 
 
-                intLeft = (par_intLeft - par_pictureBackground.Left)
-                intTop = (par_intTop - par_pictureBackground.Top)
+                ''Layout adjustment is probably not needed here.5/16/2022 ''intLeft = (par_intLeft - par_pictureBackground.Left)
+                ''Layout adjustment is probably not needed here.5/16/2022 ''intTop = (par_intTop - par_pictureBackground.Top)
+                intLeft = (par_intLeft) ''Layout adjustment is not needed here.5/16/2022 - par_pictureBackground.Left)
+                intTop = (par_intTop) ''Layout adjustment is not needed here.5/16/2022 - par_pictureBackground.Top)
 
                 objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 

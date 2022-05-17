@@ -137,12 +137,17 @@ Public MustInherit Class ClassListOfElements
     End Sub
 
 
-    Public Shared Function GetListOfElements(par_enum As Enum_ElementType) As ClassListOfElements
+    Public Shared Function GetListOfElements(par_enum As Enum_ElementType,
+            Optional pbUseOlderVersionOfField As Boolean = False) As ClassListOfElements
         ''
         ''Added 1/19/2022 thomas downes
         ''
         Select Case par_enum
-            Case Enum_ElementType.Field : Return ClassList_FieldsV3
+            Case Enum_ElementType.Field
+                ''5/16/2022 td'' Return ClassList_FieldsV3
+                If (pbUseOlderVersionOfField) Then Return ClassList_FieldsV3
+                If (Not pbUseOlderVersionOfField) Then Return ClassList_FieldsV4
+
             Case Enum_ElementType.Portrait : Return ClassList_Portraits
             Case Enum_ElementType.QRCode : Return ClassList_QRCodes
             Case Enum_ElementType.Signature : Return ClassList_Signatures
