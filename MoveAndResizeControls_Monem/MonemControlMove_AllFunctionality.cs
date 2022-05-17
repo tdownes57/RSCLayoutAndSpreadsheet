@@ -689,12 +689,43 @@ namespace MoveAndResizeControls_Monem
             //MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - control.Height) <= 2;
 
             //Added 3/13/2022 thomas downes 
-            if (!_structResizingParams.InitiateResizing) return; 
+            if (!_structResizingParams.InitiateResizing) return;
 
-            MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= _margin;
-            MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - par_controlC.Width) <= _margin;
-            MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y) <= _margin;
-            MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - par_controlC.Height) <= _margin;
+            bool bCtlIsWideEnoughToAllowFullMargin; //Added 5/16/2022 
+            bCtlIsWideEnoughToAllowFullMargin = (par_controlC.Width > (_margin * 4)); //Added 5/16/2022
+            if (bCtlIsWideEnoughToAllowFullMargin)   //Added 5/16/2022
+            {
+                MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= _margin;
+                MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - par_controlC.Width) <= _margin;
+            }
+            else   //Added 5/16/2022
+            {
+                //
+                // The control is narrow, so let's halve the margin that triggers
+                //    the width-resizing. ---5/16/2022 td
+                //
+                MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= (_margin / 2); // 5/16/2022 _margin;
+                MouseIsInRightEdge = Math.Abs(mouseLocationInControl.X - par_controlC.Width) <= (_margin / 2); // 5/16/2022 _margin;
+            }
+
+
+            bool bCtlIsTallEnoughToAllowFullMargin; //Added 5/16/2022 
+            bCtlIsTallEnoughToAllowFullMargin = (par_controlC.Height > (_margin * 4)); //Added 5/16/2022
+            if (bCtlIsTallEnoughToAllowFullMargin)   //Added 5/16/2022
+            {
+                MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y) <= _margin;
+                MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - par_controlC.Height) <= _margin;
+            }
+            else   //Added 5/16/2022
+            {
+                //
+                // The control is rather short, so let's halve the margin that triggers
+                //     the height-resizing. ---5/16/2022 td
+                //
+                MouseIsInTopEdge = Math.Abs(mouseLocationInControl.Y) <= (_margin / 2); // 5/16/2022 _margin;
+                MouseIsInBottomEdge = Math.Abs(mouseLocationInControl.Y - par_controlC.Height) <= (_margin / 2); // 5/16/2022 _margin;
+            }
+
 
             //Added 11/29/2021 td
             _controlCurrent = par_controlC;
