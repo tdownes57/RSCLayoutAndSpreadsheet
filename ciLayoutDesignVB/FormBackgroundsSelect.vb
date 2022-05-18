@@ -80,6 +80,15 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
         Me.TemporarySelectedFileInfo = par_controlBack.ImageFileInfo
 
+        ''Added 5/17/2022 
+        picturePreview.ImageLocation = par_controlBack.ImageFilePath
+        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        picturePreview.Load()
+        LabelSelectedTitle.Text = par_controlBack.ImageFileTitle
+
+        ''
+        ''Clear the other checkboxes (in the other UserControl CtlBackground):
+        ''
         For Each ctlBack As CtlBackground In FlowLayoutPanel1.Controls
 
             boolNotParameter = (ctlBack IsNot par_controlBack)
@@ -174,6 +183,10 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
             new_ctlBack.LoadImageFileByFileInfo(eachFileInfo, False)
             ''new_ctlBack.ParentForm = Me
             new_ctlBack.ParentListingForm = Me
+
+            ''Added 5/17/2022 thomas d.
+            AddHandler new_ctlBack.SelectedImageFilePath, AddressOf CtlBackground1_SelectedImageFilePath
+
         Next eachFileInfo
 
     End Sub ''End of "Private Sub LoadControlsFromFolderImagesBack()"
@@ -205,8 +218,13 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         ''Added 12/10/2021 thomas downes
         ''
         Dim objFormToShow As New FormBackgroundUpload
-        objFormToShow.AutoShowOpenFileDialog = True
+        objFormToShow.AutoShowOpenFileDialog = False ''5/17/2022 True
         objFormToShow.ShowDialog()
+
+        ''Added 5/17/2022 
+        FlowLayoutPanel1.Controls.Clear()
+        LoadControlsFromFolderImagesBack(False)
+
 
     End Sub
 
@@ -245,7 +263,48 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
     End Sub
 
-    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub CtlBackground1_SelectedImageFilePath(strImageFilePath As String) _
+        Handles CtlBackground1.SelectedImageFilePath,
+                CtlBackground2.SelectedImageFilePath,
+                CtlBackground3.SelectedImageFilePath
+
+        ''Added 5/17/2022 td
+        ''Added 5/17/2022 thomas downes
+        ''  The current EventHandler (Private Sub CtlBackground1_SelectedImageFilePath)
+        ''  is probably not needed. See the UserControl CtlBackground's command line: 
+        ''       Me.ParentListingForm.LoadSelection(Me)
+        ''  in the following event-handler below (also in CtlBackground.vb):  
+        ''       Private Sub checkSelection_CheckedChanged
+        ''  which contains the command
+        ''       Me.ParentListingForm.LoadSelection(Me)
+        ''  and propagates the image selection to the parent form.
+        ''    ---5/17/2022 td
+        ''
+        picturePreview.ImageLocation = strImageFilePath
+        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+
+    End Sub
+
+    Private Sub LinkTestScreengrab_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkTestScreengrab.LinkClicked
+
+        ''Added 5/17/2022 td
+        Dim objFormToShow As New FormBackgroundTestScreenscrape
+        objFormToShow.ImageFilePathInitial = picturePreview.ImageLocation
+        objFormToShow.ShowDialog()
+
+
+    End Sub
+
+    Private Sub ButtonEditImage_Click(sender As Object, e As EventArgs) Handles ButtonEditImage.Click
+
+        ''Added 5/17/2022 td
+        Dim objFormToShow As New FormBackgroundEditImage
+        objFormToShow.ImageFilePath = picturePreview.ImageLocation
+        objFormToShow.ShowDialog()
 
     End Sub
 End Class

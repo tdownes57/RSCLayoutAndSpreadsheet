@@ -87,6 +87,7 @@ Public Class CtlBackground
         ''
         Dim intReply As DialogResult
         Dim strNameOfImage As String ''----12/10/2021 td
+        Const c_boolUserMustConfirm As Boolean = False ''Added 5/17/2022 td  
 
         If (_isNotDisplayedAsListItem) Then Return ''added 12/10/2021 
 
@@ -95,12 +96,31 @@ Public Class CtlBackground
         ''This may help to prevent odd shifting after the selection is confirmed. ''----12/10/2021 td 
         Me.Parent.Focus() ''----12/10/2021 td
 
-        intReply = MessageBox.Show("Please confirm your selection." & vbCrLf_Deux & strNameOfImage, "",
+        ''
+        ''If specified by the Boolean constant, have the user confirm selection.
+        ''
+        If (c_boolUserMustConfirm) Then
+            intReply = MessageBox.Show("Please confirm your selection." & vbCrLf_Deux & strNameOfImage, "",
                                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
+        Else
+            intReply = DialogResult.Yes
+
+        End If ''End of ""If (c_boolUserMustConfirm) Then... Else...." 
 
         If (intReply = DialogResult.Yes Or intReply = DialogResult.OK) Then
 
             checkSelection.Checked = True
+
+            ''Added 5/17/2022 thomas downes
+            ''  The below RaiseEvent is probably not needed. See the call to
+            ''       Me.ParentListingForm.LoadSelection(Me)
+            ''  in the following event-handler below.  
+            ''       Private Sub checkSelection_CheckedChanged
+            ''  which contains the command
+            ''       Me.ParentListingForm.LoadSelection(Me)
+            ''  and propagates the image selection to the parent form.
+            ''    ---5/17/2022 td
+            RaiseEvent SelectedImageFilePath(Me.ImageFilePath)
 
         End If ''end of " If (intReply = DialogResult.Yes Or intReply = DialogResult.OK) Then"
 
@@ -124,7 +144,11 @@ Public Class CtlBackground
                 MessageBox.Show("Unfortunately the image selected cannot be fully selected")
                 Throw New Exception("Unfortunately we don't have a link to the parent form!!")
             Else
+                ''
+                ''Propagate the selection to the parent form. ---5/17/2022
+                ''
                 Me.ParentListingForm.LoadSelection(Me)
+
             End If ''End of "If (Me.ParentListingForm Is Nothing) Then .... Else ..."
         End If ''End of "If (boolSelected) Then"
 

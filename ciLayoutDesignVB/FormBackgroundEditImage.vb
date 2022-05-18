@@ -3,6 +3,9 @@
     '' Added 11/30/2021 thomas downes
     ''
     Public UploadedImage As Image
+    Public ImageFilePath As String = "" ''Added 5/18/2022 
+    Public ImageFileInfo As System.IO.FileInfo ''Added 5/18/2022 
+
     Private mod_bSuppressEvents As Boolean
     Private mod_pathToImageFile As String
 
@@ -37,6 +40,52 @@
 
 
     End Sub
+
+
+    Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)
+        ''
+        ''Added 5/18/2022  
+        ''
+        ''Dim objRectangle1 As Rectangle
+        Dim objRectangle2 As Rectangle
+        Dim bTryToOmitBorder As Boolean
+
+        bTryToOmitBorder = True ''---checkOmitBorder.Checked
+
+        ''objRectangle1 = New Rectangle(Me.Left + pictureLeft.Left,
+        ''                             Me.Top + pictureLeft.Top,
+        ''                              pictureLeft.Width, pictureLeft.Height)
+
+        Dim intWidth, intHeight As Integer
+        intWidth = par_ctlPictureBox.Width
+        intHeight = par_ctlPictureBox.Height
+
+        With par_ctlPictureBox
+
+            If (.BorderStyle = BorderStyle.FixedSingle) Then
+
+                If (bTryToOmitBorder) Then
+                    objRectangle2 = .RectangleToScreen(New Rectangle(0, 0, intWidth - 2, intHeight - 2))
+                Else
+                    objRectangle2 = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+                End If
+
+            ElseIf (.BorderStyle = BorderStyle.None) Then
+
+                objRectangle2 = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+
+            End If ''end of ""If (pictureLeft.BorderStyle = ...) ... ElseIf (pictureLeft.BorderStyle = ...)...
+
+        End With ''End of ""With par_ctlPictureBox""
+
+        picturePreview.Image = Nothing
+        picturePreview.Image =
+             TakeScreenShot_Modified(objRectangle2)
+        picturePreview.SizeMode = PictureBoxSizeMode.Normal
+
+
+    End Sub ''end of ""Private Sub TakeScreenshot_Master()""
+
 
 
     Private Function TakeScreenShot_Modified(par_rectangle As Rectangle) As Bitmap
@@ -100,14 +149,64 @@
     End Sub
 
     Private Sub FormUploadEditingImage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 5/18/2022 
+        ''
+        If (pictureLayoutZoom.Image Is Nothing) Then
+
+            If (Me.ImageFilePath <> "") Then
+
+                pictureLayoutCenter.ImageLocation = Me.ImageFilePath
+                pictureLayoutNone.ImageLocation = Me.ImageFilePath
+                pictureLayoutStretch.ImageLocation = Me.ImageFilePath
+                pictureLayoutZoom.ImageLocation = Me.ImageFilePath
+
+                pictureLayoutCenter.Load()
+                pictureLayoutNone.Load()
+                pictureLayoutStretch.Load()
+                pictureLayoutZoom.Load()
+
+            End If ''End of ""If (Me.ImageFilePath <> "") Then""
+
+        End If ''End of ""If (pictureLayoutZoom.Image Is Nothing) Then"" 
 
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutNone.CheckedChanged
+    Private Sub radioLayoutNone_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutNone.CheckedChanged
 
+        ''Added 5/18/2022 
+        If (radioLayoutNone.Checked) Then
+            TakeScreenshot_Master(pictureLayoutNone)
+        End If
+
+    End Sub
+
+    Private Sub radioLayoutZoom_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutZoom.CheckedChanged
+
+        ''Added 5/18/2022 
+        If (radioLayoutZoom.Checked) Then
+            TakeScreenshot_Master(pictureLayoutZoom)
+        End If
+
+    End Sub
+
+    Private Sub RadioLayoutCenter_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutCenter.CheckedChanged
+
+        ''Added 5/18/2022 
+        If (radioLayoutCenter.Checked) Then
+            TakeScreenshot_Master(pictureLayoutCenter)
+        End If
 
 
     End Sub
 
+    Private Sub RadioLayoutStretch_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutStretch.CheckedChanged
 
+        ''Added 5/18/2022 
+        If (radioLayoutStretch.Checked) Then
+            TakeScreenshot_Master(pictureLayoutStretch)
+        End If
+
+
+    End Sub
 End Class

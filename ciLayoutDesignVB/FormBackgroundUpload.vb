@@ -68,9 +68,11 @@
         Me.Selected = CtlBackground1.ImageIsSelected
         Me.ImageFileInfo = CtlBackground1.ImageFileInfo
         Dim strDestPathToFileJPG_Proposed As String = "" ''Dest = Destination
+        Dim strDestPathToFileJPG_OriginalCopy As String = "" ''Added 5/18/2022 td
         Dim strDestPathToFileJPG_Old As String = "" ''Dest = Destination
         Dim strDestPathToFileJPG_New As String = "" ''Dest = Destination
         Dim strDestFolderPath As String ''Dest = Destination
+        Dim strDestFolderPath_OriginalCopy As String ''Added 5/18/2022
         Dim strFileTitle_Original As String
         Dim strFileTitle_Incremented As String
         Dim bFilePathIsFree_Good As Boolean
@@ -80,6 +82,10 @@
         ''5/17/2022 td''strDestFolderPath = DiskFolders.PathToFolder_BackExampleDemos
         strDestFolderPath = DiskFolders.PathToFolder_BackgroundImages
 
+        ''Added 5/18/2022 thomas downes
+        strDestFolderPath_OriginalCopy =
+            IO.Path.Combine(DiskFolders.PathToFolder_BackgroundImages, "Originals")
+
         ''Added 12/10/2021 td
         strFileTitle_Original = Me.ImageFileInfo.Name
 
@@ -87,6 +93,11 @@
         ''    ''strDestFilePath = System.IO.Path.Combine(strDestFilePath, Me.ImageFileInfo.Name)
         ''    strFileTitle_Incremented = DiskFilesVB.IncrementFileTitle(strFileTitle_Original, strFileExtension, intTryForNewFile)
         strDestPathToFileJPG_Proposed = System.IO.Path.Combine(strDestFolderPath, strFileTitle_Original)
+
+        ''Added 5/18/2022
+        ''  Keep a copy of the original, prior to editing.
+        strDestPathToFileJPG_OriginalCopy =
+               System.IO.Path.Combine(strDestFolderPath_OriginalCopy, strFileTitle_Original)
 
         ''    bFilePathIsFree_Good = Not IO.File.Exists(strDestFilePath)
         ''    If (bFilePathIsFree_Good) Then Exit For
@@ -123,6 +134,7 @@
 
         Else
             strDestPathToFileJPG_New = strDestPathToFileJPG_Proposed
+
         End If ''End of "If (bIncrementingNeeded) Then ... Else"
 
         ''
@@ -131,6 +143,11 @@
         Try
             ''Dec.10 2021''Me.ImageFileInfo.CopyTo(strDestPathToFileJPG_New)
             Me.ImageFileInfo.CopyTo(strDestPathToFileJPG_New, bUserWantsToReplaceOldWithNew)
+
+            ''Added 5/18/2022 td
+            ''  Keep a copy of the original, a backup, prior to any editing
+            ''  that might occur (cropping, resizing).---5/18/2022 
+            Me.ImageFileInfo.CopyTo(strDestPathToFileJPG_OriginalCopy, False)
 
             ''Added 2/7/2022 td
             Me.ImageFileInfo = New IO.FileInfo(strDestPathToFileJPG_New)

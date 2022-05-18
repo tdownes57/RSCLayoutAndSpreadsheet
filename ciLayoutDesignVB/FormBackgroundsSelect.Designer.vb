@@ -23,9 +23,6 @@ Partial Class FormBackgroundsSelect
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonOK = New System.Windows.Forms.Button()
@@ -36,8 +33,14 @@ Partial Class FormBackgroundsSelect
         Me.ButtonRegularMode1 = New System.Windows.Forms.Button()
         Me.ButtonRegularMode2 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.picturePreview = New System.Windows.Forms.PictureBox()
+        Me.LinkTestScreengrab = New System.Windows.Forms.LinkLabel()
+        Me.LabelSelectedTitle = New System.Windows.Forms.Label()
+        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
+        Me.ButtonEditImage = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -60,36 +63,6 @@ Partial Class FormBackgroundsSelect
         Me.FlowLayoutPanel1.TabIndex = 13
         Me.FlowLayoutPanel1.WrapContents = False
         '
-        'CtlBackground2
-        '
-        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground2.IsNotSelectableItemOfAList = False
-        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
-        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground2.Name = "CtlBackground2"
-        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground2.TabIndex = 1
-        '
-        'CtlBackground3
-        '
-        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground3.IsNotSelectableItemOfAList = False
-        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
-        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground3.Name = "CtlBackground3"
-        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground3.TabIndex = 2
-        '
-        'CtlBackground1
-        '
-        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground1.IsNotSelectableItemOfAList = False
-        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
-        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground1.Name = "CtlBackground1"
-        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground1.TabIndex = 0
-        '
         'LabelHeading1
         '
         Me.LabelHeading1.AutoSize = True
@@ -105,7 +78,7 @@ Partial Class FormBackgroundsSelect
         'buttonCancel
         '
         Me.buttonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonCancel.Location = New System.Drawing.Point(963, 512)
+        Me.buttonCancel.Location = New System.Drawing.Point(1040, 512)
         Me.buttonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonCancel.Name = "buttonCancel"
         Me.buttonCancel.Size = New System.Drawing.Size(81, 28)
@@ -116,7 +89,7 @@ Partial Class FormBackgroundsSelect
         'buttonOK
         '
         Me.buttonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonOK.Location = New System.Drawing.Point(855, 512)
+        Me.buttonOK.Location = New System.Drawing.Point(932, 512)
         Me.buttonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonOK.Name = "buttonOK"
         Me.buttonOK.Size = New System.Drawing.Size(104, 28)
@@ -127,7 +100,7 @@ Partial Class FormBackgroundsSelect
         'buttonUpload1
         '
         Me.buttonUpload1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonUpload1.Location = New System.Drawing.Point(728, 11)
+        Me.buttonUpload1.Location = New System.Drawing.Point(805, 11)
         Me.buttonUpload1.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonUpload1.Name = "buttonUpload1"
         Me.buttonUpload1.Size = New System.Drawing.Size(316, 39)
@@ -138,7 +111,7 @@ Partial Class FormBackgroundsSelect
         'ButtonShowDemos1
         '
         Me.ButtonShowDemos1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonShowDemos1.Location = New System.Drawing.Point(604, 11)
+        Me.ButtonShowDemos1.Location = New System.Drawing.Point(681, 11)
         Me.ButtonShowDemos1.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonShowDemos1.Name = "ButtonShowDemos1"
         Me.ButtonShowDemos1.Size = New System.Drawing.Size(120, 39)
@@ -171,7 +144,7 @@ Partial Class FormBackgroundsSelect
         'ButtonRegularMode1
         '
         Me.ButtonRegularMode1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonRegularMode1.Location = New System.Drawing.Point(604, 11)
+        Me.ButtonRegularMode1.Location = New System.Drawing.Point(681, 11)
         Me.ButtonRegularMode1.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonRegularMode1.Name = "ButtonRegularMode1"
         Me.ButtonRegularMode1.Size = New System.Drawing.Size(120, 39)
@@ -196,25 +169,13 @@ Partial Class FormBackgroundsSelect
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(644, 294)
+        Me.Label1.Location = New System.Drawing.Point(609, 77)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(125, 29)
         Me.Label1.TabIndex = 24
         Me.Label1.Tag = "Select Background Image"
         Me.Label1.Text = "Selected*:"
-        '
-        'picturePreview
-        '
-        Me.picturePreview.BackColor = System.Drawing.Color.White
-        Me.picturePreview.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(763, 294)
-        Me.picturePreview.Margin = New System.Windows.Forms.Padding(2)
-        Me.picturePreview.Name = "picturePreview"
-        Me.picturePreview.Size = New System.Drawing.Size(300, 186)
-        Me.picturePreview.TabIndex = 46
-        Me.picturePreview.TabStop = False
         '
         'Label2
         '
@@ -225,13 +186,89 @@ Partial Class FormBackgroundsSelect
         Me.Label2.TabIndex = 47
         Me.Label2.Text = "*Resized to about 75% normal size for display here."
         '
+        'picturePreview
+        '
+        Me.picturePreview.BackColor = System.Drawing.Color.White
+        Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.picturePreview.Location = New System.Drawing.Point(655, 109)
+        Me.picturePreview.Name = "picturePreview"
+        Me.picturePreview.Size = New System.Drawing.Size(466, 277)
+        Me.picturePreview.TabIndex = 48
+        Me.picturePreview.TabStop = False
+        '
+        'LinkTestScreengrab
+        '
+        Me.LinkTestScreengrab.AutoSize = True
+        Me.LinkTestScreengrab.Location = New System.Drawing.Point(706, 522)
+        Me.LinkTestScreengrab.Name = "LinkTestScreengrab"
+        Me.LinkTestScreengrab.Size = New System.Drawing.Size(147, 13)
+        Me.LinkTestScreengrab.TabIndex = 49
+        Me.LinkTestScreengrab.TabStop = True
+        Me.LinkTestScreengrab.Text = "Test screenshot / screengrab"
+        '
+        'LabelSelectedTitle
+        '
+        Me.LabelSelectedTitle.AutoSize = True
+        Me.LabelSelectedTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelSelectedTitle.Location = New System.Drawing.Point(746, 88)
+        Me.LabelSelectedTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelSelectedTitle.Name = "LabelSelectedTitle"
+        Me.LabelSelectedTitle.Size = New System.Drawing.Size(107, 18)
+        Me.LabelSelectedTitle.TabIndex = 50
+        Me.LabelSelectedTitle.Tag = "Select Background Image"
+        Me.LabelSelectedTitle.Text = "(image file-title)"
+        '
+        'CtlBackground2
+        '
+        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground2.IsNotSelectableItemOfAList = False
+        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
+        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground2.Name = "CtlBackground2"
+        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground2.TabIndex = 1
+        '
+        'CtlBackground3
+        '
+        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground3.IsNotSelectableItemOfAList = False
+        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
+        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground3.Name = "CtlBackground3"
+        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground3.TabIndex = 2
+        '
+        'CtlBackground1
+        '
+        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground1.IsNotSelectableItemOfAList = False
+        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
+        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground1.Name = "CtlBackground1"
+        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground1.TabIndex = 0
+        '
+        'ButtonEditImage
+        '
+        Me.ButtonEditImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonEditImage.Location = New System.Drawing.Point(655, 391)
+        Me.ButtonEditImage.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonEditImage.Name = "ButtonEditImage"
+        Me.ButtonEditImage.Size = New System.Drawing.Size(101, 28)
+        Me.ButtonEditImage.TabIndex = 51
+        Me.ButtonEditImage.Text = "Edit Image"
+        Me.ButtonEditImage.UseVisualStyleBackColor = True
+        '
         'FormBackgroundsSelect
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1084, 551)
-        Me.Controls.Add(Me.Label2)
+        Me.ClientSize = New System.Drawing.Size(1161, 551)
+        Me.Controls.Add(Me.ButtonEditImage)
+        Me.Controls.Add(Me.LabelSelectedTitle)
+        Me.Controls.Add(Me.LinkTestScreengrab)
         Me.Controls.Add(Me.picturePreview)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ButtonRegularMode2)
         Me.Controls.Add(Me.ButtonShowDemos2)
@@ -267,6 +304,9 @@ Partial Class FormBackgroundsSelect
     Friend WithEvents ButtonRegularMode1 As Button
     Friend WithEvents ButtonRegularMode2 As Button
     Friend WithEvents Label1 As Label
-    Friend WithEvents picturePreview As PictureBox
     Friend WithEvents Label2 As Label
+    Friend WithEvents picturePreview As PictureBox
+    Friend WithEvents LinkTestScreengrab As LinkLabel
+    Friend WithEvents LabelSelectedTitle As Label
+    Friend WithEvents ButtonEditImage As Button
 End Class
