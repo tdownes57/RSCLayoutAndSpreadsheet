@@ -5,11 +5,13 @@ Public Class CtlBackground
     ''
     ''Added 11/25/2021 Thomas Downes  
     ''
+    Public Event SelectedImageFilePath(strImageFilePath As String) ''Added 5/17/2022 td
+
     Public ImageFilePath As String
     Public ImageFileTitle As String
     Public ImageFileInfo As System.IO.FileInfo
     Public ImageIsSelected As Boolean
-    Public ParentListingForm As FormListBackgrounds
+    Public ParentListingForm As FormBackgroundsSelect
     Private _boolSkipEvents As Boolean
     Private _isNotDisplayedAsListItem As Boolean
 

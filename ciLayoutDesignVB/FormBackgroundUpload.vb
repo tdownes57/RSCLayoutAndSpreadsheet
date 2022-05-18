@@ -1,4 +1,4 @@
-﻿Public Class FormUploadBackground
+﻿Public Class FormBackgroundUpload
     ''
     ''Added 11/25/2021 Thomas Downes
     ''
@@ -50,7 +50,7 @@
             ''Open the dialog for addressing dimensional ratios.
             ''---12/2/2021 thomas d.
             ''
-            Dim objChildDialog As New FormUploadDimensionsMsg
+            Dim objChildDialog As New FormBackgroundUploadDimensionsMsg
             objChildDialog.UploadedImageFile(strImageFilePath)
             objChildDialog.ShowDialog()
 
@@ -117,7 +117,7 @@
             ''Important call.
             ''
             bUserWantsToSaveTheNewFile =
-                FormUploadBackgroundNewVsExisting.ShowExistingVsNew(strDestPathToFileJPG_Old,
+                FormBackgroundUploadNewVsExisting.ShowExistingVsNew(strDestPathToFileJPG_Old,
                                         strDestPathToFileJPG_New,
                                         bUserWantsToReplaceOldWithNew)
 

@@ -1,4 +1,4 @@
-﻿Public Class FormUploadDimensionsMsg
+﻿Public Class FormBackgroundUploadDimensionsMsg
 
     ''Added 12/2/2021 thomas c. downes
     Public UploadedImage As Image
@@ -85,7 +85,7 @@
         ''
         ''Added 12/2/2021 thomas downes 
         ''
-        Dim objFormToShow As New FormUploadEditingImage
+        Dim objFormToShow As New FormBackgroundEditImage
 
         objFormToShow.UploadedImageFile(mod_pathToImageFile)
         objFormToShow.ShowDialog()

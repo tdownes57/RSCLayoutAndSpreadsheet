@@ -458,10 +458,10 @@
     <Compile Include="FormRandomLocation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSelectOrUpload.Designer.vb">
-      <DependentUpon>FormSelectOrUpload.vb</DependentUpon>
+    <Compile Include="FormBackgroundSelectOrUpload.Designer.vb">
+      <DependentUpon>FormBackgroundSelectOrUpload.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormSelectOrUpload.vb">
+    <Compile Include="FormBackgroundSelectOrUpload.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormTypeOfElementsToAdd.Designer.vb">
@@ -470,22 +470,22 @@
     <Compile Include="FormTypeOfElementsToAdd.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUploadBackgroundNewVsExisting.Designer.vb">
-      <DependentUpon>FormUploadBackgroundNewVsExisting.vb</DependentUpon>
+    <Compile Include="FormBackgroundUploadNewVsExisting.Designer.vb">
+      <DependentUpon>FormBackgroundUploadNewVsExisting.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormUploadBackgroundNewVsExisting.vb">
+    <Compile Include="FormBackgroundUploadNewVsExisting.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUploadDimensionsMsg.Designer.vb">
-      <DependentUpon>FormUploadDimensionsMsg.vb</DependentUpon>
+    <Compile Include="FormBackgroundUploadDimensionsMsg.Designer.vb">
+      <DependentUpon>FormBackgroundUploadDimensionsMsg.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormUploadDimensionsMsg.vb">
+    <Compile Include="FormBackgroundUploadDimensionsMsg.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUploadEditingImage.Designer.vb">
-      <DependentUpon>FormUploadEditingImage.vb</DependentUpon>
+    <Compile Include="FormBackgroundEditImage.Designer.vb">
+      <DependentUpon>FormBackgroundEditImage.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormUploadEditingImage.vb">
+    <Compile Include="FormBackgroundEditImage.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDesignProtoThree.Designer.vb">
@@ -494,16 +494,16 @@
     <Compile Include="FormDesignProtoThree.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormListBackgrounds.Designer.vb">
-      <DependentUpon>FormListBackgrounds.vb</DependentUpon>
+    <Compile Include="FormBackgroundsSelect.Designer.vb">
+      <DependentUpon>FormBackgroundsSelect.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormListBackgrounds.vb">
+    <Compile Include="FormBackgroundsSelect.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUploadBackground.Designer.vb">
-      <DependentUpon>FormUploadBackground.vb</DependentUpon>
+    <Compile Include="FormBackgroundUpload.Designer.vb">
+      <DependentUpon>FormBackgroundUpload.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormUploadBackground.vb">
+    <Compile Include="FormBackgroundUpload.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormWelcomeNotes.Designer.vb">
@@ -794,30 +794,30 @@
     <EmbeddedResource Include="FormRandomLocation.resx">
       <DependentUpon>FormRandomLocation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSelectOrUpload.resx">
-      <DependentUpon>FormSelectOrUpload.vb</DependentUpon>
+    <EmbeddedResource Include="FormBackgroundSelectOrUpload.resx">
+      <DependentUpon>FormBackgroundSelectOrUpload.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTypeOfElementsToAdd.resx">
       <DependentUpon>FormTypeOfElementsToAdd.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormUploadBackgroundNewVsExisting.resx">
-      <DependentUpon>FormUploadBackgroundNewVsExisting.vb</DependentUpon>
+    <EmbeddedResource Include="FormBackgroundUploadNewVsExisting.resx">
+      <DependentUpon>FormBackgroundUploadNewVsExisting.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormUploadDimensionsMsg.resx">
-      <DependentUpon>FormUploadDimensionsMsg.vb</DependentUpon>
+    <EmbeddedResource Include="FormBackgroundUploadDimensionsMsg.resx">
+      <DependentUpon>FormBackgroundUploadDimensionsMsg.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormUploadEditingImage.resx">
-      <DependentUpon>FormUploadEditingImage.vb</DependentUpon>
+    <EmbeddedResource Include="FormBackgroundEditImage.resx">
+      <DependentUpon>FormBackgroundEditImage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDesignProtoThree.resx">
       <DependentUpon>FormDesignProtoThree.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormListBackgrounds.resx">
-      <DependentUpon>FormListBackgrounds.vb</DependentUpon>
+    <EmbeddedResource Include="FormBackgroundsSelect.resx">
+      <DependentUpon>FormBackgroundsSelect.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormUploadBackground.resx">
-      <DependentUpon>FormUploadBackground.vb</DependentUpon>
+    <EmbeddedResource Include="FormBackgroundUpload.resx">
+      <DependentUpon>FormBackgroundUpload.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormWelcomeNotes.resx">
       <DependentUpon>FormWelcomeNotes.vb</DependentUpon>
@@ -945,6 +945,7 @@
     <Content Include="Images\BackgroundExampleDemos\ValleyValleyColl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\BackgroundImagesUploaded\Originals\ReadMe.txt" />
     <Content Include="Images\BackgroundImagesUploaded\ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

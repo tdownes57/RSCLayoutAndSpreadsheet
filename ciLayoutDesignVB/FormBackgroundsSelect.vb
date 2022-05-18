@@ -5,7 +5,9 @@ Option Strict On ''5/17/2022 thomas downes
 ''
 Imports ciLayoutPrintLib ''added 11/25 
 
-Public Class FormListBackgrounds
+
+Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds  
+    ''5/16/2022 Public Class FormListBackgrounds 
 
     Public DemoMode As Boolean ''Added 5/13/2022 thomas downes
     Public ImageFilePath As String
@@ -114,7 +116,7 @@ Public Class FormListBackgrounds
         ''
         Const c_bAddressDimensionalRatio As Boolean = False
         If (c_bAddressDimensionalRatio) Then
-            Dim objChildDialog As New FormUploadDimensionsMsg
+            Dim objChildDialog As New FormBackgroundUploadDimensionsMsg
             objChildDialog.UploadedImageFile(Me.ImageFilePath)
             objChildDialog.ShowDialog()
         End If ''end of ""If (c_bAddressDimensionalRatio) Then""
@@ -202,7 +204,7 @@ Public Class FormListBackgrounds
         ''
         ''Added 12/10/2021 thomas downes
         ''
-        Dim objFormToShow As New FormUploadBackground
+        Dim objFormToShow As New FormBackgroundUpload
         objFormToShow.AutoShowOpenFileDialog = True
         objFormToShow.ShowDialog()
 
@@ -240,6 +242,10 @@ Public Class FormListBackgrounds
         LoadControlsFromFolderImagesBack(Me.DemoMode)
         ''Added 5/13/2022 
         ChangeHeaderLabelCaption()
+
+    End Sub
+
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
 
     End Sub
 End Class

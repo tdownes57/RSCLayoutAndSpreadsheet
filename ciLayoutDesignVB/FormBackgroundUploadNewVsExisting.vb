@@ -1,7 +1,7 @@
 ﻿''
 ''Added 12/10/2021 thomas downes
 ''
-Public Class FormUploadBackgroundNewVsExisting
+Public Class FormBackgroundUploadNewVsExisting
     ''
     ''Added 12/10/2021 thomas downes
     ''

@@ -1,7 +1,7 @@
 ﻿
 ReadMe.txt
 
-This folder ("BackgroundImagesUploaded") is used to store any images you have 
+This folder ("BackgroundImagesUploaded", under folder "Images"") is used to store any images you have 
 uploaded via the "Upload Background Image" menu item (or button).
 
 After uploading, an image can be re-selected (in case another image has 

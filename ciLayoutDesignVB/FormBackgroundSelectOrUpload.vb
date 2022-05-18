@@ -2,7 +2,7 @@
 ''Added 5/13/2022  
 ''
 
-Public Class FormSelectOrUpload
+Public Class FormBackgroundSelectOrUpload
 
     Public UserWantsToUpload As Boolean
     Public UserWantsToSelect As Boolean
@@ -53,7 +53,7 @@ Public Class FormSelectOrUpload
         ''Added 5/17/2022 thomas  
         ''
         Dim bOneOrMoreImagesExist As Boolean
-        bOneOrMoreImagesExist = FormListBackgrounds.HasOneOrMoreBackgrounds()
+        bOneOrMoreImagesExist = FormBackgroundsSelect.HasOneOrMoreBackgrounds()
 
         ''Dim strPathToFolderWithBackgrounds As String = ""
         ''Dim objFolderInfo As IO.DirectoryInfo

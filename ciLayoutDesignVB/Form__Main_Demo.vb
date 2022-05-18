@@ -2833,7 +2833,7 @@ ExitHandler:
         ''
         ''Encapsulated 5/12/2022 td
         ''
-        Dim objShow As New FormUploadBackground
+        Dim objShow As New FormBackgroundUpload
         '' 12/3/2021 td''objShow.Show()
         objShow.ShowDialog()
 
@@ -2887,7 +2887,7 @@ ExitHandler:
         ''
         ''Added 5/12/2022 td
         ''
-        Dim objShow1 As New FormSelectOrUpload
+        Dim objShow1 As New FormBackgroundSelectOrUpload
         objShow1.ShowDialog()
 
         Dim boolStep1_LetsUpload As Boolean
@@ -2946,7 +2946,7 @@ ExitHandler:
         ''Encapsulated 5/12/2022 td
         ''Program code written 11/25/2021 td
         ''
-        Dim objShow As New FormListBackgrounds
+        Dim objShow As New FormBackgroundsSelect
 
         objShow.DemoMode = pboolDemoMode ''Added 5/17/2022 td
         objShow.ShowDialog()
@@ -2993,7 +2993,7 @@ ExitHandler:
         ''
         ''Dim objShow As New FormListBackgrounds
         ''objShow.Show()
-        Dim objShow As New FormUploadBackground
+        Dim objShow As New FormBackgroundUpload
         objShow.Show()
 
     End Sub
