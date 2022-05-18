@@ -357,7 +357,19 @@ Public Class CtlGraphicStaticGraphic
     End Sub ''End of "Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)"
 
 
-    Public Sub Refresh_Master()
+    Public Sub LoadImageFromFileLocation(par_strImageFileLocation As String)
+        ''
+        ''Added 5/18/2022 
+        ''
+        With pictureStaticGraphic
+            .ImageLocation = par_strImageFileLocation
+            .Load()
+        End With ''End of ""With pictureStaticGraphic""
+
+    End Sub ''End of ""Public Sub LoadImageFromFileLocation()""
+
+
+    Public Overrides Sub Refresh_Master()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
         ''
@@ -373,7 +385,7 @@ Public Class CtlGraphicStaticGraphic
     End Sub ''End of "Public Sub Refresh_Master()"
 
 
-    Public Sub Refresh_PositionAndSize()
+    Public Overrides Sub Refresh_PositionAndSize()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
         ''
@@ -387,6 +399,7 @@ Public Class CtlGraphicStaticGraphic
         Me.Height = Me.ElementInfo_Base.Height_Pixels
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+
 
     Public Overrides Sub Refresh_ImageV3(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,

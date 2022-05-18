@@ -241,6 +241,12 @@
     <Compile Include="ControlsCtl\CtlMainEntryBox_v90.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsCtl\CtlMoveableBackground.Designer.vb">
+      <DependentUpon>CtlMoveableBackground.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlMoveableBackground.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsCtl\CtlPartial_HardText.designer.vb">
       <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
     </Compile>
@@ -537,6 +543,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlMainEntryBox_v90.resx">
       <DependentUpon>CtlMainEntryBox_v90.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsCtl\CtlMoveableBackground.resx">
+      <DependentUpon>CtlMoveableBackground.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlPropertyLeftRight.resx">
       <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>

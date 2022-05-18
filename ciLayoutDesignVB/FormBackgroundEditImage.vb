@@ -1,4 +1,11 @@
-﻿Public Class FormBackgroundEditImage
+﻿Option Explicit On
+Option Strict On
+''
+''Added 5/18/2022 
+''
+''---Imports monem
+
+Public Class FormBackgroundEditImage
     ''
     '' Added 11/30/2021 thomas downes
     ''
@@ -8,6 +15,7 @@
 
     Private mod_bSuppressEvents As Boolean
     Private mod_pathToImageFile As String
+    ''----Private mod_objEventsMoveGroupOfCtls As New 
 
     Public Sub UploadedImageFile(par_pathToImageFile As String)
         ''
@@ -25,8 +33,8 @@
         pictureLayoutCenter.BackgroundImageLayout = ImageLayout.Center
 
         ''None
-        pictureLayoutNone.BackgroundImage = Me.UploadedImage
-        pictureLayoutNone.BackgroundImageLayout = ImageLayout.None
+        pictureLayoutNormal.BackgroundImage = Me.UploadedImage
+        pictureLayoutNormal.BackgroundImageLayout = ImageLayout.None
 
         ''Stretch
         pictureLayoutStretch.BackgroundImage = Me.UploadedImage
@@ -43,6 +51,7 @@
 
 
     Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)
+        ''---5/18/2022 Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)
         ''
         ''Added 5/18/2022  
         ''
@@ -148,7 +157,7 @@
 
     End Sub
 
-    Private Sub FormUploadEditingImage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FormBackgroundEditImage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         ''Added 5/18/2022 
         ''
@@ -157,12 +166,34 @@
             If (Me.ImageFilePath <> "") Then
 
                 pictureLayoutCenter.ImageLocation = Me.ImageFilePath
-                pictureLayoutNone.ImageLocation = Me.ImageFilePath
+                pictureLayoutNormal.ImageLocation = Me.ImageFilePath
                 pictureLayoutStretch.ImageLocation = Me.ImageFilePath
                 pictureLayoutZoom.ImageLocation = Me.ImageFilePath
 
+                ''Added 5/18/2022 td
+                pictureLayoutCenter.SizeMode = PictureBoxSizeMode.CenterImage
+                pictureLayoutNormal.SizeMode = PictureBoxSizeMode.Normal
+                pictureLayoutStretch.SizeMode = PictureBoxSizeMode.StretchImage
+                pictureLayoutZoom.SizeMode = PictureBoxSizeMode.Zoom
+
+                ''Added 5/18/2022 td
+                With CtlMoveableBackground1
+                    .ImageFileLocation = Me.ImageFilePath
+                    .Load_Control()
+                    .BringToFront() ''Added 5/18/2022 
+
+                    ''Make sure that the PictureBox exactly lies underneath.
+                    ''  pictureLayoutMoveable.Left = .Left
+                    ''  pictureLayoutMoveable.Top = .Top
+                    ''  pictureLayoutMoveable.Width = .Width
+                    ''  pictureLayoutMoveable.Height = .Height
+                    PictureBoxMustBeBeneathUserControl()
+                    pictureLayoutMoveable.Visible = False
+
+                End With
+
                 pictureLayoutCenter.Load()
-                pictureLayoutNone.Load()
+                pictureLayoutNormal.Load()
                 pictureLayoutStretch.Load()
                 pictureLayoutZoom.Load()
 
@@ -172,11 +203,29 @@
 
     End Sub
 
-    Private Sub radioLayoutNone_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutNone.CheckedChanged
+
+    Private Sub PictureBoxMustBeBeneathUserControl()
+
+
+        ''Added 5/18/2022 td
+        With CtlMoveableBackground1
+
+            ''Make sure that the PictureBox exactly lies underneath.
+            pictureLayoutMoveable.Left = .Left
+            pictureLayoutMoveable.Top = .Top
+            pictureLayoutMoveable.Width = .Width
+            pictureLayoutMoveable.Height = .Height
+            pictureLayoutMoveable.Visible = False
+
+        End With
+
+    End Sub
+
+    Private Sub radioLayoutNormal_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutNormal.CheckedChanged
 
         ''Added 5/18/2022 
-        If (radioLayoutNone.Checked) Then
-            TakeScreenshot_Master(pictureLayoutNone)
+        If (radioLayoutNormal.Checked) Then
+            TakeScreenshot_Master(pictureLayoutNormal)
         End If
 
     End Sub
@@ -209,4 +258,90 @@
 
 
     End Sub
+
+
+    Private Sub radioLayoutMoveable_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutMoveable.CheckedChanged
+
+        ''Added 5/18/2022 
+        If (radioLayoutMoveable.Checked) Then
+            ''5/18/2022 TakeScreenshot_Master(CtlMoveableBackground1.GetPictureBox())
+            PictureBoxMustBeBeneathUserControl
+            TakeScreenshot_Master(pictureLayoutMoveable)
+
+        End If
+
+    End Sub
+
+
+    Private Sub pictureLayoutNormal_Click(sender As Object, e As EventArgs) Handles pictureLayoutNormal.Click
+
+        ''Added 5/18/2022
+        radioLayoutNormal.Checked = True
+
+
+    End Sub
+
+    Private Sub pictureLayoutZoom_Click(sender As Object, e As EventArgs) Handles pictureLayoutZoom.Click
+
+        ''Added 5/18/2022
+        radioLayoutZoom.Checked = True
+
+
+    End Sub
+
+    Private Sub pictureLayoutStretch_Click(sender As Object, e As EventArgs) Handles pictureLayoutStretch.Click
+        ''Added 5/18/2022
+        radioLayoutStretch.Checked = True
+
+    End Sub
+
+    Private Sub pictureLayoutCenter_Click(sender As Object, e As EventArgs) Handles pictureLayoutCenter.Click
+        ''Added 5/18/2022
+        radioLayoutCenter.Checked = True
+
+
+    End Sub
+
+    Private Sub ButtonPushPreview_Click(sender As Object, e As EventArgs) Handles ButtonPushPreview.Click
+        ''
+        ''Added 5/18/2022 td
+        ''
+        pictureLayoutCenter.Image = picturePreview.Image
+        pictureLayoutNormal.Image = picturePreview.Image
+        pictureLayoutStretch.Image = picturePreview.Image
+        pictureLayoutZoom.Image = picturePreview.Image
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+
+        ''Added 5/18/2022
+        Me.DialogResult = DialogResult.Cancel
+        Me.Close()
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+        ''
+        ''Added 5/18/2022
+        ''
+        If (picturePreview.Image Is Nothing) Then
+            ''
+            ''Let the user know that they haven't made a selection.
+            ''
+            MessageBoxTD.Show_Statement("Have you made a selection?  ",
+                                        "Please click on a ""Select below"" selection circle.")
+            ''Exit without closing. 
+            Exit Sub
+
+        End If ''End of ""If (picturePreview.Image Is Nothing) Then""
+
+        Me.picturePreview.Image.Save(Me.ImageFilePath, Imaging.ImageFormat.Jpeg)
+        Me.DialogResult = DialogResult.OK
+        Me.Close()
+
+    End Sub
+
+
+
 End Class

@@ -30,23 +30,27 @@ Partial Class CtlGraphicStaticGraphic
         '
         Me.pictureStaticGraphic.BackColor = System.Drawing.Color.Transparent
         Me.pictureStaticGraphic.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pictureStaticGraphic.Image = Global.ciBadgeDesigner.My.Resources.Resources.code_ninjas_logo_png
+        Me.pictureStaticGraphic.Image = Global.ciBadgeDesigner.My.Resources.Resources.code_ninjas_logo
         Me.pictureStaticGraphic.Location = New System.Drawing.Point(0, 0)
+        Me.pictureStaticGraphic.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.pictureStaticGraphic.Name = "pictureStaticGraphic"
-        Me.pictureStaticGraphic.Size = New System.Drawing.Size(352, 76)
+        Me.pictureStaticGraphic.Size = New System.Drawing.Size(264, 62)
+        Me.pictureStaticGraphic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.pictureStaticGraphic.TabIndex = 5
         Me.pictureStaticGraphic.TabStop = False
         '
         'CtlGraphicStaticGraphic
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Transparent
         Me.Controls.Add(Me.pictureStaticGraphic)
         Me.Name = "CtlGraphicStaticGraphic"
-        Me.Size = New System.Drawing.Size(352, 76)
+        Me.Size = New System.Drawing.Size(264, 62)
+        Me.Controls.SetChildIndex(Me.pictureStaticGraphic, 0)
         CType(Me.pictureStaticGraphic, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents pictureStaticGraphic As PictureBox
