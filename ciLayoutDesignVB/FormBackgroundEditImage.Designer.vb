@@ -37,17 +37,17 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutStretch = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.picturePreview = New System.Windows.Forms.PictureBox()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.LabelHeaderPreview = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ButtonPushPreview = New System.Windows.Forms.Button()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.CtlMoveableBackground1 = New ciBadgeDesigner.CtlMoveableBackground()
         Me.LabelMoveableBackground = New System.Windows.Forms.Label()
         Me.radioLayoutMoveable = New System.Windows.Forms.RadioButton()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.pictureLayoutMoveable = New System.Windows.Forms.PictureBox()
+        Me.CtlMoveableBackground1 = New ciBadgeDesigner.CtlMoveableBackground()
         CType(Me.pictureLayoutNormal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -216,18 +216,18 @@ Partial Class FormBackgroundEditImage
         Me.picturePreview.TabStop = False
         Me.ToolTip1.SetToolTip(Me.picturePreview, "Click the Preview box to update.")
         '
-        'Label2
+        'LabelHeaderPreview
         '
-        Me.Label2.BackColor = System.Drawing.Color.GreenYellow
-        Me.Label2.Font = New System.Drawing.Font("Franklin Gothic Medium", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(749, 287)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(350, 30)
-        Me.Label2.TabIndex = 65
-        Me.Label2.Text = "P R E V I E W"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ToolTip1.SetToolTip(Me.Label2, "Click here to update the Preview box.")
+        Me.LabelHeaderPreview.BackColor = System.Drawing.Color.GreenYellow
+        Me.LabelHeaderPreview.Font = New System.Drawing.Font("Franklin Gothic Medium", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeaderPreview.Location = New System.Drawing.Point(749, 287)
+        Me.LabelHeaderPreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelHeaderPreview.Name = "LabelHeaderPreview"
+        Me.LabelHeaderPreview.Size = New System.Drawing.Size(350, 30)
+        Me.LabelHeaderPreview.TabIndex = 65
+        Me.LabelHeaderPreview.Text = "P R E V I E W"
+        Me.LabelHeaderPreview.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.ToolTip1.SetToolTip(Me.LabelHeaderPreview, "Click here to update the Preview box.")
         '
         'ButtonPushPreview
         '
@@ -268,26 +268,15 @@ Partial Class FormBackgroundEditImage
         Me.LinkLabel1.Text = "Click to update Preview"
         Me.LinkLabel1.Visible = False
         '
-        'CtlMoveableBackground1
-        '
-        Me.CtlMoveableBackground1.BackColor = System.Drawing.Color.White
-        Me.CtlMoveableBackground1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlMoveableBackground1.Image_NotInUse = Nothing
-        Me.CtlMoveableBackground1.ImageFileLocation = Nothing
-        Me.CtlMoveableBackground1.Location = New System.Drawing.Point(749, 54)
-        Me.CtlMoveableBackground1.Name = "CtlMoveableBackground1"
-        Me.CtlMoveableBackground1.Size = New System.Drawing.Size(349, 225)
-        Me.CtlMoveableBackground1.TabIndex = 68
-        '
         'LabelMoveableBackground
         '
         Me.LabelMoveableBackground.AutoSize = True
         Me.LabelMoveableBackground.Location = New System.Drawing.Point(746, 38)
         Me.LabelMoveableBackground.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelMoveableBackground.Name = "LabelMoveableBackground"
-        Me.LabelMoveableBackground.Size = New System.Drawing.Size(203, 13)
+        Me.LabelMoveableBackground.Size = New System.Drawing.Size(246, 13)
         Me.LabelMoveableBackground.TabIndex = 69
-        Me.LabelMoveableBackground.Text = "Moveable--Click and drag to move image."
+        Me.LabelMoveableBackground.Text = "Moveable image -- Click && drag to move the image."
         '
         'radioLayoutMoveable
         '
@@ -338,6 +327,17 @@ Partial Class FormBackgroundEditImage
         Me.pictureLayoutMoveable.TabIndex = 73
         Me.pictureLayoutMoveable.TabStop = False
         '
+        'CtlMoveableBackground1
+        '
+        Me.CtlMoveableBackground1.BackColor = System.Drawing.Color.White
+        Me.CtlMoveableBackground1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlMoveableBackground1.Image_NotInUse = Nothing
+        Me.CtlMoveableBackground1.ImageFileLocation = Nothing
+        Me.CtlMoveableBackground1.Location = New System.Drawing.Point(749, 54)
+        Me.CtlMoveableBackground1.Name = "CtlMoveableBackground1"
+        Me.CtlMoveableBackground1.Size = New System.Drawing.Size(349, 225)
+        Me.CtlMoveableBackground1.TabIndex = 68
+        '
         'FormBackgroundEditImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -351,7 +351,7 @@ Partial Class FormBackgroundEditImage
         Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.LinkLabel2)
         Me.Controls.Add(Me.LinkLabel1)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.LabelHeaderPreview)
         Me.Controls.Add(Me.ButtonPushPreview)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.radioLayoutStretch)
@@ -395,7 +395,7 @@ Partial Class FormBackgroundEditImage
     Friend WithEvents radioLayoutStretch As RadioButton
     Friend WithEvents Label1 As Label
     Friend WithEvents picturePreview As PictureBox
-    Friend WithEvents Label2 As Label
+    Friend WithEvents LabelHeaderPreview As Label
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents ButtonPushPreview As Button

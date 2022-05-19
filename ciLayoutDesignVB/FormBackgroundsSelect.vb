@@ -15,6 +15,29 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
     Public TemporarySelectedFileInfo As System.IO.FileInfo
 
+    Public ReadOnly Property EditedImage As Image
+        Get
+            ''
+            ''Added 5/18/2022 td
+            ''
+            Return picturePreview.Image
+
+        End Get
+    End Property
+
+
+    Public ReadOnly Property ImageFileLocation_Edited As String
+        Get
+            ''
+            ''Added 5/18/2022 td
+            ''
+            Dim strFileTitle_Edited As String
+            strFileTitle_Edited = Me.textImageFileTitleEdited.Text
+
+
+        End Get
+    End Property
+
 
     Public Shared Function HasOneOrMoreBackgrounds() As Boolean
         ''
@@ -85,6 +108,7 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         picturePreview.SizeMode = PictureBoxSizeMode.Zoom
         picturePreview.Load()
         LabelSelectedTitle.Text = par_controlBack.ImageFileTitle
+        textImageFileTitleEdited.Text = par_controlBack.ImageFileTitle
 
         ''
         ''Clear the other checkboxes (in the other UserControl CtlBackground):
@@ -118,6 +142,9 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         ''
         Me.ImageFileInfo = Me.TemporarySelectedFileInfo
         Me.ImageFilePath = Me.TemporarySelectedFileInfo.FullName
+
+        ''Added 5/18/2022
+        mod_strImageFiletitleEdited = Me.textImageFileTitleEdited.Text
 
         ''
         ''Open the dialog for addressing dimensional ratios.
@@ -303,8 +330,28 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
         ''Added 5/17/2022 td
         Dim objFormToShow As New FormBackgroundEditImage
-        objFormToShow.ImageFilePath = picturePreview.ImageLocation
+        objFormToShow.ImageFilePath_input = picturePreview.ImageLocation
+
+        ''
+        ''Show the dialog. 
+        ''
         objFormToShow.ShowDialog()
+
+        ''Added 5/17/2022 td
+        picturePreview.Image = Nothing
+        picturePreview.ImageLocation = ""
+
+        With objFormToShow
+            If (Not String.IsNullOrEmpty(.ImageFilePath_output)) Then
+                If (IO.File.Exists(.ImageFilePath_output)) Then
+                    ''
+                    ''Show  the edited image. ---5/18/2022 td
+                    ''
+                    picturePreview.ImageLocation = .ImageFilePath_output
+                    picturePreview.Load()
+                End If ''End of ""If (IO.File.Exists(.ImageFilePath_output)) Then""
+            End If ''ENd of ""If (Not String.IsNullOrEmpty(.ImageFilePath_output)) Then""
+        End With ''End of ""With objFormToShow""
 
     End Sub
 End Class

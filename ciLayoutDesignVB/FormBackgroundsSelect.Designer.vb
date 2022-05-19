@@ -37,10 +37,12 @@ Partial Class FormBackgroundsSelect
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.LinkTestScreengrab = New System.Windows.Forms.LinkLabel()
         Me.LabelSelectedTitle = New System.Windows.Forms.Label()
+        Me.ButtonEditImage = New System.Windows.Forms.Button()
         Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
         Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
         Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
-        Me.ButtonEditImage = New System.Windows.Forms.Button()
+        Me.RadioModeDemos = New System.Windows.Forms.RadioButton()
+        Me.textImageFileTitleEdited = New System.Windows.Forms.TextBox()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -218,6 +220,17 @@ Partial Class FormBackgroundsSelect
         Me.LabelSelectedTitle.Tag = "Select Background Image"
         Me.LabelSelectedTitle.Text = "(image file-title)"
         '
+        'ButtonEditImage
+        '
+        Me.ButtonEditImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonEditImage.Location = New System.Drawing.Point(655, 391)
+        Me.ButtonEditImage.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonEditImage.Name = "ButtonEditImage"
+        Me.ButtonEditImage.Size = New System.Drawing.Size(101, 28)
+        Me.ButtonEditImage.TabIndex = 51
+        Me.ButtonEditImage.Text = "Edit Image"
+        Me.ButtonEditImage.UseVisualStyleBackColor = True
+        '
         'CtlBackground2
         '
         Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
@@ -248,22 +261,32 @@ Partial Class FormBackgroundsSelect
         Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
         Me.CtlBackground1.TabIndex = 0
         '
-        'ButtonEditImage
+        'RadioModeDemos
         '
-        Me.ButtonEditImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonEditImage.Location = New System.Drawing.Point(655, 391)
-        Me.ButtonEditImage.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonEditImage.Name = "ButtonEditImage"
-        Me.ButtonEditImage.Size = New System.Drawing.Size(101, 28)
-        Me.ButtonEditImage.TabIndex = 51
-        Me.ButtonEditImage.Text = "Edit Image"
-        Me.ButtonEditImage.UseVisualStyleBackColor = True
+        Me.RadioModeDemos.AutoSize = True
+        Me.RadioModeDemos.Location = New System.Drawing.Point(404, 11)
+        Me.RadioModeDemos.Name = "RadioModeDemos"
+        Me.RadioModeDemos.Size = New System.Drawing.Size(90, 17)
+        Me.RadioModeDemos.TabIndex = 52
+        Me.RadioModeDemos.TabStop = True
+        Me.RadioModeDemos.Text = "RadioButton1"
+        Me.RadioModeDemos.UseVisualStyleBackColor = True
+        '
+        'textImageFileTitleEdited
+        '
+        Me.textImageFileTitleEdited.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textImageFileTitleEdited.Location = New System.Drawing.Point(785, 391)
+        Me.textImageFileTitleEdited.Name = "textImageFileTitleEdited"
+        Me.textImageFileTitleEdited.Size = New System.Drawing.Size(335, 26)
+        Me.textImageFileTitleEdited.TabIndex = 53
         '
         'FormBackgroundsSelect
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1161, 551)
+        Me.Controls.Add(Me.textImageFileTitleEdited)
+        Me.Controls.Add(Me.RadioModeDemos)
         Me.Controls.Add(Me.ButtonEditImage)
         Me.Controls.Add(Me.LabelSelectedTitle)
         Me.Controls.Add(Me.LinkTestScreengrab)
@@ -309,4 +332,6 @@ Partial Class FormBackgroundsSelect
     Friend WithEvents LinkTestScreengrab As LinkLabel
     Friend WithEvents LabelSelectedTitle As Label
     Friend WithEvents ButtonEditImage As Button
+    Friend WithEvents RadioModeDemos As RadioButton
+    Friend WithEvents textImageFileTitleEdited As TextBox
 End Class

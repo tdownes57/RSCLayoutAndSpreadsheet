@@ -4,12 +4,16 @@ Option Strict On
 ''Added 5/18/2022 
 ''
 ''---Imports MoveAndResizeControls_Monem
+Imports __RSCWindowsControlLibrary
 Imports ciBadgeInterfaces ''Added 5/18/2022 td
 
 Public Class CtlMoveableBackground
     ''
     ''Added 5/18/2022 
     ''
+    Public Event ElementGraphic_RightClicked(par_control As UserControl) ''Added 5/18/2022 td
+    Public Event ElementGraphic_LeftClicked(par_control As UserControl) ''Added 5/18/2022 td
+
     Private mod_strImageFileLocation As String
     Private mod_designer As New ClassDesigner
     ''5/18/2022 Private mod_objEventsMoveGroupOfCtls As New MonemControlMove_AllFunctionality
@@ -161,5 +165,30 @@ Public Class CtlMoveableBackground
 
     End Function ''End of ""Private Function CreateFreshGraphicsControl()""
 
+    Private Sub ctlMoveable1_ElementGraphic_RightClicked(par_control As CtlGraphicStaticGraphic) Handles ctlMoveable1.ElementGraphic_RightClicked
+        ''
+        ''Added 5/18/2022 thomas downes 
+        ''
+        RaiseEvent ElementGraphic_RightClicked(Me)
+
+
+    End Sub
+
+    Private Sub ctlMoveable1_ElementGraphic_LeftClicked(par_control As CtlGraphicStaticGraphic) Handles ctlMoveable1.ElementGraphic_LeftClicked
+        ''
+        ''Added 5/18/2022 thomas downes
+        ''
+        RaiseEvent ElementGraphic_LeftClicked(Me)
+
+
+    End Sub
+
+    Private Sub ctlMoveable1_Element_LeftClicked(par_control As RSCMoveableControlVB) Handles ctlMoveable1.Element_LeftClicked
+        ''
+        ''Added 5/18/2022 thomas downes
+        ''
+        RaiseEvent ElementGraphic_LeftClicked(Me)
+
+    End Sub
 
 End Class

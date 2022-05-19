@@ -24,6 +24,7 @@ Public Class CtlGraphicStaticGraphic
     Public Overrides Property ElementInfo_Base As IElement_Base ''Added 7/31/2019 thomas d 
 
     Public Event ElementGraphic_RightClicked(par_control As CtlGraphicStaticGraphic) ''Added 10/10/2019 td
+    Public Event ElementGraphic_LeftClicked(par_control As CtlGraphicStaticGraphic) ''Added 5/18/2022 td
 
     Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
 
@@ -1002,6 +1003,10 @@ ExitHandler:
         ''
         ''Added 5/4/2022
         MyBase.RaiseEvent_ControlClicked() ''Added 5/4/2022 td 
+
+        ''Added 5/18/2022 thomas downes 
+        If (par_e.Button = MouseButtons.Left) Then RaiseEvent ElementGraphic_LeftClicked(Me)
+        If (par_e.Button = MouseButtons.Right) Then RaiseEvent ElementGraphic_RightClicked(Me)
 
         ''----Nasty bug.  Don't use par_sender here. ---1/11/2022 td''
         ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)

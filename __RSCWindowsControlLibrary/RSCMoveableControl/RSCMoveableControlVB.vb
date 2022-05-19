@@ -172,6 +172,8 @@ Public Class RSCMoveableControlVB
     ''Public Property DateSaved As Date Implements IElement_Base.DateSaved
     ''Public Property ZOrder As Integer Implements IElement_Base.ZOrder
 
+    Public Event Element_RightClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
+    Public Event Element_LeftClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td
@@ -1233,7 +1235,10 @@ Public Class RSCMoveableControlVB
 
         ''Added 2/02/2022 td
         par_iRefreshImage.RefreshElementImage()
-        par_iRefreshPreview.RefreshCardPreview()
+
+        If (par_iRefreshPreview IsNot Nothing) Then
+            par_iRefreshPreview.RefreshCardPreview()
+        End If ''End of ""If par_iRefreshPreview IsNot Nothing) Then""
 
     End Sub ''End of "Private Sub mod_events_Resizing_EndV2(.....)"
 
@@ -1698,6 +1703,8 @@ Public Class RSCMoveableControlVB
             ''
             ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
             ''
+            Me.RaiseEvent_LeftClicked() ''Added 5/18/2022 
+
             ''Added 3/20/2022 td
             If (mod_boolRemoveMoveability) Then Exit Sub
 
@@ -1955,6 +1962,14 @@ Public Class RSCMoveableControlVB
 
         ''Added 5/4/2022 td
         RaiseEvent RSCControlClicked()
+
+    End Sub
+
+
+    Public Sub RaiseEvent_LeftClicked()
+
+        ''Added 5/18/2022 td
+        RaiseEvent Element_LeftClicked(Me)
 
     End Sub
 
