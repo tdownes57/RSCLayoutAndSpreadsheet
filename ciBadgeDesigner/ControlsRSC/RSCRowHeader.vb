@@ -61,6 +61,18 @@ Public Class RSCRowHeader
         ''
         ''Added 5/14/2022 thomas downes
         ''
+        Dim objRecipient As ciBadgeRecipients.ClassRecipient
+        objRecipient = Me.Recipient
+
+        If objRecipient Is Nothing Then
+
+            objRecipient = New ciBadgeRecipients.ClassRecipient
+            objRecipient.ID_Guid = Guid.NewGuid()
+
+        End If ''End of ""If objRecipient Is Nothing Then"" 
+
+        Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex)
+
 
 
 

@@ -625,6 +625,19 @@ Public Class RSCRowHeaders
     End Sub ''end of Public Sub EmphasizeRows_Highlight
 
 
+    Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
+                               par_iRowIndex As Integer)
+        ''
+        ''Added 5/19/2022 
+        ''
+        Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex)
+
+
+
+
+    End Sub ''End of ""Public Sub SaveToRecipient(...)""
+
+
     Private Sub EmphasizeRowHeaders(par_intRowIndex_Start As Integer,
                                   Optional par_intRowIndex_End As Integer = -1)
         ''
