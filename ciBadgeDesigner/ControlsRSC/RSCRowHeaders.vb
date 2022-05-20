@@ -632,10 +632,17 @@ Public Class RSCRowHeaders
         ''
         Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex)
 
-
-
-
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
+
+
+    Public Sub ShowRecipientsIDCard(par_objRecipient As ciBadgeRecipients.ClassRecipient)
+        ''
+        ''Added 5/19/2022 thomas d
+        ''
+        Me.ParentRSCSpreadsheet.ShowRecipientsIDCard(par_objRecipient)
+
+
+    End Sub ''End of ""Public Sub ShowRecipientsIDCard""
 
 
     Private Sub EmphasizeRowHeaders(par_intRowIndex_Start As Integer,

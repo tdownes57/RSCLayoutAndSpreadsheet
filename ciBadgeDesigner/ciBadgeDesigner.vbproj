@@ -318,6 +318,12 @@
     <Compile Include="Dialogs\DialogDisplayColor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\DialogDisplayIDCardSides.Designer.vb">
+      <DependentUpon>DialogDisplayIDCardSides.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogDisplayIDCardSides.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\DialogExampleValueEtc.Designer.vb">
       <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </Compile>
@@ -576,6 +582,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogDisplayIDCardSides.resx">
+      <DependentUpon>DialogDisplayIDCardSides.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogExampleValueEtc.resx">
       <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>

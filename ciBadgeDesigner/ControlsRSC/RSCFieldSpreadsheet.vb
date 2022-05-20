@@ -350,6 +350,25 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of ""Public Sub MoveTextCaret_IfNeeded()" 
 
 
+    Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
+                               par_iRowIndex As Integer)
+        ''
+        ''Added 5/19/2022 
+        ''
+        Dim each_column As RSCFieldColumnV2
+
+        For Each each_column In mod_array_RSCColumns
+
+            With each_column
+                .SaveToRecipient(par_objRecipient, par_iRowIndex)
+            End With
+
+        Next each_column
+
+
+    End Sub ''End of ""Public Sub SaveToRecipient(...)""
+
+
     Public Function GetRecipientByRowIndex(par_intRowIndex As Integer) As ciBadgeRecipients.ClassRecipient
         ''
         ''Added 4/14/2022 td
@@ -508,6 +527,63 @@ Public Class RSCFieldSpreadsheet
 
 
     End Sub ''End of ""Private Sub ShowFieldsManagement()""
+
+
+    Public Sub ShowRecipientsIDCard(par_objRecipient As ciBadgeRecipients.ClassRecipient)
+        ''
+        ''Added 5/19/2022 thomas d
+        ''
+        Dim objBadgeSideElementsFront As ClassBadgeSideLayoutV1
+        Dim objBadgeSideElementsBackside As ClassBadgeSideLayoutV1
+        Dim objBadgeSideElems As ClassBadgeSideLayoutV1
+        Dim obj_generator As ciBadgeGenerator.ClassMakeBadge
+        Dim dialog_ToShow As New DialogDisplayIDCardSides
+        Dim objbadgeLayoutClass As New BadgeLayoutClass
+        Dim objBadgeImageFront As Drawing.Image
+        Dim objBadgeImageBackside As Drawing.Image
+
+        With Me.ElementsCache_Deprecated
+            objBadgeSideElementsFront = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
+            objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumBackside)
+        End With
+
+        obj_generator = New ciBadgeGenerator.ClassMakeBadge
+
+        With objbadgeLayoutClass
+            .Width_Pixels = dialog_ToShow.pictureBackgroundFront.Width
+            .Height_Pixels = dialog_ToShow.pictureBackgroundFront.Height
+        End With
+
+        ''
+        ''Major call !!
+        ''
+        objBadgeSideElems = objBadgeSideElementsFront
+        objBadgeImageFront = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
+                        objBadgeSideElems, Me.ElementsCache_Deprecated,
+                        dialog_ToShow.pictureBackgroundFront.Width,
+                        dialog_ToShow.pictureBackgroundFront.Height,
+                        par_objRecipient,
+                        Nothing, Nothing, Nothing, Nothing, Nothing)
+
+        objBadgeSideElems = objBadgeSideElementsBackside
+        objBadgeImageBackside = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
+                        objBadgeSideElems, Me.ElementsCache_Deprecated,
+                        dialog_ToShow.pictureBackgroundFront.Width,
+                        dialog_ToShow.pictureBackgroundFront.Height,
+                        par_objRecipient,
+                        Nothing, Nothing, Nothing, Nothing, Nothing)
+
+        ''Added 1/23/2022 td
+        If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
+            ''Added 1/23/2022 td
+            MessageBoxTD.Show_Statement(obj_generator.Messages)
+        End If ''End of "If (boolGeneratorMessageExists) Then"
+
+        ''Added 5/19/2022 
+        dialog_ToShow.ShowDialog()
+
+
+    End Sub ''End of ""Public Sub ShowRecipientsIDCard""
 
 
     Private Function ExpandDictionary1FC(par_dictionary1FC_FieldsToColumn As Dictionary(Of EnumCIBFields, RSCFieldColumnV2),

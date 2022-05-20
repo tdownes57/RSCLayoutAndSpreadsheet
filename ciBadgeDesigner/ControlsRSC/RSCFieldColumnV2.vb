@@ -1719,6 +1719,24 @@ Public Class RSCFieldColumnV2
     End Sub ''End of Public Sub SaveDataTo_ColumnCache()
 
 
+    Public Sub SaveToRecipient(par_objRecipient As ClassRecipient,
+                               par_iRowIndex As Integer)
+        ''
+        ''Added 5/19/2022 thomas downes
+        ''
+        Dim one_RSCDataCell As RSCDataCell
+        Dim enumCIBField As EnumCIBFields
+
+        enumCIBField = RscSelectCIBField1.SelectedValue
+
+        one_RSCDataCell = GetCellWithRowIndex(par_iRowIndex)
+
+        one_RSCDataCell.SaveDataToRecipient(par_objRecipient, enumCIBField)
+
+
+    End Sub ''End of ""Public Sub SaveToRecipient""
+
+
     Public Sub SaveDataTo_RecipientCache()
         ''
         ''We are not really saving to the Recipient Cache.

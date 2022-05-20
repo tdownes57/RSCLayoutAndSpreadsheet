@@ -1,6 +1,10 @@
-﻿''
+﻿Option Explicit On ''Added 5/19/2022 
+Option Strict On ''Added 5/19/2022
+''
 ''Added 4/6/2022 thomas d
 ''
+Imports ciBadgeInterfaces ''Added 5/19/2022 thomas 
+
 Public Class RSCRowHeader
     ''
     ''Added 4/6/2022 thomas d
@@ -62,6 +66,8 @@ Public Class RSCRowHeader
         ''Added 5/14/2022 thomas downes
         ''
         Dim objRecipient As ciBadgeRecipients.ClassRecipient
+        ''Dim obj_image As System.Drawing.Image
+
         objRecipient = Me.Recipient
 
         If objRecipient Is Nothing Then
@@ -73,8 +79,37 @@ Public Class RSCRowHeader
 
         Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex)
 
+        ''
+        ''Added 5/19/2022 td  
+        ''
+        Me.ParentRSCRowHeaders.ShowRecipientsIDCard(objRecipient)
 
+        ''Dim obj_image As System.Drawing.Image
+        ''obj_image = Me.ParentRSCRowHeaders.ShowRecipientsIDCard(objRecipient)
 
+        ''Dim imageBadge As System.Drawing.Image
+        ''Dim objBadgeSideFront As ClassBadgeSideLayoutV1
+        ''Dim objBadgeSideBackside As ClassBadgeSideLayoutV1
+        ''Dim obj_generator As ciBadgeGenerator.ClassMakeBadge
+
+        ''objBadgeSideFront = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.)
+        ''obj_generator = New ciBadgeGenerator.ClassMakeBadge
+
+        ''''
+        ''''Major call !!
+        ''''
+        ''obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+        ''                   par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
+        ''                   Me.PreviewBox.Width,
+        ''                   Me.PreviewBox.Height,
+        ''                   par_recipient,
+        ''                   Nothing, Nothing, Nothing, par_recentlyMoved)
+
+        ''''Added 1/23/2022 td
+        ''If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
+        ''    ''Added 1/23/2022 td
+        ''    MessageBoxTD.Show_Statement(obj_generator.Messages)
+        ''End If ''End of "If (boolGeneratorMessageExists) Then"
 
 
     End Sub ''End of ""Public Sub ShowRecipientsIDCard()""
@@ -214,6 +249,7 @@ Public Class RSCRowHeader
 
         ''Added 5/14/2022
         ShowRecipientsIDCard()
+
 
     End Sub
 

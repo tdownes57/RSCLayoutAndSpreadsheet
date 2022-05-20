@@ -295,6 +295,18 @@ Public Class RSCDataCell
     End Function ''End of ""Public Function FocusRelated_RowHeaderHasFocus() As Boolean""  
 
 
+    Public Sub SaveToRecipient(par_objRecipient As ClassRecipient,
+                               par_enumCIBField As EnumCIBFields)
+        ''
+        ''Added 5/19/2022 thomas downes
+        ''
+        par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text)
+
+        ''Let's indicate that the data has been saved. 
+        Textbox1a.Tag = Textbox1a.Text
+
+    End Sub ''End of ""Public Sub SaveToRecipient""
+
     Public Sub SaveDataToRecipientField(par_enumCIBField As EnumCIBFields)
         ''
         ''Added 4/12/2022 
