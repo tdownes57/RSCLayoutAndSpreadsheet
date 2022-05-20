@@ -3753,6 +3753,12 @@ ExitHandler:
         Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
         Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
 
+        ''Added 5/20/2022 td
+        With Me.ElementsCache_Edits
+            ''.BackgroundImage_Front_Path =  ?? updated w/ latest selection ??  --5/20/2022 
+            ''.BackgroundImage_Front_FTitle =  ?? updated w/ latest selection  ??  --5/20/2022 
+        End With
+
         ''Added 5/13/2022 td
         cache_elements = Me.ElementsCache_Edits
 

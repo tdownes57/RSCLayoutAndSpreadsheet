@@ -156,20 +156,27 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function GetElementSig(par_backside As Boolean) As ClassElementSignature"
 
 
-        Public Function GetAllBadgeSideLayoutElements(par_enum As EnumWhichSideOfCard) As ClassBadgeSideLayoutV1
+        Public Function GetAllBadgeSideLayoutElements(par_enumWhichSide As EnumWhichSideOfCard,
+                                                      par_iBadgeLayout As IBadgeLayoutDimensions,
+                                         Optional pbBackgroundInfoUpdated As Boolean = True) _
+                                                      As ClassBadgeSideLayoutV1
             ''
             ''Added 12/22/2021 thomas downes
             ''
             Dim objSide As New ClassBadgeSideLayoutV1
             Dim bBackside As Boolean
 
-            bBackside = (par_enum = EnumWhichSideOfCard.EnumBackside)
+            bBackside = (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside)
 
             If (bBackside) Then
                 ''
                 ''Back side of card. 
                 ''
-                objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
+                ''5/20/2022 td'' objSide.BackgroundImage = Me.GetBackgroundImage(par_enumWhichSide)
+                objSide.BackgroundImage = Me.GetBackgroundImage(par_enumWhichSide,
+                                                                par_iBadgeLayout,
+                                                                pbBackgroundInfoUpdated)
+
                 ''Jan13 2022''objSide.ElementPic = Me.ListOfElementPics_Back().FirstOrDefault()
                 ''May15 2022 ''objSide.ElementPortrait_1st = Me.ListOfElementPics_Back().FirstOrDefault()
 
@@ -232,7 +239,11 @@ Namespace ciBadgeCachePersonality
                 ''
                 ''Front side of card. 
                 ''
-                objSide.BackgroundImage = Me.GetBackgroundImage(par_enum)
+                ''5/20/2022 ''objSide.BackgroundImage = Me.GetBackgroundImage(par_enumWhichSide)
+                objSide.BackgroundImage = Me.GetBackgroundImage(par_enumWhichSide,
+                                                                par_iBadgeLayout,
+                                                                pbBackgroundInfoUpdated)
+
                 ''Jan13 2022 ''objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''May15 2022 ''objSide.ElementPortrait_1st = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode
@@ -3283,28 +3294,39 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub SaveToXML()"
 
 
-        Public Function GetBackgroundImage(par_enum As EnumWhichSideOfCard) As Image
+        Public Function GetBackgroundImage(par_enumWhichSide As EnumWhichSideOfCard,
+                     par_infoBadgeLayout As ciBadgeInterfaces.IBadgeLayoutDimensions,
+                     par_bBackgroundInfoRefreshed As Boolean) As Image
             ''
             ''Added 12/23/2021 thomas downes
             ''
+            ''This function is overloaded.  See same-named function below this function. 
+            ''
+            Return GetBackgroundImage(par_enumWhichSide,
+                                      par_infoBadgeLayout.Width_Pixels,
+                                         par_infoBadgeLayout.Height_Pixels,
+                                       DiskFolders.PathToFolder_BackgroundImages(),
+                                          par_bBackgroundInfoRefreshed)
+
+        End Function ''end of ""Public Function GetBackgroundImage""
 
 
-        End Function
-
-
-        Public Function GetBackgroundImage(par_enum As EnumWhichSideOfCard,
+        Public Function GetBackgroundImage(par_enumWhichSide As EnumWhichSideOfCard,
                                            pintWidth As Integer, pintHeight As Integer,
                                        Optional pstrPathToLikelyFolder As String = "",
                                        Optional pbooWereTwoPropertiesRefreshed As Boolean = False) As Image
             ''
             ''Added 1/14/2020 thomas downes
             ''
+            ''This function is overloaded.  See same-named function ABOVE !! 
+            ''
             Dim structCurrent As New BackgroundTitleAndWidth
             Dim imageFound As Image = Nothing
-            Dim imageCreated1 As Image = Nothing
-            Dim imageCreated2 As Image = Nothing
-            Dim bBackside As Boolean = (par_enum = EnumWhichSideOfCard.EnumBackside) ''Added 12/23/2021
-            Dim bFrontside As Boolean = (par_enum <> EnumWhichSideOfCard.EnumBackside) ''Added 12/23/2021
+            Dim imageCreated1Unsized As Image = Nothing
+            Dim imageCreated2Sized As Image = Nothing
+            Dim bBackside As Boolean = (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside) ''Added 12/23/2021
+            Dim bFrontside As Boolean = (par_enumWhichSide <> EnumWhichSideOfCard.EnumBackside) ''Added 12/23/2021
+            Dim strPathToBackground As String = "" ''Added 5/20/2022 thomas d.
 
             ''//
             ''//  Have the following properties been recently refreshed?  ---11/2/2021 td
@@ -3346,14 +3368,30 @@ Namespace ciBadgeCachePersonality
                 ''Added 1/14/2019 td 
                 BackgroundImage_RefreshPath(pstrPathToLikelyFolder) ''Added 1/14/2019 td 
                 ''Dec23 2021 td''imageCreated1 = New Bitmap(Me.BackgroundImage_Front_Path)
-                If (bFrontside) Then imageCreated1 = New Bitmap(Me.BackgroundImage_Front_Path)
-                If (bBackside) Then imageCreated1 = New Bitmap(Me.BackgroundImage_Backside_Path)
+                Try
+                    ''May20 2022 ''If (bFrontside) Then imageCreated1Unsized = New Bitmap(Me.BackgroundImage_Front_Path)
+                    ''May20 2022 ''If (bBackside) Then imageCreated1Unsized = New Bitmap(Me.BackgroundImage_Backside_Path)
+                    If (bFrontside) Then strPathToBackground = Me.BackgroundImage_Front_Path
+                    If (bBackside) Then strPathToBackground = Me.BackgroundImage_Backside_Path
+                    imageCreated1Unsized = New Bitmap(strPathToBackground)
+
+                Catch ex_Bitmap As Exception
+
+                    ''Added 5/20/2022 thomas downes
+                    MessageBoxTD.Show_Statement("Problem loading the following-named background image:" & vbCrLf_Deux &
+                                                strPathToBackground, ex_Bitmap.Message)
+                    Return Nothing ''Added 5/20/2022 
+                End Try
+
+                ''Added 5/20/2022 td
+                If (imageCreated1Unsized Is Nothing) Then Return Nothing
 
                 ''imageCreated.Dispose()
-                imageCreated2 = New Bitmap(imageCreated1, New Size(pintWidth, pintHeight))
-                mod_dictionaryBackgroundImages.Add(structCurrent, imageCreated2)
-                imageCreated1.Dispose()
-                Return imageCreated2
+                imageCreated2Sized = New Bitmap(imageCreated1Unsized, New Size(pintWidth, pintHeight))
+                mod_dictionaryBackgroundImages.Add(structCurrent, imageCreated2Sized)
+                imageCreated1Unsized.Dispose()
+                Return imageCreated2Sized
+
             End If  ''Endof "If (imageFound IsNot Nothing) Then ..... Else ...."
 
         End Function ''End of "Public Function GetBackgroundImage(pintWidth As Integer, pintHeight As Integer) As Image"

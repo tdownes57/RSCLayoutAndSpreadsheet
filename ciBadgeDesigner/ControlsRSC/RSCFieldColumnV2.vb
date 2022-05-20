@@ -1731,7 +1731,8 @@ Public Class RSCFieldColumnV2
 
         one_RSCDataCell = GetCellWithRowIndex(par_iRowIndex)
 
-        one_RSCDataCell.SaveDataToRecipient(par_objRecipient, enumCIBField)
+        ''one_RSCDataCell.SaveDataToRecipient(par_objRecipient, enumCIBField)
+        one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField)
 
 
     End Sub ''End of ""Public Sub SaveToRecipient""

@@ -34,9 +34,20 @@ Public Class DiskFolders
         ''
         ''Added 10/12/2019 Thomas Downes    
         ''
-        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
+        ''5/20/2022 Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExampleDemos")
 
     End Function ''End of "Public Shared Function PathToFolder_BackExamples() As String"
+
+
+    Public Shared Function PathToFolder_BackgroundImages() As String
+        ''
+        ''Added 5/20/2022 Thomas Downes    
+        ''
+        ''May 20, 2022 td''Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImagesUploaded")
+
+    End Function ''End of "Public Shared Function PathToFolder_BackgroundImages() As String"
 
 
     Public Shared Function PathToFolder_PicExamples() As String

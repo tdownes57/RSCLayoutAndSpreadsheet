@@ -14,6 +14,7 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
     Public ImageFileInfo As System.IO.FileInfo
 
     Public TemporarySelectedFileInfo As System.IO.FileInfo
+    Private mod_strImageFiletitleEdited As String ''Added 5/20/2022
 
     Public ReadOnly Property EditedImage As Image
         Get
@@ -31,9 +32,10 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
             ''
             ''Added 5/18/2022 td
             ''
-            Dim strFileTitle_Edited As String
-            strFileTitle_Edited = Me.textImageFileTitleEdited.Text
+            ''---Dim strFileTitle_Edited As String
+            ''---strFileTitle_Edited = Me.textImageFileTitleEdited.Text
 
+            Return mod_strImageFiletitleEdited
 
         End Get
     End Property

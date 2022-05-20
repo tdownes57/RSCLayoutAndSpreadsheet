@@ -295,21 +295,25 @@ Public Class RSCDataCell
     End Function ''End of ""Public Function FocusRelated_RowHeaderHasFocus() As Boolean""  
 
 
-    Public Sub SaveToRecipient(par_objRecipient As ClassRecipient,
+    Public Sub SaveDataToRecipientField(par_objRecipient As ClassRecipient,
                                par_enumCIBField As EnumCIBFields)
         ''
         ''Added 5/19/2022 thomas downes
+        ''
+        ''This procedure is overloaded. See another "Public Sub SaveDataToRecipientField" below. 
         ''
         par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text)
 
         ''Let's indicate that the data has been saved. 
         Textbox1a.Tag = Textbox1a.Text
 
-    End Sub ''End of ""Public Sub SaveToRecipient""
+    End Sub ''End of ""Public Sub SaveDataToRecipientField""
 
     Public Sub SaveDataToRecipientField(par_enumCIBField As EnumCIBFields)
         ''
         ''Added 4/12/2022 
+        ''
+        ''This procedure is overloaded. See another "Public Sub SaveDataToRecipientField" above. 
         ''
         If (Me.Recipient Is Nothing) Then
             Throw New Exception("Recipient is a null reference")

@@ -11,6 +11,7 @@ Public Class FormSpecialButton
     Private mod_singFactorWidth As Single
     Private mod_strMainHeading As String
 
+
     Public Sub New(pstrMainHeading As String,
                     psingFactorWidth As Single,
                     psingFactorHeight As Single,

@@ -68,6 +68,8 @@ Public Class RSCRowHeader
         Dim objRecipient As ciBadgeRecipients.ClassRecipient
         ''Dim obj_image As System.Drawing.Image
 
+        LinkLabelShowID.Visible = True ''Added 5/20/2022 td 
+
         objRecipient = Me.Recipient
 
         If objRecipient Is Nothing Then
@@ -119,6 +121,8 @@ Public Class RSCRowHeader
         ''
         ''Added 5/13/2022 td 
         ''
+        LinkLabelShowID.Visible = True ''Added 5/20/2022 td 
+
         With Me.ParentRSCRowHeaders
             ''Added 5/13/2022 td 
             .EmphasisRowIndex_Start = Me.RowIndex
@@ -168,6 +172,8 @@ Public Class RSCRowHeader
         ''Added 4/12/2022 td 
         Const c_bGiveHeightMsg As Boolean = False
         Dim boolUsingShiftKey As Boolean ''And 4/29/2022 thomas
+
+        LinkLabelShowID.Visible = True ''Added 5/20/2022 td 
 
         ''Added 4/6/2022 thomas d.
         If (e.Button = MouseButtons.Right) Then

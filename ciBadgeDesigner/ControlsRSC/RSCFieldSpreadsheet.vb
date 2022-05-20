@@ -359,6 +359,9 @@ Public Class RSCFieldSpreadsheet
 
         For Each each_column In mod_array_RSCColumns
 
+            ''Added 5/20/2022 td
+            If (each_column Is Nothing) Then Continue For
+
             With each_column
                 .SaveToRecipient(par_objRecipient, par_iRowIndex)
             End With
@@ -373,7 +376,14 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/14/2022 td
         ''
-        Return RecipientsCache.ListOfRecipients(par_intRowIndex)
+        ''May 20, 2022 Return RecipientsCache.ListOfRecipients(par_intRowIndex)
+        With RecipientsCache.ListOfRecipients
+            If (par_intRowIndex >= .Count) Then
+                Return Nothing
+            Else
+                Return .Item(par_intRowIndex)
+            End If ''End of ""If (par_intRowIndex >= .count) Then... Else...""
+        End With
 
     End Function
 
@@ -438,7 +448,7 @@ Public Class RSCFieldSpreadsheet
             ''5/13/2022 MessageBoxTD.Show_Statement("Here is the list of Columns & corresponding Fields:",
             ''                  objectStringBuilder2CF.ToString())
             output_dialogResult =
-            MessageBoxTD.Show_StatementLongform("Here is the list of Columns && corresponding Fields:",
+            MessageBoxTD.Show_StatementLongform("Here is the list of Columns && corresponding Relevant Fields:",
                                         objectStringBuilder2CF.ToString(),
                                         1.7, 1.0, False)
 
@@ -460,9 +470,9 @@ Public Class RSCFieldSpreadsheet
                 If (c_showFieldsButton) Then
                     ''Added 5/13/2022
                     output_dialogResult =
-                    MessageBoxTD.Show_SpecialButton("Here is the list of Fields && corresponding columns:",
+                    MessageBoxTD.Show_SpecialButton("Here is the list of Relevant Fields && corresponding columns:",
                                             objectStringBuilder1FC_Expanded.ToString(),
-                                            1.7, 2.0, "Manage Fields", bUserPressedButton)
+                                            1.7, 2.0, "Manage Relevant Fields", bUserPressedButton)
                     bUserWantsFieldsManager = bUserPressedButton
 
                 Else
@@ -537,27 +547,44 @@ Public Class RSCFieldSpreadsheet
         Dim objBadgeSideElementsBackside As ClassBadgeSideLayoutV1
         Dim objBadgeSideElems As ClassBadgeSideLayoutV1
         Dim obj_generator As ciBadgeGenerator.ClassMakeBadge
-        Dim dialog_ToShow As New DialogDisplayIDCardSides
+        Dim dialog_ToShow As DialogDisplayIDCardSides
         Dim objbadgeLayoutClass As New BadgeLayoutClass
         Dim objBadgeImageFront As Drawing.Image
         Dim objBadgeImageBackside As Drawing.Image
 
-        With Me.ElementsCache_Deprecated
-            objBadgeSideElementsFront = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
-            objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumBackside)
-        End With
-
-        obj_generator = New ciBadgeGenerator.ClassMakeBadge
-
         With objbadgeLayoutClass
+            dialog_ToShow = New DialogDisplayIDCardSides
             .Width_Pixels = dialog_ToShow.pictureBackgroundFront.Width
             .Height_Pixels = dialog_ToShow.pictureBackgroundFront.Height
         End With
 
+        With Me.ElementsCache_Deprecated
+            ''5/20/2022 objBadgeSideElementsFront = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
+            ''5/20/2022 objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumBackside)
+            objBadgeSideElementsFront = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside, objbadgeLayoutClass)
+            objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumBackside, objbadgeLayoutClass)
+        End With
+
+        obj_generator = New ciBadgeGenerator.ClassMakeBadge
+
         ''
         ''Major call !!
         ''
+        ''
+        ''Step #1 of 2. Frontside of the card.  
+        ''
         objBadgeSideElems = objBadgeSideElementsFront
+
+        ''Aded 5/20/2022 thomas downes
+        If (objBadgeSideElems.BackgroundImage Is Nothing) Then
+            ''Aded 5/20/2022 thomas downes
+            MessageBoxTD.Show_Statement("Problem loading the background image.")
+            Exit Sub
+        End If ''End of ""If (objBadgeSideElems.BackgroundImage Is Nothing) Then"
+
+        ''
+        ''Mahor call!!  
+        ''
         objBadgeImageFront = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
                         objBadgeSideElems, Me.ElementsCache_Deprecated,
                         dialog_ToShow.pictureBackgroundFront.Width,
@@ -565,13 +592,31 @@ Public Class RSCFieldSpreadsheet
                         par_objRecipient,
                         Nothing, Nothing, Nothing, Nothing, Nothing)
 
-        objBadgeSideElems = objBadgeSideElementsBackside
-        objBadgeImageBackside = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
-                        objBadgeSideElems, Me.ElementsCache_Deprecated,
-                        dialog_ToShow.pictureBackgroundFront.Width,
-                        dialog_ToShow.pictureBackgroundFront.Height,
-                        par_objRecipient,
-                        Nothing, Nothing, Nothing, Nothing, Nothing)
+        ''
+        ''Step #2 of 2. Backside of the card.  
+        ''
+        Dim boolBacksideExists As Boolean ''Added 5/20/2022 td 
+        boolBacksideExists = Me.ElementsCache_Deprecated.BadgeHasTwoSidesOfCard
+
+        If (boolBacksideExists) Then
+
+            objBadgeSideElems = objBadgeSideElementsBackside
+
+            ''Aded 5/20/2022 thomas downes
+            If (objBadgeSideElems.BackgroundImage Is Nothing) Then
+                ''Aded 5/20/2022 thomas downes
+                MessageBoxTD.Show_Statement("Problem loading the background image.")
+                Exit Sub
+            End If ''End of ""If (objBadgeSideElems.BackgroundImage Is Nothing) Then"
+
+            objBadgeImageBackside = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
+                            objBadgeSideElems, Me.ElementsCache_Deprecated,
+                            dialog_ToShow.pictureBackgroundFront.Width,
+                            dialog_ToShow.pictureBackgroundFront.Height,
+                            par_objRecipient,
+                            Nothing, Nothing, Nothing, Nothing, Nothing)
+
+        End If ''End of ""If (boolBacksideExists) Then""
 
         ''Added 1/23/2022 td
         If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then

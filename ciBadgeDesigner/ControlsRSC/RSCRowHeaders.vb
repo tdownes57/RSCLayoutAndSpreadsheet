@@ -1190,6 +1190,12 @@ Public Class RSCRowHeaders
             intRowIndex += 1
             each_rowheader.Recipient = Me.ListRecipients(intRowIndex)
 
+            ''Added 5/20/2022 td 
+            With each_rowheader
+                ''Show the "Show ID" linklabel.  
+                .LinkLabelShowID.Visible = True ''Added 5/20/2022 td 
+            End With
+
             ''''4/11 td''each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
             ''''Added 4/11/2022 td
             ''each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
