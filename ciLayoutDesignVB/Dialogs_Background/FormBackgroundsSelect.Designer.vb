@@ -23,6 +23,9 @@ Partial Class FormBackgroundsSelect
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonOK = New System.Windows.Forms.Button()
@@ -38,11 +41,9 @@ Partial Class FormBackgroundsSelect
         Me.LinkTestScreengrab = New System.Windows.Forms.LinkLabel()
         Me.LabelSelectedTitle = New System.Windows.Forms.Label()
         Me.ButtonEditImage = New System.Windows.Forms.Button()
-        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
-        Me.RadioModeDemos = New System.Windows.Forms.RadioButton()
         Me.textImageFileTitleEdited = New System.Windows.Forms.TextBox()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.LabelModeHeader = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -64,6 +65,36 @@ Partial Class FormBackgroundsSelect
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(589, 422)
         Me.FlowLayoutPanel1.TabIndex = 13
         Me.FlowLayoutPanel1.WrapContents = False
+        '
+        'CtlBackground2
+        '
+        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground2.IsNotSelectableItemOfAList = False
+        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
+        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground2.Name = "CtlBackground2"
+        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground2.TabIndex = 1
+        '
+        'CtlBackground3
+        '
+        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground3.IsNotSelectableItemOfAList = False
+        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
+        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground3.Name = "CtlBackground3"
+        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground3.TabIndex = 2
+        '
+        'CtlBackground1
+        '
+        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground1.IsNotSelectableItemOfAList = False
+        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
+        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CtlBackground1.Name = "CtlBackground1"
+        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground1.TabIndex = 0
         '
         'LabelHeading1
         '
@@ -231,47 +262,6 @@ Partial Class FormBackgroundsSelect
         Me.ButtonEditImage.Text = "Edit Image"
         Me.ButtonEditImage.UseVisualStyleBackColor = True
         '
-        'CtlBackground2
-        '
-        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground2.IsNotSelectableItemOfAList = False
-        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
-        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground2.Name = "CtlBackground2"
-        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground2.TabIndex = 1
-        '
-        'CtlBackground3
-        '
-        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground3.IsNotSelectableItemOfAList = False
-        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
-        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground3.Name = "CtlBackground3"
-        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground3.TabIndex = 2
-        '
-        'CtlBackground1
-        '
-        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground1.IsNotSelectableItemOfAList = False
-        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
-        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground1.Name = "CtlBackground1"
-        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground1.TabIndex = 0
-        '
-        'RadioModeDemos
-        '
-        Me.RadioModeDemos.AutoSize = True
-        Me.RadioModeDemos.Location = New System.Drawing.Point(404, 11)
-        Me.RadioModeDemos.Name = "RadioModeDemos"
-        Me.RadioModeDemos.Size = New System.Drawing.Size(90, 17)
-        Me.RadioModeDemos.TabIndex = 52
-        Me.RadioModeDemos.TabStop = True
-        Me.RadioModeDemos.Text = "RadioButton1"
-        Me.RadioModeDemos.UseVisualStyleBackColor = True
-        '
         'textImageFileTitleEdited
         '
         Me.textImageFileTitleEdited.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -280,13 +270,36 @@ Partial Class FormBackgroundsSelect
         Me.textImageFileTitleEdited.Size = New System.Drawing.Size(335, 26)
         Me.textImageFileTitleEdited.TabIndex = 53
         '
+        'ComboBox1
+        '
+        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"Uploaded Backgrounds", "Demo Backgrounds", "Original Backgrounds", "Uploaded Graphics", "Demo Graphics", "Uploaded Portraits", "Demo Portraits"})
+        Me.ComboBox1.Location = New System.Drawing.Point(457, 7)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(203, 28)
+        Me.ComboBox1.TabIndex = 54
+        '
+        'LabelModeHeader
+        '
+        Me.LabelModeHeader.AutoSize = True
+        Me.LabelModeHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelModeHeader.Location = New System.Drawing.Point(371, 3)
+        Me.LabelModeHeader.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelModeHeader.Name = "LabelModeHeader"
+        Me.LabelModeHeader.Size = New System.Drawing.Size(81, 29)
+        Me.LabelModeHeader.TabIndex = 55
+        Me.LabelModeHeader.Tag = "Mode:"
+        Me.LabelModeHeader.Text = "Mode:"
+        '
         'FormBackgroundsSelect
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1161, 551)
+        Me.Controls.Add(Me.LabelModeHeader)
+        Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.textImageFileTitleEdited)
-        Me.Controls.Add(Me.RadioModeDemos)
         Me.Controls.Add(Me.ButtonEditImage)
         Me.Controls.Add(Me.LabelSelectedTitle)
         Me.Controls.Add(Me.LinkTestScreengrab)
@@ -332,6 +345,7 @@ Partial Class FormBackgroundsSelect
     Friend WithEvents LinkTestScreengrab As LinkLabel
     Friend WithEvents LabelSelectedTitle As Label
     Friend WithEvents ButtonEditImage As Button
-    Friend WithEvents RadioModeDemos As RadioButton
     Friend WithEvents textImageFileTitleEdited As TextBox
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents LabelModeHeader As Label
 End Class
