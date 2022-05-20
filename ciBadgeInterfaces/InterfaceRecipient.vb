@@ -1,7 +1,7 @@
 ﻿''
 ''Added 9/9/2019 thomasd
 ''
-Imports System.Drawing ''Added 10/11/2019 td 
+Imports System.Drawing ''Added 10/11/2019 td
 
 ''
 ''-----n-------This was moved to ModEnumsAndStructs, on 3/17/2022 t//D//o//w//n//e//s// 
@@ -106,7 +106,7 @@ Public Interface IRecipient
     Property fstrMidName As String
     Property fstrID As String
 
-    Property PortraitID As String ''Added 5/20/2022 thomas d.  
+    Property PortraitPhotoID As String ''Added 5/20/2022 thomas d.  
 
     ''Added 11/25/2021 Thomas 
     Property fstrFullName As String

@@ -413,8 +413,7 @@ namespace ciBadgeGenerator
 
                 //Image img_Step3Picture = obj_elementPic.GetStep3_Picture();
                 //if (img_Step3Picture == null) img_Step3Picture = par_recipientPic;
-                //May 20 2022 Image img_Step3Picture = par_layoutElements.RecipientPic;
-                Image img_Step3Picture = par_iRecipientInfo.GetPortraitImage();
+                Image img_Step3Picture = null;  // 5/20/2022 par_layoutElements.RecipientPic;
 
                 if (obj_elementPic == null) //Added 1/14/2022 td
                 {
@@ -442,17 +441,35 @@ namespace ciBadgeGenerator
                     }
 
                 }
-                else if (img_Step3Picture != null)
+                else   //if (img_Step3Picture != null)
                 {
+                    //
+                    //There is a Portrait ellect  We will need to populate 
+                    //
+                    //Added 5/20/2022 td
+                    if (par_iRecipientInfo == null)
+                    {
+                        img_Step3Picture = par_layoutElements.RecipientPic;
+                    }
+                    else
+                    {
+                        //Added 5/20/2022 td
+                        img_Step3Picture = par_iRecipientInfo.GetPortraitImage();
+                    }
+
                     //
                     // Place the Portrait onto the image. ----Jan14 2022
                     //
-                    LoadImageWithPortrait_OrGraphic(img_Step3Picture,
-                                    par_newBadge_width_pixels,
-                                    par_layoutDims.Width_Pixels,
-                                    ref obj_imageOutput,
-                                    (IElement_Base)obj_elementPic,
-                                    (IElementPic)obj_elementPic);
+                    if (img_Step3Picture != null)
+                    {
+                        LoadImageWithPortrait_OrGraphic(img_Step3Picture,
+                                        par_newBadge_width_pixels,
+                                        par_layoutDims.Width_Pixels,
+                                        ref obj_imageOutput,
+                                        (IElement_Base)obj_elementPic,
+                                        (IElementPic)obj_elementPic);
+                    }
+
                     //
                     // End of "if (img_Step3Picture != null)"
                     //

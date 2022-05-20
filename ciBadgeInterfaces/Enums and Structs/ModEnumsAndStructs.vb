@@ -65,6 +65,22 @@ Public Module ModEnumsAndStructs
     End Enum ''End of ""Public Enum Enum_ElementType""
 
 
+    Public Enum Enum_ElementTypeVersion
+        ''
+        ''Added 5/20/2022 thomas downes 
+        ''
+        Undetermined
+        NotApplicable
+
+        FieldV3
+        FieldV4
+
+        StaticTextV3
+        StaticTextV4
+
+    End Enum ''End of ""Public Enum Enum_ElementType""
+
+
     ''
     ''Moved from InterfaceRecipient.vb 3/17/2022 td 
     ''
@@ -109,6 +125,8 @@ Public Module ModEnumsAndStructs
         fdatTimeStamp ''F.I.#18  [fdatTimeStamp] [datetime] NULL ,
         fintRecPool ''F.I.#19
         fstrRFID_Unique ''F.I.#20
+
+        PortraitPhotoID ''Added 5/20/2022 thomas downes  
 
         TextField01 ''  [TextField01] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
         TextField02 ''[TextField02] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,

@@ -1214,6 +1214,36 @@ Public Class ClassFieldStandard
 
         ''  objListOfFields_Standard.Add(new_objectField98)
 
+
+        ''
+        ''Added 5/20/2022 thomas downes
+        ''
+        intFieldIndex = 18 ''Added 5/20/2022 td
+        Dim new_objectField99 As New ClassFieldStandard
+        With new_objectField99
+
+            .FieldIndex = intFieldIndex
+            .FieldEnumValue = EnumCIBFields.PortraitPhotoID ''Added 5/20/2022 td
+            .IsCustomizable = False
+            .FieldLabelCaption = "Photo Portrait ID"
+            .CIBadgeField = "PhotoPortraitID"
+            .FieldType_TD = "T"c
+            .HasPresetValues = False
+            .IsAdditionalField = False
+            .IsFieldForDates = False
+            .ExampleValue = "12345"
+            .IsRelevantToPersonality = False ''False. Don't show as an option unless marked as Relevant.
+            .IsDisplayedForEdits = True
+            .IsDisplayedOnBadge = True
+            .IsLocked = False
+
+        End With ''End of "With new_objectField99
+
+        objListOfFields_Standard.Add(new_objectField99)
+        objFieldDictionary_Stan.Add(new_objectField99.FieldEnumValue, new_objectField99)
+
+
+
         ''Added 5/5/2022 td 
         FieldIndexHighest = intFieldIndex
 
@@ -1245,6 +1275,8 @@ Public Class ClassFieldStandard
             objListOfFields_Standard.Add(new_objectField96)
             objListOfFields_Standard.Add(new_objectField97)
             objListOfFields_Standard.Add(new_objectField98)
+            ''Added 5/22/2022 
+            objListOfFields_Standard.Add(new_objectField99)
 
         End If ''End of ""If (c_boolAddObjectsToListAtEnd) Then""
 

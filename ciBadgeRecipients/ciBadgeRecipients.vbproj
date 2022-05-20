@@ -152,6 +152,10 @@
       <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
       <Name>ciBadgeSerialize</Name>
     </ProjectReference>
+    <ProjectReference Include="..\__RSC Portrait Pictures\__RSC Portrait Pictures.vbproj">
+      <Project>{530fb780-9fdf-4864-a96c-a0b7c602eba3}</Project>
+      <Name>__RSC Portrait Pictures</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />

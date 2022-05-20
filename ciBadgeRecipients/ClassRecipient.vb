@@ -5,8 +5,10 @@ Option Infer Off
 ''Added 10/1/2019 td  
 ''
 Imports ciBadgeInterfaces
+Imports ciBadgeFields ''Added 5/20/2022 td
 Imports System.Collections.Generic
 Imports System.Drawing ''Added 10/11/2019 td
+Imports __RSC_Portrait_Pictures ''Added 5/20/2022 thomas downes
 
 Public Class ClassRecipient
     Implements IRecipient
@@ -32,11 +34,87 @@ Public Class ClassRecipient
 
     Public Property Personality_Guid As System.Guid
 
-    Public Function GetPortraitImage() As System.Drawing.Image Implements IRecipient.GetPortraitImage
+
+    Public Function GetPortraitImage() _
+        As System.Drawing.Image Implements IRecipient.GetPortraitImage
         ''
         ''Added 10/11/2019 td 
         ''
-        If (Me.PortraitPicture IsNot Nothing) Then Return Me.PortraitPicture
+        Dim strBasicIDValue As String = ""
+        Dim strPortraitID As String = ""
+        Dim strLastName As String = ""
+        Dim strFirstName As String = ""
+        Dim strFinalIDValue As String = ""
+
+        strPortraitID = GetTextValue(EnumCIBFields.PortraitPhotoID)
+        strBasicIDValue = GetTextValue(EnumCIBFields.fstrID)
+        strLastName = GetTextValue(EnumCIBFields.fstrLastName)
+        strFirstName = GetTextValue(EnumCIBFields.fstrFirstName)
+
+        If (strFinalIDValue = "") Then If (strPortraitID <> "") Then strFinalIDValue = strPortraitID
+        If (strFinalIDValue = "") Then If (strBasicIDValue <> "") Then strFinalIDValue = strBasicIDValue
+        If (strFinalIDValue = "") Then If (strLastName <> "") Then strFinalIDValue = strLastName
+        If (strFinalIDValue = "") Then If (strFirstName <> "") Then strFinalIDValue = strFirstName
+
+        ''
+        ''Step 4 of 4.  Get the portrait image.  
+        ''
+        Return PortraitClass.GetPortraitImageByID(strFinalIDValue)
+
+    End Function ''End of ""Public Function GetPortraitImage()""
+
+    Public Function GetPortraitImage(par_enumFieldForPicFile As EnumCIBFields,
+        Optional par_dictionaryFields As Dictionary(Of EnumCIBFields, ClassFieldAny) = Nothing) _
+        As System.Drawing.Image ''5/20/2022 Implements IRecipient.GetPortraitImage
+        ''
+        ''Added 5/20/2022 td 
+        ''
+        ''
+        ''Step 1 of 4. See if there is already a Portrait Picture image.   
+        ''
+        If (Me.PortraitPicture IsNot Nothing) Then
+            Return Me.PortraitPicture
+        End If ''End of ""If (Me.PortraitPicture IsNot Nothing) Then""
+
+        ''Added 5/20/2022 thomas downes 
+        Dim enumFieldForPullingPhotoFile As EnumCIBFields
+        Dim fieldBasicID As ClassFieldAny
+        Dim fieldPortraitID As ClassFieldAny
+
+        ''
+        ''Step 2 of 4. Check which field contains identifying information.  
+        ''
+        enumFieldForPullingPhotoFile = par_enumFieldForPicFile
+        If (par_enumFieldForPicFile = EnumCIBFields.Undetermined) Then
+
+            fieldBasicID = par_dictionaryFields.Item(EnumCIBFields.fstrID)
+            fieldPortraitID = par_dictionaryFields.Item(EnumCIBFields.PortraitPhotoID)
+
+            Select Case True
+
+                Case (fieldPortraitID.IsRelevantToPersonality)
+
+                    par_enumFieldForPicFile = EnumCIBFields.PortraitPhotoID
+
+                Case (fieldBasicID.IsRelevantToPersonality)
+
+                    par_enumFieldForPicFile = EnumCIBFields.fstrID
+
+            End Select ''End of ""Select Case True""
+
+        End If ''End of ""If (par_enumFieldForPicFile = EnumCIBFields.Undetermined) Then""
+
+        ''
+        ''Step 3 of 4.  Get the identifying value.  
+        ''
+        Dim strIDValue As String
+        strIDValue = GetTextValue(par_enumFieldForPicFile)
+
+        ''
+        ''Step 4 of 4.  Get the portrait image.  
+        ''
+        Return PortraitClass.GetPortraitImageByID(strIDValue)
+
 
     End Function ''End of "Public Function GetPortraitImage() As System.Drawing.Image"
 
@@ -225,6 +303,10 @@ Public Class ClassRecipient
 
     Property fstrBarcode As String Implements IRecipient.fstrBarcode
     Property fstrRFID_Unique As String Implements IRecipient.fstrRFID_Unique
+
+    ''Added 5/20/2022 thomas d.
+    Property PortraitPhotoID As String Implements IRecipient.PortraitPhotoID ''Added 5/20/2022 thomas d.
+
 
     Property fstrAddress As String Implements IRecipient.fstrAddress ''Added 12/7/2021 td 
     Property fstrCity As String Implements IRecipient.fstrCity ''Added 12/6/2021 td 
