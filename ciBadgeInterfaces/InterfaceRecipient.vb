@@ -88,7 +88,8 @@ Public Interface IRecipient
     ''
     Function GetPortraitImage() As System.Drawing.Image ''Added 10/11/2019 td 
 
-    Property Picture As System.Drawing.Image ''Added 10/16/2019 thomas d.  
+    ''5/20/2022 td''Property Picture As System.Drawing.Image ''Added 10/16/2019 thomas d.  
+    Property PortraitPicture As System.Drawing.Image ''Added 10/16/2019 thomas d.  
     Property BadgeImage As System.Drawing.Image ''Added 9/29/2021 thomas d.  
 
     Function GetTextValue(par_enum As EnumCIBFields) As String
@@ -104,6 +105,8 @@ Public Interface IRecipient
     Property fstrFirstName As String
     Property fstrMidName As String
     Property fstrID As String
+
+    Property PortraitID As String ''Added 5/20/2022 thomas d.  
 
     ''Added 11/25/2021 Thomas 
     Property fstrFullName As String

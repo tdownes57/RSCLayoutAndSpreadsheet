@@ -549,13 +549,13 @@ Public Class RSCFieldSpreadsheet
         Dim obj_generator As ciBadgeGenerator.ClassMakeBadge
         Dim dialog_ToShow As DialogDisplayIDCardSides
         Dim objbadgeLayoutClass As New BadgeLayoutClass
-        Dim objBadgeImageFront As Drawing.Image
-        Dim objBadgeImageBackside As Drawing.Image
+        Dim objBadgeImageFront As Drawing.Image = Nothing
+        Dim objBadgeImageBackside As Drawing.Image = Nothing
 
         With objbadgeLayoutClass
             dialog_ToShow = New DialogDisplayIDCardSides
-            .Width_Pixels = dialog_ToShow.pictureBackgroundFront.Width
-            .Height_Pixels = dialog_ToShow.pictureBackgroundFront.Height
+            .Width_Pixels = dialog_ToShow.pictureBadgeFrontside.Width
+            .Height_Pixels = dialog_ToShow.pictureBadgeFrontside.Height
         End With
 
         With Me.ElementsCache_Deprecated
@@ -578,8 +578,8 @@ Public Class RSCFieldSpreadsheet
         ''Aded 5/20/2022 thomas downes
         If (objBadgeSideElems.BackgroundImage Is Nothing) Then
             ''Aded 5/20/2022 thomas downes
-            MessageBoxTD.Show_Statement("Problem loading the background image.")
-            Exit Sub
+            MessageBoxTD.Show_Statement("Problem loading the background image. (Front of card)")
+            ''May20 2022 ''Exit Sub
         End If ''End of ""If (objBadgeSideElems.BackgroundImage Is Nothing) Then"
 
         ''
@@ -587,8 +587,8 @@ Public Class RSCFieldSpreadsheet
         ''
         objBadgeImageFront = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
                         objBadgeSideElems, Me.ElementsCache_Deprecated,
-                        dialog_ToShow.pictureBackgroundFront.Width,
-                        dialog_ToShow.pictureBackgroundFront.Height,
+                        dialog_ToShow.pictureBadgeFrontside.Width,
+                        dialog_ToShow.pictureBadgeFrontside.Height,
                         par_objRecipient,
                         Nothing, Nothing, Nothing, Nothing, Nothing)
 
@@ -605,14 +605,17 @@ Public Class RSCFieldSpreadsheet
             ''Aded 5/20/2022 thomas downes
             If (objBadgeSideElems.BackgroundImage Is Nothing) Then
                 ''Aded 5/20/2022 thomas downes
-                MessageBoxTD.Show_Statement("Problem loading the background image.")
-                Exit Sub
+                MessageBoxTD.Show_Statement("Problem loading the background image.  (Backside of card)")
+                ''May20 2022 ''Exit Sub
             End If ''End of ""If (objBadgeSideElems.BackgroundImage Is Nothing) Then"
 
+            ''
+            ''Major call !! 
+            ''
             objBadgeImageBackside = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
                             objBadgeSideElems, Me.ElementsCache_Deprecated,
-                            dialog_ToShow.pictureBackgroundFront.Width,
-                            dialog_ToShow.pictureBackgroundFront.Height,
+                            dialog_ToShow.pictureBadgeFrontside.Width,
+                            dialog_ToShow.pictureBadgeFrontside.Height,
                             par_objRecipient,
                             Nothing, Nothing, Nothing, Nothing, Nothing)
 
@@ -624,7 +627,9 @@ Public Class RSCFieldSpreadsheet
             MessageBoxTD.Show_Statement(obj_generator.Messages)
         End If ''End of "If (boolGeneratorMessageExists) Then"
 
-        ''Added 5/19/2022 
+        ''Added 5/19/2022
+        dialog_ToShow.BadgeImage_FrontSide = objBadgeImageFront
+        dialog_ToShow.BadgeImage_BackSide = objBadgeImageBackside
         dialog_ToShow.ShowDialog()
 
 

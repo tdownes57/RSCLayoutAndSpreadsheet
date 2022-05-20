@@ -22,7 +22,7 @@ Public Class ClassRecipient
     ''
     Public Shared mod_recipientList As IList(Of ClassRecipient) = New List(Of ClassRecipient) ''{New ClassRecipient() }
 
-    Property Picture As Image Implements IRecipient.Picture ''Added 10/16/2019 thomas d.  
+    Property PortraitPicture As Image Implements IRecipient.PortraitPicture ''Added 10/16/2019 thomas d.  
     Property BadgeImage As Image Implements IRecipient.BadgeImage ''Added 9/29/2021 thomas d.  
 
     Public Property ID_Guid As System.Guid
@@ -36,7 +36,7 @@ Public Class ClassRecipient
         ''
         ''Added 10/11/2019 td 
         ''
-        If (Me.Picture IsNot Nothing) Then Return Me.Picture
+        If (Me.PortraitPicture IsNot Nothing) Then Return Me.PortraitPicture
 
     End Function ''End of "Public Function GetPortraitImage() As System.Drawing.Image"
 

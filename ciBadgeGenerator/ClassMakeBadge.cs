@@ -247,10 +247,13 @@ namespace ciBadgeGenerator
             //
             bool bMissingElementPortrait = false; //Added 1/14/2022 td
 
-            par_layoutElements.BackgroundImage =
-                ClassProportions.Proportions_FixLayout(par_layoutElements.BackgroundImage);
+            if (par_layoutElements.BackgroundImage != null)  //Added May 20, 2022
+            {
+                par_layoutElements.BackgroundImage =
+                    ClassProportions.Proportions_FixLayout(par_layoutElements.BackgroundImage);
 
-            ClassProportions.ProportionsAreSlightlyOff(par_layoutElements.BackgroundImage, true, "Background Image");
+                ClassProportions.ProportionsAreSlightlyOff(par_layoutElements.BackgroundImage, true, "Background Image");
+            }
 
             // 1-15-2020 td //LayoutElements objPrintLibElems = new LayoutElements();
             // 12-14-2021 td //LayoutElements objPrintLibElems = new LayoutElements(ClassElementField.iRecipientInfo);
@@ -263,10 +266,13 @@ namespace ciBadgeGenerator
             //
             //10-09-2019 td//Image obj_image_clone_resized = (Image)par_backgroundImage.Clone();
 
-            const bool c_bSkipBackground = false;  // true;  // Added 1-16-2020 thomas downes
+            const bool c_bLetsSkipBackground = false;  // true;  // Added 1-16-2020 thomas downes
             Image obj_imageOutput;  // Added 1-16-2020 thomas downes
+            bool bSkipBackground = (c_bLetsSkipBackground || 
+                                   (par_layoutElements.BackgroundImage == null));
 
-            if (c_bSkipBackground)
+            // May20 200 //if (c_bSkipBackground)
+            if (bSkipBackground)
             {
                 //Added 1-16-2020 thomas downes
                 obj_imageOutput = new Bitmap(par_newBadge_width_pixels,
@@ -407,7 +413,8 @@ namespace ciBadgeGenerator
 
                 //Image img_Step3Picture = obj_elementPic.GetStep3_Picture();
                 //if (img_Step3Picture == null) img_Step3Picture = par_recipientPic;
-                Image img_Step3Picture = par_layoutElements.RecipientPic;
+                //May 20 2022 Image img_Step3Picture = par_layoutElements.RecipientPic;
+                Image img_Step3Picture = par_iRecipientInfo.GetPortraitImage();
 
                 if (obj_elementPic == null) //Added 1/14/2022 td
                 {

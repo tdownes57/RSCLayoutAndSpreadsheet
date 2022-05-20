@@ -383,14 +383,15 @@ Public Class ClassDesigner
         Next each_control
 
         ''Added 5/15/2022
-        For Each each_ctl_portrait As CtlGraphicPortrait In Me.CtlGraphic_Portrait_List
-            If (each_ctl_portrait IsNot Nothing) Then ''Added 1/24/2022 td
-                each_ctl_portrait.Dispose() ''Added Dec. 8, 2021
-                Me.DesignerForm.Controls.Remove(each_ctl_portrait) ''Added Dec. 8, 2021
-                mod_listOfDesignerControls.Remove(each_ctl_portrait) ''Added Dec. 8, 2021
-            End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
-        Next each_ctl_portrait
-
+        If (Me.CtlGraphic_Portrait_List IsNot Nothing) Then
+            For Each each_ctl_portrait As CtlGraphicPortrait In Me.CtlGraphic_Portrait_List
+                If (each_ctl_portrait IsNot Nothing) Then ''Added 1/24/2022 td
+                    each_ctl_portrait.Dispose() ''Added Dec. 8, 2021
+                    Me.DesignerForm.Controls.Remove(each_ctl_portrait) ''Added Dec. 8, 2021
+                    mod_listOfDesignerControls.Remove(each_ctl_portrait) ''Added Dec. 8, 2021
+                End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+            Next each_ctl_portrait
+        End If ''End of ""If (Me.CtlGraphic_Portrait_List IsNot Nothing) Then""
 
     End Sub ''End of "Public Sub UnloadDesigner_Portrait()"
 
@@ -437,14 +438,15 @@ Public Class ClassDesigner
         Next each_control
 
         ''Added 5/13/2022
-        For Each each_ctl_qrcode As CtlGraphicQRCode In Me.CtlGraphic_QRCode_List
-            If (each_ctl_qrcode IsNot Nothing) Then ''Added 1/24/2022 td
-                each_ctl_qrcode.Dispose() ''Added Dec. 8, 2021
-                Me.DesignerForm.Controls.Remove(each_ctl_qrcode) ''Added Dec. 8, 2021
-                mod_listOfDesignerControls.Remove(each_ctl_qrcode) ''Added Dec. 8, 2021
-            End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
-        Next each_ctl_qrcode
-
+        If (Me.CtlGraphic_QRCode_List IsNot Nothing) Then
+            For Each each_ctl_qrcode As CtlGraphicQRCode In Me.CtlGraphic_QRCode_List
+                If (each_ctl_qrcode IsNot Nothing) Then ''Added 1/24/2022 td
+                    each_ctl_qrcode.Dispose() ''Added Dec. 8, 2021
+                    Me.DesignerForm.Controls.Remove(each_ctl_qrcode) ''Added Dec. 8, 2021
+                    mod_listOfDesignerControls.Remove(each_ctl_qrcode) ''Added Dec. 8, 2021
+                End If ''End of "If (CtlGraphic_QRCode IsNot Nothing) Then"
+            Next each_ctl_qrcode
+        End If ''End of ""If (Me.CtlGraphic_QRCode_List IsNot Nothing) Then""
 
     End Sub ''End of "Public Sub UnloadDesigner_QRCode()"
 
@@ -494,13 +496,15 @@ Public Class ClassDesigner
         Next each_control
 
         ''Added 5/13/2022
-        For Each each_ctl_signature As CtlGraphicSignature In Me.CtlGraphic_Signat_List
-            If (each_ctl_signature IsNot Nothing) Then ''Added 1/24/2022 td
-                each_ctl_signature.Dispose() ''Added Dec. 8, 2021
-                Me.DesignerForm.Controls.Remove(each_ctl_signature) ''Added Dec. 8, 2021
-                mod_listOfDesignerControls.Remove(each_ctl_signature) ''Added Dec. 8, 2021
-            End If ''End of "If (CtlGraphic_Signature IsNot Nothing) Then"
-        Next each_ctl_signature
+        If (Me.CtlGraphic_Signat_List IsNot Nothing) Then
+            For Each each_ctl_signature As CtlGraphicSignature In Me.CtlGraphic_Signat_List
+                If (each_ctl_signature IsNot Nothing) Then ''Added 1/24/2022 td
+                    each_ctl_signature.Dispose() ''Added Dec. 8, 2021
+                    Me.DesignerForm.Controls.Remove(each_ctl_signature) ''Added Dec. 8, 2021
+                    mod_listOfDesignerControls.Remove(each_ctl_signature) ''Added Dec. 8, 2021
+                End If ''End of "If (CtlGraphic_Signature IsNot Nothing) Then"
+            Next each_ctl_signature
+        End If ''End of ""If (Me.CtlGraphic_Signat_List IsNot Nothing) Then""
 
     End Sub ''End of "Public Sub UnloadDesigner_Signature()"
 
@@ -541,43 +545,52 @@ Public Class ClassDesigner
         ''
         ''Added 12/18/2021 thomas 
         ''
-        For Each each_ctlStaticTextV3 In ListCtlGraphic_StaticTextsV3
+        If (Me.ListCtlGraphic_StaticTextsV3 IsNot Nothing) Then
+            For Each each_ctlStaticTextV3 In ListCtlGraphic_StaticTextsV3
 
-            ''Jan10 2022 td''boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_ctlStaticText)
-            ''Jan10 2022 td''If (boolListenerFound) Then
-            ''    objListenerStaticText = mod_designerListener.DictyControlResizing(each_ctlStaticText)
-            ''    objListenerStaticText.RemoveEventHandlers()
-            ''    mod_designerListener.DictyControlResizing.Remove(each_ctlStaticText) ''Added 12/17/2021 td
-            ''Else
-            ''    ''---MessageBox.Show("We don't see the event-listener for the StaticText control.")
-            ''    StatusLabelWarningLabel.Text = "We don't see the event-listener for the StaticText control."
+                ''Jan10 2022 td''boolListenerFound = mod_designerListener.DictyControlResizing.ContainsKey(each_ctlStaticText)
+                ''Jan10 2022 td''If (boolListenerFound) Then
+                ''    objListenerStaticText = mod_designerListener.DictyControlResizing(each_ctlStaticText)
+                ''    objListenerStaticText.RemoveEventHandlers()
+                ''    mod_designerListener.DictyControlResizing.Remove(each_ctlStaticText) ''Added 12/17/2021 td
+                ''Else
+                ''    ''---MessageBox.Show("We don't see the event-listener for the StaticText control.")
+                ''    StatusLabelWarningLabel.Text = "We don't see the event-listener for the StaticText control."
 
-            ''End If ''End of "If (boolListenerFound) Then ... Else ..."
+                ''End If ''End of "If (boolListenerFound) Then ... Else ..."
 
-            each_ctlStaticTextV3.Dispose() ''Added Dec. 8, 2021
-            each_ctlStaticTextV3.Visible = False ''Added Dec. 18, 2021
-            Me.DesignerForm.Controls.Remove(each_ctlStaticTextV3) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(each_ctlStaticTextV3) ''Added Dec. 8, 2021
-            each_ctlStaticTextV3 = Nothing
+                each_ctlStaticTextV3.Dispose() ''Added Dec. 8, 2021
+                each_ctlStaticTextV3.Visible = False ''Added Dec. 18, 2021
+                Me.DesignerForm.Controls.Remove(each_ctlStaticTextV3) ''Added Dec. 8, 2021
+                mod_listOfDesignerControls.Remove(each_ctlStaticTextV3) ''Added Dec. 8, 2021
+                each_ctlStaticTextV3 = Nothing
 
-        Next each_ctlStaticTextV3
+            Next each_ctlStaticTextV3
+        End If ''End of ""If (Me.CtlGraphic_StaticTextsV3 IsNot Nothing) Then""
 
         ''Added 2/01/2022 thomas downes
-        For Each each_ctlStaticTextV4 In ListCtlGraphic_StaticTextsV4
-            ''Added 2/01/2022 thomas downes
-            each_ctlStaticTextV4.Dispose() ''Added Dec. 8, 2021
-            each_ctlStaticTextV4.Visible = False ''Added Dec. 18, 2021
-            Me.DesignerForm.Controls.Remove(each_ctlStaticTextV4) ''Added Dec. 8, 2021
-            mod_listOfDesignerControls.Remove(each_ctlStaticTextV4) ''Added Dec. 8, 2021
-            each_ctlStaticTextV4 = Nothing
-        Next each_ctlStaticTextV4
+        If (Me.ListCtlGraphic_StaticTextsV4 IsNot Nothing) Then
+            For Each each_ctlStaticTextV4 In ListCtlGraphic_StaticTextsV4
+                ''Added 2/01/2022 thomas downes
+                each_ctlStaticTextV4.Dispose() ''Added Dec. 8, 2021
+                each_ctlStaticTextV4.Visible = False ''Added Dec. 18, 2021
+                Me.DesignerForm.Controls.Remove(each_ctlStaticTextV4) ''Added Dec. 8, 2021
+                mod_listOfDesignerControls.Remove(each_ctlStaticTextV4) ''Added Dec. 8, 2021
+                each_ctlStaticTextV4 = Nothing
+            Next each_ctlStaticTextV4
+        End If ''End of ""If (Me.CtlGraphic_StaticTextsV4 IsNot Nothing) Then""
 
         ''added 12/18/2021
         ''
         ''Unload all of the object references. 
         ''
-        Me.ListCtlGraphic_StaticTextsV3.Clear()
-        Me.ListCtlGraphic_StaticTextsV4.Clear()
+        If (Me.ListCtlGraphic_StaticTextsV3 IsNot Nothing) Then
+            Me.ListCtlGraphic_StaticTextsV3.Clear()
+        End If ''End of ""If (Me.CtlGraphic_StaticTextsV3 IsNot Nothing) Then""
+
+        If (Me.ListCtlGraphic_StaticTextsV4 IsNot Nothing) Then
+            Me.ListCtlGraphic_StaticTextsV4.Clear()
+        End If ''End of ""If (Me.CtlGraphic_StaticTextsV4 IsNot Nothing) Then""
 
     End Sub ''End of "Public Sub UnloadDesigner_StaticText()"
 
