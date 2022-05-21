@@ -3247,11 +3247,15 @@ Public Class ClassDesigner
         Dim obj_image As Image ''Added 8/24 td
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
-        Static obj_generator As ciBadgeGenerator.ClassMakeBadge_Corrupt
+
+        ''May 21, 2022 ''Static obj_generator As ciBadgeGenerator.ClassMakeBadge
+        Static obj_generator As ciBadgeGenerator.ClassMakeBadge2022
+
         ''Jan13 2022''Dim bMatchesElementInCache As Boolean ''Added 11/30/2021 thomas d.
         ''Jan13 2022''Dim intCountMatchedElements As Integer ''Added 11/30/2021 thomas d.
 
-        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge_Corrupt
+        ''May 21, 2022''If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
+        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge2022
 
         obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
 
@@ -3384,20 +3388,28 @@ Public Class ClassDesigner
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
         ''10/14/2019 td''Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
-        Static obj_generator As ciBadgeGenerator.ClassMakeBadge_Corrupt
+        ''05/21/2022 td''Static obj_generator As ciBadgeGenerator.ClassMakeBadge
+        Static s_obj_generator As ciBadgeGenerator.ClassMakeBadge2022
+        Static s_obj_assistant As ciBadgeGenerator.ClassMakeAssistant
         Dim bMatchesElementInCache As Boolean ''Added 11/30/2021 thomas d.
         Dim intCountMatchedElementsV3 As Integer ''Added 11/30/2021 thomas d.
         Dim intCountMatchedElementsV4 As Integer ''Added 02/10/2022 thomas d.
 
         ''Added 10/14/2019 td 
-        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge_Corrupt
+        If (s_obj_generator Is Nothing) Then
+            ''5/21/2022 s_obj_generator = New ciBadgeGenerator.ClassMakeBadge
+            s_obj_generator = New ciBadgeGenerator.ClassMakeBadge2022
+            ''Added 5/21/2022 Thomas Downes  
+            s_obj_assistant = New ciBadgeGenerator.ClassMakeAssistant
+        End If ''End of ""If (obj_generator Is Nothing) Then""
 
-        obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
+        s_obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
 
         ''5/15/2022 ''obj_generator.ImageQRCode = CtlGraphic_QRCode.pictureQRCode.Image ''Added 10/14 td
         If (CtlGraphic_QRCode_1st() IsNot Nothing) Then ''Added 5/15/2022
-            obj_generator.ImageQRCode = CtlGraphic_QRCode_1st().pictureQRCode.Image ''Added 10/14 td
-        End If
+            s_obj_generator.ImageQRCode =
+                CtlGraphic_QRCode_1st().pictureQRCode.Image ''Added 10/14 td
+        End If ''End of ""If (CtlGraphic_QRCode_1st() IsNot Nothing) Then""
 
         ''
         ''How is the following list used?   ---11/29/2021 td 
@@ -3534,23 +3546,24 @@ Public Class ClassDesigner
             ''
             ''This was the function we used through most of 2000 & 2021, maybe 1999 as well.
             ''
-            obj_image = obj_generator.MakeBadgeImage_Front(Me.BadgeLayout_Class,
-                                                     obj_image_clone_resized,
-                                                      Me.PreviewBox.Width,
-                                                      Me.PreviewBox.Height,
-                                                     Me.CtlGraphic_Portrait_1st().picturePortrait.Image,
-                                                      Me.ElementsCache_UseEdits,
-                                                      par_recipient,
-                                                      listOfElementTextFieldsV3,
-                                                      listOfElementTextFieldsV4,
-                                                      listOfElementStaticTextsV3,
-                                                      listOfElementStaticTextsV4,
-                                                      listOfElementGraphics,
-                                                      Me.CtlGraphic_Portrait_1st().ElementClass_Obj,
-                                                      Me.CtlGraphic_QRCode_1st().ElementClass_Obj,
-                                                      Me.CtlGraphic_Signat_1st().ElementClass_Obj,
-                                                      Nothing, Nothing, Nothing,
-                                                      par_recentlyMoved)
+            ''May21 2022 ''---obj_image = obj_generator.MakeBadgeImage_Front(Me.BadgeLayout_Class,
+            obj_image = s_obj_assistant.MakeBadgeImage_Front(Me.BadgeLayout_Class,
+                    obj_image_clone_resized,
+                    Me.PreviewBox.Width,
+                    Me.PreviewBox.Height,
+                    Me.CtlGraphic_Portrait_1st().picturePortrait.Image,
+                    Me.ElementsCache_UseEdits,
+                    par_recipient,
+                    listOfElementTextFieldsV3,
+                    listOfElementTextFieldsV4,
+                    listOfElementStaticTextsV3,
+                    listOfElementStaticTextsV4,
+                    listOfElementGraphics,
+                    Me.CtlGraphic_Portrait_1st().ElementClass_Obj,
+                    Me.CtlGraphic_QRCode_1st().ElementClass_Obj,
+                    Me.CtlGraphic_Signat_1st().ElementClass_Obj,
+                    Nothing, Nothing, Nothing,
+                    par_recentlyMoved)
 
         ElseIf (c_boolUseFunction2022) Then
             ''
@@ -3582,7 +3595,8 @@ Public Class ClassDesigner
             ''
             ''Major call !!
             ''
-            obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+            ''May21 2022 ''obj_image = sobj_generator.MakeBadgeImage_AnySide
+            obj_image = s_obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
                            objMakeBadgeElements, Me.ElementsCache_UseEdits,
                            Me.PreviewBox.Width,
                            Me.PreviewBox.Height,
