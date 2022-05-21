@@ -3247,11 +3247,11 @@ Public Class ClassDesigner
         Dim obj_image As Image ''Added 8/24 td
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
-        Static obj_generator As ciBadgeGenerator.ClassMakeBadge
+        Static obj_generator As ciBadgeGenerator.ClassMakeBadge_Corrupt
         ''Jan13 2022''Dim bMatchesElementInCache As Boolean ''Added 11/30/2021 thomas d.
         ''Jan13 2022''Dim intCountMatchedElements As Integer ''Added 11/30/2021 thomas d.
 
-        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
+        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge_Corrupt
 
         obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
 
@@ -3384,13 +3384,13 @@ Public Class ClassDesigner
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
         ''10/14/2019 td''Dim obj_generator As New ciBadgeGenerator.ClassMakeBadge
-        Static obj_generator As ciBadgeGenerator.ClassMakeBadge
+        Static obj_generator As ciBadgeGenerator.ClassMakeBadge_Corrupt
         Dim bMatchesElementInCache As Boolean ''Added 11/30/2021 thomas d.
         Dim intCountMatchedElementsV3 As Integer ''Added 11/30/2021 thomas d.
         Dim intCountMatchedElementsV4 As Integer ''Added 02/10/2022 thomas d.
 
         ''Added 10/14/2019 td 
-        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge
+        If (obj_generator Is Nothing) Then obj_generator = New ciBadgeGenerator.ClassMakeBadge_Corrupt
 
         obj_generator.PathToFile_Sig = Me.PathToSigFile ''Added 10/12/2019 td
 

@@ -2619,16 +2619,22 @@ Public Class Form__Main_Demo
 
     End Sub
 
-    Private Sub PrintAllBadgesToFileFolderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintAllBadgesToFileFolderToolStripMenuItem.Click
+    Private Sub PrintAllBadgesToFileFolderToolStripMenuItem_Click(sender As Object, e As EventArgs) _
+        Handles PrintAllBadgesToFileFolderToolStripMenuItem.Click
         ''
         ''Added 10/18/2019 thomas d.  
         ''
         ''Encapsulated 12/3/2021 Thomas Downes
         MakeBadgeImageFilesInFolder()
 
-    End Sub
+    End Sub ''ENd of ""Handles PrintAllBadgesToFileFolderToolStripMenuItem.Click""
+
 
     Private Sub MakeBadgeImageFilesInFolder()
+        ''
+        ''"What is this for?  
+        ''
+        ''Called by the following:  
         ''
         ''Encapsulated 12/3/2021 Thomas Downes
         ''
@@ -2636,7 +2642,8 @@ Public Class Form__Main_Demo
         Dim strOutputPathToFileBMP As String
         Dim img_Prod As Image
         Dim strFolderSuffix As String
-        Dim objBadgeGenerator As New ciBadgeGenerator.ClassMakeBadge ''Added 12/3/2021 Thomas Downes
+        ''May21 2022 ''Dim objBadgeGenerator As New ciBadgeGenerator.ClassMakeBadge2022 ''Added 12/3/2021 Thomas Downes
+        Dim objBadgeGenerator As New ciBadgeGenerator.ClassMakeBadge2022 ''Added 5/21/2022 Thomas Downes
 
         strFolderSuffix = DateTime.Now.ToString("MMdd_hhmmss")
 
@@ -2678,9 +2685,20 @@ Public Class Form__Main_Demo
 
                 img_Prod = picturePreview.Image
 
+                ''Added 5/21/2022 thomas 
+                Dim infoLayoutElements As IBadgeSideLayoutElementsV1 ''Added 5/21/2022 td 
+                infoLayoutElements =
+                Me.ElementsCache_Edits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside,
+                                           Me.BadgeLayout)
+
                 '' Dec18 2021 td''img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout,
-                img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient_Front(Me.BadgeLayout,
-                                        pictureBackgroundFront.BackgroundImage,
+                ''May 21 2022---img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient_Front(Me.BadgeLayout,
+                ''                        pictureBackgroundFront.BackgroundImage,
+                ''                        Me.ElementsCache_Edits,
+                ''                        Me.BadgeLayout.Width_Pixels,
+                ''                        Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
+                img_Prod = objBadgeGenerator.MakeBadgeImage_AnySide(Me.BadgeLayout,
+                                        infoLayoutElements,
                                         Me.ElementsCache_Edits,
                                         Me.BadgeLayout.Width_Pixels,
                                         Me.BadgeLayout.Height_Pixels, each_recip, Nothing)

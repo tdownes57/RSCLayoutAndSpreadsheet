@@ -546,7 +546,7 @@ Public Class RSCFieldSpreadsheet
         Dim objBadgeSideElementsFront As ClassBadgeSideLayoutV1
         Dim objBadgeSideElementsBackside As ClassBadgeSideLayoutV1
         Dim objBadgeSideElems As ClassBadgeSideLayoutV1
-        Dim obj_generator As ciBadgeGenerator.ClassMakeBadge
+        Dim obj_generator As ciBadgeGenerator.ClassMakeBadge_Corrupt
         Dim dialog_ToShow As DialogDisplayIDCardSides
         Dim objbadgeLayoutClass As New BadgeLayoutClass
         Dim objBadgeImageFront As Drawing.Image = Nothing
@@ -565,7 +565,7 @@ Public Class RSCFieldSpreadsheet
             objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumBackside, objbadgeLayoutClass)
         End With
 
-        obj_generator = New ciBadgeGenerator.ClassMakeBadge
+        obj_generator = New ciBadgeGenerator.ClassMakeBadge_Corrupt
 
         ''
         ''Major call !!

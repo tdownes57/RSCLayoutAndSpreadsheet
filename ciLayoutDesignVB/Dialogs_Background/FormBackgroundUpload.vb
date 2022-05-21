@@ -50,13 +50,17 @@
             ''Open the dialog for addressing dimensional ratios.
             ''---12/2/2021 thomas d.
             ''
-            Dim objChildDialog As New FormBackgroundUploadDimensionsMsg
-            objChildDialog.UploadedImageFile(strImageFilePath)
-            objChildDialog.ShowDialog()
+            Const c_bExplainDimensionRatioForm As Boolean = False ''Added 5/20/2022
+
+            If (c_bExplainDimensionRatioForm) Then ''Added 5/20/2022
+                Dim objChildDialog As New FormBackgroundUploadDimensionsMsg
+                objChildDialog.UploadedImageFile(strImageFilePath)
+                objChildDialog.ShowDialog()
+            End If ''End of ""If (c_bExplainDimensionRatioForm) Then""
 
         Else
-            ''Exit the Sub. 
-            Return
+                ''Exit the Sub. 
+                Return
         End If ''End of "If (bConfirmFileExists) Then ... Else ..."
 
     End Sub
