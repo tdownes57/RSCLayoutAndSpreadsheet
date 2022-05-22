@@ -3354,9 +3354,13 @@ Public Class ClassDesigner
                                Nothing, Nothing, Nothing, par_recentlyMoved)
 
             ''Added 1/23/2022 td
+            ''Provide automated problem-related feedback to user. 
             If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
                 ''Added 1/23/2022 td
-                MessageBoxTD.Show_Statement(obj_generator.Messages)
+                If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
+                    ''Provide automated problem-related feedback to user. 
+                    MessageBoxTD.Show_Statement(obj_generator.Messages)
+                End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
             End If ''End of "If (boolGeneratorMessageExists) Then"
 
         End If ''End of "If (c_boolUseFunction2022) Then ..."
