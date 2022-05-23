@@ -2865,14 +2865,16 @@ ExitHandler:
             If (mod_designer.ShowingTheBackside()) Then
                 Me.ElementsCache_Edits.BackgroundImage_Backside_Path = objShow.ImageFilePath
                 Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileTitle
-                pictureBackgroundBackside.ImageLocation = objShow.ImageFilePath
-                pictureBackgroundBackside.SizeMode = PictureBoxSizeMode.Zoom
+                ''pictureBackgroundBackside.ImageLocation = objShow.ImageFilePath
+                ''pictureBackgroundBackside.SizeMode = PictureBoxSizeMode.Zoom
+                mod_designer.Load_BackgroundImage()
 
             Else
                 Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
                 Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileTitle
-                pictureBackgroundFront.ImageLocation = objShow.ImageFilePath
-                pictureBackgroundFront.SizeMode = PictureBoxSizeMode.Zoom
+                ''pictureBackgroundFront.ImageLocation = objShow.ImageFilePath
+                ''pictureBackgroundFront.SizeMode = PictureBoxSizeMode.Zoom
+                mod_designer.Load_BackgroundImage()
 
             End If ''End of "If (mod_designer.ShowingTheBackside()) Then .... Else ...."
 

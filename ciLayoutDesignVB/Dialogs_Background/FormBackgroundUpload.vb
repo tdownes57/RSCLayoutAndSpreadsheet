@@ -36,6 +36,7 @@
             ''
             Dim strImageFilePath As String
             Dim objImageFileInfo As IO.FileInfo
+            Dim strImageFilePath_Edited As String ''Added 5/22/2022 thomas downes
 
             strImageFilePath = OpenFileDialog1.FileName
 
@@ -56,11 +57,32 @@
                 Dim objChildDialog As New FormBackgroundUploadDimensionsMsg
                 objChildDialog.UploadedImageFile(strImageFilePath)
                 objChildDialog.ShowDialog()
-            End If ''End of ""If (c_bExplainDimensionRatioForm) Then""
+
+            Else
+                Dim objEditingDialog As New FormBackgroundEditImage
+                Dim dia_res As DialogResult
+                objEditingDialog.ImageFilePath_input = strImageFilePath ''Added 5/22/2022 
+                objEditingDialog.UploadedImageFile(strImageFilePath)
+                objEditingDialog.ShowDialog()
+                dia_res = objEditingDialog.DialogResult
+                If (dia_res = DialogResult.OK) Then
+
+                    ''Added 5/17/2022 
+                    strImageFilePath_Edited = objEditingDialog.ImageFilePath_output
+                    picturePreview.ImageLocation = strImageFilePath_Edited
+                    picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+                    picturePreview.Load()
+                    LabelSelectedTitle.Text = objImageFileInfo.Name
+                    textImageFileTitleEdited.Text = objImageFileInfo.Name
+
+                End If ''Endof ""If (dia_res = DialogResult.OK) Then""
+
+            End If ''End of ""If (c_bExplainDimensionRatioForm) Then ... Else ""
 
         Else
-                ''Exit the Sub. 
-                Return
+            ''Exit the Sub. 
+            Return
+
         End If ''End of "If (bConfirmFileExists) Then ... Else ..."
 
     End Sub

@@ -81,30 +81,36 @@
     <Compile Include="ClassFieldCache.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="ClassCacheListRecipients.vb" />
+    <Compile Include="MessageAndInputBoxes\FormInputBox.Designer.vb">
+      <DependentUpon>FormInputBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MessageAndInputBoxes\FormInputBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MinorClasses\ClassListOfElements_FieldsV4.vb" />
-    <Compile Include="MinorClasses\FormSpecialButton.Designer.vb">
+    <Compile Include="MessageAndInputBoxes\FormSpecialButton.Designer.vb">
       <DependentUpon>FormSpecialButton.vb</DependentUpon>
     </Compile>
-    <Compile Include="MinorClasses\FormSpecialButton.vb">
+    <Compile Include="MessageAndInputBoxes\FormSpecialButton.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interfaces\InterfaceBadgeSideLayoutElementsV2.vb" />
-    <Compile Include="MinorClasses\FormHowMany.Designer.vb">
+    <Compile Include="MessageAndInputBoxes\FormHowMany.Designer.vb">
       <DependentUpon>FormHowMany.vb</DependentUpon>
     </Compile>
-    <Compile Include="MinorClasses\FormHowMany.vb">
+    <Compile Include="MessageAndInputBoxes\FormHowMany.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MinorClasses\FormMessageLongform.Designer.vb">
+    <Compile Include="MessageAndInputBoxes\FormMessageLongform.Designer.vb">
       <DependentUpon>FormMessageLongform.vb</DependentUpon>
     </Compile>
-    <Compile Include="MinorClasses\FormMessageLongform.vb">
+    <Compile Include="MessageAndInputBoxes\FormMessageLongform.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MinorClasses\FormTextEditor.Designer.vb">
+    <Compile Include="MessageAndInputBoxes\FormTextEditor.Designer.vb">
       <DependentUpon>FormTextEditor.vb</DependentUpon>
     </Compile>
-    <Compile Include="MinorClasses\FormTextEditor.vb">
+    <Compile Include="MessageAndInputBoxes\FormTextEditor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RSCCache\ClassRSCColumnWidthAndData.vb" />
@@ -118,7 +124,7 @@
     <Compile Include="MinorClasses\ClassListOfElements_LayoutSections.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_StaticTextsV4.vb" />
     <Compile Include="MinorClasses\ClassOmittedElement.vb" />
-    <Compile Include="MinorClasses\MessageBoxTD.vb" />
+    <Compile Include="MessageAndInputBoxes\MessageBoxTD.vb" />
     <Compile Include="MinorClasses\SplitContainerWidths_NotUsed.vb" />
     <Compile Include="RSCCache\CacheRSCFieldColumnWidthsEtc.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
@@ -144,16 +150,19 @@
     <Compile Include="PersonalityCache_NotInUse.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MinorClasses\FormSpecialButton.resx">
+    <EmbeddedResource Include="MessageAndInputBoxes\FormInputBox.resx">
+      <DependentUpon>FormInputBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageAndInputBoxes\FormSpecialButton.resx">
       <DependentUpon>FormSpecialButton.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MinorClasses\FormHowMany.resx">
+    <EmbeddedResource Include="MessageAndInputBoxes\FormHowMany.resx">
       <DependentUpon>FormHowMany.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MinorClasses\FormMessageLongform.resx">
+    <EmbeddedResource Include="MessageAndInputBoxes\FormMessageLongform.resx">
       <DependentUpon>FormMessageLongform.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MinorClasses\FormTextEditor.resx">
+    <EmbeddedResource Include="MessageAndInputBoxes\FormTextEditor.resx">
       <DependentUpon>FormTextEditor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">

@@ -455,12 +455,25 @@ Public Class Startup
                     ''
                     ''Don't try to process a Null string. ---2/23/2022 
                     ''
-                    MessageBoxTD.Show_Statement("Great choice!  FYI, your new layout will be " &
-                                 "completely blank at first.  You will be asked to add elements & provide a background image.",
-                                                        "-----------CONFUSING/UNUSUAL--------",
-                                     "Please press OK to specify a name & location for the New layout.")
+                    ''#1 5/23/2022 ''MessageBoxTD.Show_Statement("Great choice!  FYI, your new layout will be " &
+                    ''             "completely blank at first.  You will be asked to add elements & provide a background image.",
+                    ''                                    "- ----------CONFUSING/UNUSUAL--------",
+                    ''                 "Please press OK to specify a name & location for the New layout.")
+                    ''#2 5/23/2022 MessageBoxTD.Show_Statement("Your new layout will be completely blank at first.  " & vbCrLf_Deux &
+                    ''             "You will be asked to add elements & provide a background image.")
+                    ''#2 5/23/2022 MessageBoxTD.Show_Statement("Next, please specify a name & location for the New layout.")
+
+                    Dim strFileTitle_Tentative As String ''Added 5/23/2022 td
+                    strFileTitle_Tentative =
+                    MessageBoxTD.InputBox_Longform("Your new layout will be completely blank at first.  " & vbCrLf_Deux &
+                                 "You will be asked to add elements & provide a background image." & vbCrLf_Deux &
+                                 "Please specify a name for the New layout.",
+                                 "Name of ID Card Layout:", 1.0, 1.0)
+
                     Dim objSaveDialog As New SaveFileDialog ''Added 2/26/2022 td
                     ''Added 2/26/2022 td
+                    objSaveDialog.Title = "Location of ID Card Layout"
+                    objSaveDialog.FileName = strFileTitle_Tentative
                     objSaveDialog.ShowDialog()
                     pstrPathToElementsCacheXML_Output = objSaveDialog.FileName
                     ''Added 2/26/2022 td

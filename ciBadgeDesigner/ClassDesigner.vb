@@ -1526,7 +1526,7 @@ Public Class ClassDesigner
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
 
-    Private Sub Load_BackgroundImage()
+    Public Sub Load_BackgroundImage()
         ''
         ''Encapsulated from code copied from Form__Main_Demo.vb
         ''

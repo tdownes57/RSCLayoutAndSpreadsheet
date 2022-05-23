@@ -658,7 +658,7 @@
     <Compile Include="Dialogs_Text\DialogTextBorder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\MessageBoxTD.vb" />
+    <Compile Include="Modules\MessageBoxTD_NotUsed.vb" />
     <Compile Include="Modules\modEnums.vb" />
     <Compile Include="Modules\modFonts.vb" />
     <Compile Include="Modules\modAllowFieldEdits.vb" />
@@ -966,7 +966,9 @@
     <Content Include="Images\BackgroundExampleDemos\ValleyValleyColl.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\BackgroundImagesUploaded\Originals\ReadMe.txt" />
+    <Content Include="Images\BackgroundImagesUploaded\Originals\ReadMe_Originals.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\BackgroundImagesUploaded\ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1187,6 +1189,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Laysections\" />
+    <Folder Include="MessageAndInputBoxes\" />
     <Folder Include="__BlakemoreWebAPIs\" />
     <Folder Include="__ErrorLog\" />
     <Folder Include="__ProgressiveWebApp\" />

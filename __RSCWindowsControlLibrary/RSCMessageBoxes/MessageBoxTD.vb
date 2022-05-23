@@ -7,7 +7,12 @@ Option Strict On
 Imports System.Windows.Forms ''Added 2/8/2022 td
 
 Public Class MessageBoxTD
-
+    ''
+    ''
+    ''Imported from project "CIBadgeCachePersonalityEtc" on 5/23/2022.  
+    ''
+    ''
+    ''
     ''Added Feb6 2022
     Private Const _vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 

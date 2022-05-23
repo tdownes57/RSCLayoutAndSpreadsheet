@@ -75,7 +75,7 @@
     <Compile Include="Classes\ClassSaveToModel.vb" />
     <Compile Include="MenuOperationClasses\MenuCache_Generic_NotUsed.vb" />
     <Compile Include="MenuOperationClasses\MenuCache_ActualInUse.vb" />
-    <Compile Include="Classes\MessageBoxTD.vb" />
+    <Compile Include="Classes\MessageBoxTD_NotInUse.vb" />
     <Compile Include="MenuOperationClasses\Operations__Desktop_Dummy.vb" />
     <Compile Include="MenuOperationClasses\Operations__Generic.vb" />
     <Compile Include="MenuOperationClasses\Operations__Useless.vb" />
@@ -137,6 +137,7 @@
     <Compile Include="RSCFieldSelector\RSCFieldSpreadsheet_NotInUse.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCMessageBoxes\MessageBoxTD.vb" />
     <Compile Include="RSCMoveableControl\FormConditional.Designer.vb">
       <DependentUpon>FormConditional.vb</DependentUpon>
     </Compile>

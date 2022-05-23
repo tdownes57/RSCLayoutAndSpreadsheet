@@ -25,14 +25,16 @@ Public Class FormWelcomeNotes
     Private Sub ButtonCancelEdits_Click(sender As Object, e As EventArgs) Handles ButtonCancelEdits.Click
 
         Dim boolConfirmed As Boolean
-        If Me.TextBox1.Tag = "Edited" Then
+
+        If (Me.TextBox1.Tag = "Edited") Then
 
             boolConfirmed =
-               MessageBoxTD.Show_Confirm("Are you cancelling your edits?")
+               MessageBoxTD.Show_Confirm("Are you cancelling your edits?  If so, please confirm.")
+            ''5/23/2022 MessageBoxTD.Show_Confirm("Are you cancelling your edits?")
 
             If (Not boolConfirmed) Then Exit Sub
 
-        End If
+        End If ''ENd of ""If (Me.TextBox1.Tag = "Edited") Then""
 
         Me.DialogResult = DialogResult.Cancel
         Me.Close()

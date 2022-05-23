@@ -39,9 +39,10 @@ Partial Class FormBackgroundEditImage
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.LabelHeaderPreview = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ButtonPushPreview = New System.Windows.Forms.Button()
-        Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.labelPushPreviewToBoxes = New System.Windows.Forms.Button()
+        Me.picturePreviewForScrape = New System.Windows.Forms.PictureBox()
+        Me.LinkLabel2UndoPush = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabel1UpdatePreview = New System.Windows.Forms.LinkLabel()
         Me.LabelMoveableBackground = New System.Windows.Forms.Label()
         Me.radioLayoutMoveable = New System.Windows.Forms.RadioButton()
         Me.ButtonCancel = New System.Windows.Forms.Button()
@@ -53,6 +54,7 @@ Partial Class FormBackgroundEditImage
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutStretch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreviewForScrape, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutMoveable, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -229,44 +231,53 @@ Partial Class FormBackgroundEditImage
         Me.LabelHeaderPreview.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.ToolTip1.SetToolTip(Me.LabelHeaderPreview, "Click here to update the Preview box.")
         '
-        'ButtonPushPreview
+        'labelPushPreviewToBoxes
         '
-        Me.ButtonPushPreview.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonPushPreview.BackColor = System.Drawing.Color.GreenYellow
-        Me.ButtonPushPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonPushPreview.Location = New System.Drawing.Point(749, 548)
-        Me.ButtonPushPreview.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonPushPreview.Name = "ButtonPushPreview"
-        Me.ButtonPushPreview.Size = New System.Drawing.Size(160, 28)
-        Me.ButtonPushPreview.TabIndex = 61
-        Me.ButtonPushPreview.Text = "Push Preview to All 5 Boxes"
-        Me.ToolTip1.SetToolTip(Me.ButtonPushPreview, "This will allow you to make further adjustments.")
-        Me.ButtonPushPreview.UseVisualStyleBackColor = False
-        Me.ButtonPushPreview.Visible = False
+        Me.labelPushPreviewToBoxes.BackColor = System.Drawing.Color.GreenYellow
+        Me.labelPushPreviewToBoxes.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.labelPushPreviewToBoxes.Location = New System.Drawing.Point(749, 548)
+        Me.labelPushPreviewToBoxes.Margin = New System.Windows.Forms.Padding(2)
+        Me.labelPushPreviewToBoxes.Name = "labelPushPreviewToBoxes"
+        Me.labelPushPreviewToBoxes.Size = New System.Drawing.Size(160, 28)
+        Me.labelPushPreviewToBoxes.TabIndex = 61
+        Me.labelPushPreviewToBoxes.Text = "Push Preview to All 5 Boxes"
+        Me.ToolTip1.SetToolTip(Me.labelPushPreviewToBoxes, "This will allow you to make further adjustments.")
+        Me.labelPushPreviewToBoxes.UseVisualStyleBackColor = False
+        Me.labelPushPreviewToBoxes.Visible = False
         '
-        'LinkLabel2
+        'picturePreviewForScrape
         '
-        Me.LinkLabel2.BackColor = System.Drawing.Color.Transparent
-        Me.LinkLabel2.Location = New System.Drawing.Point(558, 540)
-        Me.LinkLabel2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkLabel2.Name = "LinkLabel2"
-        Me.LinkLabel2.Size = New System.Drawing.Size(66, 25)
-        Me.LinkLabel2.TabIndex = 67
-        Me.LinkLabel2.TabStop = True
-        Me.LinkLabel2.Text = "Undo Push"
-        Me.LinkLabel2.Visible = False
+        Me.picturePreviewForScrape.BackColor = System.Drawing.Color.White
+        Me.picturePreviewForScrape.Location = New System.Drawing.Point(256, 101)
+        Me.picturePreviewForScrape.Name = "picturePreviewForScrape"
+        Me.picturePreviewForScrape.Size = New System.Drawing.Size(603, 380)
+        Me.picturePreviewForScrape.TabIndex = 75
+        Me.picturePreviewForScrape.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.picturePreviewForScrape, "This is an editable view of the ID Card (front side).")
         '
-        'LinkLabel1
+        'LinkLabel2UndoPush
         '
-        Me.LinkLabel1.BackColor = System.Drawing.Color.GreenYellow
-        Me.LinkLabel1.Location = New System.Drawing.Point(340, 531)
-        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(45, 60)
-        Me.LinkLabel1.TabIndex = 66
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Click to update Preview"
-        Me.LinkLabel1.Visible = False
+        Me.LinkLabel2UndoPush.BackColor = System.Drawing.Color.Transparent
+        Me.LinkLabel2UndoPush.Location = New System.Drawing.Point(1103, 374)
+        Me.LinkLabel2UndoPush.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel2UndoPush.Name = "LinkLabel2UndoPush"
+        Me.LinkLabel2UndoPush.Size = New System.Drawing.Size(66, 25)
+        Me.LinkLabel2UndoPush.TabIndex = 67
+        Me.LinkLabel2UndoPush.TabStop = True
+        Me.LinkLabel2UndoPush.Text = "Undo Push"
+        Me.LinkLabel2UndoPush.Visible = False
+        '
+        'LinkLabel1UpdatePreview
+        '
+        Me.LinkLabel1UpdatePreview.BackColor = System.Drawing.Color.GreenYellow
+        Me.LinkLabel1UpdatePreview.Location = New System.Drawing.Point(1103, 287)
+        Me.LinkLabel1UpdatePreview.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel1UpdatePreview.Name = "LinkLabel1UpdatePreview"
+        Me.LinkLabel1UpdatePreview.Size = New System.Drawing.Size(45, 60)
+        Me.LinkLabel1UpdatePreview.TabIndex = 66
+        Me.LinkLabel1UpdatePreview.TabStop = True
+        Me.LinkLabel1UpdatePreview.Text = "Click to update Preview"
+        Me.LinkLabel1UpdatePreview.Visible = False
         '
         'LabelMoveableBackground
         '
@@ -295,7 +306,7 @@ Partial Class FormBackgroundEditImage
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.BackColor = System.Drawing.Color.Violet
         Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonCancel.Location = New System.Drawing.Point(1062, 589)
+        Me.ButtonCancel.Location = New System.Drawing.Point(1019, 565)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(129, 40)
         Me.ButtonCancel.TabIndex = 72
@@ -307,7 +318,7 @@ Partial Class FormBackgroundEditImage
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.BackColor = System.Drawing.Color.MediumTurquoise
         Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOK.Location = New System.Drawing.Point(965, 589)
+        Me.ButtonOK.Location = New System.Drawing.Point(922, 565)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(91, 40)
         Me.ButtonOK.TabIndex = 71
@@ -342,17 +353,17 @@ Partial Class FormBackgroundEditImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1203, 641)
+        Me.ClientSize = New System.Drawing.Size(1170, 617)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.radioLayoutMoveable)
         Me.Controls.Add(Me.LabelMoveableBackground)
         Me.Controls.Add(Me.CtlMoveableBackground1)
         Me.Controls.Add(Me.picturePreview)
-        Me.Controls.Add(Me.LinkLabel2)
-        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.LinkLabel2UndoPush)
+        Me.Controls.Add(Me.LinkLabel1UpdatePreview)
         Me.Controls.Add(Me.LabelHeaderPreview)
-        Me.Controls.Add(Me.ButtonPushPreview)
+        Me.Controls.Add(Me.labelPushPreviewToBoxes)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.radioLayoutStretch)
         Me.Controls.Add(Me.radioLayoutZoom)
@@ -367,6 +378,8 @@ Partial Class FormBackgroundEditImage
         Me.Controls.Add(Me.pictureLayoutCenter)
         Me.Controls.Add(Me.pictureLayoutNormal)
         Me.Controls.Add(Me.pictureLayoutMoveable)
+        Me.Controls.Add(Me.picturePreviewForScrape)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormBackgroundEditImage"
         Me.Text = "FormCroppingBackground"
@@ -375,6 +388,7 @@ Partial Class FormBackgroundEditImage
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureLayoutStretch, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreviewForScrape, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureLayoutMoveable, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -397,13 +411,14 @@ Partial Class FormBackgroundEditImage
     Friend WithEvents picturePreview As PictureBox
     Friend WithEvents LabelHeaderPreview As Label
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents LinkLabel2 As LinkLabel
-    Friend WithEvents ButtonPushPreview As Button
-    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkLabel2UndoPush As LinkLabel
+    Friend WithEvents labelPushPreviewToBoxes As Button
+    Friend WithEvents LinkLabel1UpdatePreview As LinkLabel
     Friend WithEvents CtlMoveableBackground1 As ciBadgeDesigner.CtlMoveableBackground
     Friend WithEvents LabelMoveableBackground As Label
     Friend WithEvents radioLayoutMoveable As RadioButton
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents pictureLayoutMoveable As PictureBox
+    Friend WithEvents picturePreviewForScrape As PictureBox
 End Class

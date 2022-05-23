@@ -1,4 +1,8 @@
-﻿Public Class MessageBoxTD
+﻿Public Class MessageBoxTD_NotUsed
+    ''    5/23/2022 ''Public Class MessageBoxTD
+    ''
+    ''Added 12/28/2021 thomas downes
+    ''
 
     Public Shared Sub Show_Statement(pstrStatement As String,
                                      Optional pstrStatement2 As String = "",
@@ -10,15 +14,21 @@
         ''
         If (String.IsNullOrEmpty(pstrStatement2)) Then
             ''
-            ''Most popular choice!!   LOL. 
+            ''Just one(1) line.  Most popular choice!!   LOL. 
             ''
             MessageBox.Show(pstrStatement, "MessageBoxTD-Statement", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         ElseIf (String.IsNullOrEmpty(pstrStatement3)) Then
+            ''
+            ''The two-lines version.
+            ''
             MessageBox.Show(pstrStatement & vbCrLf_Deux &
-                            pstrStatement2, "MessageBoxTD-Statement",
+            pstrStatement2, "MessageBoxTD-Statement",
                            MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
+            ''
+            ''The three-lines version.
+            ''
             MessageBox.Show(pstrStatement & vbCrLf_Deux &
                             pstrStatement2 & vbCrLf_Deux &
                             pstrStatement3, "MessageBoxTD-Statement",

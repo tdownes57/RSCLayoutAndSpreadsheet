@@ -51,7 +51,8 @@ Public Class FormBackgroundEditImage
     End Sub
 
 
-    Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)
+    Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox,
+                          Optional pboolUseCenterPreviewLarge As Boolean = True)
         ''---5/18/2022 Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)
         ''
         ''Added 5/18/2022  
@@ -59,6 +60,7 @@ Public Class FormBackgroundEditImage
         ''Dim objRectangle1 As Rectangle
         Dim objRectangle2 As Rectangle
         Dim bTryToOmitBorder As Boolean
+        Dim stylePictureBoxSizeMode As PictureBoxSizeMode ''Added 5/22/2022 
 
         bTryToOmitBorder = True ''---checkOmitBorder.Checked
 
@@ -67,10 +69,60 @@ Public Class FormBackgroundEditImage
         ''                              pictureLeft.Width, pictureLeft.Height)
 
         Dim intWidth, intHeight As Integer
+        Dim objSourceControl As PictureBox ''Added 5/22/2022
+
         intWidth = par_ctlPictureBox.Width
         intHeight = par_ctlPictureBox.Height
 
-        With par_ctlPictureBox
+        ''Added 5/22/2022
+        ''
+        ''  Let's use the bigger, hidden control picturePreviewForScrape 
+        ''  in order to take the screen grab. 
+        ''
+        If (pboolUseCenterPreviewLarge) Then
+
+            objSourceControl = picturePreviewForScrape
+
+        Else
+
+            objSourceControl = par_ctlPictureBox
+
+        End If
+
+        ''
+        ''
+        ''
+
+        stylePictureBoxSizeMode = par_ctlPictureBox.SizeMode ''Added 5/22/2022
+        ''5/22/2022 With picturePreviewForScrape
+        With objSourceControl
+            .Visible = True
+            .BringToFront()
+            ''5/22/2022 .Image = par_ctlPictureBox.Image
+            ''5/22/2022 .ImageLocation = mod_pathToImageFile
+            If (pboolUseCenterPreviewLarge) Then
+                ''Load the larger "Center Preview" box.---5/22/2022
+                .ImageLocation = par_ctlPictureBox.ImageLocation
+                .ImageLocation = Me.ImageFilePath_input
+                .SizeMode = stylePictureBoxSizeMode
+                ''Not needed?? 5/22/2022 thomas d ''.Load()
+                .Load()
+            Else
+                ''Added 5/22/2022
+                '' Temporarily enlarge the picture box.
+                With par_ctlPictureBox
+                    .Width = picturePreviewForScrape.Width
+                    .Height = picturePreviewForScrape.Height
+                End With
+
+            End If ''Endof ""If (pboolUseCenterPreviewLarge) Then""
+
+            ''
+            ''Give the application a chance to respond.
+            ''
+            Application.DoEvents() ''Added 5/22/2022 td
+
+            ''5/22/2022 thomas d. ''With par_ctlPictureBox
 
             If (.BorderStyle = BorderStyle.FixedSingle) Then
 
@@ -89,10 +141,22 @@ Public Class FormBackgroundEditImage
         End With ''End of ""With par_ctlPictureBox""
 
         picturePreview.Image = Nothing
+        Application.DoEvents() ''Added 5/22/2022 td
         picturePreview.Image =
              TakeScreenShot_Modified(objRectangle2)
         picturePreview.SizeMode = PictureBoxSizeMode.Normal
 
+        ''May 22, 2022 End If ''end of ""If (pboolUseCenterPreviewLarge) Then""
+
+        ''
+        ''Exit Handler
+        ''
+        ''Remove the "Preview for Scrape" box, not needed any longer. 
+        ''
+        picturePreviewForScrape.Image = Nothing
+        picturePreviewForScrape.Visible = False
+        picturePreviewForScrape.SendToBack()
+        ''5/22/2022 picturePreviewForScrape.Load() ''Refresh the control, remove the image 
 
     End Sub ''end of ""Private Sub TakeScreenshot_Master()""
 
@@ -213,14 +277,18 @@ Public Class FormBackgroundEditImage
             Case radioLayoutCenter.Checked
                 TakeScreenshot_Master(pictureLayoutCenter)
             Case radioLayoutMoveable.Checked
-                TakeScreenshot_Master(pictureLayoutMoveable)
+                ''TakeScreenshot_Master(pictureLayoutMoveable, False)
+                TakeScreenshot_Master(pictureLayoutMoveable, False)
+
+
             Case radioLayoutNormal.Checked
                 TakeScreenshot_Master(pictureLayoutNormal)
             Case radioLayoutStretch.Checked
                 TakeScreenshot_Master(pictureLayoutStretch)
             Case radioLayoutZoom.Checked
                 TakeScreenshot_Master(pictureLayoutZoom)
-        End Select
+
+        End Select ''End of ""Select Case True""  
 
     End Sub ''end of "" Private Sub RefreshPreview() ""
 
@@ -295,7 +363,7 @@ Public Class FormBackgroundEditImage
         ''Added 5/18/2022 
         If (radioLayoutMoveable.Checked) Then
             ''5/18/2022 TakeScreenshot_Master(CtlMoveableBackground1.GetPictureBox())
-            PictureBoxMustBeBeneathUserControl
+            PictureBoxMustBeBeneathUserControl()
             TakeScreenshot_Master(pictureLayoutMoveable)
 
         End If
@@ -355,7 +423,7 @@ Public Class FormBackgroundEditImage
 
     End Sub
 
-    Private Sub ButtonPushPreview_Click(sender As Object, e As EventArgs) Handles ButtonPushPreview.Click
+    Private Sub ButtonPushPreview_Click(sender As Object, e As EventArgs) Handles labelPushPreviewToBoxes.Click
         ''
         ''Added 5/18/2022 td
         ''
@@ -456,6 +524,48 @@ Public Class FormBackgroundEditImage
         ''
         radioLayoutMoveable.Checked = True
         RefreshPreview()
+
+    End Sub
+
+    Private Sub CtlMoveableBackground1_Load(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.Load
+
+    End Sub
+
+    Private Sub CtlMoveableBackground1_MouseEnter(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.MouseEnter
+
+        ''Added 5/22/2022
+        With CtlMoveableBackground1
+            .Width = picturePreviewForScrape.Width
+            .Height = picturePreviewForScrape.Height
+            .Invalidate()
+        End With
+
+
+    End Sub
+
+    Private Sub CtlMoveableBackground1_MouseLeave(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.MouseLeave
+
+        ''Added 5/22/2022
+        With CtlMoveableBackground1
+            .Width = pictureLayoutCenter.Width
+            .Height = pictureLayoutCenter.Height
+
+            .Invalidate()
+        End With
+
+
+    End Sub
+
+    Private Sub CtlMoveableBackground1_MouseHover(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.MouseHover
+        ''Added 5/22/2022
+        Dim intWidthDiff As Integer
+        With CtlMoveableBackground1
+            intWidthDiff = (picturePreviewForScrape.Width - .Width)
+            .Width = picturePreviewForScrape.Width
+            .Left = (.Left - intWidthDiff) ''Move it to the left
+            .Height = picturePreviewForScrape.Height
+            ''.Invalidate()
+        End With
 
     End Sub
 End Class
