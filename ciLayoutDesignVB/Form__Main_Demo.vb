@@ -646,7 +646,12 @@ Public Class Form__Main_Demo
             ''5/4/2022 ''.LoadDesigner("Form__Main_Demo's Form_Load ",
             ''              mod_oGroupMoveEvents,
             ''              Me.LetsRefresh_CardBackside)
+            ''5/23/2022 ''.LoadDesigner("Form__Main_Demo's Form_Load ",
+            ''              Startup.PreloadElementsForDemo,
+            ''              mod_oGroupMoveEvents,
+            ''              Me.LetsRefresh_CardBackside)
             .LoadDesigner("Form__Main_Demo's Form_Load ",
+                          Startup.PreloadBackgroundForDemo,
                           Startup.PreloadElementsForDemo,
                           mod_oGroupMoveEvents,
                           Me.LetsRefresh_CardBackside)
@@ -2867,14 +2872,15 @@ ExitHandler:
                 Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileTitle
                 ''pictureBackgroundBackside.ImageLocation = objShow.ImageFilePath
                 ''pictureBackgroundBackside.SizeMode = PictureBoxSizeMode.Zoom
-                mod_designer.Load_BackgroundImage()
+                ''5/23/2022 td''mod_designer.Load_BackgroundImage()
+                mod_designer.Load_BackgroundImage(False) ''(Startup.PreloadBackgroundForDemo)
 
             Else
                 Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
                 Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileTitle
                 ''pictureBackgroundFront.ImageLocation = objShow.ImageFilePath
                 ''pictureBackgroundFront.SizeMode = PictureBoxSizeMode.Zoom
-                mod_designer.Load_BackgroundImage()
+                mod_designer.Load_BackgroundImage(False) ''(Startup.PreloadBackgroundForDemo)
 
             End If ''End of "If (mod_designer.ShowingTheBackside()) Then .... Else ...."
 
@@ -2907,7 +2913,16 @@ ExitHandler:
         ''
         ''Added 5/12/2022 td
         ''
-        Dim objShow1 As New FormBackgroundSelectOrUpload
+        Dim strBackgroundImagePath As String ''Added 5/23/2022 td 
+        Select Case mod_designer.EnumSideOfCard_Current
+            Case EnumWhichSideOfCard.EnumBackside
+                strBackgroundImagePath = Me.ElementsCache_Edits.BackgroundImage_Backside_Path
+            Case Else
+                strBackgroundImagePath = Me.ElementsCache_Edits.BackgroundImage_Front_Path
+        End Select ''End of ""Select Case mod_designer.EnumSideOfCard_Current""
+
+        ''May23 2022 ''Dim objShow1 As New FormBackgroundSelectOrUpload
+        Dim objShow1 As New FormBackgroundSelectOrUpload(strBackgroundImagePath)
         objShow1.ShowDialog()
 
         Dim boolStep1_LetsUpload As Boolean
@@ -3269,9 +3284,13 @@ ExitHandler:
         ''Major call!!
         ''
         ''May 4, 2022''mod_designer.SwitchSideOfCard(boolSuccess)
-        Dim boolAutoLoad As Boolean ''Added 5/4/2022
-        boolAutoLoad = Startup.PreloadElementsForDemo ''Added 5/4/2022
-        mod_designer.SwitchSideOfCard(boolAutoLoad, boolSuccess)
+        Dim bAutoLoadBackground As Boolean ''Added 5/23/2022
+        Dim boolAutoLoadElems As Boolean ''Added 5/4/2022
+
+        bAutoLoadBackground = Startup.PreloadBackgroundForDemo ''Added 5/23/2022
+        boolAutoLoadElems = Startup.PreloadElementsForDemo ''Added 5/4/2022
+        ''5/23/2022 td''mod_designer.SwitchSideOfCard(boolAutoLoad, boolSuccess)
+        mod_designer.SwitchSideOfCard(bAutoLoadBackground, boolAutoLoadElems, boolSuccess)
         mod_designer.BackgroundBox_Front = pictureBackgroundBackside
         mod_designer.BackgroundBox_JustAButton = pictureJustAButton ''Added 1/21/2022
 
@@ -3317,14 +3336,18 @@ ExitHandler:
         ''  Return to the frontside of the card. 
         ''
         Dim boolSuccess As Boolean
+        Dim boolAutoLoadBackImg As Boolean ''Added 5/23/2022 td
         Dim boolAutoLoadElements As Boolean ''Added 5/4/2022 td
 
         ''Dec.10 2021''Unload_Designer()
         SaveLayout_PreviewImage() ''Added 2/1/2022
         Unload_Designer(False)
+
         ''5/4/2022 td''mod_designer.SwitchSideOfCard(boolSuccess)
+        boolAutoLoadBackImg = Startup.PreloadBackgroundForDemo ''Added 5/23/2022 td
         boolAutoLoadElements = Startup.PreloadElementsForDemo ''Added 5/4/2022 td
-        mod_designer.SwitchSideOfCard(boolAutoLoadElements, boolSuccess)
+        ''5/23/2022 td''mod_designer.SwitchSideOfCard(boolAutoLoadElements, boolSuccess)
+        mod_designer.SwitchSideOfCard(boolAutoLoadBackImg, boolAutoLoadElements, boolSuccess)
 
         If (boolSuccess) Then
             labelProceedToBackside.Visible = True ''If the user is seeing the Front, they may change minds and want to see the Back again. 

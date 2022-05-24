@@ -43,7 +43,8 @@ Public Class FormPickGraphic
         intControlsCount = FlowLayoutPanel1.Controls.Count
         If (intControlsCount > 0) Then Exit Sub
 
-        strPathToFolderImages = DiskFolders.PathToFolder_BackExamples
+        ''5/23/2022 td''strPathToFolderImages = DiskFolders.PathToFolder_BackExamples
+        strPathToFolderImages = DiskFolders.PathToFolder_BackImagesUploaded
         Load_ImagesFromFolderPath(strPathToFolderImages)
         intControlsCount = FlowLayoutPanel1.Controls.Count
         If (intControlsCount > 0) Then Exit Sub

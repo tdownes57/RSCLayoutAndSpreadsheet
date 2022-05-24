@@ -12,6 +12,7 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
     Public DemoMode As Boolean ''Added 5/13/2022 thomas downes
     Public ImageFilePath As String
     Public ImageFileInfo As System.IO.FileInfo
+    Public ImageDirectoryPath As String ''Add 5/23/202 
 
     Public TemporarySelectedFileInfo As System.IO.FileInfo
     Private mod_strImageFiletitleEdited As String ''Added 5/20/2022
@@ -97,7 +98,8 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
     End Sub ''Endof ""Public Sub ChangeHeaderLabelCaption()""
 
 
-    Public Sub LoadSelection(par_controlBack As CtlBackground)
+    Public Sub LoadSelection_ByUserControl(par_controlBack As CtlBackground)
+        ''5/23/2022 Public Sub LoadSelection
         ''
         ''Added 11/25/2021 thomas downes
         ''
@@ -112,6 +114,9 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         LabelSelectedTitle.Text = par_controlBack.ImageFileTitle
         textImageFileTitleEdited.Text = par_controlBack.ImageFileTitle
 
+        ''Added 5/23/2022 thomas d.
+        LabelImageFolderPath.Text = par_controlBack.ImageFileInfo.DirectoryName
+
         ''
         ''Clear the other checkboxes (in the other UserControl CtlBackground):
         ''
@@ -122,7 +127,8 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
         Next ctlBack
 
-    End Sub
+    End Sub ''eND OF ""Public Sub LoadSelection_ByUserControl""
+
 
     Private Sub FormListBackgrounds_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -144,9 +150,26 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         ''
         Me.ImageFileInfo = Me.TemporarySelectedFileInfo
         Me.ImageFilePath = Me.TemporarySelectedFileInfo.FullName
+        ''Added 5/23/2022 
+        Me.ImageDirectoryPath = Me.TemporarySelectedFileInfo.DirectoryName
 
         ''Added 5/18/2022
         mod_strImageFiletitleEdited = Me.textImageFileTitleEdited.Text
+
+        ''Added 5/23/2022 
+        ''
+        ''  Save the image to disk file.  
+        ''
+        Const c_bSaveEditedImageHere As Boolean = True
+        If (c_bSaveEditedImageHere) Then
+            Dim strPathToEditedImage As String ''Added 5/23/2022 
+            Dim strPathToUploadedImages As String ''Added 5/23/2022
+            strPathToUploadedImages = DiskFolders.PathToFolder_BackgroundImages()
+            strPathToEditedImage = IO.Path.Combine(strPathToUploadedImages,
+                                                   mod_strImageFiletitleEdited)
+            Me.picturePreview.Image.Save(strPathToEditedImage)
+            Me.ImageFilePath = strPathToEditedImage
+        End If ''End of ""If (c_bSaveEditedImageHere) Then""
 
         ''
         ''Open the dialog for addressing dimensional ratios.
@@ -214,7 +237,8 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
             new_ctlBack.ParentListingForm = Me
 
             ''Added 5/17/2022 thomas d.
-            AddHandler new_ctlBack.SelectedImageFilePath, AddressOf CtlBackground1_SelectedImageFilePath
+            ''5/23/2022 AddHandler new_ctlBack.SelectedImageFilePath, AddressOf CtlBackground1_SelectedImageFilePath
+            AddHandler new_ctlBack.SelectedImageFilePathV2, AddressOf CtlBackground1_SelectedImageFilePathV2
 
         Next eachFileInfo
 
@@ -296,10 +320,11 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
     End Sub
 
-    Private Sub CtlBackground1_SelectedImageFilePath(strImageFilePath As String) _
-        Handles CtlBackground1.SelectedImageFilePath,
-                CtlBackground2.SelectedImageFilePath,
-                CtlBackground3.SelectedImageFilePath
+
+    Private Sub CtlBackground1_SelectedImageFilePathV1(strImageFilePath As String) _
+        Handles CtlBackground1.SelectedImageFilePathV1,
+                CtlBackground2.SelectedImageFilePathV1,
+                CtlBackground3.SelectedImageFilePathV1
 
         ''Added 5/17/2022 td
         ''Added 5/17/2022 thomas downes
@@ -317,6 +342,30 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         picturePreview.SizeMode = PictureBoxSizeMode.Zoom
 
     End Sub
+
+
+    Private Sub CtlBackground1_SelectedImageFilePathV2(par_control As CtlBackground,
+                                                     strImageFilePath As String) _
+        Handles CtlBackground1.SelectedImageFilePathV2,
+                CtlBackground2.SelectedImageFilePathV2,
+                CtlBackground3.SelectedImageFilePathV2
+
+        ''Added 5/23/2022 thomas downes
+        ''  The current EventHandler (Private Sub CtlBackground1_SelectedImageFilePath)
+        ''  is probably not needed. See the UserControl CtlBackground's command line: 
+        ''       Me.ParentListingForm.LoadSelection(Me)
+        ''  in the following event-handler below (also in CtlBackground.vb):  
+        ''       Private Sub checkSelection_CheckedChanged
+        ''  which contains the command
+        ''       Me.ParentListingForm.LoadSelection(Me)
+        ''  and propagates the image selection to the parent form.
+        ''    ---5/17/2022 td
+        ''
+        picturePreview.ImageLocation = strImageFilePath
+        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+
+    End Sub
+
 
     Private Sub LinkTestScreengrab_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkTestScreengrab.LinkClicked
 

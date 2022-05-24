@@ -48,9 +48,15 @@ Public Class FormDesignProtoThree
             '' 1/02/2022'' .LoadDesigner("FormDesignProtoThree's Form_Load ")
             ''5/4/2022 td''.LoadDesigner("FormDesignProtoThree's Form_Load ", mod_eventsSingleton)
 
+            Dim bAutoLoadBackImg As Boolean ''Added 5/23/2022 td
             Dim bAutoLoadElems As Boolean ''Added 5/4/2022 td
+
+            bAutoLoadBackImg = Startup.PreloadBackgroundForDemo ''Added 5/23/2022 td
             bAutoLoadElems = Startup.PreloadElementsForDemo ''Added 5/4/2022 td
-            .LoadDesigner("FormDesignProtoThree's Form_Load ", bAutoLoadElems, mod_eventsSingleton)
+
+            ''5/23/2022 .LoadDesigner("FormDesignProtoThree's Form_Load ", bAutoLoadElems, mod_eventsSingleton)
+            .LoadDesigner("FormDesignProtoThree's Form_Load ",
+                          bAutoLoadBackImg, bAutoLoadElems, mod_eventsSingleton)
 
         End With ''End of "With mod_designer"
 

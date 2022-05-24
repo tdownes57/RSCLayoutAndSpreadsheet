@@ -658,7 +658,7 @@
     <Compile Include="Dialogs_Text\DialogTextBorder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Modules\MessageBoxTD_NotUsed.vb" />
+    <Compile Include="MessageAndInputBoxes\MessageBoxTD_NotUsed.vb" />
     <Compile Include="Modules\modEnums.vb" />
     <Compile Include="Modules\modFonts.vb" />
     <Compile Include="Modules\modAllowFieldEdits.vb" />
@@ -1189,7 +1189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Laysections\" />
-    <Folder Include="MessageAndInputBoxes\" />
     <Folder Include="__BlakemoreWebAPIs\" />
     <Folder Include="__ErrorLog\" />
     <Folder Include="__ProgressiveWebApp\" />

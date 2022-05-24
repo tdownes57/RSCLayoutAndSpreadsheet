@@ -68,4 +68,8 @@ Public Class FormInputBox
     Private Sub FormInputBox_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
+
+    Private Sub textUsersResponse_TextChanged(sender As Object, e As EventArgs) Handles textUsersResponse.TextChanged
+
+    End Sub
 End Class

@@ -33,10 +33,10 @@ Partial Class FormInputBox
         '
         Me.LabelFinalPrompt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.LabelFinalPrompt.AutoSize = True
-        Me.LabelFinalPrompt.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelFinalPrompt.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!)
         Me.LabelFinalPrompt.Location = New System.Drawing.Point(12, 136)
         Me.LabelFinalPrompt.Name = "LabelFinalPrompt"
-        Me.LabelFinalPrompt.Size = New System.Drawing.Size(331, 20)
+        Me.LabelFinalPrompt.Size = New System.Drawing.Size(372, 22)
         Me.LabelFinalPrompt.TabIndex = 25
         Me.LabelFinalPrompt.Text = "What is the name of the new ID Card Layout?"
         '
@@ -71,7 +71,7 @@ Partial Class FormInputBox
         Me.textUsersResponse.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textUsersResponse.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textUsersResponse.Location = New System.Drawing.Point(384, 133)
+        Me.textUsersResponse.Location = New System.Drawing.Point(422, 133)
         Me.textUsersResponse.Name = "textUsersResponse"
         Me.textUsersResponse.Size = New System.Drawing.Size(325, 26)
         Me.textUsersResponse.TabIndex = 22

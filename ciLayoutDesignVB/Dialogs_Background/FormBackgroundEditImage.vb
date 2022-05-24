@@ -18,7 +18,8 @@ Public Class FormBackgroundEditImage
     Private mod_pathToImageFile As String
     ''----Private mod_objEventsMoveGroupOfCtls As New 
 
-    Public Sub UploadedImageFile(par_pathToImageFile As String)
+    Public Sub Load_ImageFileToEdit(par_pathToImageFile As String)
+        ''5/23/2022 ''Public Sub UploadedImageFile
         ''
         ''Added 12/2/2021 td
         ''
@@ -48,7 +49,7 @@ Public Class FormBackgroundEditImage
 
 
 
-    End Sub
+    End Sub ''End of ""Public Sub Load_ImageFileToEdit""
 
 
     Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox,
@@ -471,6 +472,18 @@ Public Class FormBackgroundEditImage
         End If
 
         Me.picturePreview.Image.Save(Me.ImageFilePath_output, Imaging.ImageFormat.Jpeg)
+
+        ''Searched Bing.com for ""vb.net picturebox. when do i dispose""
+        ''https://stackoverflow.com/questions/19802405/vb-net-dispose-pictureboxes-and-load-them-again
+        ''https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.picturebox.dispose?view=windowsdesktop-6.0
+        ''https://www.daniweb.com/programming/software-development/threads/435337/disposing-picture-boxes
+        Me.picturePreview.Image.Dispose() ''Recommended by the above links. 
+        Me.pictureLayoutCenter.Image.Dispose() ''Recommended by the above links.
+        Me.pictureLayoutMoveable.Image.Dispose() ''Recommended by the above links. 
+        Me.pictureLayoutNormal.Image.Dispose() ''Recommended by the above links.
+        Me.pictureLayoutStretch.Image.Dispose() ''Recommended by the above links. 
+        Me.pictureLayoutZoom.Image.Dispose() ''Recommended by the above links.
+
         Me.DialogResult = DialogResult.OK
         Me.Close()
 
@@ -534,11 +547,11 @@ Public Class FormBackgroundEditImage
     Private Sub CtlMoveableBackground1_MouseEnter(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.MouseEnter
 
         ''Added 5/22/2022
-        With CtlMoveableBackground1
-            .Width = picturePreviewForScrape.Width
-            .Height = picturePreviewForScrape.Height
-            .Invalidate()
-        End With
+        ''5/23/2022 With CtlMoveableBackground1
+        ''    .Width = picturePreviewForScrape.Width
+        ''    .Height = picturePreviewForScrape.Height
+        ''    .Invalidate()
+        ''End With
 
 
     End Sub
@@ -546,26 +559,67 @@ Public Class FormBackgroundEditImage
     Private Sub CtlMoveableBackground1_MouseLeave(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.MouseLeave
 
         ''Added 5/22/2022
-        With CtlMoveableBackground1
-            .Width = pictureLayoutCenter.Width
-            .Height = pictureLayoutCenter.Height
-
-            .Invalidate()
-        End With
+        ''5/23/2022  With CtlMoveableBackground1
+        ''    .Width = pictureLayoutCenter.Width
+        ''    .Height = pictureLayoutCenter.Height
+        ''    .Invalidate()
+        ''End With
 
 
     End Sub
 
     Private Sub CtlMoveableBackground1_MouseHover(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.MouseHover
         ''Added 5/22/2022
+
+        ''5/23/2022 Dim intWidthDiff As Integer
+
+        ''5/23/2022 With CtlMoveableBackground1
+        ''    intWidthDiff = (picturePreviewForScrape.Width - .Width)
+        ''    .Width = picturePreviewForScrape.Width
+        ''    .Left = (.Left - intWidthDiff) ''Move it to the left
+        ''    .Height = picturePreviewForScrape.Height
+        ''    ''.Invalidate()
+        ''End With
+
+    End Sub
+
+    Private Sub FormBackgroundEditImage_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        ''
+        ''Added 5/23/2022 thomas 
+        ''
+        Me.UploadedImage.Dispose() ''Helps to prevent problems!!
+
+    End Sub
+
+    Private Sub CtlMoveableBackground1_MouseDown(sender As Object, e As MouseEventArgs) Handles CtlMoveableBackground1.MouseDown
+        ''
+        ''Added 5/23/2022 thomas 
+        ''
         Dim intWidthDiff As Integer
         With CtlMoveableBackground1
             intWidthDiff = (picturePreviewForScrape.Width - .Width)
             .Width = picturePreviewForScrape.Width
             .Left = (.Left - intWidthDiff) ''Move it to the left
             .Height = picturePreviewForScrape.Height
-            ''.Invalidate()
+            .Refresh()
         End With
 
     End Sub
+
+    Private Sub CtlMoveableBackground1_MouseUp(sender As Object, e As MouseEventArgs) Handles CtlMoveableBackground1.MouseUp
+
+        ''Added 5/24/2022 thomas downes
+        ''
+        ''  Restore the control CtlMoveableBackground1 to its original size & position
+        ''
+        With CtlMoveableBackground1
+            .Width = picturePreview.Width
+            .Left = picturePreview.Left
+            .Height = picturePreview.Height
+            .Refresh()
+        End With
+
+    End Sub
+
+
 End Class

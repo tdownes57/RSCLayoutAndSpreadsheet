@@ -30,11 +30,27 @@ Public Class DiskFolders
 
     End Function ''Endo f "Public Shared Function PathToFile_Preview() As String"
 
-    Public Shared Function PathToFolder_BackExamples() As String
+
+    Public Shared Function PathToFolder_BackImagesUploaded() As String
+        ''
+        ''Added 5/23/2022 Thomas Downes    
+        ''
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath,
+                                      "Images\BackgroundImagesUploaded")
+
+    End Function ''End of "Public Shared Function PathToFolder_BackImagesUploaded() As String"
+
+
+    Public Shared Function PathToFolder_BackImageExamples() As String
+        ''5/23/2022 Public Shared Function PathToFolder_BackImageExamples() As String
+        ''
+        ''The syllable "Back" means "Background (of Layout)". 
         ''
         ''Added 10/12/2019 Thomas Downes    
         ''
-        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
+        ''May23 2022 Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
+        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath,
+                                      "Images\BackgroundExampleDemos")
 
     End Function ''End of "Public Shared Function PathToFolder_BackExamples() As String"
 

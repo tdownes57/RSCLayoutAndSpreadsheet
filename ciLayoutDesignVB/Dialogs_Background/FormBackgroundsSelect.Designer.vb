@@ -44,6 +44,7 @@ Partial Class FormBackgroundsSelect
         Me.textImageFileTitleEdited = New System.Windows.Forms.TextBox()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.LabelModeHeader = New System.Windows.Forms.Label()
+        Me.LabelImageFolderPath = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -292,11 +293,24 @@ Partial Class FormBackgroundsSelect
         Me.LabelModeHeader.Tag = "Mode:"
         Me.LabelModeHeader.Text = "Mode:"
         '
+        'LabelImageFolderPath
+        '
+        Me.LabelImageFolderPath.AutoSize = True
+        Me.LabelImageFolderPath.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelImageFolderPath.Location = New System.Drawing.Point(652, 421)
+        Me.LabelImageFolderPath.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelImageFolderPath.Name = "LabelImageFolderPath"
+        Me.LabelImageFolderPath.Size = New System.Drawing.Size(264, 18)
+        Me.LabelImageFolderPath.TabIndex = 56
+        Me.LabelImageFolderPath.Tag = "Select Background Image"
+        Me.LabelImageFolderPath.Text = "(image folder path a.k.a. directory path)"
+        '
         'FormBackgroundsSelect
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1161, 551)
+        Me.Controls.Add(Me.LabelImageFolderPath)
         Me.Controls.Add(Me.LabelModeHeader)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.textImageFileTitleEdited)
@@ -348,4 +362,5 @@ Partial Class FormBackgroundsSelect
     Friend WithEvents textImageFileTitleEdited As TextBox
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents LabelModeHeader As Label
+    Friend WithEvents LabelImageFolderPath As Label
 End Class

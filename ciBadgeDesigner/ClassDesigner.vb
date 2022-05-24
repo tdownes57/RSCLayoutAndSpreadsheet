@@ -165,6 +165,7 @@ Public Class ClassDesigner
     Private mod_IMoveableElementLastTouched As IMoveableElement ''Added 12/21/2021 td
     Private mod_ISaveableElementLastTouched As ISaveToModel ''Added 12/21/2021 td
     Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
+    Private Const mc_CheckBackgroundProportions As Boolean = False ''Was true "de facto". 5/23/2022 
 
     ''#1 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls_NA As New MoveAndResizeControls_Monem.ControlMove_RaiseEvents ''Added 8/3/2019 td  
     '' #2 8-3-2019 td''Private WithEvents mod_moveAndResizeCtls As New MoveAndResizeControls_Monem.ControlMove_GroupMove ''Added 8/3/2019 td  
@@ -596,6 +597,7 @@ Public Class ClassDesigner
 
 
     Public Sub LoadDesigner(pstrWhyCalled As String,
+                            par_bAutoLoadMissingBackground As Boolean,
                             par_bAutoLoadMissingElements As Boolean,
                             par_oMoveEvents As GroupMoveEvents_Singleton,
                             Optional pbStartWithBackside As Boolean = False)
@@ -636,7 +638,8 @@ Public Class ClassDesigner
         Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox_Front.Width, Me.BackgroundBox_Front.Height)
 
         ''Added 1/13/2022 td
-        Load_BackgroundImage()
+        ''5/23/2022 Load_BackgroundImage()
+        Load_BackgroundImage(par_bAutoLoadMissingBackground)
 
         ''
         ''I forget, what was this going to do originally?  ---9/6/2019 td
@@ -1526,7 +1529,7 @@ Public Class ClassDesigner
     End Sub ''End of Sub ResizeLayoutBackgroundImage_ToFitPictureBox()
 
 
-    Public Sub Load_BackgroundImage()
+    Public Sub Load_BackgroundImage(par_bAddBackgroundIfMissing As Boolean)
         ''
         ''Encapsulated from code copied from Form__Main_Demo.vb
         ''
@@ -1545,21 +1548,45 @@ Public Class ClassDesigner
             If (strBackgroundImage_Path Is Nothing) Then strBackgroundImage_Path = ""
 
             If ("" = strBackgroundImage_Path) Then
-                strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
 
-                If (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside) Then ''Added 1/13/22
-                    ''Added 1/13/22
-                    .BackgroundImage_Backside_FTitle = strBackgroundImage_Title
-                    .BackgroundImage_Backside_Path = strBackgroundImage_Path
+                ''Check if the constant allows us to supply a background image. 5/23/2022
+                If (par_bAddBackgroundIfMissing) Then ''Added 5/23/2022 thomas d.
+
+                    strBackgroundImage_Path = DiskFilesVB.PathToFile_Background_FirstOrDefault(strBackgroundImage_Title)
+
+                    If (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside) Then ''Added 1/13/22
+                        ''Added 1/13/22
+                        .BackgroundImage_Backside_FTitle = strBackgroundImage_Title
+                        .BackgroundImage_Backside_Path = strBackgroundImage_Path
+                    Else
+                        .BackgroundImage_Front_FTitle = strBackgroundImage_Title
+                        .BackgroundImage_Front_Path = strBackgroundImage_Path
+                    End If ''End of "If (EnumSideOfCard = ...."
+
+                ElseIf (boolBacksideOfCard) Then
+                    ''Added 5/23/2022
+                    Me.BackgroundBox_Backside.Image = My.Resources.BackgroundIsBlank
                 Else
-                    .BackgroundImage_Front_FTitle = strBackgroundImage_Title
-                    .BackgroundImage_Front_Path = strBackgroundImage_Path
-                End If ''End of "If (EnumSideOfCard = ...."
+                    ''Frontside of card.  --Added 5/23/2022
+                    ''5/23/2022 Me.BackgroundBox_Front.Image = My.Resources.BackgroundIsBlank
+                    Me.BackgroundBox_Front.Image = My.Resources.BackgroundIsBlank_MoveableElems
+
+                End If ''End of ""If (par_bAddBackgroundIfMissing) Then ... ElseIf... Else...""
 
             End If ''End of ''If ("" = strBackgroundImage_Path) The
         End With ''end of "With ElementsCache_UseEdits"
 
-        If (System.IO.File.Exists(strBackgroundImage_Path)) Then
+        ''
+        ''Load the appropriate picture box with the JPEG or other image file. 
+        ''
+        If ("" = strBackgroundImage_Path) Then
+            ''
+            ''Don't proceed with processing an empty path. ---5/23/2022
+            ''
+        ElseIf (System.IO.File.Exists(strBackgroundImage_Path)) Then
+            ''
+            ''The path is substantive & valid.
+            ''
             objectBackgroundImage = New Bitmap(strBackgroundImage_Path)
             If (boolBacksideOfCard) Then
                 BackgroundBox_Backside.Image?.Dispose()
@@ -3238,6 +3265,8 @@ Public Class ClassDesigner
         ''
         ''--Jan13 2022--RefreshPreview_Redux_Front(par_recentlyMoved, par_recipient)
 
+        Const c_bLetsCloneBackgroundImage As Boolean = False ''Was false "de facto". Added 5/23/2022 
+
         Dim objPrintLibElems As New ciLayoutPrintLib.LayoutElements
         Dim listOfTextImages As New HashSet(Of Image) ''Added 8/26/2019 thomas downes 
         ''Jan13 2022 ''Dim listOfElementTextFields As HashSet(Of ClassElementField)
@@ -3270,24 +3299,28 @@ Public Class ClassDesigner
         End If ''ENd of "If (CtlGraphic_QRCode IsNot Nothing) Then"
         ''5/15/2022 td'' End If ''End of "If (par_objMakeBadgeElements.ElementQRCode_1st IsNot Nothing) Then"
 
-        Try
-            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "RefreshPreview_Redux #1")
+        If (mc_CheckBackgroundProportions) Then ''Conditioned 5/23/2022 td
 
-        Catch ex_bgbox As Exception
-            ''Added 11/26/2021 td
-            If (Not mod_bMessageRedux1) Then MessageBox.Show(ex_bgbox.Message)
-            mod_bMessageRedux1 = True ''Added 12/02/2021 thomas downes 
-            If (False) Then MessageBox.Show(ex_bgbox.ToString)
-        End Try
+            Try
+                ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.BackgroundBox_Front.Image, True, "RefreshPreview_Redux #1")
 
-        Try
-            ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
+            Catch ex_bgbox As Exception
+                ''Added 11/26/2021 td
+                If (Not mod_bMessageRedux1) Then MessageBox.Show(ex_bgbox.Message)
+                mod_bMessageRedux1 = True ''Added 12/02/2021 thomas downes 
+                If (False) Then MessageBox.Show(ex_bgbox.ToString)
+            End Try
 
-        Catch ex_previewbox As Exception
-            ''Added 11/26/2021 td
-            MessageBox.Show(ex_previewbox.Message)
-            MessageBox.Show(ex_previewbox.ToString)
-        End Try
+            Try
+                ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True, "RefreshPreview_Redux #2")
+
+            Catch ex_previewbox As Exception
+                ''Added 11/26/2021 td
+                MessageBox.Show(ex_previewbox.Message)
+                MessageBox.Show(ex_previewbox.ToString)
+            End Try
+
+        End If ''End of ""If (mod_c_CheckBackgroundProportions) Then""
 
         Dim bBacksideOfCard As Boolean ''Added 12/10/2021 thomas downes
         ''Jan13 2022''bBacksideOfCard = (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
@@ -3295,22 +3328,28 @@ Public Class ClassDesigner
         obj_image = Me.BackgroundBox_Front.BackgroundImage
         If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
 
-        If (obj_image Is Nothing) Then
-            ''Clear the Preview image, since we don't have a background available. ---12/10/2021 
-            If (Me.PreviewBox.Image IsNot Nothing) Then Me.PreviewBox.Image.Dispose() ''Added 12/11/2021 td 
-            Me.PreviewBox.Image = Nothing
-            Me.PreviewBox.Refresh()
-            Return
-        Else
-            obj_image_clone = CType(obj_image.Clone(), Image)
-        End If ''End of "If (obj_image IsNot Nothing) Then ... Else ..."
+        If (c_bLetsCloneBackgroundImage) Then ''Added 5/23/2022 td
 
-        obj_image_clone_resized =
-            LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
+            If (obj_image Is Nothing) Then
+                ''Clear the Preview image, since we don't have a background available. ---12/10/2021 
+                If (Me.PreviewBox.Image IsNot Nothing) Then Me.PreviewBox.Image.Dispose() ''Added 12/11/2021 td 
+                Me.PreviewBox.Image = Nothing
+                Me.PreviewBox.Refresh()
+                Return
+            Else
+                obj_image_clone = CType(obj_image.Clone(), Image)
+            End If ''End of "If (obj_image IsNot Nothing) Then ... Else ..."
 
-        ''Added 9/6/2019 td 
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "RefreshPreview_Redux #3")
-        ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
+            obj_image_clone_resized =
+                LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
+
+            If (mc_CheckBackgroundProportions) Then ''Added 5/23/2022 thomas d
+                ''Added 9/6/2019 td 
+                ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "RefreshPreview_Redux #3")
+                ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
+            End If ''End of ""If (mc_CheckBackgroundProportions) Then""
+
+        End If ''End of ""If (c_bLetsCloneBackgroundImage) Then""
 
         ''---Const c_boolUseFunction2021 As Boolean = False ''Added 12/26/2021 td
         Const c_boolUseFunction2022 As Boolean = True ''Added 12/26/2021 td
@@ -3327,45 +3366,47 @@ Public Class ClassDesigner
             ''
             ''Now parameterized. 1/13/2022 td''objMakeBadgeElements = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
 
-            ''Added 12/26/2021 td
-            par_objMakeBadgeElements.BackgroundImage = obj_image_clone_resized
+            If (c_bLetsCloneBackgroundImage) Then ''Added 5/23/2022
+                ''Added 12/26/2021 td
+                par_objMakeBadgeElements.BackgroundImage = obj_image_clone_resized
+            End If ''End of ""If (c_bLetsCloneBackgroundImage) Then""
 
             ''Added 12/26/2021 td
             ''
             ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
             ''
             Dim objCtlPortrait As CtlGraphicPortrait
-            objCtlPortrait = CtlGraphic_Portrait_1st()
-            If (objCtlPortrait IsNot Nothing) Then
-                If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
-                    ''Take the picture from the Element Control. ---1/5/2022 
-                    par_objMakeBadgeElements.RecipientPic = objCtlPortrait.Pic_CloneOfInitialImage
-                End If ''End of "If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then"
-            End If ''End of "If (objCtlPortrait IsNot Nothing) Then"
+                objCtlPortrait = CtlGraphic_Portrait_1st()
+                If (objCtlPortrait IsNot Nothing) Then
+                    If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
+                        ''Take the picture from the Element Control. ---1/5/2022 
+                        par_objMakeBadgeElements.RecipientPic = objCtlPortrait.Pic_CloneOfInitialImage
+                    End If ''End of "If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then"
+                End If ''End of "If (objCtlPortrait IsNot Nothing) Then"
 
-            ''
-            ''Major call !!
-            ''
-            obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+                ''
+                ''Major call !!
+                ''
+                obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
                                par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
                                Me.PreviewBox.Width,
                                Me.PreviewBox.Height,
                                par_recipient,
                                Nothing, Nothing, Nothing, par_recentlyMoved)
 
-            ''Added 1/23/2022 td
-            ''Provide automated problem-related feedback to user. 
-            If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
                 ''Added 1/23/2022 td
-                If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
-                    ''Provide automated problem-related feedback to user. 
-                    MessageBoxTD.Show_Statement(obj_generator.Messages)
-                End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
-            End If ''End of "If (boolGeneratorMessageExists) Then"
+                ''Provide automated problem-related feedback to user. 
+                If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
+                    ''Added 1/23/2022 td
+                    If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
+                        ''Provide automated problem-related feedback to user. 
+                        MessageBoxTD.Show_Statement(obj_generator.Messages)
+                    End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
+                End If ''End of "If (boolGeneratorMessageExists) Then"
 
-        End If ''End of "If (c_boolUseFunction2022) Then ..."
+            End If ''End of "If (c_boolUseFunction2022) Then ..."
 
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
+            ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         Me.PreviewBox.Image = obj_image
         Me.PreviewBox.Refresh()
@@ -4558,7 +4599,9 @@ Public Class ClassDesigner
     End Sub
 
 
-    Public Sub SwitchSideOfCard(par_bAutoLoadWhatsMissing As Boolean, ByRef pref_success As Boolean)
+    Public Sub SwitchSideOfCard(par_bAutoLoadMissingBackground As Boolean,
+                                par_bAutoLoadWhatsMissing As Boolean,
+                                ByRef pref_success As Boolean)
         ''
         ''Added 12/8/2021 thomas downes
         ''
@@ -4580,7 +4623,11 @@ Public Class ClassDesigner
         ''5/4/2022 td''LoadDesigner("Called from SwitchSideOfCard", mod_oGroupMoveEvents)
 
         ''Modified to add Boolean parameter on 5/4/2022
+        ''5/23/2022 LoadDesigner("Called from SwitchSideOfCard",
+        ''             par_bAutoLoadWhatsMissing,
+        ''             mod_oGroupMoveEvents)
         LoadDesigner("Called from SwitchSideOfCard",
+                     par_bAutoLoadMissingBackground,
                      par_bAutoLoadWhatsMissing,
                      mod_oGroupMoveEvents)
 

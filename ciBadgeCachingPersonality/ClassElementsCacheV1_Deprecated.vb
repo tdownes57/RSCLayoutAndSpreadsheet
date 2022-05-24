@@ -3373,7 +3373,13 @@ Namespace ciBadgeCachePersonality
                     ''May20 2022 ''If (bBackside) Then imageCreated1Unsized = New Bitmap(Me.BackgroundImage_Backside_Path)
                     If (bFrontside) Then strPathToBackground = Me.BackgroundImage_Front_Path
                     If (bBackside) Then strPathToBackground = Me.BackgroundImage_Backside_Path
-                    imageCreated1Unsized = New Bitmap(strPathToBackground)
+                    If (String.IsNullOrEmpty(strPathToBackground)) Then
+                        ''
+                        ''Not all users will desire or require a background image.--5/23/2022 
+                        ''
+                    Else
+                        imageCreated1Unsized = New Bitmap(strPathToBackground)
+                    End If ''ENd of ""f (String.IsNullOrEmpty(strPathToBackground)) Then...Else..."
 
                 Catch ex_Bitmap As Exception
 

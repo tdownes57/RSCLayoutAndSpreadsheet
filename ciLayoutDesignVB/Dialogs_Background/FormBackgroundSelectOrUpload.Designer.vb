@@ -29,6 +29,10 @@ Partial Class FormBackgroundSelectOrUpload
         Me.LabelFooter2 = New System.Windows.Forms.Label()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonSelectDemos = New System.Windows.Forms.Button()
+        Me.textboxPathToImageJPG = New System.Windows.Forms.TextBox()
+        Me.LabelCurrentPathHeaderLbl = New System.Windows.Forms.Label()
+        Me.LinkLabelOpenFile = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelOpenFolder = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonUploadImage
@@ -90,7 +94,7 @@ Partial Class FormBackgroundSelectOrUpload
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(454, 315)
+        Me.ButtonCancel.Location = New System.Drawing.Point(454, 374)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(146, 35)
         Me.ButtonCancel.TabIndex = 13
@@ -109,11 +113,56 @@ Partial Class FormBackgroundSelectOrUpload
         Me.ButtonSelectDemos.Text = "(Browse Pre-Loaded Demo Images)"
         Me.ButtonSelectDemos.UseVisualStyleBackColor = True
         '
-        'FormSelectOrUpload
+        'textboxPathToImageJPG
+        '
+        Me.textboxPathToImageJPG.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxPathToImageJPG.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.textboxPathToImageJPG.Location = New System.Drawing.Point(16, 348)
+        Me.textboxPathToImageJPG.Name = "textboxPathToImageJPG"
+        Me.textboxPathToImageJPG.ReadOnly = True
+        Me.textboxPathToImageJPG.Size = New System.Drawing.Size(584, 20)
+        Me.textboxPathToImageJPG.TabIndex = 14
+        '
+        'LabelCurrentPathHeaderLbl
+        '
+        Me.LabelCurrentPathHeaderLbl.AutoSize = True
+        Me.LabelCurrentPathHeaderLbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelCurrentPathHeaderLbl.Location = New System.Drawing.Point(12, 327)
+        Me.LabelCurrentPathHeaderLbl.Name = "LabelCurrentPathHeaderLbl"
+        Me.LabelCurrentPathHeaderLbl.Size = New System.Drawing.Size(227, 17)
+        Me.LabelCurrentPathHeaderLbl.TabIndex = 15
+        Me.LabelCurrentPathHeaderLbl.Text = "Path to current background image:"
+        '
+        'LinkLabelOpenFile
+        '
+        Me.LinkLabelOpenFile.AutoSize = True
+        Me.LinkLabelOpenFile.Location = New System.Drawing.Point(13, 371)
+        Me.LinkLabelOpenFile.Name = "LinkLabelOpenFile"
+        Me.LinkLabelOpenFile.Size = New System.Drawing.Size(84, 13)
+        Me.LinkLabelOpenFile.TabIndex = 16
+        Me.LinkLabelOpenFile.TabStop = True
+        Me.LinkLabelOpenFile.Text = "Open Image File"
+        '
+        'LinkLabelOpenFolder
+        '
+        Me.LinkLabelOpenFolder.AutoSize = True
+        Me.LinkLabelOpenFolder.Location = New System.Drawing.Point(127, 371)
+        Me.LinkLabelOpenFolder.Name = "LinkLabelOpenFolder"
+        Me.LinkLabelOpenFolder.Size = New System.Drawing.Size(97, 13)
+        Me.LinkLabelOpenFolder.TabIndex = 17
+        Me.LinkLabelOpenFolder.TabStop = True
+        Me.LinkLabelOpenFolder.Text = "Open Image Folder"
+        '
+        'FormBackgroundSelectOrUpload
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(612, 362)
+        Me.ClientSize = New System.Drawing.Size(612, 421)
+        Me.Controls.Add(Me.LinkLabelOpenFolder)
+        Me.Controls.Add(Me.LinkLabelOpenFile)
+        Me.Controls.Add(Me.LabelCurrentPathHeaderLbl)
+        Me.Controls.Add(Me.textboxPathToImageJPG)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonSelectDemos)
         Me.Controls.Add(Me.LabelFooter2)
@@ -121,7 +170,7 @@ Partial Class FormBackgroundSelectOrUpload
         Me.Controls.Add(Me.LabelFooter1)
         Me.Controls.Add(Me.ButtonUploadImage)
         Me.Controls.Add(Me.ButtonSelectLoaded)
-        Me.Name = "FormSelectOrUpload"
+        Me.Name = "FormBackgroundSelectOrUpload"
         Me.Text = "FormSelectOrUpload"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -135,4 +184,8 @@ Partial Class FormBackgroundSelectOrUpload
     Friend WithEvents LabelFooter2 As Label
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonSelectDemos As Button
+    Friend WithEvents textboxPathToImageJPG As TextBox
+    Friend WithEvents LabelCurrentPathHeaderLbl As Label
+    Friend WithEvents LinkLabelOpenFile As LinkLabel
+    Friend WithEvents LinkLabelOpenFolder As LinkLabel
 End Class

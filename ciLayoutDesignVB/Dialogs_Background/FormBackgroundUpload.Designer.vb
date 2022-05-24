@@ -22,6 +22,7 @@ Partial Class FormBackgroundUpload
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.buttonOK = New System.Windows.Forms.Button()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonUpload1 = New System.Windows.Forms.Button()
@@ -30,11 +31,13 @@ Partial Class FormBackgroundUpload
         Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
         Me.buttonUpload2 = New System.Windows.Forms.Button()
         Me.textImageFileTitleEdited = New System.Windows.Forms.TextBox()
-        Me.ButtonEditImage = New System.Windows.Forms.Button()
+        Me.ButtonEditImageEdited = New System.Windows.Forms.Button()
         Me.LabelSelectedTitle = New System.Windows.Forms.Label()
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.LabelOriginalHdr = New System.Windows.Forms.Label()
+        Me.ButtonEditImageRaw = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -42,7 +45,7 @@ Partial Class FormBackgroundUpload
         '
         Me.buttonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonOK.Location = New System.Drawing.Point(770, 418)
-        Me.buttonOK.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.buttonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonOK.Name = "buttonOK"
         Me.buttonOK.Size = New System.Drawing.Size(81, 28)
         Me.buttonOK.TabIndex = 1
@@ -53,7 +56,7 @@ Partial Class FormBackgroundUpload
         '
         Me.buttonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonCancel.Location = New System.Drawing.Point(855, 418)
-        Me.buttonCancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.buttonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonCancel.Name = "buttonCancel"
         Me.buttonCancel.Size = New System.Drawing.Size(81, 28)
         Me.buttonCancel.TabIndex = 2
@@ -63,7 +66,7 @@ Partial Class FormBackgroundUpload
         'buttonUpload1
         '
         Me.buttonUpload1.Location = New System.Drawing.Point(22, 366)
-        Me.buttonUpload1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.buttonUpload1.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonUpload1.Name = "buttonUpload1"
         Me.buttonUpload1.Size = New System.Drawing.Size(233, 28)
         Me.buttonUpload1.TabIndex = 3
@@ -99,7 +102,7 @@ Partial Class FormBackgroundUpload
         'buttonUpload2
         '
         Me.buttonUpload2.Location = New System.Drawing.Point(148, 50)
-        Me.buttonUpload2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.buttonUpload2.Margin = New System.Windows.Forms.Padding(2)
         Me.buttonUpload2.Name = "buttonUpload2"
         Me.buttonUpload2.Size = New System.Drawing.Size(233, 28)
         Me.buttonUpload2.TabIndex = 5
@@ -109,20 +112,20 @@ Partial Class FormBackgroundUpload
         'textImageFileTitleEdited
         '
         Me.textImageFileTitleEdited.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textImageFileTitleEdited.Location = New System.Drawing.Point(689, 366)
+        Me.textImageFileTitleEdited.Location = New System.Drawing.Point(714, 365)
         Me.textImageFileTitleEdited.Name = "textImageFileTitleEdited"
         Me.textImageFileTitleEdited.Size = New System.Drawing.Size(335, 26)
         Me.textImageFileTitleEdited.TabIndex = 58
         '
-        'ButtonEditImage
+        'ButtonEditImageEdited
         '
-        Me.ButtonEditImage.Location = New System.Drawing.Point(580, 364)
-        Me.ButtonEditImage.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonEditImage.Name = "ButtonEditImage"
-        Me.ButtonEditImage.Size = New System.Drawing.Size(101, 28)
-        Me.ButtonEditImage.TabIndex = 57
-        Me.ButtonEditImage.Text = "Edit Image"
-        Me.ButtonEditImage.UseVisualStyleBackColor = True
+        Me.ButtonEditImageEdited.Location = New System.Drawing.Point(580, 364)
+        Me.ButtonEditImageEdited.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonEditImageEdited.Name = "ButtonEditImageEdited"
+        Me.ButtonEditImageEdited.Size = New System.Drawing.Size(129, 28)
+        Me.ButtonEditImageEdited.TabIndex = 57
+        Me.ButtonEditImageEdited.Text = "Edit the edited image again"
+        Me.ButtonEditImageEdited.UseVisualStyleBackColor = True
         '
         'LabelSelectedTitle
         '
@@ -170,14 +173,26 @@ Partial Class FormBackgroundUpload
         Me.LabelOriginalHdr.Tag = "Select Background Image"
         Me.LabelOriginalHdr.Text = "Original:"
         '
+        'ButtonEditImageRaw
+        '
+        Me.ButtonEditImageRaw.Location = New System.Drawing.Point(390, 366)
+        Me.ButtonEditImageRaw.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonEditImageRaw.Name = "ButtonEditImageRaw"
+        Me.ButtonEditImageRaw.Size = New System.Drawing.Size(144, 28)
+        Me.ButtonEditImageRaw.TabIndex = 60
+        Me.ButtonEditImageRaw.Text = "Edit Image Above"
+        Me.ToolTip1.SetToolTip(Me.ButtonEditImageRaw, "Edit the raw uploaded image")
+        Me.ButtonEditImageRaw.UseVisualStyleBackColor = True
+        '
         'FormBackgroundUpload
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1069, 457)
+        Me.Controls.Add(Me.ButtonEditImageRaw)
         Me.Controls.Add(Me.LabelOriginalHdr)
         Me.Controls.Add(Me.textImageFileTitleEdited)
-        Me.Controls.Add(Me.ButtonEditImage)
+        Me.Controls.Add(Me.ButtonEditImageEdited)
         Me.Controls.Add(Me.LabelSelectedTitle)
         Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.Label1)
@@ -187,7 +202,7 @@ Partial Class FormBackgroundUpload
         Me.Controls.Add(Me.buttonCancel)
         Me.Controls.Add(Me.buttonOK)
         Me.Controls.Add(Me.CtlBackground1)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormBackgroundUpload"
         Me.Text = "FormUploadBackground"
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
@@ -204,9 +219,11 @@ Partial Class FormBackgroundUpload
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
     Friend WithEvents buttonUpload2 As Button
     Friend WithEvents textImageFileTitleEdited As TextBox
-    Friend WithEvents ButtonEditImage As Button
+    Friend WithEvents ButtonEditImageEdited As Button
     Friend WithEvents LabelSelectedTitle As Label
     Friend WithEvents picturePreview As PictureBox
     Friend WithEvents Label1 As Label
     Friend WithEvents LabelOriginalHdr As Label
+    Friend WithEvents ButtonEditImageRaw As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

@@ -3,10 +3,25 @@
 ''
 
 Public Class FormBackgroundSelectOrUpload
-
+    ''
+    ''Added 5/13/2022  
+    ''
     Public UserWantsToUpload As Boolean
     Public UserWantsToSelect As Boolean
     Public UserWantsToSeeDemos As Boolean
+
+
+    Public Sub New(pstrPathToImageFileJPG As String)
+        ''
+        ''Added 5/13/2022  
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        textboxPathToImageJPG.Text = pstrPathToImageFileJPG ''Added 5/13/2022 td
+
+    End Sub
 
     Private Sub ButtonUploadImage_Click(sender As Object, e As EventArgs) Handles ButtonUploadImage.Click
         ''
@@ -90,6 +105,24 @@ Public Class FormBackgroundSelectOrUpload
             ButtonSelectLoaded.Visible = bOneOrMoreImagesExist
             ButtonSelectLoaded.Enabled = bOneOrMoreImagesExist
         End If ''End of ""If (bOneOrMoreImagesExist) Then""
+
+    End Sub
+
+    Private Sub LinkLabelOpenFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenFile.LinkClicked
+
+        ''Added 5/23/2022 thomas  
+        System.Diagnostics.Process.Start(textboxPathToImageJPG.Text)
+
+
+    End Sub
+
+    Private Sub LinkLabelOpenFolder_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenFolder.LinkClicked
+
+        ''Added 5/23/2022 td
+        Dim objFileInfo_JPG As IO.FileInfo
+        objFileInfo_JPG = New IO.FileInfo(textboxPathToImageJPG.Text)
+        System.Diagnostics.Process.Start(objFileInfo_JPG.DirectoryName)
+
 
     End Sub
 End Class

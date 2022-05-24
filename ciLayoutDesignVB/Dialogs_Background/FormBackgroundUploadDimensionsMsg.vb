@@ -87,7 +87,8 @@
         ''
         Dim objFormToShow As New FormBackgroundEditImage
 
-        objFormToShow.UploadedImageFile(mod_pathToImageFile)
+        ''5/24/2022 objFormToShow.UploadedImageFile(mod_pathToImageFile)
+        objFormToShow.Load_ImageFileToEdit(mod_pathToImageFile)
         objFormToShow.ShowDialog()
 
     End Sub

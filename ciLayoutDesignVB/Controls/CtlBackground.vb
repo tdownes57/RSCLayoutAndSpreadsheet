@@ -5,7 +5,8 @@ Public Class CtlBackground
     ''
     ''Added 11/25/2021 Thomas Downes  
     ''
-    Public Event SelectedImageFilePath(strImageFilePath As String) ''Added 5/17/2022 td
+    Public Event SelectedImageFilePathV1(strImageFilePath As String) ''Added 5/17/2022 td
+    Public Event SelectedImageFilePathV2(sender As CtlBackground, strImageFilePath As String) ''Added 5/23/2022 td
 
     Public ImageFilePath As String
     Public ImageFileTitle As String
@@ -120,7 +121,9 @@ Public Class CtlBackground
             ''       Me.ParentListingForm.LoadSelection(Me)
             ''  and propagates the image selection to the parent form.
             ''    ---5/17/2022 td
-            RaiseEvent SelectedImageFilePath(Me.ImageFilePath)
+            ''5/23/2022 RaiseEvent SelectedImageFilePath(Me.ImageFilePath)
+            RaiseEvent SelectedImageFilePathV1(Me.ImageFilePath)
+            RaiseEvent SelectedImageFilePathV2(Me, Me.ImageFilePath)
 
         End If ''end of " If (intReply = DialogResult.Yes Or intReply = DialogResult.OK) Then"
 
@@ -147,10 +150,23 @@ Public Class CtlBackground
                 ''
                 ''Propagate the selection to the parent form. ---5/17/2022
                 ''
-                Me.ParentListingForm.LoadSelection(Me)
+                ''5/23/2022 Me.ParentListingForm.LoadSelection(Me)
+                Me.ParentListingForm.LoadSelection_ByUserControl(Me)
 
             End If ''End of "If (Me.ParentListingForm Is Nothing) Then .... Else ..."
         End If ''End of "If (boolSelected) Then"
 
     End Sub
+
+
+    Public Sub Dispose_Image()
+
+        ''Added 5/24/2022 td 
+        Me.picturePreview.Image.Dispose()
+
+
+    End Sub
+
+
+
 End Class
