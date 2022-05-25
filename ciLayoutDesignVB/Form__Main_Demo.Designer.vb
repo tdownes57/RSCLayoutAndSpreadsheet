@@ -56,6 +56,7 @@ Partial Class Form__Main_Demo
         Me.BackgroundImagesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UploadNewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SelectFromExistingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SelectOrUploadOrToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DemoModeVideoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DemoModeActiveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BadgeRecipientsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -134,7 +135,8 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH = New System.Windows.Forms.Button()
         Me.ButtonManageRecipientsH = New System.Windows.Forms.Button()
         Me.ButtonEditBackground = New System.Windows.Forms.Button()
-        Me.SelectOrUploadOrToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LabelMainHeading = New System.Windows.Forms.Label()
+        Me.LabelPreviewHeading = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -371,6 +373,12 @@ Partial Class Form__Main_Demo
         Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(271, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from uploaded backgrounds...."
         '
+        'SelectOrUploadOrToolStripMenuItem
+        '
+        Me.SelectOrUploadOrToolStripMenuItem.Name = "SelectOrUploadOrToolStripMenuItem"
+        Me.SelectOrUploadOrToolStripMenuItem.Size = New System.Drawing.Size(271, 22)
+        Me.SelectOrUploadOrToolStripMenuItem.Text = "Select or Upload or Edit...."
+        '
         'DemoModeVideoToolStripMenuItem
         '
         Me.DemoModeVideoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DemoModeActiveToolStripMenuItem})
@@ -498,6 +506,7 @@ Partial Class Form__Main_Demo
         Me.linkSaveAndRefresh.TabIndex = 42
         Me.linkSaveAndRefresh.TabStop = True
         Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
+        Me.linkSaveAndRefresh.Visible = False
         '
         'ContextMenuStrip1
         '
@@ -533,7 +542,7 @@ Partial Class Form__Main_Demo
         'LinkRefreshPreview
         '
         Me.LinkRefreshPreview.AutoSize = True
-        Me.LinkRefreshPreview.Location = New System.Drawing.Point(730, 103)
+        Me.LinkRefreshPreview.Location = New System.Drawing.Point(1083, 129)
         Me.LinkRefreshPreview.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkRefreshPreview.Name = "LinkRefreshPreview"
         Me.LinkRefreshPreview.Size = New System.Drawing.Size(111, 17)
@@ -592,6 +601,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabelSave2.TabIndex = 50
         Me.LinkLabelSave2.TabStop = True
         Me.LinkLabelSave2.Text = "Save to File"
+        Me.LinkLabelSave2.Visible = False
         '
         'dropdownHowToLoadFlds
         '
@@ -672,6 +682,7 @@ Partial Class Form__Main_Demo
         Me.checkAutoPreview.TabIndex = 55
         Me.checkAutoPreview.Text = "Auto-Preview"
         Me.checkAutoPreview.UseVisualStyleBackColor = True
+        Me.checkAutoPreview.Visible = False
         '
         'OpenFileDialog1
         '
@@ -687,6 +698,7 @@ Partial Class Form__Main_Demo
         Me.LinkRevertToLastSave.TabIndex = 63
         Me.LinkRevertToLastSave.TabStop = True
         Me.LinkRevertToLastSave.Text = "Undo / Revert to Last Save"
+        Me.LinkRevertToLastSave.Visible = False
         '
         'LabelPersonalityCurrent
         '
@@ -743,6 +755,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabelOpenPreviewFileJPG.TabIndex = 69
         Me.LinkLabelOpenPreviewFileJPG.TabStop = True
         Me.LinkLabelOpenPreviewFileJPG.Text = "Open Badge from File (JPG)"
+        Me.LinkLabelOpenPreviewFileJPG.Visible = False
         '
         'LinkLabelEmailBadgeJPG
         '
@@ -754,6 +767,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabelEmailBadgeJPG.TabIndex = 70
         Me.LinkLabelEmailBadgeJPG.TabStop = True
         Me.LinkLabelEmailBadgeJPG.Text = "Email Badge (as JPG file)"
+        Me.LinkLabelEmailBadgeJPG.Visible = False
         '
         'LinkLabelEmailBadgeJpeg
         '
@@ -765,6 +779,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabelEmailBadgeJpeg.TabIndex = 71
         Me.LinkLabelEmailBadgeJpeg.TabStop = True
         Me.LinkLabelEmailBadgeJpeg.Text = "Email Badge (as image)"
+        Me.LinkLabelEmailBadgeJpeg.Visible = False
         '
         'checkInstantPreview
         '
@@ -775,6 +790,7 @@ Partial Class Form__Main_Demo
         Me.checkInstantPreview.TabIndex = 72
         Me.checkInstantPreview.Text = "Auto-Motion"
         Me.checkInstantPreview.UseVisualStyleBackColor = True
+        Me.checkInstantPreview.Visible = False
         '
         'pictureBackgroundFront
         '
@@ -791,9 +807,9 @@ Partial Class Form__Main_Demo
         '
         Me.labelProceedToBackside.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.labelProceedToBackside.ForeColor = System.Drawing.Color.Navy
-        Me.labelProceedToBackside.Location = New System.Drawing.Point(253, 64)
+        Me.labelProceedToBackside.Location = New System.Drawing.Point(286, 68)
         Me.labelProceedToBackside.Name = "labelProceedToBackside"
-        Me.labelProceedToBackside.Size = New System.Drawing.Size(365, 23)
+        Me.labelProceedToBackside.Size = New System.Drawing.Size(331, 23)
         Me.labelProceedToBackside.TabIndex = 76
         Me.labelProceedToBackside.Tag = ">>> Show backside of ID Card."
         Me.labelProceedToBackside.Text = ">>> Add backside of ID Card."
@@ -1015,6 +1031,7 @@ Partial Class Form__Main_Demo
         Me.LinkLabelSaveAndShowFront.TabIndex = 88
         Me.LinkLabelSaveAndShowFront.TabStop = True
         Me.LinkLabelSaveAndShowFront.Text = "&& Show Front"
+        Me.LinkLabelSaveAndShowFront.Visible = False
         '
         'linklabelAndShowBack
         '
@@ -1026,6 +1043,7 @@ Partial Class Form__Main_Demo
         Me.linklabelAndShowBack.TabIndex = 89
         Me.linklabelAndShowBack.TabStop = True
         Me.linklabelAndShowBack.Text = "&& Show Backside"
+        Me.linklabelAndShowBack.Visible = False
         '
         'ButtonOK
         '
@@ -1099,11 +1117,25 @@ Partial Class Form__Main_Demo
         Me.ButtonEditBackground.TabIndex = 103
         Me.ButtonEditBackground.UseVisualStyleBackColor = False
         '
-        'SelectOrUploadOrToolStripMenuItem
+        'LabelMainHeading
         '
-        Me.SelectOrUploadOrToolStripMenuItem.Name = "SelectOrUploadOrToolStripMenuItem"
-        Me.SelectOrUploadOrToolStripMenuItem.Size = New System.Drawing.Size(271, 22)
-        Me.SelectOrUploadOrToolStripMenuItem.Text = "Select or Upload or Edit...."
+        Me.LabelMainHeading.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelMainHeading.ForeColor = System.Drawing.Color.Navy
+        Me.LabelMainHeading.Location = New System.Drawing.Point(14, 59)
+        Me.LabelMainHeading.Name = "LabelMainHeading"
+        Me.LabelMainHeading.Size = New System.Drawing.Size(329, 34)
+        Me.LabelMainHeading.TabIndex = 104
+        Me.LabelMainHeading.Text = "RSC ID Card Designer"
+        '
+        'LabelPreviewHeading
+        '
+        Me.LabelPreviewHeading.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelPreviewHeading.ForeColor = System.Drawing.Color.Navy
+        Me.LabelPreviewHeading.Location = New System.Drawing.Point(730, 117)
+        Me.LabelPreviewHeading.Name = "LabelPreviewHeading"
+        Me.LabelPreviewHeading.Size = New System.Drawing.Size(329, 29)
+        Me.LabelPreviewHeading.TabIndex = 106
+        Me.LabelPreviewHeading.Text = "RSC ID Card Preview"
         '
         'Form__Main_Demo
         '
@@ -1111,6 +1143,8 @@ Partial Class Form__Main_Demo
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.LabelPreviewHeading)
+        Me.Controls.Add(Me.LabelMainHeading)
         Me.Controls.Add(Me.ButtonEditBackground)
         Me.Controls.Add(Me.ButtonManageRecipientsH)
         Me.Controls.Add(Me.ButtonRecipients)
@@ -1298,4 +1332,6 @@ Partial Class Form__Main_Demo
     Friend WithEvents ButtonManageRecipientsH As Button
     Friend WithEvents ButtonEditBackground As Button
     Friend WithEvents SelectOrUploadOrToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LabelMainHeading As Label
+    Friend WithEvents LabelPreviewHeading As Label
 End Class

@@ -3276,6 +3276,8 @@ ExitHandler:
         pictureJustAButton.Visible = True ''Added 1/21/2022
         pictureJustAButton.SendToBack() ''Added 1/21/2022
 
+        LabelMainHeading.Visible = False ''Added 5/24/2022 thomas downes
+
         Dim boolSuccess As Boolean
 
         mod_designer.DesignerForm_DoubleCheckRef = Me ''Added 1/14/2022 td

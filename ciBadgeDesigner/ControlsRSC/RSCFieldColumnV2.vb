@@ -1009,7 +1009,10 @@ Public Class RSCFieldColumnV2
             intCellIndex += 1
             ''If (Not String.IsNullOrEmpty(each_RSCDataCell.Text)) Then intCountData += 1
             ''April 15 2022 ''bMismatchOfTag = (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag))
-            bMismatchOfTag = (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag_Text))
+            ''5/24/2022 td''bMismatchOfTag = (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag_Text))
+            bMismatchOfTag = (Not String.IsNullOrEmpty(each_RSCDataCell.Tag_Text)) AndAlso
+                (each_RSCDataCell.Text <> CStr(each_RSCDataCell.Tag_Text))
+
             If bMismatchOfTag Then
 
                 intCountData += 1

@@ -30,6 +30,9 @@ Public Class ClassSerial
     Public TypeOfObject As Type ''Added 9/1/2019 td 
     Public ObjectToSerialize As Object ''Added 9/12/2019 td 
 
+    Public ErrorOccurred As Boolean  ''Added 5/24/2022 td
+    Public ErrorMessage As String  ''Added 5/24/2022 td
+
     ''
     ''serializing the Object
     ''
@@ -81,6 +84,7 @@ Public Class ClassSerial
         Dim objParentFolder_Alternate As System.IO.DirectoryInfo ''Added 3/23/2022 t
         Dim boolFolderExists As Boolean ''Added 3/23/2022 t
         Dim boolFolderExists_Alternate As Boolean ''Added 3/23/2022 t
+        Const c_boolCreateFolderForXML As Boolean = True ''Added 5/24/2022 td
 
         objParentFolder = IO.Directory.GetParent(Me.PathToXML)
         boolFolderExists = IO.Directory.Exists(objParentFolder.FullName)
@@ -99,9 +103,29 @@ Public Class ClassSerial
                 Throw New Exception("The implied folder path (Alternate) doesn't exist.")
             End If ''End of "If (boolFolderExists_Alternate) Then ... Else..."
 
+        ElseIf (c_boolCreateFolderForXML) Then ''Added 5/24/2022 
+
+            ''Added 5/24/2022
+            IO.Directory.CreateDirectory(objParentFolder.FullName)
+            For intIndex As Integer = 1 To 7
+                System.Threading.Thread.Sleep(100)
+                boolFolderExists = IO.Directory.Exists(objParentFolder.FullName)
+                If (boolFolderExists) Then Exit For
+            Next intIndex
+
         Else
             ''Added 3/23/2022 td
-            Throw New Exception("The implied folder path doesn't exist.")
+            ''#1 May24 2022 ''Throw New Exception("The implied folder path doesn't exist.")
+            ''#2 May24 2022 ''System.Diagnostics.Debugger.Break()
+
+            ''Added 5/24/2022  
+            Me.ErrorOccurred = True
+            Me.ErrorMessage = ("The XML folder path doesn't exist.  " &
+                "The folder path is as follows:" &
+                 vbCrLf & objParentFolder.FullName & vbCrLf &
+                "The file path is as follows:" &
+                 vbCrLf & Me.PathToXML)
+            Exit Sub
 
         End If ''End of "If (boolFolderExists) Then .... Else ...."
 

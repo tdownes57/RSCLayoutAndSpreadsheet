@@ -42,14 +42,26 @@ Public Class DiskFolders
     End Function ''End of "Public Shared Function PathToFolder_BackgroundExampleDemos() As String"
 
 
-    Public Shared Function PathToFolder_BackgroundImages() As String
+    Public Shared Function PathToFolder_BackgroundImages(Optional par_originals As Boolean = False) As String
         ''
         ''Added 10/12/2019 Thomas Downes    
         ''
         ''#1 5/13/2022 Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExamples")
         ''#2 5/13/2022 Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackExampleDemos")
         ''5/17/2022 td'' Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImages")
-        Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImagesUploaded")
+        ''5/24/2022 td''Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImagesUploaded")
+
+        If (par_originals) Then
+
+            Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImagesUploaded\Originals")
+
+        Else
+            Return System.IO.Path.Combine(My.Application.Info.DirectoryPath, "Images\BackgroundImagesUploaded")
+
+        End If ''end of ""If (par_originals) Then.... Else....""
+
+
+
 
     End Function ''End of "Public Shared Function PathToFolder_BackgroundImages() As String"
 
