@@ -78,6 +78,21 @@ Public Class RSCRowHeaders
     End Function ''End of ""Public Function CountOfRows() As Integer""
 
 
+
+    Public Function CountOfColumnsWithoutFields(Optional ByRef pref_intCountAllColumns As Integer = 0) As Integer
+        ''
+        '' Added 5/25/2022  
+        ''
+        Dim intCountCols As Integer = 0
+
+        intCountCols = Me.ParentRSCSpreadsheet.CountOfColumnsWithoutFields(pref_intCountAllColumns)
+
+        Return intCountCols
+
+    End Function ''End of ""Public Function CountOfColumnsWithoutFields() As Integer""
+
+
+
     Public Function ListOfColumns() As List(Of RSCFieldColumnV1)
 
         ''Added 3/21/2022 thomas downes
@@ -626,11 +641,16 @@ Public Class RSCRowHeaders
 
 
     Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
-                               par_iRowIndex As Integer)
+                               par_iRowIndex As Integer,
+                               Optional ByRef pboolFailure As Boolean = False,
+                               Optional ByRef pref_intCountFailures As Integer = 0)
         ''
         ''Added 5/19/2022 
         ''
-        Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex)
+        ''#1 5/25/2022 Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex)
+        ''#2 5/25/2022 Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex, pboolFailure)
+        Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex,
+                                                pboolFailure, pref_intCountFailures)
 
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
 

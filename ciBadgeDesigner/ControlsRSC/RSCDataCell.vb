@@ -296,16 +296,26 @@ Public Class RSCDataCell
 
 
     Public Sub SaveDataToRecipientField(par_objRecipient As ClassRecipient,
-                               par_enumCIBField As EnumCIBFields)
+                               par_enumCIBField As EnumCIBFields,
+                            Optional ByRef pboolFailure As Boolean = False)
         ''
         ''Added 5/19/2022 thomas downes
         ''
         ''This procedure is overloaded. See another "Public Sub SaveDataToRecipientField" below. 
         ''
-        par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text)
+        Dim bFailedToSave As Boolean ''Added 5/25/2022
 
-        ''Let's indicate that the data has been saved. 
-        Textbox1a.Tag = Textbox1a.Text
+        ''5/25/2022 td''par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text)
+        par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text, bFailedToSave)
+
+        If (bFailedToSave) Then
+            ''Added 5/25/2022 
+            pboolFailure = True
+
+        Else
+            ''Let's indicate that the data has been saved. 
+            Textbox1a.Tag = Textbox1a.Text
+        End If ''end of ""If (bFailedToSave) Then... Else..."
 
     End Sub ''End of ""Public Sub SaveDataToRecipientField""
 

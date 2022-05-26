@@ -207,7 +207,9 @@ Public Class ClassRecipient
 
 
 
-    Public Sub SaveTextValue(par_enum As EnumCIBFields, par_value As String) Implements IRecipient.SaveTextValue
+    Public Sub SaveTextValue(par_enum As EnumCIBFields, par_value As String,
+                             Optional ByRef pref_failure As Boolean = False) _
+                             Implements IRecipient.SaveTextValue
         ''
         ''Added 4/12/2022 td 
         ''
@@ -260,18 +262,22 @@ Public Class ClassRecipient
                 ''
                 ''
                 ''
+
             Case Else
                 ''#1 12/7/2021 td''Return ""
                 ''#2 12/7/2021 td''Return "This Case Else."
-                Throw New Exception("This Case Else should not be the case.... par_enum = " & par_enum.ToString)
+                If ("" = par_value) Then
+                    ''The value is blank.  It is probably from a column which is entirely blank, 
+                    ''   without a selected field and without recipient values. ----5/25/2022
+                Else
+                    ''--5/23/2022--Throw New Exception("This Case Else should not be the case.... par_enum = " & par_enum.ToString)
+                    pref_failure = True ''Added 5/25/2022
+
+                End If ''End of ""If ("" = par_value) Then... Else..."
 
         End Select ''End of "Select Case par_enum"
 
     End Sub ''enD OF " Public Sub SaveTextValue(par_enum As EnumCIBFields) As String Implements IRecipient.GetTextValue"
-
-
-
-
 
 
     Public Function RecipientID() As String Implements IRecipient.RecipientID

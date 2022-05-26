@@ -351,11 +351,17 @@ Public Class RSCFieldSpreadsheet
 
 
     Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
-                               par_iRowIndex As Integer)
+                               par_iRowIndex As Integer,
+                               Optional ByRef pboolFailure As Boolean = False,
+                               Optional ByRef pintHowManyColumnsFailed As Integer = 0)
         ''
         ''Added 5/19/2022 
         ''
         Dim each_column As RSCFieldColumnV2
+        Dim each_failure As Boolean  ''Added 5/25/2022 
+
+        ''Track how many columns have failures. 
+        pintHowManyColumnsFailed = 0 ''Initialize.  5/245/2022 
 
         For Each each_column In mod_array_RSCColumns
 
@@ -363,11 +369,16 @@ Public Class RSCFieldSpreadsheet
             If (each_column Is Nothing) Then Continue For
 
             With each_column
-                .SaveToRecipient(par_objRecipient, par_iRowIndex)
+                ''#1 5/25/2022 ''.SaveToRecipient(par_objRecipient, par_iRowIndex)
+                ''#2 5/25/2022 ''.SaveToRecipient(par_objRecipient, par_iRowIndex, pboolFailure)
+                each_failure = False ''Initialize. 5/25/2022
+                .SaveToRecipient(par_objRecipient, par_iRowIndex, each_failure)
             End With
 
-        Next each_column
+            If (each_failure) Then pboolFailure = True
+            If (each_failure) Then pintHowManyColumnsFailed += 1
 
+        Next each_column
 
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
 
@@ -401,6 +412,33 @@ Public Class RSCFieldSpreadsheet
         Return -1
 
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
+
+
+    Public Function CountOfColumnsWithoutFields(Optional ByRef pref_intCountAllColumns As Integer = 0) As Integer
+        ''
+        '' Added 5/25/2022  
+        ''
+        Dim intCountColsAll As Integer = 0
+        Dim intCountColsWithout As Integer = 0
+        Dim eachRSCColumn As RSCFieldColumnV2
+
+        For Each eachRSCColumn In mod_array_RSCColumns
+            ''
+            ''Build the dictionaries. 
+            ''
+            If (eachRSCColumn Is Nothing) Then Continue For
+
+            intCountColsAll += 1
+
+            If (Not eachRSCColumn.HasField_Selected()) Then intCountColsWithout += 1
+
+        Next eachRSCColumn
+
+        pref_intCountAllColumns = intCountColsAll
+        Return intCountColsWithout
+
+    End Function ''End of ""Public Function CountOfColumnsWithoutFields() As Integer""
+
 
 
     Public Function ReviewColumnDisplayForRelevantFields_1to1(pboolMessageUser As Boolean) As DialogResult

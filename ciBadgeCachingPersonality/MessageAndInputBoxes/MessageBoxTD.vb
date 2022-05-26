@@ -67,6 +67,27 @@ Public Class MessageBoxTD
 
 
 
+    Public Shared Sub Show_FormatNumbers(pstrStatement_Line1 As String,
+                                         pintNumber1 As Integer,
+                                        Optional pintNumber2 As Integer = -1)
+        ''
+        ''Added 5/25/2022 thomas downes
+        ''
+        Dim strLine1_WithNumbers As String
+
+        If (pintNumber2 = -1) Then
+            strLine1_WithNumbers = String.Format(pstrStatement_Line1, pintNumber1)
+        Else
+            strLine1_WithNumbers = String.Format(pstrStatement_Line1, pintNumber1, pintNumber2)
+        End If
+
+        MessageBox.Show(strLine1_WithNumbers, "MessageBoxTD-Statement",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub ''End of ""Public Shared Sub Show_FormatNumbers""
+
+
+
     Public Shared Sub Show_InsertWordFormat_Line1(pstrWord_ForLine1 As String,
                                                pstrStatement_Line1 As String,
                                      Optional pstrStatement_Line2 As String = "")

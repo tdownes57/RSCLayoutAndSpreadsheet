@@ -61,12 +61,16 @@ Public Class RSCRowHeader
     End Property
 
 
-    Public Sub ShowRecipientsIDCard()
+    Public Sub ShowRecipientsIDCard(Optional ByRef pref_boolFailure As Boolean = False,
+                                Optional ByVal pboolVerboseFailure As Boolean = True)
         ''
         ''Added 5/14/2022 thomas downes
         ''
         Dim objRecipient As ciBadgeRecipients.ClassRecipient
+        Dim intCountColsFailed As Integer ''Added 5/25/2022 td
+        Dim intCountColsWithoutFields As Integer ''Added 5/25/2022 td
         ''Dim obj_image As System.Drawing.Image
+        Dim intCountAllCols As Integer = 0
 
         LinkLabelShowID.Visible = True ''Added 5/20/2022 td 
 
@@ -79,7 +83,25 @@ Public Class RSCRowHeader
 
         End If ''End of ""If objRecipient Is Nothing Then"" 
 
-        Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex)
+        ''Added 5/25/2022
+        intCountColsWithoutFields = Me.ParentRSCRowHeaders.CountOfColumnsWithoutFields(intCountAllCols)
+        If (0 < intCountColsWithoutFields) Then
+            MessageBoxTD.Show_FormatNumbers("Please be aware that {0} of {1} columns have no field selected.",
+                                            intCountColsFailed, intCountAllCols)
+        End If ''eND OF ""If (0 < intCountColsWithoutFields) Then""
+
+        ''#1 5/25/2022 Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex)
+        ''#2 5/25/2022 Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex, pboolFailure)
+        Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex,
+                                               pref_boolFailure, intCountColsFailed)
+
+        ''Added 5/25/2022
+        If (pref_boolFailure And pboolVerboseFailure) Then
+            ''Added 5/25/2022
+            MessageBoxTD.Show_FormatNumbers("Please be aware that {0} columns have unusable data... " & vbCrLf &
+                                           "likely due to lack of field-selection.",
+                                            intCountColsFailed)
+        End If ''eND OF ""If (pref_boolFailure And pboolVerboseFailure) Then""
 
         ''
         ''Added 5/19/2022 td  
@@ -253,8 +275,20 @@ Public Class RSCRowHeader
 
     Private Sub LinkLabelShowID_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelShowID.LinkClicked
 
+        Dim boolFailure As Boolean
+
         ''Added 5/14/2022
-        ShowRecipientsIDCard()
+
+        ''5/25/2022 ''ShowRecipientsIDCard()
+        ShowRecipientsIDCard(boolFailure)
+
+        ''Ad
+        If (boolFailure) Then
+
+
+
+        End If ''endof ""If (boolFailure) Then""
+
 
 
     End Sub

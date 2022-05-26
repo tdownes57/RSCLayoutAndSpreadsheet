@@ -50,6 +50,18 @@ Public Class RSCSelectCIBField
     End Property
 
 
+    Public Function HasField_Selected() As Boolean
+        '
+        'Added 5/25/2022
+        '
+        ''Return (CInt(SelectedValue) > 0)
+        Dim outputEnum As ciBadgeInterfaces.EnumCIBFields ''Added 3/18/2022 thomas downes
+        outputEnum = CType(Me.comboBoxRelevantFields.SelectedValue, EnumCIBFields)
+        Return (CInt(outputEnum) > 0) AndAlso (outputEnum <> EnumCIBFields.Undetermined)
+
+    End Function ''End of ""Public Function HasField_Selected() As Boolean""
+
+
     Public Function GetFieldEnumSelected() As EnumCIBFields
 
         ''Added 5/4/2022 td

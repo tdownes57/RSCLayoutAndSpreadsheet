@@ -494,6 +494,15 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub MoveTextCaretToNewRow()" 
 
 
+    Public Function HasField_Selected() As Boolean
+        '
+        'Added 5/25/2022
+        '
+        Return RscSelectCIBField1.HasField_Selected()
+
+    End Function ''End of ""Public Function HasField_Selected() As Boolean""
+
+
     Public Function HasIdentifyingData() As Boolean
         ''
         ''Added 5/14/2022 
@@ -1723,7 +1732,8 @@ Public Class RSCFieldColumnV2
 
 
     Public Sub SaveToRecipient(par_objRecipient As ClassRecipient,
-                               par_iRowIndex As Integer)
+                               par_iRowIndex As Integer,
+                               Optional ByRef pboolFailure As Boolean = False)
         ''
         ''Added 5/19/2022 thomas downes
         ''
@@ -1735,7 +1745,8 @@ Public Class RSCFieldColumnV2
         one_RSCDataCell = GetCellWithRowIndex(par_iRowIndex)
 
         ''one_RSCDataCell.SaveDataToRecipient(par_objRecipient, enumCIBField)
-        one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField)
+        ''5/25/2022 td ''one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField)
+        one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField, pboolFailure)
 
 
     End Sub ''End of ""Public Sub SaveToRecipient""
