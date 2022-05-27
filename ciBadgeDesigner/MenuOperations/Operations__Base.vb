@@ -235,7 +235,8 @@ Public MustInherit Class Operations__Base
         ''
         ''Added 5/5/2022 td   
         ''
-        Me.CtlCurrentElement.ShowConditionalExpression()
+        ''5/27/2022 Me.CtlCurrentElement.ShowConditionalExpression()
+        Me.CtlCurrentElement.ShowConditionalExpression_OpenDialog()
 
     End Sub ''End of ""Public Sub Add_Conditional_Expression_BA1080(sender As Object, e As EventArgs)""
 

@@ -15,10 +15,16 @@ Public Class FormConditional
 
     Private mod_bIsLoading As Boolean = True
 
-    Public Sub New(par_cache As ClassElementsCache_Deprecated)
+    Public Sub New(par_cache As ClassElementsCache_Deprecated, par_infoBase As IElement_Base)
+        ''5/27/2022 Public Sub New(par_cache As ClassElementsCache_Deprecated)
 
         ' This call is required by the designer.
         InitializeComponent()
+
+        ''Added 5/27/2022 td
+        Me.ConditionalExpressionField = par_infoBase.ConditionalExpressionField
+        Me.ConditionalExpressionInUse = par_infoBase.ConditionalExpressionInUse
+        Me.ConditionalExpressionValue = par_infoBase.ConditionalExpressionValue
 
         ' Add any initialization after the InitializeComponent() call.
         RscSelectCIBField_Simple1.Load_FieldsFromCache(par_cache)

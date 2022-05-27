@@ -356,6 +356,12 @@ Public Class RSCMoveableControlVB
                             pbHandleMouseEventsThroughVB6,
                             pbUseMonemProportionalityClass)
 
+        ''Added 5/27/2022 td
+        If (par_elementBase.ConditionalExpressionInUse) Then
+            LinkLabelConditional.Visible = True
+        End If ''End of ""If (par_elementBase.ConditionalExpressionInUse) Then""
+
+
         ''Not needed. 1/10/2022 td. ---Added 1/5/2022 td
         ''RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
         ''RemoveHandler mod_events.Moving_End, AddressOf mod_events_Moving_End
@@ -693,11 +699,13 @@ Public Class RSCMoveableControlVB
     End Sub ''End of ""Public Sub RemoveSizeability""
 
 
-    Public Sub ShowConditionalExpression()
+    Public Sub ShowConditionalExpression_OpenDialog()
+        ''5/27/2022 ''Public Sub ShowConditionalExpression()
         ''
         ''Added 5/5/2022 td
         ''
-        Dim objFormToShow As New FormConditional(Me.ElementsCache)
+        ''5/27/2022 Dim objFormToShow As New FormConditional(Me.ElementsCache)
+        Dim objFormToShow As New FormConditional(Me.ElementsCache, Me.ElementInfo_Base)
         Dim boolConfirmed As Boolean
 
         objFormToShow.ShowDialog()
@@ -713,7 +721,7 @@ Public Class RSCMoveableControlVB
 
         End If ''End of ""If boolConfirmed Then""
 
-    End Sub ''End of ""Public Sub ShowConditionialExpression()""
+    End Sub ''End of ""Public Sub ShowConditionialExpression_OpenDialog()""
 
 
     Public Sub InitializeMoveability(pboolResizeProportionally As Boolean,
@@ -1984,7 +1992,8 @@ Public Class RSCMoveableControlVB
     Private Sub LinkLabelConditional_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelConditional.LinkClicked
 
         ''Added 5/5/2022 thomas Downes
-        ShowConditionalExpression()
+        ''5/27/2022 td''ShowConditionalExpression()
+        ShowConditionalExpression_OpenDialog()
 
         ''Dim objFormToShow As New FormConditional(Me.ElementsCache)
         ''Dim boolConfirmed As Boolean

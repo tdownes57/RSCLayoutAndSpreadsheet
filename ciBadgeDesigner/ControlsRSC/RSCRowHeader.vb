@@ -62,7 +62,8 @@ Public Class RSCRowHeader
 
 
     Public Sub ShowRecipientsIDCard(Optional ByRef pref_boolFailure As Boolean = False,
-                                Optional ByVal pboolVerboseFailure As Boolean = True)
+                                Optional ByVal pboolVerboseFailure As Boolean = False,
+                                Optional ByVal pboolVerboseWarning As Boolean = False)
         ''
         ''Added 5/14/2022 thomas downes
         ''
@@ -85,10 +86,11 @@ Public Class RSCRowHeader
 
         ''Added 5/25/2022
         intCountColsWithoutFields = Me.ParentRSCRowHeaders.CountOfColumnsWithoutFields(intCountAllCols)
-        If (0 < intCountColsWithoutFields) Then
+        If (pboolVerboseWarning And 0 < intCountColsWithoutFields) Then
+            ''Added 5/25/2022
             MessageBoxTD.Show_FormatNumbers("Please be aware that {0} of {1} columns have no field selected.",
                                             intCountColsFailed, intCountAllCols)
-        End If ''eND OF ""If (0 < intCountColsWithoutFields) Then""
+        End If ''eND OF ""If (pboolVerboseWarning and 0 < intCountColsWithoutFields) Then""
 
         ''#1 5/25/2022 Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex)
         ''#2 5/25/2022 Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex, pboolFailure)
