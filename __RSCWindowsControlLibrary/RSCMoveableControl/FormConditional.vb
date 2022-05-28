@@ -15,6 +15,35 @@ Public Class FormConditional
 
     Private mod_bIsLoading As Boolean = True
 
+
+    Public Sub New(par_cache As ClassElementsCache_Deprecated,
+                   par_base As ciBadgeElements.ClassElementBase)
+
+        ''5/27/2022 Public Sub New(par_cache As ClassElementsCache_Deprecated)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''Added 5/27/2022 td
+        Me.ConditionalExpressionField = par_base.ConditionalExpressionField
+        Me.ConditionalExpressionInUse = par_base.ConditionalExpressionInUse
+        Me.ConditionalExpressionValue = par_base.ConditionalExpressionValue
+
+        ' Add any initialization after the InitializeComponent() call.
+        RscSelectCIBField_Simple1.Load_FieldsFromCache(par_cache)
+
+        RscSelectCIBField_Simple1.SelectedValue = Me.ConditionalExpressionField
+        TextBoxRelevantValue.Text = Me.ConditionalExpressionValue
+        CheckBoxActivated.Checked = Me.ConditionalExpressionInUse
+        PanelExpression.Enabled = Me.ConditionalExpressionInUse
+        Application.DoEvents()
+
+ExitHandler:
+        mod_bIsLoading = False
+
+    End Sub
+
+
     Public Sub New(par_cache As ClassElementsCache_Deprecated, par_infoBase As IElement_Base)
         ''5/27/2022 Public Sub New(par_cache As ClassElementsCache_Deprecated)
 
@@ -39,6 +68,21 @@ ExitHandler:
         mod_bIsLoading = False
 
     End Sub
+
+
+    Public Sub New(par_cache As ClassElementsCache_Deprecated)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        RscSelectCIBField_Simple1.Load_FieldsFromCache(par_cache)
+
+ExitHandler:
+        mod_bIsLoading = False
+
+    End Sub
+
 
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click

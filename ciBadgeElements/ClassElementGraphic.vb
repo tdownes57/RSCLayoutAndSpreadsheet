@@ -51,6 +51,14 @@ Public Class ClassElementGraphic
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
     ''
+    ''Added 5/27/2022 td
+    ''
+    Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
+    Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
+    Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
+
+
+    ''
     ''If applicable, inform software developer of programming which violates design expectations.
     ''
     ''Set the Boolean constant to False.  That's because, for general graphics, we do //NOT// have

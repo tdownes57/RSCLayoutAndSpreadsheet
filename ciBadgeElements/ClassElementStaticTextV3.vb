@@ -175,6 +175,14 @@ Public Class ClassElementStaticTextV3
         End Set
     End Property
 
+    ''
+    ''Added 5/27/2022 td
+    ''
+    Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
+    Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
+    Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
+
+
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
 
     Public Sub New(par_control As Control)

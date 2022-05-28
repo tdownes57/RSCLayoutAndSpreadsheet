@@ -359,6 +359,15 @@ Public Class RSCMoveableControlVB
         ''Added 5/27/2022 td
         If (par_elementBase.ConditionalExpressionInUse) Then
             LinkLabelConditional.Visible = True
+            ''
+            ''Per https://stackoverflow.com/questions/3774248/make-the-background-of-a-label-or-linklabel-transparent
+            '' ---5/27/2022 td
+            LinkLabelConditional.BackColor = Color.Transparent
+            Try
+                LinkLabelConditional.Parent = Me ''Adbed 5/27/2022  
+            Catch
+            End Try
+
         End If ''End of ""If (par_elementBase.ConditionalExpressionInUse) Then""
 
 

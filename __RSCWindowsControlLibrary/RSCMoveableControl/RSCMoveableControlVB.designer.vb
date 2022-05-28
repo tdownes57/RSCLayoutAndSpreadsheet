@@ -51,5 +51,9 @@ Partial Class RSCMoveableControlVB
 
     End Sub
 
-    Friend WithEvents LinkLabelConditional As LinkLabel
+
+    ''5/27/2022 td'' Friend WithEvents LinkLabelConditional As LinkLabel
+    Protected WithEvents LinkLabelConditional As LinkLabel
+
+
 End Class

@@ -33,6 +33,15 @@ Public Class ClassElementFieldOrTextV4
     ''//   https://docs.automapper.org/en/latest/Setup.html
     ''//
     ''
+    ''
+    ''Added 5/27/2022 td
+    ''
+    Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
+    Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
+    Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
+
+
+
     <Xml.Serialization.XmlIgnore>
     Private Shared _mapConfig_Pic As MapperConfiguration = New MapperConfiguration(Sub(cfg) cfg.CreateMap(Of IElementPic, ClassElementFieldV3)())
     <Xml.Serialization.XmlIgnore>

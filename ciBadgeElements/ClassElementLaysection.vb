@@ -21,6 +21,13 @@ Public Class ClassElementLaysection
     ''Added 2/20/2022 thomas downes
     Public Property ElementLists As ClassElementLists ''Added 2/20/2022 thomas downes
 
+    ''
+    ''Added 5/27/2022 td
+    ''
+    Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
+    Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
+    Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
+
 
 
 

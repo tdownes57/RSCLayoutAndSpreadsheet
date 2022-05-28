@@ -1644,7 +1644,8 @@ Namespace ciBadgeCachePersonality
             ''Next field_custom
             ''-------------------------------------------------------------------------------------
 
-            Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
+            ''5/27/2022 Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
+            Dim new_elementFieldV4 As ClassElementFieldV4 ''Added 9/18/2019 td
             Dim intFieldIndex As Integer ''Added 9/18/2019 td
             Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
             Dim intTop_Pixels As Integer ''Added 9/18/2019 td
@@ -1669,18 +1670,30 @@ Namespace ciBadgeCachePersonality
                 intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
                 ''Added 9/18/2019 td
-                new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-                ''5/11/2022 new_elementField.FieldInfo = each_field
-                new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
+                ''5/27/2022 new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+                Try
+                    new_elementFieldV4 = New ClassElementFieldV4(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+                Catch ex_V4 As Exception
+                    ''Added 5/28/2022  td 
+                    MessageBoxTD.Show_Statement("Had trouble creating the following element:  " & each_field.ToString)
+                End Try
 
-                ''Added 10/13/2019 td
-                new_elementField.BadgeLayout = par_layout
+                If (new_elementFieldV4 IsNot Nothing) Then
 
-                ''Added 11/29/2021 td
-                new_elementField.DatetimeUpdated = Now
+                    ''5/11/2022 new_elementField.FieldInfo = each_field
+                    new_elementFieldV4.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
-                ''Added 9/19/2019 td
-                mod_listElementFields_FrontV3.Add(new_elementField)
+                    ''Added 10/13/2019 td
+                    new_elementFieldV4.BadgeLayout = par_layout
+
+                    ''Added 11/29/2021 td
+                    new_elementFieldV4.DatetimeUpdated = Now
+
+                    ''Added 9/19/2019 td
+                    ''5/27/2022 mod_listElementFields_FrontV3.Add(new_elementField)
+                    mod_listElementFields_FrontV4.Add(new_elementFieldV4)
+
+                End If ''End of ""If (new_elementFieldV4 IsNot Nothing) Then""
 
             Next each_field
 

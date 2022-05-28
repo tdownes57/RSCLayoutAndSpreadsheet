@@ -193,6 +193,16 @@ Public Class CtlGraphicPortrait
         ''Encapsulated 12/30/2021 td
         New_Portrait(par_elementPic, par_iLayoutFun)
 
+        ''Added 5/27/2022 thomas downes
+        ''Per https://stackoverflow.com/questions/3774248/make-the-background-of-a-label-or-linklabel-transparent
+        '' ---5/27/2022 td
+        LinkLabelConditional.BackColor = Color.Transparent
+        Try
+            MyBase.LinkLabelConditional.Parent = picturePortrait
+            MyBase.LinkLabelConditional.BringToFront()
+        Catch
+        End Try
+
     End Sub
 
 

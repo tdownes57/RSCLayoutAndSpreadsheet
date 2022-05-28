@@ -97,6 +97,15 @@ Public Class ClassElementFieldV3
     Public Shared Property oRecipient As ClassRecipient ''Added 10/16/2019 td  
     ''11/16/2019 td''Public Shared Property Recipient As ClassRecipient ''Added 10/16/2019 td  
 
+    ''
+    ''Added 5/27/2022 td
+    ''
+    Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
+    Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
+    Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
+
+
+
     Private Shared mod_sharedRecipInfo As IRecipient ''Added 12/01/2019 thomas d.
     ''---4/22/2020 td---Private Shared ms_lastFieldIndex As Integer ''Added 4/22/2020 thomas downes
 

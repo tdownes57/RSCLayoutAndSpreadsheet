@@ -211,6 +211,16 @@ Public Class CtlGraphicSignature
         ''Encapsulated 12/30/2021 td
         New_Signature(par_elementSig, par_iLayoutFun, par_strPathToSigFile)
 
+        ''Added 5/27/2022 thomas downes
+        ''Per https://stackoverflow.com/questions/3774248/make-the-background-of-a-label-or-linklabel-transparent
+        '' ---5/27/2022 td
+        LinkLabelConditional.BackColor = Color.Transparent
+        Try
+            MyBase.LinkLabelConditional.Parent = pictureSignature
+            MyBase.LinkLabelConditional.BringToFront()
+        Catch
+        End Try ''Catch 
+
     End Sub ''End of "Public Sub New"
 
 

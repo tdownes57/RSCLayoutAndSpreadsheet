@@ -14,6 +14,7 @@ Imports ciBadgeElemImage ''Added 9/20/2019 td
 Imports System.Drawing ''Added 10/1/2019 td  
 Imports __RSCWindowsControlLibrary ''Added 1/4/2022 thomas d.
 
+
 Public Class CtlGraphicFieldV4
     Implements ISaveToModel ''Added 12/17/2021 td 
 
@@ -270,6 +271,16 @@ Public Class CtlGraphicFieldV4
 
         ''Added 12/17/2021 td
         mod_formRecordLastTouched = par_iRecordLastTouched
+
+        ''Added 5/27/2022 thomas downes
+        ''Per https://stackoverflow.com/questions/3774248/make-the-background-of-a-label-or-linklabel-transparent
+        '' ---5/27/2022 td
+        LinkLabelConditional.BackColor = Color.Transparent
+        Try
+            MyBase.LinkLabelConditional.Parent = pictureFieldOrText
+            MyBase.LinkLabelConditional.BringToFront()
+        Catch
+        End Try
 
     End Sub ''ENd of "Public Sub New "
 

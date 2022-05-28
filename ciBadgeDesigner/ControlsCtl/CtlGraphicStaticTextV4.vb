@@ -303,6 +303,17 @@ Public Class CtlGraphicStaticTextV4
         ''Added 12/17/2021 td
         mod_formRecordLastTouched = par_iRecordLastTouched
 
+        ''Added 5/27/2022 thomas downes
+        ''Per https://stackoverflow.com/questions/3774248/make-the-background-of-a-label-or-linklabel-transparent
+        '' ---5/27/2022 td
+        LinkLabelConditional.BackColor = Color.Transparent
+        Try
+
+            MyBase.LinkLabelConditional.Parent = pictureFieldOrText
+            MyBase.LinkLabelConditional.BringToFront()
+        Catch
+        End Try
+
     End Sub ''ENd of "Public Sub New "
 
 

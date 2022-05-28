@@ -45,6 +45,15 @@ Public Class ClassElementQRCode
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
+    ''
+    ''Added 5/27/2022 td
+    ''
+    Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
+    Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
+    Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
+
+
+
     Private mod_width_pixels As Integer ''Added 9/23/2019 td 
     Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
         Get

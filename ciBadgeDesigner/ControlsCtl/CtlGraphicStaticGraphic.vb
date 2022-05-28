@@ -233,6 +233,16 @@ Public Class CtlGraphicStaticGraphic
         ''Added 1/12/2022 td 
         Me.BackColor = Color.Transparent ''Added 1/12/2022 td 
 
+        ''Added 5/27/2022 thomas downes
+        ''Per https://stackoverflow.com/questions/3774248/make-the-background-of-a-label-or-linklabel-transparent
+        '' ---5/27/2022 td
+        LinkLabelConditional.BackColor = Color.Transparent
+        Try
+            MyBase.LinkLabelConditional.Parent = pictureStaticGraphic
+            MyBase.LinkLabelConditional.BringToFront()
+        Catch
+        End Try
+
     End Sub
 
 
