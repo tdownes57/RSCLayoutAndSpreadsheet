@@ -31,6 +31,7 @@ Partial Class FormConditional
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CheckBoxActivated = New System.Windows.Forms.CheckBox()
         Me.PanelExpression = New System.Windows.Forms.Panel()
+        Me.LinkLabelActivateThis = New System.Windows.Forms.LinkLabel()
         Me.PanelExpression.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -68,7 +69,7 @@ Partial Class FormConditional
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(510, 186)
+        Me.ButtonCancel.Location = New System.Drawing.Point(510, 233)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(74, 44)
@@ -79,7 +80,7 @@ Partial Class FormConditional
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(340, 186)
+        Me.ButtonOK.Location = New System.Drawing.Point(340, 233)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(167, 44)
@@ -112,7 +113,7 @@ Partial Class FormConditional
         '
         Me.CheckBoxActivated.AutoSize = True
         Me.CheckBoxActivated.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.CheckBoxActivated.Location = New System.Drawing.Point(16, 38)
+        Me.CheckBoxActivated.Location = New System.Drawing.Point(35, 65)
         Me.CheckBoxActivated.Name = "CheckBoxActivated"
         Me.CheckBoxActivated.Size = New System.Drawing.Size(136, 22)
         Me.CheckBoxActivated.TabIndex = 26
@@ -127,16 +128,27 @@ Partial Class FormConditional
         Me.PanelExpression.Controls.Add(Me.TextBoxRelevantValue)
         Me.PanelExpression.Controls.Add(Me.LabelValueOfFieldCaption)
         Me.PanelExpression.Enabled = False
-        Me.PanelExpression.Location = New System.Drawing.Point(34, 66)
+        Me.PanelExpression.Location = New System.Drawing.Point(35, 93)
         Me.PanelExpression.Name = "PanelExpression"
         Me.PanelExpression.Size = New System.Drawing.Size(550, 107)
         Me.PanelExpression.TabIndex = 27
+        '
+        'LinkLabelActivateThis
+        '
+        Me.LinkLabelActivateThis.AutoSize = True
+        Me.LinkLabelActivateThis.Location = New System.Drawing.Point(32, 203)
+        Me.LinkLabelActivateThis.Name = "LinkLabelActivateThis"
+        Me.LinkLabelActivateThis.Size = New System.Drawing.Size(245, 13)
+        Me.LinkLabelActivateThis.TabIndex = 28
+        Me.LinkLabelActivateThis.TabStop = True
+        Me.LinkLabelActivateThis.Text = "Make this Conditional Expression available for use."
         '
         'FormConditional
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(591, 241)
+        Me.ClientSize = New System.Drawing.Size(591, 288)
+        Me.Controls.Add(Me.LinkLabelActivateThis)
         Me.Controls.Add(Me.PanelExpression)
         Me.Controls.Add(Me.CheckBoxActivated)
         Me.Controls.Add(Me.ButtonCancel)
@@ -160,4 +172,5 @@ Partial Class FormConditional
     Friend WithEvents Label1 As Label
     Friend WithEvents CheckBoxActivated As CheckBox
     Friend WithEvents PanelExpression As Panel
+    Friend WithEvents LinkLabelActivateThis As LinkLabel
 End Class

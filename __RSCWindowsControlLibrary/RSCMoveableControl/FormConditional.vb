@@ -136,4 +136,29 @@ ExitHandler:
 
 
     End Sub
+
+    Private Sub LinkLabelActivateThis_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelActivateThis.LinkClicked
+        ''
+        ''Added 5/29/2022 td
+        ''
+        If (Not PanelExpression.Enabled) Then
+
+            PanelExpression.Enabled = True
+            MessageBoxTD.Show_Statement("This box is now activated.")
+            CheckBoxActivated.Checked = True
+
+        ElseIf (CheckBoxActivated.Checked) Then
+
+            PanelExpression.Enabled = True
+            MessageBoxTD.Show_Statement("This box is already activated.")
+
+        Else
+
+            CheckBoxActivated.Checked = True
+            PanelExpression.Enabled = True
+            MessageBoxTD.Show_Statement("This box is now activated.")
+
+        End If
+
+    End Sub
 End Class

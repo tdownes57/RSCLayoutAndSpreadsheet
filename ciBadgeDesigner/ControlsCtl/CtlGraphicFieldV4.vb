@@ -173,6 +173,9 @@ Public Class CtlGraphicFieldV4
             ''Added 5/10/2022  
             .InfoRefresh = par_parametersGetElementControl.iRefreshPreview
 
+            ''Added 5/29/2022
+            .CacheOfFieldsEtc_Deprecated = par_parametersGetElementControl.ElementsCache
+
         End With ''End of "With objOperationsFld_V4"
 
         Return CtlFieldV4

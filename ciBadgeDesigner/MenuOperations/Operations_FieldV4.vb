@@ -35,7 +35,7 @@ Public Class Operations_FieldV4
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
     ''Jan5 2022 td''
-    Public Property CtlCurrentElementFieldV4 As ciBadgeDesigner.CtlGraphicFieldV4 ''CtlGraphicFldLabel
+    Public Property CtlCurrentElementFieldV4_NotUsed As ciBadgeDesigner.CtlGraphicFieldV4 ''CtlGraphicFldLabel
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
 
     Public Property ElementFieldV4 As ciBadgeElements.ClassElementFieldV4 ''Added 2/04/2022
@@ -99,12 +99,15 @@ Public Class Operations_FieldV4
         ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
         ''
         ''7/30/2019 td''ColorDialog1.ShowDialog()
-        Dim bIsCustomField As Boolean ''Added 12/14/2021 
+        Dim bIsCustomField As Boolean = False ''Added 12/14/2021 
         Const c_boolTryNewSub As Boolean = True ''Added 12/14/2021 td
 
         ''2/4/2022 td''bIsCustomField = (CtlCurrentElementFieldV4.ElementClass_Obj.FieldObjectCustom IsNot Nothing)
         ''5/11/2022 td''bIsCustomField = (CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldObjectCustom IsNot Nothing)
-        bIsCustomField = CtlCurrentElementFieldV3.FieldIsCustom
+        bIsCustomField = bIsCustomField OrElse (CtlCurrentElementFieldV3 IsNot Nothing AndAlso
+                                                CtlCurrentElementFieldV3.FieldIsCustom)
+        bIsCustomField = bIsCustomField OrElse (ElementFieldV4 IsNot Nothing AndAlso
+                                                ElementFieldV4.FieldIsCustomizable)
 
         If (bIsCustomField And c_boolTryNewSub) Then
 
@@ -763,7 +766,10 @@ Public Class Operations_FieldV4
 
         ''Added 5/11/2022 thomas downes
         Dim enumCIBField As EnumCIBFields
-        enumCIBField = CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldEnum
+
+        ''5/29/2022 enumCIBField = CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldEnum
+        enumCIBField = Me.ElementFieldV4.FieldEnum
+
         With Me.CacheOfFieldsEtc_Deprecated
             Return .GetFieldByFieldEnum(enumCIBField)
         End With

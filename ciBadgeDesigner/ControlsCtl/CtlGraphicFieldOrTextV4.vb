@@ -935,7 +935,7 @@ ExitHandler:
 
         Select Case Me.ElementClass_Obj.OrientationInDegrees
 
-            Case 90, 270
+            Case 90, 270, -90, -270 ''5/29/2022  Case 90, 270
 
                 If (pbCheckRotationIsDone) Then
                     ''Double-check the orientation.  ----9/23/2019 td
