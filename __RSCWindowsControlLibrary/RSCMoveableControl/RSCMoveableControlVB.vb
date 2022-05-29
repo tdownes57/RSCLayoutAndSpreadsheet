@@ -714,7 +714,8 @@ Public Class RSCMoveableControlVB
         ''Added 5/5/2022 td
         ''
         ''5/27/2022 Dim objFormToShow As New FormConditional(Me.ElementsCache)
-        Dim objFormToShow As New FormConditional(Me.ElementsCache, Me.ElementInfo_Base)
+        ''5/28/2022 Dim objFormToShow As New FormConditional(Me.ElementsCache, Me.ElementInfo_Base)
+        Dim objFormToShow As New FormConditional(Me.ElementsCache, Me.ElementBase)
         Dim boolConfirmed As Boolean
 
         objFormToShow.ShowDialog()

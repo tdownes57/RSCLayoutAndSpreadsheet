@@ -1645,18 +1645,24 @@ Namespace ciBadgeCachePersonality
             ''-------------------------------------------------------------------------------------
 
             ''5/27/2022 Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
-            Dim new_elementFieldV4 As ClassElementFieldV4 ''Added 9/18/2019 td
+            Dim new_elementFieldV4 As ClassElementFieldV4 = Nothing ''Added 9/18/2019 td
+            Dim new_elementFieldV3 As ClassElementFieldV3 ''Added 5/28/2022
             Dim intFieldIndex As Integer ''Added 9/18/2019 td
             Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
             Dim intTop_Pixels As Integer ''Added 9/18/2019 td
             Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
+            Dim list_of_fields As List(Of ClassFieldAny) ''Added 5/28/2022 td
+
+            list_of_fields = Me.ListOfFields_SC_Any() ''Added 5/28/2022
 
             ''Added 9/18/2019 td
             ''10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
-            For Each each_field As ClassFieldAny In Me.ListOfFields_SC_Any()
+            For Each each_field As ClassFieldAny In list_of_fields ''---Me.ListOfFields_SC_Any()
 
                 ''Added 5/11/2022 td
-                ''  Only relevant fields. 
+                ''
+                ''Only relevant fields. 
+                ''
                 If (Not each_field.IsRelevantToPersonality) Then Continue For
 
                 ''Fields cannot link to elements.---9/18/2019 td''mod_listElementFields.Add(each_field.ElementFieldClass)
@@ -1672,12 +1678,21 @@ Namespace ciBadgeCachePersonality
                 ''Added 9/18/2019 td
                 ''5/27/2022 new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
                 Try
-                    new_elementFieldV4 = New ClassElementFieldV4(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+                    Const c_boolV3 As Boolean = False ''True ''False ''Added 5/28/2022 td
+                    If (c_boolV3) Then
+                        new_elementFieldV3 = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+                    Else
+                        new_elementFieldV4 = New ClassElementFieldV4(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+                    End If
+
                 Catch ex_V4 As Exception
                     ''Added 5/28/2022  td 
                     MessageBoxTD.Show_Statement("Had trouble creating the following element:  " & each_field.ToString)
                 End Try
 
+                ''
+                ''Add the new Element-Field to the list of element-fields on the front side. 
+                ''
                 If (new_elementFieldV4 IsNot Nothing) Then
 
                     ''5/11/2022 new_elementField.FieldInfo = each_field
@@ -1841,36 +1856,36 @@ Namespace ciBadgeCachePersonality
             ''Added 5/11/2022 thomas downes
             ''
             Dim obj_field As ClassFieldAny
-            Dim new_elementField As ClassElementFieldV4 ''Added 9/18/2019 td
+            Dim new_elementFieldV4 As ClassElementFieldV4 ''Added 9/18/2019 td
             Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
 
             obj_field = GetFieldByFieldEnum(par_enumField)
 
-            new_elementField = New ClassElementFieldV4(obj_field,
+            new_elementFieldV4 = New ClassElementFieldV4(obj_field,
                                     par_intLeft_Pixels,
                                     par_intTop_Pixels,
                                     c_intHeight_Pixels)
 
-            new_elementField.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
-            new_elementField.BadgeLayout = par_layout
-            new_elementField.DatetimeUpdated = DateTime.Now
+            new_elementFieldV4.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
+            new_elementFieldV4.BadgeLayout = par_layout
+            new_elementFieldV4.DatetimeUpdated = DateTime.Now
 
             If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then
                 ''
                 ''Back side of card. 
                 ''
-                new_elementField.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside
-                mod_listElementFields_BacksideV4.Add(new_elementField)
+                new_elementFieldV4.WhichSideOfCard = EnumWhichSideOfCard.EnumBackside
+                mod_listElementFields_BacksideV4.Add(new_elementFieldV4)
             Else
                 ''
                 ''Front side of card. 
                 ''
-                new_elementField.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
-                mod_listElementFields_FrontV4.Add(new_elementField)
+                new_elementFieldV4.WhichSideOfCard = EnumWhichSideOfCard.EnumFrontside
+                mod_listElementFields_FrontV4.Add(new_elementFieldV4)
 
             End If ''End of ""If (par_enumSide = EnumWhichSideOfCard.EnumBackside) Then... Else ....""
 
-            Return new_elementField ''Added 5/13/2022 td
+            Return new_elementFieldV4 ''Added 5/13/2022 td
 
         End Function ''End of ""Public Function LoadNewElement_FieldV4()""
 
@@ -2530,10 +2545,15 @@ Namespace ciBadgeCachePersonality
             ''Added 10/10/2019 td
             ''
             ''Dec17 2021 td''Return (0 = mod_listElementFields_Front.Count)
+            ''May28 2022 td''Return (0 = mod_listElementFields_FrontV3.Count And
+            ''May28 2022 td''       (0 = mod_listElementFields_BacksideV3.Count)
             Return (0 = mod_listElementFields_FrontV3.Count And
-                    0 = mod_listElementFields_BacksideV3.Count)
+                    0 = mod_listElementFields_BacksideV3.Count) And
+                  ((0 = mod_listElementFields_FrontV4.Count) And
+                    (0 = mod_listElementFields_BacksideV4.Count))
 
         End Function ''ENd of "Public Function MissingTheElementFields() As Boolean"
+
 
         Public Function MissingTheElementTexts() As Boolean
             ''Added 10/11/2019 td 

@@ -44,16 +44,16 @@ ExitHandler:
     End Sub
 
 
-    Public Sub New(par_cache As ClassElementsCache_Deprecated, par_infoBase As IElement_Base)
+    Public Sub New_NotInUse(par_cache As ClassElementsCache_Deprecated, par_infoBase As IElement_Base)
         ''5/27/2022 Public Sub New(par_cache As ClassElementsCache_Deprecated)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ''Added 5/27/2022 td
-        Me.ConditionalExpressionField = par_infoBase.ConditionalExpressionField
-        Me.ConditionalExpressionInUse = par_infoBase.ConditionalExpressionInUse
-        Me.ConditionalExpressionValue = par_infoBase.ConditionalExpressionValue
+        ''May 28 2022 Me.ConditionalExpressionField = par_infoBase.ConditionalExpressionField
+        ''May 28 2022 Me.ConditionalExpressionInUse = par_infoBase.ConditionalExpressionInUse
+        ''May 28 2022 Me.ConditionalExpressionValue = par_infoBase.ConditionalExpressionValue
 
         ' Add any initialization after the InitializeComponent() call.
         RscSelectCIBField_Simple1.Load_FieldsFromCache(par_cache)

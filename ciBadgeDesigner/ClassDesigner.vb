@@ -714,7 +714,9 @@ Public Class ClassDesigner
 
         ''
         ''Major call!!
-        ''
+        ''  Load the fields (which are //_not_// the elements (the thing which 
+        ''   appears on the badge layout); importantly, the fields are //referenced// 
+        ''   by the elements). ----10/10/2019 td
         Dim boolMissingAnyFields As Boolean ''Added 10/10/2019 td 
         boolMissingAnyFields = (Me.ElementsCache_UseEdits.MissingTheFields())
         If (boolMissingAnyFields) Then
@@ -724,6 +726,9 @@ Public Class ClassDesigner
             Me.ElementsCache_UseEdits.LoadFields()
         End If ''end of "If (boolMissingAnyFields) Then"
 
+        ''
+        ''''
+        '''''
         Dim boolMissingAnyFieldElements As Boolean ''Added 10/10/2019 td 
         With Me.ElementsCache_UseEdits
             boolMissingAnyFieldElements = (.MissingTheElementFields()) And

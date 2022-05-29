@@ -73,9 +73,9 @@ Public Interface IElement_Base
     Function ImageForBadgeImage(par_recipient As IRecipient) As Image ''Added 12/19/2021 thomas downes
 
     ''Added 5/27/2022 td
-    Property ConditionalExpressionInUse As Boolean
-    Property ConditionalExpressionValue As String
-    Property ConditionalExpressionField As EnumCIBFields
+    ''---May 28 2022 Property ConditionalExpressionInUse As Boolean
+    ''---May 28 2022 Property ConditionalExpressionValue As String
+    ''---May 28 2022 Property ConditionalExpressionField As EnumCIBFields
 
 
 End Interface

@@ -52,9 +52,9 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
     ''
     ''Added 5/27/2022 td
     ''
-    Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
-    Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
-    Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
+    ''May 28 2022 Public Shadows Property ConditionalExpressionValue As String Implements IElement_Base.ConditionalExpressionValue
+    ''May 28 2022 Public Shadows Property ConditionalExpressionField As EnumCIBFields Implements IElement_Base.ConditionalExpressionField
+    ''May 28 2022 Public Shadows Property ConditionalExpressionInUse As Boolean Implements IElement_Base.ConditionalExpressionInUse
 
 
     Private mod_width_pixels As Integer ''Added 9/23/2019 td 

@@ -17,10 +17,10 @@ Public Class ClassElementBase
     Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base_InDevelopment.WhyOmitted
 
     ''Added 5/5/2022 td
-    Public ConditionalExpressionInUse As Boolean
-    Public ConditionalExpressionField As EnumCIBFields
-    Public ConditionalExpressionValue As String
-    Public ConditionalExp_LastEdited As Date ''Added 5/5/2022
+    Public Property ConditionalExpressionInUse As Boolean
+    Public Property ConditionalExpressionField As EnumCIBFields
+    Public Property ConditionalExpressionValue As String
+    Public Property ConditionalExp_LastEdited As Date ''Added 5/5/2022
 
     ''
     ''I need to copy-paste (or rather, "cut-paste") all members from ClassElementField (or ClassElementLaysection)
