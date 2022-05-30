@@ -188,6 +188,7 @@ Namespace ciBadgeCachePersonality
                 ''If (objSide.ElementSignature Is Nothing) Then Me.ElementSig_RefCopy = Nothing
 
                 objSide.ListElementFieldsV3 = Me.ListOfElementFields_BacksideV3
+                objSide.ListElementFieldsV4 = Me.ListOfElementFields_BacksideV4 ''Added 5/29/2022 td
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Backside ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Backside
                 objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Backside ''Added 2/1/2022 td
@@ -249,6 +250,7 @@ Namespace ciBadgeCachePersonality
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementSignature = Me.ElementSignature
                 objSide.ListElementFieldsV3 = Me.ListOfElementFields_FrontV3
+                objSide.ListElementFieldsV4 = Me.ListOfElementFields_FrontV4 ''Added 5/29/2022 td
                 objSide.ListElementGraphics = Me.ListOfElementGraphics_Front ''Jan22 2022 td''Nothing
                 objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Front
                 objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Front ''Added 2/1/2022 td
