@@ -144,6 +144,12 @@
     <Compile Include="RSCMoveableControl\FormConditional.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RSCMoveableControl\RSCConditionalExpression.Designer.vb">
+      <DependentUpon>RSCConditionalExpression.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCMoveableControl\RSCConditionalExpression.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.Designer.vb">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
     </Compile>
@@ -178,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\FormConditional.resx">
       <DependentUpon>FormConditional.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCMoveableControl\RSCConditionalExpression.resx">
+      <DependentUpon>RSCConditionalExpression.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>

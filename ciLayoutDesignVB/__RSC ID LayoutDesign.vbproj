@@ -406,6 +406,12 @@
     <Compile Include="Controls\CtlBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Dialogs_Background\FormBackgroundConditional.Designer.vb">
+      <DependentUpon>FormBackgroundConditional.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs_Background\FormBackgroundConditional.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs_GridSpreadsheet\ClassTextRowCustomer_NotInUse.vb" />
     <Compile Include="Dialogs_GridSpreadsheet\DialogManageColumns.Designer.vb">
       <DependentUpon>DialogManageColumns.vb</DependentUpon>
@@ -772,6 +778,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlWidthHeight.resx">
       <DependentUpon>CtlWidthHeight.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs_Background\FormBackgroundConditional.resx">
+      <DependentUpon>FormBackgroundConditional.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_GridSpreadsheet\DialogManageColumns.resx">
       <DependentUpon>DialogManageColumns.vb</DependentUpon>
