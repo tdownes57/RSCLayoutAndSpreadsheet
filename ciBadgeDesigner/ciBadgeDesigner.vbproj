@@ -275,6 +275,12 @@
     <Compile Include="ControlsRSC\CacheRSCFieldColumnWidthsEtc.vb" />
     <Compile Include="ControlsRSC\ModRSCLayout.vb" />
     <Compile Include="ControlsRSC\ModuleStructRSC.vb" />
+    <Compile Include="ControlsRSC\RSCCardPreview.Designer.vb">
+      <DependentUpon>RSCCardPreview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCCardPreview.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsRSC\RSCDataCell.Designer.vb">
       <DependentUpon>RSCDataCell.vb</DependentUpon>
     </Compile>
@@ -561,6 +567,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsCtl\CtlConfigFldStdRelevancy.resx">
       <DependentUpon>CtlConfigFldStdRelevancy.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsRSC\RSCCardPreview.resx">
+      <DependentUpon>RSCCardPreview.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCDataCell.resx">
       <DependentUpon>RSCDataCell.vb</DependentUpon>

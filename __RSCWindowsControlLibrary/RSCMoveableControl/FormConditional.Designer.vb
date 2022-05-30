@@ -32,6 +32,8 @@ Partial Class FormConditional
         Me.CheckBoxActivated = New System.Windows.Forms.CheckBox()
         Me.PanelExpression = New System.Windows.Forms.Panel()
         Me.LinkLabelActivateThis = New System.Windows.Forms.LinkLabel()
+        Me.checkboxBlankValuesOkay = New System.Windows.Forms.CheckBox()
+        Me.checkboxPreviewDisplay = New System.Windows.Forms.CheckBox()
         Me.PanelExpression.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -69,7 +71,7 @@ Partial Class FormConditional
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(510, 233)
+        Me.ButtonCancel.Location = New System.Drawing.Point(510, 277)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(74, 44)
@@ -80,7 +82,7 @@ Partial Class FormConditional
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(340, 233)
+        Me.ButtonOK.Location = New System.Drawing.Point(340, 277)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(167, 44)
@@ -123,6 +125,8 @@ Partial Class FormConditional
         'PanelExpression
         '
         Me.PanelExpression.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PanelExpression.Controls.Add(Me.checkboxPreviewDisplay)
+        Me.PanelExpression.Controls.Add(Me.checkboxBlankValuesOkay)
         Me.PanelExpression.Controls.Add(Me.RscSelectCIBField_Simple1)
         Me.PanelExpression.Controls.Add(Me.Label1)
         Me.PanelExpression.Controls.Add(Me.TextBoxRelevantValue)
@@ -130,24 +134,46 @@ Partial Class FormConditional
         Me.PanelExpression.Enabled = False
         Me.PanelExpression.Location = New System.Drawing.Point(35, 93)
         Me.PanelExpression.Name = "PanelExpression"
-        Me.PanelExpression.Size = New System.Drawing.Size(550, 107)
+        Me.PanelExpression.Size = New System.Drawing.Size(550, 151)
         Me.PanelExpression.TabIndex = 27
         '
         'LinkLabelActivateThis
         '
         Me.LinkLabelActivateThis.AutoSize = True
-        Me.LinkLabelActivateThis.Location = New System.Drawing.Point(32, 203)
+        Me.LinkLabelActivateThis.Location = New System.Drawing.Point(32, 247)
         Me.LinkLabelActivateThis.Name = "LinkLabelActivateThis"
         Me.LinkLabelActivateThis.Size = New System.Drawing.Size(245, 13)
         Me.LinkLabelActivateThis.TabIndex = 28
         Me.LinkLabelActivateThis.TabStop = True
         Me.LinkLabelActivateThis.Text = "Make this Conditional Expression available for use."
         '
+        'checkboxBlankValuesOkay
+        '
+        Me.checkboxBlankValuesOkay.AutoSize = True
+        Me.checkboxBlankValuesOkay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkboxBlankValuesOkay.Location = New System.Drawing.Point(137, 98)
+        Me.checkboxBlankValuesOkay.Name = "checkboxBlankValuesOkay"
+        Me.checkboxBlankValuesOkay.Size = New System.Drawing.Size(386, 21)
+        Me.checkboxBlankValuesOkay.TabIndex = 26
+        Me.checkboxBlankValuesOkay.Text = "If checked, blank/missing values will satisfy this condition."
+        Me.checkboxBlankValuesOkay.UseVisualStyleBackColor = True
+        '
+        'checkboxPreviewDisplay
+        '
+        Me.checkboxPreviewDisplay.AutoSize = True
+        Me.checkboxPreviewDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkboxPreviewDisplay.Location = New System.Drawing.Point(137, 125)
+        Me.checkboxPreviewDisplay.Name = "checkboxPreviewDisplay"
+        Me.checkboxPreviewDisplay.Size = New System.Drawing.Size(363, 21)
+        Me.checkboxPreviewDisplay.TabIndex = 27
+        Me.checkboxPreviewDisplay.Text = "If checked, element will display in Previews of ID card."
+        Me.checkboxPreviewDisplay.UseVisualStyleBackColor = True
+        '
         'FormConditional
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(591, 288)
+        Me.ClientSize = New System.Drawing.Size(591, 332)
         Me.Controls.Add(Me.LinkLabelActivateThis)
         Me.Controls.Add(Me.PanelExpression)
         Me.Controls.Add(Me.CheckBoxActivated)
@@ -173,4 +199,6 @@ Partial Class FormConditional
     Friend WithEvents CheckBoxActivated As CheckBox
     Friend WithEvents PanelExpression As Panel
     Friend WithEvents LinkLabelActivateThis As LinkLabel
+    Friend WithEvents checkboxPreviewDisplay As CheckBox
+    Friend WithEvents checkboxBlankValuesOkay As CheckBox
 End Class

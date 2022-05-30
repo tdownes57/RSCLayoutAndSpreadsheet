@@ -12,6 +12,8 @@ Public Class FormConditional
     Public ConditionalExpressionField As EnumCIBFields ''Added 5/05/2022
     Public ConditionalExpressionValue As String ''Added 5/05/2022
     Public ConditionalExp_LastEdited As Date ''Added 5/05/2022
+    Public ConditionalExp_AllowBlanks As Boolean ''Added 5/30/2022
+    Public ConditionalExp_PreviewDisplay As Boolean ''Added 5/30/2022
 
     Private mod_bIsLoading As Boolean = True
 
@@ -61,6 +63,8 @@ ExitHandler:
         RscSelectCIBField_Simple1.SelectedValue = Me.ConditionalExpressionField
         TextBoxRelevantValue.Text = Me.ConditionalExpressionValue
         CheckBoxActivated.Checked = Me.ConditionalExpressionInUse
+        checkboxBlankValuesOkay.Checked = Me.ConditionalExp_AllowBlanks ''May30 2022
+        checkboxPreviewDisplay.Checked = Me.ConditionalExp_PreviewDisplay ''May30 2022
         PanelExpression.Enabled = Me.ConditionalExpressionInUse
         Application.DoEvents()
 
@@ -88,11 +92,24 @@ ExitHandler:
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
 
         ''moved down''Me.DialogResult = DialogResult.OK
+        Dim boolValueIsBlank As Boolean ''Added  5/30/2022
+        ''Added  5/30/2022
+        boolValueIsBlank = String.IsNullOrWhiteSpace(TextBoxRelevantValue.Text)
+        If (boolValueIsBlank) Then
+            If (Not checkboxBlankValuesOkay.Checked) Then
+                ''Added  5/30/2022
+                MessageBoxTD.Show_Statement("Supply a value, or mark the 'Blanks are okay' box.")
+                Exit Sub
+            End If ''end of If (Not checkboxBlankValuesOkay.Checked) Then
+        End If ''End of ""If (boolValueIsBlank) Then""
 
         Me.ConditionalExpressionInUse = CheckBoxActivated.Checked
         Me.ConditionalExpressionField = RscSelectCIBField_Simple1.GetFieldEnumSelected()
         Me.ConditionalExpressionValue = TextBoxRelevantValue.Text
         Me.ConditionalExp_LastEdited = Now ''Added 5/5/2022 td
+
+        Me.ConditionalExp_AllowBlanks = checkboxBlankValuesOkay.Checked ''May30 2022
+        Me.ConditionalExp_PreviewDisplay = checkboxPreviewDisplay.Checked ''May30 2022
 
         If (ConditionalExpressionInUse) Then
             If (Me.ConditionalExpressionField = EnumCIBFields.Undetermined) Then

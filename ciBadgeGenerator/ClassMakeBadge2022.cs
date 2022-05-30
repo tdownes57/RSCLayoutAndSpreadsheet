@@ -160,12 +160,23 @@ namespace ciBadgeGenerator
                 // Call a method from the namespace LayoutElements. 
                 //
                 //objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
+
+                //objPrintLibElems.LoadImageWithElements(ref obj_imageOutput,
+                //         listOfElementFieldsV3,
+                //         listOfElementFieldsV4,
+                //         null, false, true,
+                //         par_listFieldsIncluded,
+                //         par_listFieldsNotIncluded);
+
+                HashSet<Image> hashset_null = null;  //Added 5/29/2022
+
+                //Modified 5/29/2022
                 objPrintLibElems.LoadImageWithElements(ref obj_imageOutput,
-                         listOfElementFieldsV3,
-                         listOfElementFieldsV4,
-                         null, false, true,
-                         par_listFieldsIncluded,
-                         par_listFieldsNotIncluded);
+                                         listOfElementFieldsV3,
+                                         listOfElementFieldsV4,
+                                         ref hashset_null, false, true,
+                                         ref par_listFieldsIncluded,
+                                         ref par_listFieldsNotIncluded);
 
             } //End of ""if (c_boolUseLocalProc) {....} else {....}""
 

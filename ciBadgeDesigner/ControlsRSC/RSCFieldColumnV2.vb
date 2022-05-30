@@ -287,7 +287,8 @@ Public Class RSCFieldColumnV2
         ''Added 1/04/2022 td
         ''
         ''Jan1 2022 td''MyBase.New(par_enumElementType, pboolResizeProportionally,
-        MyBase.New(EnumElementType.Portrait, Nothing,
+        MyBase.New(EnumElementType.Portrait,
+                   par_parameters.ElementObject,
                    par_parameters.ElementsCache,
                    par_oParentForm,
                    pboolResizeProportionally,

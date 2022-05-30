@@ -19,6 +19,18 @@ Public Class RSCFieldSpreadsheet
     ''Public RscFieldColumn1 As RSCFieldColumn ''Added 3/25/2022 td
     Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
 
+    Public Property RowDisplayCardHeight As Integer ''= 0 ''Added 5/30/2022 td
+        ''= 0 ''Added 5/30/2022 td
+        Get
+            Return mod_intRowDisplayCardHeight
+        End Get
+        Set(value As Integer)
+            mod_intRowDisplayCardHeight = value
+            ''RscRowHeaders1.RowDisplayCardHeight = value
+        End Set
+    End Property
+    Private mod_intRowDisplayCardHeight As Integer = 0 ''= 0 ''Added 5/30/2022 td
+
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
@@ -28,6 +40,7 @@ Public Class RSCFieldSpreadsheet
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
     Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
     Private Const mc_intPixelsFromRowToRow As Integer = 24 ''Added 4/05/2022 td
+    Private Const mc_boolKeepUILookingClean As Boolean = True ''Moved to module-level 5/30/2022
 
     ''Added 4/29/2022 td
     Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
@@ -64,6 +77,10 @@ Public Class RSCFieldSpreadsheet
         ''
         Dim objParametersGetElementCtl As ClassGetElementControlParams
         objParametersGetElementCtl = par_designer.GetParametersToGetElementControl()
+
+        ''Added 5/30/2022 td
+        Dim objElementForSpreadsheet As New ciBadgeElements.ClassElementBase
+        objParametersGetElementCtl.ElementObject = objElementForSpreadsheet
 
         Return GetRSCSpreadsheet(objParametersGetElementCtl, par_formParent, par_nameOfControl,
                                     par_designer, False,
@@ -191,7 +208,9 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/20/2022 td
         ''
-        MyBase.New(EnumElementType.RSCSheetSpreadsheet, Nothing,
+        ''May2022 MyBase.New(EnumElementType.RSCSheetSpreadsheet, Nothing,
+        MyBase.New(EnumElementType.RSCSheetSpreadsheet,
+                   par_parameters.ElementObject,
                    par_parameters.ElementsCache,
                    par_oParentForm,
                    pboolResizeProportionally,
@@ -1240,6 +1259,16 @@ Public Class RSCFieldSpreadsheet
         End If ''End of "If (0 = Me.ColumnDataCache.ListOfColumns.Count) Then ... Else ..."
 
         ''---Dim mod_array_RSCColumns As RSCFieldColumn()
+        If (intNeededMax > 1) Then ''Added 5/30/2022
+            ''added 5/30/2022 & 5/13/2022
+            If mc_boolKeepUILookingClean Then
+                ''Hide the buttons which formerly occupied the blank area
+                '' of the spreadsheet. ---5/13/2022 
+                ButtonAddColumns2.Visible = False
+                ButtonPasteData2.Visible = False
+            End If ''End of ""If c_boolKeepUILookingClean Then""
+        End If ''End of ""If (intNeededMax > 1) Then""
+
 
         ''The number passed to ReDim Preserve is the upper bound of the array, 
         ''  not the length. ---4/15/2022
@@ -1671,6 +1700,7 @@ Public Class RSCFieldSpreadsheet
         ''Added 1/17/2022 td
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = Me.Designer.GetParametersToGetElementControl()
+        objGetParametersForGetControl.ElementObject = New ciBadgeElements.ClassElementBase()
 
         Const c_boolProportional As Boolean = False ''Added 3/11/2022 td 
 
@@ -2025,6 +2055,14 @@ Public Class RSCFieldSpreadsheet
             mod_array_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
 
         Next intColIndex
+
+        ''Added 5/30/2022 
+        If mc_boolKeepUILookingClean Then
+            ''Hide the buttons which formerly occupied the blank area
+            '' of the spreadsheet. ---5/13/2022 
+            ButtonAddColumns2.Visible = False
+            ButtonPasteData2.Visible = False
+        End If ''End of ""If mc_boolKeepUILookingClean Then""
 
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
@@ -2385,8 +2423,7 @@ Public Class RSCFieldSpreadsheet
             AddColumnsToRighthandSide(intHowMany)
 
             ''added 5/13/2022
-            Const c_boolKeepUILookingClean As Boolean = True
-            If c_boolKeepUILookingClean Then
+            If mc_boolKeepUILookingClean Then
                 ''Hide the buttons which formerly occupied the blank area
                 '' of the spreadsheet. ---5/13/2022 
                 ButtonAddColumns2.Visible = False

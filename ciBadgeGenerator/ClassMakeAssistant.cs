@@ -81,6 +81,7 @@ namespace ciBadgeGenerator
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
 
         private const bool mod_cbOkayToUseExampleQRCode = false; //Added 1/17/2022 td
+        private const bool c_bDontPreviewConditionalElems = false;  //Added 5/29/2022
 
 
         public Image ElementFieldToImage(ClassElementFieldV3 par_elementField,
@@ -354,29 +355,40 @@ namespace ciBadgeGenerator
                 }
                 else
                 {
-                    //
-                    // Call a method from the namespace LayoutElements. 
-                    //
-                    //objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
-                    objPrintLibElems.LoadImageWithElements(ref obj_imageOutput,
-                             listOfElementFieldsV3,
-                             listOfElementFieldsV4,
-                             null, false, true,
-                             par_listFieldsIncluded,
-                             par_listFieldsNotIncluded);
-                }
+                //
+                // Call a method from the namespace LayoutElements. 
+                //
+                //-----objPrintLibElems.LoadImageWithElements(ref obj_imageOutput, listOfElementFields);
+                
+                //May29 2022 objPrintLibElems.LoadImageWithElements(ref obj_imageOutput,
+                //         listOfElementFieldsV3,
+                //         listOfElementFieldsV4,
+                //         null, false, true,
+                //         par_listFieldsIncluded,
+                //         par_listFieldsNotIncluded);
 
-                //''
-                //''Major call, let's show the portrait !!  ---9/9/2019 td  
-                //''
-                //objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
-                //                    par_badge_width_pixels,
-                //                    obj_image_clone_resized,
-                //                    CtlGraphicPortrait_Lady.ElementInfo_Base,
-                //                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
-                //                    CtlGraphicPortrait_Lady.picturePortrait.Image);
+                HashSet<Image> hashset_null = null;  //Added 5/29/2022 td
 
-                const bool c_bIgnorePicDataInCache = false; //Added 10/9/2019 thomas d. 
+                objPrintLibElems.LoadImageWithElements(ref obj_imageOutput,
+                         listOfElementFieldsV3,
+                         listOfElementFieldsV4,
+                         ref hashset_null, false, true,
+                         ref par_listFieldsIncluded,
+                         ref par_listFieldsNotIncluded);
+
+            }
+
+            //''
+            //''Major call, let's show the portrait !!  ---9/9/2019 td  
+            //''
+            //objPrintLibElems.LoadImageWithPortrait(obj_image_clone_resized.Width,
+            //                    par_badge_width_pixels,
+            //                    obj_image_clone_resized,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Base,
+            //                    CtlGraphicPortrait_Lady.ElementInfo_Pic,
+            //                    CtlGraphicPortrait_Lady.picturePortrait.Image);
+
+            const bool c_bIgnorePicDataInCache = false; //Added 10/9/2019 thomas d. 
 
                 if (c_bIgnorePicDataInCache)
                 {
@@ -922,6 +934,7 @@ namespace ciBadgeGenerator
 
                     intEachIndexV3 += 1;
 
+
                     if (each_elementFieldV3.Visible)  //.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
                     {
                         //Added 5/11/2022 
@@ -960,8 +973,26 @@ namespace ciBadgeGenerator
 
                     intEachIndexV4 += 1;
 
+                    // May29 2022
+                    // If an element is set up to be conditionally-displayed based on 
+                    //   recipient-specific data, should that same element be drawn on 
+                    //   idcard-preview images (badge previews)?
+                    //   -----Thomas Downes, 5/29/2022
+                    //   //const bool c_bPreviewConditionalElems = true;  //Not used. 
+                    //const bool c_bDontPreviewConditionalElems = false;
+                    bool bReturnThisIfRecipientNull = (!(each_elementFieldV4.ConditionalExp_PreviewDisplay));
+                    bool boolSuppressConditionally = each_elementFieldV4
+                                    .ConditionalExpressionIsFalse(par_iRecipientInfo, false, 
+                                       bReturnThisIfRecipientNull);
+
+
                     // 5-11-2022 if (each_elementFieldV4.FieldInfo.IsDisplayedOnBadge) // Added 1/24/2022 thomas d.
-                    if (each_elementFieldV4.Visible) // Added 1/24/2022 thomas d.
+                    if (boolSuppressConditionally)
+                    {
+                        // Don't display the element for the current recipient. ---5/29/2022
+                        //
+                    }
+                    else if (each_elementFieldV4.Visible) // Added 1/24/2022 thomas d.
                     {
                         //Encapsulated 10/17/2019 td  
                         AddElementFieldToImageV4(each_elementFieldV4,
@@ -1643,6 +1674,7 @@ namespace ciBadgeGenerator
                                 par_elementField.FieldEnum.ToString());
 
                 }
+
 
                 try
                 {

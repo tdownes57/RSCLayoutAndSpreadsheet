@@ -21,6 +21,8 @@ Public Class ClassElementBase
     Public Property ConditionalExpressionField As EnumCIBFields
     Public Property ConditionalExpressionValue As String
     Public Property ConditionalExp_LastEdited As Date ''Added 5/5/2022
+    Public Property ConditionalExp_AllowBlanks As Boolean ''Added 5/30/2022
+    Public Property ConditionalExp_PreviewDisplay As Boolean ''Added 5/30/2022
 
     ''
     ''I need to copy-paste (or rather, "cut-paste") all members from ClassElementField (or ClassElementLaysection)
@@ -91,6 +93,71 @@ Public Class ClassElementBase
 
     ''Added 1/23/2022 td
     ''Moved up to top 5/5/2022 ''Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base_InDevelopment.WhyOmitted
+
+    Public Function ConditionalExpressionIsFalse(par_iRecipientInfo As IRecipient,
+                                                 Optional pbDefaultValue As Boolean = False,
+                                                 Optional pbReturnThisIfRecipNull As Boolean = False) As Boolean
+        ''
+        ''Added 5/29/2022 td
+        ''
+        Dim strRecipientValue As String
+        Dim bSuccessfulMatch As Boolean
+        Dim bFailsToMatch As Boolean
+
+        ''Check to see if we can quickly return the default value of False,
+        ''  which will allow the conditionally-visibly element to be printed.
+        ''  ----5/29/2022 td  
+        If (Not ConditionalExpressionInUse) Then Return pbDefaultValue ''False
+        If (ConditionalExpressionField = EnumCIBFields.Undetermined) Then Return pbDefaultValue ''False
+
+        ''--May2022 If (par_iRecipientInfo Is Nothing) Then System.Diagnostics.Debugger.Break()
+        ''--May2022 If (par_iRecipientInfo Is Nothing) Then Throw New ArgumentException("blah")
+        If (par_iRecipientInfo Is Nothing) Then Return pbReturnThisIfRecipNull
+
+        strRecipientValue = par_iRecipientInfo.GetTextValue(ConditionalExpressionField)
+        bSuccessfulMatch = (strRecipientValue = Me.ConditionalExpressionValue)
+        bFailsToMatch = (Not bSuccessfulMatch)
+
+        ''If they are relevant, check for blank values.
+        If (ConditionalExp_AllowBlanks) Then
+            If String.IsNullOrWhiteSpace(strRecipientValue) Then
+                bFailsToMatch = False
+            End If ''End of ""If String.IsNullOrWhiteSpace(strRecipientValue) Then""
+        End If ''End of ""If (ConditionalExp_AllowBlanks) Then""
+
+        Return bFailsToMatch
+
+    End Function ''End of ""Public Function ConditionalExpressionIsFalse""
+
+
+    Public Function ConditionalExpressionIsTrue(par_iRecipientInfo As IRecipient,
+                                                 pboolDefaultValue As Boolean) As Boolean
+        ''
+        ''Added 5/29/2022 td
+        ''
+        Dim strRecipientValue As String
+        Dim bSuccessfulMatch As Boolean
+
+        ''Check to see if we can quickly return the default value (usually True),
+        ''  which will allow the conditionally-visibly element to be printed.
+        ''  ----5/29/2022 td  
+        If (Not ConditionalExpressionInUse) Then Return pboolDefaultValue
+        If (ConditionalExpressionField = EnumCIBFields.Undetermined) Then Return pboolDefaultValue
+        If (par_iRecipientInfo Is Nothing) Then Return pboolDefaultValue
+
+        strRecipientValue = par_iRecipientInfo.GetTextValue(ConditionalExpressionField)
+        bSuccessfulMatch = (strRecipientValue = Me.ConditionalExpressionValue)
+
+        ''If they are relevant, check for blank values.
+        If (ConditionalExp_AllowBlanks) Then
+            If String.IsNullOrWhiteSpace(strRecipientValue) Then
+                bSuccessfulMatch = True
+            End If ''End of ""If String.IsNullOrWhiteSpace(strRecipientValue) Then""
+        End If ''End of ""If (ConditionalExp_AllowBlanks) Then""
+
+        Return bSuccessfulMatch
+
+    End Function ''End of ""Public Function ConditionalExpressionIsTrue""
 
 
 End Class

@@ -127,6 +127,8 @@ Public Class RSCRowHeaders
         ''
         Dim objParametersGetElementCtl As ClassGetElementControlParams
         objParametersGetElementCtl = par_designer.GetParametersToGetElementControl()
+        ''May 29 2022
+        objParametersGetElementCtl.ElementObject = New ciBadgeElements.ClassElementBase()
 
         Return GetRSCRowHeaders(objParametersGetElementCtl, par_formParent, par_nameOfControl,
                                     par_designer, False,
@@ -276,7 +278,8 @@ Public Class RSCRowHeaders
         ''
         ''Added 3/20/2022 td
         ''
-        MyBase.New(EnumElementType.RSCRowHeaders, Nothing,
+        MyBase.New(EnumElementType.RSCRowHeaders,
+                   par_parameters.ElementObject,
                    par_parameters.ElementsCache,
                    par_oParentForm,
                    pboolResizeProportionally,

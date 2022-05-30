@@ -647,11 +647,11 @@ ExitHandler:
     Public Sub LoadImageWithElements(ByRef par_imageBadgeCard As Image,
                                    par_elementsV3 As IEnumerable(Of ClassElementFieldV3),
                                    par_elementsV4 As IEnumerable(Of ClassElementFieldV4),
-                                        Optional par_listTextImages As HashSet(Of Image) = Nothing,
+                                   Optional ByRef pref_listTextImages As HashSet(Of Image) = Nothing,
                                      Optional pboolShowPopupMessages As Boolean = False,
                                      Optional par_bOutputListsOfFields As Boolean = False,
-                                     Optional par_listFieldsIncluded As List(Of String) = Nothing,
-                                     Optional par_listFieldsNotIncluded As List(Of String) = Nothing)
+                                     Optional ByRef par_listFieldsIncluded As List(Of String) = Nothing,
+                                     Optional ByRef par_listFieldsNotIncluded As List(Of String) = Nothing)
         ''9/18/2019 td---Public Sub LoadImageWithFieldValues(ByRef par_imageBadgeCard As Image,
         ''---                                par_standardFields As List(Of IFieldInfo_ElementPositions),
         ''---                                par_customFields As List(Of IFieldInfo_ElementPositions),
@@ -666,7 +666,7 @@ ExitHandler:
         ''9/8/2019 thomas d.
         ProportionsAreSlightlyOff(par_imageBadgeCard, True, "par_imageBadgeCard")
 
-        bOutputAllImages = (par_listTextImages IsNot Nothing) ''Added 8/26/2019 thomas d. 
+        bOutputAllImages = (pref_listTextImages IsNot Nothing) ''Added 8/26/2019 thomas d. 
 
         gr_Badge = Graphics.FromImage(par_imageBadgeCard)
 
@@ -766,7 +766,7 @@ ExitHandler:
                         modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
                             each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
 
-                    If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
+                    If (bOutputAllImages) Then pref_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
                     ''8/30/2019 td''.TextDisplay.Image_BL = image_textStandard ''Added 8/27/2019 td
                     ''9/19/2019 td''.Position_BL.Image_BL = image_textStandard ''Added 8/27/2019 td
@@ -928,7 +928,7 @@ ExitHandler:
                         modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
                             each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
 
-                    If (bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
+                    If (bOutputAllImages) Then pref_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
                     ''8/30/2019 td''.TextDisplay.Image_BL = image_textStandard ''Added 8/27/2019 td
                     ''9/19/2019 td''.Position_BL.Image_BL = image_textStandard ''Added 8/27/2019 td
