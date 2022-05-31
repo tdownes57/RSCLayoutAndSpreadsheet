@@ -33,6 +33,8 @@ Public Class RSCMoveableControlVB
     Public ConditionalExpressionField As EnumCIBFields
     Public ConditionalExpressionValue As String
     Public ConditionalExp_LastEdited As Date ''Added 5/5/2022
+    Public ConditionalExp_AllowBlanks As Boolean
+    Public ConditionalExp_PreviewDisplay As Boolean
 
     ''Jan11 2022 td''Public Shared Function GetControl(par_enum As EnumElementType,
     ''                                  par_nameOfControl As String,
@@ -728,6 +730,26 @@ Public Class RSCMoveableControlVB
             Me.ConditionalExp_LastEdited = Now ''Added 5/05/2022 td
             ''Added 5/05/2022 td
             LinkLabelConditional.Visible = Me.ConditionalExpressionInUse
+            ''Added 5/30/2022 td
+            Me.ConditionalExp_AllowBlanks = objFormToShow.ConditionalExp_AllowBlanks
+            Me.ConditionalExp_PreviewDisplay = objFormToShow.ConditionalExp_PreviewDisplay
+
+            ''
+            ''Save to model. 
+            ''
+            SaveToModel()
+
+            ''Added 5/30/2022
+            mod_iRefreshCardPreview.RefreshCardPreview()
+
+            ''Encapsulated 5/30/2022 With Me.ElementBase
+            ''    .ConditionalExpressionField = Me.ConditionalExpressionField
+            ''    .ConditionalExpressionInUse = Me.ConditionalExpressionInUse
+            ''    .ConditionalExpressionValue = Me.ConditionalExpressionValue
+            ''    .ConditionalExp_AllowBlanks = Me.ConditionalExp_AllowBlanks
+            ''    .ConditionalExp_PreviewDisplay = Me.ConditionalExp_PreviewDisplay
+            ''    .ConditionalExp_LastEdited = Me.ConditionalExp_LastEdited
+            ''End With
 
         End If ''End of ""If boolConfirmed Then""
 
@@ -1587,6 +1609,10 @@ Public Class RSCMoveableControlVB
                 .ConditionalExpressionField = Me.ConditionalExpressionField
                 .ConditionalExpressionInUse = Me.ConditionalExpressionInUse
                 .ConditionalExpressionValue = Me.ConditionalExpressionValue
+                ''Added 5/30/2022 td
+                .ConditionalExp_AllowBlanks = Me.ConditionalExp_AllowBlanks
+                .ConditionalExp_PreviewDisplay = Me.ConditionalExp_PreviewDisplay
+
             End With
         End If ''end of ""If (Me.ElementBase IsNot Nothing) Then""
 

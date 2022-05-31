@@ -31,9 +31,9 @@ Partial Class FormConditional
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CheckBoxActivated = New System.Windows.Forms.CheckBox()
         Me.PanelExpression = New System.Windows.Forms.Panel()
-        Me.LinkLabelActivateThis = New System.Windows.Forms.LinkLabel()
-        Me.checkboxBlankValuesOkay = New System.Windows.Forms.CheckBox()
         Me.checkboxPreviewDisplay = New System.Windows.Forms.CheckBox()
+        Me.checkboxBlankValuesOkay = New System.Windows.Forms.CheckBox()
+        Me.LinkLabelActivateThis = New System.Windows.Forms.LinkLabel()
         Me.PanelExpression.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -60,7 +60,7 @@ Partial Class FormConditional
         'LabelValueOfFieldCaption
         '
         Me.LabelValueOfFieldCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelValueOfFieldCaption.Location = New System.Drawing.Point(197, 25)
+        Me.LabelValueOfFieldCaption.Location = New System.Drawing.Point(197, 29)
         Me.LabelValueOfFieldCaption.Name = "LabelValueOfFieldCaption"
         Me.LabelValueOfFieldCaption.Size = New System.Drawing.Size(341, 63)
         Me.LabelValueOfFieldCaption.TabIndex = 2
@@ -125,10 +125,10 @@ Partial Class FormConditional
         'PanelExpression
         '
         Me.PanelExpression.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PanelExpression.Controls.Add(Me.Label1)
         Me.PanelExpression.Controls.Add(Me.checkboxPreviewDisplay)
         Me.PanelExpression.Controls.Add(Me.checkboxBlankValuesOkay)
         Me.PanelExpression.Controls.Add(Me.RscSelectCIBField_Simple1)
-        Me.PanelExpression.Controls.Add(Me.Label1)
         Me.PanelExpression.Controls.Add(Me.TextBoxRelevantValue)
         Me.PanelExpression.Controls.Add(Me.LabelValueOfFieldCaption)
         Me.PanelExpression.Enabled = False
@@ -137,15 +137,16 @@ Partial Class FormConditional
         Me.PanelExpression.Size = New System.Drawing.Size(550, 151)
         Me.PanelExpression.TabIndex = 27
         '
-        'LinkLabelActivateThis
+        'checkboxPreviewDisplay
         '
-        Me.LinkLabelActivateThis.AutoSize = True
-        Me.LinkLabelActivateThis.Location = New System.Drawing.Point(32, 247)
-        Me.LinkLabelActivateThis.Name = "LinkLabelActivateThis"
-        Me.LinkLabelActivateThis.Size = New System.Drawing.Size(245, 13)
-        Me.LinkLabelActivateThis.TabIndex = 28
-        Me.LinkLabelActivateThis.TabStop = True
-        Me.LinkLabelActivateThis.Text = "Make this Conditional Expression available for use."
+        Me.checkboxPreviewDisplay.AutoSize = True
+        Me.checkboxPreviewDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkboxPreviewDisplay.Location = New System.Drawing.Point(137, 125)
+        Me.checkboxPreviewDisplay.Name = "checkboxPreviewDisplay"
+        Me.checkboxPreviewDisplay.Size = New System.Drawing.Size(363, 21)
+        Me.checkboxPreviewDisplay.TabIndex = 27
+        Me.checkboxPreviewDisplay.Text = "If checked, element will display in Previews of ID card."
+        Me.checkboxPreviewDisplay.UseVisualStyleBackColor = True
         '
         'checkboxBlankValuesOkay
         '
@@ -158,16 +159,15 @@ Partial Class FormConditional
         Me.checkboxBlankValuesOkay.Text = "If checked, blank/missing values will satisfy this condition."
         Me.checkboxBlankValuesOkay.UseVisualStyleBackColor = True
         '
-        'checkboxPreviewDisplay
+        'LinkLabelActivateThis
         '
-        Me.checkboxPreviewDisplay.AutoSize = True
-        Me.checkboxPreviewDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.checkboxPreviewDisplay.Location = New System.Drawing.Point(137, 125)
-        Me.checkboxPreviewDisplay.Name = "checkboxPreviewDisplay"
-        Me.checkboxPreviewDisplay.Size = New System.Drawing.Size(363, 21)
-        Me.checkboxPreviewDisplay.TabIndex = 27
-        Me.checkboxPreviewDisplay.Text = "If checked, element will display in Previews of ID card."
-        Me.checkboxPreviewDisplay.UseVisualStyleBackColor = True
+        Me.LinkLabelActivateThis.AutoSize = True
+        Me.LinkLabelActivateThis.Location = New System.Drawing.Point(32, 247)
+        Me.LinkLabelActivateThis.Name = "LinkLabelActivateThis"
+        Me.LinkLabelActivateThis.Size = New System.Drawing.Size(245, 13)
+        Me.LinkLabelActivateThis.TabIndex = 28
+        Me.LinkLabelActivateThis.TabStop = True
+        Me.LinkLabelActivateThis.Text = "Make this Conditional Expression available for use."
         '
         'FormConditional
         '

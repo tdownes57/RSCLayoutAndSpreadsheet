@@ -30,6 +30,9 @@ Public Class FormConditional
         Me.ConditionalExpressionField = par_base.ConditionalExpressionField
         Me.ConditionalExpressionInUse = par_base.ConditionalExpressionInUse
         Me.ConditionalExpressionValue = par_base.ConditionalExpressionValue
+        ''Added 5/30/2022 td
+        Me.ConditionalExp_AllowBlanks = par_base.ConditionalExp_AllowBlanks
+        Me.ConditionalExp_PreviewDisplay = par_base.ConditionalExp_PreviewDisplay
 
         ' Add any initialization after the InitializeComponent() call.
         RscSelectCIBField_Simple1.Load_FieldsFromCache(par_cache)
@@ -39,6 +42,10 @@ Public Class FormConditional
         CheckBoxActivated.Checked = Me.ConditionalExpressionInUse
         PanelExpression.Enabled = Me.ConditionalExpressionInUse
         Application.DoEvents()
+
+        ''Added 5/30/2022 td
+        checkboxBlankValuesOkay.Checked = par_base.ConditionalExp_AllowBlanks
+        checkboxPreviewDisplay.Checked = par_base.ConditionalExp_PreviewDisplay
 
 ExitHandler:
         mod_bIsLoading = False

@@ -26,7 +26,8 @@ Public Class FormFieldsVsElements
 
     End Sub
 
-    Private Sub ButtonAddElements_Click(sender As Object, e As EventArgs) Handles ButtonAddElements.Click
+    Private Sub ButtonAddElements_Click(sender As Object, e As EventArgs) _
+        Handles ButtonAddElements.Click, ButtonAddElementsH.Click
 
         ''Added 5/11/2022 td
         Me.AddElements = True

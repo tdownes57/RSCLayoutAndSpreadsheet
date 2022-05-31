@@ -35,7 +35,7 @@ Partial Class FormBackgroundsSelect
         Me.buttonUpload2 = New System.Windows.Forms.Button()
         Me.ButtonRegularMode1 = New System.Windows.Forms.Button()
         Me.ButtonRegularMode2 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.LabelSelectedHdr = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.LinkTestScreengrab = New System.Windows.Forms.LinkLabel()
@@ -199,17 +199,17 @@ Partial Class FormBackgroundsSelect
         Me.ButtonRegularMode2.UseVisualStyleBackColor = True
         Me.ButtonRegularMode2.Visible = False
         '
-        'Label1
+        'LabelSelectedHdr
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(609, 77)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(125, 29)
-        Me.Label1.TabIndex = 24
-        Me.Label1.Tag = "Select Background Image"
-        Me.Label1.Text = "Selected*:"
+        Me.LabelSelectedHdr.AutoSize = True
+        Me.LabelSelectedHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelSelectedHdr.Location = New System.Drawing.Point(613, 82)
+        Me.LabelSelectedHdr.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelSelectedHdr.Name = "LabelSelectedHdr"
+        Me.LabelSelectedHdr.Size = New System.Drawing.Size(96, 24)
+        Me.LabelSelectedHdr.TabIndex = 24
+        Me.LabelSelectedHdr.Tag = "Select Background Image"
+        Me.LabelSelectedHdr.Text = "Selected*:"
         '
         'Label2
         '
@@ -244,7 +244,7 @@ Partial Class FormBackgroundsSelect
         '
         Me.LabelSelectedTitle.AutoSize = True
         Me.LabelSelectedTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSelectedTitle.Location = New System.Drawing.Point(746, 88)
+        Me.LabelSelectedTitle.Location = New System.Drawing.Point(713, 88)
         Me.LabelSelectedTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelSelectedTitle.Name = "LabelSelectedTitle"
         Me.LabelSelectedTitle.Size = New System.Drawing.Size(107, 18)
@@ -319,7 +319,7 @@ Partial Class FormBackgroundsSelect
         Me.Controls.Add(Me.LinkTestScreengrab)
         Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.LabelSelectedHdr)
         Me.Controls.Add(Me.ButtonRegularMode2)
         Me.Controls.Add(Me.ButtonShowDemos2)
         Me.Controls.Add(Me.buttonUpload2)
@@ -353,7 +353,7 @@ Partial Class FormBackgroundsSelect
     Friend WithEvents buttonUpload2 As Button
     Friend WithEvents ButtonRegularMode1 As Button
     Friend WithEvents ButtonRegularMode2 As Button
-    Friend WithEvents Label1 As Label
+    Friend WithEvents LabelSelectedHdr As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents picturePreview As PictureBox
     Friend WithEvents LinkTestScreengrab As LinkLabel
