@@ -408,6 +408,12 @@
     <Compile Include="Dialogs\Dialog_Base.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\Dialog_BaseEditElement.Designer.vb">
+      <DependentUpon>Dialog_BaseEditElement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Dialog_BaseEditElement.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
@@ -618,6 +624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseChooseColor.resx">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Dialog_BaseEditElement.resx">
+      <DependentUpon>Dialog_BaseEditElement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseReviseText.resx">
       <DependentUpon>Dialog_BaseReviseText.vb</DependentUpon>

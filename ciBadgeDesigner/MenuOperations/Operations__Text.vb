@@ -30,6 +30,18 @@ Public MustInherit Class Operations__Text
     Public Property ColorDialog1 As ColorDialog ''Added 2/2/2022 & 10/3/2019 td 
     Public Property FontDialog1 As FontDialog ''Added 2/2/2022 & 10/3/2019 td 
 
+
+    Public Sub Edit_Element_with_Multiple_Dialogs_TE9400()
+        ''
+        ''Added 5/31/2022 thomas downes 
+        ''
+        Dim objFormToShow As Dialog_BaseEditElement
+        objFormToShow.Show()
+
+
+    End Sub ''End of ""Public Sub Edit_Element_With_Multiple_Dialogs_TE9400()"
+
+
     Private Sub Dummy_Open_Dialog_for_Color_TE9401()
         ''
         ''The following procedure will be found at runtime via Reflection & linked via an
@@ -38,6 +50,7 @@ Public MustInherit Class Operations__Text
         Open_Dialog_for_Color_TE9401(New Object(), New EventArgs())
 
     End Sub
+
 
     Public Sub Open_Dialog_for_Color_TE9401(sender As Object, e As EventArgs)
         ''

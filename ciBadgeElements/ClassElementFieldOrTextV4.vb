@@ -100,8 +100,8 @@ Public Class ClassElementFieldOrTextV4
 
 
     Public Property Text_StaticLine As String Implements IElement_TextOnly.Text_StaticLine ''E.g. "George Washington" for FullName. 
-    Public Property Text_IsMultiLine As Boolean ''---Implements IElement_TextOnly.Text_IsMultiline ''E.g. "George Washington" for FullName. 
-    Public Property Text_ListOfLines As List(Of String) ''---Implements IElement_TextOnly.Text_ ''E.g. "George Washington" for FullName. 
+    Public Property Text_IsMultiLine As Boolean Implements IElement_TextOnly.Text_IsMultiLine ''Added 5/31/2022
+    Public Property Text_ListOfLines As List(Of String) Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
 
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
     Public Property Text_ExampleValue As String Implements IElement_TextOnly.Text_ExampleValue ''Added 5/31/2022
