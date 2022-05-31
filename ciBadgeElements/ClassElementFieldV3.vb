@@ -210,6 +210,7 @@ Public Class ClassElementFieldV3
     ''
     Public Property Text_StaticLine As String Implements IElement_TextOnly.Text_StaticLine ''E.g. "George Washington" for FullName. 
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
+    Public Property Text_ExampleValue As String Implements IElement_TextOnly.Text_ExampleValue ''Added 5/31/2022
 
     ''--16----Replaced by a Shared Property of the same name.---10/16/2019 td
     ''--16--10/16/2019 td''Added 9/10/2019 td     <Xml.Serialization.XmlIgnore>

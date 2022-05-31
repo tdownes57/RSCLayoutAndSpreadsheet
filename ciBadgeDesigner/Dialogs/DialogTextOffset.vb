@@ -36,6 +36,8 @@ Public Class DialogTextOffset
     Public ElementObject_LayoutDesignV4 As ClassElementFieldOrTextV4 ''Added 2/04/2022 td
     Public ElementObject_CopyForEditingV4 As ClassElementFieldOrTextV4 ''Added 2/04/2022 td
 
+    Public Element_Info_Text As ciBadgeInterfaces.IElement_TextOnly ''Added 5/31/2022 td
+
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/29/2019 td
     Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextOnly ''Modified 10/12/2019 td
     Public ElementCopy_Info_Field As ciBadgeInterfaces.IElement_TextField ''Renamed 10/12 & 8/29/2019 td
@@ -108,6 +110,19 @@ Public Class DialogTextOffset
 
         ''Added 9/18/2019 td 
         ''5/11/2022 ''Me.FieldInfo_Denigrated = Me.ElementObject_CopyForEditingV3.FieldInfo ''Added 9/18/2019 td 
+
+    End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
+
+
+    Public Sub New(par_infoElementText As IElement_TextOnly)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''
+        '' Add any initialization after the InitializeComponent() call.
+        ''
+        Me.Element_Info_Text = CType(Me.ElementObject_CopyForEditingV3, IElement_TextOnly)
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 
@@ -319,6 +334,41 @@ Public Class DialogTextOffset
         checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
+
+    Public Sub LoadElementInfoText(par_infoElementTextOnly As IElement_TextOnly,
+                                   par_infoElementBase As IElement_Base)
+        ''
+        ''Added 5/31/2022 td
+        ''
+        ''
+        ''Added 9/13/2019 thomas downes
+        ''
+        Me.CtlElementHeight.ElementInfo_Base = par_infoElementBase
+        Me.CtlElementHeight.ElementInfo_Text = par_infoElementTextOnly
+        Me.CtlElementHeight.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.CtlElementWidth.ElementInfo_Base = par_infoElementBase
+        Me.CtlElementWidth.ElementInfo_TextOnly = par_infoElementTextOnly
+        Me.CtlElementWidth.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.CtlFontSize.ElementInfo_Base = par_infoElementBase
+        Me.CtlFontSize.ElementInfo_Text = par_infoElementTextOnly
+        Me.CtlFontSize.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.CtlTextOffsetX.ElementInfo_Base = par_infoElementBase
+        ''Jan2 2022 td''Me.CtlTextOffsetX.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlTextOffsetX.ElementInfo_TextOnly = par_infoElementTextOnly
+        Me.CtlTextOffsetX.InitiateLocalValue() ''Added 9/19/2019 td
+
+        Me.ctlTextOffsetY.ElementInfo_Base = par_infoElementBase
+        Me.ctlTextOffsetY.ElementInfo_Text = par_infoElementTextOnly
+        Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
+
+        checkFontSizeScalesYN.Checked = par_infoElementTextOnly.FontSize_ScaleToElementYesNo
+
+
+    End Sub ''end of ""Public Sub LoadElementInfoText()""
 
 
 

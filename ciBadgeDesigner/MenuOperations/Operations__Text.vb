@@ -79,6 +79,7 @@ Public MustInherit Class Operations__Text
 
     End Sub ''eNd of "Private Sub Open_Dialog_Color_TE9401()"
 
+
     Public Sub Open_Dialog_for_Font_TE1009(sender As Object, e As EventArgs)
         ''
         ''Added 7/30/2019 thomas downes
@@ -215,6 +216,224 @@ Public MustInherit Class Operations__Text
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''eNd of "Private Sub "Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)"
+
+
+    Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/10/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
+        ''10/17 td''With textTypeExample
+        ''5/31/2022 With Me.CtlCurrentElement.Textbox_ExampleValue
+        ''
+        ''    .Visible = True
+        ''    .Text = Me.CtlCurrentElement.ElementInfo_TextOnly.Text_StaticLine ''Added 8/16/2019 td
+        ''    .SelectAll() ''Added 8/16/2019 td
+
+        ''    ''Added 9/10/2019 td 
+        ''    ''  Put the focus on the textbox. 
+        ''    .Select() ''Added 9/10/2019 td 
+        ''
+        ''End With ''End of "With Me.CtlCurrentElement.Textbox_Example"
+
+        Dim strExampleValue As String
+        Dim boolCancelled As Boolean
+
+        strExampleValue = Me.ElementInfo_TextOnly.Text_ExampleValue
+
+        strExampleValue = MessageBoxTD.InputBox_Longform("Enter a value that can be used as an example value.",
+                     "Example Value", 1.0, 1.0, boolCancelled, strExampleValue)
+
+        If (boolCancelled) Then Exit Sub
+
+        Me.ElementInfo_TextOnly.Text_ExampleValue = strExampleValue
+        Me.LayoutFunctions.AutoPreview_IfChecked()
+
+    End Sub ''End of "Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)"  
+
+
+    Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/10/2019 thomas downes
+        ''       ''
+        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+        ''
+        ''9/18/2019 td''Dim frm_ToShow As New DialogTextOffset
+
+        With Me.CtlCurrentElement
+
+            ''5/31/2022 td ''Dim frm_ToShow As New DialogTextOffset(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy(), Me.CtlCurrentElement)
+            Dim frm_ToShow As New DialogTextOffset(Me.ElementInfo_TextOnly)
+
+
+            ''
+            ''Added 8/10/2019 thomas downes
+            ''
+            ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
+            ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+            ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+            ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+            ''5/31/2022 td''frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElement)
+            frm_ToShow.LoadElementInfoText(Me.ElementInfo_TextOnly, Me.ElementInfo_Base)
+
+            ''Major call !!
+            frm_ToShow.ShowDialog()
+
+            ''Refresh the form. ----8/17/2019 td
+            Dim boolUserPressedOK As Boolean
+            boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+
+            If (boolUserPressedOK) Then '' ----8/17/2019 td
+
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+
+                If (frm_ToShow.UserConfirmed) Then
+
+                    ''10/17/2019 td''frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
+                    frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, Me.ElementInfo_TextOnly)
+                    .Refresh_ImageV3(True)
+
+                End If ''End of "If (frm_ToShow.UserConfirmed) Then"
+
+                ''
+                ''
+                ''Group Editimg
+                ''
+                ''
+                ''Added 8/18/2019 td 
+                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+
+                    ''Added 8/18/2019 td 
+                    ''1/13/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of RSCMoveableControlVB)
+                    objElements = Me.SelectingElements.ElementsDesignList_AllItems
+
+                    For Each each_ctl As CtlGraphicFieldV3 In objElements
+                        ''
+                        ''Added 8/3/2019 td  
+                        ''
+                        With each_ctl
+                            ''.ElementInfo.Alignment = frm_ToShow.Alignment  
+                            ''9/18/2019 td''.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+                            ''9/18/2019 td''.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+                            ''9/18/2019 td''.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+
+                            ''Added 8/18/2019 thomas d.
+                            ''9/18/2019 td''.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+                            ''9/18/2019 td''.ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
+                            ''9/18/2019 td''.ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
+
+                            frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
+
+                            .Refresh_ImageV3(True)
+                            .Refresh()
+
+                        End With ''End of " With each_ctl"
+
+                    Next each_ctl
+
+                End If ''ENdo f "If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me)) Then"
+
+            End If ''End of "If (boolUserPressedOK) Then"
+
+        End With ''End of "With Me.CtlCurrentElement"
+
+        ''Added 9/13/2019 td
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
+
+    End Sub ''End of "Public Sub Open_OffsetTextDialog_EE1005(sender As Object, e As EventArgs)"
+
+
+    Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
+        ''
+        ''Added 5/31/2022 & 9/ 2/2019 thomas downes
+        ''
+        ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
+        ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+
+        ''Dec.12 2021''Me.Parent_MenuCache.Cache.CheckEditsCacheIsLatest()
+        Dim boolIsLatest As Boolean ''Dec. 12, 2021 td
+        Dim boolIsCopyOfLatest As Boolean ''Dec. 12, 2021 td
+
+        ''Added 12/12/2021 thomas downes
+        Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+        If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
+
+        With Me.CtlCurrentElement ''Added 10/17/2019 td
+
+            Dim frm_ToShow As New DialogTextBorder(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy())
+            ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElement)
+
+            ''Major call !!
+            frm_ToShow.ShowDialog()
+
+            ''Refresh the form. ----8/17/2019 td
+            Dim boolUserPressedOK As Boolean
+            boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+
+            If (boolUserPressedOK) Then '' ----8/17/2019 td
+
+                ''9/18/2019 td''Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                ''9/18/2019 td''Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                ''9/18/2019 td''Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
+
+                ''Added 9/18/2019 td
+                frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
+
+                .Refresh_ImageV3(True)
+
+                ''
+                ''
+                ''Group Editimg
+                ''
+                ''
+                ''Added 8/18/2019 td 
+                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+
+                    ''Added 8/18/2019 td 
+                    ''1/13/22 ''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                    Dim objElements As HashSet(Of RSCMoveableControlVB)
+                    objElements = Me.SelectingElements.ElementsDesignList_AllItems
+
+                    For Each each_ctl As CtlGraphicFieldV3 In objElements
+                        ''
+                        ''Added 8/3/2019 td  
+                        ''
+                        With each_ctl
+
+                            ''9/18/2019 td''.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                            ''9/18/2019 td''.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                            ''9/18/2019 td''.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
+
+                            ''Added 9/18/2019 td 
+                            frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
+
+                            .Refresh_ImageV3(True)
+                            .Refresh()
+
+                        End With
+
+                    Next each_ctl
+
+                End If ''End of "If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me)) Then"
+
+            End If ''End of "If (boolUserPressedOK) Then"
+
+        End With ''End of "With Me.CtlCurrentElement"
+
+        ''Added 9/13/2019 td
+        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+        Me.LayoutFunctions.AutoPreview_IfChecked()
+
+    End Sub ''End of "Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)"
 
 
     Public Sub Remove_Proportional_Resizing_Of_Font_TE1003(sender As Object, e As EventArgs)

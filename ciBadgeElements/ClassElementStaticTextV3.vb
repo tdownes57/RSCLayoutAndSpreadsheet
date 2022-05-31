@@ -87,7 +87,12 @@ Public Class ClassElementStaticTextV3
         End Set
     End Property
 
+    Public Property Text_IsMultiLine As Boolean Implements IElement_TextOnly.Text_IsMultiLine ''Added 5/31/2022
+    Public Property Text_ListOfLines As List(Of String) Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
+
+
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''Added 10/17/2019
+    Public Property Text_ExampleValue As String Implements IElement_TextOnly.Text_ExampleValue ''Added 5/31/2022
 
     ''Added 9/10/2019 td 
     ''9/16 td''Public Property Recipient As IRecipient Implements IElement_StaticText.Recipient

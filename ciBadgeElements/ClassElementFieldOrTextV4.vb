@@ -104,6 +104,9 @@ Public Class ClassElementFieldOrTextV4
     Public Property Text_ListOfLines As List(Of String) ''---Implements IElement_TextOnly.Text_ ''E.g. "George Washington" for FullName. 
 
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
+    Public Property Text_ExampleValue As String Implements IElement_TextOnly.Text_ExampleValue ''Added 5/31/2022
+
+
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
     Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 

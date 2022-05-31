@@ -398,6 +398,7 @@ Public Class Operations_EditFieldElement
 
     End Sub ''End of "Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)"  
 
+
     Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
         ''
         ''Added 8/10/2019 thomas downes
@@ -491,6 +492,7 @@ Public Class Operations_EditFieldElement
 
     End Sub ''End of "Public Sub Open_OffsetTextDialog_EE1005(sender As Object, e As EventArgs)"
 
+
     Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
         ''
         ''Added 9/ 2/2019 thomas downes
@@ -574,6 +576,7 @@ Public Class Operations_EditFieldElement
         Me.LayoutFunctions.AutoPreview_IfChecked()
 
     End Sub ''End of "Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)"
+
 
     Public Sub Rotate90_Degrees_EE1001(sender As Object, e As EventArgs)
         ''

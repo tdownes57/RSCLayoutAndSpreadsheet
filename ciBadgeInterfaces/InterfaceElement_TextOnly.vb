@@ -32,7 +32,14 @@ Public Interface IElement_TextOnly
     ''See Interface IElement_Base. ---8/29/2019 td''Property BackColor As System.Drawing.Color
 
     Property Text_StaticLine As String ''E.g. "This is the same for everyone." or "The holder of this badge has all rights and responsibilities subject thereto." 
+    Property Text_IsMultiLine As Boolean ''Added 5/31/2022
+    Property Text_ListOfLines As List(Of String) ''Added 5/31/2022
+
+
     Property Text_Formula As String ''E.g. "This is the same for everyone." or "The holder of this badge has all rights and responsibilities subject thereto." 
+
+    ''Needed?  Compare to IElement_TextField.ExampleValue_ForElement. 5/31/2022 
+    Property Text_ExampleValue As String ''Added 5/31/2022 td
 
     Property TextAlignment As System.Windows.Forms.HorizontalAlignment
 
