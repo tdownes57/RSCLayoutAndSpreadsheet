@@ -99,7 +99,10 @@ Public Class ClassElementFieldOrTextV4
     End Function ''End of ""
 
 
-    Public Property Text_Static As String Implements IElement_TextOnly.Text_Static ''E.g. "George Washington" for FullName. 
+    Public Property Text_StaticLine As String Implements IElement_TextOnly.Text_StaticLine ''E.g. "George Washington" for FullName. 
+    Public Property Text_IsMultiLine As Boolean ''---Implements IElement_TextOnly.Text_IsMultiline ''E.g. "George Washington" for FullName. 
+    Public Property Text_ListOfLines As List(Of String) ''---Implements IElement_TextOnly.Text_ ''E.g. "George Washington" for FullName. 
+
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
@@ -809,7 +812,7 @@ Public Class ClassElementFieldOrTextV4
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_elementInfo_Text.Text_Static, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
+        gr.DrawString(par_elementInfo_Text.Text_StaticLine, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
 
         Return par_image ''Return Nothing
 

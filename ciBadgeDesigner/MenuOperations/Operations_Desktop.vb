@@ -80,7 +80,7 @@ Public Class Operations_Desktop
 
         ''Added 1/18/2022 thomas downes  
         objElementStaticText.Visible = True
-        objElementStaticText.Text_Static =
+        objElementStaticText.Text_StaticLine =
             InputBox("Enter the static text you want to appear.  You can revise it later.",
                      "Enter text", "Text for all ID Cards", e.X, e.Y)
 
@@ -162,7 +162,7 @@ Public Class Operations_Desktop
         ''Added 1/31/2022 td
         With objElementStaticTextV4
 
-            .Text_Static = "New static text...."
+            .Text_StaticLine = "New static text...."
             .TopEdge_Pixels = e.Y
             .LeftEdge_Pixels = e.X
             .Height_Pixels = intHeightOfRSC
@@ -179,7 +179,7 @@ Public Class Operations_Desktop
 
         ''Added 1/18/2022 thomas downes  
         objElementStaticTextV4.Visible = True
-        objElementStaticTextV4.Text_Static =
+        objElementStaticTextV4.Text_StaticLine =
             InputBox("Enter the static text you want to appear.  You can revise it later.",
                      "Enter text", "Text for all ID Cards", e.X, e.Y)
 

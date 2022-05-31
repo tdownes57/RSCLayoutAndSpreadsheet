@@ -45,29 +45,48 @@ Public Class Operations_StaticTextV3
     ''1/18/2022 td''Public Overrides Property CtlCurrentElement As CtlGraphicStaticText
 
 
-    Public Sub Revise_Text_Of_Element_EST1050(sender As Object, e As MouseEventArgs)
+    Public Sub Add_or_Revise_Text_Of_Element_EST1050(sender As Object, e As MouseEventArgs)
         ''
         ''Added 1/18/2022
         ''
         Dim strCurrentText As String
         Dim objControlStaticText As CtlGraphicStaticTextV3
-        Dim objElementStaticText As ciBadgeElements.ClassElementStaticTextV3
+        Dim objElementStaticTextV3 As ciBadgeElements.ClassElementStaticTextV3
 
         objControlStaticText = CType(Me.CtlCurrentElement, CtlGraphicStaticTextV3)
-        objElementStaticText = objControlStaticText.Element_StaticText
+        objElementStaticTextV3 = objControlStaticText.Element_StaticText
 
-        strCurrentText = objElementStaticText.Text_Static
+        strCurrentText = objElementStaticTextV3.Text_StaticLine
 
         ''Added 1/18/2022 thomas downes  
-        objElementStaticText.Text_Static =
-            InputBox("Enter the static text you want to appear.  You can revise it later.",
-                     "Enter text", strCurrentText, e.X, e.Y)
+        ''May31 2022  objElementStaticTextV3.Text_StaticLine =
+        ''             InputBox("Enter the static text you want to appear.  You can revise it later.",
+        ''             "Enter text", strCurrentText, e.X, e.Y)
 
-        objElementStaticText.DateEdited = Now
+        ''Added 5/30/2022 
+        ''
+        With objElementStaticTextV3
+
+            Dim objFormToShow As DialogStaticText ''Added 5/30/2022
+            Dim res_dia As DialogResult ''Added 5/30/2022
+            ''Added 5/30/2022 
+            objFormToShow = New DialogStaticText(.Text_IsMultiLine, .Text_StaticLine,
+                                         .Text_ListOfLines)
+            res_dia = objFormToShow.ShowDialog()
+            If (res_dia = DialogResult.OK) Then
+                .Text_StaticLine = objFormToShow.Output_SingleLine
+                .Text_IsMultiLine = objFormToShow.Output_IsMultiLine
+                .Text_ListOfLines = objFormToShow.Output_ListOfLines
+                .DateEdited = Now
+            End If ''End of ""If (res_dia = DialogResult.OK) Then"" 
+
+        End With ''End of ""With objElementStaticTextV3""
+
+        objElementStaticTextV3.DateEdited = Now
         objControlStaticText.SaveToModel()
         objControlStaticText.Refresh_Image(False)
 
-        ''Added 1/28//2022 td 
+        ''Added 1/28/2022 td 
         Me.Designer.AutoPreview_IfChecked(Me.CtlCurrentElement)
 
     End Sub ''end of "Public Sub Revise_Text_Of_Element_EST1050"

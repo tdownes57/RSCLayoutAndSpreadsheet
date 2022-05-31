@@ -5,9 +5,14 @@ Public Class DialogStaticText
     ''
     ''Added 5/30/2022 
     ''
+    Public Output_IsMultiLine As Boolean
+    Public Output_SingleLine As String
+    Public Output_ListOfLines As List(Of String)
+
     Private mod_loading As Boolean = False ''Added 5/30/2022
 
-    Private Sub New(pboolMultiLine As Boolean, pstrSingleLine As String,
+
+    Public Sub New(pboolMultiLine As Boolean, pstrSingleLine As String,
                     pstrMultiArrayOfLines As List(Of String))
 
         ' This call is required by the designer.
@@ -22,15 +27,17 @@ ExitHandler:
         Application.DoEvents()
         mod_loading = False
 
-    End Sub
+    End Sub ''End of ""Public Sub New(pboolMultiLine As Boolean, pstrSingleLine As String,""
 
 
     Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+        ''
+        ''5/30/2022 
+        ''
+        Me.Output_IsMultiLine = checkboxMultiLine.Checked
+        Me.Output_ListOfLines = New List(Of String)(textboxMultiLine.Lines())
+        Me.Output_SingleLine = textboxSingleLine.Text
 
-
-        Me.Output_Multiline = checkboxMultiLine.Checked
-        Me.Putput_MultipleLines = textboxMultiLine.Lines()
-        Me.Output_Singleline = textboxSingleLine.Text
         Me.DialogResult = DialogResult.OK
         Me.Close()
 

@@ -58,7 +58,7 @@ Public Class CtlGraphicStaticTextV4
             mod_strTextToDisplay = value
 
             If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
-            Me.ElementInfo_TextOnly.Text_Static = value
+            Me.ElementInfo_TextOnly.Text_StaticLine = value
 
             ''---textTypeExample.Text = mod_strTextToDisplay
             textTypeExample.SendToBack()
@@ -360,7 +360,22 @@ Public Class CtlGraphicStaticTextV4
 
         ''Added 2/1/2022 thomas downes
         Dim strTextToDisplay As String ''Added 2/1/2022 thomas downes
-        strTextToDisplay = ElementInfo_TextOnly.Text_Static
+        Dim boolTextIsMultiline As Boolean ''Added 5/31/2022 td
+        Dim listOfStaticLines As List(Of String) ''Added 5/31/2022
+
+        ''
+        ''Added 5/31/2022 thomas downes
+        ''
+        strTextToDisplay = ElementInfo_TextOnly.Text_StaticLine
+        boolTextIsMultiline = Me.ElementClass_Obj.Text_IsMultiLine ''Added 5/31/2022 td
+        If (boolTextIsMultiline) Then
+            listOfStaticLines = Me.ElementClass_Obj.Text_ListOfLines ''Added 5/31/2022 td
+            Dim objBuilder As New System.Text.StringBuilder(200)
+            For Each strLine As String In listOfStaticLines
+                objBuilder.AppendLine(strLine)
+            Next strLine
+            strTextToDisplay = objBuilder.ToString().TrimEnd
+        End If ''Endof ""If (boolTextIsMultiline) Then""
 
         ''Me.ElementInfo.Width = pictureFieldOrText.Width
         ''Me.ElementInfo.Height = pictureFieldOrText.Height

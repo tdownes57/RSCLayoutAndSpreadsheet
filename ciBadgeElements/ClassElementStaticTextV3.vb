@@ -74,7 +74,9 @@ Public Class ClassElementStaticTextV3
     ''10/10/2019 td''Public Property Text As String Implements IElement_TextOnly.Text ''E.g. "George Washington" for FullName. 
 
     Private mod_strTextToDisplay As String ''Added 10/10/2019 td
-    Public Property Text_Static As String Implements IElement_TextOnly.Text_Static ''Added 10/10/2019 td
+
+
+    Public Property Text_StaticLine As String Implements IElement_TextOnly.Text_StaticLine ''Added 10/10/2019 td
         Get
             ''Added 10/10/2019 td 
             Return mod_strTextToDisplay
@@ -204,7 +206,7 @@ Public Class ClassElementStaticTextV3
         Me.Height_Pixels = par_intHeight_Pixels
 
         ''Added 10//10/2019 td
-        Me.Text_Static = par_DisplayText
+        Me.Text_StaticLine = par_DisplayText
 
     End Sub
 
@@ -406,7 +408,7 @@ Public Class ClassElementStaticTextV3
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_elementInfo_Text.Text_Static, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
+        gr.DrawString(par_elementInfo_Text.Text_StaticLine, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
 
         Return par_image ''Return Nothing
 

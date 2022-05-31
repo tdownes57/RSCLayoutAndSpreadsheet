@@ -64,7 +64,7 @@ Public Class CtlGraphicStaticTextV3
             mod_strTextToDisplay = value
 
             If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
-            Me.ElementInfo_TextOnly.Text_Static = value
+            Me.ElementInfo_TextOnly.Text_StaticLine = value
 
             textTypeExample.Text = mod_strTextToDisplay
         End Set
@@ -412,7 +412,7 @@ ExitHandler:
             MessageBoxTD.Show_Statement("User has declined to provide any text, and/or has cancelled.")
             Exit Sub
         End If ''ENd of "If (strLabelText_EditedByUser = "") Then"
-        ElementInfo_TextOnly.Text_Static = strLabelText_EditedByUser
+        ElementInfo_TextOnly.Text_StaticLine = strLabelText_EditedByUser
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -540,7 +540,7 @@ ExitHandler:
         If (c_boolUseNewestProjectReference) Then
 
             newTextImage =
-            modGenerate.TextImage_ByElemInfo(Me.Element_StaticText.Text_Static,
+            modGenerate.TextImage_ByElemInfo(Me.Element_StaticText.Text_StaticLine,
                                              intBadgeLayoutWidth,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
@@ -730,7 +730,7 @@ ExitHandler:
         ''
         ''Added 7/25/2019 thomas d 
         ''
-        Return Me.ElementInfo_TextOnly.Text_Static
+        Return Me.ElementInfo_TextOnly.Text_StaticLine
 
     End Function ''End of "Public Function LabelText() As String"
 

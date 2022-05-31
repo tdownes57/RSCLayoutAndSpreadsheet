@@ -555,7 +555,7 @@ ExitHandler:
         ''-----If (info_TextOnly Is Nothing) Then info_TextOnly = 
 
         ''1/5/2022 td''ElementInfo_TextOnly.Text_Static = LabelText()
-        ElementInfo_TextOnly.Text_Static = LabelText(pobjElementField)
+        ElementInfo_TextOnly.Text_StaticLine = LabelText(pobjElementField)
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -1292,7 +1292,7 @@ ExitHandler:
             ''Me.FieldInfo.ExampleValue = textTypeExample.Text
             Me.ExampleTextToDisplay = textTypeExample.Text ''Added 5/11/2022 td
 
-            Me.ElementInfo_TextOnly.Text_Static = textTypeExample.Text
+            Me.ElementInfo_TextOnly.Text_StaticLine = textTypeExample.Text
             Me.textTypeExample.Visible = False
 
             ''Added 9/20/2019 td  

@@ -331,7 +331,7 @@ Public Class CtlGraphicFieldV4
 
         ''Added 2/1/2022 thomas downes
         Dim strTextToDisplay As String ''Added 2/1/2022 thomas downes
-        strTextToDisplay = ElementInfo_TextOnly.Text_Static
+        strTextToDisplay = ElementInfo_TextOnly.Text_StaticLine
 
         ''Me.ElementInfo.Width = pictureFieldOrText.Width
         ''Me.ElementInfo.Height = pictureFieldOrText.Height

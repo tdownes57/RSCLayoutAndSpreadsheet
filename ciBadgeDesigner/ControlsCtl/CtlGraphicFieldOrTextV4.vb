@@ -538,7 +538,7 @@ ExitHandler:
         ''-----If (info_TextOnly Is Nothing) Then info_TextOnly = 
 
         ''1/5/2022 td''ElementInfo_TextOnly.Text_Static = LabelText()
-        ElementInfo_TextOnly.Text_Static = LabelText(pobjElementField)
+        ElementInfo_TextOnly.Text_StaticLine = LabelText(pobjElementField)
 
         ''Me.ElementInfo.Width = pictureFieldOrText.Width
         ''Me.ElementInfo.Height = pictureFieldOrText.Height
@@ -1042,7 +1042,7 @@ ExitHandler:
 
         Else
             ''Jan31 2022 td''Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
-            Return Me.ElementClass_Obj.Text_Static
+            Return Me.ElementClass_Obj.Text_StaticLine
 
         End If ''ENd of "If (Me.ElementClass_Obj Is Nothing) Then ... Else ...."
 

@@ -208,7 +208,7 @@ Public Class ClassElementFieldV3
     ''
     ''See also, "Public Function LabelText(par_isForLayoutPreview As Boolean) As String".  ---10/16/2019 td 
     ''
-    Public Property Text_Static As String Implements IElement_TextOnly.Text_Static ''E.g. "George Washington" for FullName. 
+    Public Property Text_StaticLine As String Implements IElement_TextOnly.Text_StaticLine ''E.g. "George Washington" for FullName. 
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
 
     ''--16----Replaced by a Shared Property of the same name.---10/16/2019 td
@@ -867,7 +867,9 @@ Public Class ClassElementFieldV3
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_elementInfo_Text.Text_Static, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
+        gr.DrawString(par_elementInfo_Text.Text_StaticLine,
+                      par_elementInfo_Text.Font_DrawingClass,
+                      Brushes.Black, 20, 5)
 
         Return par_image ''Return Nothing
 

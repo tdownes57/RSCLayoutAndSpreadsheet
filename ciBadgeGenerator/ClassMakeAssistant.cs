@@ -1740,7 +1740,7 @@ namespace ciBadgeGenerator
                 //
                 //Added 12/26/2021 td
                 //
-                string strTextToDisplay = par_elementStaticV3.Text_Static;
+                string strTextToDisplay = par_elementStaticV3.Text_StaticLine;
 
                 WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();
                 WhyOmitted_StructV2 structWhyOmittedV2 = new WhyOmitted_StructV2();
@@ -1802,7 +1802,7 @@ namespace ciBadgeGenerator
                 {
                     if (par_listMessages != null)
                         par_listMessages.Add("We cannot scale the placement of the image...." +
-                                par_elementStaticV3.Text_Static);
+                                par_elementStaticV3.Text_StaticLine);
 
                 }
 
@@ -1842,7 +1842,7 @@ namespace ciBadgeGenerator
                     string strMessage_Invalid = ex_draw_invalid.Message;
 
                     if (par_listMessages != null)
-                        par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementStaticV3.Text_Static);
+                        par_listMessages.Add(ex_draw_invalid.Message + "..." + par_elementStaticV3.Text_StaticLine);
 
                     //if (par_listFieldsNotIncluded != null)
                     //    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
@@ -1853,7 +1853,7 @@ namespace ciBadgeGenerator
                     string strMessage_any;
                     strMessage_any = ex_draw_any.Message;
                     if (par_listMessages != null)
-                        par_listMessages.Add(ex_draw_any.Message + "..." + par_elementStaticV3.Text_Static);
+                        par_listMessages.Add(ex_draw_any.Message + "..." + par_elementStaticV3.Text_StaticLine);
 
                     //''if (par_listFieldsNotIncluded != null)
                     //''    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
@@ -1876,7 +1876,7 @@ namespace ciBadgeGenerator
                 //
                 //Added 12/26/2021 td
                 //
-                string strTextToDisplay = par_elementStaticV4.Text_Static;
+                string strTextToDisplay = par_elementStaticV4.Text_StaticLine;
 
                 WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();
                 WhyOmitted_StructV2 structWhyOmittedV2 = new WhyOmitted_StructV2();
@@ -1938,7 +1938,7 @@ namespace ciBadgeGenerator
                 {
                     if (par_listMessages != null)
                         par_listMessages.Add("We cannot scale the placement of the image...." +
-                                par_elementStaticV4.Text_Static);
+                                par_elementStaticV4.Text_StaticLine);
 
                 }
 
@@ -1981,7 +1981,7 @@ namespace ciBadgeGenerator
 
                     if (par_listMessages != null)
                         par_listMessages.Add(ex_draw_invalid.Message + "..." +
-                            par_elementStaticV4.Text_Static);
+                            par_elementStaticV4.Text_StaticLine);
 
                     //if (par_listFieldsNotIncluded != null)
                     //    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);
@@ -1992,7 +1992,8 @@ namespace ciBadgeGenerator
                     string strMessage_any;
                     strMessage_any = ex_draw_any.Message;
                     if (par_listMessages != null)
-                        par_listMessages.Add(ex_draw_any.Message + "..." + par_elementStaticV4.Text_Static);
+                        par_listMessages.Add(ex_draw_any.Message + "..." + 
+                            par_elementStaticV4.Text_StaticLine);
 
                     //''if (par_listFieldsNotIncluded != null)
                     //''    par_listFieldsNotIncluded.Add(par_elementField.FieldInfo.CIBadgeField);

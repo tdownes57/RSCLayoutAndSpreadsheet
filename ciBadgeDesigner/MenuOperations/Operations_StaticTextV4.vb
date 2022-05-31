@@ -62,7 +62,7 @@ Public Class Operations_StaticTextV4
     End Sub ''end of "Public Sub Context_Menu_EST9121(sender As Object, e As EventArgs)"
 
 
-    Public Sub Revise_Text_Of_Element_EST1050(sender As Object, e As MouseEventArgs)
+    Public Sub Add_or_Revise_Text_Of_Element_EST1050(sender As Object, e As MouseEventArgs)
         ''
         ''Added 2/2/2022 & 1/18/2022
         ''
@@ -74,29 +74,47 @@ Public Class Operations_StaticTextV4
         ''2/2/022 td''objElementStaticTextV4 = objControlStaticTextV4.Element_StaticText
         objElementStaticTextV4 = objControlStaticTextV4.Element_StaticTextV4
 
-        strCurrentText = objElementStaticTextV4.Text_Static
+        strCurrentText = objElementStaticTextV4.Text_StaticLine
 
         ''Added 1/18/2022 thomas downes  
         ''Feb6 2022''objElementStaticTextV4.Text_Static =
-        Dim strTextFromInputBox As String ''Added 2/6/2022 td   
-        strTextFromInputBox =
-        InputBox("Enter the static text you want to appear.  You can revise it later.",
-                     "Enter text", strCurrentText, e.X, e.Y)
+        ''May31 2022 ''Dim strTextFromInputBox As String ''Added 2/6/2022 td   
+        ''May31 2022 ''strTextFromInputBox =
+        ''May31 2022 ''InputBox("Enter the static text you want to appear.  You can revise it later.",
+        ''May31 2022 ''             "Enter text", strCurrentText, e.X, e.Y)
+        ''
+        ''Added 5/30/2022 
+        ''
+        With objElementStaticTextV4
+
+            Dim objFormToShow As DialogStaticText ''Added 5/30/2022
+            Dim res_dia As DialogResult ''Added 5/30/2022
+            ''Added 5/30/2022 
+            objFormToShow = New DialogStaticText(.Text_IsMultiLine, .Text_StaticLine,
+                                         .Text_ListOfLines)
+            res_dia = objFormToShow.ShowDialog()
+            If (res_dia = DialogResult.OK) Then
+                .Text_StaticLine = objFormToShow.Output_SingleLine
+                .Text_IsMultiLine = objFormToShow.Output_IsMultiLine
+                .Text_ListOfLines = objFormToShow.Output_ListOfLines
+                .DateEdited = Now
+            End If ''End of ""If (res_dia = DialogResult.OK) Then"" 
+
+        End With ''End of ""With objElementStaticTextV4""
+
+        ''''Added 2/06/2022 thomas downes  
+        ''If ("" = strTextFromInputBox) Then
+        ''    MessageBoxTD.Show_Statement("User has cancelled, deleted the text, or perhaps made a mistake.")
+        ''    Exit Sub
+        ''End If ''End of "If ("" = strTextFromInputBox) Then"
 
         ''Added 2/06/2022 thomas downes  
-        If ("" = strTextFromInputBox) Then
-            MessageBoxTD.Show_Statement("User has cancelled, deleted the text, or perhaps made a mistake.")
-            Exit Sub
-        End If ''End of "If ("" = strTextFromInputBox) Then"
-
-        ''Added 2/06/2022 thomas downes  
-        Dim boolConfirmed As Boolean
-        boolConfirmed = MessageBoxTD.Show_Confirmed("Please confirm the following text.",
-                            strTextFromInputBox, True)
-        If (Not boolConfirmed) Then Exit Sub
-
-        objElementStaticTextV4.Text_Static = strTextFromInputBox
-        objElementStaticTextV4.DateEdited = Now
+        ''Dim boolConfirmed As Boolean
+        ''boolConfirmed = MessageBoxTD.Show_Confirmed("Please confirm the following text.",
+        ''                    strTextFromInputBox, True)
+        ''If (Not boolConfirmed) Then Exit Sub
+        ''objElementStaticTextV4.Text_StaticLine = strTextFromInputBox
+        ''objElementStaticTextV4.DateEdited = Now
 
         With objControlStaticTextV4
             .SaveToModel()

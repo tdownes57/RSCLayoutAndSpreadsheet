@@ -387,7 +387,7 @@ Public Class Operations_EditFieldElement
         With Me.CtlCurrentElement.Textbox_ExampleValue
 
             .Visible = True
-            .Text = Me.CtlCurrentElement.ElementInfo_TextOnly.Text_Static ''Added 8/16/2019 td
+            .Text = Me.CtlCurrentElement.ElementInfo_TextOnly.Text_StaticLine ''Added 8/16/2019 td
             .SelectAll() ''Added 8/16/2019 td
 
             ''Added 9/10/2019 td 
