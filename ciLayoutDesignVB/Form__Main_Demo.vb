@@ -3764,7 +3764,13 @@ ExitHandler:
 
             If (boolAddStaticText) Then
                 rectangleControl = .GetRectangle_StaticText()
-                mod_designer.Load_NewElementToCacheAndForm_StaticTextV3(rectangleControl)
+                ''Text Label... any message you like.
+                ''#1 6/1/2022 td''mod_designer.Load_NewElementToCacheAndForm_StaticTextV3(rectangleControl)
+                ''#2 6/1/2022 td''mod_designer.Load_NewElementToCacheAndForm_StaticTextV3(rectangleControl,
+                ''                 FormTypeOfElementsToAdd.StaticTextString)
+                mod_designer.Load_NewElementToCacheAndForm_StaticTextV4(rectangleControl,
+                                                FormTypeOfElementsToAdd.StaticTextString)
+
             End If ''End of ""If (boolAddStaticText) Then""
 
         End With ''End of ""With objFormToShow""

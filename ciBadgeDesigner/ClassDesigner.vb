@@ -1146,9 +1146,46 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_QRCode()""
 
 
-    Public Sub Load_NewElementToCacheAndForm_StaticTextV3(par_rectForElement As Rectangle)
+    Public Sub Load_NewElementToCacheAndForm_StaticTextV4(par_rectForElement As Rectangle,
+                           Optional pstrTextForStaticText As String = "")
+        ''
+        ''Added 6/01/2022 td
+        ''
+        ''Text Label... any message you like.
+        ''
+        Dim new_element As ClassElementStaticTextV4 = Nothing ''Added 6/1/2022 & 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_element = Load_NewElementIntoCache_StaticTextV4(par_rectForElement)
+
+        ''Added 6/1/2022 td
+        If (pstrTextForStaticText = "") Then
+            new_element.Text_StaticLine = "Text Label... any message you like."
+        Else
+            new_element.Text_StaticLine = pstrTextForStaticText
+        End If ''End of ""If (pstrTextForStaticText = "") Then... Else..."
+
+        If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        Dim new_list As New HashSet(Of ClassElementStaticTextV4)
+        new_list.Add(new_element)
+        LoadFormwElements_StaticTextsV4(new_list) '', mod_oGroupMoveEvents)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_StaticTextV4()""
+
+
+    Public Sub Load_NewElementToCacheAndForm_StaticTextV3(par_rectForElement As Rectangle,
+                           Optional pstrTextForStaticText As String = "")
         ''
         ''Added 5/14/2022 td
+        ''
+        ''Text Label... any message you like.
         ''
         Dim new_element As ClassElementStaticTextV3 = Nothing ''Added 5/12/2022 td
 
@@ -1156,6 +1193,13 @@ Public Class ClassDesigner
         ''Part 1. Create the Element & load it into the cache. 
         ''
         new_element = Load_NewElementIntoCache_StaticTextV3(par_rectForElement)
+
+        ''Added 6/1/2022 td
+        If (pstrTextForStaticText = "") Then
+            new_element.Text_StaticLine = "Text Label... any message you like."
+        Else
+            new_element.Text_StaticLine = pstrTextForStaticText
+        End If ''End of ""If (pstrTextForStaticText = "") Then... Else..."
 
         If (new_element Is Nothing) Then System.Diagnostics.Debugger.Break()
 
@@ -1167,7 +1211,7 @@ Public Class ClassDesigner
         LoadFormwElements_StaticTextsV3(new_list) '', mod_oGroupMoveEvents)
 
 
-    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_StaticTextV3()""
 
 
     Public Function Load_NewElementIntoCache_FieldV3(par_enumField As EnumCIBFields,
@@ -1470,6 +1514,36 @@ Public Class ClassDesigner
 
 
     End Function ''End of ""Public Function Load_NewElementIntoCache_StaticTextV3()""
+
+
+    Public Function Load_NewElementIntoCache_StaticTextV4(par_rect As Rectangle) As ClassElementStaticTextV4
+        ''
+        ''Added 6/01/2022 td
+        ''
+        Dim intLeft As Integer
+        Dim intTop As Integer
+        Dim intWidth As Integer
+        Dim intHeight As Integer
+
+        Static s_countCalls As Integer = 0
+
+        intLeft = par_rect.Left '' Me.Initial_Pic_Left
+        intTop = par_rect.Top '' Me.Initial_Pic_Top
+        intWidth = par_rect.Width '' Me.Initial_Pic_Width
+        intHeight = par_rect.Height '' Me.Initial_Pic_Height
+
+        Dim newElement As ClassElementStaticTextV4
+        newElement =
+        Me.ElementsCache_UseEdits.LoadNewElement_StaticTextV4("This is for static text.",
+                             intLeft, intTop,
+                             intWidth, intHeight,
+                             Me.BackgroundBox_Front,
+                             EnumSideOfCard_Current)
+
+        Return newElement
+
+
+    End Function ''End of ""Public Function Load_NewElementIntoCache_StaticTextV4()""
 
 
     Public Sub UnselectHighlightedElements()

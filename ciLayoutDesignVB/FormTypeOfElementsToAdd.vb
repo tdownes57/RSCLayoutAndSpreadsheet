@@ -24,6 +24,8 @@ Public Class FormTypeOfElementsToAdd
     ''
     ''Added 5/3/2022 thomas d. 
     ''
+    Public Shared StaticTextString As String = "Text Label... any message you like." ''Added 6/1/2022
+
     Public AddPortraitPic As Boolean
     Public AddGraphic As Boolean
     Public AddStaticText As Boolean
@@ -65,6 +67,10 @@ Public Class FormTypeOfElementsToAdd
         ' Add any initialization after the InitializeComponent() call.
         mod_cache = par_cache
         mod_listRelevantFields = par_listRelevantFs ''Added 5/12/2022 td
+
+        ''Added 6/1/2022
+        CtlGraphicStaticText1.TextToDisplay = StaticTextString '' """Text Label... any message you like.""
+        CtlGraphicStaticText1.TextToDisplay_DesignTime = StaticTextString '' """Text Label... any message you like.""
 
         ''RscSelectCIBField1.Load_FieldsFromCache(par_cache)
         ''RscSelectCIBField2.Load_FieldsFromCache(par_cache)

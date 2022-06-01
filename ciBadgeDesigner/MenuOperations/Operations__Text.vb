@@ -31,12 +31,18 @@ Public MustInherit Class Operations__Text
     Public Property FontDialog1 As FontDialog ''Added 2/2/2022 & 10/3/2019 td 
 
 
-    Public Sub Edit_Element_with_Multiple_Dialogs_TE9400()
+    Public Sub Edit_Element_with_Multiple_Dialogs_TE9400(sender As Object, e As EventArgs)
         ''
         ''Added 5/31/2022 thomas downes 
         ''
-        Dim objFormToShow As Dialog_BaseEditElement
-        objFormToShow.Show()
+        Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4)
+        objFormToShow.ShowDialog()
+
+ExitHandler:
+        ''
+        ''Return the control-element to the parent form. 
+        ''
+        MyBase.CtlCurrentForm.Controls.Add(Me.CtlCurrentFieldOrTextV4)
 
 
     End Sub ''End of ""Public Sub Edit_Element_With_Multiple_Dialogs_TE9400()"
@@ -376,71 +382,83 @@ Public MustInherit Class Operations__Text
         Dim boolIsCopyOfLatest As Boolean ''Dec. 12, 2021 td
 
         ''Added 12/12/2021 thomas downes
-        Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+        ''5/31/2022 td''Me.CacheOfFieldsEtc.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
+        Me.ElementsCacheManager.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
 
-        With Me.CtlCurrentElement ''Added 10/17/2019 td
 
-            Dim frm_ToShow As New DialogTextBorder(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy())
-            ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
-            frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElement)
 
-            ''Major call !!
-            frm_ToShow.ShowDialog()
 
-            ''Refresh the form. ----8/17/2019 td
-            Dim boolUserPressedOK As Boolean
-            boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+        ''
+        ''Element Version #3  
+        ''
+        If (False AndAlso (Me.CtlCurrentElementFieldV3 IsNot Nothing)) Then
 
-            If (boolUserPressedOK) Then '' ----8/17/2019 td
+            With Me.CtlCurrentElementFieldV3 ''Added 10/17/2019 td
 
-                ''9/18/2019 td''Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
-                ''9/18/2019 td''Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
-                ''9/18/2019 td''Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
+                Dim frm_ToShow As New DialogTextBorder(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy())
+                ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+                ''5/31/2022 frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElement)
+                frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
 
-                ''Added 9/18/2019 td
-                frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
+                ''Major call !!
+                frm_ToShow.ShowDialog()
 
-                .Refresh_ImageV3(True)
+                ''Refresh the form. ----8/17/2019 td
+                Dim boolUserPressedOK As Boolean
+                boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
 
-                ''
-                ''
-                ''Group Editimg
-                ''
-                ''
-                ''Added 8/18/2019 td 
-                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
+                If (boolUserPressedOK) Then '' ----8/17/2019 td
 
+                    ''9/18/2019 td''Me.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                    ''9/18/2019 td''Me.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                    ''9/18/2019 td''Me.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''Added 9/9/2019 td
+
+                    ''Added 9/18/2019 td
+                    frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
+
+                    .Refresh_ImageV3(True)
+
+                    ''
+                    ''
+                    ''Group Editimg
+                    ''
+                    ''
                     ''Added 8/18/2019 td 
-                    ''1/13/22 ''Dim objElements As HashSet(Of CtlGraphicFldLabel)
-                    Dim objElements As HashSet(Of RSCMoveableControlVB)
-                    objElements = Me.SelectingElements.ElementsDesignList_AllItems
+                    If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElement)) Then
 
-                    For Each each_ctl As CtlGraphicFieldV3 In objElements
-                        ''
-                        ''Added 8/3/2019 td  
-                        ''
-                        With each_ctl
+                        ''Added 8/18/2019 td 
+                        ''1/13/22 ''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+                        Dim objElements As HashSet(Of RSCMoveableControlVB)
+                        objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-                            ''9/18/2019 td''.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
-                            ''9/18/2019 td''.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
-                            ''9/18/2019 td''.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
+                        For Each each_ctl As CtlGraphicFieldV3 In objElements
+                            ''
+                            ''Added 8/3/2019 td  
+                            ''
+                            With each_ctl
 
-                            ''Added 9/18/2019 td 
-                            frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
+                                ''9/18/2019 td''.ElementInfo_Base.Border_WidthInPixels = frm_ToShow.Border_SizeInPixels
+                                ''9/18/2019 td''.ElementInfo_Base.Border_Color = frm_ToShow.Border_Color
+                                ''9/18/2019 td''.ElementInfo_Base.Border_Displayed = frm_ToShow.Border_Displayed ''9/9 td
 
-                            .Refresh_ImageV3(True)
-                            .Refresh()
+                                ''Added 9/18/2019 td 
+                                frm_ToShow.UpdateInfo_ViaInterface(.ElementInfo_Base)
 
-                        End With
+                                .Refresh_ImageV3(True)
+                                .Refresh()
 
-                    Next each_ctl
+                            End With
 
-                End If ''End of "If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me)) Then"
+                        Next each_ctl
 
-            End If ''End of "If (boolUserPressedOK) Then"
+                    End If ''End of "If (Me.SelectingElements.SelectedElementsList_IsItemIncluded(Me)) Then"
 
-        End With ''End of "With Me.CtlCurrentElement"
+                End If ''End of "If (boolUserPressedOK) Then"
+
+            End With ''End of "With Me.CtlCurrentElement"
+
+        End If ''End of ""If (Me.CtlCurrentElementFieldV3 IsNot Nothing) Then""
 
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()

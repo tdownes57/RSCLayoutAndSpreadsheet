@@ -2247,7 +2247,58 @@ Namespace ciBadgeCachePersonality
             Return objElementText
 
 
-        End Function ''End of "Public Function LoadNewElement_StaticText(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+        End Function ''End of "Public Function LoadNewElement_StaticTextV3(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
+
+
+
+        Public Function LoadNewElement_StaticTextV4(par_DisplayText As String,
+                                    par_intLeft As Integer, par_intTop As Integer,
+                                    par_intWidth As Integer, par_intHeight As Integer,
+                                    par_pictureBackground As PictureBox,
+                                    par_enum As EnumWhichSideOfCard,
+                                    Optional pbOnlyIfMissingFrontAndBack As Boolean = False) _
+                                    As ClassElementStaticTextV4
+            ''
+            ''Added 6/01/2022 td  
+            ''
+            Dim objElementText As ClassElementStaticTextV4 = Nothing ''Added 10/10/2019 td 
+            Dim objRectangle As Rectangle ''Added 10/10/2019 td  
+            Dim intLeft As Integer
+            Dim intTop As Integer
+            Dim bMissingBack As Boolean ''Added 12/17/2021 td
+            Dim bMissingFront As Boolean ''Added 12/17/2021 td
+            Dim bMissingBackAndFront As Boolean ''Added 12/17/2021 td
+            Dim bProceedWithMakingNew As Boolean ''Added 1/19/2021 td
+
+            bMissingFront = (0 = mod_listElementStaticsV4_Front.Count)
+            bMissingBack = (0 = mod_listElementStaticsV4_Backside.Count)
+            bMissingBackAndFront = (bMissingFront And bMissingBack)
+
+            bProceedWithMakingNew = (bMissingBackAndFront Or (Not pbOnlyIfMissingFrontAndBack))
+
+            If bProceedWithMakingNew Then ''Added 12/17/2021 td 
+
+                intLeft = (par_intLeft) ''Layout adjustment is not needed here.5/16/2022 - par_pictureBackground.Left)
+                intTop = (par_intTop) ''Layout adjustment is not needed here.5/16/2022 - par_pictureBackground.Top)
+
+                objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
+
+                objElementText = New ClassElementStaticTextV4(par_DisplayText, intLeft, intTop, par_intHeight)
+                objElementText = New ClassElementStaticTextV4()
+
+                If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
+                    mod_listElementStaticsV4_Backside.Add(objElementText)
+                Else
+                    mod_listElementStaticsV4_Front.Add(objElementText)
+                End If
+
+            End If ''end of "If bProceedWithMakingNew Then"
+
+            ''Added 5/14/2022 td
+            Return objElementText
+
+
+        End Function ''End of "Public Function LoadNewElement_StaticTextV4(par_DisplayText As String, par_intLeft As Integer, ...., par_pictureBackground As PictureBox)"
 
 
         Public Sub LoadRecipient(par_recipient As ClassRecipient)

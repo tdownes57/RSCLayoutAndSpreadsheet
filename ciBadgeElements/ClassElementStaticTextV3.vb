@@ -260,6 +260,7 @@ Public Class ClassElementStaticTextV3
 
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
+
     Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated(pintDesiredLayoutHeight As Integer) As Image _
         Implements IElement_TextOnly.GenerateImage_ByDesiredLayoutHeight
         ''

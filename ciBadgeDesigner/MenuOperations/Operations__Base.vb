@@ -161,15 +161,29 @@ Public MustInherit Class Operations__Base
             MessageBoxTD.Show_Statement("The element been removed from the design-layout XML.",
                   "We will now try to remove it from the UI designer." & vbCrLf_Deux &
                   "You might need to save & refresh the layout-designer to clear it out.")
-            ''Remove the control.  
-            Me.CtlCurrentForm.Controls.Remove(CtlCurrentControl)
-            Me.InfoRefresh.RefreshCardPreview() ''Added 5/10/2022 td
-            ''Added 5/11/2022 td 
-            Me.ElementsCacheManager.CacheForEditing.UserHasDeletedElements = True
 
-        Else
-            ''Added 1/21/2022 td 
-            MessageBoxTD.Show_Statement("Unfortunately, we could Not find that element!!  Sorry!!")
+            ''Hide the control for which the element has been deleted.  
+            CtlCurrentControl.Visible = False ''Added 6/1/2022
+            CtlCurrentElement.Visible = False ''Added 6/1/2022
+
+            ''Remove the control.  
+            Dim boolInCurrentForm As Boolean ''Added 6/1/2022 
+            boolInCurrentForm = (Me.CtlCurrentForm.Controls.Contains(CtlCurrentControl))
+
+            If boolInCurrentForm Then ''Added 6/1/2022
+                Me.CtlCurrentForm.Controls.Remove(CtlCurrentControl)
+            Else
+                System.Diagnostics.Debugger.Break()
+            End If ''End of ""If boolInCurrentForm Then... Else..."
+
+            Application.DoEvents() ''Added 6/1/2022 
+                Me.InfoRefresh.RefreshCardPreview() ''Added 5/10/2022 td
+                ''Added 5/11/2022 td 
+                Me.ElementsCacheManager.CacheForEditing.UserHasDeletedElements = True
+
+            Else
+                ''Added 1/21/2022 td 
+                MessageBoxTD.Show_Statement("Unfortunately, we could Not find that element!!  Sorry!!")
 
         End If ''Endo  f'"If (boolSuccess) Then .... Else ...."
 

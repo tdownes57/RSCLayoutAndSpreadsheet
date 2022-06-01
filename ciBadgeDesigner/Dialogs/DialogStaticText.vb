@@ -13,7 +13,7 @@ Public Class DialogStaticText
 
 
     Public Sub New(pboolMultiLine As Boolean, pstrSingleLine As String,
-                    pstrMultiArrayOfLines As List(Of String))
+                    plist_MultiArrayOfLines As List(Of String))
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -22,6 +22,8 @@ Public Class DialogStaticText
         mod_loading = True
         checkboxSingleLine.Checked = (Not pboolMultiLine)
         checkboxMultiLine.Checked = pboolMultiLine
+        textboxSingleLine.Text = pstrSingleLine ''Added 6/01/2022 td 
+        textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
 
 ExitHandler:
         Application.DoEvents()
@@ -82,6 +84,7 @@ ExitHandler:
             checkboxMultiLine.Checked = False
             ''See below. ''Application.DoEvents()
             ''See below. ''mod_loading = False
+            textboxMultiLine.Visible = False ''checkboxMultiLine.Checked
 
         End If ''"End of ""If (checkboxSingleLine.Checked) Then""
 

@@ -178,17 +178,22 @@ Public Class CtlGraphicStaticTextV3
         infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
         ''Added 1/19/2022 td
-        objOperationsST_V3.CtlCurrentForm = par_oParentForm ''Added 5/16/2022
-        objOperationsST_V3.CtlCurrentElement = CtlStaticText1
-        objOperationsST_V3.CtlCurrentElementStaticText = CtlStaticText1
-        objOperationsST_V3.ElementInfo_Base = par_elementStaticText
-        objOperationsST_V3.ElementStaticText = par_elementStaticText
-        objOperationsST_V3.ElementInfo_TextOnly = par_elementStaticText
-        objOperationsST_V3.Element_Type = ciBadgeInterfaces.Enum_ElementType.StaticTextV3
-        ''Added 1/25/2022 td
-        objOperationsST_V3.Designer = par_parametersGetElementControl.DesignerClass
-        objOperationsST_V3.LayoutFunctions = par_parametersGetElementControl.DesignerClass
-        objOperationsST_V3.InfoRefresh = par_parametersGetElementControl.iRefreshPreview ''Added 5/10/2022
+        With objOperationsST_V3
+            .CtlCurrentForm = par_oParentForm ''Added 5/16/2022
+            .CtlCurrentElement = CtlStaticText1
+            .CtlCurrentControl = CtlStaticText1 ''Added 6/1/2022 td
+
+            .CtlCurrentElementStaticText = CtlStaticText1
+            .ElementInfo_Base = par_elementStaticText
+            .ElementStaticText = par_elementStaticText
+            .ElementInfo_TextOnly = par_elementStaticText
+            .Element_Type = ciBadgeInterfaces.Enum_ElementType.StaticTextV3
+            ''Added 1/25/2022 td
+            .Designer = par_parametersGetElementControl.DesignerClass
+            .LayoutFunctions = par_parametersGetElementControl.DesignerClass
+            .InfoRefresh = par_parametersGetElementControl.iRefreshPreview ''Added 5/10/2022
+
+        End With ''End of ""With objOperationsST_V3""
 
         Return CtlStaticText1
 
@@ -405,14 +410,23 @@ ExitHandler:
 
         ''Added 10/12/2019 td
         If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
+        ''Added 5/31/20122 td
+        If (Me.ElementInfo_TextOnly.Text_StaticLine Is Nothing) Then
+            Me.ElementInfo_TextOnly.Text_StaticLine = String.Empty
+        End If ''End of ""If (Me.ElementInfo_TextOnly.Text_StaticLine Is Nothing) Then""
 
         ''Jan22 2022''ElementInfo_TextOnly.Text_Static = LabelText()
-        strLabelText_EditedByUser = LabelText() ''Get the text by prompting the user. 
-        If (strLabelText_EditedByUser = "") Then
-            MessageBoxTD.Show_Statement("User has declined to provide any text, and/or has cancelled.")
-            Exit Sub
-        End If ''ENd of "If (strLabelText_EditedByUser = "") Then"
-        ElementInfo_TextOnly.Text_StaticLine = strLabelText_EditedByUser
+        Const c_boolPromptUserForMissingText As Boolean = False ''Added 5/31/2022 
+        If (c_boolPromptUserForMissingText) Then
+            strLabelText_EditedByUser = LabelText() ''Get the text by prompting the user. 
+            If (strLabelText_EditedByUser = "") Then
+                MessageBoxTD.Show_Statement("User has declined to provide any text, and/or has cancelled.")
+                Exit Sub
+                ''Me.ElementClass_Obj.Text_StaticLine
+                ''Me.Element_StaticText.Text_StaticLine
+            End If ''ENd of "If (strLabelText_EditedByUser = "") Then"
+            ElementInfo_TextOnly.Text_StaticLine = strLabelText_EditedByUser
+        End If ''End of ""If (c_boolPromptUserForMissingText) Then""
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -552,6 +566,7 @@ ExitHandler:
                                     Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True)
+
         End If ''End of "If (c_boolUseNewestProjectReference) Then ..... Else ...."
 
         ''Added 9/20/2019 td
@@ -621,12 +636,12 @@ ExitHandler:
                 End If ''End of "If (bPictureBoxSizeIsReadOnly) Then... Else ...."
 
             Else
-                    ''
-                    ''Adjust the controls to the image size. ---9/3/2019 td 
-                    ''
-                    ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
-                    ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
-                    pictureLabel.Width = intNewImageWidth
+                ''
+                ''Adjust the controls to the image size. ---9/3/2019 td 
+                ''
+                ''9/20/2019 td''pictureLabel.Width = pictureLabel.Image.Width
+                ''9/20/2019 td''pictureLabel.Height = pictureLabel.Image.Height
+                pictureLabel.Width = intNewImageWidth
                 Application.DoEvents()
                 pictureLabel.Height = intNewImageHeight
                 Application.DoEvents()
