@@ -34,33 +34,38 @@ Partial Class Dialog_BaseChooseColor
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(24, 385)
+        Me.Button1.Location = New System.Drawing.Point(635, 305)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(200, 44)
+        Me.Button1.Size = New System.Drawing.Size(150, 36)
         Me.Button1.TabIndex = 12
         Me.Button1.Text = "Color-Coded Values"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'FlowLayoutPanel1
         '
+        Me.FlowLayoutPanel1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutPanel1.BackColor = System.Drawing.Color.LemonChiffon
         Me.FlowLayoutPanel1.Controls.Add(Me.Label1)
         Me.FlowLayoutPanel1.Controls.Add(Me.Label2)
         Me.FlowLayoutPanel1.Controls.Add(Me.Label3)
         Me.FlowLayoutPanel1.Controls.Add(Me.Label4)
         Me.FlowLayoutPanel1.Controls.Add(Me.Label5)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(19, 272)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(635, 47)
+        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(875, 87)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(297, 254)
         Me.FlowLayoutPanel1.TabIndex = 13
         '
         'Label1
         '
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.LightBlue
-        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Location = New System.Drawing.Point(2, 0)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(51, 17)
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Label1"
         '
@@ -68,9 +73,10 @@ Partial Class Dialog_BaseChooseColor
         '
         Me.Label2.AutoSize = True
         Me.Label2.BackColor = System.Drawing.Color.LightBlue
-        Me.Label2.Location = New System.Drawing.Point(60, 0)
+        Me.Label2.Location = New System.Drawing.Point(45, 0)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 17)
+        Me.Label2.Size = New System.Drawing.Size(39, 13)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Label2"
         '
@@ -78,9 +84,10 @@ Partial Class Dialog_BaseChooseColor
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.LightBlue
-        Me.Label3.Location = New System.Drawing.Point(117, 0)
+        Me.Label3.Location = New System.Drawing.Point(88, 0)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(51, 17)
+        Me.Label3.Size = New System.Drawing.Size(39, 13)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Label3"
         '
@@ -88,9 +95,10 @@ Partial Class Dialog_BaseChooseColor
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.Color.LightBlue
-        Me.Label4.Location = New System.Drawing.Point(174, 0)
+        Me.Label4.Location = New System.Drawing.Point(131, 0)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(51, 17)
+        Me.Label4.Size = New System.Drawing.Size(39, 13)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Label4"
         '
@@ -98,17 +106,18 @@ Partial Class Dialog_BaseChooseColor
         '
         Me.Label5.AutoSize = True
         Me.Label5.BackColor = System.Drawing.Color.LightBlue
-        Me.Label5.Location = New System.Drawing.Point(231, 0)
+        Me.Label5.Location = New System.Drawing.Point(174, 0)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(51, 17)
+        Me.Label5.Size = New System.Drawing.Size(39, 13)
         Me.Label5.TabIndex = 4
         Me.Label5.Text = "Label5"
         '
         'Dialog_BaseChooseColor
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(926, 516)
+        Me.ClientSize = New System.Drawing.Size(943, 506)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.Button1)
         Me.Name = "Dialog_BaseChooseColor"

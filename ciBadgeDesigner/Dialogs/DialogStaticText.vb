@@ -20,10 +20,12 @@ Public Class DialogStaticText
 
         ' Add any initialization after the InitializeComponent() call.
         mod_loading = True
+
         checkboxSingleLine.Checked = (Not pboolMultiLine)
         checkboxMultiLine.Checked = pboolMultiLine
         textboxSingleLine.Text = pstrSingleLine ''Added 6/01/2022 td 
         textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
+        textboxMultiLine.Visible = pboolMultiLine ''checkboxMultiLine.Checked
 
 ExitHandler:
         Application.DoEvents()
@@ -91,6 +93,10 @@ ExitHandler:
 ExitHandler:
         Application.DoEvents()
         mod_loading = False
+
+    End Sub
+
+    Private Sub DialogStaticText_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

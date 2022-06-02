@@ -1024,6 +1024,12 @@ ExitHandler:
 
     Public Function LabelText(Optional par_objElementCopy As ClassElementFieldV4 = Nothing) As String
         ''
+        ''This function is a copy of the same function in the following classes:
+        ''
+        ''   CtlGraphicFieldV3.vb
+        ''   CtlGraphicFieldOrTextV4.vb
+        ''   CtlGraphicStaticTextV3.vb 
+        ''
         ''Added 1/31/2022 & 7/25/2019 thomas d 
         ''
         ''----Return Me.ElementClass_Obj.LabelText_ToDisplay(True)

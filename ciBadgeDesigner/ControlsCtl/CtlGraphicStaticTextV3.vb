@@ -418,7 +418,7 @@ ExitHandler:
         ''Jan22 2022''ElementInfo_TextOnly.Text_Static = LabelText()
         Const c_boolPromptUserForMissingText As Boolean = False ''Added 5/31/2022 
         If (c_boolPromptUserForMissingText) Then
-            strLabelText_EditedByUser = LabelText() ''Get the text by prompting the user. 
+            strLabelText_EditedByUser = LabelText_Static() ''Get the text by prompting the user. 
             If (strLabelText_EditedByUser = "") Then
                 MessageBoxTD.Show_Statement("User has declined to provide any text, and/or has cancelled.")
                 Exit Sub
@@ -741,7 +741,14 @@ ExitHandler:
     End Sub ''End of Public Sub SaveToModel
 
 
-    Public Function LabelText() As String
+    Public Function LabelText_Static() As String
+        ''6/1/2022 Public Function LabelText
+        ''
+        ''This function is similarly-named & matches the function name "LabelText()" in the following classes:
+        ''   CtlGraphicFieldV3.vb
+        ''   CtlGraphicFieldOrTextV4.vb
+        ''   CtlGraphicStaticTextV3.vb  (now renamed to LabelText_Static(), 6/1/2022)  
+        ''---6/1/2022 thomas d. 
         ''
         ''Added 7/25/2019 thomas d 
         ''

@@ -23,46 +23,81 @@ Partial Class Dialog_BaseReviseText
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.textboxMultiLine = New System.Windows.Forms.TextBox()
+        Me.checkboxMultiLine = New System.Windows.Forms.CheckBox()
+        Me.textboxSingleLine = New System.Windows.Forms.TextBox()
+        Me.checkboxSingleLine = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
-        'TextBox1
+        'textboxMultiLine
         '
-        Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.textboxMultiLine.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(217, 278)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(684, 94)
-        Me.TextBox1.TabIndex = 6
+        Me.textboxMultiLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textboxMultiLine.Location = New System.Drawing.Point(632, 149)
+        Me.textboxMultiLine.Multiline = True
+        Me.textboxMultiLine.Name = "textboxMultiLine"
+        Me.textboxMultiLine.Size = New System.Drawing.Size(459, 206)
+        Me.textboxMultiLine.TabIndex = 101
+        Me.textboxMultiLine.Visible = False
         '
-        'Label1
+        'checkboxMultiLine
         '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(19, 278)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(172, 17)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "Text to display in element:"
+        Me.checkboxMultiLine.AutoSize = True
+        Me.checkboxMultiLine.BackColor = System.Drawing.Color.Transparent
+        Me.checkboxMultiLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkboxMultiLine.Location = New System.Drawing.Point(632, 119)
+        Me.checkboxMultiLine.Name = "checkboxMultiLine"
+        Me.checkboxMultiLine.Size = New System.Drawing.Size(176, 24)
+        Me.checkboxMultiLine.TabIndex = 100
+        Me.checkboxMultiLine.Text = "Multiple Lines of Text"
+        Me.checkboxMultiLine.UseVisualStyleBackColor = False
+        '
+        'textboxSingleLine
+        '
+        Me.textboxSingleLine.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.textboxSingleLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textboxSingleLine.Location = New System.Drawing.Point(632, 77)
+        Me.textboxSingleLine.Name = "textboxSingleLine"
+        Me.textboxSingleLine.Size = New System.Drawing.Size(242, 26)
+        Me.textboxSingleLine.TabIndex = 99
+        '
+        'checkboxSingleLine
+        '
+        Me.checkboxSingleLine.AutoSize = True
+        Me.checkboxSingleLine.BackColor = System.Drawing.Color.Transparent
+        Me.checkboxSingleLine.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.checkboxSingleLine.Location = New System.Drawing.Point(632, 47)
+        Me.checkboxSingleLine.Name = "checkboxSingleLine"
+        Me.checkboxSingleLine.Size = New System.Drawing.Size(158, 24)
+        Me.checkboxSingleLine.TabIndex = 98
+        Me.checkboxSingleLine.Text = "Single Line of Text"
+        Me.checkboxSingleLine.UseVisualStyleBackColor = False
         '
         'Dialog_BaseReviseText
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(926, 516)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.TextBox1)
+        Me.ClientSize = New System.Drawing.Size(1113, 503)
+        Me.Controls.Add(Me.textboxMultiLine)
+        Me.Controls.Add(Me.checkboxMultiLine)
+        Me.Controls.Add(Me.textboxSingleLine)
+        Me.Controls.Add(Me.checkboxSingleLine)
         Me.Name = "Dialog_BaseReviseText"
         Me.Text = "DialogReviseText"
-        Me.Controls.SetChildIndex(Me.TextBox1, 0)
-        Me.Controls.SetChildIndex(Me.Label1, 0)
+        Me.Controls.SetChildIndex(Me.checkboxSingleLine, 0)
+        Me.Controls.SetChildIndex(Me.textboxSingleLine, 0)
+        Me.Controls.SetChildIndex(Me.checkboxMultiLine, 0)
+        Me.Controls.SetChildIndex(Me.textboxMultiLine, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label1 As Label
+    Friend WithEvents textboxMultiLine As TextBox
+    Friend WithEvents checkboxMultiLine As CheckBox
+    Friend WithEvents textboxSingleLine As TextBox
+    Friend WithEvents checkboxSingleLine As CheckBox
 End Class

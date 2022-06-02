@@ -555,7 +555,8 @@ ExitHandler:
         ''-----If (info_TextOnly Is Nothing) Then info_TextOnly = 
 
         ''1/5/2022 td''ElementInfo_TextOnly.Text_Static = LabelText()
-        ElementInfo_TextOnly.Text_StaticLine = LabelText(pobjElementField)
+        ''6/1/2022 td''ElementInfo_TextOnly.Text_StaticLine = LabelText(pobjElementField)
+        ElementInfo_TextOnly.Text_StaticLine = LabelText(Me.ParentDesigner.ElementsCache_UseEdits)
 
         ''Me.ElementInfo.Width = pictureLabel.Width
         ''Me.ElementInfo.Height = pictureLabel.Height
@@ -1008,22 +1009,38 @@ ExitHandler:
         ''Added 5/10/2022 thomas d.
         ''
         ''5/10/2022  Return MyBase.ToString())
-        Return LabelText()
+        ''6/01/2022  Return LabelText()
+        Return Me.ElementClass_ObjV3.LabelText_ToDisplay(True)
 
     End Function ''End Public Overrides Function ToString() As String
 
 
-    Public Function LabelText(Optional par_objElementCopy As ClassElementFieldV3 = Nothing) As String
+    Public Function LabelText(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated,
+                             Optional par_objElementCopy As ClassElementFieldV3 = Nothing) As String
+        ''6/1/2022 Public Function LabelText
         ''
         ''Added 7/25/2019 thomas d 
+        ''
+        ''This function is similarly-named & matches the function name "LabelText()" in the following classes:
+        ''   CtlGraphicFieldV3.vb
+        ''   CtlGraphicFieldOrTextV4.vb
+        ''   CtlGraphicStaticTextV3.vb  (now renamed to LabelText_Static(), 6/1/2022)  
+        ''---6/1/2022 thomas d. 
         ''
         ''----Return Me.ElementClass_Obj.LabelText_ToDisplay(True)
         If (Me.ElementClass_ObjV3 Is Nothing) Then
 
             If (par_objElementCopy Is Nothing) Then
+
                 ''Added 12/2/2021 thomas downes
-                MessageBox.Show("Error, ElementClassObject is null.")
-                Return "Error, ElementClassObject is null."
+                ''6/1/2022 td''MessageBox.Show("Error, ElementClassObject is null.")
+                ''6/1/2022 td''Return "Error, ElementClassObject is null."
+
+                ''Added 6/1/2022 td
+                Dim objField As ciBadgeFields.ClassFieldAny
+                objField = par_cache.GetFieldByFieldEnum(ElementClass_ObjV3.FieldEnum)
+                Return objField.FieldLabelCaption
+
             Else
                 ''Added 1/5/2022 td 
                 Return par_objElementCopy.LabelText_ToDisplay(True)

@@ -28,11 +28,10 @@ Partial Class Dialog_BaseEditElement
         '
         'LabelHeaderBelowBox
         '
-        Me.LabelHeaderBelowBox.AutoSize = True
         Me.LabelHeaderBelowBox.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeaderBelowBox.Location = New System.Drawing.Point(12, 285)
+        Me.LabelHeaderBelowBox.Location = New System.Drawing.Point(632, 257)
         Me.LabelHeaderBelowBox.Name = "LabelHeaderBelowBox"
-        Me.LabelHeaderBelowBox.Size = New System.Drawing.Size(612, 22)
+        Me.LabelHeaderBelowBox.Size = New System.Drawing.Size(222, 99)
         Me.LabelHeaderBelowBox.TabIndex = 12
         Me.LabelHeaderBelowBox.Text = "Press a button below to edit the properties suggested by the button caption."
         '
@@ -40,7 +39,7 @@ Partial Class Dialog_BaseEditElement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(894, 512)
         Me.Controls.Add(Me.LabelHeaderBelowBox)
         Me.Name = "Dialog_BaseEditElement"
         Me.Text = "Form_BaseEditElement"

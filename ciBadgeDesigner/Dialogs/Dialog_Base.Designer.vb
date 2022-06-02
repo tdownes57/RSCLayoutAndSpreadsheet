@@ -41,7 +41,7 @@ Partial Class Dialog_Base
         '
         Me.PanelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.PanelDisplayElement.Location = New System.Drawing.Point(11, 47)
-        Me.PanelDisplayElement.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.PanelDisplayElement.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelDisplayElement.Name = "PanelDisplayElement"
         Me.PanelDisplayElement.Size = New System.Drawing.Size(603, 380)
         Me.PanelDisplayElement.TabIndex = 1
@@ -49,8 +49,8 @@ Partial Class Dialog_Base
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(464, 502)
-        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonOK.Location = New System.Drawing.Point(715, 398)
+        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(101, 34)
         Me.ButtonOK.TabIndex = 2
@@ -60,8 +60,8 @@ Partial Class Dialog_Base
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(584, 502)
-        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonCancel.Location = New System.Drawing.Point(835, 398)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(101, 34)
         Me.ButtonCancel.TabIndex = 3
@@ -93,7 +93,7 @@ Partial Class Dialog_Base
         'ButtonColor
         '
         Me.ButtonColor.Location = New System.Drawing.Point(120, 11)
-        Me.ButtonColor.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonColor.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonColor.Name = "ButtonColor"
         Me.ButtonColor.Size = New System.Drawing.Size(101, 34)
         Me.ButtonColor.TabIndex = 7
@@ -103,7 +103,7 @@ Partial Class Dialog_Base
         'ButtonFont
         '
         Me.ButtonFont.Location = New System.Drawing.Point(7, 11)
-        Me.ButtonFont.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonFont.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonFont.Name = "ButtonFont"
         Me.ButtonFont.Size = New System.Drawing.Size(101, 34)
         Me.ButtonFont.TabIndex = 6
@@ -113,7 +113,7 @@ Partial Class Dialog_Base
         'Button3
         '
         Me.Button3.Location = New System.Drawing.Point(351, 11)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Button3.Margin = New System.Windows.Forms.Padding(2)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(101, 34)
         Me.Button3.TabIndex = 9
@@ -123,7 +123,7 @@ Partial Class Dialog_Base
         'ButtonBorder
         '
         Me.ButtonBorder.Location = New System.Drawing.Point(238, 11)
-        Me.ButtonBorder.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonBorder.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonBorder.Name = "ButtonBorder"
         Me.ButtonBorder.Size = New System.Drawing.Size(101, 34)
         Me.ButtonBorder.TabIndex = 8
@@ -133,7 +133,7 @@ Partial Class Dialog_Base
         'ButtonTextPlacement
         '
         Me.ButtonTextPlacement.Location = New System.Drawing.Point(464, 11)
-        Me.ButtonTextPlacement.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonTextPlacement.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonTextPlacement.Name = "ButtonTextPlacement"
         Me.ButtonTextPlacement.Size = New System.Drawing.Size(101, 34)
         Me.ButtonTextPlacement.TabIndex = 10
@@ -150,16 +150,16 @@ Partial Class Dialog_Base
         Me.Panel1.Controls.Add(Me.ButtonColor)
         Me.Panel1.Controls.Add(Me.ButtonBorder)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 551)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Location = New System.Drawing.Point(0, 447)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(694, 55)
+        Me.Panel1.Size = New System.Drawing.Size(945, 55)
         Me.Panel1.TabIndex = 11
         '
         'ButtonTextstring
         '
         Me.ButtonTextstring.Location = New System.Drawing.Point(584, 11)
-        Me.ButtonTextstring.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonTextstring.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonTextstring.Name = "ButtonTextstring"
         Me.ButtonTextstring.Size = New System.Drawing.Size(101, 34)
         Me.ButtonTextstring.TabIndex = 11
@@ -170,14 +170,14 @@ Partial Class Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(694, 606)
+        Me.ClientSize = New System.Drawing.Size(945, 502)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.LabelHeading2)
         Me.Controls.Add(Me.LabelHeading1)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.PanelDisplayElement)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Dialog_Base"
         Me.Text = "Dialog_Base"
         Me.Panel1.ResumeLayout(False)
