@@ -416,7 +416,8 @@ Public Class CtlGraphicStaticGraphic
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementFieldV3 = Nothing)
+                             Optional pobjElementField As ClassElementFieldV3 = Nothing,
+                                         Optional pboolSupressFontScale As Boolean = True)
         ''
         ''Added 7/25/2019 thomas d 
         ''

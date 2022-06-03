@@ -321,14 +321,21 @@ Public Class CtlGraphicStaticTextV4
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementFieldV3 = Nothing)
+                             Optional pobjElementField As ClassElementFieldV3 = Nothing,
+                                         Optional pbSuppressFontScaling As Boolean = True)
         ''
         ''Added 2/01/2022 thomas d. 
         ''
+        ''6/2/2022 Refresh_ImageV4(pbRefreshSize,
+        ''                pboolResizeLabelControl,
+        ''                pboolRefreshLabelControl,
+        ''                pboolRefreshUserControl)
         Refresh_ImageV4(pbRefreshSize,
                         pboolResizeLabelControl,
                         pboolRefreshLabelControl,
-                        pboolRefreshUserControl)
+                        pboolRefreshUserControl,
+                        Nothing,
+                        pbSuppressFontScaling)
 
     End Sub ''End of "Public Overrides Sub Refresh_ImageV4(....)"
 
@@ -338,8 +345,7 @@ Public Class CtlGraphicStaticTextV4
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
                              Optional pobjElementField As ClassElementFieldV4 = Nothing,
-                             Optional pbSuppressFontScalingConfirmation As Boolean = True,
-                                         Optional pbSuppressFontScalingConfirmation As Boolean = True)
+                             Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''Feb1 2022 td''Public Overrides Sub Refresh_ImageV3(pbRefreshSize As Boolean,
         ''
         ''Added 2/1/2022 & 7/25/2019 thomas d 

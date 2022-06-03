@@ -1900,7 +1900,8 @@ Public Class RSCMoveableControlVB
                              Optional pboolResizePictureControl As Boolean = True,
                              Optional pboolRefreshPictureControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementFieldV3 As ClassElementFieldV3 = Nothing)
+                             Optional pobjElementFieldV3 As ClassElementFieldV3 = Nothing,
+                                           Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''
         ''Stubbed 1/13/2022 td
         ''
@@ -1912,7 +1913,8 @@ Public Class RSCMoveableControlVB
                              Optional pboolResizePictureControl As Boolean = True,
                              Optional pboolRefreshPictureControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementFieldV4 = Nothing)
+                             Optional pobjElementField As ClassElementFieldV4 = Nothing,
+                             Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''
         ''Stubbed 1/31/2022 td
         ''
