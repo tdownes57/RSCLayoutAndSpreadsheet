@@ -162,7 +162,7 @@ Public Class CtlBackground
     Public Sub Dispose_Image()
 
         ''Added 5/24/2022 td 
-        Me.picturePreview.Image.Dispose()
+        Me.picturePreview.Image?.Dispose()
 
 
     End Sub

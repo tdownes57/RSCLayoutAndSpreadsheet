@@ -754,19 +754,21 @@ Public Class Operations_FieldV3
             Return .GetFieldByFieldEnum(enumCIBField)
         End With
 
-    End Function
+    End Function ''end of ""Private Function GetFieldObjectAny()""
 
 
     Private Function GetFieldObjectCustom() As ciBadgeFields.ClassFieldCustomized
 
         ''Added 5/11/2022 thomas downes
         Dim enumCIBField As EnumCIBFields
-        enumCIBField = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldEnum
+
+        ''6/02/2022 td''enumCIBField = CtlCurrentElementFieldV4.ElementClass_ObjV4.FieldEnum
+        enumCIBField = CtlCurrentElementFieldV3.ElementClass_ObjV3.FieldEnum
         With Me.CacheOfFieldsEtc_Deprecated
             Return .GetFieldByFieldEnum_Custom(enumCIBField)
         End With
 
-    End Function
+    End Function ''end of ""Private Function GetFieldObjectCustom() ""
 
 
     Private Function GetFieldObjectStandard() As ciBadgeFields.ClassFieldStandard

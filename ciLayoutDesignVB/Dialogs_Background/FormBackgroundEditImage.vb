@@ -4,6 +4,7 @@ Option Strict On
 ''Added 5/18/2022 
 ''
 ''---Imports monem
+Imports ciBadgeDesigner ''Added 6/3/2022 
 
 Public Class FormBackgroundEditImage
     ''
@@ -18,7 +19,7 @@ Public Class FormBackgroundEditImage
     Private mod_pathToImageFile As String
     ''----Private mod_objEventsMoveGroupOfCtls As New 
     Private Const mc_boolEnlargeMoveable As Boolean = False ''Added 5/24/2022
-
+    Private Const mc_boolEnlargeToPreviewForScrapeSize As Boolean = False ''Added 6/2/2022
 
     Public Sub Load_ImageFileToEdit(par_pathToImageFile As String)
         ''5/23/2022 ''Public Sub UploadedImageFile
@@ -54,7 +55,91 @@ Public Class FormBackgroundEditImage
     End Sub ''End of ""Public Sub Load_ImageFileToEdit""
 
 
-    Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox,
+
+    Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)
+        ''
+        ''Added 6/03/2022  
+        ''
+        Dim stylePictureBoxSizeMode As PictureBoxSizeMode ''Added 5/22/2022 
+        Dim intWidth, intHeight As Integer
+
+        stylePictureBoxSizeMode = par_ctlPictureBox.SizeMode
+        intWidth = par_ctlPictureBox.Width
+        intHeight = par_ctlPictureBox.Height
+
+        Dim objFormToShow As New FormBackgroundScreenscape
+
+        With objFormToShow
+            .Input_PictureBoxSizeMode = stylePictureBoxSizeMode
+            .Input_BackgroundImage = par_ctlPictureBox.Image
+            .Input_ShowMoveableControl = False
+
+            Select Case par_ctlPictureBox.SizeMode
+                Case PictureBoxSizeMode.AutoSize
+                    .Input_ShowSizingControl = True
+                Case PictureBoxSizeMode.CenterImage
+                    .Input_ShowSizingControl = True
+                Case PictureBoxSizeMode.Normal
+                    .Input_ShowSizingControl = True
+                Case PictureBoxSizeMode.StretchImage
+                    .Input_ShowSizingControl = False
+                Case PictureBoxSizeMode.Zoom
+                    .Input_ShowSizingControl = False
+            End Select
+
+            ''
+            ''Major call!!
+            ''
+            .ShowDialog()
+
+            Dim imageEdited As Drawing.Image
+            imageEdited = .Output_Image
+            picturePreview.Image = imageEdited
+
+        End With
+
+    End Sub ''End of ""Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)""
+
+
+    Private Sub TakeScreenshot_Master(par_ctlMoveableImage As CtlMoveableBackground)
+        ''
+        ''Added 6/03/2022  
+        ''
+        Dim intWidth, intHeight As Integer
+        Dim intPositionX, intPositionY As Integer
+
+        intWidth = par_ctlMoveableImage.Width
+        intHeight = par_ctlMoveableImage.Height
+        intPositionX = par_ctlMoveableImage.GetPositionX()
+        intPositionY = par_ctlMoveableImage.GetPositionY()
+
+        Dim objFormToShow As New FormBackgroundScreenscape
+
+        With objFormToShow
+
+            .Input_PictureBoxSizeMode = PictureBoxSizeMode.Normal
+            .Input_BackgroundImage = par_ctlMoveableImage.ImageBackgroundImage
+            .Input_ShowMoveableControl = True
+            .Input_MoveablePositionX = intPositionX
+            .Input_MoveablePositionY = intPositionY
+            .Input_MoveableWidth = intWidth
+            .Input_MoveableHeight = intHeight
+
+            ''
+            ''Major call!!
+            ''
+            .ShowDialog()
+
+            Dim imageEdited As Drawing.Image
+            imageEdited = .Output_Image
+            picturePreview.Image = imageEdited
+
+        End With
+
+    End Sub ''End of ""Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)""
+
+
+    Private Sub TakeScreenshot_Master_TemporarilyNotInUse(par_ctlPictureBox As PictureBox,
                           Optional pboolUseCenterPreviewLarge As Boolean = True)
         ''---5/18/2022 Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)
         ''
@@ -90,7 +175,7 @@ Public Class FormBackgroundEditImage
 
             objSourceControl = par_ctlPictureBox
 
-        End If
+        End If ''End of ""If (pboolUseCenterPreviewLarge) Then""
 
         ''
         ''
@@ -113,10 +198,13 @@ Public Class FormBackgroundEditImage
             Else
                 ''Added 5/22/2022
                 '' Temporarily enlarge the picture box.
-                With par_ctlPictureBox
-                    .Width = picturePreviewForScrape.Width
-                    .Height = picturePreviewForScrape.Height
-                End With
+                ''
+                If (mc_boolEnlargeToPreviewForScrapeSize) Then
+                    With par_ctlPictureBox
+                        .Width = picturePreviewForScrape.Width
+                        .Height = picturePreviewForScrape.Height
+                    End With
+                End If ''End of ""If (mc_boolEnlargeToPreviewForScrapeSize) Then""
 
             End If ''Endof ""If (pboolUseCenterPreviewLarge) Then""
 
@@ -281,8 +369,8 @@ Public Class FormBackgroundEditImage
                 TakeScreenshot_Master(pictureLayoutCenter)
             Case radioLayoutMoveable.Checked
                 ''TakeScreenshot_Master(pictureLayoutMoveable, False)
-                TakeScreenshot_Master(pictureLayoutMoveable, False)
-
+                ''6/3/2022 td''TakeScreenshot_Master(pictureLayoutMoveable, False)
+                TakeScreenshot_Master(CtlMoveableBackground1)
 
             Case radioLayoutNormal.Checked
                 TakeScreenshot_Master(pictureLayoutNormal)
@@ -296,7 +384,7 @@ Public Class FormBackgroundEditImage
     End Sub ''end of "" Private Sub RefreshPreview() ""
 
 
-    Private Sub PictureBoxMustBeBeneathUserControl()
+    Private Sub PictureBoxMustBeBeneathUserControl_ForScreenshot()
         ''
         ''Place the pictureBox called pictureLayoutMoveable 
         ''   directly underneath the user-control CtlMoveableBackground1, 
@@ -365,11 +453,14 @@ Public Class FormBackgroundEditImage
 
         ''Added 5/18/2022 
         If (radioLayoutMoveable.Checked) Then
-            ''5/18/2022 TakeScreenshot_Master(CtlMoveableBackground1.GetPictureBox())
-            PictureBoxMustBeBeneathUserControl()
-            TakeScreenshot_Master(pictureLayoutMoveable)
 
-        End If
+            ''5/18/2022 TakeScreenshot_Master(CtlMoveableBackground1.GetPictureBox())
+            PictureBoxMustBeBeneathUserControl_ForScreenshot()
+
+            ''6/3/2022 TakeScreenshot_Master(pictureLayoutMoveable)
+            ''6/3/2022 TakeScreenshot_Master(CtlMoveableBackground1)
+
+        End If ''End of ""If (radioLayoutMoveable.Checked) Then""
 
     End Sub
 
@@ -486,6 +577,13 @@ Public Class FormBackgroundEditImage
         Me.pictureLayoutStretch.Image?.Dispose() ''Recommended by the above links. 
         Me.pictureLayoutZoom.Image?.Dispose() ''Recommended by the above links.
 
+        Me.picturePreview.BackgroundImage?.Dispose() ''Recommended by the above links. 
+        Me.pictureLayoutCenter.BackgroundImage?.Dispose() ''Recommended by the above links.
+        Me.pictureLayoutMoveable.BackgroundImage?.Dispose() ''Recommended by the above links. 
+        Me.pictureLayoutNormal.BackgroundImage?.Dispose() ''Recommended by the above links.
+        Me.pictureLayoutStretch.BackgroundImage?.Dispose() ''Recommended by the above links. 
+        Me.pictureLayoutZoom.BackgroundImage?.Dispose() ''Recommended by the above links.
+
         Me.DialogResult = DialogResult.OK
         Me.Close()
 
@@ -589,14 +687,21 @@ Public Class FormBackgroundEditImage
         ''
         ''Added 5/23/2022 thomas 
         ''
-        Me.UploadedImage.Dispose() ''Helps to prevent problems!!
+        Me.UploadedImage?.Dispose() ''Helps to prevent problems!!
 
         ''Added 5/24/2022 thomas 
-        Me.pictureLayoutCenter.Dispose()
-        Me.pictureLayoutMoveable.Dispose()
-        Me.pictureLayoutNormal.Dispose()
-        Me.pictureLayoutStretch.Dispose()
-        Me.pictureLayoutZoom.Dispose()
+        Me.pictureLayoutCenter.Image?.Dispose()
+        Me.pictureLayoutMoveable.Image?.Dispose()
+        Me.pictureLayoutNormal.Image?.Dispose()
+        Me.pictureLayoutStretch.Image?.Dispose()
+        Me.pictureLayoutZoom.Image?.Dispose()
+
+        ''Added 6/02/2022 thomas 
+        Me.pictureLayoutCenter.BackgroundImage?.Dispose()
+        Me.pictureLayoutMoveable.BackgroundImage?.Dispose()
+        Me.pictureLayoutNormal.BackgroundImage?.Dispose()
+        Me.pictureLayoutStretch.BackgroundImage?.Dispose()
+        Me.pictureLayoutZoom.BackgroundImage?.Dispose()
 
     End Sub
 
@@ -642,5 +747,20 @@ Public Class FormBackgroundEditImage
 
     End Sub
 
+    Private Sub CtlMoveableBackground1_Load(sender As Object, e As EventArgs) Handles CtlMoveableBackground1.Load
 
+    End Sub
+
+    Private Sub LinkLabel1UpdatePreview_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1UpdatePreview.LinkClicked
+
+        ''Added 6/3/2022
+        RefreshPreview()
+
+        ''If (radioLayoutMoveable.Checked) Then
+        ''    TakeScreenshot_Master(CtlMoveableBackground1)
+        ''Else
+        ''    TakeScreenshot_Master()
+        ''End If ''End of ""If (radioLayoutMoveable.Checked) Then... Else..." 
+
+    End Sub
 End Class

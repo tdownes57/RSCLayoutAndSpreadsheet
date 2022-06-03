@@ -14,11 +14,12 @@ Public Class CtlMoveableBackground
     Public Event ElementGraphic_RightClicked(par_control As UserControl) ''Added 5/18/2022 td
     Public Event ElementGraphic_LeftClicked(par_control As UserControl) ''Added 5/18/2022 td
 
-    Private mod_strImageFileLocation As String
+    Private mod_strImageFileLocation As String = ""
     Private mod_designer As New ClassDesigner
     ''5/18/2022 Private mod_objEventsMoveGroupOfCtls As New MonemControlMove_AllFunctionality
     Private mod_objGroupMoveEvents As ciBadgeInterfaces.GroupMoveEvents_Singleton ''(mod_designer)
     Private mod_objSingleMoveEvents As ciBadgeInterfaces.GroupMoveEvents_Singleton ''(mod_designer)
+    Private mod_image As Drawing.Image ''Added 6/3/2022 td
 
     Public Property ImageFileLocation As String
         ''
@@ -35,15 +36,17 @@ Public Class CtlMoveableBackground
     End Property
 
 
-    Public Property Image_NotInUse As Drawing.Image
+    Public Property ImageBackgroundImage As Drawing.Image
         ''
-        ''Added 5/18/2022 
+        ''Added 6/03/2022 
         ''
         Get
-
+            ''Added 6/03/2022 
+            Return mod_image
         End Get
         Set(value As Drawing.Image)
-
+            ''Added 6/03/2022 
+            mod_image = value
         End Set
 
     End Property
@@ -66,6 +69,12 @@ Public Class CtlMoveableBackground
         End If ''End of ""If (ctlMoveable2 IsNot Nothing) Then... ElseIf..."
 
     End Function ''End of ""Public Function GetPictureBox() As PictureBox""
+
+
+    Public Function GetPositionX()
+
+
+        Public Function GetPositionX()
 
 
     Public Sub LoadImageFromFileLocation()
@@ -117,7 +126,12 @@ Public Class CtlMoveableBackground
         End If ''End of ""If (c_boolCreateFreshControl) Then ... Else..."
 
         ''Added 5/18/2022 
-        LoadImageFromFileLocation()
+        If (mod_image Is Nothing) Then
+            LoadImageFromFileLocation()
+        Else
+            ''6/3/2022 ctlMoveable2.LoadImageFromFileLocation(mod_image)
+            ctlMoveable2.LoadImageFromImage(mod_image)
+        End If ''End of ""If (mod_image Is Nothing) Then... Else..." 
 
     End Sub ''End of ""Public Sub Load_Control()""
 

@@ -380,6 +380,17 @@ Public Class CtlGraphicStaticGraphic
     End Sub ''End of ""Public Sub LoadImageFromFileLocation()""
 
 
+    Public Sub LoadImageFromImage(par_image As Drawing.Image)
+        ''
+        ''Added 6/03/2022 
+        ''
+        With pictureStaticGraphic
+            .Image = par_image
+        End With ''End of ""With pictureStaticGraphic""
+
+    End Sub ''End of ""Public Sub LoadImageFromImage()""
+
+
     Public Overrides Sub Refresh_Master()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 

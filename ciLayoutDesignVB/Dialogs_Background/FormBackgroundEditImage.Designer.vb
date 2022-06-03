@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormBackgroundEditImage
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormBackgroundEditImage
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.pictureLayoutNormal = New System.Windows.Forms.PictureBox()
@@ -40,7 +40,6 @@ Partial Class FormBackgroundEditImage
         Me.LabelHeaderPreview = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.labelPushPreviewToBoxes = New System.Windows.Forms.Button()
-        Me.picturePreviewForScrape = New System.Windows.Forms.PictureBox()
         Me.LinkLabel2UndoPush = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel1UpdatePreview = New System.Windows.Forms.LinkLabel()
         Me.LabelMoveableBackground = New System.Windows.Forms.Label()
@@ -49,13 +48,15 @@ Partial Class FormBackgroundEditImage
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.pictureLayoutMoveable = New System.Windows.Forms.PictureBox()
         Me.CtlMoveableBackground1 = New ciBadgeDesigner.CtlMoveableBackground()
+        Me.picturePreviewForScrape = New System.Windows.Forms.PictureBox()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         CType(Me.pictureLayoutNormal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutStretch, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturePreviewForScrape, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutMoveable, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picturePreviewForScrape, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pictureLayoutNormal
@@ -245,16 +246,6 @@ Partial Class FormBackgroundEditImage
         Me.labelPushPreviewToBoxes.UseVisualStyleBackColor = False
         Me.labelPushPreviewToBoxes.Visible = False
         '
-        'picturePreviewForScrape
-        '
-        Me.picturePreviewForScrape.BackColor = System.Drawing.Color.White
-        Me.picturePreviewForScrape.Location = New System.Drawing.Point(256, 101)
-        Me.picturePreviewForScrape.Name = "picturePreviewForScrape"
-        Me.picturePreviewForScrape.Size = New System.Drawing.Size(603, 380)
-        Me.picturePreviewForScrape.TabIndex = 75
-        Me.picturePreviewForScrape.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.picturePreviewForScrape, "This is an editable view of the ID Card (front side).")
-        '
         'LinkLabel2UndoPush
         '
         Me.LinkLabel2UndoPush.BackColor = System.Drawing.Color.Transparent
@@ -282,7 +273,7 @@ Partial Class FormBackgroundEditImage
         'LabelMoveableBackground
         '
         Me.LabelMoveableBackground.AutoSize = True
-        Me.LabelMoveableBackground.Location = New System.Drawing.Point(746, 38)
+        Me.LabelMoveableBackground.Location = New System.Drawing.Point(746, 21)
         Me.LabelMoveableBackground.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelMoveableBackground.Name = "LabelMoveableBackground"
         Me.LabelMoveableBackground.Size = New System.Drawing.Size(246, 13)
@@ -349,6 +340,30 @@ Partial Class FormBackgroundEditImage
         Me.CtlMoveableBackground1.Size = New System.Drawing.Size(349, 225)
         Me.CtlMoveableBackground1.TabIndex = 68
         '
+        'picturePreviewForScrape
+        '
+        Me.picturePreviewForScrape.BackColor = System.Drawing.Color.MistyRose
+        Me.picturePreviewForScrape.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.picturePreviewForScrape.Location = New System.Drawing.Point(284, 118)
+        Me.picturePreviewForScrape.Margin = New System.Windows.Forms.Padding(2)
+        Me.picturePreviewForScrape.Name = "picturePreviewForScrape"
+        Me.picturePreviewForScrape.Size = New System.Drawing.Size(603, 380)
+        Me.picturePreviewForScrape.TabIndex = 74
+        Me.picturePreviewForScrape.TabStop = False
+        Me.picturePreviewForScrape.Visible = False
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.BackColor = System.Drawing.Color.GreenYellow
+        Me.LinkLabel1.Location = New System.Drawing.Point(865, 38)
+        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(127, 21)
+        Me.LinkLabel1.TabIndex = 75
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Click to update Preview"
+        Me.LinkLabel1.Visible = False
+        '
         'FormBackgroundEditImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -379,6 +394,7 @@ Partial Class FormBackgroundEditImage
         Me.Controls.Add(Me.pictureLayoutNormal)
         Me.Controls.Add(Me.pictureLayoutMoveable)
         Me.Controls.Add(Me.picturePreviewForScrape)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormBackgroundEditImage"
@@ -388,8 +404,8 @@ Partial Class FormBackgroundEditImage
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureLayoutStretch, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturePreviewForScrape, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.pictureLayoutMoveable, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picturePreviewForScrape, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -421,4 +437,5 @@ Partial Class FormBackgroundEditImage
     Friend WithEvents ButtonOK As Button
     Friend WithEvents pictureLayoutMoveable As PictureBox
     Friend WithEvents picturePreviewForScrape As PictureBox
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class

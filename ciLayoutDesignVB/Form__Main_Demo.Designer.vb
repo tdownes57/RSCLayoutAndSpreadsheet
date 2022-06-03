@@ -506,7 +506,6 @@ Partial Class Form__Main_Demo
         Me.linkSaveAndRefresh.TabIndex = 42
         Me.linkSaveAndRefresh.TabStop = True
         Me.linkSaveAndRefresh.Text = "Save && Refresh the Window"
-        Me.linkSaveAndRefresh.Visible = False
         '
         'ContextMenuStrip1
         '
@@ -691,14 +690,13 @@ Partial Class Form__Main_Demo
         'LinkRevertToLastSave
         '
         Me.LinkRevertToLastSave.AutoSize = True
-        Me.LinkRevertToLastSave.Location = New System.Drawing.Point(116, 36)
+        Me.LinkRevertToLastSave.Location = New System.Drawing.Point(145, 33)
         Me.LinkRevertToLastSave.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.LinkRevertToLastSave.Name = "LinkRevertToLastSave"
         Me.LinkRevertToLastSave.Size = New System.Drawing.Size(179, 17)
         Me.LinkRevertToLastSave.TabIndex = 63
         Me.LinkRevertToLastSave.TabStop = True
         Me.LinkRevertToLastSave.Text = "Undo / Revert to Last Save"
-        Me.LinkRevertToLastSave.Visible = False
         '
         'LabelPersonalityCurrent
         '
