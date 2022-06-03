@@ -520,7 +520,8 @@ ExitHandler:
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional pobjElementField As ClassElementFieldV4 = Nothing)
+                             Optional pobjElementField As ClassElementFieldV4 = Nothing,
+                             Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -589,7 +590,8 @@ ExitHandler:
             ''Added 9/15/2019 thomas d.
             ''June2 2022 boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
             With Me.ElementInfo_TextOnly
-                boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo) AndAlso
+                boolScaleFontSize = (Not pbSuppressFontScalingConfirmation) AndAlso
+                                    (.FontSize_AutoScaleToElementYesNo) AndAlso
                                      ((Not .FontSize_AutoSizePromptUser) OrElse
                                     MessageBoxTD.Show_Confirm("Resize the font of text?"))
             End With ''End of ""With Me.ElementInfo_TextOnly""

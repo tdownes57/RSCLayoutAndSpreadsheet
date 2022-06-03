@@ -486,14 +486,16 @@ Public Class ClassElementStaticTextV3
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
-    Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer)
+    Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer,
+                       Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''
         ''Added 9/15/2019 td  
         ''
         Dim bScaleFontToElementSize As Boolean ''Added 6/2/2022 
 
         ''Added 6/2/2022
-        bScaleFontToElementSize = (FontSize_AutoScaleToElementYesNo) AndAlso
+        bScaleFontToElementSize = (Not pbSuppressFontScalingConfirmation) AndAlso
+                                  (FontSize_AutoScaleToElementYesNo) AndAlso
                                  ((Not FontSize_AutoSizePromptUser) OrElse
                           MessageBoxTD.Show_Confirm("Resize the font of text?"))
 
