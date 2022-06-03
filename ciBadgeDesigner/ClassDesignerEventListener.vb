@@ -646,12 +646,32 @@ Public Class ClassDesignerEventListener
 
                 End If ''End of "If (.Rotated_180_360) Then"
 
-                ''Added 9/12/2019 td  
+                ''
+                ''Auto-Scaling the Font Size ---6/2/2022 
+                ''
+                Dim bAutoscaleConfirmed As Boolean ''Added 6/02/2022 td
+
+                ''Added 9/12/2019 td
                 With .ElementInfo_TextOnly
-                    If .FontSize_ScaleToElementYesNo Then
+                    If .FontSize_AutoScaleToElementYesNo Then
                         ''Change the Font Size, to account for the new Height of the Element !!
                         ''  ---9/12/2019 td 
-                        .FontSize_Pixels = CSng(ctl_FieldControlLastTouched.Height * .FontSize_ScaleToElementRatio)
+                        ''6/2/2022 .FontSize_Pixels = CSng(ctl_FieldControlLastTouched.Height *
+                        ''                                  .FontSize_ScaleToElementRatio)
+
+                        If (.FontSize_AutoSizePromptUser) Then ''Added 6/02/2022
+                            ''Added 6/02/2022
+                            bAutoscaleConfirmed = (MessageBoxTD.Show_Confirm("Auto-Scale the font?  (Auto-Size)"))
+                        Else
+                            bAutoscaleConfirmed = .FontSize_AutoScaleToElementYesNo
+                        End If ''End of"If (.FontSize_AutoSizePromptUser) Then... Else..." 
+
+                        ''Confirmed?  If so, then 
+                        If (bAutoscaleConfirmed) Then ''Added 6/02/2022
+                            .FontSize_Pixels = CSng(ctl_FieldControlLastTouched.Height *
+                                                    .FontSize_AutoScaleToElementRatio)
+                        End If ''End of ""If (bAutoscaleConfirmed) Then""
+
                     End If ''End of "If .FontSize_ScaleToElementYesNo Then"
                 End With ''End of "With .ElementInfo_Text"
 

@@ -888,4 +888,25 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
+    Private Sub picturePreviewFront_MouseUp(sender As Object, e As MouseEventArgs) Handles picturePreviewFront.MouseUp
+
+        ''Added 6/2/2022 td
+        Static s_intCountEvents As Integer = 0
+        Dim boolConfirm As Boolean
+
+        If (e.Button = MouseButtons.Right) Then
+
+            boolConfirm = MessageBoxTD.Show_Confirm("Open this layout?")
+            If (boolConfirm) Then ButtonOK.PerformClick()
+
+        Else
+            s_intCountEvents += 1
+            If (s_intCountEvents Mod 2 = 0) Then
+                boolConfirm = MessageBoxTD.Show_Confirm("Open this layout?")
+                If (boolConfirm) Then ButtonOK.PerformClick()
+            End If ''End of ""If (s_intCountEvents = 2) Then""
+
+        End If ''End of ""If (e.Button = MouseButtons.Right) Then... Else...""
+
+    End Sub
 End Class

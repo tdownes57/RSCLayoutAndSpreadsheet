@@ -471,7 +471,7 @@ ExitHandler:
         ''
         ''Added 2/02/2022 thomas downes
         ''         
-        ElementInfo_TextOnly.FontSize_ScaleToElementYesNo = False ''False, as we are removing 
+        ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo = False ''False, as we are removing 
         ''  the automated font-resizing. 
 
     End Sub ''end of "Public Sub Remove_Proportional_Resizing_Of_Font_TE1003"
@@ -481,7 +481,7 @@ ExitHandler:
         ''
         ''Added 2/02/2022 thomas downes
         ''         
-        ElementInfo_TextOnly.FontSize_ScaleToElementYesNo = True ''True, as we are restoring 
+        ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo = True ''True, as we are restoring 
         ''  the automated font-resizing. 
 
     End Sub ''end of "Public Sub Remove_Proportional_Resizing_Of_Font_TE1003"

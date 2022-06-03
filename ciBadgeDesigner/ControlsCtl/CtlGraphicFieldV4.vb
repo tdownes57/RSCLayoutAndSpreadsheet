@@ -339,7 +339,7 @@ Public Class CtlGraphicFieldV4
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
-        boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+        boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
         If (boolScaleFontSize And Me.ElementClass_ObjV4 Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
@@ -379,7 +379,14 @@ Public Class CtlGraphicFieldV4
             pictureFieldOrText.Height = Me.ElementInfo_Base.Height_Pixels
 
             ''Added 9/15/2019 thomas d.
-            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+            ''June2 2022 boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
+            ''June2 2022 boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+            With Me.ElementInfo_TextOnly
+                boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo) AndAlso
+                                     ((Not .FontSize_AutoSizePromptUser) OrElse
+                                    MessageBoxTD.Show_Confirm("Resize the font of text?"))
+            End With ''End of ""With Me.ElementInfo_TextOnly""
+
             If (boolScaleFontSize) Then
                 ''Added 9/15/2019 thomas d.
                 ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
@@ -390,9 +397,9 @@ Public Class CtlGraphicFieldV4
 
                         ''Use .Width_Pixels, since .Height_Pixels & .Width_Pixels
                         ''   have been switched due to rotation. ----1/28/2022 td
-                        Me.ElementClass_ObjV4.Font_ScaleAdjustment(.Width_Pixels)
+                        Me.ElementClass_ObjV4.Font_AutoScaleAdjustment(.Width_Pixels)
                     Else
-                        Me.ElementClass_ObjV4.Font_ScaleAdjustment(.Height_Pixels)
+                        Me.ElementClass_ObjV4.Font_AutoScaleAdjustment(.Height_Pixels)
                     End If ''End of "If (Rotated_90_270()) Then ... Else ..."
                 End With ''End of "With Me.ElementInfo_Base"
             End If ''End of "If (boolScaleFontSize) Then"

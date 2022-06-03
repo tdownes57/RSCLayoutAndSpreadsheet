@@ -146,8 +146,12 @@ Public Class ClassElementFieldOrTextV4
 
     ''Added 8/15/2019 thomas downes  
     ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
-    Public Property FontSize_ScaleToElementRatio As Double Implements IElement_TextOnly.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
-    Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_TextOnly.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+    ''6/2/2022 Public Property FontSize_ScaleToElementRatio As Double Implements IElement_TextOnly.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
+    ''6/2/2022 Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_TextOnly.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+
+    Public Property FontSize_AutoScaleToElementRatio As Double Implements IElement_TextOnly.FontSize_AutoScaleToElementRatio ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_AutoScaleToElementYesNo As Boolean = True Implements IElement_TextOnly.FontSize_AutoScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_AutoSizePromptUser As Boolean = True Implements IElement_TextOnly.FontSize_AutoSizePromptUser ''Added 6/02/2022 thomas downes  
 
 
     Public Property FontOffset_X As Integer Implements IElement_TextOnly.FontOffset_X ''Added 8/15/2019 thomas downes  
@@ -904,8 +908,12 @@ Public Class ClassElementFieldOrTextV4
         Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
         Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
         Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
-        Me.FontSize_ScaleToElementRatio = par_ElementInfo_Text.FontSize_ScaleToElementRatio
-        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_Text.FontSize_ScaleToElementYesNo
+        ''6/2/2022 Me.FontSize_ScaleToElementRatio = par_ElementInfo_Text.FontSize_ScaleToElementRatio
+        ''6/2/2022 Me.FontSize_ScaleToElementYesNo = par_ElementInfo_Text.FontSize_ScaleToElementYesNo
+        Me.FontSize_AutoScaleToElementRatio = par_ElementInfo_Text.FontSize_AutoScaleToElementRatio
+        Me.FontSize_AutoScaleToElementYesNo = par_ElementInfo_Text.FontSize_AutoScaleToElementYesNo
+        Me.FontSize_AutoSizePromptUser = par_ElementInfo_Text.FontSize_AutoSizePromptUser ''Added 6/2/2022
+
         Me.FontUnderline = par_ElementInfo_Text.FontUnderline
         Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
 
@@ -917,18 +925,21 @@ Public Class ClassElementFieldOrTextV4
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
-    Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer)
+    Public Sub Font_AutoScaleAdjustment(par_intNewHeightInPixels As Integer)
+        ''June2 2022 Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer) 
         ''
+        ''Renamed 6/02/2022 td 
         ''Added 9/15/2019 td  
         ''
-        If FontSize_ScaleToElementYesNo Then
+        ''6/2/2022 If FontSize_ScaleToElementYesNo Then
+        If FontSize_AutoScaleToElementYesNo Then
 
-            FontSize_Pixels = CSng(FontSize_ScaleToElementRatio * par_intNewHeightInPixels)
+            FontSize_Pixels = CSng(FontSize_AutoScaleToElementRatio * par_intNewHeightInPixels)
             Font_DrawingClass = modFonts.SetFontSize_Pixels(Font_DrawingClass, FontSize_Pixels)
 
-        End If ''End of "If FontSize_ScaleToElementYesNo Then"
+        End If ''End of "If FontSize_AutoScaleToElementYesNo Then"
 
-    End Sub ''End of "Public Sub Font_ScaleAdjustment()" 
+    End Sub ''End of "Public Sub Font_AutoScaleAdjustment()" 
 
     Public Shared Sub CheckWidthVsLength_OfText(intWidth As Integer, intHeight As Integer, boolRotated As Boolean)
         ''

@@ -19,8 +19,19 @@ Public Interface IElement_TextOnly
     Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
     Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
-    Property FontSize_ScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
-    Property FontSize_ScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
+    ''6/02/2022  Property FontSize_AutoScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
+    ''6/02/2022  Property FontSize_AutoScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
+
+    Property FontSize_AutoScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
+    Property FontSize_AutoScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
+
+    ''Let's use suffix "_AutoSize" instead of the suffix "_AutoScale", since we have already 
+    ''   used this suffix in two(2) other properties. This is for the purposes of 
+    ''   running Ctrl-F on the following keywords:
+    ''   KEYWORDS: Font, AutoSize, AutoScale, FontSize, FontSizing, font-sizing, font-scaling 
+    ''       auto-sizing, auto-scaling.   
+    ''----June2 2022 td
+    Property FontSize_AutoSizePromptUser As Boolean '' = True ''Added 6/02/2022 thomas downes  
 
     Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes  
     Property FontOffset_Y As Integer ''Added 8/15/2019 thomas downes  

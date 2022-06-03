@@ -424,7 +424,7 @@ namespace ciBadgeGenerator
             // Load image with static texts.  
             //
             // Added 1/31/2022 td //LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
-            objAssistant.LoadImageWithStaticTexts(ref obj_imageOutput,
+             objAssistant.LoadImageWithStaticTexts(ref obj_imageOutput,
                                      listOfElementStaticTextsV3,
                                      listOfElementStaticTextsV4);
 

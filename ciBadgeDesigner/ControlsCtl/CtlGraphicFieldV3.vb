@@ -564,7 +564,13 @@ ExitHandler:
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
-        boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+        ''6/2/2022 boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
+        With Me.ElementInfo_TextOnly
+            boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo) AndAlso
+                                     ((Not .FontSize_AutoSizePromptUser) OrElse
+                                    MessageBoxTD.Show_Confirm("Resize the font of text?"))
+        End With ''End of ""With Me.ElementInfo_TextOnly""
+
         If (boolScaleFontSize And Me.ElementClass_ObjV3 Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
@@ -604,7 +610,7 @@ ExitHandler:
             pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
 
             ''Added 9/15/2019 thomas d.
-            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
             If (boolScaleFontSize) Then
                 ''Added 9/15/2019 thomas d.
                 ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)

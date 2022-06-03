@@ -105,6 +105,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterfaceDesignerForm.vb" />
+    <Compile Include="MessageBoxTD.vb" />
     <Compile Include="modFonts.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

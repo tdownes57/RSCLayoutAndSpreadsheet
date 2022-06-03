@@ -7,7 +7,7 @@ Imports System.Drawing ''Added 9/18/2019 td
 Imports System.Drawing.Text ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 9/61/2019 thomas d. 
-Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.  
+Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.
 
 <Serializable>
 Public Class ClassElementStaticTextV3
@@ -56,9 +56,9 @@ Public Class ClassElementStaticTextV3
 
     ''Added 8/15/2019 thomas downes  
     ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  
-    Public Property FontSize_ScaleToElementRatio As Double Implements IElement_TextOnly.FontSize_ScaleToElementRatio ''Added 9/12/2019 thomas downes  
-    Public Property FontSize_ScaleToElementYesNo As Boolean = True Implements IElement_TextOnly.FontSize_ScaleToElementYesNo ''Added 9/12/2019 thomas downes  
-
+    Public Property FontSize_AutoScaleToElementRatio As Double Implements IElement_TextOnly.FontSize_AutoScaleToElementRatio ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_AutoScaleToElementYesNo As Boolean = True Implements IElement_TextOnly.FontSize_AutoScaleToElementYesNo ''Added 9/12/2019 thomas downes  
+    Public Property FontSize_AutoSizePromptUser As Boolean = True Implements IElement_TextOnly.FontSize_AutoSizePromptUser ''Added 6/2/2022
 
     Public Property FontOffset_X As Integer Implements IElement_TextOnly.FontOffset_X ''Added 8/15/2019 thomas downes  
     Public Property FontOffset_Y As Integer Implements IElement_TextOnly.FontOffset_Y ''Added 8/15/2019 thomas downes  
@@ -445,6 +445,11 @@ Public Class ClassElementStaticTextV3
         ''9/16/2019 td''Me.ExampleValue = par_ElementInfo_Text.ExampleValue
         ''9/16/2019 td''Me.FieldInCardData = par_ElementInfo_Text.FieldInCardData
 
+        ''Added 6/2/2022 td
+        If (par_ElementInfo_Text Is Nothing) Then
+            Throw New ArgumentNullException("par_ElementInfo_Text")
+        End If ''End of ""If (par_ElementInfo_Text Is Nothing) Then""
+
         Me.FontBold = par_ElementInfo_Text.FontBold
         Me.FontColor = par_ElementInfo_Text.FontColor
         Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
@@ -452,8 +457,10 @@ Public Class ClassElementStaticTextV3
         Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
         Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
         Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
-        Me.FontSize_ScaleToElementRatio = par_ElementInfo_Text.FontSize_ScaleToElementRatio
-        Me.FontSize_ScaleToElementYesNo = par_ElementInfo_Text.FontSize_ScaleToElementYesNo
+        Me.FontSize_AutoScaleToElementRatio = par_ElementInfo_Text.FontSize_AutoScaleToElementRatio
+        Me.FontSize_AutoScaleToElementYesNo = par_ElementInfo_Text.FontSize_AutoScaleToElementYesNo
+        Me.FontSize_AutoSizePromptUser = par_ElementInfo_Text.FontSize_AutoSizePromptUser ''Added 6/2/2022 td
+
         Me.FontUnderline = par_ElementInfo_Text.FontUnderline
         Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
 
@@ -483,20 +490,31 @@ Public Class ClassElementStaticTextV3
         ''
         ''Added 9/15/2019 td  
         ''
-        If FontSize_ScaleToElementYesNo Then
+        Dim bScaleFontToElementSize As Boolean ''Added 6/2/2022 
+
+        ''Added 6/2/2022
+        bScaleFontToElementSize = (FontSize_AutoScaleToElementYesNo) AndAlso
+                                 ((Not FontSize_AutoSizePromptUser) OrElse
+                          MessageBoxTD.Show_Confirm("Resize the font of text?"))
+
+        ''6/2/2022  If (FontSize_AutoScaleToElementYesNo) Then 
+        If (bScaleFontToElementSize) Then
 
             ''Added 11/24/2021 thomas d. 
-            If (0 = FontSize_ScaleToElementRatio) Then
+            If (0 = FontSize_AutoScaleToElementRatio) Then
                 ''Added 11/24/2021 thomas d. 
-                FontSize_ScaleToElementRatio = 0.8
+                FontSize_AutoScaleToElementRatio = 0.8
             End If ''End of "If (0 = FontSize_ScaleToElementRatio) Then"
 
-            FontSize_Pixels = CSng(FontSize_ScaleToElementRatio * par_intNewHeightInPixels)
+            FontSize_Pixels = CSng(FontSize_AutoScaleToElementRatio *
+                                     par_intNewHeightInPixels)
             Font_DrawingClass = modFonts.SetFontSize_Pixels(Font_DrawingClass, FontSize_Pixels)
 
-        End If ''End of "If FontSize_ScaleToElementYesNo Then"
+        End If ''End of "If (bScaleFontToElementSize Then"
+
 
     End Sub ''End of "Public Sub Font_ScaleAdjustment()" 
+
 
     Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
         Throw New NotImplementedException()

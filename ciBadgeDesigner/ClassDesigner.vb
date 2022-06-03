@@ -2689,10 +2689,11 @@ Public Class ClassDesigner
 
                 ''Added 9/12/2019 td 
                 ''9/12/2019 td''.FontSize_IsLocked = True 
-                If (.FontSize_ScaleToElementRatio = 0) Then
-                    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+                ''6/02/220 td''If (.FontSize_ScaleToElementRatio = 0) Then
+                If (.FontSize_AutoScaleToElementRatio = 0) Then
+                    .FontSize_AutoScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
                     ''----.FontSize_ScaleToElementYesNo = True
-                End If ''End of "If (.FontSize_ScaleToElementRatio = 0) Then"
+                End If ''End of "If (.FontSize_AutoScaleToElementRatio = 0) Then"
 
             End With 'End of "With each_element"
 
@@ -2880,8 +2881,9 @@ Public Class ClassDesigner
                     .FontSize_Pixels = 25
                 End If ''End of "If (.FontSize_Pixels = 0) Then"
 
-                If (.FontSize_ScaleToElementRatio = 0) Then
-                    .FontSize_ScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
+                ''---June2 2022---If (.FontSize_ScaleToElementRatio = 0) Then
+                If (.FontSize_AutoScaleToElementRatio = 0) Then
+                    .FontSize_AutoScaleToElementRatio = (.FontSize_Pixels / .Height_Pixels)
                     ''----.FontSize_ScaleToElementYesNo = True
                 End If ''End of "If (.FontSize_ScaleToElementRatio = 0) Then"
 
@@ -4250,13 +4252,25 @@ Public Class ClassDesigner
                 End If ''End of "If (.Rotated_180_360) Then"
 
                 ''Added 9/12/2019 td  
+                Dim bAutoscaleConfirmed As Boolean ''Added 6/2/2022 thomas
                 If (TypeOf mod_RSCControlLastTouched Is ICtlElement_TextAny) Then ''Added 1/12/2022
                     With CType(mod_RSCControlLastTouched, ICtlElement_TextAny)
                         With .ElementInfo_TextOnly ''Jan11 2022 ''With .ElementInfo_Text
-                            If .FontSize_ScaleToElementYesNo Then
+                            If .FontSize_AutoScaleToElementYesNo Then
+
                                 ''Change the Font Size, to account for the new Height of the Element !!
-                                ''  ---9/12/2019 td 
-                                .FontSize_Pixels = CSng(mod_RSCControlLastTouched.Height * .FontSize_ScaleToElementRatio)
+                                ''  ---9/12/2019 td0
+                                If (.FontSize_AutoSizePromptUser) Then
+                                    bAutoscaleConfirmed = (MessageBoxTD.Show_Confirm("Auto-Scale the font?  (Auto-Size)"))
+                                Else
+                                    bAutoscaleConfirmed = .FontSize_AutoScaleToElementYesNo
+                                End If ''End of"If (.FontSize_AutoSizePromptUser) Then... Else..." 
+
+                                ''Confirmed?  If so, then 
+                                If (bAutoscaleConfirmed) Then
+                                    .FontSize_Pixels = CSng(mod_RSCControlLastTouched.Height * .FontSize_AutoScaleToElementRatio)
+                                End If ''End of ""If (bAutoscaleConfirmed) Then""
+
                             End If ''End of "If .FontSize_ScaleToElementYesNo Then"
                         End With ''End of "With .ElementInfo_Text"
                     End With ''End of "With CType(mod_RSCControlLastTouched, ICtlElement_TextAny)"

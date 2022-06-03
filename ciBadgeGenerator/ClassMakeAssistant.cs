@@ -64,7 +64,6 @@ namespace ciBadgeGenerator
     //
     //End Sub ''end of "Private Sub RefreshPreview()"
 
-
     public class ClassMakeAssistant
     {
         //
@@ -83,6 +82,16 @@ namespace ciBadgeGenerator
         private const bool mod_cbOkayToUseExampleQRCode = false; //Added 1/17/2022 td
         private const bool c_bDontPreviewConditionalElems = false;  //Added 5/29/2022
 
+        private string _vbCrLf
+        {
+            //Added 6/2/2022 td
+            get
+            {
+                //return char.ConvertFromUtf32(32) +
+                //       char.ConvertFromUtf32(12);
+                return Environment.NewLine; 
+            }
+        }
 
         public Image ElementFieldToImage(ClassElementFieldV3 par_elementField,
                                             IBadgeLayoutDimensions par_layoutDimensions,
@@ -1741,6 +1750,13 @@ namespace ciBadgeGenerator
             //Added 12/26/2021 td
             //
             string strTextToDisplay = par_elementStaticV3.Text_StaticLine;
+            bool bMultiline = par_elementStaticV3.Text_IsMultiLine;
+            if (bMultiline && (par_elementStaticV3.Text_ListOfLines != null &&
+                               par_elementStaticV3.Text_ListOfLines.Count > 1))
+            {
+                strTextToDisplay = par_elementStaticV3.Text_ListOfLines[0] + _vbCrLf +
+                                   par_elementStaticV3.Text_ListOfLines[1];
+            }
 
             WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();
             WhyOmitted_StructV2 structWhyOmittedV2 = new WhyOmitted_StructV2();

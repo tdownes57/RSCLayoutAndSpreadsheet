@@ -242,141 +242,141 @@ Public Class MessageBoxTD
     End Function ''End of ""Public Shared Function Show_Confirm"" 
 
 
-    Public Shared Function AskHowMany(pstrHowMany As String,
-                    psingFactorWidth As Single,
-                    psingFactorHeight As Single,
-                    psingLimitOfNumberMin As Single,
-                    psingLimitOfNumberMax As Single,
-                    Optional pboolUseTextbox As Boolean = False,
-                    Optional pboolDecimalValuesOK As Boolean = False,
-                    Optional ByRef prefUserCancelled As Boolean = False) As Integer
-        ''
-        ''Added 12/28/2021 thomas downes
-        ''
-        Dim formToShow As FormHowMany
+    ''Public Shared Function AskHowMany(pstrHowMany As String,
+    ''                psingFactorWidth As Single,
+    ''                psingFactorHeight As Single,
+    ''                psingLimitOfNumberMin As Single,
+    ''                psingLimitOfNumberMax As Single,
+    ''                Optional pboolUseTextbox As Boolean = False,
+    ''                Optional pboolDecimalValuesOK As Boolean = False,
+    ''                Optional ByRef prefUserCancelled As Boolean = False) As Integer
+    ''    ''
+    ''    ''Added 12/28/2021 thomas downes
+    ''    ''
+    ''    Dim formToShow As FormHowMany
 
-        formToShow = New FormHowMany(pstrHowMany, psingFactorWidth, psingFactorHeight,
-            psingLimitOfNumberMin, psingLimitOfNumberMax, pboolUseTextbox, pboolDecimalValuesOK)
+    ''    formToShow = New FormHowMany(pstrHowMany, psingFactorWidth, psingFactorHeight,
+    ''        psingLimitOfNumberMin, psingLimitOfNumberMax, pboolUseTextbox, pboolDecimalValuesOK)
 
-        formToShow.ShowDialog()
+    ''    formToShow.ShowDialog()
 
-        If (formToShow.DialogResult = DialogResult.Cancel) Then
-            prefUserCancelled = True  ''Aded 5/13/2022
-            Return -1
-        ElseIf (formToShow.DialogResult <> DialogResult.OK) Then
-            prefUserCancelled = True  ''Aded 5/13/2022
-            Return -1
-        End If
+    ''    If (formToShow.DialogResult = DialogResult.Cancel) Then
+    ''        prefUserCancelled = True  ''Aded 5/13/2022
+    ''        Return -1
+    ''    ElseIf (formToShow.DialogResult <> DialogResult.OK) Then
+    ''        prefUserCancelled = True  ''Aded 5/13/2022
+    ''        Return -1
+    ''    End If
 
-        Return formToShow.HowManySpecified
+    ''    Return formToShow.HowManySpecified
 
-    End Function ''End of "Public Shared Function AskHowMany"
-
-
-    Public Shared Function Show_Editor(pstrHeading As String,
-                                       pstrOriginalTextToEdit As String,
-                 psingFactorWidth As Single,
-                 psingFactorHeight As Single,
-                 ByRef pstrFinalEditedText As String) As DialogResult
-        ''
-        ''Added 12/28/2021 thomas downes
-        ''
-        Dim formToShow As FormTextEditor
-
-        formToShow = New FormTextEditor(pstrHeading,
-                                     psingFactorWidth, psingFactorHeight,
-                                      pstrOriginalTextToEdit)
-
-        formToShow.ShowDialog()
-
-        ''If (formToShow.DialogResult = DialogResult.Cancel) Then Return -1
-        ''If (formToShow.DialogResult <> DialogResult.OK) Then Return -1
-
-        If (formToShow.DialogResult = DialogResult.OK) Then
-
-            pstrFinalEditedText = formToShow.EditedOutputValue
-
-        Else
-            ''Return the original text, unedited. 
-            pstrFinalEditedText = pstrOriginalTextToEdit
-
-        End If ''End of ""If (formToShow.DialogResult = ......)
-
-        Return formToShow.DialogResult
-
-    End Function ''End of "Public Shared Function Show_Editor"
+    ''End Function ''End of "Public Shared Function AskHowMany"
 
 
-    Public Shared Function Show_StatementLongform(pstrHeading As String,
-                                       pstrTextInLongorm As String,
-                 psingFactorWidth As Single,
-                 psingFactorHeight As Single,
-                 Optional pboolShowCancelButton As Boolean = True) As DialogResult
-        ''
-        ''Added 5/13/2022 thomas downes
-        ''
-        Dim formToShow As FormMessageLongform
+    ''Public Shared Function Show_Editor(pstrHeading As String,
+    ''                                   pstrOriginalTextToEdit As String,
+    ''             psingFactorWidth As Single,
+    ''             psingFactorHeight As Single,
+    ''             ByRef pstrFinalEditedText As String) As DialogResult
+    ''    ''
+    ''    ''Added 12/28/2021 thomas downes
+    ''    ''
+    ''    Dim formToShow As FormTextEditor
 
-        formToShow = New FormMessageLongform(pstrHeading,
-                                     psingFactorWidth, psingFactorHeight,
-                                      pstrTextInLongorm, pboolShowCancelButton)
+    ''    formToShow = New FormTextEditor(pstrHeading,
+    ''                                 psingFactorWidth, psingFactorHeight,
+    ''                                  pstrOriginalTextToEdit)
 
-        formToShow.ShowDialog()
-        Return formToShow.DialogResult
+    ''    formToShow.ShowDialog()
 
-    End Function ''End of "Public Shared Function Show_StatementLongform"
+    ''    ''If (formToShow.DialogResult = DialogResult.Cancel) Then Return -1
+    ''    ''If (formToShow.DialogResult <> DialogResult.OK) Then Return -1
 
+    ''    If (formToShow.DialogResult = DialogResult.OK) Then
 
-    Public Shared Function Show_SpecialButton(pstrHeading As String,
-                                       pstrTextInLongorm As String,
-                 psingFactorWidth As Single,
-                 psingFactorHeight As Single,
-                 pstrCaptionOfButton As String,
-                 ByRef pref_bUserPressedIt As Boolean) As DialogResult
-        ''
-        ''Added 5/13/2022 thomas downes
-        ''
-        Dim formToShow As FormSpecialButton
+    ''        pstrFinalEditedText = formToShow.EditedOutputValue
 
-        formToShow = New FormSpecialButton(pstrHeading,
-                                     psingFactorWidth, psingFactorHeight,
-                                      pstrTextInLongorm, pstrCaptionOfButton)
+    ''    Else
+    ''        ''Return the original text, unedited. 
+    ''        pstrFinalEditedText = pstrOriginalTextToEdit
 
-        formToShow.ShowDialog()
-        pref_bUserPressedIt = formToShow.SpecialButtonWasPressed
-        Return formToShow.DialogResult
+    ''    End If ''End of ""If (formToShow.DialogResult = ......)
 
-    End Function ''End of "Public Shared Function Show_SpecialButton"
+    ''    Return formToShow.DialogResult
+
+    ''End Function ''End of "Public Shared Function Show_Editor"
 
 
-    Public Shared Function InputBox_Longform(pstrInstructions As String,
-                                             pstrFinalPrompt As String,
-                    psingFactorWidth As Single,
-                    psingFactorHeight As Single,
-                    Optional ByRef prefUserCancelled As Boolean = False,
-                    Optional pstrDefaultResponse As String = "") As String
-        ''
-        ''Added 5/23/2022 thomas downes
-        ''
-        Dim formToShow As FormInputBox
+    ''Public Shared Function Show_StatementLongform(pstrHeading As String,
+    ''                                   pstrTextInLongorm As String,
+    ''             psingFactorWidth As Single,
+    ''             psingFactorHeight As Single,
+    ''             Optional pboolShowCancelButton As Boolean = True) As DialogResult
+    ''    ''
+    ''    ''Added 5/13/2022 thomas downes
+    ''    ''
+    ''    Dim formToShow As FormMessageLongform
 
-        formToShow = New FormInputBox(pstrInstructions, pstrFinalPrompt,
-                                      psingFactorWidth, psingFactorHeight,
-                                      pstrDefaultResponse)
+    ''    formToShow = New FormMessageLongform(pstrHeading,
+    ''                                 psingFactorWidth, psingFactorHeight,
+    ''                                  pstrTextInLongorm, pboolShowCancelButton)
 
-        formToShow.ShowDialog()
+    ''    formToShow.ShowDialog()
+    ''    Return formToShow.DialogResult
 
-        If (formToShow.DialogResult = DialogResult.Cancel) Then
-            prefUserCancelled = True  ''Aded 5/13/2022
-            Return ""
-        ElseIf (formToShow.DialogResult <> DialogResult.OK) Then
-            prefUserCancelled = True  ''Aded 5/13/2022
-            Return ""
-        End If
+    ''End Function ''End of "Public Shared Function Show_StatementLongform"
 
-        Return formToShow.UsersEditedResponse
 
-    End Function ''End of "Public Shared Function InputBox_Longform"
+    ''Public Shared Function Show_SpecialButton(pstrHeading As String,
+    ''                                   pstrTextInLongorm As String,
+    ''             psingFactorWidth As Single,
+    ''             psingFactorHeight As Single,
+    ''             pstrCaptionOfButton As String,
+    ''             ByRef pref_bUserPressedIt As Boolean) As DialogResult
+    ''    ''
+    ''    ''Added 5/13/2022 thomas downes
+    ''    ''
+    ''    Dim formToShow As FormSpecialButton
+
+    ''    formToShow = New FormSpecialButton(pstrHeading,
+    ''                                 psingFactorWidth, psingFactorHeight,
+    ''                                  pstrTextInLongorm, pstrCaptionOfButton)
+
+    ''    formToShow.ShowDialog()
+    ''    pref_bUserPressedIt = formToShow.SpecialButtonWasPressed
+    ''    Return formToShow.DialogResult
+
+    ''End Function ''End of "Public Shared Function Show_SpecialButton"
+
+
+    ''Public Shared Function InputBox_Longform(pstrInstructions As String,
+    ''                                         pstrFinalPrompt As String,
+    ''                psingFactorWidth As Single,
+    ''                psingFactorHeight As Single,
+    ''                Optional ByRef prefUserCancelled As Boolean = False,
+    ''                Optional pstrDefaultResponse As String = "") As String
+    ''    ''
+    ''    ''Added 5/23/2022 thomas downes
+    ''    ''
+    ''    Dim formToShow As FormInputBox
+
+    ''    formToShow = New FormInputBox(pstrInstructions, pstrFinalPrompt,
+    ''                                  psingFactorWidth, psingFactorHeight,
+    ''                                  pstrDefaultResponse)
+
+    ''    formToShow.ShowDialog()
+
+    ''    If (formToShow.DialogResult = DialogResult.Cancel) Then
+    ''        prefUserCancelled = True  ''Aded 5/13/2022
+    ''        Return ""
+    ''    ElseIf (formToShow.DialogResult <> DialogResult.OK) Then
+    ''        prefUserCancelled = True  ''Aded 5/13/2022
+    ''        Return ""
+    ''    End If
+
+    ''    Return formToShow.UsersEditedResponse
+
+    ''End Function ''End of "Public Shared Function InputBox_Longform"
 
 
 

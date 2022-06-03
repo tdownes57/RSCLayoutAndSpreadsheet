@@ -172,7 +172,10 @@ Public Class DialogTextOffset
                 .TextAlignment = Me.ElementCopy_Info_Text.TextAlignment ''Added 9/19/2019 td
 
                 ''Added 9/19/2019 td
-                .FontSize_ScaleToElementYesNo = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
+                .FontSize_AutoScaleToElementYesNo = Me.ElementCopy_Info_Text.FontSize_AutoScaleToElementYesNo
+                ''Added 6/2/2022
+                .FontSize_AutoScaleToElementRatio = Me.ElementCopy_Info_Text.FontSize_AutoScaleToElementRatio
+                .FontSize_AutoSizePromptUser = Me.ElementCopy_Info_Text.FontSize_AutoSizePromptUser
 
             End With
 
@@ -260,7 +263,7 @@ Public Class DialogTextOffset
         ''
         ''Does the font size scale to the element height???
         ''
-        checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
+        checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_AutoScaleToElementYesNo
 
     End Sub ''End of "Public Sub LoadFieldAndFormV3(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -331,7 +334,7 @@ Public Class DialogTextOffset
         ''
         ''Does the font size scale to the element height???
         ''
-        checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo
+        checkFontSizeScalesYN.Checked = Me.ElementCopy_Info_Text.FontSize_AutoScaleToElementYesNo
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -365,7 +368,7 @@ Public Class DialogTextOffset
         Me.ctlTextOffsetY.ElementInfo_Text = par_infoElementTextOnly
         Me.ctlTextOffsetY.InitiateLocalValue() ''Added 9/19/2019 td
 
-        checkFontSizeScalesYN.Checked = par_infoElementTextOnly.FontSize_ScaleToElementYesNo
+        checkFontSizeScalesYN.Checked = par_infoElementTextOnly.FontSize_AutoScaleToElementYesNo
 
 
     End Sub ''end of ""Public Sub LoadElementInfoText()""
@@ -731,7 +734,7 @@ Public Class DialogTextOffset
         ''Added 9/12/2019 thomas d.
         ''9/18/2019 td''Me.ElementInfo_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
         If (Me.ElementCopy_Info_Text IsNot Nothing) Then
-            Me.ElementCopy_Info_Text.FontSize_ScaleToElementYesNo = checkFontSizeScalesYN.Checked
+            Me.ElementCopy_Info_Text.FontSize_AutoScaleToElementYesNo = checkFontSizeScalesYN.Checked
             ''Added 9/23/2019 td
             CtlFontSize.Enabled = (Not checkFontSizeScalesYN.Checked) ''Added 9/23/2019 td
         End If ''End of "If (Me.ElementCopy_Info_Text IsNot Nothing) Then"

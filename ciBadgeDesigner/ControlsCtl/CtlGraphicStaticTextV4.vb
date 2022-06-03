@@ -383,18 +383,37 @@ Public Class CtlGraphicStaticTextV4
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
-        boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+        ''6/2/2022 td''boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+
+
         If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-        End If ''End of "If (boolScaleFontSize) Then"
+
+            ''6/2/2022 td''boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
+            With Me.ElementInfo_TextOnly
+                boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo) AndAlso
+                      ((Not .FontSize_AutoSizePromptUser) OrElse
+                     MessageBoxTD.Show_Confirm("Resize the font of text?"))
+            End With ''End of ""With Me.ElementInfo_TextOnly""
+
+        ElseIf (boolScaleFontSize) Then
+
+            ''Added 6/2/2022
+            With Me.ElementClass_Obj
+                boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo) AndAlso
+                      ((Not .FontSize_AutoSizePromptUser) OrElse
+                     MessageBoxTD.Show_Confirm("Resize the font of text?"))
+            End With ''End of ""With Me.ElementClass_Obj""
+
+        End If ''End of "If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then ... ElseIf (boolScaleFontSize) ..."
 
         If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then
             ''
             ''Initialize the font. 
             ''
-            ''9/6/2019 tdMe.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
+            ''9/6/2019 td ''Me.ElementInfo_Text.Font_DrawingClass = New Font("Times New Roman", 15, FontStyle.Regular)
 
             With Me.ElementInfo_TextOnly
                 ''9/6/2019 td''.FontSize = 15
@@ -423,7 +442,7 @@ Public Class CtlGraphicStaticTextV4
             pictureFieldOrText.Height = Me.ElementInfo_Base.Height_Pixels
 
             ''Added 9/15/2019 thomas d.
-            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
+            ''See above.6/2/2022''boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
             If (boolScaleFontSize) Then
                 ''Added 9/15/2019 thomas d.
                 ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
@@ -434,11 +453,13 @@ Public Class CtlGraphicStaticTextV4
 
                         ''Use .Width_Pixels, since .Height_Pixels & .Width_Pixels
                         ''   have been switched due to rotation. ----1/28/2022 td
-                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Width_Pixels)
+                        Me.ElementClass_Obj.Font_AutoScaleAdjustment(.Width_Pixels)
                     Else
-                        Me.ElementClass_Obj.Font_ScaleAdjustment(.Height_Pixels)
+                        Me.ElementClass_Obj.Font_AutoScaleAdjustment(.Height_Pixels)
                     End If ''End of "If (Rotated_90_270()) Then ... Else ..."
+
                 End With ''End of "With Me.ElementInfo_Base"
+
             End If ''End of "If (boolScaleFontSize) Then"
 
         End If ''end if "If (pbRefreshSize) then"
