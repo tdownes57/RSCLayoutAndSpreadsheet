@@ -64,7 +64,7 @@ Partial Class FormBackgroundEditImage
         Me.pictureLayoutNormal.BackColor = System.Drawing.Color.White
         Me.pictureLayoutNormal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.pictureLayoutNormal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureLayoutNormal.Location = New System.Drawing.Point(28, 54)
+        Me.pictureLayoutNormal.Location = New System.Drawing.Point(35, 319)
         Me.pictureLayoutNormal.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureLayoutNormal.Name = "pictureLayoutNormal"
         Me.pictureLayoutNormal.Size = New System.Drawing.Size(350, 225)
@@ -76,7 +76,7 @@ Partial Class FormBackgroundEditImage
         Me.pictureLayoutCenter.BackColor = System.Drawing.Color.White
         Me.pictureLayoutCenter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.pictureLayoutCenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureLayoutCenter.Location = New System.Drawing.Point(388, 54)
+        Me.pictureLayoutCenter.Location = New System.Drawing.Point(393, 318)
         Me.pictureLayoutCenter.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureLayoutCenter.Name = "pictureLayoutCenter"
         Me.pictureLayoutCenter.Size = New System.Drawing.Size(350, 225)
@@ -88,7 +88,7 @@ Partial Class FormBackgroundEditImage
         '
         Me.pictureLayoutZoom.BackColor = System.Drawing.Color.White
         Me.pictureLayoutZoom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureLayoutZoom.Location = New System.Drawing.Point(31, 318)
+        Me.pictureLayoutZoom.Location = New System.Drawing.Point(35, 54)
         Me.pictureLayoutZoom.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureLayoutZoom.Name = "pictureLayoutZoom"
         Me.pictureLayoutZoom.Size = New System.Drawing.Size(350, 226)
@@ -100,7 +100,7 @@ Partial Class FormBackgroundEditImage
         '
         Me.pictureLayoutStretch.BackColor = System.Drawing.Color.White
         Me.pictureLayoutStretch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureLayoutStretch.Location = New System.Drawing.Point(389, 319)
+        Me.pictureLayoutStretch.Location = New System.Drawing.Point(393, 55)
         Me.pictureLayoutStretch.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureLayoutStretch.Name = "pictureLayoutStretch"
         Me.pictureLayoutStretch.Size = New System.Drawing.Size(350, 225)
@@ -111,7 +111,7 @@ Partial Class FormBackgroundEditImage
         'LabelLayoutNone
         '
         Me.LabelLayoutNone.AutoSize = True
-        Me.LabelLayoutNone.Location = New System.Drawing.Point(28, 38)
+        Me.LabelLayoutNone.Location = New System.Drawing.Point(35, 303)
         Me.LabelLayoutNone.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelLayoutNone.Name = "LabelLayoutNone"
         Me.LabelLayoutNone.Size = New System.Drawing.Size(174, 13)
@@ -121,7 +121,7 @@ Partial Class FormBackgroundEditImage
         'labelBackgroundCenter
         '
         Me.labelBackgroundCenter.AutoSize = True
-        Me.labelBackgroundCenter.Location = New System.Drawing.Point(386, 38)
+        Me.labelBackgroundCenter.Location = New System.Drawing.Point(393, 303)
         Me.labelBackgroundCenter.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.labelBackgroundCenter.Name = "labelBackgroundCenter"
         Me.labelBackgroundCenter.Size = New System.Drawing.Size(169, 13)
@@ -131,7 +131,7 @@ Partial Class FormBackgroundEditImage
         'LabelBackgroundScarier
         '
         Me.LabelBackgroundScarier.AutoSize = True
-        Me.LabelBackgroundScarier.Location = New System.Drawing.Point(28, 301)
+        Me.LabelBackgroundScarier.Location = New System.Drawing.Point(32, 37)
         Me.LabelBackgroundScarier.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelBackgroundScarier.Name = "LabelBackgroundScarier"
         Me.LabelBackgroundScarier.Size = New System.Drawing.Size(165, 13)
@@ -141,7 +141,7 @@ Partial Class FormBackgroundEditImage
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(386, 301)
+        Me.Label4.Location = New System.Drawing.Point(390, 37)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(172, 13)
@@ -151,7 +151,7 @@ Partial Class FormBackgroundEditImage
         'radioLayoutNormal
         '
         Me.radioLayoutNormal.AutoSize = True
-        Me.radioLayoutNormal.Location = New System.Drawing.Point(242, 36)
+        Me.radioLayoutNormal.Location = New System.Drawing.Point(249, 301)
         Me.radioLayoutNormal.Margin = New System.Windows.Forms.Padding(2)
         Me.radioLayoutNormal.Name = "radioLayoutNormal"
         Me.radioLayoutNormal.Size = New System.Drawing.Size(89, 17)
@@ -163,7 +163,7 @@ Partial Class FormBackgroundEditImage
         'radioLayoutCenter
         '
         Me.radioLayoutCenter.AutoSize = True
-        Me.radioLayoutCenter.Location = New System.Drawing.Point(614, 36)
+        Me.radioLayoutCenter.Location = New System.Drawing.Point(621, 301)
         Me.radioLayoutCenter.Margin = New System.Windows.Forms.Padding(2)
         Me.radioLayoutCenter.Name = "radioLayoutCenter"
         Me.radioLayoutCenter.Size = New System.Drawing.Size(89, 17)
@@ -175,7 +175,7 @@ Partial Class FormBackgroundEditImage
         'radioLayoutZoom
         '
         Me.radioLayoutZoom.AutoSize = True
-        Me.radioLayoutZoom.Location = New System.Drawing.Point(242, 299)
+        Me.radioLayoutZoom.Location = New System.Drawing.Point(246, 35)
         Me.radioLayoutZoom.Margin = New System.Windows.Forms.Padding(2)
         Me.radioLayoutZoom.Name = "radioLayoutZoom"
         Me.radioLayoutZoom.Size = New System.Drawing.Size(89, 17)
@@ -187,7 +187,7 @@ Partial Class FormBackgroundEditImage
         'radioLayoutStretch
         '
         Me.radioLayoutStretch.AutoSize = True
-        Me.radioLayoutStretch.Location = New System.Drawing.Point(614, 301)
+        Me.radioLayoutStretch.Location = New System.Drawing.Point(618, 37)
         Me.radioLayoutStretch.Margin = New System.Windows.Forms.Padding(2)
         Me.radioLayoutStretch.Name = "radioLayoutStretch"
         Me.radioLayoutStretch.Size = New System.Drawing.Size(89, 17)
@@ -211,7 +211,7 @@ Partial Class FormBackgroundEditImage
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(749, 319)
+        Me.picturePreview.Location = New System.Drawing.Point(749, 318)
         Me.picturePreview.Margin = New System.Windows.Forms.Padding(2)
         Me.picturePreview.Name = "picturePreview"
         Me.picturePreview.Size = New System.Drawing.Size(350, 225)
@@ -333,7 +333,7 @@ Partial Class FormBackgroundEditImage
         '
         Me.CtlMoveableBackground1.BackColor = System.Drawing.Color.White
         Me.CtlMoveableBackground1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlMoveableBackground1.Image_NotInUse = Nothing
+        Me.CtlMoveableBackground1.ImageBackgroundImage = Nothing
         Me.CtlMoveableBackground1.ImageFileLocation = Nothing
         Me.CtlMoveableBackground1.Location = New System.Drawing.Point(749, 54)
         Me.CtlMoveableBackground1.Name = "CtlMoveableBackground1"

@@ -71,10 +71,22 @@ Public Class CtlMoveableBackground
     End Function ''End of ""Public Function GetPictureBox() As PictureBox""
 
 
-    Public Function GetPositionX()
+    Public Function GetPositionX() As Integer
+        ''
+        ''Added 6/03/2022 
+        ''
+        Return ctlMoveable1.Left
+
+    End Function ''---Public Function GetPositionX() As Integer
 
 
-        Public Function GetPositionX()
+    Public Function GetPositionY() As Integer
+        ''
+        ''Added 6/03/2022 
+        ''
+        Return ctlMoveable1.Top
+
+    End Function ''----Public Function GetPositionY() As Integer
 
 
     Public Sub LoadImageFromFileLocation()
@@ -92,6 +104,23 @@ Public Class CtlMoveableBackground
         End If ''End of ""If (ctlMoveable2 IsNot Nothing) Then... ElseIf..."
 
     End Sub ''End of ""Public Sub LoadImageFromFileLocation()""
+
+
+    Public Sub LoadImageFromImage(par_image As Drawing.Image)
+        ''
+        ''Added 5/18/2022 
+        ''
+        If (ctlMoveable2 IsNot Nothing) Then
+
+            ctlMoveable2.LoadImageFromImage(par_image)
+
+        ElseIf (ctlMoveable1 IsNot Nothing) Then
+
+            ctlMoveable1.LoadImageFromImage(par_image)
+
+        End If ''End of ""If (ctlMoveable2 IsNot Nothing) Then... ElseIf..."
+
+    End Sub ''End of ""Public Sub LoadImageFromImage()""
 
 
     Public Sub Load_Control() ''5/18/2022 (sender As Object, e As EventArgs) Handles MyBase.Load

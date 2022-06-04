@@ -211,7 +211,7 @@ Partial Class FormBackgroundScreenscape
         '
         Me.CtlMoveableBackground1.BackColor = System.Drawing.Color.White
         Me.CtlMoveableBackground1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlMoveableBackground1.Image_NotInUse = Nothing
+        Me.CtlMoveableBackground1.ImageBackgroundImage = Nothing
         Me.CtlMoveableBackground1.ImageFileLocation = Nothing
         Me.CtlMoveableBackground1.Location = New System.Drawing.Point(11, 82)
         Me.CtlMoveableBackground1.Name = "CtlMoveableBackground1"

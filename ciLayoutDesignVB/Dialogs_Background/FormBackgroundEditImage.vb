@@ -343,7 +343,8 @@ Public Class FormBackgroundEditImage
                     ''  pictureLayoutMoveable.Top = .Top
                     ''  pictureLayoutMoveable.Width = .Width
                     ''  pictureLayoutMoveable.Height = .Height
-                    PictureBoxMustBeBeneathUserControl()
+                    ''June3 2022 td''---PictureBoxMustBeBeneathUserControl()
+                    PictureBoxMustBeBeneathUserControl_ForScreenshot()
                     pictureLayoutMoveable.Visible = False
 
                 End With
@@ -595,7 +596,8 @@ Public Class FormBackgroundEditImage
         ''Added 5/18/2022 
         If (radioLayoutMoveable.Checked) Then
             ''5/18/2022 TakeScreenshot_Master(CtlMoveableBackground1.GetPictureBox())
-            PictureBoxMustBeBeneathUserControl()
+            ''6/03/2022 PictureBoxMustBeBeneathUserControl()
+            PictureBoxMustBeBeneathUserControl_ForScreenshot()
             TakeScreenshot_Master(pictureLayoutMoveable)
 
         End If

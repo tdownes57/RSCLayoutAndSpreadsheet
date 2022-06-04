@@ -10,6 +10,12 @@ Public Class FormBackgroundScreenscape
     Public Input_ShowMoveableControl As Boolean ''Added 6/3/2022 td
     Public Input_BackgroundImage As Drawing.Image ''Added 6/3/2022 td 
 
+    ''Added 6/3/2022 td
+    Public Input_MoveablePositionX As Integer '' = intPositionX
+    Public Input_MoveablePositionY As Integer '' = intPositionY
+    Public Input_MoveableWidth As Integer '' = intWidth
+    Public Input_MoveableHeight As Integer '' = intHeight
+
     Public Output_Image As Drawing.Image ''Added 6/3/2022 td
 
     Private Sub ButtonUndoOkay1_Click(sender As Object, e As EventArgs) Handles ButtonUndoOkay1.Click
@@ -26,12 +32,14 @@ Public Class FormBackgroundScreenscape
             CtlMoveableBackground1.Visible = True
             CtlMoveableBackground1.BringToFront()
             CtlMoveableBackground1.ImageBackgroundImage = Me.Input_BackgroundImage
+            CtlMoveableBackground1.LoadImageFromImage(Me.Input_BackgroundImage)
 
         Else
             pictureLeftOriginal.Visible = True
             CtlMoveableBackground1.Visible = False
             pictureLeftOriginal.BringToFront()
             pictureLeftOriginal.Image = Me.Input_BackgroundImage
+            pictureLeftOriginal.SizeMode = Me.Input_PictureBoxSizeMode
 
         End If
 
