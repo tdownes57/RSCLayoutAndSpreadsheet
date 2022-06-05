@@ -1767,7 +1767,9 @@ Public Class RSCMoveableControlVB
             info_SaveToModel = CType(Me, ISaveToModel)
 
             ''Added 1/28/2022
-            info_RefreshElementImage = CType(Me, IRefreshElementImage)
+            ''6/4/2022 info_RefreshElementImage = CType(Me, IRefreshElementImage)
+            info_RefreshElementImage = Me.InfoRefreshElementImage
+
             ''Jan30 2022 td''info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
             info_RefreshCardPreview = CType(Me.mod_iRefreshCardPreview, IRefreshCardPreview)
 
@@ -1919,7 +1921,8 @@ Public Class RSCMoveableControlVB
         ''Stubbed 1/31/2022 td
         ''
 
-    End Sub ''End of "Public Overridable Sub Refresh_Image"
+
+    End Sub ''End of "Public Overridable Sub Refresh_ImageV4"
 
 
     Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean

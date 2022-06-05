@@ -1570,10 +1570,17 @@ namespace MoveAndResizeControls_Monem
             if (bWasResizing)
             {
                 //Jan10 2022 //mod_events.Resizing_Terminate(par_iSave);
-                mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
+                //June 4 2022 // mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
+                mod_events_singleCtl.Resizing_TerminateV2(par_iSave, 
+                    par_iRefreshElemImage, 
+                    par_iRefreshCardPreview);
 
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
+
+                //Added 6/4/2022 
+                .... ///// new idea....
+                ((IRefreshElementImage)mod_events_singleCtl).RefreshElementImage();
 
                 //Added 2/2/2022 thomas d. 
                 mod_events_singleCtl.Resizing_TerminateV2(par_iSave,

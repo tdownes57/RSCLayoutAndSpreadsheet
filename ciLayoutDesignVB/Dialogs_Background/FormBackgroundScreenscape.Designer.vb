@@ -150,6 +150,7 @@ Partial Class FormBackgroundScreenscape
         'ButtonUndoOkay2
         '
         Me.ButtonUndoOkay2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonUndoOkay2.Enabled = False
         Me.ButtonUndoOkay2.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonUndoOkay2.Location = New System.Drawing.Point(718, 471)
         Me.ButtonUndoOkay2.Name = "ButtonUndoOkay2"
@@ -162,6 +163,7 @@ Partial Class FormBackgroundScreenscape
         'ButtonUndoOkay1
         '
         Me.ButtonUndoOkay1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonUndoOkay1.Enabled = False
         Me.ButtonUndoOkay1.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonUndoOkay1.Location = New System.Drawing.Point(485, 474)
         Me.ButtonUndoOkay1.Name = "ButtonUndoOkay1"

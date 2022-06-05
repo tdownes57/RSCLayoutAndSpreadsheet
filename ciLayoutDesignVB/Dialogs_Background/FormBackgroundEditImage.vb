@@ -15,7 +15,9 @@ Public Class FormBackgroundEditImage
     Public ImageFilePath_output As String = "" ''Added 5/18/2022 
     ''---Public ImageFileInfo As System.IO.FileInfo ''Added 5/18/2022 
 
-    Private mod_bSuppressEvents As Boolean
+    Private mod_bSuppressEvents As Boolean = True
+    Private mod_bLoading As Boolean = True ''Added 6/04/2022 
+
     Private mod_pathToImageFile As String
     ''----Private mod_objEventsMoveGroupOfCtls As New 
     Private Const mc_boolEnlargeMoveable As Boolean = False ''Added 5/24/2022
@@ -358,6 +360,10 @@ Public Class FormBackgroundEditImage
 
         End If ''End of ""If (pictureLayoutZoom.Image Is Nothing) Then"" 
 
+ExitHandler:
+        mod_bLoading = False ''Added 6/4/2022
+        mod_bSuppressEvents = False ''Added 6/4/2022 
+
     End Sub
 
 
@@ -413,6 +419,9 @@ Public Class FormBackgroundEditImage
 
     Private Sub radioLayoutNormal_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutNormal.CheckedChanged
 
+        If (mod_bLoading) Then Exit Sub ''Added 6/4/2022 td
+        If (mod_bSuppressEvents) Then Exit Sub ''Added 6/4/2022 td
+
         ''Added 5/18/2022 
         If (radioLayoutNormal.Checked) Then
             TakeScreenshot_Master(pictureLayoutNormal)
@@ -422,6 +431,9 @@ Public Class FormBackgroundEditImage
 
     Private Sub radioLayoutZoom_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutZoom.CheckedChanged
 
+        If (mod_bLoading) Then Exit Sub ''Added 6/4/2022 td
+        If (mod_bSuppressEvents) Then Exit Sub ''Added 6/4/2022 td
+
         ''Added 5/18/2022 
         If (radioLayoutZoom.Checked) Then
             TakeScreenshot_Master(pictureLayoutZoom)
@@ -430,6 +442,9 @@ Public Class FormBackgroundEditImage
     End Sub
 
     Private Sub RadioLayoutCenter_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutCenter.CheckedChanged
+
+        If (mod_bLoading) Then Exit Sub ''Added 6/4/2022 td
+        If (mod_bSuppressEvents) Then Exit Sub ''Added 6/4/2022 td
 
         ''Added 5/18/2022 
         If (radioLayoutCenter.Checked) Then
@@ -441,6 +456,9 @@ Public Class FormBackgroundEditImage
 
     Private Sub RadioLayoutStretch_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutStretch.CheckedChanged
 
+        If (mod_bLoading) Then Exit Sub ''Added 6/4/2022 td
+        If (mod_bSuppressEvents) Then Exit Sub ''Added 6/4/2022 td
+
         ''Added 5/18/2022 
         If (radioLayoutStretch.Checked) Then
             TakeScreenshot_Master(pictureLayoutStretch)
@@ -451,6 +469,8 @@ Public Class FormBackgroundEditImage
 
 
     Private Sub radioLayoutMoveable_CheckedChanged(sender As Object, e As EventArgs) Handles radioLayoutMoveable.CheckedChanged
+
+        If (mod_bLoading) Then Exit Sub ''Added 6/4/2022 td
 
         ''Added 5/18/2022 
         If (radioLayoutMoveable.Checked) Then

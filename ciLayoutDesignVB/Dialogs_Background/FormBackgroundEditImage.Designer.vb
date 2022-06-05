@@ -70,6 +70,7 @@ Partial Class FormBackgroundEditImage
         Me.pictureLayoutNormal.Size = New System.Drawing.Size(350, 225)
         Me.pictureLayoutNormal.TabIndex = 45
         Me.pictureLayoutNormal.TabStop = False
+        Me.pictureLayoutNormal.Visible = False
         '
         'pictureLayoutCenter
         '
@@ -83,6 +84,7 @@ Partial Class FormBackgroundEditImage
         Me.pictureLayoutCenter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.pictureLayoutCenter.TabIndex = 46
         Me.pictureLayoutCenter.TabStop = False
+        Me.pictureLayoutCenter.Visible = False
         '
         'pictureLayoutZoom
         '
@@ -117,6 +119,7 @@ Partial Class FormBackgroundEditImage
         Me.LabelLayoutNone.Size = New System.Drawing.Size(174, 13)
         Me.LabelLayoutNone.TabIndex = 49
         Me.LabelLayoutNone.Text = "Background Image Layout:  Normal"
+        Me.LabelLayoutNone.Visible = False
         '
         'labelBackgroundCenter
         '
@@ -127,6 +130,7 @@ Partial Class FormBackgroundEditImage
         Me.labelBackgroundCenter.Size = New System.Drawing.Size(169, 13)
         Me.labelBackgroundCenter.TabIndex = 50
         Me.labelBackgroundCenter.Text = "Background Image Layout: Center"
+        Me.labelBackgroundCenter.Visible = False
         '
         'LabelBackgroundScarier
         '
@@ -159,6 +163,7 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutNormal.TabStop = True
         Me.radioLayoutNormal.Text = "Select below."
         Me.radioLayoutNormal.UseVisualStyleBackColor = True
+        Me.radioLayoutNormal.Visible = False
         '
         'radioLayoutCenter
         '
@@ -171,6 +176,7 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutCenter.TabStop = True
         Me.radioLayoutCenter.Text = "Select below."
         Me.radioLayoutCenter.UseVisualStyleBackColor = True
+        Me.radioLayoutCenter.Visible = False
         '
         'radioLayoutZoom
         '
