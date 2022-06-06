@@ -16,6 +16,7 @@ Public Class CtlGraphicStaticGraphic
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IClickableElement ''Added 12/17/2021 td
     Implements IMoveableElement ''Added 12/17/2021 td
+    Implements IRefreshElementImage ''Added 6/6/2022 td
     ''
     ''Added 10/10/2019 thomas d 
     ''
@@ -498,6 +499,16 @@ Public Class CtlGraphicStaticGraphic
     ''    Me.ElementInfo = par_field.ElementInfo
     ''
     ''End Sub
+
+
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+        ''
+        ''Added 6/6/2022 td
+        ''
+        RefreshImage_ViaElemImage()
+
+    End Sub ''End of ""Public Overrides Sub RefreshElementImage()""
+
 
     Public Sub RefreshImage_ViaElemImage()
         ''

@@ -24,7 +24,8 @@ End Enum ''ENd of "Public Enum EnumReminderMsg"
 Public Class CtlGraphicFieldV3
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IMoveableElement ''Added 12/17/2021 td
-    Implements IClickableElement ''Added 12/17/2021 td 
+    Implements IClickableElement ''Added 12/17/2021 td  
+    Implements IRefreshElementImage ''Added 6/6/2022 td
     ''
     ''Added 7/25/2019 thomas d 
     ''
@@ -532,6 +533,34 @@ ExitHandler:
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
 
+
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+        ''
+        ''Added 6/6/2022 td
+        ''
+        Dim boolSuppressPrompt As Boolean ''Added 6/6/2022
+        ''Added 6/6/2022
+        boolSuppressPrompt = (Not pbAfterResizingEvent)
+
+        ''6/6/2022 Refresh_ImageV3(True)
+        If (boolSuppressPrompt) Then
+
+            ''The user will not be prompted to scale the font. The font won't be resized. ---6/6/2022 td
+            Refresh_ImageV3(True, , , , , boolSuppressPrompt)
+
+        Else
+            ''
+            ''Confusing.... two(2) calls instead of one!
+            ''
+            Refresh_ImageV3(True) ''Initially, refresh without prompting & w/ suppression of auto-sizing. This
+            ''   will allow the border to be redrawn, especially needed if the user has enlarged the element. 
+            Refresh_ImageV3(True, , , , , boolSuppressPrompt)  ''Next, check w/ user if they want to re-size the font.
+
+        End If ''End of ""If (boolSuppressPrompt) Then.... Else....""
+
+    End Sub ''End of ""Public Overrides Sub RefreshElementImage()""
+
+
     Public Overrides Sub Refresh_ImageV3(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
@@ -612,7 +641,8 @@ ExitHandler:
             pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
 
             ''Added 9/15/2019 thomas d.
-            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
+            ''See above. 6/6/20022 td''boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
+
             If (boolScaleFontSize) Then
                 ''Added 9/15/2019 thomas d.
                 ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)

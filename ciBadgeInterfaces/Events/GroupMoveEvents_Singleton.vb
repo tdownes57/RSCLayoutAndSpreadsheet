@@ -174,9 +174,6 @@ Public Class GroupMoveEvents_Singleton
         ''Jan26 2022''RaiseEvent Resizing_End(par_iSave)
         RaiseEvent Resizing_EndV2(par_iSave, par_iRefreshElement, par_iRefreshPreview)
 
-        ''Added 6/4/2022
-        mod_
-
     End Sub ''End of "Public Sub Resizing_TerminateV1"
 
     Public Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) Implements InterfaceMoveEvents.Moving_Terminate

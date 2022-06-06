@@ -12,6 +12,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 Public Class CtlGraphicStaticTextV3
     Implements ISaveToModel ''Added 12/17/2021 td 
     Implements IMoveableElement ''Added 12/17/2021 td
+    Implements IRefreshElementImage ''Added 6/6/2022 td
     ''
     ''Added 8/01/2019 thomas d 
     ''
@@ -392,11 +393,21 @@ ExitHandler:
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
 
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+        ''
+        ''Added 6/6/2022 td
+        ''
+        Refresh_Image(True)
+
+    End Sub ''End of ""Public Overrides Sub RefreshElementImage()""
+
+
     Public Sub Refresh_Image(pbRefreshSize As Boolean,
                              Optional pboolResizeLabelControl As Boolean = True,
                              Optional pboolRefreshLabelControl As Boolean = True,
                              Optional pboolRefreshUserControl As Boolean = False,
-                             Optional par_intBadgeLayoutWidth As Integer = 681)
+                             Optional par_intBadgeLayoutWidth As Integer = 681,
+                             Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -434,7 +445,15 @@ ExitHandler:
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = Me.ParentForm.Font ''Me.Font
         ''7/30/2019 td''Me.ElementInfo.Font_DrawingClass = New Font("Times New Roman", 25, FontStyle.Italic)
 
-        boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
+        ''6/06/2022 td''boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo
+        With Me.ElementInfo_TextOnly
+            ''6/6/2022 boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo)
+            boolScaleFontSize = (Not pbSuppressFontScalingConfirmation) AndAlso
+                                    (.FontSize_AutoScaleToElementYesNo) AndAlso
+                          ((Not .FontSize_AutoSizePromptUser) OrElse
+                         MessageBoxTD.Show_Confirm("Resize the font of text?"))
+        End With ''End of ""With Me.ElementInfo_TextOnly""
+
         If (boolScaleFontSize And Me.Element_StaticText Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",

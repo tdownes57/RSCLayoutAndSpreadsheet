@@ -15,6 +15,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/4/2022 thomas d.
 Public Class CtlGraphicStaticTextV4
     Implements ISaveToModel ''Added 5/03/2022 td 
     Implements IMoveableElement ''Added 5/03/2022 td   
+    Implements IRefreshElementImage ''Added 6/6/2022 td
     ''
     ''Added 1/31/2022 td
     ''
@@ -315,6 +316,35 @@ Public Class CtlGraphicStaticTextV4
         End Try
 
     End Sub ''ENd of "Public Sub New "
+
+
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+        ''
+        ''Added 6/6/2022 td
+        ''
+        Dim boolSuppressPrompt As Boolean
+        boolSuppressPrompt = (Not pbAfterResizingEvent)
+
+        ''6/6/2022 td ''Refresh_ImageV4(True)
+        ''6/6/2022 td ''Refresh_ImageV4(True, , , , , boolSuppressPrompt)
+
+        ''6/6/2022 Refresh_ImageV3(True)
+        If (boolSuppressPrompt) Then
+
+            ''The user will not be prompted to scale the font. The font won't be resized. ---6/6/2022 td
+            Refresh_ImageV3(True, , , , , boolSuppressPrompt)
+
+        Else
+            ''
+            ''Confusing.... two(2) calls instead of one!
+            ''
+            Refresh_ImageV3(True) ''Initially, refresh without prompting & w/ suppression of auto-sizing. This
+            ''   will allow the border to be redrawn, especially needed if the user has enlarged the element. 
+            Refresh_ImageV3(True, , , , , boolSuppressPrompt)  ''Next, check w/ user if they want to re-size the font.
+
+        End If ''End of ""If (boolSuppressPrompt) Then.... Else....""
+
+    End Sub ''End of ""Public Overrides Sub RefreshElementImage()""
 
 
     Public Overrides Sub Refresh_ImageV3(pbRefreshSize As Boolean,

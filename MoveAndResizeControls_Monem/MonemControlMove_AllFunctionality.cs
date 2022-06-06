@@ -258,6 +258,8 @@ namespace MoveAndResizeControls_Monem
         public InterfaceMoveEvents mod_events_groupedCtls; //Modified Jan10 2022 td
         public InterfaceMoveEvents mod_events_singleCtl;  //Added 1/10/2022 td
 
+        private IRefreshElementImage mod_iRefreshElementImage; //Added 6/6/2022 td
+
         internal MoveOrResize WorkType { get; set; }
 
 
@@ -360,6 +362,11 @@ namespace MoveAndResizeControls_Monem
             //Added 7/18/2019 thomas downes 
             //
             _margin = par_margin;
+
+            //
+            //Added 6/6/2022 td 
+            //
+            mod_iRefreshElementImage = (IRefreshElementImage)par_containerElement;
 
             MouseIsInLeftEdge = false;
             MouseIsInLeftEdge = false;
@@ -1571,16 +1578,20 @@ namespace MoveAndResizeControls_Monem
             {
                 //Jan10 2022 //mod_events.Resizing_Terminate(par_iSave);
                 //June 4 2022 // mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
-                mod_events_singleCtl.Resizing_TerminateV2(par_iSave, 
-                    par_iRefreshElemImage, 
-                    par_iRefreshCardPreview);
+                
+                //See same call below.6/6/2022//mod_events_singleCtl.Resizing_TerminateV2(par_iSave, 
+                //                       //    par_iRefreshElemImage, 
+                //                       //    par_iRefreshCardPreview);
 
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
 
                 //Added 6/4/2022 
-                .... ///// new idea....
-                ((IRefreshElementImage)mod_events_singleCtl).RefreshElementImage();
+                //.... ///// new idea....
+                //((IRefreshElementImage)mod_events_singleCtl).RefreshElementImage();
+                //
+                //June6 2022---Redundant for the following: CtlGraphicFieldV3.vb
+                //June6 2022 mod_iRefreshElementImage.RefreshElementImage();
 
                 //Added 2/2/2022 thomas d. 
                 mod_events_singleCtl.Resizing_TerminateV2(par_iSave,

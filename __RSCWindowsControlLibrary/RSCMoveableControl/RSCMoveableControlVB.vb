@@ -1274,7 +1274,7 @@ Public Class RSCMoveableControlVB
         par_iSaveToModel.SaveToModel()
 
         ''Added 2/02/2022 td
-        par_iRefreshImage.RefreshElementImage()
+        par_iRefreshImage.RefreshElementImage(True)
 
         If (par_iRefreshPreview IsNot Nothing) Then
             par_iRefreshPreview.RefreshCardPreview()
@@ -1768,7 +1768,8 @@ Public Class RSCMoveableControlVB
 
             ''Added 1/28/2022
             ''6/4/2022 info_RefreshElementImage = CType(Me, IRefreshElementImage)
-            info_RefreshElementImage = Me.InfoRefreshElementImage
+            ''6/6/2022 info_RefreshElementImage = Me.InfoRefreshElementImage
+            info_RefreshElementImage = CType(Me, IRefreshElementImage)
 
             ''Jan30 2022 td''info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
             info_RefreshCardPreview = CType(Me.mod_iRefreshCardPreview, IRefreshCardPreview)
@@ -1888,15 +1889,18 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Overridable Sub Refresh_PositionAndSize()"
 
 
-    Public Sub RefreshElementImage() Implements IRefreshElementImage.RefreshElementImage
-        ''
-        ''Added 1/28/2022 td
-        ''
-        ''Feb1 2022 td''Refresh_Image(True)
-        ''Feb1 2022 td''Refresh_ImageV3(True)
-        Refresh_ImageV4(True)
+    Public Overridable Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+        ''    ''
+        ''    ''Added 1/28/2022 td
+        ''    ''
+        ''    ''Feb1 2022 td''Refresh_Image(True)
+        ''    ''Feb1 2022 td''Refresh_ImageV3(True)
+        ''    Refresh_ImageV4(True)
 
-    End Sub ''end of "Public Sub RefreshElementImage()"
+        ''Added 6/6/2022 thomas downes
+        Throw New Exception("Must override this procedure!")
+
+    End Sub ''end of "Public Overridable Sub RefreshElementImage()"
 
     Public Overridable Sub Refresh_ImageV3(pbRefreshSize As Boolean,
                              Optional pboolResizePictureControl As Boolean = True,
