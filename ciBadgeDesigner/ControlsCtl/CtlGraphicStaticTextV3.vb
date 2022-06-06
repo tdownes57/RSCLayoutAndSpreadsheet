@@ -393,7 +393,7 @@ ExitHandler:
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
 
-    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
         ''
         ''Added 6/6/2022 td
         ''
@@ -416,7 +416,7 @@ ExitHandler:
         ''Me.ElementInfo.Text = Me.LabelText(
         ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
-        Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
+        Dim bScaleFontToSizeOfElement As Boolean ''Added 9/15/2019 thomas d. 
         Dim strLabelText_EditedByUser As String ''Added 1/22/2022 td
 
         ''Added 10/12/2019 td
@@ -448,13 +448,13 @@ ExitHandler:
         ''6/06/2022 td''boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo
         With Me.ElementInfo_TextOnly
             ''6/6/2022 boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo)
-            boolScaleFontSize = (Not pbSuppressFontScalingConfirmation) AndAlso
+            bScaleFontToSizeOfElement = (Not pbSuppressFontScalingConfirmation) AndAlso
                                     (.FontSize_AutoScaleToElementYesNo) AndAlso
                           ((Not .FontSize_AutoSizePromptUser) OrElse
                          MessageBoxTD.Show_Confirm("Resize the font of text?"))
         End With ''End of ""With Me.ElementInfo_TextOnly""
 
-        If (boolScaleFontSize And Me.Element_StaticText Is Nothing) Then
+        If (bScaleFontToSizeOfElement And Me.Element_StaticText Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -491,8 +491,20 @@ ExitHandler:
             pictureLabel.Height = Me.ElementInfo_Base.Height_Pixels
 
             ''Added 9/15/2019 thomas d.
-            boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
-            If (boolScaleFontSize) Then
+            ''June6 2022----See var. bScaleFontToSizeOfElement above.
+            ''June6 2022 boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
+
+            ''Added 6/2/2022
+            ''6/6/2022 With Me.ElementInfo_TextOnly
+            ''6/6/2022     ''6/02/2022 boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo)
+            ''6/6/2022     bScaleFontToSizeOfElement = (Not pbSuppressFontScalingConfirmation) AndAlso
+            ''6/6/2022                       (.FontSize_AutoScaleToElementYesNo) AndAlso
+            ''6/6/2022                      ((Not .FontSize_AutoSizePromptUser) OrElse
+            ''6/6/2022               MessageBoxTD.Show_Confirm("Resize the font of text?"))
+            ''6/6/2022 End With ''ENd of ""With Me.ElementInfo_TextOnly""
+
+            ''6/6/2022 td''If (boolScaleFontSize) Then
+            If (bScaleFontToSizeOfElement) Then
                 ''Added 9/15/2019 thomas d.
                 With Me.ElementInfo_Base ''Added 1/28/2022 td
                     If (Rotated_90_270(False) Or (.Width_Pixels < .Height_Pixels)) Then ''Added 1/28/2022 td
@@ -503,7 +515,7 @@ ExitHandler:
                         Me.Element_StaticText.Font_ScaleAdjustment(.Height_Pixels)
                     End If ''End of "If (Rotated_90_270()) Then ... Else ..."
                 End With ''End of "With Me.ElementInfo_Base"
-            End If ''End of "If (boolScaleFontSize) Then"
+            End If ''End of "If (bScaleFontToSizeOfElement) Then"
 
         End If ''end if "If (pbRefreshSize) then"
 

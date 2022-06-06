@@ -192,6 +192,7 @@ namespace MoveAndResizeControls_Monem
         private Point _cursorStartPoint;
         private bool _moveIsInterNal;
         private bool _resizing = false; // Default value added 1/7/2022 td
+        private bool _resizingHeight = false; //A change of element height implies a possible change to font height.--Added 6/06/2022 td
         private Size _currentControlStartSize;
 
         //Added 1/10/2022 thomas downes
@@ -355,6 +356,7 @@ namespace MoveAndResizeControls_Monem
             _moving = false;
             _repaintAfterResize = pbRepaintAfterResize; //Added 7/31/2019 td 
             _resizing = false;
+            _resizingHeight = false; //Added 6/6/2022 td
             _moveIsInterNal = false;
             _cursorStartPoint = Point.Empty;
 
@@ -866,6 +868,8 @@ namespace MoveAndResizeControls_Monem
                 if (_structResizingParams.RightEdgeResizing_Only && !MouseIsInRightEdge) return; //Return, i.e. Stop the resizing process!!  Added 3/03/2022 td
 
                 _resizing = true;
+                _resizingHeight = (MouseIsInTopEdge || MouseIsInBottomEdge);  //Added 6/6/2022
+
                 _currentControlStartSize = par_controlE.Size;
 
                 // Added 2/21/2022 td
@@ -1500,8 +1504,10 @@ namespace MoveAndResizeControls_Monem
             // Suffied 1/27/2022 td
             //
             bool bWasResizing = _resizing; // Added 7/31/2019 td
+            bool bWasResizingHeight = _resizingHeight; // Added 6/06/2022 td
 
             _resizing = false;
+            _resizingHeight = false; //Revert to default of false. ---6/6/2022 
             _moving = false;
             par_controlJ.Capture = false;
             UpdateMouseCursor(par_controlJ);
@@ -1525,9 +1531,15 @@ namespace MoveAndResizeControls_Monem
                     mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
 
                 //Added 2/2/2022 thomas d. 
+                //mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
+                //    _iRefreshElementImage,
+                //    _iRefreshCardPreview);
+
+                //Modified 6/06/2022 thomas d. 
                 mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
                     _iRefreshElementImage,
-                    _iRefreshCardPreview);
+                    _iRefreshCardPreview, 
+                    bWasResizingHeight);
             }
 
             //Added 9/13/2019 thomas downes
@@ -1557,8 +1569,10 @@ namespace MoveAndResizeControls_Monem
                             IRefreshCardPreview par_iRefreshCardPreview = null)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
+            bool bWasResizingHeight = _resizingHeight; //Added 6/6/2022 td
 
             _resizing = false;
+            _resizingHeight = false; //Revert to default of false. 6/06/2022 td
             _moving = false;
             par_controlJ.Capture = false;
             UpdateMouseCursor(par_controlJ);
@@ -1596,7 +1610,9 @@ namespace MoveAndResizeControls_Monem
                 //Added 2/2/2022 thomas d. 
                 mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
                     par_iRefreshElemImage,
-                    par_iRefreshCardPreview);
+                    par_iRefreshCardPreview, 
+                    bWasResizingHeight);
+
             }
 
             //Added 9/13/2019 thomas downes

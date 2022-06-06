@@ -290,7 +290,7 @@ Public Class CtlGraphicFieldV4
     End Sub ''ENd of "Public Sub New "
 
 
-    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
         ''
         ''Added 6/6/2022 td
         ''
@@ -299,7 +299,8 @@ Public Class CtlGraphicFieldV4
         ''
         Dim boolSuppressPrompt As Boolean ''Added 6/6/2022
         ''Added 6/6/2022
-        boolSuppressPrompt = (Not pbAfterResizingEvent)
+        ''6/06/2022 td''boolSuppressPrompt = (Not pbAfterResizingEvent)
+        boolSuppressPrompt = (Not pbAfterResizingHeight)
 
         ''6/6/2022 Refresh_ImageV3(True)
         If (boolSuppressPrompt) Then
@@ -412,6 +413,13 @@ Public Class CtlGraphicFieldV4
                 .FontFamilyName = "Times New Roman"
                 ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
                 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+
+                ''Added 11/24/2021 thomas d. 
+                If (0 = .FontSize_AutoScaleToElementRatio) Then
+                    ''Added 11/24/2021 thomas d. 
+                    .FontSize_AutoScaleToElementRatio = 0.8
+                End If ''End of "If (0 = FontSize_ScaleToElementRatio) Then"
+
             End With
 
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"

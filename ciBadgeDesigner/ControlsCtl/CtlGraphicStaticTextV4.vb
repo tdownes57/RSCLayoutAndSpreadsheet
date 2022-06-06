@@ -318,12 +318,13 @@ Public Class CtlGraphicStaticTextV4
     End Sub ''ENd of "Public Sub New "
 
 
-    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
         ''
         ''Added 6/6/2022 td
         ''
         Dim boolSuppressPrompt As Boolean
-        boolSuppressPrompt = (Not pbAfterResizingEvent)
+        ''6/6/2022 boolSuppressPrompt = (Not pbAfterResizingEvent)
+        boolSuppressPrompt = (Not pbAfterResizingHeight)
 
         ''6/6/2022 td ''Refresh_ImageV4(True)
         ''6/6/2022 td ''Refresh_ImageV4(True, , , , , boolSuppressPrompt)
@@ -423,6 +424,15 @@ Public Class CtlGraphicStaticTextV4
 
         ''6/2/2022 td''boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_ScaleToElementYesNo)
 
+        ''Moved up 6/6/2022, added 6/2/2022
+        With Me.ElementClass_Obj
+            ''Moved up 6/6/2022, added 6/2/2022
+            boolScaleFontSize = (Not pbSuppressFontScalingConfirmation) AndAlso
+                                (Not boolTextIsMultiline) AndAlso
+                                (.FontSize_AutoScaleToElementYesNo) AndAlso
+                      ((Not .FontSize_AutoSizePromptUser) OrElse
+                     MessageBoxTD.Show_Confirm("Resize the font of text?"))
+        End With ''End of ""With Me.ElementClass_Obj""
 
         If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then
             ''Added 9/19/2019 td 
@@ -438,15 +448,15 @@ Public Class CtlGraphicStaticTextV4
                      MessageBoxTD.Show_Confirm("Resize the font of text?"))
             End With ''End of ""With Me.ElementInfo_TextOnly""
 
-        ElseIf (boolScaleFontSize) Then
+            ''June6 2022 ''ElseIf (boolScaleFontSize) Then
 
             ''Added 6/2/2022
-            With Me.ElementClass_Obj
-                boolScaleFontSize = (Not pbSuppressFontScalingConfirmation) AndAlso
-                                (.FontSize_AutoScaleToElementYesNo) AndAlso
-                      ((Not .FontSize_AutoSizePromptUser) OrElse
-                     MessageBoxTD.Show_Confirm("Resize the font of text?"))
-            End With ''End of ""With Me.ElementClass_Obj""
+            ''June6 2022 ''With Me.ElementClass_Obj
+            ''June6 2022 ''    boolScaleFontSize = (Not pbSuppressFontScalingConfirmation) AndAlso
+            ''                    (.FontSize_AutoScaleToElementYesNo) AndAlso
+            ''          ((Not .FontSize_AutoSizePromptUser) OrElse
+            ''         MessageBoxTD.Show_Confirm("Resize the font of text?"))
+            ''End With ''End of ""With Me.ElementClass_Obj""
 
         End If ''End of "If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then ... ElseIf (boolScaleFontSize) ..."
 
@@ -489,6 +499,12 @@ Public Class CtlGraphicStaticTextV4
                 ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
                 ''Added 9/15/2019 thomas d.
                 With Me.ElementInfo_Base ''Added 1/28/2022 td
+
+                    ''Added 6/6/2022 td
+                    ''Not needed. 6/6/2022 If (0 = Me.ElementClass_Obj.FontSize_Pixels) Then
+                    ''Not needed. 6/6/2022     Me.ElementClass_Obj.FontSize_Pixels = Me.ElementInfo_TextOnly.FontSize_Pixels
+                    ''Not needed. 6/6/2022 End If ''End of ""If (0 = Me.ElementClass_Obj.FontSize_Pixels) Then""
+
                     ''2/2/2022 td ''If (Rotated_90_270(False) Or (.Width_Pixels < .Height_Pixels)) Then ''Added 1/28/2022 td
                     If (.Width_Pixels < .Height_Pixels) Then ''Modified 1/28/2022 td
 
@@ -541,8 +557,14 @@ Public Class CtlGraphicStaticTextV4
         ''9/3/2019 td''LabelToImage.TextImage(pictureFieldOrText.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        Dim intBadgeLayoutHeight As Integer ''Added 6/6/2022 thomas d.
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
         intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        intBadgeLayoutHeight = Me.LayoutFunctions.Layout_Height_Pixels()
+
+        ''Added 6/6/2022 td
+        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = intBadgeLayoutWidth
+        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = intBadgeLayoutHeight
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureFieldOrText.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 

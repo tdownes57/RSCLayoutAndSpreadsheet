@@ -165,7 +165,8 @@ namespace MoveAndResizeControls_Monem
 
         public void Resizing_TerminateV2(ISaveToModel par_iSave, 
                                         IRefreshElementImage par_iRefreshImage,
-                                        IRefreshCardPreview par_iRefreshPreview)
+                                        IRefreshCardPreview par_iRefreshPreview,
+                                        bool pbResizedHeight)
         {
             //throw new NotImplementedException();
             //

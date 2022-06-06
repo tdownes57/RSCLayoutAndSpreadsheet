@@ -12,6 +12,9 @@ Public Interface IRefreshElementImage
     ''
     ''   This is making use of the Dependency Injection pattern.
     ''
-    Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False)
+    ''#1 6/6/2022 Sub RefreshElementImage()
+    ''#1 6/6/2022 Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False)
+    Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False)
+
 
 End Interface

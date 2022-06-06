@@ -534,13 +534,13 @@ ExitHandler:
 
 
 
-    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
         ''
         ''Added 6/6/2022 td
         ''
         Dim boolSuppressPrompt As Boolean ''Added 6/6/2022
         ''Added 6/6/2022
-        boolSuppressPrompt = (Not pbAfterResizingEvent)
+        boolSuppressPrompt = (Not pbAfterResizingHeight)
 
         ''6/6/2022 Refresh_ImageV3(True)
         If (boolSuppressPrompt) Then

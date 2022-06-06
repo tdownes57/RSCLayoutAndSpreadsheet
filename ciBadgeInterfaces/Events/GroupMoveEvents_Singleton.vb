@@ -28,9 +28,13 @@ Public Class GroupMoveEvents_Singleton
     Public Event Resizing_EndV1(par_iSave As ISaveToModel)
 
     ''Added 1/26/2022 td
+    ''June6 2022 Public Event Resizing_EndV2(par_iSave As ISaveToModel,
+    ''                          par_iRefreshElement As IRefreshElementImage,
+    ''                          par_iRefreshCardPreview As IRefreshCardPreview)
     Public Event Resizing_EndV2(par_iSave As ISaveToModel,
                               par_iRefreshElement As IRefreshElementImage,
-                              par_iRefreshCardPreview As IRefreshCardPreview)
+                              par_iRefreshCardPreview As IRefreshCardPreview,
+                              par_bHeightResized As Boolean)
 
     ''11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td  
     Public Event Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) ''Added 9/13/2019 td  
@@ -163,7 +167,9 @@ Public Class GroupMoveEvents_Singleton
 
     Public Sub Resizing_TerminateV2(par_iSave As ISaveToModel,
                                   par_iRefreshElement As IRefreshElementImage,
-                                  par_iRefreshPreview As IRefreshCardPreview) Implements InterfaceMoveEvents.Resizing_TerminateV2
+                                  par_iRefreshPreview As IRefreshCardPreview,
+                                  pbResizedElementHeight As Boolean) _
+                                  Implements InterfaceMoveEvents.Resizing_TerminateV2
 
         ''Dec17 2021''Public Sub Resizing_Terminate()
         ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
@@ -172,7 +178,11 @@ Public Class GroupMoveEvents_Singleton
         ''Added 8/4/2019 td  
         ''Dec17 2021''RaiseEvent Resizing_End()
         ''Jan26 2022''RaiseEvent Resizing_End(par_iSave)
-        RaiseEvent Resizing_EndV2(par_iSave, par_iRefreshElement, par_iRefreshPreview)
+        ''June6 2022''RaiseEvent Resizing_EndV2(par_iSave, par_iRefreshElement, par_iRefreshPreview)
+        RaiseEvent Resizing_EndV2(par_iSave,
+                                  par_iRefreshElement,
+                                  par_iRefreshPreview,
+                                  pbResizedElementHeight)
 
     End Sub ''End of "Public Sub Resizing_TerminateV1"
 

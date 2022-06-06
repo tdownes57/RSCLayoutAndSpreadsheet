@@ -830,7 +830,9 @@ Public Class ClassDesignerEventListener
 
     Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel,
                                               par_iRefreshImage As IRefreshElementImage,
-                                              par_iRefreshPreview As IRefreshCardPreview) Handles SizingElementEvents.Resizing_EndV2
+                                              par_iRefreshPreview As IRefreshCardPreview,
+                                              pboolHeightResized As Boolean) _
+                                              Handles SizingElementEvents.Resizing_EndV2
         ''Dec12 2021 td''Handles mod_sizingEvents_Pic.Resizing_End
         ''Jan26 2022 td''Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel)
 
@@ -843,7 +845,8 @@ Public Class ClassDesignerEventListener
         mod_designer.AutoPreview_IfChecked()
 
         ''Added 1/26/2022 td
-        par_iRefreshImage.RefreshElementImage()
+        ''6/06/2022 par_iRefreshImage.RefreshElementImage()
+        par_iRefreshImage.RefreshElementImage(pboolHeightResized)
 
     End Sub
 

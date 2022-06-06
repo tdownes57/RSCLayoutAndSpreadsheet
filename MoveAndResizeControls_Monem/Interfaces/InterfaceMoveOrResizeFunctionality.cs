@@ -113,7 +113,8 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //Added 1/27/2022 thomas downes
         void StopDragOrResizingV2(Control par_control, ISaveToModel par_iSave,
             IRefreshElementImage par_iRefreshElemImage = null,
-            IRefreshCardPreview par_iRefreshCardPreview = null);
+            IRefreshCardPreview par_iRefreshCardPreview = null); 
+            //June6 2022 bool par_bHeightAdjusted = false);
 
         //Added 3/3/2022 thomas downes
         //StructResizeParams ResizeParams

@@ -1265,7 +1265,8 @@ Public Class RSCMoveableControlVB
 
     Private Sub mod_events_Resizing_EndV2(par_iSaveToModel As ISaveToModel,
                                               par_iRefreshImage As IRefreshElementImage,
-                                              par_iRefreshPreview As IRefreshCardPreview) _
+                                              par_iRefreshPreview As IRefreshCardPreview,
+                                              pboolHeightResized As Boolean) _
                                               Handles mod_eventsForSingleMove.Resizing_EndV2
         ''Feb2 2022''Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel)
         ''
@@ -1274,7 +1275,9 @@ Public Class RSCMoveableControlVB
         par_iSaveToModel.SaveToModel()
 
         ''Added 2/02/2022 td
-        par_iRefreshImage.RefreshElementImage(True)
+        ''#1 6/06/2022 par_iRefreshImage.RefreshElementImage()
+        ''#2 6/06/2022 par_iRefreshImage.RefreshElementImage(True)
+        par_iRefreshImage.RefreshElementImage(pboolHeightResized)
 
         If (par_iRefreshPreview IsNot Nothing) Then
             par_iRefreshPreview.RefreshCardPreview()
@@ -1889,7 +1892,7 @@ Public Class RSCMoveableControlVB
     End Sub ''End of "Public Overridable Sub Refresh_PositionAndSize()"
 
 
-    Public Overridable Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+    Public Overridable Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
         ''    ''
         ''    ''Added 1/28/2022 td
         ''    ''

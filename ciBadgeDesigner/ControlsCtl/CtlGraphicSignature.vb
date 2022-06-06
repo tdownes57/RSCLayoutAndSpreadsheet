@@ -428,7 +428,7 @@ Public Class CtlGraphicSignature
     ''
     ''End Sub
 
-    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False) Implements IRefreshElementImage.RefreshElementImage
         ''
         ''Added 6/6/2022 td
         ''

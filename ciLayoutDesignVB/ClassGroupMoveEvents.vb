@@ -21,10 +21,15 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
     ''12/17/2021 td''Public Event Resizing_End()
     '' 2/02/2022 TD ''Public Event Resizing_End(par_iSave As ISaveToModel)
     Public Event Resizing_End_V1(par_iSave As ISaveToModel) ''Renamed 2/2/2022 td
+
     ''Added 2/2/2022 td
+    ''6/6/2022 td''Public Event Resizing_End_V2(par_iSave As ISaveToModel,
+    ''                             par_iRefreshElem As IRefreshElementImage,
+    ''                             par_iRefreshPrev As IRefreshCardPreview)
     Public Event Resizing_End_V2(par_iSave As ISaveToModel,
                                  par_iRefreshElem As IRefreshElementImage,
-                                 par_iRefreshPrev As IRefreshCardPreview)
+                                 par_iRefreshPrev As IRefreshCardPreview,
+                                 par_bHeightResized As Boolean)
 
     ''11/29/2021 td''Public Event Moving_End() ''Added 9/13/2019 td  
     Public Event Moving_End(par_control As Control) ''Added 9/13/2019 td  
@@ -120,7 +125,9 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
 
     Public Sub Resizing_TerminateV2(par_iSave As ISaveToModel,
                                               par_iRefreshImage As IRefreshElementImage,
-                                              par_iRefreshPreview As IRefreshCardPreview) Implements InterfaceMoveEvents.Resizing_TerminateV2
+                                              par_iRefreshPreview As IRefreshCardPreview,
+                                              par_bResizedHeight As Boolean) _
+                                              Implements InterfaceMoveEvents.Resizing_TerminateV2
 
         ''Dec17 2021''Public Sub Resizing_Terminate()
         ''Dec17 2021''     Implements InterfaceEvents.Resizing_Terminate
@@ -129,7 +136,12 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
         ''Added 8/4/2019 td  
         ''Dec17 2021''RaiseEvent Resizing_End()
         ''Jan02 2022 td''RaiseEvent Resizing_End(par_iSave)
-        RaiseEvent Resizing_End_V2(par_iSave, par_iRefreshImage, par_iRefreshPreview)
+
+        ''June6 2022 RaiseEvent Resizing_End_V2(par_iSave, par_iRefreshImage, par_iRefreshPreview)
+        RaiseEvent Resizing_End_V2(par_iSave,
+                                   par_iRefreshImage,
+                                   par_iRefreshPreview,
+                                   par_bResizedHeight)
 
     End Sub ''End of "Public Sub Resizing_TerminateV2(....)"
 

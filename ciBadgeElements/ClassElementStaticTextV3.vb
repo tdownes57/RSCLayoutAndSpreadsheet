@@ -486,6 +486,7 @@ Public Class ClassElementStaticTextV3
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
+
     Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer,
                        Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''

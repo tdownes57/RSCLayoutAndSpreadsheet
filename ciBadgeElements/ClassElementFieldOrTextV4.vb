@@ -256,7 +256,8 @@ Public Class ClassElementFieldOrTextV4
             boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
             boolGiveDisallowedMsg = boolTallerThanWidth
             If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
+                ''6/6/2022 Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
+                System.Diagnostics.Debugger.Break()
             End If ''End of "If (boolGiveDisallowedMsg) Then"
 
             ''Added 9/23/2019 td
@@ -295,10 +296,12 @@ Public Class ClassElementFieldOrTextV4
             boolGiveDisallowedMsg = boolTallerThanWidth
             If (boolGiveDisallowedMsg) Then
                 ''2/2/2022 td''Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
-                Throw New Exception("Programmer needs to check for Rotation-by-90, & then switch Height & Width " &
-                                    "whenever a Resize occurs.  The Height cannot exceed the width. " &
-                                    "By a line of programming to switch Height & Width, a rotated element " &
-                                    "can easily abide by this rule.")
+                ''6/6/2022 td''Throw New Exception("Programmer needs to check for Rotation-by-90, & then switch Height & Width " &
+                ''                    "whenever a Resize occurs.  The Height cannot exceed the width. " &
+                ''                    "By a line of programming to switch Height & Width, a rotated element " &
+                ''                    "can easily abide by this rule.")
+                System.Diagnostics.Debugger.Break()
+
             End If ''End of "If (boolGiveDisallowedMsg) Then"
 
             ''Added 9/23/2019 td
@@ -931,6 +934,11 @@ Public Class ClassElementFieldOrTextV4
         ''Renamed 6/02/2022 td 
         ''Added 9/15/2019 td  
         ''
+        ''Added 6/6/2022 thomas d.
+        If (FontSize_AutoScaleToElementRatio = 0) Then
+            FontSize_AutoScaleToElementRatio = 0.8
+        End If
+
         ''6/2/2022 If FontSize_ScaleToElementYesNo Then
         If FontSize_AutoScaleToElementYesNo Then
 
@@ -949,9 +957,11 @@ Public Class ClassElementFieldOrTextV4
         Dim boolTextImageRotated_90_270 As Boolean = (intWidth < intHeight) ''Vs. Portrait comparison, (intWidth > intHeight)
 
         If (boolTextImageRotated_0_180 And boolRotated) Then
-            Throw New Exception("Image dimensions are not expected. (Rotation of text expected)")
+            ''6/6/2022 Throw New Exception("Image dimensions are not expected. (Rotation of text expected)")
+            System.Diagnostics.Debugger.Break()
         ElseIf (boolTextImageRotated_90_270 And (Not boolRotated)) Then
-            Throw New Exception("Image dimensions are not expected.  (Unexpected rotation of text is detected)")
+            ''6/6/2022 Throw New Exception("Image dimensions are not expected.  (Unexpected rotation of text is detected)")
+            System.Diagnostics.Debugger.Break()
         End If ''End of "If (boolImageRotated_0_180 and boolRotated) Then .... ElseIf ..."
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfText()"
