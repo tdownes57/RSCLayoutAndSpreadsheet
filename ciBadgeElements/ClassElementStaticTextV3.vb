@@ -23,13 +23,8 @@ Public Class ClassElementStaticTextV3
     Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
     Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
-
-    ''Added 6/7/2022 thomas downes 
-    Public Property Font_MaxGalkin As SerializableFontByMaxGalkin Implements IElement_TextOnly.Font_MaxGalkin
-    Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName
-
+    ''Moved down & underscore removed. 6/7/2022 <Xml.Serialization.XmlIgnore>
+    ''Moved down & underscore removed. 6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
 
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
@@ -60,6 +55,26 @@ Public Class ClassElementStaticTextV3
     ''Added 9/6/2019 thomas downes  
     Public Property FontFamilyName As String = "Times New Roman" Implements IElement_TextOnly.FontFamilyName ''Added 9/6/2019 thomas downes  
 
+    ''Added 6/7/2022 thomas downes 
+    Public Property FontMaxGalkin As SerializableFontByMaxGalkin Implements IElement_TextOnly.FontMaxGalkin
+    ''Redundant. 6/7/2022 Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName
+
+    ''Moved here from above, and underscore ("Font_DrawingClass") removed. 6/7/2022
+    ''6/07/2022 Public Property FontDrawingClass As System.Drawing.Font Implements IElement_TextOnly.FontDrawingClass
+    <Xml.Serialization.XmlIgnore>
+    Public Property FontDrawingClass As System.Drawing.Font Implements IElement_TextOnly.FontDrawingClass
+        ''6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
+        Get
+            ''Added 6/07/2022 td
+            Me.FontMaxGalkin.ToFont()
+        End Get
+
+        Set(value As System.Drawing.Font)
+            ''Added 6/07/2022 td
+            Me.FontMaxGalkin = SerializableFontByMaxGalkin.FromFont(value)
+        End Set
+
+    End Property
 
     ''Added 8/15/2019 thomas downes  
     ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  

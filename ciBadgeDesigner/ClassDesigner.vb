@@ -14,6 +14,7 @@ Imports ciLayoutPrintLib ''Added 10/1/2019 td
 Imports ciBadgeCachePersonality ''Added 12/4/2021 thomas d. 
 Imports System.IO ''Added 12/3/2021 thomas d.
 Imports __RSCWindowsControlLibrary ''Added 1/02/2022 thomas d. 
+Imports ciBadgeSerialize ''Added 6/07/2022 thomas downes
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
@@ -2674,17 +2675,30 @@ Public Class ClassDesigner
                 ''10/9/2019 td''.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
                 .BadgeLayout = Me.BadgeLayout_Class ''Modified 10/9/2019 td  
 
-            End With
+            End With ''End of ""With each_elementV3""
 
             ''Added 9/15/2019 td
             With each_elementV3
 
-                If (.FontFamilyName = "") Then
-                    .FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d. 
+                ''Added 6/7/2022 thomas
+                If (.FontMaxGalkin Is Nothing) Then
+                    ''Added 6/7/2022 thomas
+                    .FontMaxGalkin = SerializableFontByMaxGalkin.DefaultFont
+                    .Font_DrawingClass = .FontMaxGalkin.ToFont()
+                    .FontFamilyName = .FontMaxGalkin.FontFamily
+                    If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then
+                        .FontSize_Pixels = .FontMaxGalkin.Size
+                    End If ''End of ""If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then""
+                End If ''End of "If (.FontMaxGalkin Is Nothing) Then"
+
+                If (.FontFamilyName = "" Or .FontFamilyName = "Times New Roman") Then
+                    ''6/7/2022 td ''.FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d.
+                    .FontFamilyName = .FontMaxGalkin.FontFamily
                 End If ''End of "If (.FontFamilyName = "") Then"
 
                 If (.FontSize_Pixels = 0) Then
-                    .FontSize_Pixels = 25
+                    ''6/7/2022 td ''.FontSize_Pixels = 25
+                    .FontSize_Pixels = .FontMaxGalkin.Size
                 End If ''End of "If (.FontSize_Pixels = 0) Then"
 
                 ''Added 9/12/2019 td 
@@ -3457,37 +3471,37 @@ Public Class ClassDesigner
             ''  Get the Portrait Image from the Element-Portrait control. ---1/5/2022
             ''
             Dim objCtlPortrait As CtlGraphicPortrait
-                objCtlPortrait = CtlGraphic_Portrait_1st()
-                If (objCtlPortrait IsNot Nothing) Then
-                    If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
-                        ''Take the picture from the Element Control. ---1/5/2022 
-                        par_objMakeBadgeElements.RecipientPic = objCtlPortrait.Pic_CloneOfInitialImage
-                    End If ''End of "If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then"
-                End If ''End of "If (objCtlPortrait IsNot Nothing) Then"
+            objCtlPortrait = CtlGraphic_Portrait_1st()
+            If (objCtlPortrait IsNot Nothing) Then
+                If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then
+                    ''Take the picture from the Element Control. ---1/5/2022 
+                    par_objMakeBadgeElements.RecipientPic = objCtlPortrait.Pic_CloneOfInitialImage
+                End If ''End of "If (par_objMakeBadgeElements.RecipientPic Is Nothing) Then"
+            End If ''End of "If (objCtlPortrait IsNot Nothing) Then"
 
-                ''
-                ''Major call !!
-                ''
-                obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
-                               par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
-                               Me.PreviewBox.Width,
-                               Me.PreviewBox.Height,
-                               par_recipient,
-                               Nothing, Nothing, Nothing, par_recentlyMoved)
+            ''
+            ''Major call !!
+            ''
+            obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+                           par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
+                           Me.PreviewBox.Width,
+                           Me.PreviewBox.Height,
+                           par_recipient,
+                           Nothing, Nothing, Nothing, par_recentlyMoved)
 
+            ''Added 1/23/2022 td
+            ''Provide automated problem-related feedback to user. 
+            If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
                 ''Added 1/23/2022 td
-                ''Provide automated problem-related feedback to user. 
-                If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
-                    ''Added 1/23/2022 td
-                    If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
-                        ''Provide automated problem-related feedback to user. 
-                        MessageBoxTD.Show_Statement(obj_generator.Messages)
-                    End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
-                End If ''End of "If (boolGeneratorMessageExists) Then"
+                If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
+                    ''Provide automated problem-related feedback to user. 
+                    MessageBoxTD.Show_Statement(obj_generator.Messages)
+                End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
+            End If ''End of "If (boolGeneratorMessageExists) Then"
 
-            End If ''End of "If (c_boolUseFunction2022) Then ..."
+        End If ''End of "If (c_boolUseFunction2022) Then ..."
 
-            ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         Me.PreviewBox.Image = obj_image
         Me.PreviewBox.Refresh()

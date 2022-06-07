@@ -10,7 +10,8 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports System.Xml.Serialization ''Added 9/24/2019 thomas d. 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 ''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
-Imports AutoMapper ''Added 11/17/2021 thomas d. 
+Imports AutoMapper ''Added 11/17/2021 thomas d.
+Imports ciBadgeSerialize ''Added 6/07/2022 thomas d. 
 ''
 ''Added 1/29/2022 thomas d.
 ''
@@ -114,13 +115,8 @@ Public Class ClassElementFieldOrTextV4
     Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
     Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
-
-    ''Added 6/7/2022 td  
-    Public Property Font_MaxGalkin As ciBadgeSerialize.SerializableFontByMaxGalkin Implements IElement_TextOnly.Font_MaxGalkin
-    Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName ''Added 6/07/2022 
-
+    ''Moved below, and underscore removed. 6/7/2022  <Xml.Serialization.XmlIgnore>
+    ''Moved below, and underscore removed. 6/7/2022  Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
 
     ''Jan29 2022 td''Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 
@@ -140,6 +136,7 @@ Public Class ClassElementFieldOrTextV4
         End Set
     End Property
 
+
     ''Added 8/12/2019 thomas downes  
     Public Property FontSize_Pixels As Single = 25 Implements IElement_TextOnly.FontSize_Pixels ''Added 8/12/2019 thomas downes  
     Public Property FontBold As Boolean Implements IElement_TextOnly.FontBold ''Added 8/12/2019 thomas downes  
@@ -148,6 +145,24 @@ Public Class ClassElementFieldOrTextV4
     ''Added 9/6/2019 thomas downes  
     Public Property FontFamilyName As String = "Times New Roman" Implements IElement_TextOnly.FontFamilyName ''Added 9/6/2019 thomas downes  
 
+    ''Added 6/7/2022 td  
+    Public Property FontMaxGalkin As ciBadgeSerialize.SerializableFontByMaxGalkin Implements IElement_TextOnly.FontMaxGalkin
+    ''Redundant, not needed. 6/7/2022  Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName ''Added 6/07/2022 
+
+    <Xml.Serialization.XmlIgnore>
+    Public Property FontDrawingClass As System.Drawing.Font Implements IElement_TextOnly.FontDrawingClass
+        ''6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
+        Get
+            ''Added 6/07/2022 td
+            Me.FontMaxGalkin.ToFont()
+        End Get
+
+        Set(value As System.Drawing.Font)
+            ''Added 6/07/2022 td
+            Me.FontMaxGalkin = SerializableFontByMaxGalkin.FromFont(value)
+        End Set
+
+    End Property
 
     ''Added 8/15/2019 thomas downes  
     ''9/12/2019 td''Public Property FontSize_IsLocked As Boolean Implements IElement_Text.FontSize_IsLocked ''Added 8/15/2019 thomas downes  

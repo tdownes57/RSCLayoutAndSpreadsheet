@@ -13,10 +13,9 @@ Public Interface IElement_TextOnly
     ''
     ''Added 9/16/2019 td
     ''
-    Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
-    Property Font_MaxGalkin As SerializableFontByMaxGalkin ''Added 6/7/2022 td
+    ''Moved down, and underscore removed. td ----Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
 
-    Property Font_FamilyName As String ''Added 6/06/2022 td
+    ''Redundant, so not needed. 6/7/0222 td ''Property Font_FamilyName As String ''Added 6/06/2022 td
 
     Property FontColor As System.Drawing.Color
 
@@ -43,6 +42,11 @@ Public Interface IElement_TextOnly
     Property FontBold As Boolean ''Added 8/12/2019 thomas downes  
     Property FontItalics As Boolean ''Added 8/12/2019 thomas downes  
     Property FontUnderline As Boolean ''Added 8/12/2019 thomas downes  
+
+    Property FontMaxGalkin As SerializableFontByMaxGalkin ''Added 6/7/2022 td
+
+    ''Removed underscore 6/7/2022 td''Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
+    Property FontDrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
 
     ''See Interface IElement_Base. ---8/29/2019 td''Property BackColor As System.Drawing.Color
 

@@ -158,12 +158,22 @@ Public Class ClassElementFieldV3
     Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
     Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
 
-    ''Added 6/7/2022 
-    Public Property Font_MaxGalkin As SerializableFontByMaxGalkin Implements IElement_TextOnly.Font_MaxGalkin
-    Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName
+    <Xml.Serialization.XmlIgnore>
+    Public Property FontDrawingClass As System.Drawing.Font Implements IElement_TextOnly.FontDrawingClass
+        ''6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
+        Get
+            ''Added 6/07/2022 td
+            Me.FontMaxGalkin.ToFont()
+        End Get
+
+        Set(value As System.Drawing.Font)
+            ''Added 6/07/2022 td
+            Me.FontMaxGalkin = SerializableFontByMaxGalkin.FromFont(value)
+        End Set
+
+    End Property
+
 
     Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 
@@ -190,6 +200,10 @@ Public Class ClassElementFieldV3
     Public Property FontUnderline As Boolean Implements IElement_TextOnly.FontUnderline ''Added 8/12/2019 thomas downes  
     ''Added 9/6/2019 thomas downes  
     Public Property FontFamilyName As String = "Times New Roman" Implements IElement_TextOnly.FontFamilyName ''Added 9/6/2019 thomas downes  
+
+    ''Added 6/7/2022 
+    Public Property FontMaxGalkin As SerializableFontByMaxGalkin Implements IElement_TextOnly.FontMaxGalkin
+    ''Redundant. 6/7/2022 Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName
 
 
     ''Added 8/15/2019 thomas downes  

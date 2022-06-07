@@ -40,13 +40,28 @@ Public Class SerializableFontByMaxGalkin
     Public Sub New(par_font As Font)
 
         With par_font
-            FontFamily = .FontFamily.Name
-            Graphics_Unit = .Unit
-            Size = .Size
-            Style = .Style
+            Me.FontFamily = .FontFamily.Name
+            Me.Graphics_Unit = .Unit
+            Me.Size = .Size
+            Me.Style = .Style
         End With
 
     End Sub
+
+
+    Public Shared Function DefaultFont() As SerializableFontByMaxGalkin
+        ''
+        ''Added 6/07/2022 thomas downes
+        ''
+        Dim objNewFontGalkin As New SerializableFontByMaxGalkin
+        With objNewFontGalkin
+            .FontFamily = "Times New Roman" '' "Arial"
+            .Graphics_Unit = GraphicsUnit.Pixel
+            .Size = 25
+            .Style = FontStyle.Regular
+        End With
+
+    End Function ''End of ""Public Shared Function DefaultFont()""
 
 
     Public Shared Function FromFont(par_font As Font) As SerializableFontByMaxGalkin
@@ -54,6 +69,7 @@ Public Class SerializableFontByMaxGalkin
         Return New SerializableFontByMaxGalkin(par_font)
 
     End Function
+
 
     Public Function ToFont() As Font
 
