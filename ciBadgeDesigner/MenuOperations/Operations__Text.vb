@@ -166,10 +166,15 @@ ExitHandler:
             ''Feb14 2022 td'' Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
             Me.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
 
+            ''Added 6/6/2022 thomas downes
+            Me.ElementInfo_TextOnly.Font_Name = Me.FontDialog1.Font.Name
+
             ''Added 10/17/2019 td 
             If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
                 ''Added 10/17/2019 td 
-                MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
+                ''---MsgBox("Program error, unexpected Font Unit", MsgBoxStyle.Exclamation, "OpenDialog_Font")
+                System.Diagnostics.Debugger.Break()
+
             Else
                 ''Feb14 2022 td''Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
                 Me.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size ''Added 2/14/2022 td

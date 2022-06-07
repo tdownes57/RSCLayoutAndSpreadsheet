@@ -13,6 +13,7 @@ Public Interface IElement_TextOnly
     ''Added 9/16/2019 td
     ''
     Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
+    Property Font_Name As String ''Added 6/06/2022 td
 
     Property FontColor As System.Drawing.Color
 

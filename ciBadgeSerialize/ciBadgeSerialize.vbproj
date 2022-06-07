@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -68,6 +69,9 @@
     <Compile Include="ClassCycle.vb" />
     <Compile Include="ClassDeserial.vb" />
     <Compile Include="ClassSerial.vb" />
+    <Compile Include="ClassSerializableFontByMaxGalkin.vb" />
+    <Compile Include="ClassSerializableFontByElad.vb" />
+    <Compile Include="FontXmlConverter.vb" />
     <Compile Include="MessageBoxTD.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -103,6 +107,10 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SerializeFont_CS_Elad.txt" />
+    <Content Include="SerializeFont_CS_MaxGalkin.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -1005,13 +1005,25 @@ ExitHandler:
         Dim boolTextImageRotated_90_270 As Boolean ''Added 9/23/2019 thomas d.  
         Const c_SemiCircle_Degrees As Integer = 180
 
-        boolReturnValue = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+        ''6/6/2022 boolReturnValue = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+        Select Case Me.ElementClass_Obj.OrientationInDegrees
+            Case 0, 180, 360
+                boolReturnValue = True
+            Case -180, -360
+                boolReturnValue = True
+            Case Else
+                ''Check that the orientation-degrees is evenly-divisible by 180 degrees.
+                ''  ----6/6/2022 td
+                boolReturnValue = (0 = (Me.ElementClass_Obj.OrientationInDegrees Mod c_SemiCircle_Degrees))
+
+        End Select ''End of ""Select Case Me.ElementClass_Obj.OrientationInDegrees""
 
         ''Double-check the orientation.  ----9/23/2019 td
         If (boolReturnValue) Then
             boolTextImageRotated_90_270 = (Me.pictureFieldOrText.Image.Width < Me.pictureFieldOrText.Image.Height)
             If (boolTextImageRotated_90_270) Then
-                Throw New Exception("Image dimensions are Not expected.")
+                ''6/6/2022 Throw New Exception("Image dimensions are Not expected.")
+                System.Diagnostics.Debugger.Break()
             End If ''End of "If (boolImageRotated_90_360) Then"
         End If ''End of "If (boolReturnValue) Then"
 

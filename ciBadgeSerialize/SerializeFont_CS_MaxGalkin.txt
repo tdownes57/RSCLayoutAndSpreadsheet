@@ -1,0 +1,51 @@
+﻿//
+// https://stackoverflow.com/questions/1940127/how-to-xmlserialize-system-drawing-font-class?noredirect=1&lq=1
+//
+// https://stackoverflow.com/questions/1940127/how-to-xmlserialize-system-drawing-font-class?noredirect=1&lq=1
+//
+//''
+//''  Answered by Max Galkan https://stackoverflow.com/users/2351099/max-galkin
+//''
+
+I use a serializable font, somewhat different from Elad's.
+
+In my serializable data-entities I hide ([XmlIgnore]) the property with the Font type and expose the property with the SerializableFont type, which is "eaten" by the serializer.
+
+Note that this is applicable to the XmlSerializer only.
+
+/// <summary>
+/// Font descriptor, that can be xml-serialized
+/// </summary>
+public class SerializableFont
+{
+    public string FontFamily { get; set; }
+    public GraphicsUnit GraphicsUnit { get; set; }
+    public float Size { get; set; }
+    public FontStyle Style { get; set; }
+
+    /// <summary>
+    /// Intended for xml serialization purposes only
+    /// </summary>
+    private SerializableFont() { }
+
+    public SerializableFont(Font f)
+    {
+        FontFamily = f.FontFamily.Name;
+        GraphicsUnit = f.Unit;
+        Size = f.Size;
+        Style = f.Style;
+    }
+
+    public static SerializableFont FromFont(Font f)
+    {
+        return new SerializableFont(f);
+    }
+
+    public Font ToFont()
+    {
+        return new Font(FontFamily, Size, Style,
+            GraphicsUnit);
+    }
+}
+
+

@@ -300,6 +300,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlsRSC\RSCInterfaceMouseEvents.vb" />
+    <Compile Include="ControlsRSC\RSCLinearGradientBrush.Designer.vb">
+      <DependentUpon>RSCLinearGradientBrush.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsRSC\RSCLinearGradientBrush.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsRSC\RSCRowHeader.Designer.vb">
       <DependentUpon>RSCRowHeader.vb</DependentUpon>
     </Compile>
@@ -591,6 +597,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCFieldColumnV2.resx">
       <DependentUpon>RSCFieldColumnV2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlsRSC\RSCLinearGradientBrush.resx">
+      <DependentUpon>RSCLinearGradientBrush.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCRowHeader.resx">
       <DependentUpon>RSCRowHeader.vb</DependentUpon>
