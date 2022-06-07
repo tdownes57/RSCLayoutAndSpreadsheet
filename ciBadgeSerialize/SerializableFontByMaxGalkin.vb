@@ -25,9 +25,9 @@ Public Class SerializableFontByMaxGalkin
     ''Public FontStyle Style { Get; Set; }
 
     Public Property FontFamily As String
-    Public Property Graphics_Unit As GraphicsUnit
+    Public Property Graphics_Unit As Drawing.GraphicsUnit
     Public Property Size As Single
-    Public Property Style As FontStyle
+    Public Property Style As Drawing.FontStyle
 
     ''/// <summary>
     ''/// Intended for xml serialization purposes only
@@ -40,10 +40,16 @@ Public Class SerializableFontByMaxGalkin
     Public Sub New(par_font As Font)
 
         With par_font
-            Me.FontFamily = .FontFamily.Name
-            Me.Graphics_Unit = .Unit
-            Me.Size = .Size
+
+            Me.FontFamily = .FontFamily.Name ''E.g. "Times New Roman". ---6/7/2022
+            Me.Graphics_Unit = .Unit ''Pixels, I would expect, hope. ---6/7/2022
+            Me.Size = .Size ''Size in Pixels !!??
+
+            ''
+            ''Important, .Style includes .Bold, .Underline, .Italics. --6/7/2022
+            ''
             Me.Style = .Style
+
         End With
 
     End Sub
@@ -68,13 +74,35 @@ Public Class SerializableFontByMaxGalkin
 
         Return New SerializableFontByMaxGalkin(par_font)
 
-    End Function
+    End Function ''End of ""Public Shared Function FromFont"
+
+
+    Public Shared Function GetFontMaxGalkin(par_font As Font) As SerializableFontByMaxGalkin
+        ''
+        ''This is an "Alias" function, i.e. it's redundant except for having a 
+        ''  memorable name.---6/7/2022 
+        ''
+        Return New SerializableFontByMaxGalkin(par_font)
+
+    End Function ''End of ""Public Shared Function FromFont"
 
 
     Public Function ToFont() As Font
 
         Return New Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
 
-    End Function
+    End Function ''End of ""Public Function ToFont() As Font""
+
+
+    Public Function GetDrawingFont() As Font
+        ''
+        ''This is an "Alias" function, i.e. it's redundant except for having a 
+        ''  memorable name.---6/7/2022 
+        ''
+        ''Added 6/7/2022 td
+        Return Me.ToFont()
+
+    End Function ''End of ""Public Function GetDrawingFont() As Font""
+
 
 End Class ''End of ""Public Class ClassSerializableFontByMaxGalkin""

@@ -116,6 +116,10 @@
       <Project>{bd7ffd67-90bb-4498-9841-6a5186ac2d26}</Project>
       <Name>ciBadgeLayouts_NoElems</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
+      <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
+      <Name>ciBadgeSerialize</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

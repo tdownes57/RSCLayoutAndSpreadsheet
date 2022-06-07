@@ -307,21 +307,25 @@ Public Module modGenerate
             End If ''End of "If (.FontFamilyName Is Nothing) Then"
 
             ''Added 9/15/2019 td
-            If (.Font_DrawingClass Is Nothing) Then
+            ''6/2022  If (.Font_DrawingClass Is Nothing) Then
+            If (.FontDrawingClass Is Nothing) Then
                 ''Added 9/15/2019 td
-                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                ''6/07/2022 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                .FontDrawingClass = .FontMaxGalkin.ToFont()
 
             Else
                 Dim bRegenerateFontObjectClass As Boolean ''Added 9/23/2019 td 
-                bRegenerateFontObjectClass = (CInt(.Font_DrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
+                ''6/2022 bRegenerateFontObjectClass = (CInt(.Font_DrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
+                bRegenerateFontObjectClass = (CInt(.FontDrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
                 If (bRegenerateFontObjectClass) Then ''Added 9/23/2019 td 
                     ''Added 9/23/2019 td 
-                    .Font_DrawingClass = modFonts.SetFontSize_Pixels(.Font_DrawingClass, .FontSize_Pixels)
+                    .FontDrawingClass = modFonts.SetFontSize_Pixels(.FontDrawingClass, .FontSize_Pixels)
                 End If ''End of '"If (bRegenerateFont) Then .... ElseIf ...."
             End If ''End of '"If (.Font_DrawingClass Is Nothing) Then .... ElseIf ...."
 
             ''Added 9/8/2019 td
-            font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
+            ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
 
             ''Added 8/18/2019 td
             Select Case par_elementInfo_TextFld.TextAlignment''Added 8/18/2019 td

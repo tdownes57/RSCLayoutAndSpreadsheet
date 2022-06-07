@@ -49,9 +49,9 @@ Public Class ClassElementStaticTextV3
 
     ''Added 8/12/2019 thomas downes  
     Public Property FontSize_Pixels As Single = 25 Implements IElement_TextOnly.FontSize_Pixels ''Added 8/12/2019 thomas downes  
-    Public Property FontBold As Boolean Implements IElement_TextOnly.FontBold ''Added 8/12/2019 thomas downes  
-    Public Property FontItalics As Boolean Implements IElement_TextOnly.FontItalics ''Added 8/12/2019 thomas downes  
-    Public Property FontUnderline As Boolean Implements IElement_TextOnly.FontUnderline ''Added 8/12/2019 thomas downes  
+    Public Property FontBold_Deprecated As Boolean Implements IElement_TextOnly.FontBold_Deprecated ''Added 8/12/2019 thomas downes  
+    Public Property FontItalics_Deprecated As Boolean Implements IElement_TextOnly.FontItalics_Deprecated ''Added 8/12/2019 thomas downes  
+    Public Property FontUnderline_Deprecated As Boolean Implements IElement_TextOnly.FontUnderline_Deprecated ''Added 8/12/2019 thomas downes  
     ''Added 9/6/2019 thomas downes  
     Public Property FontFamilyName As String = "Times New Roman" Implements IElement_TextOnly.FontFamilyName ''Added 9/6/2019 thomas downes  
 
@@ -436,7 +436,9 @@ Public Class ClassElementStaticTextV3
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
         gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_elementInfo_Text.Text_StaticLine, par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
+        gr.DrawString(par_elementInfo_Text.Text_StaticLine,
+                      par_elementInfo_Text.FontDrawingClass, Brushes.Black, 20, 5)
+        ''6/2022    par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
 
         Return par_image ''Return Nothing
 
@@ -472,10 +474,10 @@ Public Class ClassElementStaticTextV3
             Throw New ArgumentNullException("par_ElementInfo_Text")
         End If ''End of ""If (par_ElementInfo_Text Is Nothing) Then""
 
-        Me.FontBold = par_ElementInfo_Text.FontBold
+        Me.FontBold_Deprecated = par_ElementInfo_Text.FontBold_Deprecated ''Deprecated 6/2022 td
         Me.FontColor = par_ElementInfo_Text.FontColor
         Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
-        Me.FontItalics = par_ElementInfo_Text.FontItalics
+        Me.FontItalics_Deprecated = par_ElementInfo_Text.FontItalics_Deprecated ''Deprecated 6/2022 td
         Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
         Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
         Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
@@ -483,8 +485,9 @@ Public Class ClassElementStaticTextV3
         Me.FontSize_AutoScaleToElementYesNo = par_ElementInfo_Text.FontSize_AutoScaleToElementYesNo
         Me.FontSize_AutoSizePromptUser = par_ElementInfo_Text.FontSize_AutoSizePromptUser ''Added 6/2/2022 td
 
-        Me.FontUnderline = par_ElementInfo_Text.FontUnderline
-        Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
+        Me.FontUnderline_Deprecated = par_ElementInfo_Text.FontUnderline_Deprecated ''Deprecated 6/2022 td
+        ''6/7/2022 Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
+        Me.FontMaxGalkin = par_ElementInfo_Text.FontMaxGalkin ''Added 6/7/2022 td
 
         Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
         Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
@@ -533,7 +536,8 @@ Public Class ClassElementStaticTextV3
 
             FontSize_Pixels = CSng(FontSize_AutoScaleToElementRatio *
                                      par_intNewHeightInPixels)
-            Font_DrawingClass = modFonts.SetFontSize_Pixels(Font_DrawingClass, FontSize_Pixels)
+            ''6/7/2022 Font_DrawingClass = modFonts.SetFontSize_Pixels(Font_DrawingClass, FontSize_Pixels)
+            FontDrawingClass = modFonts.SetFontSize_Pixels(FontDrawingClass, FontSize_Pixels)
 
         End If ''End of "If (bScaleFontToElementSize Then"
 

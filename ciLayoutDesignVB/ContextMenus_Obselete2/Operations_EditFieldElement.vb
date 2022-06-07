@@ -354,9 +354,13 @@ Public Class Operations_EditFieldElement
                     ''Added 10/17/2019 td  
                     If (FontDialog1.Font.Unit <> GraphicsUnit.Pixel) Then Throw New Exception("Unexpected Font Unit")
 
-                    .ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+                    ''6/7/2022 .ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+                    .ElementInfo_TextOnly.FontDrawingClass = FontDialog1.Font
+
                     ''Added 10/17/2019 td  
                     .ElementInfo_TextOnly.FontSize_Pixels = FontDialog1.Font.Size
+                    ''Added 6/07/2022 td  
+                    .ElementInfo_TextOnly.FontFamilyName = FontDialog1.Font.Name
 
                     Application.DoEvents()
                     Application.DoEvents()

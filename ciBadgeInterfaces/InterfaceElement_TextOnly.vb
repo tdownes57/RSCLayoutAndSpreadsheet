@@ -19,8 +19,8 @@ Public Interface IElement_TextOnly
 
     Property FontColor As System.Drawing.Color
 
-    Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
-    Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
+    ''Moved below & suffixed. 6/2022 Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
+    ''Moved below & suffixed. 6/2022 Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
     ''6/02/2022  Property FontSize_AutoScaleToElementYesNo As Boolean ''Added 9/12/2019 thomas downes  
     ''6/02/2022  Property FontSize_AutoScaleToElementRatio As Double ''Added 9/12/2019 thomas downes  
@@ -39,9 +39,16 @@ Public Interface IElement_TextOnly
     Property FontOffset_X As Integer ''Added 8/15/2019 thomas downes  
     Property FontOffset_Y As Integer ''Added 8/15/2019 thomas downes  
 
-    Property FontBold As Boolean ''Added 8/12/2019 thomas downes  
-    Property FontItalics As Boolean ''Added 8/12/2019 thomas downes  
-    Property FontUnderline As Boolean ''Added 8/12/2019 thomas downes  
+    ''
+    ''Deprecated properties. Use FontDrawingClass.Style's properties .Bold, .Italics,
+    ''   & .Underline instead.   ----6/7/2022 
+    ''
+    Property FontBold_Deprecated As Boolean ''Deprecated, not needed. 6/2022 Added 8/12/2019 thomas downes  
+    Property FontItalics_Deprecated As Boolean ''Deprecated, not needed. 6/2022 Added 8/12/2019 thomas downes  
+    Property FontUnderline_Deprecated As Boolean ''Deprecated, not needed. 6/2022 Added 8/12/2019 thomas downes  
+
+    Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
+    Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
     Property FontMaxGalkin As SerializableFontByMaxGalkin ''Added 6/7/2022 td
 

@@ -164,10 +164,13 @@ ExitHandler:
             ''The current control is NOT part of a group of selected items. ---2/3/2022 td
             ''
             ''Feb14 2022 td'' Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
-            Me.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
+            ''6/7/2022 Me.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
+            Me.ElementInfo_TextOnly.FontDrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
 
             ''Added 6/6/2022 thomas downes
-            Me.ElementInfo_TextOnly.Font_Name = Me.FontDialog1.Font.Name
+            ''6/7/2022 Me.ElementInfo_TextOnly.Font_Name = Me.FontDialog1.Font.Name
+            Me.ElementInfo_TextOnly.FontFamilyName = Me.FontDialog1.Font.Name
+            Me.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size ''Is this right?  --6/7/2022
 
             ''Added 10/17/2019 td 
             If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
@@ -220,9 +223,14 @@ ExitHandler:
 
                     End If ''End of "If (FontDialog1.Font.Unit <> GraphicsUnit.Pixel) Then"
 
-                    .ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+
+                    ''6/7/2022 .ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+                    .ElementInfo_TextOnly.FontDrawingClass = FontDialog1.Font
+
                     ''Added 10/17/2019 td  
                     .ElementInfo_TextOnly.FontSize_Pixels = FontDialog1.Font.Size
+                    ''Added 6/7/2022 td
+                    .ElementInfo_TextOnly.FontFamilyName = FontDialog1.Font.Name
 
                     Application.DoEvents()
                     Application.DoEvents()

@@ -112,7 +112,7 @@ Public Class DialogTextOffset
 
                 .FontSize_Pixels = Me.ElementCopy_Info_Text.FontSize_Pixels
 
-                .Font_DrawingClass = modFonts.SetFontSize_Pixels(Me.ElementCopy_Info_Text.Font_DrawingClass,
+                .FontDrawingClass = modFonts.SetFontSize_Pixels(Me.ElementCopy_Info_Text.FontDrawingClass,
                                                                  Me.ElementCopy_Info_Text.FontSize_Pixels)
 
                 ''Added 9/19/2019 td

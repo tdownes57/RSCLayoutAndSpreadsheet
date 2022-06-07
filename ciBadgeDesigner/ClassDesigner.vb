@@ -2684,13 +2684,18 @@ Public Class ClassDesigner
                 If (.FontMaxGalkin Is Nothing) Then
                     ''Added 6/7/2022 thomas
                     .FontMaxGalkin = SerializableFontByMaxGalkin.DefaultFont
-                    .Font_DrawingClass = .FontMaxGalkin.ToFont()
+                    ''6/7/2022 td''.Font_DrawingClass = .FontMaxGalkin.ToFont()
+                    .FontDrawingClass = .FontMaxGalkin.ToFont()
                     .FontFamilyName = .FontMaxGalkin.FontFamily
-                    If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then
-                        .FontSize_Pixels = .FontMaxGalkin.Size
+
+                    If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then ''Is this correct?? ---6/7/2022 
+                        ''Should this property (.FontSize_Pixels) be deprecated?  6/2022
+                        .FontSize_Pixels = .FontMaxGalkin.Size ''Is this correct?? ---6/7/2022 
                     End If ''End of ""If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then""
+
                 End If ''End of "If (.FontMaxGalkin Is Nothing) Then"
 
+                ''6/2022 If (.FontFamilyName = "") Then
                 If (.FontFamilyName = "" Or .FontFamilyName = "Times New Roman") Then
                     ''6/7/2022 td ''.FontFamilyName = "Times New Roman" ''Added 9/15/2019 thomas d.
                     .FontFamilyName = .FontMaxGalkin.FontFamily
