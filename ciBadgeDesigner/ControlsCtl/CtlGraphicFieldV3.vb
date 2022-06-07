@@ -608,7 +608,9 @@ ExitHandler:
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If ''End of "If (boolScaleFontSize) Then"
 
-        If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then
+        ''6/7/2022 If (Me.ElementInfo_TextOnly.FontMaxGalkin Is Nothing) Then
+        If (Me.ElementInfo_TextOnly.FontMaxGalkin Is Nothing Or
+            Me.ElementInfo_TextOnly.FontFamilyName Is Nothing) Then
             ''
             ''Initialize the font. 
             ''
@@ -616,13 +618,23 @@ ExitHandler:
 
             With Me.ElementInfo_TextOnly
                 ''9/6/2019 td''.FontSize = 15
-                .FontSize_Pixels = 25 ''9/6/2019 ''15
-                .FontBold = False
-                .FontItalics = False
-                .FontUnderline = False ''Added 9/6/2019 thomas downes
-                .FontFamilyName = "Times New Roman"
-                ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
-                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                ''6/7/2022 .FontSize_Pixels = 25 ''9/6/2019 ''15
+                ''6/7/2022 .FontBold = False
+                ''6/7/2022 .FontItalics = False
+                ''6/7/2022 .FontUnderline = False ''Added 9/6/2019 thomas downes
+                ''6/7/2022 .FontFamilyName = "Times New Roman"
+                ''''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
+                ''6/7/2022 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+
+                ''Added 6/7/2022 td 
+                .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont()
+                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                .FontFamilyName = .FontMaxGalkin.FontFamily
+                .FontSize_Pixels = .FontMaxGalkin.Size
+                .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)
+                .FontUnderline_Deprecated = (.FontMaxGalkin.Style = FontStyle.Underline)
+                .FontItalics_Deprecated = (.FontMaxGalkin.Style = FontStyle.Italic)
+
             End With
 
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"

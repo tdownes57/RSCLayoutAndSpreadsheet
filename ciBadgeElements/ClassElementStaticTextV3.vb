@@ -507,7 +507,7 @@ Public Class ClassElementStaticTextV3
 
         ''9/16/2019 td''Me.FieldLabelCaption = par_ElementInfo_Text.FieldLabelCaption
 
-        Me.FontBold = par_ElementInfo_Text.FontBold
+        Me.FontBold_Deprecated = par_ElementInfo_Text.FontBold_Deprecated
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 

@@ -302,7 +302,7 @@ Public Class Operations_EditFieldElement
 
         If (boolExitEarly) Then Exit Sub ''Added 8/13/2019 td
 
-        Me.FontDialog1.Font = Me.CtlCurrentElement.ElementClass_ObjV3.Font_DrawingClass ''Added 7/31/2019 td  
+        Me.FontDialog1.Font = Me.CtlCurrentElement.ElementClass_ObjV3.FontDrawingClass ''Added 7/31/2019 td  
 
         ''
         ''Major call !!   Show the font-selection dialog to the user. 
@@ -317,7 +317,7 @@ Public Class Operations_EditFieldElement
 
         If (Me.SelectingElements.ElementsList_IsItemUnselected(Me.CtlCurrentElement)) Then
 
-            Me.CtlCurrentElement.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
+            Me.CtlCurrentElement.ElementInfo_TextOnly.FontDrawingClass = Me.FontDialog1.Font
 
             ''Added 10/17/2019 td 
             If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then

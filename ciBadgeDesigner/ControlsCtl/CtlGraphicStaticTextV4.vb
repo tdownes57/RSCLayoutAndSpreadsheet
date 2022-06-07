@@ -460,7 +460,7 @@ Public Class CtlGraphicStaticTextV4
 
         End If ''End of "If (boolScaleFontSize And Me.ElementClass_Obj Is Nothing) Then ... ElseIf (boolScaleFontSize) ..."
 
-        If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then
+        If (Me.ElementInfo_TextOnly.FontDrawingClass Is Nothing) Then
             ''
             ''Initialize the font. 
             ''

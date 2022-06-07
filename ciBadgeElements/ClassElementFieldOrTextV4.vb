@@ -926,10 +926,10 @@ Public Class ClassElementFieldOrTextV4
         Me.BadgeLayout.Height_Pixels = par_badgeLayout.Height_Pixels
         Me.BadgeLayout.Width_Pixels = par_badgeLayout.Width_Pixels
 
-        Me.FontBold = par_ElementInfo_Text.FontBold
+        Me.FontBold_Deprecated = par_ElementInfo_Text.FontBold_Deprecated
         Me.FontColor = par_ElementInfo_Text.FontColor
         Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
-        Me.FontItalics = par_ElementInfo_Text.FontItalics_Deprecated ''Deprecated 6/2022
+        Me.FontItalics_Deprecated = par_ElementInfo_Text.FontItalics_Deprecated ''Deprecated 6/2022
         Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
         Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
         Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
@@ -939,7 +939,8 @@ Public Class ClassElementFieldOrTextV4
         Me.FontSize_AutoScaleToElementYesNo = par_ElementInfo_Text.FontSize_AutoScaleToElementYesNo
         Me.FontSize_AutoSizePromptUser = par_ElementInfo_Text.FontSize_AutoSizePromptUser ''Added 6/2/2022
 
-        Me.FontUnderline = par_ElementInfo_Text.FontUnderline_Deprecated ''Deprecated 6/2022
+        Me.FontUnderline_Deprecated = par_ElementInfo_Text.FontUnderline_Deprecated ''Deprecated 6/2022
+
         ''6/7/2022 td''Me.Font_DrawingClass = par_ElementInfo_Text.Font_DrawingClass
         Me.FontMaxGalkin = par_ElementInfo_Text.FontMaxGalkin
 

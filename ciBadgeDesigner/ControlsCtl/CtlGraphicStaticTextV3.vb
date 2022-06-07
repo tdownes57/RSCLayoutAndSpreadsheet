@@ -460,7 +460,7 @@ ExitHandler:
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If ''End of "If (boolScaleFontSize) Then"
 
-        If (Me.ElementInfo_TextOnly.Font_DrawingClass Is Nothing) Then
+        If (Me.ElementInfo_TextOnly.FontDrawingClass Is Nothing) Then
             ''
             ''Initialize the font. 
             ''
@@ -469,13 +469,24 @@ ExitHandler:
             With Me.ElementInfo_TextOnly
                 ''9/6/2019 td''.FontSize = 15
                 .FontSize_Pixels = 25 ''9/6/2019 ''15
-                .FontBold = False
-                .FontItalics = False
-                .FontUnderline = False ''Added 9/6/2019 thomas downes
+                .FontBold_Deprecated = False
+                .FontItalics_Deprecated = False
+                .FontUnderline_Deprecated = False ''Added 9/6/2019 thomas downes
                 .FontFamilyName = "Times New Roman"
                 ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
-                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
-            End With
+                ''6/7/2022 .FontDrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, 
+                ''6/7/2022                                        .FontBold, .FontItalics, .FontUnderline)
+
+                ''Added 6/7/2022
+                .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont
+                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                .FontFamilyName = .FontMaxGalkin.FontFamily
+                .FontSize_Pixels = .FontMaxGalkin.Size
+                .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)
+                .FontUnderline_Deprecated = (.FontMaxGalkin.Style = FontStyle.Underline)
+                .FontItalics_Deprecated = (.FontMaxGalkin.Style = FontStyle.Italic)
+
+            End With ''End of ""With Me.ElementInfo_TextOnly""
 
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
 
@@ -855,10 +866,10 @@ ExitHandler:
         ''
         ''Added 7/30/2019 thomas downes
         ''
-        FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass
+        FontDialog1.Font = Me.ElementInfo_TextOnly.FontDrawingClass
         FontDialog1.ShowDialog()
 
-        Me.ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+        Me.ElementInfo_TextOnly.FontDrawingClass = FontDialog1.Font
 
         Application.DoEvents()
         Application.DoEvents()

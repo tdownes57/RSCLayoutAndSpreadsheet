@@ -406,13 +406,25 @@ Public Class ClassLabelToImage
             End If ''End of "If (.FontFamilyName Is Nothing) Then"
 
             ''Added 9/15/2019 td
-            If (.Font_DrawingClass Is Nothing) Then
+            ''---6/7/2022 If (.FontDrawingClass Is Nothing) Then
+            If (.FontMaxGalkin Is Nothing) Then
                 ''Added 9/15/2019 td
-                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
-            End If ''End of '"If (.Font_DrawingClass Is Nothing) Then"
+                ''6/7/2022 .FontDrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, 
+                ''                                         .FontBold, .FontItalics, .FontUnderline)
+
+                ''Added 6/7/2022
+                .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont
+                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                .FontFamilyName = .FontMaxGalkin.FontFamily
+                .FontSize_Pixels = .FontMaxGalkin.Size
+                .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)
+                .FontUnderline_Deprecated = (.FontMaxGalkin.Style = FontStyle.Underline)
+                .FontItalics_Deprecated = (.FontMaxGalkin.Style = FontStyle.Italic)
+
+            End If ''End of '"If (.FontMaxGalkin Is Nothing) Then"
 
             ''Added 9/8/2019 td
-            font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
 
             ''Added 8/18/2019 td
             Select Case par_elementInfo_Text.TextAlignment''Added 8/18/2019 td

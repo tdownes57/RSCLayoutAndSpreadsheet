@@ -2693,6 +2693,11 @@ Public Class ClassDesigner
                         .FontSize_Pixels = .FontMaxGalkin.Size ''Is this correct?? ---6/7/2022 
                     End If ''End of ""If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then""
 
+                    ''Added 6/7/2022
+                    .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)
+                    .FontUnderline_Deprecated = (.FontMaxGalkin.Style = FontStyle.Underline)
+                    .FontItalics_Deprecated = (.FontMaxGalkin.Style = FontStyle.Italic)
+
                 End If ''End of "If (.FontMaxGalkin Is Nothing) Then"
 
                 ''6/2022 If (.FontFamilyName = "") Then

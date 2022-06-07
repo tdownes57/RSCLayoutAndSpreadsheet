@@ -66,6 +66,7 @@ Public Class SerializableFontByMaxGalkin
             .Size = 25
             .Style = FontStyle.Regular
         End With
+        Return objNewFontGalkin ''Added 6/07/2022 
 
     End Function ''End of ""Public Shared Function DefaultFont()""
 
