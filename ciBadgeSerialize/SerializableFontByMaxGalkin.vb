@@ -87,9 +87,20 @@ Public Class SerializableFontByMaxGalkin
     End Function ''End of ""Public Shared Function FromFont"
 
 
-    Public Function ToFont() As Font
+    Public Function ToFont() As Drawing.Font
 
-        Return New Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
+        ''Added 6/7/2022 td
+        If (String.IsNullOrEmpty(Me.FontFamily)) Then
+            ''Added 6/7/2022 td
+            Dim temp_galkin As SerializableFontByMaxGalkin
+            temp_galkin = SerializableFontByMaxGalkin.DefaultFont()
+            Me.FontFamily = temp_galkin.FontFamily
+            Me.Size = temp_galkin.Size
+            Me.Style = temp_galkin.Style
+            Me.Graphics_Unit = temp_galkin.Graphics_Unit
+        End If ''End of ""If (String.IsNullOrEmpty(Me.FontFamily)) Then""
+
+        Return New Drawing.Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
 
     End Function ''End of ""Public Function ToFont() As Font""
 

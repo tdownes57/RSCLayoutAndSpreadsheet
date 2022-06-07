@@ -122,7 +122,8 @@ ExitHandler:
         If (FontDialog1 Is Nothing) Then FontDialog1 = New FontDialog
 
         ''Feb2 2022 td''Me.FontDialog1.Font = Me.CtlCurrentElementField.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
-        Me.FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass ''Added 7/31/2019 td  
+        ''Jun7 2022 td''Me.FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass ''Added 7/31/2019 td  
+        Me.FontDialog1.Font = Me.ElementInfo_TextOnly.FontDrawingClass ''Added 7/31/2019 td  
 
         ''
         ''Major call !!   Show the font-selection dialog to the user. 

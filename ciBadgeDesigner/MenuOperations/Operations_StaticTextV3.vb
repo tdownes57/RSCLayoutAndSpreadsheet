@@ -145,10 +145,11 @@ Public Class Operations_StaticTextV3
         ''Added 7/30/2019 thomas downes
         ''
         If (FontDialog1 Is Nothing) Then FontDialog1 = New FontDialog
-        FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass
+        FontDialog1.Font = Me.ElementInfo_TextOnly.FontDrawingClass
         FontDialog1.ShowDialog()
 
-        Me.ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+        ''6/2022 Me.ElementInfo_TextOnly.Font_DrawingClass = FontDialog1.Font
+        Me.ElementInfo_TextOnly.FontDrawingClass = FontDialog1.Font
 
         Application.DoEvents()
         Application.DoEvents()

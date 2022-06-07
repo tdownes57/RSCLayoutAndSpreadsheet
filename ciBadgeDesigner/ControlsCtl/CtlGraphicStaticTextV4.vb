@@ -468,13 +468,18 @@ Public Class CtlGraphicStaticTextV4
 
             With Me.ElementInfo_TextOnly
                 ''9/6/2019 td''.FontSize = 15
-                .FontSize_Pixels = 25 ''9/6/2019 ''15
-                .FontBold = False
-                .FontItalics = False
-                .FontUnderline = False ''Added 9/6/2019 thomas downes
-                .FontFamilyName = "Times New Roman"
+                ''6/2022 td''.FontSize_Pixels = 25 ''9/6/2019 ''15
+                ''6/2022 td''.FontBold_Deprecated = False
+                ''6/2022 td''.FontItalics_Deprecated = False
+                ''6/2022 td''.FontUnderline_Deprecated = False ''Added 9/6/2019 thomas downes
+                ''6/2022 td''.FontFamilyName = "Times New Roman"
                 ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
-                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                ''6/2022 td''.Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+
+                .FontDrawingClass = .FontMaxGalkin.ToFont() ''Added 6/7/2022
+                .FontSize_Pixels = .FontMaxGalkin.Size ''Added 6/7/2022
+                .FontFamilyName = .FontMaxGalkin.FontFamily ''Added 6/7/2022
+
             End With
 
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
