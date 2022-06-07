@@ -69,8 +69,8 @@
     <Compile Include="ClassCycle.vb" />
     <Compile Include="ClassDeserial.vb" />
     <Compile Include="ClassSerial.vb" />
-    <Compile Include="ClassSerializableFontByMaxGalkin.vb" />
-    <Compile Include="ClassSerializableFontByElad.vb" />
+    <Compile Include="SerializableFontByMaxGalkin.vb" />
+    <Compile Include="SerializableFontByElad.vb" />
     <Compile Include="FontXmlConverter.vb" />
     <Compile Include="MessageBoxTD.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

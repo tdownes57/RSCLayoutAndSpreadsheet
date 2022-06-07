@@ -10,7 +10,8 @@ Imports System.Drawing
 ''' <summary>
 ''' Font descriptor, that can be xml-serialized
 ''' </summary>
-Public Class ClassSerializableFontByMaxGalkin
+<Serializable>
+Public Class SerializableFontByMaxGalkin
     ''
     ''Added 6/6/2022 thomas downes
     ''
@@ -48,9 +49,9 @@ Public Class ClassSerializableFontByMaxGalkin
     End Sub
 
 
-    Public Shared Function FromFont(par_font As Font) As ClassSerializableFontByMaxGalkin
+    Public Shared Function FromFont(par_font As Font) As SerializableFontByMaxGalkin
 
-        Return New ClassSerializableFontByMaxGalkin(par_font)
+        Return New SerializableFontByMaxGalkin(par_font)
 
     End Function
 

@@ -6,10 +6,11 @@ Option Strict On
 Option Infer Off
 
 Imports System.Drawing ''Added 9/18/2019 td
-Imports System.Drawing.Text ''Added 9/18/2019 td
+''//Imports System.Drawing.Text ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
-Imports ciBadgeInterfaces ''Added 9/61/2019 thomas d. 
-Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.  
+''//Imports ciBadgeInterfaces ''Added 9/61/2019 thomas d. 
+''//Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.  
+''//Imports ciBadgeSerialize ''Added 6/7/2022 thomas d.
 
 
 <Serializable>
@@ -19,9 +20,6 @@ Public Class ClassElementStaticTextV4
     ''
     ''Added 1/29/2022 thomas downes
     ''
-
-
-
     Public Sub New(par_control As Control)
 
         ''Added 7/19/2019 td
@@ -29,6 +27,7 @@ Public Class ClassElementStaticTextV4
         Me.FormControl = par_control
 
     End Sub
+
 
     Public Sub New(par_DisplayText As String, par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
         ''

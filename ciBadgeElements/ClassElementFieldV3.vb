@@ -12,6 +12,7 @@ Imports System.Xml.Serialization ''Added 9/24/2019 thomas d.
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 ''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
 Imports AutoMapper ''Added 11/17/2021 thomas d. 
+Imports ciBadgeSerialize ''Added 6/07/2022 
 
 Public Event ElementField_RightClicked(par_elementField As ClassElementFieldV3) ''Added 10/1/2019 td
 
@@ -159,6 +160,10 @@ Public Class ClassElementFieldV3
 
     <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
+
+    ''Added 6/7/2022 
+    Public Property Font_MaxGalkin As SerializableFontByMaxGalkin Implements IElement_TextOnly.Font_MaxGalkin
+    Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName
 
     Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 

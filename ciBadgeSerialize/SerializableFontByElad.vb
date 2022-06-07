@@ -9,7 +9,7 @@ Imports System.Xml.Serialization ''Added 6/06/2022  thomas
 Imports System.Drawing
 
 
-Public Class ClassSerializableFontByElad
+Public Class SerializableFontByElad
     ''
     ''Added 6/6/2022 thomas downes
     ''

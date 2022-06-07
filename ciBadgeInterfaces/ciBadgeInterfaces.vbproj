@@ -134,6 +134,11 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
+      <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
+      <Name>ciBadgeSerialize</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

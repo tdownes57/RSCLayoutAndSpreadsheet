@@ -117,6 +117,11 @@ Public Class ClassElementFieldOrTextV4
     <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
 
+    ''Added 6/7/2022 td  
+    Public Property Font_MaxGalkin As ciBadgeSerialize.SerializableFontByMaxGalkin Implements IElement_TextOnly.Font_MaxGalkin
+    Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName ''Added 6/07/2022 
+
+
     ''Jan29 2022 td''Public Property ExampleValue_ForElement As String Implements IElement_TextField.ExampleValue_ForElement ''Added 8/14/2019 td 
 
     <XmlIgnore>

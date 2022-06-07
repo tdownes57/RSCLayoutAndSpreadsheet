@@ -8,6 +8,7 @@ Imports System.Drawing.Text ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
 Imports ciBadgeInterfaces ''Added 9/61/2019 thomas d. 
 Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.
+Imports ciBadgeSerialize ''Added 6/7/2022  
 
 <Serializable>
 Public Class ClassElementStaticTextV3
@@ -24,6 +25,12 @@ Public Class ClassElementStaticTextV3
 
     <Xml.Serialization.XmlIgnore>
     Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
+
+    ''Added 6/7/2022 thomas downes 
+    Public Property Font_MaxGalkin As SerializableFontByMaxGalkin Implements IElement_TextOnly.Font_MaxGalkin
+    Public Property Font_FamilyName As String Implements IElement_TextOnly.Font_FamilyName
+
+
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
     ''9/16 td''Public Property ExampleValue As String Implements IElement_StaticText.ExampleValue ''Added 8/14/2019 td 

@@ -6,14 +6,17 @@
 ''      https://www.tutorialspoint.com/design_pattern/design_pattern_overview
 ''
 Imports System.Drawing ''Added 8/14/2019 td  
-Imports System.Windows.Forms ''Added 8/14/2019 td  
+Imports System.Windows.Forms ''Added 8/14/2019 td
+Imports ciBadgeSerialize ''Added 6/07/2022 thomas downes
 
 Public Interface IElement_TextOnly
     ''
     ''Added 9/16/2019 td
     ''
     Property Font_DrawingClass As System.Drawing.Font ''Formerly called Font__AllInfo.  8/17/2019 td
-    Property Font_Name As String ''Added 6/06/2022 td
+    Property Font_MaxGalkin As SerializableFontByMaxGalkin ''Added 6/7/2022 td
+
+    Property Font_FamilyName As String ''Added 6/06/2022 td
 
     Property FontColor As System.Drawing.Color
 
