@@ -23,19 +23,37 @@ Public Class SerializableFontByMaxGalkin
     ''Public GraphicsUnit GraphicsUnit { Get; Set; }
     ''Public float Size { Get; Set; }
     ''Public FontStyle Style { Get; Set; }
-
+    ''---Property FontSize_Points As Single ''Added 6/08/2022 thomas downes
+    ''
+    ''Convert Pixels to Points
+    ''
+    '' points = pixels * 72 / 96   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+    ''
+    ''     ---6/8/2022 thomas downes
+    ''
     Public Property FontFamily As String
     Public Property Graphics_Unit As Drawing.GraphicsUnit
-    Public Property Size As Single
+    ''6/08/2022 Public Property Size As Single
+    Public Property Graphics_UnitSize As Single ''6/08/2022 Public Property Size
+    Public Property Size_Pixels As Single ''points = pixels * 72 / 96  Added 6/8/2022 
+    Public Property Size_Points As Single ''points = pixels * 72 / 96  Added 6/8/2022 
     Public Property Style As Drawing.FontStyle
 
     ''/// <summary>
     ''/// Intended for xml serialization purposes only
     ''/// </summary>
     ''Private SerializableFont() { }
-    Private Sub New()
-
+    ''6/08/2022 ''Private Sub New()
+    Public Sub New()
+        ''
+        ''This object is utilized in module
+        ''
+        ''    ciBadgeDesigner.Operations__Text.Open_Dialog_for_Font_TE1009
+        ''
+        ''---6/8/2022 thomas downes
+        ';
     End Sub
+
 
     Public Sub New(par_font As Font)
 
@@ -43,7 +61,13 @@ Public Class SerializableFontByMaxGalkin
 
             Me.FontFamily = .FontFamily.Name ''E.g. "Times New Roman". ---6/7/2022
             Me.Graphics_Unit = .Unit ''Pixels, I would expect, hope. ---6/7/2022
-            Me.Size = .Size ''Size in Pixels !!??
+
+            ''6/8/2022 Me.Size = .Size ''Size in Pixels !!??
+            Me.Graphics_UnitSize = .Size ''Size in Graphics Unit.  ----6/8/2022 td
+
+            ''Added 6/8/2022 thomas 
+            Me.Size_Pixels = Me.ConvertSize_ToPixels(.Unit, .Size)
+            Me.Size_Points = Me.ConvertSize_ToPoints(.Unit, .Size)
 
             ''
             ''Important, .Style includes .Bold, .Underline, .Italics. --6/7/2022

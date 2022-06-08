@@ -733,6 +733,17 @@ ExitHandler:
             ''Added 12/21/2021 td
             strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_ObjV3.CaptionSuffixIfNeeded).TrimEnd())
 
+            ''Added 6/7/2022 thomas 
+            With Me.ElementInfo_TextOnly
+                If .FontMaxGalkin Is Nothing Then
+                    .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont
+                End If
+                If .FontDrawingClass Is Nothing Then
+                    ''.FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                    System.Diagnostics.Debugger.Break()
+                End If
+            End With
+
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
             newTextImage =

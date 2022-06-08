@@ -48,6 +48,16 @@ Public Interface IElement_TextOnly
     Property FontUnderline_Deprecated As Boolean ''Deprecated, not needed. 6/2022 Added 8/12/2019 thomas downes  
 
     Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  
+
+    ''---Property FontSize_Points As Single ''Added 6/08/2022 thomas downes
+    ''
+    ''Convert Pixels to Points
+    ''
+    '' points = pixels * 72 / 96   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+    ''
+    ''     ---6/8/2022 thomas downes
+    ''
+
     Property FontFamilyName As String ''Added 9/6/2019 thomas downes  
 
     Property FontMaxGalkin As SerializableFontByMaxGalkin ''Added 6/7/2022 td

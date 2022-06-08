@@ -164,7 +164,9 @@ Public Class ClassElementFieldV3
         ''6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
         Get
             ''Added 6/07/2022 td
-            Me.FontMaxGalkin.ToFont()
+            Dim objFont As Drawing.Font ''Add ed 6/07/2022 td
+            objFont = Me.FontMaxGalkin.ToFont() ''Added 6/07/2022 td
+            Return objFont
         End Get
 
         Set(value As System.Drawing.Font)

@@ -154,7 +154,8 @@ Public Class ClassElementFieldOrTextV4
         ''6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
         Get
             ''Added 6/07/2022 td
-            Me.FontMaxGalkin.ToFont()
+            If (Me.FontMaxGalkin Is Nothing) Then Me.FontMaxGalkin = SerializableFontByMaxGalkin.DefaultFont
+            Return Me.FontMaxGalkin.ToFont()
         End Get
 
         Set(value As System.Drawing.Font)

@@ -124,11 +124,41 @@ ExitHandler:
         ''Feb2 2022 td''Me.FontDialog1.Font = Me.CtlCurrentElementField.ElementClass_Obj.Font_DrawingClass ''Added 7/31/2019 td  
         ''Jun7 2022 td''Me.FontDialog1.Font = Me.ElementInfo_TextOnly.Font_DrawingClass ''Added 7/31/2019 td  
         Me.FontDialog1.Font = Me.ElementInfo_TextOnly.FontDrawingClass ''Added 7/31/2019 td  
+        ''Read-only''Me.FontDialog1.Font.Size = Me.ElementInfo_TextOnly.FontDrawingClass.Size
+
+        Dim g_units_before As GraphicsUnit = Me.ElementInfo_TextOnly.FontDrawingClass.Unit
+        Dim size_in_points_before As Single = Me.ElementInfo_TextOnly.FontDrawingClass.SizeInPoints
+        Dim size_general_before As Single = Me.ElementInfo_TextOnly.FontDrawingClass.Size
+
+        Dim singlePixelsDivPoints As Single
+        Dim boolUseRatio As Boolean
+        If (g_units_before = GraphicsUnit.Pixel) Then
+            singlePixelsDivPoints = size_general_before / size_in_points_before
+            boolUseRatio = True
+        End If
 
         ''
-        ''Major call !!   Show the font-selection dialog to the user. 
+        ''Major call !!   Sho w the font-selection dialog to the user. 
         '' 
         Me.FontDialog1.ShowDialog()
+
+        Dim objFont_afterDialog As Font = Me.FontDialog1.Font
+        Dim g_units_after As GraphicsUnit = Me.FontDialog1.Font.Unit
+        Dim size_in_points_after As Single = Me.FontDialog1.Font.SizeInPoints
+        Dim size_general_after As Single = Me.FontDialog1.Font.Size
+        Dim fontfamily_after As String = Me.FontDialog1.Font.FontFamily.Name
+        ''Read-Only Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel
+
+        Dim objFontMaxGalkin As New ciBadgeSerialize.SerializableFontByMaxGalkin
+
+        If (boolUseRatio) Then
+            objFontMaxGalkin.FontFamily = fontfamily_after
+            objFontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel
+            objFontMaxGalkin.Size = (size_in_points_after * singlePixelsDivPoints)
+            objFontMaxGalkin.Style = objFont_afterDialog.Style
+        End If ''End of ""If (boolUseRatio) Then""
+
+        System.Diagnostics.Debugger.Break()
 
         ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
         ''Application.DoEvents()
@@ -164,6 +194,15 @@ ExitHandler:
             ''
             ''The current control is NOT part of a group of selected items. ---2/3/2022 td
             ''
+            Dim strFontUnit As String
+            ''With Me.FontDialog1
+            ''    If (.Font.Size = .Font.SizeInPoints) Then
+            ''        ''This is a bug in the font dialog!!!
+            ''        strFontUnit = .Font.Unit.ToString
+            ''        System.Diagnostics.Debugger.Break()
+            ''    End If
+            ''End With
+
             ''Feb14 2022 td'' Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
             ''6/7/2022 Me.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
             Me.ElementInfo_TextOnly.FontDrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
