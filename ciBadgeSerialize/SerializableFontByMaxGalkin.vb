@@ -66,8 +66,8 @@ Public Class SerializableFontByMaxGalkin
             Me.Graphics_UnitSize = .Size ''Size in Graphics Unit.  ----6/8/2022 td
 
             ''Added 6/8/2022 thomas 
-            Me.Size_Pixels = Me.ConvertSize_ToPixels(.Unit, .Size)
-            Me.Size_Points = Me.ConvertSize_ToPoints(.Unit, .Size)
+            Me.Size_Pixels = ConvertSize_ToPixels(.Unit, .Size)
+            Me.Size_Points = ConvertSize_ToPoints(.Unit, .Size)
 
             ''
             ''Important, .Style includes .Bold, .Underline, .Italics. --6/7/2022
@@ -76,7 +76,118 @@ Public Class SerializableFontByMaxGalkin
 
         End With
 
-    End Sub
+    End Sub ''End of "Public Sub New(par_font As Font)"
+
+
+
+    Public Shared Function ConvertSize_ToPixels(par_unit As GraphicsUnit, par_size As Single) As Single
+        ''
+        ''Added 6/8/2022 thomas d. 
+        ''
+        ''
+        ''Convert Pixels to Points
+        ''
+        '' Ratio points : pixels :: 72 : 96
+        '' Ratio pixels : points :: 96 : 72
+        ''
+        '' points = pixels * 72 / 96   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+        ''
+        ''     ---6/8/2022 thomas downes
+        ''
+        Select Case par_unit
+            Case GraphicsUnit.Pixel
+
+                Return par_size
+
+            Case GraphicsUnit.Point
+                ''
+                ''Convert Pixels to Points
+                ''
+                '' Ratio points : pixels :: 72 : 96
+                '' Ratio pixels : points :: 96 : 72
+                ''
+                '' points = pixels * 72 / 96   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+                '' pixels = points * 96 / 72   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+                ''
+                ''     ---6/8/2022 thomas downes
+                ''
+                Dim singlePoints As Single
+                Dim singlePixelsOverPointsRatio As Single
+                Dim singlePixels As Single
+
+                singlePoints = par_size
+                ''
+                '' Ratio points : pixels :: 72 : 96
+                '' Ratio pixels : points :: 96 : 72
+                ''
+                singlePixelsOverPointsRatio = 96 / 72
+
+                singlePixels = (singlePoints * singlePixelsOverPointsRatio)
+
+                Return singlePixels
+
+            Case Else
+
+                System.Diagnostics.Debugger.Break()
+
+        End Select ''End of ""Select Case par_unit""
+
+        Return 0.0
+
+    End Function ''End of ""Public Shared Function ConvertSize_ToPixels""
+
+
+    Public Shared Function ConvertSize_ToPoints(par_unit As GraphicsUnit, par_size As Single) As Single
+        ''
+        ''Added 6/8/2022 thomas d. 
+        ''
+        ''
+        ''Convert Pixels to Points
+        ''
+        '' Ratio pixels : points :: 96 : 72
+        '' Ratio points : pixels :: 72 : 96
+        ''
+        '' pixels = points * 96 / 72   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+        '' points = pixels  / (72 / 96)   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+        ''
+        ''     ---6/8/2022 thomas downes
+        ''
+        Select Case par_unit
+            Case GraphicsUnit.Point
+
+                Return par_size
+
+            Case GraphicsUnit.Pixel
+                ''
+                ''Convert Points to Pixels
+                ''
+                '' Ratio pixels : points :: 96 : 72
+                '' Ratio points : pixels :: 72 : 96
+                ''
+                '' pixels = points * 96 / 72   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+                '' points = pixels / (72 / 96)   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+                ''
+                ''     ---6/8/2022 thomas downes
+                ''
+                Dim input_singlePixels As Single
+                Dim singlePointsOverPixelsRatio As Single
+                Dim output_singlePoints As Single
+
+                input_singlePixels = par_size
+                singlePointsOverPixelsRatio = 72 / 96
+                output_singlePoints = (input_singlePixels * singlePointsOverPixelsRatio)
+
+                Return output_singlePoints
+
+            Case Else
+
+                System.Diagnostics.Debugger.Break()
+
+        End Select ''End of ""Select Case par_unit""
+
+        Return 0.0
+
+    End Function ''End of ""Public Shared Function ConvertSize_ToPoints""
 
 
     Public Shared Function DefaultFont() As SerializableFontByMaxGalkin
