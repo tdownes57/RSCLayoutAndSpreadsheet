@@ -210,12 +210,13 @@ ExitHandler:
             ''6/8/2022 Me.ElementInfo_TextOnly.FontDrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
 
             Me.ElementInfo_TextOnly.FontMaxGalkin = objFontGalkin_afterDialog
-            Me.ElementInfo_TextOnly.FontDrawingClass = objFontGalkin_afterDialog.GetDrawingFont()
+            Me.ElementInfo_TextOnly.FontDrawingClass = objFontGalkin_afterDialog.GetDrawingFont_UnitPixels()
 
             ''Added 6/6/2022 thomas downes
             ''6/7/2022 Me.ElementInfo_TextOnly.Font_Name = Me.FontDialog1.Font.Name
             Me.ElementInfo_TextOnly.FontFamilyName = Me.FontDialog1.Font.Name
-            Me.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size ''Is this right?  --6/7/2022
+            ''6/9/2022 Me.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size ''Is this right?  --6/7/2022
+            Me.ElementInfo_TextOnly.FontSize_Pixels = objFontGalkin_afterDialog.Size_Pixels ''Is this right?  --6/7/2022
 
             ''Added 10/17/2019 td 
             If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then
@@ -225,7 +226,8 @@ ExitHandler:
 
             Else
                 ''Feb14 2022 td''Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size  ''Added 8/17/2019 td
-                Me.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size ''Added 2/14/2022 td
+                ''June9 2022 Me.ElementInfo_TextOnly.FontSize_Pixels = Me.FontDialog1.Font.Size ''Added 2/14/2022 td
+                Me.ElementInfo_TextOnly.FontSize_Pixels = objFontGalkin_afterDialog.Size_Pixels ''Is this right?  --6/7/2022
 
             End If ''End of "If (Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel) Then ... Else ..."
 
@@ -291,6 +293,17 @@ ExitHandler:
         ''Added 9/13/2019 td
         ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
         Me.LayoutFunctions.AutoPreview_IfChecked()
+
+ExitHandler:
+        ''Added 6/9/2022
+        Dim bShowAgainToConfirmSave As Boolean
+        bShowAgainToConfirmSave =
+            MessageBoxTD.Show_Confirm("Re-open?  (Confirm the change by re-showing the dialog box?) " & vbCrLf_Deux &
+                                     "(Just for show, no 2nd-pass changes will be kept.)")
+        If bShowAgainToConfirmSave Then
+            Me.FontDialog1.Font = Me.ElementInfo_TextOnly.FontDrawingClass ''Added 7/31/2019 td  
+            Me.FontDialog1.ShowDialog()
+        End If ''End of ""If bShowAgainToConfirmSave Then""
 
     End Sub ''eNd of "Private Sub "Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)"
 

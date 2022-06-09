@@ -418,7 +418,9 @@ Public Class CtlGraphicFieldV4
 
                 ''Added 6/7/2022 td 
                 .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont()
-                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                ''#1 6/9/2022 .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                ''#2 6/9/2022 .FontDrawingClass = .FontMaxGalkin.GetDrawingFont_AnyUnits()
+                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont_UnitPixels()
                 .FontFamilyName = .FontMaxGalkin.FontFamily
                 .FontSize_Pixels = .FontMaxGalkin.Size_Pixels
                 .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)

@@ -195,7 +195,8 @@ Public Class SerializableFontByMaxGalkin
         ''
         ''Added 6/8/2022 thomas d.
         ''
-
+        Size_Pixels = ConvertUnitSize_ToPixels()
+        Size_Points = ConvertUnitSize_ToPoints()
 
     End Sub ''End of ""Public Sub LoadSizeViaGraphicsUnitSize()""
 
@@ -266,7 +267,20 @@ Public Class SerializableFontByMaxGalkin
             Me.Graphics_Unit = temp_galkin.Graphics_Unit
             Me.Graphics_UnitSize = temp_galkin.Graphics_UnitSize
 
-        End If ''End of ""If (String.IsNullOrEmpty(Me.FontFamily)) Then""
+        ElseIf (0 = Me.Graphics_UnitSize) Then
+            ''
+            ''Let's check this case....
+            ''
+            ''System.Diagnostics.Debugger.Break()
+            Dim temp_galkin As SerializableFontByMaxGalkin
+            temp_galkin = SerializableFontByMaxGalkin.DefaultFont()
+            Me.FontFamily = temp_galkin.FontFamily
+            ''6/8/2022 Me.Size = temp_galkin.Size
+            Me.Style = temp_galkin.Style
+            Me.Graphics_Unit = temp_galkin.Graphics_Unit
+            Me.Graphics_UnitSize = temp_galkin.Graphics_UnitSize
+
+        End If ''End of ""If (String.IsNullOrEmpty(Me.FontFamily)) Then... ElseIf....""
 
         ''6/8/2022 Return New Drawing.Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
         Return New Drawing.Font(Me.FontFamily, Me.Graphics_UnitSize,
@@ -294,23 +308,35 @@ Public Class SerializableFontByMaxGalkin
         Me.Size_Pixels = ConvertSize_ToPixels(Me.Graphics_Unit, Me.Graphics_UnitSize)
         Me.Size_Points = ConvertSize_ToPoints(Me.Graphics_Unit, Me.Graphics_UnitSize)
 
-        ''6/8/2022 Return New Drawing.Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
-        Return New Drawing.Font(Me.FontFamily, GraphicsUnit.Pixel,
-                                Me.Style, Me.Size_Pixels)
+        ''#1 6/8/2022 Return New Drawing.Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
+        ''#2 6/8/2022 Return New Drawing.Font(Me.FontFamily, GraphicsUnit.Pixel,
+        ''#2 6/8/2022   Me.Style, Me.Size_Pixels)
+        Return New Drawing.Font(Me.FontFamily, Me.Size_Pixels,
+                                Me.Style, GraphicsUnit.Pixel)
 
     End Function ''End of ""Public Function ToFont_UnitPixels() As Font""
 
 
-    Public Function GetDrawingFont() As Font
+    Public Function GetDrawingFont_AnyUnits() As Font
         ''
-        ''This is an "Alias" function, i.e. it's redundant except for having a 
+        ''Thq12`22 bis is an "Alias" function, i.e. it's redundant except for having a 
         ''  memorable name.---6/7/2022 
         ''
         ''Added 6/7/2022 td
         Return Me.ToFont_AnyUnits()
 
-    End Function ''End of ""Public Function GetDrawingFont() As Font""
+    End Function ''End of ""Public Function GetDrawingFont_AnyUnits() As Font""
 
+
+    Public Function GetDrawingFont_UnitPixels() As Font
+        ''
+        ''This is an "Alias" function, i.e. it's redundant except for having a 
+        ''  memorable name.---6/7/2022 
+        ''
+        ''Added 6/7/2022 td
+        Return Me.ToFont_UnitPixels()
+
+    End Function ''End of ""Public Function GetDrawingFont_UnitPixels() As Font""
 
 
     Public Function ContainsNumericInconsistencies() As Boolean

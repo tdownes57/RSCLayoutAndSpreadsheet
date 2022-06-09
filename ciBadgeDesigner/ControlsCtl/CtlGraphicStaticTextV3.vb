@@ -479,7 +479,7 @@ ExitHandler:
 
                 ''Added 6/7/2022
                 .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont
-                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont_UnitPixels()
                 .FontFamilyName = .FontMaxGalkin.FontFamily
                 .FontSize_Pixels = .FontMaxGalkin.Size_Pixels
                 ''6/8/2022.FontSize_Points = .FontMaxGalkin.Size_Points ''Added 6/8/2022 td

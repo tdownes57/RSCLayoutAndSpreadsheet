@@ -414,7 +414,7 @@ Public Class ClassLabelToImage
 
                 ''Added 6/7/2022
                 .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont
-                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont_UnitPixels()
                 .FontFamilyName = .FontMaxGalkin.FontFamily
                 .FontSize_Pixels = .FontMaxGalkin.Size_Pixels
                 .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)

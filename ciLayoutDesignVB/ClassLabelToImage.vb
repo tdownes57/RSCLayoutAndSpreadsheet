@@ -403,7 +403,7 @@ Public Class ClassLabelToImage
             If (.FontDrawingClass Is Nothing) Then ''6/2022 (.Font_DrawingClass Is Nothing) Then
                 ''Added 9/15/2019 td
                 ''6/2022 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
-                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
+                .FontDrawingClass = .FontMaxGalkin.GetDrawingFont_UnitPixels()
             End If ''End of '"If (.Font_DrawingClass Is Nothing) Then"
 
             ''Added 9/8/2019 td
