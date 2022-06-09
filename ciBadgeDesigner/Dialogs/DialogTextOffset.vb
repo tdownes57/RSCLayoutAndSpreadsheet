@@ -167,7 +167,7 @@ Public Class DialogTextOffset
 
                 ''6/2022 .Font_DrawingClass = modFonts.SetFontSize_Pixels(Me.ElementCopy_Info_Text.Font_DrawingClass,
                 ''6/2022                                                  Me.ElementCopy_Info_Text.FontSize_Pixels)
-                .FontDrawingClass = .FontMaxGalkin.ToFont() ''Added 6/7/2022 td
+                .FontDrawingClass = .FontMaxGalkin.ToFont_AnyUnits() ''Added 6/7/2022 td
 
                 ''Added 9/19/2019 td
                 .TextAlignment = Me.ElementCopy_Info_Text.TextAlignment ''Added 9/19/2019 td

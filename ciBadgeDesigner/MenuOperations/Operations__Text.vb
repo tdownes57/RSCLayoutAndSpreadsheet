@@ -143,20 +143,22 @@ ExitHandler:
         Me.FontDialog1.ShowDialog()
 
         Dim objFont_afterDialog As Font = Me.FontDialog1.Font
-        Dim g_units_after As GraphicsUnit = Me.FontDialog1.Font.Unit
-        Dim size_in_points_after As Single = Me.FontDialog1.Font.SizeInPoints
-        Dim size_general_after As Single = Me.FontDialog1.Font.Size
-        Dim fontfamily_after As String = Me.FontDialog1.Font.FontFamily.Name
+        ''Dim g_units_after As GraphicsUnit = Me.FontDialog1.Font.Unit
+        ''Dim size_in_points_after As Single = Me.FontDialog1.Font.SizeInPoints
+        ''Dim size_general_after As Single = Me.FontDialog1.Font.Size
+        ''Dim fontfamily_after As String = Me.FontDialog1.Font.FontFamily.Name
         ''Read-Only Me.FontDialog1.Font.Unit = GraphicsUnit.Pixel
 
-        Dim objFontMaxGalkin As New ciBadgeSerialize.SerializableFontByMaxGalkin
+        ''Added 6/8/2022  
+        Dim objFontGalkin_afterDialog As ciBadgeSerialize.SerializableFontByMaxGalkin
+        objFontGalkin_afterDialog = ciBadgeSerialize.SerializableFontByMaxGalkin.FromFont(objFont_afterDialog)
 
-        If (boolUseRatio) Then
-            objFontMaxGalkin.FontFamily = fontfamily_after
-            objFontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel
-            objFontMaxGalkin.Size = (size_in_points_after * singlePixelsDivPoints)
-            objFontMaxGalkin.Style = objFont_afterDialog.Style
-        End If ''End of ""If (boolUseRatio) Then""
+        ''6/8/2022 If (boolUseRatio) Then
+        ''    objFontMaxGalkin.FontFamily = fontfamily_after
+        ''    objFontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel
+        ''    objFontMaxGalkin.Size = (size_in_points_after * singlePixelsDivPoints)
+        ''    objFontMaxGalkin.Style = objFont_afterDialog.Style
+        ''End If ''End of ""If (boolUseRatio) Then""
 
         System.Diagnostics.Debugger.Break()
 
@@ -205,7 +207,10 @@ ExitHandler:
 
             ''Feb14 2022 td'' Me.CtlCurrentFieldOrTextV4.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font
             ''6/7/2022 Me.ElementInfo_TextOnly.Font_DrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
-            Me.ElementInfo_TextOnly.FontDrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
+            ''6/8/2022 Me.ElementInfo_TextOnly.FontDrawingClass = Me.FontDialog1.Font ''Added 2/14/2022 thomas downes
+
+            Me.ElementInfo_TextOnly.FontMaxGalkin = objFontGalkin_afterDialog
+            Me.ElementInfo_TextOnly.FontDrawingClass = objFontGalkin_afterDialog.GetDrawingFont()
 
             ''Added 6/6/2022 thomas downes
             ''6/7/2022 Me.ElementInfo_TextOnly.Font_Name = Me.FontDialog1.Font.Name

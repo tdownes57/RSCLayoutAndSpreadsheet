@@ -66,7 +66,7 @@ Public Class ClassElementStaticTextV3
         ''6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
         Get
             ''Added 6/07/2022 td
-            Me.FontMaxGalkin.ToFont()
+            Me.FontMaxGalkin.ToFont_AnyUnits()
         End Get
 
         Set(value As System.Drawing.Font)

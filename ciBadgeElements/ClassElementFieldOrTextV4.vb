@@ -155,7 +155,7 @@ Public Class ClassElementFieldOrTextV4
         Get
             ''Added 6/07/2022 td
             If (Me.FontMaxGalkin Is Nothing) Then Me.FontMaxGalkin = SerializableFontByMaxGalkin.DefaultFont
-            Return Me.FontMaxGalkin.ToFont()
+            Return Me.FontMaxGalkin.ToFont_AnyUnits()
         End Get
 
         Set(value As System.Drawing.Font)

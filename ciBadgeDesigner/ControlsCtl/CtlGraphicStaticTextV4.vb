@@ -476,8 +476,9 @@ Public Class CtlGraphicStaticTextV4
                 ''9/6/2019 td''.Font_DrawingClass = New Font(.FontFamilyName, .FontSize_Pixels, FontStyle.Regular, GraphicsUnit.Pixel)
                 ''6/2022 td''.Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
 
-                .FontDrawingClass = .FontMaxGalkin.ToFont() ''Added 6/7/2022
-                .FontSize_Pixels = .FontMaxGalkin.Size ''Added 6/7/2022
+                ''6/8/2022 .FontDrawingClass = .FontMaxGalkin.ToFont_AnyUnits() ''Added 6/7/2022
+                .FontDrawingClass = .FontMaxGalkin.ToFont_UnitPixels() ''Added 6/7/2022
+                .FontSize_Pixels = .FontMaxGalkin.Size_Pixels ''Added 6/7/2022
                 .FontFamilyName = .FontMaxGalkin.FontFamily ''Added 6/7/2022
 
             End With

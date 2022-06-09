@@ -60,6 +60,7 @@ Public Class SerializableFontByMaxGalkin
         With par_font
 
             Me.FontFamily = .FontFamily.Name ''E.g. "Times New Roman". ---6/7/2022
+            Me.Style = .Style
             Me.Graphics_Unit = .Unit ''Pixels, I would expect, hope. ---6/7/2022
 
             ''6/8/2022 Me.Size = .Size ''Size in Pixels !!??
@@ -72,7 +73,7 @@ Public Class SerializableFontByMaxGalkin
             ''
             ''Important, .Style includes .Bold, .Underline, .Italics. --6/7/2022
             ''
-            Me.Style = .Style
+            ''See above.6/8/2022 ''Me.Style = .Style
 
         End With
 
@@ -164,8 +165,8 @@ Public Class SerializableFontByMaxGalkin
                 '' Ratio pixels : points :: 96 : 72
                 '' Ratio points : pixels :: 72 : 96
                 ''
-                '' pixels = points * 96 / 72   https://stackoverflow.com/questions/139655/convert-pixels-to-points
-                '' points = pixels / (72 / 96)   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+                '' pixels = points * (96 / 72)   https://stackoverflow.com/questions/139655/convert-pixels-to-points
+                '' points = pixels * (72 / 96)   https://stackoverflow.com/questions/139655/convert-pixels-to-points
                 ''
                 ''     ---6/8/2022 thomas downes
                 ''
@@ -190,6 +191,31 @@ Public Class SerializableFontByMaxGalkin
     End Function ''End of ""Public Shared Function ConvertSize_ToPoints""
 
 
+    Public Sub LoadSizeViaGraphicsUnitSize()
+        ''
+        ''Added 6/8/2022 thomas d.
+        ''
+
+
+    End Sub ''End of ""Public Sub LoadSizeViaGraphicsUnitSize()""
+
+
+    Private Function ConvertUnitSize_ToPixels() As Single
+
+        ''Added 6/8/2022
+        Return ConvertSize_ToPixels(Graphics_Unit, Graphics_UnitSize)
+
+    End Function
+
+
+    Private Function ConvertUnitSize_ToPoints() As Single
+
+        ''Added 6/8/2022
+        Return ConvertSize_ToPoints(Graphics_Unit, Graphics_UnitSize)
+
+    End Function
+
+
     Public Shared Function DefaultFont() As SerializableFontByMaxGalkin
         ''
         ''Added 6/07/2022 thomas downes
@@ -198,8 +224,12 @@ Public Class SerializableFontByMaxGalkin
         With objNewFontGalkin
             .FontFamily = "Times New Roman" '' "Arial"
             .Graphics_Unit = GraphicsUnit.Pixel
-            .Size = 25
+            .Graphics_UnitSize = 25
             .Style = FontStyle.Regular
+            ''.Size_Pixels = ConvertUnitSize_ToPixels()
+            ''.Size_Points = ConvertUnitSize_ToPoint()
+            .LoadSizeViaGraphicsUnitSize()
+
         End With
         Return objNewFontGalkin ''Added 6/07/2022 
 
@@ -223,7 +253,7 @@ Public Class SerializableFontByMaxGalkin
     End Function ''End of ""Public Shared Function FromFont"
 
 
-    Public Function ToFont() As Drawing.Font
+    Public Function ToFont_AnyUnits() As Drawing.Font
 
         ''Added 6/7/2022 td
         If (String.IsNullOrEmpty(Me.FontFamily)) Then
@@ -231,14 +261,44 @@ Public Class SerializableFontByMaxGalkin
             Dim temp_galkin As SerializableFontByMaxGalkin
             temp_galkin = SerializableFontByMaxGalkin.DefaultFont()
             Me.FontFamily = temp_galkin.FontFamily
-            Me.Size = temp_galkin.Size
+            ''6/8/2022 Me.Size = temp_galkin.Size
             Me.Style = temp_galkin.Style
             Me.Graphics_Unit = temp_galkin.Graphics_Unit
+            Me.Graphics_UnitSize = temp_galkin.Graphics_UnitSize
+
         End If ''End of ""If (String.IsNullOrEmpty(Me.FontFamily)) Then""
 
-        Return New Drawing.Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
+        ''6/8/2022 Return New Drawing.Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
+        Return New Drawing.Font(Me.FontFamily, Me.Graphics_UnitSize,
+                                Me.Style, Me.Graphics_Unit)
 
     End Function ''End of ""Public Function ToFont() As Font""
+
+
+    Public Function ToFont_UnitPixels() As Drawing.Font
+
+        ''Added 6/7/2022 td
+        If (String.IsNullOrEmpty(Me.FontFamily)) Then
+            ''Added 6/7/2022 td
+            Dim temp_galkin As SerializableFontByMaxGalkin
+            temp_galkin = SerializableFontByMaxGalkin.DefaultFont()
+            Me.FontFamily = temp_galkin.FontFamily
+            ''6/8/2022 Me.Size = temp_galkin.Size
+            Me.Style = temp_galkin.Style
+            Me.Graphics_Unit = temp_galkin.Graphics_Unit
+            Me.Graphics_UnitSize = temp_galkin.Graphics_UnitSize
+
+        End If ''End of ""If (String.IsNullOrEmpty(Me.FontFamily)) Then""
+
+        ''Added 6/8/2022 thomas d.
+        Me.Size_Pixels = ConvertSize_ToPixels(Me.Graphics_Unit, Me.Graphics_UnitSize)
+        Me.Size_Points = ConvertSize_ToPoints(Me.Graphics_Unit, Me.Graphics_UnitSize)
+
+        ''6/8/2022 Return New Drawing.Font(Me.FontFamily, Me.Size, Me.Style, Me.Graphics_Unit)
+        Return New Drawing.Font(Me.FontFamily, GraphicsUnit.Pixel,
+                                Me.Style, Me.Size_Pixels)
+
+    End Function ''End of ""Public Function ToFont_UnitPixels() As Font""
 
 
     Public Function GetDrawingFont() As Font
@@ -247,9 +307,32 @@ Public Class SerializableFontByMaxGalkin
         ''  memorable name.---6/7/2022 
         ''
         ''Added 6/7/2022 td
-        Return Me.ToFont()
+        Return Me.ToFont_AnyUnits()
 
     End Function ''End of ""Public Function GetDrawingFont() As Font""
+
+
+
+    Public Function ContainsNumericInconsistencies() As Boolean
+        ''
+        ''Added 6/8/2022  
+        ''
+        Dim bInconsistent As Boolean
+
+
+
+
+
+        If (bInconsistent) Then
+
+            System.Diagnostics.Debugger.Break()
+
+        End If ''End of ""If (bInconsistent) Then""
+
+        Return bInconsistent
+
+    End Function
+
 
 
 End Class ''End of ""Public Class ClassSerializableFontByMaxGalkin""

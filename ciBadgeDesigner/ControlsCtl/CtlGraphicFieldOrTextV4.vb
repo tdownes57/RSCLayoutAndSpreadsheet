@@ -577,7 +577,7 @@ ExitHandler:
                 .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont()
                 .FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
                 .FontFamilyName = .FontMaxGalkin.FontFamily
-                .FontSize_Pixels = .FontMaxGalkin.Size
+                .FontSize_Pixels = .FontMaxGalkin.Size_Pixels
                 .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)
                 .FontUnderline_Deprecated = (.FontMaxGalkin.Style = FontStyle.Underline)
                 .FontItalics_Deprecated = (.FontMaxGalkin.Style = FontStyle.Italic)

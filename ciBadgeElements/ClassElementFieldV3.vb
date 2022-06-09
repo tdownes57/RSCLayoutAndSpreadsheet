@@ -165,7 +165,7 @@ Public Class ClassElementFieldV3
         Get
             ''Added 6/07/2022 td
             Dim objFont As Drawing.Font ''Add ed 6/07/2022 td
-            objFont = Me.FontMaxGalkin.ToFont() ''Added 6/07/2022 td
+            objFont = Me.FontMaxGalkin.ToFont_AnyUnits() ''Added 6/07/2022 td
             Return objFont
         End Get
 
@@ -198,6 +198,7 @@ Public Class ClassElementFieldV3
 
     ''Added 8/12/2019 thomas downes  
     Public Property FontSize_Pixels As Single = 25 Implements IElement_TextOnly.FontSize_Pixels ''Added 8/12/2019 thomas downes  
+    Public Property FontSize_Points As Single = 25 * (72 / 96) ''Added 6/08/2019 thomas downes  
 
     ''6/2022 td Public Property FontBold As Boolean Implements IElement_TextOnly.FontBold ''Added 8/12/2019 thomas downes  
     ''6/2022 td Public Property FontItalics As Boolean Implements IElement_TextOnly.FontItalics ''Added 8/12/2019 thomas downes  

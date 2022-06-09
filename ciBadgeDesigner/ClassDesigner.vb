@@ -2685,13 +2685,16 @@ Public Class ClassDesigner
                     ''Added 6/7/2022 thomas
                     .FontMaxGalkin = SerializableFontByMaxGalkin.DefaultFont
                     ''6/7/2022 td''.Font_DrawingClass = .FontMaxGalkin.ToFont()
-                    .FontDrawingClass = .FontMaxGalkin.ToFont()
+                    .FontDrawingClass = .FontMaxGalkin.ToFont_AnyUnits()
                     .FontFamilyName = .FontMaxGalkin.FontFamily
 
-                    If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then ''Is this correct?? ---6/7/2022 
-                        ''Should this property (.FontSize_Pixels) be deprecated?  6/2022
-                        .FontSize_Pixels = .FontMaxGalkin.Size ''Is this correct?? ---6/7/2022 
-                    End If ''End of ""If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then""
+                    ''6/8/2022 If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then ''Is this correct?? ---6/7/2022 
+                    ''    ''Should this property (.FontSize_Pixels) be deprecated?  6/2022
+                    ''    .FontSize_Pixels = .FontMaxGalkin.Size_Pixels ''6/08/2022 
+                    ''End If ''End of ""If (.FontMaxGalkin.Graphics_Unit = GraphicsUnit.Pixel) Then""
+
+                    .FontSize_Pixels = .FontMaxGalkin.Size_Pixels ''6/08/2022 
+                    .FontSize_Points = .FontMaxGalkin.Size_Points ''6/08/2022
 
                     ''Added 6/7/2022
                     .FontBold_Deprecated = (.FontMaxGalkin.Style = FontStyle.Bold)
@@ -2708,7 +2711,8 @@ Public Class ClassDesigner
 
                 If (.FontSize_Pixels = 0) Then
                     ''6/7/2022 td ''.FontSize_Pixels = 25
-                    .FontSize_Pixels = .FontMaxGalkin.Size
+                    .FontSize_Pixels = .FontMaxGalkin.Size_Pixels
+                    .FontSize_Points = .FontMaxGalkin.Size_Points
                 End If ''End of "If (.FontSize_Pixels = 0) Then"
 
                 ''Added 9/12/2019 td 

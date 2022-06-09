@@ -311,7 +311,7 @@ Public Module modGenerate
             If (.FontDrawingClass Is Nothing) Then
                 ''Added 9/15/2019 td
                 ''6/07/2022 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
-                .FontDrawingClass = .FontMaxGalkin.ToFont()
+                .FontDrawingClass = .FontMaxGalkin.ToFont_AnyUnits()
 
             Else
                 Dim bRegenerateFontObjectClass As Boolean ''Added 9/23/2019 td 
