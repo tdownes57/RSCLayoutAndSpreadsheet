@@ -1030,10 +1030,21 @@ ExitHandler:
 
         End Select ''End of ""Select Case Me.ElementClass_Obj.OrientationInDegrees""
 
+        Dim boolMultiline As Boolean ''Added 6/10/2022 thomas downes
+
         ''Double-check the orientation.  ----9/23/2019 td
         If (boolReturnValue) Then
+
+            ''Added 6/10/2022 thomas 
+            boolMultiline = Me.ElementClass_Obj.Text_IsMultiLine
             boolTextImageRotated_90_270 = (Me.pictureFieldOrText.Image.Width < Me.pictureFieldOrText.Image.Height)
-            If (boolTextImageRotated_90_270) Then
+
+            If (boolMultiline) Then
+                ''
+                ''It doesn't make sense to expect that width>height, that assumption isn't valid
+                ''  for multi-line text. ----6/10/2022 td
+                ''
+            ElseIf (boolTextImageRotated_90_270) Then
                 ''6/6/2022 Throw New Exception("Image dimensions are Not expected.")
                 System.Diagnostics.Debugger.Break()
             End If ''End of "If (boolImageRotated_90_360) Then"

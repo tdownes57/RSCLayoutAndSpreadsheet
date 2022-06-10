@@ -160,7 +160,7 @@ ExitHandler:
         ''    objFontMaxGalkin.Style = objFont_afterDialog.Style
         ''End If ''End of ""If (boolUseRatio) Then""
 
-        System.Diagnostics.Debugger.Break()
+        ''System.Diagnostics.Debugger.Break()
 
         ''Me.ElementInfo.Font_DrawingClass = FontDialog1.Font
         ''Application.DoEvents()

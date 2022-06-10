@@ -272,18 +272,28 @@ Public Class ClassElementFieldOrTextV4
             ''
             Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+            Dim boolMultiLineText As Boolean ''Added 6/10/2022 thomas downe
 
             ''Added 9/23/2019 thomas downes
+            boolMultiLineText = Text_IsMultiLine ''Added 6/10/2022
             boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
             boolGiveDisallowedMsg = boolTallerThanWidth
-            If (boolGiveDisallowedMsg) Then
+            If (boolMultiLineText) Then
+                ''
+                ''With multiline text, you can't expect that width > height. ---6/10/2022
+                ''
+            ElseIf (boolGiveDisallowedMsg) Then
                 ''6/6/2022 Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
                 System.Diagnostics.Debugger.Break()
-            End If ''End of "If (boolGiveDisallowedMsg) Then"
+            End If ''End of "If (boolMultiLineText) Then.... ElseIf (boolGiveDisallowedMsg) Then"
 
             ''Added 9/23/2019 td
             Const c_False_RegardlessOfRotation As Boolean = False
-            CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+            ''June10 2022 CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+            ''                                      c_False_RegardlessOfRotation)
+            CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+                                      c_False_RegardlessOfRotation,
+                                        Text_IsMultiLine)
 
         End Set
     End Property
@@ -312,10 +322,21 @@ Public Class ClassElementFieldOrTextV4
             ''
             Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
             Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+            Dim boolTextMultiline As Boolean ''Added 6/10/2022 thomas downes
+
+            boolTextMultiline = Text_IsMultiLine ''Added 6/10/2022 thomas downes
+
             ''Added 9/23/2019 thomas downes
             boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
             boolGiveDisallowedMsg = boolTallerThanWidth
-            If (boolGiveDisallowedMsg) Then
+
+            If (boolTextMultiline) Then
+                ''
+                ''For multiline text, it doesn't make sense to try & enforce a width > height 
+                ''  rule. ---6/10/2022 
+                ''Added 6/10/2022 thomas d.
+                ''
+            ElseIf (boolGiveDisallowedMsg) Then
                 ''2/2/2022 td''Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
                 ''6/6/2022 td''Throw New Exception("Programmer needs to check for Rotation-by-90, & then switch Height & Width " &
                 ''                    "whenever a Resize occurs.  The Height cannot exceed the width. " &
@@ -327,7 +348,11 @@ Public Class ClassElementFieldOrTextV4
 
             ''Added 9/23/2019 td
             Const c_False_RegardlessOfRotation As Boolean = False
-            CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+            ''6/10/2022 CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+            ''                                     c_False_RegardlessOfRotation)
+            CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+                                      c_False_RegardlessOfRotation,
+                                       Text_IsMultiLine)
 
         End Set
     End Property
@@ -975,14 +1000,22 @@ Public Class ClassElementFieldOrTextV4
 
     End Sub ''End of "Public Sub Font_AutoScaleAdjustment()" 
 
-    Public Shared Sub CheckWidthVsLength_OfText(intWidth As Integer, intHeight As Integer, boolRotated As Boolean)
+    Public Shared Sub CheckWidthVsLength_OfText(intWidth As Integer, intHeight As Integer,
+                                     boolRotated As Boolean, par_bIsMultiline As Boolean)
         ''
         ''Double-check the orientation.  ----9/23/2019 td
         ''
         Dim boolTextImageRotated_0_180 As Boolean = (intWidth > intHeight) ''Vs. Portrait comparison, (intWidth < intHeight)
         Dim boolTextImageRotated_90_270 As Boolean = (intWidth < intHeight) ''Vs. Portrait comparison, (intWidth > intHeight)
+        Dim boolTextIsMultiline As Boolean ''Added 6/10/2022
 
-        If (boolTextImageRotated_0_180 And boolRotated) Then
+        boolTextIsMultiline = par_bIsMultiline ''Added 6/10/2022 
+
+        If (boolTextIsMultiline) Then
+            ''
+            ''The width/height expecations don't apply for >1 lines of text. ---6/10/2022 
+            ''
+        ElseIf (boolTextImageRotated_0_180 And boolRotated) Then
             ''6/6/2022 Throw New Exception("Image dimensions are not expected. (Rotation of text expected)")
             System.Diagnostics.Debugger.Break()
         ElseIf (boolTextImageRotated_90_270 And (Not boolRotated)) Then
