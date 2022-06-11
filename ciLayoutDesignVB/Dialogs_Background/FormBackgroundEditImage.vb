@@ -99,7 +99,7 @@ Public Class FormBackgroundEditImage
             imageEdited = .Output_Image
             picturePreview.Image = imageEdited
 
-        End With
+        End With ''End of "" With objFormToShow""
 
     End Sub ''End of ""Private Sub TakeScreenshot_Master(par_ctlPictureBox As PictureBox)""
 

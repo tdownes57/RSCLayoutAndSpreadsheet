@@ -40,8 +40,8 @@ Public Class FormBackgroundScreenscape
 
         Dim g As Graphics = Graphics.FromImage(screenGrab)
 
-        intX = par_rectangle.Left
-        intY = par_rectangle.Top
+        intX = par_rectangle.Left + Me.Left
+        intY = par_rectangle.Top + Me.Top
 
         ''---g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
         g.CopyFromScreen(New Point(intX, intY), New Point(0, 0), screenSize)
@@ -73,6 +73,41 @@ Public Class FormBackgroundScreenscape
         Return screenGrab
 
     End Function ''End of ""Private Function TakeScreenShot_byStackOverflow() As Bitmap""
+
+
+    Private Function GetScreenRectangle(par_picturebox As PictureBox) As Rectangle
+        ''
+        ''Added 6/11/2022 td
+        ''
+        Dim objRectangle As Rectangle
+        Dim intWidth, intHeight As Integer
+
+        intWidth = par_picturebox.Width
+        intHeight = par_picturebox.Height
+        Const c_bTryToOmitBorder As Boolean = True
+
+        With par_picturebox
+
+            If (.BorderStyle = BorderStyle.FixedSingle) Then
+
+                If (c_bTryToOmitBorder) Then
+                    objRectangle = .RectangleToScreen(New Rectangle(0, 0, intWidth - 2, intHeight - 2))
+                Else
+                    objRectangle = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+                End If
+
+            ElseIf (.BorderStyle = BorderStyle.None) Then
+
+                objRectangle = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+
+            End If ''end of ""If (pictureLeft.BorderStyle = ...) ... ElseIf (pictureLeft.BorderStyle = ...)...
+
+        End With ''End of ""With par_ctlPictureBox""
+
+        Return objRectangle
+
+    End Function ''End of ""Private Function GetScreenRectangle""
+
 
 
 
@@ -136,10 +171,14 @@ ExitHandler:
         ''Added 6/4/2022 td
         ''
         Dim imagePreview As Image
+        Dim rectangleInput As Rectangle
 
-        imagePreview =
-        TakeScreenShot_Modified(New Rectangle(pictureLeftOriginal.Location,
-                                              pictureLeftOriginal.Size))
+        ''imagePreview =
+        ''TakeScreenShot_Modified(New Rectangle(pictureLeftOriginal.Location,
+        ''                                      pictureLeftOriginal.Size))
+
+        rectangleInput = GetScreenRectangle(pictureLeftOriginal)
+        imagePreview = TakeScreenShot_Modified(rectangleInput)
 
         ''6/10/2022  picturePreview.Image = imagePreview
         pictureRight.Image = imagePreview

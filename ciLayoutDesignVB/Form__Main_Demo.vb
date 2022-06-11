@@ -2922,13 +2922,26 @@ ExitHandler:
         End Select ''End of ""Select Case mod_designer.EnumSideOfCard_Current""
 
         ''May23 2022 ''Dim objShow1 As New FormBackgroundSelectOrUpload
-        Dim objShow1 As New FormBackgroundSelectOrUpload(strBackgroundImagePath)
+        ''Jun11 2022 ''Dim objShow1 As New FormBackgroundSelectOrUpload(strBackgroundImagePath)
+
+        ''Added 6/11/2022 
+        Dim objShow1 As FormBackgroundSelectOrUpload
+        Dim imageBackground As Image
+
+        ''Added 6/11/2022 
+        With pictureBackgroundFront
+            imageBackground = .Image
+            If (imageBackground Is Nothing) Then
+                imageBackground = .BackgroundImage
+            End If ''end of ""If (imageBackground Is Nothing) Then""
+        End With ''End of ""With pictureBackgroundFront""
+        objShow1 = New FormBackgroundSelectOrUpload(imageBackground, strBackgroundImagePath)
         objShow1.ShowDialog()
 
         Dim boolStep1_LetsUpload As Boolean
         Dim boolStep2_LetsSelect As Boolean
         Dim boolStep3_LetsPickDemoImages As Boolean
-        Dim strNewPathToJpeg As String ''Added 5/17/2022 
+        ''Dim strNewPathToJpeg As String ''Added 5/17/2022 
 
         boolStep1_LetsUpload = objShow1.UserWantsToUpload
         boolStep2_LetsSelect = objShow1.UserWantsToSelect

@@ -9,9 +9,10 @@ Public Class FormBackgroundSelectOrUpload
     Public UserWantsToUpload As Boolean
     Public UserWantsToSelect As Boolean
     Public UserWantsToSeeDemos As Boolean
+    Public Input_CurrentBackgroundImage As Image ''Added 6/10/2022 
+    Public Input_BackgroundImagePath As String ''Added 6/11/2022 
 
-
-    Public Sub New(pstrPathToImageFileJPG As String)
+    Public Sub New(par_backgroundimage As Image, pstrPathToImageFileJPG As String)
         ''
         ''Added 5/13/2022  
         ''
@@ -20,6 +21,10 @@ Public Class FormBackgroundSelectOrUpload
 
         ' Add any initialization after the InitializeComponent() call.
         textboxPathToImageJPG.Text = pstrPathToImageFileJPG ''Added 5/13/2022 td
+        textboxPathToImageJPG.Visible = True
+        Me.Input_BackgroundImagePath = pstrPathToImageFileJPG
+        Me.Input_CurrentBackgroundImage = par_backgroundimage
+
 
     End Sub
 
@@ -106,6 +111,41 @@ Public Class FormBackgroundSelectOrUpload
             ButtonSelectLoaded.Enabled = bOneOrMoreImagesExist
         End If ''End of ""If (bOneOrMoreImagesExist) Then""
 
+        ''
+        ''If available, show the current background image. 
+        ''
+        If (Me.Input_CurrentBackgroundImage IsNot Nothing) Then
+
+            Dim intRighthandMargin As Integer
+            Dim intWidthOfButtons As Integer
+
+            picturePreview.Image = Me.Input_CurrentBackgroundImage
+            picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+            picturePreview.Visible = True
+            picturePreview.BringToFront()
+            intWidthOfButtons = ButtonEditBackground.Width
+            picturePreview.Left = ButtonSelectDemos.Left + ButtonSelectDemos.Width + 20
+
+            intRighthandMargin = Me.Width - ButtonSelectDemos.Left - ButtonSelectDemos.Width
+            Me.Width = picturePreview.Left + picturePreview.Width + intRighthandMargin
+
+            ButtonEditBackground.Width = intWidthOfButtons
+            ButtonSelectDemos.Width = intWidthOfButtons
+            ButtonSelectLoaded.Width = intWidthOfButtons
+            ButtonUploadImage.Width = intWidthOfButtons ''Added 6/11/2022 thomas d.
+
+            LabelEditCurrentHdr1.Left = picturePreview.Left
+            LabelEditCurrentHdr2.Left = picturePreview.Left
+            LabelEditCurrentHdr1.Visible = True
+            LabelEditCurrentHdr2.Visible = True
+
+            picturePreview.Top = ButtonUploadImage.Top
+            picturePreview.Visible = True
+
+        End If ''End fo ""If (Me.Input_CurrentBackgroundImage IsNot Nothing) Then""
+
+
+
     End Sub
 
     Private Sub LinkLabelOpenFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenFile.LinkClicked
@@ -123,6 +163,23 @@ Public Class FormBackgroundSelectOrUpload
         objFileInfo_JPG = New IO.FileInfo(textboxPathToImageJPG.Text)
         System.Diagnostics.Process.Start(objFileInfo_JPG.DirectoryName)
 
+
+    End Sub
+
+    Private Sub LabelEditCurrentHdr1_Click(sender As Object, e As EventArgs) Handles LabelEditCurrentHdr1.Click
+
+    End Sub
+
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+        ''
+        ''Added 6/10/2022
+        ''
+        Dim objFormShow As FormBackgroundEditImage
+
+        objFormShow = New FormBackgroundEditImage()
+        objFormShow.ImageFilePath_input = Me.Input_BackgroundImagePath
+        objFormShow.Load_ImageFileToEdit(Me.Input_BackgroundImagePath)
+        objFormShow.ShowDialog()
 
     End Sub
 End Class

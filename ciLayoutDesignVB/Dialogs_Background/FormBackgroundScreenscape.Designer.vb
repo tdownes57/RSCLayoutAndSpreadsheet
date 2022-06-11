@@ -74,6 +74,7 @@ Partial Class FormBackgroundScreenscape
         '
         Me.pictureRight.BackColor = System.Drawing.Color.MistyRose
         Me.pictureRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.pictureRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.pictureRight.Location = New System.Drawing.Point(636, 80)
         Me.pictureRight.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureRight.Name = "pictureRight"
