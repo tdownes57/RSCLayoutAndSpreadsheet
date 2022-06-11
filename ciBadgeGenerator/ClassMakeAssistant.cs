@@ -1893,11 +1893,17 @@ namespace ciBadgeGenerator
             //Added 12/26/2021 td
             //
             string strTextToDisplay;
+            strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0];
             if (par_elementStaticV4.Text_IsMultiLine)
             {
-                strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0] +
+                //6-10-2022 td //strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0] +
+                //    Environment.NewLine +
+                //    par_elementStaticV4.Text_ListOfLines[1];
+                int intLengthOfArray = par_elementStaticV4.Text_ListOfLines.Count;
+                for (int i_LineIndex = 1; i_LineIndex < intLengthOfArray; i_LineIndex++)
+                strTextToDisplay = strTextToDisplay +
                     Environment.NewLine + 
-                    par_elementStaticV4.Text_ListOfLines[1];
+                    par_elementStaticV4.Text_ListOfLines[i_LineIndex];
 
             }
             else
