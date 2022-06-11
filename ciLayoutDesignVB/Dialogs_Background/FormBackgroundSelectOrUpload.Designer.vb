@@ -33,6 +33,7 @@ Partial Class FormBackgroundSelectOrUpload
         Me.LabelCurrentPathHeaderLbl = New System.Windows.Forms.Label()
         Me.LinkLabelOpenFile = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelOpenFolder = New System.Windows.Forms.LinkLabel()
+        Me.ButtonEditBackground = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ButtonUploadImage
@@ -40,7 +41,7 @@ Partial Class FormBackgroundSelectOrUpload
         Me.ButtonUploadImage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonUploadImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonUploadImage.Location = New System.Drawing.Point(32, 58)
+        Me.ButtonUploadImage.Location = New System.Drawing.Point(32, 95)
         Me.ButtonUploadImage.Name = "ButtonUploadImage"
         Me.ButtonUploadImage.Size = New System.Drawing.Size(505, 57)
         Me.ButtonUploadImage.TabIndex = 8
@@ -53,7 +54,7 @@ Partial Class FormBackgroundSelectOrUpload
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectLoaded.Enabled = False
         Me.ButtonSelectLoaded.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectLoaded.Location = New System.Drawing.Point(32, 152)
+        Me.ButtonSelectLoaded.Location = New System.Drawing.Point(32, 189)
         Me.ButtonSelectLoaded.Name = "ButtonSelectLoaded"
         Me.ButtonSelectLoaded.Size = New System.Drawing.Size(505, 57)
         Me.ButtonSelectLoaded.TabIndex = 7
@@ -64,7 +65,7 @@ Partial Class FormBackgroundSelectOrUpload
         '
         Me.LabelAddingElementsHdr.AutoSize = True
         Me.LabelAddingElementsHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelAddingElementsHdr.Location = New System.Drawing.Point(12, 25)
+        Me.LabelAddingElementsHdr.Location = New System.Drawing.Point(12, 62)
         Me.LabelAddingElementsHdr.Name = "LabelAddingElementsHdr"
         Me.LabelAddingElementsHdr.Size = New System.Drawing.Size(218, 20)
         Me.LabelAddingElementsHdr.TabIndex = 10
@@ -74,7 +75,7 @@ Partial Class FormBackgroundSelectOrUpload
         '
         Me.LabelFooter1.AutoSize = True
         Me.LabelFooter1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFooter1.Location = New System.Drawing.Point(2, 120)
+        Me.LabelFooter1.Location = New System.Drawing.Point(2, 157)
         Me.LabelFooter1.Name = "LabelFooter1"
         Me.LabelFooter1.Size = New System.Drawing.Size(566, 17)
         Me.LabelFooter1.TabIndex = 9
@@ -85,7 +86,7 @@ Partial Class FormBackgroundSelectOrUpload
         '
         Me.LabelFooter2.AutoSize = True
         Me.LabelFooter2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFooter2.Location = New System.Drawing.Point(2, 212)
+        Me.LabelFooter2.Location = New System.Drawing.Point(2, 249)
         Me.LabelFooter2.Name = "LabelFooter2"
         Me.LabelFooter2.Size = New System.Drawing.Size(470, 17)
         Me.LabelFooter2.TabIndex = 11
@@ -94,7 +95,7 @@ Partial Class FormBackgroundSelectOrUpload
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(454, 374)
+        Me.ButtonCancel.Location = New System.Drawing.Point(454, 426)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(146, 35)
         Me.ButtonCancel.TabIndex = 13
@@ -106,7 +107,7 @@ Partial Class FormBackgroundSelectOrUpload
         Me.ButtonSelectDemos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectDemos.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectDemos.Location = New System.Drawing.Point(32, 246)
+        Me.ButtonSelectDemos.Location = New System.Drawing.Point(32, 283)
         Me.ButtonSelectDemos.Name = "ButtonSelectDemos"
         Me.ButtonSelectDemos.Size = New System.Drawing.Size(505, 57)
         Me.ButtonSelectDemos.TabIndex = 12
@@ -118,7 +119,7 @@ Partial Class FormBackgroundSelectOrUpload
         Me.textboxPathToImageJPG.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textboxPathToImageJPG.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.textboxPathToImageJPG.Location = New System.Drawing.Point(16, 348)
+        Me.textboxPathToImageJPG.Location = New System.Drawing.Point(16, 385)
         Me.textboxPathToImageJPG.Name = "textboxPathToImageJPG"
         Me.textboxPathToImageJPG.ReadOnly = True
         Me.textboxPathToImageJPG.Size = New System.Drawing.Size(584, 20)
@@ -128,7 +129,7 @@ Partial Class FormBackgroundSelectOrUpload
         '
         Me.LabelCurrentPathHeaderLbl.AutoSize = True
         Me.LabelCurrentPathHeaderLbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelCurrentPathHeaderLbl.Location = New System.Drawing.Point(12, 327)
+        Me.LabelCurrentPathHeaderLbl.Location = New System.Drawing.Point(12, 364)
         Me.LabelCurrentPathHeaderLbl.Name = "LabelCurrentPathHeaderLbl"
         Me.LabelCurrentPathHeaderLbl.Size = New System.Drawing.Size(227, 17)
         Me.LabelCurrentPathHeaderLbl.TabIndex = 15
@@ -137,7 +138,7 @@ Partial Class FormBackgroundSelectOrUpload
         'LinkLabelOpenFile
         '
         Me.LinkLabelOpenFile.AutoSize = True
-        Me.LinkLabelOpenFile.Location = New System.Drawing.Point(13, 371)
+        Me.LinkLabelOpenFile.Location = New System.Drawing.Point(13, 408)
         Me.LinkLabelOpenFile.Name = "LinkLabelOpenFile"
         Me.LinkLabelOpenFile.Size = New System.Drawing.Size(84, 13)
         Me.LinkLabelOpenFile.TabIndex = 16
@@ -147,18 +148,31 @@ Partial Class FormBackgroundSelectOrUpload
         'LinkLabelOpenFolder
         '
         Me.LinkLabelOpenFolder.AutoSize = True
-        Me.LinkLabelOpenFolder.Location = New System.Drawing.Point(127, 371)
+        Me.LinkLabelOpenFolder.Location = New System.Drawing.Point(127, 408)
         Me.LinkLabelOpenFolder.Name = "LinkLabelOpenFolder"
         Me.LinkLabelOpenFolder.Size = New System.Drawing.Size(97, 13)
         Me.LinkLabelOpenFolder.TabIndex = 17
         Me.LinkLabelOpenFolder.TabStop = True
         Me.LinkLabelOpenFolder.Text = "Open Image Folder"
         '
+        'ButtonEditBackground
+        '
+        Me.ButtonEditBackground.BackColor = System.Drawing.Color.MediumAquamarine
+        Me.ButtonEditBackground.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Background_Image_H
+        Me.ButtonEditBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.ButtonEditBackground.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonEditBackground.Location = New System.Drawing.Point(12, 12)
+        Me.ButtonEditBackground.Name = "ButtonEditBackground"
+        Me.ButtonEditBackground.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonEditBackground.TabIndex = 104
+        Me.ButtonEditBackground.UseVisualStyleBackColor = False
+        '
         'FormBackgroundSelectOrUpload
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(612, 421)
+        Me.ClientSize = New System.Drawing.Size(612, 473)
+        Me.Controls.Add(Me.ButtonEditBackground)
         Me.Controls.Add(Me.LinkLabelOpenFolder)
         Me.Controls.Add(Me.LinkLabelOpenFile)
         Me.Controls.Add(Me.LabelCurrentPathHeaderLbl)
@@ -188,4 +202,5 @@ Partial Class FormBackgroundSelectOrUpload
     Friend WithEvents LabelCurrentPathHeaderLbl As Label
     Friend WithEvents LinkLabelOpenFile As LinkLabel
     Friend WithEvents LinkLabelOpenFolder As LinkLabel
+    Friend WithEvents ButtonEditBackground As Button
 End Class

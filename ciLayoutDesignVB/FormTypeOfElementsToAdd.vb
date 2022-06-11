@@ -830,4 +830,8 @@ Public Class FormTypeOfElementsToAdd
         ToggleBorder(CtlGraphicQRCode1, PanelQRCode)
 
     End Sub
+
+    Private Sub LinkHowManyTextLabels_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkHowManyTextLabels.LinkClicked
+
+    End Sub
 End Class

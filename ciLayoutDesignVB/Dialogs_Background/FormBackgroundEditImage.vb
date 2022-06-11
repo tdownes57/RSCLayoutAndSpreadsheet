@@ -72,6 +72,7 @@ Public Class FormBackgroundEditImage
         Dim objFormToShow As New FormBackgroundScreenscape
 
         With objFormToShow
+
             .Input_PictureBoxSizeMode = stylePictureBoxSizeMode
             .Input_BackgroundImage = par_ctlPictureBox.Image
             .Input_ShowMoveableControl = False

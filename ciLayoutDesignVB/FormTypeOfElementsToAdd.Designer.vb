@@ -53,6 +53,8 @@ Partial Class FormTypeOfElementsToAdd
         Me.panelField3 = New System.Windows.Forms.Panel()
         Me.panelField4 = New System.Windows.Forms.Panel()
         Me.panelField5 = New System.Windows.Forms.Panel()
+        Me.LinkHowManyTextLabels = New System.Windows.Forms.LinkLabel()
+        Me.LinkHowManyGraphics = New System.Windows.Forms.LinkLabel()
         CType(Me.pictureBackground, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -254,12 +256,12 @@ Partial Class FormTypeOfElementsToAdd
         Me.CtlGraphicStaticText1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicStaticText1.ElementClass_Obj = Nothing
         Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
-        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(40, 392)
+        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(29, 373)
         Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(2)
         Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
-        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(302, 27)
+        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(360, 27)
         Me.CtlGraphicStaticText1.TabIndex = 98
         Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
         Me.CtlGraphicStaticText1.TextToDisplay_DesignTime = "Text Label... any message you like."
@@ -270,7 +272,7 @@ Partial Class FormTypeOfElementsToAdd
         Me.CtlGraphicSignature1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
         Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
-        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(71, 434)
+        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(38, 434)
         Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
@@ -338,7 +340,7 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
         Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
-        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(191, 262)
+        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(291, 409)
         Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(0)
         Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
@@ -378,11 +380,37 @@ Partial Class FormTypeOfElementsToAdd
         Me.panelField5.Size = New System.Drawing.Size(129, 64)
         Me.panelField5.TabIndex = 122
         '
+        'LinkHowManyTextLabels
+        '
+        Me.LinkHowManyTextLabels.AutoSize = True
+        Me.LinkHowManyTextLabels.BackColor = System.Drawing.Color.Transparent
+        Me.LinkHowManyTextLabels.Location = New System.Drawing.Point(30, 402)
+        Me.LinkHowManyTextLabels.Name = "LinkHowManyTextLabels"
+        Me.LinkHowManyTextLabels.Size = New System.Drawing.Size(121, 13)
+        Me.LinkHowManyTextLabels.TabIndex = 123
+        Me.LinkHowManyTextLabels.TabStop = True
+        Me.LinkHowManyTextLabels.Text = "How many Text Labels?"
+        Me.LinkHowManyTextLabels.Visible = False
+        '
+        'LinkHowManyGraphics
+        '
+        Me.LinkHowManyGraphics.AutoSize = True
+        Me.LinkHowManyGraphics.BackColor = System.Drawing.Color.Transparent
+        Me.LinkHowManyGraphics.Location = New System.Drawing.Point(181, 241)
+        Me.LinkHowManyGraphics.Name = "LinkHowManyGraphics"
+        Me.LinkHowManyGraphics.Size = New System.Drawing.Size(108, 13)
+        Me.LinkHowManyGraphics.TabIndex = 124
+        Me.LinkHowManyGraphics.TabStop = True
+        Me.LinkHowManyGraphics.Text = "How many Graphics?"
+        Me.LinkHowManyGraphics.Visible = False
+        '
         'FormTypeOfElementsToAdd
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(694, 621)
+        Me.Controls.Add(Me.LinkHowManyGraphics)
+        Me.Controls.Add(Me.LinkHowManyTextLabels)
         Me.Controls.Add(Me.panelField5)
         Me.Controls.Add(Me.panelField4)
         Me.Controls.Add(Me.panelField3)
@@ -453,4 +481,6 @@ Partial Class FormTypeOfElementsToAdd
     Friend WithEvents panelField3 As Panel
     Friend WithEvents panelField4 As Panel
     Friend WithEvents panelField5 As Panel
+    Friend WithEvents LinkHowManyTextLabels As LinkLabel
+    Friend WithEvents LinkHowManyGraphics As LinkLabel
 End Class

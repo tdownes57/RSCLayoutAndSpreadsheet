@@ -80,7 +80,7 @@ Public Class FormBackgroundScreenscape
         ''
         ''Added 6/4/2022 thomas downes  
         ''
-        picturePreview.Image.Dispose()
+        picturePreview.Image?.Dispose()
         picturePreview.Image = Nothing
         ButtonOkay1of3.Enabled = True
         ButtonUndoOkay1.Enabled = False
@@ -113,9 +113,14 @@ Public Class FormBackgroundScreenscape
     End Sub
 
     Private Sub ButtonOkay3of3_Click(sender As Object, e As EventArgs) Handles ButtonOkay3of3.Click
+        ''
+        ''Added 6/10/2022 td
+        ''
+        Me.Output_Image = pictureRight.Image
 
-
-
+ExitHandler:
+        Me.DialogResult = DialogResult.OK
+        Me.Close()
 
     End Sub
 
@@ -136,7 +141,8 @@ Public Class FormBackgroundScreenscape
         TakeScreenShot_Modified(New Rectangle(pictureLeftOriginal.Location,
                                               pictureLeftOriginal.Size))
 
-        picturePreview.Image = imagePreview
+        ''6/10/2022  picturePreview.Image = imagePreview
+        pictureRight.Image = imagePreview
 
 ExitHandler:
         ButtonOkay1of3.Enabled = False
@@ -145,7 +151,19 @@ ExitHandler:
 
     End Sub
 
+    Private Sub ButtonOkay2of3_Click(sender As Object, e As EventArgs) Handles ButtonOkay2of3.Click
+        ''
+        ''Added 6/10/2022
+        ''
+        picturePreview.Image = pictureRight.Image
+        picturePreview.Visible = True
+        picturePreview.BringToFront()
 
+ExitHandler:
+        ButtonOkay2of3.Enabled = False
+        ButtonUndoOkay2.Enabled = True
+        ButtonOkay3of3.Enabled = True
 
+    End Sub
 
 End Class

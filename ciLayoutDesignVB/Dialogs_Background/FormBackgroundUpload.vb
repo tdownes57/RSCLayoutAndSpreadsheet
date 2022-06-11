@@ -308,7 +308,7 @@
 
         Me.CtlBackground1.Dispose_Image() ''Added 5/24/2022
         Me.CtlBackground1.Dispose() ''Added 5/24/2022
-        picturePreview.Image.Dispose() ''Added 5/24/2022
+        picturePreview.Image?.Dispose() ''Added 5/24/2022
         picturePreview.Dispose() ''Added 5/24/2022
 
         Me.Close() ''Added 11/26/2021 

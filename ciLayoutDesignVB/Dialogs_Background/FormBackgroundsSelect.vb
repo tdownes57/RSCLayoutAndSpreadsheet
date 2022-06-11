@@ -11,6 +11,7 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
     Public DemoMode As Boolean ''Added 5/13/2022 thomas downes
     Public ImageFilePath As String
+    Public ImageFilePath_Temp As String ''Added 6/10/2022 thomas downes
     Public ImageFileInfo As System.IO.FileInfo
     Public ImageDirectoryPath As String ''Add 5/23/202 
 
@@ -148,6 +149,10 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         ''
         ''Added 11/25/2021 thomas downes
         ''
+        Dim strPathToEditedImage_temp As String ''Added 5/23/2022 
+        Dim strPathToEditedImage As String ''Added 5/23/2022 
+        Dim strPathToUploadedImages As String ''Added 5/23/2022
+
         Me.ImageFileInfo = Me.TemporarySelectedFileInfo
         Me.ImageFilePath = Me.TemporarySelectedFileInfo.FullName
         ''Added 5/23/2022 
@@ -162,13 +167,19 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         ''
         Const c_bSaveEditedImageHere As Boolean = True
         If (c_bSaveEditedImageHere) Then
-            Dim strPathToEditedImage As String ''Added 5/23/2022 
-            Dim strPathToUploadedImages As String ''Added 5/23/2022
             strPathToUploadedImages = DiskFolders.PathToFolder_BackgroundImages()
             strPathToEditedImage = IO.Path.Combine(strPathToUploadedImages,
                                                    mod_strImageFiletitleEdited)
-            Me.picturePreview.Image.Save(strPathToEditedImage)
+            strPathToEditedImage_temp = strPathToEditedImage &
+                                        "_temp" & DateTime.Now.ToString("ss")
+
+            ''6/10/2022 Me.picturePreview.Image.Save(strPathToEditedImage)
+            Me.picturePreview.Image.Save(strPathToEditedImage_temp)
+
             Me.ImageFilePath = strPathToEditedImage
+            ''Added 6/10/2022 td
+            Me.ImageFilePath_Temp = strPathToEditedImage_temp
+
         End If ''End of ""If (c_bSaveEditedImageHere) Then""
 
         ''
