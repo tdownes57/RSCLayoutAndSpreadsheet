@@ -1892,23 +1892,59 @@ namespace ciBadgeGenerator
             //
             //Added 12/26/2021 td
             //
-            string strTextToDisplay;
-            strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0];
-            if (par_elementStaticV4.Text_IsMultiLine)
-            {
-                //6-10-2022 td //strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0] +
-                //    Environment.NewLine +
-                //    par_elementStaticV4.Text_ListOfLines[1];
-                int intLengthOfArray = par_elementStaticV4.Text_ListOfLines.Count;
-                for (int i_LineIndex = 1; i_LineIndex < intLengthOfArray; i_LineIndex++)
-                strTextToDisplay = strTextToDisplay +
-                    Environment.NewLine + 
-                    par_elementStaticV4.Text_ListOfLines[i_LineIndex];
+            string strTextToDisplay = "";
+            bool boolIsMultiLine = false;
+            bool boolIsMultiLine_LineZero = false;
+            bool boolIsMultiLine_IterateArray = false;
 
-            }
-            else
+            // Added 6/10/2022
+            // First default.
+            strTextToDisplay = par_elementStaticV4.Text_StaticLine;
+
+            boolIsMultiLine = (par_elementStaticV4.Text_IsMultiLine);
+            boolIsMultiLine_LineZero = (boolIsMultiLine &&
+                (par_elementStaticV4.Text_ListOfLines != null) &&
+                (par_elementStaticV4.Text_ListOfLines.Count >= 1));
+
+            // Added 6/10/2022
+            // Second default.
+            if (boolIsMultiLine_LineZero)
             {
-                strTextToDisplay = par_elementStaticV4.Text_StaticLine;
+                // Added 6/10/2022
+                strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0];
+            }
+
+            boolIsMultiLine_IterateArray = (boolIsMultiLine &&
+                (par_elementStaticV4.Text_ListOfLines != null) &&
+                (par_elementStaticV4.Text_ListOfLines.Count > 1));
+
+            //
+            // Append the lines together. ---6/10/2022 td
+            //
+            //if (par_elementStaticV4.Text_ListOfLines != null)
+            if (boolIsMultiLine_IterateArray)
+            { 
+                strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0];
+
+                if (par_elementStaticV4.Text_IsMultiLine)
+                {
+                    //6-10-2022 td //strTextToDisplay = par_elementStaticV4.Text_ListOfLines[0] +
+                    //    Environment.NewLine +
+                    //    par_elementStaticV4.Text_ListOfLines[1];
+                    int intLengthOfArray = par_elementStaticV4.Text_ListOfLines.Count;
+
+                    for (int i_LineIndex = 1; i_LineIndex < intLengthOfArray; i_LineIndex++)
+                    {
+                        strTextToDisplay = strTextToDisplay +
+                            Environment.NewLine +
+                            par_elementStaticV4.Text_ListOfLines[i_LineIndex];
+                    }
+
+                }
+                else
+                {
+                    strTextToDisplay = par_elementStaticV4.Text_StaticLine;
+                }
             }
 
             WhyOmitted_StructV1 structWhyOmittedV1 = new WhyOmitted_StructV1();

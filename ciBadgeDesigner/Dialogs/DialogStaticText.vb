@@ -24,8 +24,13 @@ Public Class DialogStaticText
         checkboxSingleLine.Checked = (Not pboolMultiLine)
         checkboxMultiLine.Checked = pboolMultiLine
         textboxSingleLine.Text = pstrSingleLine ''Added 6/01/2022 td 
-        textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
+        ''6/10/2022 textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
         textboxMultiLine.Visible = pboolMultiLine ''checkboxMultiLine.Checked
+        ''6/10/2022 textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
+        If (plist_MultiArrayOfLines IsNot Nothing) Then
+            textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
+        End If ''end of ""If (plist_MultiArrayOfLines IsNot Nothing) Then""
+
 
 ExitHandler:
         Application.DoEvents()
