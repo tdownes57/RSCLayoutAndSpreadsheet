@@ -95,9 +95,12 @@ Public Class FormBackgroundEditImage
             ''
             .ShowDialog()
 
-            Dim imageEdited As Drawing.Image
-            imageEdited = .Output_Image
-            picturePreview.Image = imageEdited
+            ''//Dim imageEdited As Drawing.Image
+            ''//imageEdited = .Output_Image
+            ''//picturePreview.Image = imageEdited
+            picturePreview.ImageLocation = .Output_Image_LocationPath
+            picturePreview.SizeMode = PictureBoxSizeMode.Zoom ''Added 6/11/2022
+            picturePreview.Load()
 
         End With ''End of "" With objFormToShow""
 
@@ -121,7 +124,9 @@ Public Class FormBackgroundEditImage
         With objFormToShow
 
             .Input_PictureBoxSizeMode = PictureBoxSizeMode.Normal
-            .Input_BackgroundImage = par_ctlMoveableImage.ImageBackgroundImage
+            ''.Input_BackgroundImage = par_ctlMoveableImage.ImageBackgroundImage
+            ''.Input_BackgroundImage = par_ctlMoveableImage.BackgroundImage
+            .Input_BackgroundImage = par_ctlMoveableImage.GetPictureBox().Image
             .Input_ShowMoveableControl = True
             .Input_MoveablePositionX = intPositionX
             .Input_MoveablePositionY = intPositionY

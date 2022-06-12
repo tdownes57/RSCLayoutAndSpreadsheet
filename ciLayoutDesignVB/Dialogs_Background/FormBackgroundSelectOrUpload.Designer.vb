@@ -27,7 +27,6 @@ Partial Class FormBackgroundSelectOrUpload
         Me.LabelAddingElementsHdr = New System.Windows.Forms.Label()
         Me.LabelFooter1 = New System.Windows.Forms.Label()
         Me.LabelFooter2 = New System.Windows.Forms.Label()
-        Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonSelectDemos = New System.Windows.Forms.Button()
         Me.textboxPathToImageJPG = New System.Windows.Forms.TextBox()
         Me.LabelCurrentPathHeaderLbl = New System.Windows.Forms.Label()
@@ -37,6 +36,8 @@ Partial Class FormBackgroundSelectOrUpload
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.LabelEditCurrentHdr1 = New System.Windows.Forms.Label()
         Me.LabelEditCurrentHdr2 = New System.Windows.Forms.Label()
+        Me.ButtonCancel = New System.Windows.Forms.Button()
+        Me.ButtonOK = New System.Windows.Forms.Button()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -91,16 +92,6 @@ Partial Class FormBackgroundSelectOrUpload
         Me.LabelFooter2.Size = New System.Drawing.Size(470, 17)
         Me.LabelFooter2.TabIndex = 11
         Me.LabelFooter2.Text = "** This is available if you have up already loaded one (1) or more images."
-        '
-        'ButtonCancel
-        '
-        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(741, 426)
-        Me.ButtonCancel.Name = "ButtonCancel"
-        Me.ButtonCancel.Size = New System.Drawing.Size(146, 35)
-        Me.ButtonCancel.TabIndex = 13
-        Me.ButtonCancel.Text = "Cancel"
-        Me.ButtonCancel.UseVisualStyleBackColor = True
         '
         'ButtonSelectDemos
         '
@@ -199,11 +190,37 @@ Partial Class FormBackgroundSelectOrUpload
         Me.LabelEditCurrentHdr2.Text = "(Click the image box below.)"
         Me.LabelEditCurrentHdr2.Visible = False
         '
+        'ButtonCancel
+        '
+        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonCancel.BackColor = System.Drawing.Color.Violet
+        Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCancel.Location = New System.Drawing.Point(758, 426)
+        Me.ButtonCancel.Name = "ButtonCancel"
+        Me.ButtonCancel.Size = New System.Drawing.Size(129, 40)
+        Me.ButtonCancel.TabIndex = 109
+        Me.ButtonCancel.Text = "Cancel"
+        Me.ButtonCancel.UseVisualStyleBackColor = False
+        '
+        'ButtonOK
+        '
+        Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonOK.BackColor = System.Drawing.Color.MediumTurquoise
+        Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOK.Location = New System.Drawing.Point(661, 426)
+        Me.ButtonOK.Name = "ButtonOK"
+        Me.ButtonOK.Size = New System.Drawing.Size(91, 40)
+        Me.ButtonOK.TabIndex = 108
+        Me.ButtonOK.Text = "OK"
+        Me.ButtonOK.UseVisualStyleBackColor = False
+        '
         'FormBackgroundSelectOrUpload
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(899, 473)
+        Me.Controls.Add(Me.ButtonCancel)
+        Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelEditCurrentHdr2)
         Me.Controls.Add(Me.LabelEditCurrentHdr1)
         Me.Controls.Add(Me.ButtonEditBackground)
@@ -211,7 +228,6 @@ Partial Class FormBackgroundSelectOrUpload
         Me.Controls.Add(Me.LinkLabelOpenFile)
         Me.Controls.Add(Me.LabelCurrentPathHeaderLbl)
         Me.Controls.Add(Me.textboxPathToImageJPG)
-        Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonSelectDemos)
         Me.Controls.Add(Me.LabelFooter2)
         Me.Controls.Add(Me.LabelAddingElementsHdr)
@@ -232,7 +248,6 @@ Partial Class FormBackgroundSelectOrUpload
     Friend WithEvents LabelAddingElementsHdr As Label
     Friend WithEvents LabelFooter1 As Label
     Friend WithEvents LabelFooter2 As Label
-    Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonSelectDemos As Button
     Friend WithEvents textboxPathToImageJPG As TextBox
     Friend WithEvents LabelCurrentPathHeaderLbl As Label
@@ -242,4 +257,6 @@ Partial Class FormBackgroundSelectOrUpload
     Friend WithEvents picturePreview As PictureBox
     Friend WithEvents LabelEditCurrentHdr1 As Label
     Friend WithEvents LabelEditCurrentHdr2 As Label
+    Friend WithEvents ButtonCancel As Button
+    Friend WithEvents ButtonOK As Button
 End Class

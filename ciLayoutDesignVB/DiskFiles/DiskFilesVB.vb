@@ -16,13 +16,33 @@ Public Class DiskFilesVB
         ''Return My.Application.Info.DirectoryPath & "\Images\Signatures\Declaration_bmp.bmp"
         ''Return System.IO.Path.Combine(DiskFolders.PathToFolder_BackExamples(), "Declaration_bmp.bmp")
 
-        Dim objFolderInfo As New DirectoryInfo(DiskFolders.PathToFolder_BackgroundExampleDemos())
+        ''6/11/2022 Dim objFolderInfo As New DirectoryInfo(DiskFolders.PathToFolder_BackgroundExampleDemos())
+        Dim objFolderInfo As New DirectoryInfo(DiskFolders.PathToFolder_BackgroundImages())
         Dim objFileInfo As FileInfo
         objFileInfo = objFolderInfo.GetFiles().FirstOrDefault
         pstrFileTitle = objFileInfo.Name ''Save the file title, i.e. the file's name (without the path preceding it).
         Return objFileInfo.FullName
 
     End Function ''Endo f "Public Shared Function PathToFile_Background_FirstOrDefault() As String"
+
+
+    Public Shared Function PathToFile_BackgroundSuffixSeconds(ByVal pstrFilePrefix As String) As String
+        ''
+        ''Added 6/11/2022 Thomas Downes    
+        ''
+        ''----Dim objFolderInfo As New DirectoryInfo(DiskFolders.PathToFolder_BackgroundImages())
+        Dim strPathToFolder As String = (DiskFolders.PathToFolder_BackgroundImages())
+
+        Dim strFileTitle As String
+
+        strFileTitle = pstrFilePrefix & DateTime.Now.ToString("ss") & ".jpg"
+
+        Dim strFullPathToJpeg As String ''Added 6/11/2022 
+        strFullPathToJpeg = IO.Path.Combine(strPathToFolder, strFileTitle)
+        Return strFullPathToJpeg
+
+    End Function ''Endo f "Public Shared Function PathToFile_BackgroundSuffixSeconds() As String"
+
 
     Public Shared Function PathToFile_Sig() As String
         ''

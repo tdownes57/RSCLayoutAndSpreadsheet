@@ -38,11 +38,11 @@ Partial Class FormBackgroundScreenscape
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.LabelHeaderPreview = New System.Windows.Forms.Label()
         Me.pictureLeftOriginal = New System.Windows.Forms.PictureBox()
-        Me.CtlMoveableBackground1 = New ciBadgeDesigner.CtlMoveableBackground()
         Me.LabelMoveableClickDrag = New System.Windows.Forms.Label()
         Me.PanelSizing1 = New System.Windows.Forms.Panel()
         Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
         Me.LabelAdjustSize = New System.Windows.Forms.Label()
+        Me.CtlMoveableBackground1 = New ciBadgeDesigner.CtlMoveableBackground()
         CType(Me.pictureRight, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLeftOriginal, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -75,7 +75,7 @@ Partial Class FormBackgroundScreenscape
         Me.pictureRight.BackColor = System.Drawing.Color.MistyRose
         Me.pictureRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.pictureRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureRight.Location = New System.Drawing.Point(636, 80)
+        Me.pictureRight.Location = New System.Drawing.Point(636, 83)
         Me.pictureRight.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureRight.Name = "pictureRight"
         Me.pictureRight.Size = New System.Drawing.Size(603, 380)
@@ -210,18 +210,6 @@ Partial Class FormBackgroundScreenscape
         Me.pictureLeftOriginal.TabStop = False
         Me.ToolTip1.SetToolTip(Me.pictureLeftOriginal, "This is an editable view of the ID Card (front side).")
         '
-        'CtlMoveableBackground1
-        '
-        Me.CtlMoveableBackground1.BackColor = System.Drawing.Color.White
-        Me.CtlMoveableBackground1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlMoveableBackground1.ImageBackgroundImage = Nothing
-        Me.CtlMoveableBackground1.ImageFileLocation = Nothing
-        Me.CtlMoveableBackground1.Location = New System.Drawing.Point(11, 83)
-        Me.CtlMoveableBackground1.Name = "CtlMoveableBackground1"
-        Me.CtlMoveableBackground1.Size = New System.Drawing.Size(603, 380)
-        Me.CtlMoveableBackground1.TabIndex = 78
-        Me.CtlMoveableBackground1.Visible = False
-        '
         'LabelMoveableClickDrag
         '
         Me.LabelMoveableClickDrag.AutoSize = True
@@ -264,6 +252,18 @@ Partial Class FormBackgroundScreenscape
         Me.LabelAdjustSize.TabIndex = 82
         Me.LabelAdjustSize.Text = "Adjust Size as %"
         Me.LabelAdjustSize.Visible = False
+        '
+        'CtlMoveableBackground1
+        '
+        Me.CtlMoveableBackground1.BackColor = System.Drawing.Color.White
+        Me.CtlMoveableBackground1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlMoveableBackground1.ImageBackgroundImage = Nothing
+        Me.CtlMoveableBackground1.ImageFileLocation = Nothing
+        Me.CtlMoveableBackground1.Location = New System.Drawing.Point(11, 83)
+        Me.CtlMoveableBackground1.Name = "CtlMoveableBackground1"
+        Me.CtlMoveableBackground1.Size = New System.Drawing.Size(603, 380)
+        Me.CtlMoveableBackground1.TabIndex = 78
+        Me.CtlMoveableBackground1.Visible = False
         '
         'FormBackgroundScreenscape
         '

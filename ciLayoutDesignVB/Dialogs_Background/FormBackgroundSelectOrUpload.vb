@@ -11,6 +11,7 @@ Public Class FormBackgroundSelectOrUpload
     Public UserWantsToSeeDemos As Boolean
     Public Input_CurrentBackgroundImage As Image ''Added 6/10/2022 
     Public Input_BackgroundImagePath As String ''Added 6/11/2022 
+    Public Output_PathToBackground As String ''Added 6/11/2022
 
     Public Sub New(par_backgroundimage As Image, pstrPathToImageFileJPG As String)
         ''
@@ -59,7 +60,6 @@ Public Class FormBackgroundSelectOrUpload
     End Sub
 
     Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
-
         ''
         ''Added 5/13/2022  
         ''
@@ -184,6 +184,24 @@ Public Class FormBackgroundSelectOrUpload
         objFormShow.ImageFilePath_input = Me.Input_BackgroundImagePath
         objFormShow.Load_ImageFileToEdit(Me.Input_BackgroundImagePath)
         objFormShow.ShowDialog()
+
+        ''Added 6/11/2022
+        Dim strEditedImageFilePath As String
+        strEditedImageFilePath = objFormShow.ImageFilePath_output
+        picturePreview.ImageLocation = strEditedImageFilePath
+        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+        picturePreview.Load()
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+        ''
+        ''Added 6/11/2022  
+        ''
+        Me.DialogResult = DialogResult.OK
+        Me.Output_PathToBackground = DiskFilesVB.PathToFile_BackgroundSuffixSeconds("Background")
+        picturePreview.Image.Save(Me.Output_PathToBackground)
+        Me.Close()
 
     End Sub
 End Class

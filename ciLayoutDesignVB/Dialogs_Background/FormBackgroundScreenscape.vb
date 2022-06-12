@@ -17,7 +17,7 @@ Public Class FormBackgroundScreenscape
     Public Input_MoveableHeight As Integer '' = intHeight
 
     Public Output_Image As Drawing.Image ''Added 6/3/2022 td
-
+    Public Output_Image_LocationPath As String ''Added 6/11/2022 td
 
     Private Function TakeScreenShot_Modified(par_rectangle As Rectangle,
                     Optional par_pictureBox As PictureBox = Nothing) As Bitmap
@@ -167,10 +167,13 @@ Public Class FormBackgroundScreenscape
         ''
         If (Me.Input_ShowMoveableControl) Then
             pictureLeftOriginal.Visible = False
-            CtlMoveableBackground1.Visible = True
-            CtlMoveableBackground1.BringToFront()
-            CtlMoveableBackground1.ImageBackgroundImage = Me.Input_BackgroundImage
-            CtlMoveableBackground1.LoadImageFromImage(Me.Input_BackgroundImage)
+            With CtlMoveableBackground1
+                .Visible = True
+                .BringToFront()
+                .ImageBackgroundImage = Me.Input_BackgroundImage
+                .LoadImageFromImage(Me.Input_BackgroundImage)
+                .Load_Control()
+            End With
 
         Else
             pictureLeftOriginal.Visible = True
@@ -190,6 +193,8 @@ Public Class FormBackgroundScreenscape
         ''Added 6/10/2022 td
         ''
         Me.Output_Image = pictureRight.Image
+        Me.Output_Image_LocationPath = IO.Path.GetRandomFileName()
+        pictureRight.Image.Save(Me.Output_Image_LocationPath)
 
 ExitHandler:
         Me.DialogResult = DialogResult.OK

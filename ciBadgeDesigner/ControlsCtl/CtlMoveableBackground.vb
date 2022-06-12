@@ -110,6 +110,8 @@ Public Class CtlMoveableBackground
         ''
         ''Added 5/18/2022 
         ''
+        mod_image = par_image ''Added 6/11/2022 
+
         If (ctlMoveable2 IsNot Nothing) Then
 
             ctlMoveable2.LoadImageFromImage(par_image)
@@ -157,10 +159,15 @@ Public Class CtlMoveableBackground
         ''Added 5/18/2022 
         If (mod_image Is Nothing) Then
             LoadImageFromFileLocation()
-        Else
+
+        ElseIf (c_boolCreateFreshControl) Then
             ''6/3/2022 ctlMoveable2.LoadImageFromFileLocation(mod_image)
             ctlMoveable2.LoadImageFromImage(mod_image)
-        End If ''End of ""If (mod_image Is Nothing) Then... Else..." 
+
+        Else
+            ctlMoveable1.LoadImageFromImage(mod_image)
+
+        End If ''End of ""If (mod_image Is Nothing) Then... ElseIf... Else..." 
 
     End Sub ''End of ""Public Sub Load_Control()""
 
