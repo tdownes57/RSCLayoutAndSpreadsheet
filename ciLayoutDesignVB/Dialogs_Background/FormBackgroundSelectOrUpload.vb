@@ -117,6 +117,7 @@ Public Class FormBackgroundSelectOrUpload
         If (Me.Input_CurrentBackgroundImage IsNot Nothing) Then
 
             Dim intRighthandMargin As Integer
+            Dim intLefthandMargin As Integer
             Dim intWidthOfButtons As Integer
 
             picturePreview.Image = Me.Input_CurrentBackgroundImage
@@ -124,23 +125,26 @@ Public Class FormBackgroundSelectOrUpload
             picturePreview.Visible = True
             picturePreview.BringToFront()
             intWidthOfButtons = ButtonEditBackground.Width
-            picturePreview.Left = ButtonSelectDemos.Left + ButtonSelectDemos.Width + 20
 
-            intRighthandMargin = Me.Width - ButtonSelectDemos.Left - ButtonSelectDemos.Width
-            Me.Width = picturePreview.Left + picturePreview.Width + intRighthandMargin
+            ''intRighthandMargin = Me.Width - ButtonSelectDemos.Left - ButtonSelectDemos.Width
+            intLefthandMargin = ButtonSelectLoaded.Left
+            intRighthandMargin = intLefthandMargin
 
             ButtonEditBackground.Width = intWidthOfButtons
             ButtonSelectDemos.Width = intWidthOfButtons
             ButtonSelectLoaded.Width = intWidthOfButtons
             ButtonUploadImage.Width = intWidthOfButtons ''Added 6/11/2022 thomas d.
 
+            ''6/11/2022 picturePreview.Left = ButtonSelectLoaded.Left + ButtonSelectLoaded.Width + 20
+            picturePreview.Left = ButtonSelectLoaded.Left + ButtonSelectLoaded.Width + intRighthandMargin
+            picturePreview.Top = ButtonUploadImage.Top
+            picturePreview.Visible = True
+            Me.Width = picturePreview.Left + picturePreview.Width + intRighthandMargin
+
             LabelEditCurrentHdr1.Left = picturePreview.Left
             LabelEditCurrentHdr2.Left = picturePreview.Left
             LabelEditCurrentHdr1.Visible = True
             LabelEditCurrentHdr2.Visible = True
-
-            picturePreview.Top = ButtonUploadImage.Top
-            picturePreview.Visible = True
 
         End If ''End fo ""If (Me.Input_CurrentBackgroundImage IsNot Nothing) Then""
 

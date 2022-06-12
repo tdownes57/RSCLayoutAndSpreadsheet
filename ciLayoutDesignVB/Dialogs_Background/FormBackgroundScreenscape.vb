@@ -19,7 +19,8 @@ Public Class FormBackgroundScreenscape
     Public Output_Image As Drawing.Image ''Added 6/3/2022 td
 
 
-    Private Function TakeScreenShot_Modified(par_rectangle As Rectangle) As Bitmap
+    Private Function TakeScreenShot_Modified(par_rectangle As Rectangle,
+                    Optional par_pictureBox As PictureBox = Nothing) As Bitmap
         ''
         ''Copied from StackOverflow.com on 5/17/2022 
         ''Modified 5/17/2022
@@ -40,8 +41,27 @@ Public Class FormBackgroundScreenscape
 
         Dim g As Graphics = Graphics.FromImage(screenGrab)
 
-        intX = par_rectangle.Left + Me.Left
-        intY = par_rectangle.Top + Me.Top
+        intX = par_rectangle.Left ''6/11/2022 + Me.Left
+        intY = par_rectangle.Top ''6/11/2022 + Me.Top
+
+        ''Added 6/11/2022 thomas downes
+        Dim objRectangleTest As Rectangle
+        Dim boolMatches As Boolean
+        If (par_pictureBox IsNot Nothing) Then
+            With par_pictureBox
+                objRectangleTest = New Rectangle(.Left, .Top, .Width, .Height)
+                objRectangleTest = par_pictureBox.RectangleToScreen(objRectangleTest)
+                boolMatches = (intY = objRectangleTest.Top)
+                ''
+                ''Trying not to capture the wrong Y coordinates!!  It is starting
+                ''  from the wrong Y coordinate!!  ----6/11/20222 
+                ''
+                ''6/11/2022 intY = par_rectangle.Top + .Top
+                intY = par_rectangle.Top - .Top
+                intX = par_rectangle.Left - .Left
+
+            End With
+        End If ''end of ""If (par_pictureBox IsNot Nothing) Then""
 
         ''---g.CopyFromScreen(New Point(0, 0), New Point(0, 0), screenSize)
         g.CopyFromScreen(New Point(intX, intY), New Point(0, 0), screenSize)
@@ -79,32 +99,44 @@ Public Class FormBackgroundScreenscape
         ''
         ''Added 6/11/2022 td
         ''
-        Dim objRectangle As Rectangle
+        Dim objRectangleInput As Rectangle
+        Dim objRectangleInput_OmitBorder As Rectangle ''Added 6/11/2022 td
+        Dim objRectangleOutput As Rectangle
         Dim intWidth, intHeight As Integer
+        Dim intLeft, intTop As Integer
 
         intWidth = par_picturebox.Width
         intHeight = par_picturebox.Height
+        intLeft = par_picturebox.Left ''Added 6/11/2022 td
+        intTop = par_picturebox.Top ''Added 6/11/2022 td
+
         Const c_bTryToOmitBorder As Boolean = True
+
+        objRectangleInput = New Rectangle(intLeft, intTop, intWidth, intHeight)
+        objRectangleInput_OmitBorder = New Rectangle(intLeft, intTop, intWidth - 2, intHeight - 2)
 
         With par_picturebox
 
             If (.BorderStyle = BorderStyle.FixedSingle) Then
 
                 If (c_bTryToOmitBorder) Then
-                    objRectangle = .RectangleToScreen(New Rectangle(0, 0, intWidth - 2, intHeight - 2))
+                    ''6/11/2022 objRectangleOutput = .RectangleToScreen(New Rectangle(0, 0, intWidth - 2, intHeight - 2))
+                    objRectangleOutput = .RectangleToScreen(objRectangleInput_OmitBorder)
                 Else
-                    objRectangle = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+                    ''6/11/2022 objRectangleOutput = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+                    objRectangleOutput = .RectangleToScreen(objRectangleInput)
                 End If
 
             ElseIf (.BorderStyle = BorderStyle.None) Then
 
-                objRectangle = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+                ''6/11/2022 objRectangleOutput = .RectangleToScreen(New Rectangle(0, 0, intWidth, intHeight))
+                objRectangleOutput = .RectangleToScreen(objRectangleInput)
 
             End If ''end of ""If (pictureLeft.BorderStyle = ...) ... ElseIf (pictureLeft.BorderStyle = ...)...
 
         End With ''End of ""With par_ctlPictureBox""
 
-        Return objRectangle
+        Return objRectangleOutput
 
     End Function ''End of ""Private Function GetScreenRectangle""
 
@@ -117,7 +149,13 @@ Public Class FormBackgroundScreenscape
         ''
         picturePreview.Image?.Dispose()
         picturePreview.Image = Nothing
+        pictureRight.Image?.Dispose()
+        pictureRight.Image = Nothing
+
         ButtonOkay1of3.Enabled = True
+
+        ButtonOkay2of3.Enabled = False
+        ButtonOkay3of3.Enabled = False
         ButtonUndoOkay1.Enabled = False
 
     End Sub
@@ -178,7 +216,7 @@ ExitHandler:
         ''                                      pictureLeftOriginal.Size))
 
         rectangleInput = GetScreenRectangle(pictureLeftOriginal)
-        imagePreview = TakeScreenShot_Modified(rectangleInput)
+        imagePreview = TakeScreenShot_Modified(rectangleInput, pictureLeftOriginal)
 
         ''6/10/2022  picturePreview.Image = imagePreview
         pictureRight.Image = imagePreview
@@ -195,6 +233,7 @@ ExitHandler:
         ''Added 6/10/2022
         ''
         picturePreview.Image = pictureRight.Image
+        picturePreview.SizeMode = PictureBoxSizeMode.Zoom ''Added 6/11/2022 td
         picturePreview.Visible = True
         picturePreview.BringToFront()
 
@@ -205,4 +244,17 @@ ExitHandler:
 
     End Sub
 
+    Private Sub ButtonUndoOkay2_Click(sender As Object, e As EventArgs) Handles ButtonUndoOkay2.Click
+        ''
+        ''Added 6/11/2022 
+        ''
+        picturePreview.Image?.Dispose()
+        picturePreview.Visible = False
+
+ExitHandler:
+        ButtonOkay2of3.Enabled = True
+        ButtonUndoOkay2.Enabled = False
+        ButtonOkay3of3.Enabled = False
+
+    End Sub
 End Class

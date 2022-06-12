@@ -203,7 +203,7 @@ Partial Class FormBackgroundScreenscape
         '
         Me.pictureLeftOriginal.BackColor = System.Drawing.Color.White
         Me.pictureLeftOriginal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureLeftOriginal.Location = New System.Drawing.Point(11, 82)
+        Me.pictureLeftOriginal.Location = New System.Drawing.Point(11, 83)
         Me.pictureLeftOriginal.Name = "pictureLeftOriginal"
         Me.pictureLeftOriginal.Size = New System.Drawing.Size(603, 380)
         Me.pictureLeftOriginal.TabIndex = 77
@@ -216,7 +216,7 @@ Partial Class FormBackgroundScreenscape
         Me.CtlMoveableBackground1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlMoveableBackground1.ImageBackgroundImage = Nothing
         Me.CtlMoveableBackground1.ImageFileLocation = Nothing
-        Me.CtlMoveableBackground1.Location = New System.Drawing.Point(11, 82)
+        Me.CtlMoveableBackground1.Location = New System.Drawing.Point(11, 83)
         Me.CtlMoveableBackground1.Name = "CtlMoveableBackground1"
         Me.CtlMoveableBackground1.Size = New System.Drawing.Size(603, 380)
         Me.CtlMoveableBackground1.TabIndex = 78
@@ -273,7 +273,6 @@ Partial Class FormBackgroundScreenscape
         Me.Controls.Add(Me.LabelAdjustSize)
         Me.Controls.Add(Me.PanelSizing1)
         Me.Controls.Add(Me.LabelMoveableClickDrag)
-        Me.Controls.Add(Me.CtlMoveableBackground1)
         Me.Controls.Add(Me.pictureRight)
         Me.Controls.Add(Me.picturePreview)
         Me.Controls.Add(Me.LabelHeaderPreview)
@@ -288,6 +287,7 @@ Partial Class FormBackgroundScreenscape
         Me.Controls.Add(Me.ButtonOkay1of3)
         Me.Controls.Add(Me.LinkToStackOverflow)
         Me.Controls.Add(Me.LabelHeader1)
+        Me.Controls.Add(Me.CtlMoveableBackground1)
         Me.Name = "FormBackgroundScreenscape"
         Me.Text = " "
         CType(Me.pictureRight, System.ComponentModel.ISupportInitialize).EndInit()

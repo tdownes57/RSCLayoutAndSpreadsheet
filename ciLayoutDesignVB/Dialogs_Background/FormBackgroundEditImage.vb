@@ -362,8 +362,9 @@ Public Class FormBackgroundEditImage
         End If ''End of ""If (pictureLayoutZoom.Image Is Nothing) Then"" 
 
 ExitHandler:
-        mod_bLoading = False ''Added 6/4/2022
-        mod_bSuppressEvents = False ''Added 6/4/2022 
+        ''mod_bLoading = False ''Added 6/4/2022
+        ''mod_bSuppressEvents = False ''Added 6/4/2022 
+        timerLoading.Enabled = True
 
     End Sub
 
@@ -784,6 +785,14 @@ ExitHandler:
         ''Else
         ''    TakeScreenshot_Master()
         ''End If ''End of ""If (radioLayoutMoveable.Checked) Then... Else..." 
+
+    End Sub
+
+    Private Sub timerLoading_Tick(sender As Object, e As EventArgs) Handles timerLoading.Tick
+
+        mod_bLoading = False ''Added 6/11 & 6/4/2022
+        mod_bSuppressEvents = False ''Added 6/11 & 6/4/2022 
+        timerLoading.Enabled = False
 
     End Sub
 End Class

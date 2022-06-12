@@ -42,25 +42,21 @@ Partial Class FormBackgroundSelectOrUpload
         '
         'ButtonUploadImage
         '
-        Me.ButtonUploadImage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonUploadImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonUploadImage.Location = New System.Drawing.Point(32, 95)
         Me.ButtonUploadImage.Name = "ButtonUploadImage"
-        Me.ButtonUploadImage.Size = New System.Drawing.Size(836, 57)
+        Me.ButtonUploadImage.Size = New System.Drawing.Size(562, 57)
         Me.ButtonUploadImage.TabIndex = 8
         Me.ButtonUploadImage.Text = "1.  Upload a Background Image *"
         Me.ButtonUploadImage.UseVisualStyleBackColor = True
         '
         'ButtonSelectLoaded
         '
-        Me.ButtonSelectLoaded.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectLoaded.Enabled = False
         Me.ButtonSelectLoaded.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonSelectLoaded.Location = New System.Drawing.Point(32, 189)
         Me.ButtonSelectLoaded.Name = "ButtonSelectLoaded"
-        Me.ButtonSelectLoaded.Size = New System.Drawing.Size(836, 57)
+        Me.ButtonSelectLoaded.Size = New System.Drawing.Size(562, 57)
         Me.ButtonSelectLoaded.TabIndex = 7
         Me.ButtonSelectLoaded.Text = "2. Select a Background Image **"
         Me.ButtonSelectLoaded.UseVisualStyleBackColor = True
@@ -108,12 +104,10 @@ Partial Class FormBackgroundSelectOrUpload
         '
         'ButtonSelectDemos
         '
-        Me.ButtonSelectDemos.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelectDemos.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonSelectDemos.Location = New System.Drawing.Point(32, 283)
         Me.ButtonSelectDemos.Name = "ButtonSelectDemos"
-        Me.ButtonSelectDemos.Size = New System.Drawing.Size(836, 57)
+        Me.ButtonSelectDemos.Size = New System.Drawing.Size(562, 57)
         Me.ButtonSelectDemos.TabIndex = 12
         Me.ButtonSelectDemos.Text = "(Browse Pre-Loaded Demo Images)"
         Me.ButtonSelectDemos.UseVisualStyleBackColor = True

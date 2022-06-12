@@ -50,6 +50,7 @@ Partial Class FormBackgroundEditImage
         Me.CtlMoveableBackground1 = New ciBadgeDesigner.CtlMoveableBackground()
         Me.picturePreviewForScrape = New System.Windows.Forms.PictureBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.timerLoading = New System.Windows.Forms.Timer(Me.components)
         CType(Me.pictureLayoutNormal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -370,6 +371,10 @@ Partial Class FormBackgroundEditImage
         Me.LinkLabel1.Text = "Click to update Preview"
         Me.LinkLabel1.Visible = False
         '
+        'timerLoading
+        '
+        Me.timerLoading.Interval = 1200
+        '
         'FormBackgroundEditImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -444,4 +449,5 @@ Partial Class FormBackgroundEditImage
     Friend WithEvents pictureLayoutMoveable As PictureBox
     Friend WithEvents picturePreviewForScrape As PictureBox
     Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents timerLoading As Timer
 End Class
