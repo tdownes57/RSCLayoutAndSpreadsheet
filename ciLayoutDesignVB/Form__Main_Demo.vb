@@ -2913,28 +2913,41 @@ ExitHandler:
         ''
         ''Added 5/12/2022 td
         ''
-        Dim strBackgroundImagePath As String ''Added 5/23/2022 td 
+        Dim strBackgroundImagePath As String ''Added 5/23/2022 td
+        Dim imageBackground As Image ''Added 6/11/2022
+
+        ''
         Select Case mod_designer.EnumSideOfCard_Current
             Case EnumWhichSideOfCard.EnumBackside
+                ''Backside of card.
                 strBackgroundImagePath = Me.ElementsCache_Edits.BackgroundImage_Backside_Path
+                pictureBackgroundBackside.Image?.Dispose() ''Release the image so that it can be modified. 
+                pictureBackgroundBackside.Image = Nothing
+                imageBackground = New Bitmap(strBackgroundImagePath)
+
             Case Else
+                ''Front side of card (default side of card).
                 strBackgroundImagePath = Me.ElementsCache_Edits.BackgroundImage_Front_Path
+                pictureBackgroundFront.Image?.Dispose() ''Release the image so that it can be modified.
+                pictureBackgroundBackside.Image = Nothing
+                imageBackground = New Bitmap(strBackgroundImagePath)
+
         End Select ''End of ""Select Case mod_designer.EnumSideOfCard_Current""
 
         ''May23 2022 ''Dim objShow1 As New FormBackgroundSelectOrUpload
         ''Jun11 2022 ''Dim objShow1 As New FormBackgroundSelectOrUpload(strBackgroundImagePath)
 
         ''Added 6/11/2022 
-        Dim objShow1 As FormBackgroundSelectOrUpload
-        Dim imageBackground As Image
+        Dim objShow1 As FormBackgroundSelectOrUpload ''Added 6/11/2022
 
         ''Added 6/11/2022 
-        With pictureBackgroundFront
-            imageBackground = .Image
-            If (imageBackground Is Nothing) Then
-                imageBackground = .BackgroundImage
-            End If ''end of ""If (imageBackground Is Nothing) Then""
-        End With ''End of ""With pictureBackgroundFront""
+        ''6/12/2022 With pictureBackgroundFront
+        ''    imageBackground = .Image
+        ''    If (imageBackground Is Nothing) Then
+        ''        imageBackground = .BackgroundImage
+        ''    End If ''end of ""If (imageBackground Is Nothing) Then""
+        ''End With ''End of ""With pictureBackgroundFront""
+
         objShow1 = New FormBackgroundSelectOrUpload(imageBackground, strBackgroundImagePath)
         objShow1.ShowDialog()
 

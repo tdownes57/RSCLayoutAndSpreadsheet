@@ -51,6 +51,7 @@ Partial Class FormBackgroundEditImage
         Me.picturePreviewForScrape = New System.Windows.Forms.PictureBox()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.timerLoading = New System.Windows.Forms.Timer(Me.components)
+        Me.radioUndetermined = New System.Windows.Forms.RadioButton()
         CType(Me.pictureLayoutNormal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutCenter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureLayoutZoom, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -161,7 +162,6 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutNormal.Name = "radioLayoutNormal"
         Me.radioLayoutNormal.Size = New System.Drawing.Size(89, 17)
         Me.radioLayoutNormal.TabIndex = 53
-        Me.radioLayoutNormal.TabStop = True
         Me.radioLayoutNormal.Text = "Select below."
         Me.radioLayoutNormal.UseVisualStyleBackColor = True
         Me.radioLayoutNormal.Visible = False
@@ -174,7 +174,6 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutCenter.Name = "radioLayoutCenter"
         Me.radioLayoutCenter.Size = New System.Drawing.Size(89, 17)
         Me.radioLayoutCenter.TabIndex = 54
-        Me.radioLayoutCenter.TabStop = True
         Me.radioLayoutCenter.Text = "Select below."
         Me.radioLayoutCenter.UseVisualStyleBackColor = True
         Me.radioLayoutCenter.Visible = False
@@ -187,7 +186,6 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutZoom.Name = "radioLayoutZoom"
         Me.radioLayoutZoom.Size = New System.Drawing.Size(89, 17)
         Me.radioLayoutZoom.TabIndex = 55
-        Me.radioLayoutZoom.TabStop = True
         Me.radioLayoutZoom.Text = "Select below."
         Me.radioLayoutZoom.UseVisualStyleBackColor = True
         '
@@ -199,7 +197,6 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutStretch.Name = "radioLayoutStretch"
         Me.radioLayoutStretch.Size = New System.Drawing.Size(89, 17)
         Me.radioLayoutStretch.TabIndex = 56
-        Me.radioLayoutStretch.TabStop = True
         Me.radioLayoutStretch.Text = "Select below."
         Me.radioLayoutStretch.UseVisualStyleBackColor = True
         '
@@ -295,7 +292,6 @@ Partial Class FormBackgroundEditImage
         Me.radioLayoutMoveable.Name = "radioLayoutMoveable"
         Me.radioLayoutMoveable.Size = New System.Drawing.Size(89, 17)
         Me.radioLayoutMoveable.TabIndex = 70
-        Me.radioLayoutMoveable.TabStop = True
         Me.radioLayoutMoveable.Text = "Select below."
         Me.radioLayoutMoveable.UseVisualStyleBackColor = True
         '
@@ -375,11 +371,26 @@ Partial Class FormBackgroundEditImage
         '
         Me.timerLoading.Interval = 1200
         '
+        'radioUndetermined
+        '
+        Me.radioUndetermined.AutoSize = True
+        Me.radioUndetermined.Checked = True
+        Me.radioUndetermined.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.radioUndetermined.Location = New System.Drawing.Point(11, 3)
+        Me.radioUndetermined.Margin = New System.Windows.Forms.Padding(2)
+        Me.radioUndetermined.Name = "radioUndetermined"
+        Me.radioUndetermined.Size = New System.Drawing.Size(228, 21)
+        Me.radioUndetermined.TabIndex = 76
+        Me.radioUndetermined.TabStop = True
+        Me.radioUndetermined.Text = "Select which Layout is best."
+        Me.radioUndetermined.UseVisualStyleBackColor = True
+        '
         'FormBackgroundEditImage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1170, 617)
+        Me.Controls.Add(Me.radioUndetermined)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.radioLayoutMoveable)
@@ -450,4 +461,5 @@ Partial Class FormBackgroundEditImage
     Friend WithEvents picturePreviewForScrape As PictureBox
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents timerLoading As Timer
+    Friend WithEvents radioUndetermined As RadioButton
 End Class

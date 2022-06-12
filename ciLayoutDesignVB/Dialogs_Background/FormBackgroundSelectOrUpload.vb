@@ -12,6 +12,11 @@ Public Class FormBackgroundSelectOrUpload
     Public Input_CurrentBackgroundImage As Image ''Added 6/10/2022 
     Public Input_BackgroundImagePath As String ''Added 6/11/2022 
     Public Output_PathToBackground As String ''Added 6/11/2022
+    Public Output_EditedExistingBackgd As Boolean ''Added 6/11/2022 
+
+    ''Added 6/11/2022 td
+    Private mod_editOfPicturePreviewOK As Boolean '' = True
+    Private mod_pathToEditedPicturePreview As String '' = strEditedImageFilePath
 
     Public Sub New(par_backgroundimage As Image, pstrPathToImageFileJPG As String)
         ''
@@ -179,18 +184,30 @@ Public Class FormBackgroundSelectOrUpload
         ''Added 6/10/2022
         ''
         Dim objFormShow As FormBackgroundEditImage
+        Dim diag_res As DialogResult ''Added 6/12/2022 
 
         objFormShow = New FormBackgroundEditImage()
         objFormShow.ImageFilePath_input = Me.Input_BackgroundImagePath
         objFormShow.Load_ImageFileToEdit(Me.Input_BackgroundImagePath)
-        objFormShow.ShowDialog()
+        diag_res =
+          objFormShow.ShowDialog()
 
         ''Added 6/11/2022
         Dim strEditedImageFilePath As String
-        strEditedImageFilePath = objFormShow.ImageFilePath_output
-        picturePreview.ImageLocation = strEditedImageFilePath
-        picturePreview.SizeMode = PictureBoxSizeMode.Zoom
-        picturePreview.Load()
+
+        ''Added 6/11/2022
+        If (diag_res = DialogResult.OK) Then
+            ''Added 6/11/2022
+            strEditedImageFilePath = objFormShow.ImageFilePath_output
+            picturePreview.ImageLocation = strEditedImageFilePath
+            picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+            picturePreview.Load()
+
+            ''Added 6/11/2022 td
+            mod_editOfPicturePreviewOK = True
+            mod_pathToEditedPicturePreview = strEditedImageFilePath
+
+        End If ''End of ""If (diag_res = DialogResult.OK) Then""
 
     End Sub
 
@@ -198,10 +215,53 @@ Public Class FormBackgroundSelectOrUpload
         ''
         ''Added 6/11/2022  
         ''
+        Dim bFileCopyToReplaceInputJpeg As Boolean ''Added 6/11/2022 td  
+        Dim bEditedExistingBackground As Boolean ''Added 6/12/2022 td
+
         Me.DialogResult = DialogResult.OK
-        Me.Output_PathToBackground = DiskFilesVB.PathToFile_BackgroundSuffixSeconds("Background")
-        picturePreview.Image.Save(Me.Output_PathToBackground)
+
+        ''Added 6/11/2022 td
+        ''
+        '' Check to see if the user has edited the existing background image. 
+        ''
+        bEditedExistingBackground = (mod_editOfPicturePreviewOK) AndAlso
+                        (Not String.IsNullOrEmpty(Me.Input_BackgroundImagePath)) AndAlso
+                        IO.File.Exists(mod_pathToEditedPicturePreview)
+
+        Const c_boolReplaceOriginal As Boolean = False ''False, because 
+        bFileCopyToReplaceInputJpeg = (bEditedExistingBackground And c_boolReplaceOriginal)
+
+        If (bFileCopyToReplaceInputJpeg) Then ''Added 6/11/2022 td
+
+            ''Added 6/11/2022 td
+            picturePreview.Image?.Dispose()
+            picturePreview.Image = Nothing
+
+            ''
+            ''Replace the original image with the edited version
+            ''  of the image. ---6/12/2022
+            ''
+            If (c_boolReplaceOriginal) Then
+                IO.File.Copy(mod_pathToEditedPicturePreview,
+                         Me.Input_BackgroundImagePath, True)
+                Me.Output_PathToBackground = Me.Input_BackgroundImagePath
+            End If ''Endof ""If (c_boolReplaceOriginal) Then""
+
+        ElseIf (bEditedExistingBackground) Then
+            ''
+            ''Added 6/12/2022 thomas downes
+            ''
+            Me.Output_EditedExistingBackgd = True
+            Me.Output_PathToBackground = mod_pathToEditedPicturePreview
+
+        Else
+                Me.Output_PathToBackground = DiskFilesVB.PathToFile_BackgroundSuffixSeconds("Background")
+            picturePreview.Image.Save(Me.Output_PathToBackground)
+        End If ''End of ""If (bFileCopyToReplaceInputJpeg) Then ... Else..."
+
         Me.Close()
 
-    End Sub
+    End Sub ''End of .... Handlers ButtonOK_Click
+
+
 End Class

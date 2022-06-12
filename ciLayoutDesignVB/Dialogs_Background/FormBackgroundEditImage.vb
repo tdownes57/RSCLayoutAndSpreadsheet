@@ -568,7 +568,15 @@ ExitHandler:
         ''
         ''Added 5/18/2022
         ''
-        If (picturePreview.Image Is Nothing) Then
+        Dim boolNoSelectionMade As Boolean ''Added 6/12/2022 
+
+        ''Added 6/12/2022 
+        boolNoSelectionMade = (radioUndetermined.Checked) Or
+            (picturePreview.Image Is Nothing) ''Or (radioUndetermined.Checked)
+
+        ''Added 6/12/2022 
+        ''6/12/2022 If (picturePreview.Image Is Nothing) Then
+        If (boolNoSelectionMade Or picturePreview.Image Is Nothing) Then
             ''
             ''Let the user know that they haven't made a selection.
             ''
@@ -611,6 +619,16 @@ ExitHandler:
         Me.pictureLayoutNormal.BackgroundImage?.Dispose() ''Recommended by the above links.
         Me.pictureLayoutStretch.BackgroundImage?.Dispose() ''Recommended by the above links. 
         Me.pictureLayoutZoom.BackgroundImage?.Dispose() ''Recommended by the above links.
+
+        ''Added 6/12/2022 td
+        Const c_bPictureBoxesDisposed As Boolean = True
+        Const c_bAGoodPlaceToReplaceInputImage As Boolean = False
+        If (c_bPictureBoxesDisposed And c_bAGoodPlaceToReplaceInputImage) Then
+
+            ''Replace the original with the edited version. ----6/12/2022 td 
+            IO.File.Copy(Me.ImageFilePath_output, Me.ImageFilePath_input, True)
+
+        End If ''End of ""If (c_bPictureBoxesDisposed And c_bAGoodPlaceToReplaceInputImage) Then""
 
         Me.DialogResult = DialogResult.OK
         Me.Close()

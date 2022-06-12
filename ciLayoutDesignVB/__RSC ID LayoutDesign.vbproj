@@ -1211,6 +1211,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dialogs_Graphics\" />
     <Folder Include="Laysections\" />
     <Folder Include="__BlakemoreWebAPIs\" />
     <Folder Include="__ErrorLog\" />
