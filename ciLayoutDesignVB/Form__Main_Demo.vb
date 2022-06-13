@@ -2915,8 +2915,8 @@ ExitHandler:
         ''
         Dim strBackgroundImagePath As String ''Added 5/23/2022 td
         Dim imageBackground As Image ''Added 6/11/2022
+        Dim boolFilePathIsValid As Boolean ''Aded 6/12/2022 
 
-        ''
         Select Case mod_designer.EnumSideOfCard_Current
             Case EnumWhichSideOfCard.EnumBackside
                 ''Backside of card.
@@ -2928,9 +2928,12 @@ ExitHandler:
             Case Else
                 ''Front side of card (default side of card).
                 strBackgroundImagePath = Me.ElementsCache_Edits.BackgroundImage_Front_Path
-                pictureBackgroundFront.Image?.Dispose() ''Release the image so that it can be modified.
-                pictureBackgroundBackside.Image = Nothing
-                imageBackground = New Bitmap(strBackgroundImagePath)
+                boolFilePathIsValid = (DiskFilesVB.FilePathIsValid(strBackgroundImagePath))
+                If boolFilePathIsValid Then
+                    pictureBackgroundFront.Image?.Dispose() ''Release the image so that it can be modified.
+                    pictureBackgroundBackside.Image = Nothing
+                    imageBackground = New Bitmap(strBackgroundImagePath)
+                End If ''End of ""If (boolFilePathIsValid) Then""
 
         End Select ''End of ""Select Case mod_designer.EnumSideOfCard_Current""
 
@@ -2954,11 +2957,13 @@ ExitHandler:
         Dim boolStep1_LetsUpload As Boolean
         Dim boolStep2_LetsSelect As Boolean
         Dim boolStep3_LetsPickDemoImages As Boolean
+        Dim boolStep4_EditedBackgroundImage As Boolean ''Added 6/12/2022
         ''Dim strNewPathToJpeg As String ''Added 5/17/2022 
 
         boolStep1_LetsUpload = objShow1.UserWantsToUpload
         boolStep2_LetsSelect = objShow1.UserWantsToSelect
         boolStep3_LetsPickDemoImages = objShow1.UserWantsToSeeDemos
+        boolStep4_EditedBackgroundImage = objShow1.Output_EditedExistingBackgd
 
         Select Case True
 
@@ -2997,26 +3002,54 @@ ExitHandler:
 
                 BackgroundImage_Select(boolStep3_LetsPickDemoImages)
 
+            Case (boolStep4_EditedBackgroundImage)
+                ''
+                ''Added 6/12/2022 td
+                ''
+                Dim strNewPathToJpg As String ''Added 6/12/2022 thomas
+                Dim objFileInfoNewPath As IO.FileInfo ''Added 6/12/2022 thomas
+                strNewPathToJpg = objShow1.Output_PathToBackground
+                If (IO.File.Exists(strNewPathToJpg)) Then
+                    objFileInfoNewPath = New IO.FileInfo(strNewPathToJpg)
+                    BackgroundImage_Select(False, objFileInfoNewPath)
+                End If ''End of ""If (IO.File.Exists(strNewPathToJpg)) Then""
+
         End Select ''End of ""Select Case True""
 
     End Sub
 
 
-    Public Sub BackgroundImage_Select(pboolDemoMode As Boolean) Implements IDesignerForm.BackgroundImage_Select
+    Public Sub BackgroundImage_Select(pboolDemoMode As Boolean,
+              Optional pobjFileInfoOfSelectedFile As IO.FileInfo = Nothing) Implements IDesignerForm.BackgroundImage_Select
         ''
+        ''Optional parameter added 6/12/2022 td
         ''Encapsulated 5/12/2022 td
         ''Program code written 11/25/2021 td
         ''
-        Dim objShow As New FormBackgroundsSelect
+        Dim objShow As FormBackgroundsSelect ''6/12/2022  As New FormBackgroundsSelect
+        Dim objSelectedImageFileInfo As IO.FileInfo ''Addd 6/12/2022 td
 
-        objShow.DemoMode = pboolDemoMode ''Added 5/17/2022 td
-        objShow.ShowDialog()
+        If (pobjFileInfoOfSelectedFile Is Nothing) Then ''Addd 6/12/2022 td
+            ''Allow the user to select a new image file.
+            objShow = New FormBackgroundsSelect
+            objShow.DemoMode = pboolDemoMode ''Added 5/17/2022 td
+            objShow.ShowDialog()
+            objSelectedImageFileInfo = objShow.ImageFileInfo ''Added 6/12/2022 
+        Else
+            ''Let's use the Optional parameter.--6/12/2022 
+            objSelectedImageFileInfo = pobjFileInfoOfSelectedFile
+        End If ''End of ""If (pobjFileInfoOfSelectedFile Is Nothing) Then... Else..."
 
         Dim strPathToFilename As String
         Dim bBacksideOfCard As Boolean ''Added 12/10/2021 td
 
-        If (objShow.ImageFileInfo IsNot Nothing) Then
-            strPathToFilename = objShow.ImageFileInfo.FullName
+        ''6/12/2022  If (objShow.ImageFileInfo IsNot Nothing) Then
+        If (objSelectedImageFileInfo IsNot Nothing) Then
+            ''
+            ''Process selected file.---6/12/2022 
+            ''
+            ''June12 2022 td''strPathToFilename = objShow.ImageFileInfo.FullName
+            strPathToFilename = objSelectedImageFileInfo.FullName
             ''ClassElementsCache_Deprecated.Singleton.BackgroundImage_Path = strPathToFilename
             '' 12/3/2021 td''ctlBackgroundZoom1.ImageLocation = strPathToFilename
             '' 12/3/2021 td''PictureBox1.ImageLocation = strPathToFilename
@@ -3029,14 +3062,18 @@ ExitHandler:
                 pictureBackgroundBackside.BackgroundImage = (New Bitmap(strPathToFilename))
                 pictureBackgroundBackside.BackgroundImageLayout = ImageLayout.Zoom
                 Me.ElementsCache_Edits.BackgroundImage_Backside_Path = strPathToFilename
-                Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileInfo.Name
+                ''--June12 2022 Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileInfo.Name
+                Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objSelectedImageFileInfo.Name
+
             Else
                 ''Frontside of card. 
                 pictureBackgroundFront.BackgroundImage = (New Bitmap(strPathToFilename))
                 pictureBackgroundFront.BackgroundImageLayout = ImageLayout.Zoom
                 ''Added 12/3/2021 td
                 Me.ElementsCache_Edits.BackgroundImage_Front_Path = strPathToFilename
-                Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileInfo.Name
+                ''---June12 2022 Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileInfo.Name
+                Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objSelectedImageFileInfo.Name
+
             End If ''eNd of "If (bBacksideOfCard) Then ,,,, Else ..."
 
 

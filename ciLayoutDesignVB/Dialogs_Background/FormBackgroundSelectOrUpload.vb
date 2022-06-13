@@ -228,7 +228,12 @@ Public Class FormBackgroundSelectOrUpload
                         (Not String.IsNullOrEmpty(Me.Input_BackgroundImagePath)) AndAlso
                         IO.File.Exists(mod_pathToEditedPicturePreview)
 
-        Const c_boolReplaceOriginal As Boolean = False ''False, because 
+        Const c_boolReplaceOriginal As Boolean = False ''True ''False ''False, because
+        ''  the runtime error is saying that the file is locked or similar.
+        ''  There is probably an Image reference that needs to be "Dispose()"d.
+        ''  System.IO.IOException: 'The process cannot access the file 'D:\RSC ID Card\Images\BackgroundImagesUploaded\Cute wassail illustration.jpg'
+        ''  because it is being used by another process.'
+        ''  ----6/12/2022 Thomas Downes
         bFileCopyToReplaceInputJpeg = (bEditedExistingBackground And c_boolReplaceOriginal)
 
         If (bFileCopyToReplaceInputJpeg) Then ''Added 6/11/2022 td
@@ -236,6 +241,8 @@ Public Class FormBackgroundSelectOrUpload
             ''Added 6/11/2022 td
             picturePreview.Image?.Dispose()
             picturePreview.Image = Nothing
+            Me.Input_CurrentBackgroundImage?.Dispose()
+            Me.Input_CurrentBackgroundImage = Nothing
 
             ''
             ''Replace the original image with the edited version
@@ -255,9 +262,10 @@ Public Class FormBackgroundSelectOrUpload
             Me.Output_PathToBackground = mod_pathToEditedPicturePreview
 
         Else
-                Me.Output_PathToBackground = DiskFilesVB.PathToFile_BackgroundSuffixSeconds("Background")
+            Me.Output_PathToBackground = DiskFilesVB.PathToFile_BackgroundSuffixSeconds("Background")
             picturePreview.Image.Save(Me.Output_PathToBackground)
-        End If ''End of ""If (bFileCopyToReplaceInputJpeg) Then ... Else..."
+
+        End If ''End of ""If (bFileCopyToReplaceInputJpeg) Then ... ElseIf... Else..."
 
         Me.Close()
 

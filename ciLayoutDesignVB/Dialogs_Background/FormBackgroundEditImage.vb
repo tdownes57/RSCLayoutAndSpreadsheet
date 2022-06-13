@@ -93,14 +93,22 @@ Public Class FormBackgroundEditImage
             ''
             ''Major call!!
             ''
+            Dim boolOkayImage As Boolean ''Added 6/12/2022
+            Dim diag_res As DialogResult ''Added 6/12/2022
+            diag_res =
             .ShowDialog()
 
             ''//Dim imageEdited As Drawing.Image
             ''//imageEdited = .Output_Image
             ''//picturePreview.Image = imageEdited
-            picturePreview.ImageLocation = .Output_Image_LocationPath
-            picturePreview.SizeMode = PictureBoxSizeMode.Zoom ''Added 6/11/2022
-            picturePreview.Load()
+            boolOkayImage = (Not String.IsNullOrEmpty(.Output_Image_LocationPath))
+            If (diag_res = DialogResult.OK And boolOkayImage) Then
+                picturePreview.ImageLocation = .Output_Image_LocationPath
+                ''Below.6/2022''picturePreview.SizeMode = PictureBoxSizeMode.Zoom ''Added 6/11/2022
+                picturePreview.Load()
+                picturePreview.SizeMode = PictureBoxSizeMode.Zoom ''Added 6/11/2022
+
+            End If ''End of ""If (diag_res = DialogResult.OK and boolOkayImage) Then""
 
         End With ''End of "" With objFormToShow""
 
@@ -128,6 +136,7 @@ Public Class FormBackgroundEditImage
             ''.Input_BackgroundImage = par_ctlMoveableImage.BackgroundImage
             .Input_BackgroundImage = par_ctlMoveableImage.GetPictureBox().Image
             .Input_ShowMoveableControl = True
+            .Input_ShowSizingControl = True ''Added 6/12/2022 thomas d
             .Input_MoveablePositionX = intPositionX
             .Input_MoveablePositionY = intPositionY
             .Input_MoveableWidth = intWidth
@@ -141,6 +150,8 @@ Public Class FormBackgroundEditImage
             Dim imageEdited As Drawing.Image
             imageEdited = .Output_Image
             picturePreview.Image = imageEdited
+            ''Added 6/12/2022 thomas d.
+            picturePreview.SizeMode = PictureBoxSizeMode.Zoom
 
         End With
 
@@ -501,7 +512,7 @@ ExitHandler:
             TakeScreenshot_Master(pictureLayoutNormal)
         Else
             radioLayoutNormal.Checked = True
-        End If
+        End If ''End of ""If (radioLayoutNormal.Checked) Then... Else""
 
     End Sub
 
@@ -513,7 +524,7 @@ ExitHandler:
             TakeScreenshot_Master(pictureLayoutZoom)
         Else
             radioLayoutZoom.Checked = True
-        End If
+        End If ''End of ""If (radioLayoutZoom.Checked) Then... Else""
 
     End Sub
 
@@ -527,7 +538,7 @@ ExitHandler:
             TakeScreenshot_Master(pictureLayoutStretch)
         Else
             radioLayoutStretch.Checked = True
-        End If
+        End If ''End of ""If (radioLayoutStretch.Checked) Then... Else""
 
     End Sub
 

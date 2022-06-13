@@ -9,6 +9,15 @@ Public Class DiskFilesVB
     ''
     ''Added 10/12/2019 Thomas Downes    
     ''
+    Public Shared Function FilePathIsValid(pstrPathTofile As String) As Boolean
+
+        +++++++===== = = = = = 
+        // // / / /  // 
+
+
+    End Function ''End of ""ublic Shared Function FilePathIsValid(pstrPathTofile As String) As Boolean""
+
+
     Public Shared Function PathToFile_Background_FirstOrDefault(Optional ByRef pstrFileTitle As String = "") As String
         ''
         ''Added 12/03/2021 Thomas Downes    

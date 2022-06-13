@@ -184,6 +184,21 @@ Public Class FormBackgroundScreenscape
 
         End If ''ENd of ""If (Me.Input_ShowMoveableControl) Then ... Else...."""
 
+        ''
+        ''Added 6/12/2022 
+        ''
+        If (Me.Input_ShowSizingControl) Then
+
+            ''Added 6/12/2022 
+            LabelAdjustSize.Visible = True
+            PanelSizing1.Visible = True
+            HScrollBar1.Visible = True
+
+        End If ''End of ""If (Me.Input_ShowSizingControl) Then""
+
+
+
+
 
 
     End Sub
@@ -262,4 +277,32 @@ ExitHandler:
         ButtonOkay3of3.Enabled = False
 
     End Sub
+
+    Private Sub pictureLeftOriginal_Click(sender As Object, e As EventArgs) Handles pictureLeftOriginal.Click
+
+        ''Added 6/12/2022 
+        ButtonOkay1of3.PerformClick()
+
+    End Sub
+
+    Private Sub pictureRight_Click(sender As Object, e As EventArgs) Handles pictureRight.Click
+
+        ''Added 6/12/2022
+        If (ButtonOkay2of3.Enabled) Then
+            ButtonOkay2of3.PerformClick()
+        End If
+
+    End Sub
+
+
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreview.Click
+
+        ''Added 6/12/2022
+        If (ButtonOkay3of3.Enabled) Then
+            ButtonOkay3of3.PerformClick()
+        End If
+
+    End Sub
+
+
 End Class
