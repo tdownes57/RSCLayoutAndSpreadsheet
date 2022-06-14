@@ -22,8 +22,8 @@ Partial Class FormBackgroundSelectOrUpload
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ButtonUploadImage = New System.Windows.Forms.Button()
-        Me.ButtonSelectLoaded = New System.Windows.Forms.Button()
+        Me.Button1UploadImage = New System.Windows.Forms.Button()
+        Me.Button2SelectLoaded = New System.Windows.Forms.Button()
         Me.LabelAddingElementsHdr = New System.Windows.Forms.Label()
         Me.LabelFooter1 = New System.Windows.Forms.Label()
         Me.LabelFooter2 = New System.Windows.Forms.Label()
@@ -38,35 +38,37 @@ Partial Class FormBackgroundSelectOrUpload
         Me.LabelEditCurrentHdr2 = New System.Windows.Forms.Label()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
+        Me.Button3EditCurrent = New System.Windows.Forms.Button()
+        Me.LinkRemoveCurrentBackground = New System.Windows.Forms.LinkLabel()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'ButtonUploadImage
+        'Button1UploadImage
         '
-        Me.ButtonUploadImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonUploadImage.Location = New System.Drawing.Point(32, 95)
-        Me.ButtonUploadImage.Name = "ButtonUploadImage"
-        Me.ButtonUploadImage.Size = New System.Drawing.Size(562, 57)
-        Me.ButtonUploadImage.TabIndex = 8
-        Me.ButtonUploadImage.Text = "1.  Upload a Background Image *"
-        Me.ButtonUploadImage.UseVisualStyleBackColor = True
+        Me.Button1UploadImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1UploadImage.Location = New System.Drawing.Point(32, 95)
+        Me.Button1UploadImage.Name = "Button1UploadImage"
+        Me.Button1UploadImage.Size = New System.Drawing.Size(562, 57)
+        Me.Button1UploadImage.TabIndex = 8
+        Me.Button1UploadImage.Text = "1.  Upload a Background Image *"
+        Me.Button1UploadImage.UseVisualStyleBackColor = True
         '
-        'ButtonSelectLoaded
+        'Button2SelectLoaded
         '
-        Me.ButtonSelectLoaded.Enabled = False
-        Me.ButtonSelectLoaded.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectLoaded.Location = New System.Drawing.Point(32, 189)
-        Me.ButtonSelectLoaded.Name = "ButtonSelectLoaded"
-        Me.ButtonSelectLoaded.Size = New System.Drawing.Size(562, 57)
-        Me.ButtonSelectLoaded.TabIndex = 7
-        Me.ButtonSelectLoaded.Text = "2. Select a Background Image **"
-        Me.ButtonSelectLoaded.UseVisualStyleBackColor = True
+        Me.Button2SelectLoaded.Enabled = False
+        Me.Button2SelectLoaded.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2SelectLoaded.Location = New System.Drawing.Point(32, 189)
+        Me.Button2SelectLoaded.Name = "Button2SelectLoaded"
+        Me.Button2SelectLoaded.Size = New System.Drawing.Size(562, 57)
+        Me.Button2SelectLoaded.TabIndex = 7
+        Me.Button2SelectLoaded.Text = "2. Select a Background Image **"
+        Me.Button2SelectLoaded.UseVisualStyleBackColor = True
         '
         'LabelAddingElementsHdr
         '
         Me.LabelAddingElementsHdr.AutoSize = True
         Me.LabelAddingElementsHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelAddingElementsHdr.Location = New System.Drawing.Point(12, 62)
+        Me.LabelAddingElementsHdr.Location = New System.Drawing.Point(11, 37)
         Me.LabelAddingElementsHdr.Name = "LabelAddingElementsHdr"
         Me.LabelAddingElementsHdr.Size = New System.Drawing.Size(218, 20)
         Me.LabelAddingElementsHdr.TabIndex = 10
@@ -96,7 +98,7 @@ Partial Class FormBackgroundSelectOrUpload
         'ButtonSelectDemos
         '
         Me.ButtonSelectDemos.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelectDemos.Location = New System.Drawing.Point(32, 283)
+        Me.ButtonSelectDemos.Location = New System.Drawing.Point(16, 354)
         Me.ButtonSelectDemos.Name = "ButtonSelectDemos"
         Me.ButtonSelectDemos.Size = New System.Drawing.Size(562, 57)
         Me.ButtonSelectDemos.TabIndex = 12
@@ -108,17 +110,17 @@ Partial Class FormBackgroundSelectOrUpload
         Me.textboxPathToImageJPG.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.textboxPathToImageJPG.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.textboxPathToImageJPG.Location = New System.Drawing.Point(16, 385)
+        Me.textboxPathToImageJPG.Location = New System.Drawing.Point(16, 452)
         Me.textboxPathToImageJPG.Name = "textboxPathToImageJPG"
         Me.textboxPathToImageJPG.ReadOnly = True
-        Me.textboxPathToImageJPG.Size = New System.Drawing.Size(871, 20)
+        Me.textboxPathToImageJPG.Size = New System.Drawing.Size(944, 20)
         Me.textboxPathToImageJPG.TabIndex = 14
         '
         'LabelCurrentPathHeaderLbl
         '
         Me.LabelCurrentPathHeaderLbl.AutoSize = True
         Me.LabelCurrentPathHeaderLbl.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelCurrentPathHeaderLbl.Location = New System.Drawing.Point(12, 364)
+        Me.LabelCurrentPathHeaderLbl.Location = New System.Drawing.Point(12, 431)
         Me.LabelCurrentPathHeaderLbl.Name = "LabelCurrentPathHeaderLbl"
         Me.LabelCurrentPathHeaderLbl.Size = New System.Drawing.Size(227, 17)
         Me.LabelCurrentPathHeaderLbl.TabIndex = 15
@@ -127,7 +129,7 @@ Partial Class FormBackgroundSelectOrUpload
         'LinkLabelOpenFile
         '
         Me.LinkLabelOpenFile.AutoSize = True
-        Me.LinkLabelOpenFile.Location = New System.Drawing.Point(13, 408)
+        Me.LinkLabelOpenFile.Location = New System.Drawing.Point(13, 475)
         Me.LinkLabelOpenFile.Name = "LinkLabelOpenFile"
         Me.LinkLabelOpenFile.Size = New System.Drawing.Size(84, 13)
         Me.LinkLabelOpenFile.TabIndex = 16
@@ -137,7 +139,7 @@ Partial Class FormBackgroundSelectOrUpload
         'LinkLabelOpenFolder
         '
         Me.LinkLabelOpenFolder.AutoSize = True
-        Me.LinkLabelOpenFolder.Location = New System.Drawing.Point(127, 408)
+        Me.LinkLabelOpenFolder.Location = New System.Drawing.Point(127, 475)
         Me.LinkLabelOpenFolder.Name = "LinkLabelOpenFolder"
         Me.LinkLabelOpenFolder.Size = New System.Drawing.Size(97, 13)
         Me.LinkLabelOpenFolder.TabIndex = 17
@@ -152,7 +154,7 @@ Partial Class FormBackgroundSelectOrUpload
         Me.ButtonEditBackground.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ButtonEditBackground.Location = New System.Drawing.Point(12, 12)
         Me.ButtonEditBackground.Name = "ButtonEditBackground"
-        Me.ButtonEditBackground.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonEditBackground.Size = New System.Drawing.Size(582, 68)
         Me.ButtonEditBackground.TabIndex = 104
         Me.ButtonEditBackground.UseVisualStyleBackColor = False
         '
@@ -195,7 +197,7 @@ Partial Class FormBackgroundSelectOrUpload
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.BackColor = System.Drawing.Color.Violet
         Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonCancel.Location = New System.Drawing.Point(758, 426)
+        Me.ButtonCancel.Location = New System.Drawing.Point(831, 486)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(129, 40)
         Me.ButtonCancel.TabIndex = 109
@@ -207,18 +209,42 @@ Partial Class FormBackgroundSelectOrUpload
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.BackColor = System.Drawing.Color.MediumTurquoise
         Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOK.Location = New System.Drawing.Point(661, 426)
+        Me.ButtonOK.Location = New System.Drawing.Point(734, 486)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(91, 40)
         Me.ButtonOK.TabIndex = 108
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = False
         '
+        'Button3EditCurrent
+        '
+        Me.Button3EditCurrent.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3EditCurrent.Location = New System.Drawing.Point(32, 282)
+        Me.Button3EditCurrent.Name = "Button3EditCurrent"
+        Me.Button3EditCurrent.Size = New System.Drawing.Size(562, 57)
+        Me.Button3EditCurrent.TabIndex = 110
+        Me.Button3EditCurrent.Text = "3. Edit Current Background"
+        Me.Button3EditCurrent.UseVisualStyleBackColor = True
+        '
+        'LinkRemoveCurrentBackground
+        '
+        Me.LinkRemoveCurrentBackground.AutoSize = True
+        Me.LinkRemoveCurrentBackground.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkRemoveCurrentBackground.Location = New System.Drawing.Point(635, 341)
+        Me.LinkRemoveCurrentBackground.Name = "LinkRemoveCurrentBackground"
+        Me.LinkRemoveCurrentBackground.Size = New System.Drawing.Size(215, 20)
+        Me.LinkRemoveCurrentBackground.TabIndex = 111
+        Me.LinkRemoveCurrentBackground.TabStop = True
+        Me.LinkRemoveCurrentBackground.Text = "Remove Current Background"
+        Me.LinkRemoveCurrentBackground.Visible = False
+        '
         'FormBackgroundSelectOrUpload
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(899, 473)
+        Me.ClientSize = New System.Drawing.Size(972, 533)
+        Me.Controls.Add(Me.LinkRemoveCurrentBackground)
+        Me.Controls.Add(Me.Button3EditCurrent)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelEditCurrentHdr2)
@@ -232,8 +258,8 @@ Partial Class FormBackgroundSelectOrUpload
         Me.Controls.Add(Me.LabelFooter2)
         Me.Controls.Add(Me.LabelAddingElementsHdr)
         Me.Controls.Add(Me.LabelFooter1)
-        Me.Controls.Add(Me.ButtonUploadImage)
-        Me.Controls.Add(Me.ButtonSelectLoaded)
+        Me.Controls.Add(Me.Button1UploadImage)
+        Me.Controls.Add(Me.Button2SelectLoaded)
         Me.Controls.Add(Me.picturePreview)
         Me.Name = "FormBackgroundSelectOrUpload"
         Me.Text = "FormSelectOrUpload"
@@ -243,8 +269,8 @@ Partial Class FormBackgroundSelectOrUpload
 
     End Sub
 
-    Friend WithEvents ButtonUploadImage As Button
-    Friend WithEvents ButtonSelectLoaded As Button
+    Friend WithEvents Button1UploadImage As Button
+    Friend WithEvents Button2SelectLoaded As Button
     Friend WithEvents LabelAddingElementsHdr As Label
     Friend WithEvents LabelFooter1 As Label
     Friend WithEvents LabelFooter2 As Label
@@ -259,4 +285,6 @@ Partial Class FormBackgroundSelectOrUpload
     Friend WithEvents LabelEditCurrentHdr2 As Label
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
+    Friend WithEvents Button3EditCurrent As Button
+    Friend WithEvents LinkRemoveCurrentBackground As LinkLabel
 End Class

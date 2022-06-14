@@ -299,7 +299,11 @@ Public Class Startup
             ''
             ''Show the main form!!!    Huge!!!! 
             ''
-            obj_formToShow_Demo.ShowDialog() ''Added 10/11/2019 td 
+            Try
+                obj_formToShow_Demo.ShowDialog() ''Added 10/11/2019 td 
+            Catch ex_show As Exception
+                System.Diagnostics.Debugger.Break() ''Added 6/13/2022 thomas 
+            End Try
 
             ''Added 12/14/2021 thomas downes
             SaveFullPathToFileXML_Settings(obj_formToShow_Demo.ElementsCache_PathToXML)

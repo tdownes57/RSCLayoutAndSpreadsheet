@@ -3518,8 +3518,13 @@ Public Class ClassDesigner
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         Me.PreviewBox.Image = obj_image
-        Me.PreviewBox.Refresh()
-        Me.DesignerForm.Refresh() ''Added 1/14/2022 td
+        Try
+            Me.PreviewBox.Refresh()
+            ''Causes crashes.6/13/2022 ''Me.DesignerForm.Refresh() ''Added 1/14/2022 td
+        Catch ex As Exception ''Added 6/13/2022 
+            ''Added 6/13/2022 
+            System.Diagnostics.Debugger.Break()
+        End Try
 
     End Sub ''End of "Public Sub RefreshPreview_EitherSide"
 

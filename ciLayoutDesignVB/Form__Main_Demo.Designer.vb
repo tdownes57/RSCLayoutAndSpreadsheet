@@ -117,13 +117,6 @@ Partial Class Form__Main_Demo
         Me.pictureJustAButton = New System.Windows.Forms.PictureBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ButtonRecipients = New System.Windows.Forms.Button()
-        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
-        Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
-        Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
-        Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticTextV3()
-        Me.ComponentClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
-        Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
-        Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.flowlayoutIncludedBin = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -137,6 +130,13 @@ Partial Class Form__Main_Demo
         Me.ButtonEditBackground = New System.Windows.Forms.Button()
         Me.LabelMainHeading = New System.Windows.Forms.Label()
         Me.LabelPreviewHeading = New System.Windows.Forms.Label()
+        Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
+        Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
+        Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
+        Me.CtlGraphicStaticText1 = New ciBadgeDesigner.CtlGraphicStaticTextV3()
+        Me.ComponentClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
+        Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
+        Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -927,66 +927,6 @@ Partial Class Form__Main_Demo
         Me.ToolTip1.SetToolTip(Me.ButtonRecipients, "Enter or edit recipients' data (students / staff / members)")
         Me.ButtonRecipients.UseVisualStyleBackColor = True
         '
-        'CtlGraphicQRCode1
-        '
-        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
-        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 199)
-        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
-        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 100)
-        Me.CtlGraphicQRCode1.TabIndex = 65
-        '
-        'CtlGraphicPortrait_Lady
-        '
-        Me.CtlGraphicPortrait_Lady.BackColor = System.Drawing.Color.White
-        Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlGraphicPortrait_Lady.ElementInfo_Base = Nothing
-        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 118)
-        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
-        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 180)
-        Me.CtlGraphicPortrait_Lady.TabIndex = 41
-        '
-        'CtlGraphicSignature1
-        '
-        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
-        Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
-        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
-        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
-        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 104)
-        Me.CtlGraphicSignature1.TabIndex = 66
-        '
-        'CtlGraphicStaticText1
-        '
-        Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
-        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(200, 122)
-        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
-        Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
-        Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
-        Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
-        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(376, 46)
-        Me.CtlGraphicStaticText1.TabIndex = 75
-        Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
-        '
-        'ComponentClickIDFrontside1
-        '
-        Me.ComponentClickIDFrontside1.PictureBoxControl = Nothing
-        '
-        'ComponentClickIDBackside1
-        '
-        Me.ComponentClickIDBackside1.PictureBoxControl = Nothing
-        '
         'flowlayoutIncludedBin
         '
         Me.flowlayoutIncludedBin.AutoScroll = True
@@ -1134,6 +1074,66 @@ Partial Class Form__Main_Demo
         Me.LabelPreviewHeading.Size = New System.Drawing.Size(329, 29)
         Me.LabelPreviewHeading.TabIndex = 106
         Me.LabelPreviewHeading.Text = "RSC ID Card Preview"
+        '
+        'CtlGraphicQRCode1
+        '
+        Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
+        Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 199)
+        Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
+        Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 100)
+        Me.CtlGraphicQRCode1.TabIndex = 65
+        '
+        'CtlGraphicPortrait_Lady
+        '
+        Me.CtlGraphicPortrait_Lady.BackColor = System.Drawing.Color.White
+        Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicPortrait_Lady.ElementInfo_Base = Nothing
+        Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 118)
+        Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
+        Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 180)
+        Me.CtlGraphicPortrait_Lady.TabIndex = 41
+        '
+        'CtlGraphicSignature1
+        '
+        Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
+        Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
+        Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
+        Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
+        Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 104)
+        Me.CtlGraphicSignature1.TabIndex = 66
+        '
+        'CtlGraphicStaticText1
+        '
+        Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
+        Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(200, 122)
+        Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
+        Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
+        Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
+        Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
+        Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(376, 46)
+        Me.CtlGraphicStaticText1.TabIndex = 75
+        Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
+        '
+        'ComponentClickIDFrontside1
+        '
+        Me.ComponentClickIDFrontside1.PictureBoxControl = Nothing
+        '
+        'ComponentClickIDBackside1
+        '
+        Me.ComponentClickIDBackside1.PictureBoxControl = Nothing
         '
         'Form__Main_Demo
         '

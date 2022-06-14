@@ -1118,7 +1118,7 @@ Public Class Form__Main_Demo
         Startup.SaveFullPathToFileXML_Settings(Me.ElementsCache_PathToXML)
 
         ''
-        ''Step 2 of 3.  Decide the next step. 
+        ''Step 2 of 3.  Decide the next Step. 
         ''
         Const c_boolStartNewWindow As Boolean = True ''10/13/2019 td''False ''9/5 td'' True ''Added 9/3/2019 thomas d. 
 
@@ -2454,7 +2454,7 @@ Public Class Form__Main_Demo
     ''    ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuSeparator) ''Added 12/13/2021
     ''
     ''    ''
-    ''    ''Major step!!!   Add all the editing-related menu items!!
+    ''    ''Major Step!!!   Add all the editing-related menu items!!
     ''    ''
     ''    ContextMenuStrip1.Items.AddRange(MenuCache_FieldElements.Tools_EditElementMenu)
     ''
@@ -2548,7 +2548,7 @@ Public Class Form__Main_Demo
     ''    ContextMenuStrip1.Items.Add(MenuCache_FieldElements.Tools_MenuSeparator) ''Added 12/13/2021
 
     ''    ''
-    ''    ''Major step!!!   Add all the editing-related menu items!!
+    ''    ''Major Step!!!   Add all the editing-related menu items!!
     ''    ''
     ''    ContextMenuStrip1.Items.AddRange(MenuCache_FieldElements.Tools_EditElementMenu)
 
@@ -2954,20 +2954,22 @@ ExitHandler:
         objShow1 = New FormBackgroundSelectOrUpload(imageBackground, strBackgroundImagePath)
         objShow1.ShowDialog()
 
-        Dim boolStep1_LetsUpload As Boolean
-        Dim boolStep2_LetsSelect As Boolean
-        Dim boolStep3_LetsPickDemoImages As Boolean
-        Dim boolStep4_EditedBackgroundImage As Boolean ''Added 6/12/2022
+        Dim bOption1_LetsUpload As Boolean
+        Dim bOption2_LetsSelect As Boolean
+        Dim bOption3_LetsPickDemoImages As Boolean
+        Dim bOption4_EditedBackgroundImage As Boolean ''Added 6/12/2022
+        Dim bOption5_RemoveBackgroundImage As Boolean ''Added 6/13/2022
         ''Dim strNewPathToJpeg As String ''Added 5/17/2022 
 
-        boolStep1_LetsUpload = objShow1.UserWantsToUpload
-        boolStep2_LetsSelect = objShow1.UserWantsToSelect
-        boolStep3_LetsPickDemoImages = objShow1.UserWantsToSeeDemos
-        boolStep4_EditedBackgroundImage = objShow1.Output_EditedExistingBackgd
+        bOption1_LetsUpload = objShow1.UserWantsToUpload
+        bOption2_LetsSelect = objShow1.UserWantsToSelect
+        bOption3_LetsPickDemoImages = objShow1.UserWantsToSeeDemos
+        bOption4_EditedBackgroundImage = objShow1.Output_EditedExistingBackgd
+        bOption5_RemoveBackgroundImage = objShow1.Output_RemoveCurrentBackgd
 
         Select Case True
 
-            Case boolStep1_LetsUpload ''5/17/2022  boolLetsPickDemoImages
+            Case bOption1_LetsUpload ''5/17/2022  boolLetsPickDemoImages
 
                 ''Dim objShow2c As New FormUploadBackground
                 ''objShow2c.ShowDialog()
@@ -2978,7 +2980,7 @@ ExitHandler:
 
                 BackgroundImage_Upload()
 
-            Case boolStep2_LetsSelect ''This is NOT the demo mode.  Only uploaded images are shown. 
+            Case bOption2_LetsSelect ''This is NOT the demo mode.  Only uploaded images are shown. 
 
                 ''Dim objShow2b As New FormListBackgrounds
                 ''objShow2b.DemoMode = False ''False for DemoMode, so use RegularMode.
@@ -2990,7 +2992,7 @@ ExitHandler:
 
                 BackgroundImage_Select(False)
 
-            Case boolStep3_LetsPickDemoImages
+            Case bOption3_LetsPickDemoImages
 
                 ''Dim objShow2a As New FormListBackgrounds
                 ''objShow2a.DemoMode = boolLetsPickDemoImages
@@ -3000,9 +3002,9 @@ ExitHandler:
                 ''    strNewPathToJpeg = objShow2a.ImageFilePath
                 ''End If ''End of ""If (objShow2a.DialogResult = ...) Then"
 
-                BackgroundImage_Select(boolStep3_LetsPickDemoImages)
+                BackgroundImage_Select(bOption3_LetsPickDemoImages)
 
-            Case (boolStep4_EditedBackgroundImage)
+            Case (bOption4_EditedBackgroundImage)
                 ''
                 ''Added 6/12/2022 td
                 ''
@@ -3013,6 +3015,12 @@ ExitHandler:
                     objFileInfoNewPath = New IO.FileInfo(strNewPathToJpg)
                     BackgroundImage_Select(False, objFileInfoNewPath)
                 End If ''End of ""If (IO.File.Exists(strNewPathToJpg)) Then""
+
+            Case (bOption5_RemoveBackgroundImage)
+                ''
+                ''Added 6/12/2022 td
+                ''
+                BackgroundImage_Remove()
 
         End Select ''End of ""Select Case True""
 
@@ -3083,6 +3091,36 @@ ExitHandler:
         End If ''If (objShow.ImageFileInfo IsNot Nothing) Then
 
     End Sub ''End of ""Public Sub BackgroundImage_Select""
+
+
+    Public Sub BackgroundImage_Remove()
+        ''
+        ''Added 6/13/2022 thomas d. 
+        ''
+        Dim bBacksideOfCard As Boolean ''Added 6/13/2022
+
+        bBacksideOfCard = (mod_designer.EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
+
+        If (bBacksideOfCard) Then
+            ''Backside of Card.  
+            pictureBackgroundBackside.BackgroundImage = Nothing
+            pictureBackgroundBackside.BackgroundImageLayout = ImageLayout.None
+            Me.ElementsCache_Edits.BackgroundImage_Backside_Path = ""
+            Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = ""
+
+        Else
+            ''Frontside of card. 
+            pictureBackgroundFront.BackgroundImage = Nothing
+            pictureBackgroundFront.BackgroundImageLayout = ImageLayout.None
+            Me.ElementsCache_Edits.BackgroundImage_Front_Path = ""
+            Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = ""
+
+        End If ''eNd of "If (bBacksideOfCard) Then ,,,, Else ..."
+
+        Me.mod_designer.AutoPreview_IfChecked()
+
+
+    End Sub ''End of "Public Sub BackgroundImage_Remove"
 
 
     Private Sub UploadBackgroundToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UploadBackgroundToolStripMenuItem.Click

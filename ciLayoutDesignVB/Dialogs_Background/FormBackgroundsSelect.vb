@@ -416,4 +416,21 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         End With ''End of ""With objFormToShow""
 
     End Sub
+
+
+    Private Sub FormBackgroundsSelect_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
+
+        ''Added 6/13/2022 thomas downes
+
+        If (e.KeyCode = Keys.Down Or e.KeyCode = Keys.PageDown) Then
+
+            ''FlowLayoutPanel1.VerticalScroll.LargeChange
+            With FlowLayoutPanel1
+                .AutoScrollPosition = New Point(.AutoScrollPosition.X, .AutoScrollPosition.Y - 10)
+            End With
+
+        End If
+
+
+    End Sub
 End Class

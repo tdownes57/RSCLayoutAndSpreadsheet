@@ -10,10 +10,13 @@ Public Class DiskFilesVB
     ''Added 10/12/2019 Thomas Downes    
     ''
     Public Shared Function FilePathIsValid(pstrPathTofile As String) As Boolean
-
-        +++++++===== = = = = = 
-        // // / / /  // 
-
+        ''
+        ''Added 6/13/2022 td
+        ''
+        If (String.IsNullOrEmpty(pstrPathTofile)) Then Return False
+        If (String.IsNullOrWhiteSpace(pstrPathTofile)) Then Return False
+        If (IO.File.Exists(pstrPathTofile)) Then Return True
+        Return False
 
     End Function ''End of ""ublic Shared Function FilePathIsValid(pstrPathTofile As String) As Boolean""
 

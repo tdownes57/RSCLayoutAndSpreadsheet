@@ -13,6 +13,7 @@ Public Class FormBackgroundSelectOrUpload
     Public Input_BackgroundImagePath As String ''Added 6/11/2022 
     Public Output_PathToBackground As String ''Added 6/11/2022
     Public Output_EditedExistingBackgd As Boolean ''Added 6/11/2022 
+    Public Output_RemoveCurrentBackgd As Boolean ''Added 6/13/2022 td 
 
     ''Added 6/11/2022 td
     Private mod_editOfPicturePreviewOK As Boolean '' = True
@@ -34,7 +35,7 @@ Public Class FormBackgroundSelectOrUpload
 
     End Sub
 
-    Private Sub ButtonUploadImage_Click(sender As Object, e As EventArgs) Handles ButtonUploadImage.Click
+    Private Sub ButtonUploadImage_Click(sender As Object, e As EventArgs) Handles Button1UploadImage.Click
         ''
         ''Added 5/13/2022  
         ''
@@ -44,7 +45,7 @@ Public Class FormBackgroundSelectOrUpload
 
     End Sub
 
-    Private Sub ButtonSelectLoaded_Click(sender As Object, e As EventArgs) Handles ButtonSelectLoaded.Click
+    Private Sub ButtonSelectLoaded_Click(sender As Object, e As EventArgs) Handles Button2SelectLoaded.Click
         ''
         ''Added 5/13/2022  
         ''
@@ -112,8 +113,8 @@ Public Class FormBackgroundSelectOrUpload
         ''Activate the "Select" button. 
         ''
         If (bOneOrMoreImagesExist) Then
-            ButtonSelectLoaded.Visible = bOneOrMoreImagesExist
-            ButtonSelectLoaded.Enabled = bOneOrMoreImagesExist
+            Button2SelectLoaded.Visible = bOneOrMoreImagesExist
+            Button2SelectLoaded.Enabled = bOneOrMoreImagesExist
         End If ''End of ""If (bOneOrMoreImagesExist) Then""
 
         ''
@@ -129,20 +130,22 @@ Public Class FormBackgroundSelectOrUpload
             picturePreview.SizeMode = PictureBoxSizeMode.Zoom
             picturePreview.Visible = True
             picturePreview.BringToFront()
+            Button3EditCurrent.Enabled = True ''Added 6/13/2022 thomas d.
+            LinkRemoveCurrentBackground.Visible = True ''Added 6/13/2022 thomas d.
             intWidthOfButtons = ButtonEditBackground.Width
 
             ''intRighthandMargin = Me.Width - ButtonSelectDemos.Left - ButtonSelectDemos.Width
-            intLefthandMargin = ButtonSelectLoaded.Left
+            intLefthandMargin = Button2SelectLoaded.Left
             intRighthandMargin = intLefthandMargin
 
             ButtonEditBackground.Width = intWidthOfButtons
             ButtonSelectDemos.Width = intWidthOfButtons
-            ButtonSelectLoaded.Width = intWidthOfButtons
-            ButtonUploadImage.Width = intWidthOfButtons ''Added 6/11/2022 thomas d.
+            Button2SelectLoaded.Width = intWidthOfButtons
+            Button1UploadImage.Width = intWidthOfButtons ''Added 6/11/2022 thomas d.
 
             ''6/11/2022 picturePreview.Left = ButtonSelectLoaded.Left + ButtonSelectLoaded.Width + 20
-            picturePreview.Left = ButtonSelectLoaded.Left + ButtonSelectLoaded.Width + intRighthandMargin
-            picturePreview.Top = ButtonUploadImage.Top
+            picturePreview.Left = Button2SelectLoaded.Left + Button2SelectLoaded.Width + intRighthandMargin
+            picturePreview.Top = Button1UploadImage.Top
             picturePreview.Visible = True
             Me.Width = picturePreview.Left + picturePreview.Width + intRighthandMargin
 
@@ -271,5 +274,24 @@ Public Class FormBackgroundSelectOrUpload
 
     End Sub ''End of .... Handlers ButtonOK_Click
 
+    Private Sub Button3EditCurrent_Click(sender As Object, e As EventArgs) Handles Button3EditCurrent.Click
+        ''
+        ''Added 6/13/2022 thomas downes
+        ''
+        picturePreview_Click(picturePreview, New EventArgs())
 
+    End Sub
+
+    Private Sub LinkRemoveCurrentBackground_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRemoveCurrentBackground.LinkClicked
+
+        ''Added 6/13/2022 thomas downes
+        Dim boolConfirmed As Boolean
+
+        boolConfirmed = MessageBoxTD.Show_Confirm("Remove the current background?")
+        If (Not boolConfirmed) Then Exit Sub
+
+        Me.Output_RemoveCurrentBackgd = True
+        Me.Close()
+
+    End Sub
 End Class
