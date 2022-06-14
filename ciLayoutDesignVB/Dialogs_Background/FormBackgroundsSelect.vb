@@ -10,12 +10,16 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
     ''5/16/2022 Public Class FormListBackgrounds 
 
     Public DemoMode As Boolean ''Added 5/13/2022 thomas downes
-    Public ImageFilePath As String
-    Public ImageFilePath_Temp As String ''Added 6/10/2022 thomas downes
-    Public ImageFileInfo As System.IO.FileInfo
+
+    Public Output_ImageFilePath As String
+    Public Output_ImageFilePath_Temp As String ''Added 6/10/2022 thomas downes
+    Public Output_ImageFileInfo As System.IO.FileInfo
+
     Public ImageDirectoryPath As String ''Add 5/23/202 
 
     Public TemporarySelectedFileInfo As System.IO.FileInfo
+    ''Public Output_ImageFilePath As String ''Added 6/13/2022 thomas d.
+
     Private mod_strImageFiletitleEdited As String ''Added 5/20/2022
 
     Public ReadOnly Property EditedImage As Image
@@ -153,48 +157,65 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         Dim strPathToEditedImage As String ''Added 5/23/2022 
         Dim strPathToUploadedImages As String ''Added 5/23/2022
 
-        Me.ImageFileInfo = Me.TemporarySelectedFileInfo
-        Me.ImageFilePath = Me.TemporarySelectedFileInfo.FullName
-        ''Added 5/23/2022 
-        Me.ImageDirectoryPath = Me.TemporarySelectedFileInfo.DirectoryName
+        Try
 
-        ''Added 5/18/2022
-        mod_strImageFiletitleEdited = Me.textImageFileTitleEdited.Text
+            Me.Output_ImageFileInfo = Me.TemporarySelectedFileInfo
+            Me.Output_ImageFilePath = Me.TemporarySelectedFileInfo.FullName
+            ''Added 5/23/2022 
+            Me.ImageDirectoryPath = Me.TemporarySelectedFileInfo.DirectoryName
 
-        ''Added 5/23/2022 
+            ''Added 5/18/2022
+            mod_strImageFiletitleEdited = Me.textImageFileTitleEdited.Text
+
+            ''Added 5/23/2022 
+            ''
+            ''  Save the image to disk file.  
+            ''
+            Const c_bSaveEditedImageHere As Boolean = True
+            If (c_bSaveEditedImageHere) Then
+                strPathToUploadedImages = DiskFolders.PathToFolder_BackgroundImages()
+                strPathToEditedImage = IO.Path.Combine(strPathToUploadedImages,
+                                                       mod_strImageFiletitleEdited)
+                strPathToEditedImage_temp = strPathToEditedImage &
+                                            "_temp" & DateTime.Now.ToString("ss")
+
+                ''6/10/2022 Me.picturePreview.Image.Save(strPathToEditedImage)
+                Me.picturePreview.Image.Save(strPathToEditedImage_temp)
+
+                Me.Output_ImageFilePath = strPathToEditedImage
+                ''Added 6/10/2022 td
+                Me.Output_ImageFilePath_Temp = strPathToEditedImage_temp
+
+            End If ''End of ""If (c_bSaveEditedImageHere) Then""
+
+            ''
+            ''Open the dialog for addressing dimensional ratios.
+            ''---12/2/2021 thomas d.
+            ''
+            Const c_bAddressDimensionalRatio As Boolean = False
+            If (c_bAddressDimensionalRatio) Then
+                Dim objChildDialog As New FormBackgroundUploadDimensionsMsg
+                objChildDialog.UploadedImageFile(Me.Output_ImageFilePath)
+                objChildDialog.ShowDialog()
+            End If ''end of ""If (c_bAddressDimensionalRatio) Then""
+
+        Catch ex As Exception
+
+            ''Added 6/14/2022 thomas downes
+            System.Diagnostics.Debugger.Break()
+
+        End Try
+
         ''
-        ''  Save the image to disk file.  
+        ''Try-Catch added 6/14/2022
         ''
-        Const c_bSaveEditedImageHere As Boolean = True
-        If (c_bSaveEditedImageHere) Then
-            strPathToUploadedImages = DiskFolders.PathToFolder_BackgroundImages()
-            strPathToEditedImage = IO.Path.Combine(strPathToUploadedImages,
-                                                   mod_strImageFiletitleEdited)
-            strPathToEditedImage_temp = strPathToEditedImage &
-                                        "_temp" & DateTime.Now.ToString("ss")
-
-            ''6/10/2022 Me.picturePreview.Image.Save(strPathToEditedImage)
-            Me.picturePreview.Image.Save(strPathToEditedImage_temp)
-
-            Me.ImageFilePath = strPathToEditedImage
-            ''Added 6/10/2022 td
-            Me.ImageFilePath_Temp = strPathToEditedImage_temp
-
-        End If ''End of ""If (c_bSaveEditedImageHere) Then""
-
-        ''
-        ''Open the dialog for addressing dimensional ratios.
-        ''---12/2/2021 thomas d.
-        ''
-        Const c_bAddressDimensionalRatio As Boolean = False
-        If (c_bAddressDimensionalRatio) Then
-            Dim objChildDialog As New FormBackgroundUploadDimensionsMsg
-            objChildDialog.UploadedImageFile(Me.ImageFilePath)
-            objChildDialog.ShowDialog()
-        End If ''end of ""If (c_bAddressDimensionalRatio) Then""
-
-        ''Close the form.  
-        Me.Close()
+        Try
+            ''Close the form.  
+            Me.Close()
+        Catch ex As Exception
+            ''Added 6/14/2022 thomas downes
+            System.Diagnostics.Debugger.Break()
+        End Try
 
     End Sub
 
@@ -235,10 +256,23 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
         ''//------Me.Designer.BackgroundBox.Image = BackImageExamples.GetCurrentImage(boolNoneFound)
 
-        Dim listFiles As IO.FileInfo()
-        listFiles = (New IO.DirectoryInfo(strFolderPath)).GetFiles("*.jpg") '' ("*.jpg,*.png")
+        Dim listFilesJpg As IO.FileInfo() ''Suffixed 6/14/2022 
+        Dim listFilesPng As IO.FileInfo() ''Added 6/14/2022  
+        Dim listFilesAll As List(Of IO.FileInfo) ''Added 6/14/2022
 
-        For Each eachFileInfo As IO.FileInfo In listFiles
+        listFilesJpg = (New IO.DirectoryInfo(strFolderPath)).GetFiles("*.jpg") '' ("*.jpg,*.png")
+        ''Added 6/14/2022 thomas d. 
+        listFilesPng = (New IO.DirectoryInfo(strFolderPath)).GetFiles("*.png") '' ("*.jpg,*.png")
+        listFilesAll = New List(Of IO.FileInfo)(listFilesJpg)
+        ''Add *.png files to the list. ---6/14/2022 thomas downes
+        For Each each_Png As IO.FileInfo In listFilesPng
+            listFilesAll.Add(each_Png)
+        Next each_Png
+
+        ''
+        ''Add the image files to the Flow-Layout Panel (container).
+        ''
+        For Each eachFileInfo As IO.FileInfo In listFilesAll ''Added 6/14/2022 listFiles
             ''Added 11/25/2021 td
             Dim new_ctlBack As New CtlBackground()
             new_ctlBack.Visible = True
@@ -388,32 +422,49 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
     End Sub
 
-    Private Sub ButtonEditImage_Click(sender As Object, e As EventArgs) Handles ButtonEditImage.Click
+    Private Sub ButtonEditImage_Click(sender As Object, e As EventArgs) _
+        Handles ButtonEditImage1.Click, ButtonEditImage2.Click
 
         ''Added 5/17/2022 td
         Dim objFormToShow As New FormBackgroundEditImage
+        Dim diag_res As DialogResult ''Added 6/13/2022
+
         objFormToShow.ImageFilePath_input = picturePreview.ImageLocation
 
         ''
         ''Show the dialog. 
         ''
+        diag_res =
         objFormToShow.ShowDialog()
 
         ''Added 5/17/2022 td
         picturePreview.Image = Nothing
         picturePreview.ImageLocation = ""
+        objFormToShow.Dispose() ''Added 6/14/2022
+        Application.DoEvents() ''Added 6/14/2022
 
-        With objFormToShow
-            If (Not String.IsNullOrEmpty(.ImageFilePath_output)) Then
-                If (IO.File.Exists(.ImageFilePath_output)) Then
-                    ''
-                    ''Show  the edited image. ---5/18/2022 td
-                    ''
-                    picturePreview.ImageLocation = .ImageFilePath_output
-                    picturePreview.Load()
-                End If ''End of ""If (IO.File.Exists(.ImageFilePath_output)) Then""
-            End If ''ENd of ""If (Not String.IsNullOrEmpty(.ImageFilePath_output)) Then""
-        End With ''End of ""With objFormToShow""
+        If (diag_res = DialogResult.OK) Then
+            With objFormToShow
+                If (Not String.IsNullOrEmpty(.ImageFilePath_output)) Then
+                    If (IO.File.Exists(.ImageFilePath_output)) Then
+                        ''
+                        ''Show  the edited image. ---5/18/2022 td
+                        ''
+                        picturePreview.ImageLocation = .ImageFilePath_output
+                        picturePreview.Load()
+                        Me.Output_ImageFilePath = .ImageFilePath_output
+                        ''Added 6/14/2022
+                        Me.TemporarySelectedFileInfo = New IO.FileInfo(.ImageFilePath_output)
+
+                    End If ''End of ""If (IO.File.Exists(.ImageFilePath_output)) Then""
+                End If ''ENd of ""If (Not String.IsNullOrEmpty(.ImageFilePath_output)) Then""
+            End With ''End of ""With objFormToShow""
+
+            ''Added 6/14/2022 
+            ''   Allow the user to access the "OK" button underneath.  
+            ButtonEditImage2.Visible = False
+
+        End If ''End of ""If (diag_res = DialogResult.OK) Then""
 
     End Sub
 

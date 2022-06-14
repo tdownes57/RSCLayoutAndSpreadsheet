@@ -26,7 +26,7 @@ Partial Class CtlBackground
         Me.labelHeading1 = New System.Windows.Forms.Label()
         Me.LabelFileName = New System.Windows.Forms.Label()
         Me.checkSelection = New System.Windows.Forms.CheckBox()
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
+        Me.LinkRemoveImage = New System.Windows.Forms.LinkLabel()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -37,7 +37,7 @@ Partial Class CtlBackground
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.picturePreview.Dock = System.Windows.Forms.DockStyle.Right
         Me.picturePreview.Location = New System.Drawing.Point(64, 0)
-        Me.picturePreview.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.picturePreview.Margin = New System.Windows.Forms.Padding(2)
         Me.picturePreview.Name = "picturePreview"
         Me.picturePreview.Size = New System.Drawing.Size(498, 319)
         Me.picturePreview.TabIndex = 45
@@ -72,35 +72,35 @@ Partial Class CtlBackground
         Me.checkSelection.AutoSize = True
         Me.checkSelection.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkSelection.Location = New System.Drawing.Point(2, 300)
-        Me.checkSelection.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.checkSelection.Margin = New System.Windows.Forms.Padding(2)
         Me.checkSelection.Name = "checkSelection"
         Me.checkSelection.Size = New System.Drawing.Size(452, 17)
         Me.checkSelection.TabIndex = 48
         Me.checkSelection.Text = "This above is my selection--use this image as the background of my badge."
         Me.checkSelection.UseVisualStyleBackColor = True
         '
-        'LinkLabel1
+        'LinkRemoveImage
         '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(80, 285)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(235, 15)
-        Me.LinkLabel1.TabIndex = 49
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Omit this background image from this list. "
+        Me.LinkRemoveImage.AutoSize = True
+        Me.LinkRemoveImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkRemoveImage.Location = New System.Drawing.Point(80, 285)
+        Me.LinkRemoveImage.Name = "LinkRemoveImage"
+        Me.LinkRemoveImage.Size = New System.Drawing.Size(255, 15)
+        Me.LinkRemoveImage.TabIndex = 49
+        Me.LinkRemoveImage.TabStop = True
+        Me.LinkRemoveImage.Text = "Remove this background image from this list. "
         '
         'CtlBackground
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Controls.Add(Me.LinkLabel1)
+        Me.Controls.Add(Me.LinkRemoveImage)
         Me.Controls.Add(Me.checkSelection)
         Me.Controls.Add(Me.LabelFileName)
         Me.Controls.Add(Me.labelHeading1)
         Me.Controls.Add(Me.picturePreview)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "CtlBackground"
         Me.Size = New System.Drawing.Size(562, 319)
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).EndInit()
@@ -113,5 +113,5 @@ Partial Class CtlBackground
     Friend WithEvents labelHeading1 As Label
     Friend WithEvents LabelFileName As Label
     Friend WithEvents checkSelection As CheckBox
-    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkRemoveImage As LinkLabel
 End Class

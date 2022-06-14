@@ -23,9 +23,6 @@ Partial Class FormBackgroundsSelect
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonOK = New System.Windows.Forms.Button()
@@ -40,11 +37,15 @@ Partial Class FormBackgroundsSelect
         Me.picturePreview = New System.Windows.Forms.PictureBox()
         Me.LinkTestScreengrab = New System.Windows.Forms.LinkLabel()
         Me.LabelSelectedTitle = New System.Windows.Forms.Label()
-        Me.ButtonEditImage = New System.Windows.Forms.Button()
+        Me.ButtonEditImage1 = New System.Windows.Forms.Button()
         Me.textImageFileTitleEdited = New System.Windows.Forms.TextBox()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.LabelModeHeader = New System.Windows.Forms.Label()
         Me.LabelImageFolderPath = New System.Windows.Forms.Label()
+        Me.ButtonEditImage2 = New System.Windows.Forms.Button()
+        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -66,36 +67,6 @@ Partial Class FormBackgroundsSelect
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(589, 422)
         Me.FlowLayoutPanel1.TabIndex = 13
         Me.FlowLayoutPanel1.WrapContents = False
-        '
-        'CtlBackground2
-        '
-        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground2.IsNotSelectableItemOfAList = False
-        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
-        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground2.Name = "CtlBackground2"
-        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground2.TabIndex = 1
-        '
-        'CtlBackground3
-        '
-        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground3.IsNotSelectableItemOfAList = False
-        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
-        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground3.Name = "CtlBackground3"
-        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground3.TabIndex = 2
-        '
-        'CtlBackground1
-        '
-        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground1.IsNotSelectableItemOfAList = False
-        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
-        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.CtlBackground1.Name = "CtlBackground1"
-        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground1.TabIndex = 0
         '
         'LabelHeading1
         '
@@ -252,16 +223,16 @@ Partial Class FormBackgroundsSelect
         Me.LabelSelectedTitle.Tag = "Select Background Image"
         Me.LabelSelectedTitle.Text = "(image file-title)"
         '
-        'ButtonEditImage
+        'ButtonEditImage1
         '
-        Me.ButtonEditImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonEditImage.Location = New System.Drawing.Point(655, 391)
-        Me.ButtonEditImage.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonEditImage.Name = "ButtonEditImage"
-        Me.ButtonEditImage.Size = New System.Drawing.Size(101, 28)
-        Me.ButtonEditImage.TabIndex = 51
-        Me.ButtonEditImage.Text = "Edit Image"
-        Me.ButtonEditImage.UseVisualStyleBackColor = True
+        Me.ButtonEditImage1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonEditImage1.Location = New System.Drawing.Point(655, 391)
+        Me.ButtonEditImage1.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonEditImage1.Name = "ButtonEditImage1"
+        Me.ButtonEditImage1.Size = New System.Drawing.Size(101, 28)
+        Me.ButtonEditImage1.TabIndex = 51
+        Me.ButtonEditImage1.Text = "Edit Image"
+        Me.ButtonEditImage1.UseVisualStyleBackColor = True
         '
         'textImageFileTitleEdited
         '
@@ -305,16 +276,58 @@ Partial Class FormBackgroundsSelect
         Me.LabelImageFolderPath.Tag = "Select Background Image"
         Me.LabelImageFolderPath.Text = "(image folder path a.k.a. directory path)"
         '
+        'ButtonEditImage2
+        '
+        Me.ButtonEditImage2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonEditImage2.Location = New System.Drawing.Point(909, 512)
+        Me.ButtonEditImage2.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonEditImage2.Name = "ButtonEditImage2"
+        Me.ButtonEditImage2.Size = New System.Drawing.Size(127, 28)
+        Me.ButtonEditImage2.TabIndex = 57
+        Me.ButtonEditImage2.Text = "Edit Image"
+        Me.ButtonEditImage2.UseVisualStyleBackColor = True
+        '
+        'CtlBackground2
+        '
+        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground2.IsNotSelectableItemOfAList = False
+        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
+        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2)
+        Me.CtlBackground2.Name = "CtlBackground2"
+        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground2.TabIndex = 1
+        '
+        'CtlBackground3
+        '
+        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground3.IsNotSelectableItemOfAList = False
+        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
+        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2)
+        Me.CtlBackground3.Name = "CtlBackground3"
+        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground3.TabIndex = 2
+        '
+        'CtlBackground1
+        '
+        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground1.IsNotSelectableItemOfAList = False
+        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
+        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2)
+        Me.CtlBackground1.Name = "CtlBackground1"
+        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground1.TabIndex = 0
+        '
         'FormBackgroundsSelect
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1161, 551)
+        Me.Controls.Add(Me.ButtonEditImage2)
         Me.Controls.Add(Me.LabelImageFolderPath)
         Me.Controls.Add(Me.LabelModeHeader)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.textImageFileTitleEdited)
-        Me.Controls.Add(Me.ButtonEditImage)
+        Me.Controls.Add(Me.ButtonEditImage1)
         Me.Controls.Add(Me.LabelSelectedTitle)
         Me.Controls.Add(Me.LinkTestScreengrab)
         Me.Controls.Add(Me.picturePreview)
@@ -358,9 +371,10 @@ Partial Class FormBackgroundsSelect
     Friend WithEvents picturePreview As PictureBox
     Friend WithEvents LinkTestScreengrab As LinkLabel
     Friend WithEvents LabelSelectedTitle As Label
-    Friend WithEvents ButtonEditImage As Button
+    Friend WithEvents ButtonEditImage1 As Button
     Friend WithEvents textImageFileTitleEdited As TextBox
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents LabelModeHeader As Label
     Friend WithEvents LabelImageFolderPath As Label
+    Friend WithEvents ButtonEditImage2 As Button
 End Class

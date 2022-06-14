@@ -2914,7 +2914,7 @@ ExitHandler:
         ''Added 5/12/2022 td
         ''
         Dim strBackgroundImagePath As String ''Added 5/23/2022 td
-        Dim imageBackground As Image ''Added 6/11/2022
+        Dim imageBackground As Image = Nothing ''Added 6/11/2022
         Dim boolFilePathIsValid As Boolean ''Aded 6/12/2022 
 
         Select Case mod_designer.EnumSideOfCard_Current
@@ -2953,6 +2953,8 @@ ExitHandler:
 
         objShow1 = New FormBackgroundSelectOrUpload(imageBackground, strBackgroundImagePath)
         objShow1.ShowDialog()
+        objShow1.Dispose() ''Added 6/14/2022
+        Application.DoEvents() ''Added 6/14/2022
 
         Dim bOption1_LetsUpload As Boolean
         Dim bOption2_LetsSelect As Boolean
@@ -2990,7 +2992,19 @@ ExitHandler:
                 ''    strNewPathToJpeg = objShow2b.ImageFilePath
                 ''End If ''End of ""If (objShow2a.DialogResult = ...) Then"
 
-                BackgroundImage_Select(False)
+                ''#1 June14 2022 ''BackgroundImage_Select(False)
+                '' #2 June14 2022 ''Dim strNewPathToJpg_Select As String ''Added 6/12/2022 thomas
+                '' #2 June14 2022 ''Dim objFileInfoNewPath_Select As IO.FileInfo ''Added 6/12/2022 thomas
+                '' #2 June14 2022 ''strNewPathToJpg_Select = objShow1.Output_PathToBackground
+                '' #2 June14 2022 ''If (IO.File.Exists(strNewPathToJpg_Select)) Then
+                ''    objFileInfoNewPath_Select = New IO.FileInfo(strNewPathToJpg_Select)
+                ''    BackgroundImage_Select(False, objFileInfoNewPath_Select)
+                ''End If ''End of ""If (IO.File.Exists(strNewPathToJpg)) Then""
+                Try
+                    BackgroundImage_Select(False)
+                Catch ex_show As Exception
+                    System.Diagnostics.Debugger.Break() ''Added 6/13/2022 thomas 
+                End Try
 
             Case bOption3_LetsPickDemoImages
 
@@ -3036,17 +3050,24 @@ ExitHandler:
         ''
         Dim objShow As FormBackgroundsSelect ''6/12/2022  As New FormBackgroundsSelect
         Dim objSelectedImageFileInfo As IO.FileInfo ''Addd 6/12/2022 td
+        Dim diag_result As DialogResult ''Added 6/14/2022 td
 
-        If (pobjFileInfoOfSelectedFile Is Nothing) Then ''Addd 6/12/2022 td
-            ''Allow the user to select a new image file.
-            objShow = New FormBackgroundsSelect
-            objShow.DemoMode = pboolDemoMode ''Added 5/17/2022 td
-            objShow.ShowDialog()
-            objSelectedImageFileInfo = objShow.ImageFileInfo ''Added 6/12/2022 
-        Else
-            ''Let's use the Optional parameter.--6/12/2022 
-            objSelectedImageFileInfo = pobjFileInfoOfSelectedFile
-        End If ''End of ""If (pobjFileInfoOfSelectedFile Is Nothing) Then... Else..."
+        Try
+            If (pobjFileInfoOfSelectedFile Is Nothing) Then ''Addd 6/12/2022 td
+                ''Allow the user to select a new image file.
+                objShow = New FormBackgroundsSelect
+                objShow.DemoMode = pboolDemoMode ''Added 5/17/2022 td
+                diag_result =
+                objShow.ShowDialog()
+                objSelectedImageFileInfo = objShow.Output_ImageFileInfo ''Added 6/12/2022 
+            Else
+                ''Let's use the Optional parameter.--6/12/2022 
+                objSelectedImageFileInfo = pobjFileInfoOfSelectedFile
+            End If ''End of ""If (pobjFileInfoOfSelectedFile Is Nothing) Then... Else..."
+
+        Catch ex_99 As Exception
+            System.Diagnostics.Debugger.Break()
+        End Try
 
         Dim strPathToFilename As String
         Dim bBacksideOfCard As Boolean ''Added 12/10/2021 td

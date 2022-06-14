@@ -420,12 +420,30 @@ Public Class FormDisplayCacheLayouts
         Dim strPathToParentFolder3 As String = ""
         Dim strPathToParentFolder4 As String = ""
 
+        ''Added 6/14/2022
+        Dim bFileValCurr As Boolean = DiskFilesVB.FilePathIsValid(Me.PathToElementsCacheXML_Input)
+        Dim bFileValPrior1 As Boolean = DiskFilesVB.FilePathIsValid(Me.PathToElementsCacheXML_Prior1)
+        Dim bFileValPrior2 As Boolean = DiskFilesVB.FilePathIsValid(Me.PathToElementsCacheXML_Prior2)
+        Dim bFileValPrior3 As Boolean = DiskFilesVB.FilePathIsValid(Me.PathToElementsCacheXML_Prior3)
+        Dim bFileValPrior4 As Boolean = DiskFilesVB.FilePathIsValid(Me.PathToElementsCacheXML_Prior4)
+
         Try
-            strPathToParentFolderCurr = (New IO.FileInfo(Me.PathToElementsCacheXML_Input)).DirectoryName
-            strPathToParentFolder1 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior1)).DirectoryName
-            strPathToParentFolder2 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior2)).DirectoryName
-            strPathToParentFolder3 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior3)).DirectoryName
-            strPathToParentFolder4 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior4)).DirectoryName
+            If (bFileValCurr) Then
+                strPathToParentFolderCurr = (New IO.FileInfo(Me.PathToElementsCacheXML_Input)).DirectoryName
+            End If ''End of ""If (bFileValCurr) Then""
+            If (bFileValPrior1) Then
+                strPathToParentFolder1 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior1)).DirectoryName
+            End If ''End of ""If (bFileValPrior1) Then""
+            If (bFileValPrior2) Then
+                strPathToParentFolder2 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior2)).DirectoryName
+            End If ''End of ""If (bFileValPrior2) Then""
+            If (bFileValPrior3) Then
+                strPathToParentFolder3 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior3)).DirectoryName
+            End If ''End of ""If (bFileValPrior3) Then""
+            If (bFileValPrior4) Then
+                strPathToParentFolder4 = (New IO.FileInfo(Me.PathToElementsCacheXML_Prior4)).DirectoryName
+            End If ''End of ""If (bFileValPrior4) Then""
+
         Catch ex As Exception
             ''Added 2/6/2022 td
             ''   Today, the string (Me.PathToElementsCacheXML_Prior3) was identified as a 
@@ -436,28 +454,41 @@ Public Class FormDisplayCacheLayouts
         End Try
 
         ''Check the current-XML folder. 
-        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolderCurr) Then
-            LoadAllLayouts_FoundInFolder(strPathToParentFolderCurr, pobjHashsetOfFiles,
+        If (Not String.IsNullOrEmpty(strPathToParentFolderCurr)) Then
+            If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolderCurr) Then
+                LoadAllLayouts_FoundInFolder(strPathToParentFolderCurr, pobjHashsetOfFiles,
                                          pstrPathToLayoutToExcludeXML)
-        End If
+            End If
+        End If ''End of ""If (Not String.IsNullOrEmpty(strPathToParentFolderCurr)) Then""
 
-        ''Go through the numbered folders. 
-        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder1) Then
-            LoadAllLayouts_FoundInFolder(strPathToParentFolder1, pobjHashsetOfFiles,
+        If (Not String.IsNullOrEmpty(strPathToParentFolder1)) Then
+            ''Go through the numbered folders. 
+            If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder1) Then
+                LoadAllLayouts_FoundInFolder(strPathToParentFolder1, pobjHashsetOfFiles,
+                                             pstrPathToLayoutToExcludeXML)
+            End If
+        End If ''End of ""If (Not String.IsNullOrEmpty(strPathToParentFolder1)) Then""
+
+        If (Not String.IsNullOrEmpty(strPathToParentFolder2)) Then
+            If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder2) Then
+                LoadAllLayouts_FoundInFolder(strPathToParentFolder2, pobjHashsetOfFiles,
+                                             pstrPathToLayoutToExcludeXML)
+            End If
+        End If ''End of ""If (Not String.IsNullOrEmpty(strPathToParentFolder2)) Then""
+
+        If (Not String.IsNullOrEmpty(strPathToParentFolder3)) Then
+            If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder3) Then
+                LoadAllLayouts_FoundInFolder(strPathToParentFolder3, pobjHashsetOfFiles,
                                          pstrPathToLayoutToExcludeXML)
-        End If
-        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder2) Then
-            LoadAllLayouts_FoundInFolder(strPathToParentFolder2, pobjHashsetOfFiles,
-                                         pstrPathToLayoutToExcludeXML)
-        End If
-        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder3) Then
-            LoadAllLayouts_FoundInFolder(strPathToParentFolder3, pobjHashsetOfFiles,
-                                         pstrPathToLayoutToExcludeXML)
-        End If
-        If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder4) Then
-            LoadAllLayouts_FoundInFolder(strPathToParentFolder4, pobjHashsetOfFiles,
-                                         pstrPathToLayoutToExcludeXML)
-        End If
+            End If
+        End If ''End of ""If (Not String.IsNullOrEmpty(strPathToParentFolder3)) Then""
+
+        If (Not String.IsNullOrEmpty(strPathToParentFolder4)) Then
+            If UniquePerHashset(objHashsetOfFolderPaths, strPathToParentFolder4) Then
+                LoadAllLayouts_FoundInFolder(strPathToParentFolder4, pobjHashsetOfFiles,
+                                             pstrPathToLayoutToExcludeXML)
+            End If
+        End If ''End of ""If (Not String.IsNullOrEmpty(strPathToParentFolder4)) Then""
 
     End Sub ''End of "Private Sub LoadAllLayouts_AllParentFolders"
 

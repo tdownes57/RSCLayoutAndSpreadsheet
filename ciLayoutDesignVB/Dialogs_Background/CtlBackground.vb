@@ -167,6 +167,32 @@ Public Class CtlBackground
 
     End Sub
 
+    Private Sub LinkRemoveImage_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRemoveImage.LinkClicked
 
+        ''Added 6/14/2022 
+        Dim strPathToFile As String
+        Dim boolConfirmed As Boolean
 
+        boolConfirmed = MessageBoxTD.Show_Confirm("Want to remove this background image from the list of uploaded images?")
+        If (boolConfirmed) Then
+            Try
+                strPathToFile = Me.ImageFilePath
+                Me.picturePreview.Image?.Dispose()
+                ''Application.DoEvents()
+                Me.picturePreview.BackgroundImage?.Dispose() ''Added 6/14/2022
+                ''Application.DoEvents()
+                Me.picturePreview.Image = Nothing
+                Me.picturePreview.Dispose()
+                ''Application.DoEvents()
+                Me.Dispose_Image()
+                ''Application.DoEvents()
+                Me.Dispose()
+                Application.DoEvents()
+                IO.File.Move(strPathToFile, strPathToFile & ".hide")
+            Catch ex_hh As Exception
+                System.Diagnostics.Debugger.Break()
+            End Try
+        End If ''End of ""If (boolConfirmed) Then""
+
+    End Sub
 End Class

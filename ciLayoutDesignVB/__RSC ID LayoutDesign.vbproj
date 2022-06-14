@@ -401,10 +401,10 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\modLayoutDesignMenu.vb" />
-    <Compile Include="Controls\CtlBackground.Designer.vb">
+    <Compile Include="Dialogs_Background\CtlBackground.Designer.vb">
       <DependentUpon>CtlBackground.vb</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CtlBackground.vb">
+    <Compile Include="Dialogs_Background\CtlBackground.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Dialogs_Background\FormBackgroundConditional.Designer.vb">
@@ -774,7 +774,7 @@
     <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\CtlBackground.resx">
+    <EmbeddedResource Include="Dialogs_Background\CtlBackground.resx">
       <DependentUpon>CtlBackground.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\CtlQRCode.resx">
