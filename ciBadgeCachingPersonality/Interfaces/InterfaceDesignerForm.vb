@@ -34,7 +34,10 @@ Namespace ciBadgeCachePersonality
         ''5/17/2022 td''Sub BackgroundImage_Select()
         ''6/12/2022 td''Sub BackgroundImage_Select(pboolDemoMode As Boolean)
         Sub BackgroundImage_Select(pboolDemoMode As Boolean, Optional pobjSelectedFileInfo As IO.FileInfo = Nothing)
-        Sub BackgroundImage_Upload()
+
+        ''June15 2022 Sub BackgroundImage_Upload()
+        Sub BackgroundImage_Upload(Optional ByRef ref_strFilePath As String = "")
+
         Sub BackgroundImage_SelectOrUpload()  ''Added 5/13/2022 thomas downes
 
 

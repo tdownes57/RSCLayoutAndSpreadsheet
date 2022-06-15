@@ -2852,22 +2852,46 @@ ExitHandler:
 
     End Sub
 
-    Public Sub BackgroundImage_Upload() Implements IDesignerForm.BackgroundImage_Upload
+    Public Sub BackgroundImage_Upload(Optional ByRef par_strFilePath As String = "") _
+                    Implements IDesignerForm.BackgroundImage_Upload
         ''
         ''Encapsulated 5/12/2022 td
         ''
         Dim objShow As New FormBackgroundUpload
-        '' 12/3/2021 td''objShow.Show()
-        objShow.ShowDialog()
+        Dim diag_result As DialogResult ''Added 6/15/2022 thomas
+        Dim boolUserOkay As Boolean ''Added 6/15/2022 thomas downes
 
+        '' 12/3/2021 td''objShow.Show()
+        diag_result =
+            objShow.ShowDialog()
+
+        ''Added 6/15/2022 thomas downes
+        boolUserOkay = (diag_result = DialogResult.OK)
+
+        ''
         ''Added 12/3/2021 td
-        If (objShow.Selected) Then
+        ''
+        ''June2022---If (objShow.Selected) Then  
+        If (boolUserOkay AndAlso objShow.Selected) Then
+            ''
+            ''Save the file.
+            ''
             Dim bConfirmFileExists As Boolean ''Added 12/3/2021 td
-            bConfirmFileExists = System.IO.File.Exists(objShow.ImageFilePath)
+            ''June2022 bConfirmFileExists = System.IO.File.Exists(objShow.ImageFilePath)
+            bConfirmFileExists = DiskFilesVB.FilePathIsValid(objShow.ImageFilePath)
             If (Not bConfirmFileExists) Then Return ''Added 12/3/2021 td
+
+            Dim strPathToUploadedFile As String ''Added 6/15/2022 td
+            Dim strPathToEditedFile As String ''Added 6/15/2022 td
+
+            strPathToUploadedFile = objShow.Output_FilePath_CopyOriginal
+            strPathToEditedFile = objShow.Output_FilePath_Edited
 
             ''Added 12/3/2021 td
             If (mod_designer.ShowingTheBackside()) Then
+                ''
+                ''Backside of the ID Card
+                ''
                 Me.ElementsCache_Edits.BackgroundImage_Backside_Path = objShow.ImageFilePath
                 Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileTitle
                 ''pictureBackgroundBackside.ImageLocation = objShow.ImageFilePath
@@ -2876,6 +2900,9 @@ ExitHandler:
                 mod_designer.Load_BackgroundImage(False) ''(Startup.PreloadBackgroundForDemo)
 
             Else
+                ''
+                ''Frontside of the ID Card
+                ''
                 Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
                 Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileTitle
                 ''pictureBackgroundFront.ImageLocation = objShow.ImageFilePath
@@ -2891,7 +2918,7 @@ ExitHandler:
             ''Added 5/12/2022 td
             Me.mod_designer.AutoPreview_IfChecked()
 
-        End If ''End of "If (objShow.Selected) Then"
+        End If ''End of "If (boolUserOkay AndAlso objShow.Selected) Then"
 
     End Sub ''End of ""Public Sub BackgroundImage_Upload()""
 
@@ -2980,7 +3007,10 @@ ExitHandler:
                 ''    strNewPathToJpeg = objShow2c.ImageFilePath
                 ''End If ''End of ""If (objShow2a.DialogResult = ...) Then"
 
-                BackgroundImage_Upload()
+                ''June15 2022''BackgroundImage_Upload()
+                Dim ref_strPathToFile As String = "" ''Added 6/15/2022
+                BackgroundImage_Upload(ref_strPathToFile)
+
 
             Case bOption2_LetsSelect ''This is NOT the demo mode.  Only uploaded images are shown. 
 
@@ -3057,6 +3087,8 @@ ExitHandler:
                 ''Allow the user to select a new image file.
                 objShow = New FormBackgroundsSelect
                 objShow.DemoMode = pboolDemoMode ''Added 5/17/2022 td
+                objShow.CurrentBackgroundImagePath_Front = ElementsCache_Edits.BackgroundImage_Front_Path
+                objShow.CurrentBackgroundImagePath_Back = ElementsCache_Edits.BackgroundImage_Backside_Path
                 diag_result =
                 objShow.ShowDialog()
                 objSelectedImageFileInfo = objShow.Output_ImageFileInfo ''Added 6/12/2022 

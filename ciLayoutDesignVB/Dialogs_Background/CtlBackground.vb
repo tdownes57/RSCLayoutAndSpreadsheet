@@ -7,12 +7,15 @@ Public Class CtlBackground
     ''
     Public Event SelectedImageFilePathV1(strImageFilePath As String) ''Added 5/17/2022 td
     Public Event SelectedImageFilePathV2(sender As CtlBackground, strImageFilePath As String) ''Added 5/23/2022 td
+    Public Event DeletingImageFilePath(sender As UserControl,
+                                       strImageFilePath As String) ''Added 6/15/2022 td
 
     Public ImageFilePath As String
     Public ImageFileTitle As String
     Public ImageFileInfo As System.IO.FileInfo
     Public ImageIsSelected As Boolean
     Public ParentListingForm As FormBackgroundsSelect
+
     Private _boolSkipEvents As Boolean
     Private _isNotDisplayedAsListItem As Boolean
 
@@ -173,22 +176,39 @@ Public Class CtlBackground
         Dim strPathToFile As String
         Dim boolConfirmed As Boolean
 
+        ''
+        ''Clear the Preview box. 
+        ''
+        ''June2022''Me.picturePreview.Image = Nothing ''Added 6/15/2022
+        ''June2022''Me.picturePreview.BackgroundImage = Nothing ''Added 6/15/2022
+
         boolConfirmed = MessageBoxTD.Show_Confirm("Want to remove this background image from the list of uploaded images?")
         If (boolConfirmed) Then
             Try
                 strPathToFile = Me.ImageFilePath
                 Me.picturePreview.Image?.Dispose()
-                ''Application.DoEvents()
+                Application.DoEvents()
                 Me.picturePreview.BackgroundImage?.Dispose() ''Added 6/14/2022
-                ''Application.DoEvents()
+                Application.DoEvents()
                 Me.picturePreview.Image = Nothing
                 Me.picturePreview.Dispose()
-                ''Application.DoEvents()
+                Application.DoEvents()
                 Me.Dispose_Image()
-                ''Application.DoEvents()
+                Application.DoEvents()
                 Me.Dispose()
                 Application.DoEvents()
+                BackgroundImage?.Dispose()
+                BackgroundImage = Nothing
+                Application.DoEvents()
+
+                ''Added 6/15/2022 thomas d.
+                RaiseEvent DeletingImageFilePath(Me, Me.ImageFilePath)
+                Application.DoEvents()
+                Application.DoEvents()
+                Application.DoEvents()
+                Application.DoEvents()
                 IO.File.Move(strPathToFile, strPathToFile & ".hide")
+
             Catch ex_hh As Exception
                 System.Diagnostics.Debugger.Break()
             End Try

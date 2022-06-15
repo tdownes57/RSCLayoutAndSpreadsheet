@@ -23,6 +23,9 @@ Partial Class FormBackgroundsSelect
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
+        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.buttonCancel = New System.Windows.Forms.Button()
         Me.buttonOK = New System.Windows.Forms.Button()
@@ -43,9 +46,7 @@ Partial Class FormBackgroundsSelect
         Me.LabelModeHeader = New System.Windows.Forms.Label()
         Me.LabelImageFolderPath = New System.Windows.Forms.Label()
         Me.ButtonEditImage2 = New System.Windows.Forms.Button()
-        Me.CtlBackground2 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground3 = New ciLayoutDesignVB.CtlBackground()
-        Me.CtlBackground1 = New ciLayoutDesignVB.CtlBackground()
+        Me.LabelCountOfFiles = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.picturePreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -67,6 +68,36 @@ Partial Class FormBackgroundsSelect
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(589, 422)
         Me.FlowLayoutPanel1.TabIndex = 13
         Me.FlowLayoutPanel1.WrapContents = False
+        '
+        'CtlBackground2
+        '
+        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground2.IsNotSelectableItemOfAList = False
+        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
+        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2)
+        Me.CtlBackground2.Name = "CtlBackground2"
+        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground2.TabIndex = 1
+        '
+        'CtlBackground3
+        '
+        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground3.IsNotSelectableItemOfAList = False
+        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
+        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2)
+        Me.CtlBackground3.Name = "CtlBackground3"
+        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground3.TabIndex = 2
+        '
+        'CtlBackground1
+        '
+        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.CtlBackground1.IsNotSelectableItemOfAList = False
+        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
+        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2)
+        Me.CtlBackground1.Name = "CtlBackground1"
+        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
+        Me.CtlBackground1.TabIndex = 0
         '
         'LabelHeading1
         '
@@ -174,7 +205,7 @@ Partial Class FormBackgroundsSelect
         '
         Me.LabelSelectedHdr.AutoSize = True
         Me.LabelSelectedHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSelectedHdr.Location = New System.Drawing.Point(613, 82)
+        Me.LabelSelectedHdr.Location = New System.Drawing.Point(612, 108)
         Me.LabelSelectedHdr.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelSelectedHdr.Name = "LabelSelectedHdr"
         Me.LabelSelectedHdr.Size = New System.Drawing.Size(96, 24)
@@ -195,7 +226,7 @@ Partial Class FormBackgroundsSelect
         '
         Me.picturePreview.BackColor = System.Drawing.Color.White
         Me.picturePreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreview.Location = New System.Drawing.Point(655, 109)
+        Me.picturePreview.Location = New System.Drawing.Point(654, 135)
         Me.picturePreview.Name = "picturePreview"
         Me.picturePreview.Size = New System.Drawing.Size(466, 277)
         Me.picturePreview.TabIndex = 48
@@ -215,7 +246,7 @@ Partial Class FormBackgroundsSelect
         '
         Me.LabelSelectedTitle.AutoSize = True
         Me.LabelSelectedTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSelectedTitle.Location = New System.Drawing.Point(713, 88)
+        Me.LabelSelectedTitle.Location = New System.Drawing.Point(712, 114)
         Me.LabelSelectedTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelSelectedTitle.Name = "LabelSelectedTitle"
         Me.LabelSelectedTitle.Size = New System.Drawing.Size(107, 18)
@@ -226,7 +257,7 @@ Partial Class FormBackgroundsSelect
         'ButtonEditImage1
         '
         Me.ButtonEditImage1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonEditImage1.Location = New System.Drawing.Point(655, 391)
+        Me.ButtonEditImage1.Location = New System.Drawing.Point(654, 417)
         Me.ButtonEditImage1.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonEditImage1.Name = "ButtonEditImage1"
         Me.ButtonEditImage1.Size = New System.Drawing.Size(101, 28)
@@ -237,7 +268,7 @@ Partial Class FormBackgroundsSelect
         'textImageFileTitleEdited
         '
         Me.textImageFileTitleEdited.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textImageFileTitleEdited.Location = New System.Drawing.Point(785, 391)
+        Me.textImageFileTitleEdited.Location = New System.Drawing.Point(784, 417)
         Me.textImageFileTitleEdited.Name = "textImageFileTitleEdited"
         Me.textImageFileTitleEdited.Size = New System.Drawing.Size(335, 26)
         Me.textImageFileTitleEdited.TabIndex = 53
@@ -268,7 +299,7 @@ Partial Class FormBackgroundsSelect
         '
         Me.LabelImageFolderPath.AutoSize = True
         Me.LabelImageFolderPath.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelImageFolderPath.Location = New System.Drawing.Point(652, 421)
+        Me.LabelImageFolderPath.Location = New System.Drawing.Point(651, 447)
         Me.LabelImageFolderPath.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelImageFolderPath.Name = "LabelImageFolderPath"
         Me.LabelImageFolderPath.Size = New System.Drawing.Size(264, 18)
@@ -287,41 +318,24 @@ Partial Class FormBackgroundsSelect
         Me.ButtonEditImage2.Text = "Edit Image"
         Me.ButtonEditImage2.UseVisualStyleBackColor = True
         '
-        'CtlBackground2
+        'LabelCountOfFiles
         '
-        Me.CtlBackground2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground2.IsNotSelectableItemOfAList = False
-        Me.CtlBackground2.Location = New System.Drawing.Point(2, 2)
-        Me.CtlBackground2.Margin = New System.Windows.Forms.Padding(2)
-        Me.CtlBackground2.Name = "CtlBackground2"
-        Me.CtlBackground2.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground2.TabIndex = 1
-        '
-        'CtlBackground3
-        '
-        Me.CtlBackground3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground3.IsNotSelectableItemOfAList = False
-        Me.CtlBackground3.Location = New System.Drawing.Point(2, 268)
-        Me.CtlBackground3.Margin = New System.Windows.Forms.Padding(2)
-        Me.CtlBackground3.Name = "CtlBackground3"
-        Me.CtlBackground3.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground3.TabIndex = 2
-        '
-        'CtlBackground1
-        '
-        Me.CtlBackground1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.CtlBackground1.IsNotSelectableItemOfAList = False
-        Me.CtlBackground1.Location = New System.Drawing.Point(2, 534)
-        Me.CtlBackground1.Margin = New System.Windows.Forms.Padding(2)
-        Me.CtlBackground1.Name = "CtlBackground1"
-        Me.CtlBackground1.Size = New System.Drawing.Size(544, 262)
-        Me.CtlBackground1.TabIndex = 0
+        Me.LabelCountOfFiles.AutoSize = True
+        Me.LabelCountOfFiles.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelCountOfFiles.Location = New System.Drawing.Point(613, 60)
+        Me.LabelCountOfFiles.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelCountOfFiles.Name = "LabelCountOfFiles"
+        Me.LabelCountOfFiles.Size = New System.Drawing.Size(135, 18)
+        Me.LabelCountOfFiles.TabIndex = 58
+        Me.LabelCountOfFiles.Tag = "<<< List of {0} files."
+        Me.LabelCountOfFiles.Text = "<<< List of {0} files."
         '
         'FormBackgroundsSelect
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1161, 551)
+        Me.Controls.Add(Me.LabelCountOfFiles)
         Me.Controls.Add(Me.ButtonEditImage2)
         Me.Controls.Add(Me.LabelImageFolderPath)
         Me.Controls.Add(Me.LabelModeHeader)
@@ -377,4 +391,5 @@ Partial Class FormBackgroundsSelect
     Friend WithEvents LabelModeHeader As Label
     Friend WithEvents LabelImageFolderPath As Label
     Friend WithEvents ButtonEditImage2 As Button
+    Friend WithEvents LabelCountOfFiles As Label
 End Class

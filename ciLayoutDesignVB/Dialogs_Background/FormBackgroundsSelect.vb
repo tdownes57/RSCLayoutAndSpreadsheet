@@ -11,6 +11,10 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
 
     Public DemoMode As Boolean ''Added 5/13/2022 thomas downes
 
+    ''These "Current" properties are (possibly) needed in case the current image is being deleted.--6/15/2022 
+    Public CurrentBackgroundImagePath_Front As String ''Added 6/15/2022 thomas downes
+    Public CurrentBackgroundImagePath_Back As String ''Added 6/15/2022 thomas downes
+
     Public Output_ImageFilePath As String
     Public Output_ImageFilePath_Temp As String ''Added 6/10/2022 thomas downes
     Public Output_ImageFileInfo As System.IO.FileInfo
@@ -282,10 +286,19 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
             new_ctlBack.ParentListingForm = Me
 
             ''Added 5/17/2022 thomas d.
-            ''5/23/2022 AddHandler new_ctlBack.SelectedImageFilePath, AddressOf CtlBackground1_SelectedImageFilePath
+            ''   5/23/2022 AddHandler new_ctlBack.SelectedImageFilePath, AddressOf CtlBackground1_SelectedImageFilePath
             AddHandler new_ctlBack.SelectedImageFilePathV2, AddressOf CtlBackground1_SelectedImageFilePathV2
+            ''Added 6/15/2022 thomas d. 
+            AddHandler new_ctlBack.DeletingImageFilePath, AddressOf DeletingImageFilePath_Handler
 
         Next eachFileInfo
+
+        ''Added 6/15/2022 thomas d.
+        Dim intCountFiles As Integer
+        intCountFiles = listFilesAll.Count
+        With LabelCountOfFiles
+            LabelCountOfFiles.Text = String.Format(.Tag.ToString(), intCountFiles)
+        End With
 
     End Sub ''End of "Private Sub LoadControlsFromFolderImagesBack()"
 
@@ -408,6 +421,45 @@ Public Class FormBackgroundsSelect ''5/16/2022 Public Class FormListBackgrounds
         ''
         picturePreview.ImageLocation = strImageFilePath
         picturePreview.SizeMode = PictureBoxSizeMode.Zoom
+
+    End Sub
+
+
+    Private Sub DeletingImageFilePath_Handler(par_sender As UserControl, pstrImageFilePath As String)
+        ''--June2022--Private Sub DeletingImageFilePath_Handler(pstrImageFilePath As String)
+        ''--June2022--   Handles CtlBackground1.DeletingImageFilePath
+        ''
+        ''Added 6/15/2022 thomas downes
+        ''
+        Dim bMatches_Front As Boolean ''Added 6/15/2022 td
+        Dim bMatches_Back As Boolean ''Added 6/15/2022 td
+
+        par_sender.Dispose() ''Added 6/15
+
+        bMatches_Front = (pstrImageFilePath = Me.CurrentBackgroundImagePath_Front)
+        bMatches_Back = (pstrImageFilePath = Me.CurrentBackgroundImagePath_Back)
+
+        If (bMatches_Front Or bMatches_Back) Then
+            ''Added 6/15/2022 
+            MessageBoxTD.Show_Statement("This image is in use for the ID Card.")
+
+        ElseIf (picturePreview.ImageLocation = pstrImageFilePath) Then
+
+            picturePreview.Image?.Dispose()
+            picturePreview.BackgroundImage?.Dispose()
+
+        ElseIf (String.IsNullOrEmpty(picturePreview.ImageLocation)) Then
+
+            picturePreview.BackgroundImage?.Dispose()
+
+        End If ''End of "" If (picturePreview.ImageLocation = pstrImageFilePath) Then""
+
+        ''Added 6/15/2022 thomas d.
+        Dim intCountFiles As Integer
+        intCountFiles = FlowLayoutPanel1.Controls.Count
+        With LabelCountOfFiles
+            LabelCountOfFiles.Text = String.Format(.Tag.ToString(), intCountFiles)
+        End With
 
     End Sub
 
