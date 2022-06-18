@@ -207,8 +207,8 @@ Public Class FormTypeOfElementsToAdd
 
 
         With objRectOfControl
-                intPixelsWidth = .Width * psingleFactorWidth
-                intPixelsHeight = .Height * psingleFactorHeight
+            intPixelsWidth = CInt(.Width * psingleFactorWidth)
+            intPixelsHeight = CInt(.Height * psingleFactorHeight)
         End With
 
         ''---Return New Rectangle(New Point(intPixelsTop, intPixelsLeft),
@@ -509,7 +509,7 @@ Public Class FormTypeOfElementsToAdd
     End Function ''End of ""Private Function HasBorder_IsSelected(par_control As Control) As Boolean""
 
 
-    Private Function HasValue(par_control As RSCSelectCIBField)
+    Private Function HasValue(par_control As RSCSelectCIBField) As Boolean
 
         ''Added 5/5/2022 td
         Dim boolNotDetermined As Boolean
@@ -602,38 +602,44 @@ Public Class FormTypeOfElementsToAdd
     Private Sub CtlGraphicPortrait1_Click(sender As Object, e As EventArgs) Handles CtlGraphicPortrait1.Click
 
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control), PanelPortraitPic)
+        ''6/2022 ToggleBorder(CType(sender, Control), PanelPortraitPic)
+        ToggleBorder(CType(sender, UserControl), PanelPortraitPic)
 
     End Sub
 
     Private Sub CtlGraphicStaticGraphic1_Click(sender As Object, e As EventArgs) Handles CtlGraphicStaticGraphic1.Click
 
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control), PanelGraphic)
+        ''6/2022 ToggleBorder(CType(sender, Control), PanelGraphic)
+        ToggleBorder(CType(sender, UserControl), PanelGraphic)
 
     End Sub
 
     Private Sub CtlGraphicStaticText1_Click(sender As Object, e As EventArgs) Handles CtlGraphicStaticText1.Click
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control), PanelStaticText)
+        ''6/2022 ToggleBorder(CType(sender, Control), PanelStaticText)
+        ToggleBorder(CType(sender, UserControl), PanelStaticText)
 
     End Sub
 
     Private Sub RscSelectCIBField1_Click(sender As Object, e As EventArgs) Handles RscSelectCIBField1.Click
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control), Nothing)
+        ''6/2022 ToggleBorder(CType(sender, Control), Nothing)
+        ToggleBorder(CType(sender, UserControl), Nothing)
 
     End Sub
 
     Private Sub CtlGraphicSignature1_Click(sender As Object, e As EventArgs) Handles CtlGraphicSignature1.Click
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control), PanelSignature)
+        ''6/2022 ToggleBorder(CType(sender, Control), PanelSignature)
+        ToggleBorder(CType(sender, UserControl), PanelSignature)
 
     End Sub
 
     Private Sub CtlGraphicQRCode1_Click(sender As Object, e As EventArgs)
         ''Added 5/3/2022 td
-        ToggleBorder(CType(sender, Control), PanelQRCode)
+        ''6/2022  ToggleBorder(CType(sender, Control), PanelQRCode)
+        ToggleBorder(CType(sender, UserControl), PanelQRCode)
 
     End Sub
 
