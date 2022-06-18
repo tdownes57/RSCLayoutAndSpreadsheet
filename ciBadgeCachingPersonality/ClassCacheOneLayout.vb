@@ -522,8 +522,9 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''
             ''Added 9/30/2019 td  
             ''
-            Throw New NotImplementedException("Not implemented.   #x4591")
-
+            ''Throw New NotImplementedException("Not implemented.   #x4591")
+            System.Diagnostics.Debugger.Break() ''Added 6/18/2022
+            Return Nothing ''Added 6/18/2022
 
         End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
 

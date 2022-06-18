@@ -346,6 +346,7 @@
 
     End Sub
 
+
     Private Sub ButtonEditImageRaw_Click(sender As Object, e As EventArgs) Handles ButtonEditImageRaw.Click
 
         ''Added 5/23/2022 thomas 
@@ -357,4 +358,6 @@
         End If ''Endof ""If (IO.File.Exists(mod_strPathToImageOriginal)) Then""
 
     End Sub
+
+
 End Class

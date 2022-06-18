@@ -21,6 +21,18 @@ Public Class DiskFilesVB
     End Function ''End of ""ublic Shared Function FilePathIsValid(pstrPathTofile As String) As Boolean""
 
 
+    Public Shared Function FilePathIsValid_Choose(pstrPathToFile1 As String,
+                                                  pstrPathToFile2 As String) As String
+        ''
+        ''Added 6/18/2022 td
+        ''
+        If (FilePathIsValid(pstrPathToFile1)) Then Return pstrPathToFile1
+        If (FilePathIsValid(pstrPathToFile2)) Then Return pstrPathToFile2
+        Return ""
+
+    End Function ''End of ""Public Shared Function FilePathIsValid_Choose(pstrPathToFile1 As String, ...) As String""
+
+
     Public Shared Function PathToFile_Background_FirstOrDefault(Optional ByRef pstrFileTitle As String = "") As String
         ''
         ''Added 12/03/2021 Thomas Downes    

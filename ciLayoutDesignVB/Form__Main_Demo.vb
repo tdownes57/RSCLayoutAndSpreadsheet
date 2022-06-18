@@ -2877,23 +2877,33 @@ ExitHandler:
             ''Save the file.
             ''
             Dim bConfirmFileExists As Boolean ''Added 12/3/2021 td
-            ''June2022 bConfirmFileExists = System.IO.File.Exists(objShow.ImageFilePath)
-            bConfirmFileExists = DiskFilesVB.FilePathIsValid(objShow.ImageFilePath)
+            ''#1 June2022 bConfirmFileExists = System.IO.File.Exists(objShow.ImageFilePath)
+            '' #2 June2022 bConfirmFileExists = DiskFilesVB.FilePathIsValid(objShow.Output_ImageFilePath)
+            ''  #3 June2022 bConfirmFileExists = DiskFilesVB.FilePathIsValid(objShow.Output_ImageFileInfo.FullName)
+            bConfirmFileExists = DiskFilesVB.FilePathIsValid(objShow.Output_FilePath_CopyEdited)
             If (Not bConfirmFileExists) Then Return ''Added 12/3/2021 td
 
             Dim strPathToUploadedFile As String ''Added 6/15/2022 td
             Dim strPathToEditedFile As String ''Added 6/15/2022 td
+            Dim strPathToFinalFile As String ''Added 6/18/2022 thomas d. 
 
             strPathToUploadedFile = objShow.Output_FilePath_CopyOriginal
-            strPathToEditedFile = objShow.Output_FilePath_Edited
+            '' #2 June2022 strPathToEditedFile = objShow.Output_FilePath_Edited
+            strPathToEditedFile = objShow.Output_FilePath_CopyEdited
+
+            ''Added 6/18/2022 Thomas d.
+            strPathToFinalFile = DiskFilesVB.FilePathIsValid_Choose(strPathToEditedFile, strPathToUploadedFile)
 
             ''Added 12/3/2021 td
             If (mod_designer.ShowingTheBackside()) Then
                 ''
                 ''Backside of the ID Card
                 ''
-                Me.ElementsCache_Edits.BackgroundImage_Backside_Path = objShow.ImageFilePath
-                Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.ImageFileTitle
+                ''June18 2022 ''Me.ElementsCache_Edits.BackgroundImage_Backside_Path = objShow.Output_ImageFilePath
+                ''June18 2022 ''Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = objShow.Output_ImageFileTitle
+                Me.ElementsCache_Edits.BackgroundImage_Backside_Path = strPathToFinalFile
+                Me.ElementsCache_Edits.BackgroundImage_Backside_FTitle = IO.Path.GetFileName(strPathToFinalFile)
+
                 ''pictureBackgroundBackside.ImageLocation = objShow.ImageFilePath
                 ''pictureBackgroundBackside.SizeMode = PictureBoxSizeMode.Zoom
                 ''5/23/2022 td''mod_designer.Load_BackgroundImage()
@@ -2903,8 +2913,10 @@ ExitHandler:
                 ''
                 ''Frontside of the ID Card
                 ''
-                Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
-                Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileTitle
+                ''June18 2022 ''Me.ElementsCache_Edits.BackgroundImage_Front_Path = objShow.ImageFilePath
+                ''June18 2022 ''Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = objShow.ImageFileTitle
+                Me.ElementsCache_Edits.BackgroundImage_Front_Path = strPathToFinalFile
+                Me.ElementsCache_Edits.BackgroundImage_Front_FTitle = IO.Path.GetFileName(strPathToFinalFile)
                 ''pictureBackgroundFront.ImageLocation = objShow.ImageFilePath
                 ''pictureBackgroundFront.SizeMode = PictureBoxSizeMode.Zoom
                 mod_designer.Load_BackgroundImage(False) ''(Startup.PreloadBackgroundForDemo)

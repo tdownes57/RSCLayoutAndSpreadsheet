@@ -1174,6 +1174,7 @@ Public Class RSCFieldColumnV2
         ''
         Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
         Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
+        Const c_bExitUponWarning As Boolean = False ''6/2022 td  
 
         ''Moved here from below.---4/23/2022 td
         Dim intCountRecipients As Integer
@@ -1202,17 +1203,19 @@ Public Class RSCFieldColumnV2
         If (enumFieldSelected = EnumCIBFields.Undetermined) Then
             pref_bNoFieldSelected = True
             If (Not MsgOnce_UnspecifiedField) Then
-                MessageBoxTD.Show_Statement("Warning, not all columns have a specified field. GE45")
+                ''Not needed.6/2022 --MessageBoxTD.Show_Statement("Warning, not all columns have a specified field. GE45")
                 MsgOnce_UnspecifiedField = True
             End If ''If (Not MsgUnspecifiedField) Then
-            Return
+            ''6/2022 td ''Return 
+            If (c_bExitUponWarning) Then Return ''Added 6/2022 td 
         End If ''End of ""If (enumFieldSelected = EnumCIBFields.Undetermined) Then""
 
         Dim boolNoRecipList As Boolean
         boolNoRecipList = (Me.ListRecipients Is Nothing)
         pref_bNoRecipientList = boolNoRecipList
         If (pref_bNoRecipientList) Then
-            Throw New Exception("ListRecipients is a Null reference.")
+            ''6/2022 td ''Throw New Exception("ListRecipients is a Null reference.")
+            System.Diagnostics.Debugger.Break() ''Added 6/2022 td
             Return
         End If ''End of ""If (pref_bNoRecipientList) Then""
 
@@ -1231,7 +1234,8 @@ Public Class RSCFieldColumnV2
                 Return ''Added 5/16/2022 td
             Else
                 ''Throw an error. Where in heck is the list of fake hard-coded recipients? 
-                Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")
+                ''6/2022 td ''Throw New Exception("ListRecipients has Zero(0) recipient (student) rows.")
+                System.Diagnostics.Debugger.Break()
                 Return
             End If ''ENd of ""If (c_boolAllowForBlankSlate) Then... Else..."
         End If ''ENd of ""If (boo lNoRecipients_zero) Then""
@@ -1256,13 +1260,16 @@ Public Class RSCFieldColumnV2
             ''3/29/2022 td''pboolErrorCellsHaveValues = True
             pref_boolRows_TooFew = True
             ''---Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
-            Throw New Exception("Warning, we have less RSCDataCelles than required. Data would be lost.")
+            ''6/2022  Throw New Exception("Warning, we have less RSCDataCells than required. Data would be lost.")
+            System.Diagnostics.Debugger.Break()
 
         ElseIf (boolMismatchOfCounts_More) Then
             ''3/29/2022 td''pboolErrorCellsHaveValues = True
             pref_boolRows_TooMany = True
             ''---Throw New Exception("Warning, non-zero >0 cells with data already. Data would be lost.")
-            Throw New Exception("Warning, we have more RSCDataCelles than required. Rows will be left blank.")
+            ''6/2022  Throw New Exception("Warning, we have more RSCDataCells than required. Rows will be left blank.")
+            System.Diagnostics.Debugger.Break()
+
         End If ''End of ""If (boolMismatchOfCounts) then""
 
         ''-----------------------------------------------------------

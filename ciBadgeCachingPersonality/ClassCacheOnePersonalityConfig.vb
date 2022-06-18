@@ -304,7 +304,9 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 11/24/2019 td  
             ''
-            Throw New NotImplementedException("Not implemented.   #x4591")
+            ''6/18/2022 Throw New NotImplementedException("Not implemented.   #x4591")
+            System.Diagnostics.Debugger.Break() ''Added 6/18/2022
+            Return Nothing ''Added 6/18/2022
 
         End Function ''End of "Public Function GetLayoutByGUID(par_guid As System.Guid) As ClassLayoutCache"
 

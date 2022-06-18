@@ -123,7 +123,11 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 12/14/2021 
             ''
-            If (Not pboolMajorSortOfRefresh) Then Throw New Exception("Don't use unless a big type of refresh is taking place.")
+            If (Not pboolMajorSortOfRefresh) Then
+                ''6/2022 Throw New Exception("Don't use unless a big type of refresh is taking place.")
+                System.Diagnostics.Debugger.Break()
+            End If ''End of ""If (Not pboolMajorSortOfRefresh) Then""
+
             Return mod_cacheSaved
 
         End Function ''end if ""Public Function GetCacheForSaving""
@@ -730,7 +734,11 @@ Namespace ciBadgeCachePersonality
                 If (Not bConfirmFileExists) Then
                     ''pboolFailed = True
                     ''Return
-                    Throw New IO.FileNotFoundException("Unable to locate the XML file.")
+                    ''6/2022 Throw New IO.FileNotFoundException("Unable to locate the XML file.")
+                    ''Added 6/2022
+                    MessageBoxTD.Show_Statement("Unable to locate the XML file." & vbCrLf_Deux &
+                                                .PathToXML)
+                    Return Nothing
                 End If ''ENd of "If (Not bConfirmFileExists) Then"
 
                 ''9/30 td''objCache =
@@ -789,7 +797,12 @@ Namespace ciBadgeCachePersonality
                 If (Not bConfirmFileExists) Then
                     ''pboolFailed = True
                     ''Return
-                    Throw New IO.FileNotFoundException("Unable to locate the XML file.")
+                    ''6/18/2022 Throw New IO.FileNotFoundException("Unable to locate the XML file.")
+                    ''Added 6/18/2022
+                    MessageBoxTD.Show_Statement("Unable to locate the XML file." & vbCrLf_Deux &
+                                                .PathToXML)
+                    Return Nothing
+
                 End If ''ENd of "If (Not bConfirmFileExists) Then"
 
                 ''9/30 td''objCache =
