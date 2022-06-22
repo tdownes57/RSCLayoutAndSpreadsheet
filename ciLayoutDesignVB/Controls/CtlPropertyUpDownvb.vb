@@ -3,7 +3,8 @@ Imports ciBadgeInterfaces
 Public Class CtlPropertyUpDownvb
 
     Private mod_sPropertyName As String = "Property"
-    Private mod_iPropertyValue As Integer = 10
+    ''6/2022 Private mod_iPropertyValue As Integer = 10 ''Option Strict On... 6/18/2022
+    Private mod_iPropertyValue As Single = 10
     Private mod_iMinimumValue As Integer = 0 ''Added 9/18/2019 td  
 
     Public _ElementInfo_Base As IElement_Base
@@ -45,11 +46,11 @@ Public Class CtlPropertyUpDownvb
         End Set
     End Property
 
-    Public Property PropertyValue As Integer
+    Public Property PropertyValue As Single ''6/2022 Integer
         Get
             Return mod_iPropertyValue
         End Get
-        Set(value As Integer)
+        Set(value As Single) ''6/2022 Integer)
             mod_iPropertyValue = value
             ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
             UpdateUserFeedbackLabel()
@@ -131,14 +132,15 @@ Public Class CtlPropertyUpDownvb
         boolVeryLongName = (mod_sPropertyName.Length >= "Total Height of Label".Length)
         If (boolVeryLongName) Then ''Added 9/19/2019 td
             ''Make the label font smaller. 
-            LabelProperty.Font = modFonts.SetFontSize(LabelProperty.Font, -1 + LabelProperty.Font.Size)
+            LabelProperty.Font = modFonts.SetFontSize(LabelProperty.Font,
+                                                      -1 + LabelProperty.Font.Size)
         End If ''End of "If (boolVeryLongName) Then"
 
         Me.Refresh()
 
     End Sub
 
-    Private Sub UpdateElementInfo(par_value As Integer)
+    Private Sub UpdateElementInfo(par_value As Single) ''6/2022 (Integer)
         ''
         ''Added 9/13/2019 thomas d. 
         ''
@@ -148,7 +150,7 @@ Public Class CtlPropertyUpDownvb
 
                 Case (.StartsWith("Text") Or .StartsWith("Off"))
 
-                    Me.ElementInfo_Text.FontOffset_Y = par_value
+                    Me.ElementInfo_Text.FontOffset_Y = CInt(par_value) ''6/2022 par_value
 
                 Case (.StartsWith("Font"))
 
@@ -156,12 +158,12 @@ Public Class CtlPropertyUpDownvb
 
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 
-                    Me.ElementInfo_Base.Height_Pixels = par_value
+                    Me.ElementInfo_Base.Height_Pixels = CInt(par_value) ''6/2022 par_value
 
                 Case (.StartsWith("Border"))
 
                     ''Added 9/14/2019 td  
-                    Me.ElementInfo_Base.Border_WidthInPixels = par_value
+                    Me.ElementInfo_Base.Border_WidthInPixels = CInt(par_value) ''6/2022 par_value
 
                 Case Else
 

@@ -32,7 +32,7 @@ Partial Class FormBackgroundUploadNewVsExisting
         Me.textFiletitle_NewImage = New System.Windows.Forms.TextBox()
         Me.ButtonReplaceOlderImage = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.txtFiletitle_OriginalImage = New System.Windows.Forms.TextBox()
+        Me.textFileTitle_OriginalImage = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'CtlBackground1Existing
@@ -40,9 +40,10 @@ Partial Class FormBackgroundUploadNewVsExisting
         Me.CtlBackground1Existing.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlBackground1Existing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.CtlBackground1Existing.IsNotSelectableItemOfAList = False
-        Me.CtlBackground1Existing.Location = New System.Drawing.Point(12, 73)
+        Me.CtlBackground1Existing.Location = New System.Drawing.Point(9, 59)
+        Me.CtlBackground1Existing.Margin = New System.Windows.Forms.Padding(2)
         Me.CtlBackground1Existing.Name = "CtlBackground1Existing"
-        Me.CtlBackground1Existing.Size = New System.Drawing.Size(665, 340)
+        Me.CtlBackground1Existing.Size = New System.Drawing.Size(499, 276)
         Me.CtlBackground1Existing.TabIndex = 1
         '
         'CtlBackground2Proposed
@@ -50,17 +51,19 @@ Partial Class FormBackgroundUploadNewVsExisting
         Me.CtlBackground2Proposed.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlBackground2Proposed.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.CtlBackground2Proposed.IsNotSelectableItemOfAList = False
-        Me.CtlBackground2Proposed.Location = New System.Drawing.Point(697, 73)
+        Me.CtlBackground2Proposed.Location = New System.Drawing.Point(523, 59)
+        Me.CtlBackground2Proposed.Margin = New System.Windows.Forms.Padding(2)
         Me.CtlBackground2Proposed.Name = "CtlBackground2Proposed"
-        Me.CtlBackground2Proposed.Size = New System.Drawing.Size(665, 340)
+        Me.CtlBackground2Proposed.Size = New System.Drawing.Size(499, 276)
         Me.CtlBackground2Proposed.TabIndex = 2
         '
         'buttonCancel
         '
         Me.buttonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonCancel.Location = New System.Drawing.Point(1255, 455)
+        Me.buttonCancel.Location = New System.Drawing.Point(941, 370)
+        Me.buttonCancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.buttonCancel.Name = "buttonCancel"
-        Me.buttonCancel.Size = New System.Drawing.Size(108, 34)
+        Me.buttonCancel.Size = New System.Drawing.Size(81, 28)
         Me.buttonCancel.TabIndex = 4
         Me.buttonCancel.Text = "Cancel"
         Me.buttonCancel.UseVisualStyleBackColor = True
@@ -68,9 +71,10 @@ Partial Class FormBackgroundUploadNewVsExisting
         'buttonKeepBothImages
         '
         Me.buttonKeepBothImages.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.buttonKeepBothImages.Location = New System.Drawing.Point(977, 455)
+        Me.buttonKeepBothImages.Location = New System.Drawing.Point(733, 370)
+        Me.buttonKeepBothImages.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.buttonKeepBothImages.Name = "buttonKeepBothImages"
-        Me.buttonKeepBothImages.Size = New System.Drawing.Size(272, 34)
+        Me.buttonKeepBothImages.Size = New System.Drawing.Size(204, 28)
         Me.buttonKeepBothImages.TabIndex = 3
         Me.buttonKeepBothImages.Text = "Save Both Images w/ Indicated Names"
         Me.buttonKeepBothImages.UseVisualStyleBackColor = True
@@ -79,9 +83,10 @@ Partial Class FormBackgroundUploadNewVsExisting
         '
         Me.LabelHeading1.AutoSize = True
         Me.LabelHeading1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeading1.Location = New System.Drawing.Point(12, 21)
+        Me.LabelHeading1.Location = New System.Drawing.Point(9, 17)
+        Me.LabelHeading1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeading1.Name = "LabelHeading1"
-        Me.LabelHeading1.Size = New System.Drawing.Size(1013, 36)
+        Me.LabelHeading1.Size = New System.Drawing.Size(822, 29)
         Me.LabelHeading1.TabIndex = 5
         Me.LabelHeading1.Text = "Select which same-named background image you prefer for the background"
         '
@@ -89,9 +94,10 @@ Partial Class FormBackgroundUploadNewVsExisting
         '
         Me.LabelSelectOriginal.AutoSize = True
         Me.LabelSelectOriginal.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSelectOriginal.Location = New System.Drawing.Point(6, 416)
+        Me.LabelSelectOriginal.Location = New System.Drawing.Point(4, 338)
+        Me.LabelSelectOriginal.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelSelectOriginal.Name = "LabelSelectOriginal"
-        Me.LabelSelectOriginal.Size = New System.Drawing.Size(395, 36)
+        Me.LabelSelectOriginal.Size = New System.Drawing.Size(320, 29)
         Me.LabelSelectOriginal.TabIndex = 6
         Me.LabelSelectOriginal.Text = "▲ Select to keep the original."
         '
@@ -99,26 +105,29 @@ Partial Class FormBackgroundUploadNewVsExisting
         '
         Me.LabelSelectNewImage.AutoSize = True
         Me.LabelSelectNewImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelSelectNewImage.Location = New System.Drawing.Point(691, 416)
+        Me.LabelSelectNewImage.Location = New System.Drawing.Point(518, 338)
+        Me.LabelSelectNewImage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelSelectNewImage.Name = "LabelSelectNewImage"
-        Me.LabelSelectNewImage.Size = New System.Drawing.Size(466, 36)
+        Me.LabelSelectNewImage.Size = New System.Drawing.Size(378, 29)
         Me.LabelSelectNewImage.TabIndex = 7
         Me.LabelSelectNewImage.Text = "▲ Select to upload the new image."
         '
         'textFiletitle_NewImage
         '
         Me.textFiletitle_NewImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.textFiletitle_NewImage.Location = New System.Drawing.Point(859, 73)
+        Me.textFiletitle_NewImage.Location = New System.Drawing.Point(644, 59)
+        Me.textFiletitle_NewImage.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.textFiletitle_NewImage.Name = "textFiletitle_NewImage"
-        Me.textFiletitle_NewImage.Size = New System.Drawing.Size(472, 32)
+        Me.textFiletitle_NewImage.Size = New System.Drawing.Size(355, 27)
         Me.textFiletitle_NewImage.TabIndex = 8
         '
         'ButtonReplaceOlderImage
         '
         Me.ButtonReplaceOlderImage.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonReplaceOlderImage.Location = New System.Drawing.Point(697, 455)
+        Me.ButtonReplaceOlderImage.Location = New System.Drawing.Point(523, 370)
+        Me.ButtonReplaceOlderImage.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.ButtonReplaceOlderImage.Name = "ButtonReplaceOlderImage"
-        Me.ButtonReplaceOlderImage.Size = New System.Drawing.Size(254, 34)
+        Me.ButtonReplaceOlderImage.Size = New System.Drawing.Size(190, 28)
         Me.ButtonReplaceOlderImage.TabIndex = 9
         Me.ButtonReplaceOlderImage.Text = "▲ Replace Original Image w/ New"
         Me.ButtonReplaceOlderImage.UseVisualStyleBackColor = True
@@ -126,27 +135,29 @@ Partial Class FormBackgroundUploadNewVsExisting
         'Button1
         '
         Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(12, 455)
+        Me.Button1.Location = New System.Drawing.Point(9, 370)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(198, 34)
+        Me.Button1.Size = New System.Drawing.Size(148, 28)
         Me.Button1.TabIndex = 10
         Me.Button1.Text = "▲ Keep Original Image"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'txtFiletitle_OriginalImage
+        'textFileTitle_OriginalImage
         '
-        Me.txtFiletitle_OriginalImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtFiletitle_OriginalImage.Location = New System.Drawing.Point(177, 73)
-        Me.txtFiletitle_OriginalImage.Name = "txtFiletitle_OriginalImage"
-        Me.txtFiletitle_OriginalImage.Size = New System.Drawing.Size(472, 32)
-        Me.txtFiletitle_OriginalImage.TabIndex = 11
+        Me.textFileTitle_OriginalImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textFileTitle_OriginalImage.Location = New System.Drawing.Point(133, 59)
+        Me.textFileTitle_OriginalImage.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.textFileTitle_OriginalImage.Name = "textFileTitle_OriginalImage"
+        Me.textFileTitle_OriginalImage.Size = New System.Drawing.Size(355, 27)
+        Me.textFileTitle_OriginalImage.TabIndex = 11
         '
-        'FormUploadBackgroundNewVsExisting
+        'FormBackgroundUploadNewVsExisting
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1381, 512)
-        Me.Controls.Add(Me.txtFiletitle_OriginalImage)
+        Me.ClientSize = New System.Drawing.Size(1036, 416)
+        Me.Controls.Add(Me.textFileTitle_OriginalImage)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.ButtonReplaceOlderImage)
         Me.Controls.Add(Me.textFiletitle_NewImage)
@@ -157,7 +168,8 @@ Partial Class FormBackgroundUploadNewVsExisting
         Me.Controls.Add(Me.buttonKeepBothImages)
         Me.Controls.Add(Me.CtlBackground2Proposed)
         Me.Controls.Add(Me.CtlBackground1Existing)
-        Me.Name = "FormUploadBackgroundNewVsExisting"
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Name = "FormBackgroundUploadNewVsExisting"
         Me.Text = "FormUploadBackgroundNewVsExisting"
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -174,5 +186,5 @@ Partial Class FormBackgroundUploadNewVsExisting
     Friend WithEvents textFiletitle_NewImage As TextBox
     Friend WithEvents ButtonReplaceOlderImage As Button
     Friend WithEvents Button1 As Button
-    Friend WithEvents txtFiletitle_OriginalImage As TextBox
+    Friend WithEvents textFileTitle_OriginalImage As TextBox
 End Class

@@ -44,6 +44,25 @@ Namespace ciBadgeCachePersonality
         Public Property ListOfColumns As HashSet(Of ClassRSCColumnWidthAndData)
 
 
+        Public Function RSCColumnWithMaximalDataCells() As ClassRSCColumnWidthAndData
+            ''
+            ''Added 6/22/2022 thomas downes 
+            ''
+            ''Dim objColumnMax As ClassRSCColumnWidthAndData
+            ''Dim each_column As ClassRSCColumnWidthAndData
+            Dim list_columns As IOrderedEnumerable(Of ClassRSCColumnWidthAndData)
+
+            ''
+            ''Order the columns, with the highest count of data cells first.   
+            ''
+            list_columns = From eachC In ListOfColumns Order By eachC.ColumnData.Count Descending
+
+            Return list_columns.FirstOrDefault
+
+        End Function ''End of ""Public Function RSCColumnWithMaximalDataCells()""
+
+
+
         ''Let's wait and see.----3/15/22''Private mod_listRecipients As New HashSet(Of ClassRecipient) ''Added 10/14/2019 td  
         ''Let's wait and see.----3/15/22''Public Property ListOfRecipients As List(Of ClassRecipient)
 

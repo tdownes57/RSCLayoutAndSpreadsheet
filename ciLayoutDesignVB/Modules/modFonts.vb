@@ -87,7 +87,8 @@ ExitHandler:
 
     End Function ''End of "Public Function MakeItBold(ByRef par_font As Font) As Font"
 
-    Public Function SetFontSize(ByRef par_font As Font, par_intSize As Integer) As Font
+    Public Function SetFontSize(ByRef par_font As Font, par_intSize As Single) As Font
+        ''6/2022   par_intSize As Integer) As Font
         ''
         ''Added 8/16/2019 td  
         ''

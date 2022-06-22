@@ -16,7 +16,10 @@ Public Class FormMainEntry_v90
     ''Added 9/8/2019 thomas downes
     ''
     Private WithEvents mod_groupedMove As New GroupMoveEvents_Singleton(CType(Me, ILayoutFunctions)) ''Added 9/17/2019 td
-    Private mod_ElementLastTouched As CtlMainEntryBox_v90 ''Added 9/19/2019 td
+
+    ''6/2022 td'' Private mod_ElementLastTouched As CtlMainEntryBox_v90 ''Added 9/19/2019 td
+    Private mod_ElementLastTouched As UserControl ''Modified 6/2022  Added 9/19/2019 td
+
     Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/19/2019 td 
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
@@ -60,7 +63,9 @@ Public Class FormMainEntry_v90
         Set(value As Control)
             ''Added 8/9/2019 td
             mod_ControlLastTouched = value ''Added 8/12/2019 td
-            mod_ElementLastTouched = value ''Added 9/14/2019 td
+            ''Option Strict 6/2022 mod_ElementLastTouched = CType(value, UserControl) ''Added 9/14/2019 td
+            mod_ElementLastTouched = CType(value, UserControl) ''Added 9/14/2019 td
+
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
                 mod_FieldControlLastTouched = CType(value, CtlMainEntryBox_v90)
@@ -88,7 +93,8 @@ Public Class FormMainEntry_v90
             ''Added 9/20/2019 td
             ''
             mod_ControlLastTouched = value ''Added 8/12/2019 td
-            mod_ElementLastTouched = value ''Added 9/14/2019 td
+            ''Option Strict 6/2022 mod_ElementLastTouched = value ''Added 9/14/2019 td
+            mod_ElementLastTouched = CType(value, UserControl) ''Added 9/14/2019 td
             mod_ControlLastMoved = value ''Added 9/20/2019 td 
 
             Try

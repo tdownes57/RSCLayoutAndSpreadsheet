@@ -35,8 +35,8 @@ Public Class CtlWidthHeight
         mod_keepHeight = par_bKeepHeight
         mod_keepWidth = par_bKeepWidth
 
-        textWidth.Text = par_image.Width
-        textHeight.Text = par_image.Height
+        textWidth.Text = par_image.Width.ToString() ''ToString() needed for Option Strict added 6/18/2022
+        textHeight.Text = par_image.Height.ToString() ''ToString() needed for Option Strict added 6/18/2022
 
         If (par_bKeepHeight And par_bKeepWidth) Then
             mod_height = par_image.Height
@@ -48,7 +48,8 @@ Public Class CtlWidthHeight
             mod_width = CType(mod_height * c_mod_ratioPVCCard_WdivH, Integer)
 
             ''Calculate the difference, i.e. how many pixels might be cut off. 
-            mod_differenceInPixels_Width = (par_image.Width - mod_width)
+            ''6/2022 mod_differenceInPixels_Width = (par_image.Width - mod_width)
+            mod_differenceInPixels_Width = CInt(par_image.Width - mod_width)
             LabelLossOfPixelsWidth.Visible = True ''Show
             LabelLossOfPixelsHeight.Visible = False ''Hide 
             LabelLossOfPixelsWidth.Text = String.Format(LabelLossOfPixelsWidth.Tag.ToString,
@@ -60,19 +61,20 @@ Public Class CtlWidthHeight
             mod_height = CType(mod_width / c_mod_ratioPVCCard_WdivH, Integer)
 
             ''Calculate the difference, i.e. how many pixels might be cut off. 
-            mod_differenceInPixels_Height = (par_image.Height - mod_height)
+            mod_differenceInPixels_Height = CInt(par_image.Height - mod_height)
             LabelLossOfPixelsHeight.Visible = True ''Show Loss of Height 
             LabelLossOfPixelsWidth.Visible = False ''Hide Loss of Width 
             LabelLossOfPixelsHeight.Text = String.Format(LabelLossOfPixelsHeight.Tag.ToString,
                                                          mod_differenceInPixels_Height)
 
         Else
-            Throw New Exception("One or both (width & height) need to be indicated.")
+            ''6/2022 Throw New Exception("One or both (width & height) need to be indicated.")
+            System.Diagnostics.Debugger.Break()
 
         End If ''End of "If (par_bKeepHeight And par_bKeepWidth) Then .... ElseIf.... ElseIf...."
 
-        textHeight.Text = mod_height
-        textWidth.Text = mod_width
+        textHeight.Text = mod_height.ToString()
+        textWidth.Text = mod_width.ToString()
 
         LabelRatioMessage.Text = String.Format(LabelRatioMessage.Tag.ToString,
                                   mod_height / mod_width)
@@ -89,13 +91,14 @@ Public Class CtlWidthHeight
         If (mod_keepHeight And (Not mod_keepWidth)) Then
 
             If (Not pboolSuppressNegatives) Then Return mod_differenceInPixels_Width
-            intPixelsToBeLost = IIf(mod_differenceInPixels_Width > 0, mod_differenceInPixels_Width, 0)
+            ''6/2022 intPixelsToBeLost = IIf(mod_differenceInPixels_Width > 0, mod_differenceInPixels_Width, 0)
+            intPixelsToBeLost = CInt(IIf(mod_differenceInPixels_Width > 0, mod_differenceInPixels_Width, 0))
             Return intPixelsToBeLost
 
         ElseIf (mod_keepWidth And (Not mod_keepHeight)) Then
 
             If (Not pboolSuppressNegatives) Then Return mod_differenceInPixels_Height
-            intPixelsToBeLost = IIf(mod_differenceInPixels_Height > 0, mod_differenceInPixels_Height, 0)
+            intPixelsToBeLost = CInt(IIf(mod_differenceInPixels_Height > 0, mod_differenceInPixels_Height, 0))
             Return intPixelsToBeLost
 
         End If

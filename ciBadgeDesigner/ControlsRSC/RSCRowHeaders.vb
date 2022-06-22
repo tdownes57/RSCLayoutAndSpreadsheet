@@ -41,6 +41,7 @@ Public Class RSCRowHeaders
     ''4/5/2022 Private mod_listTextboxesByRow As New Dictionary(Of Integer, TextBox)
     ''5/14/2022 td''Private mod_listTextboxesByRow As New Dictionary(Of Integer, RSCRowHeader)
     Private mod_listRowHeadersByRow As New Dictionary(Of Integer, RSCRowHeader)
+    Private mod_columnWidthAndData As ClassRSCColumnWidthAndData ''Added 6/22/2022 & 3/18/2022  
 
     ''Added 4/04/2022 thomas downes
     ''Private Structure StructLabelAndRowSeparator
@@ -64,6 +65,21 @@ Public Class RSCRowHeaders
             mod_intPixelsFromRowToRow = value
         End Set
     End Property
+
+
+    Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
+        ''Added 6/22/2022 & 3/18/2022 thomas 
+        Get
+            ''Added 6/22/2022 & 3/18/2022 thomas
+            ''  Probably only for testing!!
+            Return mod_columnWidthAndData
+        End Get
+        Set(value As ClassRSCColumnWidthAndData) ''---As ClassColumnWidthAndData)
+            ''Added 6/22/2022 & 3/18/2022 thomas 
+            mod_columnWidthAndData = value
+        End Set
+    End Property
+
 
     Public Function CountOfRows() As Integer
         ''
@@ -1083,6 +1099,65 @@ Public Class RSCRowHeaders
         End If ''End of ""If (c_bUseFirstTry) Then .... Else...."
 
     End Sub ''End of ""Public Sub Load_EmptyRows()""
+
+
+    Public Sub Load_ColumnListDataToColumnEtc()
+        ''
+        ''Encapsulated 4/15/2022 thomas d.
+        ''
+        ''
+        ''Added 3/19/2022  
+        ''
+        ''6/22/2022 thomas d''If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
+        ''4/15/2022 thomas d''LoadDataToColumn(mod_columnWidthAndData.ColumnData)
+        ''6/22/2022 thomas d''Load_ColumnListDataToColumn(mod_columnWidthAndData.ColumnData)
+        With Me.ColumnDataCache
+                Load_ColumnListDataToColumn(.RSCColumnWithMaximalDataCells())
+            End With
+
+        ''6/22/2022 thomas d''End If ''If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
+
+    End Sub ''end of "Public Sub Load_ColumnListDataToColumnEtc"
+
+
+    Private Sub Load_ColumnListDataToColumn(par_column As ClassRSCColumnWidthAndData)
+        ''---6/22/2022 td---Private Sub Load_ColumnListDataToColumn(par_listData As List(Of String))
+        ''---4/15/2022 td---Private Sub LoadDataToColumn(par_listData As List(Of String))
+        ''
+        ''Added 3/19/2022 td
+        ''
+        Dim indexItem As Integer = 0
+        Dim list_datacells As List(Of String)
+
+        ''Added 6/22/2022 thomas
+        If (par_column Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+            Exit Sub
+        End If ''End of ""If (par_column Is Nothing) Then""
+
+        ''Added 6/22/2022 thomas
+        list_datacells = par_column.ColumnData
+
+        ''Added 4/13/2022
+        If (list_datacells Is Nothing) Then
+            ''Added 4/14/2022
+            MessageBoxTD.Show_Statement("No non-null list of data with which to supply the present column.")
+            Exit Sub
+        ElseIf (list_datacells.Count = 0) Then
+            ''Added 4/13/2022
+            MessageBoxTD.Show_Statement("No data exists with which to supply the present column.")
+            Exit Sub
+        ElseIf (Me.CountOfRows() < list_datacells.Count) Then
+            ''Added 4/15/2022
+            Load_EmptyRows(list_datacells.Count)
+
+        End If ''End of ""If (list_datacells.Count = 0) Then .... ElseIf.... ElseIf....""
+
+
+
+    End Sub ''End of "Private Sub Load_ColumnListDataToColumn()"
+
+
 
 
     Public Sub LoadRecipientList(Optional ByRef pref_bNoRecipientList As Boolean = False,

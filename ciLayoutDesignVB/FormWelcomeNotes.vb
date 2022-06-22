@@ -26,7 +26,11 @@ Public Class FormWelcomeNotes
 
         Dim boolConfirmed As Boolean
 
-        If (Me.TextBox1.Tag = "Edited") Then
+        If (Me.TextBox1.Tag Is Nothing) Then
+            ''
+            ''Omit the following "ElseIf" from execution. 6/2022
+            ''
+        ElseIf (Me.TextBox1.Tag.ToString() = "Edited") Then
 
             boolConfirmed =
                MessageBoxTD.Show_Confirm("Are you cancelling your edits?  If so, please confirm.")

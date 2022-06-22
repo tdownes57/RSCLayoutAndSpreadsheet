@@ -72,49 +72,57 @@ Module modAdjustmentBoxes_V101
 
     End Function ''ENd of "Public Function UserClickedWhichAdjustment(par_Left As Integer, par_Top As Integer) As Enum_V101"
 
-    Private Function WidthIncrease(par_Left As Integer, par_Top As Integer) As Boolean
+    Private Function WidthIncrease(par_Left As Single, par_Top As Single) As Boolean
+        ''---6/2022---Private Function WidthIncrease(par_Left As Integer, par_Top As Integer) As Boolean
         ''
         ''Added 7/17/2019 td 
         ''
         Return (WidthIncrease_Left <= par_Left And par_Left <= WidthIncrease_Rght) And
             (WidthIncrease_Top_ <= par_Top And par_Top <= WidthIncrease_Btm_)
 
-    End Function
+    End Function ''End of ""Private Function WidthIncrease""
 
-    Private Function WidthDecrease(par_Left As Integer, par_Top As Integer) As Boolean
+
+    Private Function WidthDecrease(par_Left As Single, par_Top As Single) As Boolean
+        ''---6/2022---Private Function WidthDecrease(par_Left As Integer, par_Top As Integer) As Boolean
         ''
         ''Added 7/17/2019 td 
         ''
         Return (WidthDecrease_Left <= par_Left And par_Left <= WidthDecrease_Rght) And
             (WidthDecrease_Top_ <= par_Top And par_Top <= WidthDecrease_Btm_)
 
-    End Function
+    End Function ''End of ""Private Function WidthDecrease""
 
-    Private Function HeightIncrease(par_Left As Integer, par_Top As Integer) As Boolean
+    Private Function HeightIncrease(par_Left As Single, par_Top As Single) As Boolean
+        ''--6/2022--Private Function HeightIncrease(par_Left As Integer, par_Top As Integer) As Boolean
         ''
         ''Added 7/17/2019 td 
         ''
         Return (HeightIncrease_Left <= par_Left And par_Left <= HeightIncrease_Rght) And
             (HeightIncrease_Top_ <= par_Top And par_Top <= HeightIncrease_Btm_)
 
-    End Function
+    End Function ''End of ""Private Function HeightIncrease""
 
-    Private Function HeightDecrease(par_Left As Integer, par_Top As Integer) As Boolean
+
+    Private Function HeightDecrease(par_Left As Single, par_Top As Single) As Boolean
+        ''--6/2022--Private Function HeightDecrease(par_Left As Integer, par_Top As Integer) As Boolean
         ''
         ''Added 7/17/2019 td 
         ''
         Return (HeightDecrease_Left <= par_Left And par_Left <= HeightDecrease_Rght) And
             (HeightDecrease_Top_ <= par_Top And par_Top <= HeightDecrease_Btm_)
 
-    End Function
+    End Function ''End of ""Private Function HeightDecrease""
 
-    Private Function ColorsOfMSPaint(par_Left As Integer, par_Top As Integer) As Boolean
+
+    Private Function ColorsOfMSPaint(par_Left As Single, par_Top As Single) As Boolean
+        ''6/2022 Private Function ColorsOfMSPaint(par_Left As Integer, 
         ''
         ''Added 7/17/2019 td 
         ''
         Return (ColorsOfMSPaint_Left <= par_Left And par_Left <= ColorsOfMSPaint_Rght) And
             (ColorsOfMSPaint_Top_ <= par_Top And par_Top <= ColorsOfMSPaint_Btm_)
 
-    End Function
+    End Function ''End of ""Private Function ColorsOfMSPaint""
 
 End Module ''Module modAdjustmentBoxes_V101

@@ -125,7 +125,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
-            .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
+            ''6/2022 .ElementInfo_TextOnly = Me.ElementCopy_Info_Text
+            .ElementInfo_TextOnly = CType(Me.ElementObject_Copy, IElement_TextOnly)
 
             ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
             .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 
@@ -138,12 +139,14 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 9/13/2019 thomas downes
         Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
-        Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        ''6/2022 td''Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
+        Me.CtlBorderWidth.ElementInfo_Text = CType(Me.ElementObject_Copy, IElement_TextOnly)
 
         ''Position it at the center horizontally. 
         CenterTheFieldControl()
 
     End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+
 
     ''--------9/19/2019 td----------------------------------------------------------------------------------------------
     ''Denigrated.  9/19/2019 td''Public Sub LoadFieldAndForm(par_formDesigner As FormDesignProtoTwo,

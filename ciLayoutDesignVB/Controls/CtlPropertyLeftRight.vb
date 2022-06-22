@@ -9,7 +9,8 @@ Public Class CtlPropertyLeftRight
     ''Added 9/13/2019 thomas downes
     ''
     Private mod_sPropertyName As String = "Property"
-    Private mod_iPropertyValue As Integer = 10
+    ''Option Strict 6/2022  Private mod_iPropertyValue As Integer = 10
+    Private mod_iPropertyValue As Single = 10
     Private mod_iMinimumValue As Integer = 0 ''Added 9/18/2019 td  
 
     Public ElementInfo_Base As IElement_Base
@@ -31,15 +32,16 @@ Public Class CtlPropertyLeftRight
         End Set
     End Property
 
-    Public Property PropertyValue As Integer
+    Public Property PropertyValue As Single ''Option Strict. 6/2022 Integer
         Get
             Return mod_iPropertyValue
         End Get
-        Set(value As Integer)
+        Set(value As Single) ''Option Strict. 6/2022 Integer As Integer)
             mod_iPropertyValue = value
             ''9/13/2019 td''LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
             UpdateUserFeedbackLabel()
         End Set
+
     End Property
 
     Public Property MinimumValue As Integer
@@ -56,7 +58,7 @@ Public Class CtlPropertyLeftRight
     Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
 
         ''9/18/2019 td''mod_iPropertyValue -= 1
-        mod_iPropertyValue -= Numeric1.Value
+        mod_iPropertyValue -= CInt(Numeric1.Value)
 
         ''9/18/2019 td''If (mod_iPropertyValue < 0) Then mod_iPropertyValue = 0
         If (mod_iPropertyValue < Me.MinimumValue) Then mod_iPropertyValue = Me.MinimumValue
@@ -96,7 +98,7 @@ Public Class CtlPropertyLeftRight
 
     End Sub
 
-    Private Sub UpdateElementInfo(par_value As Integer)
+    Private Sub UpdateElementInfo(par_value As Single)  ''6/2022  (par_value As Integer)
         ''
         ''Added 9/13/2019 thomas d. 
         ''
@@ -106,7 +108,7 @@ Public Class CtlPropertyLeftRight
 
                 Case (.StartsWith("Text") Or .StartsWith("Off"))
 
-                    Me.ElementInfo_Text.FontOffset_X = par_value
+                    Me.ElementInfo_Text.FontOffset_X = CInt(par_value) ''Option strict '' par_value
 
                 Case (.StartsWith("Font"))
 
@@ -114,15 +116,15 @@ Public Class CtlPropertyLeftRight
 
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 
-                    Me.ElementInfo_Base.Width_Pixels = par_value
+                    Me.ElementInfo_Base.Width_Pixels = CInt(par_value) ''Option strict '' par_value
 
                 Case (.StartsWith("Border"))
 
                     ''Added 9/14/2019 td  
-                    Me.ElementInfo_Base.Border_WidthInPixels = par_value
+                    Me.ElementInfo_Base.Border_WidthInPixels = CInt(par_value) ''Option strict '' par_value
 
                 Case Else
-
+                    ''
                     ''Added 9/14/2019 td
                     ''
                     MessageBox.Show("The element property is not being determined, and hence nothing will happen.", "",
@@ -157,7 +159,8 @@ Public Class CtlPropertyLeftRight
 
                 Case (.StartsWith("Font"))
 
-                    mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
+                    ''6/2022 mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
+                    mod_iPropertyValue = CInt(par_Text.FontSize_Pixels) ''= par_value
 
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 

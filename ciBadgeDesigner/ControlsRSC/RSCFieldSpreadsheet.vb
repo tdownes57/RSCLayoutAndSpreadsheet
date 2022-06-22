@@ -19,6 +19,7 @@ Public Class RSCFieldSpreadsheet
     ''Public RscFieldColumn1 As RSCFieldColumn ''Added 3/25/2022 td
     Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
 
+
     Public Property RowDisplayCardHeight As Integer ''= 0 ''Added 5/30/2022 td
         ''= 0 ''Added 5/30/2022 td
         Get
@@ -1456,6 +1457,15 @@ Public Class RSCFieldSpreadsheet
         ''Might be causing call-stack problems.''RscRowHeaders1.RSCSpreadsheet = Me
         ''Moved to calling function. 3/25/2022 td''RscRowHeaders1.AlignControlsWithSpreadsheet()
 
+        ''
+        ''Step 8 of 8.  Make sure that the Row Headers match the longest column of data
+        ''       inside the cache collection Me.ColumnDataCache. 
+        ''       ----6/22/2022 thomas d. 
+        ''
+        With Me.ColumnDataCache
+            RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
+            RscRowHeaders1.Load_ColumnListDataToColumnEtc()
+        End With
 
     End Sub ''End of Public Sub LoadRuntimeColumns_AfterClearingDesign
 
