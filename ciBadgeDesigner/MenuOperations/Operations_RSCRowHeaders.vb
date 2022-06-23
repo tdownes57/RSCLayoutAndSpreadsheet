@@ -154,6 +154,7 @@ Public Class Operations_RSCRowHeaders
                             objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
                             objRSCFieldColumn.DeleteRow_ByRowIndex(intRowIndex)
                         Next each_column
+
                     Catch ex_fornext As Exception
                         ''Added 6/22/2022 thomas d
                         System.Diagnostics.Debugger.Break()

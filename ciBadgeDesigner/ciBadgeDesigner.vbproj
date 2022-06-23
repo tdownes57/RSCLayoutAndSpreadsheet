@@ -324,6 +324,12 @@
     <Compile Include="ControlsRSC\RSCRowHeaders_Test.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Dialogs\DialogAllRSCSelectCIBFields.Designer.vb">
+      <DependentUpon>DialogAllRSCSelectCIBFields.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogAllRSCSelectCIBFields.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </Compile>
@@ -609,6 +615,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlsRSC\RSCRowHeaders_Test.resx">
       <DependentUpon>RSCRowHeaders_Test.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogAllRSCSelectCIBFields.resx">
+      <DependentUpon>DialogAllRSCSelectCIBFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
