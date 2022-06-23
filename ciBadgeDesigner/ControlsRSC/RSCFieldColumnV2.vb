@@ -962,10 +962,20 @@ Public Class RSCFieldColumnV2
 
         objRSCDataCell = GetCellWithRowIndex(par_intRowIndex) ''.Text_CellValue = ""
 
+        ''Added 6/22/2022 thomas downes
+        If (objRSCDataCell Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+            Exit Sub
+        End If ''End of ""If (objRSCDataCell Is Nothing) Then""
+
         ''Added 5/01/2022 td
         If (c_boolDeleteRecipient) Then
-            Me.ListRecipients.Remove(objRSCDataCell.Recipient)
-            Me.ParentSpreadsheet.DeleteRecipientFromCache(objRSCDataCell.Recipient)
+            If (Me.ListRecipients IsNot Nothing) Then
+                Me.ListRecipients.Remove(objRSCDataCell.Recipient)
+            End If
+            If (Me.ParentSpreadsheet IsNot Nothing) Then
+                Me.ParentSpreadsheet.DeleteRecipientFromCache(objRSCDataCell.Recipient)
+            End If
         End If ''End of ""If (c_boolDeleteRecipient) Then""
 
         objRSCDataCell.Text_CellValue = ""
@@ -1083,6 +1093,8 @@ Public Class RSCFieldColumnV2
         ''
         Dim objFirstRSCDataCell As RSCDataCell
         objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
+        ''6/22/2022 td''If (objFirstRSCDataCell Is Nothing) Then Return -1 ''Added 6/22/2022
+        If (objFirstRSCDataCell Is Nothing) Then Return RscDataCell1.Top ''Added 6/22/2022
         Return objFirstRSCDataCell.Top
 
     End Function ''end of ""Public Function GetFirstRSCDataCellPropertyTop() As Integer""
@@ -2554,6 +2566,13 @@ Public Class RSCFieldColumnV2
         e.Graphics.DrawLine(pen:=myPen, x1:=0, y1:=intBottomY, x2:=Me.Width, y2:=intTopY)
 
 
+
+    End Sub
+
+    Private Sub RSCFieldColumnV2_BackColorChanged(sender As Object, e As EventArgs) Handles MyBase.BackColorChanged
+
+        ''Added 6/22/2022 thomas d.
+        RscSelectCIBField1.BackColor = Me.BackColor
 
     End Sub
 

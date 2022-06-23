@@ -149,11 +149,17 @@ Public Class Operations_RSCRowHeaders
             If (boolConfirmed) Then
                 Dim intRowIndex As Integer
                 For intRowIndex = intDeleteRow_Start To intDeleteRow_End
-                    For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
-                        objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
-                        objRSCFieldColumn.DeleteRow_ByRowIndex(intRowIndex)
-                    Next each_column
-                Next introwIndex
+                    Try
+                        For Each each_column As RSCFieldColumnV2 In Me.ParentSpreadsheet.ListOfColumns
+                            objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+                            objRSCFieldColumn.DeleteRow_ByRowIndex(intRowIndex)
+                        Next each_column
+                    Catch ex_fornext As Exception
+                        ''Added 6/22/2022 thomas d
+                        System.Diagnostics.Debugger.Break()
+                        MessageBoxTD.Show_Statement("Unable to delete some or one of the rows.")
+                    End Try
+                Next intRowIndex
             End If ''End of "If (boolConfirmed) Then"
 
 

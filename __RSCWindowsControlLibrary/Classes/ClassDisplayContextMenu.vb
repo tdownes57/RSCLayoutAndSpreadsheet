@@ -258,4 +258,11 @@
     End Sub
 
 
+    Public Sub MenuOpen() ''Added 6/22/2022 
+
+        ''Added 6/22/2021 thomas downes
+        mod_menuStrip.Show() ''Added 6/22/2022
+    End Sub
+
+
 End Class

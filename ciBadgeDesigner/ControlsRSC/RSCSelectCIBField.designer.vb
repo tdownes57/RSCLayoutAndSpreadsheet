@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class RSCSelectCIBField
-    Inherits System.Windows.Forms.UserControl
+    ''6/22/2022 Inherits System.Windows.Forms.UserControl
+    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{42468695-2856-4336-8BCA-C5AF2EA8178E}</ProjectGuid>
+    <ProjectGuid>{2C664F4B-14BA-4F1A-BACC-A6BC6284740E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ciBadgeGenerator</RootNamespace>

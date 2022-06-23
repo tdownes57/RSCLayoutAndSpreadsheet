@@ -1579,6 +1579,9 @@ Public Class RSCMoveableControlVB
 
     Private Sub RSCMoveableControlVB_Click(sender As Object, e As EventArgs) Handles Me.Click
 
+        ''Added 6/22/2022 td
+        If (Me.LastControlTouched_Info Is Nothing) Then Exit Sub
+
         ''Added 12/29/2021 td
         Me.LastControlTouched_Info.LastControlTouched = Me
 
@@ -1679,10 +1682,13 @@ Public Class RSCMoveableControlVB
             ''Added 3/20/2022 td
             If (mod_boolRemoveMoveability) Then Exit Sub
 
+            ''Added 6/22/2022 thomas downes
+            If (mod_iMoveOrResizeFunctionality Is Nothing) Then Exit Sub
+
             ''Let the module know that a MouseMove took place. 
             mod_iMoveOrResizeFunctionality.StartMovingOrResizing(CType(sender, Control), par_e)
 
-        End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
+            End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
 
     End Sub
 
@@ -1782,6 +1788,9 @@ Public Class RSCMoveableControlVB
             Else
                 objCTLGraphicOrRSCMoveable = CType(par_sender, Control)
             End If ''End of "If (TypeOf par_sender Is PictureBox) Then ... Else"
+
+            ''Added 6/22/2022 td
+            If (mod_iMoveOrResizeFunctionality Is Nothing) Then Exit Sub
 
             ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
             ''   Let's don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td

@@ -50,10 +50,9 @@ Partial Class RSCFieldColumnV2
         '
         'LinkLabelRightClick
         '
-        Me.LinkLabelRightClick.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelRightClick.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelRightClick.AutoSize = True
-        Me.LinkLabelRightClick.Location = New System.Drawing.Point(118, 76)
+        Me.LinkLabelRightClick.Location = New System.Drawing.Point(126, 76)
         Me.LinkLabelRightClick.Name = "LinkLabelRightClick"
         Me.LinkLabelRightClick.Size = New System.Drawing.Size(58, 13)
         Me.LinkLabelRightClick.TabIndex = 66
@@ -75,6 +74,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell18.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell18.Location = New System.Drawing.Point(0, 518)
         Me.RscDataCell18.Name = "RscDataCell18"
         Me.RscDataCell18.Size = New System.Drawing.Size(184, 23)
@@ -86,6 +86,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell17.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell17.Location = New System.Drawing.Point(0, 494)
         Me.RscDataCell17.Name = "RscDataCell17"
         Me.RscDataCell17.Size = New System.Drawing.Size(184, 23)
@@ -97,6 +98,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell16.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell16.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell16.Location = New System.Drawing.Point(0, 470)
         Me.RscDataCell16.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell16.Name = "RscDataCell16"
@@ -109,6 +111,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell14.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell14.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell14.Location = New System.Drawing.Point(0, 422)
         Me.RscDataCell14.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell14.Name = "RscDataCell14"
@@ -121,6 +124,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell13.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell13.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell13.Location = New System.Drawing.Point(0, 398)
         Me.RscDataCell13.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell13.Name = "RscDataCell13"
@@ -133,6 +137,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell12.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell12.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell12.Location = New System.Drawing.Point(0, 374)
         Me.RscDataCell12.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell12.Name = "RscDataCell12"
@@ -145,6 +150,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell11.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell11.Location = New System.Drawing.Point(0, 350)
         Me.RscDataCell11.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell11.Name = "RscDataCell11"
@@ -157,6 +163,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell10.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell10.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell10.Location = New System.Drawing.Point(0, 326)
         Me.RscDataCell10.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell10.Name = "RscDataCell10"
@@ -169,6 +176,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell9.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell9.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell9.Location = New System.Drawing.Point(0, 302)
         Me.RscDataCell9.Name = "RscDataCell9"
         Me.RscDataCell9.Size = New System.Drawing.Size(184, 23)
@@ -180,6 +188,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell8.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell8.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell8.Location = New System.Drawing.Point(0, 278)
         Me.RscDataCell8.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell8.Name = "RscDataCell8"
@@ -192,6 +201,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell7.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell7.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell7.Location = New System.Drawing.Point(0, 254)
         Me.RscDataCell7.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell7.Name = "RscDataCell7"
@@ -204,6 +214,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell6.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell6.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell6.Location = New System.Drawing.Point(0, 230)
         Me.RscDataCell6.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell6.Name = "RscDataCell6"
@@ -216,6 +227,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell5.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell5.Location = New System.Drawing.Point(0, 206)
         Me.RscDataCell5.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell5.Name = "RscDataCell5"
@@ -228,6 +240,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell4.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell4.Location = New System.Drawing.Point(0, 182)
         Me.RscDataCell4.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell4.Name = "RscDataCell4"
@@ -240,6 +253,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell3.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell3.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell3.Location = New System.Drawing.Point(0, 158)
         Me.RscDataCell3.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell3.Name = "RscDataCell3"
@@ -252,6 +266,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell2.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell2.Location = New System.Drawing.Point(0, 134)
         Me.RscDataCell2.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell2.Name = "RscDataCell2"
@@ -264,6 +279,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell1.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell1.Location = New System.Drawing.Point(0, 110)
         Me.RscDataCell1.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell1.Name = "RscDataCell1"
@@ -276,8 +292,12 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscSelectCIBField1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscSelectCIBField1.ElementInfo_Base = Nothing
         Me.RscSelectCIBField1.Location = New System.Drawing.Point(0, 2)
         Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscSelectCIBField1.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
         Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField1.Size = New System.Drawing.Size(184, 72)
@@ -287,6 +307,7 @@ Partial Class RSCFieldColumnV2
         '
         Me.RscDataCell15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell15.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
         Me.RscDataCell15.Location = New System.Drawing.Point(0, 446)
         Me.RscDataCell15.Margin = New System.Windows.Forms.Padding(0)
         Me.RscDataCell15.Name = "RscDataCell15"
@@ -323,6 +344,28 @@ Partial Class RSCFieldColumnV2
         Me.Controls.Add(Me.RscDataCell15)
         Me.Name = "RSCFieldColumnV2"
         Me.Size = New System.Drawing.Size(188, 585)
+        Me.Controls.SetChildIndex(Me.RscDataCell15, 0)
+        Me.Controls.SetChildIndex(Me.LabelHeader1, 0)
+        Me.Controls.SetChildIndex(Me.RscSelectCIBField1, 0)
+        Me.Controls.SetChildIndex(Me.LinkLabelRightClick, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell1, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell2, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell3, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell4, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell5, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell6, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell7, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell8, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell9, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell10, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell11, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell12, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell13, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell14, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell16, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell17, 0)
+        Me.Controls.SetChildIndex(Me.RscDataCell18, 0)
+        Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
