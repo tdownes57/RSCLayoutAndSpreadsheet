@@ -1081,7 +1081,15 @@ Public Class RSCFieldColumnV2
         ''---Dim objFirstRSCDataCell As RSCDataCell
         Static s_objFirstRSCDataCell As RSCDataCell
         If (s_objFirstRSCDataCell IsNot Nothing) Then Return s_objFirstRSCDataCell
-        s_objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
+
+        Try
+            s_objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
+
+        Catch ex_listOfCells As Exception
+            ''Added 6/25/2022 thomas downes
+            System.Diagnostics.Debugger.Break()
+        End Try
+
         Return s_objFirstRSCDataCell
 
     End Function ''End of ""Public Function GetFirstRSCDataCell() As RSCDataCell""
@@ -1191,6 +1199,7 @@ Public Class RSCFieldColumnV2
 
         ''Moved here from below.---4/23/2022 td
         Dim intCountRecipients As Integer
+
         intCountRecipients = Me.ListRecipients.Count
         Load_EmptyRows(intCountRecipients)
 
@@ -1514,23 +1523,45 @@ Public Class RSCFieldColumnV2
         Dim bDictionaryHasCells As Boolean
         Dim each_cell As RSCDataCell ''Added 5/1/2022 td
 
-        bDictionaryHasCells = (0 < mod_listRSCDataCellsByRow.Count)
+        ''
+        ''Create a list of cells. ---6/25/2022 
+        ''
+        ''Added 6/25/2022 thomas downes
+        If (c_boolSaveProcessingTime) Then
 
-        If (c_boolSaveProcessingTime And bDictionaryHasCells) Then
-            ''
-            ''Added 4/15/2022 td
-            ''
-            objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
-            For intRowIndex = 1 To mod_listRSCDataCellsByRow.Count
-                ''5/1/2022 objListOfRSCDataCells_Ordered.Add(mod_listRSCDataCellsByRow(intRowIndex))
-                If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
-                    each_cell = mod_listRSCDataCellsByRow(intRowIndex)
-                    objListOfRSCDataCells_Ordered.Add(each_cell)
-                Else
-                    ''The row has been deleted by the user. 
-                    ''---5/01/2022 thomas d. 
-                End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
-            Next intRowIndex
+            ''Double-check that the dictionary of data cells has
+            ''  at least one(1) data cell.--6/25/2022
+            If (mod_listRSCDataCellsByRow Is Nothing) Then
+                Throw New Exception("mod_listRSCDataCellsByRow Is Nothing")
+                System.Diagnostics.Debugger.Break()
+            End If ''End of ""If (mod_listDeletedRSCDataCells Is Nothing) Then""
+
+            bDictionaryHasCells = (0 < mod_listRSCDataCellsByRow.Count)
+
+            If (bDictionaryHasCells) Then
+                ''
+                ''Added 4/15/2022 td
+                ''
+                objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
+                For intRowIndex = 1 To mod_listRSCDataCellsByRow.Count
+                    ''5/1/2022 objListOfRSCDataCells_Ordered.Add(mod_listRSCDataCellsByRow(intRowIndex))
+                    If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
+                        each_cell = mod_listRSCDataCellsByRow(intRowIndex)
+                        objListOfRSCDataCells_Ordered.Add(each_cell)
+                    Else
+                        ''The row has been deleted by the user. 
+                        ''---5/01/2022 thomas d. 
+                    End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
+                Next intRowIndex
+
+            Else
+                ''
+                ''Add a single data cell to the list. ----6/25/2022 td
+                ''
+                objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
+                objListOfRSCDataCells_Ordered.Add(RscDataCell1)
+
+            End If ''End of ""If (bDictionaryHasCells) Then... Else..."
 
         Else
             ''
@@ -1538,8 +1569,9 @@ Public Class RSCFieldColumnV2
             ''
             ''Added 3/25/2022 thomas d.
             If (Me.Controls.Count = 0) Then
-                Throw New Exception("WTF")
-            End If
+                ''6/25/2022 td''Throw New Exception("WTF")
+                System.Diagnostics.Debugger.Break()
+            End If ''End of ""If (Me.Controls.Count = 0) Then""
 
             For Each eachCtl As Control In Me.Controls
                 If (TypeOf eachCtl Is RSCDataCell) Then
@@ -2532,6 +2564,13 @@ Public Class RSCFieldColumnV2
     End Sub
 
     Private Sub RscSelectCIBField1_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField1.RSCFieldChanged
+
+        ''Added 6/25/2022 thomas downes  
+        If (Me.ListRecipients Is Nothing) Then
+            ''Added 6/25/2022 thomas downes  
+            MessageBoxTD.Show_Warning("No Recipients List is detected.")
+            Exit Sub
+        End If ''End of ""If (Me.ListRecipients Is Nothing) Then""
 
         ''Added 4/1/2022 td
         LoadRecipientList() ''_NoChecks(newCIBField)

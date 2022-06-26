@@ -28,13 +28,18 @@ Partial Class DialogAllRSCSelectCIBFields
         Me.RscSelectCIBField4 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.LabelRemoveField = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.RscSelectCIBField5 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.RscSelectCIBField6 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.RscSelectCIBField7 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.RscSelectCIBField8 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.SuspendLayout()
         '
         'RscSelectCIBField1
         '
         Me.RscSelectCIBField1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscSelectCIBField1.ElementInfo_Base = Nothing
-        Me.RscSelectCIBField1.Location = New System.Drawing.Point(28, 62)
+        Me.RscSelectCIBField1.Location = New System.Drawing.Point(17, 105)
         Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscSelectCIBField1.MoveabilityEventsForSingleMove = Nothing
@@ -47,7 +52,7 @@ Partial Class DialogAllRSCSelectCIBFields
         '
         Me.RscSelectCIBField2.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscSelectCIBField2.ElementInfo_Base = Nothing
-        Me.RscSelectCIBField2.Location = New System.Drawing.Point(214, 62)
+        Me.RscSelectCIBField2.Location = New System.Drawing.Point(203, 105)
         Me.RscSelectCIBField2.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField2.MoveabilityEventsForGroupCtls = Nothing
         Me.RscSelectCIBField2.MoveabilityEventsForSingleMove = Nothing
@@ -60,7 +65,7 @@ Partial Class DialogAllRSCSelectCIBFields
         '
         Me.RscSelectCIBField3.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscSelectCIBField3.ElementInfo_Base = Nothing
-        Me.RscSelectCIBField3.Location = New System.Drawing.Point(400, 62)
+        Me.RscSelectCIBField3.Location = New System.Drawing.Point(389, 105)
         Me.RscSelectCIBField3.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField3.MoveabilityEventsForGroupCtls = Nothing
         Me.RscSelectCIBField3.MoveabilityEventsForSingleMove = Nothing
@@ -73,7 +78,7 @@ Partial Class DialogAllRSCSelectCIBFields
         '
         Me.RscSelectCIBField4.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscSelectCIBField4.ElementInfo_Base = Nothing
-        Me.RscSelectCIBField4.Location = New System.Drawing.Point(586, 62)
+        Me.RscSelectCIBField4.Location = New System.Drawing.Point(575, 105)
         Me.RscSelectCIBField4.Margin = New System.Windows.Forms.Padding(2)
         Me.RscSelectCIBField4.MoveabilityEventsForGroupCtls = Nothing
         Me.RscSelectCIBField4.MoveabilityEventsForSingleMove = Nothing
@@ -99,16 +104,85 @@ Partial Class DialogAllRSCSelectCIBFields
         Me.LabelRemoveField.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelRemoveField.Location = New System.Drawing.Point(28, 259)
         Me.LabelRemoveField.Name = "LabelRemoveField"
-        Me.LabelRemoveField.Size = New System.Drawing.Size(403, 108)
+        Me.LabelRemoveField.Size = New System.Drawing.Size(505, 33)
         Me.LabelRemoveField.TabIndex = 5
-        Me.LabelRemoveField.Text = "Remove Field Column"
+        Me.LabelRemoveField.Text = "Out of Usage / Not on Spreadsheet"
         Me.LabelRemoveField.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(12, 53)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(505, 33)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "Out of Usage / Not on Spreadsheet"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'RscSelectCIBField5
+        '
+        Me.RscSelectCIBField5.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscSelectCIBField5.ElementInfo_Base = Nothing
+        Me.RscSelectCIBField5.Location = New System.Drawing.Point(586, 309)
+        Me.RscSelectCIBField5.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField5.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscSelectCIBField5.MoveabilityEventsForSingleMove = Nothing
+        Me.RscSelectCIBField5.Name = "RscSelectCIBField5"
+        Me.RscSelectCIBField5.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField5.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField5.TabIndex = 10
+        '
+        'RscSelectCIBField6
+        '
+        Me.RscSelectCIBField6.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscSelectCIBField6.ElementInfo_Base = Nothing
+        Me.RscSelectCIBField6.Location = New System.Drawing.Point(400, 309)
+        Me.RscSelectCIBField6.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField6.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscSelectCIBField6.MoveabilityEventsForSingleMove = Nothing
+        Me.RscSelectCIBField6.Name = "RscSelectCIBField6"
+        Me.RscSelectCIBField6.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField6.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField6.TabIndex = 9
+        '
+        'RscSelectCIBField7
+        '
+        Me.RscSelectCIBField7.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscSelectCIBField7.ElementInfo_Base = Nothing
+        Me.RscSelectCIBField7.Location = New System.Drawing.Point(214, 309)
+        Me.RscSelectCIBField7.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField7.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscSelectCIBField7.MoveabilityEventsForSingleMove = Nothing
+        Me.RscSelectCIBField7.Name = "RscSelectCIBField7"
+        Me.RscSelectCIBField7.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField7.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField7.TabIndex = 8
+        '
+        'RscSelectCIBField8
+        '
+        Me.RscSelectCIBField8.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscSelectCIBField8.ElementInfo_Base = Nothing
+        Me.RscSelectCIBField8.Location = New System.Drawing.Point(28, 309)
+        Me.RscSelectCIBField8.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField8.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscSelectCIBField8.MoveabilityEventsForSingleMove = Nothing
+        Me.RscSelectCIBField8.Name = "RscSelectCIBField8"
+        Me.RscSelectCIBField8.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField8.Size = New System.Drawing.Size(182, 64)
+        Me.RscSelectCIBField8.TabIndex = 7
         '
         'DialogAllRSCSelectCIBFields
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(924, 450)
+        Me.Controls.Add(Me.RscSelectCIBField5)
+        Me.Controls.Add(Me.RscSelectCIBField6)
+        Me.Controls.Add(Me.RscSelectCIBField7)
+        Me.Controls.Add(Me.RscSelectCIBField8)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelRemoveField)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.RscSelectCIBField4)
@@ -116,7 +190,7 @@ Partial Class DialogAllRSCSelectCIBFields
         Me.Controls.Add(Me.RscSelectCIBField2)
         Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Name = "DialogAllRSCSelectCIBFields"
-        Me.Text = "DialogAllRSCSelectCIBFields"
+        Me.Text = "v"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -128,4 +202,9 @@ Partial Class DialogAllRSCSelectCIBFields
     Friend WithEvents RscSelectCIBField4 As RSCSelectCIBField
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents LabelRemoveField As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents RscSelectCIBField5 As RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField6 As RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField7 As RSCSelectCIBField
+    Friend WithEvents RscSelectCIBField8 As RSCSelectCIBField
 End Class

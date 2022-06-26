@@ -379,5 +379,41 @@ Public Class MessageBoxTD
     End Function ''End of "Public Shared Function InputBox_Longform"
 
 
+    Public Shared Sub Show_Warning(pstrWarning As String,
+                                     Optional pstrWarning2 As String = "",
+                                     Optional pstrWarning3 As String = "")
+        ''
+        ''This is a Warning of fact (or opinion), not a question of any sort. 
+        ''
+        ''Added 6/25/2022 thomas downes
+        ''
+        If (String.IsNullOrEmpty(pstrWarning2)) Then
+            ''
+            ''The three-lines version.  Most popular choice!!   LOL. 
+            ''
+            MessageBox.Show(pstrWarning, "MessageBoxTD-Warning",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+        ElseIf (String.IsNullOrEmpty(pstrWarning3)) Then
+            ''
+            ''The two-lines version.
+            ''
+            MessageBox.Show(pstrWarning & _vbCrLf_Deux &
+                            pstrWarning2, "MessageBoxTD-Warning",
+                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        Else
+            ''
+            ''The three-lines version.
+            ''
+            MessageBox.Show(pstrWarning & _vbCrLf_Deux &
+                            pstrWarning2 & _vbCrLf_Deux &
+                            pstrWarning3, "MessageBoxTD-Warning",
+                           MessageBoxButtons.OK, MessageBoxIcon.Warning)
+
+        End If ''END OF ""If (String.IsNullOrEmpty(pstrWarning2)) Then ... ElseIf... Else...""
+
+
+    End Sub ''Public Shared Sub Show_Warning 
+
 
 End Class
