@@ -91,6 +91,7 @@
     <Compile Include="Classes_Minor\ClassRubberbandSelector.vb" />
     <Compile Include="Classes_Minor\ClassSaveToModel.vb" />
     <Compile Include="Classes_Minor\ClassGetElementControlParams.vb" />
+    <Compile Include="Classes_Minor\GlobalSettings.vb" />
     <Compile Include="Component\ComponentClickableDesktop.Designer.vb">
       <DependentUpon>ComponentClickableDesktop.vb</DependentUpon>
     </Compile>

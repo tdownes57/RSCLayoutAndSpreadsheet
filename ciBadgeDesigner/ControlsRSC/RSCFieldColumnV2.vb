@@ -2308,6 +2308,32 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub DeemphasisOfRows_NoHighlight()""
 
 
+    Public Function Equals_RecipientListAtClose(par_listRecips As List(Of ClassRecipient)) As Boolean
+        ''
+        ''Added 6/29/2022 thomas downes
+        ''
+        Dim enumCIBField As EnumCIBFields
+        Dim each_recip As ClassRecipient
+        Dim each_guidRecip As Guid
+
+        enumCIBField = Me.RscSelectCIBField1.GetFieldEnumSelected()
+
+        For Each each_recip In par_listRecips
+
+            each_guidRecip = each_recip.ID_Guid
+
+            If (each_guidRecip = Guid.Empty) Then System.Diagnostics.Debugger.Break()
+
+            each_dataCell = GetRSCDataCell_ByGuid(each_guidRecip)
+
+
+
+        Next each_recip
+
+
+    End Function ''End of ""Public Function Equals_RecipientListAtClose()""
+
+
     Public Function ToString_ByRow(par_intRowIndex As Integer,
                                    Optional pboolRefresh As Boolean = False) As String
         ''

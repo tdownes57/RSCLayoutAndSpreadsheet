@@ -434,6 +434,60 @@ Public Class RSCFieldSpreadsheet
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
 
 
+    Public Function RunChecksAtClose_Okay() As Boolean
+        ''
+        ''Alias function added 6/29/2022 thomas 
+        ''
+        Return CheckAllOkay_AtClose()
+
+    End Function ''End of ""Public Function RunChecksAtClose_Okay() As Boolean""
+
+
+    Public Function Okay_ChecksForClosing() As Boolean
+        ''
+        ''Alias function added 6/29/2022 thomas 
+        ''
+        Return CheckAllOkay_AtClose()
+
+    End Function ''End of ""Public Function Okay_ChecksForClosing() As Boolean""
+
+
+    Public Function CheckAllOkay_AtClose(Optional pboolSaveToXML As Boolean = True) As Boolean
+        ''
+        ''Added 6/28/2022 thomas downes  
+        ''
+        Dim intCountUnassigned As Integer
+        Dim boolMatchesRecips As Boolean
+        Dim boolOutputOkay As Boolean
+        Dim objTestSpreadsheet As New RSCFieldSpreadsheet()
+
+        ''Save to XML, if requested. 
+        If (pboolSaveToXML) Then
+            ''Save to XML, as requested. 
+            SaveDataColumnByColumnXML()
+            SaveToRecipientsCacheXML()
+        End If ''Endof ""If (pboolSaveToXML) Then"" 
+
+        intCountUnassigned = CountOfColumnsWithoutFields()
+        boolMatchesRecips = Equals_RecipientListAtClose()
+
+        boolOutputOkay = boolMatchesRecips And (0 = intCountUnassigned)
+
+        If (boolOutputOkay) Then
+
+            MessageBoxTD.Show_Statement("Spreadsheet data matches Recipient List.")
+
+        ElseIf (GlobalSettings.ShowWarnings Or GlobalSettings.Debugging) Then
+
+            MessageBoxTD.Show_Warning("Warning, spreadsheet data doesn't match Recipient List.")
+
+        End If
+
+
+
+    End Function ''End of "Public Function CheckAllOkay_AtClose() As Boolean"
+
+
     Public Function CountOfColumnsWithoutFields(Optional ByRef pref_intCountAllColumns As Integer = 0) As Integer
         ''
         '' Added 5/25/2022  
@@ -1786,7 +1840,8 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub AddColumns()"
 
 
-    Public Sub SaveDataColumnByColumn(Optional pboolOpenXML As Boolean = False)
+    Public Sub SaveDataColumnByColumnXML(Optional pboolOpenXML As Boolean = False)
+        ''---June29 2022---Public Sub SaveDataColumnByColumn
         ''
         ''Added 3/17/2022 thomas downes
         ''
@@ -1847,7 +1902,7 @@ Public Class RSCFieldSpreadsheet
             System.Diagnostics.Process.Start(Me.ColumnDataCache.PathToXml_Saved)
         End If ''End of "If (pboolOpenXML) Then"
 
-    End Sub ''End of "Public Sub SaveDataColumnByColumn()"
+    End Sub ''End of "Public Sub SaveDataColumnByColumnXML()"
 
 
     Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)
@@ -2355,6 +2410,94 @@ Public Class RSCFieldSpreadsheet
         Return strLine
 
     End Function ''Ednd of ""Public Function ToString_ByRow()""
+
+
+    Public Function Equals_RecipientListAtClose() As Boolean
+        ''
+        ''Added 6/28/2022 thomas downes  
+        ''
+        Dim exampleColumnMaxCells As RSCFieldColumnV2
+        Dim exampleColumnMaxVals As ClassRSCColumnWidthAndData
+        Dim list_enumsRelevant As List(Of EnumCIBFields)
+        Dim intHowManyRecips As Integer
+        Dim intHowManyDataValues As Integer
+        Dim intHowManyRowHeaders As Integer
+        Dim intHowManyCellRows As Integer
+
+        If Me.RecipientsCache Is Nothing Then System.Diagnostics.Debugger.Break()
+        If Me.RecipientsCache.ListOfRecipients Is Nothing Then
+            System.Diagnostics.Debugger.Break()
+        End If
+
+        list_enumsRelevant = ElementsCache.ListOfFieldEnums_Relevant()
+
+        exampleColumnMaxVals = Me.ColumnDataCache.RSCColumnWithMaximalDataCells()
+        exampleColumnMaxCells = mod_array_RSCColumns(0)
+
+        intHowManyCellRows = exampleColumnMaxCells.CountOfRows()
+        intHowManyDataValues = exampleColumnMaxVals.ColumnData.Count
+        intHowManyRecips = Me.RecipientsCache.ListOfRecipients.Count
+        intHowManyRowHeaders = RscRowHeaders1.CountOfRows()
+
+        If (intHowManyCellRows <> intHowManyDataValues) Then
+            System.Diagnostics.Debugger.Break()
+        ElseIf (intHowManyCellRows <> intHowManyCellRows) Then
+            System.Diagnostics.Debugger.Break()
+        ElseIf (intHowManyCellRows <> intHowManyRowHeaders) Then
+            System.Diagnostics.Debugger.Break()
+        ElseIf (intHowManyDataValues <> intHowManyRecips) Then
+            System.Diagnostics.Debugger.Break()
+        ElseIf (intHowManyRecips <> intHowManyRowHeaders) Then
+            System.Diagnostics.Debugger.Break()
+        End If
+
+        Dim each_column As RSCFieldColumnV2
+        Dim each_match1of2 As Boolean
+        Dim sum_matches1of2 As Boolean = True ''Default to true
+
+        ''
+        ''Matching-Checks routine #1 of 2--Column by Column  
+        ''
+        For Each each_column In mod_array_RSCColumns
+
+            If (each_column Is Nothing) Then Continue For
+
+            each_match1of2 = each_column.Equals_RecipientListAtClose()
+            sum_matches1of2 = (sum_matches1of2 And each_match1of2)
+
+        Next each_column
+
+        ''
+        ''Matching-Checks routine #2 of 2--Row by Row    
+        ''
+        Dim each_match2of2 As Boolean
+        Dim sum_matches2of2 As Boolean = True ''Default to true
+
+        Dim each_recip As ciBadgeRecipients.ClassRecipient
+        Dim each_RowHeaderRecipient As ciBadgeRecipients.ClassRecipient
+        Dim each_strGuid6 As String
+
+        For Each each_recip In Me.RecipientsCache.ListOfRecipients()
+
+            If (each_recip Is Nothing) Then Continue For
+            each_strGuid6 = each_recip.ID_Guid6chars
+            each_RowHeaderRecipient = Me.RscRowHeaders1.GetRecipient_ByGuid6(each_strGuid6).Recipient
+
+            If (each_RowHeaderRecipient Is Nothing) Then
+                System.Diagnostics.Debugger.Break()
+            End If
+
+            each_match2of2 = each_recip.Equals(each_RowHeaderRecipient, list_enumsRelevant)
+            sum_matches2of2 = (sum_matches2of2 And each_match2of2)
+
+        Next each_recip
+
+
+
+
+    End Function ''ENd of ""Public Function Equals_RecipientListAtClose() As Boolean""
+
+
 
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs)

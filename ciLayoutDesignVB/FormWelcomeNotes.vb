@@ -64,4 +64,25 @@ Public Class FormWelcomeNotes
         TextBox1.Tag = "Edited"
 
     End Sub
+
+    Private Sub LinkLabelShowWarnings_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelShowWarnings.LinkClicked
+
+        ''Added 6/28/2022  
+        ciBadgeDesigner.GlobalSettings.ShowWarnings = True
+        ciBadgeDesigner.GlobalSettings.Debugging = True
+        ''ciBadgeDesigner.GlobalSettings.ShowNewFeatures = False
+        MessageBoxTD.Show_Warning("Warnings will be displayed.")
+        LinkLabelTurnOffWarnings.Visible = True
+
+    End Sub
+
+    Private Sub LinkLabelTurnOffWarnings_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelTurnOffWarnings.LinkClicked
+
+        ''Added 6/28/2022  
+        ciBadgeDesigner.GlobalSettings.ShowWarnings = False
+        ciBadgeDesigner.GlobalSettings.Debugging = False
+        ''ciBadgeDesigner.GlobalSettings.ShowNewFeatures = False
+        MessageBoxTD.Show_Warning("Warnings will be suppressed.")
+
+    End Sub
 End Class

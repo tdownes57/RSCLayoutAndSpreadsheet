@@ -536,6 +536,42 @@ Public Class RSCRowHeaders
     End Function ''End of ""Public Function GetFirstTextbox() As TextBox""
 
 
+    Public Function GetRecipient_ByGuid(par_guid As Guid) As RSCRowHeader ''4/5/2022 TextBox
+        ''
+        ''Added 4/04/2022 thomas downes
+        ''
+        Dim each_header As RSCRowHeader ''4/5/2022 TextBox
+        Dim each_matches As Boolean
+        For Each each_header In ListOfRowHeaders_TopToBottom()
+            ''Return objFirstTextbox
+            each_matches = (each_header.Recipient.ID_Guid = par_guid)
+            If (each_matches) Then Return each_header
+
+        Next each_header
+
+        Return Nothing
+
+    End Function ''End of ""Public Function GetRecipient_ByGuid(par_guid As Guid) As RSCRowHeader ""
+
+
+    Public Function GetRecipient_ByGuid6(par_strGuidChars6 As String) As RSCRowHeader ''4/5/2022 TextBox
+        ''
+        ''Added 4/04/2022 thomas downes
+        ''
+        Dim each_header As RSCRowHeader ''4/5/2022 TextBox
+        Dim each_matches As Boolean
+        For Each each_header In ListOfRowHeaders_TopToBottom()
+            ''Return objFirstTextbox
+            each_matches = (each_header.Recipient.ID_Guid6chars = par_strGuidChars6)
+            If (each_matches) Then Return each_header
+
+        Next each_header
+
+        Return Nothing
+
+    End Function ''End of ""Public Function GetRecipient_ByGuid6(par_strGuidChars6 As String) As RSCRowHeader ""
+
+
     ''Public Function GetBottomBarForRow() As PictureBox
     ''    ''
     ''    ''Added 4/05/2022 td

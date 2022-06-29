@@ -33,6 +33,7 @@ Partial Class DialogAllRSCSelectCIBFields
         Me.RscSelectCIBField6 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.RscSelectCIBField7 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.RscSelectCIBField8 = New ciBadgeDesigner.RSCSelectCIBField()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'RscSelectCIBField1
@@ -173,11 +174,22 @@ Partial Class DialogAllRSCSelectCIBFields
         Me.RscSelectCIBField8.Size = New System.Drawing.Size(182, 64)
         Me.RscSelectCIBField8.TabIndex = 7
         '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Location = New System.Drawing.Point(666, 25)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(59, 13)
+        Me.LinkLabel1.TabIndex = 11
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "LinkLabel1"
+        '
         'DialogAllRSCSelectCIBFields
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(924, 450)
+        Me.ClientSize = New System.Drawing.Size(1271, 450)
+        Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.RscSelectCIBField5)
         Me.Controls.Add(Me.RscSelectCIBField6)
         Me.Controls.Add(Me.RscSelectCIBField7)
@@ -207,4 +219,5 @@ Partial Class DialogAllRSCSelectCIBFields
     Friend WithEvents RscSelectCIBField6 As RSCSelectCIBField
     Friend WithEvents RscSelectCIBField7 As RSCSelectCIBField
     Friend WithEvents RscSelectCIBField8 As RSCSelectCIBField
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class

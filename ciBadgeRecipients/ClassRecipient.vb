@@ -24,10 +24,19 @@ Public Class ClassRecipient
     ''
     Public Shared mod_recipientList As IList(Of ClassRecipient) = New List(Of ClassRecipient) ''{New ClassRecipient() }
 
+    Public Sub New()
+        ''
+        ''Added 6/28/2022 td 
+        ''
+        PopulateGuid_IfNeeded()
+
+    End Sub ''End of ""Public Sub New()""
+
     Property PortraitPicture As Image Implements IRecipient.PortraitPicture ''Added 10/16/2019 thomas d.  
     Property BadgeImage As Image Implements IRecipient.BadgeImage ''Added 9/29/2021 thomas d.  
 
     Public Property ID_Guid As System.Guid
+    Public Property ID_Guid6chars As String
 
     Public Property Customer_Guid As System.Guid
     Public Property CustomerCode As System.String ''Added 10/16/2019 td  
@@ -285,7 +294,62 @@ Public Class ClassRecipient
 
         Return fstrID
 
-    End Function
+    End Function ''ENd of ""Public Function RecipientID() As String""
+
+
+    Public Function Equals(par_recip As ClassRecipient,
+                            par_listFieldEnums As List(Of EnumCIBFields),
+                            Optional ByRef pref_singMatchPercent As Single = 0) As Boolean
+        ''
+        ''Added 6/28/2022 thomas downes
+        ''
+        Const c_bStopIfMismatch As Boolean = False
+        Dim each_enum As EnumCIBFields
+        Dim each_value_Me As String
+        Dim each_value_ParRecip As String
+        Dim each_bMatches As Boolean
+        Dim bMatches_aggregate As Boolean
+        Dim intCountFieldMatches As Integer
+        Dim intCountFieldUnmatch As Integer
+        Dim intCountFieldsChecked As Integer
+
+        For Each each_enum In par_listFieldEnums
+            ''
+            ''Check each field in the list.  
+            ''
+            each_value_Me = Me.GetTextValue(each_enum)
+            each_value_ParRecip = par_recip.GetTextValue(each_enum)
+            each_bMatches = (each_value_ParRecip.Equals(each_value_Me))
+            intCountFieldsChecked += 1
+
+            ''
+            ''Conditional branching 
+            ''
+            If (each_bMatches) Then
+                ''Catalog the accumulated results. 
+                bMatches_aggregate = (bMatches_aggregate And each_bMatches)
+                intCountFieldMatches += 1
+            Else
+                System.Diagnostics.Debugger.Break()
+                bMatches_aggregate = False
+                intCountFieldMatches += 1
+                If (c_bStopIfMismatch) Then Exit For
+            End If ''End of ""If (Not each_matches) Then""
+
+        Next each_enum
+
+ExitHandler:
+        If (intCountFieldsChecked = 0) Then intCountFieldsChecked = 1
+        pref_singMatchPercent = CSng(intCountFieldMatches / intCountFieldsChecked)
+        Return bMatches_aggregate
+
+    End Function ''End of ""Public Function Equals""
+
+
+
+
+
+
 
 
     ''-------------------------------------------------------
@@ -347,6 +411,26 @@ Public Class ClassRecipient
     Property TextField13 As String Implements IRecipient.TextField13
     Property TextField14 As String Implements IRecipient.TextField14
     Property TextField15 As String Implements IRecipient.TextField15
+
+
+    Public Sub PopulateGuid_IfNeeded()
+        ''
+        ''Added 6/28/2022 thomas downes
+        ''
+        If (ID_Guid = Guid.Empty) Then
+
+            ID_Guid = Guid.NewGuid()
+
+        End If ''End of ""If (ID_Guid = Guid.Empty) Then""
+
+        ''
+        ''Populate the 6-character version. 
+        ''
+        If (True) Then ''In any case, we ought to refresh property var. ID_Guid6chars.
+            ID_Guid6chars = ID_Guid.ToString().Substring(0, 6)
+        End If ''End of ""If (True) Then""
+
+    End Sub ''End of "" Public Sub PopulateGuid_IfNeeded()"" 
 
 
 End Class

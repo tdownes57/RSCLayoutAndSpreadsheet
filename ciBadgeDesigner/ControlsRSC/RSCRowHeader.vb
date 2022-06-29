@@ -80,7 +80,8 @@ Public Class RSCRowHeader
         If objRecipient Is Nothing Then
 
             objRecipient = New ciBadgeRecipients.ClassRecipient
-            objRecipient.ID_Guid = Guid.NewGuid()
+            ''June28 2022 ''objRecipient.ID_Guid = Guid.NewGuid()
+            objRecipient.PopulateGuid_IfNeeded()
 
         End If ''End of ""If objRecipient Is Nothing Then"" 
 

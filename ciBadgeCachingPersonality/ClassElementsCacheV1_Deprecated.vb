@@ -617,6 +617,24 @@ Namespace ciBadgeCachePersonality
         End Function ''End of ""Public Function ListOfFields_AnyRelevent()""
 
 
+        Public Function ListOfFieldEnums_Relevant() As List(Of EnumCIBFields)
+            ''
+            ''Added 6/29/2022 thomas downes
+            ''
+            Dim list_enums As New List(Of EnumCIBFields)
+            Dim each_field As ClassFieldAny
+
+            For Each each_field In ListOfFields_AnyRelevent()
+
+                list_enums.Add(each_field.FieldEnumValue)
+
+            Next each_field
+
+            Return list_enums
+
+        End Function ''End of ""Public Function ListOfFieldEnums_Relevant() As List(Of EnumCIBFields)""
+
+
         Public Shared DeserializationCompleted As Boolean = True ''Default is True. Added 5/10/2022
 
         Public Property ListOfFields_Standard As HashSet(Of ClassFieldStandard) ''10/17 ''As List(Of ClassFieldStandard)
@@ -1715,6 +1733,7 @@ Namespace ciBadgeCachePersonality
             Next each_field
 
         End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
+
 
         Public Sub LoadFieldElements(par_layout As BadgeLayoutClass)
             ''
