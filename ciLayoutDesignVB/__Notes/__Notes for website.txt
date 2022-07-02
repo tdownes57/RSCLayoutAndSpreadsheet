@@ -1,0 +1,19 @@
+﻿
+
+Big idea for website....
+
+   The website only needs to present one(1) moveable/sizeable element at a time.
+
+   The webpage can refresh each time a non-active element is clicked, thus making 
+   that newly-clicked element active in the newly-refreshed page....   and the prior 
+   element is returned to its non-moveable state. 
+
+   ----7/1/2022 thomas Downes
+
+
+
+
+
+
+
+

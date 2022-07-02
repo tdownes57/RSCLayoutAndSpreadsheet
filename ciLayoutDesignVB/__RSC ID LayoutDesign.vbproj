@@ -529,6 +529,12 @@
     <Compile Include="Dialogs_Background\FormBackgroundUpload.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormWebsiteVersion.Designer.vb">
+      <DependentUpon>FormWebsiteVersion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormWebsiteVersion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormWelcomeNotes.Designer.vb">
       <DependentUpon>FormWelcomeNotes.vb</DependentUpon>
     </Compile>
@@ -851,6 +857,9 @@
     <EmbeddedResource Include="Dialogs_Background\FormBackgroundUpload.resx">
       <DependentUpon>FormBackgroundUpload.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormWebsiteVersion.resx">
+      <DependentUpon>FormWebsiteVersion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormWelcomeNotes.resx">
       <DependentUpon>FormWelcomeNotes.vb</DependentUpon>
     </EmbeddedResource>
@@ -1028,6 +1037,7 @@
     <Content Include="__Notes\Output-Build Nov30.txt" />
     <Content Include="__Notes\Notes for Startup.txt" />
     <Content Include="__Notes\Ratio is 0.06302.jpg" />
+    <Content Include="__Notes\__Notes for website.txt" />
     <Content Include="__Notes\__WelcomeNotes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -1730,6 +1730,32 @@ Public Class RSCFieldColumnV2
     End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
 
 
+    Public Function GetRSCDataCell_ByRecipGuid(par_guidRecip As Guid) As RSCDataCell
+        ''
+        ''Added 7/01/2022
+        ''
+        Dim list_cells As List(Of RSCDataCell)
+        Dim each_cell As RSCDataCell
+        Dim each_recip As ClassRecipient
+        Dim intRowIndex As Integer
+        Dim boolMatches As Boolean
+
+        list_cells = ListOfRSCDataCells_TopToBottom()
+
+        For Each each_cell In list_cells
+
+            ''Check the ID_Guid property.
+            each_recip = each_cell.Recipient
+            boolMatches = (each_recip.ID_Guid = par_guidRecip)
+            If (boolMatches) Then Return each_cell
+
+        Next each_cell
+
+        Return Nothing
+
+    End Function ''End of ""Public Function GetRSCDataCell_ByRecipGuid(par_guidRecip As Guid) As RSCDataCell""
+
+
     Public Function GetRowIndexOfTextbox(par_textbox As TextBox) As Integer
         ''
         ''Added 4/12/2022 thomas downes
@@ -2315,6 +2341,7 @@ Public Class RSCFieldColumnV2
         Dim enumCIBField As EnumCIBFields
         Dim each_recip As ClassRecipient
         Dim each_guidRecip As Guid
+        Dim each_dataCell As RSCDataCell ''Added 7/01/2022 thomas  
 
         enumCIBField = Me.RscSelectCIBField1.GetFieldEnumSelected()
 
@@ -2324,7 +2351,7 @@ Public Class RSCFieldColumnV2
 
             If (each_guidRecip = Guid.Empty) Then System.Diagnostics.Debugger.Break()
 
-            each_dataCell = GetRSCDataCell_ByGuid(each_guidRecip)
+            each_dataCell = GetRSCDataCell_ByRecipGuid(each_guidRecip)
 
 
 
