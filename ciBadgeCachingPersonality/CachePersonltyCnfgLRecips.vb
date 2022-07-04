@@ -13,8 +13,15 @@ Imports ciBadgeElements ''Added 12/4/2021 thomas d.
 Namespace ciBadgeCachePersonality
 
     <Serializable>
-    Public Class ClassCacheOnePersonalityConfig
+    Public Class CachePersnltyCnfgLRecips ''Suffix "LRecips" = "List of Recipients". ---7/04/2022 td
+        Implements InterfaceCacheToXML ''Added 7/04/2022 thomas 
         ''
+        ''This class is a cache for one(1) Personality Configuration, including 
+        ''  Recipients. ---7/4/2022 td
+        ''
+        ''The suffixed term "LRecips" = "List of Recipients". ---7/04/2022 td
+        ''   ("PersnltyCnfg" = "Personality Configuration".)
+        ''Renamed 7/04/2022 from Public Class Public Class ClassCacheOnePersonalityConfig
         ''Renamed 2/15/2022 from Public Class ClassPersonalityCache 
         ''
 
@@ -23,7 +30,7 @@ Namespace ciBadgeCachePersonality
         ''Added 11/24/2019 thomas downes
         ''  Copied from ClassElementsCache, on 11/24/2019 thomas downes
         ''
-        Public Shared Singleton As ClassCacheOnePersonalityConfig ''Let's use
+        Public Shared Singleton As CachePersnltyCnfgLRecips ''7/4/2022 td''ClassCacheOnePersonalityConfig ''Let's use
         '' the pattern mentioned in https://en.wikipedia.org/wiki/Singleton_pattern
 
         Public Property Id_GUID As System.Guid ''Dec.13 2021''Implements InterfacePersonality.Id_GUID ''Added 9/30/2019 td 
@@ -199,11 +206,11 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''End of "Public Sub LoadRecipient(par_recipient As IRecipient)"
 
-        Public Function Copy() As ClassCacheOnePersonalityConfig
+        Public Function Copy() As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig
             ''
             ''Added 11/24/2019 thomas downes  
             ''
-            Dim objCopyOfCache As New ClassCacheOnePersonalityConfig
+            Dim objCopyOfCache As New CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig
             Dim ListFields_NotUsed As New List(Of ClassFieldAny)
             Dim dictionaryFields As New Dictionary(Of ciBadgeInterfaces.EnumCIBFields, ClassFieldAny)
             ''10/14/2019 td''Dim copy_ofField As ClassFieldAny
@@ -319,11 +326,11 @@ Namespace ciBadgeCachePersonality
 
 
         Public Shared Function GetLoadedCache(pstrPathToXML As String,
-                                          pboolNewFileXML As Boolean) As ClassCacheOnePersonalityConfig
+                                          pboolNewFileXML As Boolean) As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig
             ''
             ''Added 11/24/2019 td
             ''
-            Dim obj_cache_personality As ClassCacheOnePersonalityConfig ''Added 10/10/2019 td
+            Dim obj_cache_personality As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''Added 10/10/2019 td
             Dim obj_designForm As New FormBadgeLayoutProto ''Added 11/15/2019 td 
 
             pboolNewFileXML = (Not System.IO.File.Exists(pstrPathToXML))
@@ -333,7 +340,7 @@ Namespace ciBadgeCachePersonality
             ''
             If (pboolNewFileXML) Then ''Condition added 10/10/2019 td  
 
-                obj_cache_personality = New ClassCacheOnePersonalityConfig
+                obj_cache_personality = New CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig
                 obj_cache_personality.PathToXml_Saved = pstrPathToXML
 
                 obj_cache_personality.LoadFields()
@@ -344,11 +351,11 @@ Namespace ciBadgeCachePersonality
                 .PathToXML = pstrPathToXML
             } ''Added 10/10/2019 td  
 
-                obj_cache_personality = New ClassCacheOnePersonalityConfig ''This may or may not be completely necessary,
+                obj_cache_personality = New CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''This may or may not be completely necessary,
                 ''   but I know of no other way to pass the object type.  Simply expressing the Type
                 ''   by typing its name doesn't work.  ---10/13/2019 td
 
-                obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassCacheOnePersonalityConfig)
+                obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), CachePersnltyCnfgLRecips) ''7/4/2022 ClassCacheOnePersonalityConfig)
 
                 ''obj_cache_personality.LinkElementsToFields()
 
@@ -400,6 +407,7 @@ Namespace ciBadgeCachePersonality
 
         End Function ''End of "Public Shared Function GetLoadedCache() As ClassPersonalityCache"
 
+
         Public Sub SaveToXML()
             ''
             ''Added 11/29/2019 thomas downes
@@ -434,6 +442,47 @@ Namespace ciBadgeCachePersonality
 
         End Sub ''End of "Public Sub SaveToXML()"
 
-    End Class ''End of Class ClassPersonality
+
+        Public Sub SaveToXML(pstrPathToFileXML As String) Implements InterfaceCacheToXML.SaveToXML
+            ''
+            ''Overload added 7/04/2022 thomas downes
+            ''
+            Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+
+            With objSerializationClass
+
+                .PathToXML = pstrPathToFileXML
+                Const c_AutoOpenFile As Boolean = False ''April1 2022 '' True
+                .SerializeToXML(Me.GetType, Me, False, c_AutoOpenFile)
+
+            End With ''End of "With objSerializationClass"
+
+        End Sub ''End of ""Public Sub SaveToXML()""
+
+
+        Public Sub SaveToXML_CommonPrefix(pstrCommonPrefix As String,
+                              pstrDistinctName As String,
+                              pstrPathToFolder As String,
+                              pboolAddTimeStamp As Boolean) _
+                              Implements InterfaceCacheToXML.SaveToXML_CommonPrefix
+            ''
+            ''Added 7/04/2022 thomas downes
+            ''
+            Dim strFilenameXML As String
+            Dim strCombinedFilepathXML As String
+
+            strFilenameXML = pstrCommonPrefix & pstrDistinctName & ".xml"
+
+            strCombinedFilepathXML = IO.Path.Combine(pstrPathToFolder, strFilenameXML)
+
+            SaveToXML(strCombinedFilepathXML)
+
+        End Sub ''End of ""Public Sub SaveToXML_CommonPrefix""
+
+
+    End Class ''End of Class CachePersonltyCnfgLRecips  
+
+
+
 
 End Namespace

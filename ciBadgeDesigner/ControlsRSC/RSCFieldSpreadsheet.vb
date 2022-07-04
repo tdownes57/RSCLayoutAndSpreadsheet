@@ -17,7 +17,8 @@ Public Class RSCFieldSpreadsheet
     ''April 13 2022 ''Public ColumnDataCache As CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
     Public ColumnDataCache As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
     ''Public RscFieldColumn1 As RSCFieldColumn ''Added 3/25/2022 td
-    Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
+    ''Renamed 7/03/2022 td''Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
+    Public PersonalityCache_Recipients As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
 
 
     Public Property RowDisplayCardHeight As Integer ''= 0 ''Added 5/30/2022 td
@@ -408,7 +409,7 @@ Public Class RSCFieldSpreadsheet
         ''Added 4/14/2022 td
         ''
         ''May 20, 2022 Return RecipientsCache.ListOfRecipients(par_intRowIndex)
-        With RecipientsCache.ListOfRecipients
+        With PersonalityCache_Recipients.ListOfRecipients
             If (par_intRowIndex >= .Count) Then
                 Return Nothing
             Else
@@ -416,7 +417,7 @@ Public Class RSCFieldSpreadsheet
             End If ''End of ""If (par_intRowIndex >= .count) Then... Else...""
         End With
 
-    End Function
+    End Function ''End of ""Public Function GetRecipientByRowIndex""
 
 
     Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
@@ -985,7 +986,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/28/'2022 thomas downes 
         ''
-        If (Me.RecipientsCache Is Nothing) Then
+        If (Me.PersonalityCache_Recipients Is Nothing) Then
 
             ''Added 3/29/2022 thomas d.
             MessageBoxTD.Show_Statement("Not any recipients cache.")
@@ -1006,14 +1007,14 @@ Public Class RSCFieldSpreadsheet
             ''
             ''Create row headers. 
             ''
-            intNumberOfRecipients = Me.RecipientsCache.ListOfRecipients.Count
+            intNumberOfRecipients = Me.PersonalityCache_Recipients.ListOfRecipients.Count
             RscRowHeaders1.Load_EmptyRows(intNumberOfRecipients)
             ''Moved below. 4/6/2022 ''RscRowHeaders1.RefreshHeightOfHeaders(intNumberOfRecipients) ''Added 4/6/2022 td
 
             ''
             ''Load the data into the RSCRowHeaders control.---5/14/2022
             ''
-            RscRowHeaders1.ListRecipients = Me.RecipientsCache.ListOfRecipients
+            RscRowHeaders1.ListRecipients = Me.PersonalityCache_Recipients.ListOfRecipients
             RscRowHeaders1.LoadRecipientList(bListHasNoRecipients)
 
             ''
@@ -1038,7 +1039,7 @@ Public Class RSCFieldSpreadsheet
                 End If ''End of ""If (bAreData_DangerOfOverwritten) Then""
 
                 ''Add an needed object reference. ----3/29/2022 thomas d.
-                each_column.ListRecipients = Me.RecipientsCache.ListOfRecipients
+                each_column.ListRecipients = Me.PersonalityCache_Recipients.ListOfRecipients
 
                 bAreData_DangerOfOverwritten = False ''Reinitialize.
 
@@ -1171,15 +1172,15 @@ Public Class RSCFieldSpreadsheet
             If (boolRowHasEmphasis) Then
 
                 ''--par_objDataCell.BackColor = RSCDataCell.BackColorWithEmphasis
-                par_objDataCell.BackColor = RSCDataCell.Backcolor_WithEmphasisOnRow
+                par_objDataCell.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
 
             Else
-                par_objDataCell.BackColor = RSCDataCell.Backcolor_NoEmphasis
+                par_objDataCell.BackColor = RSCDataCell.BackColor_NoEmphasis
 
             End If ''End of ""If (boolRowHasEmphasis) Then... Else...""
 
         Else
-            par_objDataCell.BackColor = RSCDataCell.Backcolor_NoEmphasis
+            par_objDataCell.BackColor = RSCDataCell.BackColor_NoEmphasis
 
         End If ''End of ""If (pboolCheckForEmphasis) Then ... Else ...."
 
@@ -1905,6 +1906,24 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub SaveDataColumnByColumnXML()"
 
 
+    Public Sub SaveToRecipientsCacheXML()
+        ''
+        ''Added 7/01/2022 thomas downes 
+        ''
+        Dim objCachePersonalRecips As CachePersnltyCnfgLRecips ''7/4/2022 ciBadgeCachePersonality.ClassCacheOnePersonalityConfig
+        Dim objCacheRecips As New ClassCacheListRecipients
+        Dim objListRecips As List(Of ciBadgeRecipients.ClassRecipient)
+
+        objCachePersonalRecips = Me.PersonalityCache_Recipients
+        objListRecips = Me.PersonalityCache_Recipients.ListOfRecipients
+
+        objCachePersonalRecips.SaveToXML() ''Added 7/4/2022 thomas downes
+
+
+
+    End Sub ''End of ""Public Sub SaveToRecipientsCacheXML()""
+
+
     Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)
         ''
         ''Added 3/20/2022 thomas downes 
@@ -2136,7 +2155,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 5/1/2022 td
         ''
-        Me.RecipientsCache.ListOfRecipients.Remove(par_recipient)
+        Me.PersonalityCache_Recipients.ListOfRecipients.Remove(par_recipient)
 
     End Sub ''End of ""Public Sub DeleteRecipientFromCache(....)""
 
@@ -2419,15 +2438,19 @@ Public Class RSCFieldSpreadsheet
         Dim exampleColumnMaxCells As RSCFieldColumnV2
         Dim exampleColumnMaxVals As ClassRSCColumnWidthAndData
         Dim list_enumsRelevant As List(Of EnumCIBFields)
+        Dim list_recipients As List(Of ciBadgeRecipients.ClassRecipient) ''Added 7/4/2022
         Dim intHowManyRecips As Integer
         Dim intHowManyDataValues As Integer
         Dim intHowManyRowHeaders As Integer
         Dim intHowManyCellRows As Integer
 
-        If Me.RecipientsCache Is Nothing Then System.Diagnostics.Debugger.Break()
-        If Me.RecipientsCache.ListOfRecipients Is Nothing Then
+        If Me.PersonalityCache_Recipients Is Nothing Then System.Diagnostics.Debugger.Break()
+        If Me.PersonalityCache_Recipients.ListOfRecipients Is Nothing Then
             System.Diagnostics.Debugger.Break()
-        End If
+        Else
+            ''Added 7/4/2022 thomas downes
+            list_recipients = Me.PersonalityCache_Recipients.ListOfRecipients
+        End If ''End of ""If Me.PersonalityCache_Recipients.ListOfRecipients Is Nothing Then... Else..."
 
         list_enumsRelevant = ElementsCache.ListOfFieldEnums_Relevant()
 
@@ -2436,7 +2459,7 @@ Public Class RSCFieldSpreadsheet
 
         intHowManyCellRows = exampleColumnMaxCells.CountOfRows()
         intHowManyDataValues = exampleColumnMaxVals.ColumnData.Count
-        intHowManyRecips = Me.RecipientsCache.ListOfRecipients.Count
+        intHowManyRecips = Me.PersonalityCache_Recipients.ListOfRecipients.Count
         intHowManyRowHeaders = RscRowHeaders1.CountOfRows()
 
         If (intHowManyCellRows <> intHowManyDataValues) Then
@@ -2462,7 +2485,7 @@ Public Class RSCFieldSpreadsheet
 
             If (each_column Is Nothing) Then Continue For
 
-            each_match1of2 = each_column.Equals_RecipientListAtClose()
+            each_match1of2 = each_column.Equals_RecipientListAtClose(list_recipients)
             sum_matches1of2 = (sum_matches1of2 And each_match1of2)
 
         Next each_column
@@ -2477,7 +2500,7 @@ Public Class RSCFieldSpreadsheet
         Dim each_RowHeaderRecipient As ciBadgeRecipients.ClassRecipient
         Dim each_strGuid6 As String
 
-        For Each each_recip In Me.RecipientsCache.ListOfRecipients()
+        For Each each_recip In Me.PersonalityCache_Recipients.ListOfRecipients()
 
             If (each_recip Is Nothing) Then Continue For
             each_strGuid6 = each_recip.ID_Guid6chars

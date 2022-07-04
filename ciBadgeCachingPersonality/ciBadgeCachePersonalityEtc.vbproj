@@ -77,10 +77,11 @@
     <Compile Include="ClassElementsCacheV2_Bifurcated.vb" />
     <Compile Include="ClassElementsCacheV1_Deprecated.vb" />
     <Compile Include="ClassCacheOneLayout.vb" />
-    <Compile Include="ClassCacheOnePersonalityConfig.vb" />
+    <Compile Include="CachePersonltyCnfgLRecips.vb" />
     <Compile Include="ClassFieldCache.vb" />
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="ClassCacheListRecipients.vb" />
+    <Compile Include="Interfaces\InterfaceCacheToXML.vb" />
     <Compile Include="MessageAndInputBoxes\FormInputBox.Designer.vb">
       <DependentUpon>FormInputBox.vb</DependentUpon>
     </Compile>

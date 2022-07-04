@@ -9,11 +9,38 @@ Namespace ciBadgeCachePersonality
     ''
     ''Added 12/4/2021 thomas downes 
     ''
+    Public Enum EnumCacheType
+        ''
+        ''Added 7/4/2022 thomas downes
+        ''
+        Undetermined
+        FieldsElementsLayout
+        PersonalityRecipients
+        SpreadsheetData
+
+        PathsToCachesByType
+
+    End Enum ''End of ""Public Enum EnumCacheType""
+
+    <Serializable>
+    Public Class ClassPathsToCachesByType
+
+        Public Property PathToCache_ElementsLayout As String
+        Public Property PathToCache_PersonalityRecips As String
+        Public Property PathToCache_SpreadsheetData As String
+
+    End Class
+
+
     Public Class ClassCacheManagement
         ''
         ''Added 12/4/2021 thomas downes 
         ''
         Public Shared LatestCacheOfEdits_Guid6 As String = "" ''This is a 6-character GUID. ---12/12/2021 td
+
+        ''Added 7/4/2022 thomas downes
+        Public ListOfCachesByType As Dictionary(Of EnumCacheType, InterfaceCacheToXML)
+        Public PathsToCachesByType As New ClassPathsToCachesByType ''Added 7/4/2022 thomas downes
 
         ''Added 2/8/2022 td
         Public RuntimeError As Boolean ''Added 2/8/2022 td
@@ -1419,6 +1446,94 @@ ExitHandler:
 
 
         End Sub ''End of "Public Sub SwitchElementToOtherSideOfCard"
+
+
+        Public Sub AddCacheByType(par_enumCacheType As EnumCacheType, par_infoCache As InterfaceCacheToXML)
+            ''
+            ''Added 7/4/2022 thomas downes  
+            ''
+            If (ListOfCachesByType Is Nothing) Then
+                ListOfCachesByType = New Dictionary(Of EnumCacheType, InterfaceCacheToXML)
+            End If ''End of ""If (ListOfCachesByType Is Nothing) Then""
+
+            With ListOfCachesByType
+                .Add(par_enumCacheType, par_infoCache)
+            End With
+
+        End Sub ''End of ""Public Sub AddCacheByType""
+
+
+        Public Sub SaveCachesAllTypes(pstrPathToFolder As String, pboolAddTimestamp As Boolean)
+            ''
+            ''Added 7/4/2022 thomas downes  
+            ''
+            Dim enumCT As EnumCacheType
+            Dim strFinalPathToXML As String = ""
+
+            If (ListOfCachesByType Is Nothing) Then
+                ListOfCachesByType = New Dictionary(Of EnumCacheType, InterfaceCacheToXML)
+            End If ''End of ""If (ListOfCachesByType Is Nothing) Then""
+
+            With ListOfCachesByType
+
+                strFinalPathToXML = "" ''Refresh.
+                enumCT = EnumCacheType.FieldsElementsLayout
+                .Item(enumCT)?.SaveToXML_CommonPrefix("Cache_", "Layout", pstrPathToFolder, pboolAddTimestamp)
+                PathsToCachesByType.PathToCache_ElementsLayout = strFinalPathToXML
+
+                strFinalPathToXML = "" ''Refresh.
+                enumCT = EnumCacheType.SpreadsheetData
+                .Item(enumCT)?.SaveToXML_CommonPrefix("Cache_", "SheetData", pstrPathToFolder, pboolAddTimestamp)
+                PathsToCachesByType.PathToCache_SpreadsheetData = strFinalPathToXML
+
+                strFinalPathToXML = "" ''Refresh.
+                enumCT = EnumCacheType.PersonalityRecipients
+                .Item(enumCT)?.SaveToXML_CommonPrefix("Cache_", "PRecips", pstrPathToFolder, pboolAddTimestamp)
+                PathsToCachesByType.PathToCache_PersonalityRecips = strFinalPathToXML
+
+            End With
+
+            ''Added 7/4/2022 td
+            SaveToXML_PathsToCaches()
+
+        End Sub ''End of ""Public Sub SaveCachesAllTypes""
+
+
+        Public Sub SaveToXML_PathsToCaches()
+            ''
+            ''Added 7/4/2022 thomas downes
+            ''
+            Dim objSerializationClass As New ciBadgeSerialize.ClassSerial
+            Dim strPathToFolderXML As String
+            Dim strPathToFileXML As String
+            Dim strFiletitleXML As String
+            Dim typeRelevantType As Type
+
+            strPathToFolderXML = DiskFolders.PathToFolder_XML
+            strFiletitleXML = "CachePaths_Three.xml"
+            strPathToFileXML = IO.Path.Combine(strPathToFolderXML, strFiletitleXML)
+
+            With objSerializationClass
+
+                .PathToXML = strPathToFileXML
+
+                typeRelevantType = Me.PathsToCachesByType.GetType
+
+                Const c_boolAutoOpenByIE As Boolean = False ''Added 4/22/2020 thomas d.
+                ''//
+                ''// If the 2nd Boolean Is True, the following command
+                ''//         System.Diagnostics.Process.Start(Me.PathToXML)
+                ''//  will be used to open the file in Notepad.
+                ''//     ---4/22/2020 thomas downes
+                ''//
+                .SerializeToXML(PathsToCachesByType.GetType, Me.PathsToCachesByType,
+                                False, c_boolAutoOpenByIE)
+
+            End With
+
+        End Sub ''End of ""Public Sub SaveToXML_PathsToCaches()""
+
+
 
 
     End Class ''End of "Public Class ClassCacheManagement"

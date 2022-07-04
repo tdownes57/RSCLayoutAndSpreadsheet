@@ -11,7 +11,9 @@ Public Class DialogEditRecipients
     '' Added 2/22/2022 thomas  
     ''
     Public ElementsCache_Deprecated As ClassElementsCache_Deprecated
-    Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
+
+    ''Renamed 7/3/2022 td''Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
+    Public PersonalityRecipientsCache As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
 
     Private mod_designer As ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
@@ -36,7 +38,7 @@ Public Class DialogEditRecipients
     End Sub
 
     Public Sub New(par_cacheElements As ClassElementsCache_Deprecated,
-                   Optional par_cacheRecipients As ClassCacheOnePersonalityConfig = Nothing)
+                   Optional par_cacheRecipients As CachePersnltyCnfgLRecips = Nothing) ''7/4/2022 ClassCacheOnePersonalityConfig = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -48,8 +50,9 @@ Public Class DialogEditRecipients
         Me.ElementsCache_Deprecated = par_cacheElements
         RscFieldSpreadsheet1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
         ''Added 3/28/2022 td
-        RscFieldSpreadsheet1.RecipientsCache = par_cacheRecipients
-        Me.RecipientsCache = par_cacheRecipients
+        RscFieldSpreadsheet1.PersonalityCache_Recipients = par_cacheRecipients
+        ''7/4/2022 thomas d'' Me.RecipientsCache = par_cacheRecipients
+        Me.PersonalityRecipientsCache = par_cacheRecipients
 
     End Sub
 
@@ -203,7 +206,9 @@ ExitHandler:
             .ParentForm = Me ''Added 3/20/2022 td
             .Designer = mod_designer
             .ElementsCache_Deprecated = Me.ElementsCache_Deprecated ''Added 3/21/2022 td
-            .RecipientsCache = Me.RecipientsCache ''Added 3/29/2022 thomas downes
+            ''7/03/2022 td''.RecipientsCache = Me.RecipientsCache ''Added 3/29/2022 thomas downes
+            ''7/04/2022 td''.PersonalityCache_Recipients = Me.RecipientsCache ''Added 3/29/2022 thomas downes
+            .PersonalityCache_Recipients = Me.PersonalityRecipientsCache ''Added 3/29/2022 thomas downes
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
             .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
             .Load_Form()
@@ -295,12 +300,14 @@ ExitHandler:
                 Exit Sub
             End If ''End of ""If (dialog_result = DialogResult.Cancel) Then""
 
-            RscFieldSpreadsheet1.SaveDataColumnByColumn()
+            ''7/4/2022 thomas d''RscFieldSpreadsheet1.SaveDataColumnByColumnXML()
+            RscFieldSpreadsheet1.SaveDataColumnByColumnXML()
 
-        End With
+        End With ''End of ""With Me.RscFieldSpreadsheet1""
 
-        Me.RecipientsCache.SaveToXML() ''Added 4/12/2022 td
-            Me.DialogResult = DialogResult.OK ''Added 3/31/2022 td
+        ''7/4/2022 td''Me.RecipientsCache.SaveToXML() ''Added 4/12/2022 td
+        Me.PersonalityRecipientsCache.SaveToXML() ''Added 4/12/2022 td
+        Me.DialogResult = DialogResult.OK ''Added 3/31/2022 td
         Me.Close()
 
     End Sub
