@@ -113,6 +113,24 @@
     <Compile Include="RSCClickable\RSCRightClickable.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCColorControls\RSCBrowseExistingColors.Designer.vb">
+      <DependentUpon>RSCBrowseExistingColors.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCBrowseExistingColors.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorDisplay.Designer.vb">
+      <DependentUpon>RSCColorDisplay.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorDisplay.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorPicker.Designer.vb">
+      <DependentUpon>RSCColorPicker.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorPicker.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="RSCEditableControl\RSC_IDEditor.Designer.vb">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>
     </Compile>
@@ -169,6 +187,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCClickable\RSCRightClickable.resx">
       <DependentUpon>RSCRightClickable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\RSCBrowseExistingColors.resx">
+      <DependentUpon>RSCBrowseExistingColors.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\RSCColorDisplay.resx">
+      <DependentUpon>RSCColorDisplay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\RSCColorPicker.resx">
+      <DependentUpon>RSCColorPicker.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCEditableControl\RSC_IDEditor.resx">
       <DependentUpon>RSC_IDEditor.vb</DependentUpon>

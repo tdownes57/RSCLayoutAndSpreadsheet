@@ -71,6 +71,8 @@ Namespace ciBadgeCachePersonality
         ''Added 5/11/2022 Thomas Downes
         Public Property UserHasDeletedElements As Boolean ''Added 5/11/2022 td  
 
+        ''Added 7/6/2022 thomas downes
+        Public PathsToCachesByType As New ClassPathsToCachesByType ''Added 7/4/2022 thomas downes
 
         ''10/14/2019 td''Private mod_listFields As New List(Of ClassFieldAny) ''Added 9/18/2019 td  
 

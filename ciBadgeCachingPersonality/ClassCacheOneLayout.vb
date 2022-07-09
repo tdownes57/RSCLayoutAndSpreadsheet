@@ -73,7 +73,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
         Public Property Pic_InitialDefault As Image ''Added 9/23/2019 td 
 
         <Xml.Serialization.XmlIgnore>
-        Public Property Personality As ClassCacheOnePersonalityConfig ''Added 11/24/2019 td 
+        Public Property Personality As CachePersnltyCnfgLRecips ''Added 11/24/2019 td 
+        ''7/06/2022 td''Public Property Personality As ClassCacheOnePersonalityConfig ''Added 11/24/2019 td 
 
         Public Function ListFieldElements() As HashSet(Of ClassElementFieldV3)
             ''10/17 td''Public Function ListFieldElements() As List(Of ClassElementField)

@@ -1499,6 +1499,23 @@ ExitHandler:
         End Sub ''End of ""Public Sub SaveCachesAllTypes""
 
 
+        Public Sub SaveToMainCache_PathsToCaches()
+            ''
+            ''Added 7/6/2022 thomas downes 
+            ''
+            ''Copy the cache paths (filepaths) from this management class
+            ''   to the main layout (elements) cache (ClassElementsCache_Deprecated).
+            ''
+            Dim objMainLayoutCache As ClassElementsCache_Deprecated
+
+            objMainLayoutCache = CType(Me.ListOfCachesByType.Item(EnumCacheType.FieldsElementsLayout),
+                ClassElementsCache_Deprecated)
+
+            objMainLayoutCache.PathsToCachesByType = Me.PathsToCachesByType
+
+        End Sub ''End of ""Public Sub SaveToMainCache_PathsToCaches()"" 
+
+
         Public Sub SaveToXML_PathsToCaches()
             ''
             ''Added 7/4/2022 thomas downes
