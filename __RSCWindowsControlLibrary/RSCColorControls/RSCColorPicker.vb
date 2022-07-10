@@ -5,7 +5,8 @@ Public Class RSCColorPicker
     ''
     ''Added 7/6/2022
     ''
-    Private Property DisplayColor As Color
+    ''July9 2022''Private Property DisplayColor As Color
+    Private Property DisplayRSCColor As RSCColor
     Private mboolLoading As Boolean
 
     Private Sub LinkLabelOpenDialog_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenDialog.LinkClicked
@@ -20,19 +21,20 @@ Public Class RSCColorPicker
 
         mboolLoading = True
 
-        Me.DisplayColor = diagColor.Color
-        RscColorDisplay1.LoadColor(Me.DisplayColor)
+        ''July9 2022 ''Me.DisplayRSCColor = diagColor.Color
+        Me.DisplayRSCColor = New RSCColor(diagColor.Color)
+        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
 
         Dim intDisplayColorArgb As Double
         Dim strDisplayColor As String
 
-        intDisplayColorArgb = Me.DisplayColor.ToArgb
-        strDisplayColor = Me.DisplayColor.ToString
+        intDisplayColorArgb = Me.DisplayRSCColor.DColor.ToArgb
+        strDisplayColor = Me.DisplayRSCColor.DColor.ToString
 
-        HScrollBar1Alpha.Value = Me.DisplayColor.A
-        HScrollBar2Red.Value = Me.DisplayColor.R
-        HScrollBar3Green.Value = Me.DisplayColor.G
-        HScrollBar4Blue.Value = Me.DisplayColor.B
+        HScrollBar1Alpha.Value = Me.DisplayRSCColor.DColor.A
+        HScrollBar2Red.Value = Me.DisplayRSCColor.DColor.R
+        HScrollBar3Green.Value = Me.DisplayRSCColor.DColor.G
+        HScrollBar4Blue.Value = Me.DisplayRSCColor.DColor.B
 
 ExitHander:
         Application.DoEvents()
@@ -46,6 +48,12 @@ ExitHander:
         If (mboolLoading) Then Exit Sub
 
         Dim newColor As Drawing.Color
+        Dim strName As String ''Added 7/09/2022
+        Dim strDescription As String ''Added 7/09/2022
+
+        ''Added 7/09/2022
+        strName = Me.DisplayRSCColor.Name
+        strDescription = Me.DisplayRSCColor.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -53,16 +61,24 @@ ExitHander:
                                   HScrollBar3Green.Value,
                                   HScrollBar4Blue.Value)
 
-        Me.DisplayColor = newColor
-        RscColorDisplay1.LoadColor(Me.DisplayColor)
+        ''July9 ''Me.DisplayColor = newColor
+        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
 
     End Sub
+
 
     Private Sub HScrollBar2Red_ValueChanged(sender As Object, e As EventArgs) Handles HScrollBar2Red.ValueChanged
         ''Added 7/8/2022 
         If (mboolLoading) Then Exit Sub
 
         Dim newColor As Drawing.Color
+        Dim strName As String ''Added 7/09/2022
+        Dim strDescription As String ''Added 7/09/2022
+
+        ''Added 7/09/2022
+        strName = Me.DisplayRSCColor.Name
+        strDescription = Me.DisplayRSCColor.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -70,15 +86,25 @@ ExitHander:
                                   HScrollBar3Green.Value,
                                   HScrollBar4Blue.Value)
 
-        Me.DisplayColor = newColor
-        RscColorDisplay1.LoadColor(Me.DisplayColor)
+        ''--Me.Display = newColor
+        ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
+        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
+
     End Sub
+
 
     Private Sub HScrollBar3Green_ValueChanged(sender As Object, e As EventArgs) Handles HScrollBar3Green.ValueChanged
         ''Added 7/8/2022 
         If (mboolLoading) Then Exit Sub
 
         Dim newColor As Drawing.Color
+        Dim strName As String ''Added 7/09/2022
+        Dim strDescription As String ''Added 7/09/2022
+
+        ''Added 7/09/2022
+        strName = Me.DisplayRSCColor.Name
+        strDescription = Me.DisplayRSCColor.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -86,15 +112,25 @@ ExitHander:
                                   HScrollBar3Green.Value,
                                   HScrollBar4Blue.Value)
 
-        Me.DisplayColor = newColor
-        RscColorDisplay1.LoadColor(Me.DisplayColor)
+        ''--Me.Display = newColor
+        ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
+        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
+
     End Sub
+
 
     Private Sub HScrollBar4Blue_ValueChanged(sender As Object, e As EventArgs) Handles HScrollBar4Blue.ValueChanged
         ''Added 7/8/2022 
         If (mboolLoading) Then Exit Sub
 
         Dim newColor As Drawing.Color
+        Dim strName As String ''Added 7/09/2022
+        Dim strDescription As String ''Added 7/09/2022
+
+        ''Added 7/09/2022
+        strName = Me.DisplayRSCColor.Name
+        strDescription = Me.DisplayRSCColor.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -102,8 +138,12 @@ ExitHander:
                                   HScrollBar3Green.Value,
                                   HScrollBar4Blue.Value)
 
-        Me.DisplayColor = newColor
-        RscColorDisplay1.LoadColor(Me.DisplayColor)
+        ''--Me.Display = newColor
+        ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
+        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
 
     End Sub
+
+
 End Class

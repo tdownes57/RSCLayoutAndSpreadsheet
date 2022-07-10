@@ -119,6 +119,7 @@
     <Compile Include="RSCColorControls\RSCBrowseExistingColors.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RSCColorControls\RSCColor.vb" />
     <Compile Include="RSCColorControls\RSCColorDisplay.Designer.vb">
       <DependentUpon>RSCColorDisplay.vb</DependentUpon>
     </Compile>
