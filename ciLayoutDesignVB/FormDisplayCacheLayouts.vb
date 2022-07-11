@@ -30,7 +30,8 @@ Public Class FormDisplayCacheLayouts
     Public ShowMessageForIllformedXML As Boolean ''Added 12/26/2021 thomas downes
     Public UserWantsToExitApplication As Boolean ''Added 2/05/2022 Thomas Downes
     Public CacheCustomers As ClassCacheListCustomers ''Added 2/20/2022 thomas d.  
-    Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.ClassCacheOnePersonalityConfig ''Added 10/11/2019 td 
+    ''July 2022''Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.ClassCacheOnePersonalityConfig ''Added 10/11/2019 td 
+    Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.CachePersnltyCnfgLRecips ''Added 10/11/2019 td 
 
     Private WithEvents mod_dummyControl As New Control() ''Added 2/6/2022 td 
     ''---Private mod_bRecipientsEdited As Boolean ''Added 4/1/2022 thomas downes

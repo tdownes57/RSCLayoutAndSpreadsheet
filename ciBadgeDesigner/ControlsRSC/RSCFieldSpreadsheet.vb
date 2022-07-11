@@ -21,6 +21,23 @@ Public Class RSCFieldSpreadsheet
     Public PersonalityCache_Recipients As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
 
 
+    Public Shared Function GetListOfRecipients(par_cache As CacheRSCFieldColumnWidthsEtc) As List(Of ciBadgeRecipients.ClassRecipient)
+        ''
+        ''Added 7/10/2022 thomas downes
+        ''
+        ''We will fill a spreadsheet but not display it. We will then call
+        ''  a spreadsheet function which will create Recipient objects 
+        ''  from each of the rows. ----7/10/2022 td 
+        ''
+
+
+
+
+
+
+    End Function ''End of ""Public Shared Function GetListOfRecipients""
+
+
     Public Property RowDisplayCardHeight As Integer ''= 0 ''Added 5/30/2022 td
         ''= 0 ''Added 5/30/2022 td
         Get
