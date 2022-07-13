@@ -1331,11 +1331,19 @@ Public Class RSCFieldColumnV2
             Dim strCellDataBeforeLoadingRecip As String
             Dim strCellDataFromColumnData As String
             Dim boolMismatch_ColumnData As Boolean
+            Dim boolRowIndexOkay As Boolean ''Added 7/13/2022
+
             If (pboolCheck_ColumnWidthAndData) Then
                 ''Compare the Recipient data to the ColumnWidthAndData data.
                 ''   ---4/14/2022
                 strCellDataBeforeLoadingRecip = each_box.Text.Trim() ''5/01/2022 td''each_box.Text
-                strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex).Trim() ''Added .Trim() on 5/01/2022
+
+                strCellDataFromColumnData = "" ''Re-initialize. 7/13/2022
+                boolRowIndexOkay = (intRowIndex < ColumnWidthAndData.ColumnData.Count)
+                If boolRowIndexOkay Then
+                    strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex).Trim() ''Added .Trim() on 5/01/2022
+                End If ''End of ""If boolRowIndexOkay Then""
+
                 boolMismatch_ColumnData = (strCellDataFromColumnData <> each_value)
                 If (boolMismatch_ColumnData) Then
                     ''---System.Diagnostics.Debugger.Break()
@@ -1345,8 +1353,8 @@ Public Class RSCFieldColumnV2
                 End If ''End of ""If (boolMismatch_ColumnData) Then""
             End If ''End of ""If (pboolCheck_ColumnWidthAndData) Then""
 
-            ''5/1/2022 td''each_box.Text = each_value
-            each_box.Text = each_value.Trim()
+                ''5/1/2022 td''each_box.Text = each_value
+                each_box.Text = each_value.Trim()
 
             ''Added 4/12/2022 thomas d.
             each_box.Recipient = Me.ListRecipients(intRowIndex)

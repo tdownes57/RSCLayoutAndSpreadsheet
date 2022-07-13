@@ -320,7 +320,8 @@ ExitHandler:
 
         ''objCacheColumnWidthData = RscFieldSpreadsheet1.GetCacheOfSavedData()
         ''RscFieldSpreadsheet1.SaveDataColumnByColumn(True)
-        RscFieldSpreadsheet1.SaveDataColumnByColumn(False)
+        ''July12 2022 td''RscFieldSpreadsheet1.SaveDataColumnByColumn(False)
+        RscFieldSpreadsheet1.SaveDataColumnByColumnXML(False)
 
         objCacheColumnWidthData = RscFieldSpreadsheet1.ColumnDataCache
 

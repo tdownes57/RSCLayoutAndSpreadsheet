@@ -133,6 +133,9 @@ Public Class ClassRecipient
         ''
         Select Case par_enum
 
+            ''Added 7/12/2022 thomas downes
+            Case EnumCIBFields.Undetermined : Return "" ''Added 7/12/2022 
+
             ''Case EnumCIBFields.fstrAddress : Return Me.fstrAddress
             Case EnumCIBFields.fstrFirstName : Return Me.fstrFirstName
             Case EnumCIBFields.fstrID : Return Me.fstrID

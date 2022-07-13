@@ -78,8 +78,14 @@ Public Class Startup
         ''1/14/2019 td''Dim obj_personality As New PersonalityCache_NotInUse ''Added 10/17/2019 td  
         Dim obj_personality As CachePersnltyCnfgLRecips ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
         Dim bNewPersonality As Boolean ''Added 3/31/2022 td 
-        obj_personality = LoadCachedData_Personality(Nothing, bNewPersonality)
 
+        ''Added 7/13/2022 td
+        Const c_bLoadPersonalityEarly As Boolean = False ''Added 7/13/2022 td
+        Const c_bLoadPersonalityLater As Boolean = True ''Added 7/13/2022 td
+        If (c_bLoadPersonalityEarly) Then ''Added 7/13/2022 td
+            bNewPersonality = boolNewFileXML
+            obj_personality = LoadCachedData_Personality(Nothing, bNewPersonality)
+        End If ''End of ""If (c_bLoadPersonalityEarly) Then""
         ''
         ''
         ''If we are emphasizing Layout Design, then open up the 
@@ -101,7 +107,12 @@ Public Class Startup
         Application.DoEvents() ''Allow any latent de-serialization to take place. ---5/10/2022
 
         ''Conditions added 3/31/2022, loading code added 10/16/2019 td 
-        If (obj_personality.ListOfRecipients Is Nothing) Then
+        If (obj_personality Is Nothing) Then
+            ''Added 7/12/2022 td 
+            obj_personality = New CachePersnltyCnfgLRecips
+            obj_personality.ListOfRecipients = LoadData_Recipients_Students()
+
+        ElseIf (obj_personality.ListOfRecipients Is Nothing) Then
             ''Added 10/16/2019 td 
             obj_personality.ListOfRecipients = LoadData_Recipients_Students()
         ElseIf (0 = obj_personality.ListOfRecipients.Count) Then
@@ -199,6 +210,13 @@ Public Class Startup
                 obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo,
                                                                                boolNewFileXML,
                                                  strPathToElementsCacheXML_OutputOfPart1)
+                ''Added 7/13/2022 td
+                If (c_bLoadPersonalityLater) Then ''Added 7/13/2022 td
+                    bNewPersonality = boolNewFileXML ''Added 7/13/2022 td
+                    obj_personality = LoadCachedData_Personality(Nothing,
+                                            bNewPersonality, pstrPathToXML)
+                End If ''End of ""If (c_bLoadPersonalityEarly) Then""
+
             End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
         Else
@@ -278,6 +296,14 @@ Public Class Startup
                 ''Added 12/14/2021 td
                 ''5/23/2022 obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML_Input ''Added 12/14/2021 td 
                 obj_formToShow_Demo.ElementsCache_PathToXML = strPathToElementsCacheXML_InputForPart2 ''Modified 5/23/2022
+
+                ''Added 7/12/2022 thomas d.
+                With obj_formToShow_Demo
+                    If (.PersonalityCache_Recipients Is Nothing) Then
+                        ''Added 7/12/2022 thomas d. 
+                        .PersonalityCache_Recipients = obj_personality
+                    End If ''End of ""If (.PersonalityCache_Recipients Is Nothing) Then""
+                End With ''End of ""With obj_formToShow_Demo""
 
             Else
                 ''
@@ -656,25 +682,29 @@ Public Class Startup
 
 
     Public Shared Function LoadCachedData_Personality(par_designForm_Unused As Form__Main_Demo,
-                             ByRef pboolNewFileXML As Boolean) As CachePersnltyCnfgLRecips ''As ClassPersonalityCache
+                             ByRef pboolNewFileXML As Boolean,
+                             Optional pstrPathToXML As String = "") As CachePersnltyCnfgLRecips ''As ClassPersonalityCache
         ''
         ''Added 1/14/2019 td
         ''Suffixed 11/30/2021 with "_FutureUse".
         ''
-        Dim strPathToXML As String = ""
+        ''---July13 2022---Dim strPathToXML As String = ""
         Dim obj_cache_personality As CachePersnltyCnfgLRecips ''Dec.4, 2021 '' As ClassPersonalityCache
 
-        strPathToXML = DiskFilesVB.PathToFile_XML_Personality
+        ''7/13/2022 td''strPathToXML = DiskFilesVB.PathToFile_XML_Personality
+        If (pstrPathToXML = "") Then
+            pstrPathToXML = DiskFilesVB.PathToFile_XML_Personality
+        End If ''End of ""If (pstrPathToXML = "") Then""
 
-        If (strPathToXML = "") Then
+        If (pstrPathToXML = "") Then
             pboolNewFileXML = True
-            strPathToXML = DiskFilesVB.PathToFile_XML_Personality
+            pstrPathToXML = DiskFilesVB.PathToFile_XML_Personality
             ''Jan5 2022''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             ''Jan5 2022''My.Settings.Save()
-            SaveFullPathToFileXML_Settings(strPathToXML)
+            SaveFullPathToFileXML_Settings(pstrPathToXML)
 
         Else
-            pboolNewFileXML = (Not System.IO.File.Exists(strPathToXML))
+            pboolNewFileXML = (Not System.IO.File.Exists(pstrPathToXML))
         End If ''End of "If (strPathToXML <> "") Then .... Else ..."
 
         ''
@@ -689,7 +719,7 @@ Public Class Startup
 
             ''Added 10/13/2019 td
             obj_cache_personality = New CachePersnltyCnfgLRecips ''Dec.4, 2021 '' New ClassPersonalityCache
-            obj_cache_personality.PathToXml_Saved = strPathToXML
+            obj_cache_personality.PathToXml_Saved = pstrPathToXML
 
             obj_cache_personality.LoadFields()
             ''1/14/2020 td''obj_cache_personality.LoadFieldElements(par_designForm.pictureBack,
@@ -698,7 +728,7 @@ Public Class Startup
         Else
             ''Added 10/10/2019 td  
             Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
-            objDeserialize.PathToXML = strPathToXML
+            objDeserialize.PathToXML = pstrPathToXML
 
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)

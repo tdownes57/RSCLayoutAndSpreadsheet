@@ -38,8 +38,13 @@ Public Class ClassDeserial
 
             End Using
         Catch ex_Try As Exception
-            MsgBox("Deserialization failed, Message:  " & ex_Try.Message, vbInformation)
-            MsgBox("Deserialization failed, ToString:  " & ex_Try.ToString, vbInformation)
+            ''7/12/2022 td MsgBox("Deserialization failed, Message:  " & ex_Try.Message, vbInformation)
+            ''7/12/2022 td MsgBox("Deserialization failed, ToString:  " & ex_Try.ToString, vbInformation)
+            Dim strErrorMessage As String ''Added 7/12/2022 
+            Dim strErrDescript As String ''Added 7/12/2022 
+            strErrorMessage = ex_Try.Message
+            strErrDescript = ex_Try.ToString()
+            System.Diagnostics.Debugger.Break() ''Added 7/12/2022 
             pbVerboseSuccess = False
             Return Nothing
         End Try
