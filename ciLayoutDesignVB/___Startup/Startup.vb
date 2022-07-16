@@ -84,7 +84,10 @@ Public Class Startup
         Const c_bLoadPersonalityLater As Boolean = True ''Added 7/13/2022 td
         If (c_bLoadPersonalityEarly) Then ''Added 7/13/2022 td
             bNewPersonality = boolNewFileXML
-            obj_personality = LoadCachedData_Personality(Nothing, bNewPersonality)
+            ''7/16/2022 obj_personality = LoadCachedData_Personality(Nothing, bNewPersonality)
+            obj_personality = LoadCachedData_Personality(Nothing,
+                                                         EnumHowToLinkXMLs.DontLinkXMLs, "",
+                                                         bNewPersonality)
         End If ''End of ""If (c_bLoadPersonalityEarly) Then""
         ''
         ''
@@ -210,11 +213,26 @@ Public Class Startup
                 obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo,
                                                                                boolNewFileXML,
                                                  strPathToElementsCacheXML_OutputOfPart1)
+
                 ''Added 7/13/2022 td
                 If (c_bLoadPersonalityLater) Then ''Added 7/13/2022 td
                     bNewPersonality = boolNewFileXML ''Added 7/13/2022 td
+                    ''P = Personality, PRecips = Recipients collected under a Personality Configuration  
+                    Dim strPathToXML_ElementsCache As String ''Added 7/13/2022
+                    Dim strPathToXML_PRecips As String ''Added 7/13/2022
+                    strPathToXML_ElementsCache = strPathToElementsCacheXML_OutputOfPart1
+
+                    ''July15 2022 ''strPathToXML_PRecips = DiskFilesVB.PathToFile_XML_Personality(strPathToXML_ElementsCache)
+                    strPathToXML_PRecips = DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(EnumHowToLinkXMLs.AutoSubfolders,
+                                              True, True, strPathToXML_ElementsCache)
+
+                    ''July15 2022 ''obj_personality = LoadCachedData_Personality(Nothing,
+                    ''                     bNewPersonality, strPathToXML_PRecips)
                     obj_personality = LoadCachedData_Personality(Nothing,
-                                            bNewPersonality, pstrPathToXML)
+                                           EnumHowToLinkXMLs.AutoSubfolders,
+                                           strPathToXML_ElementsCache,
+                                           bNewPersonality, strPathToXML_PRecips)
+
                 End If ''End of ""If (c_bLoadPersonalityEarly) Then""
 
             End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
@@ -222,7 +240,11 @@ Public Class Startup
         Else
             ''Function called in the line below was suffixed w/ "_FutureUse"
             ''   today.  ---11/30/2021 td 
-            obj_personality = LoadCachedData_Personality(obj_formToShow_Demo, boolNewFileXML)
+            ''7/15/2022 ''obj_personality = LoadCachedData_Personality(obj_formToShow_Demo, boolNewFileXML)
+            strPathToElementsCacheXML_InputForPart1 = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
+            obj_personality = LoadCachedData_Personality(obj_formToShow_Demo,
+                                  EnumHowToLinkXMLs.AutoSubfolders,
+                                 strPathToElementsCacheXML_InputForPart1, boolNewFileXML)
 
         End If ''end of "If (c_boolStillUsingElementsCache) Then ... Else ..."
 
@@ -682,23 +704,34 @@ Public Class Startup
 
 
     Public Shared Function LoadCachedData_Personality(par_designForm_Unused As Form__Main_Demo,
+                             ByVal par_HowToLinkXMLs As EnumHowToLinkXMLs,
+                             ByVal pstrApplicablePathToElementsCache As String,
                              ByRef pboolNewFileXML As Boolean,
-                             Optional pstrPathToXML As String = "") As CachePersnltyCnfgLRecips ''As ClassPersonalityCache
+                             Optional ByRef pstrPathToXML As String = "") As CachePersnltyCnfgLRecips ''As ClassPersonalityCache
         ''
         ''Added 1/14/2019 td
         ''Suffixed 11/30/2021 with "_FutureUse".
         ''
         ''---July13 2022---Dim strPathToXML As String = ""
         Dim obj_cache_personality As CachePersnltyCnfgLRecips ''Dec.4, 2021 '' As ClassPersonalityCache
+        Dim bSubfolderOfElements As Boolean ''Added 7/16/2022 thomas downes
 
         ''7/13/2022 td''strPathToXML = DiskFilesVB.PathToFile_XML_Personality
         If (pstrPathToXML = "") Then
-            pstrPathToXML = DiskFilesVB.PathToFile_XML_Personality
+            ''7/15/2022 td''pstrPathToXML = DiskFilesVB.PathToFile_XML_Personality
+            bSubfolderOfElements = (par_HowToLinkXMLs = EnumHowToLinkXMLs.AutoSubfolders)
+            pstrPathToXML = DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(
+                 par_HowToLinkXMLs,
+                 bSubfolderOfElements,
+                 bSubfolderOfElements,
+                 pstrApplicablePathToElementsCache)
         End If ''End of ""If (pstrPathToXML = "") Then""
 
         If (pstrPathToXML = "") Then
             pboolNewFileXML = True
-            pstrPathToXML = DiskFilesVB.PathToFile_XML_Personality
+            ''7/15/2022 td''pstrPathToXML = DiskFilesVB.PathToFile_XML_PersonalityRecipients(False)
+            pstrPathToXML = DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(
+                                EnumHowToLinkXMLs.DontLinkXMLs, False, False, "")
             ''Jan5 2022''My.Settings.PathToXML_Saved_ElementsCache = strPathToXML
             ''Jan5 2022''My.Settings.Save()
             SaveFullPathToFileXML_Settings(pstrPathToXML)

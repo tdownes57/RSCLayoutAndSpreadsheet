@@ -9,6 +9,34 @@ Public Module DiskFilesVB
     ''
     ''Added 12/5/2021 thomas downes 
     ''
+    Public Enum EnumHowToLinkXMLs
+        ''
+        ''How should the various XMLs be linked/joined?  
+        ''
+        Undetermined
+
+        AutoSubfolders ''Main file "[name].xml" causes a subfolder [name]"
+        ''  to be generated, to contain associated XML files. This models what happens when 
+        ''  a HTML page is saved (by MS Internet Explorer). Example:
+        ''
+        ''    C:\ie\business.html
+        ''    C:\ie\business\logo.jpg
+        ''    C:\ie\business\header.jpg 
+        ''
+        ''  Notice that the "business" in the first file becomes
+        ''  the subfolder's name in the path of the other files.
+        ''
+        ''---7/16/2022 td 
+
+        SuffixXmlTitles ''Main file "[name].xml" has associated XML files 
+        ''  of the form "[name][suffix].xml".  ---7/16/2022 td
+        EmbeddingPaths ''Main file "[name].xml" contains as a XML-specified value
+        ''    the entire path (as the "contents" of an XML leaf item).
+        DontLinkXMLs ''The XML files are _NOT_ linked.  ---7/16/2022 td
+
+    End Enum ''End of ""Public Enum EnumHowToLinkXMLs""
+
+
     Public Sub DisplayStringDataInNotepad(ByRef par_stringData As String)
         ''
         ''Copied from Form__Main_Demo.vb on 12/5/2021 td   

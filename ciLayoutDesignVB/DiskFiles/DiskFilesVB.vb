@@ -5,6 +5,22 @@ Imports System.IO ''Added 12/3/2021 thomas downes
 ''
 ''Added 10/12/2019 Thomas Downes    
 ''
+Public Enum EnumHowToLinkXMLs
+    ''
+    ''How should the various XMLs be linked/joined?  
+    ''
+    Undetermined
+
+    AutoSubfolders ''Main file "[name].xml" causes a subfolder [name]"
+    ''  to be generated, to contain associated XML files. ---7/16/2022 td 
+    SuffixXmlTitles ''Main file "[name].xml" has associated XML files 
+    ''  of the form "[name][suffix].xml".  ---7/16/2022 td
+    EmbeddingPaths ''Main file "[name].xml" contains as a XML-specified value
+    ''    the entire path (as the "contents" of an XML leaf item).
+    DontLinkXMLs ''The XML files are _NOT_ linked.  ---7/16/2022 td
+
+End Enum ''End of ""Public Enum EnumHowToLinkXMLs""
+
 Public Class DiskFilesVB
     ''
     ''Added 10/12/2019 Thomas Downes    
@@ -88,7 +104,87 @@ Public Class DiskFilesVB
     End Function ''Endo f "Public Shared Function PathToNotes_HowContextMenusAreGenerated() As String"
 
 
-    Public Shared Function PathToFile_XML_Personality() As String
+    Public Shared Function PathToFile_XML_PersonalityRecipientsCache(p_enumHowToLink As EnumHowToLinkXMLs,
+                                                         pbCreateSubfolderForPRCache As Boolean,
+                                                         pbSubfolderNameMatchesEleCacheTitle As Boolean,
+                                                         Optional pstrPathToElementsCacheXML As String = "") As String
+        ''
+        ''This models what happens when a HTML page is saved (by MS Internet Explorer). Example:
+        ''
+        ''    C:\ie\business.html
+        ''    C:\ie\business\logo.jpg
+        ''    C:\ie\business\header.jpg 
+        ''
+        ''Example of inputs & outputs:
+        '' 
+        ''    Input pbPlaceInMainCacheSubfolder : True 
+        ''    Input pstrPathToMainCacheXML : "D:\yy.xml"
+        ''    Output:  "D:\yy\Recipients.xml"
+        ''
+        ''Added 1/14/2020 Thomas Downes    
+        ''
+        Dim strPathToXML As String = ""
+        Dim bLinkToElementsCache As Boolean ''Added 7/16/2022 thomas 
+        Const c_strCacheTitle As String = "ConfigWRecipients.xml" ''Added 7/16/2022
+
+        ''The following line will allow the File | Save As....
+        ''   menu item to be effective. ----10/13/2019 td
+        ''---JULY13 2022----strPathToXML = My.Settings.PathToXML_Saved_Personality
+
+        ''Added 7/16/2022 td
+        bLinkToElementsCache = (p_enumHowToLink <> EnumHowToLinkXMLs.DontLinkXMLs)
+
+        ''Added 7/15/2022 thomas downes
+        If (bLinkToElementsCache) Then
+            ''Added 7/15/2022 thomas downes
+            If (Not pbCreateSubfolderForPRCache) Then System.Diagnostics.Debugger.Break()
+            If (Not pbSubfolderNameMatchesEleCacheTitle) Then System.Diagnostics.Debugger.Break()
+        End If ''End of ""If (pbLinkToElementsCache) Then""
+
+        ''Added 7/13/2022
+        If bLinkToElementsCache Then
+            ''Added 7/13/2022
+            ''   Remove the ".xml" extension to 
+            Dim strPathToSubfolder As String
+
+            If (pbSubfolderNameMatchesEleCacheTitle) Then
+
+                strPathToSubfolder = pstrPathToElementsCacheXML.Replace(".xml", "")
+
+                If (pbCreateSubfolderForPRCache) Then
+                    IO.Directory.CreateDirectory(strPathToSubfolder)
+                End If ''End of ""If (pbCreateSubfolderForPRCache) Then""
+
+            Else
+                ''Shouldn't occur. 
+                System.Diagnostics.Debugger.Break()
+                strPathToSubfolder = FileSystem.CurDir()
+
+            End If ''End of ""If (pbSubfolderNameMatchesEleCacheTitle) Then ... Else ...""
+
+            ''
+            ''Put "Recipients.xml" into the subfolder. ---7/16/2022
+            ''
+            strPathToXML = IO.Path.Combine(strPathToSubfolder, c_strCacheTitle) ''.Replace("\\", "\")
+
+
+        ElseIf ("" = strPathToXML) Then
+            ''1/24 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+            strPathToXML = (My.Application.Info.DirectoryPath & "\ciPersonality_Saved.xml").Replace("\\", "\")
+
+        End If ''end of ""If pboolPlaceInSubfolder Then""
+
+        ''July13 2022 ----If ("" = strPathToXML) Then
+        ''    ''1/24 td''strPathToXML = (My.Application.Info.DirectoryPath & "\ciLayoutDesignVB_Saved.xml").Replace("\\", "\")
+        ''    strPathToXML = (My.Application.Info.DirectoryPath & "\ciPersonality_Saved.xml").Replace("\\", "\")
+        ''End If ''End of "If ("" = strPathToXML) Then"
+
+        Return strPathToXML
+
+    End Function ''End of "Public Shared Function PathToFile_XML_Personality() As String"
+
+
+    Public Shared Function PathToFile_XML_Personality_NotInUse() As String
         ''
         ''Added 1/14/2020 Thomas Downes    
         ''

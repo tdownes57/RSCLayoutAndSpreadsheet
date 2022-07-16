@@ -860,7 +860,10 @@ Public Class FormDisplayCacheLayouts
             ''
             Dim boolNewFileXML As Boolean
             ''March28 2022 ''Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality_FutureUse(Me, boolNewFileXML)
-            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Nothing, boolNewFileXML)
+            ''7/16/2022 td''Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Nothing, boolNewFileXML)
+            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Nothing,
+                                      EnumHowToLinkXMLs.AutoSubfolders,
+                                      strPathToElementsCacheXML_Selected, boolNewFileXML)
 
             ''Added 3/29/2022 thomas downes
             Dim bEmptyRecipList As Boolean ''Added 3/31/2022 thomas downes
@@ -874,10 +877,15 @@ Public Class FormDisplayCacheLayouts
             End If ''End of ""If (bEmptyRecipList) Then""
 
             ''Added 3/31/2022 thomas downes
-            Me.PersonalityCache_Recipients.PathToXml_Saved = DiskFilesVB.PathToFile_XML_Personality()
+            ''7/15/2022 td''Me.PersonalityCache_Recipients.PathToXml_Saved = DiskFilesVB.PathToFile_XML_Personality()
+            Me.PersonalityCache_Recipients.PathToXml_Saved =
+                DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(EnumHowToLinkXMLs.AutoSubfolders,
+                                                                      True,
+                                                                      True,
+                                                                      strPathToElementsCacheXML_Selected)
             Me.PersonalityCache_Recipients.SaveToXML()
 
-        End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
+        End If ''end of "If (Me.PersonalityCache_Recipients Is Nothing) Then"
 
         ''
         ''Added 3/26/2022 td

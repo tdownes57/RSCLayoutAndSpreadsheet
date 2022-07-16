@@ -488,7 +488,15 @@ Public Class Form__Main_Demo
         If (Me.PersonalityCache_Recipients Is Nothing) Then
             ''----Me.PersonalityCache_FutureUse = New ciBadgeElements.ClassElementsCache_Deprecated()
             Dim boolDummy As Boolean
-            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Me, boolDummy)
+            ''7/16/2022 Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Me, boolDummy)
+            Dim strPathToElementsCacheXML As String ''added 7/16/2022
+            ''strPathToElementsCacheXML = mod_designer.ElementsCache_UseEdits.PathToXml_Opened
+            strPathToElementsCacheXML = Me.ElementsCache_PathToXML
+            Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Me,
+                                                            EnumHowToLinkXMLs.AutoSubfolders,
+                                                            strPathToElementsCacheXML,
+                                                            boolDummy)
+
         End If ''End of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
         ''Added 10/13/2019 thomas d. 
@@ -2365,7 +2373,11 @@ Public Class Form__Main_Demo
                 ''Added 12/3/2021 thomas downes 
                 ''
                 Dim boolNewFileXML As Boolean
-                Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Me, boolNewFileXML)
+                ''7/16/2022 Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Me, boolNewFileXML)
+                Me.PersonalityCache_Recipients = Startup.LoadCachedData_Personality(Me,
+                                                            EnumHowToLinkXMLs.AutoSubfolders,
+                                                            Me.ElementsCache_PathToXML,
+                                                            boolNewFileXML)
 
             End If ''end of "If (Me.PersonalityCache_FutureUse Is Nothing) Then"
 
