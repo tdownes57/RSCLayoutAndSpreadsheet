@@ -18,6 +18,12 @@ Public Interface IElement_Base_InDevelopment
     ''
     Property WhyOmitted As WhyOmitted_StructV2
 
+    Property Border_bDisplayed As Boolean ''Added 7/19/2022 thomas d. 
+    Property Border_bWidthInPixels As Integer ''Added 7/19/2022 thomas d. 
+    Property Border_bColor As System.Drawing.Color ''Added 7/19/2022 thoma d. 
+
+
+
 
 
 End Interface

@@ -30,7 +30,10 @@ Public MustInherit Class Operations__Base
     Public Property MouseclickY As Integer Implements IRightClickMouseInfo.MouseclickY
 
     Public Property NameOfClass As String ''Added 12/30/2021 td
-    Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d. 
+
+    Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d.
+    Public Property Element_Base As ciBadgeElements.ClassElementBase ''Added 7/19/2022 thomas d.
+
     Public MustOverride Property Element_Type As Enum_ElementType ''Added 1/19/2022 td 
 
     Public Property EventsForMoveability_Single As GroupMoveEvents_Singleton ''Suffixed 1/11/2022 Added 1/3/2022 td 
@@ -254,6 +257,33 @@ Public MustInherit Class Operations__Base
 
     End Sub ''End of ""Public Sub Add_Conditional_Expression_BA1080(sender As Object, e As EventArgs)""
 
+
+    Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/19/2022 & 5/31/2022 & 9/ 2/2019 thomas downes
+        ''
+        ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
+        ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+        Dim frm_ToShow As DialogTextBorder
+
+        Dim intSave_Left As Integer ''Added 7/19/2022
+        Dim intSave_Top As Integer ''Added 7/19/2022
+
+        ''Save location.
+        intSave_Left = Me.CtlCurrentElement.Left
+        intSave_Top = Me.CtlCurrentElement.Top
+
+        ''7/19/2022 ''frm_ToShow = New DialogTextBorder(Me.CtlCurrentElement, Me.ElementInfo_Base)
+        frm_ToShow = New DialogTextBorder(Me.CtlCurrentElement, Me.Element_Base)
+
+        frm_ToShow.ShowDialog()
+
+        ''Restore location.
+        Me.CtlCurrentElement.Left = intSave_Left
+        Me.CtlCurrentElement.Top = intSave_Top
+
+
+    End Sub ''End of ""Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)""
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
         ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001

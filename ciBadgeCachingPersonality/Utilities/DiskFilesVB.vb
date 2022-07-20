@@ -26,10 +26,25 @@ Public Module DiskFilesVB
         ''  Notice that the "business" in the first file becomes
         ''  the subfolder's name in the path of the other files.
         ''
+        ''  Example XML files:
+        ''
+        ''    C:\RSC\IDCardLayout.xml
+        ''          \IDCardLayout\RecipientsPersonality.xml
+        ''          \IDCardLayout\SpreadsheetData.xml
+        ''
         ''---7/16/2022 td 
 
         SuffixXmlTitles ''Main file "[name].xml" has associated XML files 
         ''  of the form "[name][suffix].xml".  ---7/16/2022 td
+        ''
+        ''  Example XML files:
+        ''
+        ''    C:\RSC\IDCardLayout.xml
+        ''          \IDCardLayout_RecipsPers.xml
+        ''          \IDCardLayout_SpreadData.xml
+        ''
+        ''---7/16/2022 td 
+        ''
         EmbeddingPaths ''Main file "[name].xml" contains as a XML-specified value
         ''    the entire path (as the "contents" of an XML leaf item).
         DontLinkXMLs ''The XML files are _NOT_ linked.  ---7/16/2022 td

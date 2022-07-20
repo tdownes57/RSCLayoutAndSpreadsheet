@@ -12,6 +12,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     ''
     Public FieldInfo As ICIBFieldStandardOrCustom
 
+    Public CtlGraphicFldLabel1 As CtlGraphicFieldV3 ''Added 7/19/2022
+    Public CtlRSCMoveable1 As __RSCWindowsControlLibrary.RSCMoveableControlVB
+
     ''Added 8/17/2019 td  
     ''8/29 td''Public FontOffset_X As Integer
     ''8/29 td''Public FontOffset_Y As Integer
@@ -37,6 +40,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     End Property
 
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
+    Public Element_Base As ClassElementBase ''Added 7/19/2022 td
+
     ''12/31/2021 td''Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
     Public ElementCopy_Info_TextField As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
     Public ElementCopy_Info_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 12/31/2021 td
@@ -107,9 +112,11 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementField, par_element_copy As ClassElementField)"
 
-    Public Sub New(par_element_fromLayoutV4 As ClassElementFieldV4)
+
+    Public Sub New(par_control As __RSCWindowsControlLibrary.RSCMoveableControlVB,
+                   par_elementBase As ClassElementFieldOrTextV4)
         ''
-        ''Added 2/04/2022 thomas d. 
+        ''Added 7/19/2022 & 2/04/2022 thomas d. 
         ''
         ' This call is required by the designer.
         InitializeComponent()
@@ -117,9 +124,36 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''
         ' Add any initialization after the InitializeComponent() call.
         ''
-
+        Me.CtlRSCMoveable1 = par_control
+        Me.ElementCopy_Info_Base = CType(par_elementBase, IElement_Base)
+        Me.ElementCopy_Info_TextField = CType(par_elementBase, IElement_TextField)
 
     End Sub
+
+
+    Public Sub New(par_control As __RSCWindowsControlLibrary.RSCMoveableControlVB,
+                   par_elementBase As ClassElementBase)
+        ''
+        ''Added 7/19/2022 & 2/04/2022 thomas d. 
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''
+        ' Add any initialization after the InitializeComponent() call.
+        ''
+        Me.CtlRSCMoveable1 = par_control
+        Me.ElementCopy_Info_Base = CType(par_elementBase, IElement_Base)
+        Me.ElementCopy_Info_TextField = CType(par_elementBase, IElement_TextField)
+
+        Me.Element_Base = par_elementBase
+
+        Me.Controls.Add(Me.CtlRSCMoveable1)
+
+        CenterTheFieldControl(Me.CtlRSCMoveable1)
+
+
+    End Sub ''End of ""Public Sub New(...)"   
 
 
     Public Sub UpdateInfo_ViaInterface(par_elementInfo As IElement_Base, Optional par_overrideConfirmation As Boolean = False)
@@ -168,36 +202,38 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''2/4/2022 td''Me.OriginalElementControl = par_originalCtl
         Me.OriginalElementControlV3 = par_originalCtlV3
 
-        With CtlGraphicFldLabel1
+        Me.CtlGraphicFldLabel1 = par_originalCtlV3 ''Added 7/19/2022
 
-            ''5/11/2022 .FieldInfo = Me.ElementObject_CopyV3.FieldInfo
-            .FieldEnumValue = Me.ElementObject_CopyV3.FieldEnum
-            .FieldIsCustom = Me.ElementObject_CopyV3.FieldIsCustomizable
-            .ExampleTextToDisplay = Me.ElementObject_CopyV3.ExampleValue_ForElement
-
-            ''Added 1/5/2022 td
-            ''  Populate the handy interface references.
-            ''  
-            Me.ElementCopy_Info_Base = Me.ElementObject_CopyV3
-            Me.ElementCopy_Info_TextOnly = Me.ElementObject_CopyV3
-            Me.ElementCopy_Info_TextField = Me.ElementObject_CopyV3
-
-            ''Added 9/18/2019 td 
-            .ElementInfo_Base = Me.ElementCopy_Info_Base
-            ''12/31/2021 td''.ElementInfo_Text = Me.ElementCopy_Info_Text
-            .ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly
-            .ElementInfo_TextField = Me.ElementCopy_Info_TextField ''Added 12/31/2021 thomas downes
-
-            ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
-            .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 
-
-            .Width = .ElementInfo_Base.Width_Pixels
-            .Height = .ElementInfo_Base.Height_Pixels
-
-            ''Jan5 2022 td''.Refresh_Image(True)
-            .Refresh_ImageV3(True, True, True, True, Me.ElementObject_CopyV3)
-
-        End With ''End of "With CtlGraphicFldLabel1"
+        ''7/19/2022 With CtlGraphicFldLabel1
+        ''
+        ''    ''5/11/2022 .FieldInfo = Me.ElementObject_CopyV3.FieldInfo
+        ''    .FieldEnumValue = Me.ElementObject_CopyV3.FieldEnum
+        ''    .FieldIsCustom = Me.ElementObject_CopyV3.FieldIsCustomizable
+        ''    .ExampleTextToDisplay = Me.ElementObject_CopyV3.ExampleValue_ForElement
+        ''
+        ''    ''Added 1/5/2022 td
+        ''    ''  Populate the handy interface references.
+        ''    ''  
+        ''    Me.ElementCopy_Info_Base = Me.ElementObject_CopyV3
+        ''    Me.ElementCopy_Info_TextOnly = Me.ElementObject_CopyV3
+        ''    Me.ElementCopy_Info_TextField = Me.ElementObject_CopyV3
+        ''
+        ''    ''Added 9/18/2019 td 
+        ''    .ElementInfo_Base = Me.ElementCopy_Info_Base
+        ''    ''12/31/2021 td''.ElementInfo_Text = Me.ElementCopy_Info_Text
+        ''    .ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly
+        ''    .ElementInfo_TextField = Me.ElementCopy_Info_TextField ''Added 12/31/2021 thomas downes
+        ''
+        ''    ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
+        ''    .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 
+        ''
+        ''    .Width = .ElementInfo_Base.Width_Pixels
+        ''    .Height = .ElementInfo_Base.Height_Pixels
+        ''
+        ''    ''Jan5 2022 td''.Refresh_Image(True)
+        ''    .Refresh_ImageV3(True, True, True, True, Me.ElementObject_CopyV3)
+        ''
+        ''End With ''End of "With CtlGraphicFldLabel1"
 
         ''Added 9/13/2019 thomas downes
         Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
@@ -222,11 +258,20 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''2/4/2022 td ''Me.OriginalElementControl = par_originalCtl
         Me.OriginalElementControlV4 = par_originalCtlV4
 
-        With CtlGraphicFldLabel1
+        ''Added 7/16/2022 
+        If (Me.ElementObject_CopyV4 Is Nothing) Then
+            Me.ElementObject_CopyV4 =
+                par_originalCtlV4.ElementClass_ObjV4.CopyToElementFieldV4()
+            ''System.Diagnostics.Debugger.Break()
+        End If ''End of ""If (Me.ElementObject_CopyV4 Is Nothing) Then""
+
+        ''7/17/2022 td''With CtlGraphicFldLabel1
+        ''7/19/2022 With CtlGraphicFieldV41
+        With CtlRSCMoveable1
 
             ''5/11/2022 td''.FieldInfo = Me.ElementObject_CopyV4.FieldInfo
-            .FieldEnumValue = Me.ElementObject_CopyV4.FieldEnum
-            .FieldIsCustom = Me.ElementObject_CopyV4.FieldIsCustomizable ''Added 5/11/2022 td
+            ''7/15/2022 td''.FieldEnumValue = Me.ElementObject_CopyV4.FieldEnum
+            ''7/15/2022 td''.FieldIsCustom = Me.ElementObject_CopyV4.FieldIsCustomizable ''Added 5/11/2022 td
 
             ''Added 1/5/2022 td
             ''  Populate the handy interface references.
@@ -238,8 +283,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             ''Added 9/18/2019 td 
             .ElementInfo_Base = Me.ElementCopy_Info_Base
             ''12/31/2021 td''.ElementInfo_Text = Me.ElementCopy_Info_Text
-            .ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly
-            .ElementInfo_TextField = Me.ElementCopy_Info_TextField ''Added 12/31/2021 thomas downes
+            ''7/15/2022 td''.ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly
+            ''7/15/2022 td''.ElementInfo_TextField = Me.ElementCopy_Info_TextField ''Added 12/31/2021 thomas downes
 
             ''Denigrated. 9/19/2019 td''.FormDesigner = par_formDesigner
             .LayoutFunctions = par_layoutFun ''Added 9/19/2019 td 
@@ -399,18 +444,43 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     ''
     ''End Sub ''End of "Public Sub LoadFieldAndForm_NotInUse(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
-    Private Sub CenterTheFieldControl()
+    Private Sub CenterTheFieldControl(Optional par_control As UserControl = Nothing)
         ''
         ''Position it at the center horizontally. 
         ''8/15/2019 td
         ''
-        With CtlGraphicFldLabel1
+        If (par_control IsNot Nothing) Then
+            With par_control
 
-            .Left = CInt((Me.Width - .Width) / 2)
+                .Left = CInt((Me.Width - .Width) / 2)
+                .Top = CInt((Me.Height - .Height) / 2)
+                Exit Sub
 
-        End With
+            End With
+        End If ''end of ""If (par_control IsNot Nothing) Then""
 
-    End Sub
+
+        If (CtlGraphicFldLabel1 IsNot Nothing) Then
+            With CtlGraphicFldLabel1
+
+                .Left = CInt((Me.Width - .Width) / 2)
+                .Top = CInt((Me.Height - .Height) / 2)
+
+            End With
+        End If ''End of ""If (CtlGraphicFldLabel1 IsNot Nothing) Then""
+
+        ''Added 7/19/2022 thomas downes
+        If (CtlRSCMoveable1 IsNot Nothing) Then
+            With CtlRSCMoveable1
+
+                .Left = CInt((Me.Width - .Width) / 2)
+                .Top = CInt((Me.Height - .Height) / 2)
+
+            End With
+        End If ''End of ""If (CtlRSCMoveable1 IsNot Nothing) Then""
+
+    End Sub ''End of ""Private Sub CenterTheFieldControl()""
+
 
     ''Private Sub ButtonIncrease_Click(sender As Object, e As EventArgs)
     ''    ''
@@ -483,11 +553,17 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''Added 9/14/2019
         ''
         ''Added 9/13/2019 thomas downes
-        With Me.CtlGraphicFldLabel1
+        ''
+        ''7/17/2022----With Me.CtlGraphicFldLabel1
+        ''7/15/2022 td''With Me.CtlGraphicFieldV41
+        With Me.CtlRSCMoveable1
+
             ''---Me.CtlGraphicFldLabel1.Width = Me.ElementInfo_Base.Width_Pixels
             ''---Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
-            Me.CtlGraphicFldLabel1.Refresh_ImageV3(True)
-        End With
+            ''7/15/2022 td''Me.CtlGraphicFieldV41.Refresh_ImageV3(True)
+            Me.CtlRSCMoveable1.RefreshElementImage()
+
+        End With ''End of ""With Me.CtlGraphicFieldV41""
 
     End Sub
 

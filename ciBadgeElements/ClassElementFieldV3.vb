@@ -67,6 +67,11 @@ Public Structure WhyOmitted_StructV1 ''Added 11/10/2021 thomas downes
 
 End Structure ''End of "Public Structure WhyOmitted_StructV1"
 
+
+
+
+
+
 <Serializable>
 Public Class ClassElementFieldV3
     Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
@@ -911,6 +916,7 @@ Public Class ClassElementFieldV3
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
+
     Public Function Copy() As ClassElementFieldV3
         ''
         ''Added 9/17/2019 
@@ -925,6 +931,7 @@ Public Class ClassElementFieldV3
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementField"
+
 
     Public Sub LoadbyCopyingMembers(par_objectElement As ClassElementFieldV3,
                                     par_ElementInfo_Base As IElement_Base,

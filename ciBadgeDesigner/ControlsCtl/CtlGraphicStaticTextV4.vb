@@ -178,6 +178,11 @@ Public Class CtlGraphicStaticTextV4
             .CtlCurrentStaticTextV4 = CtlStaticTextV4 ''Added 2/14/2022 td
             ''Not needed.''.CtlCurrentFieldOrTextV4 = CtlStaticTextV4 ''Added 2/24/2022 td
 
+            ''Added 7/19/2022 td
+            ''---This is static text, there is no field!!!----
+            ''-----.CtlCurrentElementFieldV4 = par_elementStaticText
+
+
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementStaticText

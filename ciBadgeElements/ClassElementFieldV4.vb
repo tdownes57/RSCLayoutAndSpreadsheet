@@ -335,16 +335,18 @@ Public Class ClassElementFieldV4
     End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
 
-    ''Public Overloads Function Copy(pboolDummy As Boolean) As ClassElementFieldV4
-    ''    ''
-    ''    ''Added 2/4/2022 & 9/17/2019 
-    ''    ''
-    ''    Dim objCopy As New ClassElementFieldV4
-    ''    objCopy.LoadByCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+    Public Function CopyToElementFieldV4() As ClassElementFieldV4
+        ''--#2 July25 2022 --Public Overloads Function Copy(pboolDummy As Boolean)
+        ''--#1 ??? 2022 --Public Overloads Function Copy(pboolDummy As Boolean) As ClassElementFieldOrTextV4
+        ''
+        ''Added 7/16/2022 & 2/4/2022 & 9/17/2019 
+        ''
+        Dim objCopy As New ClassElementFieldV4
+        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
 
-    ''    Return objCopy
+        Return objCopy
 
-    ''End Function ''End of "Public Function Copy() As ClassElementFieldOrTextV4"
+    End Function ''End of "Public Function CopyToElementFieldV4() As ClassElementFieldV4"
 
 
 

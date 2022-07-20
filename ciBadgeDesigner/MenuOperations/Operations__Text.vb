@@ -441,12 +441,13 @@ ExitHandler:
     End Sub ''End of "Public Sub Open_OffsetTextDialog_EE1005(sender As Object, e As EventArgs)"
 
 
-    Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
+    Public Sub Border_Design_Obselete_EE1000(sender As Object, e As EventArgs)
         ''
         ''Added 5/31/2022 & 9/ 2/2019 thomas downes
         ''
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+        Dim frm_ToShow As DialogTextBorder
 
         ''Dec.12 2021''Me.Parent_MenuCache.Cache.CheckEditsCacheIsLatest()
         Dim boolIsLatest As Boolean ''Dec. 12, 2021 td
@@ -457,9 +458,6 @@ ExitHandler:
         Me.ElementsCacheManager.CheckCacheIsLatestForEdits(boolIsLatest, boolIsCopyOfLatest)
         If (Not boolIsLatest) Then Throw New Exception("This is not the latest cache of edits.")
 
-
-
-
         ''
         ''Element Version #3  
         ''
@@ -467,7 +465,9 @@ ExitHandler:
 
             With Me.CtlCurrentElementFieldV3 ''Added 10/17/2019 td
 
-                Dim frm_ToShow As New DialogTextBorder(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy())
+                ''7/19/2022 ''Dim frm_ToShow As New DialogTextBorder(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy())
+                frm_ToShow = New DialogTextBorder(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy())
+
                 ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
                 ''5/31/2022 frm_ToShow.LoadFieldAndForm(Me.LayoutFunctions, Me.CtlCurrentElement)
                 frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
@@ -528,6 +528,47 @@ ExitHandler:
                 End If ''End of "If (boolUserPressedOK) Then"
 
             End With ''End of "With Me.CtlCurrentElement"
+
+
+        ElseIf (Me.CtlCurrentElementFieldV4 IsNot Nothing) Then
+            ''
+            ''Added 7/19/2022 thomas downes
+            ''
+            ''7/19/2022 ''Dim frm_ToShowV4 As DialogTextBorder
+
+            With Me.CtlCurrentElementFieldV4
+                frm_ToShow = New DialogTextBorder(.ElementClass_ObjV4,
+                                                    .ElementClass_ObjV4.CopyToElementFieldV4())
+                frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
+            End With ''End of "With Me.CtlCurrentElementV4"
+
+            ''Major call !!
+            frm_ToShow.ShowDialog()
+
+            ''Refresh the form. ----8/17/2019 td
+            Dim boolUserPressedOK As Boolean
+            boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+
+            If (boolUserPressedOK) Then '' ----8/17/2019 td
+
+
+
+            End If ''ENd of ""If (boolUserPressedOK) Then""
+
+
+        ElseIf (Me.CtlCurrentStaticTextV4 IsNot Nothing) Then
+            ''
+            ''This is for a Static-Text control, not for a 
+            ''   Element-Field control.----7/19/2022 
+            ''
+            With Me.CtlCurrentStaticTextV4
+                ''7/19/2022 frm_ToShow = New DialogTextBorder(Me.CtlCurrentStaticTextV4.ElementClass_Obj)
+                frm_ToShow = New DialogTextBorder(Me.CtlCurrentStaticTextV4, .ElementClass_Obj)
+                frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)
+            End With ''End of "With Me.CtlCurrentElementV4"
+
+            frm_ToShow.ShowDialog()
+
 
         End If ''End of ""If (Me.CtlCurrentElementFieldV3 IsNot Nothing) Then""
 

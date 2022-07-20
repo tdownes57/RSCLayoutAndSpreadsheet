@@ -209,18 +209,29 @@ Public Class Startup
             ''   ---12/20/2021 td
             ''
             If (obj_cache_layout_Elements Is Nothing) Then
-                ''Open the cache from the XML. 
+                ''
+                ''Open the cache from the XML.
+                ''
                 obj_cache_layout_Elements = LoadCachedData_Elements_Deprecated(obj_formToShow_Demo,
                                                                                boolNewFileXML,
                                                  strPathToElementsCacheXML_OutputOfPart1)
 
                 ''Added 7/13/2022 td
                 If (c_bLoadPersonalityLater) Then ''Added 7/13/2022 td
+                    ''
+                    ''This is "Later (than Elements cache)" since we have already called the
+                    ''  function "LoadCachedData_Elements_Deprecated" above.---7/18/2022
+                    ''
                     bNewPersonality = boolNewFileXML ''Added 7/13/2022 td
                     ''P = Personality, PRecips = Recipients collected under a Personality Configuration  
                     Dim strPathToXML_ElementsCache As String ''Added 7/13/2022
                     Dim strPathToXML_PRecips As String ''Added 7/13/2022
+
+                    ''Added 7/17/2022 & 7/13/2022 td
                     strPathToXML_ElementsCache = strPathToElementsCacheXML_OutputOfPart1
+                    If (strPathToElementsCacheXML_OutputOfPart1 Is Nothing) Then
+                        strPathToXML_ElementsCache = strPathToElementsCacheXML_InputForPart1
+                    End If
 
                     ''July15 2022 ''strPathToXML_PRecips = DiskFilesVB.PathToFile_XML_Personality(strPathToXML_ElementsCache)
                     strPathToXML_PRecips = DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(EnumHowToLinkXMLs.AutoSubfolders,

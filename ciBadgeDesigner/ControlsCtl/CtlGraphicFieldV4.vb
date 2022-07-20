@@ -24,6 +24,9 @@ Public Class CtlGraphicFieldV4
     ''Added 2/03/2022 td
     ''
     Public Element_FieldV4 As ciBadgeElements.ClassElementFieldV4
+    Public FieldEnumValue As EnumCIBFields ''Added 7/17/2022 & 5/11/2022 td
+    Public FieldIsCustom As Boolean ''Added 7/17/2022 & 5/11/2022 td
+
     Private Shared mod_intFieldTexts As Integer ''Feb01 2022 td'' += 1
     Private Shared mod_intFields As Integer ''Feb01 2022 td'' += 1
 

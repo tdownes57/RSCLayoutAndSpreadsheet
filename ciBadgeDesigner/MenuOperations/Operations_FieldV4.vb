@@ -551,7 +551,8 @@ Public Class Operations_FieldV4
         With Me.CtlCurrentElementFieldV4 ''Added 10/17/2019 td
 
             Dim frm_ToShow As DialogTextBorder
-            frm_ToShow = New DialogTextBorder(.ElementClass_ObjV4) ''2/4/2022 '', .ElementClass_Obj.Copy(True))
+            ''7/19/2022 frm_ToShow = New DialogTextBorder(Me.CtlCurrentElementFieldV4, .ElementClass_ObjV4) ''2/4/2022 '', .ElementClass_Obj.Copy(True))
+            frm_ToShow = New DialogTextBorder(Me.CtlCurrentElementFieldV4, .ElementClass_ObjV4) ''2/4/2022 '', .ElementClass_Obj.Copy(True))
 
             ''Denigrated. 9/19 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
             frm_ToShow.LoadFieldAndFormV4(Me.LayoutFunctions, Me.CtlCurrentElementFieldV4)

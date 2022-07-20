@@ -5,7 +5,7 @@ Partial Class DialogTextBorder
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -22,14 +22,13 @@ Partial Class DialogTextBorder
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.chkBorderDisplayed = New System.Windows.Forms.CheckBox()
-        Me.CtlGraphicFldLabel1 = New CtlGraphicFieldV3("DialogTextBorder")
-        Me.CtlBorderWidth = New CtlPropertyLeftRight()
+        Me.CtlBorderWidth = New ciBadgeDesigner.CtlPropertyLeftRight()
         Me.SuspendLayout()
         '
         'LabelHeader1
@@ -48,7 +47,7 @@ Partial Class DialogTextBorder
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.ButtonCancel.Location = New System.Drawing.Point(383, 273)
-        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(56, 38)
         Me.ButtonCancel.TabIndex = 29
@@ -59,7 +58,7 @@ Partial Class DialogTextBorder
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.Location = New System.Drawing.Point(295, 273)
-        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(81, 38)
         Me.ButtonOK.TabIndex = 28
@@ -78,19 +77,12 @@ Partial Class DialogTextBorder
         Me.chkBorderDisplayed.Text = "Display a border around the layout element. "
         Me.chkBorderDisplayed.UseVisualStyleBackColor = True
         '
-        'CtlGraphicFldLabel1
-        '
-        Me.CtlGraphicFldLabel1.Location = New System.Drawing.Point(22, 97)
-        Me.CtlGraphicFldLabel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.CtlGraphicFldLabel1.Name = "CtlGraphicFldLabel1"
-        Me.CtlGraphicFldLabel1.Size = New System.Drawing.Size(272, 19)
-        Me.CtlGraphicFldLabel1.TabIndex = 33
-        '
         'CtlBorderWidth
         '
         Me.CtlBorderWidth.BackColor = System.Drawing.Color.LightGreen
         Me.CtlBorderWidth.Location = New System.Drawing.Point(22, 197)
-        Me.CtlBorderWidth.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CtlBorderWidth.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlBorderWidth.MinimumValue = 0
         Me.CtlBorderWidth.Name = "CtlBorderWidth"
         Me.CtlBorderWidth.PropertyName = "Border Width"
         Me.CtlBorderWidth.PropertyValue = 0
@@ -105,7 +97,6 @@ Partial Class DialogTextBorder
         Me.ClientSize = New System.Drawing.Size(447, 322)
         Me.Controls.Add(Me.CtlBorderWidth)
         Me.Controls.Add(Me.chkBorderDisplayed)
-        Me.Controls.Add(Me.CtlGraphicFldLabel1)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
@@ -116,7 +107,6 @@ Partial Class DialogTextBorder
 
     End Sub
 
-    Friend WithEvents CtlGraphicFldLabel1 As CtlGraphicFieldV3
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
