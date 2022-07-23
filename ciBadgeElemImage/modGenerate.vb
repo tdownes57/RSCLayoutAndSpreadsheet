@@ -26,7 +26,8 @@ Public Module modGenerate
                            par_elementInfo_TextFld As IElement_TextOnly,
                            par_elementInfo_Base As IElement_Base,
                            ByRef pref_rotated As Boolean,
-                           ByVal par_bIsDesignStage As Boolean) As Image
+                           ByVal par_bIsDesignStage As Boolean,
+         Optional ByVal par_elemBase As ciBadgeElements.ClassElementBase = Nothing) As Image
         ''9/19/2019 TD                   Optional par_pictureBox As PictureBox = Nothing,
         ''9/19/2019 TD                   Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
         ''
@@ -161,8 +162,31 @@ Public Module modGenerate
         ''Added 9/3/2019 td
         ''pen_border = New Pen(par_elementInfo_Base.Border_Color,
         ''     par_elementInfo_Base.Border_WidthInPixels)
-        pen_border = New Pen(Color.Black,
-                             par_elementInfo_Base.Border_WidthInPixels)
+        ''
+        Dim bBorderNonzero As Boolean ''Added 7/22/2022
+        Dim bBorderDisplayed As Boolean ''Added 7/22/2022 
+        Dim intBorder_WidthInPixels As Integer ''Added 7/22/2022 
+        Dim colorOfBorder As Drawing.Color ''Added 7/22/2022 
+
+        If (par_elemBase IsNot Nothing) Then ''Conditioned 7/22/2022 
+            ''Added 7/22/2022 thomas downes
+            bBorderDisplayed = par_elemBase.Border_bDisplayed
+            bBorderNonzero = par_elemBase.Border_bWidthInPixels > 0
+            intBorder_WidthInPixels = par_elemBase.Border_bWidthInPixels ''Added 7/22/2022
+            colorOfBorder = par_elemBase.Border_bColor ''Added 7/22/2022
+            pen_border = New Pen(Color.Black,
+                                 par_elemBase.Border_bWidthInPixels)
+        Else
+            ''Added 7/22/2022 thomas downes
+            bBorderDisplayed = par_elementInfo_Base.Border_Displayed
+            bBorderNonzero = par_elementInfo_Base.Border_WidthInPixels > 0
+            intBorder_WidthInPixels = par_elementInfo_Base.Border_WidthInPixels
+            colorOfBorder = par_elementInfo_Base.Border_Color ''Added 7/22/2022
+            ''Pre-7/22/2022 thomas downes
+            pen_border = New Pen(Color.Black,
+                                 par_elementInfo_Base.Border_WidthInPixels)
+
+        End If ''End of ""If (par_elemBase IsNot Nothing) Then... Else..."
 
         ''8/28/2019 td''pen_backcolor = New Pen(Color.White)
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
@@ -233,20 +257,23 @@ Public Module modGenerate
         ''
         ''   Draw the border about the element.  
         ''
-        Dim boolNonzeroBorder As Boolean ''9/9 td
-        If (par_elementInfo_Base.Border_Displayed) Then
-            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
-            If (boolNonzeroBorder) Then
-                ''
-                ''Added 9/03/2019 td
-                ''
-                ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
-                DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
+        ''7/22/2022 td''Dim boolNonzeroBorder As Boolean ''9/9 td
+        ''7/22/2022 td''If (par_elementInfo_Base.Border_Displayed) Then
+        ''7/22/2022 td''boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
+        ''7/22/2022 td''If (boolNonzeroBorder) Then
+        If (bBorderDisplayed AndAlso bBorderNonzero) Then
+            ''
+            ''Added 9/03/2019 td
+            ''
+            ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+            ''7/22/2022 DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
+            ''                          gr_element, intNewElementWidth, intNewElementHeight,
+            ''                          par_elementInfo_Base.Border_Color)
+            DrawBorder_PixelsWide(intBorder_WidthInPixels,
                                       gr_element, intNewElementWidth, intNewElementHeight,
-                                      par_elementInfo_Base.Border_Color)
+                                      colorOfBorder)
 
-            End If ''End of "If (boolNonzeroBorder) Then"
-        End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
+        End If ''End of "If (bBorderDisplayed AndAlso bBorderNonzero) Then"
 
         ''
         ''Added 8/02/2019 td
@@ -579,13 +606,21 @@ Public Module modGenerate
 
         For intLineIndex = 1 To (par_WidthInPixels)
 
-            pen_border = New Pen(par_color, 1)
+            ''#1 7/22/2022 td''pen_border = New Pen(par_color, 1)
+            ''#2 7/22/2022 td''pen_border = New Pen(par_color, par_WidthInPixels)
+            pen_border = New Pen(par_color, par_WidthInPixels - intLineIndex)
 
             intOffsetPixels = (intLineIndex - 1)
 
+            ''#1 7/22/2022 par_gr.DrawRectangle(pen_border, New Rectangle(intOffsetPixels, intOffsetPixels,
+            ''                                               -1 + par_intWidth - 2 * intOffsetPixels,
+            ''                                               -1 + par_intHeight - 2 * intOffsetPixels))
+            ''#2 7/22/2022 par_gr.DrawRectangle(pen_border, New Rectangle(intOffsetPixels, intOffsetPixels,
+            ''                                               -1 + par_intWidth - 3 * intOffsetPixels,
+            ''                                               -1 + par_intHeight - 3 * intOffsetPixels))
             par_gr.DrawRectangle(pen_border, New Rectangle(intOffsetPixels, intOffsetPixels,
-                                                           -1 + par_intWidth - 2 * intOffsetPixels,
-                                                           -1 + par_intHeight - 2 * intOffsetPixels))
+                                                           -2 + par_intWidth - 2 * intOffsetPixels,
+                                                           -2 + par_intHeight - 2 * intOffsetPixels))
 
         Next intLineIndex
 

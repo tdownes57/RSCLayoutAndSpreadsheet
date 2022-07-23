@@ -28,7 +28,7 @@ Partial Class DialogTextBorder
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.chkBorderDisplayed = New System.Windows.Forms.CheckBox()
-        Me.CtlBorderWidth = New ciBadgeDesigner.CtlPropertyLeftRight()
+        Me.CtlLeftRightBorderWidth = New ciBadgeDesigner.CtlPropertyLeftRight()
         Me.SuspendLayout()
         '
         'LabelHeader1
@@ -46,7 +46,7 @@ Partial Class DialogTextBorder
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.ButtonCancel.Location = New System.Drawing.Point(383, 273)
+        Me.ButtonCancel.Location = New System.Drawing.Point(524, 272)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(56, 38)
@@ -57,7 +57,7 @@ Partial Class DialogTextBorder
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(295, 273)
+        Me.ButtonOK.Location = New System.Drawing.Point(436, 272)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(81, 38)
@@ -77,25 +77,25 @@ Partial Class DialogTextBorder
         Me.chkBorderDisplayed.Text = "Display a border around the layout element. "
         Me.chkBorderDisplayed.UseVisualStyleBackColor = True
         '
-        'CtlBorderWidth
+        'CtlLeftRightBorderWidth
         '
-        Me.CtlBorderWidth.BackColor = System.Drawing.Color.LightGreen
-        Me.CtlBorderWidth.Location = New System.Drawing.Point(22, 197)
-        Me.CtlBorderWidth.Margin = New System.Windows.Forms.Padding(4)
-        Me.CtlBorderWidth.MinimumValue = 0
-        Me.CtlBorderWidth.Name = "CtlBorderWidth"
-        Me.CtlBorderWidth.PropertyName = "Border Width"
-        Me.CtlBorderWidth.PropertyValue = 0
-        Me.CtlBorderWidth.Size = New System.Drawing.Size(175, 113)
-        Me.CtlBorderWidth.TabIndex = 36
+        Me.CtlLeftRightBorderWidth.BackColor = System.Drawing.Color.LightGreen
+        Me.CtlLeftRightBorderWidth.Location = New System.Drawing.Point(22, 197)
+        Me.CtlLeftRightBorderWidth.Margin = New System.Windows.Forms.Padding(4)
+        Me.CtlLeftRightBorderWidth.MinimumValue = 0
+        Me.CtlLeftRightBorderWidth.Name = "CtlLeftRightBorderWidth"
+        Me.CtlLeftRightBorderWidth.PropertyName = "Border Width"
+        Me.CtlLeftRightBorderWidth.PropertyValue = 0
+        Me.CtlLeftRightBorderWidth.Size = New System.Drawing.Size(175, 113)
+        Me.CtlLeftRightBorderWidth.TabIndex = 36
         '
         'DialogTextBorder
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightGreen
-        Me.ClientSize = New System.Drawing.Size(447, 322)
-        Me.Controls.Add(Me.CtlBorderWidth)
+        Me.ClientSize = New System.Drawing.Size(591, 322)
+        Me.Controls.Add(Me.CtlLeftRightBorderWidth)
         Me.Controls.Add(Me.chkBorderDisplayed)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.ButtonCancel)
@@ -111,5 +111,5 @@ Partial Class DialogTextBorder
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents chkBorderDisplayed As CheckBox
-    Friend WithEvents CtlBorderWidth As CtlPropertyLeftRight
+    Friend WithEvents CtlLeftRightBorderWidth As CtlPropertyLeftRight
 End Class

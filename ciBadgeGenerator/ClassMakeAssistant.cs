@@ -2022,7 +2022,8 @@ namespace ciBadgeGenerator
                     modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
                          par_elementStaticV4,
                          par_elementStaticV4,
-                         ref boolRotated, false);
+                         ref boolRotated, false,
+                         par_elementStaticV4);
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
 

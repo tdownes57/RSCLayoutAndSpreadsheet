@@ -15,6 +15,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     Public CtlGraphicFldLabel1 As CtlGraphicFieldV3 ''Added 7/19/2022
     Public CtlRSCMoveable1 As __RSCWindowsControlLibrary.RSCMoveableControlVB
 
+    Private mod_bIsLoading As Boolean = True ''Added 7/21/2022 thomas downes  
+
     ''Added 8/17/2019 td  
     ''8/29 td''Public FontOffset_X As Integer
     ''8/29 td''Public FontOffset_Y As Integer
@@ -40,17 +42,19 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
     End Property
 
     ''8/29/2019 td''Public ElementInfo As ciBadgeInterfaces.IElementText ''Added 8/16/2019 td
-    Public Element_Base As ClassElementBase ''Added 7/19/2022 td
 
     ''12/31/2021 td''Public ElementCopy_Info_Text As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
     Public ElementCopy_Info_TextField As ciBadgeInterfaces.IElement_TextField ''Added 8/16/2019 td
     Public ElementCopy_Info_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Added 12/31/2021 td
     Public ElementCopy_Info_Base As ciBadgeInterfaces.IElement_Base ''Added 8/16/2019 td
+    ''Renamed ElementObject_Base 7/22/2022 ''Public Element_Base As ClassElementBase ''Added 7/19/2022 td
 
     Public ElementObject_ForLayout_NotUsed As ClassElementFieldV3 ''Added 9/18/2019 td
     ''2/4/2022 td''Public ElementObject_Copy As ClassElementFieldLbl ''Added 9/18/2019 td
     Public ElementObject_CopyV3 As ClassElementFieldV3 ''Added 9/18/2019 td
     Public ElementObject_CopyV4 As ClassElementFieldV4 ''Added 2/04/2022 td
+    '' 7/22/2022 ''Public Element_Base As ClassElementBase ''Added 7/19/2022 td
+    Public ElementObject_Base As ClassElementBase ''Renamed 7/22/2022 Added 7/19/2022 td
 
     Public GroupEdits As ISelectingElements ''Added 8/15/2019 thomas downes  
 
@@ -84,6 +88,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.ElementCopy_Info_Base = CType(Me.ElementObject_CopyV3, IElement_Base)
         Me.ElementCopy_Info_TextField = CType(Me.ElementObject_CopyV3, IElement_TextField)
 
+        ''Added 7/20/2022 td
+        Me.CtlLeftRightBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlLeftRightBorderWidth.ElementObject_Base = Me.ElementObject_Base ''renamed 7/22/2022
 
     End Sub ''ENd of "Public Sub New(par_element_fromLayout As ClassElementFieldV3, par_element_copy As ClassElementFieldV3)"
 
@@ -143,14 +150,54 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ' Add any initialization after the InitializeComponent() call.
         ''
         Me.CtlRSCMoveable1 = par_control
-        Me.ElementCopy_Info_Base = CType(par_elementBase, IElement_Base)
-        Me.ElementCopy_Info_TextField = CType(par_elementBase, IElement_TextField)
 
-        Me.Element_Base = par_elementBase
+        Try
+            Me.ElementCopy_Info_Base = CType(par_elementBase, IElement_Base)
+        Catch ex_ctype1 As Exception
+            ''Added 7/22/2022 td 
+            System.Diagnostics.Debugger.Break()
+        End Try
+
+        ''Added 7/22/2022 td 
+        Try
+            Me.ElementCopy_Info_TextField = CType(par_elementBase, IElement_TextField)
+        Catch ex_ctype2 As Exception
+            ''Added 7/22/2022 td 
+            ''
+            '' This exception will occur for Static-Text elements. ---7/22/2022 td
+            ''
+            ''System.Diagnostics.Debugger.Break()
+        End Try
+
+        ''7/22/2022 Me.Element_Base = par_elementBase
+        Me.ElementObject_Base = par_elementBase
 
         Me.Controls.Add(Me.CtlRSCMoveable1)
 
         CenterTheFieldControl(Me.CtlRSCMoveable1)
+
+        ''Added 7/22/2022 thomas downes
+        If (Me.ElementObject_Base IsNot Nothing) Then
+            chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_bDisplayed
+        ElseIf (Me.ElementCopy_Info_Base IsNot Nothing) Then
+            chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
+        End If ''|End of ""If (Me.ElementObject_Base IsNot Nothing) Then... ElseIf..."
+
+        ''Added 9/13/2019 thomas downes
+        Me.CtlLeftRightBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+
+        ''Added 7/21/2022 thomas downes 
+        Me.CtlLeftRightBorderWidth.ElementObject_Base = Me.ElementObject_Base
+
+        ''Added 7/21/2022 thomas downes 
+        Me.CtlLeftRightBorderWidth.LoadControls()
+
+        ''Added 7/21/2022 thomas downes 
+        With Me.CtlLeftRightBorderWidth.ElementObject_Base
+            If (.Border_bColor = Drawing.Color.Empty) Then
+                .Border_bColor = Drawing.Color.Black
+            End If
+        End With
 
 
     End Sub ''End of ""Public Sub New(...)"   
@@ -236,15 +283,23 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         ''End With ''End of "With CtlGraphicFldLabel1"
 
         ''Added 9/13/2019 thomas downes
-        Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlLeftRightBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+
+        ''Added 7/21/2022 thomas downes 
+        Me.CtlLeftRightBorderWidth.ElementObject_Base = Me.ElementObject_Base
+
         ''12/31/2021 ''Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
-        Me.CtlBorderWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly ''added 12/31/2021
-        Me.CtlBorderWidth.ElementInfo_TextField = Me.ElementCopy_Info_TextField ''added 12/31/2021
+        Me.CtlLeftRightBorderWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly ''added 12/31/2021
+        Me.CtlLeftRightBorderWidth.ElementInfo_TextField = Me.ElementCopy_Info_TextField ''added 12/31/2021
 
         ''Position it at the center horizontally. 
         CenterTheFieldControl()
 
-    End Sub ''End of "Public Sub LoadFieldAndForm(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
+        ''Added 7/22/2022 thomas downes
+        chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
+        chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_bDisplayed
+
+    End Sub ''End of "Public Sub LoadFieldAndFormV3(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
 
     Public Sub LoadFieldAndFormV4(par_layoutFun As ILayoutFunctions,
@@ -264,6 +319,10 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
                 par_originalCtlV4.ElementClass_ObjV4.CopyToElementFieldV4()
             ''System.Diagnostics.Debugger.Break()
         End If ''End of ""If (Me.ElementObject_CopyV4 Is Nothing) Then""
+
+        ''Added 7/22/2022 thomas downes
+        chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
+        chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_bDisplayed
 
         ''7/17/2022 td''With CtlGraphicFldLabel1
         ''7/19/2022 With CtlGraphicFieldV41
@@ -299,10 +358,10 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         End With ''End of "With CtlGraphicFldLabel1"
 
         ''Added 9/13/2019 thomas downes
-        Me.CtlBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
+        Me.CtlLeftRightBorderWidth.ElementInfo_Base = Me.ElementCopy_Info_Base
         ''12/31/2021 ''Me.CtlBorderWidth.ElementInfo_Text = Me.ElementCopy_Info_Text
-        Me.CtlBorderWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly ''added 12/31/2021
-        Me.CtlBorderWidth.ElementInfo_TextField = Me.ElementCopy_Info_TextField ''added 12/31/2021
+        Me.CtlLeftRightBorderWidth.ElementInfo_TextOnly = Me.ElementCopy_Info_TextOnly ''added 12/31/2021
+        Me.CtlLeftRightBorderWidth.ElementInfo_TextField = Me.ElementCopy_Info_TextField ''added 12/31/2021
 
         ''Position it at the center horizontally. 
         CenterTheFieldControl()
@@ -538,17 +597,34 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     Private Sub ChkBorderDisplayed_CheckedChanged(sender As Object, e As EventArgs) Handles chkBorderDisplayed.CheckedChanged
 
+        Dim bDisplayBorder As Boolean ''Added 7/21/2022 td
+
+        If (mod_bIsLoading) Then Exit Sub ''Added 7/21/2022 td
+
         ''Added 9/9/2019 thomas downes
         ''
         ''9/13/2019 td''ButtonDecrease.Enabled = chkBorderDisplayed.Checked
         ''9/13/2019 td''ButtonIncrease.Enabled = chkBorderDisplayed.Checked
         ''9/13/2019 td''LabelBorderWidth.Enabled = chkBorderDisplayed.Checked
 
-        CtlBorderWidth.Enabled = chkBorderDisplayed.Checked
+        bDisplayBorder = chkBorderDisplayed.Checked ''Added 7/21/2022 thomas downes
+
+        CtlLeftRightBorderWidth.Enabled = chkBorderDisplayed.Checked
+
+        ''Added 7/21/2022 td
+        If (Me.ElementObject_Base IsNot Nothing) Then
+            Me.ElementObject_Base.Border_bDisplayed = bDisplayBorder
+        Else
+            Me.ElementCopy_Info_Base.Border_Displayed = bDisplayBorder
+        End If ''End of ""If (Me.ElementObject_Base IsNot Nothing) Then.... Else...."
+
+        ''7/21/2022 RaiseEvent EventUpdateRequest()
+        CtlBorderWidth_EventUpdateRequest()
 
     End Sub
 
-    Private Sub CtlBorderWidth_EventUpdateRequest() Handles CtlBorderWidth.EventUpdateRequest
+
+    Private Sub CtlBorderWidth_EventUpdateRequest() Handles CtlLeftRightBorderWidth.EventUpdateRequest
         ''
         ''Added 9/14/2019
         ''
@@ -561,7 +637,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             ''---Me.CtlGraphicFldLabel1.Width = Me.ElementInfo_Base.Width_Pixels
             ''---Me.CtlGraphicFldLabel1.Height = Me.ElementInfo_Base.Height_Pixels
             ''7/15/2022 td''Me.CtlGraphicFieldV41.Refresh_ImageV3(True)
-            Me.CtlRSCMoveable1.RefreshElementImage()
+            .RefreshElementImage()
 
         End With ''End of ""With Me.CtlGraphicFieldV41""
 
@@ -569,6 +645,14 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
     Private Sub DialogTextBorder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
+
+ExitHandler:
+        ''Added 7/21/2022 thomas downes
+        mod_bIsLoading = False ''We are done loading. 
+
     End Sub
+
+
 End Class
 

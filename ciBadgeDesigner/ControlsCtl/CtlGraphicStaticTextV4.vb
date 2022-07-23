@@ -187,6 +187,8 @@ Public Class CtlGraphicStaticTextV4
             .Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementStaticText
             .ElementInfo_TextOnly = par_elementStaticText ''Added 2/2/2022 td
+            ''Added 7/22/2022 thomas downes
+            .ElementObject_Base = par_elementStaticText ''Added 7/22/2022 td
 
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
@@ -327,18 +329,25 @@ Public Class CtlGraphicStaticTextV4
         ''
         ''Added 6/6/2022 td
         ''
-        Dim boolSuppressPrompt As Boolean
+        Dim boolSuppressPrompt_DontAskFontResize As Boolean
         ''6/6/2022 boolSuppressPrompt = (Not pbAfterResizingEvent)
-        boolSuppressPrompt = (Not pbAfterResizingHeight)
+        boolSuppressPrompt_DontAskFontResize = (Not pbAfterResizingHeight)
+
+        Const c_boolUseV4 As Boolean = False ''Added 7/22/2022 td
 
         ''6/6/2022 td ''Refresh_ImageV4(True)
         ''6/6/2022 td ''Refresh_ImageV4(True, , , , , boolSuppressPrompt)
 
         ''6/6/2022 Refresh_ImageV3(True)
-        If (boolSuppressPrompt) Then
+        If (boolSuppressPrompt_DontAskFontResize) Then
 
             ''The user will not be prompted to scale the font. The font won't be resized. ---6/6/2022 td
-            Refresh_ImageV3(True, , , , , boolSuppressPrompt)
+            If (c_boolUseV4) Then
+                Refresh_ImageV4(True, , , , , boolSuppressPrompt_DontAskFontResize)
+            Else
+                Refresh_ImageV3(True, , , , , boolSuppressPrompt_DontAskFontResize)
+            End If
+
 
         Else
             ''
@@ -346,9 +355,9 @@ Public Class CtlGraphicStaticTextV4
             ''
             Refresh_ImageV3(True) ''Initially, refresh without prompting & w/ suppression of auto-sizing. This
             ''   will allow the border to be redrawn, especially needed if the user has enlarged the element. 
-            Refresh_ImageV3(True, , , , , boolSuppressPrompt)  ''Next, check w/ user if they want to re-size the font.
+            Refresh_ImageV3(True, , , , , boolSuppressPrompt_DontAskFontResize)  ''Next, check w/ user if they want to re-size the font.
 
-        End If ''End of ""If (boolSuppressPrompt) Then.... Else....""
+        End If ''End of ""If (boolSuppressPrompt_DontAskFontResize) Then.... Else....""
 
     End Sub ''End of ""Public Overrides Sub RefreshElementImage()""
 
@@ -373,7 +382,7 @@ Public Class CtlGraphicStaticTextV4
                         Nothing,
                         pbSuppressFontScaling)
 
-    End Sub ''End of "Public Overrides Sub Refresh_ImageV4(....)"
+    End Sub ''End of "Public Overrides Sub Refresh_ImageV3(....)"
 
 
     Public Overrides Sub Refresh_ImageV4(pbRefreshSize As Boolean,
@@ -602,7 +611,7 @@ Public Class CtlGraphicStaticTextV4
                                              intBadgeLayoutWidth,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
-                                   boolRotated, True)
+                                   boolRotated, True, Me.ElementBase)
         Else
             ''9/20/2019 td''pictureFieldOrText.Image =
             newTextImage =
@@ -723,7 +732,7 @@ ExitHandler:
             Me.Refresh()
         End If ''ENd of "If (par_boolRefreshUserControl) Then"
 
-    End Sub ''End of Public Sub Refresh_ImageV3
+    End Sub ''End of Public Sub Refresh_ImageV4
 
 
     Public Overrides Sub SaveToModel() Implements ISaveToModel.SaveToModel

@@ -32,7 +32,7 @@ Public MustInherit Class Operations__Base
     Public Property NameOfClass As String ''Added 12/30/2021 td
 
     Public Property ElementInfo_Base As IElement_Base ''Added 1/19/2022 thomas d.
-    Public Property Element_Base As ciBadgeElements.ClassElementBase ''Added 7/19/2022 thomas d.
+    Public Property ElementObject_Base As ciBadgeElements.ClassElementBase ''Added 7/19/2022 thomas d.
 
     Public MustOverride Property Element_Type As Enum_ElementType ''Added 1/19/2022 td 
 
@@ -180,13 +180,13 @@ Public MustInherit Class Operations__Base
             End If ''End of ""If boolInCurrentForm Then... Else..."
 
             Application.DoEvents() ''Added 6/1/2022 
-                Me.InfoRefresh.RefreshCardPreview() ''Added 5/10/2022 td
-                ''Added 5/11/2022 td 
-                Me.ElementsCacheManager.CacheForEditing.UserHasDeletedElements = True
+            Me.InfoRefresh.RefreshCardPreview() ''Added 5/10/2022 td
+            ''Added 5/11/2022 td 
+            Me.ElementsCacheManager.CacheForEditing.UserHasDeletedElements = True
 
-            Else
-                ''Added 1/21/2022 td 
-                MessageBoxTD.Show_Statement("Unfortunately, we could Not find that element!!  Sorry!!")
+        Else
+            ''Added 1/21/2022 td 
+            MessageBoxTD.Show_Statement("Unfortunately, we could Not find that element!!  Sorry!!")
 
         End If ''Endo  f'"If (boolSuccess) Then .... Else ...."
 
@@ -274,13 +274,16 @@ Public MustInherit Class Operations__Base
         intSave_Top = Me.CtlCurrentElement.Top
 
         ''7/19/2022 ''frm_ToShow = New DialogTextBorder(Me.CtlCurrentElement, Me.ElementInfo_Base)
-        frm_ToShow = New DialogTextBorder(Me.CtlCurrentElement, Me.Element_Base)
+        frm_ToShow = New DialogTextBorder(Me.CtlCurrentElement, Me.ElementObject_Base)
 
         frm_ToShow.ShowDialog()
 
         ''Restore location.
+        frm_ToShow.Controls.Remove(Me.CtlCurrentElement)
+        Me.CtlCurrentForm.Controls.Add(Me.CtlCurrentElement)
         Me.CtlCurrentElement.Left = intSave_Left
         Me.CtlCurrentElement.Top = intSave_Top
+        Me.CtlCurrentElement.BringToFront()
 
 
     End Sub ''End of ""Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)""

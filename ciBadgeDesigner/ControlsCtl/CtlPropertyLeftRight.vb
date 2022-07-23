@@ -13,7 +13,10 @@ Public Class CtlPropertyLeftRight
     Private mod_iMinimumValue As Integer = 0 ''Added 9/18/2019 td  
 
     Public ElementInfo_Base As IElement_Base
-    ''10/12/2019 td''Public ElementInfo_Text As IElement_TextField
+    ''Renamed 7/22/22022 Public Element_Base As ciBadgeElements.ClassElementBase ''Added 7/20/2022 thomas
+    Public ElementObject_Base As ciBadgeElements.ClassElementBase ''Added 7/20/2022 thomas
+
+    ''10/12/2019 td''Publ ic ElementInfo_Text As IElement_TextField
     ''12/31/2021 td''Public ElementInfo_Text As IElement_TextOnly
     Public ElementInfo_TextOnly As IElement_TextOnly
     Public ElementInfo_TextField As IElement_TextField
@@ -55,6 +58,17 @@ Public Class CtlPropertyLeftRight
         End Set
     End Property
 
+
+    Public Sub LoadControls()
+        ''
+        ''Added 7/22/2022 thomas downes
+        ''
+        UpdateUserFeedbackLabel()
+        InitiateLocalValue()
+
+    End Sub ''End of ""Public Sub LoadControls()""
+
+
     Private Sub ButtonDecrease_Click(sender As Object, e As EventArgs) Handles ButtonDecrease.Click
 
         ''9/18/2019 td''mod_iPropertyValue -= 1
@@ -89,6 +103,7 @@ Public Class CtlPropertyLeftRight
 
     End Sub
 
+
     Private Sub UpdateUserFeedbackLabel()
         ''
         ''9/13/2019 
@@ -96,7 +111,7 @@ Public Class CtlPropertyLeftRight
         LabelProperty.Text = (mod_sPropertyName & ": " & CStr(mod_iPropertyValue))
         Me.Refresh()
 
-    End Sub
+    End Sub ''end of ""Private Sub UpdateUserFeedbackLabel()""
 
 
     Private Sub UpdateElementInfo(par_value As Single)  ''Jan2 2022 '' Integer)
@@ -124,8 +139,20 @@ Public Class CtlPropertyLeftRight
 
                 Case (.StartsWith("Border"))
 
-                    ''Added 9/14/2019 td  
-                    Me.ElementInfo_Base.Border_WidthInPixels = CInt(par_value)
+                    ''Added 7/20/2022 thomas downes
+                    If (Me.ElementObject_Base IsNot Nothing) Then
+                        With Me.ElementObject_Base
+                            .Border_bWidthInPixels = CInt(par_value)
+                        End With
+
+                    ElseIf (Me.ElementInfo_Base IsNot Nothing) Then
+                        ''Condition added 7/20/2022 thomas downes
+                        ''Added 9/14/2019 td  
+                        With Me.ElementInfo_Base
+                            .Border_WidthInPixels = CInt(par_value)
+                        End With
+
+                    End If ''End of ""If (Me.ElementObject_Base IsNot Nothing) Then ... ElseIf..""
 
                 Case Else
 
@@ -145,12 +172,15 @@ Public Class CtlPropertyLeftRight
         ''Added 9/14/2019 td
         ''
         ''Jan2 2022 td''InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_Text)
-        InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_TextOnly)
+        ''7/22/2022 td''InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_TextOnly)
+        InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_TextOnly, Me.ElementObject_Base)
 
-    End Sub
+    End Sub ''End of ""Public Sub InitiateLocalValue()""
 
-    Public Sub InitiateLocalValue(par_Base As IElement_Base,
-                                   par_Text As IElement_TextOnly)
+
+    Public Sub InitiateLocalValue(par_infoBase As IElement_Base,
+                                   par_infoText As IElement_TextOnly,
+                 Optional par_objectBase As ciBadgeElements.ClassElementBase = Nothing)
         ''
         ''Added 9/14/2019 thomas d. 
         ''
@@ -160,16 +190,29 @@ Public Class CtlPropertyLeftRight
 
                 Case (.StartsWith("Text") Or .StartsWith("Off"))
 
-                    mod_iPropertyValue = par_Text.FontOffset_X ''= par_value
+                    mod_iPropertyValue = par_infoText.FontOffset_X ''= par_value
 
                 Case (.StartsWith("Font"))
 
                     ''Dec31 2021''mod_iPropertyValue = par_Text.FontSize_Pixels ''= par_value
-                    mod_iPropertyValue = CInt(par_Text.FontSize_Pixels) ''= par_value
+                    mod_iPropertyValue = CInt(par_infoText.FontSize_Pixels) ''= par_value
 
                 Case (.StartsWith("Total") Or .StartsWith("Label"))
 
-                    mod_iPropertyValue = par_Base.Width_Pixels ''= par_value
+                    mod_iPropertyValue = par_infoBase.Width_Pixels ''= par_value
+
+                Case (.StartsWith("Border")) ''Added 7/22/2022 thomas downes
+
+                    ''Added 7/22/2022 thomas downes
+                    If (par_objectBase IsNot Nothing) Then
+                        mod_iPropertyValue = Me.ElementObject_Base.Border_bWidthInPixels
+                    Else
+                        mod_iPropertyValue = par_infoBase.Border_WidthInPixels
+                    End If
+
+                Case Else
+                    ''Added 7/22/2022 thomas 
+                    System.Diagnostics.Debugger.Break()
 
             End Select ''End of "Select Case True"
 
