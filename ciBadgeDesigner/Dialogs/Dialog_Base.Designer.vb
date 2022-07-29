@@ -23,7 +23,8 @@ Partial Class Dialog_Base
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.PanelDisplayElement = New System.Windows.Forms.Panel()
-        Me.panelArrow = New System.Windows.Forms.Panel()
+        Me.panelArrowRight = New System.Windows.Forms.Panel()
+        Me.panelArrowLeft = New System.Windows.Forms.Panel()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
@@ -35,7 +36,8 @@ Partial Class Dialog_Base
         Me.ButtonTextPlacement = New System.Windows.Forms.Button()
         Me.PanelEditorControls = New System.Windows.Forms.Panel()
         Me.ButtonTextstring = New System.Windows.Forms.Button()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.checkBoxArrow = New System.Windows.Forms.CheckBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.PanelDisplayElement.SuspendLayout()
         Me.PanelEditorControls.SuspendLayout()
         Me.SuspendLayout()
@@ -43,21 +45,31 @@ Partial Class Dialog_Base
         'PanelDisplayElement
         '
         Me.PanelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.PanelDisplayElement.Controls.Add(Me.panelArrow)
+        Me.PanelDisplayElement.Controls.Add(Me.panelArrowRight)
+        Me.PanelDisplayElement.Controls.Add(Me.panelArrowLeft)
         Me.PanelDisplayElement.Location = New System.Drawing.Point(11, 47)
         Me.PanelDisplayElement.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelDisplayElement.Name = "PanelDisplayElement"
         Me.PanelDisplayElement.Size = New System.Drawing.Size(603, 380)
         Me.PanelDisplayElement.TabIndex = 1
         '
-        'panelArrow
+        'panelArrowRight
         '
-        Me.panelArrow.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
-        Me.panelArrow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.panelArrow.Location = New System.Drawing.Point(37, 36)
-        Me.panelArrow.Name = "panelArrow"
-        Me.panelArrow.Size = New System.Drawing.Size(86, 33)
-        Me.panelArrow.TabIndex = 14
+        Me.panelArrowRight.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop____Right
+        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.panelArrowRight.Location = New System.Drawing.Point(191, 36)
+        Me.panelArrowRight.Name = "panelArrowRight"
+        Me.panelArrowRight.Size = New System.Drawing.Size(86, 33)
+        Me.panelArrowRight.TabIndex = 15
+        '
+        'panelArrowLeft
+        '
+        Me.panelArrowLeft.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
+        Me.panelArrowLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.panelArrowLeft.Location = New System.Drawing.Point(37, 36)
+        Me.panelArrowLeft.Name = "panelArrowLeft"
+        Me.panelArrowLeft.Size = New System.Drawing.Size(86, 33)
+        Me.panelArrowLeft.TabIndex = 14
         '
         'ButtonOK
         '
@@ -180,22 +192,32 @@ Partial Class Dialog_Base
         Me.ButtonTextstring.Text = "Text / String"
         Me.ButtonTextstring.UseVisualStyleBackColor = True
         '
-        'CheckBox1
+        'checkBoxArrow
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(506, 16)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(237, 17)
-        Me.CheckBox1.TabIndex = 12
-        Me.CheckBox1.Text = "Display a gold arrow for the editable element."
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.checkBoxArrow.AutoSize = True
+        Me.checkBoxArrow.Location = New System.Drawing.Point(506, 16)
+        Me.checkBoxArrow.Name = "checkBoxArrow"
+        Me.checkBoxArrow.Size = New System.Drawing.Size(237, 17)
+        Me.checkBoxArrow.TabIndex = 12
+        Me.checkBoxArrow.Text = "Display a gold arrow for the editable element."
+        Me.checkBoxArrow.UseVisualStyleBackColor = True
+        '
+        'Panel2
+        '
+        Me.Panel2.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
+        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Panel2.Location = New System.Drawing.Point(749, 9)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(86, 37)
+        Me.Panel2.TabIndex = 15
         '
         'Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(945, 502)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.checkBoxArrow)
         Me.Controls.Add(Me.PanelEditorControls)
         Me.Controls.Add(Me.LabelHeading2)
         Me.Controls.Add(Me.LabelHeading1)
@@ -224,6 +246,8 @@ Partial Class Dialog_Base
     Friend WithEvents ButtonTextPlacement As Button
     Friend WithEvents PanelEditorControls As Panel
     Friend WithEvents ButtonTextstring As Button
-    Friend WithEvents panelArrow As Panel
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents panelArrowLeft As Panel
+    Friend WithEvents checkBoxArrow As CheckBox
+    Friend WithEvents panelArrowRight As Panel
+    Friend WithEvents Panel2 As Panel
 End Class

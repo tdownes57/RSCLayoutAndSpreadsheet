@@ -264,7 +264,8 @@ Public MustInherit Class Operations__Base
         ''
         ''9/18/2019 td''Dim frm_ToShow As New DialogTextBorder
         ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
-        Dim frm_ToShow As DialogTextBorder
+        Dim frm_ToShowV1 As DialogTextBorder
+        Dim frm_ToShowV2 As Dialog_BaseBorder ''Added 7/29/2022 td
 
         Dim intSave_Left As Integer ''Added 7/19/2022
         Dim intSave_Top As Integer ''Added 7/19/2022
@@ -274,17 +275,19 @@ Public MustInherit Class Operations__Base
         intSave_Top = Me.CtlCurrentElement.Top
 
         ''7/19/2022 ''frm_ToShow = New DialogTextBorder(Me.CtlCurrentElement, Me.ElementInfo_Base)
-        frm_ToShow = New DialogTextBorder(Me.CtlCurrentElement, Me.ElementObject_Base)
+        ''7/29/2022 ''frm_ToShowV1 = New DialogTextBorder(Me.CtlCurrentElement, Me.ElementObject_Base)
+        frm_ToShowV2 = New Dialog_BaseBorder(Me.CtlCurrentElement, Me.ElementObject_Base) ''7/29/2022 '', Me.ElementObject_Base)
 
-        frm_ToShow.ShowDialog()
+        ''7/19/2022 ''frm_ToShowV1.ShowDialog()
+        frm_ToShowV2.ShowDialog()
 
         ''Restore location.
-        frm_ToShow.Controls.Remove(Me.CtlCurrentElement)
+        ''7/19/2022 ''frm_ToShowV1.Controls.Remove(Me.CtlCurrentElement)
+        frm_ToShowV2.Controls.Remove(Me.CtlCurrentElement)
         Me.CtlCurrentForm.Controls.Add(Me.CtlCurrentElement)
         Me.CtlCurrentElement.Left = intSave_Left
         Me.CtlCurrentElement.Top = intSave_Top
         Me.CtlCurrentElement.BringToFront()
-
 
     End Sub ''End of ""Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)""
 
