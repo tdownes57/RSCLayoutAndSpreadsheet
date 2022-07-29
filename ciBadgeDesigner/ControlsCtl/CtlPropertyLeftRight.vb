@@ -173,7 +173,8 @@ Public Class CtlPropertyLeftRight
         ''
         ''Jan2 2022 td''InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_Text)
         ''7/22/2022 td''InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_TextOnly)
-        InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_TextOnly, Me.ElementObject_Base)
+        InitiateLocalValue(Me.ElementInfo_Base, Me.ElementInfo_TextOnly,
+                           Me.ElementObject_Base)
 
     End Sub ''End of ""Public Sub InitiateLocalValue()""
 

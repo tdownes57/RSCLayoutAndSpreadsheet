@@ -8,6 +8,19 @@ Public Class Dialog_BaseChooseColor
     ''
     Private mod_colors As New List(Of Drawing.Color)
 
+
+    Public Sub New(par_control As CtlGraphicFieldOrTextV4)
+
+        ' Add any initialization after the InitializeComponent() call.
+        MyBase.New(par_control)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+
+    End Sub
+
+
     Private Sub Dialog_BaseChooseColor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
         '' Added 3/4/2022 thomas downes

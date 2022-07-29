@@ -70,7 +70,7 @@ Partial Class DialogTextBorder
         Me.chkBorderDisplayed.AutoSize = True
         Me.chkBorderDisplayed.Checked = True
         Me.chkBorderDisplayed.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkBorderDisplayed.Location = New System.Drawing.Point(22, 61)
+        Me.chkBorderDisplayed.Location = New System.Drawing.Point(22, 173)
         Me.chkBorderDisplayed.Name = "chkBorderDisplayed"
         Me.chkBorderDisplayed.Size = New System.Drawing.Size(233, 17)
         Me.chkBorderDisplayed.TabIndex = 35
@@ -80,7 +80,7 @@ Partial Class DialogTextBorder
         'CtlLeftRightBorderWidth
         '
         Me.CtlLeftRightBorderWidth.BackColor = System.Drawing.Color.LightGreen
-        Me.CtlLeftRightBorderWidth.Location = New System.Drawing.Point(22, 197)
+        Me.CtlLeftRightBorderWidth.Location = New System.Drawing.Point(38, 196)
         Me.CtlLeftRightBorderWidth.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlLeftRightBorderWidth.MinimumValue = 0
         Me.CtlLeftRightBorderWidth.Name = "CtlLeftRightBorderWidth"

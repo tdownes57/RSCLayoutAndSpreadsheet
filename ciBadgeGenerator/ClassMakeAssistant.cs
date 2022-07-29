@@ -146,7 +146,8 @@ namespace ciBadgeGenerator
                 //         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
                 image_textStandard =
                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
+                         par_elementField, par_elementField, 
+                         ref boolRotated, false, par_elementField);  //7-29-2022 ref boolRotated, false);  //''9/20/2019 td'', True)
 
             }
             //            Catch ex_draw_invalid As InvalidOperationException
@@ -1437,9 +1438,10 @@ namespace ciBadgeGenerator
                 //         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
                 image_textStandard =
                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
-                                                                                       //
-                                                                                       //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
+                         par_elementField, par_elementField, 
+                         ref boolRotated, false, par_elementField);  //July29 2022 ref boolRotated, false); //''9/20/2019 td'', True)
+                                                   //
+                                                   //                 If(bOutputAllImages) Then par_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
 
@@ -1688,10 +1690,12 @@ namespace ciBadgeGenerator
             try
             {
                 int intDesiredLayout_Width = par_imageBadgeCard.Width;
-                bool boolRotated = false; //Added 10/14/2019 td  
+                bool boolRotated = false; //Added 10/14/2019 td
+                                          
                 image_textStandard =
                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                         par_elementField, par_elementField, ref boolRotated, false);
+                         par_elementField, par_elementField, 
+                         ref boolRotated, false, par_elementField);  // 7-29-2022 ref boolRotated, false);
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
 
@@ -1831,7 +1835,7 @@ namespace ciBadgeGenerator
 
                 image_textStandard =
                     modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                         par_elementStaticV3, par_elementStaticV3, ref boolRotated, false);
+                         par_elementStaticV3, par_elementStaticV3, ref boolRotated, false, par_elementStaticV3);
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
 

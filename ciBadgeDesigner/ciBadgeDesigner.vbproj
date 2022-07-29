@@ -373,6 +373,12 @@
     <Compile Include="Dialogs\DialogStaticText.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\Dialog_BaseBorder.Designer.vb">
+      <DependentUpon>Dialog_BaseBorder.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Dialog_BaseBorder.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\Dialog_BaseChooseColor.Designer.vb">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
     </Compile>
@@ -640,6 +646,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogStaticText.resx">
       <DependentUpon>DialogStaticText.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Dialog_BaseBorder.resx">
+      <DependentUpon>Dialog_BaseBorder.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseChooseColor.resx">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>

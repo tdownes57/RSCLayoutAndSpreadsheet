@@ -764,7 +764,7 @@ ExitHandler:
                     ''            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
                     image_textStandard =
                         modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
+                            each_elementField, each_elementField, False, False, each_elementField) ''9/20/2019 td'', True)
 
                     If (bOutputAllImages) Then pref_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 
@@ -926,7 +926,8 @@ ExitHandler:
                     ''            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
                     image_textStandard =
                         modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
+                            each_elementField, each_elementField,
+                            False, False, each_elementField) ''9/20/2019 td'', True)
 
                     If (bOutputAllImages) Then pref_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
 

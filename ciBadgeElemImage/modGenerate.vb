@@ -27,7 +27,8 @@ Public Module modGenerate
                            par_elementInfo_Base As IElement_Base,
                            ByRef pref_rotated As Boolean,
                            ByVal par_bIsDesignStage As Boolean,
-         Optional ByVal par_elemBase As ciBadgeElements.ClassElementBase = Nothing) As Image
+                           ByVal par_elemBase As ciBadgeElements.ClassElementBase) As Image
+        ''7/29/2022 TD     ByVal par_elemBase As ciBadgeElements.ClassElementBase) As Image
         ''9/19/2019 TD                   Optional par_pictureBox As PictureBox = Nothing,
         ''9/19/2019 TD                   Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
         ''
@@ -81,9 +82,13 @@ Public Module modGenerate
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
         ''
         ''Added 11/24/2021 td
-        If (0 = par_elementInfo_Base.Height_Pixels) Then Throw New Exception("Division by 0 (par_elementInfo_Base.Height_Pixels)")
+        If (0 = par_elementInfo_Base.Height_Pixels) Then
+            ''7/29/2022 td''Throw New Exception("Division by 0 (par_elementInfo_Base.Height_Pixels)")
+            System.Diagnostics.Debugger.Break()
+        Else
+            doubleW_div_H = (par_elementInfo_Base.Width_Pixels / par_elementInfo_Base.Height_Pixels)
 
-        doubleW_div_H = (par_elementInfo_Base.Width_Pixels / par_elementInfo_Base.Height_Pixels)
+        End If ''End of ""If (0 = par_elementInfo_Base.Height_Pixels) Then ... Else...""
 
         ''Added 9/4/2019 thomas downes
         ''9/19/2019 td''boo_LikelyRatioIsMistaken = ciLayoutPrintLib.LayoutPrint.RatioIsLikelyBad(doubleW_div_H)
@@ -94,9 +99,15 @@ Public Module modGenerate
         ''9/11/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
 
         ''Added 11/24/2021 td
-        If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then Throw New Exception("Division by 0 (par_elementInfo_Base.BadgeLayout.Width_Pixels)")
+        If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then
+            ''7/22/2022 Throw New Exception("Division by 0 (par_elementInfo_Base.BadgeLayout.Width_Pixels)")
+            System.Diagnostics.Debugger.Break()
+            doubleScaling = 1
+        Else
+            doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
 
-        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
+        End If ''Endof "" If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then""
+
 
         ''Added 8/15/2019 td
         intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)

@@ -691,7 +691,7 @@ ExitHandler:
                                              intBadgeLayoutWidth,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
-                                   boolRotated, True)
+                                   boolRotated, True, Me.ElementClass_Obj)
         Else
             ''9/20/2019 td''pictureFieldOrText.Image =
             newTextImage =

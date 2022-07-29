@@ -23,6 +23,7 @@ Partial Class Dialog_Base
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.PanelDisplayElement = New System.Windows.Forms.Panel()
+        Me.panelArrow = New System.Windows.Forms.Panel()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
@@ -32,19 +33,31 @@ Partial Class Dialog_Base
         Me.Button3 = New System.Windows.Forms.Button()
         Me.ButtonBorder = New System.Windows.Forms.Button()
         Me.ButtonTextPlacement = New System.Windows.Forms.Button()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.PanelEditorControls = New System.Windows.Forms.Panel()
         Me.ButtonTextstring = New System.Windows.Forms.Button()
-        Me.Panel1.SuspendLayout()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.PanelDisplayElement.SuspendLayout()
+        Me.PanelEditorControls.SuspendLayout()
         Me.SuspendLayout()
         '
         'PanelDisplayElement
         '
         Me.PanelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.PanelDisplayElement.Controls.Add(Me.panelArrow)
         Me.PanelDisplayElement.Location = New System.Drawing.Point(11, 47)
         Me.PanelDisplayElement.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelDisplayElement.Name = "PanelDisplayElement"
         Me.PanelDisplayElement.Size = New System.Drawing.Size(603, 380)
         Me.PanelDisplayElement.TabIndex = 1
+        '
+        'panelArrow
+        '
+        Me.panelArrow.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
+        Me.panelArrow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.panelArrow.Location = New System.Drawing.Point(37, 36)
+        Me.panelArrow.Name = "panelArrow"
+        Me.panelArrow.Size = New System.Drawing.Size(86, 33)
+        Me.panelArrow.TabIndex = 14
         '
         'ButtonOK
         '
@@ -75,20 +88,21 @@ Partial Class Dialog_Base
         Me.LabelHeading1.Location = New System.Drawing.Point(9, 7)
         Me.LabelHeading1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeading1.Name = "LabelHeading1"
-        Me.LabelHeading1.Size = New System.Drawing.Size(208, 26)
+        Me.LabelHeading1.Size = New System.Drawing.Size(473, 26)
         Me.LabelHeading1.TabIndex = 4
-        Me.LabelHeading1.Text = "Modify the element. "
+        Me.LabelHeading1.Text = "Modify the element indicated by the gold arrow. "
         '
         'LabelHeading2
         '
         Me.LabelHeading2.AutoSize = True
-        Me.LabelHeading2.Location = New System.Drawing.Point(221, 20)
+        Me.LabelHeading2.Location = New System.Drawing.Point(581, 9)
         Me.LabelHeading2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeading2.Name = "LabelHeading2"
         Me.LabelHeading2.Size = New System.Drawing.Size(458, 13)
         Me.LabelHeading2.TabIndex = 5
         Me.LabelHeading2.Text = "(See element at center of the following box.  Any edits made below the box will b" &
     "e visible within.)"
+        Me.LabelHeading2.Visible = False
         '
         'ButtonColor
         '
@@ -140,21 +154,21 @@ Partial Class Dialog_Base
         Me.ButtonTextPlacement.Text = "Text Placement"
         Me.ButtonTextPlacement.UseVisualStyleBackColor = True
         '
-        'Panel1
+        'PanelEditorControls
         '
-        Me.Panel1.BackColor = System.Drawing.Color.LightBlue
-        Me.Panel1.Controls.Add(Me.ButtonTextstring)
-        Me.Panel1.Controls.Add(Me.ButtonTextPlacement)
-        Me.Panel1.Controls.Add(Me.ButtonFont)
-        Me.Panel1.Controls.Add(Me.Button3)
-        Me.Panel1.Controls.Add(Me.ButtonColor)
-        Me.Panel1.Controls.Add(Me.ButtonBorder)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 447)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(945, 55)
-        Me.Panel1.TabIndex = 11
+        Me.PanelEditorControls.BackColor = System.Drawing.Color.LightBlue
+        Me.PanelEditorControls.Controls.Add(Me.ButtonTextstring)
+        Me.PanelEditorControls.Controls.Add(Me.ButtonTextPlacement)
+        Me.PanelEditorControls.Controls.Add(Me.ButtonFont)
+        Me.PanelEditorControls.Controls.Add(Me.Button3)
+        Me.PanelEditorControls.Controls.Add(Me.ButtonColor)
+        Me.PanelEditorControls.Controls.Add(Me.ButtonBorder)
+        Me.PanelEditorControls.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.PanelEditorControls.Location = New System.Drawing.Point(0, 447)
+        Me.PanelEditorControls.Margin = New System.Windows.Forms.Padding(2)
+        Me.PanelEditorControls.Name = "PanelEditorControls"
+        Me.PanelEditorControls.Size = New System.Drawing.Size(945, 55)
+        Me.PanelEditorControls.TabIndex = 11
         '
         'ButtonTextstring
         '
@@ -166,12 +180,23 @@ Partial Class Dialog_Base
         Me.ButtonTextstring.Text = "Text / String"
         Me.ButtonTextstring.UseVisualStyleBackColor = True
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(506, 16)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(237, 17)
+        Me.CheckBox1.TabIndex = 12
+        Me.CheckBox1.Text = "Display a gold arrow for the editable element."
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(945, 502)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.PanelEditorControls)
         Me.Controls.Add(Me.LabelHeading2)
         Me.Controls.Add(Me.LabelHeading1)
         Me.Controls.Add(Me.ButtonCancel)
@@ -180,7 +205,8 @@ Partial Class Dialog_Base
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Dialog_Base"
         Me.Text = "Dialog_Base"
-        Me.Panel1.ResumeLayout(False)
+        Me.PanelDisplayElement.ResumeLayout(False)
+        Me.PanelEditorControls.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -196,6 +222,8 @@ Partial Class Dialog_Base
     Friend WithEvents Button3 As Button
     Friend WithEvents ButtonBorder As Button
     Friend WithEvents ButtonTextPlacement As Button
-    Friend WithEvents Panel1 As Panel
+    Friend WithEvents PanelEditorControls As Panel
     Friend WithEvents ButtonTextstring As Button
+    Friend WithEvents panelArrow As Panel
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

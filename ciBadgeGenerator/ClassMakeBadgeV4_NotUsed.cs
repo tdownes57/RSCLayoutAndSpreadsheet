@@ -166,7 +166,7 @@ namespace ciBadgeGenerator
                 bool boolRotated = false; //Added 10/14/2019 td  
                 image_textStandard =
                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
-                         par_elementField, par_elementField, ref boolRotated, false);
+                         par_elementField, par_elementField, ref boolRotated, false, par_elementField);
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
 

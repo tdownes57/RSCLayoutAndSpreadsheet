@@ -197,7 +197,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
             If (.Border_bColor = Drawing.Color.Empty) Then
                 .Border_bColor = Drawing.Color.Black
             End If
-        End With
+        End With ''End of ""With Me.CtlLeftRightBorderWidth.ElementObject_Base""
 
 
     End Sub ''End of ""Public Sub New(...)"   

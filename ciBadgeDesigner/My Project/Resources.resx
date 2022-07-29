@@ -121,14 +121,14 @@
   <data name="Step3_TakePic_v90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Step3_TakePic_v90.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="code-ninjas-logo_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\code-ninjas-logo_png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Declaration_jpg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Declaration_jpg.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="IncreaseY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IncreaseY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GoldDiagonal_Land" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GoldDiagonal_Land.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BackgroundIsBlank" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\RSC ID Card\Graphics and Images\BackgroundIsBlank.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -141,6 +141,9 @@
   </data>
   <data name="Declaration__png" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Declaration _png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Liz_005" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\RSC ID Card\RSC ID Card - EXE\BackgroundExampleDemos\Liz_005.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Declaration_emf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Declaration_emf.emf;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,8 +163,8 @@
   <data name="BackgroundIsBlank_MoveableElems" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\RSC ID Card\Graphics and Images\BackgroundIsBlank_MoveableElems.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="code-ninjas-logo_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\code-ninjas-logo_png.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GoldDiagonal_Land" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GoldDiagonal_Land.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="code-ninjas-logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\code-ninjas-logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,7 +175,7 @@
   <data name="mainback_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mainback_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Liz_005" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\RSC ID Card\RSC ID Card - EXE\BackgroundExampleDemos\Liz_005.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Gold Arrow (crop)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\R Software Consulting 123\__GRAPHICS\Gold Arrow (crop).jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

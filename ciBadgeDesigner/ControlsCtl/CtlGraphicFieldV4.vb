@@ -158,6 +158,8 @@ Public Class CtlGraphicFieldV4
             .Designer = par_parametersGetElementControl.DesignerClass
             .ElementInfo_Base = par_elementField
             .ElementInfo_TextOnly = par_elementField ''Added 2/2/2022 td
+            .ElementFieldV4 = CtlFieldV4.Element_FieldV4 ''Moved from below.
+            .ElementObject_Base = CtlFieldV4.Element_FieldV4 ''Added 7/29/2022 thomas
 
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 
@@ -170,7 +172,8 @@ Public Class CtlGraphicFieldV4
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
 
             ''Added 2/2/2022 td
-            .ElementFieldV4 = CtlFieldV4.Element_FieldV4
+            ''Moved up. 7/29/2022 .ElementFieldV4 = CtlFieldV4.Element_FieldV4
+            ''Moved up. 7/29/2022 .ElementObject_Base = CtlFieldV4.Element_FieldV4 ''Added 7/29/2022 thomas
 
             ''Added 2/3/2022 td
             .SelectingElements = par_parametersGetElementControl.DesignerClass ''Added 2/3/2022 td
@@ -309,7 +312,8 @@ Public Class CtlGraphicFieldV4
         If (boolSuppressPrompt) Then
 
             ''The user will not be prompted to scale the font. The font won't be resized. ---6/6/2022 td
-            Refresh_ImageV4(True, , , , , boolSuppressPrompt)
+            ''7/29/2022 td''Refresh_ImageV4(True, , , , , boolSuppressPrompt)
+            Refresh_ImageV4(True, , , , Me.ElementClass_ObjV4, boolSuppressPrompt)
 
         Else
             ''
@@ -319,7 +323,8 @@ Public Class CtlGraphicFieldV4
             ''
             Refresh_ImageV4(True) ''Initially, refresh without prompting & w/ suppression of auto-sizing. This
             ''   will allow the border to be redrawn, especially needed if the user has enlarged the element. 
-            Refresh_ImageV4(True, , , , , boolSuppressPrompt)  ''Next, check w/ user if they want to re-size the font.
+            ''7/29/2022 td''Refresh_ImageV4(True, , , , , boolSuppressPrompt)  ''Next, check w/ user if they want to re-size the font.
+            Refresh_ImageV4(True, , , , Me.ElementClass_ObjV4, boolSuppressPrompt) ''Next, check w/ user if they want to re-size the font
 
         End If ''End of ""If (boolSuppressPrompt) Then.... Else....""
 
@@ -553,7 +558,8 @@ Public Class CtlGraphicFieldV4
                                              intBadgeLayoutWidth,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
-                                   boolRotated, True)
+                                   boolRotated, True, Me.ElementClass_Obj)
+
         Else
             ''9/20/2019 td''pictureFieldOrText.Image =
             newTextImage =

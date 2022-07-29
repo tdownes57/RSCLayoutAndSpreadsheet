@@ -288,6 +288,17 @@ Public MustInherit Class Operations__Base
 
     End Sub ''End of ""Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)""
 
+
+    Public Sub Refresh_Element_Image_EE1301(sender As Object, e As EventArgs)
+        ''
+        ''Added 7/29/2022 thomas d. 
+        ''
+        Me.CtlCurrentElement.RefreshElementImage()
+        Me.CtlCurrentElement.Refresh()
+
+    End Sub ''End of ""Public Sub Refresh_Element_Image_EE1301"" 
+
+
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
         ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
         ''
