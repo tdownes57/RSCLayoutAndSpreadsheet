@@ -164,6 +164,8 @@ Public Class CtlGraphicStaticGraphic
             .LayoutFunctions = .Designer
             .Monem_iMoveOrResizeFun = CtlStaticGraphic1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
             .InfoRefresh = par_parametersGetElementControl.iRefreshPreview ''Added 5/10/2022
+            ''Added 8/01/2022 td
+            .Designer = par_parametersGetElementControl.DesignerClass
 
         End With ''End of "With objOperationsSG"
 

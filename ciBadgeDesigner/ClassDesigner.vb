@@ -1547,6 +1547,29 @@ Public Class ClassDesigner
     End Function ''End of ""Public Function Load_NewElementIntoCache_StaticTextV4()""
 
 
+    Public Function GetBadgeImage_EitherSide(par_enumCurrentSide As EnumWhichSideOfCard,
+                        par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
+                        Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
+                        Optional par_elementBaseToOmit As ClassElementBase = Nothing) As Image
+        ''
+        ''Added 8/01/2022 Thomas Downes  
+        ''
+        ''Optional parameter "par_elementBaseToOmit" allows us to focus on individual elements
+        ''   against a background which includes visual/non-editable (image only) versions of 
+        ''   all other elements (which are not currently being edited).  
+        ''   ---8/1/2022 td
+        ''
+        Dim objImageOfBadgeSide As Image = Nothing
+
+        RefreshPreview_EitherSide(par_enumCurrentSide, par_objMakeBadgeElements,
+                 Nothing, Nothing, par_recipient, True, objImageOfBadgeSide,
+                 par_elementBaseToOmit)
+
+        Return objImageOfBadgeSide
+
+    End Function ''End of ""Public Function GetBadgeImage_EitherSide""
+
+
     Public Sub UnselectHighlightedElements()
         ''
         ''Added 10/15/2019 thomas d.  
@@ -3367,10 +3390,24 @@ Public Class ClassDesigner
 
     Public Sub RefreshPreview_EitherSide(par_enumCurrentSide As EnumWhichSideOfCard,
                                         par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
-                                         Optional par_recentlyMoved As ClassElementFieldV3 = Nothing,
-                                    Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
+                                         Optional par_recentlyMovedV3 As ClassElementFieldV3 = Nothing,
+                                         Optional par_recentlyMovedV4 As ClassElementFieldV4 = Nothing,
+                                    Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
+                                         Optional pboolReturnImage As Boolean = False,
+                                         Optional pref_image As Drawing.Image = Nothing,
+                                         Optional par_elementBaseToOmit As ClassElementBase = Nothing)
         ''
         ''Stubbed 12/27/2021
+        ''
+        ''Optional parameter "par_elementBaseToOmit" allows us to focus on individual elements
+        ''   against a background which includes visual/non-editable (image only) versions of 
+        ''   all other elements (which are not currently being edited).  
+        ''   ---8/1/2022 td
+        ''
+        ''Parameters added 8/01/2022....
+        ''     Optional pboolReturnImage As Boolean = False,
+        ''     Optional pref_image As Drawing.Image = Nothing,
+        ''     Optional par_elementToOmit As ClassElementBase = Nothing)
         ''
         ''--Jan13 2022--RefreshPreview_Redux_Front(par_recentlyMoved, par_recipient)
 
@@ -3501,7 +3538,10 @@ Public Class ClassDesigner
                            Me.PreviewBox.Width,
                            Me.PreviewBox.Height,
                            par_recipient,
-                           Nothing, Nothing, Nothing, par_recentlyMoved)
+                           Nothing, Nothing, Nothing,
+                           par_recentlyMovedV3,
+                           par_recentlyMovedV4,
+                           par_elementBaseToOmit)
 
             ''Added 1/23/2022 td
             ''Provide automated problem-related feedback to user. 
@@ -3516,6 +3556,12 @@ Public Class ClassDesigner
         End If ''End of "If (c_boolUseFunction2022) Then ..."
 
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
+
+        ''Added 8/01/2022 thomas d.
+        If (pboolReturnImage) Then
+            pref_image = obj_image
+            Return
+        End If ''End of ""If (pboolReturnImage) Then""
 
         Me.PreviewBox.Image = obj_image
         Try

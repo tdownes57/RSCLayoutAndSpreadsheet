@@ -45,12 +45,20 @@ namespace ciBadgeGenerator
                             List<string> par_listFieldsIncluded = null,
                             List<string> par_listFieldsNotIncluded = null,
                             ClassElementFieldV3 par_recentlyMovedV3 = null,
-                            ClassElementFieldV4 par_recentlyMovedV4 = null)
+                            ClassElementFieldV4 par_recentlyMovedV4 = null,
+                            ClassElementBase par_elementBaseToOmit = null)
         {
             //
             // Added 12/18/2021 td
             //
+            //''Optional parameter "par_elementBaseToOmit" allows us to focus on individual elements
+            //''   against a background which includes visual/ non - editable(image only) versions of
+            //''   all other elements(which are not currently being edited).
+            //''-- - 8 / 1 / 2022 td
+            //''
             bool bMissingElementPortrait = false; //Added 1/14/2022 td
+            bool boolCheckMatchBaseToOmit = false; //Added 8/01/2022 td
+            bool each_boolMatchBaseToOmit = false; //Added 8/01/2022 td
 
             //Added 5/21/2022 thomas 
             ClassMakeAssistant objAssistant = new ClassMakeAssistant(); //Added 5/21/2022
@@ -147,7 +155,9 @@ namespace ciBadgeGenerator
                           par_listMessages,
                          par_listFieldsIncluded,
                          par_listFieldsNotIncluded,
-                             par_recentlyMovedV3);
+                             par_recentlyMovedV3, 
+                             par_recentlyMovedV4, 
+                             par_elementBaseToOmit);
 
                 //Added 11/29/2021 td  
                 string strLastUpdate = dateMostRecentUpdate.ToString();
@@ -267,6 +277,16 @@ namespace ciBadgeGenerator
                     //    System.Diagnostics.Debugger.Break();
                     //}
 
+                    //
+                    //Omit the specified element-base to omit. 
+                    //
+                    if (boolCheckMatchBaseToOmit)
+                    {
+                        //Skip the element w/ specified base (par_elementBaseToOmit).
+                        each_boolMatchBaseToOmit = (par_elementBaseToOmit == (ClassElementBase)each_elementPic);
+                        if (each_boolMatchBaseToOmit) continue; //Skip the current element. 
+                    }
+
                     //Added 5/21/2022 td  
                     if (par_iRecipientInfo == null)
                     {
@@ -358,6 +378,16 @@ namespace ciBadgeGenerator
                           in par_layoutElements.ListElementSignatures)
                 {
                     //
+                    //Omit the specified element-base to omit. 
+                    //
+                    if (boolCheckMatchBaseToOmit)
+                    {
+                        //Skip the element w/ specified base (par_elementBaseToOmit).
+                        each_boolMatchBaseToOmit = (par_elementBaseToOmit == (ClassElementBase)each_elementSig);
+                        if (each_boolMatchBaseToOmit) continue; //Skip the current element. 
+                    }
+
+                    //
                     // Major call!!
                     //
                     objAssistant.LoadImageWithSignature(par_newBadge_width_pixels,
@@ -390,6 +420,16 @@ namespace ciBadgeGenerator
             foreach (ClassElementQRCode each_elementQR
                       in par_layoutElements.ListElementQRCodes)
             {
+                //
+                //Omit the specified element-base to omit. 
+                //
+                if (boolCheckMatchBaseToOmit)
+                {
+                    //Skip the element w/ specified base (par_elementBaseToOmit).
+                    each_boolMatchBaseToOmit = (par_elementBaseToOmit == (ClassElementBase)each_elementQR);
+                    if (each_boolMatchBaseToOmit) continue; //Skip the current element. 
+                }
+
                 //
                 // Major call!!
                 //
@@ -426,7 +466,8 @@ namespace ciBadgeGenerator
             // Added 1/31/2022 td //LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
              objAssistant.LoadImageWithStaticTexts(ref obj_imageOutput,
                                      listOfElementStaticTextsV3,
-                                     listOfElementStaticTextsV4);
+                                     listOfElementStaticTextsV4, 
+                                     par_elementBaseToOmit);
 
             //Added 1/22/2022 thomas d.
             //LoadImageWithPortrait(img_Step3Picture,
@@ -444,7 +485,8 @@ namespace ciBadgeGenerator
                             par_newBadge_width_pixels,
                             par_layoutDims.Width_Pixels,
                             ref structWhyOmittedV1,
-                            ref structWhyOmittedV2);
+                            ref structWhyOmittedV2,
+                            par_elementBaseToOmit);
 
             //
             // ExitHandler 

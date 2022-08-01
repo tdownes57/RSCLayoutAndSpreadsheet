@@ -766,7 +766,8 @@ namespace ciBadgeGenerator
         public void LoadImageWithStaticTexts(ref Image par_imageBadgeCard,
                               HashSet<ClassElementStaticTextV3> par_elementsV3,
                               HashSet<ClassElementStaticTextV4> par_elementsV4,
-                              HashSet<Image> par_listTextImages = null)
+                              HashSet<Image> par_listTextImages = null,
+                              ClassElementBase par_elementBaseToOmit = null)
         {
             //
             //Stubbed 10/14/2019 thomas d. 
@@ -776,6 +777,10 @@ namespace ciBadgeGenerator
             int intEachIndexV3 = 0;
             int intEachIndexV4 = 0;
             bool bOutputListOfAllImages;
+            bool each_boolMatchBaseToOmit = false;  //Added 8/01/2022 thomas downes
+            bool boolCheckMatchBaseToOmit = false;  //Added 8/01/2022 thomas downes
+
+            boolCheckMatchBaseToOmit = (par_elementBaseToOmit != null); //Added 8/01/2022 td
             ClassProportions.ProportionsAreSlightlyOff(par_imageBadgeCard, true, "par_imageBadgeCard");
             bOutputListOfAllImages = (par_listTextImages != null);
             gr_Badge = Graphics.FromImage(par_imageBadgeCard);
@@ -793,6 +798,16 @@ namespace ciBadgeGenerator
             // Added 1/31/2022 thomas downes
             foreach (ClassElementStaticTextV4 each_elementStaticV4 in par_elementsV4)
             {
+                //
+                //Omit the specified element-base to omit. 
+                //
+                if (boolCheckMatchBaseToOmit)
+                {
+                    //Skip the element w/ specified base (par_elementBaseToOmit).
+                    each_boolMatchBaseToOmit = (par_elementBaseToOmit == (ClassElementBase)each_elementStaticV4);
+                    if (each_boolMatchBaseToOmit) continue; //Skip the current element. 
+                }
+
                 intEachIndexV4 += 1;
                 AddElementStaticToImageV4(each_elementStaticV4, par_imageBadgeCard,
                        gr_Badge, bOutputListOfAllImages, par_listTextImages);
@@ -885,7 +900,9 @@ namespace ciBadgeGenerator
                                           List<String> par_listMessages = null,
                                           List<String> par_listFieldsIncluded = null,
                                           List<String> par_listFieldsNotIncluded = null,
-                                          ClassElementFieldV3 par_recentlyMoved = null)
+                                          ClassElementFieldV3 par_recentlyMovedV3 = null,
+                                          ClassElementFieldV4 par_recentlyMovedV4 = null,
+                                          ClassElementBase par_elementBaseToOmit = null)
         {
             //    ''Added 8/14/2019 td  
             //    ''
@@ -898,6 +915,8 @@ namespace ciBadgeGenerator
             int intEachIndexV4 = 0;   //Added 2/10/2022 thomas d.
             bool bOutputListOfAllImages;
             //string strTextToDisplay = ""; //Added 10/17/2019 thomas d
+            bool boolCheckMatchBaseToOmit = false; //Added 8/01/2022 td
+            bool each_boolMatchBaseToOmit = false; //Added 8/01/2022 td
 
             //
             //    ''9/8/2019 thomas d.
@@ -969,8 +988,21 @@ namespace ciBadgeGenerator
             //
             if (par_elementFieldsV4 is null) par_elementFieldsV4 = new List<ClassElementFieldV4>();
 
+            //Added 8/1/2022 td
+            boolCheckMatchBaseToOmit = (par_elementBaseToOmit != null);
+
             foreach (ClassElementFieldV4 each_elementFieldV4 in par_elementFieldsV4)
             {
+                //
+                //Omit the specified element-base to omit. 
+                //
+                if (boolCheckMatchBaseToOmit)
+                {
+                    //Skip the element w/ specified base (par_elementBaseToOmit).
+                    each_boolMatchBaseToOmit = (par_elementBaseToOmit == (ClassElementBase)each_elementFieldV4);
+                    if (each_boolMatchBaseToOmit) continue; //Skip the current element. 
+                }
+
                 //
                 // Element Field, Version #4     
                 //

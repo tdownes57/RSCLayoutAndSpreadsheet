@@ -35,7 +35,13 @@ Public MustInherit Class Operations__Text
         ''
         ''Added 5/31/2022 thomas downes 
         ''
-        Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4)
+        ''8/01/2022 Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4)
+
+        Dim imageOfBadgeSansElement As Image
+        imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
+
+        Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
+                                       Me.ElementObject_Base)
         objFormToShow.ShowDialog()
 
 ExitHandler:

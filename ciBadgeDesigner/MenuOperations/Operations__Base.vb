@@ -47,6 +47,7 @@ Public MustInherit Class Operations__Base
     Public Property Monem_iMoveOrResizeFun As IMonemMoveOrResizeFunctionality ''Added 2/2/2022
     Public Property InfoRefresh As IRefreshCardPreview ''Added 5/10/2022 td
 
+    Public Property Designer As ciBadgeDesigner.ClassDesigner ''Added 8/1/2022 td
 
     Public Sub Switch_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''

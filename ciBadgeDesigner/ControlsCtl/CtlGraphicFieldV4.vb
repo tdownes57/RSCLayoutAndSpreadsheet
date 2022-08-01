@@ -181,6 +181,9 @@ Public Class CtlGraphicFieldV4
             ''Added 5/10/2022  
             .InfoRefresh = par_parametersGetElementControl.iRefreshPreview
 
+            ''Added 8/01/2022 td
+            .Designer = par_parametersGetElementControl.DesignerClass
+
             ''Added 5/29/2022
             .CacheOfFieldsEtc_Deprecated = par_parametersGetElementControl.ElementsCache
 
