@@ -8,12 +8,14 @@ Public Class Dialog_BaseEditElement
     ''Added 5/31/2022 thomas downes  
     ''
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
-                   par_elementBase As classElementBAse)
+                   par_elementBase As ClassElementBase,
+                   Optional par_imageOfBadge As Drawing.Image = Nothing)
         ''
         ''Added 5/31/2022 td 
         ''
         ''7/28/2022''MyBase.PanelDisplayElement.Controls.Add(par_controlFieldOrTextV4)
-        MyBase.New(par_controlFieldOrTextV4, par_elementBase)
+        ''8/01/2022 MyBase.New(par_controlFieldOrTextV4, par_elementBase)
+        MyBase.New(par_controlFieldOrTextV4, par_elementBase, par_imageOfBadge)
 
         ' This call is required by the designer.
         InitializeComponent()

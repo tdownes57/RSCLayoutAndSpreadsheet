@@ -466,7 +466,8 @@ namespace ciBadgeGenerator
             // Added 1/31/2022 td //LoadImageWithStaticTexts(ref obj_imageOutput, listOfElementStaticTexts);
              objAssistant.LoadImageWithStaticTexts(ref obj_imageOutput,
                                      listOfElementStaticTextsV3,
-                                     listOfElementStaticTextsV4, 
+                                     listOfElementStaticTextsV4,
+                                     null,
                                      par_elementBaseToOmit);
 
             //Added 1/22/2022 thomas d.
@@ -485,7 +486,7 @@ namespace ciBadgeGenerator
                             par_newBadge_width_pixels,
                             par_layoutDims.Width_Pixels,
                             ref structWhyOmittedV1,
-                            ref structWhyOmittedV2,
+                            ref structWhyOmittedV2, 
                             par_elementBaseToOmit);
 
             //

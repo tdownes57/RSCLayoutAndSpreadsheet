@@ -37,11 +37,24 @@ Public MustInherit Class Operations__Text
         ''
         ''8/01/2022 Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4)
 
-        Dim imageOfBadgeSansElement As Image
-        imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
+        Dim imageOfBadgeSansElement As Image ''Added 8/1/2022 td
+        Dim objSideLayoutV1 As ClassBadgeSideLayoutV1 ''Added 8/1/2022 td
+        Dim enumCurrentSide As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
+
+        ''Added 8/1/2022 
+        enumCurrentSide = Me.Designer.EnumSideOfCard_Current
+        With Me.ElementsCacheManager.CacheForEditing
+            objSideLayoutV1 = .GetAllBadgeSideLayoutElements(enumCurrentSide,
+                        Me.Designer.DesignerForm_Interface.BadgeLayout)
+        End With
+
+        ''Aug01 2022 ''imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
+        imageOfBadgeSansElement =
+            MyBase.Designer.GetBadgeImage_EitherSide(enumCurrentSide,
+                 objSideLayoutV1, Nothing, Me.ElementObject_Base)
 
         Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
-                                       Me.ElementObject_Base)
+                                       Me.ElementObject_Base, imageOfBadgeSansElement)
         objFormToShow.ShowDialog()
 
 ExitHandler:

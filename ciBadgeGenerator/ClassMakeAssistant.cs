@@ -824,8 +824,14 @@ namespace ciBadgeGenerator
                       int par_newBadge_width_pixels,
                       int par_layout_width_pixels,
                       ref WhyOmitted_StructV1 pref_enum_whyNotV1,
-                      ref WhyOmitted_StructV2 pref_enum_whyNotV2)
+                      ref WhyOmitted_StructV2 pref_enum_whyNotV2,
+                      ClassElementBase par_elementBaseToOmit = null)
         {
+            //''New optional parameter "par_elementBaseToOmit" allows us to focus on individual elements
+            //''   against a background which includes visual/ non - editable(image only) versions of
+            //''   all other elements(which are not currently being edited).
+            //''   ---8/01/2022 td
+            //
             //LoadImageWithStaticGraphics(ref obj_imageOutput,
             //    par_layoutElements.ListElementGraphics,
             //    par_newBadge_width_pixels,
@@ -846,6 +852,18 @@ namespace ciBadgeGenerator
             //
             foreach (ClassElementGraphic each_elementStatic in par_listOfElements_Graphics)
             {
+                //
+                //Added 8/1/2022 
+                //
+                if (par_elementBaseToOmit == each_elementStatic as ClassElementBase)
+                {
+                    //''Optional parameter "par_elementBaseToOmit" allows us to focus on individual elements
+                    //''   against a background which includes visual/ non - editable(image only) versions of
+                    //''   all other elements(which are not currently being edited).
+                    //''-- - 8 / 1 / 2022 td
+                    continue;
+                }    
+
                 intEachIndex += 1;
 
                 //Added 1/23/2022 td

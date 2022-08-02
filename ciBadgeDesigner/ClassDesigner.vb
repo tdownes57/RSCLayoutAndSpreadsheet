@@ -3355,7 +3355,8 @@ Public Class ClassDesigner
     End Sub ''End of "Private Sub SaveControlPositionsToElement()"
 
 
-    Public Sub RefreshPreview_CurrentSide(Optional par_recentlyMoved As ClassElementFieldV3 = Nothing,
+    Public Sub RefreshPreview_CurrentSide(Optional par_recentlyMovedV3 As ClassElementFieldV3 = Nothing,
+                                          Optional par_recentlyMovedV4 As ClassElementFieldV4 = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing)
         ''
         ''Created 1/13/2022 thomas downes
@@ -3381,7 +3382,13 @@ Public Class ClassDesigner
             ''
             ''Major call!! 
             ''
-            RefreshPreview_EitherSide(enum_CurrentSide, objBadgeSide, par_recentlyMoved, par_recipient)
+            ''8/1/2022 RefreshPreview_EitherSide(enum_CurrentSide, objBadgeSide,
+            ''                          par_recentlyMoved,
+            ''                          par_recipient)
+            RefreshPreview_EitherSide(enum_CurrentSide, objBadgeSide,
+                                      par_recentlyMovedV3,
+                                      par_recentlyMovedV4,
+                                      par_recipient)
 
         End If ''End of "If (Me.DontRefreshPreview) Then .... Else..."
 

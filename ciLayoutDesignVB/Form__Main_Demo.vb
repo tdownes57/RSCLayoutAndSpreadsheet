@@ -1160,7 +1160,7 @@ Public Class Form__Main_Demo
         ''
         ''Added 2/08/2022 td
         ''
-        ''   Handles clicks of the LinkLabel controls in the sidebar panel, 
+        ''Handles clicks of the LinkLabel controls in the sidebar panel, 
         ''   called "Recipients". 
         ''
         Dim sender_checkbox As CheckBox
@@ -1170,7 +1170,9 @@ Public Class Form__Main_Demo
         ClassElementFieldV3.oRecipient = CType(sender_checkbox.Tag, ClassRecipient)
         oRecipientClicked = CType(sender_checkbox.Tag, ClassRecipient)
         ClassElementFieldV3.oRecipient = oRecipientClicked
-        mod_designer.RefreshPreview_CurrentSide(Nothing, oRecipientClicked)
+
+        ''8/01/2022 mod_designer.RefreshPreview_CurrentSide(Nothing, oRecipientClicked)
+        mod_designer.RefreshPreview_CurrentSide(Nothing, Nothing, oRecipientClicked)
 
     End Sub ''End of "Private Sub Recipient_CheckboxClicked"
 
@@ -1193,7 +1195,8 @@ Public Class Form__Main_Demo
         ''Dec.14 2021''Me.mod_designer.RefreshPreview_Redux()
         ''#1 Feb2 2022 td''Me.mod_designer.RefreshPreview_Redux_Front(Nothing, ClassElementFieldV3.oRecipient)
         ''#2 Feb2 2022 td''Me.mod_designer.RefreshPreview_Redux_Front(Nothing, oRecipientClicked)
-        mod_designer.RefreshPreview_CurrentSide(Nothing, oRecipientClicked)
+        ''8/1/2022 td'' mod_designer.RefreshPreview_CurrentSide(Nothing, oRecipientClicked)
+        mod_designer.RefreshPreview_CurrentSide(Nothing, Nothing, oRecipientClicked)
 
         ''Added 2/7/2022 thomas downes
         Dim boolPrintBadgeImage As Boolean
@@ -3678,10 +3681,15 @@ ExitHandler:
                         If (each_checkbox.Checked) Then
                             ''Major call.....
                             each_recipient = CType(each_control.Tag, ClassRecipient)
-                            mod_designer.RefreshPreview_CurrentSide(Nothing, each_recipient)
+                            ''8/01/2022 mod_designer.RefreshPreview_CurrentSide(Nothing, each_recipient)
+                            mod_designer.RefreshPreview_CurrentSide(Nothing, Nothing, each_recipient)
+
+                            ''Print a badge for the recipient indicated by the checked checkbox.
+                            ''   ---8/01/2022 Thomas Downes 
                             PrintOneBadgeToFileFolder_ByRecipient_BySide(each_recipient,
                                                  boolFirst, sOutputPath)
                             boolFirst = False
+
                         End If ''End of "If (each_checkbox.Checked) Then"
                     End If ''End of ""If (each_checkbox.Tag IsNot Nothing) Then""
                 End If ''End of "If (TypeOf each_checkbox Is CheckBox) Then"
