@@ -433,6 +433,18 @@
     <Compile Include="Dialogs\Dialog_BaseEditElement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs_Border\BackgroundEditImage.designer.vb">
+      <DependentUpon>BackgroundEditImage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs_Border\BackgroundEditImage.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs_Border\FormBackgroundScreenscape.designer.vb">
+      <DependentUpon>FormBackgroundScreenscape.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs_Border\FormBackgroundScreenscape.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="DiskFiles\DiskFilesVB.vb" />
     <Compile Include="DiskFiles\DiskFolders.vb" />
     <Compile Include="Interfaces\InterfaceCurrentElement.vb" />
@@ -676,6 +688,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_Base.resx">
       <DependentUpon>Dialog_Base.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs_Border\BackgroundEditImage.resx">
+      <DependentUpon>BackgroundEditImage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs_Border\FormBackgroundScreenscape.resx">
+      <DependentUpon>FormBackgroundScreenscape.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuOperations\FormPickGraphic.resx">
       <DependentUpon>FormPickGraphic.vb</DependentUpon>

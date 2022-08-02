@@ -46,7 +46,10 @@ Public MustInherit Class Operations__Text
         With Me.ElementsCacheManager.CacheForEditing
             objSideLayoutV1 = .GetAllBadgeSideLayoutElements(enumCurrentSide,
                         Me.Designer.DesignerForm_Interface.BadgeLayout)
-        End With
+        End With ''End of ""With Me.ElementsCacheManager.CacheForEditing""
+
+        ''Added 8/01/2022 Thomas d
+        BackgroundEditImage.CheckBackgroundSize(objSideLayoutV1.BackgroundImage)
 
         ''Aug01 2022 ''imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
         imageOfBadgeSansElement =
@@ -62,7 +65,8 @@ ExitHandler:
         ''Return the control-element to the parent form. 
         ''
         MyBase.CtlCurrentForm.Controls.Add(Me.CtlCurrentFieldOrTextV4)
-
+        Me.CtlCurrentFieldOrTextV4.BringToFront()
+        Me.CtlCurrentFieldOrTextV4.Visible = True
 
     End Sub ''End of ""Public Sub Edit_Element_With_Multiple_Dialogs_TE9400()"
 

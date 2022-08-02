@@ -330,4 +330,8 @@ ExitHandler:
         End If
 
     End Sub
+
+    Private Sub PanelDisplayElement_Paint(sender As Object, e As PaintEventArgs) Handles PanelDisplayElement.Paint
+
+    End Sub
 End Class

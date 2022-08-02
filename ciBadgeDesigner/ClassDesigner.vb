@@ -3401,7 +3401,7 @@ Public Class ClassDesigner
                                          Optional par_recentlyMovedV4 As ClassElementFieldV4 = Nothing,
                                     Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
                                          Optional pboolReturnImage As Boolean = False,
-                                         Optional pref_image As Drawing.Image = Nothing,
+                                         Optional ByRef pref_image As Drawing.Image = Nothing,
                                          Optional par_elementBaseToOmit As ClassElementBase = Nothing)
         ''
         ''Stubbed 12/27/2021
@@ -3565,6 +3565,7 @@ Public Class ClassDesigner
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         ''Added 8/01/2022 thomas d.
+        pref_image = Nothing
         If (pboolReturnImage) Then
             pref_image = obj_image
             Return
