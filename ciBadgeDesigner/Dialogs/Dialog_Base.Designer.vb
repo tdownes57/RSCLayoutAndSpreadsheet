@@ -73,25 +73,29 @@ Partial Class Dialog_Base
         '
         'ButtonOK
         '
-        Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(715, 398)
+        Me.ButtonOK.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.ButtonOK.BackColor = System.Drawing.Color.PaleGreen
+        Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonOK.Location = New System.Drawing.Point(629, 393)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(101, 34)
         Me.ButtonOK.TabIndex = 2
         Me.ButtonOK.Text = "OK"
-        Me.ButtonOK.UseVisualStyleBackColor = True
+        Me.ButtonOK.UseVisualStyleBackColor = False
         '
         'ButtonCancel
         '
-        Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(835, 398)
+        Me.ButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.ButtonCancel.BackColor = System.Drawing.Color.PaleGreen
+        Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCancel.Location = New System.Drawing.Point(749, 393)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(101, 34)
         Me.ButtonCancel.TabIndex = 3
         Me.ButtonCancel.Text = "Cancel"
-        Me.ButtonCancel.UseVisualStyleBackColor = True
+        Me.ButtonCancel.UseVisualStyleBackColor = False
         '
         'LabelHeading1
         '

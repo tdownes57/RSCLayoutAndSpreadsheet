@@ -1561,8 +1561,15 @@ Public Class ClassDesigner
         ''
         Dim objImageOfBadgeSide As Image = Nothing
 
+        ''8/02/2022 td RefreshPreview_EitherSide(par_enumCurrentSide, par_objMakeBadgeElements,
+        ''                Nothing, Nothing, par_recipient, True,
+        ''                objImageOfBadgeSide,
+        ''                par_elementBaseToOmit)
+
         RefreshPreview_EitherSide(par_enumCurrentSide, par_objMakeBadgeElements,
-                 Nothing, Nothing, par_recipient, True, objImageOfBadgeSide,
+                 Nothing, Nothing, par_recipient, True,
+                 Me.BadgeLayout_Class,
+                 objImageOfBadgeSide,
                  par_elementBaseToOmit)
 
         Return objImageOfBadgeSide
@@ -3399,8 +3406,9 @@ Public Class ClassDesigner
                                         par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
                                          Optional par_recentlyMovedV3 As ClassElementFieldV3 = Nothing,
                                          Optional par_recentlyMovedV4 As ClassElementFieldV4 = Nothing,
-                                    Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
+                                         Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
                                          Optional pboolReturnImage As Boolean = False,
+                                         Optional par_badgeLayout As BadgeLayoutClass = Nothing,
                                          Optional ByRef pref_image As Drawing.Image = Nothing,
                                          Optional par_elementBaseToOmit As ClassElementBase = Nothing)
         ''
@@ -3478,12 +3486,39 @@ Public Class ClassDesigner
         Dim bBacksideOfCard As Boolean ''Added 12/10/2021 thomas downes
         ''Jan13 2022''bBacksideOfCard = (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
         bBacksideOfCard = (par_enumCurrentSide = EnumWhichSideOfCard.EnumBackside)
-        obj_image = Me.BackgroundBox_Front.BackgroundImage
-        If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
+
+        ''Added 8/2/2022 td
+        Dim bUseBadgeLayoutForBackground As Boolean ''Added 8/2/2022 td
+        ''We are focused on returning the output image, as if this was a function,
+        ''   so it might be good to use the cached background image vs. the UI background
+        ''   (we would expect them to be the same image, actually, so it doesn't matter?). 
+        ''   ---8/02/2022
+        bUseBadgeLayoutForBackground = pboolReturnImage
+
+        If bUseBadgeLayoutForBackground Then
+            ''Added 8/2/2022
+            ''We are focused on returning the output image, as if this was a function,
+            ''   so it might be good to use the cached background image vs. the UI background
+            ''   (we would expect them to be the same image, actually, so it doesn't matter?). 
+            ''   ---8/02/2022
+            obj_image = New Bitmap(par_objMakeBadgeElements.BackgroundImage_Path)
+        Else
+            obj_image = Me.BackgroundBox_Front.BackgroundImage
+            If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
+        End If ''Endof ""If bUseBadgeLayoutForBackground Then... Else...."
 
         If (c_bLetsCloneBackgroundImage) Then ''Added 5/23/2022 td
 
-            If (obj_image Is Nothing) Then
+            ''8/02/2022 If (obj_image Is Nothing) Then
+            If (bUseBadgeLayoutForBackground) Then
+                ''
+                ''We don't care about the Preview box. ---8/2/2022
+                ''
+                obj_image_clone = CType(obj_image.Clone(), Image)
+                ''We don't have to resize the image. (We aren't going to put it into the Preview box.)
+                obj_image_clone_resized = obj_image_clone
+
+            ElseIf (obj_image Is Nothing) Then
                 ''Clear the Preview image, since we don't have a background available. ---12/10/2021 
                 If (Me.PreviewBox.Image IsNot Nothing) Then Me.PreviewBox.Image.Dispose() ''Added 12/11/2021 td 
                 Me.PreviewBox.Image = Nothing
@@ -3491,10 +3526,9 @@ Public Class ClassDesigner
                 Return
             Else
                 obj_image_clone = CType(obj_image.Clone(), Image)
+                obj_image_clone_resized =
+                    LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
             End If ''End of "If (obj_image IsNot Nothing) Then ... Else ..."
-
-            obj_image_clone_resized =
-                LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
 
             If (mc_CheckBackgroundProportions) Then ''Added 5/23/2022 thomas d
                 ''Added 9/6/2019 td 

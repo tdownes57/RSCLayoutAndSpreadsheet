@@ -1,6 +1,8 @@
 ﻿''
 ''Added 6/3/2022 thomas d  
 ''
+Imports System.Drawing ''Added 8/2/2022 
+
 Public Class FormBackgroundScreenscape
     ''
     ''Added 6/3/2022 thomas d  

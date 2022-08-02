@@ -247,6 +247,9 @@ Namespace ciBadgeCachePersonality
                                                                 par_iBadgeLayout,
                                                                 pbBackgroundInfoUpdated)
 
+                ''Added 8/02/2022
+                objSide.BackgroundImage_Path = GetBackgroundImage_Path(par_enumWhichSide)
+
                 ''Jan13 2022 ''objSide.ElementPic = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''May15 2022 ''objSide.ElementPortrait_1st = Me.ListOfElementPics_Front().FirstOrDefault()
                 ''Moved below, with a condition.--1/14/2022 td''objSide.ElementQRCode = Me.ElementQRCode

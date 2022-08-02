@@ -25,15 +25,61 @@ Public Class BackgroundEditImage
     Private Const mc_boolEnlargeToPreviewForScrapeSize As Boolean = False ''Added 6/2/2022
 
 
-    Public Shared Sub CheckBackgroundImageSize(ByRef par_imageBack As Image,
-                       par_layout As ciBadgeInterfaces.IBadgeLayoutDimensions)
+    Public Shared Sub CheckBackgroundImageSize(ByRef pref_imageBack As Image,
+                       par_layout As ciBadgeInterfaces.IBadgeLayoutDimensions,
+                       par_strPathToBackgroundImage As String)
         ''
         ''Added 8/01/2022 thomas
         ''
         ''Allow the user to adjust/edit/correct the size of the background image.
         ''
+        Dim bSizeWidthsMatches98 As Boolean
+        Dim singleRatioWidths As Single
+        Dim bSizeHeightsMatches98 As Boolean
+        Dim singleRatioHeights As Single
+        Dim bSizeMatches98 As Boolean
 
+        ''Widths
+        singleRatioWidths = CSng(pref_imageBack.Width / par_layout.Width_Pixels)
+        If (singleRatioWidths > 1) Then
+            singleRatioWidths = CSng(par_layout.Width_Pixels / pref_imageBack.Width)
+        End If
 
+        ''Heights
+        singleRatioHeights = CSng(pref_imageBack.Height / par_layout.Height_Pixels)
+        If (singleRatioHeights > 1) Then
+            singleRatioHeights = CSng(par_layout.Height_Pixels / pref_imageBack.Height)
+        End If ''end of ""If (singleRatioHeights > 1) Then""
+
+        bSizeWidthsMatches98 = (0.98 < singleRatioWidths)
+        bSizeHeightsMatches98 = (0.98 < singleRatioHeights)
+
+        ''
+        ''Can we leave the procedure? 
+        ''
+        bSizeMatches98 = (bSizeWidthsMatches98 And bSizeHeightsMatches98)
+        If (bSizeMatches98) Then Exit Sub
+
+        ''
+        ''We have to open the size-editing form.  
+        ''
+        Dim objFormToShow As BackgroundEditImage
+
+        objFormToShow = New BackgroundEditImage()
+        objFormToShow.BackgroundImage = pref_imageBack
+        objFormToShow.Load_ImageFileToEdit(par_strPathToBackgroundImage)
+
+        ''
+        ''Show the form!
+        ''
+        objFormToShow.ShowDialog()
+
+        Dim outputPathToImage As String
+        outputPathToImage = objFormToShow.ImageFilePath_output
+
+        Dim outputImage As Image
+        outputImage = New Bitmap(outputPathToImage)
+        pref_imageBack = outputImage
 
     End Sub ''End of ""Public Shared Sub CheckBackgroundImageSize(ByRef par_imageBack As Image)""
 

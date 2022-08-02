@@ -40,25 +40,47 @@ Public MustInherit Class Operations__Text
         Dim imageOfBadgeSansElement As Image ''Added 8/1/2022 td
         Dim objSideLayoutV1 As ClassBadgeSideLayoutV1 ''Added 8/1/2022 td
         Dim enumCurrentSide As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
+        Dim strPathToBackgroundImage As String ''Added 8/02/2022 td
+        Dim enum_backside As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
+        Dim enum_frontside As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
 
-        ''Added 8/1/2022 
-        enumCurrentSide = Me.Designer.EnumSideOfCard_Current
-        With Me.ElementsCacheManager.CacheForEditing
-            objSideLayoutV1 = .GetAllBadgeSideLayoutElements(enumCurrentSide,
+        Try
+            ''Added 8/1/2022 
+            enumCurrentSide = Me.Designer.EnumSideOfCard_Current
+            With Me.ElementsCacheManager.CacheForEditing
+                objSideLayoutV1 = .GetAllBadgeSideLayoutElements(enumCurrentSide,
                         Me.Designer.DesignerForm_Interface.BadgeLayout)
-        End With ''End of ""With Me.ElementsCacheManager.CacheForEditing""
+                enum_backside = ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard.EnumBackside
+                enum_frontside = ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard.EnumFrontside
+                If (enumCurrentSide = enum_backside) Then
+                    strPathToBackgroundImage = .BackgroundImage_Backside_Path
+                Else
+                    strPathToBackgroundImage = .BackgroundImage_Front_Path
+                End If
+            End With ''End of ""With Me.ElementsCacheManager.CacheForEditing""
 
-        ''Added 8/01/2022 Thomas d
-        BackgroundEditImage.CheckBackgroundSize(objSideLayoutV1.BackgroundImage)
 
-        ''Aug01 2022 ''imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
-        imageOfBadgeSansElement =
+            ''Added 8/01/2022 Thomas d
+            BackgroundEditImage.CheckBackgroundImageSize(objSideLayoutV1.BackgroundImage,
+                                    Me.Designer.DesignerForm_Interface.BadgeLayout,
+                                    strPathToBackgroundImage)
+
+            ''Aug01 2022 ''imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
+            imageOfBadgeSansElement =
             MyBase.Designer.GetBadgeImage_EitherSide(enumCurrentSide,
                  objSideLayoutV1, Nothing, Me.ElementObject_Base)
 
-        Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
+            Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
                                        Me.ElementObject_Base, imageOfBadgeSansElement)
-        objFormToShow.ShowDialog()
+            objFormToShow.ShowDialog()
+
+        Catch ex_edit As Exception
+            ''
+            ''Added 8/02/2022 thomas downes  
+            ''
+            System.Diagnostics.Debugger.Break()
+
+        End Try
 
 ExitHandler:
         ''

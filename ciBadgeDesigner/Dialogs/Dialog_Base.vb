@@ -210,6 +210,8 @@ ExitHandler:
 
                     If (panelArrowLeft.Left < 0) Then
                         mod_enumArrowLeftRight = EnumArrowIsWhere.RightOfElement
+                        panelArrowLeft.Visible = False
+                        panelArrowRight.Visible = True
                         PositionArrow(par_control, mod_enumArrowLeftRight)
                     End If 'end of ""If (panelArrowLeft.Left < 0) Then""
 
@@ -218,8 +220,22 @@ ExitHandler:
 
             Else
 
+                If (mod_bCheckArrowLR) Then
 
+                    PositionArrow(par_control, mod_enumArrowLeftRight)
 
+                Else
+
+                    PositionArrow(par_control, EnumArrowIsWhere.LeftOfElement)
+
+                    If (panelArrowLeft.Left < 0) Then
+                        mod_enumArrowLeftRight = EnumArrowIsWhere.RightOfElement
+                        panelArrowLeft.Visible = False
+                        panelArrowRight.Visible = True
+                        PositionArrow(par_control, mod_enumArrowLeftRight)
+                    End If 'end of ""If (panelArrowLeft.Left < 0) Then""
+
+                End If
 
             End If ''end of ""If (Me.ControlBelongsToPanel) Then.... Else..."
 
@@ -332,6 +348,20 @@ ExitHandler:
     End Sub
 
     Private Sub PanelDisplayElement_Paint(sender As Object, e As PaintEventArgs) Handles PanelDisplayElement.Paint
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+
+        ''Added 8/2/2022
+        Me.Close()
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+
+        ''Added 8/2/2022
+        Me.Close()
 
     End Sub
 End Class
