@@ -3437,6 +3437,11 @@ Public Class ClassDesigner
         Dim obj_image As Image ''Added 8/24 td
         Dim obj_image_clone As Image ''Added 8/24 td
         Dim obj_image_clone_resized As Image ''Added 8/24/2019 td
+        Dim bBacksideOfCard As Boolean ''Added 12/10/2021 thomas downes
+        Dim bUseBadgeLayoutForBackground As Boolean ''Added 8/2/2022 td
+        Dim intPixelsOfBadgeWidth As Integer ''Added 8/02/2022 td
+        Dim intPixelsOfBadgeHeight As Integer ''Added 8/02/2022 td
+        Dim bIgnorePreviewBox As Boolean ''Added 8/2/2022 td
 
         ''May 21, 2022 ''Static obj_generator As ciBadgeGenerator.ClassMakeBadge
         Static obj_generator As ciBadgeGenerator.ClassMakeBadge2022
@@ -3483,17 +3488,19 @@ Public Class ClassDesigner
 
         End If ''End of ""If (mod_c_CheckBackgroundProportions) Then""
 
-        Dim bBacksideOfCard As Boolean ''Added 12/10/2021 thomas downes
+        ''
+        ''Hopefully, we are done checking proportions.
+        ''
         ''Jan13 2022''bBacksideOfCard = (EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside)
         bBacksideOfCard = (par_enumCurrentSide = EnumWhichSideOfCard.EnumBackside)
 
         ''Added 8/2/2022 td
-        Dim bUseBadgeLayoutForBackground As Boolean ''Added 8/2/2022 td
         ''We are focused on returning the output image, as if this was a function,
         ''   so it might be good to use the cached background image vs. the UI background
         ''   (we would expect them to be the same image, actually, so it doesn't matter?). 
         ''   ---8/02/2022
         bUseBadgeLayoutForBackground = pboolReturnImage
+        bIgnorePreviewBox = pboolReturnImage
 
         If bUseBadgeLayoutForBackground Then
             ''Added 8/2/2022
@@ -3502,38 +3509,60 @@ Public Class ClassDesigner
             ''   (we would expect them to be the same image, actually, so it doesn't matter?). 
             ''   ---8/02/2022
             obj_image = New Bitmap(par_objMakeBadgeElements.BackgroundImage_Path)
+            ''Added 8/2/2022
+            intPixelsOfBadgeWidth = par_badgeLayout.Width_Pixels
+            intPixelsOfBadgeHeight = par_badgeLayout.Height_Pixels
         Else
             obj_image = Me.BackgroundBox_Front.BackgroundImage
             If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
+            ''Added 8/2/2022
+            intPixelsOfBadgeWidth = Me.PreviewBox.Width
+            intPixelsOfBadgeHeight = Me.PreviewBox.Height
         End If ''Endof ""If bUseBadgeLayoutForBackground Then... Else...."
 
         If (c_bLetsCloneBackgroundImage) Then ''Added 5/23/2022 td
 
             ''8/02/2022 If (obj_image Is Nothing) Then
-            If (bUseBadgeLayoutForBackground) Then
+            If (bUseBadgeLayoutForBackground Or bIgnorePreviewBox) Then
                 ''
                 ''We don't care about the Preview box. ---8/2/2022
                 ''
                 obj_image_clone = CType(obj_image.Clone(), Image)
                 ''We don't have to resize the image. (We aren't going to put it into the Preview box.)
                 obj_image_clone_resized = obj_image_clone
+                ''Added 8/2/2022
+                intPixelsOfBadgeWidth = par_badgeLayout.Width_Pixels
+                intPixelsOfBadgeHeight = par_badgeLayout.Height_Pixels
 
             ElseIf (obj_image Is Nothing) Then
                 ''Clear the Preview image, since we don't have a background available. ---12/10/2021 
                 If (Me.PreviewBox.Image IsNot Nothing) Then Me.PreviewBox.Image.Dispose() ''Added 12/11/2021 td 
                 Me.PreviewBox.Image = Nothing
                 Me.PreviewBox.Refresh()
+                ''Added 8/2/2022
+                intPixelsOfBadgeWidth = Me.PreviewBox.Width
+                intPixelsOfBadgeHeight = Me.PreviewBox.Height
                 Return
             Else
                 obj_image_clone = CType(obj_image.Clone(), Image)
                 obj_image_clone_resized =
                     LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
-            End If ''End of "If (obj_image IsNot Nothing) Then ... Else ..."
+                ''Added 8/2/2022
+                intPixelsOfBadgeWidth = Me.PreviewBox.Width
+                intPixelsOfBadgeHeight = Me.PreviewBox.Height
 
+            End If ''End of "If (bUseBadgeLayoutForBackground Or bIgnorePreviewBox) Then ... ElseIf (obj_image Is Nothing) ... Else..."
+
+            ''
+            ''Check proportions (again!).
+            ''
             If (mc_CheckBackgroundProportions) Then ''Added 5/23/2022 thomas d
                 ''Added 9/6/2019 td 
                 ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image_clone_resized, True, "RefreshPreview_Redux #3")
-                ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
+                If (Not bIgnorePreviewBox) Then
+                    ClassFixTheControlWidth.ImageSizeDiffersFromControl(Me.PreviewBox, obj_image_clone_resized, True) ''Added 10/9/2019 td  
+                End If ''End of ""If (Not bIgnorePreviewBox) Then""
+
             End If ''End of ""If (mc_CheckBackgroundProportions) Then""
 
         End If ''End of ""If (c_bLetsCloneBackgroundImage) Then""
@@ -3574,10 +3603,19 @@ Public Class ClassDesigner
             ''
             ''Major call !!
             ''
+            ''8/02/2022 td''obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+            ''               par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
+            ''               Me.PreviewBox.Width,
+            ''               Me.PreviewBox.Height,
+            ''               par_recipient,
+            ''               Nothing, Nothing, Nothing,
+            ''               par_recentlyMovedV3,
+            ''               par_recentlyMovedV4,
+            ''               par_elementBaseToOmit)
             obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
                            par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
-                           Me.PreviewBox.Width,
-                           Me.PreviewBox.Height,
+                           intPixelsOfBadgeWidth,
+                           intPixelsOfBadgeHeight,
                            par_recipient,
                            Nothing, Nothing, Nothing,
                            par_recentlyMovedV3,

@@ -1,7 +1,11 @@
-﻿Imports __RSCWindowsControlLibrary ''Added 7/29/2022 td 
+﻿Option Explicit On ''Added 8/03/2022 td
+Option Strict On ''Added 8/03/2022 td
 ''
 ''Added 7/28/2022 Thomas Downes 
 ''
+Imports __RSCWindowsControlLibrary ''Added 7/29/2022 td 
+Imports ciBadgeElements ''Added 8/03/2022 td 
+
 Public Class Dialog_Base
     ''
     ''Added 7/28/2022 Thomas Downes 
@@ -55,7 +59,8 @@ Public Class Dialog_Base
         PanelDisplayElement.BackgroundImage = par_imageOfBadge
 
         ''Encapsulated 7/29.2022  thomas downes
-        PositionElement(mod_controlFieldOrTextV4)
+        PositionElement(mod_controlFieldOrTextV4, mod_elementBase)
+        PositionArrow(mod_controlFieldOrTextV4) ''Added 8/03/2022 td
 
         mod_controlFieldOrTextV4.Visible = True
         mod_controlFieldOrTextV4.BringToFront()
@@ -97,7 +102,8 @@ ExitHandler:
             ''Add the control to the appropriate Controls collection.
             ''Center the control. 
             ''
-            PositionElement(par_controlRSCMoveable)
+            PositionElement(par_controlRSCMoveable, mod_elementBase)
+            PositionArrow(par_controlRSCMoveable) ''Added 8/3/2022 td
 
             ''7/29/2022 If (ControlBelongsToPanel) Then
             ''    ''
@@ -146,7 +152,8 @@ ExitHandler:
     End Sub ''End of ""Public Sub New"" 
 
 
-    Protected Sub PositionElement(par_control As RSCMoveableControlVB)
+    Protected Sub PositionElement(par_control As RSCMoveableControlVB,
+                                  par_element As ClassElementBase)
         ''
         ''Added 7/29/2022, 7/28/2022 thomas downes
         ''
@@ -178,12 +185,21 @@ ExitHandler:
             Else
                 Me.Controls.Add(mod_controlFieldOrTextV4)
 
-                ''Center the control within the Panel, even if it doesn't belong to the Panel. 
-                .Left = PanelDisplayElement.Left + CInt((PanelDisplayElement.Width - .Width) / 2)
-                .Top = PanelDisplayElement.Top + CInt((PanelDisplayElement.Height - .Height) / 2)
+                ''---''Center the control within the Panel, even if it doesn't belong to the Panel. 
+                ''---.Left = PanelDisplayElement.Left + CInt((PanelDisplayElement.Width - .Width) / 2)
+                ''---.Top = PanelDisplayElement.Top + CInt((PanelDisplayElement.Height - .Height) / 2)
+
+                ''Added 8/3/2022 td
+                .Left = PanelDisplayElement.Left + par_element.Left
+                .Top = PanelDisplayElement.Top + par_element.Top
+
                 ''Arrow should point to the control
                 panelArrowLeft.Top = .Top
                 panelArrowLeft.Left = .Left - panelArrowLeft.Width
+
+                ''Added 8/3/2022
+                panelArrowLeft.Visible = True
+                panelArrowRight.Visible = False
 
             End If ''End of ""If (ControlBelongsToPanel) Then... Else..."
 
@@ -213,9 +229,14 @@ ExitHandler:
                         panelArrowLeft.Visible = False
                         panelArrowRight.Visible = True
                         PositionArrow(par_control, mod_enumArrowLeftRight)
-                    End If 'end of ""If (panelArrowLeft.Left < 0) Then""
+                    Else
+                        ''Added 8/3/2022
+                        panelArrowLeft.Visible = True
+                        panelArrowRight.Visible = False
 
-                End If
+                    End If 'end of ""If (panelArrowLeft.Left < 0) Then... Else....""
+
+                End If ''End of ""If (mod_bCheckArrowLR) Then... Else..."
 
 
             Else
@@ -233,13 +254,18 @@ ExitHandler:
                         panelArrowLeft.Visible = False
                         panelArrowRight.Visible = True
                         PositionArrow(par_control, mod_enumArrowLeftRight)
-                    End If 'end of ""If (panelArrowLeft.Left < 0) Then""
+                    Else
+                        ''Added 8/3/2022
+                        panelArrowLeft.Visible = True
+                        panelArrowRight.Visible = False
 
-                End If
+                    End If 'end of ""If (panelArrowLeft.Left < 0) Then ... Else...""
+
+                End If ''End of ""If (mod_bCheckArrowLR) Then... Else..."
 
             End If ''end of ""If (Me.ControlBelongsToPanel) Then.... Else..."
 
-        End With
+        End With ''End of ""With par_control""
 
 
     End Sub ''End of ""Private Sub PositionArrow(par_control As RSCMoveableControlVB)""
@@ -256,7 +282,7 @@ ExitHandler:
         Else
             PositionArrow_Left(par_control)
 
-        End If
+        End If ''End of ""If (par_enum = EnumArrowIsWhere.RightOfElement) Then.... Else..."
 
     End Sub ''End of ""Private Sub PositionArrow(par_control As RSCMoveableControlVB)""
 

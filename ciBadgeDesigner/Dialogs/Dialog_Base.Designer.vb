@@ -23,8 +23,6 @@ Partial Class Dialog_Base
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.PanelDisplayElement = New System.Windows.Forms.Panel()
-        Me.panelArrowRight = New System.Windows.Forms.Panel()
-        Me.panelArrowLeft = New System.Windows.Forms.Panel()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
@@ -38,38 +36,19 @@ Partial Class Dialog_Base
         Me.ButtonTextstring = New System.Windows.Forms.Button()
         Me.checkBoxArrow = New System.Windows.Forms.CheckBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.PanelDisplayElement.SuspendLayout()
+        Me.panelArrowLeft = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.panelArrowRight = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.PanelEditorControls.SuspendLayout()
         Me.SuspendLayout()
         '
         'PanelDisplayElement
         '
         Me.PanelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.PanelDisplayElement.Controls.Add(Me.panelArrowRight)
-        Me.PanelDisplayElement.Controls.Add(Me.panelArrowLeft)
         Me.PanelDisplayElement.Location = New System.Drawing.Point(11, 47)
         Me.PanelDisplayElement.Margin = New System.Windows.Forms.Padding(2)
         Me.PanelDisplayElement.Name = "PanelDisplayElement"
         Me.PanelDisplayElement.Size = New System.Drawing.Size(603, 380)
         Me.PanelDisplayElement.TabIndex = 1
-        '
-        'panelArrowRight
-        '
-        Me.panelArrowRight.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop____Right
-        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.panelArrowRight.Location = New System.Drawing.Point(191, 36)
-        Me.panelArrowRight.Name = "panelArrowRight"
-        Me.panelArrowRight.Size = New System.Drawing.Size(86, 33)
-        Me.panelArrowRight.TabIndex = 15
-        '
-        'panelArrowLeft
-        '
-        Me.panelArrowLeft.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
-        Me.panelArrowLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.panelArrowLeft.Location = New System.Drawing.Point(37, 36)
-        Me.panelArrowLeft.Name = "panelArrowLeft"
-        Me.panelArrowLeft.Size = New System.Drawing.Size(86, 33)
-        Me.panelArrowLeft.TabIndex = 14
         '
         'ButtonOK
         '
@@ -215,11 +194,41 @@ Partial Class Dialog_Base
         Me.Panel2.Size = New System.Drawing.Size(86, 37)
         Me.Panel2.TabIndex = 15
         '
+        'panelArrowLeft
+        '
+        Me.panelArrowLeft.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.panelArrowLeft.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
+        Me.panelArrowLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.panelArrowLeft.ElementInfo_Base = Nothing
+        Me.panelArrowLeft.Location = New System.Drawing.Point(677, 177)
+        Me.panelArrowLeft.Margin = New System.Windows.Forms.Padding(2)
+        Me.panelArrowLeft.MoveabilityEventsForGroupCtls = Nothing
+        Me.panelArrowLeft.MoveabilityEventsForSingleMove = Nothing
+        Me.panelArrowLeft.Name = "panelArrowLeft"
+        Me.panelArrowLeft.Size = New System.Drawing.Size(73, 41)
+        Me.panelArrowLeft.TabIndex = 16
+        '
+        'panelArrowRight
+        '
+        Me.panelArrowRight.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.panelArrowRight.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop____Right
+        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.panelArrowRight.ElementInfo_Base = Nothing
+        Me.panelArrowRight.Location = New System.Drawing.Point(677, 234)
+        Me.panelArrowRight.Margin = New System.Windows.Forms.Padding(2)
+        Me.panelArrowRight.MoveabilityEventsForGroupCtls = Nothing
+        Me.panelArrowRight.MoveabilityEventsForSingleMove = Nothing
+        Me.panelArrowRight.Name = "panelArrowRight"
+        Me.panelArrowRight.Size = New System.Drawing.Size(73, 41)
+        Me.panelArrowRight.TabIndex = 17
+        '
         'Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(945, 502)
+        Me.Controls.Add(Me.panelArrowRight)
+        Me.Controls.Add(Me.panelArrowLeft)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.checkBoxArrow)
         Me.Controls.Add(Me.PanelEditorControls)
@@ -231,7 +240,6 @@ Partial Class Dialog_Base
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Dialog_Base"
         Me.Text = "Dialog_Base"
-        Me.PanelDisplayElement.ResumeLayout(False)
         Me.PanelEditorControls.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -250,8 +258,8 @@ Partial Class Dialog_Base
     Friend WithEvents ButtonTextPlacement As Button
     Friend WithEvents PanelEditorControls As Panel
     Friend WithEvents ButtonTextstring As Button
-    Friend WithEvents panelArrowLeft As Panel
     Friend WithEvents checkBoxArrow As CheckBox
-    Friend WithEvents panelArrowRight As Panel
     Friend WithEvents Panel2 As Panel
+    Friend WithEvents panelArrowLeft As __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Friend WithEvents panelArrowRight As __RSCWindowsControlLibrary.RSCMoveableControlVB
 End Class

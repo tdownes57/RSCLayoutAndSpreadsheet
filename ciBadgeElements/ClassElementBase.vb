@@ -62,6 +62,11 @@ Public Class ClassElementBase
     Public Property Border_bColor As System.Drawing.Color = Color.Black Implements IElement_Base_InDevelopment.Border_bColor
     Public Property Border_bDisplayed As Boolean = True Implements IElement_Base_InDevelopment.Border_bDisplayed ''Added 9/9/2019 td 
 
+    ''Added 8/3/2022 thomas downes
+    Property TopEdge_bPixels As Integer Implements IElement_Base_InDevelopment.TopEdge_bPixels ''Added 8/3/2022 thomas downes
+    Property LeftEdge_bPixels As Integer Implements IElement_Base_InDevelopment.LeftEdge_bPixels  ''Added 8/3/2022 thomas downes
+
+
     ''Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
     ''Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 

@@ -22,6 +22,9 @@ Public Interface IElement_Base_InDevelopment
     Property Border_bWidthInPixels As Integer ''Added 7/19/2022 thomas d. 
     Property Border_bColor As System.Drawing.Color ''Added 7/19/2022 thoma d. 
 
+    ''Added 8/3/2022 thomas downes
+    Property TopEdge_bPixels As Integer ''Added 8/3/2022 thomas downes
+    Property LeftEdge_bPixels As Integer ''Added 8/3/2022 thomas downes
 
 
 

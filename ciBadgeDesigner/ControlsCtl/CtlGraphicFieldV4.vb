@@ -705,6 +705,10 @@ ExitHandler:
         Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
+        ''Added 8/3/2022 thomas d.
+        Me.ElementBase.TopEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementBase.LeftEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+
         ''Added 11/29/2021 td
         Me.ElementClass_ObjV4.DatetimeUpdated = Now ''Added 11/29/2021 td
         Dim intPixelsTop As Integer = Me.ElementClass_ObjV4.TopEdge_Pixels
