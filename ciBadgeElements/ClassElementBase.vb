@@ -66,6 +66,10 @@ Public Class ClassElementBase
     Property TopEdge_bPixels As Integer Implements IElement_Base_InDevelopment.TopEdge_bPixels ''Added 8/3/2022 thomas downes
     Property LeftEdge_bPixels As Integer Implements IElement_Base_InDevelopment.LeftEdge_bPixels  ''Added 8/3/2022 thomas downes
 
+    ''Added 8/4/2022 thomas downes
+    Property Width_bPixels As Integer Implements IElement_Base_InDevelopment.Width_bPixels ''Added 8/04/2022 thomas downes
+    Property Height_bPixels As Integer Implements IElement_Base_InDevelopment.Height_bPixels  ''Added 8/04/2022 thomas downes
+
 
     ''Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
     ''Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 

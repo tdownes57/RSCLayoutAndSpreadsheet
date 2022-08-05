@@ -11,10 +11,16 @@ Public Class Dialog_BaseChooseColor
 
 
     Public Sub New(par_control As CtlGraphicFieldOrTextV4, par_element As ClassElementBase,
+                   par_designer As ClassDesigner,
                    Optional par_imageBadge As Drawing.Image = Nothing)
 
         ' Add any initialization after the InitializeComponent() call.
+
+        ''8/4/2022 MyBase.New(par_control, par_control.ElementBase,
+        ''8/4/2022     par_imageBadge)
         MyBase.New(par_control, par_control.ElementBase,
+                   par_control.ElementInfo_Base,
+                   par_designer,
                    par_imageBadge)
 
         ' This call is required by the designer.

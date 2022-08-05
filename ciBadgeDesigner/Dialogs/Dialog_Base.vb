@@ -5,6 +5,7 @@ Option Strict On ''Added 8/03/2022 td
 ''
 Imports __RSCWindowsControlLibrary ''Added 7/29/2022 td 
 Imports ciBadgeElements ''Added 8/03/2022 td 
+Imports ciBadgeInterfaces ''Added 8/04/2022 thomas d. 
 
 Public Class Dialog_Base
     ''
@@ -13,11 +14,15 @@ Public Class Dialog_Base
     Protected mod_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4
     Protected mod_controlRSCMoveable As RSCMoveableControlVB
     Protected mod_elementBase As ciBadgeElements.ClassElementBase ''Added 7/29/2022 td
+    Protected mod_elementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/03/2022 td
 
     Protected ControlBelongsToPanel As Boolean = False ''Added 7/28/2022 td
 
     Private mod_bCheckArrowLR As Boolean
     Private mod_enumArrowLeftRight As EnumArrowIsWhere
+    ''8/4/2022 Private mod_objLayoutFunctions As ciBadgeInterfaces.BadgeLayoutClass ''Added 8/04/2022 
+    Private mod_objLayoutFunctions As ciBadgeDesigner.ClassDesigner ''Added 8/04/2022 
+    Private WithEvents mod_objEventsRSC As GroupMoveEvents_Singleton ''Added 8/4/2022 td
 
     Private Enum EnumArrowIsWhere
         Undetermined
@@ -45,6 +50,8 @@ Public Class Dialog_Base
 
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
                    par_elementBase As ciBadgeElements.ClassElementBase,
+                   par_infoElementBase As ciBadgeInterfaces.IElement_Base,
+                   par_designer As ciBadgeDesigner.ClassDesigner,
                    Optional par_imageOfBadge As Drawing.Image = Nothing)
 
         ' This call is required by the designer.
@@ -54,6 +61,10 @@ Public Class Dialog_Base
         mod_controlFieldOrTextV4 = par_controlFieldOrTextV4
         mod_controlRSCMoveable = par_controlFieldOrTextV4 ''Added 7/29/2022 td
         mod_elementBase = par_elementBase ''Added 7/29/2022 thomas d.  
+        mod_elementInfo_Base = par_infoElementBase ''Added 8/3/2022 
+
+        ''8/4/2022 mod_objLayoutFunctions = par_designer ''Added 8/4/2022 td
+        mod_objLayoutFunctions = New ClassDesigner() ''Added 8/4/2022 td
 
         ''Added 7/29/2022 td
         PanelDisplayElement.BackgroundImage = par_imageOfBadge
@@ -190,8 +201,14 @@ ExitHandler:
                 ''---.Top = PanelDisplayElement.Top + CInt((PanelDisplayElement.Height - .Height) / 2)
 
                 ''Added 8/3/2022 td
-                .Left = PanelDisplayElement.Left + par_element.Left
-                .Top = PanelDisplayElement.Top + par_element.Top
+                ''8/04/2022 td''.Left = PanelDisplayElement.Left + par_element.Left
+                ''8/04/2022 td''.Top = PanelDisplayElement.Top + par_element.Top
+
+                If (0 = par_element.TopEdge_bPixels) Then System.Diagnostics.Debugger.Break()
+                If (0 = par_element.LeftEdge_bPixels) Then System.Diagnostics.Debugger.Break()
+
+                .Top = PanelDisplayElement.Top + par_element.TopEdge_bPixels
+                .Left = PanelDisplayElement.Left + par_element.LeftEdge_bPixels
 
                 ''Arrow should point to the control
                 panelArrowLeft.Top = .Top
@@ -307,7 +324,8 @@ ExitHandler:
             Else
 
                 panelArrowRight.Top = .Top
-                panelArrowRight.Left = .Left - intArrowWidth
+                ''8/4/2022''panelArrowRight.Left = .Left - intArrowWidth
+                panelArrowRight.Left = .Left + .Width
 
             End If ''end of ""If (Me.ControlBelongsToPanel) Then.... Else..."
 
@@ -351,8 +369,17 @@ ExitHandler:
         ''
         ''Added 7/28/2022 Thomas Downes 
         ''
+        ''#1 8/4/2022 mod_objLayoutFunctions = New ciBadgeInterfaces.BadgeLayoutClass
+        ''#2 8/4/2022 mod_objLayoutFunctions = New ciBadgeDesigner.
+        ''#3 8/4/2022 panelArrowLeft.AddMoveability(mod_objLayoutFunctions)
+        ''#3 8/4/2022 panelArrowRight.AddMoveability(mod_objLayoutFunctions)
 
+        ''Added 8/4/2022
+        mod_objEventsRSC = New GroupMoveEvents_Singleton(mod_objLayoutFunctions, True, True)
+        mod_objLayoutFunctions.LoadDesigner("Loading Dialog_Base", False, False, mod_objEventsRSC)
 
+        panelArrowLeft.AddMoveability(mod_objLayoutFunctions, mod_objEventsRSC)
+        panelArrowRight.AddMoveability(mod_objLayoutFunctions, mod_objEventsRSC)
 
 
     End Sub

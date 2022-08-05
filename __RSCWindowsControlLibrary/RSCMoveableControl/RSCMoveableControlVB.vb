@@ -488,7 +488,8 @@ Public Class RSCMoveableControlVB
             ''  we probably can't simple instantiate a class. In fact, it's certain we have to
             ''  throw an exception. ---1/10/2022 td
             If (par_objEventsMoveGroupOfCtls Is Nothing) Then
-                Throw New NullReferenceException("Group-related events must be shared across controls.")
+                ''8/4/2022 Throw New NullReferenceException("Group-related events must be shared across controls.")
+                System.Diagnostics.Debugger.Break()
             End If ''End of If (par_objEventsMoveGroupOfCtls Is Nothing) Then
 
         ElseIf (par_objEventsMoveSingleControl Is Nothing) Then
@@ -1620,6 +1621,7 @@ Public Class RSCMoveableControlVB
                 .ConditionalExp_PreviewDisplay = Me.ConditionalExp_PreviewDisplay
 
             End With
+
         End If ''end of ""If (Me.ElementBase IsNot Nothing) Then""
 
     End Sub ''End of ""Public Overridable Sub SaveToModel()""
@@ -1818,7 +1820,10 @@ Public Class RSCMoveableControlVB
         ''
         ''Added this dummy Sub on 1/12/2022 
         ''
-        Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
+        ''8/4/2022 Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
+        RemoveHandler Me.MouseDown, AddressOf MoveableControl_MouseDown
+        RemoveHandler Me.MouseMove, AddressOf MoveableControl_MouseMove
+        RemoveHandler Me.MouseUp, AddressOf MoveableControl_MouseUp
 
     End Sub
 
@@ -1827,7 +1832,15 @@ Public Class RSCMoveableControlVB
         ''    ''
         ''    ''Added this dummy Sub on 1/12/2022 
         ''    ''
-        Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
+        ''8/4/2022 Throw New Exception("Must be overridden by the child user control, e.g. CtlGraphicsStaticText")
+
+        RemoveHandler Me.MouseDown, AddressOf MoveableControl_MouseDown
+        RemoveHandler Me.MouseMove, AddressOf MoveableControl_MouseMove
+        RemoveHandler Me.MouseUp, AddressOf MoveableControl_MouseUp
+
+        AddHandler Me.MouseDown, AddressOf MoveableControl_MouseDown
+        AddHandler Me.MouseMove, AddressOf MoveableControl_MouseMove
+        AddHandler Me.MouseUp, AddressOf MoveableControl_MouseUp
 
     End Sub
 

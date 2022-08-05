@@ -178,6 +178,7 @@ Public Class ClassSerial
 
     End Sub ''End of "Public Sub SerializeToXML(par_TypeOfObject As Type, par_objectToSerialize As Object) "
 
+
     Public Sub SerializeToBinary(par_TypeOfObject As Type, par_objectToSerialize As Object)
 
         ''---------------------------------
@@ -199,6 +200,36 @@ Public Class ClassSerial
         System.Diagnostics.Process.Start(Me.PathToXML_Binary)
 
     End Sub ''End of "Private Sub SerializeToBinary(par_TypeOfObject As Type, par_objectToSerialize As Object)"
+
+
+    Public Function SerializeToString(par_TypeOfObject As Type, par_objectToSerialize As Object,
+                              pbVerboseSuccess As Boolean) As String
+        ''
+        ''Added 8/04/2022 thomas downes
+        ''
+        Dim strOutputValue As String
+        Me.PathToXML = System.IO.Path.GetRandomFileName()
+        SerializeToXML(par_TypeOfObject, par_objectToSerialize, pbVerboseSuccess, False)
+        strOutputValue = IO.File.ReadAllText(Me.PathToXML)
+        Return strOutputValue
+
+    End Function ''End of "Private Sub SerializeToString(par_TypeOfObject As Type, par_objectToSerialize As Object)"
+
+
+    Public Function SerializeToRandomFile(par_TypeOfObject As Type, par_objectToSerialize As Object,
+                              pbVerboseSuccess As Boolean) As IO.FileInfo
+        ''
+        ''Added 8/04/2022 thomas downes
+        ''
+        '';;Dim strOutputValue As String
+        Me.PathToXML = System.IO.Path.GetRandomFileName()
+        SerializeToXML(par_TypeOfObject, par_objectToSerialize, pbVerboseSuccess, False)
+        '';;strOutputValue = IO.File.ReadAllText(Me.PathToXML)
+        Return New IO.FileInfo(Me.PathToXML)
+
+    End Function ''End of "Private Sub SerializeToRandomFile(par_TypeOfObject As Type, par_objectToSerialize As Object)"
+
+
 
     Public Function SaveAndRegenerateObject_XML_NotInUseHere(par_TypeOfObject As Type, ByRef par_objectToSerialize As Object) As Object
         ''

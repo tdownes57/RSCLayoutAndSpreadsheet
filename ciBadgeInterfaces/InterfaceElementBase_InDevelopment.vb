@@ -26,6 +26,10 @@ Public Interface IElement_Base_InDevelopment
     Property TopEdge_bPixels As Integer ''Added 8/3/2022 thomas downes
     Property LeftEdge_bPixels As Integer ''Added 8/3/2022 thomas downes
 
+    ''Added 8/4/2022 thomas downes
+    Property Width_bPixels As Integer ''Added 8/4/2022 thomas downes
+    Property Height_bPixels As Integer ''Added 8/4/2022 thomas downes
+
 
 
 

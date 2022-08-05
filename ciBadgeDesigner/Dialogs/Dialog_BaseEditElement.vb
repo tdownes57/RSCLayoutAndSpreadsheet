@@ -2,6 +2,7 @@
 ''Added 5/31/2022 thomas downes  
 ''
 Imports ciBadgeElements ''Added 8/1/2022 thomas downes
+Imports ciBadgeInterfaces ''Added 8/04/2022
 
 Public Class Dialog_BaseEditElement
     ''
@@ -9,13 +10,20 @@ Public Class Dialog_BaseEditElement
     ''
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
                    par_elementBase As ClassElementBase,
+                   par_infoElemBase As IElement_Base,
+                   par_designer As ClassDesigner,
                    Optional par_imageOfBadge As Drawing.Image = Nothing)
         ''
         ''Added 5/31/2022 td 
         ''
         ''7/28/2022''MyBase.PanelDisplayElement.Controls.Add(par_controlFieldOrTextV4)
         ''8/01/2022 MyBase.New(par_controlFieldOrTextV4, par_elementBase)
-        MyBase.New(par_controlFieldOrTextV4, par_elementBase, par_imageOfBadge)
+        ''8/04/2022 MyBase.New(par_controlFieldOrTextV4,
+        ''           par_elementBase, par_imageOfBadge)
+        MyBase.New(par_controlFieldOrTextV4,
+                   par_elementBase, par_infoElemBase,
+                   par_designer,
+                   par_imageOfBadge)
 
         ' This call is required by the designer.
         InitializeComponent()

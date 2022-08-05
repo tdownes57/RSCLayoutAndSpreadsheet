@@ -370,6 +370,7 @@ Public Class CtlGraphicQRCode
 
     End Sub ''End of "Public Sub Refresh_Master()"
 
+
     Public Sub Refresh_PositionAndSize()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
@@ -384,6 +385,7 @@ Public Class CtlGraphicQRCode
         Me.Height = Me.ElementInfo_Base.Height_Pixels
 
     End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+
 
     Public Sub Refresh_Image_NotInUse(pbRefreshSize As Boolean)
         ''
@@ -660,6 +662,11 @@ Public Class CtlGraphicQRCode
             Me.ElementInfo_Base.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
             Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
+            ''Added 8/4/2022 thomas d.
+            ''  We need to write to the Base Object. 
+            Me.ElementBase.TopEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+            Me.ElementBase.LeftEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+
             ''Added 9/24/2019 td
             ''  Let's avoid violating the Pic's (Height >= Width) constraint, when 
             ''  the Pic has been rotated 90 degrees. 
@@ -685,6 +692,9 @@ Public Class CtlGraphicQRCode
                     ''---    Rotation Switcheroo   ---9/24 td----
                     Me.ElementInfo_Base.Height_Pixels = Me.Width ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
                     Me.ElementInfo_Base.Width_Pixels = Me.Height ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                    ''8/04/2022 td
+                    Me.ElementBase.Height_bPixels = Me.Width ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                    Me.ElementBase.Width_bPixels = Me.Height ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
                 End If ''End of "If (bHeightIsCloseToBaseWidth) Then"
 
             Else
@@ -692,6 +702,9 @@ Public Class CtlGraphicQRCode
                     ''First try-- Set Width first, and then height.  ---9/23/2019 
                     Me.ElementInfo_Base.Width_Pixels = Me.Width
                     Me.ElementInfo_Base.Height_Pixels = Me.Height
+                    ''8/04/2022 td
+                    Me.ElementBase.Width_bPixels = Me.Width ''Added 8/04/2022 td
+                    Me.ElementBase.Height_bPixels = Me.Width ''Added 8/04/2022 td
                     boolSuccess = True ''Added 9/24/2019 td
                 Catch
                     ''An error, related to the constraint of the height always being greater than the width
@@ -702,6 +715,9 @@ Public Class CtlGraphicQRCode
                     If (Not boolSuccess) Then
                         Me.ElementInfo_Base.Height_Pixels = Me.Height
                         Me.ElementInfo_Base.Width_Pixels = Me.Width
+                        ''8/04/2022 td
+                        Me.ElementBase.Width_bPixels = Me.Width ''Added 8/04/2022 td
+                        Me.ElementBase.Height_bPixels = Me.Width ''Added 8/04/2022 td
                     End If ''End of "If (Not boolSuccess) Then"
                 End Try
             End If ''ENd of "If (bRotated90degrees) Then ..... Else ...."

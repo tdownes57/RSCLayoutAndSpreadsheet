@@ -71,7 +71,11 @@ Public MustInherit Class Operations__Text
                  objSideLayoutV1, Nothing, Me.ElementObject_Base)
 
             Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
-                                       Me.ElementObject_Base, imageOfBadgeSansElement)
+                                       Me.ElementObject_Base,
+                                       Me.ElementInfo_Base,
+                                       Me.Designer,
+                                       imageOfBadgeSansElement)
+
             objFormToShow.ShowDialog()
 
         Catch ex_edit As Exception

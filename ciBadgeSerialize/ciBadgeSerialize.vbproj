@@ -66,6 +66,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassCopyViaSerial.vb" />
     <Compile Include="ClassCycle.vb" />
     <Compile Include="ClassDeserial.vb" />
     <Compile Include="ClassSerial.vb" />
