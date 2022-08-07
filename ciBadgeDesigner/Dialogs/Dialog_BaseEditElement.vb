@@ -12,6 +12,7 @@ Public Class Dialog_BaseEditElement
                    par_elementBase As ClassElementBase,
                    par_infoElemBase As IElement_Base,
                    par_designer As ClassDesigner,
+                   par_events As GroupMoveEvents_Singleton,
                    Optional par_imageOfBadge As Drawing.Image = Nothing)
         ''
         ''Added 5/31/2022 td 
@@ -22,7 +23,7 @@ Public Class Dialog_BaseEditElement
         ''           par_elementBase, par_imageOfBadge)
         MyBase.New(par_controlFieldOrTextV4,
                    par_elementBase, par_infoElemBase,
-                   par_designer,
+                   par_designer, par_events,
                    par_imageOfBadge)
 
         ' This call is required by the designer.

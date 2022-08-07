@@ -2,16 +2,18 @@
 '' Added 3/4/2022 thomas downes
 ''
 Imports ciBadgeElements ''Added 8/01/2022 td
+Imports ciBadgeInterfaces ''Added 8/06/2022 thomas downes
 
 Public Class Dialog_BaseChooseColor
     ''
-    '' Added 3/4/2022 thomas downes
+    '' Added 3/4/2022 Thomas Downes
     ''
     Private mod_colors As New List(Of Drawing.Color)
 
 
     Public Sub New(par_control As CtlGraphicFieldOrTextV4, par_element As ClassElementBase,
                    par_designer As ClassDesigner,
+                   par_events As GroupMoveEvents_Singleton,
                    Optional par_imageBadge As Drawing.Image = Nothing)
 
         ' Add any initialization after the InitializeComponent() call.
@@ -20,7 +22,7 @@ Public Class Dialog_BaseChooseColor
         ''8/4/2022     par_imageBadge)
         MyBase.New(par_control, par_control.ElementBase,
                    par_control.ElementInfo_Base,
-                   par_designer,
+                   par_designer, par_events,
                    par_imageBadge)
 
         ' This call is required by the designer.

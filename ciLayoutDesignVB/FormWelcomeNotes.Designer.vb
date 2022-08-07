@@ -27,11 +27,11 @@ Partial Class FormWelcomeNotes
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.LabelFooter1 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.pictureBoxLogo = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.LinkLabelShowWarnings = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelTurnOffWarnings = New System.Windows.Forms.LinkLabel()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureBoxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBox1
@@ -88,15 +88,15 @@ Partial Class FormWelcomeNotes
         Me.LabelFooter1.TabIndex = 4
         Me.LabelFooter1.Text = "Pressing OK will save any edits you make."
         '
-        'PictureBox1
+        'pictureBoxLogo
         '
-        Me.PictureBox1.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.feather_logo_RSC
-        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 92)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(219, 324)
-        Me.PictureBox1.TabIndex = 5
-        Me.PictureBox1.TabStop = False
+        Me.pictureBoxLogo.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.feather_logo_RSC
+        Me.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.pictureBoxLogo.Location = New System.Drawing.Point(12, 92)
+        Me.pictureBoxLogo.Name = "pictureBoxLogo"
+        Me.pictureBoxLogo.Size = New System.Drawing.Size(219, 324)
+        Me.pictureBoxLogo.TabIndex = 5
+        Me.pictureBoxLogo.TabStop = False
         '
         'Label1
         '
@@ -137,7 +137,7 @@ Partial Class FormWelcomeNotes
         Me.Controls.Add(Me.LinkLabelTurnOffWarnings)
         Me.Controls.Add(Me.LinkLabelShowWarnings)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.PictureBox1)
+        Me.Controls.Add(Me.pictureBoxLogo)
         Me.Controls.Add(Me.LabelFooter1)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.ButtonOK)
@@ -145,7 +145,7 @@ Partial Class FormWelcomeNotes
         Me.Controls.Add(Me.TextBox1)
         Me.Name = "FormWelcomeNotes"
         Me.Text = "FormWelcomeNotes"
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureBoxLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -156,7 +156,7 @@ Partial Class FormWelcomeNotes
     Friend WithEvents ButtonOK As Button
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents LabelFooter1 As Label
-    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents pictureBoxLogo As PictureBox
     Friend WithEvents Label1 As Label
     Friend WithEvents LinkLabelShowWarnings As LinkLabel
     Friend WithEvents LinkLabelTurnOffWarnings As LinkLabel

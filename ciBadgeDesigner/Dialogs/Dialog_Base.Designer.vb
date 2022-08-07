@@ -22,7 +22,6 @@ Partial Class Dialog_Base
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.PanelDisplayElement = New System.Windows.Forms.Panel()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
@@ -34,21 +33,14 @@ Partial Class Dialog_Base
         Me.ButtonTextPlacement = New System.Windows.Forms.Button()
         Me.PanelEditorControls = New System.Windows.Forms.Panel()
         Me.ButtonTextstring = New System.Windows.Forms.Button()
-        Me.checkBoxArrow = New System.Windows.Forms.CheckBox()
-        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.checkBoxArrowVisible = New System.Windows.Forms.CheckBox()
         Me.panelArrowLeft = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.panelArrowRight = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.panelDisplayElement = New System.Windows.Forms.PictureBox()
+        Me.checkArrowMovesWithElem = New System.Windows.Forms.CheckBox()
         Me.PanelEditorControls.SuspendLayout()
+        CType(Me.panelDisplayElement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'PanelDisplayElement
-        '
-        Me.PanelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.PanelDisplayElement.Location = New System.Drawing.Point(11, 47)
-        Me.PanelDisplayElement.Margin = New System.Windows.Forms.Padding(2)
-        Me.PanelDisplayElement.Name = "PanelDisplayElement"
-        Me.PanelDisplayElement.Size = New System.Drawing.Size(603, 380)
-        Me.PanelDisplayElement.TabIndex = 1
         '
         'ButtonOK
         '
@@ -90,7 +82,7 @@ Partial Class Dialog_Base
         'LabelHeading2
         '
         Me.LabelHeading2.AutoSize = True
-        Me.LabelHeading2.Location = New System.Drawing.Point(581, 9)
+        Me.LabelHeading2.Location = New System.Drawing.Point(620, 59)
         Me.LabelHeading2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeading2.Name = "LabelHeading2"
         Me.LabelHeading2.Size = New System.Drawing.Size(458, 13)
@@ -175,24 +167,15 @@ Partial Class Dialog_Base
         Me.ButtonTextstring.Text = "Text / String"
         Me.ButtonTextstring.UseVisualStyleBackColor = True
         '
-        'checkBoxArrow
+        'checkBoxArrowVisible
         '
-        Me.checkBoxArrow.AutoSize = True
-        Me.checkBoxArrow.Location = New System.Drawing.Point(506, 16)
-        Me.checkBoxArrow.Name = "checkBoxArrow"
-        Me.checkBoxArrow.Size = New System.Drawing.Size(237, 17)
-        Me.checkBoxArrow.TabIndex = 12
-        Me.checkBoxArrow.Text = "Display a gold arrow for the editable element."
-        Me.checkBoxArrow.UseVisualStyleBackColor = True
-        '
-        'Panel2
-        '
-        Me.Panel2.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
-        Me.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Panel2.Location = New System.Drawing.Point(749, 9)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(86, 37)
-        Me.Panel2.TabIndex = 15
+        Me.checkBoxArrowVisible.AutoSize = True
+        Me.checkBoxArrowVisible.Location = New System.Drawing.Point(506, 16)
+        Me.checkBoxArrowVisible.Name = "checkBoxArrowVisible"
+        Me.checkBoxArrowVisible.Size = New System.Drawing.Size(237, 17)
+        Me.checkBoxArrowVisible.TabIndex = 12
+        Me.checkBoxArrowVisible.Text = "Display a gold arrow for the editable element."
+        Me.checkBoxArrowVisible.UseVisualStyleBackColor = True
         '
         'panelArrowLeft
         '
@@ -222,31 +205,49 @@ Partial Class Dialog_Base
         Me.panelArrowRight.Size = New System.Drawing.Size(73, 41)
         Me.panelArrowRight.TabIndex = 17
         '
+        'panelDisplayElement
+        '
+        Me.panelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.panelDisplayElement.Location = New System.Drawing.Point(12, 39)
+        Me.panelDisplayElement.Name = "panelDisplayElement"
+        Me.panelDisplayElement.Size = New System.Drawing.Size(603, 380)
+        Me.panelDisplayElement.TabIndex = 0
+        Me.panelDisplayElement.TabStop = False
+        '
+        'checkArrowMovesWithElem
+        '
+        Me.checkArrowMovesWithElem.AutoSize = True
+        Me.checkArrowMovesWithElem.Location = New System.Drawing.Point(643, 39)
+        Me.checkArrowMovesWithElem.Name = "checkArrowMovesWithElem"
+        Me.checkArrowMovesWithElem.Size = New System.Drawing.Size(207, 17)
+        Me.checkArrowMovesWithElem.TabIndex = 18
+        Me.checkArrowMovesWithElem.Text = "Gold arrow moves if element is moved."
+        Me.checkArrowMovesWithElem.UseVisualStyleBackColor = True
+        '
         'Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(945, 502)
+        Me.Controls.Add(Me.checkArrowMovesWithElem)
+        Me.Controls.Add(Me.panelDisplayElement)
         Me.Controls.Add(Me.panelArrowRight)
         Me.Controls.Add(Me.panelArrowLeft)
-        Me.Controls.Add(Me.Panel2)
-        Me.Controls.Add(Me.checkBoxArrow)
+        Me.Controls.Add(Me.checkBoxArrowVisible)
         Me.Controls.Add(Me.PanelEditorControls)
         Me.Controls.Add(Me.LabelHeading2)
         Me.Controls.Add(Me.LabelHeading1)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
-        Me.Controls.Add(Me.PanelDisplayElement)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Dialog_Base"
         Me.Text = "Dialog_Base"
         Me.PanelEditorControls.ResumeLayout(False)
+        CType(Me.panelDisplayElement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents PanelDisplayElement As Panel
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents LabelHeading1 As Label
@@ -258,8 +259,9 @@ Partial Class Dialog_Base
     Friend WithEvents ButtonTextPlacement As Button
     Friend WithEvents PanelEditorControls As Panel
     Friend WithEvents ButtonTextstring As Button
-    Friend WithEvents checkBoxArrow As CheckBox
-    Friend WithEvents Panel2 As Panel
+    Friend WithEvents checkBoxArrowVisible As CheckBox
     Friend WithEvents panelArrowLeft As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents panelArrowRight As __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Friend WithEvents panelDisplayElement As PictureBox
+    Friend WithEvents checkArrowMovesWithElem As CheckBox
 End Class

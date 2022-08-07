@@ -1647,11 +1647,41 @@ Public Class RSCMoveableControlVB
         ''Hopefully this will capture the PictureBox in the 
         ''  child classes CtlGraphicQRCode & CtlGraphicSignature. 
         ''
+        Dim outputPictureBox As PictureBox = Nothing ''Added 8/6/2022
+
         For Each objControl As Control In Me.Controls
 
-            If TypeOf objControl Is PictureBox Then Return CType(objControl, PictureBox)
+            ''8/6/2022 If TypeOf objControl Is PictureBox Then Return CType(objControl, PictureBox)
+            If TypeOf objControl Is PictureBox Then
+                Return CType(objControl, PictureBox)
+                outputPictureBox = CType(objControl, PictureBox)
+            End If ''End of ""If TypeOf objControl Is PictureBox Then""
 
         Next objControl
+
+        ''
+        ''Added 8/6/2022 thomas downes
+        ''
+        If (outputPictureBox IsNot Nothing) Then
+            Return outputPictureBox
+        Else
+            ''
+            ''Added 8/6/2022 td
+            ''
+            outputPictureBox = New PictureBox
+            With outputPictureBox
+                .Visible = True
+                .BackgroundImage = CType(Me.BackgroundImage.Clone(), Image)
+                .BackgroundImageLayout = ImageLayout.Zoom
+                .Top = 0
+                .Left = 0
+                .Height = Me.Height - 1
+                .Width = Me.Width - 1
+                Me.Controls.Add(outputPictureBox)
+                .BringToFront()
+            End With
+            Return outputPictureBox
+        End If ''End of ""If (outputPictureBox IsNot Nothing) Then... Else..."
 
     End Function ''Endof "Public Function Find_PictureBox() As PictureBox"
 
@@ -1690,7 +1720,7 @@ Public Class RSCMoveableControlVB
             ''Let the module know that a MouseMove took place. 
             mod_iMoveOrResizeFunctionality.StartMovingOrResizing(CType(sender, Control), par_e)
 
-            End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
+        End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
 
     End Sub
 

@@ -112,6 +112,7 @@ Public Class GroupMoveEvents_Singleton
 
     End Sub
 
+
     Public Sub GroupMove_Change(deltaLeft As Integer, deltaTop As Integer, deltaWidth As Integer, deltaHeight As Integer, pbLeadControlLocationEditedAlready As Boolean) _
         Implements InterfaceMoveEvents.GroupMove_Change
 
@@ -127,6 +128,7 @@ Public Class GroupMoveEvents_Singleton
                pbLeadControlLocationEditedAlready)
 
     End Sub ''End of "Public Sub GroupMove_Change"
+
 
     Public Sub ControlBeingMoved(par_control As Control) Implements InterfaceMoveEvents.ControlBeingMoved
         ''

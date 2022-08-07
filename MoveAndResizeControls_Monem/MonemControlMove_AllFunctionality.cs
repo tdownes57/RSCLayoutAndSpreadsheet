@@ -1129,6 +1129,7 @@ namespace MoveAndResizeControls_Monem
 
             else if (_moving)
             {
+                // Why toggle this Boolean value? ---8/6/2022 td
                 _moveIsInterNal = !_moveIsInterNal;
 
                 if (!_moveIsInterNal)
@@ -1178,8 +1179,9 @@ namespace MoveAndResizeControls_Monem
                     // Jan10 2022 td//mod_events.ControlBeingMoved(par_controlG);
                     mod_events_singleCtl.ControlBeingMoved(par_controlG);
                     if (mod_events_groupedCtls != null)
+                    {
                         mod_events_groupedCtls.ControlBeingMoved(par_controlG);
-
+                    }
                 }
             }
 
@@ -1207,7 +1209,8 @@ namespace MoveAndResizeControls_Monem
                 {
                     // 1-12-2022 td//mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
                     mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top,
-                        delta_Width, delta_Height, bEditedLocation);
+                                                           delta_Width, delta_Height, 
+                                                           bEditedLocation);
                 }
 
                 // Added 1/11/2022 td
@@ -1224,12 +1227,15 @@ namespace MoveAndResizeControls_Monem
                 mod_events_groupedCtls.ControlBeingMoved(par_controlG);
                 delta_Width = 0;
                 delta_Height = 0;
+
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
                 mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
 
                 if (mod_events_groupedCtls != null)
+                {
                     mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
+                }
 
             }
 

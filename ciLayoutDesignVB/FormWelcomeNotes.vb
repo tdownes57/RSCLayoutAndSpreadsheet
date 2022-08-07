@@ -85,4 +85,12 @@ Public Class FormWelcomeNotes
         MessageBoxTD.Show_Warning("Warnings will be suppressed.")
 
     End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles pictureBoxLogo.Click
+
+        ''Added 8/6/2022 thomas downes
+        ButtonOK.PerformClick()
+
+
+    End Sub
 End Class

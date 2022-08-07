@@ -43,6 +43,7 @@ Public MustInherit Class Operations__Text
         Dim strPathToBackgroundImage As String ''Added 8/02/2022 td
         Dim enum_backside As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
         Dim enum_frontside As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
+        Dim tempLayoutfunctions As ciBadgeInterfaces.ILayoutFunctions = Nothing ''Added 8/6/2022
 
         Try
             ''Added 8/1/2022 
@@ -70,10 +71,14 @@ Public MustInherit Class Operations__Text
             MyBase.Designer.GetBadgeImage_EitherSide(enumCurrentSide,
                  objSideLayoutV1, Nothing, Me.ElementObject_Base)
 
+            ''Added 8/6/2022
+            tempLayoutfunctions = Me.CtlCurrentFieldOrTextV4.LayoutFunctions
+
             Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
                                        Me.ElementObject_Base,
                                        Me.ElementInfo_Base,
                                        Me.Designer,
+                                       Me.Designer.GroupMoveEvents,
                                        imageOfBadgeSansElement)
 
             objFormToShow.ShowDialog()
@@ -93,6 +98,13 @@ ExitHandler:
         MyBase.CtlCurrentForm.Controls.Add(Me.CtlCurrentFieldOrTextV4)
         Me.CtlCurrentFieldOrTextV4.BringToFront()
         Me.CtlCurrentFieldOrTextV4.Visible = True
+
+        ''Restore the prior LayoutFunctions (Designer).
+        If (tempLayoutfunctions Is Nothing) Then
+            Me.CtlCurrentFieldOrTextV4.LayoutFunctions = Me.Designer
+        Else
+            Me.CtlCurrentFieldOrTextV4.LayoutFunctions = tempLayoutfunctions
+        End If ''End of ""If (tempLayoutfunctions Is Nothing) Then... Else...""
 
     End Sub ''End of ""Public Sub Edit_Element_With_Multiple_Dialogs_TE9400()"
 
@@ -290,8 +302,13 @@ ExitHandler:
             ''02/14/2022 td''Me.CtlCurrentFieldOrTextV4.Refresh()
 
             With Me.CtlCurrentRSCControl
-                .Refresh_ImageV3(True)
-                .Refresh()
+                If (Me.CtlCurrentRSCControl Is Nothing) Then
+                    ''Added 8/6/2022 thomas downes
+                    System.Diagnostics.Debugger.Break()
+                Else
+                    .Refresh_ImageV3(True)
+                    .Refresh()
+                End If ''End of ""If (Me.CtlCurrentRSCControl Is Nothing) Then... Else..."
             End With ''End of "With Me.CtlCurrentRSCControl"
 
         ElseIf (b2_SelectedAsPartOfAGroup) Then
