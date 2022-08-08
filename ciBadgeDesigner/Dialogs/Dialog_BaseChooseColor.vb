@@ -11,7 +11,9 @@ Public Class Dialog_BaseChooseColor
     Private mod_colors As New List(Of Drawing.Color)
 
 
-    Public Sub New(par_control As CtlGraphicFieldOrTextV4, par_element As ClassElementBase,
+    Public Sub New(par_control As CtlGraphicFieldOrTextV4,
+                   par_element As ClassElementBase,
+                   par_infoElementBase As IElement_Base,
                    par_designer As ClassDesigner,
                    par_events As GroupMoveEvents_Singleton,
                    Optional par_imageBadge As Drawing.Image = Nothing)
@@ -20,8 +22,12 @@ Public Class Dialog_BaseChooseColor
 
         ''8/4/2022 MyBase.New(par_control, par_control.ElementBase,
         ''8/4/2022     par_imageBadge)
+        ''8/7/2022 MyBase.New(par_control, par_control.ElementBase,
+        ''            par_control.ElementInfo_Base,
+        ''           par_designer, par_events,
+        ''           par_imageBadge)
         MyBase.New(par_control, par_control.ElementBase,
-                   par_control.ElementInfo_Base,
+                   par_infoElementBase,
                    par_designer, par_events,
                    par_imageBadge)
 
@@ -62,7 +68,7 @@ Public Class Dialog_BaseChooseColor
         ''        mod_colors.Add(Drawing.Color.
         ''        mod_colors.Add(Drawing.Color.
 
-        FlowLayoutPanel1.Controls.Clear()
+        FlowLayoutColors2.Controls.Clear()
 
         For Each each_color In mod_colors ''List(Of Drawing.Color)
 
@@ -70,13 +76,13 @@ Public Class Dialog_BaseChooseColor
             newLabel.BackColor = each_color
             newLabel.Text = each_color.Name
             newLabel.Visible = True
-            FlowLayoutPanel1.Controls.Add(newLabel)
+            FlowLayoutColors2.Controls.Add(newLabel)
 
         Next each_color
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ButtonForecolor.Click
 
     End Sub
 End Class

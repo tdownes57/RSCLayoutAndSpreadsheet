@@ -385,6 +385,12 @@
     <Compile Include="Dialogs\Dialog_BaseChooseColor.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\Dialog_BaseChooseFont.Designer.vb">
+      <DependentUpon>Dialog_BaseChooseFont.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Dialog_BaseChooseFont.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\Dialog_BaseReviseText.Designer.vb">
       <DependentUpon>Dialog_BaseReviseText.vb</DependentUpon>
     </Compile>
@@ -664,6 +670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseChooseColor.resx">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Dialog_BaseChooseFont.resx">
+      <DependentUpon>Dialog_BaseChooseFont.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseEditElement.resx">
       <DependentUpon>Dialog_BaseEditElement.vb</DependentUpon>

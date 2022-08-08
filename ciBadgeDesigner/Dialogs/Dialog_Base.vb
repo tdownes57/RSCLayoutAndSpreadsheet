@@ -26,7 +26,7 @@ Public Class Dialog_Base
     Private mod_designerParentForm As ciBadgeDesigner.ClassDesigner ''Added 8/05/2022
     Private mod_objLayoutFunctions As ciBadgeDesigner.ClassDesigner ''Added 8/04/2022 
     Private WithEvents mod_objEventsRSC_Elem As GroupMoveEvents_Singleton ''Added 8/4/2022 td
-    Private mod_objEventsRSC_Gold As GroupMoveEvents_Singleton ''Added 8/4/2022 td
+    Private WithEvents mod_objEventsRSC_Gold As GroupMoveEvents_Singleton ''Added 8/4/2022 td
     Private Const mod_c_bCreateDesignerObject As Boolean = False ''Added 8/6/2022 td
     Private mod_bLoading As Boolean = True ''Added 8/6/2022
 
@@ -626,6 +626,55 @@ ExitHandler:
             PositionArrow(mod_controlRSCMoveable)
 
         End If ''End of ""If (mod_controlFieldOrTextV4 IsNot Nothing) Then..Else.. ""
+
+    End Sub
+
+    Private Sub ButtonFont_Click(sender As Object, e As EventArgs) Handles ButtonFont.Click
+        ''
+        ''Added 8/07/2022 thomas downes
+        ''
+        ''8/07/2022 Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
+        ''                      Me.ElementObject_Base,
+        ''                      Me.ElementInfo_Base,
+        ''                      Me.Designer,
+        ''                      Me.Designer.GroupMoveEvents,
+        ''                      imageOfBadgeSansElement)
+        Dim objFormToShow As New Dialog_BaseChooseFont(mod_controlFieldOrTextV4,
+                                       mod_elementBase,
+                                       mod_elementInfo_Base,
+                                       mod_designerParentForm,
+                                       mod_objEventsRSC_Elem,
+                                       panelDisplayElement.BackgroundImage)
+
+        objFormToShow.ShowDialog()
+
+ExitHandler:
+        ''Added 8/07/2022
+        If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then
+            Me.Controls.Add(mod_controlFieldOrTextV4)
+            mod_controlFieldOrTextV4.BringToFront()
+        End If ''ENd of ""If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then""
+
+    End Sub
+
+    Private Sub ButtonColor_Click(sender As Object, e As EventArgs) Handles ButtonColor.Click
+        ''
+        ''Added 8/07/2022 thomas downes
+        ''
+        Dim objFormToShow As New Dialog_BaseChooseColor(mod_controlFieldOrTextV4,
+                                       mod_elementBase,
+                                       mod_elementInfo_Base,
+                                       mod_designerParentForm,
+                                       mod_objEventsRSC_Elem,
+                                       panelDisplayElement.BackgroundImage)
+
+        objFormToShow.ShowDialog()
+
+ExitHandler:
+        ''Added 8/07/2022
+        If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then
+            Me.Controls.Add(mod_controlFieldOrTextV4)
+        End If ''ENd of ""If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then""
 
     End Sub
 End Class

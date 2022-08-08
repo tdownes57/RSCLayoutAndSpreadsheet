@@ -34,10 +34,10 @@ Partial Class Dialog_Base
         Me.PanelEditorControls = New System.Windows.Forms.Panel()
         Me.ButtonTextstring = New System.Windows.Forms.Button()
         Me.checkBoxArrowVisible = New System.Windows.Forms.CheckBox()
-        Me.panelArrowLeft = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.panelArrowRight = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.panelDisplayElement = New System.Windows.Forms.PictureBox()
         Me.checkArrowMovesWithElem = New System.Windows.Forms.CheckBox()
+        Me.panelDisplayElement = New System.Windows.Forms.PictureBox()
+        Me.panelArrowRight = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
+        Me.panelArrowLeft = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.PanelEditorControls.SuspendLayout()
         CType(Me.panelDisplayElement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -93,16 +93,20 @@ Partial Class Dialog_Base
         '
         'ButtonColor
         '
+        Me.ButtonColor.BackColor = System.Drawing.Color.MediumPurple
+        Me.ButtonColor.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonColor.ForeColor = System.Drawing.Color.Purple
         Me.ButtonColor.Location = New System.Drawing.Point(120, 11)
         Me.ButtonColor.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonColor.Name = "ButtonColor"
         Me.ButtonColor.Size = New System.Drawing.Size(101, 34)
         Me.ButtonColor.TabIndex = 7
         Me.ButtonColor.Text = "Colors"
-        Me.ButtonColor.UseVisualStyleBackColor = True
+        Me.ButtonColor.UseVisualStyleBackColor = False
         '
         'ButtonFont
         '
+        Me.ButtonFont.Font = New System.Drawing.Font("Ink Free", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonFont.Location = New System.Drawing.Point(7, 11)
         Me.ButtonFont.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonFont.Name = "ButtonFont"
@@ -113,16 +117,19 @@ Partial Class Dialog_Base
         '
         'Button3
         '
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button3.Location = New System.Drawing.Point(351, 11)
         Me.Button3.Margin = New System.Windows.Forms.Padding(2)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(101, 34)
         Me.Button3.TabIndex = 9
-        Me.Button3.Text = "Rotation"
+        Me.Button3.Text = "▼Rotation▲"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'ButtonBorder
         '
+        Me.ButtonBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ButtonBorder.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonBorder.Location = New System.Drawing.Point(238, 11)
         Me.ButtonBorder.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonBorder.Name = "ButtonBorder"
@@ -139,6 +146,7 @@ Partial Class Dialog_Base
         Me.ButtonTextPlacement.Size = New System.Drawing.Size(101, 34)
         Me.ButtonTextPlacement.TabIndex = 10
         Me.ButtonTextPlacement.Text = "Text Placement"
+        Me.ButtonTextPlacement.TextAlign = System.Drawing.ContentAlignment.BottomRight
         Me.ButtonTextPlacement.UseVisualStyleBackColor = True
         '
         'PanelEditorControls
@@ -159,12 +167,13 @@ Partial Class Dialog_Base
         '
         'ButtonTextstring
         '
+        Me.ButtonTextstring.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ButtonTextstring.Location = New System.Drawing.Point(584, 11)
         Me.ButtonTextstring.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonTextstring.Name = "ButtonTextstring"
-        Me.ButtonTextstring.Size = New System.Drawing.Size(101, 34)
+        Me.ButtonTextstring.Size = New System.Drawing.Size(234, 34)
         Me.ButtonTextstring.TabIndex = 11
-        Me.ButtonTextstring.Text = "Text / String"
+        Me.ButtonTextstring.Text = "Text / Words you want to see on ID card"
         Me.ButtonTextstring.UseVisualStyleBackColor = True
         '
         'checkBoxArrowVisible
@@ -177,43 +186,6 @@ Partial Class Dialog_Base
         Me.checkBoxArrowVisible.Text = "Display a gold arrow for the editable element."
         Me.checkBoxArrowVisible.UseVisualStyleBackColor = True
         '
-        'panelArrowLeft
-        '
-        Me.panelArrowLeft.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.panelArrowLeft.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
-        Me.panelArrowLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.panelArrowLeft.ElementInfo_Base = Nothing
-        Me.panelArrowLeft.Location = New System.Drawing.Point(677, 177)
-        Me.panelArrowLeft.Margin = New System.Windows.Forms.Padding(2)
-        Me.panelArrowLeft.MoveabilityEventsForGroupCtls = Nothing
-        Me.panelArrowLeft.MoveabilityEventsForSingleMove = Nothing
-        Me.panelArrowLeft.Name = "panelArrowLeft"
-        Me.panelArrowLeft.Size = New System.Drawing.Size(73, 41)
-        Me.panelArrowLeft.TabIndex = 16
-        '
-        'panelArrowRight
-        '
-        Me.panelArrowRight.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.panelArrowRight.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop____Right
-        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.panelArrowRight.ElementInfo_Base = Nothing
-        Me.panelArrowRight.Location = New System.Drawing.Point(677, 234)
-        Me.panelArrowRight.Margin = New System.Windows.Forms.Padding(2)
-        Me.panelArrowRight.MoveabilityEventsForGroupCtls = Nothing
-        Me.panelArrowRight.MoveabilityEventsForSingleMove = Nothing
-        Me.panelArrowRight.Name = "panelArrowRight"
-        Me.panelArrowRight.Size = New System.Drawing.Size(73, 41)
-        Me.panelArrowRight.TabIndex = 17
-        '
-        'panelDisplayElement
-        '
-        Me.panelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.panelDisplayElement.Location = New System.Drawing.Point(12, 39)
-        Me.panelDisplayElement.Name = "panelDisplayElement"
-        Me.panelDisplayElement.Size = New System.Drawing.Size(603, 380)
-        Me.panelDisplayElement.TabIndex = 0
-        Me.panelDisplayElement.TabStop = False
-        '
         'checkArrowMovesWithElem
         '
         Me.checkArrowMovesWithElem.AutoSize = True
@@ -224,15 +196,52 @@ Partial Class Dialog_Base
         Me.checkArrowMovesWithElem.Text = "Gold arrow moves if element is moved."
         Me.checkArrowMovesWithElem.UseVisualStyleBackColor = True
         '
+        'panelDisplayElement
+        '
+        Me.panelDisplayElement.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.panelDisplayElement.Location = New System.Drawing.Point(12, 39)
+        Me.panelDisplayElement.Name = "panelDisplayElement"
+        Me.panelDisplayElement.Size = New System.Drawing.Size(603, 380)
+        Me.panelDisplayElement.TabIndex = 0
+        Me.panelDisplayElement.TabStop = False
+        '
+        'panelArrowRight
+        '
+        Me.panelArrowRight.BackColor = System.Drawing.Color.Transparent
+        Me.panelArrowRight.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop____Right
+        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.panelArrowRight.ElementInfo_Base = Nothing
+        Me.panelArrowRight.Location = New System.Drawing.Point(120, 16)
+        Me.panelArrowRight.Margin = New System.Windows.Forms.Padding(2)
+        Me.panelArrowRight.MoveabilityEventsForGroupCtls = Nothing
+        Me.panelArrowRight.MoveabilityEventsForSingleMove = Nothing
+        Me.panelArrowRight.Name = "panelArrowRight"
+        Me.panelArrowRight.Size = New System.Drawing.Size(73, 41)
+        Me.panelArrowRight.TabIndex = 17
+        '
+        'panelArrowLeft
+        '
+        Me.panelArrowLeft.BackColor = System.Drawing.Color.Transparent
+        Me.panelArrowLeft.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
+        Me.panelArrowLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.panelArrowLeft.ElementInfo_Base = Nothing
+        Me.panelArrowLeft.Location = New System.Drawing.Point(24, 16)
+        Me.panelArrowLeft.Margin = New System.Windows.Forms.Padding(2)
+        Me.panelArrowLeft.MoveabilityEventsForGroupCtls = Nothing
+        Me.panelArrowLeft.MoveabilityEventsForSingleMove = Nothing
+        Me.panelArrowLeft.Name = "panelArrowLeft"
+        Me.panelArrowLeft.Size = New System.Drawing.Size(73, 41)
+        Me.panelArrowLeft.TabIndex = 16
+        '
         'Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(945, 502)
-        Me.Controls.Add(Me.checkArrowMovesWithElem)
-        Me.Controls.Add(Me.panelDisplayElement)
         Me.Controls.Add(Me.panelArrowRight)
         Me.Controls.Add(Me.panelArrowLeft)
+        Me.Controls.Add(Me.checkArrowMovesWithElem)
+        Me.Controls.Add(Me.panelDisplayElement)
         Me.Controls.Add(Me.checkBoxArrowVisible)
         Me.Controls.Add(Me.PanelEditorControls)
         Me.Controls.Add(Me.LabelHeading2)

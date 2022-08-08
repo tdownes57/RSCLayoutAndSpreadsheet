@@ -153,6 +153,7 @@ Public Class CtlGraphicFieldV4
             .CtlCurrentElement = CtlFieldV4
             .CtlCurrentFieldOrTextV4 = CtlFieldV4 ''Added 2/3/2022 td
             .CtlCurrentElementFieldV4 = CtlFieldV4 ''Added 1/24/2022 td
+            .CtlCurrentRSCControl = CtlFieldV4 ''Added 8/07/2022 thomas downes
 
             ''.Designer = par_oMoveEventsForGroupedCtls.
             .Designer = par_parametersGetElementControl.DesignerClass

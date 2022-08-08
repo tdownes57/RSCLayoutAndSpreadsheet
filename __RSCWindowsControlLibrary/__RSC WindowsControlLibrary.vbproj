@@ -126,6 +126,12 @@
     <Compile Include="RSCColorControls\RSCColorDisplay.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCColorControls\RSCColorDisplayMini.Designer.vb">
+      <DependentUpon>RSCColorDisplayMini.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorDisplayMini.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="RSCColorControls\RSCColorPicker.Designer.vb">
       <DependentUpon>RSCColorPicker.vb</DependentUpon>
     </Compile>
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCColorDisplay.resx">
       <DependentUpon>RSCColorDisplay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\RSCColorDisplayMini.resx">
+      <DependentUpon>RSCColorDisplayMini.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCColorPicker.resx">
       <DependentUpon>RSCColorPicker.vb</DependentUpon>
