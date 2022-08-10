@@ -3,14 +3,15 @@ Option Strict On
 ''
 ''Added 7/09/2022 thomas downes 
 ''
+Imports ciBadgeInterfaces ''Added 8/10/2022 td
 
 Public Class RSCBrowseExistingColors
     ''
     ''Added 7/09/2022 thomas downes 
     ''
-    Private mod_listColors As List(Of RSCColor)
+    Private mod_listColors As HashSet(Of RSCColor)
 
-    Public Sub New(par_listColors As List(Of RSCColor),
+    Public Sub New(par_listColors As HashSet(Of RSCColor),
         Optional par_enumGround As EnumRSCBackOrFore = EnumRSCBackOrFore.Undetermined)
         ''July9 2022''Public Sub New(par_listColors As List(Of RSCColor)
         ''
@@ -26,7 +27,7 @@ Public Class RSCBrowseExistingColors
         mod_listColors = par_listColors
 
         ''Added 7/9/2022 thomas downes 
-        If (par_listColors Is Nothing) Then par_listColors = New List(Of RSCColor)()
+        If (par_listColors Is Nothing) Then par_listColors = New HashSet(Of RSCColor)()
         If (par_listColors.Count = 0) Then
             ''Added 7/09/2022 thomas downes 
             bConfirmAddExample = MessageBoxTD.Show_Confirmed("No colors have been selected yet. An example might help.",
@@ -38,7 +39,7 @@ Public Class RSCBrowseExistingColors
         End If ''End of ""If (par_listColors.Count = 0) Then""
 
         ''
-        ''Start from scratch by clearing the Flow-Layount container.
+        ''Start from scratch by clearing the Flow-Layout container.
         ''
         FlowLayoutPanel1.Controls.Clear()
 

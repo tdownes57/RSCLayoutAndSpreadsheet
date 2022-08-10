@@ -13,7 +13,11 @@ Public Class Dialog_BaseChooseFont
     ''
     ''Added 8/7/2022 Thomas Downes  
     ''
+    Private mod_listMSFontFamilyNames As List(Of String)
+
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
+                   par_listFontFamilyNames As HashSet(Of String),
+                   par_listRSCColors As HashSet(Of RSCColor),
                    par_elementBase As ClassElementBase,
                    par_infoElemBase As IElement_Base,
                    par_designer As ClassDesigner,
@@ -22,7 +26,13 @@ Public Class Dialog_BaseChooseFont
         ''
         ''Added 5/31/2022 td 
         ''
+        ''8/10/2022 MyBase.New(par_controlFieldOrTextV4,
+        ''           par_elementBase, par_infoElemBase,
+        ''           par_designer, par_events,
+        ''           par_imageOfBadge)
         MyBase.New(par_controlFieldOrTextV4,
+                   par_listFontFamilyNames,
+                   par_listRSCColors,
                    par_elementBase, par_infoElemBase,
                    par_designer, par_events,
                    par_imageOfBadge)
@@ -36,11 +46,27 @@ Public Class Dialog_BaseChooseFont
         ''
         ''Add 8/07/2022 
         ''
+        Dim strFontFamilyName As String
+
+        FontDialog1.ShowDialog()
+        strFontFamilyName = FontDialog1.Font.Name
+        mod_listMSFontFamilyNames.Add(strFontFamilyName)
+
+        Dim newLabel As New Label
+        ''newLabel.BackColor = each_color
+        newLabel.Text = strFontFamilyName ''each_color.Name
+        newLabel.Visible = True
+        ''newLabel.ToolTip
+        ''Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
+        Me.ToolTip1.SetToolTip(newLabel, strFontFamilyName) '' each_color.Name)
+        flowLayoutFontFamilies.Controls.Add(newLabel)
 
 
 
 
+    End Sub
 
+    Private Sub Dialog_BaseChooseFont_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

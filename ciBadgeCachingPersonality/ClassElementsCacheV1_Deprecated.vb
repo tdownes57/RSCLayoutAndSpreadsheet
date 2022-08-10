@@ -122,6 +122,10 @@ Namespace ciBadgeCachePersonality
         Private mod_listElementQRCodes_Backside As New HashSet(Of ClassElementQRCode) ''Added 1/14/2022 tdownes
         Private mod_listElementSignatures_Backside As New HashSet(Of ClassElementSignature) ''Added 1/14/2022 tdownes
 
+        Private mod_listRSCColors As New HashSet(Of RSCColor) ''Added 8/10/2022 td
+        Private mod_listFontFamilyNames As New HashSet(Of String) ''Added 8/10/2022 td
+
+
         ''Added 1/14/2020 thomas dow nes
         Private Structure BackgroundTitleAndWidth
             Dim sFileTitle As String
@@ -771,6 +775,28 @@ Namespace ciBadgeCachePersonality
             Set(value As HashSet(Of ClassElementFieldV4))  ''---List(Of ClassElementField))
                 ''Added 2/08/2022 td
                 mod_listElementFields_BacksideV4 = value
+            End Set
+        End Property
+
+
+        Public Property ListOfRSCColors As HashSet(Of RSCColor)  ''Added 8/10/2022 td
+            Get ''Added 8/10/2022 td
+                Return mod_listRSCColors
+            End Get
+            Set(value As HashSet(Of RSCColor))  ''Added 8/10/2022 td
+                ''Added 8/10/2022 td
+                mod_listRSCColors = value
+            End Set
+        End Property
+
+
+        Public Property ListOfFontFamilyNames As HashSet(Of String)  ''---List(Of ClassElementField)
+            Get ''Added 8/10/2022 td
+                Return mod_listFontFamilyNames
+            End Get
+            Set(value As HashSet(Of String))  ''Added 8/10/2022 td
+                ''Added 8/10/2022 td
+                mod_listFontFamilyNames = value
             End Set
         End Property
 

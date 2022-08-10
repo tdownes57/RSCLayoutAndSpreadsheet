@@ -22,6 +22,9 @@ Public Class Dialog_Base
     Private mod_bLetsUseEnumeratedArrowLR As Boolean
     Private mod_enumArrowLeftOrRight As EnumArrowIsWhere
 
+    Private mod_listRSCColors As HashSet(Of RSCColor) ''Added 8/10/2022 td
+    Private mod_listFontFamilyNames As HashSet(Of String) ''Added 8/10/2022 td
+
     ''8/4/2022 Private mod_objLayoutFunctions As ciBadgeInterfaces.BadgeLayoutClass ''Added 8/04/2022 
     Private mod_designerParentForm As ciBadgeDesigner.ClassDesigner ''Added 8/05/2022
     Private mod_objLayoutFunctions As ciBadgeDesigner.ClassDesigner ''Added 8/04/2022 
@@ -48,13 +51,15 @@ Public Class Dialog_Base
     ''Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
     ''               par_elementBase As ciBadgeElements.ClassElementBase,
     ''               par_imageOfBadge As Drawing.Image)
-
+    ''
     ''    ''Added 7/29/2022 thomas 
     ''    PanelDisplayElement.BackgroundImage = par_imageOfBadge
     ''End Sub
 
 
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
+                   par_listFontFamilyNames As HashSet(Of String),
+                   par_listRSCColors As HashSet(Of RSCColor),
                    par_elementBase As ciBadgeElements.ClassElementBase,
                    par_infoElementBase As ciBadgeInterfaces.IElement_Base,
                    par_designer As ciBadgeDesigner.ClassDesigner,
@@ -640,6 +645,8 @@ ExitHandler:
         ''                      Me.Designer.GroupMoveEvents,
         ''                      imageOfBadgeSansElement)
         Dim objFormToShow As New Dialog_BaseChooseFont(mod_controlFieldOrTextV4,
+                                                       mod_listFontFamilyNames,
+                                                       mod_listRSCColors,
                                        mod_elementBase,
                                        mod_elementInfo_Base,
                                        mod_designerParentForm,
@@ -661,7 +668,12 @@ ExitHandler:
         ''
         ''Added 8/07/2022 thomas downes
         ''
+        Dim listRSCColors As HashSet(Of RSCColor) ''Added 8/10/2022 thomas
+        listRSCColors = mod_listRSCColors
+
         Dim objFormToShow As New Dialog_BaseChooseColor(mod_controlFieldOrTextV4,
+                                       mod_listFontFamilyNames,
+                                       listRSCColors,
                                        mod_elementBase,
                                        mod_elementInfo_Base,
                                        mod_designerParentForm,

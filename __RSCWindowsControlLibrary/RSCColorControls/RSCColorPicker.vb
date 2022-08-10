@@ -1,6 +1,8 @@
 ﻿''
 ''Added 7/6/2022
 ''
+Imports ciBadgeInterfaces ''Added 8/10/2022 td
+
 Public Class RSCColorPicker
     ''
     ''Added 7/6/2022

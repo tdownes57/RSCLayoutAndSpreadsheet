@@ -1,6 +1,8 @@
 ﻿''
 ''Added 8/07/2022
 ''
+Imports ciBadgeInterfaces ''Added 8/10/2022 thomas downes
+
 Public Class RSCColorDisplayMini
     ''
     ''Added 8/07/2022

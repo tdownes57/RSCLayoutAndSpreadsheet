@@ -22,6 +22,8 @@ Partial Class Dialog_BaseChooseColor
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Dialog_BaseChooseColor))
         Me.ButtonForecolor = New System.Windows.Forms.Button()
         Me.FlowLayoutColors2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.LinkLabelAddColors = New System.Windows.Forms.LinkLabel()
@@ -29,7 +31,8 @@ Partial Class Dialog_BaseChooseColor
         Me.RscColorDisplayMini2 = New __RSCWindowsControlLibrary.RSCColorDisplayMini()
         Me.ButtonUndo = New System.Windows.Forms.Button()
         Me.ButtonBackground = New System.Windows.Forms.Button()
-        Me.FlowLayoutColors = New System.Windows.Forms.FlowLayoutPanel()
+        Me.FlowLayoutColors1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.FlowLayoutColors2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -72,8 +75,8 @@ Partial Class Dialog_BaseChooseColor
         'RscColorDisplayMini1
         '
         Me.RscColorDisplayMini1.DisplayRSCColor = Nothing
-        Me.RscColorDisplayMini1.HideBackgroundLabels = False
-        Me.RscColorDisplayMini1.HideForegroundLabels = False
+        Me.RscColorDisplayMini1.HideBackgroundLabels = True
+        Me.RscColorDisplayMini1.HideForegroundLabels = True
         Me.RscColorDisplayMini1.Location = New System.Drawing.Point(3, 42)
         Me.RscColorDisplayMini1.Name = "RscColorDisplayMini1"
         Me.RscColorDisplayMini1.Size = New System.Drawing.Size(86, 68)
@@ -81,9 +84,9 @@ Partial Class Dialog_BaseChooseColor
         '
         'RscColorDisplayMini2
         '
-        Me.RscColorDisplayMini2.DisplayRSCColor = Nothing
-        Me.RscColorDisplayMini2.HideBackgroundLabels = False
-        Me.RscColorDisplayMini2.HideForegroundLabels = False
+        Me.RscColorDisplayMini2.DisplayRSCColor = CType(resources.GetObject("RscColorDisplayMini2.DisplayRSCColor"), __RSCWindowsControlLibrary.RSCColor_seeCIBInterfaces)
+        Me.RscColorDisplayMini2.HideBackgroundLabels = True
+        Me.RscColorDisplayMini2.HideForegroundLabels = True
         Me.RscColorDisplayMini2.Location = New System.Drawing.Point(3, 116)
         Me.RscColorDisplayMini2.Name = "RscColorDisplayMini2"
         Me.RscColorDisplayMini2.Size = New System.Drawing.Size(86, 68)
@@ -107,24 +110,26 @@ Partial Class Dialog_BaseChooseColor
         Me.ButtonBackground.Size = New System.Drawing.Size(95, 36)
         Me.ButtonBackground.TabIndex = 20
         Me.ButtonBackground.Text = "Background"
+        Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
         Me.ButtonBackground.UseVisualStyleBackColor = True
         '
-        'FlowLayoutColors
+        'FlowLayoutColors1
         '
-        Me.FlowLayoutColors.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.FlowLayoutColors1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FlowLayoutColors.Location = New System.Drawing.Point(629, 59)
-        Me.FlowLayoutColors.Name = "FlowLayoutColors"
-        Me.FlowLayoutColors.Size = New System.Drawing.Size(117, 254)
-        Me.FlowLayoutColors.TabIndex = 22
+        Me.FlowLayoutColors1.Location = New System.Drawing.Point(629, 59)
+        Me.FlowLayoutColors1.Name = "FlowLayoutColors1"
+        Me.FlowLayoutColors1.Size = New System.Drawing.Size(117, 254)
+        Me.FlowLayoutColors1.TabIndex = 22
+        Me.ToolTip1.SetToolTip(Me.FlowLayoutColors1, "Microsoft Web Colors, e.g. ""Rosy Brown"".")
         '
         'Dialog_BaseChooseColor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(943, 506)
-        Me.Controls.Add(Me.FlowLayoutColors)
+        Me.Controls.Add(Me.FlowLayoutColors1)
         Me.Controls.Add(Me.ButtonBackground)
         Me.Controls.Add(Me.ButtonUndo)
         Me.Controls.Add(Me.FlowLayoutColors2)
@@ -135,7 +140,7 @@ Partial Class Dialog_BaseChooseColor
         Me.Controls.SetChildIndex(Me.FlowLayoutColors2, 0)
         Me.Controls.SetChildIndex(Me.ButtonUndo, 0)
         Me.Controls.SetChildIndex(Me.ButtonBackground, 0)
-        Me.Controls.SetChildIndex(Me.FlowLayoutColors, 0)
+        Me.Controls.SetChildIndex(Me.FlowLayoutColors1, 0)
         Me.FlowLayoutColors2.ResumeLayout(False)
         Me.FlowLayoutColors2.PerformLayout()
         Me.ResumeLayout(False)
@@ -150,5 +155,6 @@ Partial Class Dialog_BaseChooseColor
     Friend WithEvents LinkLabelAddColors As LinkLabel
     Friend WithEvents RscColorDisplayMini1 As __RSCWindowsControlLibrary.RSCColorDisplayMini
     Friend WithEvents RscColorDisplayMini2 As __RSCWindowsControlLibrary.RSCColorDisplayMini
-    Friend WithEvents FlowLayoutColors As FlowLayoutPanel
+    Friend WithEvents FlowLayoutColors1 As FlowLayoutPanel
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

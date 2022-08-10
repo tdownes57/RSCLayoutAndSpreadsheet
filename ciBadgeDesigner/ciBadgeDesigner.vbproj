@@ -670,6 +670,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseChooseColor.resx">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_BaseChooseFont.resx">
       <DependentUpon>Dialog_BaseChooseFont.vb</DependentUpon>

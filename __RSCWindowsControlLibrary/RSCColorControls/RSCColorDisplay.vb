@@ -1,6 +1,8 @@
 ﻿''
 ''Added 7/8/2022
 ''
+Imports ciBadgeInterfaces ''Added 8/10/2022 thomas downes
+
 Public Enum EnumRSCBackOrFore
     Undetermined
     Backcolor
@@ -28,7 +30,7 @@ Public Class RSCColorDisplay
     End Function ''End of ""Public Shared Function GetColorDisplay""
 
     ''7/09/2022 thomas''Public Property DisplayColor As Drawing.Color
-    Public Property DisplayRSCColor As RSCColor
+    Public Property DisplayRSCColor As RSCColor ''8/10/2022 RSCColor_seeCIBInterfaces
 
     Public Property HideForegroundLabels As Boolean
         Get
