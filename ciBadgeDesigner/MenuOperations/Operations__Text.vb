@@ -3,6 +3,7 @@
 ''
 Imports System.Drawing ''Added 2/3/2022 td
 Imports __RSCWindowsControlLibrary ''Added 2/3/2022 td
+Imports ciBadgeInterfaces ''Added 8/10/2022 td
 ''
 ''Added 12/30/2021 
 ''
@@ -44,6 +45,8 @@ Public MustInherit Class Operations__Text
         Dim enum_backside As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
         Dim enum_frontside As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
         Dim tempLayoutfunctions As ciBadgeInterfaces.ILayoutFunctions = Nothing ''Added 8/6/2022
+        Dim list_FontFamilyNames As HashSet(Of String) ''Added 8/10/2022
+        Dim list_RSCColors As HashSet(Of rsccolor) ''Added 8/10/2022
 
         Try
             ''Added 8/1/2022 
@@ -58,6 +61,11 @@ Public MustInherit Class Operations__Text
                 Else
                     strPathToBackgroundImage = .BackgroundImage_Front_Path
                 End If
+
+                ''Added 8/10/2022 td
+                list_FontFamilyNames = .ListOfFontFamilyNames ''Added 8/10/2022 td
+                list_RSCColors = .ListOfRSCColors ''Added 8/10/2022 td
+
             End With ''End of ""With Me.ElementsCacheManager.CacheForEditing""
 
 
@@ -75,6 +83,8 @@ Public MustInherit Class Operations__Text
             tempLayoutfunctions = Me.CtlCurrentFieldOrTextV4.LayoutFunctions
 
             Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
+                                                            list_FontFamilyNames,
+                                                            list_RSCColors,
                                        Me.ElementObject_Base,
                                        Me.ElementInfo_Base,
                                        Me.Designer,

@@ -1,4 +1,6 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+﻿Imports ciBadgeInterfaces
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Dialog_BaseChooseColor
     Inherits Dialog_Base ''System.Windows.Forms.Form
 
@@ -84,7 +86,7 @@ Partial Class Dialog_BaseChooseColor
         '
         'RscColorDisplayMini2
         '
-        Me.RscColorDisplayMini2.DisplayRSCColor = CType(resources.GetObject("RscColorDisplayMini2.DisplayRSCColor"), __RSCWindowsControlLibrary.RSCColor_seeCIBInterfaces)
+        Me.RscColorDisplayMini2.DisplayRSCColor = CType(resources.GetObject("RscColorDisplayMini2.DisplayRSCColor"), RSCColor)
         Me.RscColorDisplayMini2.HideBackgroundLabels = True
         Me.RscColorDisplayMini2.HideForegroundLabels = True
         Me.RscColorDisplayMini2.Location = New System.Drawing.Point(3, 116)

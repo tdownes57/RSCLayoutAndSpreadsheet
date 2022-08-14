@@ -379,6 +379,48 @@ Public Class MessageBoxTD
     End Function ''End of "Public Shared Function InputBox_Longform"
 
 
+
+    Public Shared Function InputBox_NameDescription(pstrInstructions As String,
+                                             pstrPrompt_Name As String,
+                                             pstrPrompt_Descr As String,
+                    psingFactorWidth As Single,
+                    psingFactorHeight As Single,
+                    Optional ByRef prefUserCancelled As Boolean = False) _
+                    As Tuple(Of String, String)
+        ''
+        ''Added 8/14/2022 thomas downes
+        ''
+        Dim formToShow As FormInputNameDescription
+
+        ''formToShow = New FormInputBox(pstrInstructions, pstrFinalPrompt,
+        ''                              psingFactorWidth, psingFactorHeight,
+        ''                              pstrDefaultResponse)
+        formToShow = New FormInputNameDescription(pstrInstructions,
+                                      pstrPrompt_Name,
+                                      pstrPrompt_Descr,
+                                      psingFactorWidth,
+                                      psingFactorHeight)
+
+        formToShow.ShowDialog()
+
+        If (formToShow.DialogResult = DialogResult.Cancel) Then
+            prefUserCancelled = True  ''Aded 5/13/2022
+            ''---Return ""
+            Return New Tuple(Of String, String)("", "")
+        ElseIf (formToShow.DialogResult <> DialogResult.OK) Then
+            prefUserCancelled = True  ''Aded 5/13/2022
+            ''---Return ""
+            Return New Tuple(Of String, String)("", "")
+        End If
+
+        Dim tupleND As Tuple(Of String, String)
+        tupleND = New Tuple(Of String, String)(formToShow.UserResponse_Name,
+                                               formToShow.UserResponse_Description)
+        Return tupleND
+
+    End Function ''End of "Public Shared Function InputBox_NameDescription"
+
+
     Public Shared Sub Show_Warning(pstrWarning As String,
                                      Optional pstrWarning2 As String = "",
                                      Optional pstrWarning3 As String = "")

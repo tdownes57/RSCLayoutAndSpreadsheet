@@ -15,6 +15,14 @@ Public Class RSCColor
 
     End Sub
 
+    Public Sub New()
+        ''
+        ''Added 8/10/2022 
+        ''
+        ''  A parameterless constructor is needed for Serialization to take place. 
+        ''
+
+    End Sub
 
     Public Sub New(par_name As String, par_color As System.Drawing.Color)
 

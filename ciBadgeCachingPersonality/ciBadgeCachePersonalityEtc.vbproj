@@ -88,6 +88,12 @@
     <Compile Include="MessageAndInputBoxes\FormInputBox.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MessageAndInputBoxes\FormInputNameDescription.Designer.vb">
+      <DependentUpon>FormInputNameDescription.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MessageAndInputBoxes\FormInputNameDescription.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MinorClasses\ClassListOfElements_FieldsV4.vb" />
     <Compile Include="MessageAndInputBoxes\FormSpecialButton.Designer.vb">
       <DependentUpon>FormSpecialButton.vb</DependentUpon>
@@ -153,6 +159,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MessageAndInputBoxes\FormInputBox.resx">
       <DependentUpon>FormInputBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MessageAndInputBoxes\FormInputNameDescription.resx">
+      <DependentUpon>FormInputNameDescription.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MessageAndInputBoxes\FormSpecialButton.resx">
       <DependentUpon>FormSpecialButton.vb</DependentUpon>

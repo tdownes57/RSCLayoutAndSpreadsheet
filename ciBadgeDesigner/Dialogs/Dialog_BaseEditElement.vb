@@ -9,6 +9,8 @@ Public Class Dialog_BaseEditElement
     ''Added 5/31/2022 thomas downes  
     ''
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
+                   par_listFontFamilyNames As HashSet(Of String),
+                   par_listRSCColors As HashSet(Of RSCColor),
                    par_elementBase As ClassElementBase,
                    par_infoElemBase As IElement_Base,
                    par_designer As ClassDesigner,
@@ -22,6 +24,8 @@ Public Class Dialog_BaseEditElement
         ''8/04/2022 MyBase.New(par_controlFieldOrTextV4,
         ''           par_elementBase, par_imageOfBadge)
         MyBase.New(par_controlFieldOrTextV4,
+                   par_listFontFamilyNames,
+                   par_listRSCColors,
                    par_elementBase, par_infoElemBase,
                    par_designer, par_events,
                    par_imageOfBadge)
