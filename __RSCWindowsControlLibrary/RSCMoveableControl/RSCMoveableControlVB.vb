@@ -150,6 +150,41 @@ Public Class RSCMoveableControlVB
         End Set
     End Property
 
+
+    Public Property ImageLocation As String
+        ''Added 8/14/2022 thomas downes
+        Get
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Return ""
+            Return Me.Find_PictureBox().ImageLocation
+
+        End Get
+        Set(value As String)
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Exit Property
+            Me.Find_PictureBox().ImageLocation = value
+
+        End Set
+    End Property
+
+
+    Public Property SizeMode As PictureBoxSizeMode
+        ''Added 8/14/2022 thomas downes
+        Get
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Return PictureBoxSizeMode.Normal
+            Return Me.Find_PictureBox().SizeMode
+
+        End Get
+        Set(value As PictureBoxSizeMode)
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Exit Property
+            Me.Find_PictureBox().SizeMode = value
+
+        End Set
+    End Property
+
+
     ''Public Property ElementType As String Implements IElement_Base.ElementType
     ''Public Property PositionalMode As String Implements IElement_Base.PositionalMode
     ''Public Property FormControl As Control Implements IElement_Base.FormControl
@@ -2110,6 +2145,61 @@ Public Class RSCMoveableControlVB
         ''End If ''End of ""If boolConfirmed Then""
 
     End Sub
+
+    Private Sub RSCMoveableControlVB_KeyUp(sender As Object, e As KeyEventArgs) Handles Me.KeyUp
+
+        ''Added 8/14/2022 thomas downes
+        If (e.KeyCode = Keys.Delete) Then
+
+            ''8/2022 mod_objOperationsGeneric.DeleteElement()
+            ''8/2022 Dim objOpsBase As ciBadgeDesigner.Operations__Base
+            ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
+
+            Dim infoDelete As IDeleteElement
+            infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+            infoDelete.DeleteElementIfConfirmed()
+
+        End If ''Endof ""If (e.KeyCode = Keys.Delete) Then""
+
+    End Sub ''Handles Me.KeyUp
+
+    ''    Protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+    ''{
+    ''   If ((keyData == Keys.Right) || (keyData == Keys.Left) ||
+    ''       (keyData == Keys.Up) || (keyData == Keys.Down))
+    ''   {
+    ''    //Do custom stuff
+    ''    //true if key was processed by control, false otherwise
+    ''    Return True;
+    ''   }
+    ''   Else
+    ''   {
+    ''    Return base.ProcessCmdKey(ref msg, keyData);
+    ''   }
+    ''}
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        ''
+        ''Added 8/15/2022 
+        ''
+        ''----Return MyBase.ProcessCmdKey(msg, keyData)
+        If (keyData = Keys.Delete) Then
+
+            ''8/2022 mod_objOperationsGeneric.DeleteElement()
+            ''8/2022 Dim objOpsBase As ciBadgeDesigner.Operations__Base
+            ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
+
+            Dim infoDelete As IDeleteElement
+            infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+            infoDelete.DeleteElementIfConfirmed()
+            Return True
+
+        Else
+            Return False
+
+        End If ''Endof ""If (keyData = Keys.Delete) Then... Else...""
+
+    End Function ''End of ""Protected Overrides Function ProcessCmdKey""s
 
 
 

@@ -46,11 +46,10 @@ Partial Class FormDisplayCacheLayouts
         Me.buttonCustomers = New System.Windows.Forms.Button()
         Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.TimerRecipients = New System.Windows.Forms.Timer(Me.components)
-        Me.picturePreviewFront = New System.Windows.Forms.PictureBox()
         Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
+        Me.rscclickablePreviewFront = New __RSCWindowsControlLibrary.RSCRightClickable()
         Me.FlowLayoutPanelPriorLays.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -305,17 +304,6 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.TimerRecipients.Interval = 1000
         '
-        'picturePreviewFront
-        '
-        Me.picturePreviewFront.BackColor = System.Drawing.Color.White
-        Me.picturePreviewFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.picturePreviewFront.Location = New System.Drawing.Point(161, 95)
-        Me.picturePreviewFront.Margin = New System.Windows.Forms.Padding(2)
-        Me.picturePreviewFront.Name = "picturePreviewFront"
-        Me.picturePreviewFront.Size = New System.Drawing.Size(350, 225)
-        Me.picturePreviewFront.TabIndex = 91
-        Me.picturePreviewFront.TabStop = False
-        '
         'picturePreviewBackside
         '
         Me.picturePreviewBackside.BackColor = System.Drawing.Color.White
@@ -329,11 +317,21 @@ Partial Class FormDisplayCacheLayouts
         Me.picturePreviewBackside.TabIndex = 92
         Me.picturePreviewBackside.TabStop = False
         '
+        'rscclickablePreviewFront
+        '
+        Me.rscclickablePreviewFront.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.rscclickablePreviewFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.rscclickablePreviewFront.Location = New System.Drawing.Point(161, 96)
+        Me.rscclickablePreviewFront.Name = "rscclickablePreviewFront"
+        Me.rscclickablePreviewFront.Size = New System.Drawing.Size(350, 225)
+        Me.rscclickablePreviewFront.TabIndex = 101
+        '
         'FormDisplayCacheLayouts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1054, 466)
+        Me.Controls.Add(Me.rscclickablePreviewFront)
         Me.Controls.Add(Me.ButtonRecipients)
         Me.Controls.Add(Me.buttonCustomers)
         Me.Controls.Add(Me.LinkLabel1)
@@ -342,7 +340,6 @@ Partial Class FormDisplayCacheLayouts
         Me.Controls.Add(Me.LinkLabelClearPath)
         Me.Controls.Add(Me.ButtonBrowseForImageFile)
         Me.Controls.Add(Me.textboxPathToCacheXmlFile)
-        Me.Controls.Add(Me.picturePreviewFront)
         Me.Controls.Add(Me.ButtonFindLayout)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.ButtonUserCancels)
@@ -361,7 +358,6 @@ Partial Class FormDisplayCacheLayouts
         Me.Text = "FormDisplayCacheLayouts"
         Me.FlowLayoutPanelPriorLays.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picturePreviewFront, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -382,7 +378,6 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents ButtonExitApp As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonFindLayout As Button
-    Friend WithEvents picturePreviewFront As PictureBox
     Friend WithEvents picturePreviewBackside As PictureBox
     Friend WithEvents Label2 As Label
     Friend WithEvents LinkLabelClearPath As LinkLabel
@@ -392,4 +387,5 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents buttonCustomers As Button
     Friend WithEvents ButtonRecipients As Button
     Friend WithEvents TimerRecipients As Timer
+    Friend WithEvents rscclickablePreviewFront As __RSCWindowsControlLibrary.RSCRightClickable
 End Class

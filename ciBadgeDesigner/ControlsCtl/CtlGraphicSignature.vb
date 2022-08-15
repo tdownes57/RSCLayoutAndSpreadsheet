@@ -1008,5 +1008,16 @@ ExitHandler:
     End Function ''Added Public Function FullNameOfThisBaseClass() As String
 
 
+    Public Sub DeleteIfConfirmed() Implements IMoveableElement.DeleteIfConfirmed
+        ''
+        ''Added 8/14/2022 thomas downes
+        ''
+        Dim infoDelete As IDeleteElement
+        infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+        infoDelete.DeleteElementIfConfirmed()
+
+    End Sub ''End of ""Public Sub DeleteIfConfirmed()""
+
+
 End Class ''End of "Public Class CtlGraphicSignaturePad"  
 

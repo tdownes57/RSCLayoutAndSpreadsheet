@@ -52,6 +52,95 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
     ''    ''
     ''End Sub
 
+    Public Property ImageLocation As String
+        ''Added 8/14/2022 thomas downes
+        Get
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Return ""
+            Return Me.Find_PictureBox().ImageLocation
+
+        End Get
+        Set(value As String)
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Exit Property
+            Me.Find_PictureBox().ImageLocation = value
+
+        End Set
+    End Property
+
+
+    Public Property SizeMode As PictureBoxSizeMode
+        ''Added 8/14/2022 thomas downes
+        Get
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Return PictureBoxSizeMode.Normal
+            Return Me.Find_PictureBox().SizeMode
+
+        End Get
+        Set(value As PictureBoxSizeMode)
+            ''Added 8/14/2022 thomas downes
+            If (Me.Find_PictureBox() Is Nothing) Then Exit Property
+            Me.Find_PictureBox().SizeMode = value
+
+        End Set
+    End Property
+
+
+    Public Function Find_PictureBox() As PictureBox
+        ''
+        ''Added 1/4/2022 td
+        ''
+        ''Hopefully this will capture the PictureBox in the 
+        ''  child classes CtlGraphicQRCode & CtlGraphicSignature. 
+        ''
+        Dim outputPictureBox As PictureBox = Nothing ''Added 8/6/2022
+
+        For Each objControl As Control In Me.Controls
+
+            ''8/6/2022 If TypeOf objControl Is PictureBox Then Return CType(objControl, PictureBox)
+            If TypeOf objControl Is PictureBox Then
+                Return CType(objControl, PictureBox)
+                outputPictureBox = CType(objControl, PictureBox)
+            End If ''End of ""If TypeOf objControl Is PictureBox Then""
+
+        Next objControl
+
+        ''
+        ''Added 8/6/2022 thomas downes
+        ''
+        If (outputPictureBox IsNot Nothing) Then
+            Return outputPictureBox
+        Else
+            ''
+            ''Added 8/6/2022 td
+            ''
+            outputPictureBox = New PictureBox
+            With outputPictureBox
+                .Visible = True
+
+                ''8/2022 .BackgroundImage = CType(Me.BackgroundImage.Clone(), Image)
+                ''8/2022 .BackgroundImageLayout = ImageLayout.Zoom
+                If (Me.BackgroundImage IsNot Nothing) Then
+                    .BackgroundImage = CType(Me.BackgroundImage.Clone(), Image)
+                    .BackgroundImageLayout = ImageLayout.Zoom
+                End If ''Endof ""If (Me.BackgroundImage IsNot Nothing) Then""
+
+                .Top = 0
+                .Left = 0
+                .Height = Me.Height - 1
+                .Width = Me.Width - 1
+                Me.Controls.Add(outputPictureBox)
+                .BringToFront()
+
+            End With ''End of ""With outputPictureBox""
+
+            Return outputPictureBox
+        End If ''End of ""If (outputPictureBox IsNot Nothing) Then... Else..."
+
+    End Function ''Endof "Public Function Find_PictureBox() As PictureBox"
+
+
+
 
     Public Overridable Sub InitializeClickability(par_formParent As Form,
                                                   par_flowLayoutPanel As FlowLayoutPanel) ''Jan15 2022'' par_designer As ClassDesigner)

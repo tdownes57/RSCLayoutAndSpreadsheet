@@ -1080,12 +1080,14 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
         Me.CtlGraphicQRCode1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicQRCode1.ElementInfo_Base = Nothing
+        Me.CtlGraphicQRCode1.ImageLocation = Nothing
         Me.CtlGraphicQRCode1.Location = New System.Drawing.Point(184, 199)
         Me.CtlGraphicQRCode1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicQRCode1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicQRCode1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicQRCode1.Name = "CtlGraphicQRCode1"
         Me.CtlGraphicQRCode1.Size = New System.Drawing.Size(94, 100)
+        Me.CtlGraphicQRCode1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.CtlGraphicQRCode1.TabIndex = 65
         '
         'CtlGraphicPortrait_Lady
@@ -1093,12 +1095,14 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicPortrait_Lady.BackColor = System.Drawing.Color.White
         Me.CtlGraphicPortrait_Lady.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicPortrait_Lady.ElementInfo_Base = Nothing
+        Me.CtlGraphicPortrait_Lady.ImageLocation = Nothing
         Me.CtlGraphicPortrait_Lady.Location = New System.Drawing.Point(35, 118)
         Me.CtlGraphicPortrait_Lady.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicPortrait_Lady.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicPortrait_Lady.Name = "CtlGraphicPortrait_Lady"
         Me.CtlGraphicPortrait_Lady.Size = New System.Drawing.Size(141, 180)
+        Me.CtlGraphicPortrait_Lady.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.CtlGraphicPortrait_Lady.TabIndex = 41
         '
         'CtlGraphicSignature1
@@ -1106,24 +1110,28 @@ Partial Class Form__Main_Demo
         Me.CtlGraphicSignature1.BackColor = System.Drawing.Color.Transparent
         Me.CtlGraphicSignature1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.CtlGraphicSignature1.ElementInfo_Base = Nothing
+        Me.CtlGraphicSignature1.ImageLocation = Nothing
         Me.CtlGraphicSignature1.Location = New System.Drawing.Point(49, 346)
         Me.CtlGraphicSignature1.Margin = New System.Windows.Forms.Padding(4)
         Me.CtlGraphicSignature1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicSignature1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicSignature1.Name = "CtlGraphicSignature1"
         Me.CtlGraphicSignature1.Size = New System.Drawing.Size(314, 104)
+        Me.CtlGraphicSignature1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.CtlGraphicSignature1.TabIndex = 66
         '
         'CtlGraphicStaticText1
         '
         Me.CtlGraphicStaticText1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.CtlGraphicStaticText1.ElementInfo_Base = Nothing
+        Me.CtlGraphicStaticText1.ImageLocation = Nothing
         Me.CtlGraphicStaticText1.Location = New System.Drawing.Point(200, 122)
         Me.CtlGraphicStaticText1.Margin = New System.Windows.Forms.Padding(5)
         Me.CtlGraphicStaticText1.MoveabilityEventsForGroupCtls = Nothing
         Me.CtlGraphicStaticText1.MoveabilityEventsForSingleMove = Nothing
         Me.CtlGraphicStaticText1.Name = "CtlGraphicStaticText1"
         Me.CtlGraphicStaticText1.Size = New System.Drawing.Size(376, 46)
+        Me.CtlGraphicStaticText1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.CtlGraphicStaticText1.TabIndex = 75
         Me.CtlGraphicStaticText1.TextToDisplay = "This is text which will be the same for everyone."
         '
@@ -1195,6 +1203,7 @@ Partial Class Form__Main_Demo
         Me.Controls.Add(Me.pictureBackgroundBackside)
         Me.Controls.Add(Me.pictureJustAButton)
         Me.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
         Me.Name = "Form__Main_Demo"
         Me.Tag = "RSC ID Card - {0} - {1}"

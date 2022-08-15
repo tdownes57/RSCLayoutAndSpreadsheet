@@ -13,5 +13,7 @@ Public Interface IMoveableElement
 
     Function GetPictureBox() As PictureBox ''Added 12/17/2021 thomas d
 
+    Sub DeleteIfConfirmed() ''Added 8/15/2022 Thomas Downes
+
 
 End Interface

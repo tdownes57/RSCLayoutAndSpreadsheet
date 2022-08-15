@@ -301,7 +301,7 @@ Public Class RSCClickableDesktop
         End If ''end of "If (ContextMenuStrip1 Is Nothing) Then"
 
         Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
-        Const c_intRandom As Integer = 5
+        ''Unused. 8/14/2022 ''Const c_intRandom As Integer = 5
         With objDisplayMenu
 
             Dim objParentControl As Control ''Added 1/15/2022

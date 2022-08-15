@@ -695,6 +695,15 @@ Public Class ClassDesignerEventListener
         ''12/17/2021 td''Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
         ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
 
+        ''Added 8/15/2022 thomas d
+        Try
+            ''Added 8/15/2022 thomas d
+            mod_designer.LastTouchedMoveableElement = CType(par_ctlElement, IMoveableElement)
+        Catch ex_Moveable As Exception
+            ''Added 8/15/2022
+            System.Diagnostics.Debugger.Break()
+        End Try
+
         ''Added 11/29/2021 thomas d. 
         If (TypeOf par_ctlElement Is PictureBox) Then
             ''Let the programmer know that the control type 

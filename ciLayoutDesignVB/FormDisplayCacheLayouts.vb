@@ -260,8 +260,8 @@ Public Class FormDisplayCacheLayouts
         ''Double-check the proportions are correct. ---9/6/2019 td
         ''ClassLabelToImage.ProportionsAreSlightlyOff(pictureBackgroundFront, True)
 
-        ClassLabelToImage.Proportions_FixTheWidth(picturePreviewFront) ''Added 12/23/2021 td 
-        ClassLabelToImage.ProportionsAreSlightlyOff(picturePreviewFront, True) ''Added Dec. 20 2021
+        ClassLabelToImage.Proportions_FixTheWidth(rscclickablePreviewFront) ''Added 12/23/2021 td 
+        ClassLabelToImage.ProportionsAreSlightlyOff(rscclickablePreviewFront, True) ''Added Dec. 20 2021
 
         ''Added 12/20/2021 thomas downes
         ''Jan25 2022 td''CheckingXmlFile_IsOkay(LabelFullPathToXML, LabelWarningMessage)
@@ -293,8 +293,8 @@ Public Class FormDisplayCacheLayouts
             strPathToBadgeLayoutJPG = pstrPathToElementsCacheXML.Replace(".xml", ".jpg")
 
             If (IO.File.Exists(strPathToBadgeLayoutJPG)) Then
-                Me.picturePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
-                Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
+                Me.rscclickablePreviewFront.ImageLocation = strPathToBadgeLayoutJPG
+                Me.rscclickablePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
             End If ''End of "If (IO.File.Exists(strPathToBadgeLayoutJPG)) Then"
         End If ''End of "If (c_obseleteCode) Then ... Else ..."
 
@@ -305,9 +305,9 @@ Public Class FormDisplayCacheLayouts
         strPathToBadgeLayout_FrontJPG = pstrPathToElementsCacheXML.Replace(".xml", "_Front.jpg")
 
         If (IO.File.Exists(strPathToBadgeLayout_FrontJPG)) Then
-            Me.picturePreviewFront.ImageLocation = strPathToBadgeLayout_FrontJPG
-            Me.picturePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
-        End If
+            Me.rscclickablePreviewFront.ImageLocation = strPathToBadgeLayout_FrontJPG
+            Me.rscclickablePreviewFront.SizeMode = PictureBoxSizeMode.Zoom
+        End If ''End of ""If (IO.File.Exists(strPathToBadgeLayout_FrontJPG)) Then""
 
         ''
         ''Display the saved Badge-Layout Jpeg Image, Back side. ---2/1/2022 td
@@ -662,7 +662,7 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
-    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles picturePreviewFront.Click
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs)
 
         Dim boolTwoSidedBadge As Boolean ''Added 1/14/2022 td
         boolTwoSidedBadge = picturePreviewBackside.Visible
@@ -749,7 +749,7 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
-    Private Sub picturePreviewFront_DoubleClick(sender As Object, e As EventArgs) Handles picturePreviewFront.DoubleClick
+    Private Sub picturePreviewFront_DoubleClick(sender As Object, e As EventArgs)
 
         ''Added 2/01/2022 td
         ''   Confirm that the most-recently edited layout is AGAIN the 
@@ -928,7 +928,7 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
-    Private Sub picturePreviewFront_MouseUp(sender As Object, e As MouseEventArgs) Handles picturePreviewFront.MouseUp
+    Private Sub picturePreviewFront_MouseUp(sender As Object, e As MouseEventArgs)
 
         ''Added 6/2/2022 td
         Static s_intCountEvents As Integer = 0

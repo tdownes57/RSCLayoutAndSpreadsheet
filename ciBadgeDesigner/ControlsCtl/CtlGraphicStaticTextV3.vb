@@ -1252,4 +1252,57 @@ ExitHandler:
     End Sub ''End of "Public Overrides Sub AddMouseEventHandlers()"
 
 
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        ''
+        ''Added 8/15/2022 
+        ''
+        ''----Return MyBase.ProcessCmdKey(msg, keyData)
+        If (keyData = Keys.Delete) Then
+
+            ''8/2022 mod_objOperationsGeneric.DeleteElement()
+            ''8/2022 Dim objOpsBase As ciBadgeDesigner.Operations__Base
+            ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
+
+            Dim infoDelete As IDeleteElement
+            infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+            infoDelete.DeleteElementIfConfirmed()
+            Return True
+
+        Else
+            Return False
+
+        End If ''Endof ""If (keyData = Keys.Delete) Then... Else...""
+
+    End Function ''End of ""Protected Overrides Function ProcessCmdKey""
+
+
+    Private Sub CtlGraphicStaticTextV3_KeyUp(sender As Object, e As KeyEventArgs) Handles Me.KeyUp
+        ''Added 8/14/2022 thomas downes
+        If (e.KeyCode = Keys.Delete) Then
+
+            ''8/2022 mod_objOperationsGeneric.DeleteElement()
+            ''8/2022 Dim objOpsBase As ciBadgeDesigner.Operations__Base
+            ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
+
+            Dim infoDelete As IDeleteElement
+            infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+            infoDelete.DeleteElementIfConfirmed()
+
+        End If ''Endof ""If (e.KeyCode = Keys.Delete) Then""
+
+    End Sub
+
+
+    Public Sub DeleteIfConfirmed() Implements IMoveableElement.DeleteIfConfirmed
+        ''
+        ''Added 8/14/2022 thomas downes
+        ''
+        Dim infoDelete As IDeleteElement
+        infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+        infoDelete.DeleteElementIfConfirmed()
+
+    End Sub ''End of ""Public Sub DeleteIfConfirmed()""
+
+
+
 End Class

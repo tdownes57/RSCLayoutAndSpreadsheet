@@ -5079,6 +5079,52 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub ClearObjectReferences(par_type As Type)""
 
 
+    Private Sub DesignerForm_KeyUp(sender As Object, e As KeyEventArgs) Handles DesignerForm.KeyUp
+        ''
+        ''Added 8/15/2022 thomas downes
+        ''
+        If (e.KeyCode = Keys.Delete) Then
+
+            ''8/2022 mod_objOperationsGeneric.DeleteElement()
+            ''8/2022 Dim objOpsBase As ciBadgeDesigner.Operations__Base
+            ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
+
+            ''8/2022 If (True) Then
+            ''8/2022 Dim infoDelete As IDeleteElement
+            ''infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+            ''infoDelete.DeleteElementIfConfirmed()
+
+            If (Me.LastTouchedMoveableElement IsNot Nothing) Then
+
+                ''Added 8/15/2022 thomas downes
+                Me.LastTouchedMoveableElement.DeleteIfConfirmed()
+
+            End If ''End of ""If (Me.LastTouchedMoveableElement IsNot Nothing) Then""
+
+        End If ''End of ""If (e.KeyCode = Keys.Delete) Then""
+
+    End Sub
+
+
+    Private Sub BackgroundBox_Front_KeyUp(sender As Object, e As KeyEventArgs) Handles BackgroundBox_Front.KeyUp
+        ''
+        ''Added 8/15/2022 thomas downes
+        ''
+        If (e.KeyCode = Keys.Delete) Then
+
+            ''8/2022 mod_objOperationsGeneric.DeleteElement()
+            ''8/2022 Dim objOpsBase As ciBadgeDesigner.Operations__Base
+            ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
+
+            If (True) Then
+                Dim infoDelete As IDeleteElement
+                ''infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+                ''infoDelete.DeleteElementIfConfirmed()
+            End If
+
+        End If ''Endof ""If (e.KeyCode = Keys.Delete) Then""
+
+    End Sub
 
 
 End Class ''End of "Public Class ClassDesigner"

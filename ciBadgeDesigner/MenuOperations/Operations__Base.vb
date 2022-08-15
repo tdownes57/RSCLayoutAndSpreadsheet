@@ -13,6 +13,7 @@ Imports MoveAndResizeControls_Monem ''Added 2/02/2022 thomas d.
 Public MustInherit Class Operations__Base
     Implements ICurrentElement ''Added 12/28/2021 td
     Implements IRightClickMouseInfo ''Added 2/5/2022 td
+    Implements IDeleteElement ''Added 8/15/2022 thomas d.
     ''
     ''Added 12/12/2021 td
     ''
@@ -83,6 +84,14 @@ Public MustInherit Class Operations__Base
 
     End Sub ''End of Public Sub Move_To_Other_Side_Of_Badge_BA1001
 
+
+    Public Sub DeleteElementIfConfirmed() Implements IDeleteElement.DeleteElementIfConfirmed
+        ''
+        ''Added 8/15/2022
+        ''
+        Delete_Element_From_Badge_BA1019(Me, New EventArgs)
+
+    End Sub ''end of ""Public Sub DeleteElementIfConfirmed()""
 
     Public Sub Delete_Element_From_Badge_BA1019(sender As Object, e As EventArgs)
         ''

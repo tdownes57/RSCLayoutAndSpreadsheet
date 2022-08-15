@@ -1543,4 +1543,35 @@ ExitHandler:
         ''
         ''
     End Sub
+
+    Private Sub pictureFieldOrText_KeyUp(sender As Object, e As KeyEventArgs) Handles pictureFieldOrText.KeyUp
+        ''
+        ''Added 8/14/2022 thomas downes
+        ''
+        If (e.KeyCode = Keys.Delete) Then
+
+            ''8/2022 mod_objOperationsGeneric.DeleteElement()
+            ''8/2022 Dim objOpsBase As ciBadgeDesigner.Operations__Base
+            ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
+
+            Dim infoDelete As IDeleteElement
+            infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+            infoDelete.DeleteElementIfConfirmed()
+
+        End If ''Endof ""If (e.KeyCode = Keys.Delete) Then""
+
+    End Sub
+
+
+    Public Sub DeleteIfConfirmed() Implements IMoveableElement.DeleteIfConfirmed
+        ''
+        ''Added 8/14/2022 thomas downes
+        ''
+        Dim infoDelete As IDeleteElement
+        infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+        infoDelete.DeleteElementIfConfirmed()
+
+    End Sub ''End of ""Public Sub DeleteIfConfirmed()""
+
+
 End Class

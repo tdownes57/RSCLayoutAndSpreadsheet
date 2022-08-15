@@ -71,6 +71,7 @@
     <Compile Include="Enums and Structs\ModEnumsAndStructs.vb" />
     <Compile Include="Enums and Structs\ModuleStructs.vb" />
     <Compile Include="Events\GroupMoveEvents_Singleton.vb" />
+    <Compile Include="InterfaceDeleteElement.vb" />
     <Compile Include="InterfaceCtlElement_TextAny.vb" />
     <Compile Include="InterfaceDesignerForm.vb" />
     <Compile Include="InterfaceElementBase_InDevelopment.vb" />
