@@ -15,13 +15,16 @@ Public Class FormHowMany
     Private mod_singLimitMin As Single
     Private mod_singLimitMax As Single
 
-    Public Sub New(pstrHowManyMsg As String,
+    Public Sub New(pstrHowManyMainPrompt As String,
                     psingFactorWidth As Single,
                     psingFactorHeight As Single,
                     psingLimitOfNumberMin As Single,
                     psingLimitOfNumberMax As Single,
+                    psingCurrentDefaultVal As Single,
                     Optional pboolUseTextbox As Boolean = False,
                     Optional pboolDecimalValuesOK As Boolean = False)
+
+        Static s_boolRunOnce As Boolean ''Added 8/17/2022 td
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -30,13 +33,13 @@ Public Class FormHowMany
         mod_boolUseTextbox = pboolUseTextbox
         mod_singFactorHeight = psingFactorHeight
         mod_singFactorWidth = psingFactorWidth
-        mod_strHowManyMsg = pstrHowManyMsg
+        mod_strHowManyMsg = pstrHowManyMainPrompt
         mod_boolDecimalValuesOK = pboolDecimalValuesOK
         mod_singLimitMin = psingLimitOfNumberMin
         mod_singLimitMax = psingLimitOfNumberMax
 
         ''April 15  2022 ''LabelHowManyCaption.Text = pstrHowManyMsg
-        LabelMainPrompt.Text = pstrHowManyMsg
+        LabelMainPrompt.Text = pstrHowManyMainPrompt
 
         Me.Width = CInt(Me.Width * psingFactorWidth)
         Me.Height = CInt(Me.Height * psingFactorHeight)
@@ -46,6 +49,15 @@ Public Class FormHowMany
         NumericUpDown1.Visible = (Not pboolUseTextbox)
         NumericUpDown1.Maximum = CDec(psingLimitOfNumberMax)
         NumericUpDown1.Minimum = CDec(psingLimitOfNumberMin)
+
+        ''Added 8/17/2022 td
+        ''  Implement the default value. 
+        If (0 < psingCurrentDefaultVal Or s_boolRunOnce) Then
+            ''Added 8/17/2022 td
+            NumericUpDown1.Value = CDec(psingCurrentDefaultVal)
+            textHowMany.Text = CStr(psingCurrentDefaultVal)
+            s_boolRunOnce = True
+        End If ''End fo ""If (0 < psingCurrentDefaultVal) Then""
 
     End Sub
 

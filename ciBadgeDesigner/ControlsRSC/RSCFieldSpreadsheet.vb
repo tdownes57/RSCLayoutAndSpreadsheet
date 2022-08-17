@@ -2606,9 +2606,16 @@ Public Class RSCFieldSpreadsheet
         ''
         Dim intHowMany As Integer
         Dim boolCancelled As Boolean = False
+        Const c_intDefaultValue As Integer = 1 ''Added 8/17/2022
 
+        ''8/17/2022 intHowMany = MessageBoxTD.AskHowMany("How many columns do you want?",
+        ''        1.0, 1.0, 1, 9,
+        ''        False, False, boolCancelled)
         intHowMany = MessageBoxTD.AskHowMany("How many columns do you want?",
-                1.0, 1.0, 1, 9, False, False, boolCancelled)
+                1.0, 1.0, 1, 9,
+                c_intDefaultValue,
+                False, False, boolCancelled)
+
         If (boolCancelled) Then
             MessageBoxTD.Show_Statement("User has cancelled.")
         Else

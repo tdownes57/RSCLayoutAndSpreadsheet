@@ -5,7 +5,7 @@ Option Strict On
 ''
 Imports ciBadgeCachePersonality ''Added 2/16/2022 thomas d.
 Imports ciBadgeRecipients ''Added 3/26/2022 td
-
+Imports __RSCWindowsControlLibrary ''Added 8/16/2022 thomas d.
 
 Public Class FormDisplayCacheLayouts
     ''
@@ -35,6 +35,8 @@ Public Class FormDisplayCacheLayouts
 
     Private WithEvents mod_dummyControl As New Control() ''Added 2/6/2022 td 
     ''---Private mod_bRecipientsEdited As Boolean ''Added 4/1/2022 thomas downes
+
+    Private mod_intFrontClickCountEvents As Integer = 0 ''Added 8/15/2022 td
 
     Public Shared AutoshowRecipientsOnce As Boolean = False ''Added 4/1/2022 td
 
@@ -203,6 +205,9 @@ Public Class FormDisplayCacheLayouts
         UserHasSelectedLayout = False ''default value
         UserChoosesABlankSlate = False ''default value
 
+        ''Added 8/15/2022 thomas d
+        rscclickablePreviewFront.InitializeClickability()
+
     End Sub ''End of ""Public Sub Form_Load""
 
 
@@ -279,6 +284,26 @@ Public Class FormDisplayCacheLayouts
             End If ''end of "If (Me.ShowMessageForIllformedXML) Then"
 
         End If ''End of "If (LabelWarningMessage.Visible = False) Then"
+
+        ''
+        ''Aded 8/16/2022 thomas downes
+        ''
+        Dim sizeFrontID As Size
+        Dim locationFrontID As Drawing.Point
+        sizeFrontID = rscclickablePreviewFront.Size
+        locationFrontID = rscclickablePreviewFront.Location
+        Me.Controls.Remove(rscclickablePreviewFront)
+        Dim obj_operations As New Operations_RClickableImage()
+        Dim type_operations As Type
+        type_operations = obj_operations.GetType()
+        rscclickablePreviewFront = New RSCRightClickableImage(type_operations,
+                                                              obj_operations)
+        Me.Controls.Add(rscclickablePreviewFront)
+        rscclickablePreviewFront.Size = sizeFrontID
+        rscclickablePreviewFront.Location = locationFrontID
+        rscclickablePreviewFront.Visible = True
+        rscclickablePreviewFront.BorderStyle = BorderStyle.FixedSingle
+        rscclickablePreviewFront.BringToFront()
 
         ''
         ''Display the saved Badge-Layout Jpeg Image. ---1/5/2022 td
@@ -662,7 +687,7 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
-    Private Sub picturePreview_Click(sender As Object, e As EventArgs)
+    Private Sub picturePreview_Click(sender As Object, e As EventArgs) Handles rscclickablePreviewFront.Click
 
         Dim boolTwoSidedBadge As Boolean ''Added 1/14/2022 td
         boolTwoSidedBadge = picturePreviewBackside.Visible
@@ -717,6 +742,9 @@ Public Class FormDisplayCacheLayouts
         boolTwoSidedBadge = picturePreviewBackside.Visible
 
         If (boolTwoSidedBadge) Then
+
+            mod_intFrontClickCountEvents = 0 ''Added 8/15/2022 td
+
             ''Feb1 2022''------DIFFICULT AND CONFUSING-----
             ''Feb1 2022''If (c_bBackwardsAndConfusing) Then
             If (c_bUseSimpleWay) Then
@@ -928,7 +956,7 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
-    Private Sub picturePreviewFront_MouseUp(sender As Object, e As MouseEventArgs)
+    Private Sub picturePreviewFront_MouseUp(sender As Object, e As MouseEventArgs) Handles rscclickablePreviewFront.MouseUp
 
         ''Added 6/2/2022 td
         Static s_intCountEvents As Integer = 0
@@ -949,4 +977,30 @@ Public Class FormDisplayCacheLayouts
         End If ''End of ""If (e.Button = MouseButtons.Right) Then... Else...""
 
     End Sub
+
+    Private Sub rscclickablePreviewFront_ClickPicture(sender As Object, e As EventArgs) Handles rscclickablePreviewFront.ClickPicture
+        ''
+        ''Added 8/15/2022 td
+        ''
+        ''----Static s_intCountEvents As Integer = 0
+        Dim boolConfirm As Boolean
+
+        If (picturePreviewBackside.Visible) Then
+
+            ''Added 8/15/2022 td
+            rscclickablePreviewFront.BringToFront()
+            mod_intFrontClickCountEvents += 1
+            If (mod_intFrontClickCountEvents Mod 2 = 0) Then
+                boolConfirm = MessageBoxTD.Show_Confirm("Open this layout?")
+                If (boolConfirm) Then ButtonOK.PerformClick()
+            End If ''End of ""If (mod_intFrontClickCountEvents = 2) Then""
+
+        Else
+            boolConfirm = MessageBoxTD.Show_Confirm("Open this layout?")
+            If (boolConfirm) Then ButtonOK.PerformClick()
+
+        End If ''End of ""If (picturePreviewBackside.Visible) Then ... Else..."
+
+    End Sub
+
 End Class

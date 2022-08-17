@@ -786,9 +786,15 @@ ExitHandler:
         ''
         ''Added 5/5/2022 td
         ''
+        ''8/17/2022 textTypeExample.Enabled = False
+        Dim boolEnabledSave As Boolean ''Added 8/17/2022 
+        boolEnabledSave = textTypeExample.Enabled
         textTypeExample.Enabled = False
+        Me.ActiveControl = Nothing
+        textTypeExample.Enabled = boolEnabledSave
+
         ''----RaiseEvent RSCControlClicked()
-        RaiseEvent_ControlClicked()
+        MyBase.RaiseEvent_ControlClicked()
 
     End Sub
 
@@ -857,5 +863,10 @@ ExitHandler:
 
     End Sub
 
+    Private Sub CtlGraphicStaticTextV4_Click(sender As Object, e As EventArgs) Handles Me.Click
 
+        ''Added 8/17/2022
+        MyBase.RaiseEvent_ControlClicked()
+
+    End Sub
 End Class

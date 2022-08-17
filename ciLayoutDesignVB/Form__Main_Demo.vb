@@ -3814,6 +3814,8 @@ ExitHandler:
         Dim boolAddSignature As Boolean '' = (CtlGraphicSignature1.BorderStyle <> BorderStyle.None)
         Dim boolAddStaticText As Boolean '' 
         Dim rectangleControl As Drawing.Rectangle ''Added 5/6/2022 td
+        Dim intAddGraphic_HowMany As Integer ''Added 8/17/2022 td
+        Dim intAddStaticText_HowMany As Integer ''Added 8/17/2022 td
 
         Dim enum_______AddField1 As EnumCIBFields ''Added 5/10/2022 td
         Dim enum_______AddField2 As EnumCIBFields ''Added 5/10/2022 td
@@ -3847,6 +3849,10 @@ ExitHandler:
             boolAddQRCode = .AddQRCode
             boolAddSignature = .AddSignature
             boolAddStaticText = .AddStaticText
+
+            ''Added 8/17/2022 td
+            intAddGraphic_HowMany = .AddGraphic_HowMany
+            intAddStaticText_HowMany = .AddStaticText_HowMany
 
             ''Added 5/10/2022 td
             enum_______AddField1 = .AddField1_Enum
@@ -3936,20 +3942,38 @@ ExitHandler:
                 ''5/14/2022 mod_designer.Load_NewElementIntoCache_QRCode(rectangleControl)
                 mod_designer.Load_NewElementToCacheAndForm_QRCode(rectangleControl)
 
-            End If
+            End If ''End of ""If (boolAddQRCode) Then""
 
             If (boolAddSignature) Then
                 rectangleControl = .GetRectangle_Signature()
                 ''#1 5/14/2022 mod_designer.Load_NewElement_Signature(rectangleControl)
                 ''#2 5/14/2022 mod_designer.Load_NewElementIntoCache_Signature(rectangleControl)
                 mod_designer.Load_NewElementToCacheAndForm_Signature(rectangleControl)
-            End If
 
+            End If ''End of ""If (boolAddSignature) Then""
+
+            ''
+            ''Static Graphic (e.g. Logo)
+            ''
             If (boolAddGraphic) Then
                 rectangleControl = .GetRectangle_StaticGraphic()
                 mod_designer.Load_NewElementToCacheAndForm_Graphic(rectangleControl)
-            End If
 
+                ''Added 8/17/2022 td
+                If (intAddGraphic_HowMany = 2) Then
+                    ''Added 8/17/2022 td
+                    mod_designer.Load_NewElementToCacheAndForm_Graphic(rectangleControl, 2)
+                ElseIf (intAddGraphic_HowMany = 3) Then
+                    ''Added 8/17/2022 td
+                    mod_designer.Load_NewElementToCacheAndForm_Graphic(rectangleControl, 2)
+                    mod_designer.Load_NewElementToCacheAndForm_Graphic(rectangleControl, 3)
+                End If
+
+            End If ''End of ""If (boolAddGraphic) Then""
+
+            ''
+            ''Static Text
+            ''
             If (boolAddStaticText) Then
                 rectangleControl = .GetRectangle_StaticText()
                 ''Text Label... any message you like.
@@ -3958,6 +3982,20 @@ ExitHandler:
                 ''                 FormTypeOfElementsToAdd.StaticTextString)
                 mod_designer.Load_NewElementToCacheAndForm_StaticTextV4(rectangleControl,
                                                 FormTypeOfElementsToAdd.StaticTextString)
+
+                ''Added 8/17/2022 td
+                If (intAddStaticText_HowMany >= 2) Then
+                    ''Added 8/17/2022 td
+                    mod_designer.Load_NewElementToCacheAndForm_StaticTextV4(rectangleControl,
+                                                FormTypeOfElementsToAdd.StaticTextString, 2)
+                End If ''End of ""If (intAddStaticText_HowMany >= 2) Then""
+
+                ''Added 8/17/2022 td
+                If (intAddStaticText_HowMany = 3) Then
+                    ''Added 8/17/2022 td
+                    mod_designer.Load_NewElementToCacheAndForm_StaticTextV4(rectangleControl,
+                                                    FormTypeOfElementsToAdd.StaticTextString, 3)
+                End If ''End of ""If (intAddStaticText_HowMany = 3) Then""
 
             End If ''End of ""If (boolAddStaticText) Then""
 

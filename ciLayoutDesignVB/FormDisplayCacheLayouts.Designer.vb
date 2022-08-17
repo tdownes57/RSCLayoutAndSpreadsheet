@@ -47,7 +47,7 @@ Partial Class FormDisplayCacheLayouts
         Me.ButtonRecipients = New System.Windows.Forms.Button()
         Me.TimerRecipients = New System.Windows.Forms.Timer(Me.components)
         Me.picturePreviewBackside = New System.Windows.Forms.PictureBox()
-        Me.rscclickablePreviewFront = New __RSCWindowsControlLibrary.RSCRightClickable()
+        Me.rscclickablePreviewFront = New __RSCWindowsControlLibrary.RSCRightClickableImage()
         Me.FlowLayoutPanelPriorLays.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picturePreviewBackside, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -387,5 +387,5 @@ Partial Class FormDisplayCacheLayouts
     Friend WithEvents buttonCustomers As Button
     Friend WithEvents ButtonRecipients As Button
     Friend WithEvents TimerRecipients As Timer
-    Friend WithEvents rscclickablePreviewFront As __RSCWindowsControlLibrary.RSCRightClickable
+    Friend WithEvents rscclickablePreviewFront As __RSCWindowsControlLibrary.RSCRightClickableImage
 End Class

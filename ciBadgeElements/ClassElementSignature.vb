@@ -253,6 +253,13 @@ Public Class ClassElementSignature
         Me.Width_Pixels = par_rectangle.Width
         Me.Height_Pixels = par_rectangle.Height
 
+        ''Added 8/17/2022 td
+        ''  Let's write to the base class. ("b" = "base")
+        Me.LeftEdge_bPixels = par_rectangle.Left
+        Me.TopEdge_bPixels = par_rectangle.Top
+        Me.Width_bPixels = par_rectangle.Width
+        Me.Height_bPixels = par_rectangle.Height
+
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
     Public Function GetImage_Signature(par_bRefreshFromFile As Boolean, ByRef pref_strErrorMessage As String) As Image Implements IElementSig.GetImage_Signature

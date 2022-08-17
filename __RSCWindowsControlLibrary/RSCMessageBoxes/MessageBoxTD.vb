@@ -163,6 +163,7 @@ Public Class MessageBoxTD
                     psingFactorHeight As Single,
                     psingLimitOfNumberMin As Single,
                     psingLimitOfNumberMax As Single,
+                    psingCurrentDefaultValue As Single,
                     Optional pboolUseTextbox As Boolean = False,
                     Optional pboolDecimalValuesOK As Boolean = False,
                     Optional ByRef prefUserCancelled As Boolean = False) As Integer
@@ -171,8 +172,12 @@ Public Class MessageBoxTD
         ''
         Dim formToShow As FormHowMany
 
+        ''8/17/2022 formToShow = New FormHowMany(pstrHowMany, psingFactorWidth, psingFactorHeight,
+        ''     psingLimitOfNumberMin, psingLimitOfNumberMax, pboolUseTextbox, pboolDecimalValuesOK)
         formToShow = New FormHowMany(pstrHowMany, psingFactorWidth, psingFactorHeight,
-            psingLimitOfNumberMin, psingLimitOfNumberMax, pboolUseTextbox, pboolDecimalValuesOK)
+            psingLimitOfNumberMin, psingLimitOfNumberMax,
+            psingCurrentDefaultValue,
+            pboolUseTextbox, pboolDecimalValuesOK)
 
         formToShow.ShowDialog()
 

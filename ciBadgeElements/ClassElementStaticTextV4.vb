@@ -29,7 +29,11 @@ Public Class ClassElementStaticTextV4
     End Sub
 
 
-    Public Sub New(par_DisplayText As String, par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
+    Public Sub New(par_DisplayText As String,
+                   par_intLeft_Pixels As Integer,
+                   par_intTop_Pixels As Integer,
+                   par_intHeight_Pixels As Integer,
+                   par_intWidth_Pixels As Integer)
         ''
         ''Added 9/15/2019 td
         ''
@@ -38,6 +42,14 @@ Public Class ClassElementStaticTextV4
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
         Me.Height_Pixels = par_intHeight_Pixels
+        Me.Width_Pixels = par_intWidth_Pixels ''Added 8/17/2022
+
+        ''Added 8/17/2022 td
+        ''  Let's write to the base class. ("b" = "base")
+        Me.LeftEdge_bPixels = par_intLeft_Pixels
+        Me.TopEdge_bPixels = par_intTop_Pixels
+        Me.Height_bPixels = par_intHeight_Pixels
+        Me.Width_bPixels = par_intWidth_Pixels ''Added 8/17/2022
 
         ''Added 10//10/2019 td
         Me.Text_StaticLine = par_DisplayText

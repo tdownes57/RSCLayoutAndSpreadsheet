@@ -176,9 +176,15 @@ Public Class Operations_RSCFieldColumn
         Dim rscParentSpreadsheet As RSCFieldSpreadsheet
         Dim intHowManyNewColumns As Integer
         Dim intNewColIndex As Integer
+        Const c_intDefaultValue As Integer = 1 ''Added 8/17/2022
 
+        ''8/17/2022 intHowManyNewColumns = MessageBoxTD.AskHowMany("How many new columns are needed?  (Up to 9.)",
+        ''               1.1, 1.1, 1, 9,
+        ''               False, False)
         intHowManyNewColumns = MessageBoxTD.AskHowMany("How many new columns are needed?  (Up to 9.)",
-                       1.1, 1.1, 1, 9, False, False)
+                       1.1, 1.1, 1, 9,
+                       c_intDefaultValue,
+                       False, False)
 
         rscParentSpreadsheet = Me.ParentSpreadsheet
 

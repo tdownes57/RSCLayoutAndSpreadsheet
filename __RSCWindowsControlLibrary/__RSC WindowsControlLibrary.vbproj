@@ -76,6 +76,7 @@
     <Compile Include="MenuOperationClasses\MenuCache_Generic_NotUsed.vb" />
     <Compile Include="MenuOperationClasses\MenuCache_ActualInUse.vb" />
     <Compile Include="Classes\MessageBoxTD_NotInUse.vb" />
+    <Compile Include="MenuOperationClasses\Operations_RClickableImage.vb" />
     <Compile Include="MenuOperationClasses\Operations__Desktop_Dummy.vb" />
     <Compile Include="MenuOperationClasses\Operations__Generic.vb" />
     <Compile Include="MenuOperationClasses\Operations__Useless.vb" />
@@ -111,6 +112,12 @@
       <DependentUpon>RSCRightClickable.vb</DependentUpon>
     </Compile>
     <Compile Include="RSCClickable\RSCRightClickable.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCClickable\RSCRightClickableImage.Designer.vb">
+      <DependentUpon>RSCRightClickableImage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCClickable\RSCRightClickableImage.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RSCColorControls\RSCBrowseExistingColors.Designer.vb">
@@ -194,6 +201,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCClickable\RSCRightClickable.resx">
       <DependentUpon>RSCRightClickable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCClickable\RSCRightClickableImage.resx">
+      <DependentUpon>RSCRightClickableImage.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCBrowseExistingColors.resx">
       <DependentUpon>RSCBrowseExistingColors.vb</DependentUpon>

@@ -409,7 +409,11 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
             objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-            objElementText = New ClassElementStaticTextV3(par_DisplayText, intLeft, intTop, par_intHeight)
+            ''8/17/2022 objElementText = New ClassElementStaticTextV3(par_DisplayText,
+            ''             intLeft, intTop, par_intHeight)
+            objElementText = New ClassElementStaticTextV3(par_DisplayText,
+                                        intLeft, intTop,
+                                        par_intHeight, par_intWidth)
 
             mod_listElementStatics.Add(objElementText)
 

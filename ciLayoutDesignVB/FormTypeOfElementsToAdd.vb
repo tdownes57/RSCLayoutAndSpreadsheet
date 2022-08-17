@@ -28,7 +28,9 @@ Public Class FormTypeOfElementsToAdd
 
     Public AddPortraitPic As Boolean
     Public AddGraphic As Boolean
+    Public AddGraphic_HowMany As Integer ''Added 8/17/2022
     Public AddStaticText As Boolean
+    Public AddStaticText_HowMany As Integer ''Added 8/17/2022
     Public AddQRCode As Boolean
     Public AddSignature As Boolean
     Public AddField1 As Boolean
@@ -43,6 +45,10 @@ Public Class FormTypeOfElementsToAdd
     Public AddField4_Enum As EnumCIBFields
     Public AddField5_Enum As EnumCIBFields
 
+    ''Added 8/17/2022 
+    Private mod_intHowManyStaticTexts As Integer
+    Private mod_intHowManyGraphics As Integer
+
     ''Added 5/5/2022 td
     Private mod_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated
     Private mod_listRelevantFields As List(Of ClassFieldAny) ''Added 5/12/2022 td
@@ -55,6 +61,7 @@ Public Class FormTypeOfElementsToAdd
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
+
 
     Public Sub New(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated,
                    par_listRelevantFs As List(Of ClassFieldAny))
@@ -583,9 +590,19 @@ Public Class FormTypeOfElementsToAdd
 
         Me.AddQRCode = HasBorder_IsSelected(CtlGraphicQRCode1)
         Me.AddSignature = HasBorder_IsSelected(CtlGraphicSignature1)
-        Me.AddGraphic = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
         Me.AddPortraitPic = HasBorder_IsSelected(CtlGraphicPortrait1)
+
+        Me.AddGraphic = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        ''Added 8/17/2022
+        If (Me.AddGraphic) Then
+            Me.AddGraphic_HowMany = mod_intHowManyGraphics
+        End If ''End of ""If (Me.AddGraphic) Then""
+
         Me.AddStaticText = HasBorder_IsSelected(CtlGraphicStaticText1)
+        ''Added 8/17/2022
+        If (Me.AddStaticText) Then
+            Me.AddStaticText_HowMany = mod_intHowManyStaticTexts
+        End If ''End of ""If (Me.AddStaticText) Then""
 
         Me.DialogResult = DialogResult.OK
         Me.Close()
@@ -613,12 +630,27 @@ Public Class FormTypeOfElementsToAdd
         ''6/2022 ToggleBorder(CType(sender, Control), PanelGraphic)
         ToggleBorder(CType(sender, UserControl), PanelGraphic)
 
+        ''Added 8/16/2022 td
+        ''--LinkHowManyGraphics.Visible = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        Dim boolIsSelected As Boolean ''Added 8/16/2022 td
+        boolIsSelected = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        LinkHowManyGraphics.Visible = boolIsSelected
+        If (boolIsSelected) Then LinkHowManyGraphics.BringToFront()
+
     End Sub
 
     Private Sub CtlGraphicStaticText1_Click(sender As Object, e As EventArgs) Handles CtlGraphicStaticText1.Click
         ''Added 5/3/2022 td
         ''6/2022 ToggleBorder(CType(sender, Control), PanelStaticText)
-        ToggleBorder(CType(sender, UserControl), PanelStaticText)
+        ''8/17/2022 ToggleBorder(CType(sender, UserControl), PanelStaticText)
+        ToggleBorder(CtlGraphicStaticText1, PanelStaticText)
+
+        ''Added 8/16/2022 td
+        ''--LinkHowManyTextLabels.Visible = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        Dim boolIsSelected As Boolean ''Added 8/16/2022 td
+        boolIsSelected = HasBorder_IsSelected(CtlGraphicStaticText1)
+        LinkHowManyTextLabels.Visible = boolIsSelected
+        If (boolIsSelected) Then LinkHowManyTextLabels.BringToFront()
 
     End Sub
 
@@ -712,11 +744,31 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/4/2022 td
         ToggleBorder(CtlGraphicStaticText1, PanelStaticText)
 
+        ''Added 8/16/2022 td
+        ''--LinkHowManyTextLabels.Visible = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        Dim boolIsSelected As Boolean ''Added 8/16/2022 td
+        boolIsSelected = HasBorder_IsSelected(CtlGraphicStaticText1)
+        LinkHowManyTextLabels.Visible = boolIsSelected
+
+        If (boolIsSelected) Then
+            LinkHowManyTextLabels.BringToFront()
+        Else
+            ''Added 8/17/2022 
+            CtlGraphicStaticText1.BorderStyle = BorderStyle.FixedSingle
+        End If ''nd of ""If (boolIsSelected) Then... Else..."
+
     End Sub
 
     Private Sub CtlGraphicStaticGraphic1_RSCControlClicked() Handles CtlGraphicStaticGraphic1.RSCControlClicked
         ''Added 5/4/2022 td
         ToggleBorder(CtlGraphicStaticGraphic1, PanelGraphic)
+
+        ''Added 8/16/2022 td
+        ''--LinkHowManyGraphics.Visible = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        Dim boolIsSelected As Boolean ''Added 8/16/2022 td
+        boolIsSelected = HasBorder_IsSelected(CtlGraphicStaticGraphic1)
+        LinkHowManyGraphics.Visible = boolIsSelected
+        If (boolIsSelected) Then LinkHowManyGraphics.BringToFront()
 
     End Sub
 
@@ -736,8 +788,10 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/5/2022 td
         If (RscSelectCIBField2.Enabled) Then
             ToggleBorder(RscSelectCIBField2, panelField2)
-            If (HasValue(RscSelectCIBField2)) Then RscSelectCIBField3.Enabled = True
-        End If
+            If (HasValue(RscSelectCIBField2)) Then
+                RscSelectCIBField3.Enabled = True
+            End If ''End of ""If (HasValue(RscSelectCIBField2)) Then""
+        End If ''End of ""If (RscSelectCIBField2.Enabled) Then""
 
     End Sub
 
@@ -746,7 +800,7 @@ Public Class FormTypeOfElementsToAdd
         If (RscSelectCIBField3.Enabled) Then
             ToggleBorder(RscSelectCIBField3, panelField3)
             If (HasValue(RscSelectCIBField3)) Then RscSelectCIBField4.Enabled = True
-        End If
+        End If ''End of ""If (RscSelectCIBField3.Enabled) Then""
 
     End Sub
 
@@ -755,7 +809,7 @@ Public Class FormTypeOfElementsToAdd
         If (RscSelectCIBField4.Enabled) Then
             ToggleBorder(RscSelectCIBField4, panelField4)
             If (HasValue(RscSelectCIBField4)) Then RscSelectCIBField5.Enabled = True
-        End If
+        End If ''End of ""If (RscSelectCIBField4.Enabled) Then""
 
     End Sub
 
@@ -763,7 +817,7 @@ Public Class FormTypeOfElementsToAdd
         ''Added 5/5/2022 td
         If (RscSelectCIBField5.Enabled) Then
             ToggleBorder(RscSelectCIBField5, panelField5)
-        End If
+        End If ''End of ""If (RscSelectCIBField5.Enabled) Then""
 
     End Sub
 
@@ -838,6 +892,42 @@ Public Class FormTypeOfElementsToAdd
     End Sub
 
     Private Sub LinkHowManyTextLabels_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkHowManyTextLabels.LinkClicked
+
+        ''---Dim intHowMany As Integer ''aDDED 8/16/2022 TD
+        Dim strMainPrompt As String
+
+        strMainPrompt = "How many text boxes (unrelated to info specific to individual recipents) do you need?"
+        ''---intHowMany = MessageBoxTD.AskHowMany(strMainPrompt, 1.8, 1.0, 1, 3)
+        mod_intHowManyStaticTexts = MessageBoxTD.AskHowMany(strMainPrompt, 1.3, 1.0, 1, 3,
+                                         mod_intHowManyStaticTexts)
+        ''aDDED 8/17/2022 TD
+        LinkHowManyTextLabels.Text =
+            String.Format(LinkHowManyTextLabels.Tag.ToString(),
+                          mod_intHowManyStaticTexts)
+
+    End Sub
+
+    Private Sub CtlGraphicStaticGraphic1_Load(sender As Object, e As EventArgs) Handles CtlGraphicStaticGraphic1.Load
+
+    End Sub
+
+    Private Sub LinkHowManyGraphics_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkHowManyGraphics.LinkClicked
+
+        ''---Dim intHowMany As Integer ''aDDED 8/16/2022 TD
+        Dim strMainPrompt As String
+
+        strMainPrompt = "How many text boxes (unrelated to info specific to individual recipents) do you need?"
+        ''---intHowMany = MessageBoxTD.AskHowMany(strMainPrompt, 1.8, 1.0, 1, 3)
+        mod_intHowManyGraphics = MessageBoxTD.AskHowMany(strMainPrompt, 1.3, 1.0, 1, 3,
+                                         mod_intHowManyGraphics)
+        ''aDDED 8/17/2022 TD
+        LinkHowManyGraphics.Text =
+            String.Format(LinkHowManyGraphics.Tag.ToString(),
+                          mod_intHowManyGraphics)
+
+    End Sub
+
+    Private Sub CtlGraphicStaticText1_Load(sender As Object, e As EventArgs) Handles CtlGraphicStaticText1.Load
 
     End Sub
 End Class

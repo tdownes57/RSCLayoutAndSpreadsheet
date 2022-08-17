@@ -29,6 +29,8 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td
     Public MyLinkLabelCollection As List(Of LinkLabel) ''Added 1/15/2022 td
 
+    Public Event ClickPicture(sender As Object, e As EventArgs) ''Added 8/15/2022 thomas
+
     ''Added 12/28/2021 td
     Protected mod_objOperationsAny As Object ''Added 12/28/2021 td
     Protected mod_typeOperations As Type ''Added 12/28/2021 td
@@ -86,6 +88,18 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
     End Property
 
 
+    ''Public Shared Function GetClickable() As RSCRightClickable
+    ''    ''
+    ''    ''Added 8/15/2022
+    ''    ''
+    ''    Dim objControl As New RSCRightClickable
+    ''    Dim typeOps As Type
+    ''    Dim objOperationsQR As Operations_RClickableImage ''Added 8/15/2022 td 
+    ''    Return objControl
+
+    ''End Function ''End of ""Public Shared Function GetClickable() As RSCRightClickable""
+
+
     Public Function Find_PictureBox() As PictureBox
         ''
         ''Added 1/4/2022 td
@@ -131,6 +145,9 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
                 .Width = Me.Width - 1
                 Me.Controls.Add(outputPictureBox)
                 .BringToFront()
+
+                ''Added 8/15/2022 thomas downes
+                AddHandler .Click, AddressOf pictureBox_Click ''(outputPictureBox, New EventArgs())
 
             End With ''End of ""With outputPictureBox""
 
@@ -201,17 +218,28 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
 
         mod_menuCacheNonShared = New MenuCache_ActualInUse(mod_enumElementType,
                  mod_objOperationsAny.GetType(), mod_objOperationsAny)
-        ''Added 12/28/2021 thomas downes
-        mod_menuCacheNonShared.GenerateMenuItems_IfNeeded()
 
         ContextMenuStrip1.Items.Clear()
+
+        ''Added 12/28/2021 thomas downes
+        ''Aug16 2022 td ''mod_menuCacheNonShared.GenerateMenuItems_IfNeeded()
+        mod_menuCacheNonShared.GenerateMenuItems_IfNeeded(True)
 
         ''Add a ToolStripMenuItem which will tell which Field is being displayed 
         ''  on the selected (right-clicked) control. 
         ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader0) ''Added 12/13/2021 
         ''Dec28 ''ContextMenuStrip1.Items.Add(MenuCache_Generic.Tools_MenuHeader1) ''Added 12/12/2021 
-        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader0) ''Added 12/13/2021 
-        ContextMenuStrip1.Items.Add(mod_menuCacheNonShared.Tools_MenuHeader1) ''Added 12/12/2021 
+        With mod_menuCacheNonShared
+
+            ''Added 8/16/2022 
+            If .Tools_MenuHeader0 Is Nothing Then
+                System.Diagnostics.Debugger.Break()
+            End If ''End of ""If .Tools_MenuHeader0 Is Nothing Then""
+
+            ContextMenuStrip1.Items.Add(.Tools_MenuHeader0) ''Added 12/13/2021 
+            ContextMenuStrip1.Items.Add(.Tools_MenuHeader1) ''Added 12/12/2021 
+
+        End With ''End of ""With mod_menuCacheNonShared""
 
         Dim bool_addExtraHeadersToContextMenus As Boolean ''Added 12/13/2021 td
         ''Dec.28 2021 td''bool_addExtraHeadersToContextMenus = AddExtraHeadersToolStripMenuItem.Checked
@@ -325,6 +353,15 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
         End With ''End of "With objDisplayMenu"
 
     End Sub ''End of Private Sub mod_designer_ElementRightClicked(par_intX As Integer, par_intY As Integer)
+
+
+    Private Sub pictureBox_Click(sender As Object, e As EventArgs) ''Handles pictureBox.Click 
+        ''
+        ''Added 8/15/2022 thomas downes
+        ''
+        RaiseEvent ClickPicture(sender, e)
+
+    End Sub
 
 
 End Class

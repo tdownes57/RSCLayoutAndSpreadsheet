@@ -1095,7 +1095,8 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Signature()""
 
 
-    Public Sub Load_NewElementToCacheAndForm_Graphic(par_rectForElement As Rectangle)
+    Public Sub Load_NewElementToCacheAndForm_Graphic(par_rectForElement As Rectangle,
+                                                     Optional pintIndex As Integer = 1)
         ''
         ''Added 5/14/2022 td
         ''
@@ -1117,6 +1118,13 @@ Public Class ClassDesigner
         new_list.Add(new_element)
         LoadFormwElements_StaticGraphics(new_list) '', mod_oGroupMoveEvents)
 
+        ''Added 8/17/2022 td
+        If (pintIndex >= 2) Then
+            With new_element
+                .TopEdge_Pixels += .Height_Pixels * (pintIndex - 1)
+                .TopEdge_bPixels += .Height_bPixels * (pintIndex - 1)
+            End With
+        End If ''End of ""If (pintIndex >= 2) Then""
 
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_Graphic()""
 
@@ -1148,7 +1156,8 @@ Public Class ClassDesigner
 
 
     Public Sub Load_NewElementToCacheAndForm_StaticTextV4(par_rectForElement As Rectangle,
-                           Optional pstrTextForStaticText As String = "")
+                           Optional pstrTextForStaticText As String = "",
+                           Optional pintIndex As Integer = 1)
         ''
         ''Added 6/01/2022 td
         ''
@@ -1175,8 +1184,18 @@ Public Class ClassDesigner
         ''
         Dim new_list As New HashSet(Of ClassElementStaticTextV4)
         new_list.Add(new_element)
-        LoadFormwElements_StaticTextsV4(new_list) '', mod_oGroupMoveEvents)
+        ''Moved below 8/17/2022 LoadFormwElements_StaticTextsV4(new_list) '', mod_oGroupMoveEvents)
 
+        ''Added 8/17/2022 td
+        If (pintIndex >= 2) Then
+            With new_element
+                .TopEdge_Pixels += (.Height_Pixels * (pintIndex - 1))
+                .TopEdge_bPixels += (.Height_bPixels * (pintIndex - 1))
+            End With
+        End If ''End of ""If (pintIndex >= 2) Then""
+
+        ''Moved here 8/17/2022
+        LoadFormwElements_StaticTextsV4(new_list) '', mod_oGroupMoveEvents)
 
     End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_StaticTextV4()""
 

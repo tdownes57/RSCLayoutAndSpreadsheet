@@ -242,11 +242,12 @@ Public Class MessageBoxTD
     End Function ''End of ""Public Shared Function Show_Confirm"" 
 
 
-    Public Shared Function AskHowMany(pstrHowMany As String,
+    Public Shared Function AskHowMany(pstrHowManyMainPrompt As String,
                     psingFactorWidth As Single,
                     psingFactorHeight As Single,
                     psingLimitOfNumberMin As Single,
                     psingLimitOfNumberMax As Single,
+                    psingCurrentDefaultValue As Single,
                     Optional pboolUseTextbox As Boolean = False,
                     Optional pboolDecimalValuesOK As Boolean = False,
                     Optional ByRef prefUserCancelled As Boolean = False) As Integer
@@ -255,8 +256,13 @@ Public Class MessageBoxTD
         ''
         Dim formToShow As FormHowMany
 
-        formToShow = New FormHowMany(pstrHowMany, psingFactorWidth, psingFactorHeight,
-            psingLimitOfNumberMin, psingLimitOfNumberMax, pboolUseTextbox, pboolDecimalValuesOK)
+        formToShow = New FormHowMany(pstrHowManyMainPrompt,
+                                     psingFactorWidth, psingFactorHeight,
+                                        psingLimitOfNumberMin,
+                                        psingLimitOfNumberMax,
+                                        psingCurrentDefaultValue,
+                                        pboolUseTextbox,
+                                        pboolDecimalValuesOK)
 
         formToShow.ShowDialog()
 

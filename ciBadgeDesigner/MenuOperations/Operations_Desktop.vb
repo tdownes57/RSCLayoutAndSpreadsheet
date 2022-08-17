@@ -75,7 +75,12 @@ Public Class Operations_Desktop
         intHeightOfRSC = objSizeOfRSC.Height
 
         ''objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, 25)
-        objElementStaticText = New ClassElementStaticTextV3("New StaticText...", e.X, e.Y, intHeightOfRSC)
+        ''8/17/2022 objElementStaticText = New ClassElementStaticTextV3("New StaticText...", e.X, e.Y, intHeightOfRSC)
+        objElementStaticText = New ClassElementStaticTextV3("New StaticText...",
+                                                            e.X, e.Y,
+                                                            intHeightOfRSC,
+                                                            objSizeOfRSC.Width)
+
         obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
         ''Added 1/18/2022 thomas downes  

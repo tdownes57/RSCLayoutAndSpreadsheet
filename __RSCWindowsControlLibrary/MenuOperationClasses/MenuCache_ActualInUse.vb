@@ -102,7 +102,8 @@ Public Class MenuCache_ActualInUse ''Replaced "_NonShared" with "_InUse" May 6, 
     End Function ''End of "Private Function Get_EditElementMenu"
 
 
-    Public Sub GenerateMenuItems_IfNeeded() ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+    Public Sub GenerateMenuItems_IfNeeded(Optional pbIncludeHeaders As Boolean = False) ''Dec28 2021 td''(par_cacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+        ''Aug. 16, 2022  Public Sub GenerateMenuItems_IfNeeded()
         ''Dec.12 2021 ''Public Sub GenerateMenuItems_IfNeeded()
         ''
         ''Added 10/2/2019 thomas downes  
@@ -115,7 +116,8 @@ Public Class MenuCache_ActualInUse ''Replaced "_NonShared" with "_InUse" May 6, 
         ''12/28/2021''Generate_BasicEdits(mod_operationsGenericEdits.GetType())
         ''05/6/2022 ''Generate_BasicEdits(Me.OperationsType, True)
 
-        Generate_BasicEdits(Me.OperationsType, False) ''False, as the aqua-colored headers are obtrusive. ---5/06/2022 
+        ''8/16/2022 td''Generate_BasicEdits(Me.OperationsType, False) ''False, as the aqua-colored headers are obtrusive. ---5/06/2022 
+        Generate_BasicEdits(Me.OperationsType, pbIncludeHeaders) ''False, as the aqua-colored headers are obtrusive. ---5/06/2022 
         Generate_Grouped()
         Generate_Aligning()
 

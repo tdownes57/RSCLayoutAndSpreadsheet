@@ -2283,7 +2283,10 @@ Namespace ciBadgeCachePersonality
 
                 objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-                objElementText = New ClassElementStaticTextV3(par_DisplayText, intLeft, intTop, par_intHeight)
+                ''8/17/2022 objElementText = New ClassElementStaticTextV3(par_DisplayText, intLeft, intTop, par_intHeight)
+                objElementText = New ClassElementStaticTextV3(par_DisplayText,
+                                                              intLeft, intTop,
+                                                              par_intHeight, par_intWidth)
 
                 If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
                     mod_listElementStaticsV3_Backside.Add(objElementText)
@@ -2333,7 +2336,10 @@ Namespace ciBadgeCachePersonality
 
                 objRectangle = New Rectangle(intLeft, intTop, par_intWidth, par_intHeight)
 
-                objElementText = New ClassElementStaticTextV4(par_DisplayText, intLeft, intTop, par_intHeight)
+                ''8/17/2022 objElementText = New ClassElementStaticTextV4(par_DisplayText, intLeft, intTop, par_intHeight)
+                objElementText = New ClassElementStaticTextV4(par_DisplayText,
+                                                              intLeft, intTop,
+                                                              par_intHeight, par_intWidth)
                 objElementText = New ClassElementStaticTextV4()
 
                 If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
