@@ -38,14 +38,14 @@ Public Class ClassElementLaysection
     Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
     Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
-    Public Property SubLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
+    Public Property SubLayout As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
 
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
     Public Property ElementType As String = "Section" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
+    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
 
     Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels

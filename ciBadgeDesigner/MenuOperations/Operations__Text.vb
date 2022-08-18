@@ -38,7 +38,7 @@ Public MustInherit Class Operations__Text
         ''
         ''8/01/2022 Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4)
 
-        Dim imageOfBadgeSansElement As Image ''Added 8/1/2022 td
+        Dim imageOfBadgeSansElement As Image = Nothing ''Added 8/1/2022 td
         Dim objSideLayoutV1 As ClassBadgeSideLayoutV1 ''Added 8/1/2022 td
         Dim enumCurrentSide As ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard
         Dim strPathToBackgroundImage As String ''Added 8/02/2022 td
@@ -47,6 +47,7 @@ Public MustInherit Class Operations__Text
         Dim tempLayoutfunctions As ciBadgeInterfaces.ILayoutFunctions = Nothing ''Added 8/6/2022
         Dim list_FontFamilyNames As HashSet(Of String) ''Added 8/10/2022
         Dim list_RSCColors As HashSet(Of rsccolor) ''Added 8/10/2022
+        Dim objFormToShow As Dialog_BaseEditElement
 
         Try
             ''Added 8/1/2022 
@@ -68,21 +69,31 @@ Public MustInherit Class Operations__Text
 
             End With ''End of ""With Me.ElementsCacheManager.CacheForEditing""
 
-
-            ''Added 8/01/2022 Thomas d
-            BackgroundEditImage.CheckBackgroundImageSize(objSideLayoutV1.BackgroundImage,
+            Try
+                ''Added 8/01/2022 Thomas d
+                BackgroundEditImage.CheckBackgroundImageSize(objSideLayoutV1.BackgroundImage,
                                     Me.Designer.DesignerForm_Interface.BadgeLayout,
                                     strPathToBackgroundImage)
+            Catch ex_rr45 As Exception
+                ''Added 8/17/2022 Thomas d
+                System.Diagnostics.Debugger.Break()
+            End Try
 
-            ''Aug01 2022 ''imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
-            imageOfBadgeSansElement =
-            MyBase.Designer.GetBadgeImage_EitherSide(enumCurrentSide,
-                 objSideLayoutV1, Nothing, Me.ElementObject_Base)
+            Try
+                ''Aug01 2022 ''imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
+                imageOfBadgeSansElement =
+                MyBase.Designer.GetBadgeImage_EitherSide(enumCurrentSide,
+                     objSideLayoutV1, Nothing, Me.ElementObject_Base)
+            Catch ex_rr46 As Exception
+                ''Added 8/17/2022 Thomas d
+                System.Diagnostics.Debugger.Break()
+            End Try
 
             ''Added 8/6/2022
             tempLayoutfunctions = Me.CtlCurrentFieldOrTextV4.LayoutFunctions
 
-            Dim objFormToShow As New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
+            ''8/17/2022 Dim objFormToShow As New Dialog_BaseEditElement
+            objFormToShow = New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
                                                             list_FontFamilyNames,
                                                             list_RSCColors,
                                        Me.ElementObject_Base,
@@ -91,8 +102,6 @@ Public MustInherit Class Operations__Text
                                        Me.Designer.GroupMoveEvents,
                                        imageOfBadgeSansElement)
 
-            objFormToShow.ShowDialog()
-
         Catch ex_edit As Exception
             ''
             ''Added 8/02/2022 thomas downes  
@@ -100,6 +109,11 @@ Public MustInherit Class Operations__Text
             System.Diagnostics.Debugger.Break()
 
         End Try
+
+        ''
+        ''Open the dialog for editing the element.
+        ''
+        objFormToShow.ShowDialog()
 
 ExitHandler:
         ''

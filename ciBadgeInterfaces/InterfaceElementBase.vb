@@ -25,7 +25,7 @@ Public Interface IElement_Base
     ''   amiguity--the confusion between an element inside the layout & the layout itself.)
     ''   -----9/11/20019 
 
-    Property BadgeLayout As BadgeLayoutClass ''Added 9/11/2019 td   
+    Property BadgeLayout As BadgeLayoutDimensionsClass ''Added 9/11/2019 td   
 
     Property TopEdge_Pixels As Integer
     Property LeftEdge_Pixels As Integer

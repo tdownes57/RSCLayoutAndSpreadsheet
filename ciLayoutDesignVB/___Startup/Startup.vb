@@ -1075,7 +1075,7 @@ Public Class Startup
                 ''  called FormTypeOfElementsToAdd is a great alternative.
                 ''  ----5/3/2022 td
                 obj_cache_elements.LoadFieldElements(par_designForm.pictureBackgroundFront,
-                            New BadgeLayoutClass(par_designForm.pictureBackgroundFront))
+                            New BadgeLayoutDimensionsClass(par_designForm.pictureBackgroundFront))
             End If ''End of ""If (mc_boolPreloadElements) Then""
 
         Else

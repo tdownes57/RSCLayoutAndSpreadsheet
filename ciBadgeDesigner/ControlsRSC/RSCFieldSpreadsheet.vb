@@ -679,7 +679,7 @@ Public Class RSCFieldSpreadsheet
         ''May21 2022 ''Dim obj_generator As ciBadgeGenerator.ClassMakeBadge
         Dim obj_generator As ciBadgeGenerator.ClassMakeBadge2022
         Dim dialog_ToShow As DialogDisplayIDCardSides
-        Dim objbadgeLayoutClass As New BadgeLayoutClass
+        Dim objbadgeLayoutClass As New BadgeLayoutDimensionsClass
         Dim objBadgeImageFront As Drawing.Image = Nothing
         Dim objBadgeImageBackside As Drawing.Image = Nothing
 

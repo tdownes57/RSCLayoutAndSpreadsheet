@@ -93,7 +93,7 @@ Partial Class Dialog_Base
         '
         'ButtonColor
         '
-        Me.ButtonColor.BackColor = System.Drawing.Color.MediumPurple
+        Me.ButtonColor.BackColor = System.Drawing.Color.Thistle
         Me.ButtonColor.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonColor.ForeColor = System.Drawing.Color.Purple
         Me.ButtonColor.Location = New System.Drawing.Point(120, 11)
@@ -121,7 +121,7 @@ Partial Class Dialog_Base
         Me.Button3.Location = New System.Drawing.Point(351, 11)
         Me.Button3.Margin = New System.Windows.Forms.Padding(2)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(101, 34)
+        Me.Button3.Size = New System.Drawing.Size(122, 34)
         Me.Button3.TabIndex = 9
         Me.Button3.Text = "▼Rotation▲"
         Me.Button3.UseVisualStyleBackColor = True
@@ -140,7 +140,7 @@ Partial Class Dialog_Base
         '
         'ButtonTextPlacement
         '
-        Me.ButtonTextPlacement.Location = New System.Drawing.Point(464, 11)
+        Me.ButtonTextPlacement.Location = New System.Drawing.Point(488, 11)
         Me.ButtonTextPlacement.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonTextPlacement.Name = "ButtonTextPlacement"
         Me.ButtonTextPlacement.Size = New System.Drawing.Size(101, 34)
@@ -168,7 +168,7 @@ Partial Class Dialog_Base
         'ButtonTextstring
         '
         Me.ButtonTextstring.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonTextstring.Location = New System.Drawing.Point(584, 11)
+        Me.ButtonTextstring.Location = New System.Drawing.Point(605, 11)
         Me.ButtonTextstring.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonTextstring.Name = "ButtonTextstring"
         Me.ButtonTextstring.Size = New System.Drawing.Size(234, 34)
@@ -211,12 +211,14 @@ Partial Class Dialog_Base
         Me.panelArrowRight.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop____Right
         Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.panelArrowRight.ElementInfo_Base = Nothing
+        Me.panelArrowRight.ImageLocation = Nothing
         Me.panelArrowRight.Location = New System.Drawing.Point(120, 16)
         Me.panelArrowRight.Margin = New System.Windows.Forms.Padding(2)
         Me.panelArrowRight.MoveabilityEventsForGroupCtls = Nothing
         Me.panelArrowRight.MoveabilityEventsForSingleMove = Nothing
         Me.panelArrowRight.Name = "panelArrowRight"
         Me.panelArrowRight.Size = New System.Drawing.Size(73, 41)
+        Me.panelArrowRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.panelArrowRight.TabIndex = 17
         '
         'panelArrowLeft
@@ -225,12 +227,14 @@ Partial Class Dialog_Base
         Me.panelArrowLeft.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop_
         Me.panelArrowLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.panelArrowLeft.ElementInfo_Base = Nothing
+        Me.panelArrowLeft.ImageLocation = Nothing
         Me.panelArrowLeft.Location = New System.Drawing.Point(24, 16)
         Me.panelArrowLeft.Margin = New System.Windows.Forms.Padding(2)
         Me.panelArrowLeft.MoveabilityEventsForGroupCtls = Nothing
         Me.panelArrowLeft.MoveabilityEventsForSingleMove = Nothing
         Me.panelArrowLeft.Name = "panelArrowLeft"
         Me.panelArrowLeft.Size = New System.Drawing.Size(73, 41)
+        Me.panelArrowLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.panelArrowLeft.TabIndex = 16
         '
         'Dialog_Base

@@ -12,7 +12,7 @@ Public Interface IDesignerForm_Desktop ''Suffixed with _Desktop on about 1/15/20
     ''
     Property MyText As String
     Property MyPictureBackgroundFront As PictureBox ''Added 1/15/2022 td 
-    Property BadgeLayout As BadgeLayoutClass
+    Property BadgeLayout As BadgeLayoutDimensionsClass
 
     Property NewFileXML As Boolean ''Added 1/7/2022 
     Property LetsRefresh_CloseForm As Boolean

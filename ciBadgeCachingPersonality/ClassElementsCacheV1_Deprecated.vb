@@ -55,7 +55,7 @@ Namespace ciBadgeCachePersonality
         ''Jan18 2022 ''<Xml.Serialization.XmlIgnore>
         ''Jan18 2022 ''Public Property ElementSig_RefCopy As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
-        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
+        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
 
         ''Added 1/12/2020 thomas d. 
         Public Property PathToBackgroundImageFile_Deprecated As String ''Deprecated 2/4/2020 td.   Added 1/12/2019 thomas downes
@@ -1641,7 +1641,8 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of "Public Sub LoadFields_FromList(par_listFieldAny As As List(Of ClassFieldAny))"
 
 
-        Public Sub LoadFieldElements(par_pictureBackground As PictureBox, par_layout As BadgeLayoutClass)
+        Public Sub LoadFieldElements(par_pictureBackground As PictureBox,
+                                     par_layout As BadgeLayoutDimensionsClass)
             ''
             ''Added 9/16/2019 thomas d. 
             ''
@@ -1766,7 +1767,7 @@ Namespace ciBadgeCachePersonality
         End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
 
 
-        Public Sub LoadFieldElements(par_layout As BadgeLayoutClass)
+        Public Sub LoadFieldElements(par_layout As BadgeLayoutDimensionsClass)
             ''
             ''Added 11/15/2019 thomas d. 
             ''
@@ -1812,7 +1813,7 @@ Namespace ciBadgeCachePersonality
         Public Function LoadNewElement_FieldV3(par_enumField As EnumCIBFields,
                                         par_intLeft_Pixels As Integer,
                                         par_intTop_Pixels As Integer,
-                                        par_layout As BadgeLayoutClass,
+                                        par_layout As BadgeLayoutDimensionsClass,
                                         par_enumSide As EnumWhichSideOfCard) _
                                         As ClassElementFieldV3 ''5/13/2022 = Nothing
             '' = EnumWhichSideOfCard.EnumFrontside)
@@ -1901,7 +1902,7 @@ Namespace ciBadgeCachePersonality
         Public Function LoadNewElement_FieldV4(par_enumField As EnumCIBFields,
                                         par_intLeft_Pixels As Integer,
                                         par_intTop_Pixels As Integer,
-                                        par_layout As BadgeLayoutClass,
+                                        par_layout As BadgeLayoutDimensionsClass,
                   par_enumSide As EnumWhichSideOfCard) _
                   As ClassElementFieldV4
             ''
@@ -2190,7 +2191,7 @@ Namespace ciBadgeCachePersonality
                                     par_intWidth As Integer, par_intHeight As Integer,
                                     par_pictureBackground As PictureBox,
                                     par_enum As EnumWhichSideOfCard,
-                                    par_layoutOfBadge As BadgeLayoutClass) As ClassElementGraphic
+                                    par_layoutOfBadge As BadgeLayoutDimensionsClass) As ClassElementGraphic
             ''
             ''Added 5/14/2022 td  
             ''
@@ -3122,7 +3123,7 @@ Namespace ciBadgeCachePersonality
                 End Try
 
                 ''Added 11/16/2019 td
-                obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass()
+                obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass()
                 ''---2/3/2020 td--obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
                 ''---2/3/2020 td--obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
                 obj_cache_elements.BadgeLayout.Width_Pixels = FormBadgeLayoutProto.pictureBack_Width ''---2/3/2020 td--obj_designForm.pictureBack.Width
@@ -3309,7 +3310,7 @@ Namespace ciBadgeCachePersonality
                     intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Width_Pixels
                     intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Height_Pixels
 
-                    .BadgeLayout = New BadgeLayoutClass(intBadgeWidth, intBadgeHeight)
+                    .BadgeLayout = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
 
                 End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
 

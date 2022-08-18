@@ -131,6 +131,7 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
             outputPictureBox = New PictureBox
             With outputPictureBox
                 .Visible = True
+                .BackColor = Color.White ''Added 8/17/2022 thomas d.
 
                 ''8/2022 .BackgroundImage = CType(Me.BackgroundImage.Clone(), Image)
                 ''8/2022 .BackgroundImageLayout = ImageLayout.Zoom

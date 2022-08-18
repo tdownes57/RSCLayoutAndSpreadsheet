@@ -39,6 +39,10 @@ Public Class BackgroundEditImage
         Dim singleRatioHeights As Single
         Dim bSizeMatches98 As Boolean
 
+        ''Added 8/17/2022 td
+        ''  If the background image has not been supplied, there's nothing to check. 
+        If (pref_imageBack Is Nothing) Then Exit Sub
+
         ''Widths
         singleRatioWidths = CSng(pref_imageBack.Width / par_layout.Width_Pixels)
         If (singleRatioWidths > 1) Then

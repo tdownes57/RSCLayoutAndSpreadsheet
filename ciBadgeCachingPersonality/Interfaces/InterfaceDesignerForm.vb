@@ -14,7 +14,7 @@ Namespace ciBadgeCachePersonality
         ''----Sub RefreshElementsCache_Edited(par_cache As ClassElementsCache)
         Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache_Deprecated)
 
-        Property BadgeLayout As BadgeLayoutClass ''Added 10/13/2019 td 
+        Property BadgeLayout As BadgeLayoutDimensionsClass ''Added 10/13/2019 td 
 
         ''
         ''Added 12/27/2021 thomas downes

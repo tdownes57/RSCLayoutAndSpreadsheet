@@ -53,7 +53,7 @@ Public Class ClassDesigner
     Public EnumSideOfCard_Current As EnumWhichSideOfCard = EnumWhichSideOfCard.EnumFrontside ''Added 12/8/2021 Thomas downes  
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
-    Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
+    Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 10/9/2019 td  
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
 
     ''Use an instance of ClassDesigner instead!!!!! ---1/4/2022 td 
@@ -636,7 +636,7 @@ Public Class ClassDesigner
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
 
         ''Added 10/9/2019 td  
-        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox_Front.Width, Me.BackgroundBox_Front.Height)
+        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutDimensionsClass(Me.BackgroundBox_Front.Width, Me.BackgroundBox_Front.Height)
 
         ''Added 1/13/2022 td
         ''5/23/2022 Load_BackgroundImage()
@@ -1569,7 +1569,8 @@ Public Class ClassDesigner
     Public Function GetBadgeImage_EitherSide(par_enumCurrentSide As EnumWhichSideOfCard,
                         par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
                         Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
-                        Optional par_elementBaseToOmit As ClassElementBase = Nothing) As Image
+                        Optional par_elementBaseToOmit As ClassElementBase = Nothing,
+                        Optional par_objBadgeLayoutClass As BadgeLayoutDimensionsClass = Nothing) As Image
         ''
         ''Added 8/01/2022 Thomas Downes  
         ''
@@ -1579,6 +1580,13 @@ Public Class ClassDesigner
         ''   ---8/1/2022 td
         ''
         Dim objImageOfBadgeSide As Image = Nothing
+        Dim objBadgeLayoutClass As BadgeLayoutDimensionsClass ''Added 8/18/2022 thomas 
+
+        ''Added 8/18/2022 thomas
+        objBadgeLayoutClass = par_objBadgeLayoutClass
+        If (objBadgeLayoutClass Is Nothing) Then
+            objBadgeLayoutClass = Me.BadgeLayout_Class
+        End If ''End of ""If (objBadgeLayoutClass Is Nothing) Then""
 
         ''8/02/2022 td RefreshPreview_EitherSide(par_enumCurrentSide, par_objMakeBadgeElements,
         ''                Nothing, Nothing, par_recipient, True,
@@ -3427,7 +3435,7 @@ Public Class ClassDesigner
                                          Optional par_recentlyMovedV4 As ClassElementFieldV4 = Nothing,
                                          Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
                                          Optional pboolReturnImage As Boolean = False,
-                                         Optional par_badgeLayout As BadgeLayoutClass = Nothing,
+                                         Optional par_badgeLayout As BadgeLayoutDimensionsClass = Nothing,
                                          Optional ByRef pref_image As Drawing.Image = Nothing,
                                          Optional par_elementBaseToOmit As ClassElementBase = Nothing)
         ''
@@ -3518,8 +3526,13 @@ Public Class ClassDesigner
         ''   so it might be good to use the cached background image vs. the UI background
         ''   (we would expect them to be the same image, actually, so it doesn't matter?). 
         ''   ---8/02/2022
-        bUseBadgeLayoutForBackground = pboolReturnImage
-        bIgnorePreviewBox = pboolReturnImage
+        With par_objMakeBadgeElements
+            ''8/17/2022 bUseBadgeLayoutForBackground = pboolReturnImage
+            bUseBadgeLayoutForBackground = pboolReturnImage AndAlso
+                                            .BackgroundImage_Path <> "" AndAlso
+                                            IO.File.Exists(.BackgroundImage_Path)
+            bIgnorePreviewBox = pboolReturnImage
+        End With ''end of ""ith par_objMakeBadgeElements""
 
         If bUseBadgeLayoutForBackground Then
             ''Added 8/2/2022
@@ -3546,9 +3559,11 @@ Public Class ClassDesigner
                 ''
                 ''We don't care about the Preview box. ---8/2/2022
                 ''
-                obj_image_clone = CType(obj_image.Clone(), Image)
-                ''We don't have to resize the image. (We aren't going to put it into the Preview box.)
-                obj_image_clone_resized = obj_image_clone
+                If (obj_image IsNot Nothing) Then
+                    obj_image_clone = CType(obj_image.Clone(), Image)
+                    ''We don't have to resize the image. (We aren't going to put it into the Preview box.)
+                    obj_image_clone_resized = obj_image_clone
+                End If ''eND OF ""If (obj_image IsNot Nothing) Then""
                 ''Added 8/2/2022
                 intPixelsOfBadgeWidth = par_badgeLayout.Width_Pixels
                 intPixelsOfBadgeHeight = par_badgeLayout.Height_Pixels

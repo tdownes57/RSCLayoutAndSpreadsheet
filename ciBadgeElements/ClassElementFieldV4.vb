@@ -92,7 +92,7 @@ Public Class ClassElementFieldV4
         Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
         Me.FieldIsCustomizable = par_fieldInfo.IsCustomizable ''Added 5/11/2022 td
 
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
@@ -107,7 +107,7 @@ Public Class ClassElementFieldV4
         ''
         ''Added 5/11/2022 & 7/29/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
     End Sub
 
@@ -138,7 +138,7 @@ Public Class ClassElementFieldV4
                                     par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
                                     par_ElementInfo_Field As IElement_TextField,
-                                    par_badgeLayout As BadgeLayoutClass)
+                                    par_badgeLayout As BadgeLayoutDimensionsClass)
         ''
         ''Added 1/29/2022 thomas downes
         ''

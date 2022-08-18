@@ -23,12 +23,21 @@ Public Class Dialog_BaseEditElement
         ''8/01/2022 MyBase.New(par_controlFieldOrTextV4, par_elementBase)
         ''8/04/2022 MyBase.New(par_controlFieldOrTextV4,
         ''           par_elementBase, par_imageOfBadge)
+        ''8/17/2022 Try
         MyBase.New(par_controlFieldOrTextV4,
                    par_listFontFamilyNames,
                    par_listRSCColors,
                    par_elementBase, par_infoElemBase,
                    par_designer, par_events,
                    par_imageOfBadge)
+
+        ''8/17/2022 Catch ex_MyBaseNew As Exception
+        ''    ''
+        ''    ''Added 8/17/2022 td
+        ''    ''
+        ''    System.Diagnostics.Debugger.Break()
+
+        ''End Try
 
         ' This call is required by the designer.
         InitializeComponent()

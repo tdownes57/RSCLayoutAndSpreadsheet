@@ -55,11 +55,11 @@ Public Class Dialog_BaseChooseColor
         ''
         '' Added 3/4/2022 thomas downes
         ''
-        With mod_listMSColors
+        If (mod_listMSColors Is Nothing) Then
+            mod_listMSColors = New List(Of Drawing.Color)
+        End If ''If (mod_listMSColors Is Nothing) Then
 
-            If (mod_listMSColors Is Nothing) Then
-                mod_listMSColors = New List(Of Drawing.Color)
-            End If ''If (mod_listMSColors Is Nothing) Then
+        With mod_listMSColors
 
             .Add(Drawing.Color.AliceBlue)
             .Add(Drawing.Color.AntiqueWhite)

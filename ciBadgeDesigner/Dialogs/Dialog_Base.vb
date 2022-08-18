@@ -69,37 +69,48 @@ Public Class Dialog_Base
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' Add any initialization after the InitializeComponent() call.
-        mod_controlFieldOrTextV4 = par_controlFieldOrTextV4
-        mod_controlRSCMoveable = par_controlFieldOrTextV4 ''Added 7/29/2022 td
-        mod_elementBase = par_elementBase ''Added 7/29/2022 thomas d.  
-        mod_elementInfo_Base = par_infoElementBase ''Added 8/3/2022 
-        mod_objEventsRSC_Elem = par_events ''Added 8/06/2022 td
+        Try
+            ' Add any initialization after the InitializeComponent() call.
+            mod_controlFieldOrTextV4 = par_controlFieldOrTextV4
+            mod_controlRSCMoveable = par_controlFieldOrTextV4 ''Added 7/29/2022 td
+            mod_elementBase = par_elementBase ''Added 7/29/2022 thomas d.  
+            mod_elementInfo_Base = par_infoElementBase ''Added 8/3/2022 
+            mod_objEventsRSC_Elem = par_events ''Added 8/06/2022 td
 
-        ''8/4/2022 mod_objLayoutFunctions = par_designer ''Added 8/4/2022 td
-        mod_designerParentForm = par_designer ''Added 8/05/2022 td
+            ''8/4/2022 mod_objLayoutFunctions = par_designer ''Added 8/4/2022 td
+            mod_designerParentForm = par_designer ''Added 8/05/2022 td
 
-        If (mod_c_bCreateDesignerObject) Then ''Added 8/6/2022 td
-            ''Added 8/6/2022 td
-            mod_objLayoutFunctions = New ClassDesigner() ''Added 8/4/2022 td
-            mod_controlRSCMoveable.LayoutFunctions = mod_objLayoutFunctions
+            If (mod_c_bCreateDesignerObject) Then ''Added 8/6/2022 td
+                ''Added 8/6/2022 td
+                mod_objLayoutFunctions = New ClassDesigner() ''Added 8/4/2022 td
+                mod_controlRSCMoveable.LayoutFunctions = mod_objLayoutFunctions
 
-        Else
-            ''Added 8/6/2022 td
-            mod_controlRSCMoveable.LayoutFunctions = Me
-            mod_controlFieldOrTextV4.LayoutFunctions = Me
+            Else
+                ''Added 8/6/2022 td
+                mod_controlRSCMoveable.LayoutFunctions = Me
+                mod_controlFieldOrTextV4.LayoutFunctions = Me
 
-        End If ''End of ""If (mod_c_bCreateDesignerObject) Then... Else..."
+            End If ''End of ""If (mod_c_bCreateDesignerObject) Then... Else..."
 
-        ''Added 7/29/2022 td
-        panelDisplayElement.BackgroundImage = par_imageOfBadge
+            ''Added 7/29/2022 td
+            panelDisplayElement.BackgroundImage = par_imageOfBadge
 
-        ''Encapsulated 7/29.2022  thomas downes
-        PositionElement(mod_controlFieldOrTextV4, mod_elementBase)
-        PositionArrow(mod_controlFieldOrTextV4) ''Added 8/03/2022 td
+            ''Encapsulated 7/29.2022  thomas downes
+            PositionElement(mod_controlFieldOrTextV4, mod_elementBase)
+            PositionArrow(mod_controlFieldOrTextV4) ''Added 8/03/2022 td
 
-        mod_controlFieldOrTextV4.Visible = True
-        mod_controlFieldOrTextV4.BringToFront()
+            mod_controlFieldOrTextV4.Visible = True
+            mod_controlFieldOrTextV4.BringToFront()
+
+
+        Catch ex_MyBaseNew As Exception
+            ''
+            ''Added 8/17/2022 td
+            ''
+            System.Diagnostics.Debugger.Break()
+
+        End Try
+
 
 ExitHandler:
 

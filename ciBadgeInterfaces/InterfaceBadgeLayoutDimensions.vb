@@ -37,8 +37,9 @@ Public Interface IBadgeLayoutDimensions
 
 End Interface ''End of "Public Interface IBadgeLayout"
 
+
 <Serializable>
-Public Class BadgeLayoutClass
+Public Class BadgeLayoutDimensionsClass ''8/18/2022 BadgeLayoutClass
     Implements IBadgeLayoutDimensions ''Dec18 2021''IBadgeLayout  
     ''
     ''Added 9/11/2019 Never Forget 
@@ -204,4 +205,5 @@ Public Class BadgeLayoutClass
 
     End Sub ''End of "Public Shared Sub Proportions_CorrectWidth(par_control As Control)"
 
-End Class
+
+End Class ''End of ""Public Class BadgeLayoutDimensionsClass""

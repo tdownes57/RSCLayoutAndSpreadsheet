@@ -30,12 +30,13 @@ Partial Class RSCRightClickable
         '
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
         '
         'RSCRightClickable
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.White
         Me.Name = "RSCRightClickable"
         Me.ResumeLayout(False)
 

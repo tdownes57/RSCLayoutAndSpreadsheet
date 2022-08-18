@@ -297,7 +297,7 @@ Public Class ClassElementFieldV3
     Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
+    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
 
     Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
@@ -581,7 +581,7 @@ Public Class ClassElementFieldV3
         Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
         Me.FieldIsCustomizable = par_fieldInfo.IsCustomizable ''Added 5/11/2022 td
 
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
@@ -596,7 +596,7 @@ Public Class ClassElementFieldV3
         ''
         ''Added 7/29/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
     End Sub
 
@@ -937,7 +937,7 @@ Public Class ClassElementFieldV3
                                     par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
                                     par_ElementInfo_Field As IElement_TextField,
-                                    par_badgeLayout As BadgeLayoutClass)
+                                    par_badgeLayout As BadgeLayoutDimensionsClass)
         ''
         ''Added 9/13/2019 thomas downes
         ''
@@ -987,7 +987,7 @@ Public Class ClassElementFieldV3
         Me.FieldEnum = par_ElementInfo_Field.FieldEnum
 
         ''Added 10/13/2019 td
-        Me.BadgeLayout = New BadgeLayoutClass
+        Me.BadgeLayout = New BadgeLayoutDimensionsClass
         Me.BadgeLayout.Height_Pixels = par_badgeLayout.Height_Pixels
         Me.BadgeLayout.Width_Pixels = par_badgeLayout.Width_Pixels
 

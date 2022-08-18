@@ -65,7 +65,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
         End Property
 
 
-        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
+        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
 
         Public Property PathToBackgroundImageFile As String ''Added 11/29/2019 thomas downes
 
@@ -119,7 +119,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
         End Function ''End of "Public Function StaticTextElements() As List(Of ClassElementStaticText)"
 
-        Public Sub LoadFieldElements(par_pictureBackground As PictureBox, par_layout As BadgeLayoutClass)
+        Public Sub LoadFieldElements(par_pictureBackground As PictureBox,
+                                     par_layout As BadgeLayoutDimensionsClass)
             ''
             ''Added 9/16/2019 thomas d. 
             ''

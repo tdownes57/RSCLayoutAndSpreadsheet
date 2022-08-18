@@ -38,7 +38,7 @@ Public Class Form__Main_Demo
     ''7/10/2022 ''Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.ClassCacheOnePersonalityConfig ''Added 10/11/2019 td 
     Public Property PersonalityCache_Recipients As ciBadgeCachePersonality.CachePersnltyCnfgLRecips ''Added 10/11/2019 td 
 
-    Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
+    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IDesignerForm.BadgeLayout ''Added 10/13/2019 td
 
     ''Added 9/16/2019 thomas downes
     ''Dec14 2021 td''Public Property ElementsCache_Saved As New ClassElementsCache_Deprecated ''Added 9/16/2019 thomas downes
