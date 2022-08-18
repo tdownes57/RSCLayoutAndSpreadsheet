@@ -40,10 +40,30 @@ Public Class Dialog_Base
     End Enum
 
 
+    Public Const LayoutWidth_Pixels As Integer = 603
+    Public Const LayoutHeight_Pixels As Integer = 380
+
+    Public Shared Function GetBadgeLayoutClass() As BadgeLayoutDimensionsClass
+        ''
+        ''Added 8/18/2022 thomas downes
+        ''
+        Dim obj_dimensions = New BadgeLayoutDimensionsClass()
+
+        obj_dimensions.Width_Pixels = LayoutWidth_Pixels
+        obj_dimensions.Height_Pixels = LayoutHeight_Pixels
+        Return obj_dimensions
+
+    End Function ''End of ""Public Shared Function GetBadgeLayoutClass() As BadgeLayoutDimensionsClass""
+
+
     Public Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
+
+        ''Added 8/18/2022 
+        panelDisplayElement.Width = Dialog_Base.LayoutWidth_Pixels
+        panelDisplayElement.Height = Dialog_Base.LayoutHeight_Pixels
 
     End Sub
 
@@ -68,6 +88,10 @@ Public Class Dialog_Base
 
         ' This call is required by the designer.
         InitializeComponent()
+
+        ''Added 8/18/2022 
+        panelDisplayElement.Width = Dialog_Base.LayoutWidth_Pixels
+        panelDisplayElement.Height = Dialog_Base.LayoutHeight_Pixels
 
         Try
             ' Add any initialization after the InitializeComponent() call.
@@ -138,6 +162,10 @@ ExitHandler:
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''Added 8/18/2022 
+        panelDisplayElement.Width = Dialog_Base.LayoutWidth_Pixels
+        panelDisplayElement.Height = Dialog_Base.LayoutHeight_Pixels
+
         ' Add any initialization after the InitializeComponent() call.
         mod_controlRSCMoveable = par_controlRSCMoveable ''Added 7/29/2022 td
         mod_elementBase = par_elementBase ''Added 7/29/2022 thomas d.  
@@ -205,13 +233,17 @@ ExitHandler:
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Added 9/3/2019 thomas downes
         ''8/5/2022 td Return Me.BackgroundBox_Front.Width
-        Return Me.panelDisplayElement.Width
+        ''8/17/2022 td Return Me.panelDisplayElement.Width
+        Return Dialog_Base.LayoutWidth_Pixels
+
     End Function ''End of "Public Function Layout_Width_Pixels() As Integer"
 
     Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
         ''Added 9/11/2019 Never Forget 
         ''8/5/2022 td Return Me.BackgroundBox_Front.Height
-        Return Me.panelDisplayElement.Height
+        ''8/17/2022 td Return Me.panelDisplayElement.Height
+        Return Dialog_Base.LayoutHeight_Pixels
+
     End Function ''End of "Public Function Layout_Height_Pixels() As Integer"
 
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit

@@ -83,7 +83,9 @@ Public MustInherit Class Operations__Text
                 ''Aug01 2022 ''imageOfBadgeSansElement = MyBase.Designer.GetBadgeSideSansElement(Me.ElementObject_Base)
                 imageOfBadgeSansElement =
                 MyBase.Designer.GetBadgeImage_EitherSide(enumCurrentSide,
-                     objSideLayoutV1, Nothing, Me.ElementObject_Base)
+                     objSideLayoutV1, Nothing, Me.ElementObject_Base,
+                     Dialog_Base.GetBadgeLayoutClass())
+
             Catch ex_rr46 As Exception
                 ''Added 8/17/2022 Thomas d
                 System.Diagnostics.Debugger.Break()

@@ -1580,12 +1580,12 @@ Public Class ClassDesigner
         ''   ---8/1/2022 td
         ''
         Dim objImageOfBadgeSide As Image = Nothing
-        Dim objBadgeLayoutClass As BadgeLayoutDimensionsClass ''Added 8/18/2022 thomas 
+        Dim objBadgeLayout_Class As BadgeLayoutDimensionsClass ''Added 8/18/2022 thomas 
 
         ''Added 8/18/2022 thomas
-        objBadgeLayoutClass = par_objBadgeLayoutClass
-        If (objBadgeLayoutClass Is Nothing) Then
-            objBadgeLayoutClass = Me.BadgeLayout_Class
+        objBadgeLayout_Class = par_objBadgeLayoutClass
+        If (objBadgeLayout_Class Is Nothing) Then
+            objBadgeLayout_Class = Me.BadgeLayout_Class
         End If ''End of ""If (objBadgeLayoutClass Is Nothing) Then""
 
         ''8/02/2022 td RefreshPreview_EitherSide(par_enumCurrentSide, par_objMakeBadgeElements,
@@ -1593,9 +1593,15 @@ Public Class ClassDesigner
         ''                objImageOfBadgeSide,
         ''                par_elementBaseToOmit)
 
+        ''8/18/2022 td RefreshPreview_EitherSide(par_enumCurrentSide, par_objMakeBadgeElements,
+        ''         Nothing, Nothing, par_recipient, True,
+        ''         Me.BadgeLayout_Class,
+        ''         objImageOfBadgeSide,
+        ''         par_elementBaseToOmit)
+
         RefreshPreview_EitherSide(par_enumCurrentSide, par_objMakeBadgeElements,
                  Nothing, Nothing, par_recipient, True,
-                 Me.BadgeLayout_Class,
+                 objBadgeLayout_Class,
                  objImageOfBadgeSide,
                  par_elementBaseToOmit)
 
@@ -3469,6 +3475,7 @@ Public Class ClassDesigner
         Dim intPixelsOfBadgeWidth As Integer ''Added 8/02/2022 td
         Dim intPixelsOfBadgeHeight As Integer ''Added 8/02/2022 td
         Dim bIgnorePreviewBox As Boolean ''Added 8/2/2022 td
+        Dim bIgnoreAllPictureBoxControls As Boolean ''Added 8/18/2022 td
 
         ''May 21, 2022 ''Static obj_generator As ciBadgeGenerator.ClassMakeBadge
         Static obj_generator As ciBadgeGenerator.ClassMakeBadge2022
@@ -3532,6 +3539,8 @@ Public Class ClassDesigner
                                             .BackgroundImage_Path <> "" AndAlso
                                             IO.File.Exists(.BackgroundImage_Path)
             bIgnorePreviewBox = pboolReturnImage
+            bIgnoreAllPictureBoxControls = pboolReturnImage ''Added 8/18/2022
+
         End With ''end of ""ith par_objMakeBadgeElements""
 
         If bUseBadgeLayoutForBackground Then
@@ -3544,6 +3553,12 @@ Public Class ClassDesigner
             ''Added 8/2/2022
             intPixelsOfBadgeWidth = par_badgeLayout.Width_Pixels
             intPixelsOfBadgeHeight = par_badgeLayout.Height_Pixels
+
+        ElseIf (bIgnoreAllPictureBoxControls) Then
+            ''Added 8/2/2022
+            intPixelsOfBadgeWidth = par_badgeLayout.Width_Pixels
+            intPixelsOfBadgeHeight = par_badgeLayout.Height_Pixels
+
         Else
             obj_image = Me.BackgroundBox_Front.BackgroundImage
             If (bBacksideOfCard) Then obj_image = Me.BackgroundBox_Backside.BackgroundImage
