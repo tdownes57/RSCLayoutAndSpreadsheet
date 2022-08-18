@@ -57,7 +57,7 @@ Namespace ciBadgeCachePersonality
         ''       ----1/13/2022 td
         ''
         Private mod_listBadgeSideLayoutV2s As New HashSet(Of ClassBadgeSideLayoutV2)
-        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutClass
+        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutDimensionsClass
         Public Property BadgeHasTwoSidesOfCard As Boolean
 
         ''

@@ -208,7 +208,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
         End Sub ''ENd of "Public Sub LoadFieldElements(par_pictureBackground As PictureBox)"
 
-        Public Sub LoadFieldElements(par_layout As BadgeLayoutClass)
+        Public Sub LoadFieldElements(par_layout As BadgeLayoutDimensionsClass)
             ''
             ''Added 11/15/2019 thomas d. 
             ''
@@ -723,7 +723,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 End If ''End of "If (IO.File.Exists(pstrPathToXML)) Then"
 
                 ''Added 11/16/2019 td
-                obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass()
+                obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass()
                 obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
                 obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
 
@@ -867,7 +867,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                     intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Width_Pixels
                     intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Height_Pixels
 
-                    .BadgeLayout = New BadgeLayoutClass(intBadgeWidth, intBadgeHeight)
+                    .BadgeLayout = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
 
                 End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
             End With

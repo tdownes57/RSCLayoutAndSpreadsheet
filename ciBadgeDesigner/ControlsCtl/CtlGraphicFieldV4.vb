@@ -811,7 +811,7 @@ ExitHandler:
     Public Sub LoadbyCopyingMembers(par_objectElementV4 As ClassElementFieldV4,
                                     par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
-                                    par_badgeLayout As BadgeLayoutClass)
+                                    par_badgeLayout As BadgeLayoutDimensionsClass)
         ''
         ''Added Feb. 4 2022 td 
         ''

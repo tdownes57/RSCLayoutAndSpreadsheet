@@ -37,7 +37,7 @@ Public Class ClassElementQRCode
     Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
+    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
 
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
@@ -219,7 +219,7 @@ Public Class ClassElementQRCode
         ''
         ''Added 9/16/2019 td
         ''
-        BadgeLayout = New BadgeLayoutClass(par_layout)
+        BadgeLayout = New BadgeLayoutDimensionsClass(par_layout)
 
         ''Added 9/16/2019 td
         Me.LeftEdge_Pixels = par_rectangle.Left

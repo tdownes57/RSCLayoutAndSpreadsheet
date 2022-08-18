@@ -10,6 +10,6 @@ Public Interface IDesignerForm_DontUse
     ''----Sub RefreshElementsCache_Edited(par_cache As ClassElementsCache)
     ''March23 2022 ''Sub RefreshElementsCache_Saved(par_cache As ClassElementsCache_DontUse)
 
-    Property BadgeLayout As BadgeLayoutClass ''Added 10/13/2019 td 
+    Property BadgeLayout As BadgeLayoutDimensionsClass ''Added 10/13/2019 td 
 
 End Interface

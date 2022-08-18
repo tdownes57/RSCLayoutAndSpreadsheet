@@ -74,7 +74,7 @@ Public Class ClassDesigner2Sides
         End Set
     End Property
 
-    Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutClass ''Added 10/9/2019 td  
+    Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 10/9/2019 td  
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
 
     Private Const mod_bAddHandlersForRightClick As Boolean = False ''Added 1/5/2022 td

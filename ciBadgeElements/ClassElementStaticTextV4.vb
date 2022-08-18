@@ -37,7 +37,7 @@ Public Class ClassElementStaticTextV4
         ''
         ''Added 9/15/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
@@ -61,7 +61,7 @@ Public Class ClassElementStaticTextV4
         ''
         ''Added 7/29/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass ''Added 9/12/2019
+        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
     End Sub
 

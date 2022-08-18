@@ -233,7 +233,7 @@ Public Class Form__Main_Demo
         ClassLabelToImage.ProportionsAreSlightlyOff(picturePreview, True)
 
         ''Added 10/13/2019 td
-        Me.BadgeLayout = New BadgeLayoutClass
+        Me.BadgeLayout = New BadgeLayoutDimensionsClass
         Me.BadgeLayout.Height_Pixels = pictureBackgroundFront.Height
         Me.BadgeLayout.Width_Pixels = pictureBackgroundFront.Width
 
