@@ -35,6 +35,7 @@ Public Class Startup
     ''  -----5/4/2022 td
     Public Const PreloadElementsForDemo As Boolean = False ''Was true "de facto" (effectively).  Added 5/4/2022 thomas 
     Public Const PreloadBackgroundForDemo As Boolean = False ''Was true "de facto" (effectively). Added 5/23/2022 thomas 
+    Public Const PreloadRecipientsForDemo As Boolean = False ''Added 8/17/2022 td
     Private Const mc_boolPreloadElements As Boolean = False ''Added 5/3/2022 thomas 
 
 
@@ -76,18 +77,21 @@ Public Class Startup
         Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated = Nothing ''Added 10/13/2019 td
 
         ''1/14/2019 td''Dim obj_personality As New PersonalityCache_NotInUse ''Added 10/17/2019 td  
-        Dim obj_personality As CachePersnltyCnfgLRecips ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
+        Dim obj_personalityRecipsCache As CachePersnltyCnfgLRecips = Nothing ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
         Dim bNewPersonality As Boolean ''Added 3/31/2022 td 
+        Dim strPathToRecipsCacheXML As String = "" ''Added 8/17/2022 td
 
         ''Added 7/13/2022 td
         Const c_bLoadPersonalityEarly As Boolean = False ''Added 7/13/2022 td
         Const c_bLoadPersonalityLater As Boolean = True ''Added 7/13/2022 td
         If (c_bLoadPersonalityEarly) Then ''Added 7/13/2022 td
             bNewPersonality = boolNewFileXML
+            strPathToRecipsCacheXML = "" ''Added 8/17/2022 td
             ''7/16/2022 obj_personality = LoadCachedData_Personality(Nothing, bNewPersonality)
-            obj_personality = LoadCachedData_Personality(Nothing,
+            obj_personalityRecipsCache = LoadCachedData_Personality(Nothing,
                                                          EnumHowToLinkXMLs.DontLinkXMLs, "",
-                                                         bNewPersonality)
+                                                         bNewPersonality,
+                                                         strPathToRecipsCacheXML)
         End If ''End of ""If (c_bLoadPersonalityEarly) Then""
         ''
         ''
@@ -109,22 +113,31 @@ Public Class Startup
 
         Application.DoEvents() ''Allow any latent de-serialization to take place. ---5/10/2022
 
-        ''Conditions added 3/31/2022, loading code added 10/16/2019 td 
-        If (obj_personality Is Nothing) Then
+        ''Conditions added 3/31/2022, loading code added 10/16/2019 td
+        If (c_bLoadPersonalityLater) Then
+            ''
+            ''We will load the personality later in this procedure. Search for the
+            ''  constant var. c_bLoadPersonalityLater. ---8/17/2022 td
+            ''
+        ElseIf (obj_personalityRecipsCache Is Nothing) Then
             ''Added 7/12/2022 td 
-            obj_personality = New CachePersnltyCnfgLRecips
-            obj_personality.ListOfRecipients = LoadData_Recipients_Students()
+            obj_personalityRecipsCache = New CachePersnltyCnfgLRecips
+            obj_personalityRecipsCache.ListOfRecipients = LoadData_Recipients_Students()
 
-        ElseIf (obj_personality.ListOfRecipients Is Nothing) Then
+        ElseIf (obj_personalityRecipsCache.ListOfRecipients Is Nothing) Then
             ''Added 10/16/2019 td 
-            obj_personality.ListOfRecipients = LoadData_Recipients_Students()
-        ElseIf (0 = obj_personality.ListOfRecipients.Count) Then
+            obj_personalityRecipsCache.ListOfRecipients = LoadData_Recipients_Students()
+
+        ElseIf (0 = obj_personalityRecipsCache.ListOfRecipients.Count) Then
             ''Added 10/16/2019 td 
-            obj_personality.ListOfRecipients = LoadData_Recipients_Students()
+            obj_personalityRecipsCache.ListOfRecipients = LoadData_Recipients_Students()
+
         End If
 
         ''Added 3/29/2022 td
-        ListOfRecipients = obj_personality.ListOfRecipients
+        If (obj_personalityRecipsCache IsNot Nothing) Then
+            ListOfRecipients = obj_personalityRecipsCache.ListOfRecipients
+        End If ''End of ""If (obj_personalityRecipsCache IsNot Nothing) Then""
 
         ''
         ''==================================================================================
@@ -140,7 +153,9 @@ Public Class Startup
         Const c_boolStillUsingElementsCache As Boolean = True ''Added 11/30/2021 td
         If (c_boolStillUsingElementsCache) Then
             ''Function called in the line below is suffixed w/ "_Deprecated", but
-            ''   it's still in used today.  ---11/30/2021 td 
+            ''   it's still in used today.
+            ''   ---11/30/2021 td 
+            ''
             strPathToElementsCacheXML_InputForPart1 = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
             strPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
             strPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
@@ -190,7 +205,8 @@ Public Class Startup
                                         strPathToElementsCacheXML_InputForPart1,  ''= "" ''Added 12/14/2021 td 
                                         strPathToElementsCacheXML_Prior1, '' = "" ''Added 1/25/2022 td 
                                         strPathToElementsCacheXML_Prior2, '' = "" ''Added 1/25/2022 td 
-                                        strPathToElementsCacheXML_Prior3)
+                                        strPathToElementsCacheXML_Prior3,
+                                        strPathToRecipsCacheXML)
 
                 End If ''End of ""If (bMissingOrEmptyXML) Then ... Else....""
 
@@ -225,7 +241,7 @@ Public Class Startup
                     bNewPersonality = boolNewFileXML ''Added 7/13/2022 td
                     ''P = Personality, PRecips = Recipients collected under a Personality Configuration  
                     Dim strPathToXML_ElementsCache As String ''Added 7/13/2022
-                    Dim strPathToXML_PRecips As String ''Added 7/13/2022
+                    ''----Aug17 2022---Dim strPathToXML_PRecips As String ''Added 7/13/2022
 
                     ''Added 7/17/2022 & 7/13/2022 td
                     strPathToXML_ElementsCache = strPathToElementsCacheXML_OutputOfPart1
@@ -234,30 +250,57 @@ Public Class Startup
                     End If
 
                     ''July15 2022 ''strPathToXML_PRecips = DiskFilesVB.PathToFile_XML_Personality(strPathToXML_ElementsCache)
-                    strPathToXML_PRecips = DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(EnumHowToLinkXMLs.AutoSubfolders,
+                    If ("" = strPathToRecipsCacheXML) Then
+                        ''Find the "standard" location for the Personality Recipients Cache,
+                        ''   which was standard prior to any plans to connect the XML of the
+                        ''   Layout to the XML of the Personality Recipients.
+                        ''   ----8/17/2022 td
+                        strPathToRecipsCacheXML = DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(EnumHowToLinkXMLs.AutoSubfolders,
                                               True, True, strPathToXML_ElementsCache)
+                    End If ''End of ""If ("" = strPathToRecipsCacheXML) Then""
 
                     ''July15 2022 ''obj_personality = LoadCachedData_Personality(Nothing,
                     ''                     bNewPersonality, strPathToXML_PRecips)
-                    obj_personality = LoadCachedData_Personality(Nothing,
+                    obj_personalityRecipsCache = LoadCachedData_Personality(Nothing,
                                            EnumHowToLinkXMLs.AutoSubfolders,
                                            strPathToXML_ElementsCache,
-                                           bNewPersonality, strPathToXML_PRecips)
+                                           bNewPersonality, strPathToRecipsCacheXML)
 
-                End If ''End of ""If (c_bLoadPersonalityEarly) Then""
+                    End If ''End of ""If (c_bLoadPersonalityEarly) Then""
 
-            End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
+                End If ''End of "If (obj_cache_layout_Elements Is Nothing) Then"
 
         Else
             ''Function called in the line below was suffixed w/ "_FutureUse"
             ''   today.  ---11/30/2021 td 
             ''7/15/2022 ''obj_personality = LoadCachedData_Personality(obj_formToShow_Demo, boolNewFileXML)
             strPathToElementsCacheXML_InputForPart1 = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
-            obj_personality = LoadCachedData_Personality(obj_formToShow_Demo,
+            obj_personalityRecipsCache = LoadCachedData_Personality(obj_formToShow_Demo,
                                   EnumHowToLinkXMLs.AutoSubfolders,
-                                 strPathToElementsCacheXML_InputForPart1, boolNewFileXML)
+                                 strPathToElementsCacheXML_InputForPart1, boolNewFileXML,
+                                 strPathToRecipsCacheXML)
 
         End If ''end of "If (c_boolStillUsingElementsCache) Then ... Else ..."
+
+        ''Added 8/17/2022 & 10/16/2019 td 
+        ''
+        ''  Let's double-check that we have Recipients. --8/17/2022
+        ''
+        If (Startup.PreloadRecipientsForDemo) Then
+            If (obj_personalityRecipsCache.ListOfRecipients Is Nothing) Then
+                ''Added 8/17/2022 & 10/16/2019 td 
+                obj_personalityRecipsCache.ListOfRecipients = LoadData_Recipients_Students()
+
+            ElseIf (0 = obj_personalityRecipsCache.ListOfRecipients.Count) Then
+                ''Added 8/17/2022 & 10/16/2019 td 
+                obj_personalityRecipsCache.ListOfRecipients = LoadData_Recipients_Students()
+            End If
+        End If ''End of ""If (Startup.PreloadRecipientsForDemo) Then""
+
+        ''Added 8/17/2022 & 3/29/2022 td
+        If (obj_personalityRecipsCache IsNot Nothing) Then
+            ListOfRecipients = obj_personalityRecipsCache.ListOfRecipients
+        End If ''End of ""If (obj_personalityRecipsCache IsNot Nothing) Then""
 
         ''Added 11/26/2019 thomas d
         Dim boolTesting As Boolean
@@ -334,7 +377,7 @@ Public Class Startup
                 With obj_formToShow_Demo
                     If (.PersonalityCache_Recipients Is Nothing) Then
                         ''Added 7/12/2022 thomas d. 
-                        .PersonalityCache_Recipients = obj_personality
+                        .PersonalityCache_Recipients = obj_personalityRecipsCache
                     End If ''End of ""If (.PersonalityCache_Recipients Is Nothing) Then""
                 End With ''End of ""With obj_formToShow_Demo""
 
@@ -343,7 +386,7 @@ Public Class Startup
                 ''This is for future use, say approaching Spring of 2022. 
                 ''  ----11/30/2022 
                 ''
-                obj_formToShow_Demo.PersonalityCache_Recipients = obj_personality
+                obj_formToShow_Demo.PersonalityCache_Recipients = obj_personalityRecipsCache
 
             End If ''End of "If (c_boolStillUsingElementsCache) Then ... Else"
 
@@ -420,10 +463,11 @@ Public Class Startup
                                               ByRef pstrPathToElementsCacheXML_Output As String,
                                               ByRef pref_boolNewFileXML As Boolean,
                                               ByRef pref_bUserWantsToExitApp As Boolean,
-                                strPathToElementsCacheXML_Input As String,  ''= "" ''Added 12/14/2021 td 
-                                strPathToElementsCacheXML_Prior1 As String, '' = "" ''Added 1/25/2022 td 
-                                strPathToElementsCacheXML_Prior2 As String, '' = "" ''Added 1/25/2022 td 
-                                strPathToElementsCacheXML_Prior3 As String)
+                                pstrPathToElementsCacheXML_Input As String,  ''= "" ''Added 12/14/2021 td 
+                                pstrPathToElementsCacheXML_Prior1 As String, '' = "" ''Added 1/25/2022 td 
+                                pstrPathToElementsCacheXML_Prior2 As String, '' = "" ''Added 1/25/2022 td 
+                                pstrPathToElementsCacheXML_Prior3 As String,
+                                              ByRef pstrPathToRecipientsCacheXML As String)
         ''
         ''Encapsulated 
         ''
@@ -474,16 +518,16 @@ Public Class Startup
             ''
             ''Loop as many times as the user would like!
             ''
-            strPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
-            strPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
-            strPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
+            pstrPathToElementsCacheXML_Input = My.Settings.PathToXML_Saved_ElementsCache ''Added 12/14/2021 
+            pstrPathToElementsCacheXML_Prior1 = My.Settings.PathToSavedXML_Prior1 ''Added 1/25/2022 
+            pstrPathToElementsCacheXML_Prior2 = My.Settings.PathToSavedXML_Prior2 ''Added 1/25/2022 
 
             With objFormShowCacheLayouts
 
-                .PathToElementsCacheXML_Input = strPathToElementsCacheXML_Input ''Added 12/20/2021 td
-                .PathToElementsCacheXML_Prior1 = strPathToElementsCacheXML_Prior1 ''Added 1/25/2022 td
-                .PathToElementsCacheXML_Prior2 = strPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
-                .PathToElementsCacheXML_Prior3 = strPathToElementsCacheXML_Prior3 ''Added 2/09/2022 td
+                .PathToElementsCacheXML_Input = pstrPathToElementsCacheXML_Input ''Added 12/20/2021 td
+                .PathToElementsCacheXML_Prior1 = pstrPathToElementsCacheXML_Prior1 ''Added 1/25/2022 td
+                .PathToElementsCacheXML_Prior2 = pstrPathToElementsCacheXML_Prior2 ''Added 1/25/2022 td
+                .PathToElementsCacheXML_Prior3 = pstrPathToElementsCacheXML_Prior3 ''Added 2/09/2022 td
 
                 ''
                 ''Show the dialog form!!
@@ -654,6 +698,16 @@ Public Class Startup
                 pref_boolNewFileXML = True
                 pref_cache_layout_Elements = Nothing
 
+                ''Added 8/17/2022 thomas downes
+                If ("" <> pstrPathToRecipientsCacheXML) Then
+                    Dim objFormAskAboutRecipsXML As FormSelectRecipientData
+                    objFormAskAboutRecipsXML = New FormSelectRecipientData(pstrPathToElementsCacheXML_Output,
+                               pstrPathToRecipientsCacheXML)
+                    objFormAskAboutRecipsXML.ShowDialog()
+
+                End If ''Endof ""If ("" <> strPathToRecipientsCacheXML) Then""
+
+
             ElseIf (Not bPathIsEmpty) Then ''3/24/2022 td
                 ''
                 ''We have a path to the XML cache.
@@ -731,6 +785,10 @@ Public Class Startup
         If (pstrPathToXML = "") Then
             ''7/15/2022 td''pstrPathToXML = DiskFilesVB.PathToFile_XML_Personality
             bSubfolderOfElements = (par_HowToLinkXMLs = EnumHowToLinkXMLs.AutoSubfolders)
+            ''Find the "standard" location for the Personality Recipients Cache,
+            ''   which was standard prior to any plans to connect the XML of the
+            ''   Layout to the XML of the Personality Recipients.
+            ''   ----8/17/2022 td
             pstrPathToXML = DiskFilesVB.PathToFile_XML_PersonalityRecipientsCache(
                  par_HowToLinkXMLs,
                  bSubfolderOfElements,
@@ -764,6 +822,8 @@ Public Class Startup
             ''Added 10/13/2019 td
             obj_cache_personality = New CachePersnltyCnfgLRecips ''Dec.4, 2021 '' New ClassPersonalityCache
             obj_cache_personality.PathToXml_Saved = pstrPathToXML
+            ''Added 8/17/2022 td
+            obj_cache_personality.PathToXml_Opened = "[new]" ''---pstrPathToXML
 
             obj_cache_personality.LoadFields()
             ''1/14/2020 td''obj_cache_personality.LoadFieldElements(par_designForm.pictureBack,
@@ -785,6 +845,9 @@ Public Class Startup
 
             obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(),
                 cbVerboseSuccess_False), CachePersnltyCnfgLRecips) ''Dec4 2021 ''ClassPersonalityCache)
+
+            ''Added 8/17/2022 td
+            obj_cache_personality.PathToXml_Opened = objDeserialize.PathToXML
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()

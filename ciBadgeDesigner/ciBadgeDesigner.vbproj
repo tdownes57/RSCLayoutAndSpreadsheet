@@ -355,6 +355,12 @@
     <Compile Include="Dialogs\DialogListBothTypeFields.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\DialogPositioning.Designer.vb">
+      <DependentUpon>DialogPositioning.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DialogPositioning.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs\DialogPresetValues.Designer.vb">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </Compile>
@@ -655,6 +661,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogListBothTypeFields.resx">
       <DependentUpon>DialogListBothTypeFields.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DialogPositioning.resx">
+      <DependentUpon>DialogPositioning.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>

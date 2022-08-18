@@ -1706,7 +1706,13 @@ Public Class RSCMoveableControlVB
             outputPictureBox = New PictureBox
             With outputPictureBox
                 .Visible = True
-                .BackgroundImage = CType(Me.BackgroundImage.Clone(), Image)
+                ''If the user control has a background image, then copy
+                ''   the background in use for the User Control,
+                ''   and leverage the Image.Clone() for the
+                ''   new picture box. ---8/17/2022
+                If (Me.BackgroundImage IsNot Nothing) Then ''Added 8/17/2022
+                    .BackgroundImage = CType(Me.BackgroundImage.Clone(), Image)
+                End If ''End of ""If (.BackgroundImage IsNot Nothing) Then""
                 .BackgroundImageLayout = ImageLayout.Zoom
                 .Top = 0
                 .Left = 0

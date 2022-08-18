@@ -487,6 +487,12 @@
     <Compile Include="Dialogs_Background\FormBackgroundSelectOrUpload.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSelectRecipientData.Designer.vb">
+      <DependentUpon>FormSelectRecipientData.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSelectRecipientData.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTypeOfElementsToAdd.Designer.vb">
       <DependentUpon>FormTypeOfElementsToAdd.vb</DependentUpon>
     </Compile>
@@ -834,6 +840,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Background\FormBackgroundSelectOrUpload.resx">
       <DependentUpon>FormBackgroundSelectOrUpload.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSelectRecipientData.resx">
+      <DependentUpon>FormSelectRecipientData.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTypeOfElementsToAdd.resx">
       <DependentUpon>FormTypeOfElementsToAdd.vb</DependentUpon>

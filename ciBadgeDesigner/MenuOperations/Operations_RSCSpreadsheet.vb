@@ -232,4 +232,92 @@ Public Class Operations_RSCSpreadsheet
     End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
 
 
+    Public Sub Open_Spreadsheet_FileXML_And_Folder_FS2004(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/17/2022 thomas downes
+        ''         
+        Dim strPathToXML As String
+        ''Aug2022 ''strPathToXML = Me.ParentSpreadsheet.ColumnDataCache.PathToXml_Saved
+        strPathToXML = Me.ParentSpreadsheet.ColumnDataCache.PathToXml_Opened
+        OpenFolderAndFile(strPathToXML)
+
+    End Sub ''End of ""Public Sub Open_Spreadsheet_FileXML_And_Folder_FS2001""
+
+
+    Public Sub Open_Recipient_FileXML_And_Folder_FS2004(sender As Object, e As EventArgs)
+        ''
+        ''Added 8/17/2022 thomas downes
+        ''         
+        Dim strPathToXML As String
+        Dim strPathToXML_byType As String
+
+        ''Aug2022 ''strPathToXML = Me.ParentSpreadsheet.PersonalityCache_Recipients.PathToXml_Saved
+
+        With Me.ParentSpreadsheet.PersonalityCache_Recipients
+
+            strPathToXML = .PathToXml_Opened
+
+            ''Added 8/17/2022 td
+            If (strPathToXML = "[new]") Then
+
+                strPathToXML = .PathToXml_Saved
+
+                ''Added 8/17/2022
+                If (Me.ElementsCacheManager IsNot Nothing) Then
+                    With Me.ElementsCacheManager.PathsToCachesByType
+                        strPathToXML_byType = .PathToCache_PersonalityRecips
+                    End With
+                    .SaveToXML(strPathToXML_byType)
+                    strPathToXML = strPathToXML_byType
+                Else
+                    ''Added 8/17/2022
+                    .SaveToXML(strPathToXML)
+                    .PathToXml_Saved = strPathToXML
+
+                End If ''End of ""If (Me.ElementsCacheManager IsNot Nothing) Then... Else...""
+
+            End If ''End of ""If (strPathToXML = "[new]") Then""
+
+        End With ''End of "" With Me.ParentSpreadsheet.PersonalityCache_Recipients"
+
+        ''
+        ''Major call !!
+        ''
+        OpenFolderAndFile(strPathToXML)
+
+    End Sub ''End of "" Public Sub Open_Recipient_FileXML_And_Folder_FS2004 ""
+
+
+    Private Sub OpenFolderAndFile(par_strPathToXML As String)
+        ''
+        ''Added 8/17/2022 thomas downes
+        ''         
+        Dim file_info As IO.FileInfo
+        file_info = New IO.FileInfo(par_strPathToXML)
+
+        If (par_strPathToXML = "") Then
+            ''Added 8/17/2022 thomas downes
+            MessageBoxTD.Show_StatementLongform("Path is blank",
+                                                "Personality Recipients XML path is blank.",
+                                                0.7, 0.7)
+            Exit Sub
+        End If ''End of ""If (strPathToXML = "") Then""
+
+        If (IO.File.Exists(par_strPathToXML)) Then
+            file_info = New IO.FileInfo(par_strPathToXML)
+            System.Diagnostics.Process.Start(file_info.DirectoryName)
+            System.Diagnostics.Process.Start(file_info.FullName)
+        Else
+            ''Added 8/17/2022 thomas downes
+            MessageBoxTD.Show_StatementLongform("Path is corrupted/invalid",
+                                                "Personality Recipients XML path is invalid/incorrect." &
+                                                vbCrLf_Deux &
+                                                par_strPathToXML,
+                                                1.4, 0.8)
+
+        End If ''Endof ""If (IO.File.Exists(strPathToXML)) Then... Else..."
+
+    End Sub ''End of ""Private Sub OpenFolderAndFile(par_strPathToXML As String)""
+
+
 End Class

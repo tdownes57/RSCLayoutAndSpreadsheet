@@ -321,6 +321,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flag_of_USA() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag of USA", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset0 Code39FiveRedA;}}
         '''{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
         '''\pard\sa200\sl276\slmult1\f0\fs22\lang9\par
@@ -334,6 +344,16 @@ Namespace My.Resources
         Friend ReadOnly Property Font_Code39FiveRedA() As String
             Get
                 Return ResourceManager.GetString("Font_Code39FiveRedA", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property GoldDiagonal_Land() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("GoldDiagonal_Land", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

@@ -96,7 +96,7 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
     ''    Dim typeOps As Type
     ''    Dim objOperationsQR As Operations_RClickableImage ''Added 8/15/2022 td 
     ''    Return objControl
-
+    ''
     ''End Function ''End of ""Public Shared Function GetClickable() As RSCRightClickable""
 
 

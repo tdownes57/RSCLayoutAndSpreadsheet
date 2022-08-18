@@ -48,6 +48,7 @@ Namespace ciBadgeCachePersonality
 
         ''10/10/2019 td''Public Property SaveToXmlPath As String ''Added 9/29/2019 td
         Public Property PathToXml_Saved As String ''Added 9/29/2019 td
+        Public Property PathToXml_Opened As String ''Added 8/17/2022 td
         Public Property PathToXml_Binary As String ''Added 11/29/2019 td
 
         ''Added 12/12/2021 thomas downes
@@ -220,6 +221,8 @@ Namespace ciBadgeCachePersonality
 
             ''Added 10/13/2019 thomas d.
             objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
+            ''Added 8/17/2022 thomas d.
+            objCopyOfCache.PathToXml_Opened = Me.PathToXml_Opened
 
             ''Added 9/29/2019 thomas downes  
             ''#1 10/14/2019 td''For Each each_field As ClassFieldAny In mod_listFields
