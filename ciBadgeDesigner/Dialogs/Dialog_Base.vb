@@ -677,7 +677,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub ButtonFont_Click(sender As Object, e As EventArgs) Handles ButtonFont.Click
+    Private Sub ButtonFont_Click(sender As Object, e As EventArgs) Handles buttonFont.Click
         ''
         ''Added 8/07/2022 thomas downes
         ''
@@ -707,7 +707,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub ButtonColor_Click(sender As Object, e As EventArgs) Handles ButtonColor.Click
+    Private Sub ButtonColor_Click(sender As Object, e As EventArgs) Handles buttonColor.Click
         ''
         ''Added 8/07/2022 thomas downes
         ''
@@ -729,6 +729,39 @@ ExitHandler:
         ''Added 8/07/2022
         If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then
             Me.Controls.Add(mod_controlFieldOrTextV4)
+            mod_controlFieldOrTextV4.BringToFront()
+        End If ''ENd of ""If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then""
+
+    End Sub
+
+    Private Sub ButtonBorder_Click(sender As Object, e As EventArgs) Handles buttonBorder.Click
+        ''
+        ''Added 8/19/2022 thomas downes
+        ''
+        Dim objFormToShow As New Dialog_BaseBorder(mod_controlFieldOrTextV4, mod_elementBase)
+        objFormToShow.ShowDialog()
+
+ExitHandler:
+        ''Added 8/07/2022
+        If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then
+            Me.Controls.Add(mod_controlFieldOrTextV4)
+            mod_controlFieldOrTextV4.BringToFront()
+        End If ''ENd of ""If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then""
+
+    End Sub
+
+    Private Sub buttonRotation_Click(sender As Object, e As EventArgs) Handles buttonRotation.Click
+        ''
+        ''Added 8/19/2022 thomas downes
+        ''
+        Dim objFormToShow As New Dialog_BaseRotation(mod_controlFieldOrTextV4, mod_elementBase)
+        objFormToShow.ShowDialog()
+
+ExitHandler:
+        ''Added 8/07/2022
+        If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then
+            Me.Controls.Add(mod_controlFieldOrTextV4)
+            mod_controlFieldOrTextV4.BringToFront()
         End If ''ENd of ""If (Me.Controls.Contains(mod_controlFieldOrTextV4) = False) Then""
 
     End Sub

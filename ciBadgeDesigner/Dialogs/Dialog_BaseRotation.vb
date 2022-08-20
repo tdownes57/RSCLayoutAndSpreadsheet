@@ -1,9 +1,10 @@
-﻿Imports __RSCWindowsControlLibrary ''Added 7/29/2022 td 
-''
-''Added 5/31/2022
-''
-Public Class Dialog_BaseBorder
+﻿Option Explicit On ''Added 8/19/2022 td 
+Option Strict On ''Added 8/19/2022 td 
 
+Public Class Dialog_BaseRotation
+    ''
+    ''Added 8/19/2022 td 
+    ''
     Public Sub New()
 
         ' This call is required by the designer.
@@ -17,7 +18,7 @@ Public Class Dialog_BaseBorder
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
                    par_elementBase As ciBadgeElements.ClassElementBase)
         ''
-        ''Added 5/31/2022 td 
+        ''Added 8/19/2022 td 
         ''
         ''7/28/2022''MyBase.PanelDisplayElement.Controls.Add(par_controlFieldOrTextV4)
         ''7/29/2022''MyBase.New(par_controlFieldOrTextV4)
@@ -30,7 +31,7 @@ Public Class Dialog_BaseBorder
     Public Sub New(par_controlRSC As __RSCWindowsControlLibrary.RSCMoveableControlVB,
                    par_elementBase As ciBadgeElements.ClassElementBase)
         ''
-        ''Added 5/31/2022 td 
+        ''Added 8/19/2022 td 
         ''
         MyBase.New(par_controlRSC, par_elementBase)
 
@@ -38,8 +39,4 @@ Public Class Dialog_BaseBorder
     End Sub
 
 
-
-    Private Sub Dialog_BaseBorder_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 End Class

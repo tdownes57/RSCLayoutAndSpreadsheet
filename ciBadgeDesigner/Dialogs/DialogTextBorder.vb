@@ -134,6 +134,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         Me.CtlRSCMoveable1 = par_control
         Me.ElementCopy_Info_Base = CType(par_elementBase, IElement_Base)
         Me.ElementCopy_Info_TextField = CType(par_elementBase, IElement_TextField)
+        Me.ElementObject_Base = par_elementBase ''Added 8/19/2022 thomas downes
 
     End Sub
 

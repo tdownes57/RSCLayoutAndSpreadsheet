@@ -445,6 +445,12 @@
     <Compile Include="Dialogs\Dialog_BaseEditElement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dialogs\Dialog_BaseRotation.Designer.vb">
+      <DependentUpon>Dialog_BaseRotation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Dialog_BaseRotation.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dialogs_Border\BackgroundEditImage.designer.vb">
       <DependentUpon>BackgroundEditImage.vb</DependentUpon>
     </Compile>
@@ -707,6 +713,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\Dialog_Base.resx">
       <DependentUpon>Dialog_Base.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Dialog_BaseRotation.resx">
+      <DependentUpon>Dialog_BaseRotation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Border\BackgroundEditImage.resx">
       <DependentUpon>BackgroundEditImage.vb</DependentUpon>

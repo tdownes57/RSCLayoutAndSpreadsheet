@@ -26,13 +26,13 @@ Partial Class Dialog_Base
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.LabelHeading2 = New System.Windows.Forms.Label()
-        Me.ButtonColor = New System.Windows.Forms.Button()
-        Me.ButtonFont = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.ButtonBorder = New System.Windows.Forms.Button()
-        Me.ButtonTextPlacement = New System.Windows.Forms.Button()
+        Me.buttonColor = New System.Windows.Forms.Button()
+        Me.buttonFont = New System.Windows.Forms.Button()
+        Me.buttonRotation = New System.Windows.Forms.Button()
+        Me.buttonBorder = New System.Windows.Forms.Button()
+        Me.buttonTextPlacement = New System.Windows.Forms.Button()
         Me.PanelEditorControls = New System.Windows.Forms.Panel()
-        Me.ButtonTextstring = New System.Windows.Forms.Button()
+        Me.buttonTextstring = New System.Windows.Forms.Button()
         Me.checkBoxArrowVisible = New System.Windows.Forms.CheckBox()
         Me.checkArrowMovesWithElem = New System.Windows.Forms.CheckBox()
         Me.panelDisplayElement = New System.Windows.Forms.PictureBox()
@@ -91,73 +91,73 @@ Partial Class Dialog_Base
     "e visible within.)"
         Me.LabelHeading2.Visible = False
         '
-        'ButtonColor
+        'buttonColor
         '
-        Me.ButtonColor.BackColor = System.Drawing.Color.Thistle
-        Me.ButtonColor.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonColor.ForeColor = System.Drawing.Color.Purple
-        Me.ButtonColor.Location = New System.Drawing.Point(120, 11)
-        Me.ButtonColor.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonColor.Name = "ButtonColor"
-        Me.ButtonColor.Size = New System.Drawing.Size(101, 34)
-        Me.ButtonColor.TabIndex = 7
-        Me.ButtonColor.Text = "Colors"
-        Me.ButtonColor.UseVisualStyleBackColor = False
+        Me.buttonColor.BackColor = System.Drawing.Color.Thistle
+        Me.buttonColor.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonColor.ForeColor = System.Drawing.Color.Purple
+        Me.buttonColor.Location = New System.Drawing.Point(120, 11)
+        Me.buttonColor.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonColor.Name = "buttonColor"
+        Me.buttonColor.Size = New System.Drawing.Size(101, 34)
+        Me.buttonColor.TabIndex = 7
+        Me.buttonColor.Text = "Colors"
+        Me.buttonColor.UseVisualStyleBackColor = False
         '
-        'ButtonFont
+        'buttonFont
         '
-        Me.ButtonFont.Font = New System.Drawing.Font("Ink Free", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonFont.Location = New System.Drawing.Point(7, 11)
-        Me.ButtonFont.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonFont.Name = "ButtonFont"
-        Me.ButtonFont.Size = New System.Drawing.Size(101, 34)
-        Me.ButtonFont.TabIndex = 6
-        Me.ButtonFont.Text = "Font"
-        Me.ButtonFont.UseVisualStyleBackColor = True
+        Me.buttonFont.Font = New System.Drawing.Font("Ink Free", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonFont.Location = New System.Drawing.Point(7, 11)
+        Me.buttonFont.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonFont.Name = "buttonFont"
+        Me.buttonFont.Size = New System.Drawing.Size(101, 34)
+        Me.buttonFont.TabIndex = 6
+        Me.buttonFont.Text = "Font"
+        Me.buttonFont.UseVisualStyleBackColor = True
         '
-        'Button3
+        'buttonRotation
         '
-        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button3.Location = New System.Drawing.Point(351, 11)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(122, 34)
-        Me.Button3.TabIndex = 9
-        Me.Button3.Text = "▼Rotation▲"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.buttonRotation.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonRotation.Location = New System.Drawing.Point(351, 11)
+        Me.buttonRotation.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonRotation.Name = "buttonRotation"
+        Me.buttonRotation.Size = New System.Drawing.Size(122, 34)
+        Me.buttonRotation.TabIndex = 9
+        Me.buttonRotation.Text = "▼Rotation▲"
+        Me.buttonRotation.UseVisualStyleBackColor = True
         '
-        'ButtonBorder
+        'buttonBorder
         '
-        Me.ButtonBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ButtonBorder.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonBorder.Location = New System.Drawing.Point(238, 11)
-        Me.ButtonBorder.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonBorder.Name = "ButtonBorder"
-        Me.ButtonBorder.Size = New System.Drawing.Size(101, 34)
-        Me.ButtonBorder.TabIndex = 8
-        Me.ButtonBorder.Text = "Border"
-        Me.ButtonBorder.UseVisualStyleBackColor = True
+        Me.buttonBorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.buttonBorder.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonBorder.Location = New System.Drawing.Point(238, 11)
+        Me.buttonBorder.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonBorder.Name = "buttonBorder"
+        Me.buttonBorder.Size = New System.Drawing.Size(101, 34)
+        Me.buttonBorder.TabIndex = 8
+        Me.buttonBorder.Text = "Border"
+        Me.buttonBorder.UseVisualStyleBackColor = True
         '
-        'ButtonTextPlacement
+        'buttonTextPlacement
         '
-        Me.ButtonTextPlacement.Location = New System.Drawing.Point(488, 11)
-        Me.ButtonTextPlacement.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonTextPlacement.Name = "ButtonTextPlacement"
-        Me.ButtonTextPlacement.Size = New System.Drawing.Size(101, 34)
-        Me.ButtonTextPlacement.TabIndex = 10
-        Me.ButtonTextPlacement.Text = "Text Placement"
-        Me.ButtonTextPlacement.TextAlign = System.Drawing.ContentAlignment.BottomRight
-        Me.ButtonTextPlacement.UseVisualStyleBackColor = True
+        Me.buttonTextPlacement.Location = New System.Drawing.Point(488, 11)
+        Me.buttonTextPlacement.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonTextPlacement.Name = "buttonTextPlacement"
+        Me.buttonTextPlacement.Size = New System.Drawing.Size(101, 34)
+        Me.buttonTextPlacement.TabIndex = 10
+        Me.buttonTextPlacement.Text = "Text Placement"
+        Me.buttonTextPlacement.TextAlign = System.Drawing.ContentAlignment.BottomRight
+        Me.buttonTextPlacement.UseVisualStyleBackColor = True
         '
         'PanelEditorControls
         '
         Me.PanelEditorControls.BackColor = System.Drawing.Color.LightBlue
-        Me.PanelEditorControls.Controls.Add(Me.ButtonTextstring)
-        Me.PanelEditorControls.Controls.Add(Me.ButtonTextPlacement)
-        Me.PanelEditorControls.Controls.Add(Me.ButtonFont)
-        Me.PanelEditorControls.Controls.Add(Me.Button3)
-        Me.PanelEditorControls.Controls.Add(Me.ButtonColor)
-        Me.PanelEditorControls.Controls.Add(Me.ButtonBorder)
+        Me.PanelEditorControls.Controls.Add(Me.buttonTextstring)
+        Me.PanelEditorControls.Controls.Add(Me.buttonTextPlacement)
+        Me.PanelEditorControls.Controls.Add(Me.buttonFont)
+        Me.PanelEditorControls.Controls.Add(Me.buttonRotation)
+        Me.PanelEditorControls.Controls.Add(Me.buttonColor)
+        Me.PanelEditorControls.Controls.Add(Me.buttonBorder)
         Me.PanelEditorControls.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelEditorControls.Location = New System.Drawing.Point(0, 447)
         Me.PanelEditorControls.Margin = New System.Windows.Forms.Padding(2)
@@ -165,16 +165,16 @@ Partial Class Dialog_Base
         Me.PanelEditorControls.Size = New System.Drawing.Size(945, 55)
         Me.PanelEditorControls.TabIndex = 11
         '
-        'ButtonTextstring
+        'buttonTextstring
         '
-        Me.ButtonTextstring.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonTextstring.Location = New System.Drawing.Point(605, 11)
-        Me.ButtonTextstring.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonTextstring.Name = "ButtonTextstring"
-        Me.ButtonTextstring.Size = New System.Drawing.Size(234, 34)
-        Me.ButtonTextstring.TabIndex = 11
-        Me.ButtonTextstring.Text = "Text / Words you want to see on ID card"
-        Me.ButtonTextstring.UseVisualStyleBackColor = True
+        Me.buttonTextstring.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.buttonTextstring.Location = New System.Drawing.Point(605, 11)
+        Me.buttonTextstring.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonTextstring.Name = "buttonTextstring"
+        Me.buttonTextstring.Size = New System.Drawing.Size(234, 34)
+        Me.buttonTextstring.TabIndex = 11
+        Me.buttonTextstring.Text = "Text / Words you want to see on ID card"
+        Me.buttonTextstring.UseVisualStyleBackColor = True
         '
         'checkBoxArrowVisible
         '
@@ -209,7 +209,7 @@ Partial Class Dialog_Base
         '
         Me.panelArrowRight.BackColor = System.Drawing.Color.Transparent
         Me.panelArrowRight.BackgroundImage = Global.ciBadgeDesigner.My.Resources.Resources.Gold_Arrow__crop____Right
-        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
+        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.panelArrowRight.ElementInfo_Base = Nothing
         Me.panelArrowRight.ImageLocation = Nothing
         Me.panelArrowRight.Location = New System.Drawing.Point(120, 16)
@@ -265,13 +265,13 @@ Partial Class Dialog_Base
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents LabelHeading1 As Label
     Friend WithEvents LabelHeading2 As Label
-    Friend WithEvents ButtonColor As Button
-    Friend WithEvents ButtonFont As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents ButtonBorder As Button
-    Friend WithEvents ButtonTextPlacement As Button
+    Friend WithEvents buttonColor As Button
+    Friend WithEvents buttonFont As Button
+    Friend WithEvents buttonRotation As Button
+    Friend WithEvents buttonBorder As Button
+    Friend WithEvents buttonTextPlacement As Button
     Friend WithEvents PanelEditorControls As Panel
-    Friend WithEvents ButtonTextstring As Button
+    Friend WithEvents buttonTextstring As Button
     Friend WithEvents checkBoxArrowVisible As CheckBox
     Friend WithEvents panelArrowLeft As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents panelArrowRight As __RSCWindowsControlLibrary.RSCMoveableControlVB

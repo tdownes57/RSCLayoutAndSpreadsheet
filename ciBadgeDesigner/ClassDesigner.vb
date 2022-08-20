@@ -3533,6 +3533,7 @@ Public Class ClassDesigner
         ''   so it might be good to use the cached background image vs. the UI background
         ''   (we would expect them to be the same image, actually, so it doesn't matter?). 
         ''   ---8/02/2022
+        ''
         With par_objMakeBadgeElements
             ''8/17/2022 bUseBadgeLayoutForBackground = pboolReturnImage
             bUseBadgeLayoutForBackground = pboolReturnImage AndAlso
@@ -3545,10 +3546,12 @@ Public Class ClassDesigner
 
         If bUseBadgeLayoutForBackground Then
             ''Added 8/2/2022
+            ''
             ''We are focused on returning the output image, as if this was a function,
             ''   so it might be good to use the cached background image vs. the UI background
             ''   (we would expect them to be the same image, actually, so it doesn't matter?). 
             ''   ---8/02/2022
+            ''
             obj_image = New Bitmap(par_objMakeBadgeElements.BackgroundImage_Path)
             ''Added 8/2/2022
             intPixelsOfBadgeWidth = par_badgeLayout.Width_Pixels
