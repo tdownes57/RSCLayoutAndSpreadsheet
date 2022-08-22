@@ -131,10 +131,12 @@ Public Class Dialog_BaseChooseColor
 
         For Each each_color In mod_listMSColors ''List(Of Drawing.Color)
 
-            Dim newLabel As New Label
+            Dim newLabel As New RSCColorDisplayLabel
             newLabel.BackColor = each_color
             newLabel.Text = each_color.Name
             newLabel.Visible = True
+            AddHandler newLabel.Click, AddressOf NetDrawingColor_Click
+
             ''newLabel.ToolTip
             ''Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
             Me.ToolTip1.SetToolTip(newLabel, each_color.Name)
@@ -158,4 +160,20 @@ Public Class Dialog_BaseChooseColor
         objFormToShow.ShowDialog()
 
     End Sub
+
+
+    Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs)
+        ''
+        ''8/22/2022 thomas downes
+        ''
+        Dim objFormToShow As __RSCWindowsControlLibrary.RSCColorPicker
+
+
+
+
+    End Sub
+
+
+
+
 End Class

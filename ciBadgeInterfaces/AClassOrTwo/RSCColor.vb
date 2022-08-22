@@ -11,7 +11,7 @@ Public Class RSCColor
     Public Sub New(par_color As System.Drawing.Color)
 
         ''Added 7/09/2022 
-        Me.DColor = par_color
+        Me.MSNetColor = par_color
 
     End Sub
 
@@ -27,7 +27,7 @@ Public Class RSCColor
     Public Sub New(par_name As String, par_color As System.Drawing.Color)
 
         ''Added 7/09/2022 
-        Me.DColor = par_color
+        Me.MSNetColor = par_color
         Me.Name = par_name
 
     End Sub
@@ -39,14 +39,14 @@ Public Class RSCColor
         ''
         ''Added 7/09/2022
         ''
-        Me.DColor = par_color
+        Me.MSNetColor = par_color
         Me.Name = par_name
         Me.Description = par_description
 
     End Sub
 
 
-    Public Property DColor As Drawing.Color ''Added 7/09/2022 thomas downes
+    Public Property MSNetColor As Drawing.Color ''Added 7/09/2022 thomas downes
     Public Property Name As String = "" ''Added 7/09/2022 thomas downes
     Public Property Description As String = "" ''Added 7/09/2022 thomas downes
 
@@ -56,7 +56,7 @@ Public Class RSCColor
         ''
         Dim strOutput As String ''Added 7/09/2022 td
         strOutput = Me.Name
-        If (Me.Name = "") Then strOutput = DColor.ToString()
+        If (Me.Name = "") Then strOutput = MSNetColor.ToString()
         Return strOutput ''Me.Name ''Added 7/09/2022 thomas downes
 
     End Function ''End of ""Public Overrides Function ToString() As String""

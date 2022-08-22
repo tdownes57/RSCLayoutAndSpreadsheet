@@ -25,7 +25,6 @@ Partial Class Dialog_BaseChooseColor
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Dialog_BaseChooseColor))
         Me.ButtonForecolor = New System.Windows.Forms.Button()
         Me.FlowLayoutColors2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.LinkLabelAddColors = New System.Windows.Forms.LinkLabel()
@@ -34,8 +33,10 @@ Partial Class Dialog_BaseChooseColor
         Me.ButtonUndo = New System.Windows.Forms.Button()
         Me.ButtonBackground = New System.Windows.Forms.Button()
         Me.FlowLayoutColors1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.RscColorDisplayLabel1 = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.FlowLayoutColors2.SuspendLayout()
+        Me.FlowLayoutColors1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonForecolor
@@ -50,17 +51,16 @@ Partial Class Dialog_BaseChooseColor
         '
         'FlowLayoutColors2
         '
-        Me.FlowLayoutColors2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FlowLayoutColors2.AutoScroll = True
         Me.FlowLayoutColors2.BackColor = System.Drawing.Color.LemonChiffon
+        Me.FlowLayoutColors2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FlowLayoutColors2.Controls.Add(Me.LinkLabelAddColors)
         Me.FlowLayoutColors2.Controls.Add(Me.RscColorDisplayMini1)
         Me.FlowLayoutColors2.Controls.Add(Me.RscColorDisplayMini2)
-        Me.FlowLayoutColors2.Location = New System.Drawing.Point(751, 59)
+        Me.FlowLayoutColors2.Location = New System.Drawing.Point(857, 59)
         Me.FlowLayoutColors2.Margin = New System.Windows.Forms.Padding(2)
         Me.FlowLayoutColors2.Name = "FlowLayoutColors2"
-        Me.FlowLayoutColors2.Size = New System.Drawing.Size(108, 254)
+        Me.FlowLayoutColors2.Size = New System.Drawing.Size(119, 254)
         Me.FlowLayoutColors2.TabIndex = 13
         '
         'LinkLabelAddColors
@@ -77,8 +77,8 @@ Partial Class Dialog_BaseChooseColor
         'RscColorDisplayMini1
         '
         Me.RscColorDisplayMini1.DisplayRSCColor = Nothing
-        Me.RscColorDisplayMini1.HideBackgroundLabels = True
-        Me.RscColorDisplayMini1.HideForegroundLabels = True
+        Me.RscColorDisplayMini1.HideBackgroundLabels = False
+        Me.RscColorDisplayMini1.HideForegroundLabels = False
         Me.RscColorDisplayMini1.Location = New System.Drawing.Point(3, 42)
         Me.RscColorDisplayMini1.Name = "RscColorDisplayMini1"
         Me.RscColorDisplayMini1.Size = New System.Drawing.Size(86, 68)
@@ -86,9 +86,9 @@ Partial Class Dialog_BaseChooseColor
         '
         'RscColorDisplayMini2
         '
-        Me.RscColorDisplayMini2.DisplayRSCColor = CType(resources.GetObject("RscColorDisplayMini2.DisplayRSCColor"), RSCColor)
-        Me.RscColorDisplayMini2.HideBackgroundLabels = True
-        Me.RscColorDisplayMini2.HideForegroundLabels = True
+        Me.RscColorDisplayMini2.DisplayRSCColor = Nothing
+        Me.RscColorDisplayMini2.HideBackgroundLabels = False
+        Me.RscColorDisplayMini2.HideForegroundLabels = False
         Me.RscColorDisplayMini2.Location = New System.Drawing.Point(3, 116)
         Me.RscColorDisplayMini2.Name = "RscColorDisplayMini2"
         Me.RscColorDisplayMini2.Size = New System.Drawing.Size(86, 68)
@@ -117,20 +117,29 @@ Partial Class Dialog_BaseChooseColor
         '
         'FlowLayoutColors1
         '
-        Me.FlowLayoutColors1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FlowLayoutColors1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.FlowLayoutColors1.AutoScroll = True
+        Me.FlowLayoutColors1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.FlowLayoutColors1.Controls.Add(Me.RscColorDisplayLabel1)
         Me.FlowLayoutColors1.Location = New System.Drawing.Point(629, 59)
         Me.FlowLayoutColors1.Name = "FlowLayoutColors1"
-        Me.FlowLayoutColors1.Size = New System.Drawing.Size(117, 254)
+        Me.FlowLayoutColors1.Size = New System.Drawing.Size(223, 254)
         Me.FlowLayoutColors1.TabIndex = 22
         Me.ToolTip1.SetToolTip(Me.FlowLayoutColors1, "Microsoft Web Colors, e.g. ""Rosy Brown"".")
+        '
+        'RscColorDisplayLabel1
+        '
+        Me.RscColorDisplayLabel1.Location = New System.Drawing.Point(3, 3)
+        Me.RscColorDisplayLabel1.Name = "RscColorDisplayLabel1"
+        Me.RscColorDisplayLabel1.Size = New System.Drawing.Size(200, 28)
+        Me.RscColorDisplayLabel1.TabIndex = 0
         '
         'Dialog_BaseChooseColor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(943, 506)
+        Me.ClientSize = New System.Drawing.Size(990, 506)
         Me.Controls.Add(Me.FlowLayoutColors1)
         Me.Controls.Add(Me.ButtonBackground)
         Me.Controls.Add(Me.ButtonUndo)
@@ -145,6 +154,7 @@ Partial Class Dialog_BaseChooseColor
         Me.Controls.SetChildIndex(Me.FlowLayoutColors1, 0)
         Me.FlowLayoutColors2.ResumeLayout(False)
         Me.FlowLayoutColors2.PerformLayout()
+        Me.FlowLayoutColors1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -159,4 +169,5 @@ Partial Class Dialog_BaseChooseColor
     Friend WithEvents RscColorDisplayMini2 As __RSCWindowsControlLibrary.RSCColorDisplayMini
     Friend WithEvents FlowLayoutColors1 As FlowLayoutPanel
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents RscColorDisplayLabel1 As __RSCWindowsControlLibrary.RSCColorDisplayLabel
 End Class

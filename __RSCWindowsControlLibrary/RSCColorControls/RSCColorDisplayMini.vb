@@ -75,10 +75,10 @@ Public Class RSCColorDisplayMini
         DisplayRSCColor = par_RSCcolor
 
         ''Set the color. 
-        LabelForecolorLeft.ForeColor = par_RSCcolor.DColor
+        LabelForecolorLeft.ForeColor = par_RSCcolor.MSNetColor
         ''---LabelForecolorRight.ForeColor = par_RSCcolor.DColor
-        LabelBackcolorBottom.BackColor = par_RSCcolor.DColor
-        LabelBackcolorTop.BackColor = par_RSCcolor.DColor
+        LabelBackcolorBottom.BackColor = par_RSCcolor.MSNetColor
+        LabelBackcolorTop.BackColor = par_RSCcolor.MSNetColor
         LabelForecolorLeft.BackColor = Color.White
         LabelForecolorLeft.BringToFront()
 

@@ -361,6 +361,18 @@ ExitHandler:
         ''
         ''Added 7/29/2022
         ''
+        With panelDisplayElement
+            ''Remove the arrow panels from the ID-card display box. ---8/22/2022
+            If (.Controls.Contains(panelArrowLeft)) Then .Controls.Remove(panelArrowLeft)
+            If (.Controls.Contains(panelArrowRight)) Then .Controls.Remove(panelArrowRight)
+        End With
+
+        With Me ''The parent form (dialog).
+            ''Add the arrow panels to the form, if needed. ---8/22/2022 
+            If (Not .Controls.Contains(panelArrowLeft)) Then .Controls.Add(panelArrowLeft)
+            If (Not .Controls.Contains(panelArrowRight)) Then .Controls.Add(panelArrowRight)
+        End With
+
         With par_control
 
             If (Me.ControlBelongsToPanel) Then

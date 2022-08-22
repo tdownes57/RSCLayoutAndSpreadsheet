@@ -70,10 +70,10 @@ Public Class RSCColorDisplay
         DisplayRSCColor = par_RSCcolor
 
         ''Set the color. 
-        LabelForecolorLeft.ForeColor = par_RSCcolor.DColor
-        LabelForecolorRight.ForeColor = par_RSCcolor.DColor
-        LabelBackcolorBottom.BackColor = par_RSCcolor.DColor
-        LabelBackcolorTop.BackColor = par_RSCcolor.DColor
+        LabelForecolorLeft.ForeColor = par_RSCcolor.MSNetColor
+        LabelForecolorRight.ForeColor = par_RSCcolor.MSNetColor
+        LabelBackcolorBottom.BackColor = par_RSCcolor.MSNetColor
+        LabelBackcolorTop.BackColor = par_RSCcolor.MSNetColor
 
         ''Added 7/09/2022 thomas downes 
         Select Case par_enum

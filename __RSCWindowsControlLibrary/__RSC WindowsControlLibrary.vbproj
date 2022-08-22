@@ -120,11 +120,23 @@
     <Compile Include="RSCClickable\RSCRightClickableImage.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCColorControls\FormRSCColorConfirm.Designer.vb">
+      <DependentUpon>FormRSCColorConfirm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\FormRSCColorConfirm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="RSCColorControls\RSCBrowseExistingColors.Designer.vb">
       <DependentUpon>RSCBrowseExistingColors.vb</DependentUpon>
     </Compile>
     <Compile Include="RSCColorControls\RSCBrowseExistingColors.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorDisplayLabel.Designer.vb">
+      <DependentUpon>RSCColorDisplayLabel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorDisplayLabel.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RSCColorControls\RSCColor_seeCIBInterfaces.vb" />
     <Compile Include="RSCColorControls\RSCColorDisplay.Designer.vb">
@@ -205,11 +217,17 @@
     <EmbeddedResource Include="RSCClickable\RSCRightClickableImage.resx">
       <DependentUpon>RSCRightClickableImage.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\FormRSCColorConfirm.resx">
+      <DependentUpon>FormRSCColorConfirm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCBrowseExistingColors.resx">
       <DependentUpon>RSCBrowseExistingColors.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCColorDisplay.resx">
       <DependentUpon>RSCColorDisplay.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\RSCColorDisplayLabel.resx">
+      <DependentUpon>RSCColorDisplayLabel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCColorDisplayMini.resx">
       <DependentUpon>RSCColorDisplayMini.vb</DependentUpon>

@@ -11,6 +11,20 @@ Public Class RSCColorPicker
     Private Property DisplayRSCColor As RSCColor
     Private mboolLoading As Boolean
 
+    Public Overrides Property BackColor As Color
+        Get
+            ''Return MyBase.BackColor
+            Return RscColorDisplay1.DisplayRSCColor.MSNetColor
+
+        End Get
+        Set(value As Color)
+            ''---MyBase.BackColor = value
+            RscColorDisplay1.DisplayRSCColor = New RSCColor(value)
+
+        End Set
+    End Property
+
+
     Private Sub LinkLabelOpenDialog_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenDialog.LinkClicked
         ''
         ''Added 7/8/2022
@@ -30,13 +44,13 @@ Public Class RSCColorPicker
         Dim intDisplayColorArgb As Double
         Dim strDisplayColor As String
 
-        intDisplayColorArgb = Me.DisplayRSCColor.DColor.ToArgb
-        strDisplayColor = Me.DisplayRSCColor.DColor.ToString
+        intDisplayColorArgb = Me.DisplayRSCColor.MSNetColor.ToArgb
+        strDisplayColor = Me.DisplayRSCColor.MSNetColor.ToString
 
-        HScrollBar1Alpha.Value = Me.DisplayRSCColor.DColor.A
-        HScrollBar2Red.Value = Me.DisplayRSCColor.DColor.R
-        HScrollBar3Green.Value = Me.DisplayRSCColor.DColor.G
-        HScrollBar4Blue.Value = Me.DisplayRSCColor.DColor.B
+        HScrollBar1Alpha.Value = Me.DisplayRSCColor.MSNetColor.A
+        HScrollBar2Red.Value = Me.DisplayRSCColor.MSNetColor.R
+        HScrollBar3Green.Value = Me.DisplayRSCColor.MSNetColor.G
+        HScrollBar4Blue.Value = Me.DisplayRSCColor.MSNetColor.B
 
 ExitHander:
         Application.DoEvents()
@@ -147,5 +161,17 @@ ExitHander:
 
     End Sub
 
+    Private Sub checkAdvancedControls_CheckedChanged(sender As Object, e As EventArgs) Handles checkAdvancedControls.CheckedChanged
 
+        ''Added 8/22/2002
+        For Each eachControl As Control In Me.Controls
+            ''Added 8/22/2002
+            If (eachControl.Tag = "advanced") Then
+                ''Toggle the visibility of the "advanced" control.
+                eachControl.Visible = checkAdvancedControls.Checked
+            End If
+
+        Next eachControl
+
+    End Sub
 End Class

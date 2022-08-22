@@ -109,7 +109,7 @@ Public Class RSCRightClickable ''---April 25 2022---RSCClickableDesktop
         ''
         Dim outputPictureBox As PictureBox = Nothing ''Added 8/6/2022
 
-        For Each objControl As Control In Me.Controls
+         For Each objControl As Control In Me.Controls
 
             ''8/6/2022 If TypeOf objControl Is PictureBox Then Return CType(objControl, PictureBox)
             If TypeOf objControl Is PictureBox Then
