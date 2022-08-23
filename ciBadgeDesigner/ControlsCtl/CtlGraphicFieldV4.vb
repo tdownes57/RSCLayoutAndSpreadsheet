@@ -373,7 +373,13 @@ Public Class CtlGraphicFieldV4
         ''8/4/2019''If (String.IsNullOrEmpty(Me.ElementInfo.Text)) Then ElementInfo.Text = LabelText()
 
         ''6/2/2022 Dim boolScaleFontSize As Boolean ''Added 9/15/2019 thomas d. 
-        Dim bScaleFontToSizeOfElement As Boolean ''Added 9/15/2019 thomas d. 
+        Dim bScaleFontToSizeOfElement1a As Boolean ''Added 9/15/2019 thomas d. 
+        Dim bScaleFontToSizeOfElement1b As Boolean ''Added 8/23/2022 thomas d. 
+        Dim bScaleFontToSizeOfElement2a As Boolean ''Added 8/23/2022 thomas d. 
+        Dim bScaleFontToSizeOfElement2b As Boolean ''Added 8/23/2022 thomas d. 
+        Dim bFontResize_UserAsked1 As Boolean ''added 8/23/2022
+        Dim bFontResize_Confirmed1 As Boolean ''added 8/23/2022
+        Dim bFontResize_Confirmed2 As Boolean ''added 8/23/2022
 
         ''Added 1/5/2022 td
         Dim info_TextOnly As IElement_TextOnly ''Added 1/5/2022 
@@ -398,17 +404,32 @@ Public Class CtlGraphicFieldV4
         ''Added 6/2/2022
         With Me.ElementInfo_TextOnly
             ''6/02/2022 boolScaleFontSize = (.FontSize_AutoScaleToElementYesNo)
-            bScaleFontToSizeOfElement = (Not pbSuppressFontScalingConfirmation) AndAlso
-                                  (.FontSize_AutoScaleToElementYesNo) AndAlso
-                                 ((Not .FontSize_AutoSizePromptUser) OrElse
-                          MessageBoxTD.Show_Confirm("Resize the font of text?"))
+            ''Aug23 2022''bScaleFontToSizeOfElement = (Not pbSuppressFontScalingConfirmation) AndAlso
+            ''                      (.FontSize_AutoScaleToElementYesNo) AndAlso
+            ''                     ((Not .FontSize_AutoSizePromptUser) OrElse
+            ''              MessageBoxTD.Show_Confirm("Resize the font of text?"))
+            If (.FontSize_Pixels = 0) Then
+                ''The Font Size is 0, so obviously we need to re-scale the element. ---8/23/2022
+                bScaleFontToSizeOfElement1a = True
+                bScaleFontToSizeOfElement1b = True
+            Else
+                bScaleFontToSizeOfElement1a = (.FontSize_Pixels = 0) OrElse
+                                       ((Not pbSuppressFontScalingConfirmation) AndAlso
+                                        (.FontSize_AutoScaleToElementYesNo))
+                If (bScaleFontToSizeOfElement1a) Then
+                    bFontResize_Confirmed1 = MessageBoxTD.Show_Confirm("Resize the font of text?")
+                    bFontResize_UserAsked1 = True
+                    bScaleFontToSizeOfElement1b = bFontResize_Confirmed1
+                End If ''End of ""If (bScaleFontToSizeOfElement1a) Then""
+            End If ''End of ""If (.FontSize_Pixels = 0) Then... Else..."
+
         End With ''ENd of ""With Me.ElementInfo_TextOnly""
 
-        If (bScaleFontToSizeOfElement And Me.ElementClass_ObjV4 Is Nothing) Then
+        If (bScaleFontToSizeOfElement1b And Me.ElementClass_ObjV4 Is Nothing) Then
             ''Added 9/19/2019 td 
             MessageBox.Show("Where is the Element-Field Class???   We will need it to scale the Font.", "",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-        End If ''End of "If (boolScaleFontSize) Then"
+        End If ''End of "If (boolScaleFontSize And Me.ElementClass_ObjV4 Is Nothing) Then"
 
         ''6/7/2022 If (Me.ElementInfo_TextOnly.FontDrawingClass Is Nothing) Then
         If (Me.ElementInfo_TextOnly.FontFamilyName Is Nothing OrElse
@@ -445,7 +466,7 @@ Public Class CtlGraphicFieldV4
                     .FontSize_AutoScaleToElementRatio = 0.8
                 End If ''End of "If (0 = FontSize_ScaleToElementRatio) Then"
 
-            End With
+            End With ''End of ""With Me.ElementInfo_TextOnly""
 
         End If ''end of " If (Me.ElementInfo.Font_DrawingClass Is Nothing) Then"
 
@@ -466,15 +487,39 @@ Public Class CtlGraphicFieldV4
             ''June2 2022 boolScaleFontSize = (Me.ElementInfo_TextOnly.FontSize_AutoScaleToElementYesNo)
             With Me.ElementInfo_TextOnly
                 ''June2 2022 boolScaleFontSize = (.FontSize_ScaleToElementYesNo)
-                bScaleFontToSizeOfElement = ((Not pbSuppressFontScalingConfirmation) Or
-                                                 .FontSize_Pixels = 0) AndAlso
-                                    (.FontSize_AutoScaleToElementYesNo) AndAlso
-                                     ((Not .FontSize_AutoSizePromptUser) OrElse
-                                    MessageBoxTD.Show_Confirm("Resize the font of text?"))
+                ''Aug3 2022''bScaleFontToSizeOfElement = ((Not pbSuppressFontScalingConfirmation) Or
+                ''                                 .FontSize_Pixels = 0) AndAlso
+                ''                    (.FontSize_AutoScaleToElementYesNo) AndAlso
+                ''                     ((Not .FontSize_AutoSizePromptUser) OrElse
+                ''                    MessageBoxTD.Show_Confirm("Resize the font of text?")))
+                If (.FontSize_Pixels = 0) Then
+                    bScaleFontToSizeOfElement2a = True
+                    bScaleFontToSizeOfElement2b = True
+                Else
+                    bScaleFontToSizeOfElement2a = (.FontSize_Pixels = 0) OrElse
+                                           ((Not pbSuppressFontScalingConfirmation) AndAlso
+                                            (.FontSize_AutoScaleToElementYesNo))
+                    If (bScaleFontToSizeOfElement2a) Then
+                        If (bFontResize_UserAsked1) Then
+                            ''The user has already been asked, so don't ask a 2nd time.
+                            ''  Use the previous response. 
+                            ''  ---8/23/2022 td
+                            bFontResize_Confirmed2 = bFontResize_Confirmed1
+                            bScaleFontToSizeOfElement2b = bFontResize_Confirmed1
+
+                        Else
+                            bFontResize_Confirmed2 =
+                               MessageBoxTD.Show_Confirm("Resize the font of text?")
+                            bScaleFontToSizeOfElement1b = bFontResize_Confirmed2
+
+                        End If ''ENd of ""If (bFontResize_UserAsked1) Then... Else..."
+                    End If ''End of ""If (bScaleFontToSizeOfElement2a) Then""
+                End If ''End of ""If (.FontSize_Pixels = 0) Then... Else..."
+
             End With ''End of ""With Me.ElementInfo_TextOnly""
 
             ''June2 2022''If (boolScaleFontSize) Then
-            If (bScaleFontToSizeOfElement) Then
+            If (bScaleFontToSizeOfElement2b) Then
                 ''Added 9/15/2019 thomas d.
                 ''Jan28 2022''Me.ElementClass_Obj.Font_ScaleAdjustment(Me.ElementInfo_Base.Height_Pixels)
                 ''Added 9/15/2019 thomas d.

@@ -208,19 +208,27 @@ Public Class Dialog_BaseChooseColor
     Private Sub ButtonBackground_Click(sender As Object, e As EventArgs) Handles ButtonBackground.Click
 
         ''Added 8/22/2022 thomas  
+        Dim rscColorSelected As RSCColor ''Added 8/23/2022
+
         With rscLabelDisplayColorSelected
 
-            mod_msColorLastSelected = .BackColor
-            mod_rscColorLastSelected = .RSCDisplayColor
+            ''8/23/2022 mod_msColorLastSelected = .BackColor
+            rscColorSelected = .RSCDisplayColor
 
             With mod_controlFieldOrTextV4
+                ''Save module-level variables. 
+                mod_msColorLastSelected = rscColorSelected.MSNetColor
+                mod_rscColorLastSelected = rscColorSelected
                 mod_msColorLastReplaced = .ElementClass_Obj.Back_Color
-                .ElementClass_Obj.Back_Color = .BackColor
+
+                ''8/23/2022 .ElementClass_Obj.Back_Color = .BackColor
+                .ElementClass_Obj.Back_Color = rscColorSelected.MSNetColor
                 .RefreshElementImage()
-            End With
+
+            End With ''End of ""With mod_controlFieldOrTextV4""
             mod_enumForeOrBack = EnumForeOrBackground.Background
 
-        End With
+        End With ''End of ""With rscLabelDisplayColorSelected""
 
     End Sub
 

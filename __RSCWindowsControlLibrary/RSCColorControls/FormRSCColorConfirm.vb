@@ -44,9 +44,12 @@ Public Class FormRSCColorConfirm
         ''
         Dim objRSCColor As ciBadgeInterfaces.RSCColor ''Added 8/22/2022
 
-        objRSCColor = New ciBadgeInterfaces.RSCColor(rscColorPicker1.BackColor,
-                                                     textboxColorName.Text,
-                                                     textboxDescription.Text)
+        ''8/23/2022 objRSCColor = New ciBadgeInterfaces.RSCColor(rscColorPicker1.BackColor,
+        ''                                             textboxColorName.Text,
+        ''                                             textboxDescription.Text)
+        objRSCColor = rscColorPicker1.RSCColor_Output
+
+ExitHandler:
         Me.Output_RSCColor = objRSCColor
         Me.Close()
 

@@ -8,8 +8,15 @@ Public Class RSCColorPicker
     ''Added 7/6/2022
     ''
     ''July9 2022''Private Property DisplayColor As Color
-    Public Property DisplayRSCColor As RSCColor
+    Public Property RSCColor_Input As RSCColor
+    Public ReadOnly Property RSCColor_Output As RSCColor
+        Get
+            Return mod_RSCColor_Output ''Added 8/23/2022
+        End Get
+    End Property
+
     Private mboolLoading As Boolean
+    Private mod_RSCColor_Output As RSCColor ''Added 8/23/2022
 
     ''Public Overrides Property BackColor As Color
     ''    Get
@@ -28,9 +35,10 @@ Public Class RSCColorPicker
         ''
         ''Added 8/22/2022 
         ''
-        Me.DisplayRSCColor = par_rsccolor
+        Me.RSCColor_Input = par_rsccolor
         Me.RscColorDisplay1.DisplayRSCColor = par_rsccolor
         Me.RscColorDisplay1.LoadAndDisplayRSCColor(par_rsccolor)
+        mod_RSCColor_Output = par_rsccolor ''The output color's default-value is the input color. 
 
     End Sub ''End of ""Public Sub LoadAndDisplayRSCColor""
 
@@ -49,19 +57,19 @@ Public Class RSCColorPicker
         mboolLoading = True
 
         ''July9 2022 ''Me.DisplayRSCColor = diagColor.Color
-        Me.DisplayRSCColor = New RSCColor(diagColor.Color)
-        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
+        mod_RSCColor_Output = New RSCColor(diagColor.Color)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.RSCColor_Output)
 
         Dim intDisplayColorArgb As Double
         Dim strDisplayColor As String
 
-        intDisplayColorArgb = Me.DisplayRSCColor.MSNetColor.ToArgb
-        strDisplayColor = Me.DisplayRSCColor.MSNetColor.ToString
+        intDisplayColorArgb = Me.RSCColor_Output.MSNetColor.ToArgb
+        strDisplayColor = Me.RSCColor_Output.MSNetColor.ToString
 
-        HScrollBar1Alpha.Value = Me.DisplayRSCColor.MSNetColor.A
-        HScrollBar2Red.Value = Me.DisplayRSCColor.MSNetColor.R
-        HScrollBar3Green.Value = Me.DisplayRSCColor.MSNetColor.G
-        HScrollBar4Blue.Value = Me.DisplayRSCColor.MSNetColor.B
+        HScrollBar1Alpha.Value = Me.RSCColor_Output.MSNetColor.A
+        HScrollBar2Red.Value = Me.RSCColor_Output.MSNetColor.R
+        HScrollBar3Green.Value = Me.RSCColor_Output.MSNetColor.G
+        HScrollBar4Blue.Value = Me.RSCColor_Output.MSNetColor.B
 
 ExitHander:
         Application.DoEvents()
@@ -79,8 +87,8 @@ ExitHander:
         Dim strDescription As String ''Added 7/09/2022
 
         ''Added 7/09/2022
-        strName = Me.DisplayRSCColor.Name
-        strDescription = Me.DisplayRSCColor.Description
+        strName = Me.RSCColor_Input.Name
+        strDescription = Me.RSCColor_Input.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -89,8 +97,8 @@ ExitHander:
                                   HScrollBar4Blue.Value)
 
         ''July9 ''Me.DisplayColor = newColor
-        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
+        mod_RSCColor_Output = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.RSCColor_Output)
 
     End Sub
 
@@ -104,8 +112,8 @@ ExitHander:
         Dim strDescription As String ''Added 7/09/2022
 
         ''Added 7/09/2022
-        strName = Me.DisplayRSCColor.Name
-        strDescription = Me.DisplayRSCColor.Description
+        strName = Me.RSCColor_Input.Name
+        strDescription = Me.RSCColor_Input.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -115,8 +123,8 @@ ExitHander:
 
         ''--Me.Display = newColor
         ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
-        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
+        mod_RSCColor_Output = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.RSCColor_Input)
 
     End Sub
 
@@ -130,8 +138,8 @@ ExitHander:
         Dim strDescription As String ''Added 7/09/2022
 
         ''Added 7/09/2022
-        strName = Me.DisplayRSCColor.Name
-        strDescription = Me.DisplayRSCColor.Description
+        strName = Me.RSCColor_Input.Name
+        strDescription = Me.RSCColor_Input.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -141,8 +149,8 @@ ExitHander:
 
         ''--Me.Display = newColor
         ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
-        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
+        mod_RSCColor_Output = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.RSCColor_Output)
 
     End Sub
 
@@ -156,8 +164,8 @@ ExitHander:
         Dim strDescription As String ''Added 7/09/2022
 
         ''Added 7/09/2022
-        strName = Me.DisplayRSCColor.Name
-        strDescription = Me.DisplayRSCColor.Description
+        strName = Me.RSCColor_Input.Name
+        strDescription = Me.RSCColor_Input.Description
 
         newColor = New Drawing.Color()
         newColor = Color.FromArgb(HScrollBar1Alpha.Value,
@@ -167,8 +175,8 @@ ExitHander:
 
         ''--Me.Display = newColor
         ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
-        Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
+        mod_RSCColor_Output = New RSCColor(newColor, strName, strDescription)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.RSCColor_Output)
 
     End Sub
 
@@ -185,4 +193,6 @@ ExitHander:
         Next eachControl
 
     End Sub
+
+
 End Class
