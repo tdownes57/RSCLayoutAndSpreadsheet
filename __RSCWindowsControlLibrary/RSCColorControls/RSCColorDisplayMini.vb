@@ -16,7 +16,7 @@ Public Class RSCColorDisplayMini
 
         objOutputControl = New RSCColorDisplay()
         ''7/09/2022 thomas downes''objOutputControl.LoadColor(par_RSCColor.DColor, par_enumGround)
-        objOutputControl.LoadColor(par_RSCColor, par_enumGround)
+        objOutputControl.LoadAndDisplayRSCColor(par_RSCColor, par_enumGround)
         Return objOutputControl
 
     End Function ''End of ""Public Shared Function GetColorDisplay""

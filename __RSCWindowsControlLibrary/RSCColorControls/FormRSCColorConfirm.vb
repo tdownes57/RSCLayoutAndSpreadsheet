@@ -11,6 +11,7 @@ Public Class FormRSCColorConfirm
     Public Output_RSCColor As ciBadgeInterfaces.RSCColor
     Public Output_Cancelled As Boolean
 
+
     Public Sub New(par_msnetColor As Drawing.Color, par_strColorName As String)
 
 
@@ -19,7 +20,9 @@ Public Class FormRSCColorConfirm
 
         ' Add any initialization after the InitializeComponent() call.
         mod_msnetColor = par_msnetColor
-        RscColorPicker1.BackColor = par_msnetColor
+        mod_rscColor = New ciBadgeInterfaces.RSCColor(par_strColorName, par_msnetColor)
+
+        ''Aug22 2022 rscColorPicker1.BackColor = par_msnetColor
         textboxColorName.Text = par_strColorName
 
     End Sub
@@ -41,7 +44,7 @@ Public Class FormRSCColorConfirm
         ''
         Dim objRSCColor As ciBadgeInterfaces.RSCColor ''Added 8/22/2022
 
-        objRSCColor = New ciBadgeInterfaces.RSCColor(RscColorPicker1.BackColor,
+        objRSCColor = New ciBadgeInterfaces.RSCColor(rscColorPicker1.BackColor,
                                                      textboxColorName.Text,
                                                      textboxDescription.Text)
         Me.Output_RSCColor = objRSCColor
@@ -50,6 +53,10 @@ Public Class FormRSCColorConfirm
     End Sub
 
     Private Sub FormRSCColorConfirm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 8/22/2022 
+        ''
+        rscColorPicker1.LoadAndDisplayRSCColor(mod_rscColor)
 
     End Sub
 End Class

@@ -24,7 +24,7 @@ Public Class RSCColorDisplay
 
         objOutputControl = New RSCColorDisplay()
         ''7/09/2022 thomas downes''objOutputControl.LoadColor(par_RSCColor.DColor, par_enumGround)
-        objOutputControl.LoadColor(par_RSCColor, par_enumGround)
+        objOutputControl.LoadAndDisplayRSCColor(par_RSCColor, par_enumGround)
         Return objOutputControl
 
     End Function ''End of ""Public Shared Function GetColorDisplay""
@@ -60,7 +60,7 @@ Public Class RSCColorDisplay
     End Property
 
 
-    Public Sub LoadColor(par_RSCcolor As RSCColor,
+    Public Sub LoadAndDisplayRSCColor(par_RSCcolor As RSCColor,
                Optional par_enum As EnumRSCBackOrFore = EnumRSCBackOrFore.Undetermined)
         ''7/9/2022 Public Sub LoadColor(par_color As Drawing.Color,
         ''

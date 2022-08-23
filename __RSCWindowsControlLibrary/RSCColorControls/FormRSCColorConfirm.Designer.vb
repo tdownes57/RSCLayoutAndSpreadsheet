@@ -22,7 +22,7 @@ Partial Class FormRSCColorConfirm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.RscColorPicker1 = New __RSCWindowsControlLibrary.RSCColorPicker()
+        Me.rscColorPicker1 = New __RSCWindowsControlLibrary.RSCColorPicker()
         Me.LabelHeadingConfirmColor = New System.Windows.Forms.Label()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
@@ -32,13 +32,12 @@ Partial Class FormRSCColorConfirm
         Me.LabelNameOfColor = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
-        'RscColorPicker1
+        'rscColorPicker1
         '
-        Me.RscColorPicker1.BackColor = System.Drawing.Color.Silver
-        Me.RscColorPicker1.Location = New System.Drawing.Point(20, 67)
-        Me.RscColorPicker1.Name = "RscColorPicker1"
-        Me.RscColorPicker1.Size = New System.Drawing.Size(351, 219)
-        Me.RscColorPicker1.TabIndex = 0
+        Me.rscColorPicker1.Location = New System.Drawing.Point(20, 67)
+        Me.rscColorPicker1.Name = "rscColorPicker1"
+        Me.rscColorPicker1.Size = New System.Drawing.Size(351, 219)
+        Me.rscColorPicker1.TabIndex = 0
         '
         'LabelHeadingConfirmColor
         '
@@ -118,7 +117,7 @@ Partial Class FormRSCColorConfirm
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.LabelHeadingConfirmColor)
-        Me.Controls.Add(Me.RscColorPicker1)
+        Me.Controls.Add(Me.rscColorPicker1)
         Me.Name = "FormRSCColorConfirm"
         Me.Text = "FormRSCColorConfirm"
         Me.ResumeLayout(False)
@@ -126,7 +125,7 @@ Partial Class FormRSCColorConfirm
 
     End Sub
 
-    Friend WithEvents RscColorPicker1 As RSCColorPicker
+    Friend WithEvents rscColorPicker1 As RSCColorPicker
     Friend WithEvents LabelHeadingConfirmColor As Label
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button

@@ -8,21 +8,32 @@ Public Class RSCColorPicker
     ''Added 7/6/2022
     ''
     ''July9 2022''Private Property DisplayColor As Color
-    Private Property DisplayRSCColor As RSCColor
+    Public Property DisplayRSCColor As RSCColor
     Private mboolLoading As Boolean
 
-    Public Overrides Property BackColor As Color
-        Get
-            ''Return MyBase.BackColor
-            Return RscColorDisplay1.DisplayRSCColor.MSNetColor
+    ''Public Overrides Property BackColor As Color
+    ''    Get
+    ''        ''Return MyBase.BackColor
+    ''        Return RscColorDisplay1.DisplayRSCColor.MSNetColor
 
-        End Get
-        Set(value As Color)
-            ''---MyBase.BackColor = value
-            RscColorDisplay1.DisplayRSCColor = New RSCColor(value)
+    ''    End Get
+    ''    Set(value As Color)
+    ''        ''---MyBase.BackColor = value
+    ''        RscColorDisplay1.DisplayRSCColor = New RSCColor(value)
 
-        End Set
-    End Property
+    ''    End Set
+    ''End Property
+
+    Public Sub LoadAndDisplayRSCColor(par_rsccolor As ciBadgeInterfaces.RSCColor)
+        ''
+        ''Added 8/22/2022 
+        ''
+        Me.DisplayRSCColor = par_rsccolor
+        Me.RscColorDisplay1.DisplayRSCColor = par_rsccolor
+        Me.RscColorDisplay1.LoadAndDisplayRSCColor(par_rsccolor)
+
+    End Sub ''End of ""Public Sub LoadAndDisplayRSCColor""
+
 
 
     Private Sub LinkLabelOpenDialog_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelOpenDialog.LinkClicked
@@ -39,7 +50,7 @@ Public Class RSCColorPicker
 
         ''July9 2022 ''Me.DisplayRSCColor = diagColor.Color
         Me.DisplayRSCColor = New RSCColor(diagColor.Color)
-        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
 
         Dim intDisplayColorArgb As Double
         Dim strDisplayColor As String
@@ -79,7 +90,7 @@ ExitHander:
 
         ''July9 ''Me.DisplayColor = newColor
         Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
 
     End Sub
 
@@ -105,7 +116,7 @@ ExitHander:
         ''--Me.Display = newColor
         ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
         Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
 
     End Sub
 
@@ -131,7 +142,7 @@ ExitHander:
         ''--Me.Display = newColor
         ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
         Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
 
     End Sub
 
@@ -157,7 +168,7 @@ ExitHander:
         ''--Me.Display = newColor
         ''--RscColorDisplay1.LoadColor(Me.DisplayColor)
         Me.DisplayRSCColor = New RSCColor(newColor, strName, strDescription)
-        RscColorDisplay1.LoadColor(Me.DisplayRSCColor)
+        RscColorDisplay1.LoadAndDisplayRSCColor(Me.DisplayRSCColor)
 
     End Sub
 
