@@ -6,6 +6,9 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
     ''
     ''Added 8/22/2022 td
     ''
+    Private mod_rscDisplayColor As ciBadgeInterfaces.RSCColor
+
+    Public Event ColorClick(sender As Object, e As EventArgs)
 
     Public Overrides Property BackColor As Color
         Get
@@ -21,6 +24,28 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
     End Property ''Ednof ""Public Property BackColor""
 
 
+    Public Property RSCDisplayColor As ciBadgeInterfaces.RSCColor
+        Get
+            ''Added 8/22/2022 td
+            ''---UpdatePrivateModuleRSCColor()
+            Return mod_rscDisplayColor ''LabelBackcolorLeft.BackColor
+
+        End Get
+        Set(value As ciBadgeInterfaces.RSCColor)
+            ''Added 8/22/2022 td
+            ''----LoadColor(New RSCColor(value))
+            If (value Is Nothing) Then
+                mod_rscDisplayColor = New ciBadgeInterfaces.RSCColor(Me.BackColor)
+            Else
+                mod_rscDisplayColor = value
+            End If ''End of ""If (value Is Nothing) Then""
+            LabelBackcolorLeft.BackColor = mod_rscDisplayColor.MSNetColor
+            LabelBackcolorRight.BackColor = mod_rscDisplayColor.MSNetColor
+
+        End Set
+    End Property ''Ednof ""Public Property RSCDisplayColor""
+
+
     Public Overrides Property Text As String
         Get
             ''Added 8/22/2022 td
@@ -34,7 +59,7 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
 
             ''Text-Position Alignment
             LabelBackcolorLeft.TextAlign = ContentAlignment.MiddleLeft
-            LabelBackcolorRight.Text = ContentAlignment.MiddleRight
+            LabelBackcolorRight.TextAlign = ContentAlignment.MiddleRight
 
             ''
             ''Adjusting the size of the font, according to the length
@@ -66,5 +91,31 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
 
         End Set
     End Property ''Ednof ""Public Property BackColor""
+
+    Private Sub LabelBackcolorLeft_Click(sender As Object, e As EventArgs) Handles LabelBackcolorLeft.Click
+
+        ''Added 8/22/2022
+        RaiseEvent ColorClick(Me, New EventArgs())
+
+    End Sub
+
+    Private Sub LabelBackcolorRight_Click(sender As Object, e As EventArgs) Handles LabelBackcolorRight.Click
+
+        ''Added 8/22/2022
+        RaiseEvent ColorClick(Me, New EventArgs())
+
+    End Sub
+
+
+    ''Private Sub UpdatePrivateModuleRSCColor()
+    ''    ''
+    ''    ''Added 8/22/2022 thomas downes
+    ''    ''
+    ''    Dim objRSCColor As ciBadgeInterfaces.RSCColor
+    ''    objRSCColor = New ciBadgeInterfaces.RSCColor(Text)
+    ''End Sub ''end of ""Private Sub UpdatePrivateModuleRSCColor()""
+
+
+
 
 End Class

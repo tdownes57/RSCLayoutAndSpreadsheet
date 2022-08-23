@@ -5,6 +5,12 @@ Imports ciBadgeElements ''Added 8/01/2022 td
 Imports ciBadgeInterfaces ''Added 8/06/2022 thomas downes
 Imports __RSCWindowsControlLibrary ''Added 8/07/2022 thomas 
 
+Public Enum EnumForeOrBackground
+    Undetermined
+    Foreground
+    Background
+End Enum
+
 Public Class Dialog_BaseChooseColor
     ''
     '' Added 3/4/2022 Thomas Downes
@@ -13,6 +19,12 @@ Public Class Dialog_BaseChooseColor
     Private mod_listRSCColors As HashSet(Of RSCColor)
     Private mod_listMSColors As List(Of Drawing.Color)
 
+
+    ''Added 8/22/2022 td
+    Private mod_rscColorLastSelected As RSCColor
+    Private mod_msColorLastSelected As Drawing.Color
+    Private mod_msColorLastReplaced As Drawing.Color
+    Private mod_enumForeOrBack As EnumForeOrBackground
 
     Public Sub New(par_control As CtlGraphicFieldOrTextV4,
                    par_listFontFamilyNames As HashSet(Of String),
@@ -135,7 +147,7 @@ Public Class Dialog_BaseChooseColor
             newLabel.BackColor = each_color
             newLabel.Text = each_color.Name
             newLabel.Visible = True
-            AddHandler newLabel.Click, AddressOf NetDrawingColor_Click
+            AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
 
             ''newLabel.ToolTip
             ''Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
@@ -147,9 +159,6 @@ Public Class Dialog_BaseChooseColor
 
     End Sub ''Handles Form_Load 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ButtonForecolor.Click
-
-    End Sub
 
     Private Sub LinkLabelAddColors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddColors.LinkClicked
 
@@ -166,14 +175,86 @@ Public Class Dialog_BaseChooseColor
         ''
         ''8/22/2022 thomas downes
         ''
-        Dim objFormToShow As __RSCWindowsControlLibrary.RSCColorPicker
+        Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirm
+        Dim strColorName As String
+        Dim controlRSCColorLabel As RSCColorDisplayLabel
+        Dim mscolorSelected As Drawing.Color
+        Dim rscColorSelected As RSCColor
+
+        controlRSCColorLabel = CType(sender, RSCColorDisplayLabel)
+        strColorName = controlRSCColorLabel.Text
+        mscolorSelected = controlRSCColorLabel.BackColor
+
+        objFormToShow = New FormRSCColorConfirm(mscolorSelected, strColorName)
+
+        With objFormToShow
+
+            .ShowDialog()
+
+            If (Not .Output_Cancelled) Then
+
+                rscColorSelected = .Output_RSCColor
+                rscLabelDisplayColorSelected.RSCDisplayColor = rscColorSelected
+
+            End If ''End of ""If (Not .Output_Cancelled) Then""  
+
+        End With ''End of ""With objFormToShow""
 
 
+        ''---End If ''End of ""If (Not objFormToShow.Output_Cancelled) Then""
+
+    End Sub
+
+    Private Sub ButtonBackground_Click(sender As Object, e As EventArgs) Handles ButtonBackground.Click
+
+        ''Added 8/22/2022 thomas  
+        With rscLabelDisplayColorSelected
+
+            mod_msColorLastSelected = .BackColor
+            mod_rscColorLastSelected = .RSCDisplayColor
+
+            With mod_controlFieldOrTextV4
+                mod_msColorLastReplaced = .ElementClass_Obj.Back_Color
+                .ElementClass_Obj.Back_Color = .BackColor
+                .RefreshElementImage()
+            End With
+            mod_enumForeOrBack = EnumForeOrBackground.Background
+
+        End With
+
+    End Sub
+
+    Private Sub ButtonForecolor_Click(sender As Object, e As EventArgs) Handles ButtonForecolor.Click
+
+        ''Added 8/22/2022 thomas  
+        With rscLabelDisplayColorSelected
+
+            mod_msColorLastSelected = .BackColor
+            mod_rscColorLastSelected = .RSCDisplayColor
+
+            With mod_controlFieldOrTextV4
+                mod_msColorLastReplaced = .ElementClass_Obj.FontColor
+                .ElementClass_Obj.FontColor = mod_msColorLastSelected
+                .RefreshElementImage()
+            End With
+            mod_enumForeOrBack = EnumForeOrBackground.Foreground
+
+        End With ''End of ""With rscLabelDisplayColorSelected""
 
 
     End Sub
 
+    Private Sub ButtonUndo_Click(sender As Object, e As EventArgs) Handles ButtonUndo.Click
 
+        ''Added 8/22/2022 thomas  
+        With mod_controlFieldOrTextV4
+            If (mod_enumForeOrBack = EnumForeOrBackground.Foreground) Then
+                .ElementClass_Obj.FontColor = mod_msColorLastReplaced
+            ElseIf (mod_enumForeOrBack = EnumForeOrBackground.Background) Then
+                .ElementClass_Obj.Back_Color = mod_msColorLastReplaced
+            End If
+        End With ''End of ""With mod_controlFieldOrTextV4""
 
+    End Sub
 
 End Class

@@ -11,7 +11,7 @@ Public Class FormRSCColorConfirm
     Public Output_RSCColor As ciBadgeInterfaces.RSCColor
     Public Output_Cancelled As Boolean
 
-    Private Sub New(par_msnetColor As Drawing.Color)
+    Public Sub New(par_msnetColor As Drawing.Color, par_strColorName As String)
 
 
         ' This call is required by the designer.
@@ -20,6 +20,7 @@ Public Class FormRSCColorConfirm
         ' Add any initialization after the InitializeComponent() call.
         mod_msnetColor = par_msnetColor
         RscColorPicker1.BackColor = par_msnetColor
+        textboxColorName.Text = par_strColorName
 
     End Sub
 
@@ -43,6 +44,7 @@ Public Class FormRSCColorConfirm
         objRSCColor = New ciBadgeInterfaces.RSCColor(RscColorPicker1.BackColor,
                                                      textboxColorName.Text,
                                                      textboxDescription.Text)
+        Me.Output_RSCColor = objRSCColor
         Me.Close()
 
     End Sub
