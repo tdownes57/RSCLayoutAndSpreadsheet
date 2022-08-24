@@ -25,6 +25,7 @@ Partial Class Dialog_BaseChooseColor
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Dialog_BaseChooseColor))
         Me.ButtonForecolor = New System.Windows.Forms.Button()
         Me.FlowLayoutColors2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.LinkLabelAddColors = New System.Windows.Forms.LinkLabel()
@@ -80,8 +81,8 @@ Partial Class Dialog_BaseChooseColor
         'RscColorDisplayMini1
         '
         Me.RscColorDisplayMini1.DisplayRSCColor = Nothing
-        Me.RscColorDisplayMini1.HideBackgroundLabels = True
-        Me.RscColorDisplayMini1.HideForegroundLabels = True
+        Me.RscColorDisplayMini1.HideBackgroundLabels = False
+        Me.RscColorDisplayMini1.HideForegroundLabels = False
         Me.RscColorDisplayMini1.Location = New System.Drawing.Point(3, 42)
         Me.RscColorDisplayMini1.Name = "RscColorDisplayMini1"
         Me.RscColorDisplayMini1.Size = New System.Drawing.Size(86, 68)
@@ -90,8 +91,8 @@ Partial Class Dialog_BaseChooseColor
         'RscColorDisplayMini2
         '
         Me.RscColorDisplayMini2.DisplayRSCColor = Nothing
-        Me.RscColorDisplayMini2.HideBackgroundLabels = True
-        Me.RscColorDisplayMini2.HideForegroundLabels = True
+        Me.RscColorDisplayMini2.HideBackgroundLabels = False
+        Me.RscColorDisplayMini2.HideForegroundLabels = False
         Me.RscColorDisplayMini2.Location = New System.Drawing.Point(3, 116)
         Me.RscColorDisplayMini2.Name = "RscColorDisplayMini2"
         Me.RscColorDisplayMini2.Size = New System.Drawing.Size(86, 68)
@@ -136,7 +137,7 @@ Partial Class Dialog_BaseChooseColor
         '
         Me.RscColorDisplayLabel1.Location = New System.Drawing.Point(3, 3)
         Me.RscColorDisplayLabel1.Name = "RscColorDisplayLabel1"
-        Me.RscColorDisplayLabel1.RSCDisplayColor = Nothing
+        Me.RscColorDisplayLabel1.RSCDisplayColor = CType(resources.GetObject("RscColorDisplayLabel1.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
         Me.RscColorDisplayLabel1.Size = New System.Drawing.Size(200, 28)
         Me.RscColorDisplayLabel1.TabIndex = 0
         '
@@ -144,9 +145,10 @@ Partial Class Dialog_BaseChooseColor
         '
         Me.rscLabelDisplayColorSelected.Location = New System.Drawing.Point(629, 320)
         Me.rscLabelDisplayColorSelected.Name = "rscLabelDisplayColorSelected"
-        Me.rscLabelDisplayColorSelected.RSCDisplayColor = Nothing
+        Me.rscLabelDisplayColorSelected.RSCDisplayColor = CType(resources.GetObject("rscLabelDisplayColorSelected.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
         Me.rscLabelDisplayColorSelected.Size = New System.Drawing.Size(200, 28)
         Me.rscLabelDisplayColorSelected.TabIndex = 23
+        Me.rscLabelDisplayColorSelected.Visible = False
         '
         'ButtonSaveColor
         '

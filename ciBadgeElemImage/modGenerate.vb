@@ -46,8 +46,8 @@ Public Module modGenerate
         ''                              Optional par_graphicalCtl As CtlGraphicFldLabel = Nothing) As Image
         ''
         ''
-        Dim local_image As Bitmap ''Added 9/4/2019 td  
-        Dim gr_element As Graphics ''= Graphics.FromImage(img)
+        Dim local_image_of_element As Bitmap ''Added 9/4/2019 td  
+        Dim gr_local_image_of_element As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
         Dim pen_border As Pen ''Added 9/3/2019 thomas downes  
@@ -135,29 +135,29 @@ Public Module modGenerate
 
         If (c_UseHighResolutionTips) Then
 
-            local_image = New Bitmap(intNewElementWidth, intNewElementHeight,
+            local_image_of_element = New Bitmap(intNewElementWidth, intNewElementHeight,
                                      Imaging.PixelFormat.Format32bppPArgb)
 
             ''Set the resolution to 300 DPI
             ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
             ''
             ''9/4/2019 td''par_image.SetResolution(300, 300)
-            If (False) Then local_image.SetResolution(300, 300)
+            If (False) Then local_image_of_element.SetResolution(300, 300)
 
         Else
-            local_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+            local_image_of_element = New Bitmap(intNewElementWidth, intNewElementHeight)
 
         End If ''End of "If (c_UseHighResolutionTips) Then ... Else ..."
 
         ''9/4/2019 td''End If ''End of "If (par_image Is Nothing) Then"
 
         ''Moved here from above. ---9.3.2019 td 
-        intStarting_Width = local_image.Width
-        intStarting_Height = local_image.Height
+        intStarting_Width = local_image_of_element.Width
+        intStarting_Height = local_image_of_element.Height
 
-        gr_element = Graphics.FromImage(local_image)
+        gr_local_image_of_element = Graphics.FromImage(local_image_of_element)
 
-        With gr_element
+        With gr_local_image_of_element
             ''
             'Set various modes to higher quality
             ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
@@ -248,7 +248,7 @@ Public Module modGenerate
             ''
         Else
 
-            Using br_brush = New SolidBrush(par_elementInfo_Base.Back_Color)
+            Using br_brushBackcolor = New SolidBrush(par_elementInfo_Base.Back_Color)
                 ''Major call.  
                 ''----#1 9/4 td---gr.FillRectangle(br_brush,
                 ''           New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
@@ -259,7 +259,7 @@ Public Module modGenerate
             ''
             '' https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
             ''
-            gr_element.Clear(par_elementInfo_Base.Back_Color) ''Added 9/4/2019 td 
+            gr_local_image_of_element.Clear(par_elementInfo_Base.Back_Color) ''Added 9/4/2019 td 
 
         End If ''End of "If (boolSuppressBackColor) Then ... Else ...."
 
@@ -281,7 +281,7 @@ Public Module modGenerate
             ''                          gr_element, intNewElementWidth, intNewElementHeight,
             ''                          par_elementInfo_Base.Border_Color)
             DrawBorder_PixelsWide(intBorder_WidthInPixels,
-                                      gr_element, intNewElementWidth, intNewElementHeight,
+                                      gr_local_image_of_element, intNewElementWidth, intNewElementHeight,
                                       colorOfBorder)
 
         End If ''End of "If (bBorderDisplayed AndAlso bBorderNonzero) Then"
@@ -312,7 +312,7 @@ Public Module modGenerate
             ''     New Rectangle(3, 3, par_elementInfo_Base.Width_Pixels - 6,
             ''     par_elementInfo_Base.Height_Pixels - 6))
 
-            gr_element.DrawRectangle(pen_highlighting,
+            gr_local_image_of_element.DrawRectangle(pen_highlighting,
                          New Rectangle(3, 3, intNewElementWidth - 6,
                                              intNewElementHeight - 6))
 
@@ -328,7 +328,7 @@ Public Module modGenerate
         ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
         ''
-        gr_element.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+        gr_local_image_of_element.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
         Dim stringSize = New SizeF()
         Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
 
@@ -365,47 +365,58 @@ Public Module modGenerate
             ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
             font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
 
-            ''Added 8/18/2019 td
-            Select Case par_elementInfo_TextFld.TextAlignment''Added 8/18/2019 td
+            ''Added 8/23/2022 thomas downes
+            Using br_brushForecolor = New SolidBrush(par_elementInfo_TextFld.FontColor)
 
-                Case HorizontalAlignment.Left
+                ''Added 8/18/2019 td
+                Select Case par_elementInfo_TextFld.TextAlignment''Added 8/18/2019 td
 
-                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
-                    gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                    Case HorizontalAlignment.Left
+
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                          singleOffsetX, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
                                           singleOffsetX, singleOffsetY)
 
-                Case HorizontalAlignment.Center
-                    ''// Measure string.
-                    ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                    stringSize = gr_element.MeasureString(par_Text, font_scaled)
+                    Case HorizontalAlignment.Center
+                        ''// Measure string.
+                        ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
 
-                    Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
-                    ''Added 8/18/2019 td 
-                    singleOffsetX_AlignRight = (singleOffsetX + (local_image.Width - stringSize.Width) / 2)
+                        Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                        ''Added 8/18/2019 td 
+                        singleOffsetX_AlignRight = (singleOffsetX + (local_image_of_element.Width - stringSize.Width) / 2)
 
-                    ''Added 8/18/2019 td
-                    ''
-                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
-                    ''                            singleOffsetX_AlignRight, singleOffsetY)
-                    gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''Added 8/18/2019 td
+                        ''
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                        ''                            singleOffsetX_AlignRight, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                 singleOffsetX_AlignRight, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
-                Case HorizontalAlignment.Right
-                    ''// Measure string.
-                    ''
-                    ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                    stringSize = gr_element.MeasureString(par_Text, font_scaled)
+                    Case HorizontalAlignment.Right
+                        ''// Measure string.
+                        ''
+                        ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
 
-                    Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
-                    singleOffsetX_AlignRight = (local_image.Width - stringSize.Width - singleOffsetX)
+                        Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                        singleOffsetX_AlignRight = (local_image_of_element.Width - stringSize.Width - singleOffsetX)
 
-                    ''Added 8/18/2019 td 
-                    ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
-                    ''                           singleOffsetX_AlignRight, singleOffsetY)
-                    gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''Added 8/18/2019 td 
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                        ''                           singleOffsetX_AlignRight, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                           singleOffsetX_AlignRight, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
-            End Select ''End of "Select Case par_design.TextAlignment"
+                End Select ''End of "Select Case par_design.TextAlignment"
+
+            End Using
 
         End With ''ENd of "With par_elementInfo_Text"
 
@@ -433,10 +444,10 @@ Public Module modGenerate
 
                 ''8/18 td''image_Pic = picturePortrait.Image
                 Dim bm_rotation As Bitmap
-                bm_rotation = New Bitmap(local_image)
+                bm_rotation = New Bitmap(local_image_of_element)
                 bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
 
-                local_image = bm_rotation
+                local_image_of_element = bm_rotation
 
                 ''Denigrated. ---9/19/2019 td''If (par_pictureBox IsNot Nothing) Then
                 ''    ''
@@ -467,12 +478,12 @@ Public Module modGenerate
 
         End If ''End of "If (boolLetsRotate90) Then"
 
-        gr_element.Dispose() ''Added 9/4/2019 thomas downes
+        gr_local_image_of_element.Dispose() ''Added 9/4/2019 thomas downes
 
         ''#1 9/4/2019 td''Return par_image ''Return Nothing
         '' #2 9/4/2019 td''par_image = local_image
 
-        Return local_image ''Return Nothing
+        Return local_image_of_element ''Return Nothing
 
     End Function ''End of "Public Function TextImage_ByElemInfo(par_label As Label) As Image"
 
@@ -604,7 +615,7 @@ Public Module modGenerate
 
         Return image_Pic ''---bm_resized
 
-    End Function ''End of Public Sub PicImage_ByElement
+    End Function ''End of Public Sub PortraitImage_ByElement
 
 
     Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer, par_gr As Graphics, par_intWidth As Integer, par_intHeight As Integer, par_color As Color)
