@@ -83,6 +83,7 @@
     <Compile Include="ClassDesigner.vb" />
     <Compile Include="ClassDesigner2Sides.vb" />
     <Compile Include="ClassDesignerEventListener.vb" />
+    <Compile Include="ClassDesigner_part.vb" />
     <Compile Include="ClassDictionaryOfCaptions.vb" />
     <Compile Include="Classes_Minor\ClassFixTheControlWidth.vb" />
     <Compile Include="Classes_Minor\ClassLabelToImage_NotInUse.vb" />

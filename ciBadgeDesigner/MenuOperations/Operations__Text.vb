@@ -132,6 +132,10 @@ ExitHandler:
             Me.CtlCurrentFieldOrTextV4.LayoutFunctions = tempLayoutfunctions
         End If ''End of ""If (tempLayoutfunctions Is Nothing) Then... Else...""
 
+        ''Added 8/25/2022
+        Me.LayoutFunctions.AutoPreview_IfChecked()
+
+
     End Sub ''End of ""Public Sub Edit_Element_With_Multiple_Dialogs_TE9400()"
 
 

@@ -185,7 +185,9 @@ Public Module modGenerate
             bBorderNonzero = par_elemBase.Border_bWidthInPixels > 0
             intBorder_WidthInPixels = par_elemBase.Border_bWidthInPixels ''Added 7/22/2022
             colorOfBorder = par_elemBase.Border_bColor ''Added 7/22/2022
-            pen_border = New Pen(Color.Black,
+            ''-Aug25 2022--pen_border = New Pen(Color.Black,
+            ''---                    par_elemBase.Border_bWidthInPixels)
+            pen_border = New Pen(colorOfBorder,
                                  par_elemBase.Border_bWidthInPixels)
         Else
             ''Added 7/22/2022 thomas downes
@@ -194,7 +196,9 @@ Public Module modGenerate
             intBorder_WidthInPixels = par_elementInfo_Base.Border_WidthInPixels
             colorOfBorder = par_elementInfo_Base.Border_Color ''Added 7/22/2022
             ''Pre-7/22/2022 thomas downes
-            pen_border = New Pen(Color.Black,
+            ''-Aug25 2022--pen_border = New Pen(Color.Black,
+            ''                                  par_elementInfo_Base.Border_WidthInPixels)
+            pen_border = New Pen(colorOfBorder,
                                  par_elementInfo_Base.Border_WidthInPixels)
 
         End If ''End of ""If (par_elemBase IsNot Nothing) Then... Else..."

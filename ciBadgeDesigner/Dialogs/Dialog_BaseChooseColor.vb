@@ -263,6 +263,17 @@ Public Class Dialog_BaseChooseColor
             End With
             mod_enumForeOrBack = EnumForeOrBackground.Foreground
 
+            ''Undo Pop Stack (Last In, First Out)
+            ''   is built using Color-Enum pairs (tuples). 
+            ''   ----8/23/2022 
+            Dim objNewUndoTuple As Tuple(Of Drawing.Color, EnumForeOrBackground)
+            objNewUndoTuple =
+                New Tuple(Of Drawing.Color,
+                EnumForeOrBackground)(mod_msColorLastReplaced,
+                                      mod_enumForeOrBack)
+            ''Add the Undo Color-Enum Pair to the popstack. 
+            mod_stackUndoTuples.Push(objNewUndoTuple)
+
         End With ''End of ""With rscLabelDisplayColorSelected""
 
 
@@ -279,21 +290,23 @@ Public Class Dialog_BaseChooseColor
         Static s_boolDoneOnce As Boolean ''Added 8/23/2022 td
 
         If (mod_c_bUseTupleStack) Then
-            objUndoTuple = mod_stackUndoTuples.Pop()
-            If (objUndoTuple Is Nothing And s_boolDoneOnce) Then
-                ''Added 8/23/2022 td
-                MessageBoxTD.Show_StatementLongform("Undo", "Sorry, we are at the end of Undo. " &
+            If (0 <> mod_stackUndoTuples.Count) Then
+                objUndoTuple = mod_stackUndoTuples.Pop()
+                If (objUndoTuple Is Nothing And s_boolDoneOnce) Then
+                    ''Added 8/23/2022 td
+                    MessageBoxTD.Show_StatementLongform("Undo", "Sorry, we are at the end of Undo. " &
                     "or we can't perform the Undo for unknown reasons.", 1.0, 1.0)
-                Exit Sub
-            ElseIf (objUndoTuple Is Nothing And (Not s_boolDoneOnce)) Then
-                ''Added 8/23/2022 td
-                MessageBoxTD.Show_StatementLongform("Undo", "Sorry, " &
+                    Exit Sub
+                ElseIf (objUndoTuple Is Nothing And (Not s_boolDoneOnce)) Then
+                    ''Added 8/23/2022 td
+                    MessageBoxTD.Show_StatementLongform("Undo", "Sorry, " &
                         "but there is no color-changes yet to Undo.", 1.0, 1.0)
-                Exit Sub
-            Else
-                color_UndoTuple = objUndoTuple.Item1
-                enum_UndoTuple = objUndoTuple.Item2
-            End If ''End of ""If (objUndoTuple Is Nothing) Then... Else...""
+                    Exit Sub
+                Else
+                    color_UndoTuple = objUndoTuple.Item1
+                    enum_UndoTuple = objUndoTuple.Item2
+                End If ''End of ""If (objUndoTuple Is Nothing) Then... Else...""
+            End If ''End of ""If (0 <> mod_stackUndoTuples.Count) Then""
         End If ''End of ""If (mod_c_bUseTupleStack) Then""
 
         ''
@@ -301,6 +314,7 @@ Public Class Dialog_BaseChooseColor
         ''  or Undo the Background Color. 
         ''
         With mod_controlFieldOrTextV4
+
             If (mod_c_bUseTupleStack) Then
                 ''
                 ''Let's reference the Tuple-Stack values. 

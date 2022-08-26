@@ -313,6 +313,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Design_Element() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Design Element", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property feather_logo_RSC() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("feather_logo_RSC", resourceCulture)
@@ -526,6 +536,36 @@ Namespace My.Resources
         Friend ReadOnly Property Ratio_of_27_to_17() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Ratio_of_27_to_17", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Set_Background_Image() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Set Background Image", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Set_Background_Image_no_border() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Set Background Image_no border", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Set_Background_Image_no_border1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Set Background Image_no border1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

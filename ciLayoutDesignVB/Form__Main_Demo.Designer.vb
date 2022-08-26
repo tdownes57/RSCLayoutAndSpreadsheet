@@ -137,6 +137,7 @@ Partial Class Form__Main_Demo
         Me.ComponentClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
         Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
+        Me.ButtonDesignElement = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -581,7 +582,7 @@ Partial Class Form__Main_Demo
         '
         'linkRemoveElements
         '
-        Me.linkRemoveElements.Location = New System.Drawing.Point(31, 580)
+        Me.linkRemoveElements.Location = New System.Drawing.Point(31, 596)
         Me.linkRemoveElements.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.linkRemoveElements.Name = "linkRemoveElements"
         Me.linkRemoveElements.Size = New System.Drawing.Size(208, 29)
@@ -876,7 +877,7 @@ Partial Class Form__Main_Demo
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(749, 535)
+        Me.Label1.Location = New System.Drawing.Point(826, 535)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(292, 15)
         Me.Label1.TabIndex = 82
@@ -888,16 +889,16 @@ Partial Class Form__Main_Demo
         Me.flowRelevantLinkLabels.AutoScroll = True
         Me.flowRelevantLinkLabels.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.flowRelevantLinkLabels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(752, 553)
+        Me.flowRelevantLinkLabels.Location = New System.Drawing.Point(829, 553)
         Me.flowRelevantLinkLabels.Name = "flowRelevantLinkLabels"
-        Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(573, 24)
+        Me.flowRelevantLinkLabels.Size = New System.Drawing.Size(496, 24)
         Me.flowRelevantLinkLabels.TabIndex = 83
         Me.flowRelevantLinkLabels.Visible = False
         '
         'LabelFieldsNotYetDisplayed
         '
         Me.LabelFieldsNotYetDisplayed.AutoSize = True
-        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(26, 580)
+        Me.LabelFieldsNotYetDisplayed.Location = New System.Drawing.Point(26, 596)
         Me.LabelFieldsNotYetDisplayed.Name = "LabelFieldsNotYetDisplayed"
         Me.LabelFieldsNotYetDisplayed.Size = New System.Drawing.Size(81, 17)
         Me.LabelFieldsNotYetDisplayed.TabIndex = 84
@@ -1025,9 +1026,9 @@ Partial Class Form__Main_Demo
         Me.ButtonAddElementsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
         Me.ButtonAddElementsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonAddElementsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonAddElementsH.Location = New System.Drawing.Point(35, 535)
+        Me.ButtonAddElementsH.Location = New System.Drawing.Point(34, 518)
         Me.ButtonAddElementsH.Name = "ButtonAddElementsH"
-        Me.ButtonAddElementsH.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonAddElementsH.Size = New System.Drawing.Size(662, 32)
         Me.ButtonAddElementsH.TabIndex = 93
         Me.ButtonAddElementsH.UseVisualStyleBackColor = False
         '
@@ -1037,21 +1038,21 @@ Partial Class Form__Main_Demo
         Me.ButtonManageRecipientsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Manage_Recipients_H
         Me.ButtonManageRecipientsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonManageRecipientsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonManageRecipientsH.Location = New System.Drawing.Point(35, 568)
+        Me.ButtonManageRecipientsH.Location = New System.Drawing.Point(511, 551)
         Me.ButtonManageRecipientsH.Name = "ButtonManageRecipientsH"
-        Me.ButtonManageRecipientsH.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonManageRecipientsH.Size = New System.Drawing.Size(238, 32)
         Me.ButtonManageRecipientsH.TabIndex = 102
         Me.ButtonManageRecipientsH.UseVisualStyleBackColor = False
         '
         'ButtonEditBackground
         '
         Me.ButtonEditBackground.BackColor = System.Drawing.Color.MediumAquamarine
-        Me.ButtonEditBackground.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Background_Image_H
+        Me.ButtonEditBackground.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Set_Background_Image_no_border1
         Me.ButtonEditBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonEditBackground.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonEditBackground.Location = New System.Drawing.Point(35, 502)
+        Me.ButtonEditBackground.Location = New System.Drawing.Point(34, 551)
         Me.ButtonEditBackground.Name = "ButtonEditBackground"
-        Me.ButtonEditBackground.Size = New System.Drawing.Size(582, 32)
+        Me.ButtonEditBackground.Size = New System.Drawing.Size(260, 32)
         Me.ButtonEditBackground.TabIndex = 103
         Me.ButtonEditBackground.UseVisualStyleBackColor = False
         '
@@ -1143,12 +1144,25 @@ Partial Class Form__Main_Demo
         '
         Me.ComponentClickIDBackside1.PictureBoxControl = Nothing
         '
+        'ButtonDesignElement
+        '
+        Me.ButtonDesignElement.BackColor = System.Drawing.Color.RoyalBlue
+        Me.ButtonDesignElement.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Design_Element
+        Me.ButtonDesignElement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.ButtonDesignElement.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonDesignElement.Location = New System.Drawing.Point(300, 551)
+        Me.ButtonDesignElement.Name = "ButtonDesignElement"
+        Me.ButtonDesignElement.Size = New System.Drawing.Size(205, 32)
+        Me.ButtonDesignElement.TabIndex = 107
+        Me.ButtonDesignElement.UseVisualStyleBackColor = False
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.ButtonDesignElement)
         Me.Controls.Add(Me.LabelPreviewHeading)
         Me.Controls.Add(Me.LabelMainHeading)
         Me.Controls.Add(Me.ButtonEditBackground)
@@ -1341,4 +1355,5 @@ Partial Class Form__Main_Demo
     Friend WithEvents SelectOrUploadOrToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LabelMainHeading As Label
     Friend WithEvents LabelPreviewHeading As Label
+    Friend WithEvents ButtonDesignElement As Button
 End Class
