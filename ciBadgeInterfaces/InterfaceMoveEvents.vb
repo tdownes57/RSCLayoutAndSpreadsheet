@@ -34,6 +34,8 @@ Public Interface InterfaceMoveEvents
     Sub Moving_Terminate(par_control As Control, par_iSave As ISaveToModel) ''//Modified 12/17/2021 
     Sub Control_IsMoving()
 
+    ''Added 8/31/2022 td
+    Sub ControlWasClicked(par_control As Control) ''Added 8/31/2022 td
 
 
 End Interface

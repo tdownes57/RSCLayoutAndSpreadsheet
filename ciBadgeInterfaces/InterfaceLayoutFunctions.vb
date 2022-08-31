@@ -25,6 +25,7 @@ Public Interface ILayoutFunctions
     ''9/19/2019 td''Sub SetControlBeingModified(par_control As Control)
     Property ControlBeingModified() As Control ''Added 9/19/2019 td 
     Property ControlBeingMoved() As Control ''Added 9/20/2019 td 
+    Property ControlWasClicked() As Control ''Added 8/31/2022 td 
 
     Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td
     ''
