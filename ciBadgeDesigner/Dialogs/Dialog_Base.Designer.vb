@@ -35,9 +35,9 @@ Partial Class Dialog_Base
         Me.buttonTextstring = New System.Windows.Forms.Button()
         Me.checkBoxArrowVisible = New System.Windows.Forms.CheckBox()
         Me.checkArrowMovesWithElem = New System.Windows.Forms.CheckBox()
+        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
+        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCElementArrowRight()
         Me.panelDisplayElement = New System.Windows.Forms.PictureBox()
-        Me.panelArrowRight = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
-        Me.panelArrowLeft = New __RSCWindowsControlLibrary.RSCMoveableControlVB()
         Me.PanelEditorControls.SuspendLayout()
         CType(Me.panelDisplayElement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -47,7 +47,7 @@ Partial Class Dialog_Base
         Me.ButtonOK.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.ButtonOK.BackColor = System.Drawing.Color.PaleGreen
         Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonOK.Location = New System.Drawing.Point(685, 393)
+        Me.ButtonOK.Location = New System.Drawing.Point(945, 10)
         Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonOK.Name = "ButtonOK"
         Me.ButtonOK.Size = New System.Drawing.Size(101, 34)
@@ -60,13 +60,14 @@ Partial Class Dialog_Base
         Me.ButtonCancel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.ButtonCancel.BackColor = System.Drawing.Color.PaleGreen
         Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonCancel.Location = New System.Drawing.Point(805, 393)
+        Me.ButtonCancel.Location = New System.Drawing.Point(840, 10)
         Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonCancel.Name = "ButtonCancel"
         Me.ButtonCancel.Size = New System.Drawing.Size(101, 34)
         Me.ButtonCancel.TabIndex = 3
         Me.ButtonCancel.Text = "Cancel"
         Me.ButtonCancel.UseVisualStyleBackColor = False
+        Me.ButtonCancel.Visible = False
         '
         'LabelHeading1
         '
@@ -82,7 +83,7 @@ Partial Class Dialog_Base
         'LabelHeading2
         '
         Me.LabelHeading2.AutoSize = True
-        Me.LabelHeading2.Location = New System.Drawing.Point(620, 59)
+        Me.LabelHeading2.Location = New System.Drawing.Point(11, 422)
         Me.LabelHeading2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeading2.Name = "LabelHeading2"
         Me.LabelHeading2.Size = New System.Drawing.Size(458, 13)
@@ -158,6 +159,8 @@ Partial Class Dialog_Base
         Me.PanelEditorControls.Controls.Add(Me.buttonRotation)
         Me.PanelEditorControls.Controls.Add(Me.buttonColor)
         Me.PanelEditorControls.Controls.Add(Me.buttonBorder)
+        Me.PanelEditorControls.Controls.Add(Me.ButtonOK)
+        Me.PanelEditorControls.Controls.Add(Me.ButtonCancel)
         Me.PanelEditorControls.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelEditorControls.Location = New System.Drawing.Point(0, 447)
         Me.PanelEditorControls.Margin = New System.Windows.Forms.Padding(2)
@@ -179,7 +182,7 @@ Partial Class Dialog_Base
         'checkBoxArrowVisible
         '
         Me.checkBoxArrowVisible.AutoSize = True
-        Me.checkBoxArrowVisible.Location = New System.Drawing.Point(506, 16)
+        Me.checkBoxArrowVisible.Location = New System.Drawing.Point(501, 0)
         Me.checkBoxArrowVisible.Name = "checkBoxArrowVisible"
         Me.checkBoxArrowVisible.Size = New System.Drawing.Size(237, 17)
         Me.checkBoxArrowVisible.TabIndex = 12
@@ -189,12 +192,40 @@ Partial Class Dialog_Base
         'checkArrowMovesWithElem
         '
         Me.checkArrowMovesWithElem.AutoSize = True
-        Me.checkArrowMovesWithElem.Location = New System.Drawing.Point(643, 39)
+        Me.checkArrowMovesWithElem.Location = New System.Drawing.Point(501, 15)
         Me.checkArrowMovesWithElem.Name = "checkArrowMovesWithElem"
         Me.checkArrowMovesWithElem.Size = New System.Drawing.Size(207, 17)
         Me.checkArrowMovesWithElem.TabIndex = 18
         Me.checkArrowMovesWithElem.Text = "Gold arrow moves if element is moved."
         Me.checkArrowMovesWithElem.UseVisualStyleBackColor = True
+        '
+        'RscElementArrowLeft1
+        '
+        Me.RscElementArrowLeft1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowLeft1.ElementInfo_Base = Nothing
+        Me.RscElementArrowLeft1.ImageLocation = Nothing
+        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(959, 393)
+        Me.RscElementArrowLeft1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscElementArrowLeft1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowLeft1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowLeft1.Name = "RscElementArrowLeft1"
+        Me.RscElementArrowLeft1.Size = New System.Drawing.Size(98, 55)
+        Me.RscElementArrowLeft1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowLeft1.TabIndex = 20
+        '
+        'RscElementArrowRight1
+        '
+        Me.RscElementArrowRight1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowRight1.ElementInfo_Base = Nothing
+        Me.RscElementArrowRight1.ImageLocation = Nothing
+        Me.RscElementArrowRight1.Location = New System.Drawing.Point(959, 393)
+        Me.RscElementArrowRight1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscElementArrowRight1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowRight1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowRight1.Name = "RscElementArrowRight1"
+        Me.RscElementArrowRight1.Size = New System.Drawing.Size(98, 55)
+        Me.RscElementArrowRight1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowRight1.TabIndex = 19
         '
         'panelDisplayElement
         '
@@ -205,51 +236,19 @@ Partial Class Dialog_Base
         Me.panelDisplayElement.TabIndex = 0
         Me.panelDisplayElement.TabStop = False
         '
-        'panelArrowRight
-        '
-        Me.panelArrowRight.BackColor = System.Drawing.Color.Transparent
-        Me.panelArrowRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.panelArrowRight.ElementInfo_Base = Nothing
-        Me.panelArrowRight.ImageLocation = Nothing
-        Me.panelArrowRight.Location = New System.Drawing.Point(272, 99)
-        Me.panelArrowRight.Margin = New System.Windows.Forms.Padding(2)
-        Me.panelArrowRight.MoveabilityEventsForGroupCtls = Nothing
-        Me.panelArrowRight.MoveabilityEventsForSingleMove = Nothing
-        Me.panelArrowRight.Name = "panelArrowRight"
-        Me.panelArrowRight.Size = New System.Drawing.Size(83, 33)
-        Me.panelArrowRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.panelArrowRight.TabIndex = 17
-        '
-        'panelArrowLeft
-        '
-        Me.panelArrowLeft.BackColor = System.Drawing.Color.Transparent
-        Me.panelArrowLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.panelArrowLeft.ElementInfo_Base = Nothing
-        Me.panelArrowLeft.ImageLocation = Nothing
-        Me.panelArrowLeft.Location = New System.Drawing.Point(368, 99)
-        Me.panelArrowLeft.Margin = New System.Windows.Forms.Padding(2)
-        Me.panelArrowLeft.MoveabilityEventsForGroupCtls = Nothing
-        Me.panelArrowLeft.MoveabilityEventsForSingleMove = Nothing
-        Me.panelArrowLeft.Name = "panelArrowLeft"
-        Me.panelArrowLeft.Size = New System.Drawing.Size(83, 33)
-        Me.panelArrowLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.panelArrowLeft.TabIndex = 16
-        '
         'Dialog_Base
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1057, 502)
-        Me.Controls.Add(Me.panelArrowRight)
-        Me.Controls.Add(Me.panelArrowLeft)
+        Me.Controls.Add(Me.RscElementArrowLeft1)
+        Me.Controls.Add(Me.RscElementArrowRight1)
         Me.Controls.Add(Me.checkArrowMovesWithElem)
         Me.Controls.Add(Me.panelDisplayElement)
         Me.Controls.Add(Me.checkBoxArrowVisible)
         Me.Controls.Add(Me.PanelEditorControls)
         Me.Controls.Add(Me.LabelHeading2)
         Me.Controls.Add(Me.LabelHeading1)
-        Me.Controls.Add(Me.ButtonCancel)
-        Me.Controls.Add(Me.ButtonOK)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "Dialog_Base"
         Me.Text = "Dialog_Base"
@@ -271,8 +270,8 @@ Partial Class Dialog_Base
     Friend WithEvents PanelEditorControls As Panel
     Friend WithEvents buttonTextstring As Button
     Friend WithEvents checkBoxArrowVisible As CheckBox
-    Friend WithEvents panelArrowLeft As __RSCWindowsControlLibrary.RSCMoveableControlVB
-    Friend WithEvents panelArrowRight As __RSCWindowsControlLibrary.RSCMoveableControlVB
     Friend WithEvents panelDisplayElement As PictureBox
     Friend WithEvents checkArrowMovesWithElem As CheckBox
+    Friend WithEvents RscElementArrowRight1 As __RSCWindowsControlLibrary.RSCElementArrowRight
+    Friend WithEvents RscElementArrowLeft1 As __RSCWindowsControlLibrary.RSCElementArrowLeft
 End Class

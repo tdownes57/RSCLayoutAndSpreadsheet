@@ -352,6 +352,7 @@ Public Class Startup
             ElseIf ("" = strPathToElementsCacheXML_InputForPart2) Then
                 ''Let the programmer know's there's a potential problem.  ---5/23/2022
                 System.Diagnostics.Debugger.Break()
+                Exit Do ''Added 8/28/2022 
             End If ''Endof ""If (bSubsequentIterationsOfDo) Then""
             ''
             ''Let's set some fundamental properties of the form. ---1/14/2022 td
@@ -393,10 +394,23 @@ Public Class Startup
             ''
             ''Specify the XML cache file, in the Window caption. ---12/14/2021 td 
             ''
+            Dim strPathToXML_FormText As String ''Added 8/28/2022 td
             Dim strFileTitleXML As String ''Added 12/1/4/2021 td
-            strFileTitleXML = (New IO.FileInfo(strPathToElementsCacheXML_InputForPart2)).Name
-            obj_formToShow_Demo.Text = String.Format("RSC ID Card - Desktop - {0} - {1}", strFileTitleXML,
-                                                 strPathToElementsCacheXML_InputForPart2)
+
+            strPathToXML_FormText = strPathToElementsCacheXML_InputForPart2 ''Added 8/28/2022 td
+            If (strPathToXML_FormText Is Nothing) Then
+                ''Added 8/28/2022 thomas d 
+                obj_formToShow_Demo.Text = String.Format("RSC ID Card - Desktop - Filepath is missing #1")
+            Else
+                strFileTitleXML = (New IO.FileInfo(strPathToXML_FormText)).Name
+                If (strFileTitleXML Is Nothing) Then
+                    ''Added 8/28/2022 thomas d 
+                    obj_formToShow_Demo.Text = String.Format("RSC ID Card - Desktop - Filepath is missing #2")
+                Else
+                    obj_formToShow_Demo.Text = String.Format("RSC ID Card - Desktop - {0} - {1}", strFileTitleXML,
+                                                     strPathToElementsCacheXML_InputForPart2)
+                End If ''End of ""If (strFileTitleXML Is Nothing) Then... Else..."
+            End If ''End of ""If (strPathToXML_FormText Is Nothing) Then... Else..."
 
             ''
             ''Show the main form!!!    Huge!!!! 

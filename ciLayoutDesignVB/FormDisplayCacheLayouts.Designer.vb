@@ -321,9 +321,11 @@ Partial Class FormDisplayCacheLayouts
         '
         Me.rscclickablePreviewFront.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.rscclickablePreviewFront.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.rscclickablePreviewFront.ImageLocation = Nothing
         Me.rscclickablePreviewFront.Location = New System.Drawing.Point(161, 96)
         Me.rscclickablePreviewFront.Name = "rscclickablePreviewFront"
         Me.rscclickablePreviewFront.Size = New System.Drawing.Size(350, 225)
+        Me.rscclickablePreviewFront.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.rscclickablePreviewFront.TabIndex = 101
         '
         'FormDisplayCacheLayouts

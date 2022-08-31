@@ -25,6 +25,9 @@ Public Class FormRSCColorConfirm
         ''Aug22 2022 rscColorPicker1.BackColor = par_msnetColor
         textboxColorName.Text = par_strColorName
 
+        ''Added 8/28/2022 
+        Me.BackColor = par_msnetColor
+
     End Sub
 
 

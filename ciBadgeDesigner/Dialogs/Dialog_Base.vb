@@ -146,8 +146,8 @@ ExitHandler:
                 .Left = CInt((panelDisplayElement.Width - .Width) / 2)
                 .Top = CInt((panelDisplayElement.Height - .Height) / 2)
 
-                panelArrowLeft.Top = .Top
-                panelArrowLeft.Left = .Left - panelArrowLeft.Width
+                RscElementArrowLeft1.Top = .Top
+                RscElementArrowLeft1.Left = .Left - RscElementArrowLeft1.Width
 
             End If ''End of ""If (Me.ControlBelongsToPanel) Then""
 
@@ -320,8 +320,8 @@ ExitHandler:
                     .Left = CInt((panelDisplayElement.Width - .Width) / 2)
                     .Top = CInt((panelDisplayElement.Height - .Height) / 2)
 
-                    panelArrowLeft.Top = .Top
-                    panelArrowLeft.Left = .Left - panelArrowLeft.Width
+                    RscElementArrowLeft1.Top = .Top
+                    RscElementArrowLeft1.Left = .Left - RscElementArrowLeft1.Width
 
                 End With ''End of ""With mod_controlRSCMoveable""
 
@@ -343,12 +343,12 @@ ExitHandler:
                 .Left = panelDisplayElement.Left + par_element.LeftEdge_bPixels
 
                 ''Arrow should point to the control
-                panelArrowLeft.Top = .Top
-                panelArrowLeft.Left = .Left - panelArrowLeft.Width
+                RscElementArrowLeft1.Top = .Top
+                RscElementArrowLeft1.Left = .Left - RscElementArrowLeft1.Width
 
                 ''Added 8/3/2022
-                panelArrowLeft.Visible = True
-                panelArrowRight.Visible = False
+                RscElementArrowLeft1.Visible = True
+                RscElementArrowRight1.Visible = False
 
             End If ''End of ""If (ControlBelongsToPanel) Then... Else..."
 
@@ -363,14 +363,14 @@ ExitHandler:
         ''
         With panelDisplayElement
             ''Remove the arrow panels from the ID-card display box. ---8/22/2022
-            If (.Controls.Contains(panelArrowLeft)) Then .Controls.Remove(panelArrowLeft)
-            If (.Controls.Contains(panelArrowRight)) Then .Controls.Remove(panelArrowRight)
+            If (.Controls.Contains(RscElementArrowLeft1)) Then .Controls.Remove(RscElementArrowLeft1)
+            If (.Controls.Contains(RscElementArrowRight1)) Then .Controls.Remove(RscElementArrowRight1)
         End With
 
         With Me ''The parent form (dialog).
             ''Add the arrow panels to the form, if needed. ---8/22/2022 
-            If (Not .Controls.Contains(panelArrowLeft)) Then .Controls.Add(panelArrowLeft)
-            If (Not .Controls.Contains(panelArrowRight)) Then .Controls.Add(panelArrowRight)
+            If (Not .Controls.Contains(RscElementArrowLeft1)) Then .Controls.Add(RscElementArrowLeft1)
+            If (Not .Controls.Contains(RscElementArrowRight1)) Then .Controls.Add(RscElementArrowRight1)
         End With
 
         With par_control
@@ -389,14 +389,14 @@ ExitHandler:
                     ''
                     PositionArrow(par_control, EnumArrowIsWhere.LeftOfElement)
 
-                    If (panelArrowLeft.Left < 0) Then
+                    If (RscElementArrowLeft1.Left < 0) Then
                         ''
                         ''Not okay, might look a bit lame.
                         ''   Let's switch to the right-side gold arrow.
                         ''
                         mod_enumArrowLeftOrRight = EnumArrowIsWhere.RightOfElement
-                        panelArrowLeft.Visible = False
-                        panelArrowRight.Visible = True
+                        RscElementArrowLeft1.Visible = False
+                        RscElementArrowRight1.Visible = True
                         PositionArrow(par_control, mod_enumArrowLeftOrRight)
                         ''Added 8/6/2022
                         mod_bLetsUseEnumeratedArrowLR = True
@@ -407,13 +407,13 @@ ExitHandler:
                         ''The left-side gold arrow works fine.
                         ''
                         ''Added 8/3/2022
-                        panelArrowLeft.Visible = True
-                        panelArrowRight.Visible = False
+                        RscElementArrowLeft1.Visible = True
+                        RscElementArrowRight1.Visible = False
                         ''Added 8/6/2022
                         mod_bLetsUseEnumeratedArrowLR = True
                         mod_enumArrowLeftOrRight = EnumArrowIsWhere.LeftOfElement
 
-                    End If 'end of ""If (panelArrowLeft.Left < 0) Then... Else....""
+                    End If 'end of ""If (RscElementArrowLeft1.Left < 0) Then... Else....""
 
                 End If ''End of ""If (mod_bCheckArrowLR) Then... Else..."
 
@@ -433,14 +433,14 @@ ExitHandler:
                     ''
                     PositionArrow(par_control, EnumArrowIsWhere.LeftOfElement)
 
-                    If (panelArrowLeft.Left < 0) Then
+                    If (RscElementArrowLeft1.Left < 0) Then
                         ''
                         ''Not okay, might look a bit lame.
                         ''   Let's switch to the right-side gold arrow.
                         ''
                         mod_enumArrowLeftOrRight = EnumArrowIsWhere.RightOfElement
-                        panelArrowLeft.Visible = False
-                        panelArrowRight.Visible = True
+                        RscElementArrowLeft1.Visible = False
+                        RscElementArrowRight1.Visible = True
                         PositionArrow(par_control, mod_enumArrowLeftOrRight)
                         ''Added 8/6/2022
                         mod_bLetsUseEnumeratedArrowLR = True
@@ -450,13 +450,13 @@ ExitHandler:
                         ''The left-side gold arrow works fine.
                         ''
                         ''Added 8/3/2022
-                        panelArrowLeft.Visible = True
-                        panelArrowRight.Visible = False
+                        RscElementArrowLeft1.Visible = True
+                        RscElementArrowRight1.Visible = False
                         ''Added 8/6/2022
                         mod_bLetsUseEnumeratedArrowLR = True
                         mod_enumArrowLeftOrRight = EnumArrowIsWhere.LeftOfElement
 
-                    End If 'end of ""If (panelArrowLeft.Left < 0) Then ... Else...""
+                    End If 'end of ""If (RscElementArrowLeft1.Left < 0) Then ... Else...""
 
                 End If ''End of ""If (mod_bCheckArrowLR) Then... Else..."
 
@@ -490,36 +490,36 @@ ExitHandler:
         ''
         Dim intArrowWidth As Integer
 
-        panelArrowRight.Visible = True
-        intArrowWidth = panelArrowRight.Width
-        panelArrowLeft.Visible = False
+        RscElementArrowRight1.Visible = True
+        intArrowWidth = RscElementArrowRight1.Width
+        RscElementArrowLeft1.Visible = False
 
         With par_control
 
             If (Me.ControlBelongsToPanel) Then
 
-                panelArrowRight.Top = .Top + panelDisplayElement.Top
-                panelArrowRight.Left = .Left - intArrowWidth + panelDisplayElement.Left
+                RscElementArrowRight1.Top = .Top + panelDisplayElement.Top
+                RscElementArrowRight1.Left = .Left - intArrowWidth + panelDisplayElement.Left
 
             Else
 
-                panelArrowRight.Top = .Top
-                ''8/4/2022''panelArrowRight.Left = .Left - intArrowWidth
-                panelArrowRight.Left = .Left + .Width
+                RscElementArrowRight1.Top = .Top
+                ''8/4/2022''RscElementArrowLef1.Left = .Left - intArrowWidth
+                RscElementArrowRight1.Left = .Left + .Width
 
             End If ''end of ""If (Me.ControlBelongsToPanel) Then.... Else..."
 
             ''
             ''Added 8/6/2022 td
             ''
-            If (panelArrowLeft.Height > .Height) Then
+            If (RscElementArrowLeft1.Height > .Height) Then
                 ''Added 8/6/2022 td
-                panelArrowLeft.Height = .Height
-            End If ''eND OF ""If (panelArrowLeft.Height > .Height) Then""
+                RscElementArrowLeft1.Height = .Height
+            End If ''eND OF ""If (RscElementArrowLeft1.Height > .Height) Then""
 
         End With ''ENd of ""With par_control""
 
-        panelArrowRight.BringToFront() ''Added 8/6/2022 = True ''Added 8/6/2022 
+        RscElementArrowRight1.BringToFront() ''Added 8/6/2022 = True ''Added 8/6/2022 
 
     End Sub ''End of ""Private Sub PositionArrow_Right(par_control As RSCMoveableControlVB)""
 
@@ -530,33 +530,33 @@ ExitHandler:
         ''
         Dim intArrowWidth As Integer
 
-        panelArrowLeft.Visible = True
-        panelArrowRight.Visible = False
-        intArrowWidth = panelArrowLeft.Width
+        RscElementArrowLeft1.Visible = True
+        RscElementArrowRight1.Visible = False
+        intArrowWidth = RscElementArrowLeft1.Width
 
         With par_control
 
             If (Me.ControlBelongsToPanel) Then
 
-                panelArrowLeft.Top = par_control.Top + panelDisplayElement.Top
-                panelArrowLeft.Left = par_control.Left - intArrowWidth + panelDisplayElement.Left
+                RscElementArrowLeft1.Top = par_control.Top + panelDisplayElement.Top
+                RscElementArrowLeft1.Left = par_control.Left - intArrowWidth + panelDisplayElement.Left
 
             Else
 
-                panelArrowLeft.Top = par_control.Top
-                panelArrowLeft.Left = par_control.Left - intArrowWidth
+                RscElementArrowLeft1.Top = par_control.Top
+                RscElementArrowLeft1.Left = par_control.Left - intArrowWidth
 
             End If ''end of ""If (Me.ControlBelongsToPanel) Then.... Else..."
 
             ''Added 8/6/2022 td
-            If (panelArrowLeft.Height > .Height) Then
+            If (RscElementArrowLeft1.Height > .Height) Then
                 ''Added 8/6/2022 td
-                panelArrowLeft.Height = .Height
-            End If ''eND OF ""If (panelArrowLeft.Height > .Height) Then""
+                RscElementArrowLeft1.Height = .Height
+            End If ''eND OF ""If (RscElementArrowLeft1.Height > .Height) Then""
 
         End With ''ENd of ""With par_control""
 
-        panelArrowLeft.BringToFront() ''Added 8/6/2022 = True ''Added 8/6/2022 
+        RscElementArrowLeft1.BringToFront() ''Added 8/6/2022 = True ''Added 8/6/2022 
 
 
     End Sub ''End of ""Private Sub PositionArrow_Left(par_control As RSCMoveableControlVB)""
@@ -568,8 +568,8 @@ ExitHandler:
         ''
         ''#1 8/4/2022 mod_objLayoutFunctions = New ciBadgeInterfaces.BadgeLayoutClass
         ''#2 8/4/2022 mod_objLayoutFunctions = New ciBadgeDesigner.
-        ''#3 8/4/2022 panelArrowLeft.AddMoveability(mod_objLayoutFunctions)
-        ''#3 8/4/2022 panelArrowRight.AddMoveability(mod_objLayoutFunctions)
+        ''#3 8/4/2022 RscElementArrowLeft1.AddMoveability(mod_objLayoutFunctions)
+        ''#3 8/4/2022 RscElementArrowRight1.AddMoveability(mod_objLayoutFunctions)
 
         ''Added 8/6/2022
         checkBoxArrowVisible.Checked = True
@@ -586,21 +586,21 @@ ExitHandler:
             mod_objLayoutFunctions.ElementsCache_UseEdits = mod_designerParentForm.ElementsCache_UseEdits
             mod_objLayoutFunctions.LoadDesigner("Loading Dialog_Base", False, False, mod_objEventsRSC_Elem)
 
-            panelArrowLeft.AddMoveability(mod_objLayoutFunctions, mod_objEventsRSC_Gold)
-            panelArrowRight.AddMoveability(mod_objLayoutFunctions, mod_objEventsRSC_Gold)
+            RscElementArrowLeft1.AddMoveability(mod_objLayoutFunctions, mod_objEventsRSC_Gold)
+            RscElementArrowRight1.AddMoveability(mod_objLayoutFunctions, mod_objEventsRSC_Gold)
 
         Else
 
-            panelArrowLeft.AddMoveability(Me, mod_objEventsRSC_Gold)
-            panelArrowRight.AddMoveability(Me, mod_objEventsRSC_Gold)
+            RscElementArrowLeft1.AddMoveability(Me, mod_objEventsRSC_Gold)
+            RscElementArrowRight1.AddMoveability(Me, mod_objEventsRSC_Gold)
 
         End If ''End of "" If (mod_c_bCreateDesignerObject) Then... Else..."
 
         ''
         ''Added 8/6/2022
         ''
-        panelArrowLeft.RemoveSizeability()
-        panelArrowRight.RemoveSizeability()
+        RscElementArrowLeft1.RemoveSizeability()
+        RscElementArrowRight1.RemoveSizeability()
 
 ExitHandler:
         mod_bLoading = False
@@ -615,12 +615,12 @@ ExitHandler:
         ''Added 7/29/2022
         If (checkBoxArrowVisible.Checked) Then
 
-            panelArrowLeft.Visible = (mod_enumArrowLeftOrRight = EnumArrowIsWhere.LeftOfElement)
-            panelArrowRight.Visible = (mod_enumArrowLeftOrRight = EnumArrowIsWhere.RightOfElement)
+            RscElementArrowLeft1.Visible = (mod_enumArrowLeftOrRight = EnumArrowIsWhere.LeftOfElement)
+            RscElementArrowRight1.Visible = (mod_enumArrowLeftOrRight = EnumArrowIsWhere.RightOfElement)
 
         Else
-            panelArrowLeft.Visible = False
-            panelArrowRight.Visible = False
+            RscElementArrowLeft1.Visible = False
+            RscElementArrowRight1.Visible = False
 
         End If ''Endof "" If (checkBoxArrowVisible.Checked) Then... Else..." 
 

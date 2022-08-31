@@ -1003,4 +1003,12 @@ Public Class FormDisplayCacheLayouts
 
     End Sub
 
+    Private Sub ButtonBrowseForImageFile_Click(sender As Object, e As EventArgs) Handles ButtonBrowseForImageFile.Click
+
+        ''Added 8/28/2022 Thomas Downes 
+        Dim objFileInfo As IO.FileInfo
+        objFileInfo = New IO.FileInfo(textboxPathToCacheXmlFile.Text)
+        System.Diagnostics.Process.Start(objFileInfo.DirectoryName)
+
+    End Sub
 End Class

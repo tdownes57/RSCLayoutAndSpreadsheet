@@ -57,7 +57,7 @@ Partial Class RSCColorDisplayLabel
         Me.Controls.Add(Me.LabelBackcolorRight)
         Me.Controls.Add(Me.LabelBackcolorLeft)
         Me.Name = "RSCColorDisplayLabel"
-        Me.Size = New System.Drawing.Size(200, 28)
+        Me.Size = New System.Drawing.Size(200, 25)
         Me.ResumeLayout(False)
 
     End Sub

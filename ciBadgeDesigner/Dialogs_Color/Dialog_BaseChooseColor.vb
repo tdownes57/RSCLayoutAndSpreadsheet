@@ -17,7 +17,7 @@ Public Class Dialog_BaseChooseColor
     ''
     ''8/07/2022 td''Private mod_colors As New List(Of Drawing.Color)
     Private mod_listRSCColors As HashSet(Of RSCColor)
-    Private mod_listMSColors As List(Of Drawing.Color)
+    Private mod_listMSColors_Unused As List(Of Drawing.Color)
 
     ''Added 8/22/2022 td
     ''
@@ -30,6 +30,10 @@ Public Class Dialog_BaseChooseColor
     ''Undo Tuple Stack
     Private Const mod_c_bUseTupleStack As Boolean = True
     Private mod_stackUndoTuples As New Stack(Of Tuple(Of Drawing.Color, EnumForeOrBackground))
+    ''Undo Color Stack(s)
+    ''  ---8/30/2022 td  
+    Private mod_stackUndoColors_Foreground As New Stack(Of Drawing.Color)
+    Private mod_stackUndoColors_Background As New Stack(Of Drawing.Color)
 
     Public Sub New(par_control As CtlGraphicFieldOrTextV4,
                    par_listFontFamilyNames As HashSet(Of String),
@@ -72,11 +76,27 @@ Public Class Dialog_BaseChooseColor
         ''
         '' Added 3/4/2022 thomas downes
         ''
-        If (mod_listMSColors Is Nothing) Then
-            mod_listMSColors = New List(Of Drawing.Color)
+
+        ''Added 8/30/2022 thomas downes
+        RscColorFlowPanel1.Controls.Clear()
+        ''--RscColorFlowPanel1.AddColors_BlackAndWhite()
+        RscColorFlowPanel1.AddLinkLabelForAddingColors()
+        RscColorFlowPanel1.AddColors_AllPossibleColors(True)
+
+
+
+    End Sub
+
+
+    Private Sub AddColors_AllPossibleColors_NotUsed()
+        ''
+        ''Obselete as of 8/30/2022 td
+        ''
+        If (mod_listMSColors_Unused Is Nothing) Then
+            mod_listMSColors_Unused = New List(Of Drawing.Color)
         End If ''If (mod_listMSColors Is Nothing) Then
 
-        With mod_listMSColors
+        With mod_listMSColors_Unused
 
             .Add(Drawing.Color.AliceBlue)
             .Add(Drawing.Color.AntiqueWhite)
@@ -127,7 +147,7 @@ Public Class Dialog_BaseChooseColor
             .Add(Drawing.Color.Fuchsia)
 
 
-        End With
+        End With ''End of ""With mod_listMSColors""
 
         ''mod_colors.Add(Drawing.Color.
         ''        mod_colors.Add(Drawing.Color.
@@ -144,9 +164,9 @@ Public Class Dialog_BaseChooseColor
         ''        mod_colors.Add(Drawing.Color.
         ''        mod_colors.Add(Drawing.Color.
 
-        FlowLayoutColors1.Controls.Clear()
+        RscColorFlowPanel1.Controls.Clear()
 
-        For Each each_color In mod_listMSColors ''List(Of Drawing.Color)
+        For Each each_color In mod_listMSColors_Unused ''List(Of Drawing.Color)
 
             Dim newLabel As New RSCColorDisplayLabel
             newLabel.BackColor = each_color
@@ -158,14 +178,14 @@ Public Class Dialog_BaseChooseColor
             ''Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
             Me.ToolTip1.SetToolTip(newLabel, each_color.Name)
 
-            FlowLayoutColors1.Controls.Add(newLabel)
+            RscColorFlowPanel1.Controls.Add(newLabel)
 
         Next each_color
 
-    End Sub ''Handles Form_Load 
+    End Sub ''End of ""Private Sub AddColors_AllPossibleColors_NotUsed""   
 
 
-    Private Sub LinkLabelAddColors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddColors.LinkClicked
+    Private Sub LinkLabelAddColors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) 
 
         ''Added 8/7/2022 thomas downes
         Dim objFormToShow As __RSCWindowsControlLibrary.RSCBrowseExistingColors
@@ -200,6 +220,7 @@ Public Class Dialog_BaseChooseColor
 
                 rscColorSelected = .Output_RSCColor
                 rscLabelDisplayColorSelected.RSCDisplayColor = rscColorSelected
+                rscLabelDisplayColorSelected.Visible = True ''Added 8/28/2022 
 
             End If ''End of ""If (Not .Output_Cancelled) Then""  
 
@@ -208,7 +229,8 @@ Public Class Dialog_BaseChooseColor
 
         ''---End If ''End of ""If (Not objFormToShow.Output_Cancelled) Then""
 
-    End Sub
+    End Sub ''eND OF ""Private Sub NetDrawingColor_Click""
+
 
     Private Sub ButtonBackground_Click(sender As Object, e As EventArgs) Handles ButtonBackground.Click
 
@@ -280,7 +302,7 @@ Public Class Dialog_BaseChooseColor
     End Sub
 
 
-    Private Sub ButtonUndo_Click(sender As Object, e As EventArgs) Handles ButtonUndo.Click
+    Private Sub ButtonUndo_Click(sender As Object, e As EventArgs) Handles ButtonUndoColorFont.Click
         ''
         ''Added 8/22/2022 thomas  
         ''
@@ -348,4 +370,7 @@ Public Class Dialog_BaseChooseColor
 
     End Sub
 
+    Private Sub RscColorFlowPanel1_Load(sender As Object, e As EventArgs) Handles RscColorFlowPanel1.Load
+
+    End Sub
 End Class

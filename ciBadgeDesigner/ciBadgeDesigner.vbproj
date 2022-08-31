@@ -332,10 +332,10 @@
     <Compile Include="Dialogs\DialogAllRSCSelectCIBFields.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogDisplayColor.Designer.vb">
+    <Compile Include="Dialogs_Color\DialogDisplayColor.Designer.vb">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogDisplayColor.vb">
+    <Compile Include="Dialogs_Color\DialogDisplayColor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\DialogDisplayIDCardSides.Designer.vb">
@@ -386,10 +386,16 @@
     <Compile Include="Dialogs\Dialog_BaseBorder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseChooseColor.Designer.vb">
+    <Compile Include="Dialogs_Color\DialogSelectColorManager.Designer.vb">
+      <DependentUpon>DialogSelectColorManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs_Color\DialogSelectColorManager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs_Color\Dialog_BaseChooseColor.Designer.vb">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseChooseColor.vb">
+    <Compile Include="Dialogs_Color\Dialog_BaseChooseColor.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\Dialog_BaseChooseFont.Designer.vb">
@@ -657,7 +663,7 @@
     <EmbeddedResource Include="Dialogs\DialogAllRSCSelectCIBFields.resx">
       <DependentUpon>DialogAllRSCSelectCIBFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogDisplayColor.resx">
+    <EmbeddedResource Include="Dialogs_Color\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DialogDisplayIDCardSides.resx">
@@ -684,7 +690,10 @@
     <EmbeddedResource Include="Dialogs\Dialog_BaseBorder.resx">
       <DependentUpon>Dialog_BaseBorder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Dialog_BaseChooseColor.resx">
+    <EmbeddedResource Include="Dialogs_Color\DialogSelectColorManager.resx">
+      <DependentUpon>DialogSelectColorManager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs_Color\Dialog_BaseChooseColor.resx">
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -4090,6 +4090,7 @@ ExitHandler:
 
     End Sub
 
+
     Private Sub ButtonDesignElement_Click(sender As Object, e As EventArgs) Handles ButtonDesignElement.Click
         ''
         ''Added 8/26/2022 thomas downes  
@@ -4100,7 +4101,8 @@ ExitHandler:
 
         If (objRSC Is Nothing) Then
             ''Added 8/26/2022 thomas downes  
-            MessageBoxTD.Show_StatementLongform("No element", "No element is currently selected.", 0.5, 2.0, False)
+            MessageBoxTD.Show_StatementLongform("No element",
+                            "No element is currently selected.", 0.9, 1.0, False)
 
         Else
             mod_designer.Edit_Element_with_Multiple_Dialogs_TE9400(objRSC)

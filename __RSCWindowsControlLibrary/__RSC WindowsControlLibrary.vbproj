@@ -138,6 +138,12 @@
     <Compile Include="RSCColorControls\RSCColorDisplayLabel.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCColorControls\RSCColorFlowPanel.Designer.vb">
+      <DependentUpon>RSCColorFlowPanel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorFlowPanel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="RSCColorControls\RSCColor_seeCIBInterfaces.vb" />
     <Compile Include="RSCColorControls\RSCColorDisplay.Designer.vb">
       <DependentUpon>RSCColorDisplay.vb</DependentUpon>
@@ -194,6 +200,18 @@
     <Compile Include="RSCMoveableControl\RSCConditionalExpression.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCMoveableControl\RSCElementArrowLeft.Designer.vb">
+      <DependentUpon>RSCElementArrowLeft.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCMoveableControl\RSCElementArrowLeft.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCMoveableControl\RSCElementArrowRight.Designer.vb">
+      <DependentUpon>RSCElementArrowRight.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCMoveableControl\RSCElementArrowRight.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.Designer.vb">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
     </Compile>
@@ -232,6 +250,9 @@
     <EmbeddedResource Include="RSCColorControls\RSCColorDisplayMini.resx">
       <DependentUpon>RSCColorDisplayMini.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\RSCColorFlowPanel.resx">
+      <DependentUpon>RSCColorFlowPanel.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCColorPicker.resx">
       <DependentUpon>RSCColorPicker.vb</DependentUpon>
     </EmbeddedResource>
@@ -252,6 +273,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCConditionalExpression.resx">
       <DependentUpon>RSCConditionalExpression.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCMoveableControl\RSCElementArrowLeft.resx">
+      <DependentUpon>RSCElementArrowLeft.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCMoveableControl\RSCElementArrowRight.resx">
+      <DependentUpon>RSCElementArrowRight.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>
