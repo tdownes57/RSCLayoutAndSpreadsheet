@@ -138,6 +138,9 @@ Partial Class Form__Main_Demo
         Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.ButtonDesignElement = New System.Windows.Forms.Button()
+        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCElementArrowRight()
+        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
+        Me.checkBoxGoldArrowVisible = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -936,7 +939,7 @@ Partial Class Form__Main_Demo
         Me.flowlayoutIncludedBin.Controls.Add(Me.Label2)
         Me.flowlayoutIncludedBin.Location = New System.Drawing.Point(330, 596)
         Me.flowlayoutIncludedBin.Name = "flowlayoutIncludedBin"
-        Me.flowlayoutIncludedBin.Size = New System.Drawing.Size(292, 24)
+        Me.flowlayoutIncludedBin.Size = New System.Drawing.Size(246, 24)
         Me.flowlayoutIncludedBin.TabIndex = 86
         Me.flowlayoutIncludedBin.Visible = False
         '
@@ -1156,12 +1159,55 @@ Partial Class Form__Main_Demo
         Me.ButtonDesignElement.TabIndex = 107
         Me.ButtonDesignElement.UseVisualStyleBackColor = False
         '
+        'RscElementArrowRight1
+        '
+        Me.RscElementArrowRight1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowRight1.ElementInfo_Base = Nothing
+        Me.RscElementArrowRight1.ImageLocation = Nothing
+        Me.RscElementArrowRight1.Location = New System.Drawing.Point(714, 75)
+        Me.RscElementArrowRight1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RscElementArrowRight1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowRight1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowRight1.Name = "RscElementArrowRight1"
+        Me.RscElementArrowRight1.Size = New System.Drawing.Size(69, 50)
+        Me.RscElementArrowRight1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowRight1.TabIndex = 108
+        Me.RscElementArrowRight1.Visible = False
+        '
+        'RscElementArrowLeft1
+        '
+        Me.RscElementArrowLeft1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowLeft1.ElementInfo_Base = Nothing
+        Me.RscElementArrowLeft1.ImageLocation = Nothing
+        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(714, 78)
+        Me.RscElementArrowLeft1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RscElementArrowLeft1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowLeft1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowLeft1.Name = "RscElementArrowLeft1"
+        Me.RscElementArrowLeft1.Size = New System.Drawing.Size(69, 37)
+        Me.RscElementArrowLeft1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowLeft1.TabIndex = 109
+        Me.RscElementArrowLeft1.Visible = False
+        '
+        'checkBoxGoldArrowVisible
+        '
+        Me.checkBoxGoldArrowVisible.AutoSize = True
+        Me.checkBoxGoldArrowVisible.Location = New System.Drawing.Point(582, 595)
+        Me.checkBoxGoldArrowVisible.Name = "checkBoxGoldArrowVisible"
+        Me.checkBoxGoldArrowVisible.Size = New System.Drawing.Size(312, 21)
+        Me.checkBoxGoldArrowVisible.TabIndex = 110
+        Me.checkBoxGoldArrowVisible.Text = "Display a gold arrow for the editable element."
+        Me.checkBoxGoldArrowVisible.UseVisualStyleBackColor = True
+        '
         'Form__Main_Demo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlLight
         Me.ClientSize = New System.Drawing.Size(1298, 642)
+        Me.Controls.Add(Me.checkBoxGoldArrowVisible)
+        Me.Controls.Add(Me.RscElementArrowLeft1)
+        Me.Controls.Add(Me.RscElementArrowRight1)
         Me.Controls.Add(Me.ButtonDesignElement)
         Me.Controls.Add(Me.LabelPreviewHeading)
         Me.Controls.Add(Me.LabelMainHeading)
@@ -1356,4 +1402,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents LabelMainHeading As Label
     Friend WithEvents LabelPreviewHeading As Label
     Friend WithEvents ButtonDesignElement As Button
+    Friend WithEvents RscElementArrowRight1 As __RSCWindowsControlLibrary.RSCElementArrowRight
+    Friend WithEvents RscElementArrowLeft1 As __RSCWindowsControlLibrary.RSCElementArrowLeft
+    Friend WithEvents checkBoxGoldArrowVisible As CheckBox
 End Class

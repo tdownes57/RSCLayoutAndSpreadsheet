@@ -41,6 +41,9 @@ Public Class ClassDesigner
     Public WithEvents BackgroundBox_Backside As PictureBox ''Added 12/10/2021 thomas downes
     Public BackgroundBox_JustAButton As PictureBox ''Added 1/21/2022 thomas downes
     Public DontAutoRefreshPreview As Boolean ''Added 3/11/2022 td
+    Public ElementArrow_Left As Control ''Added 9/2/2022 td
+    Public ElementArrow_Right As Control ''Added 9/2/2022 td
+    Public WithEvents CheckboxShowGoldArrow As CheckBox ''Added 9/2/2022 td
 
     ''Added 11/29/2021 thomas downes
     Private mod_designerListener As ClassDesignerEventListener
@@ -4171,6 +4174,9 @@ Public Class ClassDesigner
                 mod_ISaveableElementLastTouched = Nothing
                 If (TypeOf value Is ISaveToModel) Then mod_ISaveableElementLastTouched = CType(value, ISaveToModel)
 
+                ''Added 9/2/2022 td
+                PositionElementArrow(mod_ControlLastTouched)
+
             Catch
                 ''Added 8/12/2019 td  
                 mod_ControlLastTouched = value
@@ -4197,6 +4203,8 @@ Public Class ClassDesigner
             mod_ElementLastTouched = CType(value, RSCMoveableControlVB) ''Modified 1/12/2022 Added 9/14/2019 td
             mod_RSCControlLastTouched = CType(value, RSCMoveableControlVB) ''Added 1/28/2022 td
 
+            PositionElementArrow(mod_ControlLastTouched) ''Added 9/2/2022 td
+
             Try
                 ''9/9/2019 td''mod_FieldControlLastTouched = value
                 mod_RSCControlLastTouched = CType(value, CtlGraphicFieldV3)
@@ -4222,6 +4230,9 @@ Public Class ClassDesigner
         Set(value As Control)
             ''Added 9/01/2022 td
             mod_ControlLastTouched = value
+            ''Added 9/2/2022 td
+            PositionElementArrow(mod_ControlLastTouched)
+
         End Set
     End Property
 
@@ -5150,7 +5161,7 @@ Public Class ClassDesigner
 
             Me.CtlGraphic_QRCode_List.Clear()
 
-        End If
+        End If ''end of ""If (par_type.Equals(GetType(CtlGraphicQRCode))) Then""
 
 
     End Sub ''End of ""Public Sub ClearObjectReferences(par_type As Type)""
@@ -5201,7 +5212,60 @@ Public Class ClassDesigner
 
         End If ''Endof ""If (e.KeyCode = Keys.Delete) Then""
 
+    End Sub ''Handles the KeyUp events 
+
+
+    Private Sub PositionElementArrow(par_controlElement As Control)
+        ''
+        ''Added 9/2/2022 td
+        ''
+        Dim boolUseLeftside As Boolean
+        Dim boolUseRightside As Boolean
+
+        Me.ElementArrow_Left.Visible = False ''default
+        Me.ElementArrow_Right.Visible = False ''default
+
+        If (Not Me.CheckboxShowGoldArrow.Checked) Then Exit Sub
+
+        With Me.ElementArrow_Left
+            .Visible = False
+            .Left = par_controlElement.Left - .Width
+            boolUseLeftside = (.Left >= 0)
+            ''.Visible = (boolUseLeftside)
+            ''If (boolUseLeftside) Then .BringToFront()
+            If (boolUseLeftside) Then
+                .Top = par_controlElement.Top
+                .BringToFront()
+                .Visible = True
+            End If ''eND OF ""If (boolUseLeftside) Then""
+        End With ''end of ""With Me.ElementArrow_Left""
+
+        boolUseRightside = (Not boolUseLeftside)
+
+        With Me.ElementArrow_Right
+            .Visible = False
+            If (boolUseRightside) Then
+                .Left = par_controlElement.Left - .Width
+                .Top = par_controlElement.Top
+                .Visible = True ''(boolUseLeftside)
+                .BringToFront()
+            End If ''end of ""If (boolUseRightside) Then""
+        End With ''end of ""With Me.ElementArrow_Right""
+
+    End Sub ''end of ""Private Sub PositionElementArrow(par_controlElement As Control)"" 
+
+    Private Sub CheckboxShowGoldArrow_CheckedChanged(sender As Object, e As EventArgs) Handles CheckboxShowGoldArrow.CheckedChanged
+
+        ''Added 9/2/2022 td 
+        If (CheckboxShowGoldArrow.Checked) Then
+            ''Added 9/2/2022 
+            PositionElementArrow(Me.mod_ControlLastTouched)
+
+        Else
+            Me.ElementArrow_Left.Visible = False
+            Me.ElementArrow_Right.Visible = False
+
+        End If ''End of ""If (CheckboxShowGoldArrow.Checked) Then... Else..." 
+
     End Sub
-
-
 End Class ''End of "Public Class ClassDesigner"

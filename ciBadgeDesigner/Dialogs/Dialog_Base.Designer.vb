@@ -204,7 +204,7 @@ Partial Class Dialog_Base
         Me.RscElementArrowLeft1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscElementArrowLeft1.ElementInfo_Base = Nothing
         Me.RscElementArrowLeft1.ImageLocation = Nothing
-        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(959, 393)
+        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(918, 388)
         Me.RscElementArrowLeft1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscElementArrowLeft1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscElementArrowLeft1.MoveabilityEventsForSingleMove = Nothing
@@ -218,7 +218,7 @@ Partial Class Dialog_Base
         Me.RscElementArrowRight1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscElementArrowRight1.ElementInfo_Base = Nothing
         Me.RscElementArrowRight1.ImageLocation = Nothing
-        Me.RscElementArrowRight1.Location = New System.Drawing.Point(959, 393)
+        Me.RscElementArrowRight1.Location = New System.Drawing.Point(816, 388)
         Me.RscElementArrowRight1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscElementArrowRight1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscElementArrowRight1.MoveabilityEventsForSingleMove = Nothing

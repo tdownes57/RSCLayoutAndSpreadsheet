@@ -529,6 +529,10 @@ Public Class Form__Main_Demo
             .BackgroundBox_Backside = Me.pictureBackgroundBackside ''Added 12/10/2021 thomas downes
             .BackgroundBox_JustAButton = Me.pictureJustAButton ''Added 1/21/2022
 
+            .ElementArrow_Left = Me.RscElementArrowLeft1 ''Added 9/02/2022
+            .ElementArrow_Right = Me.RscElementArrowRight1 ''Added 9/02/2022
+            .CheckboxShowGoldArrow = Me.checkBoxGoldArrowVisible ''Added 9/02/2022
+
             ''''Added 12/3/2021 thomas downes
             ''Dim objectBackgroundImage As Bitmap
             ''Dim strBackgroundImage_Path As String = ""
