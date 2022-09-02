@@ -76,15 +76,22 @@ Public Class ClassElementLaysection
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
+
         End Get
         Set(value As Integer)
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
         End Set
     End Property
 
     Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
 

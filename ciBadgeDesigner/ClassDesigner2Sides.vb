@@ -40,37 +40,70 @@ Public Class ClassDesigner2Sides
 
     Public Property ControlBeingModified As Control Implements ILayoutFunctions.ControlBeingModified
         Get
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
+
         End Get
         Set(value As Control)
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
+
         End Set
     End Property
 
     Public Property ControlBeingMoved As Control Implements ILayoutFunctions.ControlBeingMoved
         Get
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
         End Get
         Set(value As Control)
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
         End Set
     End Property
 
     Public Property LastControlTouchedRSC As RSCMoveableControlVB Implements ILastControlTouchedRSC.LastControlTouchedRSC
         Get
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
         End Get
         Set(value As RSCMoveableControlVB)
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
+        End Set
+    End Property
+
+    Public Property ControlThatWasClicked As Control Implements ILayoutFunctions.ControlThatWasClicked
+        ''Added 9/01/2022 td
+        Get
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
+        End Get
+        Set(value As Control)
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
         End Set
     End Property
 
     Public Property ElementsDesignList_AllItems As HashSet(Of RSCMoveableControlVB) Implements ISelectingElements.ElementsDesignList_AllItems
         Get
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
+
         End Get
         Set(value As HashSet(Of RSCMoveableControlVB))
-            Throw New NotImplementedException()
+            ''Throw New NotImplementedException()
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
         End Set
     End Property
 
@@ -86,99 +119,148 @@ Public Class ClassDesigner2Sides
     Public DesignerForm_Interface As IDesignerForm ''Added 10/13/2019 td  
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
+
     End Function
 
     Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function Layout_Margin_Top_Omit(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Omit
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function Layout_Margin_Top_Add(par_intPixelsTop As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Top_Add
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing, Optional par_stillMoving As Boolean = False) Implements ILayoutFunctions.AutoPreview_IfChecked
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Sub RefreshCardPreview() Implements IRefreshCardPreview.RefreshCardPreview
         ''Jan26 2022''Public Sub RefreshPreview() Implements IRefreshPreview.RefreshPreview
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Sub RecordElementLastTouched(par_elementMoved As IMoveableElement, par_elementClicked As IClickableElement) Implements IRecordElementLastTouched.RecordElementLastTouched
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Sub ElementsDesignList_Add(par_control As CtlGraphicFieldV3) Implements ISelectingElements.ElementsDesignList_Add
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Sub ElementsDesignList_Remove(par_control As CtlGraphicFieldV3) Implements ISelectingElements.ElementsDesignList_Remove
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Function ElementsList_CountItems() As Integer Implements ISelectingElements.ElementsList_CountItems
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function ElementsList_OneOrMoreItems() As Boolean Implements ISelectingElements.ElementsList_OneOrMoreItems
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function ElementsList_TwoOrMoreItems() As Boolean Implements ISelectingElements.ElementsList_TwoOrMoreItems
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function ElementsList_IsItemIncluded(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.ElementsList_IsItemIncluded
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function ElementsList_IsItemUnselected(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.ElementsList_IsItemUnselected
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function HasAtLeastOne__Up(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.HasAtLeastOne__Up
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function HasAtLeastOne_Down(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.HasAtLeastOne_Down
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Sub SwitchControls___Up(par_control As RSCMoveableControlVB) Implements ISelectingElements.SwitchControls___Up
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Sub SwitchControls_Down(par_control As RSCMoveableControlVB) Implements ISelectingElements.SwitchControls_Down
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 End Class

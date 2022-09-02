@@ -2550,7 +2550,10 @@ Namespace ciBadgeCachePersonality
                 objCopyOfCache.Id_GUID = Me.Id_GUID
                 objCopyOfCache.Id_GUID6 = Me.Id_GUID6 ''Added 12/12/2021 td 
                 objCopyOfCache.Id_GUID6_CopiedFrom = Me.Id_GUID6 ''Added 12/12/2021 td
-                Throw New NotImplementedException("Not a good idea. Instead, check property Id_GUID6_CopiedFrom.")
+                ''Throw New NotImplementedException("Not a good idea. Instead, check property Id_GUID6_CopiedFrom.")
+                '9/1/2022 Throw New NotImplementedException()
+                System.Diagnostics.Debugger.Break()
+
             Else
                 ''Added 12/12/2021 Thomas Downes 
                 objCopyOfCache.Id_GUID6_CopiedFrom = Me.Id_GUID6 ''Added 12/12/2021 td
@@ -2636,7 +2639,9 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 9/30/2019 td  
             ''
-            Throw New NotImplementedException("Not implemented.   #x4591")
+            ''Throw New NotImplementedException("Not implemented.   #x4591")
+            '9/1/2022 Throw New NotImplementedException()
+            System.Diagnostics.Debugger.Break()
 
 
         End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"

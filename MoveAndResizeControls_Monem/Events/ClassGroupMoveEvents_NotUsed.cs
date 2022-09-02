@@ -105,6 +105,24 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+        public void ControlThatWasClicked(Control par_control)
+        {
+            //Added 9/01/2022
+
+            LayoutFunctions.ControlThatWasClicked = par_control;
+
+        }
+
+
+        public void Control_WasClicked(Control par_control)
+        {
+            //Added 9/01/2022
+
+            LayoutFunctions.ControlThatWasClicked = par_control;
+
+        }
+
+
         public void Control_IsMoving()
         {
             //throw new NotImplementedException();

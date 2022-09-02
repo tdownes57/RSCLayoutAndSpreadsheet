@@ -748,7 +748,9 @@ Public Class Startup
         ''  Presuming that the Customer has two Personalities, 
         ''  Student & Staff, let's load them both.  
         ''
-        Throw New NotImplementedException("Not coded yet.")
+        ''9/1/2022 Throw New NotImplementedException("Not coded yet.")
+        System.Diagnostics.Debugger.Break()
+
 
     End Function ''End of "Private Shared Function LoadCachedData_Customer"
 

@@ -944,6 +944,20 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+        public void ClickedParentControl(Control par_controlParentF, MouseEventArgs e)
+        {
+            //
+            // Added 9/01/2022 thomas downes
+            //
+            if (mod_events_groupedCtls != null)
+            {
+                //Added 9/01/2021 td
+                mod_events_groupedCtls.Control_WasClicked(par_controlParentF);
+            }
+
+
+        }
+
         private void MoveControl_GroupMove(Control par_controlG, MouseEventArgs par_e)
         {
             //

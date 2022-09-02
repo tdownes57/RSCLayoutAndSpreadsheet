@@ -2889,7 +2889,8 @@ Public Class ClassDesigner
 
             ElseIf (par_bUnloading) Then
                 ''9/3/2019 td''Me.Controls.Remove(label_control)
-                Throw New NotImplementedException
+                ''9/1/2022 Throw New NotImplementedException()
+                System.Diagnostics.Debugger.Break()
 
             End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
 
@@ -3053,7 +3054,8 @@ Public Class ClassDesigner
 
             ElseIf (par_bUnloading) Then
                 ''9/3/2019 td''Me.Controls.Remove(label_control)
-                Throw New NotImplementedException
+                ''9/1/2022 Throw New NotImplementedException()
+                System.Diagnostics.Debugger.Break()
 
             End If ''End of "If (boolInludeOnBadge) Then .... ElseIf (....) ...."
 
@@ -4210,6 +4212,19 @@ Public Class ClassDesigner
         End Set
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
+
+    Public Property ControlThatWasClicked() As Control _
+        Implements ILayoutFunctions.ControlThatWasClicked ''Added 9/01/2022 td
+        Get
+            ''Added 9/01/2022 td
+            Return mod_ControlLastTouched
+        End Get
+        Set(value As Control)
+            ''Added 9/01/2022 td
+            mod_ControlLastTouched = value
+        End Set
+    End Property
+
     Public Property ElementsDesignList_AllItems As HashSet(Of RSCMoveableControlVB) _
         Implements ISelectingElements.ElementsDesignList_AllItems
         ''1/12/2022 TD''Property ElementsDesignList_AllItems As HashSet(Of CtlGraphicFldLabel)
@@ -4745,7 +4760,9 @@ Public Class ClassDesigner
         ''Added 9/19/2019 td
         ''10/1/2019 td''Return RightClickMenuParent
 
-        Throw New NotImplementedException("This class is not in charge of displaying context menus!!")
+        '9/1/2022 Throw New NotImplementedException("This class is not in charge of displaying context menus!!")
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
 
     End Function
 
@@ -4949,7 +4966,15 @@ Public Class ClassDesigner
             Return CType(mod_ControlLastTouched, RSCMoveableControlVB)
         End Get
         Set(value As RSCMoveableControlVB)
-            Throw New NotImplementedException()
+            ''9/1/2022 Throw New NotImplementedException()
+            '9/1/2022 System.Diagnostics.Debugger.Break()
+            mod_ControlLastTouched = value
+
+            ''Added 9/01/2022
+            If (mod_ctlLasttouched IsNot Nothing) Then
+                mod_ctlLasttouched.LastControlTouched = value
+            End If ''End of ""If (mod_ctlLasttouched IsNot Nothing) Then""
+
         End Set
     End Property
 

@@ -355,12 +355,17 @@ Public Class ClassElementGraphic
         ''This procedure should provide a substantive value for the current
         ''  class's implementation of property IElementGraphic.GraphicImage. 
         ''
-        Throw New NotImplementedException("Not coded yet")
+        ''Throw New NotImplementedException("Not coded yet")
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
 
     End Sub ''End of "Public Sub LoadGraphic() "
 
     Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
+
     End Function
 End Class
 

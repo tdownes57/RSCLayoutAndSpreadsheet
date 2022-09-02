@@ -975,6 +975,15 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
+    Private Sub mod_eventsGroupedMove_ControlWasClicked(par_control As Control) Handles mod_eventsGroupedMove.ControlWasClicked
+        ''
+        ''Added 9/01/2022 thomas downes
+        ''
+        mod_designer.LastControlTouchedRSC =
+            CType(par_control, RSCMoveableControlVB)
+
+    End Sub
+
 
     ''Private Sub LoadFieldControls_ByListOfElements(par_listDesignerControls As HashSet(Of Control)) '',
     ''    ''           Optional pstrWhyCalled As String = "")

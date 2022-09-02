@@ -116,6 +116,9 @@ namespace MoveAndResizeControls_Monem //.Interfaces
             IRefreshCardPreview par_iRefreshCardPreview = null); 
             //June6 2022 bool par_bHeightAdjusted = false);
 
+        //Added 9/01/2022 thomas downes
+        void ClickedParentControl(Control par_controlParent, MouseEventArgs e);
+
         //Added 3/3/2022 thomas downes
         //StructResizeParams ResizeParams
         //{

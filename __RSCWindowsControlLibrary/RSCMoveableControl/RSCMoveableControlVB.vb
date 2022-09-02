@@ -1873,6 +1873,10 @@ Public Class RSCMoveableControlVB
                                                                 info_SaveToModel,
                                                                 info_RefreshElementImage,
                                                                 info_RefreshCardPreview)
+            ''Added 9/01/2022 td
+            Dim objParentControl As Control ''Added 1/11/20222
+            objParentControl = Me ''Added 1/11/20222
+            mod_iMoveOrResizeFunctionality.ClickedParentControl(objParentControl, par_e)
 
 
         ElseIf (par_e.Button = MouseButtons.Right) Then

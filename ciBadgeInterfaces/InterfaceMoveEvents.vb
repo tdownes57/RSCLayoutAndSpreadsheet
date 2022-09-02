@@ -35,7 +35,7 @@ Public Interface InterfaceMoveEvents
     Sub Control_IsMoving()
 
     ''Added 8/31/2022 td
-    Sub ControlWasClicked(par_control As Control) ''Added 8/31/2022 td
+    Sub Control_WasClicked(par_control As Control) ''Added 8/31/2022 td
 
 
 End Interface

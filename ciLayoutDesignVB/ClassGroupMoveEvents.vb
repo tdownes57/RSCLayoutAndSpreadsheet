@@ -113,12 +113,13 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
     End Sub
 
 
-    Public Sub Control_WasClicked(par_control As Control) Implements InterfaceMoveEvents.ControlWasClicked
+    Public Sub Control_WasClicked(par_control As Control) Implements InterfaceMoveEvents.Control_WasClicked
         ''
         ''Added 8/31/2022 td
         ''
         ''8/31/2022 td  RaiseEvent ControlWasClicked()
-        LayoutFunctions.ControlBeingClicked = par_control
+        ''8/31/2022 td  LayoutFunctions.ControlBeingClicked = par_control
+        LayoutFunctions.ControlThatWasClicked = par_control
         RaiseEvent ControlWasClicked(par_control)
 
     End Sub

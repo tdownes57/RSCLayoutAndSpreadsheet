@@ -21,6 +21,10 @@ namespace MoveAndResizeControls_Monem
         //
         public Control ControlBeingModified { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Control ControlBeingMoved { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        
+        //Added 9/01/2022
+        public Control ControlThatWasClicked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
         public void AutoPreview_IfChecked(Control par_controlElement = null, bool par_stillMoving = false)
         {

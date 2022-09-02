@@ -1096,6 +1096,9 @@ Public Class ClassElementFieldOrTextV4
 
 
     Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        '9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
+
     End Function
 End Class ''End of "Class ClassElementField"  

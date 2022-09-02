@@ -16,6 +16,7 @@ Public Class Dialog_Base
     Protected mod_controlRSCMoveable As RSCMoveableControlVB
     Protected mod_elementBase As ciBadgeElements.ClassElementBase ''Added 7/29/2022 td
     Protected mod_elementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/03/2022 td
+    Protected mod_controlLastTouched As Control ''Added 9/01/2022 
 
     Protected ControlBelongsToPanel As Boolean = False ''Added 7/28/2022 td
 
@@ -288,9 +289,22 @@ ExitHandler:
     Public Property ControlBeingModified() As Control _
         Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
         Get
-            Return Nothing
+            ''9/1/2022 Return Nothing
+            Return mod_controlLastTouched
         End Get
         Set(value As Control)
+            mod_controlLastTouched = value
+        End Set
+    End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
+
+
+    Public Property ControlThatWasClicked() As Control _
+        Implements ILayoutFunctions.ControlThatWasClicked ''Added 8/9/2019 td
+        Get
+            Return mod_controlLastTouched
+        End Get
+        Set(value As Control)
+            mod_controlLastTouched = value
         End Set
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
 
@@ -646,27 +660,32 @@ ExitHandler:
 
     Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
         ''Added 8/6/2022
-        Throw New NotImplementedException()
+        ''9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing, Optional par_stillMoving As Boolean = False) Implements ILayoutFunctions.AutoPreview_IfChecked
         ''Added 8/6/2022
-        Throw New NotImplementedException()
+        ''9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Public Function RightClickMenu_Parent() As ToolStripMenuItem Implements ILayoutFunctions.RightClickMenu_Parent
         ''Added 8/6/2022
-        Throw New NotImplementedException()
+        ''9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Function NameOfForm() As String Implements ILayoutFunctions.NameOfForm
         ''Added 8/6/2022
-        Throw New NotImplementedException()
+        ''9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Function
 
     Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
         ''Added 8/6/2022
-        Throw New NotImplementedException()
+        ''9/1/2022 Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
     End Sub
 
     Private Sub mod_objEventsRSC_Moving_End(par_control As Control, par_iSaveToModel As ISaveToModel) Handles mod_objEventsRSC_Elem.Moving_End

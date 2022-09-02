@@ -52,6 +52,7 @@ Public Class FormMainEntry_v90
         Return (par_intPixelsTop + 0)
     End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
+
     Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified ''Added 8/9/2019 td
         Get
             ''
@@ -80,6 +81,7 @@ Public Class FormMainEntry_v90
             End Try
         End Set
     End Property ''End of Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified 
+
 
     Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/9/2019 td
         Get
@@ -111,7 +113,19 @@ Public Class FormMainEntry_v90
                 ''Not all moveable controls are Field-Label controls. - ----8/12/2019 thomas d.  
             End Try
         End Set
-    End Property ''End of Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified 
+    End Property ''End of Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved 
+
+
+    Public Property ControlThatWasClicked() As Control Implements ILayoutFunctions.ControlThatWasClicked ''Added 8/9/2019 td
+        ''Added 9/01/2022 td
+        Get
+            Return mod_ControlLastTouched
+        End Get
+        Set(value As Control)
+            mod_ControlLastTouched = value ''Added 9/01/2022 td
+        End Set
+    End Property ''End of Public Property ControlThatWasClicked() As Control Implements ILayoutFunctions.ControlBeingModified 
+
 
     Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
         ''
