@@ -45,7 +45,7 @@ Public Class ClassElementGraphic
     Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
+    Public Property BadgeLayoutDims As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayoutDims ''This provides sizing context & scaling factors. 
 
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
@@ -256,14 +256,14 @@ Public Class ClassElementGraphic
     End Sub
 
     Public Sub New(par_rectangleOfElement As Rectangle,
-                   par_badeLayout As BadgeLayoutDimensionsClass,
+                   par_badeLayoutDims As BadgeLayoutDimensionsClass,
                    par_strPathToGraphicsFile As String)
         ''
         ''Added 9/16/2019 td
         ''Revised 5/14/2022 td
         ''
         ''5/14/2022 Me.BadgeLayout = New BadgeLayoutClass(par_layout)
-        Me.BadgeLayout = par_badeLayout ''5/14/2022  New BadgeLayoutClass(par_layout)
+        Me.BadgeLayoutDims = par_badeLayoutDims ''5/14/2022  New BadgeLayoutClass(par_layout)
 
         ''Added 9/16/2019 td
         Me.LeftEdge_Pixels = par_rectangleOfElement.Left
@@ -309,7 +309,7 @@ Public Class ClassElementGraphic
         ''
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
-        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayoutDims = par_ElementInfo_Base.BadgeLayoutDims
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels

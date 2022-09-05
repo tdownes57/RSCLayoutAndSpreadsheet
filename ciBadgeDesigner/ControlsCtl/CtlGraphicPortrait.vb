@@ -131,10 +131,13 @@ Public Class CtlGraphicPortrait
             .EventsForMoveability_Single = Nothing
             ''Added 1/24/2022 thomas downes
             .LayoutFunctions = .Designer
+
             ''Added 5/10/2022 td
             .InfoRefresh = par_parametersGetElementControl.iRefreshPreview
             ''Added 8/01/2022 td
             .Designer = par_parametersGetElementControl.DesignerClass
+            ''Added 9/03/2022 td
+            .BadgeDimensions_DesignLayout = .Designer.BadgeLayout_Class
 
         End With ''End of "With objOperationsPortrait"
 
@@ -722,8 +725,8 @@ Public Class CtlGraphicPortrait
             ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
             ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+            Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+            Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 

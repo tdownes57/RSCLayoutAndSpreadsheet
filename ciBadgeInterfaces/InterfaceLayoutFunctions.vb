@@ -7,6 +7,9 @@ Public Interface ILayoutFunctions
     ''
     ''Added 9/9/2019 td  
     ''
+    Property LayoutDebugName As String ''For debugging. --Added 9/3/2022 td
+    Property LayoutDebugDescription As String ''For debugging.--Added 9/3/2022 td
+
     Function Layout_Width_Pixels() As Integer
 
     Function Layout_Height_Pixels() As Integer ''Added 9/11/2019 td

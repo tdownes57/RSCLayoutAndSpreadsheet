@@ -195,6 +195,8 @@ Public Class CtlGraphicStaticTextV3
             .InfoRefresh = par_parametersGetElementControl.iRefreshPreview ''Added 5/10/2022
             ''Added 8/01/2022 td
             .Designer = par_parametersGetElementControl.DesignerClass
+            ''Added 9/03/2022 td
+            .BadgeDimensions_DesignLayout = .Designer.BadgeLayout_Class
 
         End With ''End of ""With objOperationsST_V3""
 
@@ -589,10 +591,10 @@ ExitHandler:
         Dim newTextImage As Image ''Added 9/20/2019 td  
 
         ''Added 11/24/2021 thomas d. 
-        If (0 = Me.ElementInfo_Base.BadgeLayout.Width_Pixels) Then
+        If (0 = Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels) Then
             ''Added 11/24/2021 thomas d. 
-            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = 681
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = 425
+            Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = 681
+            Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = 425
         End If ''End of "If (0 = Me.ElementInfo_Base.BadgeLayout.Width_Pixels) Then"
 
         Const c_boolUseNewestProjectReference As Boolean = True ''False ''True ''False ''True ''Added 9/20/2019 td 
@@ -780,8 +782,8 @@ ExitHandler:
         ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
         ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
 
     End Sub ''End of Public Sub SaveToModel
 
@@ -816,8 +818,8 @@ ExitHandler:
 
         ''#1 Jan8 2022''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
         ''#1 Jan8 2022''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
 
         Application.DoEvents()
         Me.Refresh_Image(True)
@@ -1063,8 +1065,8 @@ ExitHandler:
                 ''Jan8 2022 td''End If ''End of "If (Me.LayoutFunctions IsNot Nothing) Then"
 
                 If (mod_iLayoutFunctions IsNot Nothing) Then
-                    Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
-                    Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
+                    Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+                    Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
                 End If ''End of "If (mod_iLayoutFunctions IsNot Nothing) Then"
 
                 ''12/21/2021''Me.Refresh_Image(True)

@@ -30,18 +30,18 @@ Public Class ClassElementSignature
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementSig
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    ''9/2022 Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
+    ''<Xml.Serialization.XmlIgnore>
+    ''9/2022 Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Sig, or Logo
+    ''9/2022 Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Sig, or Logo
 
-    ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
+    ''''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    ''9/2022 Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
 
-    Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
+    ''9/2022 Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
+    ''9/2022 Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
     ''
     ''Added 5/27/2022 td
@@ -243,7 +243,7 @@ Public Class ClassElementSignature
         ''
         ''Added 9/16/2019 td
         ''
-        BadgeLayout = New BadgeLayoutDimensionsClass(par_layout)
+        BadgeLayoutDims = New BadgeLayoutDimensionsClass(par_layout)
 
         ''Added 9/16/2019 td
         Me.LeftEdge_Pixels = par_rectangle.Left
@@ -255,10 +255,10 @@ Public Class ClassElementSignature
 
         ''Added 8/17/2022 td
         ''  Let's write to the base class. ("b" = "base")
-        Me.LeftEdge_bPixels = par_rectangle.Left
-        Me.TopEdge_bPixels = par_rectangle.Top
-        Me.Width_bPixels = par_rectangle.Width
-        Me.Height_bPixels = par_rectangle.Height
+        Me.LeftEdge_Pixels = par_rectangle.Left
+        Me.TopEdge_Pixels = par_rectangle.Top
+        Me.Width_Pixels = par_rectangle.Width
+        Me.Height_Pixels = par_rectangle.Height
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
@@ -309,7 +309,7 @@ Public Class ClassElementSignature
         ''
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
-        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayoutDims = par_ElementInfo_Base.BadgeLayoutDims
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels

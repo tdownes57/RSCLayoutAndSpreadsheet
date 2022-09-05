@@ -187,6 +187,8 @@ Public Class CtlGraphicFieldV4
 
             ''Added 5/29/2022
             .CacheOfFieldsEtc_Deprecated = par_parametersGetElementControl.ElementsCache
+            ''Added 9/03/2022 td
+            .BadgeDimensions_DesignLayout = .Designer.BadgeLayout_Class
 
         End With ''End of "With objOperationsFld_V4"
 
@@ -752,8 +754,8 @@ ExitHandler:
         Me.ElementInfo_Base.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
         ''Added 8/3/2022 thomas d.
-        Me.ElementBase.TopEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
-        Me.ElementBase.LeftEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+        Me.ElementBase.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+        Me.ElementBase.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
         ''Added 11/29/2021 td
         Me.ElementClass_ObjV4.DatetimeUpdated = Now ''Added 11/29/2021 td
@@ -806,8 +808,8 @@ ExitHandler:
         ''9/5/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
         ''9/5/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
@@ -860,7 +862,8 @@ ExitHandler:
         ''
         ''Added Feb. 4 2022 td 
         ''
-        Me.Element_FieldV4.LoadByCopyingMembers(par_objectElementV4, par_ElementInfo_Base,
+        ''9/5/2022 Me.Element_FieldV4.LoadByCopyingMembers(par_objectElementV4, par_ElementInfo_Base,
+        Me.Element_FieldV4.LoadByCopyingMembersV1(par_objectElementV4, par_ElementInfo_Base,
                      par_ElementInfo_Text,
                      par_objectElementV4,
                      par_badgeLayout)

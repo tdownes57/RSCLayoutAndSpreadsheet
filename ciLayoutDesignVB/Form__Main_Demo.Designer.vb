@@ -130,6 +130,10 @@ Partial Class Form__Main_Demo
         Me.ButtonEditBackground = New System.Windows.Forms.Button()
         Me.LabelMainHeading = New System.Windows.Forms.Label()
         Me.LabelPreviewHeading = New System.Windows.Forms.Label()
+        Me.ButtonDesignElement = New System.Windows.Forms.Button()
+        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCElementArrowRight()
+        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
+        Me.checkBoxGoldArrowVisible = New System.Windows.Forms.CheckBox()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
         Me.CtlGraphicSignature1 = New ciBadgeDesigner.CtlGraphicSignature()
@@ -137,10 +141,6 @@ Partial Class Form__Main_Demo
         Me.ComponentClickableDesktop1 = New ciBadgeDesigner.ComponentClickableDesktop(Me.components)
         Me.ComponentClickIDFrontside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
         Me.ComponentClickIDBackside1 = New ciBadgeDesigner.ComponentClickBackground(Me.components)
-        Me.ButtonDesignElement = New System.Windows.Forms.Button()
-        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCElementArrowRight()
-        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
-        Me.checkBoxGoldArrowVisible = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -1079,6 +1079,60 @@ Partial Class Form__Main_Demo
         Me.LabelPreviewHeading.TabIndex = 106
         Me.LabelPreviewHeading.Text = "RSC ID Card Preview"
         '
+        'ButtonDesignElement
+        '
+        Me.ButtonDesignElement.BackColor = System.Drawing.Color.RoyalBlue
+        Me.ButtonDesignElement.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Design_Element
+        Me.ButtonDesignElement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.ButtonDesignElement.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonDesignElement.Location = New System.Drawing.Point(300, 551)
+        Me.ButtonDesignElement.Name = "ButtonDesignElement"
+        Me.ButtonDesignElement.Size = New System.Drawing.Size(205, 32)
+        Me.ButtonDesignElement.TabIndex = 107
+        Me.ButtonDesignElement.UseVisualStyleBackColor = False
+        '
+        'RscElementArrowRight1
+        '
+        Me.RscElementArrowRight1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowRight1.ElementInfo_Base = Nothing
+        Me.RscElementArrowRight1.ImageLocation = Nothing
+        Me.RscElementArrowRight1.Location = New System.Drawing.Point(714, 75)
+        Me.RscElementArrowRight1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RscElementArrowRight1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowRight1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowRight1.Name = "RscElementArrowRight1"
+        Me.RscElementArrowRight1.Size = New System.Drawing.Size(69, 50)
+        Me.RscElementArrowRight1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowRight1.TabIndex = 108
+        Me.RscElementArrowRight1.Visible = False
+        '
+        'RscElementArrowLeft1
+        '
+        Me.RscElementArrowLeft1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowLeft1.ElementInfo_Base = Nothing
+        Me.RscElementArrowLeft1.ImageLocation = Nothing
+        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(714, 78)
+        Me.RscElementArrowLeft1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RscElementArrowLeft1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowLeft1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowLeft1.Name = "RscElementArrowLeft1"
+        Me.RscElementArrowLeft1.Size = New System.Drawing.Size(69, 37)
+        Me.RscElementArrowLeft1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowLeft1.TabIndex = 109
+        Me.RscElementArrowLeft1.Visible = False
+        '
+        'checkBoxGoldArrowVisible
+        '
+        Me.checkBoxGoldArrowVisible.AutoSize = True
+        Me.checkBoxGoldArrowVisible.Checked = True
+        Me.checkBoxGoldArrowVisible.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.checkBoxGoldArrowVisible.Location = New System.Drawing.Point(582, 595)
+        Me.checkBoxGoldArrowVisible.Name = "checkBoxGoldArrowVisible"
+        Me.checkBoxGoldArrowVisible.Size = New System.Drawing.Size(312, 21)
+        Me.checkBoxGoldArrowVisible.TabIndex = 110
+        Me.checkBoxGoldArrowVisible.Text = "Display a gold arrow for the editable element."
+        Me.checkBoxGoldArrowVisible.UseVisualStyleBackColor = True
+        '
         'CtlGraphicQRCode1
         '
         Me.CtlGraphicQRCode1.BackColor = System.Drawing.Color.Transparent
@@ -1146,58 +1200,6 @@ Partial Class Form__Main_Demo
         'ComponentClickIDBackside1
         '
         Me.ComponentClickIDBackside1.PictureBoxControl = Nothing
-        '
-        'ButtonDesignElement
-        '
-        Me.ButtonDesignElement.BackColor = System.Drawing.Color.RoyalBlue
-        Me.ButtonDesignElement.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Design_Element
-        Me.ButtonDesignElement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.ButtonDesignElement.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonDesignElement.Location = New System.Drawing.Point(300, 551)
-        Me.ButtonDesignElement.Name = "ButtonDesignElement"
-        Me.ButtonDesignElement.Size = New System.Drawing.Size(205, 32)
-        Me.ButtonDesignElement.TabIndex = 107
-        Me.ButtonDesignElement.UseVisualStyleBackColor = False
-        '
-        'RscElementArrowRight1
-        '
-        Me.RscElementArrowRight1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscElementArrowRight1.ElementInfo_Base = Nothing
-        Me.RscElementArrowRight1.ImageLocation = Nothing
-        Me.RscElementArrowRight1.Location = New System.Drawing.Point(714, 75)
-        Me.RscElementArrowRight1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.RscElementArrowRight1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscElementArrowRight1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscElementArrowRight1.Name = "RscElementArrowRight1"
-        Me.RscElementArrowRight1.Size = New System.Drawing.Size(69, 50)
-        Me.RscElementArrowRight1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.RscElementArrowRight1.TabIndex = 108
-        Me.RscElementArrowRight1.Visible = False
-        '
-        'RscElementArrowLeft1
-        '
-        Me.RscElementArrowLeft1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscElementArrowLeft1.ElementInfo_Base = Nothing
-        Me.RscElementArrowLeft1.ImageLocation = Nothing
-        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(714, 78)
-        Me.RscElementArrowLeft1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.RscElementArrowLeft1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscElementArrowLeft1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscElementArrowLeft1.Name = "RscElementArrowLeft1"
-        Me.RscElementArrowLeft1.Size = New System.Drawing.Size(69, 37)
-        Me.RscElementArrowLeft1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.RscElementArrowLeft1.TabIndex = 109
-        Me.RscElementArrowLeft1.Visible = False
-        '
-        'checkBoxGoldArrowVisible
-        '
-        Me.checkBoxGoldArrowVisible.AutoSize = True
-        Me.checkBoxGoldArrowVisible.Location = New System.Drawing.Point(582, 595)
-        Me.checkBoxGoldArrowVisible.Name = "checkBoxGoldArrowVisible"
-        Me.checkBoxGoldArrowVisible.Size = New System.Drawing.Size(312, 21)
-        Me.checkBoxGoldArrowVisible.TabIndex = 110
-        Me.checkBoxGoldArrowVisible.Text = "Display a gold arrow for the editable element."
-        Me.checkBoxGoldArrowVisible.UseVisualStyleBackColor = True
         '
         'Form__Main_Demo
         '

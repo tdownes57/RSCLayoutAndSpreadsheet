@@ -40,6 +40,7 @@ Public MustInherit Class Operations__Base
     Public Property EventsForMoveability_Single As GroupMoveEvents_Singleton ''Suffixed 1/11/2022 Added 1/3/2022 td 
     Public Property EventsForMoveability_Group As GroupMoveEvents_Singleton ''Added 1/11/2022 td 
     Public Property LayoutFunctions As ILayoutFunctions ''Added 1/4/2022 td
+    Public Property BadgeDimensions_DesignLayout As IBadgeLayoutDimensions ''Added 9/03/2022
 
     Public Property CtlCurrentForm As Form ''Added 5/5/2022 thomas d. 
     Public Property CtlCurrentControl As Control ''---Implements ICurrentElement.CtlCurrentElement
@@ -310,6 +311,34 @@ Public MustInherit Class Operations__Base
         Me.CtlCurrentElement.Refresh()
 
     End Sub ''End of ""Public Sub Refresh_Element_Image_EE1301"" 
+
+
+    Public Sub Give_Layout_Information_EE1003(sender As Object, e As EventArgs)
+        ''
+        ''Added 9/3/2022 thomas downes
+        ''
+        Dim infoLayoutFuns As ILayoutFunctions
+        Dim infoBadgeDimensions_DesignLayout As IBadgeLayoutDimensions
+        ''Dim infoBadgeDimensions_FinalPrint As IBadgeLayoutDimensions
+        Dim strBuilder As New System.Text.StringBuilder(200)
+
+        infoLayoutFuns = Me.LayoutFunctions
+        infoBadgeDimensions_DesignLayout = Me.BadgeDimensions_DesignLayout
+
+        strBuilder.AppendLine("---Layout functions---")
+        strBuilder.AppendLine(infoLayoutFuns.LayoutDebugName)
+        strBuilder.AppendLine("Name of form: " & infoLayoutFuns.NameOfForm())
+        strBuilder.AppendLine(infoLayoutFuns.LayoutDebugDescription)
+        strBuilder.AppendLine()
+        strBuilder.AppendLine("---Badge Dimensions---")
+        strBuilder.AppendLine(infoBadgeDimensions_DesignLayout.NameForDebug)
+        strBuilder.AppendLine(infoBadgeDimensions_DesignLayout.Description)
+
+        ''Added 9/3/2022 thomas downes
+        MessageBoxTD.Show_StatementLongform("Layout Description",
+                strBuilder.ToString(), 1.0, 1.0)
+
+    End Sub ''End of ""Public Sub Give_Layout_Information_EE1302(sender As Object, e As EventArgs)""
 
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)

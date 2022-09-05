@@ -19,7 +19,8 @@ Imports ciBadgeSerialize ''Added 6/07/2022 thomas d.
 <Serializable>
 Public Class ClassElementFieldOrTextV4
     Inherits ClassElementBase
-    Implements IElement_Base, IElement_TextOnly ''Jan29 2022 td'', IElement_TextField
+    Implements IElement_TextOnly ''Jan29 2022 td'', IElement_TextField
+    ''9/4/2022 Implements IElement_Base
     ''
     ''Copy pasted 1/29/2022 using code started 7/18/2019 thomas downes
     ''
@@ -110,10 +111,10 @@ Public Class ClassElementFieldOrTextV4
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
-    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
-    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
-    Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
-    Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
+    Public Property BadgeDisplayIndex As Integer ''9/4/2022 Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+    Public Property WhichSideOfCard As EnumWhichSideOfCard ''9/4/2022 Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
+    Public Property DateEdited As Date ''9/4/2022 Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
+    Public Property DateSaved As Date ''9/4/2022 Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
     ''Moved below, and underscore removed. 6/7/2022  <Xml.Serialization.XmlIgnore>
     ''Moved below, and underscore removed. 6/7/2022  Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
@@ -217,14 +218,14 @@ Public Class ClassElementFieldOrTextV4
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    Public Property PositionalMode As String ''9/4/2022 Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
-    Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+    Public Property OrientationToLayout As String ''9/4/2022 Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
 
-    Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
+    Public Property OrientationInDegrees As Integer ''9/4/2022 Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
+    Public Property Image_BL As Image ''9/4/2022 Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
     ''Moved below. 8/27/2019 td''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
@@ -234,128 +235,128 @@ Public Class ClassElementFieldOrTextV4
     ''-------------------------------------------------------------
 
     <Xml.Serialization.XmlIgnore>
-    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
+    Public Property FormControl As Control ''9/4/2022 Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    Public Property ElementType As String = "Text" ''9/4/2022 Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
+    Public Property BadgeLayout As BadgeLayoutDimensionsClass ''9/4/2022 Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
 
-    Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
+    ''9/4/2022 ''Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
+    ''9/4/2022 ''Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
 
 
     ''9/23/20198 td''Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
     ''9/23/20198 td''Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
 
 
-    Private mod_width_pixels As Integer = 253 ''Added 9/23/2019 td 
-    Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
-        Get
-            Return mod_width_pixels
-        End Get
-        Set(value As Integer)
+    ''9/5/2022 Private mod_width_pixels As Integer = 253 ''Added 9/23/2019 td 
+    ''9/5/2022 Public Property Width_Pixels As Integer ''9/4/2022 Implements IElement_Base.Width_Pixels
+    ''    Get
+    ''        Return mod_width_pixels
+    ''    End Get
+    ''    Set(value As Integer)
 
-            mod_width_pixels = value
+    ''        mod_width_pixels = value
 
-            ''
-            ''Are we initializing Height & Width?   
-            ''
-            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
-            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
-            intOtherPropertyValue = mod_height_pixels
-            boolLikelyInitializing = (0 = intOtherPropertyValue)
-            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+    ''        ''
+    ''        ''Are we initializing Height & Width?   
+    ''        ''
+    ''        Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+    ''        Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+    ''        intOtherPropertyValue = mod_height_pixels
+    ''        boolLikelyInitializing = (0 = intOtherPropertyValue)
+    ''        If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
 
-            ''
-            ''Inform software developer of programming which violates design expectations.
-            ''
-            Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolMultiLineText As Boolean ''Added 6/10/2022 thomas downe
+    ''        ''
+    ''        ''Inform software developer of programming which violates design expectations.
+    ''        ''
+    ''        Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
+    ''        Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+    ''        Dim boolMultiLineText As Boolean ''Added 6/10/2022 thomas downe
 
-            ''Added 9/23/2019 thomas downes
-            boolMultiLineText = Text_IsMultiLine ''Added 6/10/2022
-            boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
-            boolGiveDisallowedMsg = boolTallerThanWidth
-            If (boolMultiLineText) Then
-                ''
-                ''With multiline text, you can't expect that width > height. ---6/10/2022
-                ''
-            ElseIf (boolGiveDisallowedMsg) Then
-                ''6/6/2022 Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
-                System.Diagnostics.Debugger.Break()
-            End If ''End of "If (boolMultiLineText) Then.... ElseIf (boolGiveDisallowedMsg) Then"
+    ''        ''Added 9/23/2019 thomas downes
+    ''        boolMultiLineText = Text_IsMultiLine ''Added 6/10/2022
+    ''        boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
+    ''        boolGiveDisallowedMsg = boolTallerThanWidth
+    ''        If (boolMultiLineText) Then
+    ''            ''
+    ''            ''With multiline text, you can't expect that width > height. ---6/10/2022
+    ''            ''
+    ''        ElseIf (boolGiveDisallowedMsg) Then
+    ''            ''6/6/2022 Throw New Exception("The Height cannot exceed the width #1 (rotation is _not_ an exception to this).")
+    ''            System.Diagnostics.Debugger.Break()
+    ''        End If ''End of "If (boolMultiLineText) Then.... ElseIf (boolGiveDisallowedMsg) Then"
 
-            ''Added 9/23/2019 td
-            Const c_False_RegardlessOfRotation As Boolean = False
-            ''June10 2022 CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
-            ''                                      c_False_RegardlessOfRotation)
-            CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
-                                      c_False_RegardlessOfRotation,
-                                        Text_IsMultiLine)
+    ''        ''Added 9/23/2019 td
+    ''        Const c_False_RegardlessOfRotation As Boolean = False
+    ''        ''June10 2022 CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+    ''        ''                                      c_False_RegardlessOfRotation)
+    ''        CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+    ''                                  c_False_RegardlessOfRotation,
+    ''                                    Text_IsMultiLine)
 
-        End Set
-    End Property
+    ''    End Set
+    ''End Property
 
 
-    Private mod_height_pixels As Integer = 33 ''Added 9/23/2019 td 
-    Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
-        Get
-            Return mod_height_pixels
-        End Get
-        Set(value As Integer)
+    ''9/5/2022 Private mod_height_pixels As Integer = 33 ''Added 9/23/2019 td 
+    ''9/5/2022 Public Property Height_Pixels As Integer ''9/4/2022 Implements IElement_Base.Height_Pixels
+    ''    Get
+    ''        Return mod_height_pixels
+    ''    End Get
+    ''    Set(value As Integer)
 
-            mod_height_pixels = value
+    ''        mod_height_pixels = value
 
-            ''
-            ''Are we initializing Height & Width?   
-            ''
-            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
-            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
-            intOtherPropertyValue = mod_width_pixels
-            boolLikelyInitializing = (0 = intOtherPropertyValue)
-            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+    ''        ''
+    ''        ''Are we initializing Height & Width?   
+    ''        ''
+    ''        Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+    ''        Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+    ''        intOtherPropertyValue = mod_width_pixels
+    ''        boolLikelyInitializing = (0 = intOtherPropertyValue)
+    ''        If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
 
-            ''
-            ''Inform software developer of programming which violates design expectations.
-            ''
-            Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolTextMultiline As Boolean ''Added 6/10/2022 thomas downes
+    ''        ''
+    ''        ''Inform software developer of programming which violates design expectations.
+    ''        ''
+    ''        Dim boolTallerThanWidth As Boolean ''Added 9/23/2019 thomas downes
+    ''        Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+    ''        Dim boolTextMultiline As Boolean ''Added 6/10/2022 thomas downes
 
-            boolTextMultiline = Text_IsMultiLine ''Added 6/10/2022 thomas downes
+    ''        boolTextMultiline = Text_IsMultiLine ''Added 6/10/2022 thomas downes
 
-            ''Added 9/23/2019 thomas downes
-            boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
-            boolGiveDisallowedMsg = boolTallerThanWidth
+    ''        ''Added 9/23/2019 thomas downes
+    ''        boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
+    ''        boolGiveDisallowedMsg = boolTallerThanWidth
 
-            If (boolTextMultiline) Then
-                ''
-                ''For multiline text, it doesn't make sense to try & enforce a width > height 
-                ''  rule. ---6/10/2022 
-                ''Added 6/10/2022 thomas d.
-                ''
-            ElseIf (boolGiveDisallowedMsg) Then
-                ''2/2/2022 td''Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
-                ''6/6/2022 td''Throw New Exception("Programmer needs to check for Rotation-by-90, & then switch Height & Width " &
-                ''                    "whenever a Resize occurs.  The Height cannot exceed the width. " &
-                ''                    "By a line of programming to switch Height & Width, a rotated element " &
-                ''                    "can easily abide by this rule.")
-                System.Diagnostics.Debugger.Break()
+    ''        If (boolTextMultiline) Then
+    ''            ''
+    ''            ''For multiline text, it doesn't make sense to try & enforce a width > height 
+    ''            ''  rule. ---6/10/2022 
+    ''            ''Added 6/10/2022 thomas d.
+    ''            ''
+    ''        ElseIf (boolGiveDisallowedMsg) Then
+    ''            ''2/2/2022 td''Throw New Exception("The Height cannot exceed the width #2 (rotation is _not_ an exception to this).")
+    ''            ''6/6/2022 td''Throw New Exception("Programmer needs to check for Rotation-by-90, & then switch Height & Width " &
+    ''            ''                    "whenever a Resize occurs.  The Height cannot exceed the width. " &
+    ''            ''                    "By a line of programming to switch Height & Width, a rotated element " &
+    ''            ''                    "can easily abide by this rule.")
+    ''            System.Diagnostics.Debugger.Break()
 
-            End If ''End of "If (boolGiveDisallowedMsg) Then"
+    ''        End If ''End of "If (boolGiveDisallowedMsg) Then"
 
-            ''Added 9/23/2019 td
-            Const c_False_RegardlessOfRotation As Boolean = False
-            ''6/10/2022 CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
-            ''                                     c_False_RegardlessOfRotation)
-            CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
-                                      c_False_RegardlessOfRotation,
-                                       Text_IsMultiLine)
+    ''        ''Added 9/23/2019 td
+    ''        Const c_False_RegardlessOfRotation As Boolean = False
+    ''        ''6/10/2022 CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+    ''        ''                                     c_False_RegardlessOfRotation)
+    ''        CheckWidthVsLength_OfText(mod_width_pixels, mod_height_pixels,
+    ''                                  c_False_RegardlessOfRotation,
+    ''                                   Text_IsMultiLine)
 
-        End Set
-    End Property
+    ''    End Set
+    ''End Property
 
 
     Public Function Width_Pixels_MoveableDivImage(Optional psingleScaling As Single = 1.0) As Integer
@@ -377,12 +378,14 @@ Public Class ClassElementFieldOrTextV4
                 ''   ---12/10/2021 td   
                 ''Dec.10 2021 ''Return mod_width_pixels 
                 ''Dec.11 2021 ''Return mod_height_pixels
-                Return CInt(CSng(mod_height_pixels) * psingleScaling)
+                ''9/5/2022 td''Return CInt(CSng(mod_height_pixels) * psingleScaling)
+                Return CInt(CSng(Me.Height_Pixels) * psingleScaling)
 
             Case Else '' Case 0, 180, 360
 
                 ''Dec.11 2021 ''Return mod_width_pixels 
-                Return CInt(CSng(mod_width_pixels) * psingleScaling)
+                ''9/5/2022 td''Return CInt(CSng(mod_width_pixels) * psingleScaling)
+                Return CInt(CSng(Me.Width_Pixels) * psingleScaling)
 
         End Select
 
@@ -413,12 +416,14 @@ Public Class ClassElementFieldOrTextV4
                 ''   ---12/10/2021 td   
                 ''Dec.10 2021 ''Return mod_height_pixels 
                 ''Dec.11 2021 ''Return mod_width_pixels
-                Return CInt(CSng(mod_width_pixels) * psingleScaling)
+                ''9/05/2022 Return CInt(CSng(mod_width_pixels) * psingleScaling)
+                Return CInt(CSng(Me.Width_Pixels) * psingleScaling)
 
             Case Else '' Case 0, 180, 360
 
                 ''Dec.11 2021 ''Return mod_height_pixels
-                Return CInt(CSng(mod_height_pixels) * psingleScaling)
+                ''9/05/2022 Return CInt(CSng(mod_height_pixels) * psingleScaling)
+                Return CInt(CSng(Me.Height_Pixels) * psingleScaling)
 
         End Select ''End of "Select Case RotatedSwitch_WidthHeight()"
 
@@ -469,11 +474,11 @@ Public Class ClassElementFieldOrTextV4
 
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
+    Public Property Border_WidthInPixels As Integer = 1 ''9/4/2022 Implements IElement_Base.Border_WidthInPixels
 
     <XmlIgnore>
-    Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
-    Public Property Border_Displayed As Boolean = True Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
+    Public Property Border_Color As System.Drawing.Color = Color.Black ''9/4/2022 Implements IElement_Base.Border_Color
+    Public Property Border_Displayed As Boolean = True ''9/4/2022 Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
 
     <XmlElement("Border_Color")>
     Public Property Border_Color_HTML As String
@@ -489,8 +494,8 @@ Public Class ClassElementFieldOrTextV4
     End Property
 
     <XmlIgnore>
-    Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
-    Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
+    Public Property Back_Color As System.Drawing.Color = Color.White ''9/4/2022 Implements IElement_Base.Back_Color
+    Public Property Back_Transparent As Boolean = False ''9/4/2022 Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 
     ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
     ''    [XmlElement("ClrGrid")]
@@ -513,14 +518,14 @@ Public Class ClassElementFieldOrTextV4
         End Set
     End Property
 
-    Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
+    Public Property SelectedHighlighting As Boolean ''9/4/2022 Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
-    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
+    Public Property Visible As Boolean = True ''9/4/2022 Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     Public Property DatetimeUpdated As DateTime = DateTime.MinValue ''Added 11/29/2021 thomas downes
     Public Property CaptionSuffixIfNeeded As String = "" ''Added 12/21/2021 thomas downes
 
-    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+    Public Property ZOrder As Integer ''9/4/2022 Implements IElement_Base.ZOrder
         Get
             Return 0 ''Throw New NotImplementedException()
         End Get
@@ -552,8 +557,11 @@ Public Class ClassElementFieldOrTextV4
 
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
+        ''9/4/2022 Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.LeftEdge_Pixels = par_intLeft_Pixels
+        ''9/4/2022 Me.TopEdge_Pixels = par_intTop_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
+
         Me.Height_Pixels = par_intHeight_Pixels
 
         ''---''Added 4/22/2020 thomas downes
@@ -887,18 +895,126 @@ Public Class ClassElementFieldOrTextV4
         ''10/13/2019 td''objCopy.LoadbyCopyingMembers(Me, Me, Me)
         ''12/13/2021 td''objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
         ''02/04/2022 td''objCopy.LoadByCopyingMembers(Me, Me, Me, Me, Me.BadgeLayout)
-        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        ''09/05/2022 td''objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        objCopy.LoadbyCopyingMembersV1(Me, Me, Me, Me.BadgeLayout)
 
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementFieldOrTextV4"
 
 
-    Public Sub LoadbyCopyingMembers(par_objectElementV4 As ClassElementFieldOrTextV4,
+
+    Public Sub LoadbyCopyingMembersV2b(par_objectElementV4 As ClassElementFieldOrTextV4,
+                                    par_Element_Base As ClassElementBase,
+                                    par_ElementInfo_Text As IElement_TextOnly,
+                                    par_badgeLayout As BadgeLayoutDimensionsClass)
+        ''
+        ''This function was originally overloaded... NOW suffixed. ----9/4/2022  
+        ''
+        Me.Back_Color = par_objectElementV4.Back_Color
+        Me.Back_Transparent = par_objectElementV4.Back_Transparent
+        Me.BadgeLayout = par_objectElementV4.BadgeLayout
+        ''9/4/2022 Me.Border_Color = par_ElementInfo_Base.Border_Color
+        ''9/5/2022 Me.Border_bColor = par_Element_Base.Border_bColor
+        Me.Border_Color = par_Element_Base.Border_Color
+
+        Me.Border_Displayed = par_objectElementV4.Border_Displayed
+        Me.Border_WidthInPixels = par_objectElementV4.Border_WidthInPixels
+        Me.Height_Pixels = par_objectElementV4.Height_Pixels
+        ''9/4/2022 Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
+        ''9/4/2022 Me.LeftEdge_bPixels = par_ElementInfo_Base.LeftEdge_Pixels
+        ''9/05/2022 Me.LeftEdge_bPixels = par_Element_Base.LeftEdge_bPixels
+        Me.LeftEdge_Pixels = par_Element_Base.LeftEdge_Pixels
+        Me.OrientationInDegrees = par_objectElementV4.OrientationInDegrees
+        Me.OrientationToLayout = par_objectElementV4.OrientationToLayout
+        Me.PositionalMode = par_objectElementV4.PositionalMode
+        Me.SelectedHighlighting = par_objectElementV4.SelectedHighlighting
+        ''9/4/2022 Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
+        ''9/4/2022 Me.TopEdge_bPixels = par_ElementInfo_Base.TopEdge_Pixels
+        ''9/05/2022 Me.TopEdge_bPixels = par_Element_Base.TopEdge_bPixels
+        Me.TopEdge_Pixels = par_Element_Base.TopEdge_Pixels
+        Me.Width_Pixels = par_objectElementV4.Width_Pixels
+
+        Me.BadgeLayout = New BadgeLayoutDimensionsClass
+        Me.BadgeLayout.Height_Pixels = par_badgeLayout.Height_Pixels
+        Me.BadgeLayout.Width_Pixels = par_badgeLayout.Width_Pixels
+        Me.FontBold_Deprecated = par_ElementInfo_Text.FontBold_Deprecated
+        Me.FontColor = par_ElementInfo_Text.FontColor
+        Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
+        Me.FontItalics_Deprecated = par_ElementInfo_Text.FontItalics_Deprecated ''Deprecated 6/2022
+        Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
+        Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
+        Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
+        Me.FontSize_AutoScaleToElementRatio = par_ElementInfo_Text.FontSize_AutoScaleToElementRatio
+        Me.FontSize_AutoScaleToElementYesNo = par_ElementInfo_Text.FontSize_AutoScaleToElementYesNo
+        Me.FontSize_AutoSizePromptUser = par_ElementInfo_Text.FontSize_AutoSizePromptUser ''Added 6/2/2022
+        Me.FontUnderline_Deprecated = par_ElementInfo_Text.FontUnderline_Deprecated ''Deprecated 6/2022
+        Me.FontMaxGalkin = par_ElementInfo_Text.FontMaxGalkin
+        Me.TextAlignment = par_ElementInfo_Text.TextAlignment
+
+    End Sub
+
+
+    Public Sub LoadbyCopyingMembersV2a(par_objectElementV4 As ClassElementFieldOrTextV4,
+                                    par_Element_Base As ClassElementBase,
+                                    par_ElementInfo_Base As IElement_Base,
+                                    par_ElementInfo_Text As IElement_TextOnly,
+                                    par_badgeLayout As BadgeLayoutDimensionsClass)
+        ''
+        ''This function was originally overloaded... NOW suffixed. ----9/4/2022  
+        ''
+        Me.Back_Color = par_ElementInfo_Base.Back_Color
+        Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
+        ''9/5/2022 Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayoutDims
+        ''9/4/2022 Me.Border_Color = par_ElementInfo_Base.Border_Color
+        ''9/5/2022 Me.Border_bColor = par_Element_Base.Border_bColor
+        Me.Border_Color = par_Element_Base.Border_Color
+
+        Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
+        Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
+        Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
+        ''9/4/2022 Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
+        ''9/4/2022 Me.LeftEdge_bPixels = par_ElementInfo_Base.LeftEdge_Pixels
+        ''9/5/2022 Me.LeftEdge_bPixels = par_Element_Base.LeftEdge_bPixels
+        Me.LeftEdge_Pixels = par_Element_Base.LeftEdge_Pixels
+        Me.OrientationInDegrees = par_ElementInfo_Base.OrientationInDegrees
+        Me.OrientationToLayout = par_ElementInfo_Base.OrientationToLayout
+        Me.PositionalMode = par_ElementInfo_Base.PositionalMode
+        Me.SelectedHighlighting = par_ElementInfo_Base.SelectedHighlighting
+        ''9/4/2022 Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
+        ''9/4/2022 Me.TopEdge_bPixels = par_ElementInfo_Base.TopEdge_Pixels
+        ''9/5/2022 Me.TopEdge_bPixels = par_Element_Base.TopEdge_bPixels
+        Me.TopEdge_Pixels = par_Element_Base.TopEdge_Pixels
+        Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
+
+        Me.BadgeLayout = New BadgeLayoutDimensionsClass
+        Me.BadgeLayout.Height_Pixels = par_badgeLayout.Height_Pixels
+        Me.BadgeLayout.Width_Pixels = par_badgeLayout.Width_Pixels
+        Me.FontBold_Deprecated = par_ElementInfo_Text.FontBold_Deprecated
+        Me.FontColor = par_ElementInfo_Text.FontColor
+        Me.FontFamilyName = par_ElementInfo_Text.FontFamilyName
+        Me.FontItalics_Deprecated = par_ElementInfo_Text.FontItalics_Deprecated ''Deprecated 6/2022
+        Me.FontOffset_X = par_ElementInfo_Text.FontOffset_X
+        Me.FontOffset_Y = par_ElementInfo_Text.FontOffset_Y
+        Me.FontSize_Pixels = par_ElementInfo_Text.FontSize_Pixels
+        Me.FontSize_AutoScaleToElementRatio = par_ElementInfo_Text.FontSize_AutoScaleToElementRatio
+        Me.FontSize_AutoScaleToElementYesNo = par_ElementInfo_Text.FontSize_AutoScaleToElementYesNo
+        Me.FontSize_AutoSizePromptUser = par_ElementInfo_Text.FontSize_AutoSizePromptUser ''Added 6/2/2022
+        Me.FontUnderline_Deprecated = par_ElementInfo_Text.FontUnderline_Deprecated ''Deprecated 6/2022
+        Me.FontMaxGalkin = par_ElementInfo_Text.FontMaxGalkin
+        Me.TextAlignment = par_ElementInfo_Text.TextAlignment
+
+    End Sub ''End of ""Public Sub LoadbyCopyingMembers""
+
+
+    Public Sub LoadbyCopyingMembersV1(par_objectElementV4 As ClassElementFieldOrTextV4,
                                     par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
                                     par_badgeLayout As BadgeLayoutDimensionsClass)
         ''2/4/2022 td ''     par_ElementInfo_Field As IElement_TextField,
+        ''
+        ''This function was originally overloaded... NOW suffixed. ----9/4/2022  
         ''
         ''Added 9/13/2019 thomas downes
         ''
@@ -915,18 +1031,28 @@ Public Class ClassElementFieldOrTextV4
         ''Dim objMapper As New Mapper(_mapConfig_Base)
         ''objMapper.Map(Of ClassElementField)(par_ElementInfo_Base)
 
+        ''Added 9/05/2022 td
+        If (par_ElementInfo_Base Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+        End If ''end of ""If (par_ElementInfo_Base Is Nothing) Then""
+
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
-        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        ''9/5/2022 Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayoutDims
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
         Me.Height_Pixels = par_ElementInfo_Base.Height_Pixels
+        ''9/4/2022 Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
+        ''9/5/2022 Me.LeftEdge_bPixels = par_ElementInfo_Base.LeftEdge_Pixels
         Me.LeftEdge_Pixels = par_ElementInfo_Base.LeftEdge_Pixels
         Me.OrientationInDegrees = par_ElementInfo_Base.OrientationInDegrees
         Me.OrientationToLayout = par_ElementInfo_Base.OrientationToLayout
         Me.PositionalMode = par_ElementInfo_Base.PositionalMode
         Me.SelectedHighlighting = par_ElementInfo_Base.SelectedHighlighting
+        ''9/4/2022 Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
+        ''9/5/2022 Me.TopEdge_bPixels = par_ElementInfo_Base.TopEdge_Pixels
         Me.TopEdge_Pixels = par_ElementInfo_Base.TopEdge_Pixels
         Me.Width_Pixels = par_ElementInfo_Base.Width_Pixels
 
@@ -1095,10 +1221,12 @@ Public Class ClassElementFieldOrTextV4
     ''End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
 
-    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image ''9/4/2022 Implements IElement_Base.ImageForBadgeImage
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
 
     End Function
+
+
 End Class ''End of "Class ClassElementField"  

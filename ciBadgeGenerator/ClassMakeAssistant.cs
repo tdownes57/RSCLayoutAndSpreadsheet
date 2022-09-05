@@ -1751,13 +1751,25 @@ namespace ciBadgeGenerator
 
                 par_elementField.Image_BL = image_textStandard;
 
-                decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
+                decimal decScalingFactorW = ((decimal)par_imageBadgeCard.Width /
                                              par_elementField.BadgeLayout.Width_Pixels);
+                //Added 9/4/2022 thomas downes 
+                decimal decScalingFactorH = ((decimal)par_imageBadgeCard.Height /
+                                             par_elementField.BadgeLayout.Height_Pixels);
 
-                int intDesignedLeft = par_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
-                int intDesignedTop = par_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
-                int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
-                int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
+                int intDesignedLeft_V4 = par_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
+                int intDesignedTop_V4 = par_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
+                //9_5_2022 int intDesignedLeft_Base = par_elementField.LeftEdge_bPixels;  //Added 10/14/2019 td 
+                //9_5_2022 int intDesignedTop_Base = par_elementField.TopEdge_bPixels;  //Added 10/14/2019 td
+                int intDesignedLeft_Base = par_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
+                int intDesignedTop_Base = par_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
+
+                //Added 9/4/2022 thomas downes
+                if (intDesignedLeft_Base != intDesignedLeft_V4) System.Diagnostics.Debugger.Break();
+                if (intDesignedLeft_Base != intDesignedLeft_V4) System.Diagnostics.Debugger.Break();
+
+                int intDesiredLeft = (int)(intDesignedLeft_V4 * decScalingFactorW);
+                int intDesiredTop = (int)(intDesignedTop_V4 * decScalingFactorH);
 
                 par_graphics.DrawImage(image_textStandard,
                                    new PointF(intDesiredLeft, intDesiredTop));
@@ -1892,7 +1904,7 @@ namespace ciBadgeGenerator
                 par_elementStaticV3.Image_BL = image_textStandard;
 
                 decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
-                                             par_elementStaticV3.BadgeLayout.Width_Pixels);
+                                             par_elementStaticV3.BadgeLayoutDims.Width_Pixels);
 
                 int intDesignedLeft = par_elementStaticV3.LeftEdge_Pixels;  //Added 10/14/2019 td 
                 int intDesignedTop = par_elementStaticV3.TopEdge_Pixels;  //Added 10/14/2019 td

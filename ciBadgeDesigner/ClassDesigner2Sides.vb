@@ -38,6 +38,10 @@ Public Class ClassDesigner2Sides
 
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
 
+    ''Added 9/03/2022 thomas downes
+    Public Property LayoutDebugName As String Implements ILayoutFunctions.LayoutDebugName
+    Public Property LayoutDebugDescription As String Implements ILayoutFunctions.LayoutDebugDescription
+
     Public Property ControlBeingModified As Control Implements ILayoutFunctions.ControlBeingModified
         Get
             ''Throw New NotImplementedException()

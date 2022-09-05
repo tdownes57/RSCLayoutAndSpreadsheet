@@ -94,6 +94,10 @@ Public Class ClassElementFieldV4
 
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
+        ''9/05/2022 Me.LeftEdge_Pixels = par_intLeft_Pixels
+        ''9/05/2022 Me.TopEdge_Pixels = par_intTop_Pixels
+        ''#2 9/05/2022 Me.LeftEdge_bPixels = par_intLeft_Pixels
+        ''#2 9/05/2022  Me.TopEdge_bPixels = par_intTop_Pixels
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
         Me.Height_Pixels = par_intHeight_Pixels
@@ -134,7 +138,8 @@ Public Class ClassElementFieldV4
     End Sub ''End of "Public Sub LoadFieldAny(par_fieldAny As ClassFieldAny)"
 
 
-    Public Overloads Sub LoadByCopyingMembers(par_objectElementV4 As ClassElementFieldV4,
+    Public Overloads Sub LoadByCopyingMembersV2a(par_objectElementV4 As ClassElementFieldV4,
+                                    par_Element_Base As ClassElementBase,
                                     par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly,
                                     par_ElementInfo_Field As IElement_TextField,
@@ -142,7 +147,35 @@ Public Class ClassElementFieldV4
         ''
         ''Added 1/29/2022 thomas downes
         ''
-        MyBase.LoadbyCopyingMembers(par_objectElementV4,
+
+
+
+    End Sub ''End of ""Public Overloads Sub LoadByCopyingMembersV2a""
+
+
+    Public Overloads Sub LoadByCopyingMembersV2b(par_objectElementV4 As ClassElementFieldV4,
+                                    par_Element_Base As ClassElementBase,
+                                    par_ElementInfo_Text As IElement_TextOnly,
+                                    par_ElementInfo_Field As IElement_TextField,
+                                    par_badgeLayout As BadgeLayoutDimensionsClass)
+        ''
+        ''Added 1/29/2022 thomas downes
+        ''
+
+
+
+    End Sub ''End of ""Public Overloads Sub LoadByCopyingMembersV2a""
+
+
+    Public Overloads Sub LoadByCopyingMembersV1(par_objectElementV4 As ClassElementFieldV4,
+                                    par_ElementInfo_Base As IElement_Base,
+                                    par_ElementInfo_Text As IElement_TextOnly,
+                                    par_ElementInfo_Field As IElement_TextField,
+                                    par_badgeLayout As BadgeLayoutDimensionsClass)
+        ''
+        ''Added 1/29/2022 thomas downes
+        ''
+        MyBase.LoadbyCopyingMembersV1(par_objectElementV4,
                                     par_ElementInfo_Base,
                                     par_ElementInfo_Text,
                                     par_badgeLayout)
@@ -168,7 +201,7 @@ Public Class ClassElementFieldV4
         ''Added 10/13/2019 td
         Me.FieldEnum = par_ElementInfo_Field.FieldEnum
 
-    End Sub
+    End Sub ''eND OF ""Public Overloads Sub LoadByCopyingMembersV1""
 
 
     ''Public Function IsDisplayedOnBadge_Visibly() As Boolean
@@ -342,7 +375,8 @@ Public Class ClassElementFieldV4
         ''Added 7/16/2022 & 2/4/2022 & 9/17/2019 
         ''
         Dim objCopy As New ClassElementFieldV4
-        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        ''9/05/2022 td''objCopy.LoadByCopyingMembers(Me, Me, Me, Me.BadgeLayout)
+        objCopy.LoadbyCopyingMembersV1(Me, Me, Me, Me.BadgeLayout)
 
         Return objCopy
 

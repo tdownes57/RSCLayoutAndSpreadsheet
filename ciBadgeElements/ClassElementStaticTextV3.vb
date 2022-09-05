@@ -138,71 +138,71 @@ Public Class ClassElementStaticTextV3
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
-    <XmlIgnore>
-    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
+    ''<XmlIgnore>
+    ''Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    ''Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
-    ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
+    ''''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    ''Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
 
-    Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
+    ''Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
+    ''Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
 
-    Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
-    Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
+    ''Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
+    ''Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
 
-    ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
+    ''''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
+    ''Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
 
-    <XmlIgnore>
-    Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
+    ''<XmlIgnore>
+    ''Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
 
-    <XmlElement("Border_Color")>
-    Public Property Border_Color_HTML As String
-        ''Added 10/13/2019 td
-        Get
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Return ColorTranslator.ToHtml(Me.Border_Color)
-        End Get
-        Set(value As String)
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Me.Border_Color = ColorTranslator.FromHtml(value)
-        End Set
-    End Property
-
-
-    Public Property Border_Displayed As Boolean = True Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
-
-    <XmlIgnore>
-    Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
-
-    <XmlElement("Back_Color")>
-    Public Property Back_Color_HTML As String
-        ''Added 10/13/2019 td
-        Get
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Return ColorTranslator.ToHtml(Me.Back_Color)
-        End Get
-        Set(value As String)
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Me.Back_Color = ColorTranslator.FromHtml(value)
-        End Set
-    End Property
+    ''<XmlElement("Border_Color")>
+    ''Public Property Border_Color_HTML As String
+    ''    ''Added 10/13/2019 td
+    ''    Get
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Return ColorTranslator.ToHtml(Me.Border_Color)
+    ''    End Get
+    ''    Set(value As String)
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Me.Border_Color = ColorTranslator.FromHtml(value)
+    ''    End Set
+    ''End Property
 
 
-    Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
+    ''Public Property Border_Displayed As Boolean = True Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
 
-    Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
+    ''<XmlIgnore>
+    ''Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
 
-    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
-        Get
-            Return 0 ''Throw New NotImplementedException()
-        End Get
-        Set(value As Integer)
-            Return ''Throw New NotImplementedException()
-        End Set
-    End Property
+    ''<XmlElement("Back_Color")>
+    ''Public Property Back_Color_HTML As String
+    ''    ''Added 10/13/2019 td
+    ''    Get
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Return ColorTranslator.ToHtml(Me.Back_Color)
+    ''    End Get
+    ''    Set(value As String)
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Me.Back_Color = ColorTranslator.FromHtml(value)
+    ''    End Set
+    ''End Property
+
+
+    ''Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
+
+    ''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
+
+    ''Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+    ''    Get
+    ''        Return 0 ''Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Integer)
+    ''        Return ''Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     ''
     ''Added 5/27/2022 td
@@ -230,7 +230,8 @@ Public Class ClassElementStaticTextV3
         ''
         ''Added 9/15/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        ''9/5/2022 Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        Me.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
@@ -239,10 +240,14 @@ Public Class ClassElementStaticTextV3
 
         ''Added 8/17/2022 td
         ''  Let's write to the base class. ("b" = "base")
-        Me.LeftEdge_bPixels = par_intLeft_Pixels
-        Me.TopEdge_bPixels = par_intTop_Pixels
-        Me.Height_bPixels = par_intHeight_Pixels
-        Me.Width_bPixels = par_intWidth_Pixels ''Added 8/17/2022
+        ''9/2022 Me.LeftEdge_bPixels = par_intLeft_Pixels
+        ''9/2022 Me.TopEdge_bPixels = par_intTop_Pixels
+        ''9/2022 Me.Height_bPixels = par_intHeight_Pixels
+        ''9/2022 Me.Width_bPixels = par_intWidth_Pixels ''Added 8/17/2022
+        Me.LeftEdge_Pixels = par_intLeft_Pixels
+        Me.TopEdge_Pixels = par_intTop_Pixels
+        Me.Height_Pixels = par_intHeight_Pixels
+        Me.Width_Pixels = par_intWidth_Pixels ''Added 8/17/2022
 
         ''Added 10//10/2019 td
         Me.Text_StaticLine = par_DisplayText
@@ -253,7 +258,8 @@ Public Class ClassElementStaticTextV3
         ''
         ''Added 7/29/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        ''9/2022 Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        Me.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
     End Sub
 
@@ -473,7 +479,7 @@ Public Class ClassElementStaticTextV3
         ''
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
-        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayoutDims = par_ElementInfo_Base.BadgeLayoutDims
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels

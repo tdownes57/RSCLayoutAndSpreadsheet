@@ -19,9 +19,13 @@ namespace MoveAndResizeControls_Monem
         //     occur while we are testing something fairly unrelated).
         //     ----1/3/2022 td 
         //
+        //Added 9/03/2022 thomas downes
+        public string LayoutDebugName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string LayoutDebugDescription { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Control ControlBeingModified { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Control ControlBeingMoved { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        
+
         //Added 9/01/2022
         public Control ControlThatWasClicked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -87,7 +91,7 @@ namespace MoveAndResizeControls_Monem
         public ToolStripMenuItem RightClickMenu_Parent()
         {
             //throw new NotImplementedException();
-            return null; 
+            return null;
         }
     }
 }

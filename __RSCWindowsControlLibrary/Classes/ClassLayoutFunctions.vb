@@ -3,6 +3,10 @@
 Public Class ClassLayoutFunctions
     Implements ciBadgeInterfaces.ILayoutFunctions
 
+    ''Added 9/03/2022 thomas downes
+    Public Property LayoutDebugName As String Implements ILayoutFunctions.LayoutDebugName
+    Public Property LayoutDebugDescription As String Implements ILayoutFunctions.LayoutDebugDescription
+
     Public Property ControlBeingModified As Control Implements ILayoutFunctions.ControlBeingModified
         Get
             ''Throw New NotImplementedException()

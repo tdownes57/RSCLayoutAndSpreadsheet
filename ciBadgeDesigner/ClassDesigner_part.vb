@@ -131,6 +131,23 @@ ExitHandler:
             par_controlRSC.LayoutFunctions = tempLayoutfunctions
         End If ''End of ""If (tempLayoutfunctions Is Nothing) Then... Else...""
 
+        ''Added 9/02/2022
+        Dim intElementLeft As Integer ''Added 9/02/2022
+        Dim intElementTop As Integer ''Added 9/02/2022
+        Dim intControlLeft As Integer ''Added 9/02/2022
+        Dim intControlTop As Integer ''Added 9/02/2022
+
+        With par_controlRSC.LayoutFunctions
+            ''9/5/2022 intElementLeft = par_controlRSC.ElementBase.LeftEdge_bPixels
+            ''9/5/2022 intElementTop = par_controlRSC.ElementBase.TopEdge_bPixels
+            intElementLeft = par_controlRSC.ElementBase.LeftEdge_Pixels
+            intElementTop = par_controlRSC.ElementBase.TopEdge_Pixels
+            intControlLeft = .Layout_Margin_Left_Add(intElementLeft)
+            intControlTop = .Layout_Margin_Top_Add(intElementTop)
+            par_controlRSC.Left = intControlLeft
+            par_controlRSC.Top = intControlTop
+        End With ''End of ""With par_controlRSC.LayoutFunctions""
+
         ''Added 8/25/2022
         ''8/26/2022 td''Me.LayoutFunctions.AutoPreview_IfChecked()
         Me.AutoPreview_IfChecked()

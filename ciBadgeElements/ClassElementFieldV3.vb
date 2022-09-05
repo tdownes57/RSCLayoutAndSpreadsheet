@@ -297,7 +297,7 @@ Public Class ClassElementFieldV3
     Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
+    Public Property BadgeLayoutDims As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayoutDims ''Added 9/11/2019 td  
 
     Public Property TopEdge_Pixels As Integer = 0 Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer = 0 Implements IElement_Base.LeftEdge_Pixels
@@ -581,7 +581,7 @@ Public Class ClassElementFieldV3
         Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
         Me.FieldIsCustomizable = par_fieldInfo.IsCustomizable ''Added 5/11/2022 td
 
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        Me.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
@@ -596,7 +596,7 @@ Public Class ClassElementFieldV3
         ''
         ''Added 7/29/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        Me.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
     End Sub
 
@@ -926,7 +926,7 @@ Public Class ClassElementFieldV3
         ''10/12/2019 td''objCopy.LoadbyCopyingMembers(Me, Me)
         ''10/13/2019 td''objCopy.LoadbyCopyingMembers(Me, Me, Me)
         ''12/13/2021 td''objCopy.LoadbyCopyingMembers(Me, Me, Me, Me.BadgeLayout)
-        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me, Me.BadgeLayout)
+        objCopy.LoadbyCopyingMembers(Me, Me, Me, Me, Me.BadgeLayoutDims)
 
         Return objCopy
 
@@ -956,7 +956,7 @@ Public Class ClassElementFieldV3
 
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
-        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayoutDims = par_ElementInfo_Base.BadgeLayoutDims
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels
@@ -987,9 +987,9 @@ Public Class ClassElementFieldV3
         Me.FieldEnum = par_ElementInfo_Field.FieldEnum
 
         ''Added 10/13/2019 td
-        Me.BadgeLayout = New BadgeLayoutDimensionsClass
-        Me.BadgeLayout.Height_Pixels = par_badgeLayout.Height_Pixels
-        Me.BadgeLayout.Width_Pixels = par_badgeLayout.Width_Pixels
+        Me.BadgeLayoutDims = New BadgeLayoutDimensionsClass
+        Me.BadgeLayoutDims.Height_Pixels = par_badgeLayout.Height_Pixels
+        Me.BadgeLayoutDims.Width_Pixels = par_badgeLayout.Width_Pixels
 
         ''Deprecated 6/7/2022 td
         Me.FontBold_Deprecated = par_ElementInfo_Text.FontBold_Deprecated ''Deprecated 6/7/2022 td

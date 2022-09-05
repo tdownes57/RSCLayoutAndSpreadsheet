@@ -208,6 +208,8 @@ Public Class CtlGraphicStaticTextV4
             .InfoRefresh = par_parametersGetElementControl.iRefreshPreview
             ''Added 8/01/2022 td
             .Designer = par_parametersGetElementControl.DesignerClass
+            ''Added 9/03/2022 td
+            .BadgeDimensions_DesignLayout = .Designer.BadgeLayout_Class
 
         End With ''End of "With objOperationsFldElem"
 
@@ -585,8 +587,8 @@ Public Class CtlGraphicStaticTextV4
         intBadgeLayoutHeight = Me.LayoutFunctions.Layout_Height_Pixels()
 
         ''Added 6/6/2022 td
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = intBadgeLayoutWidth
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = intBadgeLayoutHeight
+        Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = intBadgeLayoutWidth
+        Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = intBadgeLayoutHeight
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureFieldOrText.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -777,8 +779,8 @@ ExitHandler:
         ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
         ''1/08/2022 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = mod_iLayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = mod_iLayoutFunctions.Layout_Height_Pixels()
 
     End Sub ''End of Public Sub SaveToModel
 

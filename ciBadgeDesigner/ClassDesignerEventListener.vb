@@ -982,6 +982,9 @@ Public Class ClassDesignerEventListener
         mod_designer.LastControlTouchedRSC =
             CType(par_control, RSCMoveableControlVB)
 
+        ''Added 9/02/2022 thomas downes
+        mod_designer.PositionElementArrow(par_control)
+
     End Sub
 
 

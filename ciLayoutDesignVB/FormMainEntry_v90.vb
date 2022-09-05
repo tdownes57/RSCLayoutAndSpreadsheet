@@ -22,6 +22,12 @@ Public Class FormMainEntry_v90
 
     Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/19/2019 td 
 
+
+    ''Added 9/03/2022 thomas downes
+    Public Property LayoutDebugName As String Implements ILayoutFunctions.LayoutDebugName
+    Public Property LayoutDebugDescription As String Implements ILayoutFunctions.LayoutDebugDescription
+
+
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Added 9/3/2019 thomas downes
         Return Me.BackgroundImage.Width

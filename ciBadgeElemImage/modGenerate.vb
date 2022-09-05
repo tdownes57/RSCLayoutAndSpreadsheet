@@ -99,14 +99,18 @@ Public Module modGenerate
         ''9/11/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
 
         ''Added 11/24/2021 td
-        If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then
+        ''9/05/2022 If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then
+        Dim intBadgeLayoutDim_Width As Integer ''Added 9/05/2022 
+        intBadgeLayoutDim_Width = par_elementInfo_Base.BadgeLayoutDims.Width_Pixels
+        If (0 = intBadgeLayoutDim_Width) Then
             ''7/22/2022 Throw New Exception("Division by 0 (par_elementInfo_Base.BadgeLayout.Width_Pixels)")
             System.Diagnostics.Debugger.Break()
             doubleScaling = 1
         Else
-            doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
+            ''9/05/2022 doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
+            doubleScaling = (pintDesiredLayoutWidth / intBadgeLayoutDim_Width)
 
-        End If ''Endof "" If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then""
+        End If ''Endof "" If (0 = intBadgeLayout_Width) Then... Else....""
 
 
         ''Added 8/15/2019 td
@@ -181,14 +185,14 @@ Public Module modGenerate
 
         If (par_elemBase IsNot Nothing) Then ''Conditioned 7/22/2022 
             ''Added 7/22/2022 thomas downes
-            bBorderDisplayed = par_elemBase.Border_bDisplayed
-            bBorderNonzero = par_elemBase.Border_bWidthInPixels > 0
-            intBorder_WidthInPixels = par_elemBase.Border_bWidthInPixels ''Added 7/22/2022
-            colorOfBorder = par_elemBase.Border_bColor ''Added 7/22/2022
+            bBorderDisplayed = par_elemBase.Border_Displayed
+            bBorderNonzero = par_elemBase.Border_WidthInPixels > 0
+            intBorder_WidthInPixels = par_elemBase.Border_WidthInPixels ''Added 7/22/2022
+            colorOfBorder = par_elemBase.Border_Color ''Added 7/22/2022
             ''-Aug25 2022--pen_border = New Pen(Color.Black,
             ''---                    par_elemBase.Border_bWidthInPixels)
             pen_border = New Pen(colorOfBorder,
-                                 par_elemBase.Border_bWidthInPixels)
+                                 par_elemBase.Border_WidthInPixels)
         Else
             ''Added 7/22/2022 thomas downes
             bBorderDisplayed = par_elementInfo_Base.Border_Displayed

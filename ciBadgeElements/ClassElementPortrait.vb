@@ -44,7 +44,7 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
     Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
+    Public Property BadgeLayoutDims As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayoutDims ''This provides sizing context & scaling factors. 
 
     Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
     Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
@@ -244,7 +244,7 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
         ''
         ''Added 9/16/2019 td
         ''
-        BadgeLayout = New BadgeLayoutDimensionsClass(par_layout)
+        BadgeLayoutDims = New BadgeLayoutDimensionsClass(par_layout)
 
         ''Added 9/16/2019 td
         Me.LeftEdge_Pixels = par_rectangle.Left
@@ -293,7 +293,7 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
         ''
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
-        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayoutDims = par_ElementInfo_Base.BadgeLayoutDims
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels

@@ -24,23 +24,23 @@ Public Class ClassElementQRCode
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementQRCode
 
-    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
-    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
-    Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
-    Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
+    ''9/5/2022 Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
+    ''9/5/2022 Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
+    ''9/5/2022 Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
+    ''9/5/2022 Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    ''9/5/2022 Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
+    ''9/5/2022 <Xml.Serialization.XmlIgnore>
+    ''9/5/2022 Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    ''9/5/2022 Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
+    ''9/5/2022 Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayout ''This provides sizing context & scaling factors. 
 
-    Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
+    ''9/5/2022 Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
+    ''9/5/2022 Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
     ''
     ''Added 5/27/2022 td
@@ -219,7 +219,8 @@ Public Class ClassElementQRCode
         ''
         ''Added 9/16/2019 td
         ''
-        BadgeLayout = New BadgeLayoutDimensionsClass(par_layout)
+        ''9/5/2022 BadgeLayout = New BadgeLayoutDimensionsClass(par_layout)
+        BadgeLayoutDims = New BadgeLayoutDimensionsClass(par_layout)
 
         ''Added 9/16/2019 td
         Me.LeftEdge_Pixels = par_rectangle.Left
@@ -251,7 +252,7 @@ Public Class ClassElementQRCode
         ''
         Me.Back_Color = par_ElementInfo_Base.Back_Color
         Me.Back_Transparent = par_ElementInfo_Base.Back_Transparent
-        Me.BadgeLayout = par_ElementInfo_Base.BadgeLayout
+        Me.BadgeLayoutDims = par_ElementInfo_Base.BadgeLayoutDims
         Me.Border_Color = par_ElementInfo_Base.Border_Color
         Me.Border_Displayed = par_ElementInfo_Base.Border_Displayed
         Me.Border_WidthInPixels = par_ElementInfo_Base.Border_WidthInPixels

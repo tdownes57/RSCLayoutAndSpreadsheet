@@ -21,10 +21,13 @@ Public Interface IBadgeLayoutDimensions
     ''
     ''This is the width of the "canvas"/layout
     ''   __within which__ the applicable text-label image resides.  Analogous to a child placing a sticker on 
-    '    a school notebook, this is the width of the notebook (not the sticker width!!).  This provides sizing
+    ''    a school notebook, this is the width of the notebook (not the sticker width!!).  This provides sizing
     ''   context & scaling factors.   (Unfortunately, there might not be a good name to eliminate the 
     ''   amiguity--the confusion between an element inside the layout & the layout itself.)
     ''   -----9/11/20019 
+
+    Property NameForDebug As String ''Added 9/3/2022 td
+    Property Description As String ''Added 9/3/2022 td
 
     Property Width_Pixels As Integer ''---CONFUSING----  This is the width of the "canvas"/layout
     ''   __within which__ the applicable text-label image resides.  Analogous to a child placing a sticker on 
@@ -44,6 +47,8 @@ Public Class BadgeLayoutDimensionsClass ''8/18/2022 BadgeLayoutClass
     ''
     ''Added 9/11/2019 Never Forget 
     ''
+    Public Property NameForDebug As String Implements IBadgeLayoutDimensions.NameForDebug ''Added 9/3/2022
+    Public Property Description As String Implements IBadgeLayoutDimensions.Description ''Added 9/3/2022
 
     Public Property Width_Pixels As Integer Implements IBadgeLayoutDimensions.Width_Pixels
 

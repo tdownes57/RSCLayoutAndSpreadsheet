@@ -66,6 +66,10 @@ Public Class Dialog_Base
         panelDisplayElement.Width = Dialog_Base.LayoutWidth_Pixels
         panelDisplayElement.Height = Dialog_Base.LayoutHeight_Pixels
 
+        ''Added 9/3/2022
+        Me.LayoutDebugName = "Dialog_Base"
+        Me.LayoutDebugDescription = "The editing a single element. Panel for ID background is full size. (Dialog_Base)"
+
     End Sub
 
 
@@ -154,6 +158,10 @@ ExitHandler:
 
         End With ''End of ""With mod_controlFieldOrTextV4""
 
+        ''Added 9/3/2022
+        Me.LayoutDebugName = "Dialog_Base"
+        Me.LayoutDebugDescription = "The editing a single element. Panel for ID background is full size. (Dialog_Base)"
+
     End Sub ''End of ""Public Sub New"" 
 
 
@@ -229,6 +237,11 @@ ExitHandler:
         ''End With ''End of ""With mod_controlRSCMoveable""
 
     End Sub ''End of ""Public Sub New"" 
+
+
+    ''Added 9/03/2022 thomas downes
+    Public Property LayoutDebugName As String Implements ILayoutFunctions.LayoutDebugName
+    Public Property LayoutDebugDescription As String Implements ILayoutFunctions.LayoutDebugDescription
 
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
@@ -350,11 +363,13 @@ ExitHandler:
                 ''8/04/2022 td''.Left = PanelDisplayElement.Left + par_element.Left
                 ''8/04/2022 td''.Top = PanelDisplayElement.Top + par_element.Top
 
-                If (0 = par_element.TopEdge_bPixels) Then System.Diagnostics.Debugger.Break()
-                If (0 = par_element.LeftEdge_bPixels) Then System.Diagnostics.Debugger.Break()
+                If (0 = par_element.TopEdge_Pixels) Then System.Diagnostics.Debugger.Break()
+                If (0 = par_element.LeftEdge_Pixels) Then System.Diagnostics.Debugger.Break()
 
-                .Top = panelDisplayElement.Top + par_element.TopEdge_bPixels
-                .Left = panelDisplayElement.Left + par_element.LeftEdge_bPixels
+                ''9/05/2022 .Top = panelDisplayElement.Top + par_element.TopEdge_bPixels
+                ''9/05/2022 .Left = panelDisplayElement.Left + par_element.LeftEdge_bPixels
+                .Top = panelDisplayElement.Top + par_element.TopEdge_Pixels
+                .Left = panelDisplayElement.Left + par_element.LeftEdge_Pixels
 
                 ''Arrow should point to the control
                 RscElementArrowLeft1.Top = .Top

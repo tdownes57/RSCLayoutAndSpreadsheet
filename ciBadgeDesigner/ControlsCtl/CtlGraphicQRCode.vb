@@ -664,8 +664,8 @@ Public Class CtlGraphicQRCode
 
             ''Added 8/4/2022 thomas d.
             ''  We need to write to the Base Object. 
-            Me.ElementBase.TopEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
-            Me.ElementBase.LeftEdge_bPixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
+            Me.ElementBase.TopEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Top_Omit(Me.Top)
+            Me.ElementBase.LeftEdge_Pixels = Me.LayoutFunctions.Layout_Margin_Left_Omit(Me.Left)
 
             ''Added 9/24/2019 td
             ''  Let's avoid violating the Pic's (Height >= Width) constraint, when 
@@ -693,8 +693,8 @@ Public Class CtlGraphicQRCode
                     Me.ElementInfo_Base.Height_Pixels = Me.Width ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
                     Me.ElementInfo_Base.Width_Pixels = Me.Height ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
                     ''8/04/2022 td
-                    Me.ElementBase.Height_bPixels = Me.Width ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
-                    Me.ElementBase.Width_bPixels = Me.Height ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                    Me.ElementBase.Height_Pixels = Me.Width ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
+                    Me.ElementBase.Width_Pixels = Me.Height ''Me.Width vs. Me.Height switcheroo.... confusing but correct!!!!!!!
                 End If ''End of "If (bHeightIsCloseToBaseWidth) Then"
 
             Else
@@ -703,9 +703,10 @@ Public Class CtlGraphicQRCode
                     Me.ElementInfo_Base.Width_Pixels = Me.Width
                     Me.ElementInfo_Base.Height_Pixels = Me.Height
                     ''8/04/2022 td
-                    Me.ElementBase.Width_bPixels = Me.Width ''Added 8/04/2022 td
-                    Me.ElementBase.Height_bPixels = Me.Width ''Added 8/04/2022 td
+                    Me.ElementBase.Width_Pixels = Me.Width ''Added 8/04/2022 td
+                    Me.ElementBase.Height_Pixels = Me.Width ''Added 8/04/2022 td
                     boolSuccess = True ''Added 9/24/2019 td
+
                 Catch
                     ''An error, related to the constraint of the height always being greater than the width
                     ''  since it's a portrait object, not a landscape object.  ---9/23/2019 td
@@ -716,8 +717,8 @@ Public Class CtlGraphicQRCode
                         Me.ElementInfo_Base.Height_Pixels = Me.Height
                         Me.ElementInfo_Base.Width_Pixels = Me.Width
                         ''8/04/2022 td
-                        Me.ElementBase.Width_bPixels = Me.Width ''Added 8/04/2022 td
-                        Me.ElementBase.Height_bPixels = Me.Width ''Added 8/04/2022 td
+                        Me.ElementBase.Width_Pixels = Me.Width ''Added 8/04/2022 td
+                        Me.ElementBase.Height_Pixels = Me.Width ''Added 8/04/2022 td
                     End If ''End of "If (Not boolSuccess) Then"
                 End Try
             End If ''ENd of "If (bRotated90degrees) Then ..... Else ...."
@@ -728,8 +729,8 @@ Public Class CtlGraphicQRCode
             ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
             ''9/20/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-            Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-            Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+            Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+            Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         End If ''End of "If (Me.ElementInfo_Base IsNot Nothing) Then"
 

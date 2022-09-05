@@ -14,6 +14,8 @@ Public Interface IElement_Base
     ''
     Property ElementType As String ''Text, Pic, or Logo
 
+    Property WhyOmitted As WhyOmitted_StructV2 ''Added 9/05/2022 & 1/23/2022 td
+
     Property PositionalMode As String ''E.g. "CIBv82", "CIBv83", "CIBv8", "CIBv90", "CIBv9", "BL" ("Badge Layout")  Added 8/14/2019
 
     Property FormControl As Control ''Added 7/19/2019 td
@@ -25,7 +27,7 @@ Public Interface IElement_Base
     ''   amiguity--the confusion between an element inside the layout & the layout itself.)
     ''   -----9/11/20019 
 
-    Property BadgeLayout As BadgeLayoutDimensionsClass ''Added 9/11/2019 td   
+    Property BadgeLayoutDims As BadgeLayoutDimensionsClass ''Added 9/11/2019 td   
 
     Property TopEdge_Pixels As Integer
     Property LeftEdge_Pixels As Integer

@@ -136,6 +136,7 @@ Public Class CtlGraphicFieldV3
             .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
             .EventsForMoveability_Single = Nothing
             .LayoutFunctions = .Designer ''Added 1/24/2022 td
+
             ''Feb2 2022 td''.MonemMovement_SingleCntrl
             ''Feb2 2022 td''   = CtlFieldElem1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
             .Monem_iMoveOrResizeFun = CtlFieldElemV3.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
@@ -152,6 +153,8 @@ Public Class CtlGraphicFieldV3
 
             ''Added 8/01/2022 td
             .Designer = par_parametersGetElementControl.DesignerClass
+            ''Added 9/03/2022 td
+            .BadgeDimensions_DesignLayout = .Designer.BadgeLayout_Class
 
         End With ''End of "With objOperationsFldElem"
 
@@ -948,8 +951,8 @@ ExitHandler:
         ''9/5/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
         ''9/5/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         ''Me.ElementInfo.Font_DrawingClass = Me.Font
         ''Me.ElementInfo.BackColor = Me.BackColor
@@ -1284,8 +1287,8 @@ ExitHandler:
 
         ''Added 9/4/2019 td
         ''9/12/2019 td''Me.ElementInfo_Base.LayoutWidth_Pixels = Me.FormDesigner.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-        Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+        Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
         Application.DoEvents()
         Me.Refresh_ImageV3(True)
@@ -1356,8 +1359,8 @@ ExitHandler:
                 ''9/19/2019 td''Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.FormDesigner.Layout_Width_Pixels()
                 ''9/19/2019 td''Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.FormDesigner.Layout_Height_Pixels()
 
-                Me.ElementInfo_Base.BadgeLayout.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
-                Me.ElementInfo_Base.BadgeLayout.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
+                Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = Me.LayoutFunctions.Layout_Width_Pixels()
+                Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = Me.LayoutFunctions.Layout_Height_Pixels()
 
             End If ''ENd of "If (c_boolAvoidAntidesignedCode) Then .... Else ..."
 

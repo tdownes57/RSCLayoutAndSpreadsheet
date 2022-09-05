@@ -142,7 +142,8 @@ Public Class CtlPropertyLeftRight
                     ''Added 7/20/2022 thomas downes
                     If (Me.ElementObject_Base IsNot Nothing) Then
                         With Me.ElementObject_Base
-                            .Border_bWidthInPixels = CInt(par_value)
+                            ''9/5/20222 .Border_bWidthInPixels = CInt(par_value)
+                            .Border_WidthInPixels = CInt(par_value)
                         End With
 
                     ElseIf (Me.ElementInfo_Base IsNot Nothing) Then
@@ -206,7 +207,8 @@ Public Class CtlPropertyLeftRight
 
                     ''Added 7/22/2022 thomas downes
                     If (par_objectBase IsNot Nothing) Then
-                        mod_iPropertyValue = Me.ElementObject_Base.Border_bWidthInPixels
+                        ''9/5/2022 mod_iPropertyValue = Me.ElementObject_Base.Border_bWidthInPixels
+                        mod_iPropertyValue = Me.ElementObject_Base.Border_WidthInPixels
                     Else
                         mod_iPropertyValue = par_infoBase.Border_WidthInPixels
                     End If

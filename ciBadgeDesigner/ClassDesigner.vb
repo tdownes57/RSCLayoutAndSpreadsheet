@@ -612,6 +612,10 @@ Public Class ClassDesigner
         ''
         ''Moved below.  9/20 td''Initiate_RubberbandSelector() ''Added 9/8/2019 thomas d. 
 
+        ''Added 9/3/2022 
+        Me.LayoutDebugDescription = "Public Sub LoadDesigner - " & pstrWhyCalled
+        Me.LayoutDebugName = "ClassDesigner (" & Me.NameOfForm() & ")"
+
         ''Added 1/26/2022 thomas downes
         If (pbStartWithBackside) Then EnumSideOfCard_Current = EnumWhichSideOfCard.EnumBackside
 
@@ -1124,8 +1128,9 @@ Public Class ClassDesigner
         ''Added 8/17/2022 td
         If (pintIndex >= 2) Then
             With new_element
+                ''9/5/2022 .TopEdge_Pixels += .Height_Pixels * (pintIndex - 1)
+                ''9/5/2022 .TopEdge_bPixels += .Height_bPixels * (pintIndex - 1)
                 .TopEdge_Pixels += .Height_Pixels * (pintIndex - 1)
-                .TopEdge_bPixels += .Height_bPixels * (pintIndex - 1)
             End With
         End If ''End of ""If (pintIndex >= 2) Then""
 
@@ -1192,8 +1197,9 @@ Public Class ClassDesigner
         ''Added 8/17/2022 td
         If (pintIndex >= 2) Then
             With new_element
+                ''9/5/2022 .TopEdge_Pixels += (.Height_Pixels * (pintIndex - 1))
+                ''9/5/2022 .TopEdge_bPixels += (.Height_bPixels * (pintIndex - 1))
                 .TopEdge_Pixels += (.Height_Pixels * (pintIndex - 1))
-                .TopEdge_bPixels += (.Height_bPixels * (pintIndex - 1))
             End With
         End If ''End of ""If (pintIndex >= 2) Then""
 
@@ -4151,6 +4157,10 @@ Public Class ClassDesigner
     ''See Line 105.12/21/21'' Private mod_ISaveableElementLastTouched As ISaveToModel ''Added 12/21/2021 td
     ''See Line 106.12/21/21'' Private Const mc_bAddBorderOnlyWhileResizing As Boolean = True ''Added 9/11/2019 thomas d. 
 
+    ''Added 9/03/2022 thomas downes
+    Public Property LayoutDebugName As String Implements ILayoutFunctions.LayoutDebugName
+    Public Property LayoutDebugDescription As String Implements ILayoutFunctions.LayoutDebugDescription
+
     Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/4/2019 td
         Get
             ''Added 8/9/2019 td
@@ -5215,7 +5225,7 @@ Public Class ClassDesigner
     End Sub ''Handles the KeyUp events 
 
 
-    Private Sub PositionElementArrow(par_controlElement As Control)
+    Friend Sub PositionElementArrow(par_controlElement As Control)
         ''
         ''Added 9/2/2022 td
         ''
@@ -5245,7 +5255,8 @@ Public Class ClassDesigner
         With Me.ElementArrow_Right
             .Visible = False
             If (boolUseRightside) Then
-                .Left = par_controlElement.Left - .Width
+                ''9/2/2022 .Left = par_controlElement.Left - .Width
+                .Left = par_controlElement.Left + par_controlElement.Width
                 .Top = par_controlElement.Top
                 .Visible = True ''(boolUseLeftside)
                 .BringToFront()
