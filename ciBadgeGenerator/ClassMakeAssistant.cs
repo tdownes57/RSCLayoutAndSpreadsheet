@@ -1519,7 +1519,7 @@ namespace ciBadgeGenerator
                 //                ''Added 9/20/2019 td
 
                 decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
-                                             par_elementField.BadgeLayout.Width_Pixels);
+                                             par_elementField.BadgeLayoutDims.Width_Pixels);
 
                 //                Dim intDesignedLeft As Integer ''Designed = layout pre-production = The Left value when designed via the Layout Designer tool. --9/20
                 //                Dim intDesignedTop As Integer ''Designed = layout pre-production = The Top value when designed via the Layout Designer tool.  --9/20
@@ -1759,8 +1759,8 @@ namespace ciBadgeGenerator
 
                 int intDesignedLeft_V4 = par_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
                 int intDesignedTop_V4 = par_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
-                //9_5_2022 int intDesignedLeft_Base = par_elementField.LeftEdge_bPixels;  //Added 10/14/2019 td 
-                //9_5_2022 int intDesignedTop_Base = par_elementField.TopEdge_bPixels;  //Added 10/14/2019 td
+                //9_5_2022  int intDesignedLeft_Base = par_elementField.LeftEdge_bPixels;  //Added 10/14/2019 td 
+                //9_5_2022  int intDesignedTop_Base = par_elementField.TopEdge_bPixels;  //Added 10/14/2019 td
                 int intDesignedLeft_Base = par_elementField.LeftEdge_Pixels;  //Added 10/14/2019 td 
                 int intDesignedTop_Base = par_elementField.TopEdge_Pixels;  //Added 10/14/2019 td
 

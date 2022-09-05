@@ -787,7 +787,7 @@ ExitHandler:
                     ''---+--9/20/2019 td''             New PointF(intLeft, intTop))
 
                     ''Added 9/20/2019 td 
-                    decScalingFactor = (par_imageBadgeCard.Width / each_elementField.BadgeLayout.Width_Pixels)
+                    decScalingFactor = (par_imageBadgeCard.Width / each_elementField.BadgeLayoutDims.Width_Pixels)
 
                     Dim intDesignedLeft As Integer ''Designed = layout pre-production = The Left value when designed via the Layout Designer tool. --9/20
                     Dim intDesignedTop As Integer ''Designed = layout pre-production = The Top value when designed via the Layout Designer tool.  --9/20
@@ -950,7 +950,7 @@ ExitHandler:
                     ''---+--9/20/2019 td''             New PointF(intLeft, intTop))
 
                     ''Added 9/20/2019 td 
-                    decScalingFactor = (par_imageBadgeCard.Width / each_elementField.BadgeLayout.Width_Pixels)
+                    decScalingFactor = (par_imageBadgeCard.Width / each_elementField.BadgeLayoutDims.Width_Pixels)
 
                     Dim intDesignedLeft As Integer ''Designed = layout pre-production = The Left value when designed via the Layout Designer tool. --9/20
                     Dim intDesignedTop As Integer ''Designed = layout pre-production = The Top value when designed via the Layout Designer tool.  --9/20

@@ -1797,7 +1797,7 @@ Namespace ciBadgeCachePersonality
                 new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
                 ''Added 10/13/2019 td
-                new_elementField.BadgeLayout = par_layout
+                new_elementField.BadgeLayoutDims = par_layout
 
                 ''Added 11/29/2021 td
                 new_elementField.DatetimeUpdated = DateTime.Now
@@ -1856,7 +1856,7 @@ Namespace ciBadgeCachePersonality
                                     c_intHeight_Pixels)
             ''5/11/2022 new_elementField.FieldInfo = obj_field
             new_elementField.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
-            new_elementField.BadgeLayout = par_layout
+            new_elementField.BadgeLayoutDims = par_layout
             new_elementField.DatetimeUpdated = DateTime.Now
             ''5/13/2022 td''par_newElementFieldV3 = new_elementField ''Added 5/12/2022 
 
@@ -3312,8 +3312,8 @@ Namespace ciBadgeCachePersonality
                     Dim intBadgeHeight As Integer
 
                     pref_section = 25 ''Added 11/27/2019 td
-                    intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Width_Pixels
-                    intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Height_Pixels
+                    intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Width_Pixels
+                    intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Height_Pixels
 
                     .BadgeLayout = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
 

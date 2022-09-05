@@ -2745,7 +2745,7 @@ Public Class ClassDesigner
 
                 ''Added 9/12/2019 td
                 ''10/9/2019 td''.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutClass(Me.BackgroundBox.Width, Me.BackgroundBox.Height)
-                .BadgeLayout = Me.BadgeLayout_Class ''Modified 10/9/2019 td  
+                .BadgeLayoutDims = Me.BadgeLayout_Class ''Modified 10/9/2019 td  
 
             End With ''End of ""With each_elementV3""
 

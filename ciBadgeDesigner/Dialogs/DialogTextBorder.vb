@@ -179,7 +179,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 7/22/2022 thomas downes
         If (Me.ElementObject_Base IsNot Nothing) Then
-            chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_bDisplayed
+            chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_Displayed
+
         ElseIf (Me.ElementCopy_Info_Base IsNot Nothing) Then
             chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
         End If ''|End of ""If (Me.ElementObject_Base IsNot Nothing) Then... ElseIf..."
@@ -195,9 +196,9 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 7/21/2022 thomas downes 
         With Me.CtlLeftRightBorderWidth.ElementObject_Base
-            If (.Border_bColor = Drawing.Color.Empty) Then
-                .Border_bColor = Drawing.Color.Black
-            End If
+            If (.Border_Color = Drawing.Color.Empty) Then
+                .Border_Color = Drawing.Color.Black
+            End If ''End of ""If (.Border_Color = Drawing.Color.Empty) Then""
         End With ''End of ""With Me.CtlLeftRightBorderWidth.ElementObject_Base""
 
 
@@ -297,8 +298,8 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
         CenterTheFieldControl()
 
         ''Added 7/22/2022 thomas downes
-        chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
-        chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_bDisplayed
+        ''9/2022 chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
+        chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_Displayed
 
     End Sub ''End of "Public Sub LoadFieldAndFormV3(par_field As ClassFieldStandard, par_formDesigner As FormDesignProtoTwo)"
 
@@ -323,7 +324,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 7/22/2022 thomas downes
         chkBorderDisplayed.Checked = Me.ElementCopy_Info_Base.Border_Displayed
-        chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_bDisplayed
+        chkBorderDisplayed.Checked = Me.ElementObject_Base.Border_Displayed
 
         ''7/17/2022 td''With CtlGraphicFldLabel1
         ''7/19/2022 With CtlGraphicFieldV41
@@ -614,7 +615,7 @@ Public Class DialogTextBorder ''Added 8/29/2019 thomas d.
 
         ''Added 7/21/2022 td
         If (Me.ElementObject_Base IsNot Nothing) Then
-            Me.ElementObject_Base.Border_bDisplayed = bDisplayBorder
+            Me.ElementObject_Base.Border_Displayed = bDisplayBorder
         Else
             Me.ElementCopy_Info_Base.Border_Displayed = bDisplayBorder
         End If ''End of ""If (Me.ElementObject_Base IsNot Nothing) Then.... Else...."

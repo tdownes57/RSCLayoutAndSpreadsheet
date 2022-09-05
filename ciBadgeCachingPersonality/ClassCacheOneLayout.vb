@@ -193,13 +193,15 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 intLeft_Pixels = intTop_Pixels ''Let's have a staircase effect!! 
 
                 ''Added 9/18/2019 td
-                new_elementField = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+                new_elementField = New ClassElementFieldV3(each_field,
+                                                           intLeft_Pixels, intTop_Pixels,
+                                                           c_intHeight_Pixels)
                 ''5/11/2022 ''new_elementField.FieldInfo = each_field
                 new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
                 new_elementField.FieldIsCustomizable = each_field.IsCustomizable ''Added 5/11/2022
 
                 ''Added 10/13/2019 td
-                new_elementField.BadgeLayout = par_layout
+                new_elementField.BadgeLayoutDims = par_layout
 
                 ''Added 9/19/2019 td
                 mod_listElementFields.Add(new_elementField)
@@ -238,7 +240,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 new_elementField.FieldEnum = each_field.FieldEnumValue ''Added 10/12/2019 td
 
                 ''Added 10/13/2019 td
-                new_elementField.BadgeLayout = par_layout
+                ''9/05/2022 new_elementField.BadgeLayout = par_layout
+                new_elementField.BadgeLayoutDims = par_layout
 
                 ''Added 9/19/2019 td
                 mod_listElementFields.Add(new_elementField)
@@ -864,8 +867,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                     Dim intBadgeWidth As Integer
                     Dim intBadgeHeight As Integer
 
-                    intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Width_Pixels
-                    intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayout.Height_Pixels
+                    intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Width_Pixels
+                    intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Height_Pixels
 
                     .BadgeLayout = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
 
