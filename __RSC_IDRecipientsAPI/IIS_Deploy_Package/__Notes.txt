@@ -1,0 +1,34 @@
+﻿
+
+
+To get the instructions on how to deploy the web package please visit the following link:
+http://go.microsoft.com/fwlink/?LinkId=124618
+
+Build started...
+
+1>------ Build started: Project: __RSC_IDRecipients_API_NoAzureAD, Configuration: Release Any CPU ------
+1>__RSC_IDRecipients_API_NoAzureAD -> C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\bin\Release\netcoreapp3.1\__RSC_IDRecipients_API_NoAzureAD.dll
+2>------ Publish started: Project: __RSC_IDRecipients_API_NoAzureAD, Configuration: Release Any CPU ------
+__RSC_IDRecipients_API_NoAzureAD -> C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\bin\Release\netcoreapp3.1\__RSC_IDRecipients_API_NoAzureAD.dll
+__RSC_IDRecipients_API_NoAzureAD -> C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\
+Adding sitemanifest (sitemanifest).
+Adding IIS Application (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\)
+Creating application (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\)
+Adding virtual path (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\)
+Adding directory (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\web.config).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\__RSC_IDRecipients_API_NoAzureAD.deps.json).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\__RSC_IDRecipients_API_NoAzureAD.dll).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\__RSC_IDRecipients_API_NoAzureAD.exe).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\__RSC_IDRecipients_API_NoAzureAD.pdb).
+Adding file (C:\Users\tomdo\source\repos\ciLayout\__RSC_IDRecipientsAPI\obj\Release\netcoreapp3.1\PubTmp\Out\__RSC_IDRecipients_API_NoAzureAD.runtimeconfig.json).
+Adding declared parameter 'IIS Web Application Name'.
+Package "__RSC_IDRecipients_API_NoAzureAD.zip" is successfully created as single file at the following location:
+file:///C:/Users/tomdo/source/repos/ciLayout/__RSC_IDRecipientsAPI/IIS_Deploy_Package
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+========== Publish: 1 succeeded, 0 failed, 0 skipped ==========
+To get the instructions on how to deploy the web package please visit the following link:
+http://go.microsoft.com/fwlink/?LinkId=124618
+
