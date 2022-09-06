@@ -27,27 +27,27 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
     <Xml.Serialization.XmlIgnore>
     Public Shared ElementPicture As ClassElementPortrait ''Added 7/31/2019 thomas d.
 
-    Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
-    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
-    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
-    Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
-    Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
+    ''Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+    ''Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+    ''Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
+    ''Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
+    ''Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementPic
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    ''Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
+    ''<Xml.Serialization.XmlIgnore>
+    ''Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    ''Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
-    ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayoutDims As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayoutDims ''This provides sizing context & scaling factors. 
+    ''''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    ''Public Property BadgeLayoutDims As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayoutDims ''This provides sizing context & scaling factors. 
 
-    Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
+    ''Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
+    ''Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
     ''
     ''Added 5/27/2022 td
@@ -154,32 +154,33 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
         End Set
     End Property
 
-    Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
 
-    ''Added 9/4/2019 td 
-    Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
+    ''Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+    ''''Added 9/4/2019 td 
+    ''Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
 
-    <XmlElement("Back_Color")>
-    Public Property Back_Color_HTML As String
-        ''Added 10/13/2019 td
-        Get
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Return ColorTranslator.ToHtml(Me.Back_Color)
-        End Get
-        Set(value As String)
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Me.Back_Color = ColorTranslator.FromHtml(value)
-        End Set
-    End Property
+    ''<Xml.Serialization.XmlIgnore>
+    ''Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+
+    ''<XmlElement("Back_Color")>
+    ''Public Property Back_Color_HTML As String
+    ''    ''Added 10/13/2019 td
+    ''    Get
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Return ColorTranslator.ToHtml(Me.Back_Color)
+    ''    End Get
+    ''    Set(value As String)
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Me.Back_Color = ColorTranslator.FromHtml(value)
+    ''    End Set
+    ''End Property
 
 
 
     ''Added 8/2/2019 td
     ''
-    Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting
+    ''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting
 
     ''
     ''Added 7/31/2019 thomas downes
@@ -193,34 +194,34 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
     ''9/2 td''Public Property OrientationToLayout As String Implements IElementPic.OrientationToLayout
     ''9/2 td''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees
 
-    Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
-    Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
+    ''Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
+    ''Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
 
-    ''Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/13/2019 td  
-    ''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
+    ''''Public Property PicFileIndex As Integer Implements IElementPic.PicFileIndex ''Added 8/13/2019 td  
+    ''''Public Property OrientationDegrees As Integer Implements IElementPic.OrientationDegrees ''Added 8/13/2019 td  
+
+    ''<Xml.Serialization.XmlIgnore>
+    ''Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
+
+    ''Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     <Xml.Serialization.XmlIgnore>
-    Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
+    Public Property Recipient As IRecipient Implements IElementPic.Recipient ''Add ed 9/10/2019 td
 
-    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
+    ''Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+    ''    Get
+    ''        Return 0 ''Return DirectCast(ElementPicture, IElement_Base).ZOrder
+    ''    End Get
+    ''    Set(value As Integer)
+    ''        Return ''DirectCast(ElementPicture, IElement_Base).ZOrder = value
+    ''    End Set
+    ''End Property
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Recipient As IRecipient Implements IElementPic.Recipient ''Added 9/10/2019 td
-
-    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
-        Get
-            Return 0 ''Return DirectCast(ElementPicture, IElement_Base).ZOrder
-        End Get
-        Set(value As Integer)
-            Return ''DirectCast(ElementPicture, IElement_Base).ZOrder = value
-        End Set
-    End Property
-
-    Public Sub New(par_control As Control)
+    Public Sub New(parControl As Control)
 
         ''Added 7/19/2019 td
         ''
-        Me.FormControl = par_control
+        Me.FormControl = parControl
 
     End Sub
 

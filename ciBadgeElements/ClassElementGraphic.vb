@@ -27,28 +27,28 @@ Public Class ClassElementGraphic
     ''Added 9/30/2019 thomas downes
     ''
     ''What is this for? ---12/8/2021 thomas downes
-    Public Shared ElementQRCode As ClassElementQRCode ''Added 9/30/2019 thomas d.
+    ''9/5/2022 Public Shared ElementQRCode As ClassElementQRCode ''Added 9/30/2019 thomas d.
 
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementGraphic ''Dec8 2021 ''IElementQRCode
 
-    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
-    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
-    Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
-    Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
+    ''Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td
+    ''Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
+    ''Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
+    ''Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    ''Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
+    ''<Xml.Serialization.XmlIgnore>
+    ''Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    ''Public Property ElementType As String Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
-    ''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
-    Public Property BadgeLayoutDims As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayoutDims ''This provides sizing context & scaling factors. 
+    ''''9/12/2019 td''Public Property LayoutWidth As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
+    ''Public Property BadgeLayoutDims As BadgeLayoutDimensionsClass Implements IElement_Base.BadgeLayoutDims ''This provides sizing context & scaling factors. 
 
-    Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
-    Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
+    ''Public Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels
+    ''Public Property LeftEdge_Pixels As Integer Implements IElement_Base.LeftEdge_Pixels
 
     ''
     ''Added 5/27/2022 td

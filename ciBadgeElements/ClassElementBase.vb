@@ -6,6 +6,7 @@ Option Strict On
 Imports ciBadgeInterfaces ''Added 1/8/2022 thomas downes
 Imports System.Drawing ''Added 9/18/2019 td 
 Imports System.Windows.Forms ''Added 9/18/2019 td 
+Imports System.Xml.Serialization ''Added 9/5/2022 & 9/24/2019 td
 
 Public Class ClassElementBase
     ''9/05/2022 Implements IElement_Base_InDevelopment  ''//_Temporary
@@ -45,6 +46,7 @@ Public Class ClassElementBase
 
     ''Public Property SubLayout As ciBadgeInterfaces.BadgeLayoutClass ''Added 9/17/2019 thomas downes
 
+    <Xml.Serialization.XmlIgnore>
     Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
     Public Property ElementType As String = "Text" Implements IElement_Base.ElementType ''Text, Pic, or Logo
@@ -75,6 +77,20 @@ Public Class ClassElementBase
     Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
     Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 
+    <XmlElement("Back_Color")>
+    Public Property Back_Color_HTML As String
+        ''Added 10/13/2019 td
+        Get
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(Me.Back_Color)
+        End Get
+        Set(value As String)
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Me.Back_Color = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
+
+
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td 
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
@@ -84,6 +100,7 @@ Public Class ClassElementBase
     Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
     ''BL = Badge Layout
+    <Xml.Serialization.XmlIgnore>
     Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
     Public Property Visible As Boolean Implements IElement_Base.Visible ''Added 9/18/2019 td  

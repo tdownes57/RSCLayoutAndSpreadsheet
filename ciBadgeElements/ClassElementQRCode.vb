@@ -19,7 +19,7 @@ Public Class ClassElementQRCode
     ''Added 9/30/2019 thomas downes
     ''
     ''
-    Public Shared ElementQRCode As ClassElementQRCode ''Added 9/30/2019 thomas d.
+    ''9/5/2022 td''Public Shared ElementQRCode As ClassElementQRCode ''Added 9/30/2019 thomas d.
 
     <Xml.Serialization.XmlIgnore>
     Public Property Info As IElementQRCode
@@ -51,146 +51,146 @@ Public Class ClassElementQRCode
 
 
 
-    Private mod_width_pixels As Integer ''Added 9/23/2019 td 
-    Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
-        Get
-            Return mod_width_pixels
-        End Get
-        Set(value As Integer)
+    ''Private mod_width_pixels As Integer ''Added 9/23/2019 td 
+    ''Public Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels
+    ''    Get
+    ''        Return mod_width_pixels
+    ''    End Get
+    ''    Set(value As Integer)
 
-            mod_width_pixels = value ''Added 9/23/2019 thomas downes
+    ''        mod_width_pixels = value ''Added 9/23/2019 thomas downes
 
-            ''
-            ''Are we initializing Height & Width?   
-            ''
-            ''Added 9/23/2019 thomas downes
-            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
-            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
-            intOtherPropertyValue = mod_height_pixels
-            boolLikelyInitializing = (0 = intOtherPropertyValue)
-            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+    ''        ''
+    ''        ''Are we initializing Height & Width?   
+    ''        ''
+    ''        ''Added 9/23/2019 thomas downes
+    ''        Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+    ''        Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+    ''        intOtherPropertyValue = mod_height_pixels
+    ''        boolLikelyInitializing = (0 = intOtherPropertyValue)
+    ''        If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
 
-            ''
-            ''Inform software developer of programming which violates design expectations.
-            ''
-            Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            ''9/23/19 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
-            ''1/04/22 td''boolShorterThanWidth = (mod_height_pixels < value)
-            boolShorterThanWidth = (mod_height_pixels + 5 < value)
-            boolGiveDisallowedMsg = boolShorterThanWidth
-            If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
-            End If ''End of "If (boolGiveDisallowedMsg) Then"
+    ''        ''
+    ''        ''Inform software developer of programming which violates design expectations.
+    ''        ''
+    ''        Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
+    ''        Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+    ''        ''9/23/19 td''boolShorterThanWidth = (mod_height_pixels < mod_width_pixels) ''value)
+    ''        ''1/04/22 td''boolShorterThanWidth = (mod_height_pixels < value)
+    ''        boolShorterThanWidth = (mod_height_pixels + 5 < value)
+    ''        boolGiveDisallowedMsg = boolShorterThanWidth
+    ''        If (boolGiveDisallowedMsg) Then
+    ''            Throw New Exception("The Height cannot be less than the width #1 (rotation is _not_ an exception to this).")
+    ''        End If ''End of "If (boolGiveDisallowedMsg) Then"
 
-            ''Added 9/23/2019 td
-            Const c_False_RegardlessOfRotation As Boolean = False
-            CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+    ''        ''Added 9/23/2019 td
+    ''        Const c_False_RegardlessOfRotation As Boolean = False
+    ''        CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
 
-        End Set
-    End Property
+    ''    End Set
+    ''End Property
 
-    Private mod_height_pixels As Integer ''Added 9/23/2019 td 
-    Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
-        Get
-            Return mod_height_pixels
-        End Get
-        Set(value As Integer)
+    ''Private mod_height_pixels As Integer ''Added 9/23/2019 td 
+    ''Public Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels
+    ''    Get
+    ''        Return mod_height_pixels
+    ''    End Get
+    ''    Set(value As Integer)
 
-            mod_height_pixels = value ''Added 9/23/2019 thomas downes
+    ''        mod_height_pixels = value ''Added 9/23/2019 thomas downes
 
-            ''
-            ''Are we initializing Height & Width?   
-            ''
-            Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
-            Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
-            intOtherPropertyValue = mod_width_pixels
-            boolLikelyInitializing = (0 = intOtherPropertyValue)
-            If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
+    ''        ''
+    ''        ''Are we initializing Height & Width?   
+    ''        ''
+    ''        Dim boolLikelyInitializing As Boolean ''Added 9/23/2019 thomas d. 
+    ''        Dim intOtherPropertyValue As Integer ''Added 9/23/2019 thomas d. 
+    ''        intOtherPropertyValue = mod_width_pixels
+    ''        boolLikelyInitializing = (0 = intOtherPropertyValue)
+    ''        If (boolLikelyInitializing) Then Exit Property ''Added 9/23/2019 td 
 
-            ''
-            ''Inform software developer of programming which violates design expectations.
-            ''
-            Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
-            Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
-            ''Added 9/23/2019 thomas downes
-            ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
-            boolShorterThanWidth = (mod_height_pixels + 5 < mod_width_pixels)
-            boolGiveDisallowedMsg = boolShorterThanWidth
-            If (boolGiveDisallowedMsg) Then
-                Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
-            End If ''End of "If (boolGiveDisallowedMsg) Then"
+    ''        ''
+    ''        ''Inform software developer of programming which violates design expectations.
+    ''        ''
+    ''        Dim boolShorterThanWidth As Boolean ''Added 9/23/2019 thomas downes
+    ''        Dim boolGiveDisallowedMsg As Boolean ''Added 9/23/2019 thomas downes
+    ''        ''Added 9/23/2019 thomas downes
+    ''        ''9/23/2019 td''boolTallerThanWidth = (mod_height_pixels > mod_width_pixels)
+    ''        boolShorterThanWidth = (mod_height_pixels + 5 < mod_width_pixels)
+    ''        boolGiveDisallowedMsg = boolShorterThanWidth
+    ''        If (boolGiveDisallowedMsg) Then
+    ''            Throw New Exception("The Height cannot be less than the width #2 (rotation is _not_ an exception to this).")
+    ''        End If ''End of "If (boolGiveDisallowedMsg) Then"
 
-            ''Added 9/23/2019 td
-            Const c_False_RegardlessOfRotation As Boolean = False
-            CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
+    ''        ''Added 9/23/2019 td
+    ''        Const c_False_RegardlessOfRotation As Boolean = False
+    ''        CheckWidthVsLength_OfPic(mod_width_pixels, mod_height_pixels, c_False_RegardlessOfRotation)
 
-        End Set
-    End Property
+    ''    End Set
+    ''End Property
 
-    ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
+    ''''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
+    ''Public Property Border_WidthInPixels As Integer Implements IElement_Base.Border_WidthInPixels
 
-    <XmlIgnore>
-    Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
+    ''<XmlIgnore>
+    ''Public Property Border_Color As System.Drawing.Color Implements IElement_Base.Border_Color
 
-    <XmlElement("Border_Color")>
-    Public Property Border_Color_HTML As String
-        ''Added 10/13/2019 td
-        Get
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Return ColorTranslator.ToHtml(Me.Border_Color)
-        End Get
-        Set(value As String)
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Me.Border_Color = ColorTranslator.FromHtml(value)
-        End Set
-    End Property
+    ''<XmlElement("Border_Color")>
+    ''Public Property Border_Color_HTML As String
+    ''    ''Added 10/13/2019 td
+    ''    Get
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Return ColorTranslator.ToHtml(Me.Border_Color)
+    ''    End Get
+    ''    Set(value As String)
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Me.Border_Color = ColorTranslator.FromHtml(value)
+    ''    End Set
+    ''End Property
 
-    Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
+    ''Public Property Border_Displayed As Boolean Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td
 
-    ''Added 9/4/2019 td 
-    Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
+    ''''Added 9/4/2019 td 
+    ''Public Property Back_Transparent As Boolean Implements IElement_Base.Back_Transparent
 
-    <XmlIgnore>
-    Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
+    ''<XmlIgnore>
+    ''Public Property Back_Color As System.Drawing.Color Implements IElement_Base.Back_Color
 
-    <XmlElement("Back_Color")>
-    Public Property Back_Color_HTML As String
-        ''Added 10/13/2019 td
-        Get
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Return ColorTranslator.ToHtml(Me.Back_Color)
-        End Get
-        Set(value As String)
-            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
-            Me.Back_Color = ColorTranslator.FromHtml(value)
-        End Set
-    End Property
-
-
+    ''<XmlElement("Back_Color")>
+    ''Public Property Back_Color_HTML As String
+    ''    ''Added 10/13/2019 td
+    ''    Get
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Return ColorTranslator.ToHtml(Me.Back_Color)
+    ''    End Get
+    ''    Set(value As String)
+    ''        ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+    ''        Me.Back_Color = ColorTranslator.FromHtml(value)
+    ''    End Set
+    ''End Property
 
 
-    ''Added 8/2/2019 td
-    ''
-    Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting
 
 
-    Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
-    Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
+    ''''Added 8/2/2019 td
+    ''''
+    ''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting
 
-    ''
-    ''What does BL stand for?  ----12/8/2021 
-    ''Does BL stand for Badge Layout? 
-    ''
-    <Xml.Serialization.XmlIgnore>
-    Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
 
-    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
+    ''Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
+    ''Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
+
+    ''''
+    ''''What does BL stand for?  ----12/8/2021 
+    ''''Does BL stand for Badge Layout? 
+    ''''
+    ''<Xml.Serialization.XmlIgnore>
+    ''Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
+
+    ''Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     Public Property QRFormula As String Implements IElementQRCode.QRFormula ''Added 9/30/2019 td  
 
-    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+    ''9/05/2022 td''Public Property ZOrder As Integer Implements IElement_Base.ZOrder
     ''    Get
     ''        ''Return DirectCast(ElementQRCode, IElement_Base).ZOrder
     ''    End Get
@@ -291,7 +291,10 @@ Public Class ClassElementQRCode
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfPic()"
 
     Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
-        Return DirectCast(ElementQRCode, IElement_Base).ImageForBadgeImage(par_recipient)
+
+        ''9/5/2022 Return DirectCast(ElementQRCode, IElement_Base).ImageForBadgeImage(par_recipient)
+        Return MyBase.Image_BL
+
     End Function
 End Class
 
