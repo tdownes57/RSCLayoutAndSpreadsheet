@@ -73,7 +73,7 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Can_A_Control_Exist_In_Two_
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Can_Draw_LinearGradientBrush2", "Can_Draw_LinearGradientBrush2\Can_Draw_LinearGradientBrush2.vbproj", "{43140447-EDBA-4692-97B5-81D465E66F1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC_IDRecipients_API", "__RSC_IDRecipientsAPI\__RSC_IDRecipients_API.csproj", "{6492150A-4845-4B40-A8CA-15E950E0B55D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC_IDRecipients_API_NoAzureAD", "__RSC_IDRecipientsAPI\__RSC_IDRecipients_API_NoAzureAD.csproj", "{6492150A-4845-4B40-A8CA-15E950E0B55D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC_IDRecipients_RESTfulAPI_NoAuth", "__RSC_IDRecipients_RESTfulAPI\__RSC_IDRecipients_RESTfulAPI_NoAuth.csproj", "{4A2C9660-25B6-4D09-BAF6-CD80011669DE}"
 EndProject
