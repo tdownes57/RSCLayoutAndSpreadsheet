@@ -60,10 +60,26 @@ Public Class ClassElementBase
     ''Public Property Width_Pixels As Integer = 253 Implements IElement_Base.Width_Pixels
     ''Public Property Height_Pixels As Integer = 33 Implements IElement_Base.Height_Pixels
 
-    ''''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
+    <XmlIgnore>
     Public Property Border_Color As System.Drawing.Color = Color.Black Implements IElement_Base.Border_Color
     Public Property Border_Displayed As Boolean = True Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
+
+    ''''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
+    Public Property Border_WidthInPixels As Integer = 1 Implements IElement_Base.Border_WidthInPixels
+
+    <XmlElement("Border_Color")>
+    Public Property Border_Color_HTML As String
+        ''Added 9/6/2022 & 10/13/2019 td
+        Get
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(Me.Border_Color)
+        End Get
+        Set(value As String)
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Me.Border_Color = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
+
 
     ''Added 8/3/2022 thomas downes
     Property TopEdge_Pixels As Integer Implements IElement_Base.TopEdge_Pixels ''Added 8/3/2022 thomas downes
@@ -73,13 +89,14 @@ Public Class ClassElementBase
     Property Width_Pixels As Integer Implements IElement_Base.Width_Pixels ''Added 8/04/2022 thomas downes
     Property Height_Pixels As Integer Implements IElement_Base.Height_Pixels  ''Added 8/04/2022 thomas downes
 
-
+    <XmlIgnore>
     Public Property Back_Color As System.Drawing.Color = Color.White Implements IElement_Base.Back_Color
+
     Public Property Back_Transparent As Boolean = False Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 
     <XmlElement("Back_Color")>
     Public Property Back_Color_HTML As String
-        ''Added 10/13/2019 td
+        ''Added 9/6/2022 & 10/13/2019 td
         Get
             ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
             Return ColorTranslator.ToHtml(Me.Back_Color)
