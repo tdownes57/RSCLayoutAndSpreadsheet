@@ -1518,8 +1518,11 @@ namespace ciBadgeGenerator
                 //
                 //                ''Added 9/20/2019 td
 
-                decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
+                decimal decScalingFactorW = ((decimal)par_imageBadgeCard.Width /
                                              par_elementField.BadgeLayoutDims.Width_Pixels);
+                //Added 9/07/2022 td
+                decimal decScalingFactorH = ((decimal)par_imageBadgeCard.Height /
+                                             par_elementField.BadgeLayoutDims.Height_Pixels);
 
                 //                Dim intDesignedLeft As Integer ''Designed = layout pre-production = The Left value when designed via the Layout Designer tool. --9/20
                 //                Dim intDesignedTop As Integer ''Designed = layout pre-production = The Top value when designed via the Layout Designer tool.  --9/20
@@ -1536,8 +1539,10 @@ namespace ciBadgeGenerator
                 //                intDesiredLeft = CInt(intDesignedLeft * decScalingFactor)
                 //                intDesiredTop = CInt(intDesignedTop * decScalingFactor)
 
-                int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
-                int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
+                //Sept 2022 int intDesiredLeft = (int)(intDesignedLeft * decScalingFactor);
+                //Sept 2022 int intDesiredTop = (int)(intDesignedTop * decScalingFactor);
+                int intDesiredLeft = (int)(intDesignedLeft * decScalingFactorW);
+                int intDesiredTop = (int)(intDesignedTop * decScalingFactorH);
 
                 par_graphics.DrawImage(image_textStandard,
                                    new PointF(intDesiredLeft, intDesiredTop));

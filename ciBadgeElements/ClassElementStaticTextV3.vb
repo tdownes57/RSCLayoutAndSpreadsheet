@@ -27,7 +27,7 @@ Public Class ClassElementStaticTextV3
     ''Moved down & underscore removed. 6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
 
 
-    Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    ''9/7/2022 td''Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
     ''9/16 td''Public Property ExampleValue As String Implements IElement_StaticText.ExampleValue ''Added 8/14/2019 td 
 
     <XmlIgnore>

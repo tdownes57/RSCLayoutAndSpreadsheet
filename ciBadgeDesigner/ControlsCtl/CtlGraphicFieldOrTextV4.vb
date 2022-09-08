@@ -156,7 +156,7 @@ Public Class CtlGraphicFieldOrTextV4
     ''   This is to store the initial Width & Height, when resizing.
     ''
     ''Denigrated. 9/19/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 8/9/2019 td  
-    Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td  
+    ''Denigrated. 9/07/2022 td''Public LayoutFunctions As ciBadgeInterfaces.ILayoutFunctions ''Added 8/9/2019 td  
     Public ParentDesigner As ClassDesigner = Nothing ''Added 1/5/2022 td
 
     ''Jan10 2022 td''Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)

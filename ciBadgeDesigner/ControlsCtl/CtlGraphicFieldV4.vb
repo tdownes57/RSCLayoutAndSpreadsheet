@@ -602,6 +602,9 @@ Public Class CtlGraphicFieldV4
             ''Added 12/21/2021 td
             strTextToDisplay = (strTextToDisplay & (" " & Me.ElementClass_ObjV4.CaptionSuffixIfNeeded).TrimEnd())
 
+            ''Added 9/7/2022 
+            Me.ElementInfo_Base.BadgeLayoutDims = Me.ParentDesigner.BadgeLayout_Class
+
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
             newTextImage =
