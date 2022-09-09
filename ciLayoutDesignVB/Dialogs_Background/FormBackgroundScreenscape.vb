@@ -8,7 +8,7 @@ Public Class FormBackgroundScreenscape
     Public Input_PictureBoxSizeMode As PictureBoxSizeMode ''Added 6/3/2022 td 
     Public Input_ShowSizingControl As Boolean ''Added 6/3/2022 td
     Public Input_ShowMoveableControl As Boolean ''Added 6/3/2022 td
-    Public Input_BackgroundImage As Drawing.Image ''Added 6/3/2022 td 
+    Public Input_BackgroundImage_FullSize As Drawing.Image ''Added 6/3/2022 td 
 
     ''Added 6/3/2022 td
     Public Input_MoveablePositionX As Integer '' = intPositionX
@@ -18,6 +18,40 @@ Public Class FormBackgroundScreenscape
 
     Public Output_Image As Drawing.Image ''Added 6/3/2022 td
     Public Output_Image_LocationPath As String ''Added 6/11/2022 td
+
+    Private mod_c_ScaleOfImageFactor As Double = 1 ''Added 9/9/2022 td
+    Private mod_boolIsLoading As Boolean = True ''Added 9/9/2022 td
+
+    Private Sub RefreshImage_omitScaling()
+        ''
+        ''Encapsulated 9/9/2022 td
+        ''
+        With CtlMoveableBackground1
+            ''.Visible = True
+            ''.BringToFront()
+            ''#1 9/9/2022 .ImageBackgroundImage = Me.Input_BackgroundImage
+            ''#1 9/9/2022 .LoadImageFromImage(Me.Input_BackgroundImage)
+            .ImageBackgroundImage = Me.Input_BackgroundImage_FullSize
+            .LoadImageFromImage(Me.Input_BackgroundImage_FullSize)
+            .Load_Control()
+
+        End With ''End of ""With CtlMoveableBackground1""
+
+    End Sub ''End of ""Private Sub RefreshImage_omitScaling()""
+
+
+    Private Sub RefreshImage_includeScaling(pbCheckScalingScrollbar As Boolean)
+        ''
+        ''Encapsulated 9/9/2022 td
+        ''
+        With CtlMoveableBackground1
+            .ImageBackgroundImage = GetScaledBackgroundImage(pbCheckScalingScrollbar)
+            .LoadImageFromImage(.ImageBackgroundImage)
+            .Load_Control()
+        End With ''End of ""With CtlMoveableBackground1""
+
+    End Sub ''End of ""Private Sub RefreshImage_includeScaling()""
+
 
     Private Function TakeScreenShot_Modified(par_rectangle As Rectangle,
                     Optional par_pictureBox As PictureBox = Nothing) As Bitmap
@@ -141,6 +175,40 @@ Public Class FormBackgroundScreenscape
     End Function ''End of ""Private Function GetScreenRectangle""
 
 
+    Private Function GetScaledBackgroundImage(Optional pboolCheckScrollbar As Boolean = True) As Image
+        ''
+        ''Added 9/9/2022 Thomas Downes
+        ''
+        ''Dim gr As Graphics
+        Dim imageScaled As Image
+        Dim intNewWidth As Integer
+        Dim intNewHeight As Integer
+
+        ''Added 9/9/2022 td
+        If (pboolCheckScrollbar) Then
+            With HScrollBarSizePercentage
+                ''#1 9/2022 mod_c_ScaleOfImageFactor = (.Value / .Maximum)
+                ''#2 9/2022 mod_c_ScaleOfImageFactor = (.Value / (.Maximum - .Minimum)) + (.Minimum / .Maximum)
+                mod_c_ScaleOfImageFactor = (.Value / .Maximum)
+            End With ''End of ""With HScrollBarSizePercentage""
+        End If ''End of ""If (pboolCheckScrollbar) Then""
+
+        ''gr = New Graphics(Me.BackgroundImage)
+        ''--**--intNewWidth = CInt(Me.BackgroundImage.Width * mod_c_ScaleOfImageFactor)
+        ''--**--intNewHeight = CInt(Me.BackgroundImage.Height * mod_c_ScaleOfImageFactor)
+        With Me.Input_BackgroundImage_FullSize
+            intNewWidth = CInt(.Width * mod_c_ScaleOfImageFactor)
+            intNewHeight = CInt(.Height * mod_c_ScaleOfImageFactor)
+        End With
+
+        ''--**--imageScaled = New Bitmap(Me.BackgroundImage,
+        ''--**--                         New Size(intNewWidth, intNewHeight))
+        imageScaled = New Bitmap(Me.Input_BackgroundImage_FullSize,
+                                 New Size(intNewWidth, intNewHeight))
+
+        Return imageScaled
+
+    End Function ''End of ""Private Function GetScaledBackgroundImage() As Image""
 
 
     Private Sub ButtonUndoOkay1_Click(sender As Object, e As EventArgs) Handles ButtonUndoOkay1.Click
@@ -170,16 +238,20 @@ Public Class FormBackgroundScreenscape
             With CtlMoveableBackground1
                 .Visible = True
                 .BringToFront()
-                .ImageBackgroundImage = Me.Input_BackgroundImage
-                .LoadImageFromImage(Me.Input_BackgroundImage)
-                .Load_Control()
-            End With
+                ''#1 9/9/2022 .ImageBackgroundImage = Me.Input_BackgroundImage
+                ''#1 9/9/2022 .LoadImageFromImage(Me.Input_BackgroundImage)
+                ''#2 .ImageBackgroundImage = Me.Input_BackgroundImage_FullSize
+                ''#2 .LoadImageFromImage(Me.Input_BackgroundImage_FullSize)
+                ''#2.Load_Control()
+                RefreshImage_omitScaling() ''Encapsulated 9/09/2022 td
+
+            End With ''End of ""With CtlMoveableBackground1""
 
         Else
             pictureLeftOriginal.Visible = True
             CtlMoveableBackground1.Visible = False
             pictureLeftOriginal.BringToFront()
-            pictureLeftOriginal.Image = Me.Input_BackgroundImage
+            pictureLeftOriginal.Image = Me.Input_BackgroundImage_FullSize
             pictureLeftOriginal.SizeMode = Me.Input_PictureBoxSizeMode
 
         End If ''ENd of ""If (Me.Input_ShowMoveableControl) Then ... Else...."""
@@ -192,14 +264,13 @@ Public Class FormBackgroundScreenscape
             ''Added 6/12/2022 
             LabelAdjustSize.Visible = True
             PanelSizing1.Visible = True
-            HScrollBar1.Visible = True
+            HScrollBarSizePercentage.Visible = True
 
         End If ''End of ""If (Me.Input_ShowSizingControl) Then""
 
-
-
-
-
+ExitHandler:
+        ''Added 9/9/2022
+        mod_boolIsLoading = False
 
     End Sub
 
@@ -304,5 +375,21 @@ ExitHandler:
 
     End Sub
 
+    Private Sub HScrollBarSizePercentage_ValueChanged(sender As Object, e As EventArgs) _
+                Handles HScrollBarSizePercentage.ValueChanged
 
+        ''Added 9/9/2022
+        If (mod_boolIsLoading) Then Exit Sub
+
+        ''Added 9/9/2022 td
+        With HScrollBarSizePercentage
+            ''#1 9/2022 mod_c_ScaleOfImageFactor = (.Value / .Maximum)
+            ''#2 9/2022 mod_c_ScaleOfImageFactor = (.Value / (.Maximum - .Minimum)) + (.Minimum / .Maximum)
+            mod_c_ScaleOfImageFactor = (.Value / .Maximum)
+        End With
+
+        ''Added 9/9/2022  td
+        RefreshImage_includeScaling(False) ''Encapsulated 9/09/2022 td
+
+    End Sub
 End Class

@@ -74,7 +74,7 @@ Public Class FormBackgroundEditImage
         With objFormToShow
 
             .Input_PictureBoxSizeMode = stylePictureBoxSizeMode
-            .Input_BackgroundImage = par_ctlPictureBox.Image
+            .Input_BackgroundImage_FullSize = par_ctlPictureBox.Image
             .Input_ShowMoveableControl = False
 
             Select Case par_ctlPictureBox.SizeMode
@@ -134,7 +134,7 @@ Public Class FormBackgroundEditImage
             .Input_PictureBoxSizeMode = PictureBoxSizeMode.Normal
             ''.Input_BackgroundImage = par_ctlMoveableImage.ImageBackgroundImage
             ''.Input_BackgroundImage = par_ctlMoveableImage.BackgroundImage
-            .Input_BackgroundImage = par_ctlMoveableImage.GetPictureBox().Image
+            .Input_BackgroundImage_FullSize = par_ctlMoveableImage.GetPictureBox().Image
             .Input_ShowMoveableControl = True
             .Input_ShowSizingControl = True ''Added 6/12/2022 thomas d
             .Input_MoveablePositionX = intPositionX

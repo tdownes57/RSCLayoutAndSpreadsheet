@@ -118,8 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="mainback_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\mainback_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Set Background Image_no border1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\R Software Consulting 123\__GRAPHICS\Set Background Image_no border.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_Elements_to_IDCardV" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\..\..\OneDrive\Pictures\Add_Elements_to_IDCardV.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="flag of USA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\BackgroundExampleDemos\flag of USA.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,8 +136,14 @@
   <data name="ContextMenu_non_grouped1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\ContextMenu_non-grouped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ContextMenu_non_grouped" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\ContextMenu_non-grouped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Textbox_v90" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Textbox_v90.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QR_Code_Example" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\QRCodes\QR Code Example.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Step3_TakePic_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Step3_TakePic_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,8 +157,8 @@
   <data name="Ratio_of_27_to_17" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ratio of 27 to 17.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="__UI for V831_v101" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\__UI for V831_v101.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Manage_Recipients_V" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\RSC ID Card\Graphics and Images\Manage Recipients V.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CodeNinjas_in_NB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CodeNinjas in NB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -184,20 +196,11 @@
   <data name="No backside exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\No backside exists.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AdjustWHColor_V101" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AdjustWHColor_V101.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CI_Logo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PathToSavedXML_Prior5" xml:space="preserve">
-    <value>See settings instead.</value>
-  </data>
   <data name="The UI for v900" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\The UI for v900.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PathToSavedXML_Prior4" xml:space="preserve">
-    <value>See settings instead.</value>
   </data>
   <data name="Background_Image_H" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\RSC ID Card\Graphics and Images\Background Image H.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -235,8 +238,8 @@
   <data name="Set Background Image_no border" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\R Software Consulting 123\__GRAPHICS\Set Background Image_no border.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Manage_Recipients_V" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\RSC ID Card\Graphics and Images\Manage Recipients V.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PathToSavedXML_Prior5" xml:space="preserve">
+    <value>See settings instead.</value>
   </data>
   <data name="QR_Code_BK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\QR Code.BK.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -247,23 +250,20 @@
   <data name="PathToSavedXML_Prior6" xml:space="preserve">
     <value>See settings instead.</value>
   </data>
-  <data name="V381" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\V381.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="GoldDiagonal_Land" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\BackgroundExampleDemos\GoldDiagonal_Land.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PathToSavedXML_Prior1" xml:space="preserve">
-    <value>See settings instead.</value>
+  <data name="JaneMulvey_1015" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\JaneMulvey_1015.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Add_Elements_to_IDCardV" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\OneDrive\Pictures\Add_Elements_to_IDCardV.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PathToSavedXML_Prior4" xml:space="preserve">
+    <value>See settings instead.</value>
   </data>
   <data name="Declaration_Sig_BMP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Declaration_BMP.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ContextMenu_non_grouped" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\ContextMenu_non-grouped.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="__UI for V831_v101" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Images\__UI for V831_v101.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PathToSavedXML_Prior2" xml:space="preserve">
     <value>See settings instead.</value>
@@ -274,22 +274,25 @@
   <data name="CI_Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\CI Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="QR_Code_Example" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\QRCodes\QR Code Example.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AdjustWHColor_V101" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AdjustWHColor_V101.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mainback_v82" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Images\mainback_v82.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="V381" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\V381.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DecreaseY" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\DecreaseY.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="JaneMulvey_1015" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\JaneMulvey_1015.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="PathToSavedXML_Prior1" xml:space="preserve">
+    <value>See settings instead.</value>
   </data>
   <data name="Set Background Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\R Software Consulting 123\__GRAPHICS\Set Background Image.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Design Element" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\R Software Consulting 123\__GRAPHICS\Design Element.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Design_Element_GA" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\..\..\OneDrive\___HP Laptop 2022\__Serious Professional\R Software Consulting 123\__GRAPHICS\Design_Element_GA.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

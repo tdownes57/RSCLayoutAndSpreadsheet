@@ -1041,7 +1041,7 @@ Partial Class Form__Main_Demo
         Me.ButtonManageRecipientsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Manage_Recipients_H
         Me.ButtonManageRecipientsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonManageRecipientsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonManageRecipientsH.Location = New System.Drawing.Point(511, 551)
+        Me.ButtonManageRecipientsH.Location = New System.Drawing.Point(582, 551)
         Me.ButtonManageRecipientsH.Name = "ButtonManageRecipientsH"
         Me.ButtonManageRecipientsH.Size = New System.Drawing.Size(238, 32)
         Me.ButtonManageRecipientsH.TabIndex = 102
@@ -1082,12 +1082,12 @@ Partial Class Form__Main_Demo
         'ButtonDesignElement
         '
         Me.ButtonDesignElement.BackColor = System.Drawing.Color.RoyalBlue
-        Me.ButtonDesignElement.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Design_Element
+        Me.ButtonDesignElement.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Design_Element_GA
         Me.ButtonDesignElement.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonDesignElement.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ButtonDesignElement.Location = New System.Drawing.Point(300, 551)
         Me.ButtonDesignElement.Name = "ButtonDesignElement"
-        Me.ButtonDesignElement.Size = New System.Drawing.Size(205, 32)
+        Me.ButtonDesignElement.Size = New System.Drawing.Size(268, 32)
         Me.ButtonDesignElement.TabIndex = 107
         Me.ButtonDesignElement.UseVisualStyleBackColor = False
         '

@@ -40,7 +40,7 @@ Partial Class FormBackgroundScreenscape
         Me.pictureLeftOriginal = New System.Windows.Forms.PictureBox()
         Me.LabelMoveableClickDrag = New System.Windows.Forms.Label()
         Me.PanelSizing1 = New System.Windows.Forms.Panel()
-        Me.HScrollBar1 = New System.Windows.Forms.HScrollBar()
+        Me.HScrollBarSizePercentage = New System.Windows.Forms.HScrollBar()
         Me.LabelAdjustSize = New System.Windows.Forms.Label()
         Me.CtlMoveableBackground1 = New ciBadgeDesigner.CtlMoveableBackground()
         CType(Me.pictureRight, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -223,24 +223,24 @@ Partial Class FormBackgroundScreenscape
         'PanelSizing1
         '
         Me.PanelSizing1.BackColor = System.Drawing.Color.Black
-        Me.PanelSizing1.Controls.Add(Me.HScrollBar1)
+        Me.PanelSizing1.Controls.Add(Me.HScrollBarSizePercentage)
         Me.PanelSizing1.Location = New System.Drawing.Point(450, 26)
         Me.PanelSizing1.Name = "PanelSizing1"
         Me.PanelSizing1.Size = New System.Drawing.Size(164, 51)
         Me.PanelSizing1.TabIndex = 81
         Me.PanelSizing1.Visible = False
         '
-        'HScrollBar1
+        'HScrollBarSizePercentage
         '
-        Me.HScrollBar1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.HScrollBarSizePercentage.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.HScrollBar1.Location = New System.Drawing.Point(7, 7)
-        Me.HScrollBar1.Minimum = 5
-        Me.HScrollBar1.Name = "HScrollBar1"
-        Me.HScrollBar1.Size = New System.Drawing.Size(150, 37)
-        Me.HScrollBar1.TabIndex = 81
-        Me.HScrollBar1.Value = 100
+        Me.HScrollBarSizePercentage.Location = New System.Drawing.Point(7, 7)
+        Me.HScrollBarSizePercentage.Minimum = 5
+        Me.HScrollBarSizePercentage.Name = "HScrollBarSizePercentage"
+        Me.HScrollBarSizePercentage.Size = New System.Drawing.Size(150, 37)
+        Me.HScrollBarSizePercentage.TabIndex = 81
+        Me.HScrollBarSizePercentage.Value = 100
         '
         'LabelAdjustSize
         '
@@ -317,6 +317,6 @@ Partial Class FormBackgroundScreenscape
     Friend WithEvents CtlMoveableBackground1 As ciBadgeDesigner.CtlMoveableBackground
     Friend WithEvents LabelMoveableClickDrag As Label
     Friend WithEvents PanelSizing1 As Panel
-    Friend WithEvents HScrollBar1 As HScrollBar
+    Friend WithEvents HScrollBarSizePercentage As HScrollBar
     Friend WithEvents LabelAdjustSize As Label
 End Class

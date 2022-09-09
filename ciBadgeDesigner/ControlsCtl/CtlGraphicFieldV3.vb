@@ -15,6 +15,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/4/2022 thomas d.
 
 Public Enum EnumReminderMsg
     Undetermined
+    ElementIsInvisible ''Added 9/9/2022 td
     NotCurrentlyInUse
     TransparentBackground
     OpaqueBackground

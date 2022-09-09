@@ -122,14 +122,11 @@ Public Class ClassElementStaticTextV3
     Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextOnly.TextAlignment
 
 
-    Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
-
-    Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
-
-    <Xml.Serialization.XmlIgnore>
-    Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
-
-    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/18/2019 td  
+    ''9/9/2022 Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+    ''9/9/2022 Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
+    ''9/9/2022 <Xml.Serialization.XmlIgnore>
+    ''9/9/2022 Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 8/27/2019 td
+    ''9/9/2022 Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/18/2019 td  
 
 
     ''Moved below. 8/27/2019 td''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  

@@ -192,21 +192,21 @@ Public Class ClassElementSignature
     ''9/2 td''Public Property OrientationToLayout As String Implements IElementSig.OrientationToLayout
     ''9/2 td''Public Property OrientationDegrees As Integer Implements IElementSig.OrientationDegrees
 
-    Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
-    Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
+    ''9/2022 Public Property OrientationToLayout As String Implements IElement_Base.OrientationToLayout
+    ''9/2022 Public Property OrientationInDegrees As Integer Implements IElement_Base.OrientationInDegrees
 
-    ''Public Property SigFileIndex As Integer Implements IElementSig.SigFileIndex ''Added 8/13/2019 td  
-    ''Public Property OrientationDegrees As Integer Implements IElementSig.OrientationDegrees ''Added 8/13/2019 td  
+    ''''Public Property SigFileIndex As Integer Implements IElementSig.SigFileIndex ''Added 8/13/2019 td  
+    ''''Public Property OrientationDegrees As Integer Implements IElementSig.OrientationDegrees ''Added 8/13/2019 td  
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
+    ''9/2022 <Xml.Serialization.XmlIgnore>
+    ''9/2022 Public Property Image_BL As Image Implements IElement_Base.Image_BL ''Added 9/2/2019 td
 
-    Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
+    ''9/2022 Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     <Xml.Serialization.XmlIgnore>
     Public Property Recipient As IRecipient Implements IElementSig.Recipient ''Added 9/10/2019 td
 
-    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+    ''9/2022 Public Property ZOrder As Integer Implements IElement_Base.ZOrder
     ''    Get
     ''        Return DirectCast(ElementSignature, IElement_Base).ZOrder
     ''    End Get

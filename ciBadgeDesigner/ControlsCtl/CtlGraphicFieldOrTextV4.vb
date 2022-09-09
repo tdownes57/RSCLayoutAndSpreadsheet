@@ -131,7 +131,8 @@ Public Class CtlGraphicFieldOrTextV4
     ''7/26/2019 td''Public ElementInfo As ClassElementText
     ''5/11/2022 td''Public FieldInfo As ICIBFieldStandardOrCustom
 
-    Public Enum_ReminderMsg As EnumReminderMsg = EnumReminderMsg.NotCurrentlyInUse ''Added 10/17/2019 td 
+    ''9/09/2022 Public Enum_ReminderMsg As EnumReminderMsg = EnumReminderMsg.NotCurrentlyInUse ''Added 10/17/2019 td 
+    Public Enum_ReminderMsg As EnumReminderMsg = EnumReminderMsg.Undetermined ''Added 9/09/2022 td 
 
     ''#1 8/29/2019 td''Public ElementInfo As ClassElementText
     '' #2 8/29/2019 td''Public ElementInfo_Text As ClassElementText
@@ -1377,32 +1378,48 @@ ExitHandler:
         ''
         Dim intResult As DialogResult
         Dim bUserDesiresTo_Display As Boolean
+        Dim bIsElementInvisible As Boolean ''Added 9/9/2022 td
+        Dim bIsNotCurrentlyInUse As Boolean ''Added 9/9/2022 td 
+        Dim bInformUserOfExclusion As Boolean ''Added 9/9/2022 td
 
-        Select Case Me.Enum_ReminderMsg
+        ''Added 9/9/2022 td
+        bIsElementInvisible = (Not Me.ElementBase.Visible) ''Added 9/9/2022 td 
+        ''9/2022  bIsNotCurrentlyInUse = (Me.Enum_ReminderMsg = EnumReminderMsg.NotCurrentlyInUse)
+        bIsNotCurrentlyInUse = (Me.Enum_ReminderMsg = EnumReminderMsg.NotCurrentlyInUse) Or
+                               (Me.Enum_ReminderMsg = EnumReminderMsg.ElementIsInvisible)
+        bInformUserOfExclusion = (bIsElementInvisible Or bIsNotCurrentlyInUse)
 
-            Case EnumReminderMsg.NotCurrentlyInUse
+        ''9/9/2022 td  Select Case Me.Enum_ReminderMsg
+        If (bInformUserOfExclusion) Then
 
-                intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
-                  MessageBoxButtons.OK, MessageBoxIcon.Question)
+            ''9/9/2022 td Case EnumReminderMsg.NotCurrentlyInUse
 
-                bUserDesiresTo_Display = (intResult = DialogResult.OK Or intResult = DialogResult.Yes)
+            ''9/09/2022 intResult = MessageBox.Show("Want this element to appear on the Badge?", "",
+            ''   MessageBoxButtons.OK, MessageBoxIcon.Question)
+            intResult = MessageBox.Show("It appears this element is _NOT_ Visible, or is otherwise currently excluded from use on the ID Card." &
+                                            vbCrLf_Deux & "Would you like this element to appear on the Badge?" &
+                                            vbCrLf_Deux & "(Make element visible?)", "LinkMessageFyI",
+                                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
-                If (bUserDesiresTo_Display) Then
+            bUserDesiresTo_Display = (intResult = DialogResult.OK Or
+                                      intResult = DialogResult.Yes)
 
-                    ''Added 9/20/2019 td 
-                    ''   Add an alert to the user that the element is not rendered
-                    ''   on the Badge.  ----9/20/2019 td
-                    ''
-                    Me.ElementInfo_Base.Visible = True
+            If (bUserDesiresTo_Display) Then
 
-                    Dim bElementInvisibleOnBadge As Boolean
-                    bElementInvisibleOnBadge = False ''False, since invisible is the opposite of "Displayed". 
-                    LinkMessageFYI.Visible = bElementInvisibleOnBadge ''Hide the link-label, it's not needed anymore. 
+                ''Added 9/20/2019 td 
+                ''   Add an alert to the user that the element is not rendered
+                ''   on the Badge.  ----9/20/2019 td
+                ''
+                Me.ElementInfo_Base.Visible = True
 
-                End If ''End of "If (bUserDesiresTo_Display) Then"
+                Dim bElementInvisibleOnBadge As Boolean
+                bElementInvisibleOnBadge = False ''False, since invisible is the opposite of "Displayed". 
+                LinkMessageFYI.Visible = bElementInvisibleOnBadge ''Hide the link-label, it's not needed anymore. 
 
+            End If ''End of "If (bUserDesiresTo_Display) Then"
 
-        End Select  ''End of "Select Case Me.Enum_ReminderMsg"
+            ''9/9/2022 td End Select  ''End of "Select Case Me.Enum_ReminderMsg"
+        End If ''END OF ""If (bInformUserOfExclusion) Then""
 
     End Sub
 

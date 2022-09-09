@@ -5232,9 +5232,16 @@ Public Class ClassDesigner
         Dim boolUseLeftside As Boolean
         Dim boolUseRightside As Boolean
 
+        ''Added 9/9/2022 td
+        If (Me.ElementArrow_Left Is Nothing) Then Exit Sub
+        ''Added 9/9/2022 td
+        If (Me.ElementArrow_Right Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+            Exit Sub
+        End If ''End of ""If (Me.ElementArrow_Right Is Nothing) Then""
+
         Me.ElementArrow_Left.Visible = False ''default
         Me.ElementArrow_Right.Visible = False ''default
-
         If (Not Me.CheckboxShowGoldArrow.Checked) Then Exit Sub
 
         With Me.ElementArrow_Left
