@@ -134,6 +134,8 @@ namespace ciBadgeGenerator
 
                 //----5/3/2020 td----int intDesiredLayout_Width = par_imageBadgeCard.Width;
                 int intDesiredLayout_Width = par_layoutDimensions.Width_Pixels;
+                //Added 9/13/2022 td  
+                int intDesiredLayout_Height = par_layoutDimensions.Height_Pixels;
 
                 //
                 //     ''9/19/2019 td''image_textStandard =
@@ -145,7 +147,9 @@ namespace ciBadgeGenerator
                 //       modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
                 //         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
                 image_textStandard =
-                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, 
+                         intDesiredLayout_Width,
+                         intDesiredLayout_Height,
                          par_elementField, par_elementField, 
                          ref boolRotated, false, par_elementField);  //7-29-2022 ref boolRotated, false);  //''9/20/2019 td'', True)
 
@@ -1476,6 +1480,7 @@ namespace ciBadgeGenerator
                 //                intDesiredLayout_Width = par_imageBadgeCard.Width
 
                 int intDesiredLayout_Width = par_imageBadgeCard.Width;
+                int intDesiredLayout_Height = par_imageBadgeCard.Height; //Added 9/13/2022 td
 
                 //
                 //                ''9/19/2019 td''image_textStandard =
@@ -1487,7 +1492,9 @@ namespace ciBadgeGenerator
                 //       modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
                 //         par_elementField, par_elementField, ref boolRotated, false);  //''9/20/2019 td'', True)
                 image_textStandard =
-                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, 
+                       intDesiredLayout_Width,
+                       intDesiredLayout_Height,
                          par_elementField, par_elementField, 
                          ref boolRotated, false, par_elementField);  //July29 2022 ref boolRotated, false); //''9/20/2019 td'', True)
                                                    //
@@ -1745,10 +1752,13 @@ namespace ciBadgeGenerator
             try
             {
                 int intDesiredLayout_Width = par_imageBadgeCard.Width;
+                int intDesiredLayout_Height = par_imageBadgeCard.Height; //Added 9/13/2022 td
                 bool boolRotated = false; //Added 10/14/2019 td
                                           
                 image_textStandard =
-                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, 
+                       intDesiredLayout_Width,
+                       intDesiredLayout_Height,
                          par_elementField, par_elementField, 
                          ref boolRotated, false, par_elementField);  // 7-29-2022 ref boolRotated, false);
 
@@ -1897,11 +1907,14 @@ namespace ciBadgeGenerator
             {
 
                 int intDesiredLayout_Width = par_imageBadgeCard.Width;
+                int intDesiredLayout_Height = par_imageBadgeCard.Height; //Added 9/13/2022 td
 
                 bool boolRotated = false; //Added 10/14/2019 td  
 
                 image_textStandard =
-                    modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                    modGenerate.TextImage_ByElemInfo(strTextToDisplay, 
+                    intDesiredLayout_Width,
+                    intDesiredLayout_Height,
                          par_elementStaticV3, par_elementStaticV3, ref boolRotated, false, par_elementStaticV3);
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);
@@ -2086,11 +2099,14 @@ namespace ciBadgeGenerator
             {
 
                 int intDesiredLayout_Width = par_imageBadgeCard.Width;
+                int intDesiredLayout_Height = par_imageBadgeCard.Height; //Added 9/13/2022 td
 
                 bool boolRotated = false; //Added 10/14/2019 td  
 
                 image_textStandard =
-                    modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                    modGenerate.TextImage_ByElemInfo(strTextToDisplay, 
+                    intDesiredLayout_Width,
+                    intDesiredLayout_Height,
                          par_elementStaticV4,
                          par_elementStaticV4,
                          ref boolRotated, false,

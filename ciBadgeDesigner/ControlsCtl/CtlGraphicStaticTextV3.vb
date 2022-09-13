@@ -407,11 +407,12 @@ ExitHandler:
 
 
     Public Sub Refresh_Image(pbRefreshSize As Boolean,
-                             Optional pboolResizeLabelControl As Boolean = True,
-                             Optional pboolRefreshLabelControl As Boolean = True,
-                             Optional pboolRefreshUserControl As Boolean = False,
-                             Optional par_intBadgeLayoutWidth As Integer = 681,
-                             Optional pbSuppressFontScalingConfirmation As Boolean = True)
+                        Optional pboolResizeLabelControl As Boolean = True,
+                        Optional pboolRefreshLabelControl As Boolean = True,
+                        Optional pboolRefreshUserControl As Boolean = False,
+                        Optional par_intBadgeLayoutWidth As Integer = 681,
+                        Optional par_intBadgeLayoutHeight As Integer = CInt(681.0 * (17.0 / 27)),
+                        Optional pbSuppressFontScalingConfirmation As Boolean = True)
         ''
         ''Added 7/25/2019 thomas d 
         ''
@@ -571,6 +572,7 @@ ExitHandler:
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        Dim intBadgeLayoutHeight As Integer ''Added 9/3/2022 thomas d.
 
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
         ''1/08/2022 td''If (Me.LayoutFunctions IsNot Nothing) Then
@@ -578,9 +580,13 @@ ExitHandler:
 
         If (mod_iLayoutFunctions IsNot Nothing) Then
             intBadgeLayoutWidth = mod_iLayoutFunctions.Layout_Width_Pixels()
+            ''Added 9/13/2022
+            intBadgeLayoutHeight = mod_iLayoutFunctions.Layout_Height_Pixels()
         Else
             ''Added 11/24/2021 td
             intBadgeLayoutWidth = par_intBadgeLayoutWidth
+            ''Added 9/13/2022 td
+            intBadgeLayoutHeight = par_intBadgeLayoutHeight
         End If ''End of "If (mod_iLayoutFunctions IsNot Nothing) Then ... Else ...."
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
@@ -603,6 +609,7 @@ ExitHandler:
             newTextImage =
             modGenerate.TextImage_ByElemInfo(Me.Element_StaticText.Text_StaticLine,
                                              intBadgeLayoutWidth,
+                                             intBadgeLayoutHeight,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True, Me.Element_StaticText)

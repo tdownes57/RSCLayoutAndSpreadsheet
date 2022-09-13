@@ -23,6 +23,7 @@ Public Module modGenerate
 
     Public Function TextImage_ByElemInfo(par_Text As String,
                                          pintDesiredLayoutWidth As Integer,
+                                         pintDesiredLayoutHeight As Integer,
                            par_elementInfo_TextFld As IElement_TextOnly,
                            par_elementInfo_Base As IElement_Base,
                            ByRef pref_rotated As Boolean,
@@ -67,7 +68,9 @@ Public Module modGenerate
 
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 thomas d. 
         Dim doubleW_div_H As Double ''Added 8/15/2019 td  
-        Dim doubleScaling As Double ''Added 8/15/2019 td  
+        ''9/2022 Dim doubleScaling As Double ''Added 8/15/2019 td  
+        Dim doubleScalingW As Double ''Suffixed 9/13/2022 td  
+        Dim doubleScalingH As Double ''Suffixed 9/13/2022 td  
         Dim intNewElementWidth As Integer ''Added 8/15 
         Dim intNewElementHeight As Integer ''Added 8/15
 
@@ -101,21 +104,30 @@ Public Module modGenerate
         ''Added 11/24/2021 td
         ''9/05/2022 If (0 = par_elementInfo_Base.BadgeLayout.Width_Pixels) Then
         Dim intBadgeLayoutDim_Width As Integer ''Added 9/05/2022 
+        Dim intBadgeLayoutDim_Height As Integer ''Added 9/13/2022 
+
+        ''Added 9/13/2022
+        intBadgeLayoutDim_Height = par_elementInfo_Base.BadgeLayoutDims.Height_Pixels
         intBadgeLayoutDim_Width = par_elementInfo_Base.BadgeLayoutDims.Width_Pixels
+
         If (0 = intBadgeLayoutDim_Width) Then
             ''7/22/2022 Throw New Exception("Division by 0 (par_elementInfo_Base.BadgeLayout.Width_Pixels)")
             System.Diagnostics.Debugger.Break()
-            doubleScaling = 1
+            ''9/13/2022 doubleScaling = 1
+            doubleScalingH = 1.0
+            doubleScalingW = 1.0
         Else
             ''9/05/2022 doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
-            doubleScaling = (pintDesiredLayoutWidth / intBadgeLayoutDim_Width)
+            ''9/13/2022 doubleScaling = (pintDesiredLayoutWidth / intBadgeLayoutDim_Width)
+            doubleScalingH = (pintDesiredLayoutWidth / intBadgeLayoutDim_Width)
+            doubleScalingW = (pintDesiredLayoutHeight / intBadgeLayoutDim_Height)
 
         End If ''Endof "" If (0 = intBadgeLayout_Width) Then... Else....""
 
 
         ''Added 8/15/2019 td
-        intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
-        intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
+        intNewElementWidth = CInt(doubleScalingW * par_elementInfo_Base.Width_Pixels)
+        intNewElementHeight = CInt(doubleScalingH * par_elementInfo_Base.Height_Pixels)
 
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
         ''9/4/2019 td''If (par_image Is Nothing) Then
@@ -371,7 +383,8 @@ Public Module modGenerate
 
             ''Added 9/8/2019 td
             ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
-            font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
+            ''9/13/2022 td''font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScalingH)
 
             ''Added 8/23/2022 thomas downes
             Using br_brushForecolor = New SolidBrush(par_elementInfo_TextFld.FontColor)

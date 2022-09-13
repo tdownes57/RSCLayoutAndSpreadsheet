@@ -576,8 +576,10 @@ Public Class CtlGraphicFieldV4
         ''9/3/2019 td''LabelToImage.TextImage(pictureFieldOrText.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        Dim intBadgeLayoutHeight As Integer ''Added 9/13/2022 thomas d.
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
         intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        intBadgeLayoutHeight = Me.LayoutFunctions.Layout_Height_Pixels() ''Added 9/13/2022
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureFieldOrText.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -610,6 +612,7 @@ Public Class CtlGraphicFieldV4
             newTextImage =
                  modGenerate.TextImage_ByElemInfo(strTextToDisplay,
                                              intBadgeLayoutWidth,
+                                             intBadgeLayoutHeight,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True, Me.ElementClass_Obj)

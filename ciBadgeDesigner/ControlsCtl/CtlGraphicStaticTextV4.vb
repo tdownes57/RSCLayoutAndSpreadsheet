@@ -613,6 +613,7 @@ Public Class CtlGraphicStaticTextV4
             newTextImage =
                  modGenerate.TextImage_ByElemInfo(strTextToDisplay,
                                              intBadgeLayoutWidth,
+                                             intBadgeLayoutHeight,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True, Me.ElementBase)
