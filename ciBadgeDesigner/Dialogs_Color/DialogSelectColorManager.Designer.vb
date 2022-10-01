@@ -22,6 +22,7 @@ Partial Class DialogSelectColorManager
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DialogSelectColorManager))
         Me.RscColorFlowPanel1 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.RscColorFlowPanel2 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
@@ -107,7 +108,7 @@ Partial Class DialogSelectColorManager
         '
         Me.RscColorDisplayLabel1.Location = New System.Drawing.Point(643, 320)
         Me.RscColorDisplayLabel1.Name = "RscColorDisplayLabel1"
-        Me.RscColorDisplayLabel1.RSCDisplayColor = Nothing
+        Me.RscColorDisplayLabel1.RSCDisplayColor = CType(resources.GetObject("RscColorDisplayLabel1.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
         Me.RscColorDisplayLabel1.Size = New System.Drawing.Size(200, 25)
         Me.RscColorDisplayLabel1.TabIndex = 6
         '

@@ -44,7 +44,7 @@ Partial Class Dialog_Base
         '
         'ButtonOK
         '
-        Me.ButtonOK.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonOK.BackColor = System.Drawing.Color.PaleGreen
         Me.ButtonOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonOK.Location = New System.Drawing.Point(945, 10)
@@ -153,13 +153,13 @@ Partial Class Dialog_Base
         'PanelEditorControls
         '
         Me.PanelEditorControls.BackColor = System.Drawing.Color.LightBlue
+        Me.PanelEditorControls.Controls.Add(Me.ButtonOK)
         Me.PanelEditorControls.Controls.Add(Me.buttonTextstring)
         Me.PanelEditorControls.Controls.Add(Me.buttonTextPlacement)
         Me.PanelEditorControls.Controls.Add(Me.buttonFont)
         Me.PanelEditorControls.Controls.Add(Me.buttonRotation)
         Me.PanelEditorControls.Controls.Add(Me.buttonColor)
         Me.PanelEditorControls.Controls.Add(Me.buttonBorder)
-        Me.PanelEditorControls.Controls.Add(Me.ButtonOK)
         Me.PanelEditorControls.Controls.Add(Me.ButtonCancel)
         Me.PanelEditorControls.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.PanelEditorControls.Location = New System.Drawing.Point(0, 447)
@@ -178,6 +178,7 @@ Partial Class Dialog_Base
         Me.buttonTextstring.TabIndex = 11
         Me.buttonTextstring.Text = "Text / Words you want to see on ID card"
         Me.buttonTextstring.UseVisualStyleBackColor = True
+        Me.buttonTextstring.Visible = False
         '
         'checkBoxArrowVisible
         '

@@ -67,6 +67,28 @@ Public Class Dialog_BaseChooseFont
     End Sub
 
     Private Sub Dialog_BaseChooseFont_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 9/13/2022 thomas downes
+        ''
+        Dim bFlowMissingLinkLabel As Boolean ''Added 9/13/2022
+
+        ''Added 9/13/2022
+        bFlowMissingLinkLabel = (Not flowLayoutFontFamilies.Controls.Contains(LinkLabelAddFont))
+
+        ''Added 9/13/2022
+        If (bFlowMissingLinkLabel) Then
+
+            Me.Controls.Remove(LinkLabelAddFont)
+            flowLayoutFontFamilies.Controls.Add(LinkLabelAddFont)
+
+        End If ''Endof ""If (bFlowMissingLinkLabel) Then""
+
+
+
 
     End Sub
+
+
+
+
 End Class

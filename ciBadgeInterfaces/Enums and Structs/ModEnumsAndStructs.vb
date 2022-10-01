@@ -126,7 +126,7 @@ Public Module ModEnumsAndStructs
         fintRecPool ''F.I.#19
         fstrRFID_Unique ''F.I.#20
 
-        PortraitPhotoID ''Added 5/20/2022 thomas downes  
+        ''Moved below 9/30/2022 PortraitPhotoID ''Added 5/20/2022 thomas downes  
 
         TextField01 ''  [TextField01] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
         TextField02 ''[TextField02] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
@@ -160,6 +160,8 @@ Public Module ModEnumsAndStructs
         DateField03 ''[DateField03] [datetime] NULL ,
         DateField04 ''[DateField04] [datetime] NULL ,
         DateField05 ''[DateField05] [datetime] NULL ,
+
+        PortraitPhotoID ''Added 9/30/2022 & 5/20/2022 thomas downes  
 
         ''Moved up. 5/5/2022 ''fstrAddress ''[fstrAddress] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
         ''Moved up. 5/5/2022 ''fstrCity ''[fstrCity] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,

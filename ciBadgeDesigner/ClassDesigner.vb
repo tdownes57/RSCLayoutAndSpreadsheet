@@ -3052,6 +3052,12 @@ Public Class ClassDesigner
                 label_controlV4.Left = Me.Layout_Margin_Left_Add(each_elementV4.LeftEdge_Pixels)
                 label_controlV4.Top = Me.Layout_Margin_Top_Add(each_elementV4.TopEdge_Pixels)
 
+                ''Added 9/13/2022
+                With each_elementV4
+                    If each_elementV4.Width_Pixels = 0 Then System.Diagnostics.Debugger.Break()
+                    If each_elementV4.Height_Pixels = 0 Then System.Diagnostics.Debugger.Break()
+                End With
+
                 ''
                 ''Major call !!  ----Thomas DOWNES
                 ''

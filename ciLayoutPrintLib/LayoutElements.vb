@@ -753,6 +753,8 @@ ExitHandler:
 
                     Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
                     intDesiredLayout_Width = par_imageBadgeCard.Width
+                    Dim intDesiredLayout_Height As Integer ''added 9/13/2022 td
+                    intDesiredLayout_Height = par_imageBadgeCard.Height ''added 9/13/2022 td
 
                     ''9/19/2019 td''image_textStandard =
                     ''9/19/2019 td''    .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
@@ -763,7 +765,9 @@ ExitHandler:
                     ''             modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
                     ''            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
                     image_textStandard =
-                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                        modGenerate.TextImage_ByElemInfo(strTextToDisplay,
+                                                         intDesiredLayout_Width,
+                                                         intDesiredLayout_Height,
                             each_elementField, each_elementField, False, False, each_elementField) ''9/20/2019 td'', True)
 
                     If (bOutputAllImages) Then pref_listTextImages.Add(image_textStandard) ''Added 8/26/2019 td
@@ -915,6 +919,8 @@ ExitHandler:
 
                     Dim intDesiredLayout_Width As Integer ''added 9/8/2019 td
                     intDesiredLayout_Width = par_imageBadgeCard.Width
+                    Dim intDesiredLayout_Height As Integer ''added 9/13/2022 td
+                    intDesiredLayout_Height = par_imageBadgeCard.Height ''added 9/13/2022 td
 
                     ''9/19/2019 td''image_textStandard =
                     ''9/19/2019 td''    .TextDisplay.GenerateImage_ByDesiredLayoutWidth(intDesiredLayout_Width)
@@ -925,7 +931,9 @@ ExitHandler:
                     ''             modGenerate.TextImage_ByElemInfo(intDesiredLayout_Width,
                     ''            each_elementField, each_elementField, False, False) ''9/20/2019 td'', True)
                     image_textStandard =
-                        modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                        modGenerate.TextImage_ByElemInfo(strTextToDisplay,
+                                                         intDesiredLayout_Width,
+                                                         intDesiredLayout_Height,
                             each_elementField, each_elementField,
                             False, False, each_elementField) ''9/20/2019 td'', True)
 

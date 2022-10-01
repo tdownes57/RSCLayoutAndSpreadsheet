@@ -163,9 +163,12 @@ namespace ciBadgeGenerator
             try
             {
                 int intDesiredLayout_Width = par_imageBadgeCard.Width;
+                int intDesiredLayout_Height = par_imageBadgeCard.Height;  //Added 9/13/2022 td
                 bool boolRotated = false; //Added 10/14/2019 td  
                 image_textStandard =
-                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, intDesiredLayout_Width,
+                       modGenerate.TextImage_ByElemInfo(strTextToDisplay, 
+                       intDesiredLayout_Width,
+                       intDesiredLayout_Height,
                          par_elementField, par_elementField, ref boolRotated, false, par_elementField);
 
                 if (pboolReturnListOfImages) par_listTextImages.Add(image_textStandard);

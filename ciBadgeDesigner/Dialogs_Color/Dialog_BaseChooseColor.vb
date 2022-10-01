@@ -81,9 +81,8 @@ Public Class Dialog_BaseChooseColor
         RscColorFlowPanel1.Controls.Clear()
         ''--RscColorFlowPanel1.AddColors_BlackAndWhite()
         RscColorFlowPanel1.AddLinkLabelForAddingColors()
-        RscColorFlowPanel1.AddColors_AllPossibleColors(True)
-
-
+        ''9/30 td''RscColorFlowPanel1.AddColors_AllPossibleColors(True)
+        RscColorFlowPanel1.AddColors_FromCache(mod_listRSCColors)
 
     End Sub
 
@@ -371,6 +370,17 @@ Public Class Dialog_BaseChooseColor
     End Sub
 
     Private Sub RscColorFlowPanel1_Load(sender As Object, e As EventArgs) Handles RscColorFlowPanel1.Load
+
+    End Sub
+
+    Private Sub LinkLabelAddColor1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddColor1.LinkClicked
+        ''
+        ''Added 9/17/2022 thomas downes 
+        ''
+        Dim objFormToShow As DialogSelectColorManager
+        objFormToShow = New DialogSelectColorManager()
+        objFormToShow.ShowDialog()
+
 
     End Sub
 End Class

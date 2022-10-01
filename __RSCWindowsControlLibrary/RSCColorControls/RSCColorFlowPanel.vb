@@ -11,7 +11,8 @@ Public Class RSCColorFlowPanel
     ''
     Private mod_listMSColors_NotUsed As New List(Of Drawing.Color)
 
-    Public Sub AddColors_AllPossibleColors(Optional pbOmitUIRelatedColors As Boolean = True)
+    Public Sub AddColors_AllPossibleColors(Optional pbOmitUIRelatedColors As Boolean = True,
+                                           Optional pbClearExistingControls As Boolean = True)
         ''
         ''Added 8/30/2022 td 
         ''
@@ -19,10 +20,16 @@ Public Class RSCColorFlowPanel
         Dim each_colorMS As Drawing.Color
         Dim intNumberOfColors As Integer ''Added 8/30/2022
         Dim boolOmitUI As Boolean
+        Dim countColors As Integer ''Added 9/30/2022 
 
         boolOmitUI = pbOmitUIRelatedColors
 
         With FlowLayoutPanel1.Controls
+
+            ''Added 9/30/2022 thomas downes
+            If (pbClearExistingControls) Then
+                .Clear() ''Remove existing controls.
+            End If ''\end of ""If (pbClearExistingControls) Then""
 
             arrayOfColorNames = [Enum].GetNames(GetType(System.Drawing.KnownColor))
             intNumberOfColors = arrayOfColorNames.Length ''Added 8/30/2022
@@ -32,12 +39,17 @@ Public Class RSCColorFlowPanel
             ''
             For Each each_colorName As String In arrayOfColorNames
 
+                countColors += 1
+                If (countColors <= 26 + 1) Then Continue For ''Added 9/30/2022 
+
                 If (boolOmitUI AndAlso each_colorName = "Control") Then Continue For
                 If (boolOmitUI AndAlso each_colorName = "ControlLight") Then Continue For
                 If (boolOmitUI AndAlso each_colorName = "ControlDark") Then Continue For
                 If (boolOmitUI AndAlso each_colorName = "Control") Then Continue For
                 If (boolOmitUI AndAlso each_colorName = "Control") Then Continue For
                 If (boolOmitUI AndAlso each_colorName = "Control") Then Continue For
+                ''Added 9/30/2022 
+                If (boolOmitUI AndAlso each_colorName = "Highlight") Then Continue For
 
 
                 each_colorMS = Drawing.Color.FromName(each_colorName)
@@ -46,15 +58,74 @@ Public Class RSCColorFlowPanel
                 newLabel.BackColor = each_colorMS
                 newLabel.Text = each_colorMS.Name
                 newLabel.Visible = True
+                newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
+                newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
                 AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
                 .Add(newLabel) ''Added 8/30/2022 
 
             Next each_colorName
 
+        End With ''End of ""With FlowLayoutPanel1.Controls""
+
+        ''Added 9/30/2022 
+        intNumberOfColors = FlowLayoutPanel1.Controls.Count
+        FlowLayoutPanel1.Visible = True
+        FlowLayoutPanel1.Refresh()
+
+    End Sub ''Endof ""Public Sub AddColors_AllPossibleColors()""
+
+
+    Public Sub AddColors_FromList(par_listOfRSCColors As List(Of RSCColor),
+                       Optional pbClearExistingControls As Boolean = False)
+        ''
+        ''Added 8/30/2022 td 
+        ''
+        ''Dim arrayOfColorNames As String()
+        Dim each_colorMS As Drawing.Color
+        Dim intNumberOfColors As Integer ''Added 8/30/2022
+        ''Dim boolOmitUI As Boolean
+        Dim countColors As Integer ''Added 9/30/2022 
+
+        ''boolOmitUI = pbOmitUIRelatedColors
+
+        With FlowLayoutPanel1.Controls
+
+            ''Added 9/30/2022 thomas downes
+            If (pbClearExistingControls) Then
+                .Clear() ''Remove existing controls.
+            End If ''\end of ""If (pbClearExistingControls) Then""
+
+            ''arrayOfColorNames = [Enum].GetNames(GetType(System.Drawing.KnownColor))
+            ''intNumberOfColors = arrayOfColorNames.Length ''Added 8/30/2022
+
+            ''
+            ''Loop through the colors. 
+            ''
+            For Each each_RSCColor As RSCColor In par_listOfRSCColors
+
+                countColors += 1
+                each_colorMS = each_RSCColor.MSNetColor
+
+                Dim newLabel As New RSCColorDisplayLabel
+                newLabel.BackColor = each_colorMS
+                newLabel.Text = each_colorMS.Name
+                newLabel.Visible = True
+                newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
+                newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
+                AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
+                .Add(newLabel) ''Added 8/30/2022 
+
+            Next each_RSCColor
 
         End With ''End of ""With FlowLayoutPanel1.Controls""
 
+        ''Added 9/30/2022 
+        intNumberOfColors = FlowLayoutPanel1.Controls.Count
+        FlowLayoutPanel1.Visible = True
+        FlowLayoutPanel1.Refresh()
+
     End Sub ''Endof ""Public Sub AddColors_AllPossibleColors()""
+
 
 
     Public Sub AddColors_BlackAndWhite()

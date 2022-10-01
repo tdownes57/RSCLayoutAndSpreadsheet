@@ -34,6 +34,7 @@ Partial Class Dialog_BaseChooseColor
         Me.ButtonSaveColor = New System.Windows.Forms.Button()
         Me.RscColorFlowPanel1 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.rscLabelDisplayColorSelected = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
+        Me.LinkLabelAddColor1 = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'ButtonForecolor
@@ -83,7 +84,7 @@ Partial Class Dialog_BaseChooseColor
         '
         'ButtonSaveColor
         '
-        Me.ButtonSaveColor.Location = New System.Drawing.Point(909, 312)
+        Me.ButtonSaveColor.Location = New System.Drawing.Point(970, 342)
         Me.ButtonSaveColor.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonSaveColor.Name = "ButtonSaveColor"
         Me.ButtonSaveColor.Size = New System.Drawing.Size(69, 36)
@@ -111,11 +112,23 @@ Partial Class Dialog_BaseChooseColor
         Me.rscLabelDisplayColorSelected.TabIndex = 23
         Me.rscLabelDisplayColorSelected.Visible = False
         '
+        'LinkLabelAddColor1
+        '
+        Me.LinkLabelAddColor1.AutoSize = True
+        Me.LinkLabelAddColor1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LinkLabelAddColor1.Location = New System.Drawing.Point(889, 311)
+        Me.LinkLabelAddColor1.Name = "LinkLabelAddColor1"
+        Me.LinkLabelAddColor1.Size = New System.Drawing.Size(150, 20)
+        Me.LinkLabelAddColor1.TabIndex = 27
+        Me.LinkLabelAddColor1.TabStop = True
+        Me.LinkLabelAddColor1.Text = "Add/Remove Colors"
+        '
         'Dialog_BaseChooseColor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1051, 506)
+        Me.Controls.Add(Me.LinkLabelAddColor1)
         Me.Controls.Add(Me.ButtonUndoColorBackground)
         Me.Controls.Add(Me.RscColorFlowPanel1)
         Me.Controls.Add(Me.ButtonSaveColor)
@@ -132,6 +145,7 @@ Partial Class Dialog_BaseChooseColor
         Me.Controls.SetChildIndex(Me.ButtonSaveColor, 0)
         Me.Controls.SetChildIndex(Me.RscColorFlowPanel1, 0)
         Me.Controls.SetChildIndex(Me.ButtonUndoColorBackground, 0)
+        Me.Controls.SetChildIndex(Me.LinkLabelAddColor1, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -145,4 +159,5 @@ Partial Class Dialog_BaseChooseColor
     Friend WithEvents ButtonSaveColor As Button
     Friend WithEvents RscColorFlowPanel1 As __RSCWindowsControlLibrary.RSCColorFlowPanel
     Friend WithEvents ButtonUndoColorBackground As Button
+    Friend WithEvents LinkLabelAddColor1 As LinkLabel
 End Class

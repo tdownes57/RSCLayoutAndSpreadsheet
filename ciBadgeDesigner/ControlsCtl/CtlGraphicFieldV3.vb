@@ -715,8 +715,12 @@ ExitHandler:
         ''9/3/2019 td''LabelToImage.TextImage(pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         Dim intBadgeLayoutWidth As Integer ''Added 9/3/2019 thomas d.
+        Dim intBadgeLayoutHeight As Integer ''Added 9/13/2022 thomas d.
+
         ''9/19/2019 td''intLayoutWidth = Me.FormDesigner.Layout_Width_Pixels()
         intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
+        ''Added 9/13/2022
+        intBadgeLayoutHeight = Me.LayoutFunctions.Layout_Height_Pixels()
 
         ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureLabel.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
@@ -744,18 +748,19 @@ ExitHandler:
             With Me.ElementInfo_TextOnly
                 If .FontMaxGalkin Is Nothing Then
                     .FontMaxGalkin = ciBadgeSerialize.SerializableFontByMaxGalkin.DefaultFont
-                End If
+                End If ''End of ""If .FontMaxGalkin Is Nothing Then""
                 If .FontDrawingClass Is Nothing Then
                     ''.FontDrawingClass = .FontMaxGalkin.GetDrawingFont()
                     System.Diagnostics.Debugger.Break()
-                End If
-            End With
+                End If ''End of ""If .FontDrawingClass Is Nothing Then""
+            End With ''Endof ""With Me.ElementInfo_TextOnly""
 
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
             newTextImage =
             modGenerate.TextImage_ByElemInfo(strTextToDisplay,
                                              intBadgeLayoutWidth,
+                                             intBadgeLayoutHeight,
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True, Me.ElementClass_ObjV3)

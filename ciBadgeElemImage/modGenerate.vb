@@ -128,6 +128,9 @@ Public Module modGenerate
         ''Added 8/15/2019 td
         intNewElementWidth = CInt(doubleScalingW * par_elementInfo_Base.Width_Pixels)
         intNewElementHeight = CInt(doubleScalingH * par_elementInfo_Base.Height_Pixels)
+        ''Added 9/13/2022 td
+        If (intNewElementHeight = 0) Then System.Diagnostics.Debugger.Break()
+        If (intNewElementWidth = 0) Then System.Diagnostics.Debugger.Break()
 
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
         ''9/4/2019 td''If (par_image Is Nothing) Then
