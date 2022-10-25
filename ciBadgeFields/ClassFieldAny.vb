@@ -295,6 +295,22 @@ Public Class ClassFieldAny
     End Function ''End of "Public Function CurrentRecipValue_DateString(pbAllowExampleValues As Boolean) As String"
 
 
+    Public Function Matches(par_field As ClassFieldAny) As Boolean
+        ''
+        ''Added 10/24/2022 thomas dowes
+        ''
+        If (par_field.FieldEnumValue = Me.FieldEnumValue) Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function ''End of ""Public Function Matches(par_field As ClassFieldAny) As Boolean""
+
+
+
+
+
 
     ''Fields cannot link to elements.---9/18/2019 td''Private mod_elementFieldClass As ClassElementField ''Added 9/3/2019 td   
 

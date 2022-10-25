@@ -95,9 +95,16 @@ Public MustInherit Class Operations__Text
             tempLayoutfunctions = Me.CtlCurrentFieldOrTextV4.LayoutFunctions
 
             ''8/17/2022 Dim objFormToShow As New Dialog_BaseEditElement
+            ''10/24/2022 td''objFormToShow = New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
+            ''                                                list_FontFamilyNames,
+            ''                                                list_RSCColors,
+            ''                           Me.ElementObject_Base,
+            ''                           Me.ElementInfo_Base,
+            ''                           Me.Designer,
+            ''                           Me.Designer.GroupMoveEvents,
+            ''                           imageOfBadgeSansElement)
             objFormToShow = New Dialog_BaseEditElement(Me.CtlCurrentFieldOrTextV4,
-                                                            list_FontFamilyNames,
-                                                            list_RSCColors,
+                                       ElementsCacheManager.CacheForEditing,
                                        Me.ElementObject_Base,
                                        Me.ElementInfo_Base,
                                        Me.Designer,

@@ -9,7 +9,65 @@ Public Class RSCColorFlowPanel
     ''
     ''Added 8/30/2022
     ''
+    Public Event ColorSelected(par_color As RSCColor) ''Added 10/24/2022
+
     Private mod_listMSColors_NotUsed As New List(Of Drawing.Color)
+    Private mboolConfirm As Boolean ''Added 10/24/2022
+
+    Public Property ConfirmColorSelection() As Boolean
+        Get ''Added 10/24/2022
+            Return mboolConfirm
+        End Get
+        Set(value As Boolean) ''Added 10/24/2022
+            mboolConfirm = value
+        End Set
+    End Property
+
+
+    Public Sub AddColor(par_color As RSCColor)
+        ''
+        ''Added 10/24/2022 
+        ''
+        With FlowLayoutPanel1
+
+            Dim newLabel As New RSCColorDisplayLabel
+            newLabel.BackColor = par_color.MSNetColor ''each_colorMS
+            newLabel.MSNetColorName = par_color.MSNetColorName
+            newLabel.Text = par_color.MSNetColorName ''each_colorMS.Name
+            newLabel.Visible = True
+            newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
+            newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
+            AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
+            .Controls.Add(newLabel) ''Added 8/30/2022
+
+        End With ''End of ""With FlowLayoutPanel1.Controls""
+
+    End Sub ''End of ""Public Sub AddColor(par_color As RSCColor)""
+
+
+    Public Sub RemoveColor(par_color As RSCColor)
+        ''
+        ''Added 10/24/2022 
+        ''
+        Dim controlToRemove As RSCColorDisplayLabel = Nothing
+        Dim controlToRemove_ProbablyNotNeeded As RSCColorDisplayLabel = Nothing
+
+        For Each eachControl As RSCColorDisplayLabel In Me.Controls
+            If (eachControl.RSCDisplayColor.Matches(par_color)) Then
+                If (controlToRemove Is Nothing) Then
+                    controlToRemove = eachControl
+                Else
+                    ''Just in case we have a duplicate somehow. 
+                    controlToRemove_ProbablyNotNeeded = eachControl
+                End If ''End of If (controlToRemove Is Nothing) Then... Else...
+            End If
+        Next eachControl
+
+        If (controlToRemove IsNot Nothing) Then Me.Controls.Remove(controlToRemove)
+        If (controlToRemove_ProbablyNotNeeded IsNot Nothing) Then Me.Controls.Remove(controlToRemove_ProbablyNotNeeded)
+
+    End Sub ''End of ""Public Sub RemoveColor(par_color As RSCColor)""
+
 
     Public Sub AddColors_AllPossibleColors(Optional pbOmitUIRelatedColors As Boolean = True,
                                            Optional pbClearExistingControls As Boolean = True)
@@ -40,7 +98,7 @@ Public Class RSCColorFlowPanel
             For Each each_colorName As String In arrayOfColorNames
 
                 countColors += 1
-                If (countColors <= 26 + 1) Then Continue For ''Added 9/30/2022 
+                If (boolOmitUI AndAlso countColors <= 26) Then Continue For ''Added 9/30/2022 
 
                 If (boolOmitUI AndAlso each_colorName = "Control") Then Continue For
                 If (boolOmitUI AndAlso each_colorName = "ControlLight") Then Continue For
@@ -283,6 +341,8 @@ Public Class RSCColorFlowPanel
         ''
         ''8/22/2022 thomas downes
         ''
+        ''10/2022 If (Not Me.ConfirmColorSelection) Then Exit Sub
+
         Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirm
         Dim strColorName As String
         Dim controlRSCColorLabel As RSCColorDisplayLabel
@@ -299,7 +359,11 @@ Public Class RSCColorFlowPanel
         With objFormToShow
 
             ''Show the modal UI to the user. 
-            .ShowDialog()
+            If (Me.ConfirmColorSelection) Then ''Added 10/25/2022
+                .ShowDialog()
+            Else
+                .Output_Cancelled = False
+            End If ''Endof ""If (Me.ConfirmColorSelection) Then... Else...""
 
             If (Not .Output_Cancelled) Then
 
@@ -325,6 +389,7 @@ Public Class RSCColorFlowPanel
 ExitHandler:
         ''Prepare for next execution of this procedure. ---8/30/2022
         controlRSCColorLabel_Prior = controlRSCColorLabel
+        RaiseEvent ColorSelected(rscColorSelected) ''Added 10/25/2022 
 
     End Sub ''End of ""Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs)""
 

@@ -49,6 +49,7 @@ Public Class RSCColor
     Public Property MSNetColor As Drawing.Color ''Added 7/09/2022 thomas downes
     Public Property Name As String = "" ''Added 7/09/2022 thomas downes
     Public Property Description As String = "" ''Added 7/09/2022 thomas downes
+    Public Property MSNetColorName As String ''Added 9/30 /2022 thomas downes
 
     Public Overrides Function ToString() As String
         ''
@@ -56,10 +57,39 @@ Public Class RSCColor
         ''
         Dim strOutput As String ''Added 7/09/2022 td
         strOutput = Me.Name
-        If (Me.Name = "") Then strOutput = MSNetColor.ToString()
+
+        ''9/30/2022 If (Me.Name = "") Then strOutput = MSNetColor.ToString()
+        If (Me.Name = "") Then
+            strOutput = MSNetColorName ''MSNetColor.ToString()
+
+        ElseIf (Me.MSNetColorName <> "") Then
+            ''Added 9/30/2022
+            strOutput = Me.Name & " (" & Me.MSNetColorName & ")"
+
+        ElseIf (Me.Name <> "") Then
+            ''Added 9/30/2022
+            strOutput = Me.Name
+        Else
+            ''Added 9/30/2022
+            strOutput = MSNetColor.Name
+        End If
+
         Return strOutput ''Me.Name ''Added 7/09/2022 thomas downes
 
     End Function ''End of ""Public Overrides Function ToString() As String""
+
+
+    Public Function Matches(par_color As RSCColor) As Boolean
+        ''
+        ''Added 10/24/2022 thomas
+        ''
+        If (par_color.MSNetColor = Me.MSNetColor) Then
+            Return True
+        End If
+        Return False
+
+    End Function ''End of ""Public Function Matches(par_color As RSCColor) As Boolean""
+
 
 
 End Class

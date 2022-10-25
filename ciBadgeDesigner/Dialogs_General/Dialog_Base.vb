@@ -6,6 +6,7 @@ Option Strict On ''Added 8/03/2022 td
 Imports __RSCWindowsControlLibrary ''Added 7/29/2022 td 
 Imports ciBadgeElements ''Added 8/03/2022 td 
 Imports ciBadgeInterfaces ''Added 8/04/2022 thomas d. 
+Imports ciBadgeCachePersonality ''Added 10/24/2022 td
 
 Public Class Dialog_Base
     Implements ILayoutFunctions ''Added 8/5/2022 td
@@ -23,7 +24,11 @@ Public Class Dialog_Base
     Private mod_bLetsUseEnumeratedArrowLR As Boolean
     Private mod_enumArrowLeftOrRight As EnumArrowIsWhere
 
-    Private mod_listRSCColors As HashSet(Of RSCColor) ''Added 8/10/2022 td
+    Private mod_elementsCache As ClassElementsCache_Deprecated ''Added 10/24/2022 thomas d.
+    ''#1 10/12/2022 Private mod_listRSCColors As List(Of RSCColor) ''Added 8/10/2022 td
+    ''#2 10/12/2022 Private mod_listRSCColors As HashSet(Of RSCColor) ''Added 8/10/2022 td
+    Private mod_listRSCColors As List(Of RSCColor) ''Added 8/10/2022 td
+    Private mod_hashRSCColors As HashSet(Of RSCColor) ''Added 8/10/2022 td
     Private mod_listFontFamilyNames As HashSet(Of String) ''Added 8/10/2022 td
 
     ''8/4/2022 Private mod_objLayoutFunctions As ciBadgeInterfaces.BadgeLayoutClass ''Added 8/04/2022 
@@ -81,10 +86,38 @@ Public Class Dialog_Base
     ''    PanelDisplayElement.BackgroundImage = par_imageOfBadge
     ''End Sub
 
+    Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
+                   par_elementsCache As ciBadgeCachePersonality.ClassElementsCache_Deprecated,
+                   par_elementBase As ciBadgeElements.ClassElementBase,
+                   par_infoElementBase As ciBadgeInterfaces.IElement_Base,
+                   par_designer As ciBadgeDesigner.ClassDesigner,
+                   par_events As GroupMoveEvents_Singleton,
+                   Optional par_imageOfBadge As Drawing.Image = Nothing)
+        ''
+        ''Added 10/24/2022 
+        ''
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''Encapsulated 10/24/2022
+        New_Load(par_controlFieldOrTextV4,
+                   par_elementsCache.ListOfFontFamilyNames,
+                   par_elementsCache.ListOfRSCColors,
+                   par_elementBase,
+                   par_infoElementBase,
+                   par_designer, par_events,
+                   par_imageOfBadge)
+
+        ''Added 10/24/2022 thomas d.
+        mod_elementsCache = par_elementsCache
+
+    End Sub
+
+
 
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
                    par_listFontFamilyNames As HashSet(Of String),
-                   par_listRSCColors As HashSet(Of RSCColor),
+                   par_hashRSCColors As HashSet(Of RSCColor),
                    par_elementBase As ciBadgeElements.ClassElementBase,
                    par_infoElementBase As ciBadgeInterfaces.IElement_Base,
                    par_designer As ciBadgeDesigner.ClassDesigner,
@@ -93,6 +126,34 @@ Public Class Dialog_Base
 
         ' This call is required by the designer.
         InitializeComponent()
+
+        ''
+        ''Encapsulated 10/24/2022 td
+        ''
+        New_Load(par_controlFieldOrTextV4,
+                   par_listFontFamilyNames,
+                   par_hashRSCColors,
+                   par_elementBase,
+                   par_infoElementBase,
+                   par_designer, par_events,
+                   par_imageOfBadge)
+
+    End Sub
+
+
+    Private Sub New_Load(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
+                   par_listFontFamilyNames As HashSet(Of String),
+                   par_hashRSCColors As HashSet(Of RSCColor),
+                   par_elementBase As ciBadgeElements.ClassElementBase,
+                   par_infoElementBase As ciBadgeInterfaces.IElement_Base,
+                   par_designer As ciBadgeDesigner.ClassDesigner,
+                   par_events As GroupMoveEvents_Singleton,
+                   Optional par_imageOfBadge As Drawing.Image = Nothing)
+        ''
+        ''Encapsulated 10/24/2022 td
+        ''
+        ' This call is required by the designer.
+        ''Not needed in the encapsulation. 10./24/2022 InitializeComponent()
 
         ''Added 8/18/2022 
         panelDisplayElement.Width = Dialog_Base.LayoutWidth_Pixels
@@ -105,6 +166,9 @@ Public Class Dialog_Base
             mod_elementBase = par_elementBase ''Added 7/29/2022 thomas d.  
             mod_elementInfo_Base = par_infoElementBase ''Added 8/3/2022 
             mod_objEventsRSC_Elem = par_events ''Added 8/06/2022 td
+
+            mod_hashRSCColors = par_hashRSCColors ''Added 10/12/2022
+            mod_listRSCColors = par_hashRSCColors.ToList() ''Added 10/12/2022
 
             ''8/4/2022 mod_objLayoutFunctions = par_designer ''Added 8/4/2022 td
             mod_designerParentForm = par_designer ''Added 8/05/2022 td
@@ -162,7 +226,7 @@ ExitHandler:
         Me.LayoutDebugName = "Dialog_Base"
         Me.LayoutDebugDescription = "The editing a single element. Panel for ID background is full size. (Dialog_Base)"
 
-    End Sub ''End of ""Public Sub New"" 
+    End Sub ''End of ""Public Sub New_Load"" 
 
 
     Public Sub New(par_controlRSCMoveable As RSCMoveableControlVB,
@@ -735,7 +799,7 @@ ExitHandler:
         ''                      imageOfBadgeSansElement)
         Dim objFormToShow As New Dialog_BaseChooseFont(mod_controlFieldOrTextV4,
                                                        mod_listFontFamilyNames,
-                                                       mod_listRSCColors,
+                                                       mod_hashRSCColors,
                                        mod_elementBase,
                                        mod_elementInfo_Base,
                                        mod_designerParentForm,
@@ -757,12 +821,22 @@ ExitHandler:
         ''
         ''Added 8/07/2022 thomas downes
         ''
-        Dim listRSCColors As HashSet(Of RSCColor) ''Added 8/10/2022 thomas
-        listRSCColors = mod_listRSCColors
+        Dim listRSCColors As List(Of RSCColor) ''Added 8/10/2022 thomas
+        Dim hashRSCColors As HashSet(Of RSCColor) ''Added 8/10/2022 thomas
 
+        listRSCColors = mod_listRSCColors
+        hashRSCColors = mod_hashRSCColors
+
+        ''Dim objFormToShow As New Dialog_BaseChooseColor(mod_controlFieldOrTextV4,
+        ''                               mod_listFontFamilyNames,
+        ''                               hashRSCColors,
+        ''                               mod_elementBase,
+        ''                               mod_elementInfo_Base,
+        ''                               mod_designerParentForm,
+        ''                               mod_objEventsRSC_Elem,
+        ''                               panelDisplayElement.BackgroundImage)
         Dim objFormToShow As New Dialog_BaseChooseColor(mod_controlFieldOrTextV4,
-                                       mod_listFontFamilyNames,
-                                       listRSCColors,
+                                       mod_elementsCache,
                                        mod_elementBase,
                                        mod_elementInfo_Base,
                                        mod_designerParentForm,

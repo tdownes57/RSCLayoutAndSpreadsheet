@@ -4,6 +4,7 @@
 Imports ciBadgeElements ''Added 8/01/2022 td
 Imports ciBadgeInterfaces ''Added 8/06/2022 thomas downes
 Imports __RSCWindowsControlLibrary ''Added 8/07/2022 thomas 
+Imports ciBadgeCachePersonality ''Added 10/24/2022 thomas downes  
 
 Public Enum EnumForeOrBackground
     Undetermined
@@ -16,13 +17,15 @@ Public Class Dialog_BaseChooseColor
     '' Added 3/4/2022 Thomas Downes
     ''
     ''8/07/2022 td''Private mod_colors As New List(Of Drawing.Color)
-    Private mod_listRSCColors As HashSet(Of RSCColor)
+    Private mod_listRSCColors As List(Of RSCColor)
+    Private mod_hashRSCColors As HashSet(Of RSCColor)
     Private mod_listMSColors_Unused As List(Of Drawing.Color)
 
     ''Added 8/22/2022 td
     ''
     '' Variables related to the Undo button. 
     ''
+    Private mod_elementsCache As ciBadgeCachePersonality.ClassElementsCache_Deprecated
     Private mod_rscColorLastSelected As RSCColor
     Private mod_msColorLastSelected As Drawing.Color
     Private mod_msColorLastReplaced As Drawing.Color
@@ -37,7 +40,7 @@ Public Class Dialog_BaseChooseColor
 
     Public Sub New(par_control As CtlGraphicFieldOrTextV4,
                    par_listFontFamilyNames As HashSet(Of String),
-                   par_listRSCColors As HashSet(Of RSCColor),
+                   par_hashRSCColors As HashSet(Of RSCColor),
                    par_element As ClassElementBase,
                    par_infoElementBase As IElement_Base,
                    par_designer As ClassDesigner,
@@ -59,7 +62,7 @@ Public Class Dialog_BaseChooseColor
         ''           par_imageBadge)
         MyBase.New(par_control,
                    par_listFontFamilyNames,
-                   par_listRSCColors,
+                   par_hashRSCColors,
                    par_control.ElementBase,
                    par_infoElementBase,
                    par_designer, par_events,
@@ -68,6 +71,39 @@ Public Class Dialog_BaseChooseColor
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''Added 10/12/2022 thomas 
+        mod_hashRSCColors = par_hashRSCColors
+        mod_listRSCColors = par_hashRSCColors.ToList()
+
+
+    End Sub
+
+
+    Public Sub New(par_control As CtlGraphicFieldOrTextV4,
+                   par_elementsCache As ClassElementsCache_Deprecated,
+                   par_element As ClassElementBase,
+                   par_infoElementBase As IElement_Base,
+                   par_designer As ClassDesigner,
+                   par_events As GroupMoveEvents_Singleton,
+                   Optional par_imageBadge As Drawing.Image = Nothing)
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        MyBase.New(par_control,
+                   par_elementsCache,
+                   par_control.ElementBase,
+                   par_infoElementBase,
+                   par_designer, par_events,
+                   par_imageBadge)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ''Added 10/12/2022 thomas 
+        mod_hashRSCColors = par_elementsCache.ListOfRSCColors()
+        mod_listRSCColors = mod_hashRSCColors.ToList()
+        ''Added 10/24/2022 td
+        mod_elementsCache = par_elementsCache
 
     End Sub
 
@@ -82,7 +118,14 @@ Public Class Dialog_BaseChooseColor
         ''--RscColorFlowPanel1.AddColors_BlackAndWhite()
         RscColorFlowPanel1.AddLinkLabelForAddingColors()
         ''9/30 td''RscColorFlowPanel1.AddColors_AllPossibleColors(True)
-        RscColorFlowPanel1.AddColors_FromCache(mod_listRSCColors)
+        ''10/12/2022 td''RscColorFlowPanel1.AddColors_FromCache(mod_listRSCColors)
+        If (mod_listRSCColors Is Nothing) Then
+            ''Added 10/12/2022 td  
+            System.Diagnostics.Debugger.Break()
+            System.Diagnostics.Debug.Assert(False, "RSC Colors is nothing.")
+        Else
+            RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
+        End If ''End of ""If (mod_listRSCColors Is Nothing) Then... Else.... "" 
 
     End Sub
 
@@ -189,7 +232,8 @@ Public Class Dialog_BaseChooseColor
         ''Added 8/7/2022 thomas downes
         Dim objFormToShow As __RSCWindowsControlLibrary.RSCBrowseExistingColors
 
-        objFormToShow = New RSCBrowseExistingColors(mod_listRSCColors)
+        ''10/12/2022 ''objFormToShow = New RSCBrowseExistingColors(mod_listRSCColors)
+        objFormToShow = New RSCBrowseExistingColors(mod_hashRSCColors)
         objFormToShow.ShowDialog()
 
     End Sub
@@ -378,7 +422,12 @@ Public Class Dialog_BaseChooseColor
         ''Added 9/17/2022 thomas downes 
         ''
         Dim objFormToShow As DialogSelectColorManager
-        objFormToShow = New DialogSelectColorManager()
+        Dim listRSCColors As HashSet(Of RSCColor)
+        ''Dim objParameters As ciBadgeDesigner.ClassGetElementControlParams
+
+        ''listRSCColors = objParameters.ElementsCache.ListOfRSCColors
+        listRSCColors = mod_elementsCache.ListOfRSCColors
+        objFormToShow = New DialogSelectColorManager(listRSCColors)
         objFormToShow.ShowDialog()
 
 

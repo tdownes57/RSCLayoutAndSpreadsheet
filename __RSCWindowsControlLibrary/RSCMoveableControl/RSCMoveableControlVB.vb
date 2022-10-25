@@ -210,7 +210,8 @@ Public Class RSCMoveableControlVB
     ''Public Property ZOrder As Integer Implements IElement_Base.ZOrder
 
     Public Event Element_RightClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
-    Public Event Element_LeftClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
+    ''10/24/2022 Public Event Element_LeftClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
+    Public Event Element_LeftClicked(par_control As RSCMoveableControlVB, par_e As EventArgs) ''Modified 10/24/2022 td
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td
@@ -2122,7 +2123,8 @@ Public Class RSCMoveableControlVB
     Public Sub RaiseEvent_LeftClicked()
 
         ''Added 5/18/2022 td
-        RaiseEvent Element_LeftClicked(Me)
+        ''10/24/2022 RaiseEvent Element_LeftClicked(Me)
+        RaiseEvent Element_LeftClicked(Me, New EventArgs())
 
     End Sub
 

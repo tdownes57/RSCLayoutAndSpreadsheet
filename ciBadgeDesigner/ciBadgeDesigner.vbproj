@@ -326,10 +326,10 @@
     <Compile Include="ControlsRSC\RSCRowHeaders_Test.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogAllRSCSelectCIBFields.Designer.vb">
+    <Compile Include="Dialogs_General\DialogAllRSCSelectCIBFields.Designer.vb">
       <DependentUpon>DialogAllRSCSelectCIBFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogAllRSCSelectCIBFields.vb">
+    <Compile Include="Dialogs_General\DialogAllRSCSelectCIBFields.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs_Color\DialogDisplayColor.Designer.vb">
@@ -338,52 +338,52 @@
     <Compile Include="Dialogs_Color\DialogDisplayColor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogDisplayIDCardSides.Designer.vb">
+    <Compile Include="Dialogs_General\DialogDisplayIDCardSides.Designer.vb">
       <DependentUpon>DialogDisplayIDCardSides.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogDisplayIDCardSides.vb">
+    <Compile Include="Dialogs_General\DialogDisplayIDCardSides.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogExampleValueEtc.Designer.vb">
+    <Compile Include="Dialogs_General\DialogExampleValueEtc.Designer.vb">
       <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogExampleValueEtc.vb">
+    <Compile Include="Dialogs_General\DialogExampleValueEtc.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogListBothTypeFields.Designer.vb">
+    <Compile Include="Dialogs_General\DialogListBothTypeFields.Designer.vb">
       <DependentUpon>DialogListBothTypeFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogListBothTypeFields.vb">
+    <Compile Include="Dialogs_General\DialogListBothTypeFields.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogPositioning.Designer.vb">
+    <Compile Include="Dialogs_General\DialogPositioning.Designer.vb">
       <DependentUpon>DialogPositioning.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogPositioning.vb">
+    <Compile Include="Dialogs_General\DialogPositioning.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogPresetValues.Designer.vb">
+    <Compile Include="Dialogs_General\DialogPresetValues.Designer.vb">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogPresetValues.vb">
+    <Compile Include="Dialogs_General\DialogPresetValues.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogShowHideConditions.Designer.vb">
+    <Compile Include="Dialogs_General\DialogShowHideConditions.Designer.vb">
       <DependentUpon>DialogShowHideConditions.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogShowHideConditions.vb">
+    <Compile Include="Dialogs_General\DialogShowHideConditions.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogStaticText.Designer.vb">
+    <Compile Include="Dialogs_General\DialogStaticText.Designer.vb">
       <DependentUpon>DialogStaticText.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogStaticText.vb">
+    <Compile Include="Dialogs_General\DialogStaticText.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseBorder.Designer.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseBorder.Designer.vb">
       <DependentUpon>Dialog_BaseBorder.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseBorder.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseBorder.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs_Color\DialogSelectColorManager.Designer.vb">
@@ -398,64 +398,64 @@
     <Compile Include="Dialogs_Color\Dialog_BaseChooseColor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseChooseFont.Designer.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseChooseFont.Designer.vb">
       <DependentUpon>Dialog_BaseChooseFont.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseChooseFont.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseChooseFont.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseReviseText.Designer.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseReviseText.Designer.vb">
       <DependentUpon>Dialog_BaseReviseText.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseReviseText.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseReviseText.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogSubsection.Designer.vb">
+    <Compile Include="Dialogs_General\DialogSubsection.Designer.vb">
       <DependentUpon>DialogSubsection.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogSubsection.vb">
+    <Compile Include="Dialogs_General\DialogSubsection.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogTextBorder.Designer.vb">
+    <Compile Include="Dialogs_General\DialogTextBorder.Designer.vb">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogTextBorder.vb">
+    <Compile Include="Dialogs_General\DialogTextBorder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogTextOffset.Designer.vb">
+    <Compile Include="Dialogs_General\DialogTextOffset.Designer.vb">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogTextOffset.vb">
+    <Compile Include="Dialogs_General\DialogTextOffset.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogListCustomFields.Designer.vb">
+    <Compile Include="Dialogs_General\DialogListCustomFields.Designer.vb">
       <DependentUpon>DialogListCustomFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogListCustomFields.vb">
+    <Compile Include="Dialogs_General\DialogListCustomFields.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DialogListStandardFields.Designer.vb">
+    <Compile Include="Dialogs_General\DialogListStandardFields.Designer.vb">
       <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\DialogListStandardFields.vb">
+    <Compile Include="Dialogs_General\DialogListStandardFields.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Dialog_Base.Designer.vb">
+    <Compile Include="Dialogs_General\Dialog_Base.Designer.vb">
       <DependentUpon>Dialog_Base.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Dialog_Base.vb">
+    <Compile Include="Dialogs_General\Dialog_Base.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseEditElement.Designer.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseEditElement.Designer.vb">
       <DependentUpon>Dialog_BaseEditElement.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseEditElement.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseEditElement.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseRotation.Designer.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseRotation.Designer.vb">
       <DependentUpon>Dialog_BaseRotation.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\Dialog_BaseRotation.vb">
+    <Compile Include="Dialogs_General\Dialog_BaseRotation.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs_Border\BackgroundEditImage.designer.vb">
@@ -660,34 +660,34 @@
     <EmbeddedResource Include="ControlsRSC\RSCRowHeaders_Test.resx">
       <DependentUpon>RSCRowHeaders_Test.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogAllRSCSelectCIBFields.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogAllRSCSelectCIBFields.resx">
       <DependentUpon>DialogAllRSCSelectCIBFields.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Color\DialogDisplayColor.resx">
       <DependentUpon>DialogDisplayColor.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogDisplayIDCardSides.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogDisplayIDCardSides.resx">
       <DependentUpon>DialogDisplayIDCardSides.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogExampleValueEtc.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogExampleValueEtc.resx">
       <DependentUpon>DialogExampleValueEtc.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogListBothTypeFields.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogListBothTypeFields.resx">
       <DependentUpon>DialogListBothTypeFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogPositioning.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogPositioning.resx">
       <DependentUpon>DialogPositioning.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogPresetValues.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogPresetValues.resx">
       <DependentUpon>DialogPresetValues.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogShowHideConditions.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogShowHideConditions.resx">
       <DependentUpon>DialogShowHideConditions.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogStaticText.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogStaticText.resx">
       <DependentUpon>DialogStaticText.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Dialog_BaseBorder.resx">
+    <EmbeddedResource Include="Dialogs_General\Dialog_BaseBorder.resx">
       <DependentUpon>Dialog_BaseBorder.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Color\DialogSelectColorManager.resx">
@@ -697,34 +697,34 @@
       <DependentUpon>Dialog_BaseChooseColor.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Dialog_BaseChooseFont.resx">
+    <EmbeddedResource Include="Dialogs_General\Dialog_BaseChooseFont.resx">
       <DependentUpon>Dialog_BaseChooseFont.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Dialog_BaseEditElement.resx">
+    <EmbeddedResource Include="Dialogs_General\Dialog_BaseEditElement.resx">
       <DependentUpon>Dialog_BaseEditElement.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Dialog_BaseReviseText.resx">
+    <EmbeddedResource Include="Dialogs_General\Dialog_BaseReviseText.resx">
       <DependentUpon>Dialog_BaseReviseText.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogSubsection.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogSubsection.resx">
       <DependentUpon>DialogSubsection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogTextBorder.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogTextBorder.resx">
       <DependentUpon>DialogTextBorder.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogTextOffset.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogTextOffset.resx">
       <DependentUpon>DialogTextOffset.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogListCustomFields.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogListCustomFields.resx">
       <DependentUpon>DialogListCustomFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\DialogListStandardFields.resx">
+    <EmbeddedResource Include="Dialogs_General\DialogListStandardFields.resx">
       <DependentUpon>DialogListStandardFields.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Dialog_Base.resx">
+    <EmbeddedResource Include="Dialogs_General\Dialog_Base.resx">
       <DependentUpon>Dialog_Base.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\Dialog_BaseRotation.resx">
+    <EmbeddedResource Include="Dialogs_General\Dialog_BaseRotation.resx">
       <DependentUpon>Dialog_BaseRotation.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Border\BackgroundEditImage.resx">

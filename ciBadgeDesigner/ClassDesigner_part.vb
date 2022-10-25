@@ -79,9 +79,15 @@ Partial Public Class ClassDesigner
             tempLayoutfunctions = par_controlRSC.LayoutFunctions
 
             ''8/17/2022 Dim objFormToShow As New Dialog_BaseEditElement
+            ''10/24/2022 objFormToShow = New Dialog_BaseEditElement(controlFieldOrTextV4,
+            ''                                                list_FontFamilyNames,
+            ''                                                list_RSCColors,
+            ''                           par_controlRSC.ElementBase,
+            ''                           par_controlRSC.ElementInfo_Base,
+            ''                           Me, Me.GroupMoveEvents,
+            ''                           imageOfBadgeSansElement)
             objFormToShow = New Dialog_BaseEditElement(controlFieldOrTextV4,
-                                                            list_FontFamilyNames,
-                                                            list_RSCColors,
+                                                       ElementsCache_UseEdits,
                                        par_controlRSC.ElementBase,
                                        par_controlRSC.ElementInfo_Base,
                                        Me, Me.GroupMoveEvents,

@@ -31,12 +31,15 @@ Partial Class DialogSelectColorManager
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.RscColorDisplayLabel1 = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
         Me.LabelSelectedColor = New System.Windows.Forms.Label()
+        Me.LabelHeader1 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'RscColorFlowPanel1
         '
         Me.RscColorFlowPanel1.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.RscColorFlowPanel1.Location = New System.Drawing.Point(12, 26)
+        Me.RscColorFlowPanel1.ConfirmColorSelection = False
+        Me.RscColorFlowPanel1.Location = New System.Drawing.Point(12, 46)
         Me.RscColorFlowPanel1.Name = "RscColorFlowPanel1"
         Me.RscColorFlowPanel1.Size = New System.Drawing.Size(421, 260)
         Me.RscColorFlowPanel1.TabIndex = 0
@@ -44,7 +47,8 @@ Partial Class DialogSelectColorManager
         'RscColorFlowPanel2
         '
         Me.RscColorFlowPanel2.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(587, 26)
+        Me.RscColorFlowPanel2.ConfirmColorSelection = False
+        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(587, 46)
         Me.RscColorFlowPanel2.Name = "RscColorFlowPanel2"
         Me.RscColorFlowPanel2.Size = New System.Drawing.Size(421, 260)
         Me.RscColorFlowPanel2.TabIndex = 1
@@ -54,7 +58,7 @@ Partial Class DialogSelectColorManager
         Me.RscElementArrowLeft1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscElementArrowLeft1.ElementInfo_Base = Nothing
         Me.RscElementArrowLeft1.ImageLocation = Nothing
-        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(455, 64)
+        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(455, 84)
         Me.RscElementArrowLeft1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscElementArrowLeft1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscElementArrowLeft1.MoveabilityEventsForSingleMove = Nothing
@@ -68,7 +72,7 @@ Partial Class DialogSelectColorManager
         Me.RscElementArrowRight1.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscElementArrowRight1.ElementInfo_Base = Nothing
         Me.RscElementArrowRight1.ImageLocation = Nothing
-        Me.RscElementArrowRight1.Location = New System.Drawing.Point(455, 192)
+        Me.RscElementArrowRight1.Location = New System.Drawing.Point(455, 212)
         Me.RscElementArrowRight1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscElementArrowRight1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscElementArrowRight1.MoveabilityEventsForSingleMove = Nothing
@@ -106,26 +110,50 @@ Partial Class DialogSelectColorManager
         '
         'RscColorDisplayLabel1
         '
-        Me.RscColorDisplayLabel1.Location = New System.Drawing.Point(643, 320)
+        Me.RscColorDisplayLabel1.Location = New System.Drawing.Point(406, 319)
         Me.RscColorDisplayLabel1.Name = "RscColorDisplayLabel1"
         Me.RscColorDisplayLabel1.RSCDisplayColor = CType(resources.GetObject("RscColorDisplayLabel1.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
         Me.RscColorDisplayLabel1.Size = New System.Drawing.Size(200, 25)
         Me.RscColorDisplayLabel1.TabIndex = 6
+        Me.RscColorDisplayLabel1.Visible = False
         '
         'LabelSelectedColor
         '
         Me.LabelSelectedColor.AutoSize = True
-        Me.LabelSelectedColor.Location = New System.Drawing.Point(559, 332)
+        Me.LabelSelectedColor.Location = New System.Drawing.Point(322, 331)
         Me.LabelSelectedColor.Name = "LabelSelectedColor"
         Me.LabelSelectedColor.Size = New System.Drawing.Size(78, 13)
         Me.LabelSelectedColor.TabIndex = 7
         Me.LabelSelectedColor.Text = "Selected color:"
+        Me.LabelSelectedColor.Visible = False
+        '
+        'LabelHeader1
+        '
+        Me.LabelHeader1.AutoSize = True
+        Me.LabelHeader1.Font = New System.Drawing.Font("Microsoft Sans Serif", 19.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelHeader1.Location = New System.Drawing.Point(12, 9)
+        Me.LabelHeader1.Name = "LabelHeader1"
+        Me.LabelHeader1.Size = New System.Drawing.Size(199, 30)
+        Me.LabelHeader1.TabIndex = 8
+        Me.LabelHeader1.Text = "Available Colors"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 19.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(582, 9)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(194, 30)
+        Me.Label1.TabIndex = 9
+        Me.Label1.Text = "Selected Colors"
         '
         'DialogSelectColorManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1091, 356)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.LabelSelectedColor)
         Me.Controls.Add(Me.RscColorDisplayLabel1)
         Me.Controls.Add(Me.ButtonOK)
@@ -149,4 +177,6 @@ Partial Class DialogSelectColorManager
     Friend WithEvents ButtonOK As Button
     Friend WithEvents RscColorDisplayLabel1 As __RSCWindowsControlLibrary.RSCColorDisplayLabel
     Friend WithEvents LabelSelectedColor As Label
+    Friend WithEvents LabelHeader1 As Label
+    Friend WithEvents Label1 As Label
 End Class

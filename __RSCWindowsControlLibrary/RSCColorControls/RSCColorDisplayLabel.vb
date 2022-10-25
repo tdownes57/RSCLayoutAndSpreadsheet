@@ -7,6 +7,7 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
     ''Added 8/22/2022 td
     ''
     Private mod_rscDisplayColor As ciBadgeInterfaces.RSCColor
+    Private mod_strMSNetColorName As String ''Added 10/24/2022
 
     Public Event ColorClick(sender As Object, e As EventArgs)
 
@@ -92,6 +93,19 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
         End Set
     End Property ''Ednof ""Public Property BackColor""
 
+
+    Public Property MSNetColorName As String
+        Get
+            ''Added 10/24/2022 td
+            Return mod_strMSNetColorName
+        End Get
+        Set(value As String)
+            ''Added 10/24/2022 td
+            mod_strMSNetColorName = value
+        End Set
+    End Property ''Ednof ""Public Property BackColor""
+
+
     Private Sub LabelBackcolorLeft_Click(sender As Object, e As EventArgs) Handles LabelBackcolorLeft.Click
 
         ''Added 8/22/2022
@@ -99,7 +113,8 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
 
     End Sub
 
-    Private Sub LabelBackcolorRight_Click(sender As Object, e As EventArgs) Handles LabelBackcolorRight.Click
+    Private Sub LabelBackcolorRight_Click(sender As Object, e As EventArgs) _
+        Handles LabelBackcolorRight.Click, Me.Click
 
         ''Added 8/22/2022
         RaiseEvent ColorClick(Me, New EventArgs())
