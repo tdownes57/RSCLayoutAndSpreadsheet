@@ -22,8 +22,10 @@ Partial Class RSCColorDisplayLabel
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.LabelBackcolorRight = New System.Windows.Forms.Label()
         Me.LabelBackcolorLeft = New System.Windows.Forms.Label()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
         'LabelBackcolorRight
@@ -64,4 +66,5 @@ Partial Class RSCColorDisplayLabel
 
     Friend WithEvents LabelBackcolorRight As Label
     Friend WithEvents LabelBackcolorLeft As Label
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

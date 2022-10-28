@@ -14,6 +14,15 @@ Public Class RSCColorFlowPanel
     Private mod_listMSColors_NotUsed As New List(Of Drawing.Color)
     Private mboolConfirm As Boolean ''Added 10/24/2022
 
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
+
     Public Property ConfirmColorSelection() As Boolean
         Get ''Added 10/24/2022
             Return mboolConfirm
@@ -346,29 +355,46 @@ Public Class RSCColorFlowPanel
         ''
         ''10/2022 If (Not Me.ConfirmColorSelection) Then Exit Sub
 
-        Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirm
+        ''10/28/2022 Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirm
+        Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirmTiny
         Dim strColorName As String
         Dim controlRSCColorLabel As RSCColorDisplayLabel
         Static controlRSCColorLabel_Prior As RSCColorDisplayLabel
         Dim mscolorSelected As Drawing.Color
-        Dim rscColorSelected As RSCColor
+        Dim rscColorSelected As RSCColor = Nothing
+        Dim boolUserCancels As Boolean ''Added 10/28/2022
 
         controlRSCColorLabel = CType(sender, RSCColorDisplayLabel)
         strColorName = controlRSCColorLabel.Text
         mscolorSelected = controlRSCColorLabel.BackColor
 
-        objFormToShow = New FormRSCColorConfirm(mscolorSelected, strColorName)
+        ''10/28/2022 objFormToShow = New FormRSCColorConfirm(mscolorSelected, strColorName)
+        objFormToShow = New FormRSCColorConfirmTiny(mscolorSelected, strColorName)
 
         With objFormToShow
 
             ''Show the modal UI to the user. 
             If (Me.ConfirmColorSelection) Then ''Added 10/25/2022
+                ''Show the modal UI to the user. 
                 .ShowDialog()
+            ElseIf (FormRSCColorConfirmTiny.DontShowDialogAgain) Then ''Added 10/28/2022
+                ''We are currently skipping the confirmation-of-color step.
+                .Output_Cancelled = False ''False, not a cancellation, but rather
+                ''  a skipping-of-confirmation.--10/28/2022
             Else
-                .Output_Cancelled = False
+                ''We are currently skipping the confirmation-of-color step,
+                ''  and so we will proceed. This is __NOT__ a cancellation,
+                ''  so set the following Boolean to FALSE.
+                .Output_Cancelled = False ''False, not a cancellation, but a skipping-of-confirmation.
             End If ''Endof ""If (Me.ConfirmColorSelection) Then... Else...""
 
-            If (Not .Output_Cancelled) Then
+            If (.Output_Cancelled) Then
+                ''
+                ''User has changed their mind.  Don't change anything.
+                ''
+                boolUserCancels = True
+
+            Else
 
                 rscColorSelected = .Output_RSCColor
                 ''8/30/2022 rscLabelDisplayColorSelected.RSCDisplayColor = rscColorSelected
@@ -381,18 +407,18 @@ Public Class RSCColorFlowPanel
                     controlRSCColorLabel_Prior.BorderStyle = BorderStyle.None
                 End If ''End of ""If (controlRSCColorLabel_Prior IsNot Nothing) Then""
 
-
-            End If ''End of ""If (Not .Output_Cancelled) Then""  
+            End If ''End of ""If (.Output_Cancelled) Then ... Else ...""  
 
         End With ''End of ""With objFormToShow""
-
 
         ''---End If ''End of ""If (Not objFormToShow.Output_Cancelled) Then""
 
 ExitHandler:
         ''Prepare for next execution of this procedure. ---8/30/2022
-        controlRSCColorLabel_Prior = controlRSCColorLabel
-        RaiseEvent ColorSelected(rscColorSelected) ''Added 10/25/2022 
+        If (Not boolUserCancels) Then
+            controlRSCColorLabel_Prior = controlRSCColorLabel
+            RaiseEvent ColorSelected(rscColorSelected) ''Added 10/25/2022 
+        End If ''End of ""If (Not boolUserCancels) Then""
 
     End Sub ''End of ""Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs)""
 

@@ -422,12 +422,17 @@ Public Class Dialog_BaseChooseColor
         ''Added 9/17/2022 thomas downes 
         ''
         Dim objFormToShow As DialogSelectColorManager
-        Dim listRSCColors As HashSet(Of RSCColor)
+        ''10/28/2022 Dim listRSCColors As HashSet(Of RSCColor)
+        Dim hashsetRSCColors As HashSet(Of RSCColor)
         ''Dim objParameters As ciBadgeDesigner.ClassGetElementControlParams
 
         ''listRSCColors = objParameters.ElementsCache.ListOfRSCColors
-        listRSCColors = mod_elementsCache.ListOfRSCColors
-        objFormToShow = New DialogSelectColorManager(listRSCColors)
+        hashsetRSCColors = mod_elementsCache.ListOfRSCColors
+        ''10/28 objFormToShow = New DialogSelectColorManager(listRSCColors)
+
+        Dim boolConfirmColor As Boolean = True ''Added 10/28/2022
+        ''10/28/2022 objFormToShow = New DialogSelectColorManager(listRSCColors, boolConfirmColor)
+        objFormToShow = New DialogSelectColorManager(hashsetRSCColors, boolConfirmColor)
         objFormToShow.ShowDialog()
 
 

@@ -41,6 +41,10 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
         ' Add any initialization after the InitializeComponent() call.
         Me.BackColor = par_colorMS
         Me.Text = par_colorMS.Name
+        ''LabelBackcolorLeft.ToolTip = Me.Text
+        ''LabelBackcolorLeft.ToolTip = Me.Text
+        ToolTip1.SetToolTip(LabelBackcolorLeft, Me.Text)
+        ToolTip1.SetToolTip(LabelBackcolorRight, Me.Text)
 
     End Sub ''End of Public Sub New  (par_colorMS As Drawing.Color)
 
@@ -52,7 +56,15 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
 
         ' Add any initialization after the InitializeComponent() call.
         Me.BackColor = par_colorRSC.MSNetColor
-        Me.Text = par_colorRSC.MSNetColor.Name
+        ''----Me.Text = par_colorRSC.MSNetColor.Name
+
+        Me.Text = par_colorRSC.MSNetColorName()
+
+        ''Added 10/28/2022
+        ToolTip1.SetToolTip(LabelBackcolorLeft,
+                            (par_colorRSC.Name_andDescription()))
+        ToolTip1.SetToolTip(LabelBackcolorRight,
+                            (par_colorRSC.Name_andDescription()))
 
     End Sub ''End of Public Sub New  (paraM_colorMS As Drawing.Color)
 
@@ -76,6 +88,18 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
             LabelBackcolorRight.BackColor = value
         End Set
     End Property ''Ednof ""Public Property BackColor""
+
+
+    Public Sub LoadAndDisplayRSCColor(par_rscColor As RSCColor)
+        ''
+        ''Added 10/28/2022
+        ''
+        ' Add any initialization after the InitializeComponent() call.
+        Me.BackColor = par_rscColor.MSNetColor
+        Me.Text = par_rscColor.MSNetColor.Name
+        mod_rscDisplayColor = par_rscColor
+
+    End Sub
 
 
     Public Property RSCDisplayColor As ciBadgeInterfaces.RSCColor

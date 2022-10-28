@@ -126,6 +126,12 @@
     <Compile Include="RSCColorControls\FormRSCColorConfirm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="RSCColorControls\FormRSCColorConfirmTiny.Designer.vb">
+      <DependentUpon>FormRSCColorConfirmTiny.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\FormRSCColorConfirmTiny.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="RSCColorControls\RSCBrowseExistingColors.Designer.vb">
       <DependentUpon>RSCBrowseExistingColors.vb</DependentUpon>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\FormRSCColorConfirm.resx">
       <DependentUpon>FormRSCColorConfirm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\FormRSCColorConfirmTiny.resx">
+      <DependentUpon>FormRSCColorConfirmTiny.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCBrowseExistingColors.resx">
       <DependentUpon>RSCBrowseExistingColors.vb</DependentUpon>

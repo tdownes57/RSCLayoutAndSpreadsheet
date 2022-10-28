@@ -24,24 +24,28 @@ Public Class RSCColor
 
     End Sub
 
-    Public Sub New(par_name As String, par_color As System.Drawing.Color)
+    Public Sub New(par_name As String, par_colorMS As System.Drawing.Color)
 
         ''Added 7/09/2022 
-        Me.MSNetColor = par_color
+        Me.MSNetColor = par_colorMS
         Me.Name = par_name
+        ''Added 10/28/2022 td
+        Me.MSNetColorName = par_colorMS.Name
 
     End Sub
 
 
-    Public Sub New(par_color As System.Drawing.Color,
+    Public Sub New(par_msColor As System.Drawing.Color,
                    par_name As String,
                    par_description As String)
         ''
         ''Added 7/09/2022
         ''
-        Me.MSNetColor = par_color
+        Me.MSNetColor = par_msColor
         Me.Name = par_name
         Me.Description = par_description
+        ''Added 10/28/2022 td
+        Me.MSNetColorName = par_msColor.Name
 
     End Sub
 
@@ -49,7 +53,7 @@ Public Class RSCColor
     Public Property MSNetColor As Drawing.Color ''Added 7/09/2022 thomas downes
     Public Property Name As String = "" ''Added 7/09/2022 thomas downes
     Public Property Description As String = "" ''Added 7/09/2022 thomas downes
-    Public Property MSNetColorName As String ''Added 9/30 /2022 thomas downes
+    Public Property MSNetColorName As String = "" ''Added 9/30 /2022 thomas downes
 
     Public Overrides Function ToString() As String
         ''
@@ -90,6 +94,37 @@ Public Class RSCColor
 
     End Function ''End of ""Public Function Matches(par_color As RSCColor) As Boolean""
 
+
+    Public Function Name_orMSColorName() As String
+
+        ''Added 10/28/2022 
+        If (Me.Name <> "") Then
+            Return Me.Name
+        ElseIf (Me.MSNetColor.Name <> "") Then
+            Return Me.MSNetColor.Name
+        Else
+            Return Me.MSNetColorName
+        End If
+
+    End Function ''End of ""Public Function Name_orMSColorName() As String"
+
+
+    Public Function Name_andDescription() As String
+
+        ''Added 10/28/2022 
+        Dim result As String
+
+        result = Name_orMSColorName()
+
+        If (Me.Description <> "") Then
+
+            result &= (vbCrLf & Me.Description)
+
+        End If ''End of ""If (Me.Description <> "") Then"
+
+        Return result
+
+    End Function ''End of ""Public Function Name_andDescription() As String"
 
 
 End Class

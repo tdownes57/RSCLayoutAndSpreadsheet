@@ -10,7 +10,9 @@ Public Class DialogSelectColorManager
     Private mod_hashRSCColors As HashSet(Of RSCColor) ''Added 10/'12/2022
     Private mod_panelLastSelected As RSCColorFlowPanel ''Added 10/24/20222
 
-    Public Sub New(par_listRSCColors As List(Of RSCColor))
+
+    Public Sub New(par_listRSCColors As List(Of RSCColor),
+                   Optional par_bConfirmColor As Boolean = False)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -18,15 +20,24 @@ Public Class DialogSelectColorManager
         ' Add any initialization after the InitializeComponent() call.
         mod_listRSCColors = par_listRSCColors
 
+        ''Added 10/28/2022 thomas downes
+        RscColorFlowPanel1.ConfirmColorSelection = par_bConfirmColor
+        RscColorFlowPanel2.ConfirmColorSelection = par_bConfirmColor
+
     End Sub
 
-    Public Sub New(par_hashRSCColors As HashSet(Of RSCColor))
+    Public Sub New(par_hashRSCColors As HashSet(Of RSCColor),
+                   Optional par_bConfirmColor As Boolean = False)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
         mod_hashRSCColors = par_hashRSCColors
+
+        ''Added 10/28/2022 thomas downes
+        RscColorFlowPanel1.ConfirmColorSelection = par_bConfirmColor
+        RscColorFlowPanel2.ConfirmColorSelection = par_bConfirmColor
 
     End Sub
 
@@ -66,7 +77,7 @@ Public Class DialogSelectColorManager
         mod_panelLastSelected = RscColorFlowPanel1
         RscColorDisplayLabel1.Invalidate()
 
-    End Sub
+    End Sub ''end of ""Private Sub RscColorFlowPanel1_ColorSelected
 
 
     Private Sub RscColorFlowPanel2_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel2.ColorSelected
