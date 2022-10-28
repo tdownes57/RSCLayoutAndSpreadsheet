@@ -113,11 +113,14 @@ Public Class RSCColorFlowPanel
                 each_colorMS = Drawing.Color.FromName(each_colorName)
 
                 Dim newLabel As New RSCColorDisplayLabel
-                newLabel.BackColor = each_colorMS
-                newLabel.Text = each_colorMS.Name
+                ''10/28/2022 newLabel.BackColor = each_colorMS
+                ''10/28/2022 newLabel.Text = each_colorMS.Name
+                newLabel = RSCColorDisplayLabel.GetLabel(each_colorMS) ''Added 10/28/2022
+
                 newLabel.Visible = True
                 newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
                 newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
+
                 AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
                 .Add(newLabel) ''Added 8/30/2022 
 

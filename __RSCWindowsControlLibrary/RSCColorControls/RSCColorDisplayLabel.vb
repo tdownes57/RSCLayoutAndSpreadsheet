@@ -1,6 +1,7 @@
 ﻿''
 ''Added 8/22/2022 td
 ''
+Imports ciBadgeInterfaces ''Added 10/28/2022
 
 Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini 
     ''
@@ -10,6 +11,58 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
     Private mod_strMSNetColorName As String ''Added 10/24/2022
 
     Public Event ColorClick(sender As Object, e As EventArgs)
+
+    Public Shared Function GetLabel(par_colorMS As Drawing.Color) As RSCColorDisplayLabel
+        '' Added 10/28/2022 td 
+        Dim objControl As New RSCColorDisplayLabel(par_colorMS)
+        ''10/28/2022 newLabel.BackColor = each_colorMS
+        ''10/28/2022 newLabel.Text = each_colorMS.Name
+        objControl.BackColor = par_colorMS
+        objControl.Text = par_colorMS.Name
+        Return objControl
+
+    End Function ''Public Shared Function GetLabel  
+
+
+    Public Shared Function GetLabel(par_colorRSC As RSCColor) As RSCColorDisplayLabel
+        '' Added 10/28/2022 td 
+        Dim objControl As New RSCColorDisplayLabel(par_colorRSC)
+        objControl.BackColor = par_colorRSC.MSNetColor
+        objControl.Text = par_colorRSC.MSNetColor.Name
+        Return objControl
+    End Function ''Public Shared Function GetLabel  
+
+
+    Public Sub New(par_colorMS As Drawing.Color)
+        ''Added 10/28/2022
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.BackColor = par_colorMS
+        Me.Text = par_colorMS.Name
+
+    End Sub ''End of Public Sub New  (par_colorMS As Drawing.Color)
+
+
+    Public Sub New(par_colorRSC As RSCColor)
+        ''Added 10/28/2022
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.BackColor = par_colorRSC.MSNetColor
+        Me.Text = par_colorRSC.MSNetColor.Name
+
+    End Sub ''End of Public Sub New  (paraM_colorMS As Drawing.Color)
+
+
+    Public Sub New()
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+    End Sub
 
     Public Overrides Property BackColor As Color
         Get

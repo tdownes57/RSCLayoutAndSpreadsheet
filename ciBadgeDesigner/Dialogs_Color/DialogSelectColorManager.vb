@@ -61,7 +61,10 @@ Public Class DialogSelectColorManager
         ''
         RscColorDisplayLabel1.Visible = True
         RscColorDisplayLabel1.RSCDisplayColor = par_color
+        RscColorDisplayLabel1.BackColor = par_color.MSNetColor
+        RscColorDisplayLabel1.Text = par_color.MSNetColor.Name
         mod_panelLastSelected = RscColorFlowPanel1
+        RscColorDisplayLabel1.Invalidate()
 
     End Sub
 
