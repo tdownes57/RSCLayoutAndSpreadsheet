@@ -25,14 +25,15 @@ Partial Class DialogSelectColorManager
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DialogSelectColorManager))
         Me.RscColorFlowPanel1 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.RscColorFlowPanel2 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
-        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
-        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCElementArrowRight()
+        Me.RscElementArrowRight = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
+        Me.RscElementArrowLeft = New __RSCWindowsControlLibrary.RSCElementArrowRight()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.RscColorDisplayLabel1 = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
         Me.LabelSelectedColor = New System.Windows.Forms.Label()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.ButtonSelect = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'RscColorFlowPanel1
@@ -53,33 +54,33 @@ Partial Class DialogSelectColorManager
         Me.RscColorFlowPanel2.Size = New System.Drawing.Size(421, 260)
         Me.RscColorFlowPanel2.TabIndex = 1
         '
-        'RscElementArrowLeft1
+        'RscElementArrowRight
         '
-        Me.RscElementArrowLeft1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscElementArrowLeft1.ElementInfo_Base = Nothing
-        Me.RscElementArrowLeft1.ImageLocation = Nothing
-        Me.RscElementArrowLeft1.Location = New System.Drawing.Point(455, 84)
-        Me.RscElementArrowLeft1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscElementArrowLeft1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscElementArrowLeft1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscElementArrowLeft1.Name = "RscElementArrowLeft1"
-        Me.RscElementArrowLeft1.Size = New System.Drawing.Size(98, 55)
-        Me.RscElementArrowLeft1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.RscElementArrowLeft1.TabIndex = 2
+        Me.RscElementArrowRight.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowRight.ElementInfo_Base = Nothing
+        Me.RscElementArrowRight.ImageLocation = Nothing
+        Me.RscElementArrowRight.Location = New System.Drawing.Point(455, 137)
+        Me.RscElementArrowRight.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscElementArrowRight.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowRight.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowRight.Name = "RscElementArrowRight"
+        Me.RscElementArrowRight.Size = New System.Drawing.Size(98, 27)
+        Me.RscElementArrowRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowRight.TabIndex = 2
         '
-        'RscElementArrowRight1
+        'RscElementArrowLeft
         '
-        Me.RscElementArrowRight1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscElementArrowRight1.ElementInfo_Base = Nothing
-        Me.RscElementArrowRight1.ImageLocation = Nothing
-        Me.RscElementArrowRight1.Location = New System.Drawing.Point(455, 212)
-        Me.RscElementArrowRight1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscElementArrowRight1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscElementArrowRight1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscElementArrowRight1.Name = "RscElementArrowRight1"
-        Me.RscElementArrowRight1.Size = New System.Drawing.Size(98, 55)
-        Me.RscElementArrowRight1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.RscElementArrowRight1.TabIndex = 3
+        Me.RscElementArrowLeft.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscElementArrowLeft.ElementInfo_Base = Nothing
+        Me.RscElementArrowLeft.ImageLocation = Nothing
+        Me.RscElementArrowLeft.Location = New System.Drawing.Point(455, 168)
+        Me.RscElementArrowLeft.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscElementArrowLeft.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscElementArrowLeft.MoveabilityEventsForSingleMove = Nothing
+        Me.RscElementArrowLeft.Name = "RscElementArrowLeft"
+        Me.RscElementArrowLeft.Size = New System.Drawing.Size(98, 29)
+        Me.RscElementArrowLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscElementArrowLeft.TabIndex = 3
         '
         'ButtonCancel
         '
@@ -111,6 +112,7 @@ Partial Class DialogSelectColorManager
         'RscColorDisplayLabel1
         '
         Me.RscColorDisplayLabel1.Location = New System.Drawing.Point(406, 319)
+        Me.RscColorDisplayLabel1.MSNetColorName = Nothing
         Me.RscColorDisplayLabel1.Name = "RscColorDisplayLabel1"
         Me.RscColorDisplayLabel1.RSCDisplayColor = CType(resources.GetObject("RscColorDisplayLabel1.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
         Me.RscColorDisplayLabel1.Size = New System.Drawing.Size(200, 25)
@@ -147,19 +149,34 @@ Partial Class DialogSelectColorManager
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Selected Colors"
         '
+        'ButtonSelect
+        '
+        Me.ButtonSelect.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonSelect.BackColor = System.Drawing.Color.PaleGreen
+        Me.ButtonSelect.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonSelect.Location = New System.Drawing.Point(406, 280)
+        Me.ButtonSelect.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonSelect.Name = "ButtonSelect"
+        Me.ButtonSelect.Size = New System.Drawing.Size(200, 34)
+        Me.ButtonSelect.TabIndex = 10
+        Me.ButtonSelect.Text = ">> Select >>"
+        Me.ButtonSelect.UseVisualStyleBackColor = False
+        Me.ButtonSelect.Visible = False
+        '
         'DialogSelectColorManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1091, 356)
+        Me.Controls.Add(Me.ButtonSelect)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.LabelSelectedColor)
         Me.Controls.Add(Me.RscColorDisplayLabel1)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.ButtonCancel)
-        Me.Controls.Add(Me.RscElementArrowRight1)
-        Me.Controls.Add(Me.RscElementArrowLeft1)
+        Me.Controls.Add(Me.RscElementArrowLeft)
+        Me.Controls.Add(Me.RscElementArrowRight)
         Me.Controls.Add(Me.RscColorFlowPanel2)
         Me.Controls.Add(Me.RscColorFlowPanel1)
         Me.Name = "DialogSelectColorManager"
@@ -171,12 +188,13 @@ Partial Class DialogSelectColorManager
 
     Friend WithEvents RscColorFlowPanel1 As __RSCWindowsControlLibrary.RSCColorFlowPanel
     Friend WithEvents RscColorFlowPanel2 As __RSCWindowsControlLibrary.RSCColorFlowPanel
-    Friend WithEvents RscElementArrowLeft1 As __RSCWindowsControlLibrary.RSCElementArrowLeft
-    Friend WithEvents RscElementArrowRight1 As __RSCWindowsControlLibrary.RSCElementArrowRight
+    Friend WithEvents RscElementArrowRight As __RSCWindowsControlLibrary.RSCElementArrowLeft
+    Friend WithEvents RscElementArrowLeft As __RSCWindowsControlLibrary.RSCElementArrowRight
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents RscColorDisplayLabel1 As __RSCWindowsControlLibrary.RSCColorDisplayLabel
     Friend WithEvents LabelSelectedColor As Label
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents ButtonSelect As Button
 End Class

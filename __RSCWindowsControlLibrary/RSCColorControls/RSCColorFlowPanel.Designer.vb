@@ -24,25 +24,25 @@ Partial Class RSCColorFlowPanel
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RSCColorFlowPanel))
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flowPanelDockFull = New System.Windows.Forms.FlowLayoutPanel()
         Me.LinkLabelAddColor1 = New System.Windows.Forms.LinkLabel()
         Me.RscColorDisplayLabel2 = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
         Me.RscColorDisplayLabel1 = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.FlowLayoutPanel1.SuspendLayout()
+        Me.flowPanelDockFull.SuspendLayout()
         Me.SuspendLayout()
         '
-        'FlowLayoutPanel1
+        'flowPanelDockFull
         '
-        Me.FlowLayoutPanel1.AutoScroll = True
-        Me.FlowLayoutPanel1.Controls.Add(Me.LinkLabelAddColor1)
-        Me.FlowLayoutPanel1.Controls.Add(Me.RscColorDisplayLabel2)
-        Me.FlowLayoutPanel1.Controls.Add(Me.RscColorDisplayLabel1)
-        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(617, 387)
-        Me.FlowLayoutPanel1.TabIndex = 2
+        Me.flowPanelDockFull.AutoScroll = True
+        Me.flowPanelDockFull.Controls.Add(Me.LinkLabelAddColor1)
+        Me.flowPanelDockFull.Controls.Add(Me.RscColorDisplayLabel2)
+        Me.flowPanelDockFull.Controls.Add(Me.RscColorDisplayLabel1)
+        Me.flowPanelDockFull.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flowPanelDockFull.Location = New System.Drawing.Point(0, 0)
+        Me.flowPanelDockFull.Name = "flowPanelDockFull"
+        Me.flowPanelDockFull.Size = New System.Drawing.Size(617, 387)
+        Me.flowPanelDockFull.TabIndex = 2
         '
         'LinkLabelAddColor1
         '
@@ -58,6 +58,7 @@ Partial Class RSCColorFlowPanel
         'RscColorDisplayLabel2
         '
         Me.RscColorDisplayLabel2.Location = New System.Drawing.Point(159, 3)
+        Me.RscColorDisplayLabel2.MSNetColorName = Nothing
         Me.RscColorDisplayLabel2.Name = "RscColorDisplayLabel2"
         Me.RscColorDisplayLabel2.RSCDisplayColor = CType(resources.GetObject("RscColorDisplayLabel2.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
         Me.RscColorDisplayLabel2.Size = New System.Drawing.Size(200, 28)
@@ -66,6 +67,7 @@ Partial Class RSCColorFlowPanel
         'RscColorDisplayLabel1
         '
         Me.RscColorDisplayLabel1.Location = New System.Drawing.Point(365, 3)
+        Me.RscColorDisplayLabel1.MSNetColorName = Nothing
         Me.RscColorDisplayLabel1.Name = "RscColorDisplayLabel1"
         Me.RscColorDisplayLabel1.RSCDisplayColor = CType(resources.GetObject("RscColorDisplayLabel1.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
         Me.RscColorDisplayLabel1.Size = New System.Drawing.Size(200, 28)
@@ -75,18 +77,18 @@ Partial Class RSCColorFlowPanel
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.Controls.Add(Me.flowPanelDockFull)
         Me.Name = "RSCColorFlowPanel"
         Me.Size = New System.Drawing.Size(617, 387)
-        Me.FlowLayoutPanel1.ResumeLayout(False)
-        Me.FlowLayoutPanel1.PerformLayout()
+        Me.flowPanelDockFull.ResumeLayout(False)
+        Me.flowPanelDockFull.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents RscColorDisplayLabel1 As RSCColorDisplayLabel
     Friend WithEvents RscColorDisplayLabel2 As RSCColorDisplayLabel
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents flowPanelDockFull As FlowLayoutPanel
     Friend WithEvents LinkLabelAddColor1 As LinkLabel
     Friend WithEvents ToolTip1 As ToolTip
 End Class

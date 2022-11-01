@@ -33,11 +33,14 @@ Public Class RSCColorFlowPanel
     End Property
 
 
-    Public Sub AddColor(par_color As RSCColor)
+    Public Sub AddColor(par_color As RSCColor) ''#2 11/01/2022 par_panel As RSCColorFlowPanel)
+        ''#1 11/01/2022 Public Sub AddColor(par_color As RSCColor, par_panel As FlowLayoutPanel)
         ''
         ''Added 10/24/2022 
         ''
-        With FlowLayoutPanel1
+        ''#1 11/1/2022 With FlowLayoutPanel1
+        ''#1 11/1/2022 With par_panel
+        With flowPanelDockFull
 
             Dim newLabel As New RSCColorDisplayLabel
             newLabel.BackColor = par_color.MSNetColor ''each_colorMS
@@ -48,10 +51,11 @@ Public Class RSCColorFlowPanel
             newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
             AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
             .Controls.Add(newLabel) ''Added 8/30/2022
+            .Refresh() ''Added 11/01/2022 
 
-        End With ''End of ""With FlowLayoutPanel1.Controls""
+        End With ''End of ""With flowPanelDockFull""
 
-    End Sub ''End of ""Public Sub AddColor(par_color As RSCColor)""
+    End Sub ''End of ""Public Sub AddColor(par_color As RSCColor, par_panel as FlowLayoutPanel)""
 
 
     Public Sub RemoveColor(par_color As RSCColor)
@@ -91,7 +95,7 @@ Public Class RSCColorFlowPanel
 
         boolOmitUI = pbOmitUIRelatedColors
 
-        With FlowLayoutPanel1.Controls
+        With flowPanelDockFull.Controls
 
             ''Added 9/30/2022 thomas downes
             If (pbClearExistingControls) Then
@@ -138,9 +142,9 @@ Public Class RSCColorFlowPanel
         End With ''End of ""With FlowLayoutPanel1.Controls""
 
         ''Added 9/30/2022 
-        intNumberOfColors = FlowLayoutPanel1.Controls.Count
-        FlowLayoutPanel1.Visible = True
-        FlowLayoutPanel1.Refresh()
+        intNumberOfColors = flowPanelDockFull.Controls.Count
+        flowPanelDockFull.Visible = True
+        flowPanelDockFull.Refresh()
 
     End Sub ''Endof ""Public Sub AddColors_AllPossibleColors()""
 
@@ -158,7 +162,7 @@ Public Class RSCColorFlowPanel
 
         ''boolOmitUI = pbOmitUIRelatedColors
 
-        With FlowLayoutPanel1.Controls
+        With flowPanelDockFull.Controls
 
             ''Added 9/30/2022 thomas downes
             If (pbClearExistingControls) Then
@@ -190,9 +194,9 @@ Public Class RSCColorFlowPanel
         End With ''End of ""With FlowLayoutPanel1.Controls""
 
         ''Added 9/30/2022 
-        intNumberOfColors = FlowLayoutPanel1.Controls.Count
-        FlowLayoutPanel1.Visible = True
-        FlowLayoutPanel1.Refresh()
+        intNumberOfColors = flowPanelDockFull.Controls.Count
+        flowPanelDockFull.Visible = True
+        flowPanelDockFull.Refresh()
 
     End Sub ''Endof ""Public Sub AddColors_AllPossibleColors()""
 
@@ -210,7 +214,7 @@ Public Class RSCColorFlowPanel
         colorMS_Black = Drawing.Color.Black
         colorMS_White = Drawing.Color.White
 
-        With FlowLayoutPanel1.Controls
+        With flowPanelDockFull.Controls
 
             ''Black 
             newLabel_Black.BackColor = colorMS_Black
@@ -309,7 +313,7 @@ Public Class RSCColorFlowPanel
         ''        mod_colors.Add(Drawing.Color.
         ''        mod_colors.Add(Drawing.Color.
 
-        FlowLayoutPanel1.Controls.Clear()
+        flowPanelDockFull.Controls.Clear()
 
         For Each each_color In mod_listMSColors_NotUsed ''List(Of Drawing.Color)
 
@@ -323,7 +327,7 @@ Public Class RSCColorFlowPanel
             ''Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
             Me.ToolTip1.SetToolTip(newLabel, each_color.Name)
 
-            FlowLayoutPanel1.Controls.Add(newLabel)
+            flowPanelDockFull.Controls.Add(newLabel)
 
         Next each_color
 
@@ -339,7 +343,7 @@ Public Class RSCColorFlowPanel
         ''
         Dim bMissingFromFlowLayout As Boolean
         LinkLabelAddColor1.Visible = True
-        With FlowLayoutPanel1.Controls
+        With flowPanelDockFull.Controls
             bMissingFromFlowLayout = (Not .Contains(LinkLabelAddColor1))
             If (bMissingFromFlowLayout) Then
                 .Add(LinkLabelAddColor1)

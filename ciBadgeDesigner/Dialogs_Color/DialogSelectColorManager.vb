@@ -76,6 +76,7 @@ Public Class DialogSelectColorManager
         RscColorDisplayLabel1.Text = par_color.MSNetColor.Name
         mod_panelLastSelected = RscColorFlowPanel1
         RscColorDisplayLabel1.Invalidate()
+        ButtonSelect.Visible = True ''Added 10/28/2022
 
     End Sub ''end of ""Private Sub RscColorFlowPanel1_ColorSelected
 
@@ -90,7 +91,18 @@ Public Class DialogSelectColorManager
 
     End Sub
 
-    Private Sub RscElementArrowLeft1_Click(sender As Object, e As EventArgs) Handles RscElementArrowLeft1.Click
+
+    Private Sub RscElementArrowRight_Click(sender As Object, e As EventArgs) _
+        Handles RscElementArrowRight.Click,
+              RscElementArrowRight.Element_LeftClicked
+
+        ''Encapsulation 10/25/2022 
+        SecondSelectionStep
+
+    End Sub
+
+
+    Private Sub SecondSelectionStep()
 
         ''Added 10/24/2022 td
         If (mod_panelLastSelected Is RscColorFlowPanel2) Then
@@ -101,15 +113,26 @@ Public Class DialogSelectColorManager
         End If ''End of ""If (mod_panelLastSelected Is RscColorFlowPanel2) Then""
 
         ''Added 10/24/2022 td
-        mod_panelLastSelected.AddColor(RscColorDisplayLabel1.RSCDisplayColor)
+        ''10/29/2022 mod_panelLastSelected.AddColor(RscColorDisplayLabel1.RSCDisplayColor)
+        ''#1 11/01/2022 RscColorFlowPanel2.AddColor(RscColorDisplayLabel1.RSCDisplayColor)
+        ''#2 11/01/2022 RscColorFlowPanel2.AddColor(RscColorDisplayLabel1.RSCDisplayColor,
+        ''                    RscColorFlowPanel2)
+        RscColorFlowPanel2.AddColor(RscColorDisplayLabel1.RSCDisplayColor)
+
+        RscColorFlowPanel2.Invalidate()
         mod_listRSCColors.Add(RscColorDisplayLabel1.RSCDisplayColor)
+        ''11.01.2022 RscColorDisplayLabel1.Visible = False ''No longer needed.--10/24/2022
         RscColorDisplayLabel1.Visible = False ''No longer needed.--10/24/2022
+        Me.Controls.Remove(RscColorDisplayLabel1) ''Added 11/01/2022
         LabelSelectedColor.Visible = False
+        ButtonSelect.Visible = False
 
     End Sub
 
-    Private Sub RscElementArrowRight1_Click(sender As Object, e As EventArgs) Handles RscElementArrowRight1.Click,
-              RscElementArrowLeft1.Element_LeftClicked
+
+    Private Sub RscElementArrowLeft_Click(sender As Object, e As EventArgs) _
+        Handles RscElementArrowLeft.Click,
+              RscElementArrowLeft.Element_LeftClicked
 
         ''Added 10/24/2022 td
         If (mod_panelLastSelected Is RscColorFlowPanel1) Then
@@ -127,7 +150,13 @@ Public Class DialogSelectColorManager
 
     End Sub
 
-    Private Sub RscElementArrowLeft1_Load(sender As Object, e As EventArgs) Handles RscElementArrowLeft1.Load
+    Private Sub ButtonSelect_Click(sender As Object, e As EventArgs) Handles ButtonSelect.Click
+
+        ''Encapsulation 10/25/2022 
+        SecondSelectionStep()
 
     End Sub
+
+    ''Private Sub RscElementArrowLeft1_Load(sender As Object, e As EventArgs) Handles RscElementArrowRight.Load
+    ''End Sub
 End Class
