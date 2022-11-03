@@ -188,6 +188,8 @@ Public Class RSCColorFlowPanel
                 newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
                 AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
                 .Add(newLabel) ''Added 8/30/2022 
+                ''Added 11/02/2022 td 
+                newLabel.LoadAndDisplayRSCColor(each_RSCColor)
 
             Next each_RSCColor
 

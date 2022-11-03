@@ -119,13 +119,17 @@ Public Class Dialog_BaseChooseColor
         RscColorFlowPanel1.AddLinkLabelForAddingColors()
         ''9/30 td''RscColorFlowPanel1.AddColors_AllPossibleColors(True)
         ''10/12/2022 td''RscColorFlowPanel1.AddColors_FromCache(mod_listRSCColors)
+
         If (mod_listRSCColors Is Nothing) Then
             ''Added 10/12/2022 td  
             System.Diagnostics.Debugger.Break()
             System.Diagnostics.Debug.Assert(False, "RSC Colors is nothing.")
         Else
+
             RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
+
         End If ''End of ""If (mod_listRSCColors Is Nothing) Then... Else.... "" 
+
 
     End Sub
 
@@ -434,6 +438,13 @@ Public Class Dialog_BaseChooseColor
         ''10/28/2022 objFormToShow = New DialogSelectColorManager(listRSCColors, boolConfirmColor)
         objFormToShow = New DialogSelectColorManager(hashsetRSCColors, boolConfirmColor)
         objFormToShow.ShowDialog()
+
+        ''Added 11/02/2022 
+        If (objFormToShow.UserWantsToSave_Okay) Then
+
+            objFormToShow.SaveListOfRSCColors_ToCache(mod_elementsCache)
+
+        End If ''End of ""If (objFormToShow.UserWantsToSave_Okay) Then""
 
 
     End Sub

@@ -94,7 +94,6 @@ Partial Class DialogSelectColorManager
         Me.ButtonCancel.TabIndex = 5
         Me.ButtonCancel.Text = "Cancel"
         Me.ButtonCancel.UseVisualStyleBackColor = False
-        Me.ButtonCancel.Visible = False
         '
         'ButtonOK
         '

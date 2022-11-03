@@ -6,9 +6,31 @@ Imports __RSCWindowsControlLibrary ''Added 10/24/2022
 
 Public Class DialogSelectColorManager
 
+    Public UserCancelled As Boolean ''Added 11/02/2022 td
+    Public UserWantsToSave_Okay As Boolean ''Added 11/02/2022 td
+
     Private mod_listRSCColors As List(Of RSCColor)
     Private mod_hashRSCColors As HashSet(Of RSCColor) ''Added 10/'12/2022
     Private mod_panelLastSelected As RSCColorFlowPanel ''Added 10/24/20222
+
+    Public Sub SaveListOfRSCColors_ToCache(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
+        ''
+        ''This function is to be called if member Me.UserWantsToSave_Okay is True. 
+        ''
+        ''To be called from the same procedure that opened (Show, ShowDialog) this form.
+        ''   ---Added 11/2/2022
+        ''
+        Debug.Assert(mod_listRSCColors.Count =
+                     mod_hashRSCColors.Count) ''Must be True. 
+
+        par_cache.ListOfRSCColors.Clear()
+        For Each eachRSCColor As RSCColor In mod_listRSCColors
+
+            par_cache.ListOfRSCColors.Add(eachRSCColor)
+
+        Next eachRSCColor
+
+    End Sub ''End of ""Public Sub SaveListOfRSCColors_ToCache""
 
 
     Public Sub New(par_listRSCColors As List(Of RSCColor),
@@ -97,7 +119,7 @@ Public Class DialogSelectColorManager
               RscElementArrowRight.Element_LeftClicked
 
         ''Encapsulation 10/25/2022 
-        SecondSelectionStep
+        SecondSelectionStep()
 
     End Sub
 
@@ -154,6 +176,20 @@ Public Class DialogSelectColorManager
 
         ''Encapsulation 10/25/2022 
         SecondSelectionStep()
+
+    End Sub
+
+    Private Sub ButtonOK_Click(sender As Object, e As EventArgs) Handles ButtonOK.Click
+
+        Me.UserWantsToSave_Okay = True
+        Me.Close() '' added 10/2/2022
+
+    End Sub
+
+    Private Sub ButtonCancel_Click(sender As Object, e As EventArgs) Handles ButtonCancel.Click
+
+        Me.UserCancelled = True ' added 10/2/2022
+        Me.Close() ' added 10/2/2022
 
     End Sub
 
