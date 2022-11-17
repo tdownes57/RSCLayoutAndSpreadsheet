@@ -119,7 +119,10 @@ Public Class ClassFixTheControlWidth
         boolDifferentSize = (boolDifferentSize_Height Or boolDifferentSize_Width)
 
         If (boolDifferentSize) Then
-            Throw New Exception($"Uh-oh, the size of control {par_control.Name} differ from the image.")
+            ''Nov16 2022 ''Throw New Exception($"Uh-oh, the size of control {par_control.Name} differ from the image.")
+            __RSC_Error_Logging.RSCErrorLogging.Log(101,
+                   "ImageSizeDiffersFromControl",
+                   $"Uh-oh, the size of control {par_control.Name} differ from the image.")
         End If ''End of "If (boolDifferentSize) Then"
 
         Return boolDifferentSize

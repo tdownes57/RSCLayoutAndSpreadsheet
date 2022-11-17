@@ -807,6 +807,10 @@
       <Project>{3d6a51a2-395e-467f-a3c4-8d6ed1da961e}</Project>
       <Name>MoveAndResizeControls_Monem</Name>
     </ProjectReference>
+    <ProjectReference Include="..\__RSC Error Logging\__RSC Error Logging.csproj">
+      <Project>{5cace48f-7c22-4325-99e6-00b62c926ee3}</Project>
+      <Name>__RSC Error Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\__RSCWindowsControlLibrary\__RSC WindowsControlLibrary.vbproj">
       <Project>{31515965-90e3-4352-9f01-61141129b29f}</Project>
       <Name>__RSC WindowsControlLibrary</Name>

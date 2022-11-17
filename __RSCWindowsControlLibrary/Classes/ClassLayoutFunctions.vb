@@ -12,10 +12,15 @@ Public Class ClassLayoutFunctions
             ''Throw New NotImplementedException()
             '9/1/2022 Throw New NotImplementedException()
             System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(101, "Public Prop ControlBeingModified",
+                  "Prop is not implemented") ''Added 11/16/2022
 
         End Get
         Set(value As Control)
             ''Throw New NotImplementedException()
+            __RSC_Error_Logging.RSCErrorLogging.Log(102,
+                                                    "Public Prop ControlBeingModified",
+                  "Prop is not implemented") ''Added 11/16/2022
         End Set
     End Property
 
@@ -24,10 +29,14 @@ Public Class ClassLayoutFunctions
             ''Throw New NotImplementedException()
             '9/1/2022 Throw New NotImplementedException()
             System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(103, "Property ControlBeingMoved",
+                  "Property Get is not implemented") ''Added 11/16/2022
 
         End Get
         Set(value As Control)
             ''Throw New NotImplementedException()
+            __RSC_Error_Logging.RSCErrorLogging.Log(104, "Property ControlBeingMoved",
+                  "Property Set is not implemented") ''Added 11/16/2022
         End Set
     End Property
 
@@ -38,10 +47,16 @@ Public Class ClassLayoutFunctions
             ''Throw New NotImplementedException()
             ''9/1/2022 Throw New NotImplementedException()
             System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(105,
+                                                    "Property ControlThatWasClicked",
+                  "Property Get is not implemented") ''Added 11/16/2022
 
         End Get
         Set(value As Control)
             ''Throw New NotImplementedException()
+            __RSC_Error_Logging.RSCErrorLogging.Log(106,
+                                                    "Property ControlThatWasClicked",
+                  "Property Set is not implemented") ''Added 11/16/2022
         End Set
     End Property
 
@@ -49,30 +64,43 @@ Public Class ClassLayoutFunctions
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        __RSC_Error_Logging.RSCErrorLogging.Log(107, "Public Sub AutoPreview_IfChecked",
+                  "AutoPreview_IfChecked is not implemented") ''Added 11/16/2022
+
     End Sub
 
     Public Sub RedrawForm() Implements ILayoutFunctions.RedrawForm
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        __RSC_Error_Logging.RSCErrorLogging.Log(108, "Public Sub RedrawForm",
+                  "Property Set is not implemented") ''Added 11/16/2022
+
     End Sub
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        __RSC_Error_Logging.RSCErrorLogging.Log(109,
+                  "Public Function Layout_Width_Pixels",
+                  "Function is not implemented") ''Added 11/16/2022
     End Function
 
     Public Function Layout_Height_Pixels() As Integer Implements ILayoutFunctions.Layout_Height_Pixels
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        __RSC_Error_Logging.RSCErrorLogging.Log(110, "Public Fun Layout_Height_Pixels",
+                  "Function is not implemented") ''Added 11/16/2022
     End Function
 
     Public Function Layout_Margin_Left_Omit(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Omit
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        __RSC_Error_Logging.RSCErrorLogging.Log(111, "Public Fun Layout_Height_Pixels",
+                  "Function is not implemented") ''Added 11/16/2022
     End Function
 
     Public Function Layout_Margin_Left_Add(par_intPixelsLeft As Integer) As Integer Implements ILayoutFunctions.Layout_Margin_Left_Add

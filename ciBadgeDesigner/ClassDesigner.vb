@@ -319,7 +319,12 @@ Public Class ClassDesigner
                     bRemovalHadToBeDoneThisPass = True
                     Me.DesignerForm.Controls.Remove(eachCtl)
                     bConfirmDeleted = (listFormControls.Count = (-1 + intFormControlCount))
-                    If (Not bConfirmDeleted) Then Throw New Exception("Should be 1 less.")
+                    If (Not bConfirmDeleted) Then
+                        ''11/16/2022 Throw New Exception("Should be 1 less (listFormControls.Count = -1 + intFormControlCount).")
+                        __RSC_Error_Logging.RSCErrorLogging.Log(102,
+                             "Public Sub UnloadDesigner",
+                             "Should be 1 less (listFormControls.Count = -1 + intFormControlCount).") ''Added 11/16/2022
+                    End If ''End of ""If (Not bConfirmDeleted) Then""
                 End If ''End of "If (listFormControls.Contains(eachCtl)) Then"
 
                 ''Prepare for next iteration.

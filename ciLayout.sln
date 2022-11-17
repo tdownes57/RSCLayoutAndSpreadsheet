@@ -73,11 +73,13 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Can_A_Control_Exist_In_Two_
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Can_Draw_LinearGradientBrush2", "Can_Draw_LinearGradientBrush2\Can_Draw_LinearGradientBrush2.vbproj", "{43140447-EDBA-4692-97B5-81D465E66F1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC_IDRecipients_API_NoAzureAD", "__RSC_IDRecipientsAPI\__RSC_IDRecipients_API_NoAzureAD.csproj", "{6492150A-4845-4B40-A8CA-15E950E0B55D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "__RSC_IDRecipients_API_NoAzureAD", "__RSC_IDRecipientsAPI\__RSC_IDRecipients_API_NoAzureAD.csproj", "{6492150A-4845-4B40-A8CA-15E950E0B55D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC_IDRecipients_RESTfulAPI_NoAuth", "__RSC_IDRecipients_RESTfulAPI\__RSC_IDRecipients_RESTfulAPI_NoAuth.csproj", "{4A2C9660-25B6-4D09-BAF6-CD80011669DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "__RSC_IDRecipients_RESTfulAPI_NoAuth", "__RSC_IDRecipients_RESTfulAPI\__RSC_IDRecipients_RESTfulAPI_NoAuth.csproj", "{4A2C9660-25B6-4D09-BAF6-CD80011669DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC_IDRecipients_REST_API_AzureAD", "__RSC_IDRecipients_REST_API\__RSC_IDRecipients_REST_API_AzureAD.csproj", "{3039CF79-E206-4E57-AB4B-80E55961553E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "__RSC_IDRecipients_REST_API_AzureAD", "__RSC_IDRecipients_REST_API\__RSC_IDRecipients_REST_API_AzureAD.csproj", "{3039CF79-E206-4E57-AB4B-80E55961553E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC Error Logging", "__RSC Error Logging\__RSC Error Logging.csproj", "{5CACE48F-7C22-4325-99E6-00B62C926EE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -391,6 +393,14 @@ Global
 		{3039CF79-E206-4E57-AB4B-80E55961553E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3039CF79-E206-4E57-AB4B-80E55961553E}.Release|x86.ActiveCfg = Release|Any CPU
 		{3039CF79-E206-4E57-AB4B-80E55961553E}.Release|x86.Build.0 = Release|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Debug|x86.Build.0 = Debug|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Release|x86.ActiveCfg = Release|Any CPU
+		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

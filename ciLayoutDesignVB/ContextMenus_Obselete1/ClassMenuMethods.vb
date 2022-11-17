@@ -87,7 +87,9 @@ Friend Class ClassMenuMethods
         ''
         ''Added 9/22/2019 thomas d. 
         ''
-        Throw New NotImplementedException("We use Reflection instead.  Find [.AddEventHandler] in this project.")
+        ''//--11/16/2022--Throw New NotImplementedException("We use Reflection instead.  Find [.AddEventHandler] in this project.")
+        __RSC_Error_Logging.RSCErrorLogging.Log(123, "AddEventHandlerLinkClicked",
+                    "We use Reflection instead.  Find [.AddEventHandler] in this project.")
 
         Select Case par_link.Text.ToUpper
 

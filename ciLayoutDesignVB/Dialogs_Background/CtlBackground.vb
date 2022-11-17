@@ -147,8 +147,12 @@ Public Class CtlBackground
             ''Dec.7 2021 ''Me.ParentListingForm.LoadSelection(Me)
             If (Me.ParentListingForm Is Nothing) Then
                 ''Dec. 7 2021 thomas downes
-                MessageBox.Show("Unfortunately the image selected cannot be fully selected")
-                Throw New Exception("Unfortunately we don't have a link to the parent form!!")
+                ''11/16/2022 MessageBox.Show("Unfortunately the image selected cannot be fully selected")
+                MessageBoxTD.Show_Statement("Unfortunately the image selected cannot be fully selected")
+                ''11/16/2022 Throw New Exception("Unfortunately we don't have a link to the parent form!!")
+                __RSC_Error_Logging.RSCErrorLogging.Log(124, "We don't have a link to the parent form.",
+                        "checkSelection_CheckedChanged")
+
             Else
                 ''
                 ''Propagate the selection to the parent form. ---5/17/2022
