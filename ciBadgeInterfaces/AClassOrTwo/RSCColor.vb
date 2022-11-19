@@ -1,5 +1,9 @@
 ﻿Option Explicit On
 Option Strict On
+
+Imports System.Drawing
+Imports System.Xml.Serialization ''Added 9/5/2022 & 9/24/2019 td
+
 ''
 ''Added 7/09/2022 thomas downes  
 ''
@@ -50,10 +54,27 @@ Public Class RSCColor
     End Sub
 
 
+    <XmlIgnore>
     Public Property MSNetColor As Drawing.Color ''Added 7/09/2022 thomas downes
     Public Property Name As String = "" ''Added 7/09/2022 thomas downes
     Public Property Description As String = "" ''Added 7/09/2022 thomas downes
     Public Property MSNetColorName As String = "" ''Added 9/30 /2022 thomas downes
+
+
+    <XmlElement("MSNetColor")>
+    Public Property Color_HTML As String
+        Get
+            ''Added 11/18/2022 td
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            Return ColorTranslator.ToHtml(MSNetColor)
+        End Get
+        Set(value As String)
+            ''Added 11/18/2022 td
+            ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
+            MSNetColor = ColorTranslator.FromHtml(value)
+        End Set
+    End Property
+
 
     Public Overrides Function ToString() As String
         ''

@@ -95,7 +95,17 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
         ''Added 10/28/2022
         ''
         ' Add any initialization after the InitializeComponent() call.
-        Me.BackColor = par_rscColor.MSNetColor
+        ''11/18/2022 Me.BackColor = par_rscColor.MSNetColor
+
+        ''Added 11/18/2022
+        Dim objColorMSNet As Drawing.Color
+        objColorMSNet = par_rscColor.MSNetColor
+        If (objColorMSNet = Color.Empty) Then
+            objColorMSNet = Color.Black
+            par_rscColor.MSNetColor = Color.Black
+        End If ''End of ""If (objColorMSNet = Color.Empty) Then""
+        Me.BackColor = objColorMSNet
+
         Me.Text = par_rscColor.MSNetColor.Name
         mod_rscDisplayColor = par_rscColor
 

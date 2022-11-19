@@ -18,7 +18,7 @@ Public Class DialogSelectColorManager
         ''This function is to be called if member Me.UserWantsToSave_Okay is True. 
         ''
         ''To be called from the same procedure that opened (Show, ShowDialog) this form.
-        ''   ---Added 11/2/2022
+        ''   ---Added 11/j2/2022
         ''
         Debug.Assert(mod_listRSCColors.Count =
                      mod_hashRSCColors.Count) ''Must be True. 
@@ -125,7 +125,10 @@ Public Class DialogSelectColorManager
 
 
     Private Sub SecondSelectionStep()
-
+        ''
+        ''As the user has confirmed his color-selection once or even twice,
+        ''   we need to add the color to the list of saved colors.---11/16/2022
+        ''
         ''Added 10/24/2022 td
         If (mod_panelLastSelected Is RscColorFlowPanel2) Then
             ''Added 10/24/2022 td
@@ -143,7 +146,11 @@ Public Class DialogSelectColorManager
 
         RscColorFlowPanel2.Invalidate()
         mod_listRSCColors.Add(RscColorDisplayLabel1.RSCDisplayColor)
+        mod_hashRSCColors.Add(RscColorDisplayLabel1.RSCDisplayColor)
         ''11.01.2022 RscColorDisplayLabel1.Visible = False ''No longer needed.--10/24/2022
+
+ExitHandler:
+        ''Remove the control from the bottom-center of the form. ---11/16/2022
         RscColorDisplayLabel1.Visible = False ''No longer needed.--10/24/2022
         Me.Controls.Remove(RscColorDisplayLabel1) ''Added 11/01/2022
         LabelSelectedColor.Visible = False
@@ -167,6 +174,7 @@ Public Class DialogSelectColorManager
         ''Added 10/24/2022 td
         mod_panelLastSelected.RemoveColor(RscColorDisplayLabel1.RSCDisplayColor)
         mod_listRSCColors.Remove(RscColorDisplayLabel1.RSCDisplayColor)
+        mod_hashRSCColors.Remove(RscColorDisplayLabel1.RSCDisplayColor)
         RscColorDisplayLabel1.Visible = False ''No longer needed.--10/24/2022
         LabelSelectedColor.Visible = False
 

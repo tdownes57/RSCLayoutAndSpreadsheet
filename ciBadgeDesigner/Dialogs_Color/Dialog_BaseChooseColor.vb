@@ -112,7 +112,15 @@ Public Class Dialog_BaseChooseColor
         ''
         '' Added 3/4/2022 thomas downes
         ''
+        RefreshFlowPanel() ''Encapsulated 11/18/2022
 
+    End Sub
+
+
+    Private Sub RefreshFlowPanel(Optional par_hashsetColors As HashSet(Of RSCColor) = Nothing)
+        ''
+        ''Encapsulated 11/18/2022
+        ''
         ''Added 8/30/2022 thomas downes
         RscColorFlowPanel1.Controls.Clear()
         ''--RscColorFlowPanel1.AddColors_BlackAndWhite()
@@ -120,18 +128,25 @@ Public Class Dialog_BaseChooseColor
         ''9/30 td''RscColorFlowPanel1.AddColors_AllPossibleColors(True)
         ''10/12/2022 td''RscColorFlowPanel1.AddColors_FromCache(mod_listRSCColors)
 
-        If (mod_listRSCColors Is Nothing) Then
+        If (par_hashsetColors IsNot Nothing) Then
+            ''Added 11/18/2022  td
+            mod_listRSCColors = par_hashsetColors.ToList()
+            ''11/2022 RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
+            RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors, True)
+
+        ElseIf (mod_listRSCColors Is Nothing) Then
             ''Added 10/12/2022 td  
             System.Diagnostics.Debugger.Break()
             System.Diagnostics.Debug.Assert(False, "RSC Colors is nothing.")
         Else
 
-            RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
+            ''11/2022 RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
+            RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors, True)
 
         End If ''End of ""If (mod_listRSCColors Is Nothing) Then... Else.... "" 
 
 
-    End Sub
+    End Sub ''End of ""Private Sub RefreshFlowPanel()""
 
 
     Private Sub AddColors_AllPossibleColors_NotUsed()
@@ -445,6 +460,12 @@ Public Class Dialog_BaseChooseColor
             objFormToShow.SaveListOfRSCColors_ToCache(mod_elementsCache)
 
         End If ''End of ""If (objFormToShow.UserWantsToSave_Okay) Then""
+
+        ''Added 11/18/2022 
+        ''--RscColorFlowPanel1.AddColors_FromList()
+        RefreshFlowPanel(mod_elementsCache.ListOfRSCColors)
+
+
 
 
     End Sub

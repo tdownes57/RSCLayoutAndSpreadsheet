@@ -179,10 +179,12 @@ Public Class RSCColorFlowPanel
 
                 countColors += 1
                 each_colorMS = each_RSCColor.MSNetColor
+                If (each_colorMS = Color.Empty) Then each_colorMS = Color.Black
 
                 Dim newLabel As New RSCColorDisplayLabel
                 newLabel.BackColor = each_colorMS
-                newLabel.Text = each_colorMS.Name
+                ''11/2022 newLabel.Text = each_colorMS.Name
+                newLabel.Text = each_RSCColor.MSNetColorName
                 newLabel.Visible = True
                 newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
                 newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
@@ -198,9 +200,10 @@ Public Class RSCColorFlowPanel
         ''Added 9/30/2022 
         intNumberOfColors = flowPanelDockFull.Controls.Count
         flowPanelDockFull.Visible = True
-        flowPanelDockFull.Refresh()
+        ''11/2022 flowPanelDockFull.Refresh()
+        flowPanelDockFull.Invalidate()
 
-    End Sub ''Endof ""Public Sub AddColors_AllPossibleColors()""
+    End Sub ''Endof ""Public Sub AddColors_FromList()""
 
 
 
