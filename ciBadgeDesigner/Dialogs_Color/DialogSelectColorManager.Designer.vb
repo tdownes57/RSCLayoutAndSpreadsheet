@@ -22,6 +22,7 @@ Partial Class DialogSelectColorManager
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DialogSelectColorManager))
         Me.RscColorFlowPanel1 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.RscColorFlowPanel2 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
@@ -34,12 +35,12 @@ Partial Class DialogSelectColorManager
         Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ButtonSelect = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
         'RscColorFlowPanel1
         '
         Me.RscColorFlowPanel1.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.RscColorFlowPanel1.ConfirmColorSelection = False
         Me.RscColorFlowPanel1.Location = New System.Drawing.Point(12, 46)
         Me.RscColorFlowPanel1.Name = "RscColorFlowPanel1"
         Me.RscColorFlowPanel1.Size = New System.Drawing.Size(421, 260)
@@ -48,8 +49,7 @@ Partial Class DialogSelectColorManager
         'RscColorFlowPanel2
         '
         Me.RscColorFlowPanel2.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.RscColorFlowPanel2.ConfirmColorSelection = False
-        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(587, 46)
+        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(594, 46)
         Me.RscColorFlowPanel2.Name = "RscColorFlowPanel2"
         Me.RscColorFlowPanel2.Size = New System.Drawing.Size(421, 260)
         Me.RscColorFlowPanel2.TabIndex = 1
@@ -59,28 +59,30 @@ Partial Class DialogSelectColorManager
         Me.RscElementArrowRight.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscElementArrowRight.ElementInfo_Base = Nothing
         Me.RscElementArrowRight.ImageLocation = Nothing
-        Me.RscElementArrowRight.Location = New System.Drawing.Point(455, 137)
+        Me.RscElementArrowRight.Location = New System.Drawing.Point(433, 74)
         Me.RscElementArrowRight.Margin = New System.Windows.Forms.Padding(2)
         Me.RscElementArrowRight.MoveabilityEventsForGroupCtls = Nothing
         Me.RscElementArrowRight.MoveabilityEventsForSingleMove = Nothing
         Me.RscElementArrowRight.Name = "RscElementArrowRight"
-        Me.RscElementArrowRight.Size = New System.Drawing.Size(98, 27)
+        Me.RscElementArrowRight.Size = New System.Drawing.Size(156, 90)
         Me.RscElementArrowRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.RscElementArrowRight.TabIndex = 2
+        Me.ToolTip1.SetToolTip(Me.RscElementArrowRight, "Select the Color for General Use")
         '
         'RscElementArrowLeft
         '
         Me.RscElementArrowLeft.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscElementArrowLeft.ElementInfo_Base = Nothing
         Me.RscElementArrowLeft.ImageLocation = Nothing
-        Me.RscElementArrowLeft.Location = New System.Drawing.Point(455, 168)
+        Me.RscElementArrowLeft.Location = New System.Drawing.Point(433, 165)
         Me.RscElementArrowLeft.Margin = New System.Windows.Forms.Padding(2)
         Me.RscElementArrowLeft.MoveabilityEventsForGroupCtls = Nothing
         Me.RscElementArrowLeft.MoveabilityEventsForSingleMove = Nothing
         Me.RscElementArrowLeft.Name = "RscElementArrowLeft"
-        Me.RscElementArrowLeft.Size = New System.Drawing.Size(98, 29)
+        Me.RscElementArrowLeft.Size = New System.Drawing.Size(156, 90)
         Me.RscElementArrowLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.RscElementArrowLeft.TabIndex = 3
+        Me.ToolTip1.SetToolTip(Me.RscElementArrowLeft, "Deselect the color from general use.")
         '
         'ButtonCancel
         '
@@ -152,7 +154,7 @@ Partial Class DialogSelectColorManager
         '
         Me.ButtonSelect.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelect.BackColor = System.Drawing.Color.PaleGreen
-        Me.ButtonSelect.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonSelect.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ButtonSelect.Location = New System.Drawing.Point(406, 280)
         Me.ButtonSelect.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonSelect.Name = "ButtonSelect"
@@ -168,6 +170,7 @@ Partial Class DialogSelectColorManager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1091, 356)
         Me.Controls.Add(Me.ButtonSelect)
+        Me.Controls.Add(Me.RscColorFlowPanel2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.LabelSelectedColor)
@@ -176,7 +179,6 @@ Partial Class DialogSelectColorManager
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.RscElementArrowLeft)
         Me.Controls.Add(Me.RscElementArrowRight)
-        Me.Controls.Add(Me.RscColorFlowPanel2)
         Me.Controls.Add(Me.RscColorFlowPanel1)
         Me.Name = "DialogSelectColorManager"
         Me.Text = "DialogSelectColorManager"
@@ -196,4 +198,5 @@ Partial Class DialogSelectColorManager
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents ButtonSelect As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

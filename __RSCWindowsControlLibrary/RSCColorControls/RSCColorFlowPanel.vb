@@ -9,10 +9,10 @@ Public Class RSCColorFlowPanel
     ''
     ''Added 8/30/2022
     ''
-    Public Event ColorSelected(par_color As RSCColor) ''Added 10/24/2022
+    Public Shared Event ColorSelected(par_color As RSCColor) ''Added 10/24/2022
 
     Private mod_listMSColors_NotUsed As New List(Of Drawing.Color)
-    Private mboolConfirm As Boolean ''Added 10/24/2022
+    Private Shared mboolConfirm As Boolean ''Added 10/24/2022
 
     Public Sub New()
 
@@ -23,7 +23,19 @@ Public Class RSCColorFlowPanel
 
     End Sub
 
-    Public Property ConfirmColorSelection() As Boolean
+
+    ''11/21/2022 Public Sub LoadColors_FromList(par_controlPanel As ContainerControl,
+    ''                               par_listOfRSCColors As List(Of RSCColor))
+    ''    ''
+    ''    ''Added this "Alias" function, 11/19/2022 td 
+    ''    ''
+    ''    AddColors_FromList(par_controlPanel,
+    ''                               par_listOfRSCColors, True)
+    '' 
+    ''End Sub
+
+
+    Public Shared Property ConfirmColorSelection() As Boolean
         Get ''Added 10/24/2022
             Return mboolConfirm
         End Get
@@ -149,7 +161,37 @@ Public Class RSCColorFlowPanel
     End Sub ''Endof ""Public Sub AddColors_AllPossibleColors()""
 
 
+    Public Sub RefreshColors_FromList(par_listOfRSCColors As List(Of RSCColor))
+        ''
+        ''Added this "Alias" function, 11/19/2022 td 
+        ''
+        AddColors_FromList(par_listOfRSCColors, True)
+
+    End Sub ''Public Sub RefreshColors_FromList(par_listOfRSCColors As List(Of RSCColor)
+
+
+    Public Sub LoadColors_FromList(par_listOfRSCColors As List(Of RSCColor))
+        ''
+        ''Added this "Alias" function, 11/19/2022 td 
+        ''
+        AddColors_FromList(par_listOfRSCColors, True)
+
+    End Sub ''Public Sub LoadColors_FromList(par_listOfRSCColors As List(Of RSCColor)
+
+
     Public Sub AddColors_FromList(par_listOfRSCColors As List(Of RSCColor),
+                       Optional pbClearExistingControls As Boolean = False,
+                       Optional par_FlowPanel As FlowLayoutPanel = Nothing)
+        ''
+        ''Added this overloaded function, 11/21/2022 td 
+        ''
+        AddColors_FromList(flowPanelDockFull, par_listOfRSCColors, True)
+
+    End Sub ''Public Sub AddColors_FromList(par_listOfRSCColors As List(Of RSCColor)
+
+
+    Public Shared Sub AddColors_FromList(par_FlowPanel As FlowLayoutPanel,
+                                         par_listOfRSCColors As List(Of RSCColor),
                        Optional pbClearExistingControls As Boolean = False)
         ''
         ''Added 8/30/2022 td 
@@ -161,12 +203,17 @@ Public Class RSCColorFlowPanel
         Dim countColors As Integer ''Added 9/30/2022 
 
         ''boolOmitUI = pbOmitUIRelatedColors
+        ''Added 11/21/2022
+        ''#2 11/21/2022 If (par_FlowPanel Is Nothing) Then ''Added 11/21/2022
+        ''#2 11/21/2022   par_FlowPanel = flowPanelDockFull
+        ''#2 11/21/2022 End If
 
-        With flowPanelDockFull.Controls
+        ''11/21/2022 With flowPanelDockFull.Controls
+        With par_FlowPanel ''.Controls
 
             ''Added 9/30/2022 thomas downes
             If (pbClearExistingControls) Then
-                .Clear() ''Remove existing controls.
+                .Controls.Clear() ''Remove existing controls.
             End If ''\end of ""If (pbClearExistingControls) Then""
 
             ''arrayOfColorNames = [Enum].GetNames(GetType(System.Drawing.KnownColor))
@@ -186,10 +233,10 @@ Public Class RSCColorFlowPanel
                 ''11/2022 newLabel.Text = each_colorMS.Name
                 newLabel.Text = each_RSCColor.MSNetColorName
                 newLabel.Visible = True
-                newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
-                newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
+                ''11/21/2022 newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
+                ''11/21/2022 newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
                 AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
-                .Add(newLabel) ''Added 8/30/2022 
+                .Controls.Add(newLabel) ''Added 8/30/2022 
                 ''Added 11/02/2022 td 
                 newLabel.LoadAndDisplayRSCColor(each_RSCColor)
 
@@ -198,10 +245,12 @@ Public Class RSCColorFlowPanel
         End With ''End of ""With FlowLayoutPanel1.Controls""
 
         ''Added 9/30/2022 
-        intNumberOfColors = flowPanelDockFull.Controls.Count
-        flowPanelDockFull.Visible = True
+        ''11/21/2022 intNumberOfColors = flowPanelDockFull.Controls.Count
+        ''11/21/2022 flowPanelDockFull.Visible = True
+        intNumberOfColors = par_FlowPanel.Controls.Count
+        par_FlowPanel.Visible = True
         ''11/2022 flowPanelDockFull.Refresh()
-        flowPanelDockFull.Invalidate()
+        ''flowPanelDockFull.Invalidate()
 
     End Sub ''Endof ""Public Sub AddColors_FromList()""
 
@@ -358,7 +407,7 @@ Public Class RSCColorFlowPanel
     End Sub ''Endof ""Public Sub AddLinkLabelForAddingColors()""
 
 
-    Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs)
+    Public Shared Sub NetDrawingColor_Click(sender As Object, e As EventArgs)
         ''
         ''8/22/2022 thomas downes
         ''
@@ -383,7 +432,7 @@ Public Class RSCColorFlowPanel
         With objFormToShow
 
             ''Show the modal UI to the user. 
-            If (Me.ConfirmColorSelection) Then ''Added 10/25/2022
+            If (ConfirmColorSelection) Then ''Added 10/25/2022
                 ''Show the modal UI to the user. 
                 .ShowDialog()
             ElseIf (FormRSCColorConfirmTiny.DontShowDialogAgain) Then ''Added 10/28/2022
@@ -429,7 +478,7 @@ ExitHandler:
             RaiseEvent ColorSelected(rscColorSelected) ''Added 10/25/2022 
         End If ''End of ""If (Not boolUserCancels) Then""
 
-    End Sub ''End of ""Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs)""
+    End Sub ''End of ""Public Shared Sub NetDrawingColor_Click(sender As Object, e As EventArgs)""
 
 
 End Class

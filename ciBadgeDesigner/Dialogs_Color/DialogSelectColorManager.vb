@@ -43,8 +43,9 @@ Public Class DialogSelectColorManager
         mod_listRSCColors = par_listRSCColors
 
         ''Added 10/28/2022 thomas downes
-        RscColorFlowPanel1.ConfirmColorSelection = par_bConfirmColor
-        RscColorFlowPanel2.ConfirmColorSelection = par_bConfirmColor
+        ''11/2022 RscColorFlowPanel1.ConfirmColorSelection = par_bConfirmColor
+        ''11/2022 RscColorFlowPanel2.ConfirmColorSelection = par_bConfirmColor
+        RSCColorFlowPanel.ConfirmColorSelection = par_bConfirmColor
 
     End Sub
 
@@ -58,8 +59,9 @@ Public Class DialogSelectColorManager
         mod_hashRSCColors = par_hashRSCColors
 
         ''Added 10/28/2022 thomas downes
-        RscColorFlowPanel1.ConfirmColorSelection = par_bConfirmColor
-        RscColorFlowPanel2.ConfirmColorSelection = par_bConfirmColor
+        ''11/2022 RscColorFlowPanel1.ConfirmColorSelection = par_bConfirmColor
+        ''11/2022 RscColorFlowPanel2.ConfirmColorSelection = par_bConfirmColor
+        RSCColorFlowPanel.ConfirmColorSelection = par_bConfirmColor
 
     End Sub
 
