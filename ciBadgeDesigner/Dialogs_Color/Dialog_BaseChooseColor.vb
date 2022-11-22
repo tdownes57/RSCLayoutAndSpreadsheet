@@ -122,33 +122,39 @@ Public Class Dialog_BaseChooseColor
         ''
         ''Encapsulated 11/18/2022
         ''
+        RSCColorFlowPanel.RefreshColors_FromList(FlowLayoutPanel1, mod_listRSCColors)
+
+        ''Refresh the alternate panel.  (It's a competition, to see which container will 
+        ''  be chosen to be the UI control.)
+        RscColorFlowPanel2.RefreshColors_FromList(mod_listRSCColors)
+
         ''Added 8/30/2022 thomas downes
-        RscColorFlowPanelNew.Controls.Clear()
-        ''--RscColorFlowPanel1.AddColors_BlackAndWhite()
-        RscColorFlowPanelNew.AddLinkLabelForAddingColors()
-        ''9/30 td''RscColorFlowPanel1.AddColors_AllPossibleColors(True)
-        ''10/12/2022 td''RscColorFlowPanel1.AddColors_FromCache(mod_listRSCColors)
+        ''RscColorFlowPanelNew.Controls.Clear()
+        ''''--RscColorFlowPanel1.AddColors_BlackAndWhite()
+        ''RscColorFlowPanelNew.AddLinkLabelForAddingColors()
+        ''''9/30 td''RscColorFlowPanel1.AddColors_AllPossibleColors(True)
+        ''''10/12/2022 td''RscColorFlowPanel1.AddColors_FromCache(mod_listRSCColors)
 
-        If (par_hashsetColors IsNot Nothing) Then
-            ''Added 11/18/2022  td
-            mod_listRSCColors = par_hashsetColors.ToList()
-            ''#1 11/18/2022 RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
-            ''#2 11/19/2022 RscColorFlowPanelNew.AddColors_FromList(mod_listRSCColors, True)
-            RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
+        ''If (par_hashsetColors IsNot Nothing) Then
+        ''    ''Added 11/18/2022  td
+        ''    mod_listRSCColors = par_hashsetColors.ToList()
+        ''    ''#1 11/18/2022 RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
+        ''    ''#2 11/19/2022 RscColorFlowPanelNew.AddColors_FromList(mod_listRSCColors, True)
+        ''    RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
 
-        ElseIf (mod_listRSCColors Is Nothing) Then
-            ''Added 10/12/2022 td  
-            System.Diagnostics.Debugger.Break()
-            System.Diagnostics.Debug.Assert(False, "RSC Colors is nothing.")
-            RSCErrorLogging.Log(57, "RefreshFlowPanel", "RSC Colors is nothing")
+        ''ElseIf (mod_listRSCColors Is Nothing) Then
+        ''    ''Added 10/12/2022 td  
+        ''    System.Diagnostics.Debugger.Break()
+        ''    System.Diagnostics.Debug.Assert(False, "RSC Colors is nothing.")
+        ''    RSCErrorLogging.Log(57, "RefreshFlowPanel", "RSC Colors is nothing")
 
-        Else
+        ''Else
 
-            ''#1 11/18/2022 RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
-            ''#2 11/19/2022 RscColorFlowPanelNew.AddColors_FromList(mod_listRSCColors, True)
-            RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
+        ''    ''#1 11/18/2022 RscColorFlowPanel1.AddColors_FromList(mod_listRSCColors)
+        ''    ''#2 11/19/2022 RscColorFlowPanelNew.AddColors_FromList(mod_listRSCColors, True)
+        ''    RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
 
-        End If ''End of ""If (mod_listRSCColors Is Nothing) Then... ElseIf.... Else..."" 
+        ''End If ''End of ""If (mod_listRSCColors Is Nothing) Then... ElseIf.... Else..."" 
 
 
     End Sub ''End of ""Private Sub RefreshFlowPanel()""
@@ -230,23 +236,23 @@ Public Class Dialog_BaseChooseColor
         ''        mod_colors.Add(Drawing.Color.
         ''        mod_colors.Add(Drawing.Color.
 
-        RscColorFlowPanelNew.Controls.Clear()
+        ''11/2022 RscColorFlowPanelNew.Controls.Clear()
 
-        For Each each_color In mod_listMSColors_Unused ''List(Of Drawing.Color)
+        ''11/2022 For Each each_color In mod_listMSColors_Unused ''List(Of Drawing.Color)
 
-            Dim newLabel As New RSCColorDisplayLabel
-            newLabel.BackColor = each_color
-            newLabel.Text = each_color.Name
-            newLabel.Visible = True
-            AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
+        ''    Dim newLabel As New RSCColorDisplayLabel
+        ''    newLabel.BackColor = each_color
+        ''    newLabel.Text = each_color.Name
+        ''    newLabel.Visible = True
+        ''    AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
 
-            ''newLabel.ToolTip
-            ''Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
-            Me.ToolTip1.SetToolTip(newLabel, each_color.Name)
+        ''    ''newLabel.ToolTip
+        ''    ''Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
+        ''    Me.ToolTip1.SetToolTip(newLabel, each_color.Name)
 
-            RscColorFlowPanelNew.Controls.Add(newLabel)
+        ''    RscColorFlowPanelNew.Controls.Add(newLabel)
 
-        Next each_color
+        ''Next each_color
 
     End Sub ''End of ""Private Sub AddColors_AllPossibleColors_NotUsed""   
 
@@ -437,9 +443,9 @@ Public Class Dialog_BaseChooseColor
 
     End Sub
 
-    Private Sub RscColorFlowPanel1_Load(sender As Object, e As EventArgs) Handles RscColorFlowPanelNew.Load
+    ''11/2022 Private Sub RscColorFlowPanel1_Load(sender As Object, e As EventArgs) Handles RscColorFlowPanelNew.Load
 
-    End Sub
+    ''11/2022 End Sub
 
     Private Sub LinkLabelAddColor1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddColor1.LinkClicked
         ''
@@ -464,21 +470,22 @@ Public Class Dialog_BaseChooseColor
 
             objFormToShow.SaveListOfRSCColors_ToCache(mod_elementsCache)
 
+            ''Added 11/18/2022 
+            ''--RscColorFlowPanel1.AddColors_FromList()
+            ''11/2022 RefreshFlowPanel(mod_elementsCache.ListOfRSCColors)
+            mod_hashRSCColors = mod_elementsCache.ListOfRSCColors()
+            mod_listRSCColors = mod_elementsCache.ListOfRSCColors().ToList()
+            RefreshFlowPanel(mod_hashRSCColors)
+
         End If ''End of ""If (objFormToShow.UserWantsToSave_Okay) Then""
-
-        ''Added 11/18/2022 
-        ''--RscColorFlowPanel1.AddColors_FromList()
-        RefreshFlowPanel(mod_elementsCache.ListOfRSCColors)
-
-
-
 
     End Sub
 
     Private Sub LinkLabelRefreshColors_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelRefreshColors.LinkClicked
 
         ''Added 11/21/2022
-        RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
+        ''RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
+        RSCColorFlowPanel.RefreshColors_FromList(FlowLayoutPanel1, mod_listRSCColors)
 
 
     End Sub

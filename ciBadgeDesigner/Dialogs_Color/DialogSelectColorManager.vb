@@ -70,27 +70,27 @@ Public Class DialogSelectColorManager
         ''
         '' Added 9/30/2022 td
         ''
-        RscColorFlowPanel1.AddColors_AllPossibleColors(True)
-        RscColorFlowPanel1.Refresh()
+        RscColorFlowPanel1All.AddColors_AllPossibleColors(True)
+        RscColorFlowPanel1All.Refresh()
 
         If (mod_listRSCColors IsNot Nothing) Then ''Conditioned 10/12/2022 thomas downes
 
-            RscColorFlowPanel2.AddColors_FromList(mod_listRSCColors, False)
+            RscColorFlowPanel2Chosen.AddColors_FromList(mod_listRSCColors, False)
 
         ElseIf (mod_hashRSCColors IsNot Nothing) Then ''Added 10/12/2022 thomas downes
             ''
             ''Added 10/12/2022 thomas downes
             ''
             mod_listRSCColors = mod_hashRSCColors.ToList()
-            RscColorFlowPanel2.AddColors_FromList(mod_listRSCColors, False)
+            RscColorFlowPanel2Chosen.AddColors_FromList(mod_listRSCColors, False)
 
         End If ''End of ""If (mod_listRSCColors IsNot Nothing) Then.... elseIf...
 
-        RscColorFlowPanel2.Refresh()
+        RscColorFlowPanel2Chosen.Refresh()
 
     End Sub
 
-    Private Sub RscColorFlowPanel1_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel1.ColorSelected
+    Private Sub RscColorFlowPanel1_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel1All.ColorSelected
         ''
         ''Added 10/24/2022 Thomas Downes
         ''
@@ -98,22 +98,60 @@ Public Class DialogSelectColorManager
         RscColorDisplayLabel1.RSCDisplayColor = par_color
         RscColorDisplayLabel1.BackColor = par_color.MSNetColor
         RscColorDisplayLabel1.Text = par_color.MSNetColor.Name
-        mod_panelLastSelected = RscColorFlowPanel1
+        mod_panelLastSelected = RscColorFlowPanel1All
         RscColorDisplayLabel1.Invalidate()
         ButtonSelect.Visible = True ''Added 10/28/2022
 
     End Sub ''end of ""Private Sub RscColorFlowPanel1_ColorSelected
 
 
-    Private Sub RscColorFlowPanel2_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel2.ColorSelected
+    Private Sub RscColorFlowPanel2_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel2Chosen.ColorSelected
         ''
         ''Added 10/24/2022 Thomas Downes
         ''
         RscColorDisplayLabel1.Visible = True
         RscColorDisplayLabel1.RSCDisplayColor = par_color
-        mod_panelLastSelected = RscColorFlowPanel2
+        mod_panelLastSelected = RscColorFlowPanel2Chosen
+
+        ''Added 11/21/2022 td
+        AddOrReplaceColorInModuleList(par_color)
 
     End Sub
+
+    Private Sub AddOrReplaceColorInModuleList(par_color As RSCColor)
+
+        ''Added 11/21/2022 td
+        Dim rscToReplace1 As RSCColor = Nothing
+        Dim rscToReplace2 As RSCColor = Nothing ''Address/remove duplicated colors. 
+
+        For Each each_rsc As RSCColor In mod_hashRSCColors
+            If (each_rsc.Matches(par_color)) Then
+                If (rscToReplace1 Is Nothing) Then
+                    rscToReplace1 = each_rsc
+                ElseIf (rscToReplace2 Is Nothing) Then
+                    ''Address/remove duplicated colors.
+                    rscToReplace2 = each_rsc
+                    Exit For
+                End If ''end of ""If (rscToReplace1 Is Nothing) Then...ElseIf..."
+            End If ''End of ""If (each_rsc.Matches(par_color)) Then""
+        Next each_rsc
+
+        If (rscToReplace1 IsNot Nothing) Then
+            mod_hashRSCColors.Remove(rscToReplace1)
+            mod_listRSCColors.Remove(rscToReplace1)
+        End If ''end of ""If (rscToReplace1 IsNot Nothing) Then""
+
+        ''Address/remove duplicated colors.
+        If (rscToReplace2 IsNot Nothing) Then
+            mod_hashRSCColors.Remove(rscToReplace2)
+            mod_listRSCColors.Remove(rscToReplace2)
+        End If ''end of ""If (rscToReplace2 IsNot Nothing) Then""
+
+        ''Add the parameter color, to the module-level list & hashset. 
+        mod_hashRSCColors.Add(par_color)
+        mod_listRSCColors.Add(par_color)
+
+    End Sub ''end of Private Sub AddOrReplaceColorInModuleList(par_color As RSCColor)
 
 
     Private Sub RscElementArrowRight_Click(sender As Object, e As EventArgs) _
@@ -132,7 +170,7 @@ Public Class DialogSelectColorManager
         ''   we need to add the color to the list of saved colors.---11/16/2022
         ''
         ''Added 10/24/2022 td
-        If (mod_panelLastSelected Is RscColorFlowPanel2) Then
+        If (mod_panelLastSelected Is RscColorFlowPanel2Chosen) Then
             ''Added 10/24/2022 td
             MessageBoxTD.Show_Statement_TwoLines("That color is already selected & exists in the righthand panel.",
                   "Use the other arrow, or select a color from the lefthand panel.")
@@ -144,11 +182,15 @@ Public Class DialogSelectColorManager
         ''#1 11/01/2022 RscColorFlowPanel2.AddColor(RscColorDisplayLabel1.RSCDisplayColor)
         ''#2 11/01/2022 RscColorFlowPanel2.AddColor(RscColorDisplayLabel1.RSCDisplayColor,
         ''                    RscColorFlowPanel2)
-        RscColorFlowPanel2.AddColor(RscColorDisplayLabel1.RSCDisplayColor)
+        RscColorFlowPanel2Chosen.AddColor(RscColorDisplayLabel1.RSCDisplayColor)
 
-        RscColorFlowPanel2.Invalidate()
-        mod_listRSCColors.Add(RscColorDisplayLabel1.RSCDisplayColor)
-        mod_hashRSCColors.Add(RscColorDisplayLabel1.RSCDisplayColor)
+        RscColorFlowPanel2Chosen.Invalidate()
+
+        ''11/2022 mod_listRSCColors.Add(RscColorDisplayLabel1.RSCDisplayColor)
+        ''11/2022 mod_hashRSCColors.Add(RscColorDisplayLabel1.RSCDisplayColor)
+        ''Added 11/21/2022 td
+        AddOrReplaceColorInModuleList(RscColorDisplayLabel1.RSCDisplayColor)
+
         ''11.01.2022 RscColorDisplayLabel1.Visible = False ''No longer needed.--10/24/2022
 
 ExitHandler:
@@ -166,7 +208,7 @@ ExitHandler:
               RscElementArrowLeft.Element_LeftClicked
 
         ''Added 10/24/2022 td
-        If (mod_panelLastSelected Is RscColorFlowPanel1) Then
+        If (mod_panelLastSelected Is RscColorFlowPanel1All) Then
             ''Added 10/24/2022 td
             MessageBoxTD.Show_Statement_TwoLines("That color is from the left panel of colors. ",
                      "Use the other arrow, or reselect a color from the right panel.")
@@ -185,6 +227,8 @@ ExitHandler:
     Private Sub ButtonSelect_Click(sender As Object, e As EventArgs) Handles ButtonSelect.Click
 
         ''Encapsulation 10/25/2022 
+        mod_panelLastSelected = RscColorFlowPanel1All ''Indicate that the source of
+        '' the selected color is the left-hand panel, RscColorFlowPanel1.
         SecondSelectionStep()
 
     End Sub

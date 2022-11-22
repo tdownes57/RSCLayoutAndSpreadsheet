@@ -185,14 +185,15 @@ Public Class RSCColorFlowPanel
         ''
         ''Added this overloaded function, 11/21/2022 td 
         ''
-        AddColors_FromList(flowPanelDockFull, par_listOfRSCColors, True)
+        ''11/2022 AddColors_FromList(flowPanelDockFull, par_listOfRSCColors, True)
+        RefreshColors_FromList(flowPanelDockFull, par_listOfRSCColors)
 
     End Sub ''Public Sub AddColors_FromList(par_listOfRSCColors As List(Of RSCColor)
 
 
-    Public Shared Sub AddColors_FromList(par_FlowPanel As FlowLayoutPanel,
-                                         par_listOfRSCColors As List(Of RSCColor),
-                       Optional pbClearExistingControls As Boolean = False)
+    Public Shared Sub RefreshColors_FromList(par_FlowPanel As FlowLayoutPanel,
+                                         par_listOfRSCColors As List(Of RSCColor))
+        ''                           11/21/2022 Optional pbClearExistingControls As Boolean = False)
         ''
         ''Added 8/30/2022 td 
         ''
@@ -201,6 +202,9 @@ Public Class RSCColorFlowPanel
         Dim intNumberOfColors As Integer ''Added 8/30/2022
         ''Dim boolOmitUI As Boolean
         Dim countColors As Integer ''Added 9/30/2022 
+
+        Dim pbClearExistingControls As Boolean ''Added 11/21/2022 
+        pbClearExistingControls = True ''Added 11/21/2022 
 
         ''boolOmitUI = pbOmitUIRelatedColors
         ''Added 11/21/2022
@@ -213,7 +217,17 @@ Public Class RSCColorFlowPanel
 
             ''Added 9/30/2022 thomas downes
             If (pbClearExistingControls) Then
-                .Controls.Clear() ''Remove existing controls.
+                ''11/21/2022 .Controls.Clear() ''Remove existing controls.
+                Dim listRSCControlsToDelete As New List(Of RSCColorDisplayLabel)
+                For Each each_ctl As Control In .Controls
+                    If (TypeOf each_ctl Is RSCColorDisplayLabel) Then
+                        listRSCControlsToDelete.Add(CType(each_ctl, RSCColorDisplayLabel))
+                    End If
+                Next each_ctl
+                ''Remove all of the listed controls. 
+                For Each each_ctl As Control In listRSCControlsToDelete
+                    .Controls.Remove(each_ctl)
+                Next each_ctl
             End If ''\end of ""If (pbClearExistingControls) Then""
 
             ''arrayOfColorNames = [Enum].GetNames(GetType(System.Drawing.KnownColor))
@@ -455,6 +469,7 @@ Public Class RSCColorFlowPanel
             Else
 
                 rscColorSelected = .Output_RSCColor
+
                 ''8/30/2022 rscLabelDisplayColorSelected.RSCDisplayColor = rscColorSelected
                 ''8/30/2022 rscLabelDisplayColorSelected.Visible = True ''Added 8/28/2022 
                 controlRSCColorLabel.BorderStyle = BorderStyle.FixedSingle ''Added 8/30/2022
