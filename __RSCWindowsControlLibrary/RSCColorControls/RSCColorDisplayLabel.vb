@@ -38,6 +38,9 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''Added 11/21/2022
+        mod_rscDisplayColor = New RSCColor(par_colorMS)
+
         ' Add any initialization after the InitializeComponent() call.
         Me.BackColor = par_colorMS
         Me.Text = par_colorMS.Name
@@ -53,6 +56,9 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
         ''Added 10/28/2022
         ' This call is required by the designer.
         InitializeComponent()
+
+        ''Added 11/21/2022 
+        mod_rscDisplayColor = par_colorRSC
 
         ' Add any initialization after the InitializeComponent() call.
         Me.BackColor = par_colorRSC.MSNetColor

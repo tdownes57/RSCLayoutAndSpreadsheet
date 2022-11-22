@@ -121,35 +121,73 @@ Public Class DialogSelectColorManager
     Private Sub AddOrReplaceColorInModuleList(par_color As RSCColor)
 
         ''Added 11/21/2022 td
-        Dim rscToReplace1 As RSCColor = Nothing
-        Dim rscToReplace2 As RSCColor = Nothing ''Address/remove duplicated colors. 
+        Dim rscToReplaceH1 As RSCColor = Nothing
+        Dim rscToReplaceH2 As RSCColor = Nothing ''Address/remove duplicated colors. 
+        Dim rscToReplaceL1 As RSCColor = Nothing
+        Dim rscToReplaceL2 As RSCColor = Nothing ''Address/remove duplicated colors. 
 
-        For Each each_rsc As RSCColor In mod_hashRSCColors
-            If (each_rsc.Matches(par_color)) Then
-                If (rscToReplace1 Is Nothing) Then
-                    rscToReplace1 = each_rsc
-                ElseIf (rscToReplace2 Is Nothing) Then
+        For Each each_rscH As RSCColor In mod_hashRSCColors
+            If (each_rscH.Matches(par_color)) Then
+                If (rscToReplaceH1 Is Nothing) Then
+                    rscToReplaceH1 = each_rscH
+                ElseIf (rscToReplaceH2 Is Nothing) Then
                     ''Address/remove duplicated colors.
-                    rscToReplace2 = each_rsc
+                    rscToReplaceH2 = each_rscH
+                    Exit For
+                End If ''end of ""If (rscToReplace1 Is Nothing) Then...ElseIf..."
+            End If ''End of ""If (each_rscH.Matches(par_color)) Then""
+        Next each_rscH
+
+        ''Possibly redundant, however on 11/21/2022 it seemed necessary.--TD
+        For Each each_rscL As RSCColor In mod_listRSCColors
+            If (each_rscL.Matches(par_color)) Then
+                If (rscToReplaceL1 Is Nothing) Then
+                    rscToReplaceL1 = each_rscL
+                ElseIf (rscToReplaceL2 Is Nothing) Then
+                    ''Address/remove duplicated colors.
+                    rscToReplaceL2 = each_rscL
                     Exit For
                 End If ''end of ""If (rscToReplace1 Is Nothing) Then...ElseIf..."
             End If ''End of ""If (each_rsc.Matches(par_color)) Then""
-        Next each_rsc
+        Next each_rscL
 
-        If (rscToReplace1 IsNot Nothing) Then
-            mod_hashRSCColors.Remove(rscToReplace1)
-            mod_listRSCColors.Remove(rscToReplace1)
-        End If ''end of ""If (rscToReplace1 IsNot Nothing) Then""
+        If (rscToReplaceH1 IsNot Nothing) Then
+            mod_hashRSCColors.Remove(rscToReplaceH1)
+            mod_listRSCColors.Remove(rscToReplaceH1)
+        End If ''end of ""If (rscToReplaceH1 IsNot Nothing) Then""
 
         ''Address/remove duplicated colors.
-        If (rscToReplace2 IsNot Nothing) Then
-            mod_hashRSCColors.Remove(rscToReplace2)
-            mod_listRSCColors.Remove(rscToReplace2)
-        End If ''end of ""If (rscToReplace2 IsNot Nothing) Then""
+        If (rscToReplaceH2 IsNot Nothing) Then
+            mod_hashRSCColors.Remove(rscToReplaceH2)
+            mod_listRSCColors.Remove(rscToReplaceH2)
+        End If ''end of ""If (rscToReplaceH2 IsNot Nothing) Then""
+
+        ''Possibly redundant, however on 11/21/2022 it seemed necessary.--TD
+        If (rscToReplaceL1 IsNot Nothing) Then
+            mod_hashRSCColors.Remove(rscToReplaceL1)
+            mod_listRSCColors.Remove(rscToReplaceL1)
+        End If ''end of ""If (rscToReplaceL1 IsNot Nothing) Then""
+
+        ''Possibly redundant, however on 11/21/2022 it seemed necessary.--TD
+        If (rscToReplaceL2 IsNot Nothing) Then
+            mod_hashRSCColors.Remove(rscToReplaceL2)
+            mod_listRSCColors.Remove(rscToReplaceL2)
+        End If ''end of ""If (rscToReplaceH2 IsNot Nothing) Then""
 
         ''Add the parameter color, to the module-level list & hashset. 
         mod_hashRSCColors.Add(par_color)
         mod_listRSCColors.Add(par_color)
+
+        If (mod_listRSCColors.Count <>
+            mod_hashRSCColors.Count) Then ''Must be True. 
+
+            Diagnostics.Debugger.Break()
+
+        End If ''ENd of ""If (mod_listRSCColors.Count <>....)
+
+        ''Added 11/21/2022 
+        ''11/2022 Debug.Assert(mod_listRSCColors.Count =
+        ''11/2022               mod_hashRSCColors.Count) ''Must be True. 
 
     End Sub ''end of Private Sub AddOrReplaceColorInModuleList(par_color As RSCColor)
 

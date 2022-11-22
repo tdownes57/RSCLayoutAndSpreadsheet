@@ -87,6 +87,8 @@ Public Class FormRSCColorConfirmTiny
         mod_rscColor.Name = textboxRSCColorName.Text
         mod_rscColor.Description = textboxRSCDescription.Text
         Me.Output_RSCColor = mod_rscColor
+        ''Added 11/21/2022
+        mod_rscColor.MSNetColorName = mod_rscColor.MSNetColor.Name
 
 ExitHandler:
         Debug.Assert(mod_rscColor.MSNetColorName =

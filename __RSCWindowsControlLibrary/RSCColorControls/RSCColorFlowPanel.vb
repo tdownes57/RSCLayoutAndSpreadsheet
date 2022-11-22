@@ -242,13 +242,18 @@ Public Class RSCColorFlowPanel
                 each_colorMS = each_RSCColor.MSNetColor
                 If (each_colorMS = Color.Empty) Then each_colorMS = Color.Black
 
-                Dim newLabel As New RSCColorDisplayLabel
-                newLabel.BackColor = each_colorMS
+                ''11/2022 #2 Dim newLabel As New RSCColorDisplayLabel
+                ''11/2022 #2 newLabel.BackColor = each_colorMS
                 ''11/2022 newLabel.Text = each_colorMS.Name
-                newLabel.Text = each_RSCColor.MSNetColorName
-                newLabel.Visible = True
+                ''11/2022 #2 newLabel.Text = each_RSCColor.MSNetColorName
+                ''11/2022 #2 newLabel.Visible = True
                 ''11/21/2022 newLabel.Width = LinkLabelAddColor1.Width ''Added9/30/2022
                 ''11/21/2022 newLabel.Height = LinkLabelAddColor1.Height ''Added9/30/2022
+
+                ''Added 11/21/2022 
+                Dim newLabel As RSCColorDisplayLabel
+                newLabel = RSCColorDisplayLabel.GetLabel(each_colorMS)
+
                 AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
                 .Controls.Add(newLabel) ''Added 8/30/2022 
                 ''Added 11/02/2022 td 
@@ -439,9 +444,11 @@ Public Class RSCColorFlowPanel
         controlRSCColorLabel = CType(sender, RSCColorDisplayLabel)
         strColorName = controlRSCColorLabel.Text
         mscolorSelected = controlRSCColorLabel.BackColor
+        rscColorSelected = controlRSCColorLabel.RSCDisplayColor
 
         ''10/28/2022 objFormToShow = New FormRSCColorConfirm(mscolorSelected, strColorName)
-        objFormToShow = New FormRSCColorConfirmTiny(mscolorSelected, strColorName)
+        ''11/21/2022 objFormToShow = New FormRSCColorConfirmTiny(mscolorSelected, strColorName)
+        objFormToShow = New FormRSCColorConfirmTiny(rscColorSelected)
 
         With objFormToShow
 
