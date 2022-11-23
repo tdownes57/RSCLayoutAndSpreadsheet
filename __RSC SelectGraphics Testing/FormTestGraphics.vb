@@ -1,6 +1,7 @@
 ﻿Imports System.Drawing
 Imports System.Drawing.Text
 Imports System.Reflection
+Imports __RSCElementSelectGraphics
 
 Public Class FormTestGraphics
 
@@ -87,7 +88,7 @@ Public Class FormTestGraphics
 
         ''Next intLineIndex
 
-    End Sub ''end of "Private Sub DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels, gr_element, intNewElementWidth, intNewElementHeight)"
+    End Sub ''end of "Private Sub DrawTriangle_PixelsWide(par_elementInfo_Base.Border_WidthInPixels, gr_element, intNewElementWidth, intNewElementHeight)"
 
 
     Public Sub DrawLinesOfTriangle_NotUsed(pline1 As Line, pline2 As Line, pline3 As Line)
@@ -112,6 +113,24 @@ Public Class FormTestGraphics
 
 
     Private Sub DrawAndFillTriangle(par_color As Drawing.Color,
+                                    Optional par_triangle As Triangle = Nothing,
+                                    Optional pbBreakForZeroes As Boolean = False)
+        ''
+        ''Added 11/22/2022
+        ''
+        Dim graph_tri As Graphics = Graphics.FromImage(PictureBoxForTriangle.Image)
+        Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
+
+        objRSCGraphics.DrawAndFillTriangle(graph_tri, par_color,
+                par_triangle, pbBreakForZeroes)
+
+ExitHandler:
+        PictureBoxForTriangle.Refresh()
+
+    End Sub ''endof ""Private Sub DrawAndFillTriangle""
+
+
+    Private Sub DrawAndFillTriangle_Denigrated(par_color As Drawing.Color,
                                     Optional par_triangle As Triangle = Nothing,
                                     Optional pbBreakForZeroes As Boolean = False)
         ''
@@ -250,6 +269,7 @@ ExitHandler:
 
     End Function ''End of ""Private Function GetPointFromLine_ByFractioning""
 
+
     Private Sub DrawAndFillTriangle_Border(par_graph As Graphics, par_triangle As Triangle,
                                            par_iWid As Integer, par_pen As Pen)
         ''
@@ -267,9 +287,9 @@ ExitHandler:
     End Sub ''End of ""Private Sub DrawAndFillTriangle_Border()""
 
 
-    Private Sub PictureBoxForBorder_Click(sender As Object, e As EventArgs) Handles PictureBoxForBorder.Click
-
-    End Sub
+    ''//Private Sub PictureBoxForBorder_Click(sender As Object, e As EventArgs) Handles PictureBoxForBorder.Click
+    ''//
+    ''//End Sub
 
     Private Sub FormTestGraphics_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -349,4 +369,6 @@ ExitHandler:
         End With
 
     End Sub
+
+
 End Class

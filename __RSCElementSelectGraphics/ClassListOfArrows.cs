@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace __RSCElementSelectGraphics
 {
-    public class Class1
-    {
+    public class ClassListOfArrows
+    { 
+
+
+        public void SaveToXML()
+        {
+
+        }
+
+        public void LoadFromXML()
+        {
+
+        }
+
+
+
     }
 }
