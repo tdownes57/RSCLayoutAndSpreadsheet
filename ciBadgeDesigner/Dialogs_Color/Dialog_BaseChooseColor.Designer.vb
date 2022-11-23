@@ -130,24 +130,24 @@ Partial Class Dialog_BaseChooseColor
         'FlowLayoutPanel1
         '
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(639, 39)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(639, 163)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(400, 255)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(400, 131)
         Me.FlowLayoutPanel1.TabIndex = 30
         '
         'RscColorFlowPanel2
         '
         Me.RscColorFlowPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(203, 186)
+        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(630, 34)
         Me.RscColorFlowPanel2.Name = "RscColorFlowPanel2"
-        Me.RscColorFlowPanel2.Size = New System.Drawing.Size(421, 260)
+        Me.RscColorFlowPanel2.Size = New System.Drawing.Size(436, 260)
         Me.RscColorFlowPanel2.TabIndex = 31
         '
         'Dialog_BaseChooseColor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1051, 506)
+        Me.ClientSize = New System.Drawing.Size(1081, 506)
         Me.Controls.Add(Me.RscColorFlowPanel2)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LinkLabelAddColor1)

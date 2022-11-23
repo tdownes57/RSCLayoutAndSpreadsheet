@@ -81,6 +81,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "__RSC_IDRecipients_REST_API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC Error Logging", "__RSC Error Logging\__RSC Error Logging.csproj", "{5CACE48F-7C22-4325-99E6-00B62C926EE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSCElementSelectGraphics", "__RSCElementSelectGraphics\__RSCElementSelectGraphics.csproj", "{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "__RSC SelectGraphics Testing", "__RSC SelectGraphics Testing\__RSC SelectGraphics Testing.vbproj", "{A896A08E-8B4F-432D-BF05-1806FACF387E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -401,6 +405,22 @@ Global
 		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Release|x86.ActiveCfg = Release|Any CPU
 		{5CACE48F-7C22-4325-99E6-00B62C926EE3}.Release|x86.Build.0 = Release|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Debug|x86.Build.0 = Debug|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Release|x86.ActiveCfg = Release|Any CPU
+		{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}.Release|x86.Build.0 = Release|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Debug|x86.Build.0 = Debug|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Release|x86.ActiveCfg = Release|Any CPU
+		{A896A08E-8B4F-432D-BF05-1806FACF387E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
