@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj" />
     <ProjectReference Include="..\__RSCElementSelectGraphics\__RSCElementSelectGraphics.csproj" />
   </ItemGroup>
 

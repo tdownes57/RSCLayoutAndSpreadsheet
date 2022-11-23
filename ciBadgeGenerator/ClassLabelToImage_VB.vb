@@ -521,6 +521,7 @@ Public Class ClassLabelToImage
 
     End Function ''End of "Public Function TextImage_Field(par_label As Label) As Image"
 
+
     Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer, par_gr As Graphics, par_intWidth As Integer, par_intHeight As Integer, par_color As Color)
         ''
         ''Added 9/6/2019 td  
@@ -542,6 +543,7 @@ Public Class ClassLabelToImage
         Next intLineIndex
 
     End Sub ''end of "Private Sub DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels, gr_element, intNewElementWidth, intNewElementHeight)"
+
 
     ''Private Sub ApplyTextToImage(ByRef par_image As Image)
     ''    ''
