@@ -40,17 +40,19 @@ namespace __RSCElementSelectGraphics
             //  intY = CDbl(.point1.Y) + ((CDbl(.point2.Y - .point1.Y) / CDbl(par_denominator)) * par_numerator)
             //End With
 
-            intX = (int)((double)par_line.point1.X + (double)par_numerator * 
+            intX = (int)((double)par_line.point1.X + (double)par_numerator *
                                                     ((double)(par_line.point2.X - par_line.point1.X)
-                                                      / (double)par_denominator) );
+                                                      / (double)par_denominator));
+            intY = (int)((double)par_line.point1.Y + (double)par_numerator *
+                                                    ((double)(par_line.point2.Y - par_line.point1.Y)
+                                                      / (double)par_denominator));
 
+            if (pbBreakForZeros && (intX == 0 && intY == 0))
+                System.Diagnostics.Debugger.Break();
 
-            if (pbBreakForZeros && (intX == 0 && intY == 0)) 
-            System.Diagnostics.Debugger.Break();
+            return new Point(intX, intY);
 
-             return new Point(intX, intY);
-
-             //End Function ''End of ""Private Function GetPointFromLine_ByFractioning""
+            //End Function ''End of ""Private Function GetPointFromLine_ByFractioning""
 
         }
 
@@ -110,16 +112,16 @@ namespace __RSCElementSelectGraphics
             //        Next indexIn
             //    Next indexOut
 
-            for (int indexOut= 0; indexOut < par_howManyLines - 1; ++indexOut)
+            for (int indexOut = 0; indexOut < par_howManyLines - 1; ++indexOut)
             {
-                point1 = GetPointFromLine_ByFractioning(par_line1, par_howManyLines, 
+                point1 = GetPointFromLine_ByFractioning(par_line1, par_howManyLines,
                                            indexOut, pbBreakForZeroes);
                 for (int indexIn = 0; indexIn < par_howManyLines; ++indexIn)
-                 {
-                    point2 = GetPointFromLine_ByFractioning(par_line2, par_howManyLines, 
+                {
+                    point2 = GetPointFromLine_ByFractioning(par_line2, par_howManyLines,
                                          indexIn, pbBreakForZeroes);
                     par_graph.DrawLine(par_pen, point1, point2);
-                 }   //Next indexIn
+                }   //Next indexIn
             }  //  Next indexOut
 
         }
@@ -174,7 +176,7 @@ namespace __RSCElementSelectGraphics
             DrawLinesBetweenLines(par_triangle.line3, par_triangle.line2,
                               iWid, par_graph, par_pen, 20, pbBreakForZeroes);
 
-    } // End Sub ''End of ""Private Sub DrawAndFillTriangle_Fill()""
+        } // End Sub ''End of ""Private Sub DrawAndFillTriangle_Fill()""
 
 
         //    Private Sub DrawTriangle_PixelsWide(par_WidthInPixels As Integer,
@@ -225,7 +227,7 @@ namespace __RSCElementSelectGraphics
             Pen pen_border; // As System.Drawing.Pen
             //int intLineIndex; // As Integer
             //int intOffsetPixels; // As Integer
-            Point[] arrayOfPoints = new Point[3];
+            Point[] arrayOfPoints = new Point[4];  // Point[3];
 
             //''11 / 2022 ReDim arrayOfPoints(4)
             //ReDim arrayOfPoints(3)
@@ -337,6 +339,22 @@ namespace __RSCElementSelectGraphics
         //        PictureBoxForTriangle.Refresh()
         //
         //End Sub ''End of ""Private Sub DrawAndFillTriangle()""
+
+
+        public void DrawSinglePoint(Graphics par_graph, Color par_color, 
+            int par_X, int par_Y, int par_size)
+        {
+            //''
+            //''Added 11/24/2022
+            //''
+            Pen objPen;
+            Brush objBrush = new SolidBrush(par_color);
+            Rectangle objRect = new Rectangle(par_X, par_Y, par_size, par_size);
+            objPen = new Pen(par_color, par_size);
+            par_graph.FillRectangle(objBrush, objRect);
+
+
+        }
 
         public void DrawAndFillTriangle(Graphics par_graph, Color par_color,
                                     Triangle par_triangle,

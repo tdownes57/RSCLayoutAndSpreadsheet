@@ -22,6 +22,7 @@ Partial Class FormTestGraphics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.PictureBoxForBorder = New System.Windows.Forms.PictureBox()
         Me.ButtonTriangle = New System.Windows.Forms.Button()
         Me.ButtonRectangle = New System.Windows.Forms.Button()
@@ -29,6 +30,11 @@ Partial Class FormTestGraphics
         Me.PictureBoxForTriangle = New System.Windows.Forms.PictureBox()
         Me.ButtonClearBoxForTriangle = New System.Windows.Forms.Button()
         Me.LabelTriangleInstructions = New System.Windows.Forms.Label()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -39,24 +45,24 @@ Partial Class FormTestGraphics
         Me.PictureBoxForBorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBoxForBorder.Location = New System.Drawing.Point(436, 34)
         Me.PictureBoxForBorder.Name = "PictureBoxForBorder"
-        Me.PictureBoxForBorder.Size = New System.Drawing.Size(335, 233)
+        Me.PictureBoxForBorder.Size = New System.Drawing.Size(172, 233)
         Me.PictureBoxForBorder.TabIndex = 0
         Me.PictureBoxForBorder.TabStop = False
         '
         'ButtonTriangle
         '
-        Me.ButtonTriangle.Location = New System.Drawing.Point(101, 386)
+        Me.ButtonTriangle.Location = New System.Drawing.Point(101, 333)
         Me.ButtonTriangle.Name = "ButtonTriangle"
-        Me.ButtonTriangle.Size = New System.Drawing.Size(241, 52)
+        Me.ButtonTriangle.Size = New System.Drawing.Size(134, 40)
         Me.ButtonTriangle.TabIndex = 1
-        Me.ButtonTriangle.Text = "Make triangle"
+        Me.ButtonTriangle.Text = "Save 2-triangle arrow"
         Me.ButtonTriangle.UseVisualStyleBackColor = True
         '
         'ButtonRectangle
         '
-        Me.ButtonRectangle.Location = New System.Drawing.Point(454, 312)
+        Me.ButtonRectangle.Location = New System.Drawing.Point(436, 273)
         Me.ButtonRectangle.Name = "ButtonRectangle"
-        Me.ButtonRectangle.Size = New System.Drawing.Size(281, 52)
+        Me.ButtonRectangle.Size = New System.Drawing.Size(182, 69)
         Me.ButtonRectangle.TabIndex = 2
         Me.ButtonRectangle.Text = "Make rectangular border around inside box"
         Me.ButtonRectangle.UseVisualStyleBackColor = True
@@ -64,7 +70,7 @@ Partial Class FormTestGraphics
         'PictureBoxInner
         '
         Me.PictureBoxInner.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.PictureBoxInner.Location = New System.Drawing.Point(567, 126)
+        Me.PictureBoxInner.Location = New System.Drawing.Point(472, 109)
         Me.PictureBoxInner.Name = "PictureBoxInner"
         Me.PictureBoxInner.Size = New System.Drawing.Size(100, 50)
         Me.PictureBoxInner.TabIndex = 3
@@ -75,13 +81,13 @@ Partial Class FormTestGraphics
         Me.PictureBoxForTriangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBoxForTriangle.Location = New System.Drawing.Point(101, 109)
         Me.PictureBoxForTriangle.Name = "PictureBoxForTriangle"
-        Me.PictureBoxForTriangle.Size = New System.Drawing.Size(250, 233)
+        Me.PictureBoxForTriangle.Size = New System.Drawing.Size(117, 115)
         Me.PictureBoxForTriangle.TabIndex = 4
         Me.PictureBoxForTriangle.TabStop = False
         '
         'ButtonClearBoxForTriangle
         '
-        Me.ButtonClearBoxForTriangle.Location = New System.Drawing.Point(101, 348)
+        Me.ButtonClearBoxForTriangle.Location = New System.Drawing.Point(101, 237)
         Me.ButtonClearBoxForTriangle.Name = "ButtonClearBoxForTriangle"
         Me.ButtonClearBoxForTriangle.Size = New System.Drawing.Size(241, 41)
         Me.ButtonClearBoxForTriangle.TabIndex = 5
@@ -97,11 +103,48 @@ Partial Class FormTestGraphics
         Me.LabelTriangleInstructions.TabIndex = 6
         Me.LabelTriangleInstructions.Text = "Click inside the square three times to draw && fill the triangle."
         '
+        'FlowLayoutPanel1
+        '
+        Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(675, 75)
+        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(327, 435)
+        Me.FlowLayoutPanel1.TabIndex = 7
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(101, 300)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(151, 15)
+        Me.Label1.TabIndex = 8
+        Me.Label1.Text = "Brief name (e.g. North, SW)"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(258, 297)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(172, 23)
+        Me.TextBox1.TabIndex = 9
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(675, 47)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(78, 15)
+        Me.Label2.TabIndex = 10
+        Me.Label2.Text = "Saved Arrows"
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(1014, 517)
+        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LabelTriangleInstructions)
         Me.Controls.Add(Me.ButtonClearBoxForTriangle)
         Me.Controls.Add(Me.PictureBoxForTriangle)
@@ -126,4 +169,9 @@ Partial Class FormTestGraphics
     Friend WithEvents PictureBoxForTriangle As PictureBox
     Friend WithEvents ButtonClearBoxForTriangle As Button
     Friend WithEvents LabelTriangleInstructions As Label
+    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

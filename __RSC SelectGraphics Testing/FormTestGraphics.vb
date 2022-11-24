@@ -26,7 +26,7 @@ Public Class FormTestGraphics
     ''End Structure
 
 
-    Private Sub DrawBorder_PixelsWide(par_WidthInPixels As Integer,
+    Private Sub DrawBorder_PixelsWide_Denigrated(par_WidthInPixels As Integer,
                                       par_gr As Graphics,
                                       par_intWidth As Integer,
                                       par_intHeight As Integer,
@@ -54,7 +54,7 @@ Public Class FormTestGraphics
 
 
 
-    Private Sub DrawTriangle_PixelsWide(par_WidthInPixels As Integer,
+    Private Sub DrawTriangle_PixelsWide_Denigrated(par_WidthInPixels As Integer,
                                       par_gr As Graphics,
                                       par_triangle As Triangle,
                                       par_color As Color,
@@ -107,12 +107,33 @@ Public Class FormTestGraphics
         ''Added 11/22/2022
         ''
         ''DrawAndFillTriangle()
-        DrawAndFillTriangle(Color.Aqua)
+        ''DrawAndFillTriangle_Denigrated(Color.Aqua)
+
+        ''//Dim rscDraw = New __RSCElementSelectGraphics.RSCGraphics
+        ''//Dim grDraw As Graphics = New Graphics()
+        ''//rscDraw.DrawAndFillTriangle(grDraw, Color.Aqua, mod_objArrow.triangle2)
+        DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle1)
 
     End Sub
 
 
-    Private Sub DrawAndFillTriangle(par_color As Drawing.Color,
+    Private Sub DrawSinglePointRSC(par_color As Drawing.Color, piX As Integer, piY As Integer)
+        ''
+        ''Added 11/22/2022
+        ''
+        Dim graph_tri As Graphics = Graphics.FromImage(PictureBoxForTriangle.Image)
+        Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
+        Const c_Size As Integer = 2
+        ''---objRSCGraphics.DrawSinglePoint(par_color, piX, piY)
+        objRSCGraphics.DrawSinglePoint(graph_tri, par_color, piX, piY, c_Size)
+
+ExitHandler:
+        PictureBoxForTriangle.Refresh()
+
+    End Sub
+
+
+    Private Sub DrawAndFillTriangleRSC(par_color As Drawing.Color,
                                     Optional par_triangle As Triangle = Nothing,
                                     Optional pbBreakForZeroes As Boolean = False)
         ''
@@ -127,7 +148,7 @@ Public Class FormTestGraphics
 ExitHandler:
         PictureBoxForTriangle.Refresh()
 
-    End Sub ''endof ""Private Sub DrawAndFillTriangle""
+    End Sub ''endof ""Private Sub DrawAndFillTriangleRSC""
 
 
     Private Sub DrawAndFillTriangle_Denigrated(par_color As Drawing.Color,
@@ -174,17 +195,17 @@ ExitHandler:
         ''objPen = New Pen(par_color, par_WidthInPixels)
         objPen = New Pen(par_color, iWid)
 
-        DrawAndFillTriangle_Border(graph_tri, objTriangle, iWid, objPen)
-        DrawAndFillTriangle_Fill(graph_tri, objTriangle, iWid, objPen, pbBreakForZeroes)
+        DrawAndFillTriangle_Border_Denigrated(graph_tri, objTriangle, iWid, objPen)
+        DrawAndFillTriangle_Fill_Denigrated(graph_tri, objTriangle, iWid, objPen, pbBreakForZeroes)
 
 ExitHandler:
         PictureBoxForTriangle.Refresh()
 
-    End Sub ''End of ""Private Sub DrawAndFillTriangle()""
+    End Sub ''End of ""Private Sub DrawAndFillTriangle_Denigrated()""
 
 
 
-    Private Sub DrawAndFillTriangle_Fill(par_graph As Graphics, par_triangle As Triangle,
+    Private Sub DrawAndFillTriangle_Fill_Denigrated(par_graph As Graphics, par_triangle As Triangle,
                                            par_iWid As Integer, par_pen As Pen,
                                          Optional pbBreakForZeroes As Boolean = False)
         ''
@@ -270,7 +291,7 @@ ExitHandler:
     End Function ''End of ""Private Function GetPointFromLine_ByFractioning""
 
 
-    Private Sub DrawAndFillTriangle_Border(par_graph As Graphics, par_triangle As Triangle,
+    Private Sub DrawAndFillTriangle_Border_Denigrated(par_graph As Graphics, par_triangle As Triangle,
                                            par_iWid As Integer, par_pen As Pen)
         ''
         ''Added 11/22/2022
@@ -279,12 +300,12 @@ ExitHandler:
 
         ''DrawLines(line1, line2, line3)
         ''DrawTriangle_PixelsWide(3, g_tri, objTriangle, Color.Black)
-        DrawTriangle_PixelsWide(iWid, par_graph, par_triangle, Color.Black, par_pen)
+        DrawTriangle_PixelsWide_Denigrated(iWid, par_graph, par_triangle, Color.Black, par_pen)
 
 ExitHandler:
         ''PictureBoxForTriangle.Refresh()
 
-    End Sub ''End of ""Private Sub DrawAndFillTriangle_Border()""
+    End Sub ''End of ""Private Sub DrawAndFillTriangle_Border_Denigrated()""
 
 
     ''//Private Sub PictureBoxForBorder_Click(sender As Object, e As EventArgs) Handles PictureBoxForBorder.Click
@@ -307,9 +328,13 @@ ExitHandler:
 
     End Sub
 
+
     Private Sub PictureBoxForTriangle_Click(sender As Object, e As EventArgs) Handles PictureBoxForTriangle.Click
 
+        ''See the Handles PictureBoxForTriangle.MouseUp
+
     End Sub
+
 
     Private Sub PictureBoxForTriangle_MouseUp(sender As Object, e As MouseEventArgs) Handles PictureBoxForTriangle.MouseUp
 
@@ -318,6 +343,15 @@ ExitHandler:
         Dim bPoint1L2Empty As Boolean
         Dim bPoint1L3Empty As Boolean
 
+        ''
+        ''Draw a dot where the user clicked!  
+        ''
+        ''DrawSinglePoint(Color.Black, e.X, e.Y)
+        DrawSinglePointRSC(Color.Black, e.X, e.Y)
+
+        ''
+        ''Build Triangle  
+        ''
         ''With mod_objTriangle  
         With mod_objArrow.triangle1
 
@@ -342,7 +376,8 @@ ExitHandler:
 
                 ''Draw & fill the triangle.
                 ''DrawAndFillTriangle(Color.Aqua, mod_objTriangle, True)
-                DrawAndFillTriangle(Color.Aqua, mod_objArrow.triangle1, True)
+                ''DrawAndFillTriangle(Color.Aqua, mod_objArrow.triangle1, True)
+                DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle1, True)
 
                 ''Clear the triangle.
                 .line1.point1 = New Point()
