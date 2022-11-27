@@ -37,6 +37,7 @@ namespace __RSCElementSelectGraphics
         //''
         //''Added 11/22/2022
         //''
+        public string Name; // E.g. "South" or "NW" (Northwest)
         public Triangle triangle1; // As Triangle
         public Triangle triangle2; // As Triangle
          

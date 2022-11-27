@@ -32,7 +32,7 @@ Partial Class FormTestGraphics
         Me.LabelTriangleInstructions = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.textNameOfArrow = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
@@ -122,12 +122,12 @@ Partial Class FormTestGraphics
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Brief name (e.g. North, SW)"
         '
-        'TextBox1
+        'textNameOfArrow
         '
-        Me.TextBox1.Location = New System.Drawing.Point(258, 297)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(172, 23)
-        Me.TextBox1.TabIndex = 9
+        Me.textNameOfArrow.Location = New System.Drawing.Point(258, 297)
+        Me.textNameOfArrow.Name = "textNameOfArrow"
+        Me.textNameOfArrow.Size = New System.Drawing.Size(172, 23)
+        Me.textNameOfArrow.TabIndex = 9
         '
         'Label2
         '
@@ -155,7 +155,7 @@ Partial Class FormTestGraphics
         Me.ClientSize = New System.Drawing.Size(1014, 517)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.textNameOfArrow)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LabelTriangleInstructions)
@@ -184,7 +184,7 @@ Partial Class FormTestGraphics
     Friend WithEvents LabelTriangleInstructions As Label
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents textNameOfArrow As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Label3 As Label

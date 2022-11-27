@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
+//using System;  //using System.Drawing.Image;
 using System.Reflection;
 using System.Runtime.Remoting;
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Forms;  // Added 11/26/2022 thomas downes
+using __RSC_Error_Logging;   // Added 11/26/2022 thomas downes
 
 namespace __RSCElementSelectGraphics
 {
@@ -20,6 +24,61 @@ namespace __RSCElementSelectGraphics
 
     public class RSCGraphics
     {
+
+        public void DrawAndFillArrow(PictureBox par_pictureBox, 
+                        ArrowTriangleStructure par_arrow, 
+                        System.Drawing.Color par_color, 
+                              int par_offsetX, int par_offsetY)
+        {
+            //
+            // Added 11/26/2022 
+            //
+            int iWid = 1;
+            AddImageIfNeeded(par_pictureBox);
+            if (par_pictureBox.Image == null)
+            {
+                __RSC_Error_Logging.RSCErrorLogging.Log(57, "DrawAndFillArrow",
+                      "PictureBox.Image is null");
+                System.Diagnostics.Debugger.Break();
+                return;
+            }
+
+            Pen obj_pen = new Pen(par_color);
+            Graphics obj_graph = Graphics.FromImage(par_pictureBox.Image);
+            DrawAndFillTriangle_Fill(obj_graph, par_arrow.triangle1,
+                       iWid, obj_pen, false);
+            DrawAndFillTriangle_Fill(obj_graph, par_arrow.triangle2,
+                       iWid, obj_pen, false);
+            par_pictureBox.Refresh();
+
+        }
+
+
+        private void DrawAndFillArrow(Image par_image,
+                ArrowTriangleStructure par_arrow,
+                System.Drawing.Color par_color,
+                      int par_offsetX, int par_offsetY)
+        {
+            //
+            // Added 11/26/2022 
+            //
+            int iWid = 1;
+            if (par_image == null)
+            {
+                __RSC_Error_Logging.RSCErrorLogging.Log(57, "DrawAndFillArrow",
+                      "PictureBox.Image is null");
+                System.Diagnostics.Debugger.Break();
+                return;
+            }
+
+            Pen obj_pen = new Pen(par_color);
+            Graphics obj_graph = Graphics.FromImage(par_image);
+            DrawAndFillTriangle_Fill(obj_graph, par_arrow.triangle1,
+                       iWid, obj_pen, false);
+
+
+        }
+
 
 
         //Private Function GetPointFromLine_ByFractioning(par_line As Line, par_denominator As Integer,
@@ -103,6 +162,10 @@ namespace __RSCElementSelectGraphics
             //    ''
             Point point1; // As Point
             Point point2; // As Point
+
+            //Added 11/27/2022
+            Debug.Assert(par_line1.point1 != par_line1.point2);
+            Debug.Assert(par_line2.point1 != par_line2.point2);
 
             //    For indexOut As Integer = 0 To par_howManyLines - 1
             //        point1 = GetPointFromLine_ByFractioning(par_line1, par_howManyLines, indexOut, pbBreakForZeroes)
@@ -410,6 +473,14 @@ namespace __RSCElementSelectGraphics
             //PictureBoxForTriangle.Refresh()
 
         } // End Sub ''End of ""Private Sub DrawAndFillTriangle()""
+
+
+        private void AddImageIfNeeded(PictureBox par_box )
+        {
+            if (par_box.Image == null)
+            par_box.Image = new Bitmap(par_box.Width - 1, par_box.Height - 1);
+
+        }
 
 
 
