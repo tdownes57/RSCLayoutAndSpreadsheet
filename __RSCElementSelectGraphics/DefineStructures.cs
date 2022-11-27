@@ -32,7 +32,7 @@ namespace __RSCElementSelectGraphics
     } // End Structure
 
 
-    public struct Arrow  //Public Structure Arrow
+    public struct ArrowTriangleStructure  //Public Structure Arrow
     {
         //''
         //''Added 11/22/2022

@@ -6,7 +6,8 @@ Imports __RSCElementSelectGraphics
 Public Class FormTestGraphics
 
     ''Private mod_objTriangle As Triangle ''Added 11/22/2022 
-    Private mod_objArrow As New Arrow ''Added 11/22/2022 
+    Private mod_objArrow As New ArrowTriangleStructure ''Added 11/22/2022 
+    Private mod_listOfArrows As New ClassListOfArrows ''Added 11/26/2022 
 
     ''Public Structure Line
     ''    ''
@@ -102,7 +103,43 @@ Public Class FormTestGraphics
     End Sub ''End of ""Public Sub DrawLinesOfTriangle(pline1 As Line, pline2 As Line, pline3 As Line)"
 
 
-    Private Sub ButtonTriangle_Click(sender As Object, e As EventArgs) Handles ButtonTriangle.Click
+    Private Sub ButtonSaveArrow_Click(sender As Object, e As EventArgs) Handles ButtonSaveArrow.Click
+        ''
+        ''Added 11/26/2022
+        ''
+        Dim objArrow As ArrowTriangleStructure
+
+        objArrow = mod_objArrow
+        mod_listOfArrows.Add(objArrow)
+        RefreshPanelOfArrows(mod_listOfArrows)
+
+
+    End Sub
+
+
+    Private Sub RefreshPanelOfArrows(par_list As ClassListOfArrows)
+        ''
+        ''Added 11/26/2022  
+        ''
+        Dim objRSCDraw As New __RSCElementSelectGraphics.RSCGraphics
+        FlowLayoutPanel1.Controls.Clear()
+        For Each eachArrow As ArrowTriangleStructure In par_list.List()
+
+            Dim objBox As New PictureBox
+            objBox.Width = PictureBoxForTriangle.Width
+            objBox.Height = PictureBoxForTriangle.Height
+            objRSCDraw.DrawAndFillArrow(objBox, eachArrow, 0, 0)
+
+
+
+        Next eachArrow
+
+
+
+    End Sub ''End of ""Private Sub RefreshPanelOfArrows""
+
+
+    Private Sub ButtonTriangle_Click()
         ''
         ''Added 11/22/2022
         ''
@@ -112,6 +149,7 @@ Public Class FormTestGraphics
         ''//Dim rscDraw = New __RSCElementSelectGraphics.RSCGraphics
         ''//Dim grDraw As Graphics = New Graphics()
         ''//rscDraw.DrawAndFillTriangle(grDraw, Color.Aqua, mod_objArrow.triangle2)
+
         DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle1)
 
     End Sub

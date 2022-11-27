@@ -24,7 +24,7 @@ Partial Class FormTestGraphics
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.PictureBoxForBorder = New System.Windows.Forms.PictureBox()
-        Me.ButtonTriangle = New System.Windows.Forms.Button()
+        Me.ButtonSaveArrow = New System.Windows.Forms.Button()
         Me.ButtonRectangle = New System.Windows.Forms.Button()
         Me.PictureBoxInner = New System.Windows.Forms.PictureBox()
         Me.PictureBoxForTriangle = New System.Windows.Forms.PictureBox()
@@ -35,6 +35,7 @@ Partial Class FormTestGraphics
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -43,24 +44,25 @@ Partial Class FormTestGraphics
         'PictureBoxForBorder
         '
         Me.PictureBoxForBorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBoxForBorder.Location = New System.Drawing.Point(436, 34)
+        Me.PictureBoxForBorder.Location = New System.Drawing.Point(451, 126)
         Me.PictureBoxForBorder.Name = "PictureBoxForBorder"
         Me.PictureBoxForBorder.Size = New System.Drawing.Size(172, 233)
         Me.PictureBoxForBorder.TabIndex = 0
         Me.PictureBoxForBorder.TabStop = False
         '
-        'ButtonTriangle
+        'ButtonSaveArrow
         '
-        Me.ButtonTriangle.Location = New System.Drawing.Point(101, 333)
-        Me.ButtonTriangle.Name = "ButtonTriangle"
-        Me.ButtonTriangle.Size = New System.Drawing.Size(134, 40)
-        Me.ButtonTriangle.TabIndex = 1
-        Me.ButtonTriangle.Text = "Save 2-triangle arrow"
-        Me.ButtonTriangle.UseVisualStyleBackColor = True
+        Me.ButtonSaveArrow.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonSaveArrow.Location = New System.Drawing.Point(101, 333)
+        Me.ButtonSaveArrow.Name = "ButtonSaveArrow"
+        Me.ButtonSaveArrow.Size = New System.Drawing.Size(134, 40)
+        Me.ButtonSaveArrow.TabIndex = 1
+        Me.ButtonSaveArrow.Text = "Save 2-triangle arrow"
+        Me.ButtonSaveArrow.UseVisualStyleBackColor = True
         '
         'ButtonRectangle
         '
-        Me.ButtonRectangle.Location = New System.Drawing.Point(436, 273)
+        Me.ButtonRectangle.Location = New System.Drawing.Point(451, 365)
         Me.ButtonRectangle.Name = "ButtonRectangle"
         Me.ButtonRectangle.Size = New System.Drawing.Size(182, 69)
         Me.ButtonRectangle.TabIndex = 2
@@ -70,7 +72,7 @@ Partial Class FormTestGraphics
         'PictureBoxInner
         '
         Me.PictureBoxInner.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.PictureBoxInner.Location = New System.Drawing.Point(472, 109)
+        Me.PictureBoxInner.Location = New System.Drawing.Point(487, 201)
         Me.PictureBoxInner.Name = "PictureBoxInner"
         Me.PictureBoxInner.Size = New System.Drawing.Size(100, 50)
         Me.PictureBoxInner.TabIndex = 3
@@ -136,11 +138,22 @@ Partial Class FormTestGraphics
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Saved Arrows"
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
+        Me.Label3.Location = New System.Drawing.Point(12, 21)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(481, 25)
+        Me.Label3.TabIndex = 11
+        Me.Label3.Text = "Arrows to point at elements && borders around elements"
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1014, 517)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label1)
@@ -150,7 +163,7 @@ Partial Class FormTestGraphics
         Me.Controls.Add(Me.PictureBoxForTriangle)
         Me.Controls.Add(Me.PictureBoxInner)
         Me.Controls.Add(Me.ButtonRectangle)
-        Me.Controls.Add(Me.ButtonTriangle)
+        Me.Controls.Add(Me.ButtonSaveArrow)
         Me.Controls.Add(Me.PictureBoxForBorder)
         Me.Name = "FormTestGraphics"
         Me.Text = "Form1"
@@ -163,7 +176,7 @@ Partial Class FormTestGraphics
     End Sub
 
     Friend WithEvents PictureBoxForBorder As PictureBox
-    Friend WithEvents ButtonTriangle As Button
+    Friend WithEvents ButtonSaveArrow As Button
     Friend WithEvents ButtonRectangle As Button
     Friend WithEvents PictureBoxInner As PictureBox
     Friend WithEvents PictureBoxForTriangle As PictureBox
@@ -174,4 +187,5 @@ Partial Class FormTestGraphics
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Label3 As Label
 End Class

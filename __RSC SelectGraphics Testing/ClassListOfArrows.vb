@@ -1,4 +1,5 @@
-﻿Imports ciBadgeSerialize ''Added 11/22/2022 
+﻿Imports __RSCElementSelectGraphics
+Imports ciBadgeSerialize ''Added 11/22/2022 
 
 ''Public Structure Line
 ''    ''
@@ -30,9 +31,28 @@
 
 <Serializable>
 Public Class ClassListOfArrows
+    ''
+    ''Added 11/22/2025 
+    ''
+    ''---Public NamedArrows As New List(Of Arrow)
+    Private mod_listArrows As New List(Of ArrowTriangleStructure)
 
-    ''Public NamedArrows As New List(Of Arrow)
+    Public ReadOnly Property List() As List(Of ArrowTriangleStructure)
+        Get
+            Return mod_listArrows
+        End Get
+    End Property
 
+
+
+    Public Sub Add(par_arrow As ArrowTriangleStructure)
+        ''
+        ''Added 11/26/2022 thomas  
+        ''
+        mod_listArrows.Add(par_arrow)
+
+
+    End Sub
 
     Public Sub SaveToXML()
 
