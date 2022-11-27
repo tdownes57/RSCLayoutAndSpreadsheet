@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj">
+      <Project>{59d5b213-e44b-432a-8237-53d91ec9c04a}</Project>
+      <Name>ciBadgeSerialize</Name>
+    </ProjectReference>
     <ProjectReference Include="..\__RSC Error Logging\__RSC Error Logging.csproj">
       <Project>{5cace48f-7c22-4325-99e6-00b62c926ee3}</Project>
       <Name>__RSC Error Logging</Name>
