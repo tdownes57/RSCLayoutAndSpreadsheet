@@ -1,6 +1,8 @@
 ﻿''
 ''Added 8/22/2022 
 ''
+Imports ciBadgeInterfaces ''Added 11/27/2022 td
+
 Public Class FormRSCColorConfirm
     ''
     ''Added 8/22/2022 
@@ -27,6 +29,29 @@ Public Class FormRSCColorConfirm
 
         ''Added 8/28/2022 
         Me.BackColor = par_msnetColor
+
+        ''Added 11/27/2022
+        LabelMicrosoftName.Text = par_msnetColor.Name
+        LabelMicrosoftName.Visible = True
+        LabelMSNetNameCaption.Visible = True
+
+    End Sub
+
+
+    Public Sub New(par_rscColor As rsccolor)
+
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        mod_msnetColor = par_rscColor.MSNetColor
+        mod_rscColor = par_rscColor
+        textboxColorName.Text = par_rscColor.Name
+        LabelMicrosoftName.Text = par_rscColor.MSNetColorName
+        LabelMicrosoftName.Visible = True
+        LabelMSNetNameCaption.Visible = True
+        Me.BackColor = mod_msnetColor
 
     End Sub
 

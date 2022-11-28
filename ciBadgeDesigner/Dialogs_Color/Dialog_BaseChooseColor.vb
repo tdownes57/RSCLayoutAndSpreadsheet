@@ -122,7 +122,7 @@ Public Class Dialog_BaseChooseColor
         ''
         ''Encapsulated 11/18/2022
         ''
-        RSCColorFlowPanel.RefreshColors_FromList(FlowLayoutPanel1, mod_listRSCColors)
+        ''11/27/2022 RSCColorFlowPanel.RefreshColors_FromList(FlowLayoutPanel1, mod_listRSCColors)
 
         ''Refresh the alternate panel.  (It's a competition, to see which container will 
         ''  be chosen to be the UI control.)
@@ -269,9 +269,11 @@ Public Class Dialog_BaseChooseColor
     End Sub
 
 
-    Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs)
+    Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs) ''Handles RscColorFlowPanel2.ColorSelected
         ''
         ''8/22/2022 thomas downes
+        ''
+        ''  See "AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click" 
         ''
         Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirm
         Dim strColorName As String
@@ -485,8 +487,56 @@ Public Class Dialog_BaseChooseColor
 
         ''Added 11/21/2022
         ''RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
-        RSCColorFlowPanel.RefreshColors_FromList(FlowLayoutPanel1, mod_listRSCColors)
+        ''11/27/2022 RSCColorFlowPanel.RefreshColors_FromList(FlowLayoutPanel1, mod_listRSCColors)
+        RscColorFlowPanel2.RefreshColors_FromList(mod_listRSCColors)
 
+
+    End Sub
+
+    Private Sub RscColorFlowPanel2_Color_Selected(par_rsccolor As RSCColor) Handles RscColorFlowPanel2.Color_Selected
+        ''
+        ''Added 11/27/2022 
+        ''
+        ''11/27 Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirm
+        Dim objFormToShow As __RSCWindowsControlLibrary.FormRSCColorConfirmTiny
+        ''11/27 Dim strColorName As String
+        ''Dim controlRSCColorLabel As RSCColorDisplayLabel
+        ''11/27 Dim mscolorSelected As Drawing.Color
+        Dim rscColorSelected As RSCColor
+
+        ''controlRSCColorLabel = CType(sender, RSCColorDisplayLabel)
+        ''11/27 ''strColorName = controlRSCColorLabel.Text
+        ''11/27 ''mscolorSelected = controlRSCColorLabel.BackColor
+        ''objFormToShow = New FormRSCColorConfirm(mscolorSelected, strColorName)
+        ''11/27 objFormToShow = New FormRSCColorConfirm(par_color)
+        objFormToShow = New FormRSCColorConfirmTiny(par_rsccolor)
+
+        With objFormToShow
+
+            .ShowDialog()
+
+            If (Not .Output_Cancelled) Then
+
+                rscColorSelected = .Output_RSCColor
+                rscLabelDisplayColorSelected.RSCDisplayColor = rscColorSelected
+                rscLabelDisplayColorSelected.Visible = True ''Added 8/28/2022 
+
+            End If ''End of ""If (Not .Output_Cancelled) Then""  
+
+        End With ''End of ""With objFormToShow""
+
+    End Sub
+
+    Private Sub RscColorFlowPanel2_Colors_OpenAddRemove(sender As Object, e As EventArgs) Handles RscColorFlowPanel2.Colors_OpenAddRemove
+
+        ''Added 11/27/2022 td
+        Dim objLinkArgs As LinkLabelLinkClickedEventArgs
+        Dim objLink As LinkLabel.Link
+
+        ''Added 11/27/2022 td
+        objLink = LinkLabelAddColor1.Links(0)
+        objLinkArgs = New LinkLabelLinkClickedEventArgs(objLink)
+        LinkLabelAddColor1_LinkClicked(LinkLabelAddColor1, objLinkArgs)
 
     End Sub
 End Class

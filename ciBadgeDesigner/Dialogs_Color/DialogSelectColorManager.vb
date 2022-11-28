@@ -90,6 +90,7 @@ Public Class DialogSelectColorManager
 
     End Sub
 
+
     Private Sub RscColorFlowPanel1_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel1All.ColorSelected
         ''
         ''Added 10/24/2022 Thomas Downes

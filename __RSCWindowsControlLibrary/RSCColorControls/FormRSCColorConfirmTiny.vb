@@ -52,6 +52,7 @@ Public Class FormRSCColorConfirmTiny
         textboxRSCColorName.Text = par_rscColor.Name
         textboxRSCDescription.Text = par_rscColor.Description
         ''10/28/2022 Me.BackColor = mod_msnetColor
+        Output_RSCColor = mod_rscColor ''Added 11/27/2022
 
         ''Added 10/28/2022 
         Me.RscColorDisplayLabel1.LoadAndDisplayRSCColor(mod_rscColor)

@@ -10,6 +10,8 @@ Public Class RSCColorFlowPanel
     ''Added 8/30/2022
     ''
     Public Shared Event ColorSelected(par_color As RSCColor) ''Added 10/24/2022
+    Public Event Color_Selected(par_color As RSCColor) ''Added 11/27/2022
+    Public Event Colors_OpenAddRemove(sender As Object, e As EventArgs) ''Added 11/27/2022
 
     Private mod_listMSColors_NotUsed As New List(Of Drawing.Color)
     Private Shared mboolConfirm As Boolean ''Added 10/24/2022
@@ -45,11 +47,43 @@ Public Class RSCColorFlowPanel
     End Property
 
 
+    Public ReadOnly Property Controls_RSCLabels() As ControlCollection
+        Get
+            ''Added 11/27/2022 td
+            Return flowPanelDockFull.Controls
+        End Get
+    End Property
+
+
+    Public Function ColorExistsInPanel(par_color As RSCColor) As Boolean
+        ''
+        ''Added 11/27/2022 
+        ''
+        Dim eachRSCLabel As RSCColorDisplayLabel ''Added 11/27/2022
+        ''#1 Nov27 2022 ''For Each eachControl As RSCColorDisplayLabel In Me.Controls
+        ''#2 Nov27 2022 ''For Each eachControl As RSCColorDisplayLabel In Me.Controls_RSCLabels
+        For Each eachControl As Control In Me.Controls_RSCLabels
+            If (TypeOf eachControl Is RSCColorDisplayLabel) Then
+                eachRSCLabel = CType(eachControl, RSCColorDisplayLabel)
+                If (eachRSCLabel.RSCDisplayColor.Matches(par_color)) Then
+                    Return True
+                End If ''End of ""If (eachRSCLabel.RSCDisplayColor.Matches(par_color)) Then""
+            End If ''End of ""If (TypeOf eachControl Is RSCColorDisplayLabel) Then""
+        Next eachControl
+        Return False
+    End Function ''End of ""Public Function ColorExistsInPanel""
+
+
     Public Sub AddColor(par_color As RSCColor) ''#2 11/01/2022 par_panel As RSCColorFlowPanel)
         ''#1 11/01/2022 Public Sub AddColor(par_color As RSCColor, par_panel As FlowLayoutPanel)
         ''
         ''Added 10/24/2022 
         ''
+        Dim bColorAlreadyExists As Boolean ''Added 11/27/2022 
+        ''Added 11/27/2022
+        bColorAlreadyExists = ColorExistsInPanel(par_color)
+        If (bColorAlreadyExists) Then Exit Sub
+
         ''#1 11/1/2022 With FlowLayoutPanel1
         ''#1 11/1/2022 With par_panel
         With flowPanelDockFull
@@ -64,6 +98,9 @@ Public Class RSCColorFlowPanel
             AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
             .Controls.Add(newLabel) ''Added 8/30/2022
             .Refresh() ''Added 11/01/2022 
+
+            ''Added 11/27/2022
+            AddHandler newLabel.ColorClick, AddressOf NetDrawingColor_Click
 
         End With ''End of ""With flowPanelDockFull""
 
@@ -191,9 +228,10 @@ Public Class RSCColorFlowPanel
     End Sub ''Public Sub AddColors_FromList(par_listOfRSCColors As List(Of RSCColor)
 
 
-    Public Shared Sub RefreshColors_FromList(par_FlowPanel As FlowLayoutPanel,
+    Public Sub RefreshColors_FromList(par_FlowPanel As FlowLayoutPanel,
                                          par_listOfRSCColors As List(Of RSCColor))
-        ''                           11/21/2022 Optional pbClearExistingControls As Boolean = False)
+        ''11/27/2022 Public Shared Sub RefreshColors_FromList
+        ''          11/21/2022 Optional pbClearExistingControls As Boolean = False)
         ''
         ''Added 8/30/2022 td 
         ''
@@ -271,8 +309,7 @@ Public Class RSCColorFlowPanel
         ''11/2022 flowPanelDockFull.Refresh()
         ''flowPanelDockFull.Invalidate()
 
-    End Sub ''Endof ""Public Sub AddColors_FromList()""
-
+    End Sub ''Endof ""Public Sub RefreshColors_FromList()""
 
 
     Public Sub AddColors_BlackAndWhite()
@@ -426,7 +463,8 @@ Public Class RSCColorFlowPanel
     End Sub ''Endof ""Public Sub AddLinkLabelForAddingColors()""
 
 
-    Public Shared Sub NetDrawingColor_Click(sender As Object, e As EventArgs)
+    Public Sub NetDrawingColor_Click(sender As Object, e As EventArgs)
+        ''Nov17 2022''Public Shared Sub NetDrawingColor_Click
         ''
         ''8/22/2022 thomas downes
         ''
@@ -445,6 +483,11 @@ Public Class RSCColorFlowPanel
         strColorName = controlRSCColorLabel.Text
         mscolorSelected = controlRSCColorLabel.BackColor
         rscColorSelected = controlRSCColorLabel.RSCDisplayColor
+
+        If (rscColorSelected Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(23, "NetDrawingColor_Click", "RSC Color is missing")
+        End If ''End fo ""If (rscColorSelected Is Nothing) Then""
 
         ''10/28/2022 objFormToShow = New FormRSCColorConfirm(mscolorSelected, strColorName)
         ''11/21/2022 objFormToShow = New FormRSCColorConfirmTiny(mscolorSelected, strColorName)
@@ -497,10 +540,18 @@ ExitHandler:
         ''Prepare for next execution of this procedure. ---8/30/2022
         If (Not boolUserCancels) Then
             controlRSCColorLabel_Prior = controlRSCColorLabel
-            RaiseEvent ColorSelected(rscColorSelected) ''Added 10/25/2022 
+            RaiseEvent ColorSelected(rscColorSelected) ''Added 10/25/2022
+            RaiseEvent Color_Selected(rscColorSelected) ''Added 11/27/2022 
+            ''Added 11/27/2022 
+            ''Nov27 2022''RaiseEvent controlRSCColorLabel.ColorClick(controlRSCColorLabel, New EventArgs)
         End If ''End of ""If (Not boolUserCancels) Then""
 
     End Sub ''End of ""Public Shared Sub NetDrawingColor_Click(sender As Object, e As EventArgs)""
 
+    Private Sub LinkLabelAddColor1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddColor1.LinkClicked
 
+        ''Added 11/27/2022 thomas d.
+        RaiseEvent Colors_OpenAddRemove(Me, New EventArgs)
+
+    End Sub
 End Class
