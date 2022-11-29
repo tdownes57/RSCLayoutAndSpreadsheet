@@ -38,6 +38,7 @@ Partial Class DialogSelectColorManager
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.LabelSubheadingSelected = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.ButtonRemove = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'RscColorFlowPanel1All
@@ -71,6 +72,7 @@ Partial Class DialogSelectColorManager
         Me.RscElementArrowRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.RscElementArrowRight.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.RscElementArrowRight, "Select the Color for General Use")
+        Me.RscElementArrowRight.Visible = False
         '
         'RscElementArrowLeft
         '
@@ -78,7 +80,7 @@ Partial Class DialogSelectColorManager
         Me.RscElementArrowLeft.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscElementArrowLeft.ElementInfo_Base = Nothing
         Me.RscElementArrowLeft.ImageLocation = Nothing
-        Me.RscElementArrowLeft.Location = New System.Drawing.Point(433, 113)
+        Me.RscElementArrowLeft.Location = New System.Drawing.Point(433, 217)
         Me.RscElementArrowLeft.Margin = New System.Windows.Forms.Padding(2)
         Me.RscElementArrowLeft.MoveabilityEventsForGroupCtls = Nothing
         Me.RscElementArrowLeft.MoveabilityEventsForSingleMove = Nothing
@@ -87,6 +89,7 @@ Partial Class DialogSelectColorManager
         Me.RscElementArrowLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.RscElementArrowLeft.TabIndex = 3
         Me.ToolTip1.SetToolTip(Me.RscElementArrowLeft, "Deselect the color from general use.")
+        Me.RscElementArrowLeft.Visible = False
         '
         'ButtonCancel
         '
@@ -161,7 +164,7 @@ Partial Class DialogSelectColorManager
         Me.ButtonSelect.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonSelect.BackColor = System.Drawing.Color.PaleGreen
         Me.ButtonSelect.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonSelect.Location = New System.Drawing.Point(406, 323)
+        Me.ButtonSelect.Location = New System.Drawing.Point(406, 321)
         Me.ButtonSelect.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonSelect.Name = "ButtonSelect"
         Me.ButtonSelect.Size = New System.Drawing.Size(200, 34)
@@ -191,11 +194,27 @@ Partial Class DialogSelectColorManager
         Me.Label1.TabIndex = 12
         Me.Label1.Text = "(supplied by Microsoft)"
         '
+        'ButtonRemove
+        '
+        Me.ButtonRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonRemove.BackColor = System.Drawing.Color.Cyan
+        Me.ButtonRemove.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonRemove.Location = New System.Drawing.Point(406, 321)
+        Me.ButtonRemove.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonRemove.Name = "ButtonRemove"
+        Me.ButtonRemove.Size = New System.Drawing.Size(200, 34)
+        Me.ButtonRemove.TabIndex = 13
+        Me.ButtonRemove.Text = "<< Remove <<"
+        Me.ToolTip1.SetToolTip(Me.ButtonRemove, "Remove the color from general use")
+        Me.ButtonRemove.UseVisualStyleBackColor = False
+        Me.ButtonRemove.Visible = False
+        '
         'DialogSelectColorManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1091, 399)
+        Me.Controls.Add(Me.ButtonRemove)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.LabelSubheadingSelected)
         Me.Controls.Add(Me.ButtonSelect)
@@ -230,4 +249,5 @@ Partial Class DialogSelectColorManager
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents LabelSubheadingSelected As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents ButtonRemove As Button
 End Class

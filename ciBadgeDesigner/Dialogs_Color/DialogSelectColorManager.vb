@@ -3,6 +3,7 @@
 ''
 Imports ciBadgeInterfaces ''Added 9/30/2022
 Imports __RSCWindowsControlLibrary ''Added 10/24/2022
+Imports ciBadgeElements
 
 Public Class DialogSelectColorManager
 
@@ -91,7 +92,7 @@ Public Class DialogSelectColorManager
     End Sub
 
 
-    Private Sub RscColorFlowPanel1_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel1All.ColorSelected
+    Private Sub RscColorFlowPanel1_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel1All.Color_Selected
         ''
         ''Added 10/24/2022 Thomas Downes
         ''
@@ -102,11 +103,15 @@ Public Class DialogSelectColorManager
         mod_panelLastSelected = RscColorFlowPanel1All
         RscColorDisplayLabel1.Invalidate()
         ButtonSelect.Visible = True ''Added 10/28/2022
+        RscElementArrowRight.Visible = True
+        RscElementArrowLeft.Visible = False ''False, since the left-pointing arrow is not applicable.
+        ButtonRemove.Visible = False ''False, since the "Remove" buttion
+        ''  is not applicable.   ---Added 11/28/2022
 
     End Sub ''end of ""Private Sub RscColorFlowPanel1_ColorSelected
 
 
-    Private Sub RscColorFlowPanel2_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel2Chosen.ColorSelected
+    Private Sub RscColorFlowPanel2_ColorSelected(par_color As RSCColor) Handles RscColorFlowPanel2Chosen.Color_Selected
         ''
         ''Added 10/24/2022 Thomas Downes
         ''
@@ -116,6 +121,14 @@ Public Class DialogSelectColorManager
 
         ''Added 11/21/2022 td
         AddOrReplaceColorInModuleList(par_color)
+
+        ''Added 11/28/2022
+        ''Show the following...
+        ButtonRemove.Visible = True ''Show the following...
+        RscElementArrowLeft.Visible = True ''Show the following...
+        ''Hide the following....
+        ButtonSelect.Visible = False ''False, hide it. 
+        RscElementArrowRight.Visible = False ''False, hide it. 
 
     End Sub
 
@@ -238,6 +251,7 @@ ExitHandler:
         Me.Controls.Remove(RscColorDisplayLabel1) ''Added 11/01/2022
         LabelSelectedColor.Visible = False
         ButtonSelect.Visible = False
+        RscElementArrowRight.Visible = False ''Added 11/28/2022 
 
     End Sub
 
@@ -245,7 +259,10 @@ ExitHandler:
     Private Sub RscElementArrowLeft_Click(sender As Object, e As EventArgs) _
         Handles RscElementArrowLeft.Click,
               RscElementArrowLeft.Element_LeftClicked
-
+        ''
+        ''Remove the selected color from the "Selected/Chosen" panel, on the 
+        ''  right-hand side of the dialog. 
+        ''
         ''Added 10/24/2022 td
         If (mod_panelLastSelected Is RscColorFlowPanel1All) Then
             ''Added 10/24/2022 td
@@ -283,6 +300,41 @@ ExitHandler:
 
         Me.UserCancelled = True ' added 10/2/2022
         Me.Close() ' added 10/2/2022
+
+    End Sub
+
+    Private Sub RscElementArrowLeft_Load(sender As Object, e As EventArgs) Handles RscElementArrowLeft.Load
+
+        ''Added 11/28/2022
+        ButtonRemove.PerformClick()
+
+    End Sub
+
+    Private Sub RscElementArrowRight_Click(par_control As RSCMoveableControlVB, par_e As EventArgs) _
+        Handles RscElementArrowRight.Element_LeftClicked '', RscElementArrowRight.Click
+
+        ''Added 11/28/2022
+        ButtonSelect.PerformClick()
+
+    End Sub
+
+    Private Sub ButtonRemove_Click(sender As Object, e As EventArgs) Handles ButtonRemove.Click
+
+        ''Added 11/28/2022 td
+        Dim rsColor As RSCColor
+        rsColor = RscColorDisplayLabel1.RSCDisplayColor
+        If (rsColor Is Nothing) Then
+            MessageBoxTD.Show_StatementLongform("Color not found", "Please try selecting " &
+                    "the color again in a different way, prior to removal.", 1.3, 1.0)
+            Exit Sub ''Return
+        End If ''ENd of ""If (rsColor Is Nothing) Then""
+
+        mod_listRSCColors.Remove(rsColor)
+        mod_hashRSCColors.Remove(rsColor)
+        RscColorFlowPanel2Chosen.RefreshColors_FromList(mod_listRSCColors)
+        ButtonRemove.Visible = False ''Added 11/28/2022
+        RscElementArrowLeft.Visible = False ''Added 11/28/2022 
+        RscColorDisplayLabel1.Visible = False ''Added 11/28/2022  
 
     End Sub
 

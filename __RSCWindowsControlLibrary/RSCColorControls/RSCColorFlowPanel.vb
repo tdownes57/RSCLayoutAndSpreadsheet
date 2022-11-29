@@ -9,7 +9,7 @@ Public Class RSCColorFlowPanel
     ''
     ''Added 8/30/2022
     ''
-    Public Shared Event ColorSelected(par_color As RSCColor) ''Added 10/24/2022
+    Public Shared Event ColorSelected_Denigrated(par_color As RSCColor) ''Added 10/24/2022
     Public Event Color_Selected(par_color As RSCColor) ''Added 11/27/2022
     Public Event Colors_OpenAddRemove(sender As Object, e As EventArgs) ''Added 11/27/2022
 
@@ -484,14 +484,19 @@ Public Class RSCColorFlowPanel
         mscolorSelected = controlRSCColorLabel.BackColor
         rscColorSelected = controlRSCColorLabel.RSCDisplayColor
 
-        If (rscColorSelected Is Nothing) Then
-            System.Diagnostics.Debugger.Break()
-            __RSC_Error_Logging.RSCErrorLogging.Log(23, "NetDrawingColor_Click", "RSC Color is missing")
-        End If ''End fo ""If (rscColorSelected Is Nothing) Then""
-
         ''10/28/2022 objFormToShow = New FormRSCColorConfirm(mscolorSelected, strColorName)
         ''11/21/2022 objFormToShow = New FormRSCColorConfirmTiny(mscolorSelected, strColorName)
-        objFormToShow = New FormRSCColorConfirmTiny(rscColorSelected)
+        ''11/28/2022 objFormToShow = New FormRSCColorConfirmTiny(rscColorSelected)
+
+        If (rscColorSelected Is Nothing) Then
+            ''System.Diagnostics.Debugger.Break()
+            ''__RSC_Error_Logging.RSCErrorLogging.Log(23, "NetDrawingColor_Click", "RSC Color is missing")
+            objFormToShow = New FormRSCColorConfirmTiny(mscolorSelected, strColorName)
+        Else
+            objFormToShow = New FormRSCColorConfirmTiny(rscColorSelected)
+
+        End If ''End fo ""If (rscColorSelected Is Nothing) Then ... Else..""
+
 
         With objFormToShow
 
@@ -540,7 +545,7 @@ ExitHandler:
         ''Prepare for next execution of this procedure. ---8/30/2022
         If (Not boolUserCancels) Then
             controlRSCColorLabel_Prior = controlRSCColorLabel
-            RaiseEvent ColorSelected(rscColorSelected) ''Added 10/25/2022
+            RaiseEvent ColorSelected_Denigrated(rscColorSelected) ''Added 10/25/2022
             RaiseEvent Color_Selected(rscColorSelected) ''Added 11/27/2022 
             ''Added 11/27/2022 
             ''Nov27 2022''RaiseEvent controlRSCColorLabel.ColorClick(controlRSCColorLabel, New EventArgs)
