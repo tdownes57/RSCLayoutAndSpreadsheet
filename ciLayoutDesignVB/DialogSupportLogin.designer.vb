@@ -141,7 +141,7 @@ Partial Class DialogSupportLogin
         Me.imgCIS.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.imgCIS.Image = Global.ciLayoutDesignVB.My.Resources.Resources.CI_Logo
+        Me.imgCIS.Image = Global.ciLayoutDesignVB.My.Resources.Resources.RSC_IDs___Tags__FF__01
         Me.imgCIS.Location = New System.Drawing.Point(12, 12)
         Me.imgCIS.Name = "imgCIS"
         Me.imgCIS.Size = New System.Drawing.Size(548, 203)
@@ -149,7 +149,7 @@ Partial Class DialogSupportLogin
         Me.imgCIS.TabIndex = 16
         Me.imgCIS.TabStop = False
         '
-        'FormSupportLogin
+        'DialogSupportLogin
         '
         Me.AcceptButton = Me.buttonOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -168,7 +168,7 @@ Partial Class DialogSupportLogin
         Me.Controls.Add(Me.LabelLoginName)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblExportInfo)
-        Me.Name = "FormSupportLogin"
+        Me.Name = "DialogSupportLogin"
         Me.Text = "Login to Copy-Move Files"
         CType(Me.imgCIS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

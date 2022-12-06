@@ -26,8 +26,8 @@ Partial Class DialogSelectColorManager
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DialogSelectColorManager))
         Me.RscColorFlowPanel1All = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.RscColorFlowPanel2Chosen = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
-        Me.RscElementArrowRight = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
-        Me.RscElementArrowLeft = New __RSCWindowsControlLibrary.RSCElementArrowRight()
+        Me.RscArrowRightSelect = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
+        Me.RscArrowLeftRemove = New __RSCWindowsControlLibrary.RSCElementArrowRight()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.RscColorDisplayLabel1 = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
@@ -36,9 +36,9 @@ Partial Class DialogSelectColorManager
         Me.LabelHeaderColorsSelected = New System.Windows.Forms.Label()
         Me.ButtonSelect = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ButtonRemove = New System.Windows.Forms.Button()
         Me.LabelSubheadingSelected = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.ButtonRemove = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'RscColorFlowPanel1All
@@ -57,39 +57,39 @@ Partial Class DialogSelectColorManager
         Me.RscColorFlowPanel2Chosen.Size = New System.Drawing.Size(421, 260)
         Me.RscColorFlowPanel2Chosen.TabIndex = 1
         '
-        'RscElementArrowRight
+        'RscArrowRightSelect
         '
-        Me.RscElementArrowRight.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.RscElementArrowRight.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscElementArrowRight.ElementInfo_Base = Nothing
-        Me.RscElementArrowRight.ImageLocation = Nothing
-        Me.RscElementArrowRight.Location = New System.Drawing.Point(433, 217)
-        Me.RscElementArrowRight.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscElementArrowRight.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscElementArrowRight.MoveabilityEventsForSingleMove = Nothing
-        Me.RscElementArrowRight.Name = "RscElementArrowRight"
-        Me.RscElementArrowRight.Size = New System.Drawing.Size(156, 100)
-        Me.RscElementArrowRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.RscElementArrowRight.TabIndex = 2
-        Me.ToolTip1.SetToolTip(Me.RscElementArrowRight, "Select the Color for General Use")
-        Me.RscElementArrowRight.Visible = False
+        Me.RscArrowRightSelect.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscArrowRightSelect.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscArrowRightSelect.ElementInfo_Base = Nothing
+        Me.RscArrowRightSelect.ImageLocation = Nothing
+        Me.RscArrowRightSelect.Location = New System.Drawing.Point(433, 217)
+        Me.RscArrowRightSelect.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscArrowRightSelect.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscArrowRightSelect.MoveabilityEventsForSingleMove = Nothing
+        Me.RscArrowRightSelect.Name = "RscArrowRightSelect"
+        Me.RscArrowRightSelect.Size = New System.Drawing.Size(156, 100)
+        Me.RscArrowRightSelect.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscArrowRightSelect.TabIndex = 2
+        Me.ToolTip1.SetToolTip(Me.RscArrowRightSelect, "Select the Color for General Use")
+        Me.RscArrowRightSelect.Visible = False
         '
-        'RscElementArrowLeft
+        'RscArrowLeftRemove
         '
-        Me.RscElementArrowLeft.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.RscElementArrowLeft.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscElementArrowLeft.ElementInfo_Base = Nothing
-        Me.RscElementArrowLeft.ImageLocation = Nothing
-        Me.RscElementArrowLeft.Location = New System.Drawing.Point(433, 217)
-        Me.RscElementArrowLeft.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscElementArrowLeft.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscElementArrowLeft.MoveabilityEventsForSingleMove = Nothing
-        Me.RscElementArrowLeft.Name = "RscElementArrowLeft"
-        Me.RscElementArrowLeft.Size = New System.Drawing.Size(156, 100)
-        Me.RscElementArrowLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.RscElementArrowLeft.TabIndex = 3
-        Me.ToolTip1.SetToolTip(Me.RscElementArrowLeft, "Deselect the color from general use.")
-        Me.RscElementArrowLeft.Visible = False
+        Me.RscArrowLeftRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscArrowLeftRemove.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscArrowLeftRemove.ElementInfo_Base = Nothing
+        Me.RscArrowLeftRemove.ImageLocation = Nothing
+        Me.RscArrowLeftRemove.Location = New System.Drawing.Point(433, 195)
+        Me.RscArrowLeftRemove.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscArrowLeftRemove.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscArrowLeftRemove.MoveabilityEventsForSingleMove = Nothing
+        Me.RscArrowLeftRemove.Name = "RscArrowLeftRemove"
+        Me.RscArrowLeftRemove.Size = New System.Drawing.Size(156, 100)
+        Me.RscArrowLeftRemove.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscArrowLeftRemove.TabIndex = 3
+        Me.ToolTip1.SetToolTip(Me.RscArrowLeftRemove, "Deselect the color from general use.")
+        Me.RscArrowLeftRemove.Visible = False
         '
         'ButtonCancel
         '
@@ -174,6 +174,21 @@ Partial Class DialogSelectColorManager
         Me.ButtonSelect.UseVisualStyleBackColor = False
         Me.ButtonSelect.Visible = False
         '
+        'ButtonRemove
+        '
+        Me.ButtonRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonRemove.BackColor = System.Drawing.Color.Cyan
+        Me.ButtonRemove.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonRemove.Location = New System.Drawing.Point(406, 321)
+        Me.ButtonRemove.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonRemove.Name = "ButtonRemove"
+        Me.ButtonRemove.Size = New System.Drawing.Size(200, 34)
+        Me.ButtonRemove.TabIndex = 13
+        Me.ButtonRemove.Text = "<< Remove <<"
+        Me.ToolTip1.SetToolTip(Me.ButtonRemove, "Remove the color from general use")
+        Me.ButtonRemove.UseVisualStyleBackColor = False
+        Me.ButtonRemove.Visible = False
+        '
         'LabelSubheadingSelected
         '
         Me.LabelSubheadingSelected.AutoSize = True
@@ -194,21 +209,6 @@ Partial Class DialogSelectColorManager
         Me.Label1.TabIndex = 12
         Me.Label1.Text = "(supplied by Microsoft)"
         '
-        'ButtonRemove
-        '
-        Me.ButtonRemove.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonRemove.BackColor = System.Drawing.Color.Cyan
-        Me.ButtonRemove.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonRemove.Location = New System.Drawing.Point(406, 321)
-        Me.ButtonRemove.Margin = New System.Windows.Forms.Padding(2)
-        Me.ButtonRemove.Name = "ButtonRemove"
-        Me.ButtonRemove.Size = New System.Drawing.Size(200, 34)
-        Me.ButtonRemove.TabIndex = 13
-        Me.ButtonRemove.Text = "<< Remove <<"
-        Me.ToolTip1.SetToolTip(Me.ButtonRemove, "Remove the color from general use")
-        Me.ButtonRemove.UseVisualStyleBackColor = False
-        Me.ButtonRemove.Visible = False
-        '
         'DialogSelectColorManager
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -225,8 +225,8 @@ Partial Class DialogSelectColorManager
         Me.Controls.Add(Me.RscColorDisplayLabel1)
         Me.Controls.Add(Me.ButtonOK)
         Me.Controls.Add(Me.ButtonCancel)
-        Me.Controls.Add(Me.RscElementArrowLeft)
-        Me.Controls.Add(Me.RscElementArrowRight)
+        Me.Controls.Add(Me.RscArrowLeftRemove)
+        Me.Controls.Add(Me.RscArrowRightSelect)
         Me.Controls.Add(Me.RscColorFlowPanel1All)
         Me.Name = "DialogSelectColorManager"
         Me.Text = "DialogSelectColorManager"
@@ -237,8 +237,8 @@ Partial Class DialogSelectColorManager
 
     Friend WithEvents RscColorFlowPanel1All As __RSCWindowsControlLibrary.RSCColorFlowPanel
     Friend WithEvents RscColorFlowPanel2Chosen As __RSCWindowsControlLibrary.RSCColorFlowPanel
-    Friend WithEvents RscElementArrowRight As __RSCWindowsControlLibrary.RSCElementArrowLeft
-    Friend WithEvents RscElementArrowLeft As __RSCWindowsControlLibrary.RSCElementArrowRight
+    Friend WithEvents RscArrowRightSelect As __RSCWindowsControlLibrary.RSCElementArrowLeft
+    Friend WithEvents RscArrowLeftRemove As __RSCWindowsControlLibrary.RSCElementArrowRight
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents RscColorDisplayLabel1 As __RSCWindowsControlLibrary.RSCColorDisplayLabel

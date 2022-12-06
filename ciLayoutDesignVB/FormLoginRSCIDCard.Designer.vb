@@ -31,15 +31,18 @@ Partial Class FormLoginRSCIDCard
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LinkLabelLogOnAsGuest = New System.Windows.Forms.LinkLabel()
+        Me.imgCIS = New System.Windows.Forms.PictureBox()
+        CType(Me.imgCIS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'LabelHeading1
         '
         Me.LabelHeading1.AutoSize = True
         Me.LabelHeading1.Font = New System.Drawing.Font("Microsoft Sans Serif", 28.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeading1.Location = New System.Drawing.Point(41, 37)
+        Me.LabelHeading1.Location = New System.Drawing.Point(31, 30)
+        Me.LabelHeading1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeading1.Name = "LabelHeading1"
-        Me.LabelHeading1.Size = New System.Drawing.Size(295, 54)
+        Me.LabelHeading1.Size = New System.Drawing.Size(237, 44)
         Me.LabelHeading1.TabIndex = 0
         Me.LabelHeading1.Text = "RSC ID Card"
         '
@@ -47,9 +50,10 @@ Partial Class FormLoginRSCIDCard
         '
         Me.LabelHeadingLogin.AutoSize = True
         Me.LabelHeadingLogin.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeadingLogin.Location = New System.Drawing.Point(47, 91)
+        Me.LabelHeadingLogin.Location = New System.Drawing.Point(35, 74)
+        Me.LabelHeadingLogin.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LabelHeadingLogin.Name = "LabelHeadingLogin"
-        Me.LabelHeadingLogin.Size = New System.Drawing.Size(313, 36)
+        Me.LabelHeadingLogin.Size = New System.Drawing.Size(248, 29)
         Me.LabelHeadingLogin.TabIndex = 1
         Me.LabelHeadingLogin.Text = "Log onto your account"
         '
@@ -57,9 +61,10 @@ Partial Class FormLoginRSCIDCard
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(64, 214)
+        Me.Label3.Location = New System.Drawing.Point(48, 174)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(77, 26)
+        Me.Label3.Size = New System.Drawing.Size(64, 22)
         Me.Label3.TabIndex = 2
         Me.Label3.Text = "Label3"
         '
@@ -67,34 +72,38 @@ Partial Class FormLoginRSCIDCard
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(64, 175)
+        Me.Label4.Location = New System.Drawing.Point(48, 142)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(77, 26)
+        Me.Label4.Size = New System.Drawing.Size(64, 22)
         Me.Label4.TabIndex = 3
         Me.Label4.Text = "Label4"
         '
         'TextBox1
         '
         Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(160, 172)
+        Me.TextBox1.Location = New System.Drawing.Point(120, 140)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(217, 32)
+        Me.TextBox1.Size = New System.Drawing.Size(164, 27)
         Me.TextBox1.TabIndex = 4
         '
         'TextBox2
         '
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(160, 214)
+        Me.TextBox2.Location = New System.Drawing.Point(120, 174)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(217, 32)
+        Me.TextBox2.Size = New System.Drawing.Size(164, 27)
         Me.TextBox2.TabIndex = 5
         '
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(246, 310)
+        Me.ButtonOK.Location = New System.Drawing.Point(360, 268)
+        Me.ButtonOK.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.ButtonOK.Name = "ButtonOK"
-        Me.ButtonOK.Size = New System.Drawing.Size(168, 39)
+        Me.ButtonOK.Size = New System.Drawing.Size(126, 32)
         Me.ButtonOK.TabIndex = 6
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
@@ -102,9 +111,10 @@ Partial Class FormLoginRSCIDCard
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(438, 310)
+        Me.ButtonCancel.Location = New System.Drawing.Point(504, 268)
+        Me.ButtonCancel.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.ButtonCancel.Name = "ButtonCancel"
-        Me.ButtonCancel.Size = New System.Drawing.Size(168, 39)
+        Me.ButtonCancel.Size = New System.Drawing.Size(126, 32)
         Me.ButtonCancel.TabIndex = 7
         Me.ButtonCancel.Text = "Cancel"
         Me.ButtonCancel.UseVisualStyleBackColor = True
@@ -113,18 +123,33 @@ Partial Class FormLoginRSCIDCard
         '
         Me.LinkLabelLogOnAsGuest.AutoSize = True
         Me.LinkLabelLogOnAsGuest.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabelLogOnAsGuest.Location = New System.Drawing.Point(72, 260)
+        Me.LinkLabelLogOnAsGuest.Location = New System.Drawing.Point(54, 211)
+        Me.LinkLabelLogOnAsGuest.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabelLogOnAsGuest.Name = "LinkLabelLogOnAsGuest"
-        Me.LinkLabelLogOnAsGuest.Size = New System.Drawing.Size(171, 26)
+        Me.LinkLabelLogOnAsGuest.Size = New System.Drawing.Size(142, 22)
         Me.LinkLabelLogOnAsGuest.TabIndex = 8
         Me.LinkLabelLogOnAsGuest.TabStop = True
         Me.LinkLabelLogOnAsGuest.Text = "Log on as Guest"
         '
+        'imgCIS
+        '
+        Me.imgCIS.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.imgCIS.Image = Global.ciLayoutDesignVB.My.Resources.Resources.RSC_IDs___Tags__FF__01
+        Me.imgCIS.Location = New System.Drawing.Point(309, 12)
+        Me.imgCIS.Name = "imgCIS"
+        Me.imgCIS.Size = New System.Drawing.Size(331, 251)
+        Me.imgCIS.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgCIS.TabIndex = 17
+        Me.imgCIS.TabStop = False
+        '
         'FormLoginRSCIDCard
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(635, 375)
+        Me.ClientSize = New System.Drawing.Size(652, 321)
+        Me.Controls.Add(Me.imgCIS)
         Me.Controls.Add(Me.LinkLabelLogOnAsGuest)
         Me.Controls.Add(Me.ButtonCancel)
         Me.Controls.Add(Me.ButtonOK)
@@ -134,8 +159,10 @@ Partial Class FormLoginRSCIDCard
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.LabelHeadingLogin)
         Me.Controls.Add(Me.LabelHeading1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "FormLoginRSCIDCard"
         Me.Text = "FormLoginRSCIDCard"
+        CType(Me.imgCIS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -150,4 +177,5 @@ Partial Class FormLoginRSCIDCard
     Friend WithEvents ButtonOK As Button
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents LinkLabelLogOnAsGuest As LinkLabel
+    Friend WithEvents imgCIS As PictureBox
 End Class

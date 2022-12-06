@@ -40,11 +40,11 @@ Partial Class Form__Main_PreDemo
         Me.BackgroundImagesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UploadNewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SelectFromExistingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.pictureBack = New System.Windows.Forms.PictureBox()
-        Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.CIBadgeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Version830v1010ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Version900v101ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.pictureBack = New System.Windows.Forms.PictureBox()
+        Me.LabelHeader1 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.pictureBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -161,19 +161,38 @@ Partial Class Form__Main_PreDemo
         'UploadNewToolStripMenuItem
         '
         Me.UploadNewToolStripMenuItem.Name = "UploadNewToolStripMenuItem"
-        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.UploadNewToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.UploadNewToolStripMenuItem.Text = "Upload new...."
         '
         'SelectFromExistingToolStripMenuItem
         '
         Me.SelectFromExistingToolStripMenuItem.Name = "SelectFromExistingToolStripMenuItem"
-        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
+        Me.SelectFromExistingToolStripMenuItem.Size = New System.Drawing.Size(190, 22)
         Me.SelectFromExistingToolStripMenuItem.Text = "Select from existing...."
+        '
+        'CIBadgeToolStripMenuItem
+        '
+        Me.CIBadgeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Version830v1010ToolStripMenuItem, Me.Version900v101ToolStripMenuItem})
+        Me.CIBadgeToolStripMenuItem.Name = "CIBadgeToolStripMenuItem"
+        Me.CIBadgeToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
+        Me.CIBadgeToolStripMenuItem.Text = "CI Badge"
+        '
+        'Version830v1010ToolStripMenuItem
+        '
+        Me.Version830v1010ToolStripMenuItem.Name = "Version830v1010ToolStripMenuItem"
+        Me.Version830v1010ToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.Version830v1010ToolStripMenuItem.Text = "Version 8.30 (v101)"
+        '
+        'Version900v101ToolStripMenuItem
+        '
+        Me.Version900v101ToolStripMenuItem.Name = "Version900v101ToolStripMenuItem"
+        Me.Version900v101ToolStripMenuItem.Size = New System.Drawing.Size(171, 22)
+        Me.Version900v101ToolStripMenuItem.Text = "Version 9.00 (v101)"
         '
         'pictureBack
         '
         Me.pictureBack.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pictureBack.Image = Global.ciLayoutDesignVB.My.Resources.Resources.CI_Logo
+        Me.pictureBack.Image = Global.ciLayoutDesignVB.My.Resources.Resources.RSC_IDs___Tags__FF__01
         Me.pictureBack.Location = New System.Drawing.Point(70, 68)
         Me.pictureBack.Margin = New System.Windows.Forms.Padding(2)
         Me.pictureBack.Name = "pictureBack"
@@ -193,26 +212,7 @@ Partial Class Form__Main_PreDemo
         Me.LabelHeader1.TabIndex = 21
         Me.LabelHeader1.Text = "Your Badge Background:"
         '
-        'CIBadgeToolStripMenuItem
-        '
-        Me.CIBadgeToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Version830v1010ToolStripMenuItem, Me.Version900v101ToolStripMenuItem})
-        Me.CIBadgeToolStripMenuItem.Name = "CIBadgeToolStripMenuItem"
-        Me.CIBadgeToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
-        Me.CIBadgeToolStripMenuItem.Text = "CI Badge"
-        '
-        'Version830v1010ToolStripMenuItem
-        '
-        Me.Version830v1010ToolStripMenuItem.Name = "Version830v1010ToolStripMenuItem"
-        Me.Version830v1010ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.Version830v1010ToolStripMenuItem.Text = "Version 8.30 (v101)"
-        '
-        'Version900v101ToolStripMenuItem
-        '
-        Me.Version900v101ToolStripMenuItem.Name = "Version900v101ToolStripMenuItem"
-        Me.Version900v101ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.Version900v101ToolStripMenuItem.Text = "Version 9.00 (v101)"
-        '
-        'FormMain
+        'Form__Main_PreDemo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -222,7 +222,7 @@ Partial Class Form__Main_PreDemo
         Me.Controls.Add(Me.pictureBack)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Name = "FormMain"
+        Me.Name = "Form__Main_PreDemo"
         Me.Text = "FormMain"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

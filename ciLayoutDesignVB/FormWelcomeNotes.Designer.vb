@@ -31,7 +31,9 @@ Partial Class FormWelcomeNotes
         Me.Label1 = New System.Windows.Forms.Label()
         Me.LinkLabelShowWarnings = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelTurnOffWarnings = New System.Windows.Forms.LinkLabel()
+        Me.imgCIS = New System.Windows.Forms.PictureBox()
         CType(Me.pictureBoxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgCIS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBox1
@@ -41,10 +43,11 @@ Partial Class FormWelcomeNotes
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.BackColor = System.Drawing.SystemColors.Control
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.Location = New System.Drawing.Point(247, 92)
+        Me.TextBox1.Location = New System.Drawing.Point(12, 250)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(541, 324)
+        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.TextBox1.Size = New System.Drawing.Size(541, 166)
         Me.TextBox1.TabIndex = 0
         '
         'ButtonCancelEdits
@@ -60,9 +63,9 @@ Partial Class FormWelcomeNotes
         'ButtonOK
         '
         Me.ButtonOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonOK.Location = New System.Drawing.Point(496, 452)
+        Me.ButtonOK.Location = New System.Drawing.Point(496, 443)
         Me.ButtonOK.Name = "ButtonOK"
-        Me.ButtonOK.Size = New System.Drawing.Size(129, 25)
+        Me.ButtonOK.Size = New System.Drawing.Size(129, 34)
         Me.ButtonOK.TabIndex = 2
         Me.ButtonOK.Text = "OK"
         Me.ButtonOK.UseVisualStyleBackColor = True
@@ -71,7 +74,7 @@ Partial Class FormWelcomeNotes
         '
         Me.LabelHeader1.AutoSize = True
         Me.LabelHeader1.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelHeader1.Location = New System.Drawing.Point(6, 19)
+        Me.LabelHeader1.Location = New System.Drawing.Point(425, 24)
         Me.LabelHeader1.Name = "LabelHeader1"
         Me.LabelHeader1.Size = New System.Drawing.Size(322, 31)
         Me.LabelHeader1.TabIndex = 3
@@ -92,7 +95,7 @@ Partial Class FormWelcomeNotes
         '
         Me.pictureBoxLogo.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.feather_logo_RSC
         Me.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.pictureBoxLogo.Location = New System.Drawing.Point(12, 92)
+        Me.pictureBoxLogo.Location = New System.Drawing.Point(569, 92)
         Me.pictureBoxLogo.Name = "pictureBoxLogo"
         Me.pictureBoxLogo.Size = New System.Drawing.Size(219, 324)
         Me.pictureBoxLogo.TabIndex = 5
@@ -101,17 +104,17 @@ Partial Class FormWelcomeNotes
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(39, 58)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(378, 55)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(300, 26)
+        Me.Label1.Size = New System.Drawing.Size(369, 20)
         Me.Label1.TabIndex = 6
-        Me.Label1.Text = "by R Software Consulting 123"
+        Me.Label1.Text = "by R Software Consulting 123 / Thomas C. Downes"
         '
         'LinkLabelShowWarnings
         '
         Me.LinkLabelShowWarnings.AutoSize = True
-        Me.LinkLabelShowWarnings.Location = New System.Drawing.Point(435, 23)
+        Me.LinkLabelShowWarnings.Location = New System.Drawing.Point(297, 444)
         Me.LinkLabelShowWarnings.Name = "LinkLabelShowWarnings"
         Me.LinkLabelShowWarnings.Size = New System.Drawing.Size(176, 13)
         Me.LinkLabelShowWarnings.TabIndex = 7
@@ -121,7 +124,7 @@ Partial Class FormWelcomeNotes
         'LinkLabelTurnOffWarnings
         '
         Me.LinkLabelTurnOffWarnings.AutoSize = True
-        Me.LinkLabelTurnOffWarnings.Location = New System.Drawing.Point(435, 37)
+        Me.LinkLabelTurnOffWarnings.Location = New System.Drawing.Point(297, 458)
         Me.LinkLabelTurnOffWarnings.Name = "LinkLabelTurnOffWarnings"
         Me.LinkLabelTurnOffWarnings.Size = New System.Drawing.Size(193, 13)
         Me.LinkLabelTurnOffWarnings.TabIndex = 8
@@ -129,11 +132,25 @@ Partial Class FormWelcomeNotes
         Me.LinkLabelTurnOffWarnings.Text = "Suppress Warnings / Debug Messages"
         Me.LinkLabelTurnOffWarnings.Visible = False
         '
+        'imgCIS
+        '
+        Me.imgCIS.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.imgCIS.Image = Global.ciLayoutDesignVB.My.Resources.Resources.RSC_IDs___Tags__FF__01
+        Me.imgCIS.Location = New System.Drawing.Point(15, -24)
+        Me.imgCIS.Name = "imgCIS"
+        Me.imgCIS.Size = New System.Drawing.Size(331, 251)
+        Me.imgCIS.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgCIS.TabIndex = 18
+        Me.imgCIS.TabStop = False
+        '
         'FormWelcomeNotes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 489)
+        Me.Controls.Add(Me.imgCIS)
         Me.Controls.Add(Me.LinkLabelTurnOffWarnings)
         Me.Controls.Add(Me.LinkLabelShowWarnings)
         Me.Controls.Add(Me.Label1)
@@ -146,6 +163,7 @@ Partial Class FormWelcomeNotes
         Me.Name = "FormWelcomeNotes"
         Me.Text = "FormWelcomeNotes"
         CType(Me.pictureBoxLogo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgCIS, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -160,4 +178,5 @@ Partial Class FormWelcomeNotes
     Friend WithEvents Label1 As Label
     Friend WithEvents LinkLabelShowWarnings As LinkLabel
     Friend WithEvents LinkLabelTurnOffWarnings As LinkLabel
+    Friend WithEvents imgCIS As PictureBox
 End Class

@@ -790,6 +790,9 @@
     <EmbeddedResource Include="Controls\CtlPropertyUpDownvb.resx">
       <DependentUpon>CtlPropertyUpDownvb.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DialogSupportLogin.resx">
+      <DependentUpon>DialogSupportLogin.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs_Background\CtlBackground.resx">
       <DependentUpon>CtlBackground.vb</DependentUpon>
     </EmbeddedResource>
@@ -1031,6 +1034,7 @@
     <None Include="Resources\feather logo RSC.jpg" />
     <None Include="Resources\CodeNinjas in NB.png" />
     <None Include="Resources\No backside exists.jpg" />
+    <None Include="Resources\RSC IDs &amp; Tags %28FF%29-01.png" />
     <Content Include="XML\CodeNinjas_Dec8.xml" />
     <Content Include="XML\ElementsCache_Current.xml" />
     <Content Include="XML\ElementsCache_Current2.xml" />
