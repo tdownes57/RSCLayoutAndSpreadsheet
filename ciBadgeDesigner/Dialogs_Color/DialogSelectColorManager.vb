@@ -280,16 +280,16 @@ ExitHandler:
     End Sub ''end of Private Sub AddOrReplaceColorInModuleList(par_color As RSCColor)
 
 
-    Private Sub RscElementArrowRight_Click(sender As Object, e As EventArgs) _
-        Handles RscArrowRightSelect.Click,
-              RscArrowRightSelect.Element_LeftClicked
+    ''Private Sub RscElementArrowRight_Click(sender As Object, e As EventArgs) _
+    ''    Handles RscArrowRightSelect.Click,
+    ''          RscArrowRightSelect.Element_LeftClicked
 
-        ''Encapsulation 10/25/2022 
-        ''12/6/2022 SecondSelectionStep()
-        Const c_bConfirmSelect As Boolean = True
-        AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor, c_bConfirmSelect, False)
+    ''    ''Encapsulation 10/25/2022 
+    ''    ''12/6/2022 SecondSelectionStep()
+    ''    Const c_bConfirmSelect As Boolean = True
+    ''    AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor, c_bConfirmSelect, False)
 
-    End Sub
+    ''End Sub
 
 
     Private Sub SecondSelectionStep()
@@ -332,9 +332,9 @@ ExitHandler:
     End Sub
 
 
-    Private Sub RscElementArrowLeft_Click(sender As Object, e As EventArgs) _
-        Handles RscArrowLeftRemove.Click,
-              RscArrowLeftRemove.Element_LeftClicked
+    Private Sub RscElementArrowLeft_Click(sender As Object, e As EventArgs)
+        ''12/6/2022  Handles RscArrowLeftRemove.Click
+        ''RscArrowLeftRemove.Element_LeftClicked
         ''
         ''Remove the selected color from the "Selected/Chosen" panel, on the 
         ''  right-hand side of the dialog. 
@@ -361,6 +361,15 @@ ExitHandler:
 
     End Sub
 
+    Private Sub RscElementArrowLeft_Click(sender As RSCMoveableControlVB, e As EventArgs) _
+        ''12/6/2022  Handles RscArrowLeftRemove.Element_LeftClicked '', RscArrowLeftRemove.Click
+
+        ''Encapsulated 12/6/2022 
+        Const c_bRemoveColor As Boolean = True ''True, we are removing a formerly-selected color. 
+        AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor,
+                          False, c_bRemoveColor)
+
+    End Sub
 
 
     Private Sub ButtonSelect_Click(sender As Object, e As EventArgs) Handles ButtonSelect.Click
@@ -388,15 +397,27 @@ ExitHandler:
     End Sub
 
 
-    Private Sub RscElementArrowRight_Click(par_control As RSCMoveableControlVB, par_e As EventArgs) _
-        Handles RscArrowRightSelect.Element_LeftClicked '', RscArrowRightSelect.Click '', RscArrowRightSelect.Click '', RscElementArrowRight.Click
+    ''Private Sub RscElementArrowRight_Click(par_control As RSCMoveableControlVB, par_e As EventArgs) _
+    ''    Handles RscArrowRightSelect.Element_LeftClicked '', RscArrowRightSelect.Click '', RscArrowRightSelect.Click '', RscArrowRightSelect.Click '', RscArrowRightSelect.Click '', RscElementArrowRight.Click
+    ''
+    ''    ''Added 11/28/2022
+    ''    ''  ---ButtonSelect.PerformClick()
+    ''    Const c_bSelect As Boolean = True
+    ''    AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor, c_bSelect, False)
+    ''
+    ''End Sub
 
-        ''Added 11/28/2022
-        ''---ButtonSelect.PerformClick()
-        Const c_bSelect As Boolean = True
-        AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor, c_bSelect, False)
 
-    End Sub
+    ''Private Sub RscElementArrowRight_Click(par_control As Object, par_e As EventArgs) _
+    ''    Handles RscArrowRightSelect.Click
+
+    ''    ''Added 11/28/2022
+    ''    ''---ButtonSelect.PerformClick()
+    ''    Const c_bSelect As Boolean = True
+    ''    AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor, c_bSelect, False)
+
+    ''End Sub
+
 
     Private Sub ButtonRemove_Click(sender As Object, e As EventArgs) Handles ButtonRemove.Click
 
@@ -420,6 +441,25 @@ ExitHandler:
         Const c_bRemoveColor As Boolean = True
         AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor,
                           False, c_bRemoveColor)
+
+    End Sub
+
+    Private Sub RscArrowLeftRemove_RSCControlClicked() Handles RscArrowLeftRemove.RSCControlClicked
+
+        ''Encapsulated 12/6/2022 
+        Const c_bRemoveColor As Boolean = True ''True, user has pressed "Remove" button or equivalent.
+        AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor,
+                          False, c_bRemoveColor)
+
+    End Sub
+
+
+    Private Sub RscArrowRightSelect_RSCControlClicked() Handles RscArrowRightSelect.RSCControlClicked
+
+        ''Encapsulated 12/6/2022 
+        Const c_bConfirmAdd As Boolean = True ''True, user has pressed "Select" button or equivalent.
+        AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor,
+                          c_bConfirmAdd, False)
 
     End Sub
 

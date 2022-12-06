@@ -131,8 +131,8 @@ Partial Class Form__Main_Demo
         Me.LabelMainHeading = New System.Windows.Forms.Label()
         Me.LabelPreviewHeading = New System.Windows.Forms.Label()
         Me.ButtonDesignElement = New System.Windows.Forms.Button()
-        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCElementArrowRight()
-        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
+        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCArrowRightToLeft()
+        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCArrowLeftToRight()
         Me.checkBoxGoldArrowVisible = New System.Windows.Forms.CheckBox()
         Me.CtlGraphicQRCode1 = New ciBadgeDesigner.CtlGraphicQRCode()
         Me.CtlGraphicPortrait_Lady = New ciBadgeDesigner.CtlGraphicPortrait()
@@ -1404,7 +1404,7 @@ Partial Class Form__Main_Demo
     Friend WithEvents LabelMainHeading As Label
     Friend WithEvents LabelPreviewHeading As Label
     Friend WithEvents ButtonDesignElement As Button
-    Friend WithEvents RscElementArrowRight1 As __RSCWindowsControlLibrary.RSCElementArrowRight
-    Friend WithEvents RscElementArrowLeft1 As __RSCWindowsControlLibrary.RSCElementArrowLeft
+    Friend WithEvents RscElementArrowRight1 As __RSCWindowsControlLibrary.RSCArrowRightToLeft
+    Friend WithEvents RscElementArrowLeft1 As __RSCWindowsControlLibrary.RSCArrowLeftToRight
     Friend WithEvents checkBoxGoldArrowVisible As CheckBox
 End Class

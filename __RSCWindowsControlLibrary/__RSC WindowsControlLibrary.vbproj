@@ -206,16 +206,16 @@
     <Compile Include="RSCMoveableControl\RSCConditionalExpression.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCMoveableControl\RSCElementArrowLeft.Designer.vb">
-      <DependentUpon>RSCElementArrowLeft.vb</DependentUpon>
+    <Compile Include="RSCArrows\RSCArrowLeftToRight.Designer.vb">
+      <DependentUpon>RSCArrowLeftToRight.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCMoveableControl\RSCElementArrowLeft.vb">
+    <Compile Include="RSCArrows\RSCArrowLeftToRight.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RSCMoveableControl\RSCElementArrowRight.Designer.vb">
-      <DependentUpon>RSCElementArrowRight.vb</DependentUpon>
+    <Compile Include="RSCArrows\RSCArrowRightToLeft.Designer.vb">
+      <DependentUpon>RSCArrowRightToLeft.vb</DependentUpon>
     </Compile>
-    <Compile Include="RSCMoveableControl\RSCElementArrowRight.vb">
+    <Compile Include="RSCArrows\RSCArrowRightToLeft.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RSCMoveableControl\RSCMoveableControlVB.Designer.vb">
@@ -283,11 +283,11 @@
     <EmbeddedResource Include="RSCMoveableControl\RSCConditionalExpression.resx">
       <DependentUpon>RSCConditionalExpression.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCMoveableControl\RSCElementArrowLeft.resx">
-      <DependentUpon>RSCElementArrowLeft.vb</DependentUpon>
+    <EmbeddedResource Include="RSCArrows\RSCArrowLeftToRight.resx">
+      <DependentUpon>RSCArrowLeftToRight.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSCMoveableControl\RSCElementArrowRight.resx">
-      <DependentUpon>RSCElementArrowRight.vb</DependentUpon>
+    <EmbeddedResource Include="RSCArrows\RSCArrowRightToLeft.resx">
+      <DependentUpon>RSCArrowRightToLeft.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCMoveableControl\RSCMoveableControlVB.resx">
       <DependentUpon>RSCMoveableControlVB.vb</DependentUpon>

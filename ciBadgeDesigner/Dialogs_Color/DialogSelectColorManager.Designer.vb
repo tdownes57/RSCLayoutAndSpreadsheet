@@ -22,12 +22,11 @@ Partial Class DialogSelectColorManager
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DialogSelectColorManager))
         Me.RscColorFlowPanel1All = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.RscColorFlowPanel2Chosen = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
-        Me.RscArrowRightSelect = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
-        Me.RscArrowLeftRemove = New __RSCWindowsControlLibrary.RSCElementArrowRight()
+        Me.RscArrowRightSelect = New __RSCWindowsControlLibrary.RSCArrowLeftToRight()
+        Me.RscArrowLeftRemove = New __RSCWindowsControlLibrary.RSCArrowRightToLeft()
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.ButtonOK = New System.Windows.Forms.Button()
         Me.RscColorDisplayLabel1 = New __RSCWindowsControlLibrary.RSCColorDisplayLabel()
@@ -35,7 +34,7 @@ Partial Class DialogSelectColorManager
         Me.LabelHeaderColorsAvailable = New System.Windows.Forms.Label()
         Me.LabelHeaderColorsSelected = New System.Windows.Forms.Label()
         Me.ButtonSelect = New System.Windows.Forms.Button()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip()
         Me.ButtonRemove = New System.Windows.Forms.Button()
         Me.LabelSubheadingSelected = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -80,7 +79,7 @@ Partial Class DialogSelectColorManager
         Me.RscArrowLeftRemove.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.RscArrowLeftRemove.ElementInfo_Base = Nothing
         Me.RscArrowLeftRemove.ImageLocation = Nothing
-        Me.RscArrowLeftRemove.Location = New System.Drawing.Point(433, 195)
+        Me.RscArrowLeftRemove.Location = New System.Drawing.Point(433, 207)
         Me.RscArrowLeftRemove.Margin = New System.Windows.Forms.Padding(2)
         Me.RscArrowLeftRemove.MoveabilityEventsForGroupCtls = Nothing
         Me.RscArrowLeftRemove.MoveabilityEventsForSingleMove = Nothing
@@ -237,8 +236,8 @@ Partial Class DialogSelectColorManager
 
     Friend WithEvents RscColorFlowPanel1All As __RSCWindowsControlLibrary.RSCColorFlowPanel
     Friend WithEvents RscColorFlowPanel2Chosen As __RSCWindowsControlLibrary.RSCColorFlowPanel
-    Friend WithEvents RscArrowRightSelect As __RSCWindowsControlLibrary.RSCElementArrowLeft
-    Friend WithEvents RscArrowLeftRemove As __RSCWindowsControlLibrary.RSCElementArrowRight
+    Friend WithEvents RscArrowRightSelect As __RSCWindowsControlLibrary.RSCArrowLeftToRight
+    Friend WithEvents RscArrowLeftRemove As __RSCWindowsControlLibrary.RSCArrowRightToLeft
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents ButtonOK As Button
     Friend WithEvents RscColorDisplayLabel1 As __RSCWindowsControlLibrary.RSCColorDisplayLabel

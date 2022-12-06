@@ -35,8 +35,8 @@ Partial Class Dialog_Base
         Me.buttonTextstring = New System.Windows.Forms.Button()
         Me.checkBoxArrowVisible = New System.Windows.Forms.CheckBox()
         Me.checkArrowMovesWithElem = New System.Windows.Forms.CheckBox()
-        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCElementArrowLeft()
-        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCElementArrowRight()
+        Me.RscElementArrowLeft1 = New __RSCWindowsControlLibrary.RSCArrowLeftToRight()
+        Me.RscElementArrowRight1 = New __RSCWindowsControlLibrary.RSCArrowRightToLeft()
         Me.panelDisplayElement = New System.Windows.Forms.PictureBox()
         Me.PanelEditorControls.SuspendLayout()
         CType(Me.panelDisplayElement, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -273,6 +273,6 @@ Partial Class Dialog_Base
     Friend WithEvents checkBoxArrowVisible As CheckBox
     Friend WithEvents panelDisplayElement As PictureBox
     Friend WithEvents checkArrowMovesWithElem As CheckBox
-    Friend WithEvents RscElementArrowRight1 As __RSCWindowsControlLibrary.RSCElementArrowRight
-    Friend WithEvents RscElementArrowLeft1 As __RSCWindowsControlLibrary.RSCElementArrowLeft
+    Friend WithEvents RscElementArrowRight1 As __RSCWindowsControlLibrary.RSCArrowRightToLeft
+    Friend WithEvents RscElementArrowLeft1 As __RSCWindowsControlLibrary.RSCArrowLeftToRight
 End Class

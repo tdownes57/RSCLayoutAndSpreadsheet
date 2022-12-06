@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class RSCElementArrowRight
+Partial Class RSCArrowLeftToRight
     Inherits RSCMoveableControlVB ''Added 8/30/2022 thomas downes
+    ''8/30/2022 Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -22,7 +23,7 @@ Partial Class RSCElementArrowRight
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RSCElementArrowRight))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RSCArrowLeftToRight))
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -35,18 +36,21 @@ Partial Class RSCElementArrowRight
         Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(98, 55)
-        Me.PictureBox1.TabIndex = 1
+        Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
-        'RSCElementArrowRight
+        'RSCElementArrowLeft
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.PictureBox1)
-        Me.Name = "RSCElementArrowRight"
+        Me.Name = "RSCElementArrowLeft"
         Me.Size = New System.Drawing.Size(98, 55)
+        Me.Controls.SetChildIndex(Me.PictureBox1, 0)
+        Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
