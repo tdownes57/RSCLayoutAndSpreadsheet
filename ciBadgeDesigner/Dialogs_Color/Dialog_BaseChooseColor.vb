@@ -115,6 +115,9 @@ Public Class Dialog_BaseChooseColor
         ''
         RefreshFlowPanel() ''Encapsulated 11/18/2022
 
+        ''Added 12/6/2022 
+        MyBase.DisableOneButton(False, True, False, False, False, False)
+
     End Sub
 
 

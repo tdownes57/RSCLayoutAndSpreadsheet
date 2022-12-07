@@ -26,8 +26,8 @@ Partial Class Dialog_Base
         Me.ButtonCancel = New System.Windows.Forms.Button()
         Me.LabelHeading1 = New System.Windows.Forms.Label()
         Me.LabelHeading2 = New System.Windows.Forms.Label()
-        Me.buttonColor = New System.Windows.Forms.Button()
-        Me.buttonFont = New System.Windows.Forms.Button()
+        Me.buttonColors = New System.Windows.Forms.Button()
+        Me.buttonFonts = New System.Windows.Forms.Button()
         Me.buttonRotation = New System.Windows.Forms.Button()
         Me.buttonBorder = New System.Windows.Forms.Button()
         Me.buttonTextPlacement = New System.Windows.Forms.Button()
@@ -92,29 +92,29 @@ Partial Class Dialog_Base
     "e visible within.)"
         Me.LabelHeading2.Visible = False
         '
-        'buttonColor
+        'buttonColors
         '
-        Me.buttonColor.BackColor = System.Drawing.Color.Thistle
-        Me.buttonColor.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.buttonColor.ForeColor = System.Drawing.Color.Purple
-        Me.buttonColor.Location = New System.Drawing.Point(120, 11)
-        Me.buttonColor.Margin = New System.Windows.Forms.Padding(2)
-        Me.buttonColor.Name = "buttonColor"
-        Me.buttonColor.Size = New System.Drawing.Size(101, 34)
-        Me.buttonColor.TabIndex = 7
-        Me.buttonColor.Text = "Colors"
-        Me.buttonColor.UseVisualStyleBackColor = False
+        Me.buttonColors.BackColor = System.Drawing.Color.Thistle
+        Me.buttonColors.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonColors.ForeColor = System.Drawing.Color.Purple
+        Me.buttonColors.Location = New System.Drawing.Point(120, 11)
+        Me.buttonColors.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonColors.Name = "buttonColors"
+        Me.buttonColors.Size = New System.Drawing.Size(101, 34)
+        Me.buttonColors.TabIndex = 7
+        Me.buttonColors.Text = "Colors"
+        Me.buttonColors.UseVisualStyleBackColor = False
         '
-        'buttonFont
+        'buttonFonts
         '
-        Me.buttonFont.Font = New System.Drawing.Font("Ink Free", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.buttonFont.Location = New System.Drawing.Point(7, 11)
-        Me.buttonFont.Margin = New System.Windows.Forms.Padding(2)
-        Me.buttonFont.Name = "buttonFont"
-        Me.buttonFont.Size = New System.Drawing.Size(101, 34)
-        Me.buttonFont.TabIndex = 6
-        Me.buttonFont.Text = "Font"
-        Me.buttonFont.UseVisualStyleBackColor = True
+        Me.buttonFonts.Font = New System.Drawing.Font("Ink Free", 15.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonFonts.Location = New System.Drawing.Point(7, 11)
+        Me.buttonFonts.Margin = New System.Windows.Forms.Padding(2)
+        Me.buttonFonts.Name = "buttonFonts"
+        Me.buttonFonts.Size = New System.Drawing.Size(101, 34)
+        Me.buttonFonts.TabIndex = 6
+        Me.buttonFonts.Text = "Fonts"
+        Me.buttonFonts.UseVisualStyleBackColor = True
         '
         'buttonRotation
         '
@@ -156,9 +156,9 @@ Partial Class Dialog_Base
         Me.PanelEditorControls.Controls.Add(Me.ButtonOK)
         Me.PanelEditorControls.Controls.Add(Me.buttonTextstring)
         Me.PanelEditorControls.Controls.Add(Me.buttonTextPlacement)
-        Me.PanelEditorControls.Controls.Add(Me.buttonFont)
+        Me.PanelEditorControls.Controls.Add(Me.buttonFonts)
         Me.PanelEditorControls.Controls.Add(Me.buttonRotation)
-        Me.PanelEditorControls.Controls.Add(Me.buttonColor)
+        Me.PanelEditorControls.Controls.Add(Me.buttonColors)
         Me.PanelEditorControls.Controls.Add(Me.buttonBorder)
         Me.PanelEditorControls.Controls.Add(Me.ButtonCancel)
         Me.PanelEditorControls.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -263,8 +263,8 @@ Partial Class Dialog_Base
     Friend WithEvents ButtonCancel As Button
     Friend WithEvents LabelHeading1 As Label
     Friend WithEvents LabelHeading2 As Label
-    Friend WithEvents buttonColor As Button
-    Friend WithEvents buttonFont As Button
+    Friend WithEvents buttonColors As Button
+    Friend WithEvents buttonFonts As Button
     Friend WithEvents buttonRotation As Button
     Friend WithEvents buttonBorder As Button
     Friend WithEvents buttonTextPlacement As Button

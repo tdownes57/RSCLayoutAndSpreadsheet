@@ -15,6 +15,7 @@ Public Class DialogSelectColorManager
     Private mod_listRSCColors As List(Of RSCColor)
     Private mod_hashRSCColors As HashSet(Of RSCColor) ''Added 10/'12/2022
     Private mod_panelLastSelected As RSCColorFlowPanel ''Added 10/24/20222
+    Private mod_bConfirmColorSelection_Prior As Boolean ''Added 12/6/2022 
 
     Public Sub SaveListOfRSCColors_ToCache(par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated)
         ''
@@ -48,6 +49,7 @@ Public Class DialogSelectColorManager
         ''Added 10/28/2022 thomas downes
         ''11/2022 RscColorFlowPanel1.ConfirmColorSelection = par_bConfirmColor
         ''11/2022 RscColorFlowPanel2.ConfirmColorSelection = par_bConfirmColor
+        mod_bConfirmColorSelection_Prior = RSCColorFlowPanel.ConfirmColorSelection
         RSCColorFlowPanel.ConfirmColorSelection = par_bConfirmColor
 
     End Sub
@@ -460,6 +462,13 @@ ExitHandler:
         Const c_bConfirmAdd As Boolean = True ''True, user has pressed "Select" button or equivalent.
         AddOrRemoveColor(RscColorDisplayLabel1.RSCDisplayColor,
                           c_bConfirmAdd, False)
+
+    End Sub
+
+    Private Sub DialogSelectColorManager_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+
+        ''Added 12/6/2022 td
+        RSCColorFlowPanel.ConfirmColorSelection = mod_bConfirmColorSelection_Prior
 
     End Sub
 

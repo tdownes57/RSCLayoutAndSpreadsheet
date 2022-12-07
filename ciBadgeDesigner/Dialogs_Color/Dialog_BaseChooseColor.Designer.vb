@@ -138,7 +138,7 @@ Partial Class Dialog_BaseChooseColor
         'RscColorFlowPanel2
         '
         Me.RscColorFlowPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(630, 34)
+        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(629, 38)
         Me.RscColorFlowPanel2.Name = "RscColorFlowPanel2"
         Me.RscColorFlowPanel2.Size = New System.Drawing.Size(436, 260)
         Me.RscColorFlowPanel2.TabIndex = 31

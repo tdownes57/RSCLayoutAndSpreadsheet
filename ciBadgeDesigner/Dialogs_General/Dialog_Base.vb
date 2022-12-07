@@ -355,6 +355,32 @@ ExitHandler:
     End Function ''End of "Public Function Layout_Margin_Top_Add() As Integer"
 
 
+    Public Sub DisableOneButton(par_font As Boolean,
+                              par_colors As Boolean,
+                              par_border As Boolean,
+                              par_rotation As Boolean,
+                              par_textPlacement As Boolean,
+                              par_textContent As Boolean)
+        ''
+        ''Added 12/6/2022 
+        ''
+        If (par_font) Then
+            buttonFonts.Enabled = False
+        ElseIf (par_colors) Then
+            buttonColors.Enabled = False
+        ElseIf (par_border) Then
+            buttonBorder.Enabled = False
+        ElseIf (par_rotation) Then
+            buttonRotation.Enabled = False
+        ElseIf (par_textPlacement) Then
+            buttonTextPlacement.Enabled = False
+        ElseIf (par_textContent) Then
+            buttonTextstring.Enabled = False
+        End If
+
+    End Sub
+
+
     Public Property ControlBeingMoved() As Control Implements ILayoutFunctions.ControlBeingMoved ''Added 8/4/2019 td
         Get
             Return Nothing
@@ -787,7 +813,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub ButtonFont_Click(sender As Object, e As EventArgs) Handles buttonFont.Click
+    Private Sub ButtonFont_Click(sender As Object, e As EventArgs) Handles buttonFonts.Click
         ''
         ''Added 8/07/2022 thomas downes
         ''
@@ -817,7 +843,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub ButtonColor_Click(sender As Object, e As EventArgs) Handles buttonColor.Click
+    Private Sub ButtonColor_Click(sender As Object, e As EventArgs) Handles buttonColors.Click
         ''
         ''Added 8/07/2022 thomas downes
         ''
