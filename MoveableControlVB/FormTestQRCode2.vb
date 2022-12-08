@@ -19,7 +19,8 @@ Public Class FormTestQRCode2
         ''
         Dim propRSC As ProportionalRSCControl
 
-        mod_designer.BadgeLayout_Class = New BadgeLayoutClass()
+        ''12/2022 mod_designer.BadgeLayout_Class = New BadgeLayoutClass()
+        mod_designer.BadgeLayout_Class = New BadgeLayoutDimensionsClass()
 
         mod_designer.BackgroundBox_Front = PictureBox_BadgeFront
         mod_designer.BackgroundBox_Backside = PictureBox_BadgeFront
@@ -39,14 +40,19 @@ Public Class FormTestQRCode2
         Dim ctlQRCode As ciBadgeDesigner.CtlGraphicQRCode
         Dim objElement As New ciBadgeElements.ClassElementQRCode
 
-        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        ''12/2022 objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        objElement.BadgeLayoutDims = mod_designer.BadgeLayout_Class
 
         ''Added 1/17/2022 td
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
 
+        ''12/2022 ctlQRCode = CtlGraphicQRCode.GetQRCode(objGetParametersForGetControl, objElement,
+        ''          Me, "ctlQRCode", mod_designer, True,
+        ''          mod_ctlLasttouched, mod_eventsSingleton)
         ctlQRCode = CtlGraphicQRCode.GetQRCode(objGetParametersForGetControl, objElement,
-                                               Me, "ctlQRCode", mod_designer, True,
+                                               Me, "ctlQRCode", mod_designer,
+                                               objElement.GetSize(), True,
                                                mod_ctlLasttouched, mod_eventsSingleton)
 
         ctlQRCode.Visible = True
@@ -68,11 +74,13 @@ Public Class FormTestQRCode2
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
         objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
 
-        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        ''12/2022 objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        objElement.BadgeLayoutDims = mod_designer.BadgeLayout_Class
 
         mod_ctlSignat = CtlGraphicSignature.GetSignature(objGetParametersForGetControl,
                                                          objElement, Me, "ctlSignat",
-                                                          mod_designer, True, mod_ctlLasttouched,
+                                                          mod_designer, objElement.GetSize(),
+                                                          True, mod_ctlLasttouched,
                                                           mod_eventsSingleton,
                                                           DiskFilesVB.PathToFile_Sig())
 

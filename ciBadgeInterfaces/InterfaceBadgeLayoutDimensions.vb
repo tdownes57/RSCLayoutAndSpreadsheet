@@ -211,4 +211,12 @@ Public Class BadgeLayoutDimensionsClass ''8/18/2022 BadgeLayoutClass
     End Sub ''End of "Public Shared Sub Proportions_CorrectWidth(par_control As Control)"
 
 
+    Public Function GetSize() As Drawing.Size
+
+        ''Added 12/8/2022 td
+        Return New Size(Width_Pixels, Height_Pixels)
+
+    End Function
+
+
 End Class ''End of ""Public Class BadgeLayoutDimensionsClass""

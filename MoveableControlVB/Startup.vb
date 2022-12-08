@@ -38,7 +38,8 @@ Public Class Startup
         Dim obj_cache_layout_Elements As ClassElementsCache_Deprecated = Nothing ''Added 10/13/2019 td
 
         ''1/14/2019 td''Dim obj_personality As New PersonalityCache_NotInUse ''Added 10/17/2019 td  
-        Dim obj_personality As New ClassCacheOnePersonalityConfig ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
+        ''12/2022 Dim obj_personality As New ClassCacheOnePersonalityConfig ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
+        Dim obj_personality As New CachePersnltyCnfgLRecips ''Dec4 2021'' As ClassPersonalityCache ''Added 10/17/2019 td  
 
         ''
         ''
@@ -284,14 +285,15 @@ Public Class Startup
 
 
     Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As IDesignerForm,
-                                           ByRef pboolNewFileXML As Boolean) As ClassCacheOnePersonalityConfig ''As ClassPersonalityCache
+                             ByRef pboolNewFileXML As Boolean) As CachePersnltyCnfgLRecips ''As ClassPersonalityCache
         ''1/15/2022 td''Public Shared Function LoadCachedData_Personality_FutureUse(par_designForm As FormFieldsAndPortrait
         ''
         ''Added 1/14/2019 td
         ''Suffixed 11/30/2021 with "_FutureUse".
         ''
         Dim strPathToXML As String = ""
-        Dim obj_cache_personality As ClassCacheOnePersonalityConfig ''Dec.4, 2021 '' As ClassPersonalityCache
+        ''12/8/2022 Dim obj_cache_personality As ClassCacheOnePersonalityConfig ''Dec.4, 2021 '' As ClassPersonalityCache
+        Dim obj_cache_personality As CachePersnltyCnfgLRecips ''As ClassCacheOnePersonalityConfig ''Dec.4, 2021 '' As ClassPersonalityCache
 
         strPathToXML = DiskFilesVB.PathToFile_XML_Personality
 
@@ -317,7 +319,7 @@ Public Class Startup
             ''----Me.ElementsCache_Edits.LoadFieldElements(pictureBack, BadgeLayout)
 
             ''Added 10/13/2019 td
-            obj_cache_personality = New ClassCacheOnePersonalityConfig ''Dec.4, 2021 '' New ClassPersonalityCache
+            obj_cache_personality = New CachePersnltyCnfgLRecips ''12/2022 = New ClassCacheOnePersonalityConfig ''Dec.4, 2021 '' New ClassPersonalityCache
             obj_cache_personality.PathToXml_Saved = strPathToXML
 
             obj_cache_personality.LoadFields()
@@ -332,11 +334,13 @@ Public Class Startup
             ''10/13/2019 td''Me.ElementsCache_Saved = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Saved.GetType(), False), ClassElementsCache)
             ''-----Me.ElementsCache_Edits = CType(objDeserialize.DeserializeFromXML(Me.ElementsCache_Edits.GetType(), False), ClassElementsCache)
 
-            obj_cache_personality = New ClassCacheOnePersonalityConfig ''Dec4 2021 ''ClassPersonalityCache ''This may or may not be completely necessary,
+            ''12/2022 obj_cache_personality = New ClassCacheOnePersonalityConfig ''Dec4 2021 ''ClassPersonalityCache ''This may or may not be completely necessary,
+            obj_cache_personality = New CachePersnltyCnfgLRecips ''Dec4 2021 ''ClassPersonalityCache ''This may or may not be completely necessary,
             ''   but I know of no other way to pass the object type.  Simply expressing the Type
             ''   by typing its name doesn't work.  ---10/13/2019 td
 
-            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False), ClassCacheOnePersonalityConfig) ''Dec4 2021 ''ClassPersonalityCache)
+            obj_cache_personality = CType(objDeserialize.DeserializeFromXML(obj_cache_personality.GetType(), False),
+                CachePersnltyCnfgLRecips) ''12/2022  ClassCacheOnePersonalityConfig) ''Dec4 2021 ''ClassPersonalityCache)
 
             ''Added 10/12/2019 td
             ''10/13/2019 td''Me.ElementsCache_Saved.LinkElementsToFields()
@@ -540,7 +544,8 @@ Public Class Startup
 
             obj_cache_elements.LoadFields()
             obj_cache_elements.LoadFieldElements(par_designForm.MyPictureBackgroundFront,
-                                New BadgeLayoutClass(par_designForm.MyPictureBackgroundFront))
+                       New BadgeLayoutDimensionsClass(par_designForm.MyPictureBackgroundFront))
+            ''12/2022  New BadgeLayoutClass(par_designForm.MyPictureBackgroundFront))
 
         Else
             ''Added 10/10/2019 td  
@@ -657,11 +662,12 @@ Public Class Startup
 
         ''Added 10/14/2019 thomas d. 
         ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
-        obj_cache_elements.LoadNewElement_StaticText(strStaticText,
-                                                intLeft_Text, intTop_Text,
-                                                intWidth_Text, intHeight_Text,
-                                               par_designForm.MyPictureBackgroundFront,
-                                                EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
+        ''12/022 obj_cache_elements.LoadNewElement_StaticText(strStaticText,
+        obj_cache_elements.LoadNewElement_StaticTextV4(strStaticText,
+                            intLeft_Text, intTop_Text,
+                            intWidth_Text, intHeight_Text,
+                            par_designForm.MyPictureBackgroundFront,
+                            EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial

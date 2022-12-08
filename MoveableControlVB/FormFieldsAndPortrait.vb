@@ -50,7 +50,10 @@ Public Class FormFieldsAndPortrait
 
     Public Property ElementsCache_ManageBoth As ClassCacheManagement Implements IDesignerForm.ElementsCache_ManageBoth ''Added 1/07/2022
     Public Property ElementsCache_Edits As ClassElementsCache_Deprecated Implements IDesignerForm.ElementsCache_Edits ''Added 1/07/2022 td 
-    Public Property PersonalityCache_Recipients As ClassCacheOnePersonalityConfig Implements IDesignerForm.PersonalityCache_Recipients
+
+    ''12/2022 Public Property PersonalityCache_Recipients As ClassCacheOnePersonalityConfig Implements IDesignerForm.PersonalityCache_Recipients
+    Public Property PersonalityCache_Recipients As CachePersnltyCnfgLRecips Implements IDesignerForm.PersonalityCache_Recipients
+
     Public Property NewFileXML As Boolean Implements IDesignerForm.NewFileXML    ''Added 1/7/2022 
     Public Property LetsRefresh_CloseForm As Boolean Implements IDesignerForm.LetsRefresh_CloseForm  ''Added 1/07/2021 td  
     Public Property ElementsCache_PathToXML As String Implements IDesignerForm.ElementsCache_PathToXML   ''Added 1/7/2022 
@@ -68,7 +71,9 @@ Public Class FormFieldsAndPortrait
     Private mod_ctlStaticGraphic As ciBadgeDesigner.CtlGraphicStaticGraphic
     Private mod_ctlStaticText As ciBadgeDesigner.CtlGraphicStaticTextV3
 
-    Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout
+    ''12/2022 Public Property BadgeLayout As BadgeLayoutClass Implements IDesignerForm.BadgeLayout
+    Public Property BadgeLayout As BadgeLayoutDimensionsClass Implements IDesignerForm.BadgeLayout
+
     ''    Get
     ''        Throw New NotImplementedException()
     ''    End Get
@@ -92,7 +97,8 @@ Public Class FormFieldsAndPortrait
         ''----Dim propRSC As ProportionalRSCControl
 
         ''Added 1/07/2022 & 10/13/2019 td
-        Me.BadgeLayout = New BadgeLayoutClass
+        ''12/2022 Me.BadgeLayout = New BadgeLayoutClass
+        Me.BadgeLayout = New BadgeLayoutDimensionsClass
         Me.BadgeLayout.Height_Pixels = pictureBackgroundFront.Height
         Me.BadgeLayout.Width_Pixels = pictureBackgroundFront.Width
 
@@ -103,7 +109,8 @@ Public Class FormFieldsAndPortrait
         mod_designer.DesignerForm = Me ''Added 1/10/2022 td 
         mod_designer.ElementsCache_UseEdits = Me.ElementsCache_Edits
         mod_designer.ElementsCache_Manager = Me.ElementsCache_ManageBoth
-        mod_designer.BadgeLayout_Class = New BadgeLayoutClass()
+        ''12/2022 mod_designer.BadgeLayout_Class = New BadgeLayoutClass()
+        mod_designer.BadgeLayout_Class = New BadgeLayoutDimensionsClass()
         mod_designer.BackgroundBox_Front = pictureBackgroundFront
         mod_designer.BackgroundBox_Backside = pictureBackgroundFront
         ''1/21/2022''mod_designer.BackgroundBox_JustAButton = pictureJustAButton
@@ -148,7 +155,8 @@ Public Class FormFieldsAndPortrait
         Dim bHandleMouseEventsThroughFormVB6 As Boolean ''Added 1/7/2022 td
         Dim sizeSuggested As Size ''Added 3/10/2022 
 
-        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        ''12/2022 objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        objElement.BadgeLayoutDims = mod_designer.BadgeLayout_Class
 
         ''Added 1/17/2022 td
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
@@ -184,7 +192,8 @@ Public Class FormFieldsAndPortrait
         ''Added 1/6/2022 td 
         ''
         Dim objElement As New ciBadgeElements.ClassElementPortrait
-        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        ''12/2022 objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        objElement.BadgeLayoutDims = mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
@@ -219,7 +228,8 @@ Public Class FormFieldsAndPortrait
         ''Added 1/07/2022 td
         objElement = mod_designer.ElementsCache_UseEdits.ListFieldElementsV3().FirstOrDefault()
 
-        objElement.BadgeLayout = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
+        ''12/2022 objElement.BadgeLayout = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
+        objElement.BadgeLayoutDims = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
@@ -239,7 +249,9 @@ Public Class FormFieldsAndPortrait
 
         mod_ctlField1.Visible = True
         mod_ctlField1.Top = mod_ctlField1.Width
-        Dim intHeightPixels As Integer = objElement.BadgeLayout.Height_Pixels
+        ''12/2022 Dim intHeightPixels As Integer = objElement.BadgeLayout.Height_Pixels
+        Dim intHeightPixels As Integer = objElement.BadgeLayoutDims.Height_Pixels
+
         Me.Controls.Add(mod_ctlField1)
         pictureBackgroundFront.SendToBack()
 
@@ -258,7 +270,8 @@ Public Class FormFieldsAndPortrait
         ''Added 1/6/2022 td 
         ''
         Dim objElement As New ciBadgeElements.ClassElementGraphic
-        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        ''12/2022 objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        objElement.BadgeLayoutDims = mod_designer.BadgeLayout_Class
 
         ''Added 1/9/2022 td
         If (0 = ElementsCache_Edits.ListOfElementGraphics_Front.Count) Then
@@ -301,7 +314,8 @@ Public Class FormFieldsAndPortrait
         ''Added 1/6/2022 td 
         ''
         Dim objElement As New ciBadgeElements.ClassElementStaticTextV3
-        objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        ''12/2022 objElement.BadgeLayout = mod_designer.BadgeLayout_Class
+        objElement.BadgeLayoutDims = mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,

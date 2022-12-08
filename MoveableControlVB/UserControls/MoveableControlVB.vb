@@ -358,7 +358,8 @@ Public Class MoveableControlVB
 
             ''Jan4 2022''mod_moveResizeKeepRatio.Init(Me, Me, 10, c_bRepaintAfterResize,
             ''              mod_eventsMove, False, Me)  ''1/2/2022 td''mod_iSaveToModel)
-            mod_moveability.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            ''Dec8 2022''mod_moveability.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            mod_moveability.Init(Me, 10, c_bRepaintAfterResize,
                                             mod_eventsMoveGroupedCtls,
                                             mod_eventsMoveThisControl,
                                             False, Me)  ''1/2/2022 td''mod_iSaveToModel)
@@ -383,7 +384,8 @@ Public Class MoveableControlVB
             ''                        mod_eventsMove, False, Me) ''Jan2 2022'' mod_iSaveToModel)
             ''#2 Jan4 2022 ''mod_moveInAGroup.Init(Nothing, Me, 10, c_bRepaintAfterResize,
             ''       mod_eventsMove, False, Me) ''Jan2 2022'' mod_iSaveToModel)
-            mod_moveability.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            ''Dec8 2022''mod_moveability.Init(Nothing, Me, 10, c_bRepaintAfterResize,
+            mod_moveability.Init(Me, 10, c_bRepaintAfterResize,
                                     mod_eventsMoveGroupedCtls,
                                       mod_eventsMoveThisControl,
                                     False, Me) ''Jan2 2022'' mod_iSaveToModel)
@@ -597,9 +599,10 @@ Public Class MoveableControlVB
     End Sub
 
 
-    Private Sub mod_events_Resizing_End(par_iSave As ISaveToModel,
+    Private Sub mod_events_Resizing_End(par_iSaveToModel As ISaveToModel,
                               par_iRefreshElement As IRefreshElementImage,
-                              par_iRefreshCardPreview As IRefreshCardPreview) _
+                              par_iRefreshCardPreview As IRefreshCardPreview,
+                              par_bHeighResized As Boolean) _
         Handles mod_eventsMoveThisControl.Resizing_EndV2
         ''
         ''Added 12/27/2021 td 

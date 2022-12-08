@@ -11,11 +11,15 @@ Public Interface IDesignerForm
     ''
     Property MyText As String
     Property MyPictureBackgroundFront As PictureBox ''Added 1/15/2022 td 
-    Property BadgeLayout As BadgeLayoutClass
+    ''12/2022 Property BadgeLayout As BadgeLayoutClass
+    Property BadgeLayout As BadgeLayoutDimensionsClass
 
     Property ElementsCache_ManageBoth As ClassCacheManagement ''Added 1/07/2022
     Property ElementsCache_Edits As ClassElementsCache_Deprecated ''Added 1/07/2022 td 
-    Property PersonalityCache_Recipients As ClassCacheOnePersonalityConfig
+
+    ''12/2022 Property PersonalityCache_Recipients As ClassCacheOnePersonalityConfig
+    Property PersonalityCache_Recipients As CachePersnltyCnfgLRecips
+
     Property NewFileXML As Boolean ''Added 1/7/2022 
     Property LetsRefresh_CloseForm As Boolean
     Property ElementsCache_PathToXML As String

@@ -181,7 +181,8 @@ Public Class ClassLabelToImage
         ''Added 9/4/2019 thomas d.
         Dim doub_LongToShort As Double ''Added 9/4/2019 thomas d.
         Dim boo_LikelyRatioIsMistaken As Boolean ''Added 9/4/2019 thomas d.
-        doub_LongToShort = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
+        ''12/2022 doub_LongToShort = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio()
+        doub_LongToShort = ciLayoutPrintLib.LayoutPrint.LongSideToShortRatio_WH()
 
         ''
         ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
@@ -195,7 +196,8 @@ Public Class ClassLabelToImage
         ''9/5/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
         ''9/11/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.LayoutWidth_Pixels)
 
-        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
+        ''12/2022 doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayout.Width_Pixels)
+        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.BadgeLayoutDims.Width_Pixels)
 
         ''Added 8/15/2019 td
         intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
@@ -398,13 +400,17 @@ Public Class ClassLabelToImage
             End If ''End of "If (.FontFamilyName Is Nothing) Then"
 
             ''Added 9/15/2019 td
-            If (.Font_DrawingClass Is Nothing) Then
+            ''12/2022 If (.Font_DrawingClass Is Nothing) Then
+            If (.FontDrawingClass Is Nothing) Then
                 ''Added 9/15/2019 td
-                .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                ''12/2022 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                .FontDrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels,
+                        .FontBold_Deprecated, .FontItalics_Deprecated, .FontUnderline_Deprecated)
             End If ''End of '"If (.Font_DrawingClass Is Nothing) Then"
 
             ''Added 9/8/2019 td
-            font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
+            ''12/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
 
             ''Added 8/18/2019 td
             Select Case par_elementInfo_Text.TextAlignment''Added 8/18/2019 td
@@ -412,13 +418,15 @@ Public Class ClassLabelToImage
                 Case HorizontalAlignment.Left
 
                     ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
-                    gr_element.DrawString(.Text_Static, font_scaled, Brushes.Black,
+                    ''12/2022 gr_element.DrawString(.Text_Static, font_scaled, Brushes.Black,
+                    gr_element.DrawString(.Text_StaticLine, font_scaled, Brushes.Black,
                                           singleOffsetX, singleOffsetY)
 
                 Case HorizontalAlignment.Center
                     ''// Measure string.
                     ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                    stringSize = gr_element.MeasureString(.Text_Static, font_scaled)
+                    ''12/2022 stringSize = gr_element.MeasureString(.Text_Static, font_scaled)
+                    stringSize = gr_element.MeasureString(.Text_StaticLine, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     ''Added 8/18/2019 td 
@@ -428,14 +436,14 @@ Public Class ClassLabelToImage
                     ''
                     ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
                     ''                            singleOffsetX_AlignRight, singleOffsetY)
-                    gr_element.DrawString(.Text_Static, font_scaled, Brushes.Black,
+                    gr_element.DrawString(.Text_StaticLine, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
                 Case HorizontalAlignment.Right
                     ''// Measure string.
                     ''
                     ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                    stringSize = gr_element.MeasureString(.Text_Static, font_scaled)
+                    stringSize = gr_element.MeasureString(.Text_StaticLine, font_scaled)
 
                     Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                     singleOffsetX_AlignRight = (local_image.Width - stringSize.Width - singleOffsetX)
@@ -443,7 +451,7 @@ Public Class ClassLabelToImage
                     ''Added 8/18/2019 td 
                     ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
                     ''                           singleOffsetX_AlignRight, singleOffsetY)
-                    gr_element.DrawString(.Text_Static, font_scaled, Brushes.Black,
+                    gr_element.DrawString(.Text_StaticLine, font_scaled, Brushes.Black,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
             End Select ''End of "Select Case par_design.TextAlignment"

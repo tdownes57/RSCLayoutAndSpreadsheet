@@ -209,4 +209,11 @@ Public Class ClassElementBase
     End Function ''End of ""Public Function ConditionalExpressionIsTrue""
 
 
+    Public Function GetSize() As Drawing.Size
+
+        ''Added 12/08/2022 thomas downes
+        Return New Size(Me.Width_Pixels, Me.Height_Pixels)
+
+    End Function
+
 End Class

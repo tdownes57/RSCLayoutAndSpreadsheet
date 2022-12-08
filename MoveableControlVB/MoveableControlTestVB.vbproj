@@ -207,7 +207,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonality.vbproj">
+    <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonalityEtc.vbproj">
       <Project>{4c1b73a0-7c02-4ff4-96f2-acfa1306cce4}</Project>
       <Name>ciBadgeCachePersonality</Name>
     </ProjectReference>
