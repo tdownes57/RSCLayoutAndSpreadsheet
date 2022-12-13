@@ -45,6 +45,8 @@ Public Class FormTestGraphics
 
         objArrow = mod_objArrow
         mod_listOfArrows.Add(objArrow)
+        ''Added 12/13/2022
+        mod_listOfArrows.SaveToXML("ListOfArrows.xml")
 
 ExitHandler:
         textNameOfArrow.Text = "" ''Clear the box. 
@@ -213,6 +215,12 @@ ExitHandler:
             .Image = New Bitmap(.Width - 1, Height - 1)
 
         End With
+
+        ''Added 12/13/2022
+        If (IO.File.Exists("ListOfArrows.xml")) Then
+            mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrows.xml")
+            RefreshPanelOfArrows(mod_listOfArrows)
+        End If ''End of ""If (IO.File.Exists(...)) Then"
 
     End Sub
 
