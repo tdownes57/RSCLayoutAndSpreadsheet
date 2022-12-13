@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>__RSC_WindowsControl_NET60</RootNamespace>
+    <RootNamespace>__RSC_WindowsControl_NET70</RootNamespace>
     <TargetFramework>net7.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
