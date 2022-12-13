@@ -13,7 +13,7 @@ Public Class Dialog_BaseChooseFont
     ''
     ''Added 8/7/2022 Thomas Downes  
     ''
-    Private mod_listMSFontFamilyNames As List(Of String)
+    Private mod_listMSFontFamilyNames As New List(Of String) ''12/12/2022 As New List(Of String)
 
     Public Sub New(par_controlFieldOrTextV4 As CtlGraphicFieldOrTextV4,
                    par_listFontFamilyNames As HashSet(Of String),

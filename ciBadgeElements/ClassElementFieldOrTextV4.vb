@@ -111,10 +111,10 @@ Public Class ClassElementFieldOrTextV4
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
-    Public Property BadgeDisplayIndex As Integer ''9/4/2022 Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
-    Public Property WhichSideOfCard As EnumWhichSideOfCard ''9/4/2022 Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
-    Public Property DateEdited As Date ''9/4/2022 Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
-    Public Property DateSaved As Date ''9/4/2022 Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
+    ''Shadows 12/12/2022''Public Property BadgeDisplayIndex As Integer ''9/4/2022 Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+    ''Shadows 12/12/2022''Public Property WhichSideOfCard As EnumWhichSideOfCard ''9/4/2022 Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
+    ''Shadows 12/12/2022''Public Property DateEdited As Date ''9/4/2022 Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
+    ''Shadows 12/12/2022''Public Property DateSaved As Date ''9/4/2022 Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
     ''Moved below, and underscore removed. 6/7/2022  <Xml.Serialization.XmlIgnore>
     ''Moved below, and underscore removed. 6/7/2022  Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
@@ -179,6 +179,7 @@ Public Class ClassElementFieldOrTextV4
     Public Property FontOffset_X As Integer Implements IElement_TextOnly.FontOffset_X ''Added 8/15/2019 thomas downes  
     Public Property FontOffset_Y As Integer Implements IElement_TextOnly.FontOffset_Y ''Added 8/15/2019 thomas downes  
 
+    Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextOnly.TextAlignment
 
     ''See Interface IElement_Base. ---8/29/2019 td''Public Property BackColor As System.Drawing.Color Implements IElement_Text.BackColor
 
@@ -211,21 +212,18 @@ Public Class ClassElementFieldOrTextV4
     ''<Xml.Serialization.XmlIgnore>
     ''Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo
 
-    Public Property TextAlignment As System.Windows.Forms.HorizontalAlignment Implements IElement_TextOnly.TextAlignment
-
-
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
 
-    Public Property PositionalMode As String ''9/4/2022 Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
+    ''Shadows 12/12/2022''Public Property PositionalMode As String ''9/4/2022 Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
-    Public Property OrientationToLayout As String ''9/4/2022 Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
+    ''Shadows 12/12/2022''Public Property OrientationToLayout As String ''9/4/2022 Implements IElement_Base.OrientationToLayout ''E.g. "L" (Landscape) (by far the most common) or "P" for Portrait  
 
-    Public Property OrientationInDegrees As Integer ''9/4/2022 Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
+    ''Shadows 12/12/2022''Public Property OrientationInDegrees As Integer ''9/4/2022 Implements IElement_Base.OrientationInDegrees ''Default is 0, normal.  90 would be 1/4 turn clockwise.  180 is upside-down.  270 is the printing on the spine of a book sitting on the bookshelf.
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property Image_BL As Image ''9/4/2022 Implements IElement_Base.Image_BL ''Added 8/27/2019 td
+    ''Shadows 12/12/2022''<Xml.Serialization.XmlIgnore>
+    ''Shadows 12/12/2022''Public Property Image_BL As Image ''9/4/2022 Implements IElement_Base.Image_BL ''Added 8/27/2019 td
 
     ''Moved below. 8/27/2019 td''Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
@@ -234,10 +232,10 @@ Public Class ClassElementFieldOrTextV4
     ''-------------------------------------------------------------
     ''-------------------------------------------------------------
 
-    <Xml.Serialization.XmlIgnore>
-    Public Property FormControl As Control ''9/4/2022 Implements IElement_Base.FormControl ''Added 7/19/2019  
+    ''Shadows 12/12/2022''<Xml.Serialization.XmlIgnore>
+    ''Shadows 12/12/2022''Public Property FormControl As Control ''9/4/2022 Implements IElement_Base.FormControl ''Added 7/19/2019  
 
-    Public Property ElementType As String = "Text" ''9/4/2022 Implements IElement_Base.ElementType ''Text, Pic, or Logo
+    ''Shadows 12/12/2022''Public Property ElementType As String = "Text" ''9/4/2022 Implements IElement_Base.ElementType ''Text, Pic, or Logo
 
     ''9/11/2019 td''Public Property LayoutWidth_Pixels As Integer Implements IElement_Base.LayoutWidth_Pixels ''This provides sizing context & scaling factors. 
     Public Property BadgeLayout As BadgeLayoutDimensionsClass ''9/4/2022 Implements IElement_Base.BadgeLayout ''Added 9/11/2019 td  
@@ -474,14 +472,14 @@ Public Class ClassElementFieldOrTextV4
 
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
-    Public Property Border_WidthInPixels As Integer = 1 ''9/4/2022 Implements IElement_Base.Border_WidthInPixels
+    ''Shadows 12/12/2022''Public Property Border_WidthInPixels As Integer = 1 ''9/4/2022 Implements IElement_Base.Border_WidthInPixels
 
-    <XmlIgnore>
-    Public Property Border_Color As System.Drawing.Color = Color.Black ''9/4/2022 Implements IElement_Base.Border_Color
-    Public Property Border_Displayed As Boolean = True ''9/4/2022 Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
+    ''Shadows 12/12/2022''<XmlIgnore>
+    ''Shadows 12/12/2022''Public Property Border_Color As System.Drawing.Color = Color.Black ''9/4/2022 Implements IElement_Base.Border_Color
+    ''Shadows 12/12/2022''Public Property Border_Displayed As Boolean = True ''9/4/2022 Implements IElement_Base.Border_Displayed ''Added 9/9/2019 td 
 
-    <XmlElement("Border_Color")>
-    Public Property Border_Color_HTML As String
+    ''Shadows 12/12/2022''<XmlElement("Border_Color")>
+    Public Property Border_Color_HTML_NotUsed As String
         ''Added 10/13/2019 td
         Get
             ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
@@ -493,9 +491,9 @@ Public Class ClassElementFieldOrTextV4
         End Set
     End Property
 
-    <XmlIgnore>
-    Public Property Back_Color As System.Drawing.Color = Color.White ''9/4/2022 Implements IElement_Base.Back_Color
-    Public Property Back_Transparent As Boolean = False ''9/4/2022 Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
+    ''Shadows the base. 12/12/2022 ''<XmlIgnore>
+    ''Shadows the base. 12/12/2022 ''Public Property Back_Color As System.Drawing.Color = Color.White ''9/4/2022 Implements IElement_Base.Back_Color
+    ''Shadows the base. 12/12/2022 ''Public Property Back_Transparent As Boolean = False ''9/4/2022 Implements IElement_Base.Back_Transparent ''Added 9/4/2019 thomas d. 
 
     ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
     ''    [XmlElement("ClrGrid")]
@@ -505,8 +503,8 @@ Public Class ClassElementFieldOrTextV4
     ''    Set { ClrGrid = ColorTranslator.FromHtml(value); }
     ''}
 
-    <XmlElement("Back_Color")>
-    Public Property Back_Color_HTML As String
+    ''Shadows the base. 12/12/2022 ''<XmlElement("Back_Color")>
+    Public Property Back_Color_HTML_NotUsed As String
         ''Added 10/13/2019 td
         Get
             ''  https://stackoverflow.com/questions/376234/best-solution-for-xmlserializer-and-system-drawing-color
@@ -518,21 +516,21 @@ Public Class ClassElementFieldOrTextV4
         End Set
     End Property
 
-    Public Property SelectedHighlighting As Boolean ''9/4/2022 Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
+    ''Shadows the base. 12/12/2022 ''Public Property SelectedHighlighting As Boolean ''9/4/2022 Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td  
 
-    Public Property Visible As Boolean = True ''9/4/2022 Implements IElement_Base.Visible ''Added 9/19/2019 td  
+    ''Shadows the base. 12/12/2022 ''Public Property Visible As Boolean = True ''9/4/2022 Implements IElement_Base.Visible ''Added 9/19/2019 td  
 
     Public Property DatetimeUpdated As DateTime = DateTime.MinValue ''Added 11/29/2021 thomas downes
     Public Property CaptionSuffixIfNeeded As String = "" ''Added 12/21/2021 thomas downes
 
-    Public Property ZOrder As Integer ''9/4/2022 Implements IElement_Base.ZOrder
-        Get
-            Return 0 ''Throw New NotImplementedException()
-        End Get
-        Set(value As Integer)
-            Return ''---Throw New NotImplementedException()
-        End Set
-    End Property
+    ''Shadows the base. 12/12/2022 ''Public Property ZOrder As Integer ''9/4/2022 Implements IElement_Base.ZOrder
+    ''  Get
+    ''    Return 0 ''Throw New NotImplementedException()
+    ''  End Get
+    ''  Set(value As Integer)
+    ''    Return ''---Throw New NotImplementedException()
+    ''  End Set
+    ''End Property
 
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
     ''Moved up. 9/30/2019 td''Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
