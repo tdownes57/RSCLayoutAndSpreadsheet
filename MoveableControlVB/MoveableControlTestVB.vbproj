@@ -209,7 +209,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonalityEtc.vbproj">
       <Project>{4c1b73a0-7c02-4ff4-96f2-acfa1306cce4}</Project>
-      <Name>ciBadgeCachePersonality</Name>
+      <Name>ciBadgeCachePersonalityEtc</Name>
     </ProjectReference>
     <ProjectReference Include="..\ciBadgeDesigner\ciBadgeDesigner.vbproj">
       <Project>{3a21a08c-c694-4f11-9838-91fff99a5d82}</Project>

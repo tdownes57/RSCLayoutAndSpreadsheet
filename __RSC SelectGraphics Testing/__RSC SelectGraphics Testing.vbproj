@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <RootNamespace>__RSC_SelectGraphics_Testing</RootNamespace>
     <StartupObject>Sub Main</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
@@ -17,10 +17,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj" />
-    <ProjectReference Include="..\MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj" />
-    <ProjectReference Include="..\__RSC WindowsControl_NET60\__RSC WindowsControl_NET60.vbproj" />
+    <ProjectReference Include="..\MoveAndResize_Monem_NET60\MoveAndResize_Monem_NET70.csproj" />
+    <ProjectReference Include="..\__RSC WindowsControl_NET60\__RSC WindowsControl_NET70.vbproj" />
     <ProjectReference Include="..\__RSCElementSelectGraphics\__RSCElementSelectGraphics.csproj" />
-    <ProjectReference Include="..\__RSCWindowsControlLibrary\__RSC WindowsControlLibrary.vbproj" />
   </ItemGroup>
 
   <ItemGroup>
