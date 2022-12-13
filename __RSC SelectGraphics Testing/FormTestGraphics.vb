@@ -2,6 +2,7 @@
 Imports System.Drawing.Text
 Imports System.Reflection
 Imports __RSCElementSelectGraphics
+Imports __RSCWindowsControlLibrary
 Imports ciBadgeSerialize
 
 Public Class FormTestGraphics
@@ -367,5 +368,7 @@ ExitHandler:
 
     End Sub
 
+    Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs) Handles PictureBoxInner.Click
 
+    End Sub
 End Class

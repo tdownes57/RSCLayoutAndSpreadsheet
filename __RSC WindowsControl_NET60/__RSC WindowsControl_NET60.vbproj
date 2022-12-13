@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>__RSC_WindowsControl_NET60</RootNamespace>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UserControl1.Designer.vb" />
+    <Compile Remove="UserControl1.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="UserControl1.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ciBadgeCachingPersonality\ciBadgeCachePersonalityEtc.vbproj" />
+    <ProjectReference Include="..\ciBadgeElements\ciBadgeElements.vbproj" />
+    <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj" />
+    <ProjectReference Include="..\MoveAndResizeControls_Monem\MoveAndResizeControls_Monem.csproj" />
+    <ProjectReference Include="..\__RSC Error Logging\__RSC Error Logging.csproj" />
+  </ItemGroup>
+
+</Project>

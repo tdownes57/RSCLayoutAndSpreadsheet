@@ -87,6 +87,10 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "__RSC SelectGraphics Testin
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MoveableControlTestVB", "MoveableControlVB\MoveableControlTestVB.vbproj", "{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "__RSC WindowsControl_NET60", "__RSC WindowsControl_NET60\__RSC WindowsControl_NET60.vbproj", "{295B624E-4223-443A-A361-89E29177F53E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResize_Monem_NET60", "MoveAndResize_Monem_NET60\MoveAndResize_Monem_NET60.csproj", "{BD2147C1-3908-4D98-AA38-9CF8F1675909}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -431,6 +435,22 @@ Global
 		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Release|x86.ActiveCfg = Release|Any CPU
 		{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}.Release|x86.Build.0 = Release|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Debug|x86.Build.0 = Debug|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Release|x86.ActiveCfg = Release|Any CPU
+		{295B624E-4223-443A-A361-89E29177F53E}.Release|x86.Build.0 = Release|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Debug|x86.Build.0 = Debug|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Release|x86.ActiveCfg = Release|Any CPU
+		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
