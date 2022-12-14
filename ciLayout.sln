@@ -81,15 +81,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "__RSC_IDRecipients_REST_API
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC Error Logging", "__RSC Error Logging\__RSC Error Logging.csproj", "{5CACE48F-7C22-4325-99E6-00B62C926EE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSCElementSelectGraphics", "__RSCElementSelectGraphics\__RSCElementSelectGraphics.csproj", "{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSC SelectElementGraphics", "__RSCElementSelectGraphics\__RSC SelectElementGraphics.csproj", "{11B3FDCF-D55F-4501-A5DC-705D6FDC9C87}"
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "__RSC SelectGraphics Testing", "__RSC SelectGraphics Testing\__RSC SelectGraphics Testing.vbproj", "{A896A08E-8B4F-432D-BF05-1806FACF387E}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MoveableControlTestVB", "MoveableControlVB\MoveableControlTestVB.vbproj", "{74050388-F6C4-4E0A-BA5C-ADB0BD403C95}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "__RSC WindowsControl_NET70", "__RSC WindowsControl_NET60\__RSC WindowsControl_NET70.vbproj", "{295B624E-4223-443A-A361-89E29177F53E}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "__RSC WindowsControl_NET70", "__RSC WindowsControl_NET60\__RSC WindowsControl_NET70.vbproj", "{295B624E-4223-443A-A361-89E29177F53E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoveAndResize_Monem_NET70", "MoveAndResize_Monem_NET60\MoveAndResize_Monem_NET70.csproj", "{BD2147C1-3908-4D98-AA38-9CF8F1675909}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoveAndResize_Monem_NET70", "MoveAndResize_Monem_NET60\MoveAndResize_Monem_NET70.csproj", "{BD2147C1-3908-4D98-AA38-9CF8F1675909}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

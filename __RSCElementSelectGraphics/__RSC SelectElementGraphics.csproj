@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassListOfArrows.cs" />
+    <Compile Include="ClassArrowTriangles.cs" />
+    <Compile Include="ClassListOfArrows_NotInUse.cs" />
+    <Compile Include="ClassTriangle.cs" />
     <Compile Include="DefineStructures.cs" />
     <Compile Include="RSCGraphics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

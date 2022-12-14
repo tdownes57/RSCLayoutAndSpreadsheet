@@ -5,7 +5,7 @@ Partial Public Class FormTestGraphics
     ''Added 11/27/2022 thomas downes 
     ''
     Private Sub DrawAndFillTriangle_Denigrated(par_color As Drawing.Color,
-                                    Optional par_triangle As Triangle = Nothing,
+                                    Optional par_triangle As Triangle_Deprecated = Nothing,
                                     Optional pbBreakForZeroes As Boolean = False)
         ''
         ''Added 11/22/2022
@@ -18,9 +18,9 @@ Partial Public Class FormTestGraphics
 
         ''Dim g_tri As Graphics = Graphics.FromImage(PictureBoxForTriangle.Image)
 
-        Dim objTriangle As Triangle = par_triangle '' = New Triangle
+        Dim objTriangle As Triangle_Deprecated = par_triangle '' = New Triangle
 
-        If (objTriangle.Equals(New Triangle())) Then
+        If (objTriangle.Equals(New ClassTriangle())) Then
 
             Dim objLine1 As New Line
             Dim objLine2 As New Line
@@ -58,7 +58,8 @@ ExitHandler:
 
 
 
-    Private Sub DrawAndFillTriangle_Fill_Denigrated(par_graph As Graphics, par_triangle As Triangle,
+    Private Sub DrawAndFillTriangle_Fill_Denigrated(par_graph As Graphics,
+                                                    par_triangle As Triangle_Deprecated,
                                            par_iWid As Integer, par_pen As Pen,
                                          Optional pbBreakForZeroes As Boolean = False)
         ''
@@ -85,7 +86,8 @@ ExitHandler:
 
 
 
-    Private Sub DrawAndFillTriangle_Border_Denigrated(par_graph As Graphics, par_triangle As Triangle,
+    Private Sub DrawAndFillTriangle_Border_Denigrated(par_graph As Graphics,
+                                                      par_triangle As Triangle_Deprecated,
                                            par_iWid As Integer, par_pen As Pen)
         ''
         ''Added 11/22/2022
@@ -132,7 +134,7 @@ ExitHandler:
 
     Private Sub DrawTriangle_PixelsWide_Denigrated(par_WidthInPixels As Integer,
                                       par_gr As Graphics,
-                                      par_triangle As Triangle,
+                                      par_triangle As Triangle_Deprecated,
                                       par_color As Color,
                                         Optional par_pen As Pen = Nothing)
         ''

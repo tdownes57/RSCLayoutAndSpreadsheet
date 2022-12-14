@@ -2,15 +2,17 @@
 Imports System.Drawing.Text
 Imports System.Reflection
 Imports __RSCElementSelectGraphics
-Imports __RSCWindowsControlLibrary
-Imports ciBadgeSerialize
+''Imports __RSCWindowsControlLibrary
+''Imports ciBadgeSerialize
 
 Public Class FormTestGraphics
 
     ''Private mod_objTriangle As Triangle ''Added 11/22/2022 
-    Private mod_objArrow As New ArrowTriangleStructure ''Added 11/22/2022 
+    ''12/14/2022 Private mod_objArrow As New ArrowTriangleStructure ''Added 11/22/2022 
+    Private mod_objArrow As New ClassArrowTriangles ''Structure ''Added 11/22/2022 
     Private mod_listOfArrows As New ClassListOfArrows ''Added 11/26/2022 
     Private mod_colorArrows As Drawing.Color ''Added 11/27/2022
+    Private mod_listPoints As New Stack(Of Drawing.Point) ''Added 12/13/2022
 
     ''Public Structure Line
     ''    ''
@@ -35,7 +37,8 @@ Public Class FormTestGraphics
         ''
         ''Added 11/26/2022
         ''
-        Dim objArrow As ArrowTriangleStructure
+        ''12/14/2022 Dim objArrow As ArrowTriangleStructure
+        Dim objArrow As ClassArrowTriangles ''Structure
 
         mod_objArrow.Name = textNameOfArrow.Text.Trim()
         If (mod_objArrow.Name = "") Then
@@ -46,7 +49,8 @@ Public Class FormTestGraphics
         objArrow = mod_objArrow
         mod_listOfArrows.Add(objArrow)
         ''Added 12/13/2022
-        mod_listOfArrows.SaveToXML("ListOfArrows.xml")
+        ''---mod_listOfArrows.SaveToXML("ListOfArrows.xml")
+        mod_listOfArrows.SaveToXML("ListOfArrowsOfTriangles.xml")
 
 ExitHandler:
         textNameOfArrow.Text = "" ''Clear the box. 
@@ -59,20 +63,25 @@ ExitHandler:
         ''Added 11/26/2022  
         ''
         Dim objRSCDraw As New __RSCElementSelectGraphics.RSCGraphics
+
         FlowLayoutPanel1.Controls.Clear()
-        For Each eachArrow As ArrowTriangleStructure In par_list.List()
+
+        ''12/14/2022 For Each eachArrow As ArrowTriangleStructure In par_list.List()
+        For Each eachArrow As ClassArrowTriangles In par_list.List()
 
             Dim objPictureBox As New PictureBox With {
-                .Width = PictureBoxForTriangle.Width,
-                .Height = PictureBoxForTriangle.Height,
-                .BackColor = PictureBoxForTriangle.BackColor,
-                .Visible = True
-            }
+                    .Width = PictureBoxForTriangle.Width,
+                    .Height = PictureBoxForTriangle.Height,
+                    .BackColor = PictureBoxForTriangle.BackColor,
+                    .Visible = True
+                }
             ''objRSCDraw.DrawAndFillArrow(objPictureBox, eachArrow, mod_color, 0, 0)
             objRSCDraw.DrawAndFillArrow(objPictureBox, eachArrow, mod_colorArrows, 0, 0)
             FlowLayoutPanel1.Controls.Add(objPictureBox)
             objPictureBox.Invalidate()
             ToolTip1.SetToolTip(objPictureBox, eachArrow.Name)
+            AddHandler objPictureBox.Click, AddressOf PanelPictureBox_Click
+            objPictureBox.Tag = eachArrow
 
         Next eachArrow
 
@@ -80,6 +89,33 @@ ExitHandler:
 
 
     End Sub ''End of ""Private Sub RefreshPanelOfArrows""
+
+
+    Private Sub PanelPictureBox_Click(objectSender As Object, e As EventArgs) _
+        Handles PictureBoxDummy.Click ''Find "AddHandler ..."
+        ''
+        ''Added 12/13/2022 
+        ''
+        Dim boolDeleteArrow As Boolean
+
+        boolDeleteArrow =
+          MessageBoxTD.Show_Confirm("Delete this arrow?",
+                                    MessageBoxDefaultButton.Button2)
+
+        If (boolDeleteArrow) Then
+            Dim objControl As Control
+            Dim objArrow As ClassArrowTriangles ''ArrowTriangleStructure
+            objControl = CType(objectSender, Control)
+            ''objArrow = CType(objControl.Tag, ArrowTriangleStructure)
+            objArrow = CType(objControl.Tag, ClassArrowTriangles) ''ArrowTriangleStructure)
+            mod_listOfArrows.Remove(objArrow)
+            RefreshPanelOfArrows(mod_listOfArrows)
+
+        End If
+
+
+    End Sub
+
 
 
     Private Sub ButtonTriangle_Click()
@@ -116,7 +152,7 @@ ExitHandler:
 
 
     Private Sub DrawAndFillTriangleRSC(par_color As Drawing.Color,
-                                    Optional par_triangle As Triangle = Nothing,
+                                    Optional par_triangle As ClassTriangle = Nothing,
                                     Optional pbBreakForZeroes As Boolean = False)
         ''
         ''Added 11/22/2022
@@ -216,13 +252,24 @@ ExitHandler:
 
         End With
 
-        ''Added 12/13/2022
-        If (IO.File.Exists("ListOfArrows.xml")) Then
-            mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrows.xml")
-            RefreshPanelOfArrows(mod_listOfArrows)
-        End If ''End of ""If (IO.File.Exists(...)) Then"
+        ''Encapsulated 12/13/2022
+        LoadListOfArrowsFromXML(True)
 
     End Sub
+
+
+    Private Sub LoadListOfArrowsFromXML(pboolFillPanel As Boolean)
+
+        ''Added 12/13/2022
+        If (IO.File.Exists("ListOfArrows.xml")) Then
+            ''mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrows.xml")
+            mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrowsOfTriangles.xml")
+            If (pboolFillPanel) Then
+                RefreshPanelOfArrows(mod_listOfArrows)
+            End If ''ENdo f ""If (pboolFillPanel) Then""
+        End If ''End of ""If (IO.File.Exists(...)) Then"
+
+    End Sub ''ENd of "" Private Sub LoadListOfArrowsFromXML(pboolFillPanel As Boolean)""
 
 
     Private Sub PictureBoxForTriangle_Click(sender As Object, e As EventArgs) Handles PictureBoxForTriangle.Click
@@ -234,17 +281,9 @@ ExitHandler:
 
     Private Sub PictureBoxForTriangle_MouseUp(sender As Object, e As MouseEventArgs) Handles PictureBoxForTriangle.MouseUp
 
-        ''Static objTriangle As Triangle
-        Dim temp_triangle As New Triangle
-        Dim bPoint1L1Empty As Boolean
-        Dim bPoint1L2Empty As Boolean
-        Dim bPoint1L3Empty As Boolean
-        Dim bPoint2L1Empty As Boolean
-        Dim bPoint2L2Empty As Boolean
-        Dim bPoint2L3Empty As Boolean
-        Dim bTriangle1Empty As Boolean
-        Dim bTriangle2Empty As Boolean
-        Dim bNeitherIsEmpty As Boolean
+
+        ''Added 12/13/2022 
+        mod_listPoints.Push(New Point(e.X, e.Y))
 
         ''
         ''Draw a dot where the user clicked!  
@@ -252,41 +291,86 @@ ExitHandler:
         ''DrawSinglePoint(Color.Black, e.X, e.Y)
         DrawSinglePointRSC(Color.Black, e.X, e.Y)
 
+        ''Encapsulated 12/13/2022
+        Dim bCompletedTriangle1 As Boolean
+        Dim bCompletedTriangle2 As Boolean
+        BuildTriangle(e.X, e.Y, bCompletedTriangle1, bCompletedTriangle2)
+
+ExitHandler:
+        If (bCompletedTriangle1) Then
+            DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle1, True)
+        ElseIf (bCompletedTriangle2) Then
+            DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle2, True)
+        End If
+    End Sub
+
+
+    Private Sub BuildTriangle(par_eX As Integer, par_eY As Integer,
+                              ByRef pbCompletedTriangle1 As Boolean,
+                              ByRef pbCompletedTriangle2 As Boolean)
         ''
         ''Build Triangle  
         ''
         ''With mod_objTriangle  
-        With mod_objArrow.triangle1
-            bPoint1L1Empty = (.line1.point1.X = 0)
-            bPoint1L2Empty = (.line2.point1.X = 0)
-            bPoint1L3Empty = (.line3.point1.X = 0)
-            ''If (bPoint1L1Empty) Then temp_triangle = mod_objArrow.triangle1
-            ''bTriangle1Empty = (bPoint1L1Empty And bPoint1L2Empty)
-            bTriangle1Empty = (bPoint1L1Empty And bPoint1L3Empty)
-        End With
-
-        With mod_objArrow.triangle2
-            bPoint2L1Empty = (.line1.point1.X = 0)
-            bPoint2L2Empty = (.line2.point1.X = 0)
-            bPoint2L3Empty = (.line3.point1.X = 0)
-        End With ''End of ""With mod_objArrow.triangle1""
-
-        ''bTriangle2Empty = (bPoint2L3Empty) ''Then temp_triangle = mod_objArrow.triangle1
-        bTriangle2Empty = (bPoint2L2Empty) ''Then temp_triangle = mod_objArrow.triangle1
-        bNeitherIsEmpty = (False = (bTriangle2Empty Or bTriangle2Empty))
+        ''Static objTriangle As Triangle
+        Dim temp_triangle As New Triangle
+        Dim bTriangle1_L1Empty As Boolean
+        Dim bTriangle1_L2Empty As Boolean
+        Dim bTriangle1_L3Empty As Boolean
+        Dim bTriangle2_L1Empty As Boolean
+        Dim bTriangle2_L2Empty As Boolean
+        Dim bTriangle2_L3Empty As Boolean
+        Dim bTriangle1Empty As Boolean
+        Dim bTriangle2Empty As Boolean
+        Dim bNeitherIsEmpty As Boolean
 
         Dim bFillingTriangle1 As Boolean
         Dim bFillingTriangle2 As Boolean
         Dim bFillingTriangleNew As Boolean
-        Dim bCompletedTriangle1 As Boolean
-        Dim bCompletedTriangle2 As Boolean
+        ''Parameterized. Dim bCompletedTriangle1 As Boolean
+        ''Parameterized. Dim bCompletedTriangle2 As Boolean
 
-        If (bPoint1L1Empty Or bPoint1L2Empty Or bPoint1L3Empty) Then
+        With mod_objArrow.Triangle1
+            ''bPoint1L1Empty = (.line1.point1.X = 0)
+            ''bPoint1L2Empty = (.line2.point1.X = 0)
+            ''bPoint1L3Empty = (.line3.point1.X = 0)
+            bTriangle1_L1Empty = (0 = .GetLine(1).point1.X)
+            bTriangle1_L2Empty = (0 = .GetLine(2).point1.X)
+            bTriangle1_L3Empty = (0 = .GetLine(3).point1.X)
+            ''If (bPoint1L1Empty) Then temp_triangle = mod_objArrow.triangle1
+            ''bTriangle1Empty = (bPoint1L1Empty And bPoint1L2Empty)
+            ''bTriangle1Empty = (bPoint1L1Empty And bPoint1L3Empty)
+            bTriangle1Empty = (bTriangle1_L1Empty And bTriangle1_L3Empty)
+        End With
+
+        With mod_objArrow.Triangle2
+            ''--bPoint2L1Empty = (.line1.point1.X = 0)
+            ''--bPoint2L2Empty = (.line2.point1.X = 0)
+            ''--bPoint2L3Empty = (.line3.point1.X = 0)
+            ''bPoint2L1Empty = (0 = .GetLine(1).point1.X)
+            ''bPoint2L2Empty = (0 = .GetLine(2).point1.X)
+            ''bPoint2L3Empty = (0 = .GetLine(3).point1.X)
+            bTriangle2_L1Empty = (0 = .GetLine(1).point1.X)
+            bTriangle2_L2Empty = (0 = .GetLine(2).point1.X)
+            bTriangle2_L3Empty = (0 = .GetLine(3).point1.X)
+        End With ''End of ""With mod_objArrow.triangle1""
+
+        ''bTriangle2Empty = (bPoint2L3Empty) ''Then temp_triangle = mod_objArrow.triangle1
+        bTriangle2Empty = (bTriangle2_L2Empty) ''Then temp_triangle = mod_objArrow.triangle1
+        bNeitherIsEmpty = (False = (bTriangle2Empty Or bTriangle2Empty))
+
+        ''Dim bFillingTriangle1 As Boolean
+        ''Dim bFillingTriangle2 As Boolean
+        ''Dim bFillingTriangleNew As Boolean
+        ''Dim bCompletedTriangle1 As Boolean
+        ''Dim bCompletedTriangle2 As Boolean
+
+        If (bTriangle1_L1Empty Or bTriangle1_L2Empty Or bTriangle1_L3Empty) Then
             bFillingTriangle1 = True
-            temp_triangle = mod_objArrow.triangle1
-        ElseIf (bPoint2L1Empty Or bPoint2L2Empty Or bPoint2L3Empty) Then
+            temp_triangle = mod_objArrow.Triangle1
+        ElseIf (bTriangle2_L1Empty Or bTriangle2_L2Empty Or bTriangle2_L3Empty) Then
             bFillingTriangle2 = True
-            temp_triangle = mod_objArrow.triangle2
+            temp_triangle = mod_objArrow.Triangle2
         Else
             bFillingTriangleNew = True
         End If
@@ -294,39 +378,39 @@ ExitHandler:
         With temp_triangle ''mod_objArrow.triangle1
 
             If (bFillingTriangleNew) Then
-                .line1.point1.X = e.X
-                .line1.point1.Y = e.Y
-            ElseIf (bPoint1L1Empty) Then
-                .line1.point1.X = e.X
-                .line1.point1.Y = e.Y
-            ElseIf (bPoint1L2Empty) Then
-                .line2.point1.X = e.X
-                .line2.point1.Y = e.Y
-            ElseIf (bPoint1L3Empty) Then
-                .line3.point1.X = e.X
-                .line3.point1.Y = e.Y
+                .line1.point1.X = par_eX ''e.X
+                .line1.point1.Y = par_eY ''e.Y
+            ElseIf (bTriangle1_L1Empty) Then
+                .line1.point1.X = par_eX ''e.X
+                .line1.point1.Y = par_eY ''e.Y
+            ElseIf (bTriangle1_L2Empty) Then
+                .line2.point1.X = par_eX ''e.X
+                .line2.point1.Y = par_eY ''e.Y
+            ElseIf (bTriangle1_L3Empty) Then
+                .line3.point1.X = par_eX ''e.X
+                .line3.point1.Y = par_eY ''e.Y
 
                 ''Complete the triangle.
                 .line1.point2 = .line2.point1
                 .line2.point2 = .line3.point1
                 .line3.point2 = .line1.point1
-                bCompletedTriangle1 = True
+                pbCompletedTriangle1 = True
 
-            ElseIf (bPoint2L1Empty) Then
-                .line1.point1.X = e.X
-                .line1.point1.Y = e.Y
-            ElseIf (bPoint2L2Empty) Then
-                .line2.point1.X = e.X
-                .line2.point1.Y = e.Y
-            ElseIf (bPoint2L3Empty) Then
-                .line3.point1.X = e.X
-                .line3.point1.Y = e.Y
+            ElseIf (bTriangle2_L1Empty) Then
+                .line1.point1.X = par_eX
+                .line1.point1.Y = par_eY
+            ElseIf (bTriangle2_L2Empty) Then
+                .line2.point1.X = par_eX
+                .line2.point1.Y = par_eY
+            ElseIf (bTriangle2_L3Empty) Then
+                .line3.point1.X = par_eX
+                .line3.point1.Y = par_eY
 
                 ''Complete the triangle.
                 .line1.point2 = .line2.point1
                 .line2.point2 = .line3.point1
                 .line3.point2 = .line1.point1
-                bCompletedTriangle2 = True
+                pbCompletedTriangle2 = True
 
                 ''Draw & fill the triangle.
                 ''DrawAndFillTriangle(Color.Aqua, mod_objTriangle, True)
@@ -353,18 +437,11 @@ ExitHandler:
             ''Moved below.''DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle2, True)
         ElseIf (bFillingTriangleNew) Then ''ElseIf (bNeitherIsEmpty) Then
             mod_objArrow.triangle1 = temp_triangle
-            mod_objArrow.triangle2 = New Triangle
+            mod_objArrow.Triangle2 = New ClassTriangle ''New Triangle
             ''--DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle1, True)
         End If
 
-ExitHandler:
-        If (bCompletedTriangle1) Then
-            DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle1, True)
-        ElseIf (bCompletedTriangle2) Then
-            DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle2, True)
-        End If
-
-    End Sub ''End of "... Handles MouseUp"
+    End Sub ''End of "Private Sub BuildTriangle"
 
     Private Sub ButtonClearBoxForTriangle_Click(sender As Object, e As EventArgs) Handles ButtonClearBoxForTriangle.Click
 
@@ -377,6 +454,34 @@ ExitHandler:
     End Sub
 
     Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs) Handles PictureBoxInner.Click
+
+    End Sub
+
+    Private Sub ButtonRefresh_Click(sender As Object, e As EventArgs) Handles ButtonRefresh.Click
+
+        ''Added 12/13/2022
+        mod_listOfArrows.SaveToXML("ListOfArrows.xml")
+        mod_listOfArrows = Nothing ''Clear the list / delete the reference. 
+        FlowLayoutPanel1.Controls.Clear()
+
+        ''RefreshPanelOfArrows(mod_listOfArrows)
+        ''LoadListOfArrowsFromXML 
+        TimerRefresh.Enabled = True
+
+    End Sub
+
+    Private Sub TimerRefresh_Tick(sender As Object, e As EventArgs) Handles TimerRefresh.Tick
+
+        ''Added 12/13/2022
+        ''If (IO.File.Exists("ListOfArrows.xml")) Then
+        ''  mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrows.xml")
+        ''  RefreshPanelOfArrows(mod_listOfArrows)
+        ''End If ''End of ""If (IO.File.Exists(...)) Then"
+        TimerRefresh.Enabled = False
+        FlowLayoutPanel1.Controls.Clear()
+        Application.DoEvents()
+        LoadListOfArrowsFromXML(True)
+        TimerRefresh.Enabled = False
 
     End Sub
 End Class

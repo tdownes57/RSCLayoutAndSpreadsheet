@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClassArrow.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Import Include="System.Data" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
@@ -19,7 +23,7 @@
     <ProjectReference Include="..\ciBadgeSerialize\ciBadgeSerialize.vbproj" />
     <ProjectReference Include="..\MoveAndResize_Monem_NET60\MoveAndResize_Monem_NET70.csproj" />
     <ProjectReference Include="..\__RSC WindowsControl_NET60\__RSC WindowsControl_NET70.vbproj" />
-    <ProjectReference Include="..\__RSCElementSelectGraphics\__RSCElementSelectGraphics.csproj" />
+    <ProjectReference Include="..\__RSCElementSelectGraphics\__RSC SelectElementGraphics.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace __RSCElementSelectGraphics
 {
@@ -21,7 +21,7 @@ namespace __RSCElementSelectGraphics
     } //End Structure
 
 
-    public struct Triangle  //Public Structure Triangle
+    public struct Triangle_Deprecated  //Public Structure Triangle
     {
         //''
         //''Added 11/22/2022
@@ -38,9 +38,9 @@ namespace __RSCElementSelectGraphics
         //''Added 11/22/2022
         //''
         public string Name; // E.g. "South" or "NW" (Northwest)
-        public Triangle triangle1; // As Triangle
-        public Triangle triangle2; // As Triangle
-         
+        public Triangle_Deprecated triangle1; // As Triangle
+        public Triangle_Deprecated triangle2; // As Triangle
+
     } // End Structure
 
 

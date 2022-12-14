@@ -26,7 +26,7 @@ namespace __RSCElementSelectGraphics
     {
 
         public void DrawAndFillArrow(PictureBox par_pictureBox, 
-                        ArrowTriangleStructure par_arrow, 
+                        ClassArrowTriangles par_arrow, 
                         System.Drawing.Color par_color, 
                               int par_offsetX, int par_offsetY)
         {
@@ -45,9 +45,9 @@ namespace __RSCElementSelectGraphics
 
             Pen obj_pen = new Pen(par_color);
             Graphics obj_graph = Graphics.FromImage(par_pictureBox.Image);
-            DrawAndFillTriangle_Fill(obj_graph, par_arrow.triangle1,
+            DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle1,
                        iWid, obj_pen, false);
-            DrawAndFillTriangle_Fill(obj_graph, par_arrow.triangle2,
+            DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle2,
                        iWid, obj_pen, false);
             par_pictureBox.Refresh();
 
@@ -55,7 +55,7 @@ namespace __RSCElementSelectGraphics
 
 
         private void DrawAndFillArrow(Image par_image,
-                ArrowTriangleStructure par_arrow,
+                ClassArrowTriangles par_arrow,
                 System.Drawing.Color par_color,
                       int par_offsetX, int par_offsetY)
         {
@@ -73,7 +73,9 @@ namespace __RSCElementSelectGraphics
 
             Pen obj_pen = new Pen(par_color);
             Graphics obj_graph = Graphics.FromImage(par_image);
-            DrawAndFillTriangle_Fill(obj_graph, par_arrow.triangle1,
+            DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle1,
+                       iWid, obj_pen, false);
+            DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle2,
                        iWid, obj_pen, false);
 
 
@@ -214,7 +216,8 @@ namespace __RSCElementSelectGraphics
 
         //End Sub ''End of ""Private Sub DrawAndFillTriangle_Fill()""
 
-        private void DrawAndFillTriangle_Fill(Graphics par_graph, Triangle par_triangle,
+        private void DrawAndFillTriangle_Fill(Graphics par_graph, 
+                                       ClassTriangle par_triangle,
                                        int par_iWid, Pen par_pen,
                                        bool pbBreakForZeroes = false)
         {
@@ -224,19 +227,19 @@ namespace __RSCElementSelectGraphics
             //Dim iWid As Integer = par_iWid
             int iWid = par_iWid;
 
-            DrawLinesBetweenLines(par_triangle.line1, par_triangle.line2,
+            DrawLinesBetweenLines(par_triangle.GetLine(1), par_triangle.GetLine(2),
                               iWid, par_graph, par_pen, 20, pbBreakForZeroes);
-            DrawLinesBetweenLines(par_triangle.line1, par_triangle.line3,
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
-
-            DrawLinesBetweenLines(par_triangle.line2, par_triangle.line1,
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
-            DrawLinesBetweenLines(par_triangle.line2, par_triangle.line3,
+            DrawLinesBetweenLines(par_triangle.GetLine(1), par_triangle.GetLine(3),
                               iWid, par_graph, par_pen, 20, pbBreakForZeroes);
 
-            DrawLinesBetweenLines(par_triangle.line3, par_triangle.line1,
+            DrawLinesBetweenLines(par_triangle.GetLine(2), par_triangle.GetLine(1),
                               iWid, par_graph, par_pen, 20, pbBreakForZeroes);
-            DrawLinesBetweenLines(par_triangle.line3, par_triangle.line2,
+            DrawLinesBetweenLines(par_triangle.GetLine(2), par_triangle.GetLine(3),
+                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
+
+            DrawLinesBetweenLines(par_triangle.GetLine(3), par_triangle.GetLine(1),
+                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
+            DrawLinesBetweenLines(par_triangle.GetLine(3)   , par_triangle.GetLine(2),
                               iWid, par_graph, par_pen, 20, pbBreakForZeroes);
 
         } // End Sub ''End of ""Private Sub DrawAndFillTriangle_Fill()""
@@ -280,7 +283,7 @@ namespace __RSCElementSelectGraphics
 
         private void DrawTriangle_PixelsWide(int par_WidthInPixels,
                                   Graphics par_gr,
-                                  Triangle par_triangle,
+                                  ClassTriangle par_triangle,
                                   Color par_color,
                                   Pen par_pen = null)
         {
@@ -294,10 +297,15 @@ namespace __RSCElementSelectGraphics
 
             //''11 / 2022 ReDim arrayOfPoints(4)
             //ReDim arrayOfPoints(3)
-            arrayOfPoints[0] = par_triangle.line1.point1;
-            arrayOfPoints[1] = par_triangle.line2.point1;
-            arrayOfPoints[2] = par_triangle.line3.point1;
-            arrayOfPoints[3] = par_triangle.line3.point2;
+            //arrayOfPoints[0] = par_triangle.line1.point1;
+            //arrayOfPoints[1] = par_triangle.line2.point1;
+            //arrayOfPoints[2] = par_triangle.line3.point1;
+            //arrayOfPoints[3] = par_triangle.line3.point2;
+
+            arrayOfPoints[0] = par_triangle.Point1;
+            arrayOfPoints[1] = par_triangle.Point2;
+            arrayOfPoints[2] = par_triangle.Point3;
+            arrayOfPoints[3] = par_triangle.Point1;
 
             //''-- - For intLineIndex = 1 To(par_WidthInPixels)
 
@@ -333,7 +341,7 @@ namespace __RSCElementSelectGraphics
         //End Sub ''End of ""Private Sub DrawAndFillTriangle_Border()""
 
         private void DrawAndFillTriangle_Border(Graphics par_graph,
-                             Triangle par_triangle,
+                             ClassTriangle par_triangle,
                               int par_iWid, Pen par_pen)
         {
             //''
@@ -420,7 +428,7 @@ namespace __RSCElementSelectGraphics
         }
 
         public void DrawAndFillTriangle(Graphics par_graph, Color par_color,
-                                    Triangle par_triangle,
+                                    ClassTriangle par_triangle,
                                     bool pbBreakForZeroes = false)
         {
             //''
@@ -435,7 +443,7 @@ namespace __RSCElementSelectGraphics
 
             //''Dim g_tri As Graphics = Graphics.FromImage(PictureBoxForTriangle.Image)
 
-            Triangle objTriangle = par_triangle; //'' = New Triangle
+            ClassTriangle objTriangle = par_triangle; //'' = New Triangle
 
             /*If(objTriangle.Equals(New Triangle())) Then
 

@@ -36,24 +36,59 @@ Public Class ClassListOfArrows
     ''Added 11/22/2025 
     ''
     ''---Public NamedArrows As New List(Of Arrow)
-    Private mod_listArrows As New List(Of ArrowTriangleStructure)
+    Private mod_listArrows_Deprecated As New List(Of ArrowTriangleStructure)
+    Private mod_listArrows As New List(Of ClassArrowTriangles)
 
-    Public ReadOnly Property List() As List(Of ArrowTriangleStructure)
+    Public ReadOnly Property List() As List(Of ClassArrowTriangles)
         Get
             Return mod_listArrows
         End Get
     End Property
 
+    Public ReadOnly Property List_Deprecated() As List(Of ArrowTriangleStructure)
+        Get
+            Return mod_listArrows_Deprecated
+        End Get
+    End Property
 
 
-    Public Sub Add(par_arrow As ArrowTriangleStructure)
+    Public Sub Add(par_arrow As ClassArrowTriangles) ''ArrowTriangleStructure)
         ''
         ''Added 11/26/2022 thomas  
         ''
         mod_listArrows.Add(par_arrow)
 
 
-    End Sub
+    End Sub ''End of Public Sub Add 
+
+
+    Public Sub Remove(par_arrow As ClassArrowTriangles) ''ArrowTriangleStructure)
+        ''
+        ''Added 11/26/2022 thomas  
+        ''
+        mod_listArrows.Remove(par_arrow)
+
+    End Sub ''End of Public Sub Remove
+
+
+
+    Public Sub Add_Deprecated(par_arrow As ArrowTriangleStructure)
+        ''
+        ''Added 11/26/2022 thomas  
+        ''
+        mod_listArrows_Deprecated.Add(par_arrow)
+
+
+    End Sub ''End of Public Sub Add 
+
+
+    Public Sub Remove_Deprecated(par_arrow As ArrowTriangleStructure)
+        ''
+        ''Added 11/26/2022 thomas  
+        ''
+        mod_listArrows_Deprecated.Remove(par_arrow)
+
+    End Sub ''End of Public Sub Remove
 
 
     Public Sub SaveToXML(pstrPathToXML As String) ''12/2022 (Optional ByVal pstrPathToXML As String = "")

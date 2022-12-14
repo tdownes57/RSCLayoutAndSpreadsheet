@@ -36,9 +36,13 @@ Partial Class FormTestGraphics
         Me.Label2 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.ButtonRefresh = New System.Windows.Forms.Button()
+        Me.TimerRefresh = New System.Windows.Forms.Timer(Me.components)
+        Me.PictureBoxDummy = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBoxDummy, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PictureBoxForBorder
@@ -81,9 +85,9 @@ Partial Class FormTestGraphics
         'PictureBoxForTriangle
         '
         Me.PictureBoxForTriangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBoxForTriangle.Location = New System.Drawing.Point(101, 109)
+        Me.PictureBoxForTriangle.Location = New System.Drawing.Point(101, 117)
         Me.PictureBoxForTriangle.Name = "PictureBoxForTriangle"
-        Me.PictureBoxForTriangle.Size = New System.Drawing.Size(117, 115)
+        Me.PictureBoxForTriangle.Size = New System.Drawing.Size(100, 100)
         Me.PictureBoxForTriangle.TabIndex = 4
         Me.PictureBoxForTriangle.TabStop = False
         '
@@ -148,11 +152,37 @@ Partial Class FormTestGraphics
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "Arrows to point at elements && borders around elements"
         '
+        'ButtonRefresh
+        '
+        Me.ButtonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.ButtonRefresh.Location = New System.Drawing.Point(771, 36)
+        Me.ButtonRefresh.Name = "ButtonRefresh"
+        Me.ButtonRefresh.Size = New System.Drawing.Size(223, 33)
+        Me.ButtonRefresh.TabIndex = 12
+        Me.ButtonRefresh.Text = "Save, Clear && Refresh in 4 secs"
+        Me.ButtonRefresh.UseVisualStyleBackColor = True
+        '
+        'TimerRefresh
+        '
+        Me.TimerRefresh.Interval = 4000
+        '
+        'PictureBoxDummy
+        '
+        Me.PictureBoxDummy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PictureBoxDummy.Location = New System.Drawing.Point(12, 455)
+        Me.PictureBoxDummy.Name = "PictureBoxDummy"
+        Me.PictureBoxDummy.Size = New System.Drawing.Size(100, 20)
+        Me.PictureBoxDummy.TabIndex = 13
+        Me.PictureBoxDummy.TabStop = False
+        Me.PictureBoxDummy.Visible = False
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1014, 517)
+        Me.Controls.Add(Me.PictureBoxDummy)
+        Me.Controls.Add(Me.ButtonRefresh)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.textNameOfArrow)
@@ -170,6 +200,7 @@ Partial Class FormTestGraphics
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBoxDummy, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -188,4 +219,7 @@ Partial Class FormTestGraphics
     Friend WithEvents Label2 As Label
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Label3 As Label
+    Friend WithEvents ButtonRefresh As Button
+    Friend WithEvents TimerRefresh As Timer
+    Friend WithEvents PictureBoxDummy As PictureBox
 End Class
