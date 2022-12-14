@@ -1,5 +1,5 @@
 ﻿//using System;
-//using System.Collections.Generic;
+using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
@@ -10,6 +10,7 @@ using System.Reflection;
 
 namespace __RSCElementSelectGraphics
 {
+    [Serializable]
     public class ClassTriangle
     {
         private Point m_point1; // As Point
@@ -39,7 +40,22 @@ namespace __RSCElementSelectGraphics
         public ClassTriangle()
         {
             m_point1 = new Point();
-            m_point2 = new Point(); 
+            m_point2 = new Point();
+            m_point3 = new Point();
+        }
+
+        public ClassTriangle(Queue<Point> par_stack)
+        {
+
+
+
+        }
+
+
+        public int CountNonzeroPoints()
+        {
+            //Added 12/14/2022 
+            return m_numPoints;
         }
 
 
@@ -60,6 +76,11 @@ namespace __RSCElementSelectGraphics
             if (p_index == 3) return new Line { point1 = m_point3, point2 = m_point1 };
             throw new ArgumentException();
         }
+
+
+        public Line line1() {  return new Line { point1 = m_point1, point2 = m_point2 }; }
+        public Line line2() { return new Line { point1 = m_point2, point2 = m_point3 }; }
+        public Line line3() { return new Line { point1 = m_point3, point2 = m_point1 }; }
 
 
         public void SetLine(int p_index, Line p_line)

@@ -285,15 +285,23 @@ namespace __RSCElementSelectGraphics
                                   Graphics par_gr,
                                   ClassTriangle par_triangle,
                                   Color par_color,
-                                  Pen par_pen = null)
+                                  Pen par_pen = null, 
+                                  bool pboolOmitAnyZeroes = true)
         {
             //''
             //''Added 11 / 22 / 2022 td
             //''
             Pen pen_border; // As System.Drawing.Pen
-            //int intLineIndex; // As Integer
-            //int intOffsetPixels; // As Integer
-            Point[] arrayOfPoints = new Point[4];  // Point[3];
+                            //int intLineIndex; // As Integer
+                            //int intOffsetPixels; // As Integer
+
+            int numNonZeroPoints = par_triangle.CountNonzeroPoints();
+
+            Point[] arrayOfPoints; // = new Point[4];  // Point[3];
+            
+            if (numNonZeroPoints == 3) arrayOfPoints = new Point[4];
+            else if (numNonZeroPoints == 2) arrayOfPoints = new Point[2];
+            else return;
 
             //''11 / 2022 ReDim arrayOfPoints(4)
             //ReDim arrayOfPoints(3)
@@ -302,10 +310,20 @@ namespace __RSCElementSelectGraphics
             //arrayOfPoints[2] = par_triangle.line3.point1;
             //arrayOfPoints[3] = par_triangle.line3.point2;
 
-            arrayOfPoints[0] = par_triangle.Point1;
-            arrayOfPoints[1] = par_triangle.Point2;
-            arrayOfPoints[2] = par_triangle.Point3;
-            arrayOfPoints[3] = par_triangle.Point1;
+            if (numNonZeroPoints == 4)
+            {
+                // Connect the dots. The 4th dot is semi-redundant but 
+                //    closes the loop. --12/14/2022
+                arrayOfPoints[0] = par_triangle.Point1;
+                arrayOfPoints[1] = par_triangle.Point2;
+                arrayOfPoints[2] = par_triangle.Point3;
+                arrayOfPoints[3] = par_triangle.Point1;
+            }
+            else
+            {
+                arrayOfPoints[0] = par_triangle.Point1;
+                arrayOfPoints[1] = par_triangle.Point2;
+            }
 
             //''-- - For intLineIndex = 1 To(par_WidthInPixels)
 
@@ -317,6 +335,7 @@ namespace __RSCElementSelectGraphics
 
             //''intOffsetPixels = (intLineIndex - 1)
 
+            //par_gr.DrawLines(pen_border, arrayOfPoints);
             par_gr.DrawLines(pen_border, arrayOfPoints);
 
             //''Next intLineIndex
@@ -429,7 +448,8 @@ namespace __RSCElementSelectGraphics
 
         public void DrawAndFillTriangle(Graphics par_graph, Color par_color,
                                     ClassTriangle par_triangle,
-                                    bool pbBreakForZeroes = false)
+                                    bool pbBreakForZeroes = false,
+                                    bool pbOmitAnyZeroes = true)
         {
             //''
             //''Added 11/22/2022
@@ -474,8 +494,16 @@ namespace __RSCElementSelectGraphics
             //''objPen = New Pen(par_color, par_WidthInPixels)
             objPen = new Pen(par_color, iWid);
 
-            DrawAndFillTriangle_Border(par_graph, objTriangle, iWid, objPen);
-            DrawAndFillTriangle_Fill(par_graph, objTriangle, iWid, objPen, pbBreakForZeroes);
+            if (par_triangle.isFull())
+            {
+                DrawAndFillTriangle_Border(par_graph, objTriangle, iWid, objPen);
+                DrawAndFillTriangle_Fill(par_graph, objTriangle, iWid, objPen, pbBreakForZeroes);
+            }
+            else
+            {
+                //Added 12/14/2022  
+                DrawTriangle_PixelsWide(par_graph, objTriangle, iWid, objPen, pbOmitAnyZeroes);
+            }
 
              // ExitHandler:
             //PictureBoxForTriangle.Refresh()

@@ -39,6 +39,7 @@ Partial Class FormTestGraphics
         Me.ButtonRefresh = New System.Windows.Forms.Button()
         Me.TimerRefresh = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBoxDummy = New System.Windows.Forms.PictureBox()
+        Me.LinkUndoLatestClick = New System.Windows.Forms.LinkLabel()
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -176,11 +177,22 @@ Partial Class FormTestGraphics
         Me.PictureBoxDummy.TabStop = False
         Me.PictureBoxDummy.Visible = False
         '
+        'LinkUndoLatestClick
+        '
+        Me.LinkUndoLatestClick.AutoSize = True
+        Me.LinkUndoLatestClick.Location = New System.Drawing.Point(207, 201)
+        Me.LinkUndoLatestClick.Name = "LinkUndoLatestClick"
+        Me.LinkUndoLatestClick.Size = New System.Drawing.Size(93, 15)
+        Me.LinkUndoLatestClick.TabIndex = 14
+        Me.LinkUndoLatestClick.TabStop = True
+        Me.LinkUndoLatestClick.Text = "Undo Clickpoint"
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1014, 517)
+        Me.Controls.Add(Me.LinkUndoLatestClick)
         Me.Controls.Add(Me.PictureBoxDummy)
         Me.Controls.Add(Me.ButtonRefresh)
         Me.Controls.Add(Me.Label3)
@@ -222,4 +234,5 @@ Partial Class FormTestGraphics
     Friend WithEvents ButtonRefresh As Button
     Friend WithEvents TimerRefresh As Timer
     Friend WithEvents PictureBoxDummy As PictureBox
+    Friend WithEvents LinkUndoLatestClick As LinkLabel
 End Class

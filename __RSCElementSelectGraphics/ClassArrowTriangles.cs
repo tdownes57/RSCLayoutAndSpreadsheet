@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.Security.Permissions;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Xml.Linq;
 using System.Xml.Serialization;  // Added 12/13/2022
 
 namespace __RSCElementSelectGraphics
 {
+
+    [Serializable]
     public class ClassArrowTriangles
     {
         private string m_name;
@@ -20,6 +23,15 @@ namespace __RSCElementSelectGraphics
             m_name = "";
             m_triangle1 = new ClassTriangle();
             m_triangle2 = new ClassTriangle();
+        }
+
+
+        public ClassArrowTriangles(Queue<System.Drawing.Point> par_queue)
+        {
+            m_name = "";
+            m_triangle1 = new ClassTriangle(par_queue);
+            m_triangle2 = new ClassTriangle(par_queue);
+
         }
 
 
@@ -39,6 +51,14 @@ namespace __RSCElementSelectGraphics
         {
             get { return m_triangle2; }   // get method
             set { m_triangle2 = value; }  // set method
+        }
+
+
+        public bool isFull()
+        {
+            //Added 12/14/2022 
+            bool bBothFull = (m_triangle1.isFull() && m_triangle2.isFull());
+            return (bBothFull);
         }
 
 
