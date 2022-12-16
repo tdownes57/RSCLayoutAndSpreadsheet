@@ -44,10 +44,21 @@ namespace __RSCElementSelectGraphics
             m_point3 = new Point();
         }
 
-        public ClassTriangle(Queue<Point> par_stack)
+        public ClassTriangle(Queue<Point> par_queue) : this()
         {
+            //
+            // Added 12/15/2022
+            //
+            while (m_numPoints < 3 && par_queue.Count > 0)
+            {
+                Point obj_point = par_queue.Dequeue();
+                if (m_numPoints == 0) m_point1 = obj_point;
+                else if (m_numPoints == 1) m_point2 = obj_point;
+                else if (m_numPoints == 2) m_point3 = obj_point;
+                // Added 12/15/2022 
+                if (m_numPoints < 3) ++m_numPoints;
 
-
+            }
 
         }
 

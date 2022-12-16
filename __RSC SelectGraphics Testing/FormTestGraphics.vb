@@ -1,5 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Drawing.Text
+Imports System.IO
 Imports System.Reflection
 Imports __RSCElementSelectGraphics
 ''Imports __RSCWindowsControlLibrary
@@ -15,6 +16,8 @@ Public Class FormTestGraphics
     ''Private mod_stackPoints As New Stack(Of Drawing.Point) ''Added 12/13/2022
     ''Private mod_queuePoints As New Queue(Of Drawing.Point) ''Added 12/13/2022
     Private mod_listPoints As New List(Of Drawing.Point) ''Added 12/13/2022
+    Private mod_stackPoints As New Stack(Of Drawing.Point) ''Added 12/14/2022
+    Private mod_stackPoints_Undone As New Stack(Of Drawing.Point) ''Added 12/14/2022
 
     ''Public Structure Line
     ''    ''
@@ -141,9 +144,13 @@ ExitHandler:
         ''
         ''Added 11/22/2022
         ''
+        If (PictureBoxForTriangle.Image Is Nothing) Then
+            Throw New BadImageFormatException
+        End If
+
         Dim graph_tri As Graphics = Graphics.FromImage(PictureBoxForTriangle.Image)
         Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
-        Const c_Size As Integer = 2
+        Const c_Size As Integer = 5 ''2
         ''---objRSCGraphics.DrawSinglePoint(par_color, piX, piY)
         objRSCGraphics.DrawSinglePoint(graph_tri, par_color, piX, piY, c_Size)
 
@@ -263,12 +270,21 @@ ExitHandler:
     Private Sub LoadListOfArrowsFromXML(pboolFillPanel As Boolean)
 
         ''Added 12/13/2022
-        If (IO.File.Exists("ListOfArrows.xml")) Then
+        ''If (IO.File.Exists("ListOfArrows.xml")) Then
+        If (IO.File.Exists("ListOfArrowsOfTriangles.xml")) Then
             ''mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrows.xml")
-            mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrowsOfTriangles.xml")
-            If (pboolFillPanel) Then
-                RefreshPanelOfArrows(mod_listOfArrows)
-            End If ''ENdo f ""If (pboolFillPanel) Then""
+            Try
+                mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrowsOfTriangles.xml")
+            Catch obj_exception As FileNotFoundException
+                ''File doesn't exist yet.  Hit F5 to continue. ---12/14/2022
+                Debugger.Break()
+
+            Finally
+                ''12/2022 If (pboolFillPanel) Then
+                If (pboolFillPanel AndAlso mod_listOfArrows IsNot Nothing) Then
+                    RefreshPanelOfArrows(mod_listOfArrows)
+                End If ''ENdo f ""If (pboolFillPanel) Then""
+            End Try
         End If ''End of ""If (IO.File.Exists(...)) Then"
 
     End Sub ''ENd of "" Private Sub LoadListOfArrowsFromXML(pboolFillPanel As Boolean)""
@@ -290,7 +306,7 @@ ExitHandler:
             Return
         Else
             mod_listPoints.Add(New Point(e.X, e.Y))
-        End If
+        End If ''End of ""If (mod_objCurrentArrow.isFull()) Then... Else..."
 
         ''
         ''Draw a dot where the user clicked!  
@@ -337,7 +353,7 @@ ExitHandler:
         ''End If
 
         DrawAndFillTriangleRSC(Color.Black, par_arrow.Triangle1, True)
-        DrawAndFillTriangleRSC(Color.Black, par_arrow.Triangle1, True)
+        DrawAndFillTriangleRSC(Color.Black, par_arrow.Triangle2, True)
 
     End Sub ''Private Sub DrawArrowTriangles()
 
@@ -347,7 +363,11 @@ ExitHandler:
         ''Added 12/14/2022
         ''
         ''---mod_objCurrentArrow = New ClassArrowTriangles(par_queuePoints)
-        Return New ClassArrowTriangles(par_queuePoints)
+        ''--Return New ClassArrowTriangles(par_queuePoints)
+
+        Dim objArrowTriangles As ClassArrowTriangles
+        objArrowTriangles = New ClassArrowTriangles(par_queuePoints)
+        Return objArrowTriangles
 
     End Function ''End of Private Function BuildArrowTriangles()
 
@@ -422,8 +442,8 @@ ExitHandler:
             bFillingTriangleNew = True
         End If
 
-        ''With temp_triangle ''mod_objArrow.triangle1
-
+        ''12/14/2022 With temp_triangle ''mod_objArrow.triangle1
+        ''
         ''    If (bFillingTriangleNew) Then
         ''        .line1().point1.X = par_eX ''e.X
         ''        .line1().point1.Y = par_eY ''e.Y
@@ -436,13 +456,13 @@ ExitHandler:
         ''    ElseIf (bTriangle1_L3Empty) Then
         ''        .line3().point1.X = par_eX ''e.X
         ''        .line3().point1.Y = par_eY ''e.Y
-
+        ''
         ''        ''Complete the triangle.
         ''        .line1().point2 = .line2.point1
         ''        .line2().point2 = .line3.point1
         ''        .line3().point2 = .line1.point1
         ''        pbCompletedTriangle1 = True
-
+        ''
         ''    ElseIf (bTriangle2_L1Empty) Then
         ''        .line1().point1.X = par_eX
         ''        .line1().point1.Y = par_eY
@@ -452,18 +472,18 @@ ExitHandler:
         ''    ElseIf (bTriangle2_L3Empty) Then
         ''        .line3().point1.X = par_eX
         ''        .line3().point1.Y = par_eY
-
+        ''
         ''        ''Complete the triangle.
         ''        .line1.point2 = .line2.point1
         ''        .line2.point2 = .line3.point1
         ''        .line3.point2 = .line1.point1
         ''        pbCompletedTriangle2 = True
-
+        ''
         ''        ''Draw & fill the triangle.
         ''        ''DrawAndFillTriangle(Color.Aqua, mod_objTriangle, True)
         ''        ''DrawAndFillTriangle(Color.Aqua, mod_objArrow.triangle1, True)
         ''        ''----Nov27---DrawAndFillTriangleRSC(Color.Black, mod_objArrow.triangle1, True)
-
+        ''
         ''        ''----Nov27---''Clear the triangle.
         ''        ''----Nov27---.line1.point1 = New Point()
         ''        ''----Nov27---.line1.point2 = New Point()
@@ -471,10 +491,10 @@ ExitHandler:
         ''        ''----Nov27---.line2.point2 = New Point()
         ''        ''----Nov27---.line3.point1 = New Point()
         ''        ''----Nov27---.line3.point2 = New Point()
-
+        ''
         ''    End If ''End of ""If (bPoint1L1Empty) Then... ElseIf ... ElseIf ..."
-
-        End With ''End of ""With temp_triangle""
+        ''
+        ''End With ''End of ""With temp_triangle""
 
         If (bFillingTriangle1) Then ''(bPoint1L3Empty) Then ''If (bTriangle1Empty) Then
             mod_objCurrentArrow.Triangle1 = temp_triangle
@@ -497,6 +517,11 @@ ExitHandler:
             .Image = New Bitmap(.Width - 1, .Height - 1)
             .Refresh()
         End With
+
+        ''Added 12/15/2022 
+        mod_objCurrentArrow = New ClassArrowTriangles()
+        mod_listPoints.Clear()
+        mod_stackPoints.Clear()
 
     End Sub
 
@@ -538,8 +563,19 @@ ExitHandler:
         If (0 < mod_listPoints.Count) Then
 
             Dim intCountSize As Integer
+            Dim objPoint As Point ''Added 12/15/2022 thomas downes
+
             intCountSize = mod_listPoints.Count
+            objPoint = mod_listPoints.Item(-1 + intCountSize)
+            Debug.Assert(objPoint.X > 0)
             mod_listPoints.RemoveAt(-1 + intCountSize)
+            ''-----mod_stackPoints.Pop() ''Remove the top Point on the Stat
+            mod_stackPoints_Undone.Push(objPoint)
+
+            ''Added 12/15/2022 thomas d.
+            Dim new_queue As New Queue(Of Point)(mod_listPoints)
+            mod_objCurrentArrow = BuildArrowTriangles(new_queue)
+
             RefreshCurrentArrowPanel()
 
         End If ''end of ""If (0 < mod_listPoints.Count) Then""

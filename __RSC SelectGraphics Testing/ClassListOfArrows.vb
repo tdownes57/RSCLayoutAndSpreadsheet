@@ -1,4 +1,5 @@
-﻿Imports __RSCElementSelectGraphics
+﻿Imports System.IO
+Imports __RSCElementSelectGraphics
 Imports ciBadgeCachePersonality
 Imports ciBadgeSerialize ''Added 11/22/2022 
 
@@ -137,13 +138,21 @@ Public Class ClassListOfArrows
 
 
     Public Shared Function LoadFromXML(pstrPathToXML As String,
-         Optional ByRef par_cache_arrows As ClassListOfArrows = Nothing)
+         Optional ByRef par_cache_arrows As ClassListOfArrows = Nothing) _
+        As ClassListOfArrows
         ''
         ''Added 12/13/2022 & 10/10/2019 thomas downes
         ''
         ''This code was copied from ciBadgeCachePersonalityEtc.ClassElementsCacheV1_Deprecated
         ''
         Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
+
+        ''Added 12/14/2022 
+        If (Not IO.File.Exists(pstrPathToXML)) Then
+            ''Added 12/14/2022 
+            Throw New FileNotFoundException()
+        End If ''End of ""If (Not IO.File.Exists(pstrPathToXML)) Then""
+
         objDeserialize.PathToXML = pstrPathToXML
 
         par_cache_arrows = New ClassListOfArrows ''This may or may not be completely necessary,

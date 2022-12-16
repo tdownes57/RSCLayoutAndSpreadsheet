@@ -40,6 +40,7 @@ Partial Class FormTestGraphics
         Me.TimerRefresh = New System.Windows.Forms.Timer(Me.components)
         Me.PictureBoxDummy = New System.Windows.Forms.PictureBox()
         Me.LinkUndoLatestClick = New System.Windows.Forms.LinkLabel()
+        Me.LinkRedoClick = New System.Windows.Forms.LinkLabel()
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -187,11 +188,23 @@ Partial Class FormTestGraphics
         Me.LinkUndoLatestClick.TabStop = True
         Me.LinkUndoLatestClick.Text = "Undo Clickpoint"
         '
+        'LinkRedoClick
+        '
+        Me.LinkRedoClick.AutoSize = True
+        Me.LinkRedoClick.Enabled = False
+        Me.LinkRedoClick.Location = New System.Drawing.Point(230, 216)
+        Me.LinkRedoClick.Name = "LinkRedoClick"
+        Me.LinkRedoClick.Size = New System.Drawing.Size(91, 15)
+        Me.LinkRedoClick.TabIndex = 15
+        Me.LinkRedoClick.TabStop = True
+        Me.LinkRedoClick.Text = "Redo Clickpoint"
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1014, 517)
+        Me.Controls.Add(Me.LinkRedoClick)
         Me.Controls.Add(Me.LinkUndoLatestClick)
         Me.Controls.Add(Me.PictureBoxDummy)
         Me.Controls.Add(Me.ButtonRefresh)
@@ -235,4 +248,5 @@ Partial Class FormTestGraphics
     Friend WithEvents TimerRefresh As Timer
     Friend WithEvents PictureBoxDummy As PictureBox
     Friend WithEvents LinkUndoLatestClick As LinkLabel
+    Friend WithEvents LinkRedoClick As LinkLabel
 End Class

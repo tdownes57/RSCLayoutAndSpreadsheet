@@ -298,9 +298,19 @@ namespace __RSCElementSelectGraphics
             int numNonZeroPoints = par_triangle.CountNonzeroPoints();
 
             Point[] arrayOfPoints; // = new Point[4];  // Point[3];
-            
+
             if (numNonZeroPoints == 3) arrayOfPoints = new Point[4];
             else if (numNonZeroPoints == 2) arrayOfPoints = new Point[2];
+            else if (numNonZeroPoints == 1) 
+            {
+                // Added 12/15/2022 thomas downes
+                //----arrayOfPoints = new Point[1];  //Won't be used. 
+                DrawSinglePoint(par_gr, par_color,
+                         par_triangle.Point1.X,
+                         par_triangle.Point1.Y,
+                         par_WidthInPixels);
+                return; 
+             }
             else return;
 
             //''11 / 2022 ReDim arrayOfPoints(4)
@@ -310,7 +320,8 @@ namespace __RSCElementSelectGraphics
             //arrayOfPoints[2] = par_triangle.line3.point1;
             //arrayOfPoints[3] = par_triangle.line3.point2;
 
-            if (numNonZeroPoints == 4)
+            //----if (numNonZeroPoints == 4)
+            if (numNonZeroPoints == 3)
             {
                 // Connect the dots. The 4th dot is semi-redundant but 
                 //    closes the loop. --12/14/2022
@@ -502,7 +513,9 @@ namespace __RSCElementSelectGraphics
             else
             {
                 //Added 12/14/2022  
-                DrawTriangle_PixelsWide(par_graph, objTriangle, iWid, objPen, pbOmitAnyZeroes);
+                //12/14/2022 DrawTriangle_PixelsWide(par_graph, objTriangle, iWid 
+                DrawTriangle_PixelsWide(iWid, par_graph, objTriangle, 
+                    par_color, objPen, pbOmitAnyZeroes);
             }
 
              // ExitHandler:
