@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO.Ports;
 using System.Security.Permissions;
 //using System.Linq;
 //using System.Text;
@@ -17,6 +19,8 @@ namespace __RSCElementSelectGraphics
         private string m_name;
         private ClassTriangle m_triangle1;
         private ClassTriangle m_triangle2;
+        private int m_width;
+        private int m_height;
 
         public ClassArrowTriangles()
         {
@@ -70,9 +74,29 @@ namespace __RSCElementSelectGraphics
         }
 
 
+        public int GetHeight()
+        {
+            //Added 12/16/2022
+            Debug.Assert(m_height > 0);
+            return m_height;
+        }
+
+
+        public int GetWidth()
+        {
+            //Added 12/16/2022
+            Debug.Assert(m_width > 0);
+            return m_width;
+        }
+
+
+
         public void AddPoint(int par_x, int par_y)
         {
             AddPoint(new Point(par_x, par_y));
+            //Added 12/16/2022
+            if (par_x > m_width) m_width = par_x;
+            if (par_y > m_height) m_height = par_y;
         }
 
 
@@ -81,11 +105,21 @@ namespace __RSCElementSelectGraphics
             if (false == m_triangle1.isFull())
             {
                 m_triangle1.AddPoint(par_point);
+                
+                //Added 12/16/2022
+                if (par_point.X > m_width) m_width = par_point.X;
+                if (par_point.Y > m_height) m_height = par_point.Y;
+
                 return true;
             }
             else if(false == m_triangle1.isFull())
             {
                 m_triangle2.AddPoint(par_point);
+                
+                //Added 12/16/2022
+                if (par_point.X > m_width) m_width = par_point.X;
+                if (par_point.Y > m_height) m_height = par_point.Y;
+
                 return true;
             }
             return false;

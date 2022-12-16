@@ -24,6 +24,23 @@ namespace __RSCElementSelectGraphics
 
     public class RSCGraphics
     {
+        public void DrawAndFillArrow(Graphics par_graph,
+                    ClassArrowTriangles par_arrow,
+                    System.Drawing.Color par_color,
+                          int par_offsetX, int par_offsetY)
+        {
+            //
+            // Added 12/16/2022 
+            //
+            int iWid = 1;
+            Pen obj_pen = new Pen(par_color);
+            DrawAndFillTriangle_Fill(par_graph, par_arrow.Triangle1,
+                       iWid, obj_pen, false);
+            DrawAndFillTriangle_Fill(par_graph, par_arrow.Triangle2,
+                       iWid, obj_pen, false);
+
+        }
+
 
         public void DrawAndFillArrow(PictureBox par_pictureBox, 
                         ClassArrowTriangles par_arrow, 

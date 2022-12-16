@@ -1,6 +1,7 @@
 ﻿Imports System.Drawing
 Imports System.Drawing.Text
 Imports System.IO
+Imports System.Net.Http.Headers
 Imports System.Reflection
 Imports __RSCElementSelectGraphics
 ''Imports __RSCWindowsControlLibrary
@@ -18,6 +19,7 @@ Public Class FormTestGraphics
     Private mod_listPoints As New List(Of Drawing.Point) ''Added 12/13/2022
     Private mod_stackPoints As New Stack(Of Drawing.Point) ''Added 12/14/2022
     Private mod_stackPoints_Undone As New Stack(Of Drawing.Point) ''Added 12/14/2022
+    Private mod_graphics As Drawing.Graphics ''Added 12/16/2022
 
     ''Public Structure Line
     ''    ''
@@ -263,6 +265,10 @@ ExitHandler:
 
         ''Encapsulated 12/13/2022
         LoadListOfArrowsFromXML(True)
+
+        ''Added 12/16/2022
+        ''Me.BackgroundImage = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+        ''mod_graphics = New Graphics(Me.BackgroundImage)
 
     End Sub
 
@@ -580,6 +586,30 @@ ExitHandler:
 
         End If ''end of ""If (0 < mod_listPoints.Count) Then""
 
+
+    End Sub
+
+    Private Sub FormTestGraphics_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+
+        ''Added 12/16/2022 
+        Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
+        ''__RSCElementSelectGraphics e.Graphics
+
+        If (0 < mod_listOfArrows.List.Count) Then
+            With objRSCGraphics
+                ''.DrawAndFillTriangle(e.Graphics, mod_colorArrows, mod_listOfArrows.List(0))
+                Dim objArrowTriangles As ClassArrowTriangles
+                Dim intOffsetX As Integer, intOffsetY As Integer
+                objArrowTriangles = mod_listOfArrows.List(0)
+                With objArrowTriangles
+                    intOffsetX = PictureBoxForTriangle.Left - .GetWidth()
+                    intOffsetY = PictureBoxForTriangle.Top - .GetHeight()
+                End With
+                .DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows, 0, 0)
+                .DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                                  intOffsetX, intOffsetY)
+            End With
+        End If ''End of ""If (0 < mod_listOfArrows.List.Count) Then""
 
     End Sub
 End Class
