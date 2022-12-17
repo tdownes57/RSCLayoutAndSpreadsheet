@@ -41,6 +41,7 @@ Partial Class FormTestGraphics
         Me.PictureBoxDummy = New System.Windows.Forms.PictureBox()
         Me.LinkUndoLatestClick = New System.Windows.Forms.LinkLabel()
         Me.LinkRedoClick = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelPaintArrows = New System.Windows.Forms.LinkLabel()
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -50,7 +51,7 @@ Partial Class FormTestGraphics
         'PictureBoxForBorder
         '
         Me.PictureBoxForBorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBoxForBorder.Location = New System.Drawing.Point(451, 126)
+        Me.PictureBoxForBorder.Location = New System.Drawing.Point(509, 127)
         Me.PictureBoxForBorder.Name = "PictureBoxForBorder"
         Me.PictureBoxForBorder.Size = New System.Drawing.Size(172, 233)
         Me.PictureBoxForBorder.TabIndex = 0
@@ -68,17 +69,17 @@ Partial Class FormTestGraphics
         '
         'ButtonRectangle
         '
-        Me.ButtonRectangle.Location = New System.Drawing.Point(451, 365)
+        Me.ButtonRectangle.Location = New System.Drawing.Point(499, 436)
         Me.ButtonRectangle.Name = "ButtonRectangle"
         Me.ButtonRectangle.Size = New System.Drawing.Size(182, 69)
         Me.ButtonRectangle.TabIndex = 2
-        Me.ButtonRectangle.Text = "Make rectangular border around inside box"
+        Me.ButtonRectangle.Text = "Make rectangular border around inside box above"
         Me.ButtonRectangle.UseVisualStyleBackColor = True
         '
         'PictureBoxInner
         '
         Me.PictureBoxInner.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.PictureBoxInner.Location = New System.Drawing.Point(487, 201)
+        Me.PictureBoxInner.Location = New System.Drawing.Point(544, 201)
         Me.PictureBoxInner.Name = "PictureBoxInner"
         Me.PictureBoxInner.Size = New System.Drawing.Size(100, 50)
         Me.PictureBoxInner.TabIndex = 3
@@ -114,7 +115,7 @@ Partial Class FormTestGraphics
         'FlowLayoutPanel1
         '
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(675, 75)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(762, 75)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(327, 435)
         Me.FlowLayoutPanel1.TabIndex = 7
@@ -138,7 +139,7 @@ Partial Class FormTestGraphics
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(675, 47)
+        Me.Label2.Location = New System.Drawing.Point(762, 47)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 15)
         Me.Label2.TabIndex = 10
@@ -157,7 +158,7 @@ Partial Class FormTestGraphics
         'ButtonRefresh
         '
         Me.ButtonRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonRefresh.Location = New System.Drawing.Point(771, 36)
+        Me.ButtonRefresh.Location = New System.Drawing.Point(858, 36)
         Me.ButtonRefresh.Name = "ButtonRefresh"
         Me.ButtonRefresh.Size = New System.Drawing.Size(223, 33)
         Me.ButtonRefresh.TabIndex = 12
@@ -166,7 +167,7 @@ Partial Class FormTestGraphics
         '
         'TimerRefresh
         '
-        Me.TimerRefresh.Interval = 4000
+        Me.TimerRefresh.Interval = 1000
         '
         'PictureBoxDummy
         '
@@ -199,11 +200,22 @@ Partial Class FormTestGraphics
         Me.LinkRedoClick.TabStop = True
         Me.LinkRedoClick.Text = "Redo Clickpoint"
         '
+        'LinkLabelPaintArrows
+        '
+        Me.LinkLabelPaintArrows.AutoSize = True
+        Me.LinkLabelPaintArrows.Location = New System.Drawing.Point(533, 29)
+        Me.LinkLabelPaintArrows.Name = "LinkLabelPaintArrows"
+        Me.LinkLabelPaintArrows.Size = New System.Drawing.Size(74, 15)
+        Me.LinkLabelPaintArrows.TabIndex = 16
+        Me.LinkLabelPaintArrows.TabStop = True
+        Me.LinkLabelPaintArrows.Text = "Paint Arrows"
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1014, 517)
+        Me.ClientSize = New System.Drawing.Size(1101, 517)
+        Me.Controls.Add(Me.LinkLabelPaintArrows)
         Me.Controls.Add(Me.LinkRedoClick)
         Me.Controls.Add(Me.LinkUndoLatestClick)
         Me.Controls.Add(Me.PictureBoxDummy)
@@ -249,4 +261,5 @@ Partial Class FormTestGraphics
     Friend WithEvents PictureBoxDummy As PictureBox
     Friend WithEvents LinkUndoLatestClick As LinkLabel
     Friend WithEvents LinkRedoClick As LinkLabel
+    Friend WithEvents LinkLabelPaintArrows As LinkLabel
 End Class

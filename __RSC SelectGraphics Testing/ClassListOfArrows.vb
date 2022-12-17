@@ -28,7 +28,7 @@ Imports ciBadgeSerialize ''Added 11/22/2022
 ''    Public NameOfArrow As String
 ''    Public triangle1 As Triangle
 ''    Public triangle2 As Triangle
-
+''
 ''End Structure
 
 <Serializable>
@@ -49,6 +49,23 @@ Public Class ClassListOfArrows
     Public ReadOnly Property List_Deprecated() As List(Of ArrowTriangleStructure)
         Get
             Return mod_listArrows_Deprecated
+        End Get
+    End Property
+
+
+    Default Public ReadOnly Property Item(par_index As Integer) As ClassArrowTriangles
+        Get
+            ''Added 12/17/2022
+            Return List(par_index)
+        End Get
+    End Property
+
+
+    Default Public ReadOnly Property Item(par_name As String) As ClassArrowTriangles
+        Get
+            ''Added 12/17/2022
+            ''----Return List.Select(Of ClassArrowTriangle)()
+            Return List.Where(Function(t) t.Name = par_name).FirstOrDefault
         End Get
     End Property
 

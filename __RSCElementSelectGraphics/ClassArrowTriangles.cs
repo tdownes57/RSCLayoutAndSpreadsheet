@@ -36,6 +36,19 @@ namespace __RSCElementSelectGraphics
             m_triangle1 = new ClassTriangle(par_queue);
             m_triangle2 = new ClassTriangle(par_queue);
 
+            //Added 12/16/2022
+            m_width = m_triangle1.GetWidth(1.0f);
+            if (m_width < m_triangle2.GetWidth(1.0f))
+            {
+                m_width = m_triangle2.GetWidth(1.0f);
+            }
+            //Added 12/16/2022
+            m_height = m_triangle1.GetHeight(1.0f);
+            if (m_height < m_triangle2.GetHeight(1.0f))
+            {
+                m_height = m_triangle2.GetHeight(1.0f);
+            }
+
         }
 
 
@@ -58,10 +71,14 @@ namespace __RSCElementSelectGraphics
         }
 
 
-        public bool isFull()
+        public bool isFull(bool pbRefreshCount)
         {
-            //Added 12/14/2022 
-            bool bBothFull = (m_triangle1.isFull() && m_triangle2.isFull());
+            //
+            //Added 12/14/2022
+            //
+            //12-16-22 bool bBothFull = (m_triangle1.isFull() && m_triangle2.isFull());
+            bool bBothFull = (m_triangle1.isFull(pbRefreshCount) 
+                && m_triangle2.isFull(pbRefreshCount));
             return (bBothFull);
         }
 
@@ -74,19 +91,21 @@ namespace __RSCElementSelectGraphics
         }
 
 
-        public int GetHeight()
+        public int GetHeight(float par_scale)
         {
             //Added 12/16/2022
-            Debug.Assert(m_height > 0);
-            return m_height;
+            if (0 < m_triangle1.CountNonzeroPoints()) Debug.Assert(m_height > 0);
+            //return m_height;
+            return (int)(par_scale * m_height);
         }
 
 
-        public int GetWidth()
+        public int GetWidth(float par_scale)
         {
             //Added 12/16/2022
-            Debug.Assert(m_width > 0);
-            return m_width;
+            if (0 < m_triangle1.CountNonzeroPoints()) Debug.Assert(m_width > 0);
+            //return m_width;
+            return (int)(par_scale * m_width);
         }
 
 
@@ -97,12 +116,14 @@ namespace __RSCElementSelectGraphics
             //Added 12/16/2022
             if (par_x > m_width) m_width = par_x;
             if (par_y > m_height) m_height = par_y;
+
         }
 
 
         public bool AddPoint(Point par_point)
         {
-            if (false == m_triangle1.isFull())
+            //--if (false == m_triangle1.isFull())
+            if (false == m_triangle1.isFull(true))
             {
                 m_triangle1.AddPoint(par_point);
                 
@@ -112,7 +133,9 @@ namespace __RSCElementSelectGraphics
 
                 return true;
             }
-            else if(false == m_triangle1.isFull())
+
+            //---else if(false == m_triangle1.isFull())
+            else if (false == m_triangle1.isFull(true))
             {
                 m_triangle2.AddPoint(par_point);
                 
@@ -127,6 +150,28 @@ namespace __RSCElementSelectGraphics
         }
 
 
+        public void RefreshMaxDimensionsEtc()
+        {
+            //
+            // Refresh the data members which are statistical in nature
+            //   and are not serialized. 
+            //
+            // Added 12/16/2022 thomas downes
+            //
+            m_triangle1.RefreshMaxDimensionsEtc();
+            m_triangle2.RefreshMaxDimensionsEtc();
+
+            m_width = 0;
+            m_width = (m_width > m_triangle1.GetWidth(1.0f) ? m_width : m_triangle1.GetWidth(1.0f));
+            m_width = (m_width > m_triangle2.GetWidth(1.0f) ? m_width : m_triangle2.GetWidth(1.0f));
+
+            m_height = 0;
+            m_height = (m_height > m_triangle1.GetHeight(1.0f) ? m_height : m_triangle1.GetHeight(1.0f));
+            m_height = (m_height > m_triangle2.GetHeight(1.0f) ? m_height : m_triangle2.GetHeight(1.0f));
+
+        }
 
     }
-    }
+
+}
+

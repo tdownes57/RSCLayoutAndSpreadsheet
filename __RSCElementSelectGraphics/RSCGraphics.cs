@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 //using System;  //using System.Drawing.Image;
 using System.Reflection;
 using System.Runtime.Remoting;
@@ -24,20 +25,138 @@ namespace __RSCElementSelectGraphics
 
     public class RSCGraphics
     {
+        // Added 12/16/2022 thomas downes
+        private const int NumberOfLinesNeededToFill20 = 10;  // 20;
+
+        public static ClassArrowTriangles ArrowNorth;
+        public static ClassArrowTriangles ArrowEast;
+        public static ClassArrowTriangles ArrowWest;
+        public static ClassArrowTriangles ArrowSouth;
+        public static ClassArrowTriangles ArrowNE;
+        public static ClassArrowTriangles ArrowNW;
+        public static ClassArrowTriangles ArrowSE;
+        public static ClassArrowTriangles ArrowSW;
+
+        public static ClassArrowTriangles[] ArrayOfArrows; // = new ClassArrowTriangles[12];
+
+        public static void FillArrayOfArrows()
+        {
+            if (ArrayOfArrows == null)
+            {
+                ArrayOfArrows = new ClassArrowTriangles[12];
+            }
+            ArrayOfArrows[0] = ArrowNorth; // The 12-o'clock position. 
+            ArrayOfArrows[1] = ArrowNE;
+            ArrayOfArrows[2] = ArrowNE;
+            ArrayOfArrows[3] = ArrowEast; // The 3-o'clock position. 
+            ArrayOfArrows[4] = ArrowSE;
+            ArrayOfArrows[5] = ArrowSE;
+            ArrayOfArrows[6] = ArrowSouth; // The 6-o'clock position. 
+            ArrayOfArrows[7] = ArrowSW;
+            ArrayOfArrows[8] = ArrowSW;
+            ArrayOfArrows[9] = ArrowWest; // The 9-o'clock position. 
+            ArrayOfArrows[10] = ArrowNW;
+            ArrayOfArrows[11] = ArrowNW;
+
+        }
+
+
+
+        public void DrawAndFillArrow(Graphics par_graph,
+            System.Drawing.Color par_color,
+            Control par_rectElement, int par_clockPosition,
+            float par_scale = 1.00f)
+        {
+            //
+            // Added 12/16/2022 
+            //
+            if (ArrayOfArrows == null) FillArrayOfArrows();
+
+            ClassArrowTriangles objArrow = ArrayOfArrows[par_clockPosition];
+            //if (objArrow == null) FillArrayOfArrows();
+            Debug.Assert(objArrow != null);
+
+            DrawAndFillArrow(par_graph, objArrow, par_color, par_rectElement, 
+                par_clockPosition, par_scale);
+
+        }
+
+
+        public void DrawAndFillArrow(Graphics par_graph,
+                ClassArrowTriangles par_arrow,
+                System.Drawing.Color par_color,
+                Control par_rectElement, int par_clockPosition,
+                float par_scale = 1.00f)
+        {
+            int offsetX = 0;
+            int offsetY = 0;
+
+            switch (par_clockPosition)
+            {
+                case (12):
+                    offsetX = par_rectElement.Left + par_rectElement.Width / 2 - par_arrow.GetWidth(par_scale) / 2;
+                    offsetY = par_rectElement.Top - par_arrow.GetHeight(par_scale);
+                    break;
+                case (1):
+                case (2):
+                    offsetX = par_rectElement.Left + par_rectElement.Width;
+                    offsetY = par_rectElement.Top - par_arrow.GetHeight(par_scale);
+                    break;
+                case (3):
+                    offsetX = par_rectElement.Left + par_rectElement.Width;
+                    offsetY = par_rectElement.Top + par_rectElement.Height / 2 - par_arrow.GetHeight(par_scale) / 2 ;
+                    break;
+                case (4):
+                case (5):
+                    offsetX = par_rectElement.Left + par_rectElement.Width;
+                    offsetY = par_rectElement.Top + par_rectElement.Height; // - par_arrow.GetHeight(par_scale);
+                    break;
+                case (6):
+                    offsetX = par_rectElement.Left + par_rectElement.Width / 2 - par_arrow.GetWidth(par_scale) / 2;
+                    offsetY = par_rectElement.Top + par_rectElement.Height;
+                    break;
+                case (7):
+                case (8):
+                    offsetX = par_rectElement.Left - par_arrow.GetWidth(par_scale);
+                    offsetY = par_rectElement.Top + par_rectElement.Height; // - par_arrow.GetHeight(par_scale);
+                    break;
+                case (9):
+                    offsetX = par_rectElement.Left - par_arrow.GetWidth(par_scale);
+                    offsetY = par_rectElement.Top + par_rectElement.Height / 2 - par_arrow.GetHeight(par_scale) / 2;
+                    break;
+                case (10):
+                case (11):
+                    offsetX = par_rectElement.Left - par_arrow.GetWidth(par_scale);
+                    offsetY = par_rectElement.Top - par_arrow.GetHeight(par_scale);
+                    break;
+
+            }
+
+            //Added 12/16/2022 thomas downes
+            DrawAndFillArrow(par_graph, par_arrow, par_color, offsetX, offsetY, par_scale);
+
+
+        }
+
+
         public void DrawAndFillArrow(Graphics par_graph,
                     ClassArrowTriangles par_arrow,
                     System.Drawing.Color par_color,
-                          int par_offsetX, int par_offsetY)
+                          int par_offsetX, int par_offsetY, float par_scale = 1.00f)
         {
             //
             // Added 12/16/2022 
             //
             int iWid = 1;
             Pen obj_pen = new Pen(par_color);
+            //DrawAndFillTriangle_Fill(par_graph, par_arrow.Triangle1,
+            //           iWid, obj_pen, par_offsetX, false);
+            //DrawAndFillTriangle_Fill(par_graph, par_arrow.Triangle2,
+            //           iWid, obj_pen, par_offsetX, false);
             DrawAndFillTriangle_Fill(par_graph, par_arrow.Triangle1,
-                       iWid, obj_pen, false);
+                       iWid, obj_pen, par_offsetX, par_offsetY, par_scale, false);
             DrawAndFillTriangle_Fill(par_graph, par_arrow.Triangle2,
-                       iWid, obj_pen, false);
+                       iWid, obj_pen, par_offsetX, par_offsetY, par_scale,false);
 
         }
 
@@ -45,13 +164,14 @@ namespace __RSCElementSelectGraphics
         public void DrawAndFillArrow(PictureBox par_pictureBox, 
                         ClassArrowTriangles par_arrow, 
                         System.Drawing.Color par_color, 
-                              int par_offsetX, int par_offsetY)
+                              int par_offsetX, int par_offsetY, float par_scale = 1.00f)
         {
             //
             // Added 11/26/2022 
             //
             int iWid = 1;
             AddImageIfNeeded(par_pictureBox);
+            
             if (par_pictureBox.Image == null)
             {
                 __RSC_Error_Logging.RSCErrorLogging.Log(57, "DrawAndFillArrow",
@@ -63,9 +183,9 @@ namespace __RSCElementSelectGraphics
             Pen obj_pen = new Pen(par_color);
             Graphics obj_graph = Graphics.FromImage(par_pictureBox.Image);
             DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle1,
-                       iWid, obj_pen, false);
+                       iWid, obj_pen, par_offsetX, par_offsetY, par_scale, false);
             DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle2,
-                       iWid, obj_pen, false);
+                       iWid, obj_pen, par_offsetX, par_offsetY, par_scale, false);
             par_pictureBox.Refresh();
 
         }
@@ -74,7 +194,7 @@ namespace __RSCElementSelectGraphics
         private void DrawAndFillArrow(Image par_image,
                 ClassArrowTriangles par_arrow,
                 System.Drawing.Color par_color,
-                      int par_offsetX, int par_offsetY)
+                      int par_offsetX, int par_offsetY, float par_scale = 1.00f)
         {
             //
             // Added 11/26/2022 
@@ -90,10 +210,15 @@ namespace __RSCElementSelectGraphics
 
             Pen obj_pen = new Pen(par_color);
             Graphics obj_graph = Graphics.FromImage(par_image);
+            
+            //12-16-2022 DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle1,
+            //           iWid, obj_pen, false);
+            //12-16-2022 DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle2,
+            //           iWid, obj_pen, false);
             DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle1,
-                       iWid, obj_pen, false);
+                       iWid, obj_pen, par_offsetX, par_offsetY, par_scale, false);
             DrawAndFillTriangle_Fill(obj_graph, par_arrow.Triangle2,
-                       iWid, obj_pen, false);
+                       iWid, obj_pen, par_offsetX, par_offsetY, par_scale, false);
 
 
         }
@@ -105,6 +230,7 @@ namespace __RSCElementSelectGraphics
         //                                         Optional pbBreakForZeros As Boolean = False) As Point
         private Point GetPointFromLine_ByFractioning(Line par_line, int par_denominator,
                                                  int par_numerator,
+                                                 int par_offsetX, int par_offsetY,
                                                  bool pbBreakForZeros = false) // As Point
         {
             //''
@@ -128,7 +254,9 @@ namespace __RSCElementSelectGraphics
             if (pbBreakForZeros && (intX == 0 && intY == 0))
                 System.Diagnostics.Debugger.Break();
 
-            return new Point(intX, intY);
+            //return new Point(intX, intY);
+            return new Point(intX + par_offsetX, 
+                             intY + par_offsetY);
 
             //End Function ''End of ""Private Function GetPointFromLine_ByFractioning""
 
@@ -174,6 +302,8 @@ namespace __RSCElementSelectGraphics
                                        int par_iWid, Graphics par_graph,
                                        Pen par_pen,
                                        int par_howManyLines,
+                                       int par_offsetX, int par_offsetY,
+                                       double par_scale = 1.00d,
                                        bool pbBreakForZeroes = false)
         {
             //    ''
@@ -197,12 +327,13 @@ namespace __RSCElementSelectGraphics
             for (int indexOut = 0; indexOut < par_howManyLines - 1; ++indexOut)
             {
                 point1 = GetPointFromLine_ByFractioning(par_line1, par_howManyLines,
-                                           indexOut, pbBreakForZeroes);
+                                           indexOut, par_offsetX, par_offsetY, pbBreakForZeroes);
                 for (int indexIn = 0; indexIn < par_howManyLines; ++indexIn)
                 {
                     point2 = GetPointFromLine_ByFractioning(par_line2, par_howManyLines,
-                                         indexIn, pbBreakForZeroes);
+                                         indexIn, par_offsetX, par_offsetY, pbBreakForZeroes);
                     par_graph.DrawLine(par_pen, point1, point2);
+
                 }   //Next indexIn
             }  //  Next indexOut
 
@@ -236,6 +367,8 @@ namespace __RSCElementSelectGraphics
         private void DrawAndFillTriangle_Fill(Graphics par_graph, 
                                        ClassTriangle par_triangle,
                                        int par_iWid, Pen par_pen,
+                                       int par_offsetX, int par_offsetY,
+                                       float par_scale = 1.0f,
                                        bool pbBreakForZeroes = false)
         {
             //''
@@ -243,21 +376,34 @@ namespace __RSCElementSelectGraphics
             //''
             //Dim iWid As Integer = par_iWid
             int iWid = par_iWid;
+            int numLines20 = NumberOfLinesNeededToFill20;
 
-            DrawLinesBetweenLines(par_triangle.GetLine(1), par_triangle.GetLine(2),
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
-            DrawLinesBetweenLines(par_triangle.GetLine(1), par_triangle.GetLine(3),
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
+            DrawLinesBetweenLines(par_triangle.GetLine(1, par_scale), 
+                                  par_triangle.GetLine(2, par_scale),
+                       iWid, par_graph, par_pen, numLines20, 
+                       par_offsetX, par_offsetY, par_scale, pbBreakForZeroes);
+            DrawLinesBetweenLines(par_triangle.GetLine(1, par_scale),
+                                  par_triangle.GetLine(3, par_scale),
+                       iWid, par_graph, par_pen, numLines20, 
+                       par_offsetX, par_offsetY, par_scale, pbBreakForZeroes);
 
-            DrawLinesBetweenLines(par_triangle.GetLine(2), par_triangle.GetLine(1),
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
-            DrawLinesBetweenLines(par_triangle.GetLine(2), par_triangle.GetLine(3),
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
+            DrawLinesBetweenLines(par_triangle.GetLine(2, par_scale),
+                                  par_triangle.GetLine(1, par_scale),
+                       iWid, par_graph, par_pen, numLines20, 
+                       par_offsetX, par_offsetY, par_scale, pbBreakForZeroes);
+            DrawLinesBetweenLines(par_triangle.GetLine(2, par_scale),
+                                  par_triangle.GetLine(3, par_scale),
+                       iWid, par_graph, par_pen, numLines20, 
+                       par_offsetX, par_offsetY, par_scale, pbBreakForZeroes);
 
-            DrawLinesBetweenLines(par_triangle.GetLine(3), par_triangle.GetLine(1),
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
-            DrawLinesBetweenLines(par_triangle.GetLine(3)   , par_triangle.GetLine(2),
-                              iWid, par_graph, par_pen, 20, pbBreakForZeroes);
+            DrawLinesBetweenLines(par_triangle.GetLine(3, par_scale),
+                                  par_triangle.GetLine(1, par_scale),
+                       iWid, par_graph, par_pen, numLines20, 
+                       par_offsetX, par_offsetY, par_scale, pbBreakForZeroes);
+            DrawLinesBetweenLines(par_triangle.GetLine(3, par_scale),
+                                  par_triangle.GetLine(2, par_scale),
+                       iWid, par_graph, par_pen, numLines20, 
+                       par_offsetX, par_offsetY, par_scale, pbBreakForZeroes);
 
         } // End Sub ''End of ""Private Sub DrawAndFillTriangle_Fill()""
 
@@ -476,6 +622,8 @@ namespace __RSCElementSelectGraphics
 
         public void DrawAndFillTriangle(Graphics par_graph, Color par_color,
                                     ClassTriangle par_triangle,
+                                    int par_offsetX, int par_offsetY, 
+                                    float par_scale = 1.00f,
                                     bool pbBreakForZeroes = false,
                                     bool pbOmitAnyZeroes = true)
         {
@@ -522,10 +670,13 @@ namespace __RSCElementSelectGraphics
             //''objPen = New Pen(par_color, par_WidthInPixels)
             objPen = new Pen(par_color, iWid);
 
-            if (par_triangle.isFull())
+            //---if (par_triangle.isFull(true))
+            if (par_triangle.isFull(true))
             {
                 DrawAndFillTriangle_Border(par_graph, objTriangle, iWid, objPen);
-                DrawAndFillTriangle_Fill(par_graph, objTriangle, iWid, objPen, pbBreakForZeroes);
+                //Dec.2022 DrawAndFillTriangle_Fill(par_graph, objTriangle, iWid, objPen, pbBreakForZeroes);
+                DrawAndFillTriangle_Fill(par_graph, objTriangle, iWid, objPen, 
+                    par_offsetX, par_offsetY, par_scale,pbBreakForZeroes);
             }
             else
             {

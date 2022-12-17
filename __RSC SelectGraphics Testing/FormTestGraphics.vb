@@ -3,6 +3,7 @@ Imports System.Drawing.Text
 Imports System.IO
 Imports System.Net.Http.Headers
 Imports System.Reflection
+Imports System.Runtime.Intrinsics.X86
 Imports __RSCElementSelectGraphics
 ''Imports __RSCWindowsControlLibrary
 ''Imports ciBadgeSerialize
@@ -58,6 +59,7 @@ Public Class FormTestGraphics
         ''Added 12/13/2022
         ''---mod_listOfArrows.SaveToXML("ListOfArrows.xml")
         mod_listOfArrows.SaveToXML("ListOfArrowsOfTriangles.xml")
+        Me.Refresh() ''Added 12/16/2022
 
 ExitHandler:
         textNameOfArrow.Text = "" ''Clear the box. 
@@ -109,16 +111,21 @@ ExitHandler:
           MessageBoxTD.Show_Confirm("Delete this arrow?",
                                     MessageBoxDefaultButton.Button2)
 
+        Dim objControl As Control
+        Dim objArrow As ClassArrowTriangles ''ArrowTriangleStructure
+        objControl = CType(objectSender, Control)
+        ''objArrow = CType(objControl.Tag, ArrowTriangleStructure)
+        objArrow = CType(objControl.Tag, ClassArrowTriangles) ''ArrowTriangleStructure)
+
         If (boolDeleteArrow) Then
-            Dim objControl As Control
-            Dim objArrow As ClassArrowTriangles ''ArrowTriangleStructure
-            objControl = CType(objectSender, Control)
-            ''objArrow = CType(objControl.Tag, ArrowTriangleStructure)
-            objArrow = CType(objControl.Tag, ClassArrowTriangles) ''ArrowTriangleStructure)
             mod_listOfArrows.Remove(objArrow)
             RefreshPanelOfArrows(mod_listOfArrows)
 
-        End If
+        Else
+            mod_objCurrentArrow = objArrow
+            Me.Refresh()
+
+        End If ''ENd of ""If (boolDeleteArrow) Then... Else..."
 
 
     End Sub
@@ -164,6 +171,9 @@ ExitHandler:
 
     Private Sub DrawAndFillTriangleRSC(par_color As Drawing.Color,
                                     Optional par_triangle As ClassTriangle = Nothing,
+                                       Optional par_offsetX As Integer = 0,
+                                       Optional par_offsetY As Integer = 0,
+                                       Optional par_scale As Single = 1.0,
                                     Optional pbBreakForZeroes As Boolean = False)
         ''
         ''Added 11/22/2022
@@ -171,8 +181,10 @@ ExitHandler:
         Dim graph_tri As Graphics = Graphics.FromImage(PictureBoxForTriangle.Image)
         Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
 
+        ''//objRSCGraphics.DrawAndFillTriangle(graph_tri, par_color,
+        ''//        par_triangle, pbBreakForZeroes)
         objRSCGraphics.DrawAndFillTriangle(graph_tri, par_color,
-                par_triangle, pbBreakForZeroes)
+                par_triangle, par_offsetX, par_offsetY, par_scale, pbBreakForZeroes)
 
 ExitHandler:
         PictureBoxForTriangle.Refresh()
@@ -266,6 +278,19 @@ ExitHandler:
         ''Encapsulated 12/13/2022
         LoadListOfArrowsFromXML(True)
 
+        RSCGraphics.ArrowNorth = mod_listOfArrows("N")
+        RSCGraphics.ArrowNE = mod_listOfArrows("NE")
+        RSCGraphics.ArrowEast = mod_listOfArrows("E")
+        RSCGraphics.ArrowSE = mod_listOfArrows("SE")
+        RSCGraphics.ArrowSouth = mod_listOfArrows("S")
+        RSCGraphics.ArrowSW = mod_listOfArrows("SW")
+        RSCGraphics.ArrowWest = mod_listOfArrows("W")
+        RSCGraphics.ArrowNW = mod_listOfArrows("NW")
+        RSCGraphics.FillArrayOfArrows() ''Added 12/17/2022 Thomas Downes
+        ''Me.Invalidate()
+        ''Me.Refresh()
+        TimerRefresh.Enabled = True
+
         ''Added 12/16/2022
         ''Me.BackgroundImage = New Bitmap(-1 + Me.Width, -1 + Me.Height)
         ''mod_graphics = New Graphics(Me.BackgroundImage)
@@ -281,6 +306,13 @@ ExitHandler:
             ''mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrows.xml")
             Try
                 mod_listOfArrows = ClassListOfArrows.LoadFromXML("ListOfArrowsOfTriangles.xml")
+
+                ''Added 12/16/2022
+                ''  Refresh the data members which are not serialized. 
+                For Each eachArrow As ClassArrowTriangles In mod_listOfArrows.List
+                    eachArrow.RefreshMaxDimensionsEtc()
+                Next eachArrow
+
             Catch obj_exception As FileNotFoundException
                 ''File doesn't exist yet.  Hit F5 to continue. ---12/14/2022
                 Debugger.Break()
@@ -307,7 +339,8 @@ ExitHandler:
 
 
         ''Added 12/13/2022 
-        If (mod_objCurrentArrow.isFull()) Then
+        ''Dec16 2022''If (mod_objCurrentArrow.isFull()) Then
+        If (mod_objCurrentArrow.isFull(True)) Then
             MessageBoxTD.Show_Statement("The Arrow has been created.")
             Return
         Else
@@ -557,6 +590,10 @@ ExitHandler:
         ''End If ''End of ""If (IO.File.Exists(...)) Then"
         TimerRefresh.Enabled = False
         FlowLayoutPanel1.Controls.Clear()
+
+        ''Me.Invalidate() ''Added 12/17/2022
+        ''Me.Refresh() ''Added 12/17/2022 
+        ''Me.repaint
         Application.DoEvents()
         LoadListOfArrowsFromXML(True)
         TimerRefresh.Enabled = False
@@ -589,27 +626,98 @@ ExitHandler:
 
     End Sub
 
+
     Private Sub FormTestGraphics_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
 
         ''Added 12/16/2022 
         Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
+        Dim objArrowTriangles As ClassArrowTriangles
         ''__RSCElementSelectGraphics e.Graphics
 
         If (0 < mod_listOfArrows.List.Count) Then
-            With objRSCGraphics
-                ''.DrawAndFillTriangle(e.Graphics, mod_colorArrows, mod_listOfArrows.List(0))
-                Dim objArrowTriangles As ClassArrowTriangles
-                Dim intOffsetX As Integer, intOffsetY As Integer
-                objArrowTriangles = mod_listOfArrows.List(0)
-                With objArrowTriangles
-                    intOffsetX = PictureBoxForTriangle.Left - .GetWidth()
-                    intOffsetY = PictureBoxForTriangle.Top - .GetHeight()
-                End With
-                .DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows, 0, 0)
-                .DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
-                                  intOffsetX, intOffsetY)
-            End With
+            ''
+            ''Find an Arrow (of Triangles) to draw.
+            ''
+            If (mod_objCurrentArrow Is Nothing) Then
+                objArrowTriangles = mod_listOfArrows.List.Last()
+            Else
+                objArrowTriangles = mod_objCurrentArrow
+            End If ''End of ""If (mod_objCurrentArrow Is Nothing) Then... Else""
+
+            ''
+            ''Check to see if the Arrow is complete, and then 
+            ''  draw the complete arrow. 
+            ''
+            If (objArrowTriangles.isFull(True)) Then
+
+                With objRSCGraphics
+
+                    ''.DrawAndFillTriangle(e.Graphics, mod_colorArrows, mod_listOfArrows.List(0))
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows, 0, 0)
+
+                    ''Dim intOffsetX As Integer, intOffsetY As Integer
+                    ''With objArrowTriangles
+                    ''    intOffsetX = PictureBoxForBorder.Left - .GetWidth(1.0F)
+                    ''    intOffsetY = PictureBoxForBorder.Top - .GetHeight(1.0F)
+                    ''End With
+
+                    ''''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows, 0, 0)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          intOffsetX, intOffsetY)
+
+                    ''With objArrowTriangles
+                    ''    intOffsetX = PictureBoxForBorder.Left - .GetWidth(1.0F)
+                    ''    intOffsetY = PictureBoxForBorder.Top + PictureBoxForBorder.Height '' - .GetHeight(1.0F)
+                    ''End With
+
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          intOffsetX, intOffsetY)
+
+                    ''-----------------------------------------------------------------------
+                    ''Print all positions of the clock!!
+                    ''-----------------------------------------------------------------------
+                    ''
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 12)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 1.5)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 3)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 4.5)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 6)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 7.5)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 9)
+                    ''.DrawAndFillArrow(e.Graphics, objArrowTriangles, mod_colorArrows,
+                    ''          PictureBoxForBorder, 10.5)
+
+                    ''-----------------------------------------------------------------------
+                    ''Print all positions of the clock!!
+                    ''-----------------------------------------------------------------------
+                    ''
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 0)
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 1)
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 3)
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 4)
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 6)
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 7)
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 9)
+                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 10)
+
+                End With ''End of ""With objRSCGraphics""
+
+            End If ''End of ""If (objArrowTriangles.isFull()) Then""
         End If ''End of ""If (0 < mod_listOfArrows.List.Count) Then""
+
+    End Sub
+
+    Private Sub LinkLabelPaintArrows_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelPaintArrows.LinkClicked
+
+        ''Added 12/17/2022
+        Me.Refresh()
 
     End Sub
 End Class
