@@ -20,7 +20,10 @@ Public Class FormTestGraphics
     Private mod_listPoints As New List(Of Drawing.Point) ''Added 12/13/2022
     Private mod_stackPoints As New Stack(Of Drawing.Point) ''Added 12/14/2022
     Private mod_stackPoints_Undone As New Stack(Of Drawing.Point) ''Added 12/14/2022
+
+    Private mod_imageImageBack As Image ''Added 12/17/2022
     Private mod_graphics As Drawing.Graphics ''Added 12/16/2022
+    Private mod_bitmapImageBack As Bitmap ''Added 12/19/2022
 
     ''Public Structure Line
     ''    ''
@@ -123,7 +126,20 @@ ExitHandler:
 
         Else
             mod_objCurrentArrow = objArrow
-            Me.Refresh()
+
+            ''12/17/2022 Me.Refresh()
+            ''12/17/2022 RunGraphicsOperations(mod_graphics)
+            ''12/19/2022 PaintGraphicsOperations(mod_imageImageBack, mod_graphics)
+            ''12/19/2022mod_graphics = Me.CreateGraphics()
+            mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+            mod_imageImageBack = mod_bitmapImageBack
+            ''mod_graphics = mod_bitmapImageBack.CreateGraphics
+            ''Using mod_bitmapImageBack.creategraph
+            Using mod_graphics = Graphics.FromImage(mod_bitmapImageBack)
+                PaintGraphicsOperations(mod_imageImageBack, mod_graphics, mod_colorArrows)
+                ''//mod_graphics.Dispose() ''Needed so that the memory is released. 
+            End Using
+            Me.BackgroundImage = mod_imageImageBack
 
         End If ''ENd of ""If (boolDeleteArrow) Then... Else..."
 
@@ -278,6 +294,7 @@ ExitHandler:
         ''Encapsulated 12/13/2022
         LoadListOfArrowsFromXML(True)
 
+
         RSCGraphics.ArrowNorth = mod_listOfArrows("N")
         RSCGraphics.ArrowNE = mod_listOfArrows("NE")
         RSCGraphics.ArrowEast = mod_listOfArrows("E")
@@ -289,11 +306,37 @@ ExitHandler:
         RSCGraphics.FillArrayOfArrows() ''Added 12/17/2022 Thomas Downes
         ''Me.Invalidate()
         ''Me.Refresh()
-        TimerRefresh.Enabled = True
+        ''12/19/2022 TimerRefresh.Enabled = True
 
         ''Added 12/16/2022
-        ''Me.BackgroundImage = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+        ''12/17/2022 Me.BackgroundImage = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+        mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+        mod_imageImageBack = mod_bitmapImageBack
+        ''Me.BackgroundImage = mod_image
+
         ''mod_graphics = New Graphics(Me.BackgroundImage)
+        ''mod_graphics = Graphics.FromImage(Me.BackgroundImage)
+        ''mod_graphics = Graphics.FromImage(mod_imageImageBack)
+        mod_graphics = Graphics.FromImage(mod_bitmapImageBack)
+        ''12/19/2022 PaintGraphicsOperations(mod_image, mod_graphics)
+        ''12/19/2022 PaintGraphicsOperations(mod_imageImageBack, mod_graphics, mod_colorArrows)
+        PaintGraphicsOperations(mod_bitmapImageBack, mod_graphics, mod_colorArrows)
+
+        ''Super important!!??  Not sure why, but the image might not get drawn otherwise!!!!
+        mod_graphics.Dispose() ''Added 12/19/2022
+
+        '' mod_graphics.Image
+        ''---Me.BackgroundImage = mod_imageImageBack
+        Me.BackgroundImage = mod_bitmapImageBack
+        ''---mod_bitmapImageBack.Save("C:\Users\tomdo\OneDrive\Desktop\testOfArrows2.bmp")
+        ''Dim intCountPixelsDrawn As Integer ''Added 12/19/2022 
+        ''intCountPixelsDrawn = RSCGraphics.CountPixelsByColor(mod_imageImageBack, mod_colorArrows)
+
+        ''Dim newImage As Bitmap
+        ''newImage = New Bitmap("C:\Users\tomdo\OneDrive\Desktop\testOfArrows2.bmp")
+        ''12/19/2022 intCountPixelsDrawn = RSCGraphics.CountPixelsByColor(mod_imageImageBack, mod_colorArrows)
+        ''intCountPixelsDrawn = RSCGraphics.CountPixelsByColor(newImage, mod_colorArrows)
+        ''Debug.Assert(100 < intCountPixelsDrawn)
 
     End Sub
 
@@ -598,7 +641,20 @@ ExitHandler:
         LoadListOfArrowsFromXML(True)
         TimerRefresh.Enabled = False
 
+        Dim intColorPixelsAfter As Integer ''Added 12/19/2022
+        Dim intColorPixelsBefore As Integer ''Added 12/19/2022
+
+        ''Encapsulated 12/17/2022
+        ''12/19/2022 PaintGraphicsOperations(mod_image, mod_graphics)
+        intColorPixelsBefore = RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
+        PaintGraphicsOperations(mod_imageImageBack, mod_graphics, mod_colorArrows)
+        intColorPixelsAfter = RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
+
+        Me.Refresh() ''Added 12/17/2022 
+
+
     End Sub
+
 
     Private Sub LinkUndoLatestClick_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkUndoLatestClick.LinkClicked
 
@@ -629,7 +685,21 @@ ExitHandler:
 
     Private Sub FormTestGraphics_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
 
+        ''Encapsulated 12/17/2022
+        ''12/19/2022 PaintGraphicsOperations(mod_image, e.Graphics)
+        PaintGraphicsOperations(mod_imageImageBack, e.Graphics, mod_colorArrows)
+
+    End Sub
+
+
+    Private Sub PaintGraphicsOperations(par_bitmap As Bitmap,
+                                        par_eGraphics As Graphics,
+                                        par_colorArrows As Drawing.Color)
+        ''12/19/2022 Private Sub PaintGraphicsOperations(par_image As Image,
+        ''
+        ''Encapsulated 12/17/2022
         ''Added 12/16/2022 
+        ''
         Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
         Dim objArrowTriangles As ClassArrowTriangles
         ''__RSCElementSelectGraphics e.Graphics
@@ -640,15 +710,27 @@ ExitHandler:
             ''
             If (mod_objCurrentArrow Is Nothing) Then
                 objArrowTriangles = mod_listOfArrows.List.Last()
-            Else
+            ElseIf (mod_objCurrentArrow.isFull(True)) Then ''Condition added 12/19/2022 
                 objArrowTriangles = mod_objCurrentArrow
-            End If ''End of ""If (mod_objCurrentArrow Is Nothing) Then... Else""
+            Else
+                ''Added 12/19/2022 
+                objArrowTriangles = mod_listOfArrows.List.Last()
+            End If ''End of ""If (mod_objCurrentArrow Is Nothing) Then... ElseIf...""
 
             ''
             ''Check to see if the Arrow is complete, and then 
             ''  draw the complete arrow. 
             ''
-            If (objArrowTriangles.isFull(True)) Then
+            ''12/19/2022 If (objArrowTriangles.isFull(True)) Then
+            Dim boolArrowIsFull As Boolean ''Added 12/19/2022 
+            boolArrowIsFull = (objArrowTriangles.isFull(True))
+            If (Not boolArrowIsFull) Then ''Modified 12/19/2022
+                ''
+                ''It should be full.  Strange!!
+                ''
+                Debug.Assert(boolArrowIsFull)
+
+            Else
 
                 With objRSCGraphics
 
@@ -698,19 +780,36 @@ ExitHandler:
                     ''Print all positions of the clock!!
                     ''-----------------------------------------------------------------------
                     ''
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 0)
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 1)
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 3)
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 4)
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 6)
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 7)
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 9)
-                    .DrawAndFillArrow(e.Graphics, mod_colorArrows, PictureBoxForBorder, 10)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 0)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 1)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 3)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 4)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 6)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 7)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 9)
+                    ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 10)
+
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 0)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 1)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 3)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 4)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 6)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 7)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 9)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 10)
 
                 End With ''End of ""With objRSCGraphics""
 
             End If ''End of ""If (objArrowTriangles.isFull()) Then""
         End If ''End of ""If (0 < mod_listOfArrows.List.Count) Then""
+
+        ''Me.BackgroundImage = Nothing
+        ''Me.BackgroundImage = mod_graphics.DrawImage
+        ''Me.BackgroundImage = Nothing
+        ''Me.BackgroundImage = mod_imageImageBack
+
+        Dim intCountPixels As Integer
+        intCountPixels = RSCGraphics.CountPixelsByColor(par_bitmap, par_colorArrows)
 
     End Sub
 
@@ -718,6 +817,14 @@ ExitHandler:
 
         ''Added 12/17/2022
         Me.Refresh()
+
+    End Sub
+
+    Private Sub FormTestGraphics_MouseDown(sender As Object, e As MouseEventArgs) Handles Me.MouseDown
+
+        ''Added 12/19/2022 thomas downes
+        mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+        Me.BackgroundImage = mod_bitmapImageBack
 
     End Sub
 End Class

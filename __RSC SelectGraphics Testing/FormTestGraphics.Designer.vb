@@ -42,6 +42,7 @@ Partial Class FormTestGraphics
         Me.LinkUndoLatestClick = New System.Windows.Forms.LinkLabel()
         Me.LinkRedoClick = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelPaintArrows = New System.Windows.Forms.LinkLabel()
+        Me.Label4 = New System.Windows.Forms.Label()
         CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -210,11 +211,21 @@ Partial Class FormTestGraphics
         Me.LinkLabelPaintArrows.TabStop = True
         Me.LinkLabelPaintArrows.Text = "Paint Arrows"
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(17, 421)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(431, 15)
+        Me.Label4.TabIndex = 17
+        Me.Label4.Text = "Click the form (Form_MouseDown) and watch the arrows disappear && reappear!!"
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1101, 517)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.LinkLabelPaintArrows)
         Me.Controls.Add(Me.LinkRedoClick)
         Me.Controls.Add(Me.LinkUndoLatestClick)
@@ -262,4 +273,5 @@ Partial Class FormTestGraphics
     Friend WithEvents LinkUndoLatestClick As LinkLabel
     Friend WithEvents LinkRedoClick As LinkLabel
     Friend WithEvents LinkLabelPaintArrows As LinkLabel
+    Friend WithEvents Label4 As Label
 End Class

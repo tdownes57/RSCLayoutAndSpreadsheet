@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Configuration;
 using System.Drawing.Imaging;
 //using System;  //using System.Drawing.Image;
 using System.Reflection;
@@ -690,6 +691,55 @@ namespace __RSCElementSelectGraphics
             //PictureBoxForTriangle.Refresh()
 
         } // End Sub ''End of ""Private Sub DrawAndFillTriangle()""
+
+
+        public static int CountPixelsByColor(Bitmap par_bitmap, Color par_colorArrows)
+        {
+            //
+            // Added 12/19/2022 Thomas Downes
+            //
+            int int_x, int_y;  // x = y = 0; 
+            Color each_objColor;
+            int intCountPixels_ColorOfArrow = 0;
+            int intCountPixels_ColorOfArrowRGB = 0;
+            int intCountPixels_default = 0;
+            int intCountPixels_Other = 0; 
+            Color colorDefault = par_bitmap.GetPixel(0, 0);
+            Color colorTransparent = Color.Transparent;
+            Color colorFoundOther;
+
+            for (int_x = 0; int_x < par_bitmap.Width; ++int_x)
+            {
+                for (int_y = 0; int_y < par_bitmap.Height; ++int_y)
+                {
+                    each_objColor = par_bitmap.GetPixel(int_x, int_y);
+                    if (each_objColor == par_colorArrows)
+                    {
+                        ++intCountPixels_ColorOfArrow;
+                    }
+                    else if (each_objColor.R == par_colorArrows.R 
+                          && each_objColor.G == par_colorArrows.G
+                          && each_objColor.B == par_colorArrows.B)
+                    {
+                       ++intCountPixels_ColorOfArrowRGB;
+                    }
+                    else if (each_objColor == colorDefault)
+                    {
+                        ++intCountPixels_default;
+                    }
+                    else
+                    {
+                        colorFoundOther = each_objColor;
+                        ++intCountPixels_Other;
+                    }
+                }
+            }
+
+            //return intCountPixels_ColorOfArrow;
+            return (intCountPixels_ColorOfArrow
+                  + intCountPixels_ColorOfArrowRGB);
+
+        }
 
 
         private void AddImageIfNeeded(PictureBox par_box )
