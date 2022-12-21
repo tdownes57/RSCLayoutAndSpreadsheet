@@ -39,8 +39,8 @@ using ciBadgeInterfaces;  // Added 12/17/2021 td
 //    with the keyword "static" removed.  
 //    ----11/29/2021 thomas downes
 //
-namespace MoveAndResizeControls_Monem
-
+//12-20-2022 namespace MoveAndResizeControls_Monem //.Interfaces
+namespace MoveAndResizeControls_Monem_Net70
 {
     //
     // Added 2/2/2022 thomas downes
@@ -132,7 +132,7 @@ namespace MoveAndResizeControls_Monem
             }
         }
 
-        public List<UserControl> ListOfColumnsToBumpRight
+        public List<UserControl>? ListOfColumnsToBumpRight //Now nullable. 12/20/2022
         {
             //
             //Added 3/13/2022 tthhoommaass ddoowwnneess
@@ -198,15 +198,15 @@ namespace MoveAndResizeControls_Monem
         //Added 1/10/2022 thomas downes
         private decimal _proportionWH; //Added 1/10/2022 thomas downes
 
-        private Control _controlCurrent; // Added 11/29/2021 td
+        private Control? _controlCurrent; // Added 11/29/2021 td
         //''1/4/2022 td''private Control _controlPictureBox;  // = par_controlPictureB;
-        private PictureBox _controlPictureBox1;  // = par_controlPictureB;
-        private PictureBox _controlPictureBox2;  // = par_controlPictureB;
-        private Control _controlMoveableElement; // = par_containerElement;
-        private ISaveToModel _iSaveToModel;  // Added 12/17/2021 td
-        private IRefreshElementImage _iRefreshElementImage;  // Added 1/27/2022 td
-        private IRefreshCardPreview _iRefreshCardPreview;  // Added 1/27/2022 td
-        private Label _labelIfNeeded;  //Added 1/04/2022 thomas d.
+        private PictureBox? _controlPictureBox1;  // = par_controlPictureB;
+        private PictureBox? _controlPictureBox2;  // = par_controlPictureB;
+        private Control? _controlMoveableElement; // = par_containerElement;
+        private ISaveToModel? _iSaveToModel;  // Added 12/17/2021 td
+        private IRefreshElementImage? _iRefreshElementImage;  // Added 1/27/2022 td
+        private IRefreshCardPreview? _iRefreshCardPreview;  // Added 1/27/2022 td
+        private Label? _labelIfNeeded;  //Added 1/04/2022 thomas d.
 
         //Added 7/18/2019 thomas downes
         //
@@ -220,9 +220,10 @@ namespace MoveAndResizeControls_Monem
         internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
 
         private bool _SizeProportionally = false;  //Added 1/10/2022 td
-        private bool _SizeDisallowSquares = false;  //Added 2/2/2022 td
-        private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
-        private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
+        //Dec2022 private bool _SizeDisallowSquares = false;  //Added 2/2/2022 td
+        //Dec2022 private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
+        //Dec2022 private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
+        private bool _bAllowMoves = true;  //Added 12-20-2022 
 
         //3/2/2022 //private StructResizeParams _structResizingParams;
         private ClassStructResizeParams _structResizingParams = new ClassStructResizeParams();
@@ -243,7 +244,8 @@ namespace MoveAndResizeControls_Monem
 
         // Added 2/20/2022 td
         //March13 2022 td//public List<Control> ColumnsToTheRight;  //Added 1/20/2022
-        private Dictionary<Control, int> _dictColumnsStartingPositionLeft;  //Added 1/20/2022
+        private Dictionary<Control, int> _dictColumnsStartingPositionLeft
+            = new Dictionary<Control, int>();  //Added 1/20/2022
 
         internal enum MoveOrResize
         {
@@ -256,10 +258,10 @@ namespace MoveAndResizeControls_Monem
         //
         //---internal InterfaceEvents mod_groupedctl_events;
         //Jan10 2022 td''public InterfaceMoveEvents mod_groupedctl_events;
-        public InterfaceMoveEvents mod_events_groupedCtls; //Modified Jan10 2022 td
-        public InterfaceMoveEvents mod_events_singleCtl;  //Added 1/10/2022 td
+        public InterfaceMoveEvents? mod_events_groupedCtls; //Modified Jan10 2022 td
+        public InterfaceMoveEvents? mod_events_singleCtl;  //Added 1/10/2022 td
 
-        private IRefreshElementImage mod_iRefreshElementImage; //Added 6/6/2022 td
+        private IRefreshElementImage? mod_iRefreshElementImage; //Added 6/6/2022 td
 
         internal MoveOrResize WorkType { get; set; }
 
@@ -293,7 +295,11 @@ namespace MoveAndResizeControls_Monem
             //''    par_iSave, pbUndoAndReverseEverything);
 
             //Jan27 2022 ''Init(null, par_controlA, par_margin, pbRepaintAfterResize,
-            Init_V1(null, par_controlA, par_margin, pbRepaintAfterResize,
+            //Dec20 2022 Init_V1(null, par_controlA, par_margin, pbRepaintAfterResize,
+            PictureBox objBoxDummy = new PictureBox();
+            objBoxDummy.Name = "Dummy_1957";
+            Init_V1(objBoxDummy, par_controlA, par_margin, 
+                    pbRepaintAfterResize,
                     par_eventsForGroups,
                     par_eventsSingleCtl,
                     SetBreakpoint_AfterMove,
@@ -336,21 +342,26 @@ namespace MoveAndResizeControls_Monem
                             (decimal)par_containerElement.Height;
 
             //Dec28 //_iSaveToModel = par_iSave; //Added 12/17/2021 td
-            if (pbUndoAndReverseEverything) _iSaveToModel = null; //Added 12/28/2021
-            else _iSaveToModel = par_iSave;  //Added 12/28/2021
+            //Dec20 2022 //if (pbUndoAndReverseEverything) _iSaveToModel = null; //Added 12/28/2021
+            if (pbUndoAndReverseEverything) _bAllowMoves = false; //Modified 12/26/2022
+            else
+            {
+                _bAllowMoves = true;  //Added 12/20/2022 
+                _iSaveToModel = par_iSave;  //Added 12/28/2021
+            }
 
             //Dec28 //_controlPictureBox = par_controlPictureB; //Added 12/27/2021 td
-            if (pbUndoAndReverseEverything) _controlPictureBox1 = null; //Added 12/28/2021
+            if (pbUndoAndReverseEverything) { } //Dec2022 _controlPictureBox1 = null; //Added 12/28/2021
             else _controlPictureBox1 = par_controlPictureB; //Added 12/28/2021
 
             SetBreakpoint_AfterMove = pbSetBreakpoint_AfterMove;  //Added 9/13/2019 td 
 
             //Dec28 2021 //mod_groupedctl_events = par_events;  // 8/3/2019 thomas downes   
-            if (pbUndoAndReverseEverything) mod_events_groupedCtls = null; //Added 12/28/2021
+            if (pbUndoAndReverseEverything) { } //Dec2022 mod_events_groupedCtls = null; //Added 12/28/2021
             else mod_events_groupedCtls = par_eventsForGroups; //Added 12/28/2021
 
             //Added 1/10/2022 td
-            if (pbUndoAndReverseEverything) mod_events_singleCtl = null; //Added 1/10/2022
+            if (pbUndoAndReverseEverything) { } //Dec2022 mod_events_singleCtl = null; //Added 1/10/2022
             else mod_events_singleCtl = par_eventsSingleCtl; //Added 1/10/2022
 
             _moving = false;
@@ -380,12 +391,13 @@ namespace MoveAndResizeControls_Monem
             //Added 11/29/2021 td
             if (pbUndoAndReverseEverything)
             {
-                // Remove the object references. ---Dec28 2021  
-                _controlCurrent = null;  // par_controlPictureB;
-                _controlPictureBox1 = null; // par_controlPictureB;
-                _controlPictureBox2 = null; // par_controlPictureB;
-                _controlMoveableElement = null; // par_containerElement;
-                _labelIfNeeded = null;  //Added 1/4/2022 td
+                // Remove the object references. ---Dec28 2021
+                // 
+                //Dec2022 _controlCurrent = null;  // par_controlPictureB;
+                //Dec2022 _controlPictureBox1 = null; // par_controlPictureB;
+                //Dec2022 _controlPictureBox2 = null; // par_controlPictureB;
+                //Dec2022 _controlMoveableElement = null; // par_containerElement;
+                //Dec2022 _labelIfNeeded = null;  //Added 1/4/2022 td
             }
             else
             {
@@ -509,11 +521,15 @@ namespace MoveAndResizeControls_Monem
             //
             // Hook up the event handlers.  
             //
+            if (par_iSave == null) throw new NullReferenceException(); //Added 12/20/2022 
+            _iSaveToModel = par_iSave; //Added 12/20/2022 
+
             if (pbUndoAndReverseEverything)
             {
                 // Remove these EventHandlers. ---12/28/2021 td
                 par_controlToHook.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlToHook, e);
                 par_controlToHook.MouseUp -= (sender, e) => StopDragOrResizingV1(par_controlToHook, _iSaveToModel);
+                _bAllowMoves = false; //Added 12/20/2022
 
             }
             else
@@ -522,6 +538,7 @@ namespace MoveAndResizeControls_Monem
                 //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlToHook);
                 //Jan4 2022 //if (par_controlToHook.MouseUp != null) throw new Exception("This MouseUp may already be assigned.");
                 par_controlToHook.MouseUp += (sender, e) => StopDragOrResizingV1(par_controlToHook, _iSaveToModel);
+                _bAllowMoves = true; //Added 12/20/2022
 
             }
 
@@ -559,11 +576,14 @@ namespace MoveAndResizeControls_Monem
             //
             if (pbUndoAndReverseEverything)
             {
+                _bAllowMoves = false;  //Added 12/20/2022 td
+
                 if (_labelIfNeeded != null)
                 {
                     _labelIfNeeded.MouseDown -= (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
                     // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
-                    _labelIfNeeded.MouseMove -= (sender, e) => MoveParentControl(_controlMoveableElement, e);
+                    //Dec2022 _labelIfNeeded.MouseMove -= (sender, e) => MoveParentControl(_controlMoveableElement, e);
+                    _labelIfNeeded.MouseMove -= (sender, e) => MoveParentControl((Control)sender, e);  // (null, e); // _controlMoveableElement, e);
                     _labelIfNeeded.MouseUp -= (sender, e) => StopDragOrResizingV1(_labelIfNeeded, _iSaveToModel);
                 }
             }
@@ -578,6 +598,11 @@ namespace MoveAndResizeControls_Monem
             //
             // Added 1/4/2022 td 
             //
+            if (par_label == null) throw new NullReferenceException();  //Added 12/20/2022
+            if (_controlMoveableElement == null) throw new NullReferenceException();  //Added 12/20/2022
+            if (_iSaveToModel == null) throw new NullReferenceException();  //Added 12/20/2022
+
+            _bAllowMoves = true;  //Added 12/20/2022 td
             _labelIfNeeded = par_label;
             _labelIfNeeded.MouseDown += (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
             // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
@@ -592,6 +617,7 @@ namespace MoveAndResizeControls_Monem
             //
             // Added 1/4/2022 td 
             //
+            _bAllowMoves = true; //Added 12/20/2022 thomas downes
             _controlPictureBox2 = par_pictureBox;
             _controlPictureBox2.MouseDown += (sender, e) => StartMovingOrResizing(_controlPictureBox2, e);
             // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
@@ -621,7 +647,7 @@ namespace MoveAndResizeControls_Monem
             //
             //Added 12/28/2021 td
             //
-            const bool c_bReverseEverything = true;
+            //Not currentl used. Dec2022//const bool c_bReverseEverything = true;
 
             //
             //Major call !!
@@ -630,21 +656,24 @@ namespace MoveAndResizeControls_Monem
             //Jan10 2022//    mod_events_groupedCtls, false, _iSaveToModel, c_bReverseEverything);
             //Jan27 2022//  Init(_controlPictureBox1, _controlMoveableElement, 0, _repaintAfterResize,
 
-            Init_V2(_controlPictureBox1, _controlMoveableElement, 0, _repaintAfterResize,
-                mod_events_groupedCtls,
-                mod_events_singleCtl,
-                false, _iSaveToModel,
-                _iRefreshElementImage,
-                _iRefreshCardPreview,
-                c_bReverseEverything);
+            _bAllowMoves = false; //Set Boolean to false. 12/20/2022 
 
-            //Null out the references. ----12/28/2021 td 
-            _controlPictureBox1 = null;
-            _controlPictureBox2 = null;
-            _controlMoveableElement = null;
-            _controlCurrent = null;
-            mod_events_groupedCtls = null;
-            _iSaveToModel = null;
+            //Dec2022 Not needed. Init_V2(_controlPictureBox1, _controlMoveableElement, 0, _repaintAfterResize,
+            //    mod_events_groupedCtls,
+            //    mod_events_singleCtl,
+            //    false, _iSaveToModel,
+            //    _iRefreshElementImage,
+            //    _iRefreshCardPreview,
+            //    c_bReverseEverything);
+
+            //Null out the references. ----12/28/2021 td
+            //
+            //Dec2022 _controlPictureBox1 = null;
+            //Dec2022 _controlPictureBox2 = null;
+            //Dec2022 _controlMoveableElement = null;
+            //Dec2022 _controlCurrent = null;
+            //Dec2022 mod_events_groupedCtls = null;
+            //Dec2022 _iSaveToModel = null;
 
 
         }
@@ -833,6 +862,7 @@ namespace MoveAndResizeControls_Monem
             //Added by the programmer Monem, long before 12/28/2021.  ---12/28/2021 thomas downes
             //
             if (RemoveAllFunctionality) return; //Added 12/28/2021 td
+            if (false == _bAllowMoves) return; //Added 12/20/2022 thomas d.
 
             if (_moving || _resizing)
             {
@@ -963,6 +993,8 @@ namespace MoveAndResizeControls_Monem
             //
             //Modified 8/2/2019 thomas downes  
             //
+            if (_bAllowMoves == false) return; //Added 12/20/2022 
+
             int delta_Width = 0;
             int delta_Height = 0;
             int delta_Left = 0;
@@ -1079,7 +1111,7 @@ namespace MoveAndResizeControls_Monem
                                 if (each_column == _controlMoveableElement) throw new Exception("self reference");
 
                                 //
-                                //Push columns to the left.---2/20/2022 td 
+                                //Push columns to the left.  ---2/20/2022 td 
                                 //
                                 //----each_column.Left += (par_e.X - _cursorStartPoint.X);
                                 each_column.Left = (par_e.X - _cursorStartPoint.X) +
@@ -1238,13 +1270,15 @@ namespace MoveAndResizeControls_Monem
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
-                mod_events_groupedCtls.ControlBeingMoved(par_controlG);
+                if (mod_events_groupedCtls != null)
+                    mod_events_groupedCtls.ControlBeingMoved(par_controlG);
                 delta_Width = 0;
                 delta_Height = 0;
 
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
+                if (mod_events_singleCtl != null)
+                    mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
 
                 if (mod_events_groupedCtls != null)
                 {
@@ -1546,7 +1580,8 @@ namespace MoveAndResizeControls_Monem
             if (bWasResizing)
             {
                 //Jan10 2022 //mod_events.Resizing_Terminate(par_iSave);
-                mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
+                if (mod_events_singleCtl != null)
+                    mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
 
@@ -1556,20 +1591,22 @@ namespace MoveAndResizeControls_Monem
                 //    _iRefreshCardPreview);
 
                 //Modified 6/06/2022 thomas d. 
-                mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
+                if (mod_events_singleCtl != null)
+                    mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
                     _iRefreshElementImage,
                     _iRefreshCardPreview, 
                     bWasResizingHeight);
             }
 
             //Added 9/13/2019 thomas downes
-            // #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
-            // #2 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(par_controlJ);
-            // 12/17/2021 td //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(_controlMoveableElement);
+            //  #1 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate();
+            //  #2 Nov. 29 2021 //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(par_controlJ);
+            //  12/17/2021 td //if (!(bWasResizing)) mod_groupedctl_events.Moving_Terminate(_controlMoveableElement);
             if (!(bWasResizing))
             {
                 // Jan10 2022 //mod_events.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
-                mod_events_singleCtl.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
+                if (mod_events_singleCtl != null)
+                    mod_events_singleCtl.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
             }
@@ -1585,8 +1622,10 @@ namespace MoveAndResizeControls_Monem
 
         public void StopDragOrResizingV2(Control par_controlJ,
                             ISaveToModel par_iSave,
-                            IRefreshElementImage par_iRefreshElemImage = null,
-                            IRefreshCardPreview par_iRefreshCardPreview = null)
+                            IRefreshElementImage par_iRefreshElemImage,
+                            IRefreshCardPreview par_iRefreshCardPreview)
+        // Interface can't be nulled?    IRefreshElementImage par_iRefreshElemImage = null,
+        // Interface can't be nulled?    IRefreshCardPreview par_iRefreshCardPreview = null)
         {
             bool bWasResizing = _resizing; // Added 7/31/2019 td
             bool bWasResizingHeight = _resizingHeight; //Added 6/6/2022 td
@@ -1628,7 +1667,8 @@ namespace MoveAndResizeControls_Monem
                 //June6 2022 mod_iRefreshElementImage.RefreshElementImage();
 
                 //Added 2/2/2022 thomas d. 
-                mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
+                if (mod_events_singleCtl != null)
+                    mod_events_singleCtl.Resizing_TerminateV2(par_iSave,
                     par_iRefreshElemImage,
                     par_iRefreshCardPreview, 
                     bWasResizingHeight);
@@ -1646,7 +1686,8 @@ namespace MoveAndResizeControls_Monem
             if (bWasMoving_NotResizing)  // 2/02/2022 // (!(bWasResizing))
             {
                 // Jan10 2022 //mod_events.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
-                mod_events_singleCtl.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
+                if (mod_events_singleCtl != null) //Added Dec2022
+                    mod_events_singleCtl.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
 
                 if (mod_events_groupedCtls != null)
                     mod_events_groupedCtls.Moving_Terminate(_controlMoveableElement, _iSaveToModel);
@@ -1678,20 +1719,29 @@ namespace MoveAndResizeControls_Monem
             //
 
             //''The minimal listing. 
-            _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
+            if (_controlCurrent != null)
+            {
+                _controlCurrent.MouseDown -= (sender, e) => StartMovingOrResizing(_controlCurrent, e);
 
-            // Dec17 2021//_controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
-            _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizingV1(_controlCurrent, _iSaveToModel);
-            _controlCurrent.MouseMove -= (sender, e) => MoveParentControl(_controlCurrent, e);
-
-            //Added 1/4/2022 td
-
-            _controlPictureBox1.MouseUp -= (sender, e) => StopDragOrResizingV1(_controlPictureBox1, _iSaveToModel);
-            _controlPictureBox1.MouseMove -= (sender, e) => MoveParentControl(_controlPictureBox1, e);
+                // Dec17 2021//_controlCurrent.MouseUp -= (sender, e) => StopDragOrResizing(_controlCurrent);
+                _controlCurrent.MouseUp -= (sender, e) => StopDragOrResizingV1(_controlCurrent, _iSaveToModel);
+                _controlCurrent.MouseMove -= (sender, e) => MoveParentControl(_controlCurrent, e);
+            }
 
             //Added 1/4/2022 td
-            _controlPictureBox2.MouseUp -= (sender, e) => StopDragOrResizingV1(_controlPictureBox2, _iSaveToModel);
-            _controlPictureBox2.MouseMove -= (sender, e) => MoveParentControl(_controlPictureBox2, e);
+
+            if (_controlPictureBox1 != null)
+            {
+                _controlPictureBox1.MouseUp -= (sender, e) => StopDragOrResizingV1(_controlPictureBox1, _iSaveToModel);
+                _controlPictureBox1.MouseMove -= (sender, e) => MoveParentControl(_controlPictureBox1, e);
+            }
+
+            if (_controlPictureBox2 != null)
+            {
+                //Added 1/4/2022 td
+                _controlPictureBox2.MouseUp -= (sender, e) => StopDragOrResizingV1(_controlPictureBox2, _iSaveToModel);
+                _controlPictureBox2.MouseMove -= (sender, e) => MoveParentControl(_controlPictureBox2, e);
+            }
 
         }
 

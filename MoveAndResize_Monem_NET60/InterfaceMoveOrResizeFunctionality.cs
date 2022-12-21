@@ -7,7 +7,9 @@ using System.Windows.Forms;
 //dec2022 using System.Windows.Forms;  //Added 12/28/2021 td 
 using ciBadgeInterfaces;  //Added 12/28/2021 td
 
-namespace MoveAndResizeControls_Monem //.Interfaces
+
+//12-20-2022 namespace MoveAndResizeControls_Monem //.Interfaces
+namespace MoveAndResizeControls_Monem_Net70 //.Interfaces
 {
     //
     //Added 12/28/2021 td 
@@ -113,9 +115,11 @@ namespace MoveAndResizeControls_Monem //.Interfaces
 
         //Added 1/27/2022 thomas downes
         void StopDragOrResizingV2(Control par_control, ISaveToModel par_iSave,
-            IRefreshElementImage par_iRefreshElemImage = null,
-            IRefreshCardPreview par_iRefreshCardPreview = null); 
-            //June6 2022 bool par_bHeightAdjusted = false);
+            IRefreshElementImage par_iRefreshElemImage,
+            IRefreshCardPreview par_iRefreshCardPreview);
+        //Dec20 2022  IRefreshElementImage par_iRefreshElemImage = null,
+        //Dec20 2022      IRefreshCardPreview par_iRefreshCardPreview = null); 
+        //June6 2022 bool par_bHeightAdjusted = false);
 
         //Added 9/01/2022 thomas downes
         void ClickedParentControl(Control par_controlParent, MouseEventArgs e);

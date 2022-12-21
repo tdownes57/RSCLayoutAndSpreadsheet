@@ -285,7 +285,7 @@ ExitHandler:
 
         End With
 
-        With PictureBoxForBorder
+        With PictureBoxOuter
 
             .Image = New Bitmap(.Width - 1, Height - 1)
 
@@ -322,7 +322,9 @@ ExitHandler:
         ''12/19/2022 PaintGraphicsOperations(mod_imageImageBack, mod_graphics, mod_colorArrows)
         PaintGraphicsOperations(mod_bitmapImageBack, mod_graphics, mod_colorArrows)
 
-        ''Super important!!??  Not sure why, but the image might not get drawn otherwise!!!!
+        ''Super important!!??  Not sure why, but the image might not
+        ''    get drawn otherwise!  Actually, probably because the Arrow
+        ''    was not return a True value for ".isFull()". 12/20/2022
         mod_graphics.Dispose() ''Added 12/19/2022
 
         '' mod_graphics.Image
@@ -337,6 +339,12 @@ ExitHandler:
         ''12/19/2022 intCountPixelsDrawn = RSCGraphics.CountPixelsByColor(mod_imageImageBack, mod_colorArrows)
         ''intCountPixelsDrawn = RSCGraphics.CountPixelsByColor(newImage, mod_colorArrows)
         ''Debug.Assert(100 < intCountPixelsDrawn)
+
+        Dim objMonem As MoveAndResizeControls_Monem.MonemControlMove_AllFunctionality
+
+
+
+
 
     End Sub
 
@@ -607,7 +615,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs) Handles PictureBoxInner.Click
+    Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs) Handles PictureBoxInner1.Click
 
     End Sub
 
@@ -789,14 +797,14 @@ ExitHandler:
                     ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 9)
                     ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 10)
 
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 0)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 1)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 3)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 4)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 6)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 7)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 9)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxForBorder, 10)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 0)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 1)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 3)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 4)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 6)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 7)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 9)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 10)
 
                 End With ''End of ""With objRSCGraphics""
 

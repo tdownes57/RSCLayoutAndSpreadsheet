@@ -23,10 +23,10 @@ Partial Class FormTestGraphics
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.PictureBoxForBorder = New System.Windows.Forms.PictureBox()
+        Me.PictureBoxOuter = New System.Windows.Forms.PictureBox()
         Me.ButtonSaveArrow = New System.Windows.Forms.Button()
         Me.ButtonRectangle = New System.Windows.Forms.Button()
-        Me.PictureBoxInner = New System.Windows.Forms.PictureBox()
+        Me.PictureBoxInner1 = New System.Windows.Forms.PictureBox()
         Me.PictureBoxForTriangle = New System.Windows.Forms.PictureBox()
         Me.ButtonClearBoxForTriangle = New System.Windows.Forms.Button()
         Me.LabelTriangleInstructions = New System.Windows.Forms.Label()
@@ -43,20 +43,22 @@ Partial Class FormTestGraphics
         Me.LinkRedoClick = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelPaintArrows = New System.Windows.Forms.LinkLabel()
         Me.Label4 = New System.Windows.Forms.Label()
-        CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PictureBoxOuter2 = New System.Windows.Forms.PictureBox()
+        CType(Me.PictureBoxOuter, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBoxInner1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxDummy, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBoxOuter2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'PictureBoxForBorder
+        'PictureBoxOuter
         '
-        Me.PictureBoxForBorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBoxForBorder.Location = New System.Drawing.Point(509, 127)
-        Me.PictureBoxForBorder.Name = "PictureBoxForBorder"
-        Me.PictureBoxForBorder.Size = New System.Drawing.Size(172, 233)
-        Me.PictureBoxForBorder.TabIndex = 0
-        Me.PictureBoxForBorder.TabStop = False
+        Me.PictureBoxOuter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PictureBoxOuter.Location = New System.Drawing.Point(455, 127)
+        Me.PictureBoxOuter.Name = "PictureBoxOuter"
+        Me.PictureBoxOuter.Size = New System.Drawing.Size(226, 233)
+        Me.PictureBoxOuter.TabIndex = 0
+        Me.PictureBoxOuter.TabStop = False
         '
         'ButtonSaveArrow
         '
@@ -77,14 +79,14 @@ Partial Class FormTestGraphics
         Me.ButtonRectangle.Text = "Make rectangular border around inside box above"
         Me.ButtonRectangle.UseVisualStyleBackColor = True
         '
-        'PictureBoxInner
+        'PictureBoxInner1
         '
-        Me.PictureBoxInner.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.PictureBoxInner.Location = New System.Drawing.Point(544, 201)
-        Me.PictureBoxInner.Name = "PictureBoxInner"
-        Me.PictureBoxInner.Size = New System.Drawing.Size(100, 50)
-        Me.PictureBoxInner.TabIndex = 3
-        Me.PictureBoxInner.TabStop = False
+        Me.PictureBoxInner1.BackColor = System.Drawing.Color.White
+        Me.PictureBoxInner1.Location = New System.Drawing.Point(515, 166)
+        Me.PictureBoxInner1.Name = "PictureBoxInner1"
+        Me.PictureBoxInner1.Size = New System.Drawing.Size(68, 50)
+        Me.PictureBoxInner1.TabIndex = 3
+        Me.PictureBoxInner1.TabStop = False
         '
         'PictureBoxForTriangle
         '
@@ -220,11 +222,21 @@ Partial Class FormTestGraphics
         Me.Label4.TabIndex = 17
         Me.Label4.Text = "Click the form (Form_MouseDown) and watch the arrows disappear && reappear!!"
         '
+        'PictureBoxOuter2
+        '
+        Me.PictureBoxOuter2.BackColor = System.Drawing.Color.White
+        Me.PictureBoxOuter2.Location = New System.Drawing.Point(555, 265)
+        Me.PictureBoxOuter2.Name = "PictureBoxOuter2"
+        Me.PictureBoxOuter2.Size = New System.Drawing.Size(68, 50)
+        Me.PictureBoxOuter2.TabIndex = 18
+        Me.PictureBoxOuter2.TabStop = False
+        '
         'FormTestGraphics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1101, 517)
+        Me.Controls.Add(Me.PictureBoxOuter2)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.LinkLabelPaintArrows)
         Me.Controls.Add(Me.LinkRedoClick)
@@ -239,25 +251,26 @@ Partial Class FormTestGraphics
         Me.Controls.Add(Me.LabelTriangleInstructions)
         Me.Controls.Add(Me.ButtonClearBoxForTriangle)
         Me.Controls.Add(Me.PictureBoxForTriangle)
-        Me.Controls.Add(Me.PictureBoxInner)
+        Me.Controls.Add(Me.PictureBoxInner1)
         Me.Controls.Add(Me.ButtonRectangle)
         Me.Controls.Add(Me.ButtonSaveArrow)
-        Me.Controls.Add(Me.PictureBoxForBorder)
+        Me.Controls.Add(Me.PictureBoxOuter)
         Me.Name = "FormTestGraphics"
         Me.Text = "Form1"
-        CType(Me.PictureBoxForBorder, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBoxInner, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBoxOuter, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBoxInner1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxDummy, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBoxOuter2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents PictureBoxForBorder As PictureBox
+    Friend WithEvents PictureBoxOuter As PictureBox
     Friend WithEvents ButtonSaveArrow As Button
     Friend WithEvents ButtonRectangle As Button
-    Friend WithEvents PictureBoxInner As PictureBox
+    Friend WithEvents PictureBoxInner1 As PictureBox
     Friend WithEvents PictureBoxForTriangle As PictureBox
     Friend WithEvents ButtonClearBoxForTriangle As Button
     Friend WithEvents LabelTriangleInstructions As Label
@@ -274,4 +287,5 @@ Partial Class FormTestGraphics
     Friend WithEvents LinkRedoClick As LinkLabel
     Friend WithEvents LinkLabelPaintArrows As LinkLabel
     Friend WithEvents Label4 As Label
+    Friend WithEvents PictureBoxOuter2 As PictureBox
 End Class

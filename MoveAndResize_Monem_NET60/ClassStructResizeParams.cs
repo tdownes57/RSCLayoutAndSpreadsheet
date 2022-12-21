@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MoveAndResizeControls_Monem //''.MinorClasses
+//Dec 20, 2022 namespace MoveAndResizeControls_Monem //''.MinorClasses
+namespace MoveAndResizeControls_Monem_Net70 //''.MinorClasses
 {
     //
     // Added 3/4/2022 & 2/2/2022 t//dow//

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ciBadgeInterfaces;     //Added 1/3/2022 td
 
-namespace MoveAndResizeControls_Monem
+//Dec20 2022 namespace MoveAndResizeControls_Monem
+namespace MoveAndResizeControls_Monem_Net70
 {
     //Added 1/3/2022 td
     class DummyLayout : ILayoutFunctions
@@ -30,7 +32,8 @@ namespace MoveAndResizeControls_Monem
         public Control ControlThatWasClicked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 
-        public void AutoPreview_IfChecked(Control par_controlElement = null, bool par_stillMoving = false)
+        //12-20-2022 public void AutoPreview_IfChecked(Control par_controlElement = null, bool par_stillMoving = false)
+        public void AutoPreview_IfChecked(Control par_controlElement, bool par_stillMoving = false)
         {
             //throw new NotImplementedException();
         }
@@ -91,7 +94,11 @@ namespace MoveAndResizeControls_Monem
         public ToolStripMenuItem RightClickMenu_Parent()
         {
             //throw new NotImplementedException();
-            return null;
+            Debugger.Break();
+            //return; // null;
+            //throw new Exception();
+            return new ToolStripMenuItem();
+
         }
     }
 }
