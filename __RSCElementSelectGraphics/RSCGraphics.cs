@@ -62,6 +62,32 @@ namespace __RSCElementSelectGraphics
         }
 
 
+        public void DrawBorderAround(Rectangle par_rectangle,
+             Graphics par_graph, Color par_colorBorder, int par_width)
+        {
+            //
+            // Added 12/16/2022 
+            //
+            Pen objPen = new Pen(par_colorBorder, par_width);
+            par_graph.DrawRectangle(objPen, -par_width + par_rectangle.Left,
+                                            -par_width + par_rectangle.Top, 
+                                            par_width + par_rectangle.Width,
+                                            par_width + par_rectangle.Height);
+
+        }
+
+
+        public void DrawBorderAround(Control par_control,
+     Graphics par_graph, Color par_colorBorder, int par_width)
+        {
+            //
+            // Added 12/16/2022 
+            //
+            DrawBorderAround(par_control.ClientRectangle, par_graph, par_colorBorder,
+                                    par_width);
+
+        }
+
 
         public void DrawAndFillArrow(Graphics par_graph,
             System.Drawing.Color par_color,

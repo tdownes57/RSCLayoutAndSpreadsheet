@@ -1473,6 +1473,167 @@ namespace MoveAndResizeControls_Monem
             }
 
 
+            //
+            //Added 12/21/2022 Thomas downes
+            //   Limit the resizing that can be done. 
+            //
+            //   For example, disallowing Squares (if requested via module Boolean)
+            //   For example, disallowing Tall (or Narrow) shapes (if requested via module Boolean)
+            //   For example, disallowing Short (or Fat) shapes (if requested via module Boolean)
+            //
+            bool bWasNarrowBefore; //Added 12/2022
+            bool bWasFatBefore; //Added 12/2022
+            bool bWasShortBefore; //Added 12/2022
+            bool bWasTallBefore; //Added 12/2022
+
+            //if (_SizeDisallowSquares)
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            {
+                //
+                // Disallowing Squares 
+                //
+                //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+                if (MouseIsInLeftEdge && (e.X < _cursorStartPoint.X)) // User is expanding the Left edge leftward.
+                {
+                    // User is expanding the Left edge outward.  Check to see if we need to
+                    //   keep the shape narrow (if it's fat now, whereas it used to be narrow).
+                    //   (If it's fat now & it used to be fat, leave things alone!)
+                    if (par_controlH.Width >= par_controlH.Height) //Is it fat now?
+                    {
+                        // Was it narrow before?  If so, we need to keep it narrow.
+                        bWasNarrowBefore = (par_controlH.Width - (_cursorStartPoint.X - e.X) < par_controlH.Height);
+                        // If narrow before, keep it a bit narrow.
+                        if (bWasNarrowBefore) par_controlH.Width = -10 + par_controlH.Height; // Keep it a bit narrow.  
+                    }
+                }
+            }
+
+
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            {
+                //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+                if (MouseIsInLeftEdge && (e.X > _cursorStartPoint.X)) // User is contracting the Left edge inward.
+                {
+                    // User is contracting the Left edge inward.  Check to see if we need to
+                    //   keep the shape fat (if it's narrow now, whereas it used to be fat).
+                    //   (If it's narrow now & it used to be narrow, leave things alone!)
+                    if (par_controlH.Width <= par_controlH.Height) //Is it narrow now?
+                    {
+                        bWasFatBefore = (par_controlH.Width + (e.X - _cursorStartPoint.X) > par_controlH.Height);
+                        // If fat before, keep it a bit fat.
+                        if (bWasFatBefore) par_controlH.Width = +10 + par_controlH.Height; // Keep it a bit fat. 
+                    }
+                }
+            }
+
+
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            {
+                //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+                if (MouseIsInRightEdge && (e.X > _cursorStartPoint.X)) // User is expanding the Right edge outward.
+                {
+                    // User is expanding the Right edge outward.  Check to see if we need to
+                    //   keep the shape narrow (if it's fat now, whereas it used to be narrow).
+                    //   (If it's fat now & it used to be fat, leave things alone!)
+                    if (par_controlH.Width >= par_controlH.Height) //Is it fat now?
+                    {
+                        bWasNarrowBefore = (par_controlH.Width - (_cursorStartPoint.X - e.X) < par_controlH.Height);
+                        if (bWasNarrowBefore) par_controlH.Width = -10 + par_controlH.Height; // Keep it a bit narrow. 
+                    }
+                }
+            }
+
+
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            {
+                //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+                if (MouseIsInRightEdge && (e.X < _cursorStartPoint.X)) // User is contracting the Right edge inward.
+                {
+                    // User is contracting the Right edge inward.  Check to see if we need to
+                    //   keep the shape fat (if it's narrow now, whereas it used to be fat).
+                    //   (If it's narrow now & it used to be narrow, leave things alone!)
+                    if (par_controlH.Width <= par_controlH.Height) //Is it narrow now?
+                    {
+                        bWasFatBefore = (par_controlH.Width + (e.X - _cursorStartPoint.X) > par_controlH.Height);
+                        // If fat before, keep it a bit fat.
+                        if (bWasFatBefore) par_controlH.Width = +10 + par_controlH.Height; // Keep it a bit fat. 
+                    }
+                }
+            }
+
+
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            {
+                //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+                if (MouseIsInTopEdge && (e.Y < _cursorStartPoint.Y)) // User is expanding the top edge upward.
+                {
+                    // User is expanding the Top edge upward.  Check to see if we need to
+                    //   keep the shape short (if it's tall now, whereas it used to be short).
+                    //   (If it's tall now & it used to be tall, leave things alone!)
+                    if (par_controlH.Height >= par_controlH.Width) //Is it tall now?
+                    {
+                        bWasShortBefore = (par_controlH.Height - (_cursorStartPoint.Y - e.Y) < par_controlH.Width);
+                        // If short before, keep it a bit short.
+                        if (bWasShortBefore) par_controlH.Height = -10 + par_controlH.Width; // Keep it a bit short. 
+                    }
+                }
+            }
+
+
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            {
+                //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+                if (MouseIsInTopEdge && (e.Y > _cursorStartPoint.Y)) // User is contracting the top edge downward.
+                {
+                    // User is contracting the Top edge downward.  Check to see if we need to
+                    //   keep the shape tall (if it's short now, whereas it used to be tall).
+                    //   (If it's short now & it used to be short, leave things alone!)
+                    if (par_controlH.Height <= par_controlH.Width) //Is it short now?
+                    {
+                        bWasTallBefore = (par_controlH.Height + (e.Y - _cursorStartPoint.Y) > par_controlH.Width);
+                        // If tall before, keep it a bit tall.
+                        if (bWasTallBefore) par_controlH.Height = +10 + par_controlH.Width; // Keep it a bit tall. 
+                    }
+                }
+            }
+
+
+            //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            {
+                if (MouseIsInBottomEdge && (e.Y > _cursorStartPoint.Y)) // User is expanding the bottom edge downward.
+                {
+                    // User is expanding the Bottom edge downward.  Check to see if we need to
+                    //   keep the shape short (if it's tall now, whereas it used to be short).
+                    //   (If it's tall now & it used to be tall, leave things alone!)
+                    if (par_controlH.Height >= par_controlH.Width) //Is it tall now?
+                    {
+                        bWasShortBefore = (par_controlH.Height - (e.Y - _cursorStartPoint.Y) < par_controlH.Width);
+                        // If short before, keep it a bit short.
+                        if (bWasShortBefore) par_controlH.Height = -10 + par_controlH.Width; // Keep it a bit short. 
+                    }
+                }
+            }
+
+
+            //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            {
+                if (MouseIsInBottomEdge && (e.Y < _cursorStartPoint.Y)) // User is contracting the bottom edge upward.
+                {
+                    // User is contracting the Bottom edge upward.  Check to see if we need to
+                    //   keep the shape tall (if it's short now, whereas it used to be tall).
+                    //   (If it's short now & it used to be short, leave things alone!)
+                    if (par_controlH.Height <= par_controlH.Width) //Is it short now?
+                    {
+                        bWasTallBefore = (par_controlH.Height + (_cursorStartPoint.Y - e.Y) > par_controlH.Width);
+                        // If tall before, keep it a bit tall.
+                        if (bWasTallBefore) par_controlH.Height = +10 + par_controlH.Width; // Keep it a bit tall. 
+                    }
+                }
+            }
+
+
         }
 
 

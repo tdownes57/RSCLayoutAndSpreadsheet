@@ -615,7 +615,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs) Handles PictureBoxInner1.Click
+    Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs) 
 
     End Sub
 
@@ -835,4 +835,22 @@ ExitHandler:
         Me.BackgroundImage = mod_bitmapImageBack
 
     End Sub
+
+    Private Sub ButtonRectangle_Click(sender As Object, e As EventArgs) Handles ButtonRectangle.Click
+        ''
+        '' Added 12/21/2022 thomas downes
+        ''
+        Dim gr_rectangle As Graphics
+        Dim rsc_Graphics As RSCGraphics
+        Dim intWidth As Integer = 3
+
+        mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+        gr_rectangle = Graphics.FromImage(mod_imageImageBack)
+        rsc_Graphics = New RSCGraphics()
+        rsc_Graphics.DrawBorderAround(PictureBoxOuter2.ClientRectangle,
+                            gr_rectangle, mod_colorArrows, intWidth)
+        Me.BackgroundImage = mod_bitmapImageBack
+
+    End Sub
+
 End Class
