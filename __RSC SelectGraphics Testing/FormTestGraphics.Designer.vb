@@ -42,12 +42,12 @@ Partial Class FormTestGraphics
         Me.LinkRedoClick = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelPaintArrows = New System.Windows.Forms.LinkLabel()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.PictureBoxOuter2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBoxInner2 = New System.Windows.Forms.PictureBox()
         Me.PictureBoxInner1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBoxOuter, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxDummy, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBoxOuter2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBoxInner2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxInner1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -213,14 +213,14 @@ Partial Class FormTestGraphics
         Me.Label4.TabIndex = 17
         Me.Label4.Text = "Click the form (Form_MouseDown) and watch the arrows disappear && reappear!!"
         '
-        'PictureBoxOuter2
+        'PictureBoxInner2
         '
-        Me.PictureBoxOuter2.BackColor = System.Drawing.Color.White
-        Me.PictureBoxOuter2.Location = New System.Drawing.Point(482, 252)
-        Me.PictureBoxOuter2.Name = "PictureBoxOuter2"
-        Me.PictureBoxOuter2.Size = New System.Drawing.Size(68, 50)
-        Me.PictureBoxOuter2.TabIndex = 19
-        Me.PictureBoxOuter2.TabStop = False
+        Me.PictureBoxInner2.BackColor = System.Drawing.Color.White
+        Me.PictureBoxInner2.Location = New System.Drawing.Point(482, 252)
+        Me.PictureBoxInner2.Name = "PictureBoxInner2"
+        Me.PictureBoxInner2.Size = New System.Drawing.Size(68, 50)
+        Me.PictureBoxInner2.TabIndex = 19
+        Me.PictureBoxInner2.TabStop = False
         '
         'PictureBoxInner1
         '
@@ -237,7 +237,7 @@ Partial Class FormTestGraphics
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1101, 517)
         Me.Controls.Add(Me.PictureBoxInner1)
-        Me.Controls.Add(Me.PictureBoxOuter2)
+        Me.Controls.Add(Me.PictureBoxInner2)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.LinkLabelPaintArrows)
         Me.Controls.Add(Me.LinkRedoClick)
@@ -260,7 +260,7 @@ Partial Class FormTestGraphics
         CType(Me.PictureBoxOuter, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxForTriangle, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxDummy, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBoxOuter2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBoxInner2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxInner1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -288,4 +288,5 @@ Partial Class FormTestGraphics
     Friend WithEvents Label4 As Label
     Friend WithEvents PictureBoxOuter2 As PictureBox
     Friend WithEvents PictureBoxInner1 As PictureBox
+    Friend WithEvents PictureBoxInner2 As PictureBox
 End Class

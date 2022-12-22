@@ -44,7 +44,8 @@ namespace __RSCElementSelectGraphics
         {
             if (ArrayOfArrows == null)
             {
-                ArrayOfArrows = new ClassArrowTriangles[12];
+                //----ArrayOfArrows = new ClassArrowTriangles[12];
+                ArrayOfArrows = new ClassArrowTriangles[13];
             }
             ArrayOfArrows[0] = ArrowNorth; // The 12-o'clock position. 
             ArrayOfArrows[1] = ArrowNE;
@@ -58,6 +59,7 @@ namespace __RSCElementSelectGraphics
             ArrayOfArrows[9] = ArrowWest; // The 9-o'clock position. 
             ArrayOfArrows[10] = ArrowNW;
             ArrayOfArrows[11] = ArrowNW;
+            ArrayOfArrows[12] = ArrowNorth;
 
         }
 
@@ -69,8 +71,8 @@ namespace __RSCElementSelectGraphics
             // Added 12/16/2022 
             //
             Pen objPen = new Pen(par_colorBorder, par_width);
-            par_graph.DrawRectangle(objPen, -par_width + par_rectangle.Left,
-                                            -par_width + par_rectangle.Top, 
+            par_graph.DrawRectangle(objPen, -par_width/2 + par_rectangle.Left,
+                                            -par_width/2 + par_rectangle.Top, 
                                             par_width + par_rectangle.Width,
                                             par_width + par_rectangle.Height);
 
@@ -85,6 +87,131 @@ namespace __RSCElementSelectGraphics
             //
             DrawBorderAround(par_control.ClientRectangle, par_graph, par_colorBorder,
                                     par_width);
+
+        }
+
+
+        public void DrawAndFillArrow(Graphics par_graph,
+                    System.Drawing.Color par_color,
+                    Control par_rectElement, int par_clockPosition,
+                    Rectangle par_boundary,
+                    float par_scale = 1.00f)
+        {
+            //
+            // Added 12/16/2022 
+            //
+            if (ArrayOfArrows == null) FillArrayOfArrows();
+
+            ClassArrowTriangles obj_arrow = ArrayOfArrows[par_clockPosition];
+            //if (objArrow == null) FillArrayOfArrows();
+            Debug.Assert(obj_arrow != null);
+
+            int offsetX = 0;
+            int offsetY = 0;
+
+            int intArrowHeight = obj_arrow.GetHeight(par_scale);
+            int intArrowWidth = obj_arrow.GetWidth(par_scale);
+
+            //Added 12/22/2022
+            int intElementHeight = par_rectElement.Height;
+            int intElementWidth = par_rectElement.Width;
+
+            Tuple<int, int> objTuple = GetOffsetByClockPosition(par_clockPosition,
+                                         par_rectElement, intArrowWidth, intArrowHeight);
+            offsetX = objTuple.Item1;
+            offsetY = objTuple.Item2;
+
+            Rectangle rectangleArrow = new Rectangle(offsetX, offsetY, intArrowWidth, intArrowHeight);
+            bool bWithinBoundary = ArrowWithinBoundary(par_boundary, rectangleArrow);
+
+            //Added 12/16/2022 thomas downes
+            DrawAndFillArrow(par_graph, obj_arrow, par_color, offsetX, offsetY, par_scale);
+        
+        }
+
+
+        bool ArrowWithinBoundary(Rectangle par_boundary, Rectangle par_arrow)
+        {
+            //
+            // Added 12/22/2022 thomas downes
+            //
+            gdfldld d  d dkdkdk dd 0d0d0d d0d0d0
+
+        }
+
+
+        Tuple<int, int> GetOffsetByClockPosition(int par_clockPosition,
+                Control par_rectElement, int intArrowWidth, int intArrowHeight)
+         {
+            //
+            // Give the optimal X-Y coordinates of the arrow's Top-Left corner,
+            //    based on the position of the IDCard design element. 
+            //
+            //Added 12/22/2022
+            //
+            int offsetX = 0;
+            int offsetY = 0;
+            int intElementHeight = par_rectElement.Height;
+            int intElementWidth = par_rectElement.Width;
+
+            switch (par_clockPosition)
+            {
+                case (0):
+                case (12):
+                    //offsetX = par_rectElement.Left + par_rectElement.Width / 2 - obj_arrow.GetWidth(par_scale) / 2;
+                    //offsetY = par_rectElement.Top - obj_arrow.GetHeight(par_scale);
+                    offsetX = par_rectElement.Left + intElementWidth / 2 - intArrowWidth / 2;
+                    offsetY = par_rectElement.Top - intArrowHeight;
+                    break;
+                case (1):
+                case (2):
+                    offsetX = par_rectElement.Left + par_rectElement.Width;
+                    //offsetY = par_rectElement.Top - obj_arrow.GetHeight(par_scale);
+                    offsetY = par_rectElement.Top - intArrowHeight; // obj_arrow.GetHeight(par_scale);
+                    break;
+                case (3):
+                    //offsetX = par_rectElement.Left + par_rectElement.Width;
+                    //offsetY = par_rectElement.Top + par_rectElement.Height / 2 - obj_arrow.GetHeight(par_scale) / 2;
+                    offsetX = par_rectElement.Left + intElementWidth;
+                    offsetY = par_rectElement.Top + intArrowHeight / 2 - intArrowHeight / 2;
+                    break;
+                case (4):
+                case (5):
+                    //offsetX = par_rectElement.Left + par_rectElement.Width;
+                    //offsetY = par_rectElement.Top + par_rectElement.Height; 
+                    offsetX = par_rectElement.Left + par_rectElement.Width;
+                    offsetY = par_rectElement.Top + par_rectElement.Height; 
+                    break;
+                case (6):
+                    //offsetX = par_rectElement.Left + par_rectElement.Width / 2 - par_arrow.GetWidth(par_scale) / 2;
+                    //offsetY = par_rectElement.Top + par_rectElement.Height;
+                    offsetX = par_rectElement.Left + intElementWidth / 2 - intArrowWidth / 2;
+                    offsetY = par_rectElement.Top + intElementHeight;  // + par_rectElement.Height;
+                    break;
+                case (7):
+                case (8):
+                    //offsetX = par_rectElement.Left - par_arrow.GetWidth(par_scale);
+                    //offsetY = par_rectElement.Top + par_rectElement.Height; // - par_arrow.GetHeight(par_scale);
+                    offsetX = par_rectElement.Left - intArrowWidth;  // - obj_arrow.GetWidth(par_scale);
+                    offsetY = par_rectElement.Top + intElementHeight - intArrowHeight; // - par_arrow.GetHeight(par_scale);
+                    break;
+                case (9):
+                    // offsetX = par_rectElement.Left - par_arrow.GetWidth(par_scale);
+                    // offsetY = par_rectElement.Top + par_rectElement.Height / 2 - par_arrow.GetHeight(par_scale) / 2;
+                    offsetX = par_rectElement.Left - intArrowWidth;  // - obj_arrow.GetWidth(par_scale);
+                    offsetY = par_rectElement.Top + par_rectElement.Height / 2 - intArrowHeight / 2; // - obj_arrow.GetHeight(par_scale) / 2;
+                    break;
+                case (10):
+                case (11):
+                    //offsetX = par_rectElement.Left - obj_arrow.GetWidth(par_scale);
+                    //offsetY = par_rectElement.Top - obj_arrow.GetHeight(par_scale);
+                    offsetX = par_rectElement.Left - intArrowWidth; // - obj_arrow.GetWidth(par_scale);
+                    offsetY = par_rectElement.Top - intArrowHeight; // - obj_arrow.GetHeight(par_scale);
+                    break;
+
+            }
+
+            return new Tuple<int, int>(offsetX, offsetY);
 
         }
 
@@ -120,6 +247,7 @@ namespace __RSCElementSelectGraphics
 
             switch (par_clockPosition)
             {
+                case (0):
                 case (12):
                     offsetX = par_rectElement.Left + par_rectElement.Width / 2 - par_arrow.GetWidth(par_scale) / 2;
                     offsetY = par_rectElement.Top - par_arrow.GetHeight(par_scale);
@@ -359,7 +487,14 @@ namespace __RSCElementSelectGraphics
                 {
                     point2 = GetPointFromLine_ByFractioning(par_line2, par_howManyLines,
                                          indexIn, par_offsetX, par_offsetY, pbBreakForZeroes);
-                    par_graph.DrawLine(par_pen, point1, point2);
+                    try {
+                        par_graph.DrawLine(par_pen, point1, point2);
+                    }
+                    catch (Exception objEx)
+                    {
+                        Debugger.Break();
+                    }
+
 
                 }   //Next indexIn
             }  //  Next indexOut

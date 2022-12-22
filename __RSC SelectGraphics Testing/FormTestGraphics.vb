@@ -21,7 +21,7 @@ Public Class FormTestGraphics
     Private mod_stackPoints As New Stack(Of Drawing.Point) ''Added 12/14/2022
     Private mod_stackPoints_Undone As New Stack(Of Drawing.Point) ''Added 12/14/2022
 
-    Private mod_imageImageBack As Image ''Added 12/17/2022
+    Private mod_imageImageBack_Denigrated As Image ''Added 12/17/2022
     Private mod_graphics As Drawing.Graphics ''Added 12/16/2022
     Private mod_bitmapImageBack As Bitmap ''Added 12/19/2022
 
@@ -132,14 +132,14 @@ ExitHandler:
             ''12/19/2022 PaintGraphicsOperations(mod_imageImageBack, mod_graphics)
             ''12/19/2022mod_graphics = Me.CreateGraphics()
             mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
-            mod_imageImageBack = mod_bitmapImageBack
+            mod_imageImageBack_Denigrated = mod_bitmapImageBack
             ''mod_graphics = mod_bitmapImageBack.CreateGraphics
             ''Using mod_bitmapImageBack.creategraph
             Using mod_graphics = Graphics.FromImage(mod_bitmapImageBack)
-                PaintGraphicsOperations(mod_imageImageBack, mod_graphics, mod_colorArrows)
+                PaintGraphicsOperations(mod_imageImageBack_Denigrated, mod_graphics, mod_colorArrows)
                 ''//mod_graphics.Dispose() ''Needed so that the memory is released. 
             End Using
-            Me.BackgroundImage = mod_imageImageBack
+            Me.BackgroundImage = mod_imageImageBack_Denigrated
 
         End If ''ENd of ""If (boolDeleteArrow) Then... Else..."
 
@@ -311,7 +311,7 @@ ExitHandler:
         ''Added 12/16/2022
         ''12/17/2022 Me.BackgroundImage = New Bitmap(-1 + Me.Width, -1 + Me.Height)
         mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
-        mod_imageImageBack = mod_bitmapImageBack
+        mod_imageImageBack_Denigrated = mod_bitmapImageBack
         ''Me.BackgroundImage = mod_image
 
         ''mod_graphics = New Graphics(Me.BackgroundImage)
@@ -615,7 +615,7 @@ ExitHandler:
 
     End Sub
 
-    Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs) 
+    Private Sub PictureBoxInner_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -655,7 +655,7 @@ ExitHandler:
         ''Encapsulated 12/17/2022
         ''12/19/2022 PaintGraphicsOperations(mod_image, mod_graphics)
         intColorPixelsBefore = RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
-        PaintGraphicsOperations(mod_imageImageBack, mod_graphics, mod_colorArrows)
+        PaintGraphicsOperations(mod_imageImageBack_Denigrated, mod_graphics, mod_colorArrows)
         intColorPixelsAfter = RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
 
         Me.Refresh() ''Added 12/17/2022 
@@ -695,7 +695,7 @@ ExitHandler:
 
         ''Encapsulated 12/17/2022
         ''12/19/2022 PaintGraphicsOperations(mod_image, e.Graphics)
-        PaintGraphicsOperations(mod_imageImageBack, e.Graphics, mod_colorArrows)
+        ''12/22/2022 PaintGraphicsOperations(mod_imageImageBack, e.Graphics, mod_colorArrows)
 
     End Sub
 
@@ -842,14 +842,34 @@ ExitHandler:
         ''
         Dim gr_rectangle As Graphics
         Dim rsc_Graphics As RSCGraphics
-        Dim intWidth As Integer = 3
+        Dim intWidth As Integer = 4 ''10 ''// 3
+        Dim objRectangle As Rectangle
 
-        mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
-        gr_rectangle = Graphics.FromImage(mod_imageImageBack)
-        rsc_Graphics = New RSCGraphics()
-        rsc_Graphics.DrawBorderAround(PictureBoxOuter2.ClientRectangle,
-                            gr_rectangle, mod_colorArrows, intWidth)
+        Me.BackgroundImage = Nothing ''Added 12/22/2022
+        ''---mod_bitmapImageBack = New Bitmap(-1 + Me.Width, -1 + Me.Height)
+        mod_bitmapImageBack = New Bitmap(-0 + Me.Width, -0 + Me.Height)
+
+        mod_imageImageBack_Denigrated = mod_bitmapImageBack ''Added 12/22/2022
         Me.BackgroundImage = mod_bitmapImageBack
+        ''//gr_rectangle = Graphics.FromImage(mod_imageImageBack)
+        gr_rectangle = Graphics.FromImage(mod_bitmapImageBack)
+
+        rsc_Graphics = New RSCGraphics()
+        objRectangle = New Rectangle(PictureBoxOuter.Location, PictureBoxOuter.Size)
+        ''Major call.......
+        rsc_Graphics.DrawBorderAround(objRectangle,
+                            gr_rectangle, mod_colorArrows, intWidth)
+        ''Me.BackgroundImage = mod_bitmapImageBack
+        ''Me.Invalidate(True)
+        ''Me.Refresh()
+        Dim intPixelCount As Integer = 0
+        intPixelCount =
+           RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
+        If (intPixelCount = 0) Then
+            Debugger.Break()
+        End If
+        ''Me.Refresh()
+
 
     End Sub
 
