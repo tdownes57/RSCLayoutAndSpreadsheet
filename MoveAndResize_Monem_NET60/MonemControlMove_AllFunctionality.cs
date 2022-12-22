@@ -1524,7 +1524,7 @@ namespace MoveAndResizeControls_Monem_Net70
             bool bWasTallBefore; //Added 12/2022
 
             //if (_SizeDisallowSquares)
-            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth) //  #1 of 8.
             {
                 //
                 // Disallowing Squares 
@@ -1535,6 +1535,7 @@ namespace MoveAndResizeControls_Monem_Net70
                     // User is expanding the Left edge outward.  Check to see if we need to
                     //   keep the shape narrow (if it's fat now, whereas it used to be narrow).
                     //   (If it's fat now & it used to be fat, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Width >= par_controlH.Height) //Is it fat now?
                     {
                         // Was it narrow before?  If so, we need to keep it narrow.
@@ -1546,7 +1547,7 @@ namespace MoveAndResizeControls_Monem_Net70
             }
 
 
-            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight) //  #2 of 8.
             {
                 //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
                 if (MouseIsInLeftEdge && (e.X > _cursorStartPoint.X)) // User is contracting the Left edge inward.
@@ -1554,6 +1555,7 @@ namespace MoveAndResizeControls_Monem_Net70
                     // User is contracting the Left edge inward.  Check to see if we need to
                     //   keep the shape fat (if it's narrow now, whereas it used to be fat).
                     //   (If it's narrow now & it used to be narrow, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Width <= par_controlH.Height) //Is it narrow now?
                     {
                         bWasFatBefore = (par_controlH.Width + (e.X - _cursorStartPoint.X) > par_controlH.Height);
@@ -1564,7 +1566,7 @@ namespace MoveAndResizeControls_Monem_Net70
             }
 
 
-            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth) //  #3 of 8.
             {
                 //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
                 if (MouseIsInRightEdge && (e.X > _cursorStartPoint.X)) // User is expanding the Right edge outward.
@@ -1572,6 +1574,7 @@ namespace MoveAndResizeControls_Monem_Net70
                     // User is expanding the Right edge outward.  Check to see if we need to
                     //   keep the shape narrow (if it's fat now, whereas it used to be narrow).
                     //   (If it's fat now & it used to be fat, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Width >= par_controlH.Height) //Is it fat now?
                     {
                         bWasNarrowBefore = (par_controlH.Width - (_cursorStartPoint.X - e.X) < par_controlH.Height);
@@ -1581,7 +1584,7 @@ namespace MoveAndResizeControls_Monem_Net70
             }
 
 
-            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight) //  #4 of 8.
             {
                //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
                 if (MouseIsInRightEdge && (e.X < _cursorStartPoint.X)) // User is contracting the Right edge inward.
@@ -1589,6 +1592,7 @@ namespace MoveAndResizeControls_Monem_Net70
                     // User is contracting the Right edge inward.  Check to see if we need to
                     //   keep the shape fat (if it's narrow now, whereas it used to be fat).
                     //   (If it's narrow now & it used to be narrow, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Width <= par_controlH.Height) //Is it narrow now?
                     {
                         bWasFatBefore = (par_controlH.Width + (e.X - _cursorStartPoint.X) > par_controlH.Height);
@@ -1599,7 +1603,7 @@ namespace MoveAndResizeControls_Monem_Net70
             }
 
 
-            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight) //  #5 of 8.
             {
                 //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
                 if (MouseIsInTopEdge && (e.Y < _cursorStartPoint.Y)) // User is expanding the top edge upward.
@@ -1607,6 +1611,7 @@ namespace MoveAndResizeControls_Monem_Net70
                     // User is expanding the Top edge upward.  Check to see if we need to
                     //   keep the shape short (if it's tall now, whereas it used to be short).
                     //   (If it's tall now & it used to be tall, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Height >= par_controlH.Width) //Is it tall now?
                     {
                         bWasShortBefore = (par_controlH.Height - (_cursorStartPoint.Y - e.Y) < par_controlH.Width);
@@ -1617,7 +1622,7 @@ namespace MoveAndResizeControls_Monem_Net70
             }
 
 
-            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth) //  #6 of 8.
             {
                 //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
                 if (MouseIsInTopEdge && (e.Y > _cursorStartPoint.Y)) // User is contracting the top edge downward.
@@ -1625,6 +1630,7 @@ namespace MoveAndResizeControls_Monem_Net70
                     // User is contracting the Top edge downward.  Check to see if we need to
                     //   keep the shape tall (if it's short now, whereas it used to be tall).
                     //   (If it's short now & it used to be short, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Height <= par_controlH.Width) //Is it short now?
                     {
                         bWasTallBefore = (par_controlH.Height + (e.Y - _cursorStartPoint.Y) > par_controlH.Width);
@@ -1636,13 +1642,14 @@ namespace MoveAndResizeControls_Monem_Net70
 
 
             //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
-            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight)
+            if (_SizeDisallowSquares || _SizeKeepWidthMoreThanHeight) //  #7 of 8.
             {
                 if (MouseIsInBottomEdge && (e.Y > _cursorStartPoint.Y)) // User is expanding the bottom edge downward.
                 {
                     // User is expanding the Bottom edge downward.  Check to see if we need to
                     //   keep the shape short (if it's tall now, whereas it used to be short).
                     //   (If it's tall now & it used to be tall, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Height >= par_controlH.Width) //Is it tall now?
                     {
                         bWasShortBefore = (par_controlH.Height - (e.Y - _cursorStartPoint.Y) < par_controlH.Width);
@@ -1654,13 +1661,14 @@ namespace MoveAndResizeControls_Monem_Net70
 
 
             //if (_SizeDisallowSquares) [See same condition, line 1548 on 12/21/2022.]
-            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth)
+            if (_SizeDisallowSquares || _SizeKeepHeightMoreThanWidth) //  #8 of 8.
             {
                 if (MouseIsInBottomEdge && (e.Y < _cursorStartPoint.Y)) // User is contracting the bottom edge upward.
                 {
                     // User is contracting the Bottom edge upward.  Check to see if we need to
                     //   keep the shape tall (if it's short now, whereas it used to be tall).
                     //   (If it's short now & it used to be short, leave things alone!)
+                    //    (We are only addressing _changes__ in status!)
                     if (par_controlH.Height <= par_controlH.Width) //Is it short now?
                     {
                         bWasTallBefore = (par_controlH.Height + (_cursorStartPoint.Y - e.Y) > par_controlH.Width);
