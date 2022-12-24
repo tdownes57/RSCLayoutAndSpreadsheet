@@ -277,7 +277,8 @@ namespace MoveAndResizeControls_Monem_Net70
                                  bool pbUndoAndReverseEverything = false,
                                  bool pbHookUpEventHandlers = true,
                                  bool pbResizeProportionally = false,
-                                 float par_proportionWH = 0)
+                                 float par_proportionWH = 0,
+                                 bool pbNotADesignElement = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -310,7 +311,8 @@ namespace MoveAndResizeControls_Monem_Net70
                     pbUndoAndReverseEverything,
                     pbHookUpEventHandlers,
                     pbResizeProportionally,
-                    par_proportionWH);
+                    par_proportionWH, 
+                    pbNotADesignElement);
 
         }
 
@@ -324,7 +326,8 @@ namespace MoveAndResizeControls_Monem_Net70
                                bool pbUndoAndReverseEverything = false,
                                bool pbHookUpEventHandlers = true,
                                bool pbResizeProportionally = false,
-                               float par_proportionWH = 0)
+                               float par_proportionWH = 0, 
+                               bool pbNotADesignElement = false)
         {
             //  Added a new parameter, par_bRepaintAfterResize.   (Needed to apply 
             //     the preferred background color.)   ----7/31/2019 td
@@ -382,7 +385,19 @@ namespace MoveAndResizeControls_Monem_Net70
             //
             //Added 6/6/2022 td 
             //
-            mod_iRefreshElementImage = (IRefreshElementImage)par_containerElement;
+            try
+            {
+                if (par_containerElement is IRefreshElementImage) //Added 12/24/2022
+                {
+                    mod_iRefreshElementImage = (IRefreshElementImage)par_containerElement;
+                }
+            }
+            catch
+            {
+                //Added 12/23/2023 td
+                if (pbNotADesignElement) mod_iRefreshElementImage = null;
+                else throw;
+            }
 
             MouseIsInLeftEdge = false;
             MouseIsInLeftEdge = false;

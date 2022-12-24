@@ -410,6 +410,7 @@ Public Class Form__Main_Demo
         ComponentClickIDBackside1.InitializeFunctionality(Me, Me, Me.mod_designer, Me.mod_designer)
         ComponentClickIDBackside1.AddClickability()
 
+
     End Sub ''End of "Private Sub Form_Load"  
 
 
@@ -426,6 +427,7 @@ Public Class Form__Main_Demo
         Me.CtlGraphicSignature1 = Nothing
         Me.CtlGraphicStaticText1 = Nothing
         If (pboolIncludePortrait) Then Me.CtlGraphicPortrait_Lady = Nothing
+
 
     End Sub ''End of "Private Sub Unload_Designer()"  
 

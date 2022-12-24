@@ -42,7 +42,8 @@ namespace MoveAndResizeControls_Monem_Net70 //.Interfaces
                                   ISaveToModel par_iSave, bool pbRemoveAnyHandlers = false,
                                   bool pbHookUpEventHandlers = true, 
                                   bool pbResizeViaProportionWH = false,
-                                  float par_proportionWH = 0);
+                                  float par_proportionWH = 0,
+                                  bool pbNotADesignElement = false);
 
         //Added 1/27/2022 thomas downes
         void Init_V2(PictureBox par_pictureBox, Control par_container, int par_margin, bool pbRepaintAfterResize,

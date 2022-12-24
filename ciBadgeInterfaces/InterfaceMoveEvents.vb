@@ -37,5 +37,8 @@ Public Interface InterfaceMoveEvents
     ''Added 8/31/2022 td
     Sub Control_WasClicked(par_control As Control) ''Added 8/31/2022 td
 
+    ''Added 12/24/2022 td
+    Sub MouseDown(par_control As Control) ''Added 12/24/2022 td
+
 
 End Interface

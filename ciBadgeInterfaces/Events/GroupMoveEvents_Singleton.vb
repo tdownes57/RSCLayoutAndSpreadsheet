@@ -48,6 +48,9 @@ Public Class GroupMoveEvents_Singleton
     ''Added 8/31/2021 thomas d. 
     Public Event ControlWasClicked(par_control As Control)
 
+    ''Added 12/24/2022 thomas d. 
+    Public Event MouseDown(par_control As Control)
+
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
 
@@ -160,6 +163,15 @@ Public Class GroupMoveEvents_Singleton
         ''Added 8/31/2022 td
         ''
         RaiseEvent ControlWasClicked(par_control)
+
+    End Sub
+
+
+    Public Sub Control_MouseDown(par_control As Control) Implements InterfaceMoveEvents.MouseDown
+        ''
+        ''Added 12/24/2022 td
+        ''
+        RaiseEvent MouseDown(par_control)
 
     End Sub
 

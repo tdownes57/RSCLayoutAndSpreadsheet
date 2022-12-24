@@ -115,14 +115,21 @@ namespace __RSCElementSelectGraphics
             //Added 12/22/2022
             int intElementHeight = par_rectElement.Height;
             int intElementWidth = par_rectElement.Width;
+            bool bWithinBoundary = false;
 
-            Tuple<int, int> objTuple = GetOffsetByClockPosition(par_clockPosition,
-                                         par_rectElement, intArrowWidth, intArrowHeight);
-            offsetX = objTuple.Item1;
-            offsetY = objTuple.Item2;
+            do
+            {
+                Tuple<int, int> objTuple = GetOffsetByClockPosition(par_clockPosition,
+                                             par_rectElement, intArrowWidth, intArrowHeight);
+                offsetX = objTuple.Item1;
+                offsetY = objTuple.Item2;
 
-            Rectangle rectangleArrow = new Rectangle(offsetX, offsetY, intArrowWidth, intArrowHeight);
-            bool bWithinBoundary = ArrowWithinBoundary(par_boundary, rectangleArrow);
+                Rectangle rectangleArrow = new Rectangle(offsetX, offsetY, intArrowWidth, intArrowHeight);
+                bWithinBoundary = ArrowWithinBoundary(par_boundary, rectangleArrow);
+                if (!bWithinBoundary) ++par_clockPosition; //Added 12/23/2022 
+                if (par_clockPosition >= 12) par_clockPosition = 0;   //Added 12/23/2022
+
+            } while (!bWithinBoundary);
 
             //Added 12/16/2022 thomas downes
             DrawAndFillArrow(par_graph, obj_arrow, par_color, offsetX, offsetY, par_scale);
@@ -135,7 +142,13 @@ namespace __RSCElementSelectGraphics
             //
             // Added 12/22/2022 thomas downes
             //
-            gdfldld d  d dkdkdk dd 0d0d0d d0d0d0
+            if (par_arrow.Left < par_boundary.Left) return false;
+            else if (par_arrow.Top < par_boundary.Top) return false;
+            else if (par_arrow.Top + par_arrow.Height > 
+                par_boundary.Top + par_boundary.Height) return false;
+            else if (par_arrow.Left + par_arrow.Width >
+                par_boundary.Left + par_boundary.Width) return false;
+            return true; 
 
         }
 

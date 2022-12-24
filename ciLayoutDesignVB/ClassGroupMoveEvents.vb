@@ -39,6 +39,8 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
 
     ''Added 8/31/2022 thomas d. 
     Public Event ControlWasClicked(par_control As Control)
+    ''Added 12/24/2022 thomas d. 
+    Public Event MouseDown(par_control As Control)
 
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
@@ -121,6 +123,16 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
         ''8/31/2022 td  LayoutFunctions.ControlBeingClicked = par_control
         LayoutFunctions.ControlThatWasClicked = par_control
         RaiseEvent ControlWasClicked(par_control)
+
+    End Sub
+
+
+    Public Sub Control_MouseDown(par_control As Control) Implements InterfaceMoveEvents.MouseDown
+        ''
+        ''Added 12/24/2022 td
+        ''
+        LayoutFunctions.ControlThatWasClicked = par_control
+        RaiseEvent MouseDown(par_control)
 
     End Sub
 

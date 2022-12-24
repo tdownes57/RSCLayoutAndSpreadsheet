@@ -587,6 +587,8 @@ Public Class CtlGraphicStaticTextV4
         intBadgeLayoutHeight = Me.LayoutFunctions.Layout_Height_Pixels()
 
         ''Added 6/6/2022 td
+        Me.ElementInfo_Base.BadgeLayoutDims = New BadgeLayoutDimensionsClass()
+        Me.ElementInfo_Base.BadgeLayoutDims.NameForDebug = "Refresh_ImageV4"
         Me.ElementInfo_Base.BadgeLayoutDims.Width_Pixels = intBadgeLayoutWidth
         Me.ElementInfo_Base.BadgeLayoutDims.Height_Pixels = intBadgeLayoutHeight
 

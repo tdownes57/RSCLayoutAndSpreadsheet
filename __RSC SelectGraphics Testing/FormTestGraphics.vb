@@ -4,7 +4,10 @@ Imports System.IO
 Imports System.Net.Http.Headers
 Imports System.Reflection
 Imports System.Runtime.Intrinsics.X86
+Imports __RSC_WindowsControl_NET70
 Imports __RSCElementSelectGraphics
+Imports ciBadgeInterfaces
+Imports MoveAndResizeControls_Monem_Net70
 ''Imports __RSCWindowsControlLibrary
 ''Imports ciBadgeSerialize
 
@@ -24,6 +27,11 @@ Public Class FormTestGraphics
     Private mod_imageImageBack_Denigrated As Image ''Added 12/17/2022
     Private mod_graphics As Drawing.Graphics ''Added 12/16/2022
     Private mod_bitmapImageBack As Bitmap ''Added 12/19/2022
+
+    Private WithEvents mod_eventsSingleton As GroupMoveEvents_Singleton ''Added 12/23/2022
+    Private mod_eventsInner1 As GroupMoveEvents_Singleton ''Added 12/23/2022
+    Private mod_eventsInner2 As GroupMoveEvents_Singleton ''Added 12/23/2022
+
 
     ''Public Structure Line
     ''    ''
@@ -136,7 +144,7 @@ ExitHandler:
             ''mod_graphics = mod_bitmapImageBack.CreateGraphics
             ''Using mod_bitmapImageBack.creategraph
             Using mod_graphics = Graphics.FromImage(mod_bitmapImageBack)
-                PaintGraphicsOperations(mod_imageImageBack_Denigrated, mod_graphics, mod_colorArrows)
+                PaintGraphicsOperations(mod_imageImageBack_Denigrated, mod_graphics, mod_colorArrows, 0.5)
                 ''//mod_graphics.Dispose() ''Needed so that the memory is released. 
             End Using
             Me.BackgroundImage = mod_imageImageBack_Denigrated
@@ -320,7 +328,7 @@ ExitHandler:
         mod_graphics = Graphics.FromImage(mod_bitmapImageBack)
         ''12/19/2022 PaintGraphicsOperations(mod_image, mod_graphics)
         ''12/19/2022 PaintGraphicsOperations(mod_imageImageBack, mod_graphics, mod_colorArrows)
-        PaintGraphicsOperations(mod_bitmapImageBack, mod_graphics, mod_colorArrows)
+        PaintGraphicsOperations(mod_bitmapImageBack, mod_graphics, mod_colorArrows, 0.5)
 
         ''Super important!!??  Not sure why, but the image might not
         ''    get drawn otherwise!  Actually, probably because the Arrow
@@ -340,10 +348,30 @@ ExitHandler:
         ''intCountPixelsDrawn = RSCGraphics.CountPixelsByColor(newImage, mod_colorArrows)
         ''Debug.Assert(100 < intCountPixelsDrawn)
 
-        Dim objMonem As MoveAndResizeControls_Monem.MonemControlMove_AllFunctionality
+        ''Added 12/23/2022 
+        Dim objMonem As MoveAndResizeControls_Monem_Net70.MonemControlMove_AllFunctionality
+        Dim objLayoutFun As New ClassLayoutFunctions
+        objMonem = New MonemControlMove_AllFunctionality()
+        Dim infoSaveToModel As ISaveToModel
+        infoSaveToModel = New ClassSaveToModel
+        mod_eventsSingleton = New GroupMoveEvents_Singleton(objLayoutFun)
+        mod_eventsInner1 = New GroupMoveEvents_Singleton(objLayoutFun, False, True)
+        mod_eventsInner2 = New GroupMoveEvents_Singleton(objLayoutFun, False, True)
+        ''Major call...
+        objMonem.Init(PictureBoxInner1, 5, False, mod_eventsSingleton,
+                       mod_eventsInner1, False, infoSaveToModel)
+        objMonem.Init(PictureBoxInner2, 5, False, mod_eventsSingleton,
+                       mod_eventsInner2, False, infoSaveToModel)
 
-
-
+        ''
+        ''Added 12/24/2022
+        ''
+        Dim objRSCGraphics As New __RSCElementSelectGraphics.RSCGraphics
+        Dim obj_graphics As Graphics
+        Dim bitmapImageBack As Bitmap
+        bitmapImageBack = New Bitmap(-1 + PictureBoxOuter.Width, -1 + PictureBoxOuter.Height)
+        obj_graphics = Graphics.FromImage(bitmapImageBack)
+        objRSCGraphics.DrawAndFillArrow(obj_graphics, mod_colorArrows, PictureBoxInner1, 0, 0.5)
 
 
     End Sub
@@ -655,7 +683,7 @@ ExitHandler:
         ''Encapsulated 12/17/2022
         ''12/19/2022 PaintGraphicsOperations(mod_image, mod_graphics)
         intColorPixelsBefore = RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
-        PaintGraphicsOperations(mod_imageImageBack_Denigrated, mod_graphics, mod_colorArrows)
+        PaintGraphicsOperations(mod_imageImageBack_Denigrated, mod_graphics, mod_colorArrows, 0.5)
         intColorPixelsAfter = RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
 
         Me.Refresh() ''Added 12/17/2022 
@@ -702,7 +730,8 @@ ExitHandler:
 
     Private Sub PaintGraphicsOperations(par_bitmap As Bitmap,
                                         par_eGraphics As Graphics,
-                                        par_colorArrows As Drawing.Color)
+                                        par_colorArrows As Drawing.Color,
+                                        par_scale As Single)
         ''12/19/2022 Private Sub PaintGraphicsOperations(par_image As Image,
         ''
         ''Encapsulated 12/17/2022
@@ -797,14 +826,14 @@ ExitHandler:
                     ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 9)
                     ''.DrawAndFillArrow(par_eGraphics, mod_colorArrows, PictureBoxForBorder, 10)
 
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 0)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 1)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 3)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 4)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 6)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 7)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 9)
-                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 10)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 0, par_scale)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 1, par_scale)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 3, par_scale)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 4, par_scale)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 6, par_scale)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 7, par_scale)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 9, par_scale)
+                    .DrawAndFillArrow(par_eGraphics, par_colorArrows, PictureBoxOuter, 10, par_scale)
 
                 End With ''End of ""With objRSCGraphics""
 
@@ -856,15 +885,17 @@ ExitHandler:
 
         rsc_Graphics = New RSCGraphics()
         objRectangle = New Rectangle(PictureBoxOuter.Location, PictureBoxOuter.Size)
+
         ''Major call.......
         rsc_Graphics.DrawBorderAround(objRectangle,
-                            gr_rectangle, mod_colorArrows, intWidth)
+                  gr_rectangle, mod_colorArrows, intWidth)
         ''Me.BackgroundImage = mod_bitmapImageBack
         ''Me.Invalidate(True)
         ''Me.Refresh()
         Dim intPixelCount As Integer = 0
         intPixelCount =
            RSCGraphics.CountPixelsByColor(mod_bitmapImageBack, mod_colorArrows)
+
         If (intPixelCount = 0) Then
             Debugger.Break()
         End If

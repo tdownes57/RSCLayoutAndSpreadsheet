@@ -123,6 +123,15 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+        public void MouseDown(Control par_control)
+        {
+            //Added 12/24/2022
+
+            LayoutFunctions.ControlThatWasClicked = par_control;
+
+        }
+
+
         public void Control_IsMoving()
         {
             //throw new NotImplementedException();

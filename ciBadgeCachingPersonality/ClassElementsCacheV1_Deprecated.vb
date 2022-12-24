@@ -2341,7 +2341,7 @@ Namespace ciBadgeCachePersonality
                 objElementText = New ClassElementStaticTextV4(par_DisplayText,
                                                               intLeft, intTop,
                                                               par_intHeight, par_intWidth)
-                objElementText = New ClassElementStaticTextV4()
+                ''12/24/2022 td ''objElementText = New ClassElementStaticTextV4()
 
                 If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
                     mod_listElementStaticsV4_Backside.Add(objElementText)
