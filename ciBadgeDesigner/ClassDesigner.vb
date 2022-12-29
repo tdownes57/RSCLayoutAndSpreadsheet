@@ -1001,6 +1001,30 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub LoadDesigner"
 
 
+    Public Sub Load_NewElementToCacheAndForm_FieldV4(par_enumField As EnumCIBFields,
+                                     par_rectForElement As Rectangle)
+        ''
+        ''Added 12/28/2022 td
+        ''
+        Dim new_elementFieldV4 As ClassElementFieldV4 = Nothing ''Added 5/12/2022 td
+
+        ''
+        ''Part 1. Create the Element & load it into the cache. 
+        ''
+        new_elementFieldV4 = Load_NewElementIntoCache_FieldV4(par_enumField,
+                                                   par_rectForElement)
+
+        If (new_elementFieldV4 Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        ''
+        ''Part 2. Display the Element on the Designer Form. 
+        ''
+        LoadFieldControlIntoForm_JustOneV4(new_elementFieldV4)
+
+
+    End Sub ''End of ""Public Sub Load_NewElementToCacheAndForm_FieldV4()""
+
+
     Public Sub Load_NewElementToCacheAndForm_FieldV3(par_enumField As EnumCIBFields,
                                      par_rectForElement As Rectangle)
         ''
@@ -1358,15 +1382,15 @@ Public Class ClassDesigner
         If (c_boolVersion4_TestingOK) Then
 
             ''''Version 4, is not working at all... bummer! ----5/12/2022 
-            ''objNewElementFieldV4 =
-            ''Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
-            ''                     intPicLeft, intPicTop,
-            ''                     Me.BadgeLayout_Class,
-            ''                     EnumSideOfCard_Current)
+            objNewElementFieldV4 =
+            Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
+                                 intPicLeft, intPicTop,
+                                 Me.BadgeLayout_Class,
+                                 EnumSideOfCard_Current)
             ''''---------        ''intPicWidth, intPicHeight,
             ''Return objNewElementFieldV4
             ''Return Nothing ''Revised 5/13/2022 td
-            objNewElementFieldV4 = Nothing
+            ''12/28/2022  objNewElementFieldV4 = Nothing
             Return objNewElementFieldV4
 
         Else

@@ -65,8 +65,12 @@ Public Class FormFieldsAndPortrait
     ''Deprecated.  Private mod_iRecordElementLastTouched As ClassRecordElementLastTouched
 
     Private mod_ctlQRCode As ciBadgeDesigner.CtlGraphicQRCode
-    Private mod_ctlField1 As ciBadgeDesigner.CtlGraphicFieldV3
-    Private mod_ctlField2 As ciBadgeDesigner.CtlGraphicFieldV3
+    Private mod_ctlField1_V3 As ciBadgeDesigner.CtlGraphicFieldV3
+    Private mod_ctlField1_V4 As ciBadgeDesigner.CtlGraphicFieldV4 ''Added 12/25/2022 td
+
+    Private mod_ctlField2_V3 As ciBadgeDesigner.CtlGraphicFieldV3
+    Private mod_ctlField2_V4 As ciBadgeDesigner.CtlGraphicFieldV4 ''Added 12/25/2022 td
+
     Private mod_ctlPortrait As ciBadgeDesigner.CtlGraphicPortrait
     Private mod_ctlStaticGraphic As ciBadgeDesigner.CtlGraphicStaticGraphic
     Private mod_ctlStaticText As ciBadgeDesigner.CtlGraphicStaticTextV3
@@ -223,13 +227,16 @@ Public Class FormFieldsAndPortrait
         ''Added 1/6/2022 td 
         ''
         ''Jan7 2022 td''Dim objElement As New ciBadgeElements.ClassElementField
-        Dim objElement As ciBadgeElements.ClassElementFieldV3
+        Dim objElementV3 As ciBadgeElements.ClassElementFieldV3
+        Dim objElementV4 As ciBadgeElements.ClassElementFieldV4 ''Added 12/25/2022
 
         ''Added 1/07/2022 td
-        objElement = mod_designer.ElementsCache_UseEdits.ListFieldElementsV3().FirstOrDefault()
+        objElementV3 = mod_designer.ElementsCache_UseEdits.ListFieldElementsV3().FirstOrDefault()
+        objElementV4 = mod_designer.ElementsCache_UseEdits.ListFieldElementsV4().FirstOrDefault()
 
         ''12/2022 objElement.BadgeLayout = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
-        objElement.BadgeLayoutDims = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
+        objElementV3.BadgeLayoutDims = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
+        objElementV4.BadgeLayoutDims = Me.BadgeLayout ''mod_designer.BadgeLayout_Class
 
         ''mod_ctlPortrait = CtlGraphicSignature.GetSignature(objElement, "ctlSignature",
         ''  mod_designer, True, mod_ctlLasttouched, mod_eventsSingleton,
@@ -242,24 +249,35 @@ Public Class FormFieldsAndPortrait
         Dim sizeSuggested As Size ''Added 3/10/2022
         sizeSuggested = New Size(Me.Width / 4, Me.Height / 10) ''Added 3/10/2022
 
-        mod_ctlField1 = CtlGraphicFieldV3.GetFieldElement(objGetParametersForGetControl,
-                                                            objElement, Me, mod_designer,
+        ''12/25/2022 mod_ctlField1_V3 = CtlGraphicFieldV3.GetFieldElement(objGetParametersForGetControl,
+        ''                                                    objElement, Me, mod_designer,
+        ''                                    "mod_ctlField1", mod_designer, sizeSuggested, mod_designer,
+        ''                                    mod_ctlLasttouched, mod_eventsSingleton)
+        ''mod_ctlField1_V3.Visible = True
+        ''mod_ctlField1_V3.Top = mod_ctlField1_V3.Width
+
+        mod_ctlField1_V4 = CtlGraphicFieldV4.GetFieldControl(objGetParametersForGetControl,
+                                                            objElementV4, Me, mod_designer,
                                             "mod_ctlField1", mod_designer, sizeSuggested, mod_designer,
                                             mod_ctlLasttouched, mod_eventsSingleton)
 
-        mod_ctlField1.Visible = True
-        mod_ctlField1.Top = mod_ctlField1.Width
-        ''12/2022 Dim intHeightPixels As Integer = objElement.BadgeLayout.Height_Pixels
-        Dim intHeightPixels As Integer = objElement.BadgeLayoutDims.Height_Pixels
+        mod_ctlField1_V4.Visible = True
+        mod_ctlField1_V4.Top = mod_ctlField1_V4.Width
 
-        Me.Controls.Add(mod_ctlField1)
+        ''12/2022 Dim intHeightPixels As Integer = objElement.BadgeLayout.Height_Pixels
+        Dim intHeightPixels As Integer = objElementV4.BadgeLayoutDims.Height_Pixels
+
+        ''12/25/2022 Me.Controls.Add(mod_ctlField1)
+        Me.Controls.Add(mod_ctlField1_V4)
         pictureBackgroundFront.SendToBack()
 
         ''
         ''Major call !!  ----Thomas DOWNES
         ''
-        mod_ctlField1.Refresh_Master() ''Added 1/6/2022 td 
-        mod_ctlField1.Refresh() ''Added 1/6/2022 & 11/29/2021 td  
+        ''12/25/2022 mod_ctlField1.Refresh_Master() ''Added 1/6/2022 td 
+        ''12/25/2022 mod_ctlField1.Refresh() ''Added 1/6/2022 & 11/29/2021 td  
+        mod_ctlField1_V4.Refresh_Master() ''Added 1/6/2022 td 
+        mod_ctlField1_V4.Refresh() ''Added 1/6/2022 & 11/29/2021 td  
 
 
     End Sub

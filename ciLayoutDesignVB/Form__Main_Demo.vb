@@ -3879,7 +3879,8 @@ ExitHandler:
 
                 ''Added 5/13/2022 td
                 ''5/14/2022 mod_designer.Load_NewElementIntoCache_AndForm(enumNewField_new, rectangleControl)
-                mod_designer.Load_NewElementToCacheAndForm_FieldV3(enumNewField_new, rectangleControl)
+                ''12/28/2022 mod_designer.Load_NewElementToCacheAndForm_FieldV3(enumNewField_new, rectangleControl)
+                mod_designer.Load_NewElementToCacheAndForm_FieldV4(enumNewField_new, rectangleControl)
 
                 ''Dim new_elementFieldV3 As ClassElementFieldV3 = Nothing ''Added 5/12/2022 td
                 ''With mod_designer
