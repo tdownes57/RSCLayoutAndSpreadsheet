@@ -80,6 +80,7 @@ Public Class ClassElementFieldV4
     Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
                    par_intLeft_Pixels As Integer,
                    par_intTop_Pixels As Integer,
+                   par_intWidth_Pixels As Integer,
                    par_intHeight_Pixels As Integer)
         ''
         ''9/17 td''Public Sub New(par_intLeft_Pixels As Integer, par_intTop_Pixels As Integer, par_intHeight_Pixels As Integer)
@@ -101,6 +102,9 @@ Public Class ClassElementFieldV4
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels
         Me.Height_Pixels = par_intHeight_Pixels
+
+        ''Added 12/29/2022 Thomas Downes
+        Me.Width_Pixels = par_intWidth_Pixels
 
         ''---''Added 4/22/2020 thomas downes
         ''---Me.FieldIndex`

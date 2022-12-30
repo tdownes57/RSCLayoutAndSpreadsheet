@@ -1385,6 +1385,7 @@ Public Class ClassDesigner
             objNewElementFieldV4 =
             Me.ElementsCache_UseEdits.LoadNewElement_FieldV4(par_enumField,
                                  intPicLeft, intPicTop,
+                                 intPicWidth, intPicHeight,
                                  Me.BadgeLayout_Class,
                                  EnumSideOfCard_Current)
             ''''---------        ''intPicWidth, intPicHeight,

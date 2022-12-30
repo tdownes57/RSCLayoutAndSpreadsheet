@@ -1702,6 +1702,7 @@ Namespace ciBadgeCachePersonality
             Dim intFieldIndex As Integer ''Added 9/18/2019 td
             Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
             Dim intTop_Pixels As Integer ''Added 9/18/2019 td
+            Const c_intWidth_Pixels As Integer = 200 ''Added 12/29/2022 td
             Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
             Dim list_of_fields As List(Of ClassFieldAny) ''Added 5/28/2022 td
 
@@ -1734,8 +1735,10 @@ Namespace ciBadgeCachePersonality
                     If (c_boolV3) Then
                         new_elementFieldV3 = New ClassElementFieldV3(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
                     Else
-                        new_elementFieldV4 = New ClassElementFieldV4(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
-                    End If
+                        ''12/29/2022 new_elementFieldV4 = New ClassElementFieldV4(each_field, intLeft_Pixels, intTop_Pixels, c_intHeight_Pixels)
+                        new_elementFieldV4 = New ClassElementFieldV4(each_field,
+                            intLeft_Pixels, intTop_Pixels, c_intWidth_Pixels, c_intHeight_Pixels)
+                    End If ''Edn of ""If (c_boolV3) Then... Else..." 
 
                 Catch ex_V4 As Exception
                     ''Added 5/28/2022  td 
@@ -1902,6 +1905,8 @@ Namespace ciBadgeCachePersonality
         Public Function LoadNewElement_FieldV4(par_enumField As EnumCIBFields,
                                         par_intLeft_Pixels As Integer,
                                         par_intTop_Pixels As Integer,
+                                        par_intWidth_Pixels As Integer,
+                                        par_intHeight_Pixels As Integer,
                                         par_layout As BadgeLayoutDimensionsClass,
                   par_enumSide As EnumWhichSideOfCard) _
                   As ClassElementFieldV4
@@ -1910,14 +1915,19 @@ Namespace ciBadgeCachePersonality
             ''
             Dim obj_field As ClassFieldAny
             Dim new_elementFieldV4 As ClassElementFieldV4 ''Added 9/18/2019 td
-            Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
+            ''12/29/2022 Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
 
             obj_field = GetFieldByFieldEnum(par_enumField)
 
+            ''12/29/2022 new_elementFieldV4 = New ClassElementFieldV4(obj_field,
+            ''                        par_intLeft_Pixels,
+            ''                        par_intTop_Pixels,
+            ''                        c_intHeight_Pixels)
             new_elementFieldV4 = New ClassElementFieldV4(obj_field,
                                     par_intLeft_Pixels,
                                     par_intTop_Pixels,
-                                    c_intHeight_Pixels)
+                                    par_intWidth_Pixels,
+                                    par_intHeight_Pixels)
 
             new_elementFieldV4.FieldEnum = obj_field.FieldEnumValue ''Added 10/12/2019 td
             new_elementFieldV4.BadgeLayout = par_layout
