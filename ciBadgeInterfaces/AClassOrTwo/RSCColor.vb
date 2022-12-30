@@ -12,6 +12,21 @@ Public Class RSCColor
     ''
     ''Added 7/09/2022 thomas downes  
     ''
+    Public Shared Function GetInverseMSColor(par_MSColor As Drawing.Color) As Drawing.Color
+        ''
+        ''Added 12/30/2022 
+        ''
+        '' https://stackoverflow.com/questions/1165107/how-do-i-invert-a-colour
+        Dim result As Drawing.Color
+        Const RGBMAX As Integer = 255 ''  https://stackoverflow.com/questions/1165107/how-do-i-invert-a-colour
+        result = Color.FromArgb(RGBMAX - par_MSColor.R,
+                                RGBMAX - par_MSColor.G,
+                                RGBMAX - par_MSColor.B)
+        Return result
+
+    End Function ''End of ""Public Shared Function GetInverseMSColor()""
+
+
     Public Sub New(par_color As System.Drawing.Color)
 
         ''Added 7/09/2022 
@@ -74,6 +89,40 @@ Public Class RSCColor
             MSNetColor = ColorTranslator.FromHtml(value)
         End Set
     End Property
+
+
+    Public Function GetInverseMSColor() As Drawing.Color
+        ''
+        ''Added 12/30/2022 
+        ''
+        Dim objMSColor As Drawing.Color = Me.MSNetColor
+        ''Dim byteRed As Byte ''Integer
+        ''Dim byteBlue As Byte ''Integer
+        ''Dim byteGreen As Byte ''Integer
+        ''Dim byteAlpha As Byte
+        Dim result As Drawing.Color
+        Const RGBMAX As Integer = 255 ''  https://stackoverflow.com/questions/1165107/how-do-i-invert-a-colour
+
+        ''byteRed = objMSColor.R
+        ''byteBlue = objMSColor.B
+        ''byteGreen = objMSColor.G
+        ''byteAlpha = objMSColor.A
+
+        ''result = New Color
+        ''result.R = (255 - byteRed)
+        ''result.G = (255 - byteGreen)
+        ''result.B = (255 - byteBlue)
+        '' https://stackoverflow.com/questions/1165107/how-do-i-invert-a-colour
+        ''     Return Color.FromArgb(RGBMAX - ColourToInvert.R,
+        ''      RGBMAX - ColourToInvert.G, RGBMAX - ColourToInvert.B);
+
+        '' https://stackoverflow.com/questions/1165107/how-do-i-invert-a-colour
+        result = Color.FromArgb(RGBMAX - objMSColor.R,
+                                RGBMAX - objMSColor.G,
+                                RGBMAX - objMSColor.B)
+        Return result
+
+    End Function ''End of ""Public Function GetInverseMSColor()""
 
 
     Public Overrides Function ToString() As String

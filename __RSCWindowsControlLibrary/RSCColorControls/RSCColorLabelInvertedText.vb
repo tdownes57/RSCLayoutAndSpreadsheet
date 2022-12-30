@@ -1,23 +1,25 @@
-﻿''
+﻿''Public Class RSCColorLabelInvertedText
+''
 ''Added 8/22/2022 td
 ''
 Imports ciBadgeInterfaces ''Added 10/28/2022
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 
-Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini 
+Public Class RSCColorLabelInvertedText
     ''
-    ''Added 8/22/2022 td
+    ''Added 12/30/2022 & 8/22/2022 td
+    ''
+    ''  (Copy-pasted from RSCColorDisplayLabel.) 
     ''
     Private mod_rscDisplayColor As ciBadgeInterfaces.RSCColor
     Private mod_strMSNetColorName As String ''Added 10/24/2022
 
     Public Event ColorClick(sender As Object, e As EventArgs)
 
-
-    Public Shared Function GetLabel(par_colorMS As Drawing.Color) As RSCColorDisplayLabel
+    Public Shared Function GetLabel(par_colorMS As Drawing.Color) As RSCColorLabelInvertedText
         '' Added 10/28/2022 td 
-        Dim objControl As New RSCColorDisplayLabel(par_colorMS)
-        ''10/28/2022 newLabel.BackColor = each_colorMS
-        ''10/28/2022 newLabel.Text = each_colorMS.Name
+        Dim objControl As New RSCColorLabelInvertedText(par_colorMS)
+
         objControl.BackColor = par_colorMS
         objControl.Text = par_colorMS.Name
         Return objControl
@@ -25,12 +27,13 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
     End Function ''Public Shared Function GetLabel  
 
 
-    Public Shared Function GetLabel(par_colorRSC As RSCColor) As RSCColorDisplayLabel
+    Public Shared Function GetLabel(par_colorRSC As RSCColor) As RSCColorLabelInvertedText
         '' Added 10/28/2022 td 
-        Dim objControl As New RSCColorDisplayLabel(par_colorRSC)
+        Dim objControl As New RSCColorLabelInvertedText(par_colorRSC)
         objControl.BackColor = par_colorRSC.MSNetColor
         objControl.Text = par_colorRSC.MSNetColor.Name
         Return objControl
+
     End Function ''Public Shared Function GetLabel  
 
 
@@ -48,7 +51,7 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
         ''LabelBackcolorLeft.ToolTip = Me.Text
         ''LabelBackcolorLeft.ToolTip = Me.Text
         ToolTip1.SetToolTip(LabelBackcolorLeft, Me.Text)
-        ToolTip1.SetToolTip(LabelBackcolorRight, Me.Text)
+        ''12/2022 ToolTip1.SetToolTip(LabelBackcolorRight, Me.Text)
 
     End Sub ''End of Public Sub New  (par_colorMS As Drawing.Color)
 
@@ -69,9 +72,9 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
 
         ''Added 10/28/2022
         ToolTip1.SetToolTip(LabelBackcolorLeft,
-                            (par_colorRSC.Name_andDescription()))
-        ToolTip1.SetToolTip(LabelBackcolorRight,
-                            (par_colorRSC.Name_andDescription()))
+                        (par_colorRSC.Name_andDescription()))
+        ''12/2022 ToolTip1.SetToolTip(LabelBackcolorRight,
+        ''                (par_colorRSC.Name_andDescription()))
 
     End Sub ''End of Public Sub New  (paraM_colorMS As Drawing.Color)
 
@@ -92,7 +95,13 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
             ''Added 8/22/2022 td
             ''----LoadColor(New RSCColor(value))
             LabelBackcolorLeft.BackColor = value
-            LabelBackcolorRight.BackColor = value
+            ''12/2022 LabelBackcolorRight.BackColor = value
+
+            ''Added 12/30/2022
+            ''  Inverse color!!!!
+            ''
+            LabelBackcolorLeft.ForeColor = RSCColor.GetInverseMSColor(value)
+
         End Set
     End Property ''Ednof ""Public Property BackColor""
 
@@ -114,9 +123,16 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
         Me.BackColor = objColorMSNet
 
         Me.Text = par_rscColor.MSNetColor.Name
+
+        LabelBackcolorLeft.Text = par_rscColor.MSNetColor.Name
+        LabelBackcolorLeft.BackColor = par_rscColor.MSNetColor
+        ''Added 12/30/2022
+        ''  Inverse color!!!!
+        LabelBackcolorLeft.ForeColor = par_rscColor.GetInverseMSColor()
+
         mod_rscDisplayColor = par_rscColor
 
-    End Sub
+    End Sub ''End of ""Public Sub LoadAndDisplayRSCColor""
 
 
     Public Property RSCDisplayColor As ciBadgeInterfaces.RSCColor
@@ -134,8 +150,12 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
             Else
                 mod_rscDisplayColor = value
             End If ''End of ""If (value Is Nothing) Then""
+
+            ''12.2022 LabelBackcolorRight.BackColor = mod_rscDisplayColor.MSNetColor
             LabelBackcolorLeft.BackColor = mod_rscDisplayColor.MSNetColor
-            LabelBackcolorRight.BackColor = mod_rscDisplayColor.MSNetColor
+            ''Added 12/30/2022
+            ''  Inverse color!!!!
+            LabelBackcolorLeft.ForeColor = mod_rscDisplayColor.GetInverseMSColor()
 
         End Set
     End Property ''Ednof ""Public Property RSCDisplayColor""
@@ -150,11 +170,11 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
             ''Added 8/22/2022 td
             Const c_single_emSize As Single = 12
             LabelBackcolorLeft.Text = value
-            LabelBackcolorRight.Text = value
+            ''12.2022 LabelBackcolorRight.Text = value
 
             ''Text-Position Alignment
             LabelBackcolorLeft.TextAlign = ContentAlignment.MiddleLeft
-            LabelBackcolorRight.TextAlign = ContentAlignment.MiddleRight
+            ''12.2022 LabelBackcolorRight.TextAlign = ContentAlignment.MiddleRight
 
             ''
             ''Adjusting the size of the font, according to the length
@@ -182,7 +202,7 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
                     fontSmallerIfLongColorname = New Font(font_family, c_single_emSize)
             End Select
             LabelBackcolorLeft.Font = fontSmallerIfLongColorname
-            LabelBackcolorRight.Font = fontSmallerIfLongColorname
+            ''12.2022 LabelBackcolorRight.Font = fontSmallerIfLongColorname
 
         End Set
     End Property ''Ednof ""Public Property BackColor""
@@ -207,8 +227,8 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
 
     End Sub
 
-    Private Sub LabelBackcolorRight_Click(sender As Object, e As EventArgs) _
-        Handles LabelBackcolorRight.Click, Me.Click
+    Private Sub LabelBackcolorRight_Click(sender As Object, e As EventArgs)
+        ''12.2022 Handles LabelBackcolorRight.Click, Me.Click
 
         ''Added 8/22/2022
         RaiseEvent ColorClick(Me, New EventArgs())
@@ -228,3 +248,4 @@ Public Class RSCColorDisplayLabel ''Public Class RSCColorDisplayMini
 
 
 End Class
+

@@ -150,6 +150,12 @@
     <Compile Include="RSCColorControls\RSCColorFlowPanel.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="RSCColorControls\RSCColorLabelInvertedText.Designer.vb">
+      <DependentUpon>RSCColorLabelInvertedText.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RSCColorControls\RSCColorLabelInvertedText.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="RSCColorControls\RSCColor_seeCIBInterfaces.vb" />
     <Compile Include="RSCColorControls\RSCColorDisplay.Designer.vb">
       <DependentUpon>RSCColorDisplay.vb</DependentUpon>
@@ -261,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCColorFlowPanel.resx">
       <DependentUpon>RSCColorFlowPanel.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RSCColorControls\RSCColorLabelInvertedText.resx">
+      <DependentUpon>RSCColorLabelInvertedText.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RSCColorControls\RSCColorPicker.resx">
       <DependentUpon>RSCColorPicker.vb</DependentUpon>

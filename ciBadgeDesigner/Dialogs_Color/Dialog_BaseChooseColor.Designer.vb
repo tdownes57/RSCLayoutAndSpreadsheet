@@ -37,25 +37,30 @@ Partial Class Dialog_BaseChooseColor
         Me.LinkLabelRefreshColors = New System.Windows.Forms.LinkLabel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.RscColorFlowPanel2 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
+        Me.ButtonApplyBF = New System.Windows.Forms.Button()
+        Me.ButtonApplyFB = New System.Windows.Forms.Button()
+        Me.LabelSelected = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'ButtonForecolor
         '
+        Me.ButtonForecolor.Enabled = False
         Me.ButtonForecolor.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonForecolor.Location = New System.Drawing.Point(648, 359)
+        Me.ButtonForecolor.Location = New System.Drawing.Point(766, 367)
         Me.ButtonForecolor.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonForecolor.Name = "ButtonForecolor"
-        Me.ButtonForecolor.Size = New System.Drawing.Size(164, 36)
+        Me.ButtonForecolor.Size = New System.Drawing.Size(224, 36)
         Me.ButtonForecolor.TabIndex = 12
-        Me.ButtonForecolor.Text = "◄ Apply to Font"
+        Me.ButtonForecolor.Text = "◄ Apply to Text Font"
         Me.ButtonForecolor.UseVisualStyleBackColor = True
         '
         'ButtonUndoColorFont
         '
-        Me.ButtonUndoColorFont.Location = New System.Drawing.Point(816, 359)
+        Me.ButtonUndoColorFont.Font = New System.Drawing.Font("Arial", 15.0!)
+        Me.ButtonUndoColorFont.Location = New System.Drawing.Point(994, 367)
         Me.ButtonUndoColorFont.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonUndoColorFont.Name = "ButtonUndoColorFont"
-        Me.ButtonUndoColorFont.Size = New System.Drawing.Size(69, 36)
+        Me.ButtonUndoColorFont.Size = New System.Drawing.Size(69, 76)
         Me.ButtonUndoColorFont.TabIndex = 19
         Me.ButtonUndoColorFont.Text = "Undo"
         Me.ToolTip1.SetToolTip(Me.ButtonUndoColorFont, "Unfo Font Color")
@@ -63,8 +68,9 @@ Partial Class Dialog_BaseChooseColor
         '
         'ButtonBackground
         '
+        Me.ButtonBackground.Enabled = False
         Me.ButtonBackground.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonBackground.Location = New System.Drawing.Point(629, 399)
+        Me.ButtonBackground.Location = New System.Drawing.Point(766, 407)
         Me.ButtonBackground.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonBackground.Name = "ButtonBackground"
         Me.ButtonBackground.Size = New System.Drawing.Size(224, 36)
@@ -75,7 +81,8 @@ Partial Class Dialog_BaseChooseColor
         '
         'ButtonUndoColorBackground
         '
-        Me.ButtonUndoColorBackground.Location = New System.Drawing.Point(857, 399)
+        Me.ButtonUndoColorBackground.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonUndoColorBackground.Location = New System.Drawing.Point(994, 407)
         Me.ButtonUndoColorBackground.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonUndoColorBackground.Name = "ButtonUndoColorBackground"
         Me.ButtonUndoColorBackground.Size = New System.Drawing.Size(69, 36)
@@ -86,7 +93,7 @@ Partial Class Dialog_BaseChooseColor
         '
         'ButtonSaveColor
         '
-        Me.ButtonSaveColor.Location = New System.Drawing.Point(970, 342)
+        Me.ButtonSaveColor.Location = New System.Drawing.Point(996, 327)
         Me.ButtonSaveColor.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonSaveColor.Name = "ButtonSaveColor"
         Me.ButtonSaveColor.Size = New System.Drawing.Size(69, 36)
@@ -97,7 +104,7 @@ Partial Class Dialog_BaseChooseColor
         '
         'rscLabelDisplayColorSelected
         '
-        Me.rscLabelDisplayColorSelected.Location = New System.Drawing.Point(629, 320)
+        Me.rscLabelDisplayColorSelected.Location = New System.Drawing.Point(685, 335)
         Me.rscLabelDisplayColorSelected.MSNetColorName = Nothing
         Me.rscLabelDisplayColorSelected.Name = "rscLabelDisplayColorSelected"
         Me.rscLabelDisplayColorSelected.RSCDisplayColor = CType(resources.GetObject("rscLabelDisplayColorSelected.RSCDisplayColor"), ciBadgeInterfaces.RSCColor)
@@ -143,11 +150,51 @@ Partial Class Dialog_BaseChooseColor
         Me.RscColorFlowPanel2.Size = New System.Drawing.Size(436, 260)
         Me.RscColorFlowPanel2.TabIndex = 31
         '
+        'ButtonApplyBF
+        '
+        Me.ButtonApplyBF.Enabled = False
+        Me.ButtonApplyBF.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonApplyBF.Location = New System.Drawing.Point(629, 367)
+        Me.ButtonApplyBF.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonApplyBF.Name = "ButtonApplyBF"
+        Me.ButtonApplyBF.Size = New System.Drawing.Size(131, 36)
+        Me.ButtonApplyBF.TabIndex = 32
+        Me.ButtonApplyBF.Text = "◄ Apply"
+        Me.ButtonApplyBF.UseVisualStyleBackColor = True
+        '
+        'ButtonApplyFB
+        '
+        Me.ButtonApplyFB.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.ButtonApplyFB.Enabled = False
+        Me.ButtonApplyFB.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonApplyFB.ForeColor = System.Drawing.Color.White
+        Me.ButtonApplyFB.Location = New System.Drawing.Point(629, 407)
+        Me.ButtonApplyFB.Margin = New System.Windows.Forms.Padding(2)
+        Me.ButtonApplyFB.Name = "ButtonApplyFB"
+        Me.ButtonApplyFB.Size = New System.Drawing.Size(131, 36)
+        Me.ButtonApplyFB.TabIndex = 33
+        Me.ButtonApplyFB.Text = "◄ Apply"
+        Me.ButtonApplyFB.UseVisualStyleBackColor = False
+        '
+        'LabelSelected
+        '
+        Me.LabelSelected.AutoSize = True
+        Me.LabelSelected.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelSelected.Location = New System.Drawing.Point(635, 311)
+        Me.LabelSelected.Name = "LabelSelected"
+        Me.LabelSelected.Size = New System.Drawing.Size(114, 20)
+        Me.LabelSelected.TabIndex = 34
+        Me.LabelSelected.Text = "Selected color:"
+        '
         'Dialog_BaseChooseColor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1081, 506)
+        Me.Controls.Add(Me.ButtonUndoColorFont)
+        Me.Controls.Add(Me.LabelSelected)
+        Me.Controls.Add(Me.ButtonApplyFB)
+        Me.Controls.Add(Me.ButtonApplyBF)
         Me.Controls.Add(Me.RscColorFlowPanel2)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LinkLabelAddColor1)
@@ -155,14 +202,12 @@ Partial Class Dialog_BaseChooseColor
         Me.Controls.Add(Me.ButtonSaveColor)
         Me.Controls.Add(Me.rscLabelDisplayColorSelected)
         Me.Controls.Add(Me.ButtonBackground)
-        Me.Controls.Add(Me.ButtonUndoColorFont)
         Me.Controls.Add(Me.ButtonForecolor)
         Me.Controls.Add(Me.LinkLabelRefreshColors)
         Me.Name = "Dialog_BaseChooseColor"
         Me.Text = "Dialog_BaseBackgroundColor"
         Me.Controls.SetChildIndex(Me.LinkLabelRefreshColors, 0)
         Me.Controls.SetChildIndex(Me.ButtonForecolor, 0)
-        Me.Controls.SetChildIndex(Me.ButtonUndoColorFont, 0)
         Me.Controls.SetChildIndex(Me.ButtonBackground, 0)
         Me.Controls.SetChildIndex(Me.rscLabelDisplayColorSelected, 0)
         Me.Controls.SetChildIndex(Me.ButtonSaveColor, 0)
@@ -170,6 +215,10 @@ Partial Class Dialog_BaseChooseColor
         Me.Controls.SetChildIndex(Me.LinkLabelAddColor1, 0)
         Me.Controls.SetChildIndex(Me.FlowLayoutPanel1, 0)
         Me.Controls.SetChildIndex(Me.RscColorFlowPanel2, 0)
+        Me.Controls.SetChildIndex(Me.ButtonApplyBF, 0)
+        Me.Controls.SetChildIndex(Me.ButtonApplyFB, 0)
+        Me.Controls.SetChildIndex(Me.LabelSelected, 0)
+        Me.Controls.SetChildIndex(Me.ButtonUndoColorFont, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -186,4 +235,7 @@ Partial Class Dialog_BaseChooseColor
     Friend WithEvents LinkLabelRefreshColors As LinkLabel
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents RscColorFlowPanel2 As __RSCWindowsControlLibrary.RSCColorFlowPanel
+    Friend WithEvents ButtonApplyBF As Button
+    Friend WithEvents ButtonApplyFB As Button
+    Friend WithEvents LabelSelected As Label
 End Class

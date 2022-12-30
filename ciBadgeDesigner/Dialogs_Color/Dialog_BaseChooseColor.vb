@@ -11,6 +11,8 @@ Public Enum EnumForeOrBackground
     Undetermined
     Foreground
     Background
+    Foreground_AndBackInverse ''Added 12/30/2022
+    Background_AndForeInverse ''Added 12/30/2022
 End Enum
 
 Public Class Dialog_BaseChooseColor
@@ -424,6 +426,17 @@ Public Class Dialog_BaseChooseColor
                     .ElementClass_Obj.FontColor = color_UndoTuple
                 ElseIf (enum_UndoTuple = EnumForeOrBackground.Background) Then
                     .ElementClass_Obj.Back_Color = color_UndoTuple
+
+                ElseIf (enum_UndoTuple = EnumForeOrBackground.Foreground_AndBackInverse) Then
+                    ''Added 12/30/2022
+                    .ElementClass_Obj.FontColor = color_UndoTuple
+                    .ElementClass_Obj.Back_Color = RSCColor.GetInverseMSColor(color_UndoTuple)
+
+                ElseIf (enum_UndoTuple = EnumForeOrBackground.Background_AndForeInverse) Then
+                    ''Added 12/30/2022
+                    .ElementClass_Obj.Back_Color = color_UndoTuple
+                    .ElementClass_Obj.FontColor = RSCColor.GetInverseMSColor(color_UndoTuple)
+
                 End If
 
             Else
@@ -524,6 +537,18 @@ Public Class Dialog_BaseChooseColor
                 rscLabelDisplayColorSelected.RSCDisplayColor = rscColorSelected
                 rscLabelDisplayColorSelected.Visible = True ''Added 8/28/2022 
 
+                ''Added 12/30/2022 td
+                ButtonApplyBF.Enabled = True
+                ButtonApplyFB.Enabled = True
+                ButtonBackground.Enabled = True
+                ButtonForecolor.Enabled = True
+
+                ''Added 12/30/2022 td
+                ButtonApplyBF.BackColor = rscColorSelected.MSNetColor
+                ButtonApplyBF.ForeColor = rscColorSelected.GetInverseMSColor()
+                ButtonApplyFB.BackColor = rscColorSelected.GetInverseMSColor()
+                ButtonApplyFB.ForeColor = rscColorSelected.MSNetColor
+
             End If ''End of ""If (Not .Output_Cancelled) Then""  
 
         End With ''End of ""With objFormToShow""
@@ -542,4 +567,91 @@ Public Class Dialog_BaseChooseColor
         LinkLabelAddColor1_LinkClicked(LinkLabelAddColor1, objLinkArgs)
 
     End Sub
+
+    Private Sub ButtonApplyFB_Click(sender As Object, e As EventArgs) Handles ButtonApplyFB.Click
+
+        ''Added 12/30/2022 thomas  
+        Dim rscColorSelected As RSCColor ''Added 8/23/2022
+
+        With rscLabelDisplayColorSelected
+
+            rscColorSelected = .RSCDisplayColor
+
+            With mod_controlFieldOrTextV4
+                ''Save module-level variables. 
+                mod_msColorLastSelected = rscColorSelected.MSNetColor
+                mod_rscColorLastSelected = rscColorSelected
+                mod_msColorLastReplaced = .ElementClass_Obj.FontColor
+
+                ''Set Foreground color to selected, and set BackgroundColor to the inverse-selected color.
+                .ElementClass_Obj.FontColor = rscColorSelected.MSNetColor
+                ''Inverse color!!   ---12/30/2022 td
+                .ElementClass_Obj.Back_Color = rscColorSelected.GetInverseMSColor()
+
+                .RefreshElementImage()
+
+            End With ''End of ""With mod_controlFieldOrTextV4""
+
+            ''Added 12/30/2022 td
+            mod_enumForeOrBack = EnumForeOrBackground.Foreground_AndBackInverse
+
+            ''Undo Pop Stack (Last In, First Out)
+            ''   is built using Color-Enum pairs (tuples). 
+            ''   ----8/23/2022 
+            Dim objNewUndoTuple As Tuple(Of Drawing.Color, EnumForeOrBackground)
+            objNewUndoTuple =
+                New Tuple(Of Drawing.Color,
+                EnumForeOrBackground)(mod_msColorLastReplaced,
+                                      mod_enumForeOrBack)
+            ''Add the Undo Color-Enum Pair to the popstack. 
+            mod_stackUndoTuples.Push(objNewUndoTuple)
+
+        End With ''End of ""With rscLabelDisplayColorSelected""
+
+    End Sub
+
+    Private Sub ButtonApplyBF_Click(sender As Object, e As EventArgs) Handles ButtonApplyBF.Click
+
+        ''Added 12/30/2022 thomas  
+        Dim rscColorSelected As RSCColor ''Added 8/23/2022
+
+        With rscLabelDisplayColorSelected
+
+            rscColorSelected = .RSCDisplayColor
+
+            With mod_controlFieldOrTextV4
+                ''Save module-level variables. 
+                mod_msColorLastSelected = rscColorSelected.MSNetColor
+                mod_rscColorLastSelected = rscColorSelected
+                mod_msColorLastReplaced = .ElementClass_Obj.Back_Color
+
+                ''Set Background color to selected, and set FontColor to the inverse-selected color.
+                .ElementClass_Obj.Back_Color = rscColorSelected.MSNetColor
+                ''Inverse color!!   ---12/30/2022 td
+                .ElementClass_Obj.FontColor = rscColorSelected.GetInverseMSColor()
+
+                .RefreshElementImage()
+
+            End With ''End of ""With mod_controlFieldOrTextV4""
+
+            ''Added 12/30/2022 td
+            mod_enumForeOrBack = EnumForeOrBackground.Background_AndForeInverse
+
+            ''Undo Pop Stack (Last In, First Out)
+            ''   is built using Color-Enum pairs (tuples). 
+            ''   ----8/23/2022 
+            Dim objNewUndoTuple As Tuple(Of Drawing.Color, EnumForeOrBackground)
+            objNewUndoTuple =
+                New Tuple(Of Drawing.Color,
+                EnumForeOrBackground)(mod_msColorLastReplaced,
+                                      mod_enumForeOrBack)
+            ''Add the Undo Color-Enum Pair to the popstack. 
+            mod_stackUndoTuples.Push(objNewUndoTuple)
+
+        End With ''End of ""With rscLabelDisplayColorSelected""
+
+
+    End Sub
+
+
 End Class
