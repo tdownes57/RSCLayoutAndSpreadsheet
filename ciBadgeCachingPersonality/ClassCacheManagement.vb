@@ -197,8 +197,8 @@ Namespace ciBadgeCachePersonality
                   (0 = mod_cacheEdits.ListOfElementTextsV4_Backside().Count)
             If (bZeroStaticTextuals) Then listOmitted.Add(New ClassOmittedElement(Enum_ElementType.StaticTextV4, "Any text you want to add"))
 
-
-
+            ''Added 12/2022 
+            Return listOmitted ''Added 12/2022 
 
         End Function ''End of "Public Function GetOmittedElements()"
 
@@ -488,6 +488,10 @@ Namespace ciBadgeCachePersonality
 
             Next each_enum
 
+            ''There is //no// proper way to address a missing field at runtime. The program code
+            ''   which creates the entire list of fields must be fixed.---5/10/2022 td 
+            Return False ''Added 12/31/2022 thomas
+
         End Function ''End of "Public Function CheckForMissingFields()"
 
 
@@ -562,7 +566,7 @@ Namespace ciBadgeCachePersonality
             Dim ListFieldsRemoved As New List(Of ClassFieldCustomized)
             Dim boolDifferingSoEdited As Boolean
             Dim strListOfBadgeFields As String = "List of Custom Fields to go on Badge" & vbCrLf_Deux
-            Dim each_element As ciBadgeElements.ClassElementFieldV3
+            ''Unused.12/2022 Dim each_element As ciBadgeElements.ClassElementFieldV3
 
             ''---For Each each_field In Me.ElementsCache_Edits.ListOfFields_Custom()
             For Each each_field_possiblyEdited In mod_cacheEdits.ListOfFields_Custom()

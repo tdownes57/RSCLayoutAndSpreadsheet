@@ -12,6 +12,8 @@ Imports System.Xml.Serialization ''Added 9/24/2019 td
 Imports System.IO
 ''imports system.serial
 
+#Disable Warning CA1707 ''Warning about using underscores in names. 
+
 <Serializable>
 Public Class ClassElementSignature
     ''12/30/2022 Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes

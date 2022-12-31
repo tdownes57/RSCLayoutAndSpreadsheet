@@ -144,7 +144,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''5/09/2022 ''ClassFieldStandard.InitializeHardcodedList_Standard(True)    ''5/2022   _Students(True)
             Dim list_fields_Standard As HashSet(Of ClassFieldStandard)
-            Dim dict_Standard As Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022
+            Dim dict_Standard As New Dictionary(Of EnumCIBFields, ClassFieldStandard) ''Added 5/10/2022
 
             ''5/10/2022 list_fields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students")
             list_fields_Standard = ClassFieldStandard.GetInitializedList_Standard("Students", dict_Standard)
@@ -299,8 +299,15 @@ Namespace ciBadgeCachePersonality
             ''
             ''If the QR Code &/or Signature have been supplied, then we can proceed to copy them. 
             ''
-            If (Me.ElementQRCode IsNot Nothing) Then objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
-            If (Me.ElementSignature IsNot Nothing) Then objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
+            If (Me.ElementQRCode IsNot Nothing) Then
+                ''12/31/2022 objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
+                objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy_QR()
+            End If
+
+            If (Me.ElementSignature IsNot Nothing) Then
+                ''12/2022 td''objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
+                objCopyOfCache.ElementSignature = Me.ElementSignature.Copy_Sig()
+            End If
 
             ''Added 10/10/2019 thomas downes
             objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved
@@ -370,15 +377,15 @@ Namespace ciBadgeCachePersonality
                 'obj_cache_elements.LoadElement_Pic(intPicLeft, intPicTop, intPicWidth, intPicHeight,
                 '                                   obj_designForm.pictureBack) ''Added 9/19/2019 td
 
-                '''Added 10/14/2019 thomas d. 
+                ''Added 10/14/2019 thomas d. 
                 'obj_cache_elements.LoadElement_QRCode(intLeft_QR, intTop_QR, intWidth_QR, intHeight_QR,
                 '                                   obj_designForm.pictureBack) ''Added 10/14/2019 td
 
-                '''Added 10/14/2019 thomas d. 
+                ''Added 10/14/2019 thomas d. 
                 'obj_cache_elements.LoadElement_Signature(intLeft_Sig, intTop_Sig, intWidth_Sig, intHeight_Sig,
                 '                                   obj_designForm.pictureBack) ''Added 10/14/2019 td
 
-                '''Added 10/14/2019 thomas d. 
+                ''Added 10/14/2019 thomas d. 
                 'obj_cache_elements.LoadElement_Text(strStaticText,
                 '                                    intLeft_Text, intTop_Text,
                 '                                    intWidth_Text, intHeight_Text,

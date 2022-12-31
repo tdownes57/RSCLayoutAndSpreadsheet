@@ -7,6 +7,7 @@ Imports System.Diagnostics.Contracts
 Imports System.Drawing ''Added 9/18/2019 td  
 Imports System.Drawing.Text ''Added 
 
+#Disable Warning CA1707 ''Warning "Remove underscores from names."
 #Disable Warning CA2211 ''Warning "Non-constant fields should not be visible."
 
 Public Module modFonts
@@ -70,14 +71,15 @@ ExitHandler:
         Return new_font
     End Function ''Endof "Public Function MakeFont"
 
-    Public Function MakeItBoldEtc(ByRef par_font As Font) As Font
+    Public Function MakeItBoldEtc(ByRef parFont As Font) As Font
         ''
         ''Added 8/16/2019 td  
         ''
         Dim new_font As Font
         Dim new_fontstyle As FontStyle
 
-        With par_font
+        Contract.Requires(parFont IsNot Nothing) ''Added 12/31/2022
+        With parFont
 
             new_fontstyle = New FontStyle()
             ''new_fontstyle.Bold = FontStyle.Bold  ''True 
@@ -87,10 +89,10 @@ ExitHandler:
 
             new_font = New Font(.FontFamily, .Size, new_fontstyle)
 
-        End With
+        End With ''end of "With parFont"
 
 ExitHandler:
-        par_font = new_font
+        parFont = new_font
         Return new_font
 
     End Function ''End of "Public Function MakeItBold(ByRef par_font As Font) As Font"
@@ -108,6 +110,7 @@ ExitHandler:
 
         If (par_intSize < 7) Then par_intSize = 7
 
+        Contract.Requires(par_font IsNot Nothing) ''Added 12/31/2022 td
         With par_font
 
             new_font = New Font(.FontFamily, par_intSize, .Style)
@@ -146,7 +149,7 @@ ExitHandler:
 
     End Function ''End of "Public Function SetFontSize_Pixels(ByRef par_font As Font, par_intSize As Integer) As Font"
 
-    Public Function SetFontSize_Pixels(ByRef par_font As Font, par_sizeInPixels As Single) As Font
+    Public Function SetFontSize_Pixels(ByRef parFont As Font, par_sizeInPixels As Single) As Font
         ''
         ''  https://stackoverflow.com/questions/15419744/fontsize-pixels-c-sharp-equivalent
         ''
@@ -157,13 +160,14 @@ ExitHandler:
         ''If (par_sizeInPixels < 7) Then par_sizeInPixels = 7
         If (par_sizeInPixels < 5) Then Throw New Exception("The size in pixels is <5.")
 
-        With par_font
+        Contract.Requires(parFont IsNot Nothing) ''Added 12/31/2022
+        With parFont
 
             new_font = New Font(.FontFamily, par_sizeInPixels, .Style, GraphicsUnit.Pixel)
 
         End With
 
-        par_font = new_font
+        parFont = new_font
         Return new_font
 
     End Function ''End of "Public Function SetFontSize_Pixels(ByRef par_font As Font, par_sizeInPixels As Single) As Font"

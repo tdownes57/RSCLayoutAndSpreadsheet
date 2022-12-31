@@ -57,8 +57,13 @@ Module modAllowFieldEdits
             ''--Dim frm_ToShow_AllCustomFields As New ListCustomFieldsFlow()
             Dim frm_ToShowFields As InterfaceShowListFields ''ListCustomFieldsFlow()
 
-            If (boolStandard) Then frm_ToShowFields = New DialogListStandardFields
-            If (bool__Custom) Then frm_ToShowFields = New DialogListCustomFields
+            ''12/2022 If (boolStandard) Then frm_ToShowFields = New DialogListStandardFields
+            If (bool__Custom) Then
+                frm_ToShowFields = New DialogListCustomFields
+            Else
+                ''Added 12/2022 td
+                frm_ToShowFields = New DialogListStandardFields
+            End If ''End of ""If (bool__Custom) Then ... Else ...
 
             ''Dim each_field As ciBadgeFields.ClassFieldCustomized
             ''Dim each_element As ciBadgeElements.ClassElementField

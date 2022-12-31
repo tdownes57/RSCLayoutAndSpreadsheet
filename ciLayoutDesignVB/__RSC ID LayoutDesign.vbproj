@@ -75,12 +75,6 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ciCfg">
-      <HintPath>..\..\..\..\..\..\CI Solutions\CI Badge\ciCfg.dll</HintPath>
-    </Reference>
-    <Reference Include="ciQREncoding">
-      <HintPath>..\..\..\..\..\..\CI Solutions\CI Badge\ciQREncoding.dll</HintPath>
-    </Reference>
     <Reference Include="Dropbox.Api, Version=6.15.0.0, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
       <HintPath>..\packages\Dropbox.Api.6.15.0\lib\netstandard2.0\Dropbox.Api.dll</HintPath>
     </Reference>

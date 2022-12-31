@@ -11,6 +11,7 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 ''9/19/2019 td''Imports ciLayoutPrintLib ''Added 9/18/2019 td 
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 Imports ciBadgeElements ''Added 12/4/2021 thomas downes  
+Imports System.Runtime.InteropServices.WindowsRuntime
 
 Namespace ciBadgeCachePersonality
 
@@ -1825,9 +1826,9 @@ Namespace ciBadgeCachePersonality
             ''
             Dim obj_field As ClassFieldAny
             Dim new_elementField As ClassElementFieldV3 ''Added 9/18/2019 td
-            Dim intFieldIndex As Integer ''Added 9/18/2019 td
-            Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
-            Dim intTop_Pixels As Integer ''Added 9/18/2019 td
+            ''Unused.12/2022 Dim intFieldIndex As Integer ''Added 9/18/2019 td
+            ''Unused.12/2022 Dim intLeft_Pixels As Integer ''Added 9/18/2019 td
+            ''Unused.12/2022 Dim intTop_Pixels As Integer ''Added 9/18/2019 td
             Const c_intHeight_Pixels As Integer = 30 ''Added 9/18/2019 td
             Dim intCountElements_Before As Integer = 0 ''Added 5/12/2022 td
             Dim intCountElements_After As Integer = 0 ''Added 5/12/2022 td
@@ -2500,7 +2501,8 @@ Namespace ciBadgeCachePersonality
 
             ''Added 9/17/2019 thomas downes  
             For Each each_elementPic As ClassElementPortrait In mod_listElementPics_Front
-                objCopyOfCache.ListPicElements_Front().Add(each_elementPic.Copy())
+                ''12/31/2022 objCopyOfCache.ListPicElements_Front().Add(each_elementPic.Copy())
+                objCopyOfCache.ListPicElements_Front().Add(each_elementPic.Copy_Portrait())
             Next each_elementPic
 
             ''Added 9/17/2019 thomas downes  
@@ -2527,12 +2529,14 @@ Namespace ciBadgeCachePersonality
 
             ''Added 1/19/2022 thomas downes  
             For Each each_elementQRCode As ClassElementQRCode In mod_listElementQRCodes_Front
-                objCopyOfCache.ListOfElementQRCodes_Front().Add(each_elementQRCode.Copy())
+                ''12/2022 objCopyOfCache.ListOfElementQRCodes_Front().Add(each_elementQRCode.Copy())
+                objCopyOfCache.ListOfElementQRCodes_Front().Add(each_elementQRCode.Copy_QR())
             Next each_elementQRCode
 
             ''Added 1/19/2022 thomas downes  
             For Each each_elementQRCode As ClassElementQRCode In mod_listElementQRCodes_Backside
-                objCopyOfCache.ListOfElementQRCodes_Back().Add(each_elementQRCode.Copy())
+                ''12/2022 objCopyOfCache.ListOfElementQRCodes_Back().Add(each_elementQRCode.Copy())
+                objCopyOfCache.ListOfElementQRCodes_Back().Add(each_elementQRCode.Copy_QR())
             Next each_elementQRCode
 
             ''Added 10/8/2019 thomas downes
@@ -2540,12 +2544,14 @@ Namespace ciBadgeCachePersonality
 
             ''Added 1/19/2022 thomas downes  
             For Each each_elementSig As ClassElementSignature In mod_listElementSignatures_Front
-                objCopyOfCache.ListOfElementSignatures_Front().Add(each_elementSig.Copy())
+                ''12/2022 objCopyOfCache.ListOfElementSignatures_Front().Add(each_elementSig.Copy())
+                objCopyOfCache.ListOfElementSignatures_Front().Add(each_elementSig.Copy_Sig())
             Next each_elementSig
 
             ''Added 1/19/2022 thomas downes  
             For Each each_elementSig As ClassElementSignature In mod_listElementSignatures_Backside
-                objCopyOfCache.ListOfElementSignatures_Back().Add(each_elementSig.Copy())
+                ''12/2022 objCopyOfCache.ListOfElementSignatures_Back().Add(each_elementSig.Copy())
+                objCopyOfCache.ListOfElementSignatures_Back().Add(each_elementSig.Copy_Sig())
             Next each_elementSig
 
 
@@ -2652,7 +2658,8 @@ Namespace ciBadgeCachePersonality
             ''Throw New NotImplementedException("Not implemented.   #x4591")
             '9/1/2022 Throw New NotImplementedException()
             System.Diagnostics.Debugger.Break()
-
+            ''12/2022 Return Guid.NewGuid()
+            Return ListFieldElementsV3.FirstOrDefault()
 
         End Function ''End of "Public Function GetElementByGUID(par_guid As System.Guid) As ClassElementField"
 
@@ -2753,7 +2760,7 @@ Namespace ciBadgeCachePersonality
             ''
             ''Added 10/13/2019 td
             ''
-            Dim bMisaligned As Boolean ''Added 12/13/2021 td
+            ''Unused.12/2022 Dim bMisaligned As Boolean ''Added 12/13/2021 td
 
             For Each each_elementField As ClassElementFieldV3 In mod_listElementFields_FrontV3
                 With each_elementField
@@ -2872,7 +2879,7 @@ Namespace ciBadgeCachePersonality
             ''Added 11/19/2021 Thomas Downes 
             ''
             Dim objRelevantFieldAny As ClassFieldAny = Nothing
-            Dim objElement As ClassElementFieldV3
+            ''Unused.12/2022 Dim objElement As ClassElementFieldV3
 
             ''This sucks''objField = (ListOfFields_Any()).Item(pintFieldIndex)
 
@@ -3202,17 +3209,23 @@ Namespace ciBadgeCachePersonality
 
             pref_section = 17 ''Added 11/27/2019 td
 
+            ''12/2022 #Disable Warning BC42025 '' "Access of shared member through an instance; qualifying expression will not be evaluated."
+
             ''Added 9/19/2019 td
             With obj_designForm
                 ''Added 9/19/2019 td
-                ''2/3/2020 td''intPicLeft = .picturePortrait.Left - .pictureBack.Left
-                ''2/3/2020 td''intPicTop = .picturePortrait.Top - .pictureBack.Top
-                ''2/3/2020 td''intPicWidth = .picturePortrait.Width
-                ''2/3/2020 td''intPicHeight = .picturePortrait.Height
-                intPicLeft = .picturePortrait_Left - .pictureBack_Left
-                intPicTop = .picturePortrait_Top - .pictureBack_Top
-                intPicWidth = .picturePortrait_Width
-                intPicHeight = .picturePortrait_Height
+                '' 2/ 3/2020 td''intPicLeft = .picturePortrait.Left - .pictureBack.Left
+                '' 2/ 3/2020 td''intPicTop = .picturePortrait.Top - .pictureBack.Top
+                '' 2/ 3/2020 td''intPicWidth = .picturePortrait.Width
+                '' 2/ 3/2020 td''intPicHeight = .picturePortrait.Height
+                ''12/31/2020 td''intPicLeft = .picturePortrait_Left - .pictureBack_Left
+                ''12/31/2020 td''intPicTop = .picturePortrait_Top - .pictureBack_Top
+                ''12/31/2020 td''intPicWidth = .picturePortrait_Width
+                ''12/31/2020 td''intPicHeight = .picturePortrait_Height
+                intPicLeft = FormBadgeLayoutProto.picturePortrait_Left - FormBadgeLayoutProto.pictureBack_Left
+                intPicTop = FormBadgeLayoutProto.picturePortrait_Top - FormBadgeLayoutProto.pictureBack_Top
+                intPicWidth = FormBadgeLayoutProto.picturePortrait_Width
+                intPicHeight = FormBadgeLayoutProto.picturePortrait_Height
             End With
 
             pref_section = 171 ''Added 11/27/2019 td

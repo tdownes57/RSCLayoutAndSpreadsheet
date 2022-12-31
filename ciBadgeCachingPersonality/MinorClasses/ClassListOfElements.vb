@@ -147,6 +147,7 @@ Public MustInherit Class ClassListOfElements
                 ''5/16/2022 td'' Return ClassList_FieldsV3
                 If (pbUseOlderVersionOfField) Then Return ClassList_FieldsV3
                 If (Not pbUseOlderVersionOfField) Then Return ClassList_FieldsV4
+                Return ClassList_FieldsV4 ''Added 12/2022 td
 
             Case Enum_ElementType.Portrait : Return ClassList_Portraits
             Case Enum_ElementType.QRCode : Return ClassList_QRCodes
@@ -157,8 +158,11 @@ Public MustInherit Class ClassListOfElements
             Case Enum_ElementType.StaticTextV3 : Return ClassList_StaticTextsV3
             Case Enum_ElementType.StaticTextV4 : Return ClassList_StaticTextsV4
 
-        End Select
+            Case Else
+                ''Added 12/31/2022
+                Throw New ArgumentException ''Added 12/31/2022
 
+        End Select
 
     End Function ''ENd of "Public Shared Function GetListOfElements(par_enum As enum)"
 

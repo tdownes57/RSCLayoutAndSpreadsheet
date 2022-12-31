@@ -471,7 +471,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
 
             ''Added 9/17/2019 thomas downes  
             For Each each_elementPic As ClassElementPortrait In mod_listElementPics
-                objCopyOfCache.ListPicElements().Add(each_elementPic.Copy())
+                ''12/31/2022 objCopyOfCache.ListPicElements().Add(each_elementPic.Copy())
+                objCopyOfCache.ListPicElements().Add(each_elementPic.Copy_Portrait())
             Next each_elementPic
 
             ''Added 9/17/2019 thomas downes  
@@ -483,8 +484,15 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''
             ''If the QR Code &/or Signature have been supplied, then we can proceed to copy them. 
             ''
-            If (Me.ElementQRCode IsNot Nothing) Then objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
-            If (Me.ElementSignature IsNot Nothing) Then objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
+            If (Me.ElementQRCode IsNot Nothing) Then
+                ''12/2022 objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy
+                objCopyOfCache.ElementQRCode = Me.ElementQRCode.Copy_QR()
+            End If
+
+            If (Me.ElementSignature IsNot Nothing) Then
+                ''12/2022 objCopyOfCache.ElementSignature = Me.ElementSignature.Copy
+                objCopyOfCache.ElementSignature = Me.ElementSignature.Copy_Sig()
+            End If
 
             ''Added 10/10/2019 thomas downes
             ''See Personality for XML work. 11/24 td''objCopyOfCache.PathToXml_Saved = Me.PathToXml_Saved

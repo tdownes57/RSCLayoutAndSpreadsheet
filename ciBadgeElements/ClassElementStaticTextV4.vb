@@ -12,6 +12,7 @@ Imports System.Windows.Forms ''Added 9/18/2019 td
 ''//Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.  
 ''//Imports ciBadgeSerialize ''Added 6/7/2022 thomas d.
 
+#Disable Warning CA1707 ''Removal of underscores.
 
 <Serializable>
 Public Class ClassElementStaticTextV4
@@ -81,6 +82,8 @@ Public Class ClassElementStaticTextV4
     ''    Return obj_image
     ''
     ''End of 8/26 td''End Function ''End of "Public Function GenerateImage() As Image Implements IElementText.GenerateImage"
+
+#Disable Warning CA1707 ''Removal of underscores.  12/2022
 
     Public Function GenerateImage_ByDesiredLayoutWidth(pintDesiredLayoutWidth As Integer) As Image _
         ''--Implements IElement_TextOnly.GenerateImage_ByDesiredLayoutWidth

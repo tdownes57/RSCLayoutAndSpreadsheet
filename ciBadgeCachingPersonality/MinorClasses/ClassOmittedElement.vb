@@ -33,7 +33,7 @@ Public Class ClassOmittedElement
 
 
 
-    Public Function ToString() As String
+    Public Overrides Function ToString() As String
 
         ''March3 2022 td''Return mod_strOmittedElement '' As String
         Return mod_strOmissionName '' As String

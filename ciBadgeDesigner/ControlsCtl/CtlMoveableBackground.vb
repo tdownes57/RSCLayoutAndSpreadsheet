@@ -68,6 +68,8 @@ Public Class CtlMoveableBackground
             Return ctlMoveable1.Picture_Box
         End If ''End of ""If (ctlMoveable2 IsNot Nothing) Then... ElseIf..."
 
+        Return Nothing ''Added 12/31/2022 td
+
     End Function ''End of ""Public Function GetPictureBox() As PictureBox""
 
 

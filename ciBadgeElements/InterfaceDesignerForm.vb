@@ -3,6 +3,8 @@
 ''
 Imports ciBadgeInterfaces
 
+#Disable Warning CA1707 ''Warning about underscores. 12/31/2022
+
 Public Interface IDesignerForm_DontUse
     ''
     ''Added 10/13/2019 td 

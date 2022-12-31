@@ -446,12 +446,14 @@ Public Class CtlGraphicFieldOrTextV4
 
     ''End Sub ''ENd of "Public Sub New_Deprecated"
 
-    Public Sub Refresh_Master(Optional pboolDialogApplyButton As Boolean = False)
+    Public Overloads Sub Refresh_Master(Optional pboolDialogApplyButton As Boolean = False)
         ''
         ''Added 9/5/2019 thomas d 
         ''
         If (pboolDialogApplyButton) Then System.Diagnostics.Debugger.Break() ''Added 9/19/2019 td  
         If (pboolDialogApplyButton) Then MessageBox.Show(Me.LayoutFunctions.NameOfForm()) ''Added 9/19/2019 td  
+
+        MyBase.Refresh_Master() ''Added 12/31/2022
 
         Refresh_PositionAndSize()
 
@@ -501,20 +503,20 @@ ExitHandler:
     End Sub ''End of "Public Sub Refresh_Master()"
 
 
-    Public Sub Refresh_PositionAndSize()
-        ''
-        ''Added 9/5/2019 thomas d 
-        ''
-        ''9/19/2019 td''Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
-        ''9/19/2019 td''Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+    ''12/2022 Public Sub Refresh_PositionAndSize()
+    ''    ''
+    ''    ''Added 9/5/2019 thomas d 
+    ''    ''
+    ''    ''9/19/2019 td''Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+    ''    ''9/19/2019 td''Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
 
-        Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
-        Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+    ''    Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+    ''    Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
 
-        Me.Width = Me.ElementInfo_Base.Width_Pixels
-        Me.Height = Me.ElementInfo_Base.Height_Pixels
+    ''    Me.Width = Me.ElementInfo_Base.Width_Pixels
+    ''    Me.Height = Me.ElementInfo_Base.Height_Pixels
 
-    End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+    ''End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
 
     Public Overrides Sub Refresh_ImageV4(pbRefreshSize As Boolean,
@@ -1139,108 +1141,108 @@ ExitHandler:
     End Function ''End of "Public Function LabelText() As String"
 
 
-    Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean
-        ''
-        ''Added 9/20/2019 td  
-        ''
-        Dim boolInsideHorizontally As Boolean
-        Dim boolInsideVertically As Boolean
-        Dim boolInside_BothWays As Boolean
+    ''12/2022 Public Function InsideMe(par_intX As Integer, par_intY As Integer) As Boolean
+    ''    ''
+    ''    ''Added 9/20/2019 td  
+    ''    ''
+    ''    Dim boolInsideHorizontally As Boolean
+    ''    Dim boolInsideVertically As Boolean
+    ''    Dim boolInside_BothWays As Boolean
 
-        boolInsideHorizontally = (Me.Left <= par_intX And par_intX <= (Me.Left + Me.Width))
-        boolInsideVertically = (Me.Top <= par_intY And par_intY <= (Me.Top + Me.Height))
+    ''    boolInsideHorizontally = (Me.Left <= par_intX And par_intX <= (Me.Left + Me.Width))
+    ''    boolInsideVertically = (Me.Top <= par_intY And par_intY <= (Me.Top + Me.Height))
 
-        boolInside_BothWays = (boolInsideHorizontally And boolInsideVertically)
-        Return boolInside_BothWays
+    ''    boolInside_BothWays = (boolInsideHorizontally And boolInsideVertically)
+    ''    Return boolInside_BothWays
 
-    End Function ''eND OF "Public Function InsideMe(par_intX, par_intY As Integer) As Boolean"
-
-
-    Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle,
-                     Optional par_bRedrawElement As Boolean = False)
-        ''
-        ''Added 9/20/2019 thomas downes
-        ''
-        Dim boolRubBandIsAll_LeftOfMe As Boolean
-        Dim boolRubBandIsAll_RightOfMe As Boolean
-        Dim boolRubBandIsAll_AboveMe As Boolean
-        Dim boolRubBandIsAll_BelowMe As Boolean
-
-        Dim boolBandIsInsideMeHorizontally As Boolean
-        Dim boolBandIsInsideMeVertically As Boolean
-        Dim boolBandIsInsideMe_BothWays As Boolean
-        Dim boolBandOverlapsWithMe As Boolean
-
-        Dim obj_rectangleAdjusted As Rectangle
-
-        Dim intRbandInDesignForm_Left As Integer
-        Dim intRbandInDesignForm_Top As Integer
-
-        With par_rubberband ''Added 9/20/2019 td
-
-            ''Rband = Rubberband 
-            intRbandInDesignForm_Left = Me.LayoutFunctions.Layout_Margin_Left_Add(.Left)
-            intRbandInDesignForm_Top = Me.LayoutFunctions.Layout_Margin_Top_Add(.Top)
-
-            ''Added 9/20/2019 td
-            obj_rectangleAdjusted =
-                New Rectangle(intRbandInDesignForm_Left,
-                              intRbandInDesignForm_Top,
-                                     .Width, .Height)
-
-        End With ''End of "With par_rubberband"
-
-        With obj_rectangleAdjusted
-
-            boolRubBandIsAll_AboveMe = ((.Top + .Height) < Me.Top)
-            boolRubBandIsAll_BelowMe = ((Me.Top + Me.Height) < .Top)
-
-            boolRubBandIsAll_LeftOfMe = (.Left + .Width < Me.Left)
-            boolRubBandIsAll_RightOfMe = ((Me.Left + Me.Width) < .Left)
-
-        End With ''End of " With par_rubberband"
-
-        boolBandIsInsideMeHorizontally = (Not (boolRubBandIsAll_LeftOfMe Or boolRubBandIsAll_RightOfMe))
-        boolBandIsInsideMeVertically = (Not (boolRubBandIsAll_AboveMe Or boolRubBandIsAll_BelowMe))
-
-        boolBandIsInsideMe_BothWays = (boolBandIsInsideMeHorizontally And boolBandIsInsideMeVertically)
-        boolBandOverlapsWithMe = boolBandIsInsideMe_BothWays
-
-        If (boolBandOverlapsWithMe) Then
-            Me.ElementClass_Obj.SelectedHighlighting = True
-
-            ''10/13/2019 td''Me.Refresh_Image(False)
-            ''02/01/2022 td''If (par_bRedrawElement) Then Me.Refresh_Image(False)
-            If (par_bRedrawElement) Then Me.Refresh_ImageV3(False)
-
-        End If ''End of "If (boolBandOverlapsWithMe) Then"
-
-    End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
+    ''End Function ''eND OF "Public Function InsideMe(par_intX, par_intY As Integer) As Boolean"
 
 
-    Public Sub ManageResizingByUser(par_bUseTempInfo As Boolean,
-                                    par_deltaWidth As Integer, par_deltaHeight As Integer,
-                                    par_deltaTop As Integer, par_deltaLeft As Integer)
-        ''
-        ''Added 10/14/2019 
-        ''
-        If (par_bUseTempInfo) Then
+    ''12/2022 td''Public Sub Highlight_IfInsideRubberband(par_rubberband As Rectangle,
+    ''                 Optional par_bRedrawElement As Boolean = False)
+    ''    ''
+    ''    ''Added 9/20/2019 thomas downes
+    ''    ''
+    ''    Dim boolRubBandIsAll_LeftOfMe As Boolean
+    ''    Dim boolRubBandIsAll_RightOfMe As Boolean
+    ''    Dim boolRubBandIsAll_AboveMe As Boolean
+    ''    Dim boolRubBandIsAll_BelowMe As Boolean
 
-            Me.ElementClass_Obj.Width_Pixels = (TempResizeInfo_W + par_deltaWidth)
-            Me.ElementClass_Obj.Height_Pixels = (TempResizeInfo_H + par_deltaHeight)
-        Else
-            Me.ElementClass_Obj.Width_Pixels += (par_deltaWidth)
-            Me.ElementClass_Obj.Height_Pixels += (par_deltaHeight)
-            Me.ElementClass_Obj.TopEdge_Pixels += (par_deltaTop)
-            Me.ElementClass_Obj.LeftEdge_Pixels += (par_deltaLeft)
-        End If ''End of "If (par_bUseTempInfo) Then ... Else ..."
+    ''    Dim boolBandIsInsideMeHorizontally As Boolean
+    ''    Dim boolBandIsInsideMeVertically As Boolean
+    ''    Dim boolBandIsInsideMe_BothWays As Boolean
+    ''    Dim boolBandOverlapsWithMe As Boolean
 
-        Me.Width = Me.ElementClass_Obj.Width_Pixels
-        Me.Height = Me.ElementClass_Obj.Height_Pixels
-        Me.Top = Me.ElementClass_Obj.TopEdge_Pixels
-        Me.Left = Me.ElementClass_Obj.LeftEdge_Pixels
+    ''    Dim obj_rectangleAdjusted As Rectangle
 
-    End Sub ''End of "Public Sub ManageResizingByUser(par_intWidth As Integer, par_intHeight As Integer)"
+    ''    Dim intRbandInDesignForm_Left As Integer
+    ''    Dim intRbandInDesignForm_Top As Integer
+
+    ''    With par_rubberband ''Added 9/20/2019 td
+
+    ''        ''Rband = Rubberband 
+    ''        intRbandInDesignForm_Left = Me.LayoutFunctions.Layout_Margin_Left_Add(.Left)
+    ''        intRbandInDesignForm_Top = Me.LayoutFunctions.Layout_Margin_Top_Add(.Top)
+
+    ''        ''Added 9/20/2019 td
+    ''        obj_rectangleAdjusted =
+    ''            New Rectangle(intRbandInDesignForm_Left,
+    ''                          intRbandInDesignForm_Top,
+    ''                                 .Width, .Height)
+
+    ''    End With ''End of "With par_rubberband"
+
+    ''    With obj_rectangleAdjusted
+
+    ''        boolRubBandIsAll_AboveMe = ((.Top + .Height) < Me.Top)
+    ''        boolRubBandIsAll_BelowMe = ((Me.Top + Me.Height) < .Top)
+
+    ''        boolRubBandIsAll_LeftOfMe = (.Left + .Width < Me.Left)
+    ''        boolRubBandIsAll_RightOfMe = ((Me.Left + Me.Width) < .Left)
+
+    ''    End With ''End of " With par_rubberband"
+
+    ''    boolBandIsInsideMeHorizontally = (Not (boolRubBandIsAll_LeftOfMe Or boolRubBandIsAll_RightOfMe))
+    ''    boolBandIsInsideMeVertically = (Not (boolRubBandIsAll_AboveMe Or boolRubBandIsAll_BelowMe))
+
+    ''    boolBandIsInsideMe_BothWays = (boolBandIsInsideMeHorizontally And boolBandIsInsideMeVertically)
+    ''    boolBandOverlapsWithMe = boolBandIsInsideMe_BothWays
+
+    ''    If (boolBandOverlapsWithMe) Then
+    ''        Me.ElementClass_Obj.SelectedHighlighting = True
+
+    ''        ''10/13/2019 td''Me.Refresh_Image(False)
+    ''        ''02/01/2022 td''If (par_bRedrawElement) Then Me.Refresh_Image(False)
+    ''        If (par_bRedrawElement) Then Me.Refresh_ImageV3(False)
+
+    ''    End If ''End of "If (boolBandOverlapsWithMe) Then"
+
+    ''End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
+
+
+    ''Shadows. 12/2022 Public Sub ManageResizingByUser(par_bUseTempInfo As Boolean,
+    ''                                par_deltaWidth As Integer, par_deltaHeight As Integer,
+    ''                                par_deltaTop As Integer, par_deltaLeft As Integer)
+    ''    ''
+    ''    ''Added 10/14/2019 
+    ''    ''
+    ''    If (par_bUseTempInfo) Then
+
+    ''        Me.ElementClass_Obj.Width_Pixels = (TempResizeInfo_W + par_deltaWidth)
+    ''        Me.ElementClass_Obj.Height_Pixels = (TempResizeInfo_H + par_deltaHeight)
+    ''    Else
+    ''        Me.ElementClass_Obj.Width_Pixels += (par_deltaWidth)
+    ''        Me.ElementClass_Obj.Height_Pixels += (par_deltaHeight)
+    ''        Me.ElementClass_Obj.TopEdge_Pixels += (par_deltaTop)
+    ''        Me.ElementClass_Obj.LeftEdge_Pixels += (par_deltaLeft)
+    ''    End If ''End of "If (par_bUseTempInfo) Then ... Else ..."
+
+    ''    Me.Width = Me.ElementClass_Obj.Width_Pixels
+    ''    Me.Height = Me.ElementClass_Obj.Height_Pixels
+    ''    Me.Top = Me.ElementClass_Obj.TopEdge_Pixels
+    ''    Me.Left = Me.ElementClass_Obj.LeftEdge_Pixels
+
+    ''End Sub ''End of "Public Sub ManageResizingByUser(par_intWidth As Integer, par_intHeight As Integer)"
 
 
     Private Sub RefreshElement_Field(sender As Object, e As EventArgs)

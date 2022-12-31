@@ -76,7 +76,11 @@ Public Class Operations_StaticTextV3
             If (res_dia = DialogResult.OK) Then
                 .Text_StaticLine = objFormToShow.Output_SingleLine
                 .Text_IsMultiLine = objFormToShow.Output_IsMultiLine
-                .Text_ListOfLines = objFormToShow.Output_ListOfLines
+
+                ''12/2022 .Text_ListOfLines = objFormToShow.Output_ListOfLines
+                .Text_ListOfLines.Clear() ''Added 12/2022
+                .Text_ListOfLines.AddRange(objFormToShow.Output_ListOfLines)
+
                 .DateEdited = Now
             End If ''End of ""If (res_dia = DialogResult.OK) Then"" 
 

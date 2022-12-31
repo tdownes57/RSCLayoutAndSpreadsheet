@@ -18,6 +18,8 @@ Public Class ClassElementBase
     ''Added 1/23/2022 td
     Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base.WhyOmitted
 
+#Disable Warning CA1707 ''Underscores-in-names
+
     ''Added 5/5/2022 td
     Public Property ConditionalExpressionInUse As Boolean
     Public Property ConditionalExpressionField As EnumCIBFields
@@ -126,6 +128,8 @@ Public Class ClassElementBase
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get
             ''9/5/2022 Throw New NotImplementedException()
+            Return 0
+
         End Get
         Set(value As Integer)
             ''9/5/2022 Throw New NotImplementedException()

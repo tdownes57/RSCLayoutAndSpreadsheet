@@ -126,6 +126,8 @@ Public Class ClassElementFieldV3
         End Set
     End Property
 
+#Disable Warning CA1707 ''Remove underscores warning. 12/31/2022
+
     Public Shared Function GetMapperConfiguration_Pic() As AutoMapper.MapperConfiguration
         ''
         '' Added 11/17/2021 thomas downes
@@ -151,6 +153,8 @@ Public Class ClassElementFieldV3
         Return _mapConfig_Pic
 
     End Function ''End of ""
+
+#Disable Warning CA1707 ''Warning re. Don't use underscores in names.
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
@@ -244,7 +248,16 @@ Public Class ClassElementFieldV3
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
     Public Property Text_ExampleValue As String Implements IElement_TextOnly.Text_ExampleValue ''Added 5/31/2022
     Public Property Text_IsMultiLine As Boolean Implements IElement_TextOnly.Text_IsMultiLine ''Added 5/31/2022
-    Public Property Text_ListOfLines As List(Of String) Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
+
+
+    Private _ListOfLines As List(Of String) ''Added 12/31/2022
+    Public ReadOnly Property Text_ListOfLines As List(Of String) ''12/2022 Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
+        Get
+            Return _ListOfLines ''Added 12/31/2022
+        End Get
+    End Property
+
+
 
     ''--16----Replaced by a Shared Property of the same name.---10/16/2019 td
     ''--16--10/16/2019 td''Added 9/10/2019 td     <Xml.Serialization.XmlIgnore>
@@ -639,7 +652,7 @@ Public Class ClassElementFieldV3
     ''
     ''End Function ''End of Public Function ElementIndexIsFieldIndex 
 
-
+#Disable Warning CA1707 ''Remove underscores warning. 12/2022
 
     Public Function FieldNm_CaptionText() As String
         ''//Added 11/10/2021 thomas downes
@@ -797,6 +810,9 @@ Public Class ClassElementFieldV3
         Return obj_image
 
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
+
+
+#Disable Warning CA1707 '' "Remove underscores."
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_elementInfo_Text As IElement_TextOnly, par_elementInfo_Base As IElement_Base) As Image

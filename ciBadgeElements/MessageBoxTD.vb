@@ -4,6 +4,7 @@ Option Strict On
 ''Code originally written 12/28/2022 td
 ''Copy-pasted on 2/8/2022 td
 ''
+Imports System.Globalization
 Imports System.Windows.Forms ''Added 2/8/2022 td
 
 
@@ -13,7 +14,8 @@ Public NotInheritable Class MessageBoxTD
     Private Const _vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
 
-#Disable Warning CA1707 ''Warning "Remove underscores."
+#Disable Warning CA1707 ''Warning "Remove underscores." 12/2022
+#Disable Warning CA1303 ''Retrieve following strings from resource table. 12/2022
 
     Public Shared Sub Show_Statement(pstrStatement As String,
                                      Optional pstrStatement2 As String = "",
@@ -27,7 +29,7 @@ Public NotInheritable Class MessageBoxTD
             ''
             ''The three-lines version.  Most popular choice!!   LOL. 
             ''
-            MessageBox.Show(pstrStatement, "MessageBoxTD-Statement",
+            MessageBox.Show(pstrStatement, "MBTD Statement",
                             MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         ElseIf (String.IsNullOrEmpty(pstrStatement3)) Then
@@ -35,7 +37,7 @@ Public NotInheritable Class MessageBoxTD
             ''The two-lines version.
             ''
             MessageBox.Show(pstrStatement & _vbCrLf_Deux &
-                            pstrStatement2, "MessageBoxTD-Statement",
+                            pstrStatement2, "MBTD Statement",
                            MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
             ''
@@ -79,14 +81,20 @@ Public NotInheritable Class MessageBoxTD
         ''Added 5/25/2022 thomas downes
         ''
         Dim strLine1_WithNumbers As String
+        Dim objFormat As IFormatProvider ''Added 12/31/2022 td
+        objFormat = New CultureInfo("en-US") ''Added 12/31/2022 td
 
         If (pintNumber2 = -1) Then
-            strLine1_WithNumbers = String.Format(pstrStatement_Line1, pintNumber1)
+            ''12/31/2022 strLine1_WithNumbers = String.Format(objFormatProvider, pstrStatement_Line1, pintNumber1)
+            strLine1_WithNumbers = String.Format(objFormat, pstrStatement_Line1, pintNumber1)
         Else
-            strLine1_WithNumbers = String.Format(pstrStatement_Line1, pintNumber1, pintNumber2)
+            ''12/2022 strLine1_WithNumbers = String.Format(pstrStatement_Line1, pintNumber1, pintNumber2)
+            strLine1_WithNumbers = String.Format(objFormat, pstrStatement_Line1, pintNumber1, pintNumber2)
         End If
 
-        MessageBox.Show(strLine1_WithNumbers, "MessageBoxTD-Statement",
+#Disable Warning CA1303 '' "Retrieve the following strings from a resource table."
+
+        MessageBox.Show(strLine1_WithNumbers, "Format Numbers",
                         MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub ''End of ""Public Shared Sub Show_FormatNumbers""
@@ -101,7 +109,11 @@ Public NotInheritable Class MessageBoxTD
         ''Added 4/26/2022 thomas downes
         ''
         Dim strLine1_WithWord As String
-        strLine1_WithWord = String.Format(pstrStatement_Line1, pstrWord_ForLine1)
+        Dim objCultureUS As IFormatProvider ''Added 12/31/2022
+        objCultureUS = New CultureInfo("en-US") ''Added 12/31/2022
+
+        ''12/2022 strLine1_WithWord = String.Format(pstrStatement_Line1, pstrWord_ForLine1)
+        strLine1_WithWord = String.Format(objCultureUS, pstrStatement_Line1, pstrWord_ForLine1)
 
         MessageBox.Show(strLine1_WithWord & _vbCrLf_Deux &
                         pstrStatement_Line2, "MessageBoxTD-Statement",

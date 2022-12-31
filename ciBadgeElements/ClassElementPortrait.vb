@@ -11,6 +11,8 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.
 Imports System.Xml.Serialization ''Added 9/24/2019 td
 ''imports system.serial
 
+#Disable Warning CA1707 ''Warning about using underscores in names. 12/2022
+
 <Xml.Serialization.XmlInclude(GetType(ClassElementPortrait))>
 <Serializable>
 Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassElementPic. ---1/13/2022 & 10/8/2019 td 

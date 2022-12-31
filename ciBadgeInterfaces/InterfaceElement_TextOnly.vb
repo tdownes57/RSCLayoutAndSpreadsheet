@@ -69,7 +69,8 @@ Public Interface IElement_TextOnly
 
     Property Text_StaticLine As String ''E.g. "This is the same for everyone." or "The holder of this badge has all rights and responsibilities subject thereto." 
     Property Text_IsMultiLine As Boolean ''Added 5/31/2022
-    Property Text_ListOfLines As List(Of String) ''Added 5/31/2022
+
+    ''12/31/2022 Property Text_ListOfLines As List(Of String) ''Added 5/31/2022
 
 
     Property Text_Formula As String ''E.g. "This is the same for everyone." or "The holder of this badge has all rights and responsibilities subject thereto." 

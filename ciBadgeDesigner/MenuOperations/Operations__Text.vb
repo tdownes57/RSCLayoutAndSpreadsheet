@@ -110,6 +110,10 @@ Public MustInherit Class Operations__Text
                                        Me.Designer,
                                        Me.Designer.GroupMoveEvents,
                                        imageOfBadgeSansElement)
+            ''
+            ''Open the dialog for editing the element.
+            ''
+            objFormToShow.ShowDialog()
 
         Catch ex_edit As Exception
             ''
@@ -122,7 +126,7 @@ Public MustInherit Class Operations__Text
         ''
         ''Open the dialog for editing the element.
         ''
-        objFormToShow.ShowDialog()
+        ''Moved inside the Try above. 12/2022 objFormToShow.ShowDialog()
 
 ExitHandler:
         ''

@@ -4820,6 +4820,7 @@ Public Class ClassDesigner
         '9/1/2022 Throw New NotImplementedException("This class is not in charge of displaying context menus!!")
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return Nothing ''Added 12/31/2022
 
     End Function
 
@@ -5251,9 +5252,10 @@ Public Class ClassDesigner
             ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
 
             If (True) Then
-                Dim infoDelete As IDeleteElement
+                ''12/2022 Dim infoDelete As IDeleteElement
                 ''infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
                 ''infoDelete.DeleteElementIfConfirmed()
+                System.Diagnostics.Debugger.Break() ''Added 12/2022 
             End If
 
         End If ''Endof ""If (e.KeyCode = Keys.Delete) Then""

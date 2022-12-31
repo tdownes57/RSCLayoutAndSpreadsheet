@@ -239,6 +239,8 @@ Public Class ClassElementGraphic
     ''    End Set
     ''End Property
 
+#Disable Warning CA1707 ''Underscores?  12/2022
+
     Public Sub New(par_control As Control)
 
         ''Added 7/19/2019 td

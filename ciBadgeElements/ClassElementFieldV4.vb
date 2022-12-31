@@ -303,6 +303,8 @@ Public Class ClassElementFieldV4
     End Function ''End of ""Public Function FieldNmCaptionText() As String""
 
 
+#Disable Warning CA1707 ''Remove underscores. 
+
     Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean,
                                         Optional par_iRecipInfo As IRecipient = Nothing,
                                         Optional pbAllowExampleValues As Boolean = True,

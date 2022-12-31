@@ -74,6 +74,8 @@ Public Class ClassElementFieldOrTextV4
     ''    End Set
     ''End Property
 
+#Disable Warning CA1707 ''Warning, "Remove underscores."
+
     Public Shared Function GetMapperConfiguration_Pic() As AutoMapper.MapperConfiguration
         ''
         '' Added 11/17/2021 thomas downes
@@ -100,10 +102,20 @@ Public Class ClassElementFieldOrTextV4
 
     End Function ''End of ""
 
+#Disable Warning CA1707 ''Warning "Remove underscores from member names."
 
     Public Property Text_StaticLine As String Implements IElement_TextOnly.Text_StaticLine ''E.g. "George Washington" for FullName. 
     Public Property Text_IsMultiLine As Boolean Implements IElement_TextOnly.Text_IsMultiLine ''Added 5/31/2022
-    Public Property Text_ListOfLines As List(Of String) Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
+
+
+    Private _ListOfLines As List(Of String) ''Added 12/31/2022 td
+    Public ReadOnly Property Text_ListOfLines As List(Of String) ''12/31/2022 Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
+        Get
+            ''Added 12/31/2022
+            Return _ListOfLines
+        End Get
+    End Property
+
 
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''E.g. "{fstrFirstName} {fstrLastName}" for FullName. 
     Public Property Text_ExampleValue As String Implements IElement_TextOnly.Text_ExampleValue ''Added 5/31/2022
@@ -470,6 +482,7 @@ Public Class ClassElementFieldOrTextV4
     End Function ''End of "Public Function RotatedSwitch_WidthHeight"
 
 
+#Disable Warning CA1707 '' "No underscores in names!"
 
     ''8/29/2019 td''Public Property Border_Pixels As Integer Implements IElement_Base.Border_Pixels
     ''Shadows 12/12/2022''Public Property Border_WidthInPixels As Integer = 1 ''9/4/2022 Implements IElement_Base.Border_WidthInPixels
@@ -721,6 +734,7 @@ Public Class ClassElementFieldOrTextV4
 
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutWidth_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
+
     Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated(pintDesiredLayoutHeight As Integer) As Image _
         Implements IElement_TextOnly.GenerateImage_ByDesiredLayoutHeight
         ''
@@ -757,6 +771,7 @@ Public Class ClassElementFieldOrTextV4
         Return obj_image
 
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
+
 
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_elementInfo_Text As IElement_TextOnly, par_elementInfo_Base As IElement_Base) As Image

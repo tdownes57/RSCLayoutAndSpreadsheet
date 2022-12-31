@@ -115,9 +115,18 @@ Public Class ClassElementStaticTextV3
         End Set
     End Property
 
-    Public Property Text_IsMultiLine As Boolean Implements IElement_TextOnly.Text_IsMultiLine ''Added 5/31/2022
-    Public Property Text_ListOfLines As List(Of String) Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
 
+    Public Property Text_IsMultiLine As Boolean Implements IElement_TextOnly.Text_IsMultiLine ''Added 5/31/2022
+
+
+#Disable Warning CA1707 ''Warning, underscores.  Added 12/2022
+
+    Private _ListOfLines As List(Of String) ''Added 12/31/2022
+    Public ReadOnly Property Text_ListOfLines As List(Of String) ''12/2022 Implements IElement_TextOnly.Text_ListOfLines ''Added 5/31/2022
+        Get
+            Return _ListOfLines ''Added 12/31/2022
+        End Get
+    End Property
 
     Public Property Text_Formula As String Implements IElement_TextOnly.Text_Formula ''Added 10/17/2019
     Public Property Text_ExampleValue As String Implements IElement_TextOnly.Text_ExampleValue ''Added 5/31/2022
@@ -216,6 +225,8 @@ Public Class ClassElementStaticTextV3
 
 
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
+
+#Disable Warning CA1707 ''Underscore warning. 12/2022
 
     Public Sub New(par_control As Control)
 
