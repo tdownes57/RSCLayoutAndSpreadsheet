@@ -13,15 +13,16 @@ Imports ciBadgeSerialize ''Added 6/7/2022
 <Serializable>
 Public Class ClassElementStaticTextV3
     Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
-    Implements IElement_Base, IElement_TextOnly
+    ''12/31/2022 Implements IElement_Base, IElement_TextOnly
+    Implements IElement_TextOnly
     ''
     ''Added 9/16/2019 thomas downes
     ''
     ''
-    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
-    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
-    Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
-    Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
+    ''12/2022 Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+    ''12/2022 Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
+    ''12/2022 Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
+    ''12/2022 Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
     ''Moved down & underscore removed. 6/7/2022 <Xml.Serialization.XmlIgnore>
     ''Moved down & underscore removed. 6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
@@ -32,6 +33,8 @@ Public Class ClassElementStaticTextV3
 
     <XmlIgnore>
     Public Property FontColor As System.Drawing.Color Implements IElement_TextOnly.FontColor
+
+#Disable Warning CA1707 ''Warning "Remove underscores."
 
     <XmlElement("FontColor")>
     Public Property FontColor_HTML As String
@@ -45,6 +48,8 @@ Public Class ClassElementStaticTextV3
             Me.FontColor = ColorTranslator.FromHtml(value)
         End Set
     End Property
+
+#Enable Warning CA1707 ''Warning "Remove underscores."
 
 
     ''Added 8/12/2019 thomas downes  
@@ -66,7 +71,8 @@ Public Class ClassElementStaticTextV3
         ''6/7/2022 Public Property Font_DrawingClass As System.Drawing.Font Implements IElement_TextOnly.Font_DrawingClass
         Get
             ''Added 6/07/2022 td
-            Me.FontMaxGalkin.ToFont_AnyUnits()
+            Return Me.FontMaxGalkin.ToFont_AnyUnits()
+
         End Get
 
         Set(value As System.Drawing.Font)
@@ -335,6 +341,9 @@ Public Class ClassElementStaticTextV3
 
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
+
+#Disable Warning CA1707
+
     Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
                                   par_elementInfo_Text As IElement_TextOnly, par_elementInfo_Base As IElement_Base) As Image
         ''
@@ -459,6 +468,9 @@ Public Class ClassElementStaticTextV3
 
     End Function ''End of "Public Function GenerateImage_NotInUse(par_label As Label) As Image"
 
+#Enable Warning CA1707
+
+
     Public Function Copy() As ClassElementStaticTextV3
         ''
         ''Added 9/17/2019 
@@ -468,6 +480,8 @@ Public Class ClassElementStaticTextV3
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementStaticText"
+
+#Disable Warning CA1707 ''Message about underscores in parameter names. 
 
     Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
                                     par_ElementInfo_Text As IElement_TextOnly)
@@ -526,6 +540,8 @@ Public Class ClassElementStaticTextV3
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
+#Enable Warning CA1707 ''Message about underscores in parameter names. 
+#Disable Warning CA1707 ''Message about underscores in parameter names. 
 
     Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer,
                        Optional pbSuppressFontScalingConfirmation As Boolean = True)
@@ -559,12 +575,21 @@ Public Class ClassElementStaticTextV3
 
     End Sub ''End of "Public Sub Font_ScaleAdjustment()" 
 
+#Enable Warning CA1707 ''Message about underscores in parameter names. 
+#Disable Warning CA1707 ''Message about underscores in parameter names. 
 
-    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+    Public Function ImageForBadgeImage_SText(par_recipient As IRecipient, par_scale As Single) As Image _
+        ''12/31/2022 Implements IElement_Base.ImageForBadgeImage
+
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return New Bitmap(MyBase.Width_Pixels, MyBase.Height_Pixels)
 
-    End Function
+    End Function ''End of ""Public Function ImageForBadgeImage_SText""
+
+#Enable Warning CA1707 ''Message about underscores in parameter names. 
+
+
 End Class ''End of "Class ClassElementStaticText"  
 

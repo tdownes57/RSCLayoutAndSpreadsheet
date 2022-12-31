@@ -3,8 +3,11 @@
 ''Added 8/16/2019 td  
 ''
 ''9/18/2019 td''Imports System.Drawing.Text ''Added 8/16/2019 td  
+Imports System.Diagnostics.Contracts
 Imports System.Drawing ''Added 9/18/2019 td  
 Imports System.Drawing.Text ''Added 
+
+#Disable Warning CA2211 ''Warning "Non-constant fields should not be visible."
 
 Public Module modFonts
     ''
@@ -14,14 +17,17 @@ Public Module modFonts
     Public Const vbCrLf_Deux As String = (vbCrLf & vbCrLf) ''Added 8/16/2019 td
     Public UseAverageLineForAlignment As Boolean ''Added 8/16/2019 td   
 
-    Public Function ScaledFont(par_font As Font, par_scale As Double) As Font
+
+    Public Function ScaledFont(parFont As Font, parScale As Double) As Font
         ''
         ''Added 9/8/2019 thomas d. 
         ''
         Dim intNewSize As Integer
 
-        intNewSize = CInt(par_font.Size * par_scale)
-        Return MakeFont(par_font.FontFamily.Name, intNewSize)
+        Contract.Requires(parFont IsNot Nothing) ''Added 12/31/2022
+
+        intNewSize = CInt(parFont.Size * parScale)
+        Return MakeFont(parFont.FontFamily.Name, intNewSize)
 
     End Function ''End of "Public Function ScaledFont()"
 

@@ -1005,6 +1005,8 @@ Public Class ClassElementFieldOrTextV4
 
     End Sub ''End of ""Public Sub LoadbyCopyingMembers""
 
+#Enable Warning CA1707
+#Disable Warning CA1707
 
     Public Sub LoadbyCopyingMembersV1(par_objectElementV4 As ClassElementFieldOrTextV4,
                                     par_ElementInfo_Base As IElement_Base,
@@ -1102,6 +1104,7 @@ Public Class ClassElementFieldOrTextV4
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
 
+
     Public Sub Font_AutoScaleAdjustment(par_intNewHeightInPixels As Integer)
         ''June2 2022 Public Sub Font_ScaleAdjustment(par_intNewHeightInPixels As Integer) 
         ''
@@ -1123,6 +1126,7 @@ Public Class ClassElementFieldOrTextV4
         End If ''End of "If FontSize_AutoScaleToElementYesNo Then"
 
     End Sub ''End of "Public Sub Font_AutoScaleAdjustment()" 
+
 
     Public Shared Sub CheckWidthVsLength_OfText(intWidth As Integer, intHeight As Integer,
                                      boolRotated As Boolean, par_bIsMultiline As Boolean)
@@ -1219,10 +1223,12 @@ Public Class ClassElementFieldOrTextV4
     ''End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
 
-    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image ''9/4/2022 Implements IElement_Base.ImageForBadgeImage
+    Public Overloads Function ImageForBadgeImage(par_recipient As IRecipient,
+                                                 par_scale As Single) As Image ''9/4/2022 Implements IElement_Base.ImageForBadgeImage
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return New Bitmap(MyBase.Width_Pixels, MyBase.Height_Pixels)
 
     End Function
 

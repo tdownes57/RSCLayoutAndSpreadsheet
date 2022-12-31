@@ -7,6 +7,9 @@ Option Strict On ''Added 9/6/2022 td
 ''
 ''Added 9/6/2022 td
 ''
+#Disable Warning CA1707 ''Warning is "Remove underscores."
+#Disable Warning CA1051 ''Warning is "Do not declare public instance variables."
+
 Public Structure WhyOmitted_StructV1 ''Added 11/10/2021 thomas downes
         ''----Public Structure WhyOmitted ''Added 11/10/2021 thomas d.
         ''

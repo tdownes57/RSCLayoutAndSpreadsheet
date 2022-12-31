@@ -154,10 +154,10 @@ Public Class ClassElementFieldV3
 
     Public Property Id_GUID As System.Guid  ''Added 9/30/2019 td 
 
-    Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
-    Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
-    Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
-    Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
+    ''12/2022 Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
+    ''12/2022 Public Property WhichSideOfCard As EnumWhichSideOfCard Implements IElement_Base.WhichSideOfCard ''Added 12/13/2021 td
+    ''12/2022 Public Property DateEdited As Date Implements IElement_Base.DateEdited ''Added 12/18/2021 thomas downes  
+    ''12/2022 Public Property DateSaved As Date Implements IElement_Base.DateSaved ''Added 12/18/2021 thomas downes
 
 
     <Xml.Serialization.XmlIgnore>
@@ -546,17 +546,21 @@ Public Class ClassElementFieldV3
     Public Property DatetimeUpdated As DateTime = DateTime.MinValue ''Added 11/29/2021 thomas downes
     Public Property CaptionSuffixIfNeeded As String = "" ''Added 12/21/2021 thomas downes
 
-    Public Property ZOrder As Integer Implements IElement_Base.ZOrder
-        Get
-            Return 0 ''Throw New NotImplementedException()
-        End Get
-        Set(value As Integer)
-            Return ''---Throw New NotImplementedException()
-        End Set
-    End Property
+
+    ''12/2022 Public Property ZOrder As Integer Implements IElement_Base.ZOrder
+    ''    Get
+    ''        Return 0 ''Throw New NotImplementedException()
+    ''    End Get
+    ''    Set(value As Integer)
+    ''        Return ''---Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
     ''9/18/2019 td''Private _labelToImage As New ClassLabelToImage ''Added 9/3/2019 td  
     ''Moved up. 9/30/2019 td''Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
+
+#Enable Warning CA1707
+#Disable Warning CA1707
 
     Public Sub New(par_control As Control)
 
@@ -566,6 +570,8 @@ Public Class ClassElementFieldV3
 
     End Sub
 
+#Enable Warning CA1707
+#Disable Warning CA1707
 
     Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
                    par_intLeft_Pixels As Integer,
@@ -591,6 +597,8 @@ Public Class ClassElementFieldV3
         ''---Me.FieldIndex`
 
     End Sub
+
+#Enable Warning CA1707
 
     Public Sub New()
         ''
@@ -1054,6 +1062,8 @@ Public Class ClassElementFieldV3
 
     End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfText()"
 
+#Enable Warning CA1707
+#Disable Warning CA1707
 
     Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean,
                                         Optional par_iRecipInfo As IRecipient = Nothing,
@@ -1132,11 +1142,16 @@ Public Class ClassElementFieldV3
 
     End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
+#Enable Warning CA1707
 
-    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+    Public Overloads Function ImageForBadgeImage(par_recipient As IRecipient, par_scale As Single) As Image _
+        Implements IElement_Base.ImageForBadgeImage
         ''Throw New NotImplementedException()
+
         '9/1/2022 Throw New NotImplementedException()
+
         System.Diagnostics.Debugger.Break()
+        Return New Bitmap(MyBase.Width_Pixels, MyBase.Height_Pixels)
 
     End Function
 

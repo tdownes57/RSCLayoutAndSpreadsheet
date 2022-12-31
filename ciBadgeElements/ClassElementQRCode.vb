@@ -202,11 +202,11 @@ Public Class ClassElementQRCode
     ''    End Set
     ''End Property
 
-    Public Sub New(par_control As Control)
+    Public Sub New(parControl As Control)
 
         ''Added 7/19/2019 td
         ''
-        Me.FormControl = par_control
+        Me.FormControl = parControl
 
     End Sub
 
@@ -217,6 +217,9 @@ Public Class ClassElementQRCode
 
 
     End Sub
+
+#Enable Warning CA1707
+#Disable Warning CA1707
 
     Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)
         ''
@@ -235,17 +238,23 @@ Public Class ClassElementQRCode
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
 
-    Public Function Copy() As ClassElementQRCode
+#Enable Warning CA1707
+#Disable Warning CA1707
+
+    Public Function Copy_QR() As ClassElementQRCode
         ''
         ''Added 9/30/2019 
         ''
         Dim objCopy As New ClassElementQRCode
-        objCopy.LoadbyCopyingMembers(Me, Me)
+        objCopy.LoadbyCopyingMembers_QR(Me, Me)
         Return objCopy
 
     End Function ''End of "Public Function Copy() As ClassElementQRCode"
 
-    Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base,
+#Enable Warning CA1707
+#Disable Warning CA1707
+
+    Public Sub LoadbyCopyingMembers_QR(par_ElementInfo_Base As IElement_Base,
                                   par_ElementInfo_QR As IElementQRCode)
         ''
         ''Added 9/30/2019 thomas downes
@@ -277,6 +286,8 @@ Public Class ClassElementQRCode
         Me.QRFormula = par_ElementInfo_QR.QRFormula
 
     End Sub ''End of "Public Sub LoadbyCopyingMembers(par_ElementInfo_Base As IElement_Base, .....)"
+
+#Enable Warning CA1707
 
     ''12/2022 Public Shared Sub CheckWidthVsLength_OfPic(intWidth As Integer, intHeight As Integer, boolRotated As Boolean)
     ''    ''

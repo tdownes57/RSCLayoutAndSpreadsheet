@@ -40,7 +40,7 @@ Public Class ClassElementLaysection
 
     Public Property SubLayout As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
 
-    Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
+    ''12/30/2022 Public Property FormControl As Control Implements IElement_Base.FormControl ''Added 7/19/2019  
 
     ''Public Property ElementType As String = "Section" Implements IElement_Base.ElementType ''Text, Pic, or Logo
 

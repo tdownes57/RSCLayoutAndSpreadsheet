@@ -6,12 +6,14 @@ Option Strict On
 ''
 Imports System.Windows.Forms ''Added 2/8/2022 td
 
-Public Class MessageBoxTD
+
+Public NotInheritable Class MessageBoxTD
 
     ''Added Feb6 2022
     Private Const _vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
 
+#Disable Warning CA1707 ''Warning "Remove underscores."
 
     Public Shared Sub Show_Statement(pstrStatement As String,
                                      Optional pstrStatement2 As String = "",
@@ -50,6 +52,8 @@ Public Class MessageBoxTD
     End Sub ''Public Shared Sub Show_Statement
 
 
+#Disable Warning CA1707 ''Warning "Remove underscores."
+
     Public Shared Sub Show_Statement_TwoLines(pstrStatement_Line1 As String,
                                      Optional pstrStatement_Line2 As String = "")
         ''
@@ -66,6 +70,7 @@ Public Class MessageBoxTD
     End Sub ''end of ""Public Shared Sub Show_Statement_TwoLines""
 
 
+#Disable Warning CA1707 ''Warning "Remove underscores."
 
     Public Shared Sub Show_FormatNumbers(pstrStatement_Line1 As String,
                                          pintNumber1 As Integer,
@@ -87,6 +92,7 @@ Public Class MessageBoxTD
     End Sub ''End of ""Public Shared Sub Show_FormatNumbers""
 
 
+#Disable Warning CA1707 ''Warning "Remove underscores."
 
     Public Shared Sub Show_InsertWordFormat_Line1(pstrWord_ForLine1 As String,
                                                pstrStatement_Line1 As String,
@@ -104,6 +110,8 @@ Public Class MessageBoxTD
     End Sub ''End of ""Public Shared Sub Show_InsertWordFormat_Line1""
 
 
+#Disable Warning CA1707 ''Warning "Remove underscores."
+
     Public Shared Function Show_QuestionYesNo(pstrQuestionYesNo_Line1 As String,
                   Optional pstrQuestionYesNo_Line2 As String = "") As DialogResult
         ''
@@ -120,6 +128,8 @@ Public Class MessageBoxTD
 
     End Function ''end of ""Public Shared Function Show_QuestionYesNo""
 
+
+#Disable Warning CA1707 ''Warning "Remove underscores."
 
     Public Shared Function Show_QuestionYesNo_FormatCounts(pintCountOfLine1 As Integer,
                                                            pstrQuestionYesNo_Line1 As String,
@@ -150,6 +160,7 @@ Public Class MessageBoxTD
 
     End Function ''end of ""Public Shared Function Show_QuestionYesNo""
 
+#Disable Warning CA1707 ''Warning "Remove underscores."
 
     Public Shared Function Show_QuestionIsOkay(pstrQuestionIsOkay As String) As DialogResult
         ''

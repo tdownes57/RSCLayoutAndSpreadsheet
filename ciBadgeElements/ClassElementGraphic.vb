@@ -361,12 +361,16 @@ Public Class ClassElementGraphic
 
     End Sub ''End of "Public Sub LoadGraphic() "
 
-    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+    Public Overloads Function ImageForBadgeImage(par_recipient As IRecipient, par_scale As Single) As Image _
+        Implements IElement_Base.ImageForBadgeImage
         ''Throw New NotImplementedException()
+
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return New Bitmap(MyBase.Width_Pixels, MyBase.Height_Pixels)
 
     End Function
+
 End Class
 
 

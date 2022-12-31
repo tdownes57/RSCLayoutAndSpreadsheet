@@ -122,6 +122,7 @@ Public Class ClassElementBase
 
     Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/18/2019 td  
 
+
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
         Get
             ''9/5/2022 Throw New NotImplementedException()
@@ -132,9 +133,12 @@ Public Class ClassElementBase
     End Property
 
 
-    Public Function ImageForBadgeImage(par_recipient As IRecipient) As Image Implements IElement_Base.ImageForBadgeImage
+    Public Function ImageForBadgeImage(par_recipient As IRecipient,
+                                       par_scale As Single) As Image Implements IElement_Base.ImageForBadgeImage
         ''    Throw New NotImplementedException()
 
+        ''12/31/2022 Return Nothing
+        ''12/31/2022 Return New Bitmap(MyBase.Width_Pixels, MyBase.Height_Pixels)
         Return Nothing
 
     End Function ''End of ""Public Function ImageForBadgeImage""
@@ -142,6 +146,8 @@ Public Class ClassElementBase
 
     ''Added 1/23/2022 td
     ''Moved up to top 5/5/2022 ''Public Property WhyOmitted As WhyOmitted_StructV2 Implements IElement_Base_InDevelopment.WhyOmitted
+
+#Disable Warning CA1707
 
     Public Function ConditionalExpressionIsFalse(par_iRecipientInfo As IRecipient,
                                                  Optional pbDefaultValue As Boolean = False,
@@ -178,6 +184,8 @@ Public Class ClassElementBase
 
     End Function ''End of ""Public Function ConditionalExpressionIsFalse""
 
+#Enable Warning CA1707
+#Disable Warning CA1707
 
     Public Function ConditionalExpressionIsTrue(par_iRecipientInfo As IRecipient,
                                                  pboolDefaultValue As Boolean) As Boolean
@@ -208,6 +216,7 @@ Public Class ClassElementBase
 
     End Function ''End of ""Public Function ConditionalExpressionIsTrue""
 
+#Enable Warning CA1707
 
     Public Function GetSize() As Drawing.Size
 

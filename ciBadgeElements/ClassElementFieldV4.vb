@@ -77,6 +77,9 @@ Public Class ClassElementFieldV4
     End Sub
 
 
+#Enable Warning CA1707
+#Disable Warning CA1707
+
     Public Sub New(par_fieldInfo As ICIBFieldStandardOrCustom,
                    par_intLeft_Pixels As Integer,
                    par_intTop_Pixels As Integer,
@@ -111,6 +114,8 @@ Public Class ClassElementFieldV4
 
     End Sub
 
+#Enable Warning CA1707
+
     Public Sub New()
         ''
         ''Added 5/11/2022 & 7/29/2019 td
@@ -142,34 +147,36 @@ Public Class ClassElementFieldV4
     End Sub ''End of "Public Sub LoadFieldAny(par_fieldAny As ClassFieldAny)"
 
 
-    Public Overloads Sub LoadByCopyingMembersV2a(par_objectElementV4 As ClassElementFieldV4,
-                                    par_Element_Base As ClassElementBase,
-                                    par_ElementInfo_Base As IElement_Base,
-                                    par_ElementInfo_Text As IElement_TextOnly,
-                                    par_ElementInfo_Field As IElement_TextField,
-                                    par_badgeLayout As BadgeLayoutDimensionsClass)
-        ''
-        ''Added 1/29/2022 thomas downes
-        ''
+#Enable Warning CA1707
+#Disable Warning CA1707
+
+    ''12/2022 Public Overloads Sub LoadByCopyingMembersV2a(par_objectElementV4 As ClassElementFieldV4,
+    ''                                par_Element_Base As ClassElementBase,
+    ''                                par_ElementInfo_Base As IElement_Base,
+    ''                                par_ElementInfo_Text As IElement_TextOnly,
+    ''                                par_ElementInfo_Field As IElement_TextField,
+    ''                                par_badgeLayout As BadgeLayoutDimensionsClass)
+    ''    ''
+    ''    ''Added 1/29/2022 thomas downes
+    ''    ''
+    ''End Sub ''End of ""Public Overloads Sub LoadByCopyingMembersV2a""
+
+#Enable Warning CA1707
+#Disable Warning CA1707
+
+    ''12/2022 Public Overloads Sub LoadByCopyingMembersV2b(par_objectElementV4 As ClassElementFieldV4,
+    ''                                par_Element_Base As ClassElementBase,
+    ''                                par_ElementInfo_Text As IElement_TextOnly,
+    ''                                par_ElementInfo_Field As IElement_TextField,
+    ''                                par_badgeLayout As BadgeLayoutDimensionsClass)
+    ''    ''
+    ''    ''Added 1/29/2022 thomas downes
+    ''    ''
+    ''End Sub ''End of ""Public Overloads Sub LoadByCopyingMembersV2a""
 
 
-
-    End Sub ''End of ""Public Overloads Sub LoadByCopyingMembersV2a""
-
-
-    Public Overloads Sub LoadByCopyingMembersV2b(par_objectElementV4 As ClassElementFieldV4,
-                                    par_Element_Base As ClassElementBase,
-                                    par_ElementInfo_Text As IElement_TextOnly,
-                                    par_ElementInfo_Field As IElement_TextField,
-                                    par_badgeLayout As BadgeLayoutDimensionsClass)
-        ''
-        ''Added 1/29/2022 thomas downes
-        ''
-
-
-
-    End Sub ''End of ""Public Overloads Sub LoadByCopyingMembersV2a""
-
+#Enable Warning CA1707
+#Disable Warning CA1707
 
     Public Overloads Sub LoadByCopyingMembersV1(par_objectElementV4 As ClassElementFieldV4,
                                     par_ElementInfo_Base As IElement_Base,
@@ -207,6 +214,7 @@ Public Class ClassElementFieldV4
 
     End Sub ''eND OF ""Public Overloads Sub LoadByCopyingMembersV1""
 
+#Enable Warning CA1707
 
     ''Public Function IsDisplayedOnBadge_Visibly() As Boolean
     ''    ''

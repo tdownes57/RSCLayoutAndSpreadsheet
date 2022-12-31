@@ -29,6 +29,9 @@ Public Class ClassElementStaticTextV4
     End Sub
 
 
+#Enable Warning CA1707
+#Disable Warning CA1707
+
     Public Sub New(par_DisplayText As String,
                    par_intLeft_Pixels As Integer,
                    par_intTop_Pixels As Integer,
@@ -56,6 +59,7 @@ Public Class ClassElementStaticTextV4
 
     End Sub
 
+#Enable Warning CA1707
 
     Public Sub New()
         ''

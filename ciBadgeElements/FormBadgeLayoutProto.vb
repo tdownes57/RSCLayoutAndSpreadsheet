@@ -1,4 +1,8 @@
-﻿Public Class FormBadgeLayoutProto
+﻿
+''Added 12/2022
+#Disable Warning CA2211 ''Warning "Non-constant fields should not be visible." 12/2022
+
+Public Class FormBadgeLayoutProto
 
     ''---pictureBack 
     Public Shared pictureBack_Top As Integer = 9 '' = pictureBack.Top
