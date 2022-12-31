@@ -160,6 +160,10 @@
       <Project>{3d1acca6-585e-4c92-9a6d-9a51d2f72f5f}</Project>
       <Name>ciBadgeInterfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\__RSC Error Logging\__RSC Error Logging.csproj">
+      <Project>{5cace48f-7c22-4325-99e6-00b62c926ee3}</Project>
+      <Name>__RSC Error Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

@@ -14,12 +14,13 @@ Imports System.Xml.Serialization ''Added 9/24/2019 td
 <Xml.Serialization.XmlInclude(GetType(ClassElementPortrait))>
 <Serializable>
 Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassElementPic. ---1/13/2022 & 10/8/2019 td 
+    ''12/30/2022 Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
+    Inherits ClassElementGraphic ''Added 1/8/2022 Thomas Downes
+    Implements IElement_Base, IElementPic
     ''
     ''Renamed 1/13/2022 thomas downes
     ''Added 7/18/2019 thomas downes 
     ''
-    Inherits ClassElementBase ''Added 1/8/2022 Thomas Downes
-    Implements IElement_Base, IElementPic
     ''
     ''Added 7/18/2019 thomas downes
     ''

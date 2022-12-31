@@ -120,6 +120,17 @@ Public Class Dialog_BaseChooseColor
         ''Added 12/6/2022 
         MyBase.DisableOneButton(False, True, False, False, False, False)
 
+        ''Added 12/30/2022 
+        ButtonForecolor.BackColor = mod_elementBase.Back_Color
+        ButtonBackground.BackColor = mod_elementBase.Back_Color
+
+        ''Added 12/30/2022 
+        If (mod_elementText IsNot Nothing) Then
+            ButtonForecolor.ForeColor = mod_elementText.FontColor
+            ButtonBackground.ForeColor = mod_elementText.FontColor
+        End If
+
+
     End Sub
 
 
@@ -509,7 +520,7 @@ Public Class Dialog_BaseChooseColor
 
     End Sub
 
-    Private Sub RscColorFlowPanel2_Color_Selected(par_rsccolor As RSCColor) Handles RscColorFlowPanel2.Color_Selected
+    Private Sub RscColorFlowPanel2_Color_Selected(par_rsccolor As RSCColor)
         ''
         ''Added 11/27/2022 
         ''
@@ -555,7 +566,7 @@ Public Class Dialog_BaseChooseColor
 
     End Sub
 
-    Private Sub RscColorFlowPanel2_Colors_OpenAddRemove(sender As Object, e As EventArgs) Handles RscColorFlowPanel2.Colors_OpenAddRemove
+    Private Sub RscColorFlowPanel2_Colors_OpenAddRemove(sender As Object, e As EventArgs)
 
         ''Added 11/27/2022 td
         Dim objLinkArgs As LinkLabelLinkClickedEventArgs

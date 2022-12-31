@@ -36,7 +36,6 @@ Partial Class Dialog_BaseChooseColor
         Me.LinkLabelAddColor1 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelRefreshColors = New System.Windows.Forms.LinkLabel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.RscColorFlowPanel2 = New __RSCWindowsControlLibrary.RSCColorFlowPanel()
         Me.ButtonApplyBF = New System.Windows.Forms.Button()
         Me.ButtonApplyFB = New System.Windows.Forms.Button()
         Me.LabelSelected = New System.Windows.Forms.Label()
@@ -45,13 +44,13 @@ Partial Class Dialog_BaseChooseColor
         'ButtonForecolor
         '
         Me.ButtonForecolor.Enabled = False
-        Me.ButtonForecolor.Font = New System.Drawing.Font("Arial", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonForecolor.Location = New System.Drawing.Point(766, 367)
+        Me.ButtonForecolor.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonForecolor.Location = New System.Drawing.Point(842, 367)
         Me.ButtonForecolor.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonForecolor.Name = "ButtonForecolor"
-        Me.ButtonForecolor.Size = New System.Drawing.Size(224, 36)
+        Me.ButtonForecolor.Size = New System.Drawing.Size(148, 36)
         Me.ButtonForecolor.TabIndex = 12
-        Me.ButtonForecolor.Text = "◄ Apply to Text Font"
+        Me.ButtonForecolor.Text = "◄ Apply to Text"
         Me.ButtonForecolor.UseVisualStyleBackColor = True
         '
         'ButtonUndoColorFont
@@ -70,12 +69,12 @@ Partial Class Dialog_BaseChooseColor
         '
         Me.ButtonBackground.Enabled = False
         Me.ButtonBackground.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonBackground.Location = New System.Drawing.Point(766, 407)
+        Me.ButtonBackground.Location = New System.Drawing.Point(842, 407)
         Me.ButtonBackground.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonBackground.Name = "ButtonBackground"
-        Me.ButtonBackground.Size = New System.Drawing.Size(224, 36)
+        Me.ButtonBackground.Size = New System.Drawing.Size(148, 36)
         Me.ButtonBackground.TabIndex = 20
-        Me.ButtonBackground.Text = "◄ Apply to Background"
+        Me.ButtonBackground.Text = "◄ Apply to Back"
         Me.ToolTip1.SetToolTip(Me.ButtonBackground, "Set Background Color of the Element")
         Me.ButtonBackground.UseVisualStyleBackColor = True
         '
@@ -137,18 +136,10 @@ Partial Class Dialog_BaseChooseColor
         'FlowLayoutPanel1
         '
         Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(639, 163)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(639, 39)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(400, 131)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(400, 255)
         Me.FlowLayoutPanel1.TabIndex = 30
-        '
-        'RscColorFlowPanel2
-        '
-        Me.RscColorFlowPanel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.RscColorFlowPanel2.Location = New System.Drawing.Point(629, 38)
-        Me.RscColorFlowPanel2.Name = "RscColorFlowPanel2"
-        Me.RscColorFlowPanel2.Size = New System.Drawing.Size(436, 260)
-        Me.RscColorFlowPanel2.TabIndex = 31
         '
         'ButtonApplyBF
         '
@@ -157,7 +148,7 @@ Partial Class Dialog_BaseChooseColor
         Me.ButtonApplyBF.Location = New System.Drawing.Point(629, 367)
         Me.ButtonApplyBF.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonApplyBF.Name = "ButtonApplyBF"
-        Me.ButtonApplyBF.Size = New System.Drawing.Size(131, 36)
+        Me.ButtonApplyBF.Size = New System.Drawing.Size(109, 36)
         Me.ButtonApplyBF.TabIndex = 32
         Me.ButtonApplyBF.Text = "◄ Apply"
         Me.ButtonApplyBF.UseVisualStyleBackColor = True
@@ -171,7 +162,7 @@ Partial Class Dialog_BaseChooseColor
         Me.ButtonApplyFB.Location = New System.Drawing.Point(629, 407)
         Me.ButtonApplyFB.Margin = New System.Windows.Forms.Padding(2)
         Me.ButtonApplyFB.Name = "ButtonApplyFB"
-        Me.ButtonApplyFB.Size = New System.Drawing.Size(131, 36)
+        Me.ButtonApplyFB.Size = New System.Drawing.Size(109, 36)
         Me.ButtonApplyFB.TabIndex = 33
         Me.ButtonApplyFB.Text = "◄ Apply"
         Me.ButtonApplyFB.UseVisualStyleBackColor = False
@@ -195,7 +186,6 @@ Partial Class Dialog_BaseChooseColor
         Me.Controls.Add(Me.LabelSelected)
         Me.Controls.Add(Me.ButtonApplyFB)
         Me.Controls.Add(Me.ButtonApplyBF)
-        Me.Controls.Add(Me.RscColorFlowPanel2)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Controls.Add(Me.LinkLabelAddColor1)
         Me.Controls.Add(Me.ButtonUndoColorBackground)
@@ -214,7 +204,6 @@ Partial Class Dialog_BaseChooseColor
         Me.Controls.SetChildIndex(Me.ButtonUndoColorBackground, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelAddColor1, 0)
         Me.Controls.SetChildIndex(Me.FlowLayoutPanel1, 0)
-        Me.Controls.SetChildIndex(Me.RscColorFlowPanel2, 0)
         Me.Controls.SetChildIndex(Me.ButtonApplyBF, 0)
         Me.Controls.SetChildIndex(Me.ButtonApplyFB, 0)
         Me.Controls.SetChildIndex(Me.LabelSelected, 0)

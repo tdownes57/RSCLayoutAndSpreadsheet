@@ -17,6 +17,7 @@ Public Class Dialog_Base
     Protected mod_controlRSCMoveable As RSCMoveableControlVB
     Protected mod_elementBase As ciBadgeElements.ClassElementBase ''Added 7/29/2022 td
     Protected mod_elementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 8/03/2022 td
+    Protected mod_elementText As ciBadgeElements.ClassElementFieldOrTextV4 ''Added 12/30/2022 td
     Protected mod_controlLastTouched As Control ''Added 9/01/2022 
 
     Protected ControlBelongsToPanel As Boolean = False ''Added 7/28/2022 td
@@ -166,6 +167,9 @@ Public Class Dialog_Base
             mod_elementBase = par_elementBase ''Added 7/29/2022 thomas d.  
             mod_elementInfo_Base = par_infoElementBase ''Added 8/3/2022 
             mod_objEventsRSC_Elem = par_events ''Added 8/06/2022 td
+
+            ''Added 12/30/2022
+            mod_elementText = par_controlFieldOrTextV4.ElementClass_Obj ''Added 12/30/2022
 
             mod_hashRSCColors = par_hashRSCColors ''Added 10/12/2022
             mod_listRSCColors = par_hashRSCColors.ToList() ''Added 10/12/2022
