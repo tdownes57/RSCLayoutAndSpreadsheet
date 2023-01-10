@@ -51,6 +51,10 @@ Public Class GroupMoveEvents_Singleton
     ''Added 12/24/2022 thomas d. 
     Public Event MouseDown(par_control As Control)
 
+    ''Added 1/09/2023 thomas d. 
+    Public Event MouseUpCtrlKey(par_control As Control)
+    Public Event MouseUpShiftKey(par_control As Control)
+
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
 
@@ -172,6 +176,24 @@ Public Class GroupMoveEvents_Singleton
         ''Added 12/24/2022 td
         ''
         RaiseEvent MouseDown(par_control)
+
+    End Sub
+
+
+    Public Sub Control_MouseUpCtrlKey(par_control As Control) Implements InterfaceMoveEvents.MouseUpCtrlKey
+        ''
+        ''Added 1/09/2023 td
+        ''
+        RaiseEvent MouseUpCtrlKey(par_control)
+
+    End Sub
+
+
+    Public Sub Control_MouseUpShiftKey(par_control As Control) Implements InterfaceMoveEvents.MouseUpShiftKey
+        ''
+        ''Added 1/09/2023 td
+        ''
+        RaiseEvent MouseUpShiftKey(par_control)
 
     End Sub
 

@@ -212,6 +212,8 @@ Public Class RSCMoveableControlVB
     Public Event Element_RightClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
     ''10/24/2022 Public Event Element_LeftClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
     Public Event Element_LeftClicked(par_control As RSCMoveableControlVB, par_e As EventArgs) ''Modified 10/24/2022 td
+    Public Event Element_ShiftKeyClick(par_control As RSCMoveableControlVB, par_e As EventArgs) ''Added 1/09/2023 td
+    Public Event Element_CtrlKeyClick(par_control As RSCMoveableControlVB, par_e As EventArgs) ''Modified 1/09/2023 td
 
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td
@@ -1826,11 +1828,21 @@ Public Class RSCMoveableControlVB
         ''Jan14 2022''If (bHandledByChildControl) Then par_e.Button = MouseButtons.Left
         bHandledByChildControl = (TypeOf par_sender Is PictureBox)
 
+        Dim bKeyDownShiftKey As Boolean ''Added 1/9/2023
+        Dim bKeyDownControl As Boolean ''Added 1/9/2023
+        ''Added 1/9/2023
+        bKeyDownShiftKey = (My.Computer.Keyboard.ShiftKeyDown)
+        bKeyDownControl = (My.Computer.Keyboard.CtrlKeyDown)
+
         If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
             ''
             Me.RaiseEvent_LeftClicked() ''Added 5/18/2022 
+
+            ''Added 1/9/2023 td 
+            If (bKeyDownShiftKey) Then Me.RaiseEvent_ShiftKeyClick() ''Added 1/09/2023 
+            If (bKeyDownControl) Then Me.RaiseEvent_CtrlKeyClick() ''Added 1/09/2023 
 
             ''Added 3/20/2022 td
             If (mod_boolRemoveMoveability) Then Exit Sub
@@ -2126,6 +2138,17 @@ Public Class RSCMoveableControlVB
         ''10/24/2022 RaiseEvent Element_LeftClicked(Me)
         RaiseEvent Element_LeftClicked(Me, New EventArgs())
 
+    End Sub
+
+
+    Public Sub RaiseEvent_ShiftKeyClick()
+        ''Added 1/09/2023 td
+        RaiseEvent Element_ShiftKeyClick(Me, New EventArgs())
+    End Sub
+
+    Public Sub RaiseEvent_CtrlKeyClick()
+        ''Added 1/09/2023 td
+        RaiseEvent Element_CtrlKeyClick(Me, New EventArgs())
     End Sub
 
 

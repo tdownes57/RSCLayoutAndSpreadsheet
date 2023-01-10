@@ -975,6 +975,7 @@ Public Class ClassDesignerEventListener
 
     End Sub
 
+
     Private Sub mod_eventsGroupedMove_ControlWasClicked(par_control As Control) Handles mod_eventsGroupedMove.ControlWasClicked
         ''
         ''Added 9/01/2022 thomas downes
@@ -984,6 +985,24 @@ Public Class ClassDesignerEventListener
 
         ''Added 9/02/2022 thomas downes
         mod_designer.PositionElementArrow(par_control)
+
+    End Sub
+
+
+    Private Sub mod_Group_MouseUpCtrlKey(par_control As Control) Handles mod_eventsGroupedMove.MouseUpCtrlKey
+        ''
+        ''Added 1/09/2023 thomas downes
+        ''
+        mod_designer.SelectControlCtrlKey(par_control)
+
+    End Sub
+
+
+    Private Sub mod_Group_MouseUpShiftKey(par_control As Control) Handles mod_eventsGroupedMove.MouseUpShiftKey
+        ''
+        ''Added 1/09/2023 thomas downes
+        ''
+        Throw New NotImplementedException("No.")
 
     End Sub
 

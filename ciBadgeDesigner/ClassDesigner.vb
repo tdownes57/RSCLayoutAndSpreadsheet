@@ -5308,7 +5308,41 @@ Public Class ClassDesigner
             End If ''end of ""If (boolUseRightside) Then""
         End With ''end of ""With Me.ElementArrow_Right""
 
-    End Sub ''end of ""Private Sub PositionElementArrow(par_controlElement As Control)"" 
+    End Sub ''end of ""Friend Sub PositionElementArrow(par_controlElement As Control)"" 
+
+
+    Friend Sub SelectControlCtrlKey(par_controlElement As Control)
+        ''
+        ''Added 1/9/2023 thomas
+        ''
+        Dim eachRscMoveable As RSCMoveableControlVB ''Added 1/9/2023
+        Dim found_rscMoveable As RSCMoveableControlVB = Nothing ''Added 1/9/2023
+        Dim boolMatch As Boolean
+
+        For Each eachRscMoveable In mod_selectedCtls
+            boolMatch = (par_controlElement Is CType(eachRscMoveable, Control))
+            If (boolMatch) Then
+                found_rscMoveable = eachRscMoveable
+                Exit For
+            End If
+        Next eachRscMoveable
+
+        ''Did we (not) succeed?  
+        If (found_rscMoveable Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+            Exit Sub
+        End If ''end of ""If (found_rscMoveable Is Nothing) Then""
+
+        If (mod_selectedCtls.Contains(found_rscMoveable)) Then
+            mod_selectedCtls.Remove(found_rscMoveable)
+
+        Else
+            mod_selectedCtls.Add(found_rscMoveable)
+
+        End If
+
+    End Sub ''End of ""Friend Sub SelectControlCtrlKey""
+
 
     Private Sub CheckboxShowGoldArrow_CheckedChanged(sender As Object, e As EventArgs) Handles CheckboxShowGoldArrow.CheckedChanged
 

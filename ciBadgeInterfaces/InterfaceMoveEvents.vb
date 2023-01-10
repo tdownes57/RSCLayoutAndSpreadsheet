@@ -40,5 +40,9 @@ Public Interface InterfaceMoveEvents
     ''Added 12/24/2022 td
     Sub MouseDown(par_control As Control) ''Added 12/24/2022 td
 
+    ''Added 1/09/2023 td
+    Sub MouseUpShiftKey(par_control As Control) ''Added 1/09/2023 td
+    Sub MouseUpCtrlKey(par_control As Control) ''Added 1/09/2023 td
+
 
 End Interface

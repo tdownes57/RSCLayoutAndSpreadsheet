@@ -226,6 +226,7 @@ Public Class CtlMoveableBackground
 
     End Sub
 
+
     Private Sub ctlMoveable1_ElementGraphic_LeftClicked(par_control As CtlGraphicStaticGraphic) Handles ctlMoveable1.ElementGraphic_LeftClicked
         ''
         ''Added 5/18/2022 thomas downes
@@ -235,6 +236,7 @@ Public Class CtlMoveableBackground
 
     End Sub
 
+
     Private Sub ctlMoveable1_Element_LeftClicked(par_control As RSCMoveableControlVB, par_e As EventArgs) _
            Handles ctlMoveable1.Element_LeftClicked
         ''
@@ -243,5 +245,6 @@ Public Class CtlMoveableBackground
         RaiseEvent ElementGraphic_LeftClicked(Me)
 
     End Sub
+
 
 End Class
