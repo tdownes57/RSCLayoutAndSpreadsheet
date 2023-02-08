@@ -8,6 +8,7 @@ Public Interface ICtlElement_TextAny
     ''
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
     Property ElementInfo_TextOnly As ciBadgeInterfaces.IElement_TextOnly ''Modifield 10/12/2019

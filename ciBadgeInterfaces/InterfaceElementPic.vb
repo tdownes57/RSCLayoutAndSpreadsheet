@@ -12,6 +12,7 @@ Public Interface IElementPic
     ''
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
     Property PicFileType As String ''E.g. Image/PNG or Image/BMP 

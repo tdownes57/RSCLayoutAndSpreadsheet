@@ -15,6 +15,7 @@ Public Interface IElementSig
     ''
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
     Property SigFileType As String ''E.g. Image/PNG or Image/BMP 

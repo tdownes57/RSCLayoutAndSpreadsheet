@@ -19,6 +19,7 @@ Public Interface InterfacePersonality
     ''
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
     Property Id_GUID As System.Guid ''Renamed 12/12/2021 td ''Added 10/11/2019 td  

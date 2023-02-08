@@ -12,6 +12,7 @@ Public Interface IDesignerForm_Desktop ''Suffixed with _Desktop on about 1/15/20
     ''
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
     Property MyText As String

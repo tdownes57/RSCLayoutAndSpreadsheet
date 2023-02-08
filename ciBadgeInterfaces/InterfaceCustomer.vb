@@ -8,6 +8,7 @@ Public Interface InterfaceCustomer
     ''
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
     Property CustomerGUID As System.Guid ''Added 10/11/2019 td  

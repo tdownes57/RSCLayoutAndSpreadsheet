@@ -19,6 +19,7 @@ Public Interface IElement_TextOnly
 
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
 

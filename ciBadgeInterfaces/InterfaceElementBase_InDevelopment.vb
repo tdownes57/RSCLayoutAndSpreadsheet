@@ -18,6 +18,7 @@ Public Interface IElement_Base_InDevelopment
     ''
     ''
     '' Oops! Interfaces should not contain properties, but rather methods.
+    ''    (Analogously, classes should expose methods, not properties.)  
     '' ---2/07/2023 tcd
     ''
     Property WhyOmitted As WhyOmitted_StructV2
