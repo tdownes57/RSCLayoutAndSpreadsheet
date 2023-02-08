@@ -34,6 +34,10 @@ Public Interface InterfaceCIVisit
     ''
     ''   The following is for CI Badge Visitor Management, shortenned to "CI Visitor".   
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property fstrVisitID As String
     Property fdatSchedArrival As DateTime
     Property fdatArrival As DateTime

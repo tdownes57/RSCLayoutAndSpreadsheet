@@ -7,6 +7,10 @@ Public Interface IMoveableElement
     ''
     ''Added 12/17/2021 thomas d
     ''
+    ''
+    '' Well done!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Sub EnableDragAndDrop_Moveable()
 
     Sub DisableDragAndDrop_Unmoveable()

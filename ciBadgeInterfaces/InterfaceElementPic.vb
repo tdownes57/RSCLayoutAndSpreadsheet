@@ -10,6 +10,10 @@ Public Interface IElementPic
     ''
     ''Added 7/18/2019 td
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property PicFileType As String ''E.g. Image/PNG or Image/BMP 
     Property PicFileTitleExt As String ''E.g. 12345.jpg or 12345.png
 

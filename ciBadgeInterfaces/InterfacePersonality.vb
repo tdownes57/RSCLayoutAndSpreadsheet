@@ -17,6 +17,10 @@ Public Interface InterfacePersonality
     ''
     ''Added 10/11/2019 thomas d. 
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property Id_GUID As System.Guid ''Renamed 12/12/2021 td ''Added 10/11/2019 td  
     Property Id_GUID6 As String ''Added 12/12/2021 td  
 

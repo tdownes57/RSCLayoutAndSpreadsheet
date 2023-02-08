@@ -10,6 +10,10 @@ Public Interface IDesignerForm_Desktop ''Suffixed with _Desktop on about 1/15/20
     ''
     ''Added 1/15/2022 td
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property MyText As String
     Property MyPictureBackgroundFront As PictureBox ''Added 1/15/2022 td 
     Property BadgeLayout As BadgeLayoutDimensionsClass

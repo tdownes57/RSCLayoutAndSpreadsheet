@@ -26,6 +26,10 @@ Public Interface IBadgeLayoutDimensions
     ''   amiguity--the confusion between an element inside the layout & the layout itself.)
     ''   -----9/11/20019 
 
+    ''
+    '' Oops!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property NameForDebug As String ''Added 9/3/2022 td
     Property Description As String ''Added 9/3/2022 td
 

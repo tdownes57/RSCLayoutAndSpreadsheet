@@ -12,6 +12,10 @@ Public Interface IElement_Base
     ''
     ''Added 7/18/2019 td
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property ElementType As String ''Text, Pic, or Logo
 
     Property WhyOmitted As WhyOmitted_StructV2 ''Added 9/05/2022 & 1/23/2022 td

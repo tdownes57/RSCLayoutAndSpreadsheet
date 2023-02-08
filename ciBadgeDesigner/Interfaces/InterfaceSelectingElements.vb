@@ -7,6 +7,10 @@ Public Interface ISelectingElements
     ''
     ''Added 7/31/2019 thomas downes  
     ''
+    ''
+    '' Well done!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Sub ElementsDesignList_Add(par_control As CtlGraphicFieldV3) ''Implements ISelectingElements.ElementsDesignList_Add
 
     Sub ElementsDesignList_Remove(par_control As CtlGraphicFieldV3) ''Implements ISelectingElements.ElementsDesignList_Remove

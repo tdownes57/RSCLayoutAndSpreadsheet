@@ -13,6 +13,10 @@ Public Interface ILastControlTouchedRSC
     ''     ----12/28/2021 thomas d. 
     ''
     ''1/2/2022 td''Property LastControlTouched As MoveableControlVB
+    ''
+    '' Oops!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property LastControlTouchedRSC As RSCMoveableControlVB
 
 

@@ -39,6 +39,11 @@ Public Interface IElement_TextField
     ''9/18/2019 td''Property FieldObject As ClassFieldAny ''Added 9/18/2019   
     ''--5/10/2022--Property FieldInfo As ICIBFieldStandardOrCustom ''Added 9/9/2019   
 
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
+
     Property FieldEnum As EnumCIBFields ''Added 10/12/2019 thomas d.
     Property FieldIsCustomizable As Boolean ''Added 5/11/2022 thomas d.
 

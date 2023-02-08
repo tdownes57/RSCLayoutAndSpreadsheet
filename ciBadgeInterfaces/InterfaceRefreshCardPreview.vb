@@ -13,6 +13,10 @@ Public Interface IRefreshCardPreview
     ''
     ''   This is making use of the Dependency Injection pattern.
     ''
+    ''
+    '' Well done! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Sub RefreshCardPreview()
 
 End Interface

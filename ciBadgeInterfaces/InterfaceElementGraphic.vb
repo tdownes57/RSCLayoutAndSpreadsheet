@@ -15,6 +15,10 @@ Public Interface IElementGraphic ''Dec.8 2021''InterfaceElementGraphic
     ''
     ''            Or maybe an small photograph of a building.  
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property GraphicImageName As String
     Property GraphicImage As Image
     Property GraphicImageFullPath As String ''Added 1/22/2022 td

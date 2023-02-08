@@ -6,6 +6,10 @@ Public Interface InterfaceCustomer
     ''
     ''Added 7/31/2019 td  
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property CustomerGUID As System.Guid ''Added 10/11/2019 td  
     Property CustomerGUID6char As String ''Added 02/15/2022 td  
 

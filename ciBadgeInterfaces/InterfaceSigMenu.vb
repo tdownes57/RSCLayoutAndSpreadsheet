@@ -8,6 +8,10 @@ Public Interface ISigMenu
     ''
     Sub DisplaySigMenu()
 
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/7/2023
+    ''
     Property PenEventFile As String
 
     Property PenWidth As Integer

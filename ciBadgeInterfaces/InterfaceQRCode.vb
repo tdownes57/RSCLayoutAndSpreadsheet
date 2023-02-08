@@ -13,6 +13,10 @@ Public Interface InterfaceQRCode
     '**See ** above.**objPMgr.QRCodesFolder = GlobalCfg.sTempFilesFolder '' C:\CI Solutions\CI Badge\Data\TempFiles  ... Has QR01_12346.jpg, for example.
     '**See ** above.**objPMgr.PrinterName = strPrinter
 
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property Cfg As Integer
 
     Property CfgFile As String

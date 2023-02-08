@@ -101,6 +101,10 @@ Public Interface IRecipient
 
     Function RecipientID() As String
 
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property idsCardDataID As Integer
     Property idfConfigID As Integer
     Property fstrLastName As String

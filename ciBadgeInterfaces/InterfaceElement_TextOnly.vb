@@ -17,6 +17,11 @@ Public Interface IElement_TextOnly
 
     ''Redundant, so not needed. 6/7/0222 td ''Property Font_FamilyName As String ''Added 6/06/2022 td
 
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
+
     Property FontColor As System.Drawing.Color
 
     ''Moved below & suffixed. 6/2022 Property FontSize_Pixels As Single ''Added 8/12/2019 thomas downes  

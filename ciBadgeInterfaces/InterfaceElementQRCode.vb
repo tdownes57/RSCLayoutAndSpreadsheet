@@ -10,6 +10,10 @@ Public Interface IElementQRCode
     ''      https://www.tutorialspoint.com/design_pattern/design_pattern_overview
     ''
 
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property QRFormula As String
 
 

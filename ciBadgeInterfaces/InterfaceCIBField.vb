@@ -10,6 +10,10 @@ Public Interface ICIBFieldStandardOrCustom
     ''Fields cannot link outward to elements.---9/18/2019 td''Property ElementInfo_Base As IElement_Base ''Added 9/3/2019 thomas d.
     ''Fields cannot link outward to elements.---9/18/2019 td''Property ElementInfo_Text As IElement_TextField ''Added 9/3/2019 thomas d.
 
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property FieldLabelCaption As String
 
 

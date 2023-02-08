@@ -9,6 +9,10 @@ Public Interface ILastControlTouched_Deprecated
     ''     Better to place the information within an instantiated object. 
     ''     ----12/28/2021 thomas d. 
     ''
+    ''
+    '' Oops!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property LastControlTouched As Control ''MoveableControlVB  
 
 

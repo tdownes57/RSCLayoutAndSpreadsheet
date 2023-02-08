@@ -19,6 +19,10 @@ Public Interface IGetElementControlParameters
     ''   par_oMoveEventsGroupedControls As GroupMoveEvents_Singleton,
     ''   par_strPathToSigFile As String
 
+    ''
+    '' Oops!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property ElementObject As ClassElementBase ''Added 1/17/2022 td  
 
     Property ElementsCache As ClassElementsCache_Deprecated ''Added 5/5/2022 td

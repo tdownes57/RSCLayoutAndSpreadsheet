@@ -14,6 +14,10 @@ Public Interface InterfaceMoveEvents
     ''void Moving_Terminate(Control par_control, ISaveToModel par_iSave); //Modified 12/17/2021 //Added 9/13/2019 td 
     ''void Control_IsMoving();
 
+    ''
+    '' Well done! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Sub GroupMove_Change(DeltaLeft As Integer, DeltaTop As Integer,
                          DeltaWidth As Integer, DeltaHeight As Integer,
                          pbEditedLocationAlready As Boolean)

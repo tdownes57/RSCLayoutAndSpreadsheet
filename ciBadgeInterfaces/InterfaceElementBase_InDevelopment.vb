@@ -16,6 +16,10 @@ Public Interface IElement_Base_InDevelopment
     ''Added 1/23/2022 td
     ''
     ''
+    ''
+    '' Oops! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property WhyOmitted As WhyOmitted_StructV2
 
     Property Border_bDisplayed As Boolean ''Added 7/19/2022 thomas d. 

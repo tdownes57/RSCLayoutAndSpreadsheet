@@ -10,6 +10,10 @@ Public Interface IRecordElementLastTouched
     ''
     ''Added 12/17/2021 thomas d
     ''
+    ''
+    '' Well done!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Sub RecordElementLastTouched(par_elementMoved As IMoveableElement,
                                  par_elementClicked As IClickableElement)
 

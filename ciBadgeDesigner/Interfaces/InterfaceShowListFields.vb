@@ -11,6 +11,10 @@ Public Interface InterfaceShowListFields
     ''
     ''Added 12/6/2021 thomas downes
     ''
+    ''
+    '' Oops!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property ListOfFields_Custom As HashSet(Of ClassFieldCustomized)
     Property ListOfFields_Standard As HashSet(Of ClassFieldStandard)
     Property CacheManager As ClassCacheManagement

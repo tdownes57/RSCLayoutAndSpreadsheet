@@ -6,6 +6,10 @@ Public Interface ISelectingElements_v90
     ''
     ''Added 7/31/2019 thomas downes  
     ''
+    ''
+    '' Well done!! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Sub LabelsDesignList_Add(par_control As CtlMainEntryBox_v90) ''Implements ISelectingElements.LabelsDesignList_Add
 
     Sub LabelsDesignList_Remove(par_control As CtlMainEntryBox_v90) ''Implements ISelectingElements.LabelsDesignList_Remove

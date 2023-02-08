@@ -7,6 +7,10 @@ Public Interface ILayoutFunctions
     ''
     ''Added 9/9/2019 td  
     ''
+    ''
+    '' Well done! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Property LayoutDebugName As String ''For debugging. --Added 9/3/2022 td
     Property LayoutDebugDescription As String ''For debugging.--Added 9/3/2022 td
 

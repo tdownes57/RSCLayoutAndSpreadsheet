@@ -14,6 +14,10 @@ Public Interface IRefreshElementImage
     ''
     ''#1 6/6/2022 Sub RefreshElementImage()
     ''#1 6/6/2022 Sub RefreshElementImage(Optional pbAfterResizingEvent As Boolean = False)
+    ''
+    '' Well done! Interfaces should not contain properties, but rather methods.
+    '' ---2/07/2023 tcd
+    ''
     Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False)
 
 
