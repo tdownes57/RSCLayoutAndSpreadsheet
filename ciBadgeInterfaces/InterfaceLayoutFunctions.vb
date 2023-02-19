@@ -35,6 +35,9 @@ Public Interface ILayoutFunctions
     Property ControlBeingMoved() As Control ''Added 9/20/2019 td 
     Property ControlThatWasClicked() As Control ''Added 8/31/2022 td 
 
+    Property ControlLastMouseUpShiftKey() As Control ''Added 2/19/2023 td
+    Property ControlLastMouseUpCtrlKey() As Control ''Added 2/19/2023 td
+
     Function OkayToShowFauxContextMenu() As Boolean ''Added 9/19/2019 td
     ''
     ''11/29/2021 td''Sub AutoPreview_IfChecked() ''Added 9/19/2019 td 

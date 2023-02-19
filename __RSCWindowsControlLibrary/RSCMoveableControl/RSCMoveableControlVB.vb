@@ -24,11 +24,19 @@ Public Class RSCMoveableControlVB
     Public Shared LastControlTouched_Deprecated As RSCMoveableControlVB
     Public Shadows ParentForm As Form ''Added 1/15/2022 td 
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     ''Added 5/5/2022 td
     Public ElementsCache As ciBadgeCachePersonality.ClassElementsCache_Deprecated
     Public ElementBase As ciBadgeElements.ClassElementBase ''Added 5/5/2022 td
 
     ''Added 5/5/2022 td
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public ConditionalExpressionInUse As Boolean
     Public ConditionalExpressionField As EnumCIBFields
     Public ConditionalExpressionValue As String
@@ -126,6 +134,10 @@ Public Class RSCMoveableControlVB
     ''End Function ''End of Public Shared Function GetControl
 
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public Property MoveabilityEventsForGroupCtls As GroupMoveEvents_Singleton
         ''Jan4 2022''Public WriteOnly Property MoveabilityEvents As GroupMoveEvents_Singleton
         Get
@@ -139,6 +151,10 @@ Public Class RSCMoveableControlVB
     End Property
 
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public Property MoveabilityEventsForSingleMove As GroupMoveEvents_Singleton
         Get
             ''Added 1/10/2022 td 
@@ -151,6 +167,10 @@ Public Class RSCMoveableControlVB
     End Property
 
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public Property ImageLocation As String
         ''Added 8/14/2022 thomas downes
         Get
@@ -168,6 +188,10 @@ Public Class RSCMoveableControlVB
     End Property
 
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public Property SizeMode As PictureBoxSizeMode
         ''Added 8/14/2022 thomas downes
         Get
@@ -209,12 +233,20 @@ Public Class RSCMoveableControlVB
     ''Public Property DateSaved As Date Implements IElement_Base.DateSaved
     ''Public Property ZOrder As Integer Implements IElement_Base.ZOrder
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public Event Element_RightClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
     ''10/24/2022 Public Event Element_LeftClicked(par_control As RSCMoveableControlVB) ''Added 5/18/2022 td
     Public Event Element_LeftClicked(par_control As RSCMoveableControlVB, par_e As EventArgs) ''Modified 10/24/2022 td
     Public Event Element_ShiftKeyClick(par_control As RSCMoveableControlVB, par_e As EventArgs) ''Added 1/09/2023 td
     Public Event Element_CtrlKeyClick(par_control As RSCMoveableControlVB, par_e As EventArgs) ''Modified 1/09/2023 td
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public LastControlTouched_Info As ILastControlTouched ''Added 12/28/2021 thomas d. 
     Public MyToolstripItemCollection As ToolStripItemCollection ''Added 12/28/2021 td
     Public ExpectedProportionWH As Single = 0 ''Added 1/4/2022 td  
@@ -224,6 +256,10 @@ Public Class RSCMoveableControlVB
     Private mod_boolRemoveMoveability As Boolean = False ''Added 3/20/2022 td
 
     ''Added 1/10/2022 td 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public TempResizeInfo_W As Integer = 0 ''Intial resizing width.  (Before any adjustment is made.)
     Public TempResizeInfo_H As Integer = 0 ''Intial resizing height.  (Before any adjustment is made.)
     Public TempResizeInfo_Left As Integer = 0 ''Intial resizing Left.  (Before any adjustment is made.)
@@ -265,9 +301,17 @@ Public Class RSCMoveableControlVB
     Protected mod_eventsForGroupMove_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
     Protected WithEvents mod_eventsForSingleMove As GroupMoveEvents_Singleton ''InterfaceEvents
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public Overridable Property ElementInfo_Base As ciBadgeInterfaces.IElement_Base ''Added 1/10/2022 thomas d.
 
     ''Added 5/6/2022 td
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public ElemIfApplicable_IPic As ciBadgeInterfaces.IElementPic
     Public ElemIfApplicable_ISig As ciBadgeInterfaces.IElementSig
     Public ElemIfApplicable_IQRCode As ciBadgeInterfaces.IElementQRCode
@@ -275,6 +319,10 @@ Public Class RSCMoveableControlVB
     Public ElemIfApplicable_IGraphic As ciBadgeInterfaces.IElementGraphic
     Public ElemIfApplicable_ITextOnly As ciBadgeInterfaces.IElement_TextOnly
 
+    ''
+    '' Oops!  Classes should mostly expose methods, not properties.)  
+    '' ---2/7/2023
+    ''
     Public Event RSCControlClicked() ''Added 5/4/2022 td
 
     ''#1 Jan2 2022''Private mod_iSaveToModel As ISaveToModel 

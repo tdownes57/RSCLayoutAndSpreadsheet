@@ -132,6 +132,27 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+        public void MouseUpShiftKey(Control par_control)
+        {
+            //Added 2/19/2023
+
+            LayoutFunctions.ControlThatWasClicked = par_control;
+            LayoutFunctions.ControlLastMouseUpShiftKey = par_control;
+
+        }
+
+        public void MouseUpCtrlKey(Control par_control)
+        {
+            //Added 2/19/2023
+
+            LayoutFunctions.ControlThatWasClicked = par_control;
+            LayoutFunctions.ControlLastMouseUpCtrlKey = par_control;
+
+        }
+
+
+
+
         public void Control_IsMoving()
         {
             //throw new NotImplementedException();
