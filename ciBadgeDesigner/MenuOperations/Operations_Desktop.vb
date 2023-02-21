@@ -63,6 +63,7 @@ Public Class Operations_Desktop
         Dim intHeightOfRSC As Integer
         Dim objSizeOfRSC As System.Drawing.Size ''Added 1/19/2022
         Dim obj_parametersGetElementControl As ClassGetElementControlParams ''Added 1/18/2022
+        Dim badge_layout_dims As BadgeLayoutDimensionsClass ''Added 2/21/2023
 
         ''oCacheManager = Me.ParentDesignerForm.ElementsCache_PathToXML
         infoDesignerForm = Me.ParentDesignerForm
@@ -73,15 +74,23 @@ Public Class Operations_Desktop
         ''End If ''End of "If (intHeightOfRSC = 0) Then"
         objSizeOfRSC = infoDesignerForm.SizeAnyRSCMoveableControl()
         intHeightOfRSC = objSizeOfRSC.Height
+        obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
+        ''Added 2/21/2023
+        With obj_parametersGetElementControl.iLayoutFunctions
+            ''Added 2/21/2023
+            badge_layout_dims = New BadgeLayoutDimensionsClass(.Layout_Width_Pixels,
+                                                               .Layout_Height_Pixels)
+        End With ''ENd of "With obj_parametersGetElementControl.iLayoutFunctions"
 
         ''objElementStaticText = New ClassElementStaticText("New StaticText...", e.X, e.Y, 25)
         ''8/17/2022 objElementStaticText = New ClassElementStaticTextV3("New StaticText...", e.X, e.Y, intHeightOfRSC)
         objElementStaticText = New ClassElementStaticTextV3("New StaticText...",
                                                             e.X, e.Y,
                                                             intHeightOfRSC,
-                                                            objSizeOfRSC.Width)
+                                                            objSizeOfRSC.Width,
+                                                            badge_layout_dims)
 
-        obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
+        ''Moved up. 2/2023''obj_parametersGetElementControl = DesignerClass.GetParametersToGetElementControl()
 
         ''Added 1/18/2022 thomas downes  
         objElementStaticText.Visible = True

@@ -13,6 +13,7 @@ using ciBadgeRecipients;  //Added 10/16/2019 td
 //using ciBadgeCachingPersonality;  //Added 12/4/2021 td 
 using ciBadgeCachePersonality; //Added 12/4/2021 td
 using System.Linq;
+using System.IO;
 
 namespace ciBadgeGenerator
 {
@@ -444,11 +445,11 @@ namespace ciBadgeGenerator
                 if (img_Step3Picture != null)
                 {
                     LoadImageWithPortrait_OrGraphic(img_Step3Picture,
-                                        par_newBadge_width_pixels,
-                                        par_layoutDims.Width_Pixels,
-                                        ref obj_imageOutput,
-                                        (IElement_Base)obj_elementPic,
-                                        (IElementPic)obj_elementPic);
+                            par_newBadge_width_pixels,
+                            par_layoutDims.Width_Pixels,
+                            ref obj_imageOutput,
+                            (IElement_Base)obj_elementPic,
+                            (IElementPic)obj_elementPic);
                     //
                     // End of "if (img_Step3Picture != null)"
                     //
@@ -2104,7 +2105,7 @@ namespace ciBadgeGenerator
                 bool boolRotated = false; //Added 10/14/2019 td  
 
                 image_textStandard =
-                    modGenerate.TextImage_ByElemInfo(strTextToDisplay, 
+                    modGenerate.TextImage_ByElemInfo(strTextToDisplay,
                     intDesiredLayout_Width,
                     intDesiredLayout_Height,
                          par_elementStaticV4,
@@ -2116,8 +2117,20 @@ namespace ciBadgeGenerator
 
                 par_elementStaticV4.Image_BL = image_textStandard;
 
-                decimal decScalingFactor = ((decimal)par_imageBadgeCard.Width /
-                                             par_elementStaticV4.BadgeLayout.Width_Pixels);
+                decimal decScalingFactor = 1.000M; //Added 2/20/2022  
+                int numElementBadgeLayoutPixelsW = par_elementStaticV4.BadgeLayout.Width_Pixels; //Added 2/20/2022
+                if (numElementBadgeLayoutPixelsW > 0)
+                {
+                    //decScalingFactor = ((decimal)par_imageBadgeCard.Width /
+                    //           par_elementStaticV4.BadgeLayout.Width_Pixels);
+                    decScalingFactor = ((decimal)par_imageBadgeCard.Width /
+                               numElementBadgeLayoutPixelsW);
+                }
+                else
+                {
+                    // Added 2-20-2022
+                    System.Diagnostics.Debugger.Break();
+                }
 
                 int intDesignedLeft = par_elementStaticV4.LeftEdge_Pixels;  //Added 10/14/2019 td 
                 int intDesignedTop = par_elementStaticV4.TopEdge_Pixels;  //Added 10/14/2019 td

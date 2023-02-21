@@ -6,6 +6,7 @@ Imports ciBadgeInterfaces ''Added 8/06/2022 thomas downes
 Imports __RSCWindowsControlLibrary ''Added 8/07/2022 thomas 
 Imports ciBadgeCachePersonality ''Added 10/24/2022 thomas downes  
 Imports __RSC_Error_Logging ''Added 11/21/2022 Thomas Downes  
+Imports System.Drawing.Text
 
 Public Enum EnumForeOrBackground
     Undetermined
@@ -142,7 +143,9 @@ Public Class Dialog_BaseChooseColor
 
         ''Refresh the alternate panel.  (It's a competition, to see which container will 
         ''  be chosen to be the UI control.)
-        RscColorFlowPanel2.RefreshColors_FromList(mod_listRSCColors)
+        ''02/2023  RscColorFlowPanel2.RefreshColors_FromList(mod_listRSCColors)
+        RscColorFlowPanel1.RefreshColors_FromList(mod_listRSCColors)
+
 
         ''Added 8/30/2022 thomas downes
         ''RscColorFlowPanelNew.Controls.Clear()
@@ -285,7 +288,7 @@ Public Class Dialog_BaseChooseColor
     End Sub
 
 
-    Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs) ''Handles RscColorFlowPanel2.ColorSelected
+    Private Sub NetDrawingColor_Click(sender As Object, e As EventArgs) ''Handles RscColorFlowPanel1.Color_Selected
         ''
         ''8/22/2022 thomas downes
         ''
@@ -478,7 +481,17 @@ Public Class Dialog_BaseChooseColor
 
     Private Sub LinkLabelAddColor1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelAddColor1.LinkClicked
         ''
-        ''Added 9/17/2022 thomas downes 
+        ''  Added 9/17/2022 thomas downes 
+        ''
+        ''Encapsulated 2/20/2022 thomas downes
+        AddRemoveColor()
+
+    End Sub
+
+
+    Private Sub AddRemoveColor()
+        ''
+        ''Encapsulated 2/20/2022 
         ''
         Dim objFormToShow As DialogSelectColorManager
         ''10/28/2022 Dim listRSCColors As HashSet(Of RSCColor)
@@ -515,12 +528,13 @@ Public Class Dialog_BaseChooseColor
         ''Added 11/21/2022
         ''RscColorFlowPanelNew.RefreshColors_FromList(mod_listRSCColors)
         ''11/27/2022 RSCColorFlowPanel.RefreshColors_FromList(FlowLayoutPanel1, mod_listRSCColors)
-        RscColorFlowPanel2.RefreshColors_FromList(mod_listRSCColors)
+        ''02/2023 RscColorFlowPanel2.RefreshColors_FromList(mod_listRSCColors)
+        RscColorFlowPanel1.RefreshColors_FromList(mod_listRSCColors)
 
 
     End Sub
 
-    Private Sub RscColorFlowPanel2_Color_Selected(par_rsccolor As RSCColor)
+    Private Sub RscColorFlowPanel1_Color_Selected(par_rsccolor As RSCColor) Handles RscColorFlowPanel1.Color_Selected
         ''
         ''Added 11/27/2022 
         ''
@@ -664,5 +678,12 @@ Public Class Dialog_BaseChooseColor
 
     End Sub
 
+    Private Sub RscColorFlowPanel1_Colors_OpenAddRemove(sender As Object, e As EventArgs) Handles RscColorFlowPanel1.Colors_OpenAddRemove
+        ''
+        ''Added 2/20/2023
+        ''
+        ''LinkLabelAddColor1_LinkClicked()
+        AddRemoveColor()
 
+    End Sub
 End Class

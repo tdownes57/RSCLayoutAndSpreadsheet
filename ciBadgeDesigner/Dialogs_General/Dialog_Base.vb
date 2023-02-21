@@ -20,6 +20,9 @@ Public Class Dialog_Base
     Protected mod_elementText As ciBadgeElements.ClassElementFieldOrTextV4 ''Added 12/30/2022 td
     Protected mod_controlLastTouched As Control ''Added 9/01/2022 
 
+    Protected mod_controlLastMouseUpShiftKey As Control ''Added 2/20/2023 
+    Protected mod_controlLastMouseUpCtrlKey As Control ''Added 2/20/2023
+
     Protected ControlBelongsToPanel As Boolean = False ''Added 7/28/2022 td
 
     Private mod_bLetsUseEnumeratedArrowLR As Boolean
@@ -414,6 +417,30 @@ ExitHandler:
             mod_controlLastTouched = value
         End Set
     End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
+
+
+    Public Property ControlLastMouseUpCtrlKey() As Control _
+        Implements ILayoutFunctions.ControlLastMouseUpCtrlKey ''Added 8/9/2019 td
+        Get
+            Return mod_controlLastMouseUpCtrlKey
+        End Get
+        Set(value As Control)
+            mod_controlLastMouseUpCtrlKey = value
+        End Set
+    End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
+
+
+    Public Property ControlLastMouseUpShiftKey() As Control _
+        Implements ILayoutFunctions.ControlLastMouseUpShiftKey ''Added 8/9/2019 td
+        Get
+            Return mod_controlLastMouseUpShiftKey
+        End Get
+        Set(value As Control)
+            mod_controlLastMouseUpShiftKey = value
+        End Set
+    End Property ''End of "Public Property ControlBeingModified() As Control Implements ILayoutFunctions.ControlBeingModified"
+
+
 
 
     Protected Sub PositionElement(par_control As RSCMoveableControlVB,

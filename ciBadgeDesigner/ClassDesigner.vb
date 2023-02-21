@@ -58,6 +58,7 @@ Public Class ClassDesigner
     Public Property PreviewLayoutAsImage As Boolean = True ''Added 10.1.2019 thomas d. 
     Public BadgeLayout_Class As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 10/9/2019 td  
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
+    ''2/19/2022 Private mod_ControlLastMouseUpShiftKey
 
     ''Use an instance of ClassDesigner instead!!!!! ---1/4/2022 td 
     ''----Jan6 2022---Private mod_iRecLastTouched_UseDesignerInstead As New ClassRecordElementLastTouched_Deprecated ''Added 1/4/2022 td
@@ -160,6 +161,8 @@ Public Class ClassDesigner
 
     ''11/29/2012 ''Private mod_ControlLastTouched As Control ''Added 8/12/2019 thomas d. 
     Public mod_ControlLastTouched As Control ''Publicized 11/29/2021 td''Added 8/12/2019 thomas d. 
+    Public mod_ControlLastMouseUpShiftKey As Control ''Added 2/19/2022 td
+    Public mod_ControlLastMouseUpCtrlKey As Control ''Added 2/19/2022 td
 
     Private WithEvents mod_oGroupMoveEvents As GroupMoveEvents_Singleton ''Added 1/4/2022 thomas d.
     ''Jan2 2022''Public mod_IControlLastTouched As New ClassLastControlTouched ''Added 1/02/2021 thomas d. 
@@ -1597,7 +1600,7 @@ Public Class ClassDesigner
                              intLeft, intTop,
                              intWidth, intHeight,
                              Me.BackgroundBox_Front,
-                             EnumSideOfCard_Current)
+                             EnumSideOfCard_Current, BadgeLayout_Class)
 
         Return newElement
 
@@ -4281,6 +4284,39 @@ Public Class ClassDesigner
 
         End Set
     End Property
+
+
+    Public Property ControlLastMouseCtrlKey() As Control _
+        Implements ILayoutFunctions.ControlLastMouseUpCtrlKey ''Added 2/19/2023 td
+        Get
+            ''Added 2/19/2023 td
+            Return mod_ControlLastMouseUpCtrlKey
+        End Get
+        Set(value As Control)
+            ''Added 2/19/2023 td
+            mod_ControlLastMouseUpCtrlKey = value
+            ''Added 2/19/2023 td
+            PositionElementArrow(mod_ControlLastMouseUpCtrlKey)
+
+        End Set
+    End Property
+
+
+    Public Property ControlLastMouseShiftKey() As Control _
+        Implements ILayoutFunctions.ControlLastMouseUpShiftKey ''Added 2/19/2023 td
+        Get
+            ''Added 2/19/2023 td
+            Return mod_ControlLastMouseUpShiftKey
+        End Get
+        Set(value As Control)
+            ''Added 2/19/2023 td
+            mod_ControlLastMouseUpShiftKey = value
+            ''Added 2/19/2023 td
+            PositionElementArrow(mod_ControlLastMouseUpShiftKey)
+
+        End Set
+    End Property
+
 
     Public Property ElementsDesignList_AllItems As HashSet(Of RSCMoveableControlVB) _
         Implements ISelectingElements.ElementsDesignList_AllItems

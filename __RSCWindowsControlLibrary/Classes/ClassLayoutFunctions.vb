@@ -60,6 +60,41 @@ Public Class ClassLayoutFunctions
         End Set
     End Property
 
+
+    Public Property ControlLastMouseUpCtrlKey As Control Implements ILayoutFunctions.ControlLastMouseUpCtrlKey
+        ''Added 2/20/2023
+        Get
+            System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(105,
+                                                    "Property ControlThatWasClicked",
+                  "Property Get is not implemented")
+
+        End Get
+        Set(value As Control)
+            __RSC_Error_Logging.RSCErrorLogging.Log(106,
+                                                    "Property ControlThatWasClicked",
+                  "Property Set is not implemented")
+        End Set
+    End Property
+
+
+    Public Property ControlLastMouseUpShiftKey As Control Implements ILayoutFunctions.ControlLastMouseUpShiftKey
+        ''Added 2/20/2023
+        Get
+            System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(105,
+                                                    "Property ControlThatWasClicked",
+                  "Property Get is not implemented") ''Added 11/16/2022
+
+        End Get
+        Set(value As Control)
+            __RSC_Error_Logging.RSCErrorLogging.Log(106,
+                                                    "Property ControlThatWasClicked",
+                  "Property Set is not implemented") ''Added 11/16/2022
+        End Set
+    End Property
+
+
     Public Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing, Optional par_stillMoving As Boolean = False) Implements ILayoutFunctions.AutoPreview_IfChecked
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()

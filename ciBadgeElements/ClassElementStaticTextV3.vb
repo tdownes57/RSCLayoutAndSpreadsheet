@@ -236,16 +236,20 @@ Public Class ClassElementStaticTextV3
 
     End Sub
 
+
     Public Sub New(par_DisplayText As String,
                    par_intLeft_Pixels As Integer,
                    par_intTop_Pixels As Integer,
                    par_intHeight_Pixels As Integer,
-                   par_intWidth_Pixels As Integer)
+                   par_intWidth_Pixels As Integer,
+                   par_badgeLayout As BadgeLayoutDimensionsClass)
         ''
         ''Added 9/15/2019 td
         ''
         ''9/5/2022 Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
-        Me.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        ''2/21/2023 Me.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        Me.BadgeLayoutDims = New BadgeLayoutDimensionsClass(par_badgeLayout.Width_Pixels,
+                                      par_badgeLayout.Height_Pixels) ''Added 2/21/2022 td
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels

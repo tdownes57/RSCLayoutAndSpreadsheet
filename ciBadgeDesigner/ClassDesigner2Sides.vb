@@ -83,6 +83,7 @@ Public Class ClassDesigner2Sides
         End Set
     End Property
 
+
     Public Property ControlThatWasClicked As Control Implements ILayoutFunctions.ControlThatWasClicked
         ''Added 9/01/2022 td
         Get
@@ -96,6 +97,29 @@ Public Class ClassDesigner2Sides
             System.Diagnostics.Debugger.Break()
         End Set
     End Property
+
+
+    Public Property ControlLastMouseUpCtrlKey As Control Implements ILayoutFunctions.ControlLastMouseUpCtrlKey
+        ''Added 2/20/2023 td
+        Get
+            System.Diagnostics.Debugger.Break()
+        End Get
+        Set(value As Control)
+            System.Diagnostics.Debugger.Break()
+        End Set
+    End Property
+
+
+    Public Property ControlLastMouseUpShiftKey As Control Implements ILayoutFunctions.ControlLastMouseUpShiftKey
+        ''Added 2/20/2023 td
+        Get
+            System.Diagnostics.Debugger.Break()
+        End Get
+        Set(value As Control)
+            System.Diagnostics.Debugger.Break()
+        End Set
+    End Property
+
 
     Public Property ElementsDesignList_AllItems As HashSet(Of RSCMoveableControlVB) Implements ISelectingElements.ElementsDesignList_AllItems
         Get

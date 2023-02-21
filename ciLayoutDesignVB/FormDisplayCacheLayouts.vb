@@ -794,7 +794,7 @@ Public Class FormDisplayCacheLayouts
         ''
         Dim frm_ToShow As New DialogEditCustomers
         Dim cache_customers As ciBadgeCachePersonality.ClassCacheListCustomers
-        Dim objListCustomers As HashSet(Of ciBadgeCustomer.ClassCustomer)
+        ''02/2023  Dim objListCustomers As HashSet(Of ciBadgeCustomer.ClassCustomer)
         Dim strPathToXML As String
 
         strPathToXML = My.Settings.PathToXML_Saved_Customers

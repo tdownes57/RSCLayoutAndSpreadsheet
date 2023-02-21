@@ -56,7 +56,7 @@ Namespace ciBadgeCachePersonality
         ''Jan18 2022 ''<Xml.Serialization.XmlIgnore>
         ''Jan18 2022 ''Public Property ElementSig_RefCopy As ClassElementSignature ''Added 10/8/2019 thomas d.  
 
-        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
+        Public Property BadgeLayoutDims As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
 
         ''Added 1/12/2020 thomas d. 
         Public Property PathToBackgroundImageFile_Deprecated As String ''Deprecated 2/4/2020 td.   Added 1/12/2019 thomas downes
@@ -2298,7 +2298,8 @@ Namespace ciBadgeCachePersonality
                 ''8/17/2022 objElementText = New ClassElementStaticTextV3(par_DisplayText, intLeft, intTop, par_intHeight)
                 objElementText = New ClassElementStaticTextV3(par_DisplayText,
                                                               intLeft, intTop,
-                                                              par_intHeight, par_intWidth)
+                                                              par_intHeight, par_intWidth,
+                                                              BadgeLayoutDims)
 
                 If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
                     mod_listElementStaticsV3_Backside.Add(objElementText)
@@ -2321,6 +2322,7 @@ Namespace ciBadgeCachePersonality
                                     par_intWidth As Integer, par_intHeight As Integer,
                                     par_pictureBackground As PictureBox,
                                     par_enum As EnumWhichSideOfCard,
+                                    par_badgeLayoutDims As BadgeLayoutDimensionsClass,
                                     Optional pbOnlyIfMissingFrontAndBack As Boolean = False) _
                                     As ClassElementStaticTextV4
             ''
@@ -2351,7 +2353,8 @@ Namespace ciBadgeCachePersonality
                 ''8/17/2022 objElementText = New ClassElementStaticTextV4(par_DisplayText, intLeft, intTop, par_intHeight)
                 objElementText = New ClassElementStaticTextV4(par_DisplayText,
                                                               intLeft, intTop,
-                                                              par_intHeight, par_intWidth)
+                                                              par_intHeight, par_intWidth,
+                                                              par_badgeLayoutDims)
                 ''12/24/2022 td ''objElementText = New ClassElementStaticTextV4()
 
                 If (par_enum = EnumWhichSideOfCard.EnumBackside) Then
@@ -3145,11 +3148,11 @@ Namespace ciBadgeCachePersonality
                 End Try
 
                 ''Added 11/16/2019 td
-                obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass()
+                obj_cache_elements.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass()
                 ''---2/3/2020 td--obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
                 ''---2/3/2020 td--obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
-                obj_cache_elements.BadgeLayout.Width_Pixels = FormBadgeLayoutProto.pictureBack_Width ''---2/3/2020 td--obj_designForm.pictureBack.Width
-                obj_cache_elements.BadgeLayout.Height_Pixels = FormBadgeLayoutProto.pictureBack_Height ''---2/3/2020 td--obj_designForm.pictureBack.Height
+                obj_cache_elements.BadgeLayoutDims.Width_Pixels = FormBadgeLayoutProto.pictureBack_Width ''---2/3/2020 td--obj_designForm.pictureBack.Width
+                obj_cache_elements.BadgeLayoutDims.Height_Pixels = FormBadgeLayoutProto.pictureBack_Height ''---2/3/2020 td--obj_designForm.pictureBack.Height
 
                 pref_section = 13 ''Added 11/27/2019 td
 
@@ -3330,7 +3333,7 @@ Namespace ciBadgeCachePersonality
             ''Added 11/18/2019 td
             With obj_cache_elements
                 ''Added 11/18/2019 td
-                If (.BadgeLayout Is Nothing) Then
+                If (.BadgeLayoutDims Is Nothing) Then
                     Dim intBadgeWidth As Integer
                     Dim intBadgeHeight As Integer
 
@@ -3338,7 +3341,7 @@ Namespace ciBadgeCachePersonality
                     intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Width_Pixels
                     intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Height_Pixels
 
-                    .BadgeLayout = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
+                    .BadgeLayoutDims = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
 
                 End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
 

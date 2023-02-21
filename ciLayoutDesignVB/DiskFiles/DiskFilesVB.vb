@@ -355,7 +355,7 @@ Public Class DiskFilesVB
         ''
         ''  If the input string is "Thomas Downes.jpg", the function may return "Thomas Downes (4).jpg". 
         ''
-        Dim intLengthOfFileExtension As Integer
+        ''02/2023 Dim intLengthOfFileExtension As Integer
 
         ''Dim objNewFileInfo As New FileInfo(pstrFileTitle)
         ''Dim strFileExention As String
@@ -378,12 +378,11 @@ Public Class DiskFilesVB
     End Function ''End of "Public Shared Function IncrementFileTitle"
 
 
-    Public Shared Function FullPathToTimestampedXML() As String
-        ''
-        ''Added 12/19/2021 thomas downes
-        ''
-
-    End Function ''End of "Public Shared Function FullPathToTimestampedXML() As String"
+    ''02/2023 Public Shared Function FullPathToTimestampedXML() As String
+    ''
+    ''Added 12/19/2021 thomas downes
+    ''
+    ''02/2023  End Function ''End of "Public Shared Function FullPathToTimestampedXML() As String"
 
 
     Public Shared Function IsXMLFileMissing_OrEmpty(pstrPathToElementsCacheXML As String) As Boolean

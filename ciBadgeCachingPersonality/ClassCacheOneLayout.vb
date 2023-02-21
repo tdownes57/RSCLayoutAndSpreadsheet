@@ -65,7 +65,7 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
         End Property
 
 
-        Public Property BadgeLayout As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
+        Public Property BadgeLayoutDims As ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/17/2019 thomas downes
 
         Public Property PathToBackgroundImageFile As String ''Added 11/29/2019 thomas downes
 
@@ -417,7 +417,8 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''             intLeft, intTop, par_intHeight)
             objElementText = New ClassElementStaticTextV3(par_DisplayText,
                                         intLeft, intTop,
-                                        par_intHeight, par_intWidth)
+                                        par_intHeight, par_intWidth,
+                                        BadgeLayoutDims)
 
             mod_listElementStatics.Add(objElementText)
 
@@ -734,9 +735,9 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
                 End If ''End of "If (IO.File.Exists(pstrPathToXML)) Then"
 
                 ''Added 11/16/2019 td
-                obj_cache_elements.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass()
-                obj_cache_elements.BadgeLayout.Width_Pixels = obj_designForm.pictureBack.Width
-                obj_cache_elements.BadgeLayout.Height_Pixels = obj_designForm.pictureBack.Height
+                obj_cache_elements.BadgeLayoutDims = New ciBadgeInterfaces.BadgeLayoutDimensionsClass()
+                obj_cache_elements.BadgeLayoutDims.Width_Pixels = obj_designForm.pictureBack.Width
+                obj_cache_elements.BadgeLayoutDims.Height_Pixels = obj_designForm.pictureBack.Height
 
                 obj_cache_elements.LoadFields()
                 ''----uncomment on 11/16/2019 td''obj_cache_elements.LoadFieldElements(par_imageBack,
@@ -871,14 +872,14 @@ Namespace ciBadgeCachePersonality ''Added 12/4/2021
             ''Added 11/18/2019 td
             With obj_cache_elements
                 ''Added 11/18/2019 td
-                If (.BadgeLayout Is Nothing) Then
+                If (.BadgeLayoutDims Is Nothing) Then
                     Dim intBadgeWidth As Integer
                     Dim intBadgeHeight As Integer
 
                     intBadgeWidth = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Width_Pixels
                     intBadgeHeight = obj_cache_elements.ListFieldElementsV3(0).BadgeLayoutDims.Height_Pixels
 
-                    .BadgeLayout = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
+                    .BadgeLayoutDims = New BadgeLayoutDimensionsClass(intBadgeWidth, intBadgeHeight)
 
                 End If ''End of "If (obj_cache_elements.BadgeLayout Is Nothing) Then
             End With

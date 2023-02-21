@@ -29,6 +29,12 @@ namespace MoveAndResizeControls_Monem
         //Added 9/01/2022
         public Control ControlThatWasClicked { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+        //Added 2/19/2023
+        public Control ControlLastMouseUpShiftKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        //Added 2/19/2023
+        public Control ControlLastMouseUpCtrlKey { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
         public void AutoPreview_IfChecked(Control par_controlElement = null, bool par_stillMoving = false)
         {

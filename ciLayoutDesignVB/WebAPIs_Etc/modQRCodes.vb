@@ -77,9 +77,9 @@ ExitHandler:
         ''10/21/2019 td''Dim rs As DAO.Recordset
         ''10/21/2019 td''Dim rpt As Report
 
-        Dim ctl As Control
-        Dim strQRNumber As String
-        Dim strQRCBitmap As String
+        ''02/2023  Dim ctl As Control
+        ''02/2023  Dim strQRNumber As String
+        ''02/2023  Dim strQRCBitmap As String
 
         ''10/21/2019 td''On Local Error Resume Next
 

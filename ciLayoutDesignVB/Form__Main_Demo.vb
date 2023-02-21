@@ -357,7 +357,7 @@ Public Class Form__Main_Demo
         ''
         ''Context Menus!!  ----12/13/2021 td 
         ''
-        Const c_bBaseControlWillLoadMenuCaches As Boolean = True ''True. See project __RSCWindowControlLibrary,
+        ''02/2023 Const c_bBaseControlWillLoadMenuCaches As Boolean = True ''True. See project __RSCWindowControlLibrary,
         ''  folder RSCMoveableControlVB, Sub AddClickability().  --1/5/2022 td
         Const c_bFormWillLoadMenuCaches As Boolean = False ''Added 1/5/2022 td
 
@@ -3296,8 +3296,8 @@ ExitHandler:
 
         Dim intCountOfControls As Integer ''Added 1/23/2022
         Dim intCountOfControls_NonZero As Integer ''Added 1/23/2022
-        Dim intSumOfHeights As Integer ''Added 1/23/2022
-        Dim intSumOfWidths As Integer ''Added 1/23/2022
+        ''02/2023  Dim intSumOfHeights As Integer ''Added 1/23/2022
+        ''02/2023  Dim intSumOfWidths As Integer ''Added 1/23/2022
 
         For Each each_control As Control In Me.Controls
             ''
@@ -4035,7 +4035,7 @@ ExitHandler:
         Dim frm_ToShow As DialogEditRecipients
         Dim cache_elements As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
         Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
-        Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
+        ''02/2023  Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
 
         ''Added 5/20/2022 td
         With Me.ElementsCache_Edits

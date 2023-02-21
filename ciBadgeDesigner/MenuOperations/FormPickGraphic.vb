@@ -29,8 +29,8 @@ Public Class FormPickGraphic
         ''Added 1/21/2022 thomas downes
         ''
         Dim strPathToFolderImages As String
-        Dim objNewPictureBox As PictureBox
-        Dim objFolderInfo As System.IO.Directory
+        ''2/2023 Dim objNewPictureBox As PictureBox
+        ''2/2023 Dim objFolderInfo As System.IO.Directory
         Dim intControlsCount As Integer
 
         strPathToFolderImages = DiskFolders.PathToFolder_Graphics()

@@ -167,8 +167,8 @@
         Dim strDestFolderPath_OriginalCopy As String ''Added 5/18/2022
         Dim strFileTitle_Original As String
         Dim strFileTitle_Incremented As String
-        Dim bFilePathIsFree_Good As Boolean
-        Dim strFileExtension As String
+        ''02/2023  Dim bFilePathIsFree_Good As Boolean
+        ''02/2023  Dim strFileExtension As String
 
         ''---strDestFilePath = modFileFolders.ImageBackgroundFolder
         ''5/17/2022 td''strDestFolderPath = DiskFolders.PathToFolder_BackExampleDemos
@@ -224,8 +224,8 @@
         End If  ''end of "If (bIncrementingNeeded) Then"                   ''   bIncrementingNeeded)
 
         ''Added 12/10/2021 thomas downese
-        Dim boolFilePathConfirmed As Boolean
-        Dim bUserWantsToMakeOriginalCurrent As Boolean
+        ''02/2023  Dim boolFilePathConfirmed As Boolean
+        ''02/2023  Dim bUserWantsToMakeOriginalCurrent As Boolean
         Dim bUserWantsToSaveTheNewFile As Boolean
         Dim bUserWantsToReplaceOldWithNew As Boolean
 

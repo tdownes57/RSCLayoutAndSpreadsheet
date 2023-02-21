@@ -106,6 +106,19 @@ Public Class ClassGroupMoveEvents_NoLongerUsed
     End Sub
 
 
+    Public Sub MouseUpShiftKey(par_control As Control) Implements InterfaceMoveEvents.MouseUpShiftKey
+        ''
+        ''Added 2/19/2022
+        ''
+    End Sub
+
+    Public Sub MouseUpCtrlKey(par_control As Control) Implements InterfaceMoveEvents.MouseUpCtrlKey
+        ''
+        ''Added 2/19/2022
+        ''
+    End Sub
+
+
     Public Sub Control_IsMoving() Implements InterfaceMoveEvents.Control_IsMoving
         ''
         ''Added 12/6/2021 td

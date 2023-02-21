@@ -1202,21 +1202,21 @@ Public Class RSCRowHeaders
         ''
         ''Added 5/14/2022 & 3/22/2022 td
         ''
-        Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
-        Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
+        ''2/2023 Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
+        ''2/2023 Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
 
         ''Moved here from below.---4/23/2022 td
         Dim intCountRecipients As Integer
         intCountRecipients = Me.ListRecipients.Count
         Load_EmptyRows(intCountRecipients)
 
-        Dim intCountCellsWithData_Edited As Integer
+        ''2/2023 Dim intCountCellsWithData_Edited As Integer
         ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
         ''April 01 2023''intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
         ''April 10 2023''intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot)
         Dim strListExamples As String = "" ''Added 4/10/2022 thomas
         Dim strMessage As String = "" ''Added 4/11/2022 thomas
-        Dim bool_Confirm As Boolean ''4/11 DialogResult ''Added 4/11/2022 td
+        ''2/2023 Dim bool_Confirm As Boolean ''4/11 DialogResult ''Added 4/11/2022 td
 
         ''intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot, strListExamples)
         ''If (0 <> intCountCellsWithData_Edited) Then ''.... <> 0) Then
@@ -1274,8 +1274,8 @@ Public Class RSCRowHeaders
         ''CountOfBoxesWithData(intCountBoxesEmptyOrNot) ''Update the value of var. intCountBoxesEmptyOrNot.
 
         ''3/29/2022 thomas d.''Dim boolMismatchOfCounts As Boolean
-        Dim boolMismatchOfCounts_Less As Boolean
-        Dim boolMismatchOfCounts_More As Boolean
+        ''2/2023 Dim boolMismatchOfCounts_Less As Boolean
+        ''2/2023 Dim boolMismatchOfCounts_More As Boolean
 
         ''intCountAllBoxesOrRows = intCountBoxesEmptyOrNot
         ''March29 2022''boolMismatchOfCounts_Less = (intCountAllBoxesOrRows <> Me.ListRecipients.Count) ''Then
@@ -1301,7 +1301,7 @@ Public Class RSCRowHeaders
         ''5/14/2022 Dim listBoxes As List(Of RSCDataCell)
         Dim listHeaders As List(Of RSCRowHeader)
         Dim intRowIndex As Integer = -1
-        Dim each_value As String
+        ''2/2023 Dim each_value As String
         Dim boolMiscountOfRows As Boolean
         Dim intRowsInSpreadsheet As Integer
         Dim listValuesForStatistics As New List(Of String) ''Added 4/26/2022 td

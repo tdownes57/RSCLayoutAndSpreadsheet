@@ -27,8 +27,9 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
     ''Added 7/18/2019 thomas downes
     ''
     ''
+    ''02.20.2023 Public Shared ElementPicture As ClassElementPortrait ''Added 7/31/2019 thomas d.
     <Xml.Serialization.XmlIgnore>
-    Public Shared ElementPicture As ClassElementPortrait ''Added 7/31/2019 thomas d.
+    Private ReadOnly ElementPicture As ClassElementPortrait ''Added 7/31/2019 thomas d.
 
     ''Public Property Id_GUID As System.Guid ''Added 9/30/2019 td 
     ''Public Property BadgeDisplayIndex As Integer Implements IElement_Base.BadgeDisplayIndex ''Added 11/24/2021 td 
@@ -259,6 +260,7 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
         Me.Height_Pixels = par_rectangle.Height
 
     End Sub ''ENd of ""Public Sub New(par_rectangle As Rectangle, par_layout As PictureBox)""
+
 
     Public Function GetStep3_Picture() As Image
         ''

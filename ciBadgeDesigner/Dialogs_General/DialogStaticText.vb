@@ -27,7 +27,10 @@ Public Class DialogStaticText
         ''6/10/2022 textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
         textboxMultiLine.Visible = pboolMultiLine ''checkboxMultiLine.Checked
         ''6/10/2022 textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
-        If (plist_MultiArrayOfLines IsNot Nothing) Then
+        If (plist_MultiArrayOfLines Is Nothing) Then
+            ''Added 2/21/2023
+            textboxMultiLine.Lines = New String() {} ''Added 2/21/2023
+        Else
             textboxMultiLine.Lines = plist_MultiArrayOfLines.ToArray()
         End If ''end of ""If (plist_MultiArrayOfLines IsNot Nothing) Then""
 

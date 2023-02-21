@@ -14,6 +14,8 @@ Partial Public Class FormMainEntry_v90
     Private mod_selectedCtls As New List(Of CtlMainEntryBox_v90)
     Private mod_FieldControlLastTouched As CtlMainEntryBox_v90
     Private mod_ControlLastTouched As Control
+    Private mod_ControlLastMouseUpCtrlKey As Control ''Added 2/20/2022
+    Private mod_ControlLastMouseUpShiftKey As Control ''Added 2/20/2022
     Private mod_ControlLastMoved As Control ''Added 9/20/2019 td
 
     Public Property ControlBeingMoved_Deux() As Control ''Added 8/4/2019 td

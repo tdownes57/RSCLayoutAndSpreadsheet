@@ -133,6 +133,29 @@ Public Class FormMainEntry_v90
     End Property ''End of Public Property ControlThatWasClicked() As Control Implements ILayoutFunctions.ControlBeingModified 
 
 
+    Public Property ControlLastMouseUpCtrlKey() As Control Implements ILayoutFunctions.ControlLastMouseUpCtrlKey
+        ''Added 2/20/2022 td
+        Get
+            Return mod_ControlLastMouseUpCtrlKey
+        End Get
+        Set(value As Control)
+            mod_ControlLastMouseUpCtrlKey = value
+        End Set
+    End Property ''End of Public Property ControlThatWasClicked() As Control Implements ILayoutFunctions.ControlBeingModified 
+
+
+    Public Property ControlLastMouseUpShiftKey() As Control Implements ILayoutFunctions.ControlLastMouseUpShiftKey ''Added 2/20/2023 td
+        ''Added 2/20/2023 td
+        Get
+            Return mod_ControlLastMouseUpShiftKey
+        End Get
+        Set(value As Control)
+            mod_ControlLastMouseUpShiftKey = value ''Added 9/01/2022 td
+        End Set
+    End Property ''End of Public Property ControlThatWasClicked() As Control Implements ILayoutFunctions.ControlBeingModified 
+
+
+
     Public Function OkayToShowFauxContextMenu() As Boolean Implements ILayoutFunctions.OkayToShowFauxContextMenu
         ''
         ''Added 9/19/2019 td 

@@ -8,6 +8,8 @@ Option Infer Off
 Imports System.Drawing ''Added 9/18/2019 td
 ''//Imports System.Drawing.Text ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td
+Imports ciBadgeInterfaces
+
 ''//Imports ciBadgeInterfaces ''Added 9/61/2019 thomas d. 
 ''//Imports System.Xml.Serialization ''Added 10/13/2019 thomas d.  
 ''//Imports ciBadgeSerialize ''Added 6/7/2022 thomas d.
@@ -37,11 +39,14 @@ Public Class ClassElementStaticTextV4
                    par_intLeft_Pixels As Integer,
                    par_intTop_Pixels As Integer,
                    par_intHeight_Pixels As Integer,
-                   par_intWidth_Pixels As Integer)
+                   par_intWidth_Pixels As Integer,
+                   par_badgeLayoutDims As BadgeLayoutDimensionsClass)
         ''
         ''Added 9/15/2019 td
         ''
-        Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        ''2/21/2022 Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
+        Me.BadgeLayout = New BadgeLayoutDimensionsClass(par_badgeLayoutDims.Width_Pixels,
+                                      par_badgeLayoutDims.Height_Pixels) ''Added 2/21/2022 td
 
         Me.LeftEdge_Pixels = par_intLeft_Pixels
         Me.TopEdge_Pixels = par_intTop_Pixels

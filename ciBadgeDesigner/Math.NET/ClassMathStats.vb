@@ -308,8 +308,8 @@ Public Class ClassMathStats
 
         doubleMean = Statistics.Statistics.Mean(par_listOfSingles)
 
-        Dim tupleStdDeviationA As Tuple(Of Double, Double)
-        Dim tupleStdDeviationB As (Double, Double)
+        ''2/2023 Dim tupleStdDeviationA As Tuple(Of Double, Double)
+        ''2/2023 Dim tupleStdDeviationB As (Double, Double)
         Dim tupleStdDeviationC As ValueTuple(Of Double, Double)
 
         ''---tupleStdDeviationB = Statistics.Statistics.MeanStandardDeviation(par_listOfSingles)
@@ -333,7 +333,7 @@ Public Class ClassMathStats
         ''Added 4/22/2022 td
         ''
         Dim intCount_Alphas As Integer = 0
-        Dim boolIsAlpha As Boolean
+        ''2/2023 Dim boolIsAlpha As Boolean
 
         For Each each_char As Char In pstrValue
 
