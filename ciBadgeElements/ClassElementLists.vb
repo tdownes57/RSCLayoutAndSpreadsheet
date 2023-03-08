@@ -68,5 +68,26 @@ Public Class ClassElementLists
     Private _ListElementSignatures As HashSet(Of ClassElementSignature)
     Private _ListElementLaysections As HashSet(Of ClassElementLaysection)
 
+    ''
+    ''Added 3/07/2023 Thomas Downes  
+    ''
+    Public Function ListOfElements_Base() As List(Of ClassElementBase)
+        ''
+        ''Added 3/07/2023 Thomas Downes  
+        ''
+        Dim objList As New List(Of ClassElementBase)
+
+        objList.AddRange(_ListElementFieldsV4)
+        objList.AddRange(_ListElementGraphics)
+        objList.AddRange(_ListElementPortraits)
+        objList.AddRange(_ListElementQRCodes)
+        objList.AddRange(_ListElementSignatures)
+        objList.AddRange(_ListElementStaticsV4)
+
+        Return objList
+
+    End Function ''ENd of ""Public Function ListOfElements_Base()""
+
+
 
 End Class

@@ -94,6 +94,7 @@ namespace ciBadgeGenerator
             }
         }
 
+
         public Image ElementFieldToImage(ClassElementFieldV3 par_elementField,
                                             IBadgeLayoutDimensions par_layoutDimensions,
                                             ref string par_bugmessage,

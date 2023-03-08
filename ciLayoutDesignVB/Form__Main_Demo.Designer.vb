@@ -675,8 +675,6 @@ Partial Class Form__Main_Demo
         'checkAutoPreview
         '
         Me.checkAutoPreview.AutoSize = True
-        Me.checkAutoPreview.Checked = True
-        Me.checkAutoPreview.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkAutoPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkAutoPreview.Location = New System.Drawing.Point(936, 124)
         Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)
@@ -685,7 +683,6 @@ Partial Class Form__Main_Demo
         Me.checkAutoPreview.TabIndex = 55
         Me.checkAutoPreview.Text = "Auto-Preview"
         Me.checkAutoPreview.UseVisualStyleBackColor = True
-        Me.checkAutoPreview.Visible = False
         '
         'OpenFileDialog1
         '
@@ -792,7 +789,6 @@ Partial Class Form__Main_Demo
         Me.checkInstantPreview.TabIndex = 72
         Me.checkInstantPreview.Text = "Auto-Motion"
         Me.checkInstantPreview.UseVisualStyleBackColor = True
-        Me.checkInstantPreview.Visible = False
         '
         'pictureBackgroundFront
         '
@@ -1073,7 +1069,7 @@ Partial Class Form__Main_Demo
         '
         Me.LabelPreviewHeading.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelPreviewHeading.ForeColor = System.Drawing.Color.Navy
-        Me.LabelPreviewHeading.Location = New System.Drawing.Point(730, 117)
+        Me.LabelPreviewHeading.Location = New System.Drawing.Point(728, 89)
         Me.LabelPreviewHeading.Name = "LabelPreviewHeading"
         Me.LabelPreviewHeading.Size = New System.Drawing.Size(329, 29)
         Me.LabelPreviewHeading.TabIndex = 106

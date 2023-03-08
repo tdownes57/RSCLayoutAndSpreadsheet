@@ -51,6 +51,116 @@ Public Class ClassBadgeSideLayoutV2
     Public Property ElementLists As ClassElementLists Implements IBadgeSideLayoutElementsV2.ElementLists
 
 
+    ''
+    ''Added 3/05/2023
+    ''
+    Public Function GetImageForPrinting(par_recipient As IRecipient,
+                        par_scale As Single,
+                        par_layoutBadgeDims As BadgeLayoutDimensionsClass,
+                        Optional pbSkipBackground As Boolean = False) As Image
+        ''
+        ''This function is prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023
+        ''
+        ''This code is refactored from C# code of Namespace.Class.Function
+        ''  ciBadgeGeneratorCS.ClassMakeBadge2022.MakeBadgeImage_AnySide.
+        ''   ---3/07/2023
+        ''
+        Dim obj_imageOutput As Image ''//;  // Added 1-16-2020 thomas downes
+        Dim g As Graphics
+        ''Const bool bSkipBackground = (c_bLetsSkipBackground ||
+        ''               (par_layoutElements.BackgroundImage Is Nothing)) ''//;
+
+        ''// May20 200 //if (c_bSkipBackground)
+        If (pbSkipBackground) Then
+            ''{
+            ''    //Added 1-16-2020 thomas downes
+            obj_imageOutput = New Bitmap(par_layoutBadgeDims.Width_Pixels,
+                                         par_layoutBadgeDims.Height_Pixels)
+            ''//Added 1-16-2020 thomas downes
+            g = Graphics.FromImage(obj_imageOutput)
+            g.Clear(Color.White)
+
+            ''End If '' } //End of ""if (bSkipBackground){....}
+
+        Else
+            ''//{
+            ''//Dec18 2021 td//obj_imageOutput = (Image)par_backgroundImage.Clone();
+            ''obj_imageOutput = par_layoutElements.BackgroundImage.Clone() ''//;
+
+            ''    //
+            ''    //    obj_image_clone_resized =
+            ''    //        LayoutPrint.ResizeBackground_ToFitBox(obj_image, Me.PreviewBox, True)
+
+            Dim obj_image_resized As Image '' = objAssistant.ResizeImage_WidthAndHeight(obj_imageOutput,
+            ''  par_newBadge_width_pixels, par_newBadge_height_pixels);
+            Dim objImageFromFile As Image
+
+            objImageFromFile = New Bitmap(Me.BackgroundImage_Path)
+            obj_image_resized = New Bitmap(objImageFromFile, New Size(par_layoutBadgeDims.Width_Pixels,
+                                                                      par_layoutBadgeDims.Height_Pixels))
+            ''Bitmap white_background = New Bitmap(par_intNewWidth, par_intNewHeight)
+            ''Graphics gr_white = Graphics.FromImage(white_background)
+            ''gr_white.Clear(Color.White)
+            ''gr_white.DrawImage(obj_image_resized, 0, 0)
+            obj_imageOutput = obj_image_resized
+
+            g = Graphics.FromImage(obj_imageOutput)
+
+        End If ''//} //End of ""if (bSkipBackground){....} else {.....}
+
+        ''// 1-15-2020 td //LayoutElements objPrintLibElems = New LayoutElements();
+        ''// 12-14-2021 td //LayoutElements objPrintLibElems = New LayoutElements(ClassElementField.iRecipientInfo);
+        ''//LayoutElements objPrintLibElems = null;
+        ''Dim objPrintLibElems As ciLayoutPrintLib.LayoutElements = Nothing
+        ''If (par_iRecipientInfo IsNot Nothing) Then
+        ''    objPrintLibElems = New ciLayoutPrintLib.LayoutElements(par_iRecipientInfo)
+        ''Else
+        ''    objPrintLibElems = New ciLayoutPrintLib.LayoutElements(ClassElementFieldV3.iRecipientInfo)
+        ''End If
+
+        ''//Modified 5/29/2022
+        ''//objPrintLibElems.LoadImageWithElements(ref obj_imageOutput,
+        ''//                                       ref listOfElementFieldsV3,
+        ''//                                       ref listOfElementFieldsV4,
+        ''//                                       ref hashset_null, False, True,
+        ''//                                       ref par_listFieldsIncluded,
+        ''//                                       ref par_listFieldsNotIncluded)
+        ''objPrintLibElems.LoadImageWithElements(obj_imageOutput,
+        ''                                listOfElementFieldsV3,
+        ''                                listOfElementFieldsV4,
+        ''                                hashset_null, False, True,
+        ''                                par_listFieldsIncluded,
+        ''                                par_listFieldsNotIncluded)
+
+        ''Added 3/07/2023 thomas downes
+        Dim eachImage As Image
+        Dim bInvisibleOnBadge As Boolean
+        For Each objElementBase As ClassElementBase In Me.ElementLists.ListOfElements_Base()
+
+            Dim pointLocationOnBadge As Point
+            bInvisibleOnBadge = True ''Default value.
+            eachImage = objElementBase.GetImageForPrinting(par_recipient, par_scale,
+                                             bInvisibleOnBadge, pointLocationOnBadge)
+
+            If (bInvisibleOnBadge Or (eachImage Is Nothing)) Then
+                ''
+                ''Skip it, we won't put it on the badge or identity card. 
+                ''
+            Else
+                g.DrawImage(eachImage, pointLocationOnBadge)
+
+            End If
+
+        Next objElementBase
+        Return obj_imageOutput
+
+    End Function ''End of "Public Function GetImageForPrinting() As Image"
+
+
     ''Public Property ListElementFields As HashSet(Of ClassElementFieldV3) Implements IBadgeSideLayoutElementsV2.ListElementFields
     ''''    Get
     ''''        Throw New NotImplementedException()

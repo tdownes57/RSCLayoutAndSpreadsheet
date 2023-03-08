@@ -389,6 +389,11 @@ Public Module modGenerate
             ''9/13/2022 td''font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
             font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScalingH)
 
+            ''Added 2/25/2023 
+            If (par_elementInfo_TextFld.FontColor = Color.Empty) Then
+                par_elementInfo_TextFld.FontColor = Color.Black
+            End If
+
             ''Added 8/23/2022 thomas downes
             Using br_brushForecolor = New SolidBrush(par_elementInfo_TextFld.FontColor)
 

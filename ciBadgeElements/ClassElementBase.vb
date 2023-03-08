@@ -137,7 +137,7 @@ Public Class ClassElementBase
     End Property
 
 
-    Public Function ImageForBadgeImage(par_recipient As IRecipient,
+    Public Overridable Function ImageForBadgeImage(par_recipient As IRecipient,
                                        par_scale As Single) As Image Implements IElement_Base.ImageForBadgeImage
         ''    Throw New NotImplementedException()
 
@@ -146,6 +146,28 @@ Public Class ClassElementBase
         Return Nothing
 
     End Function ''End of ""Public Function ImageForBadgeImage""
+
+
+    ''
+    ''Added 3/05/2023
+    ''
+    Public Overridable Function GetImageForPrinting(par_recipient As IRecipient,
+                                       par_scale As Single,
+                                       ByRef pboolNotShownOnBadge As Boolean,
+                                       Optional ByRef par_location As Drawing.Point = Nothing) As Image
+        ''This function is prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023
+        pboolNotShownOnBadge = (Not Me.Visible)
+
+        par_location = New Drawing.Point(CInt(LeftEdge_Pixels * par_scale),
+                                         CInt(TopEdge_Pixels * par_scale))
+
+        Return ImageForBadgeImage(par_recipient, par_scale)
+
+    End Function ''End of "Public Function GetImage() As Image"
 
 
     ''Added 1/23/2022 td
