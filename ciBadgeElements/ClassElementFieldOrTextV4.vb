@@ -773,14 +773,20 @@ Public Class ClassElementFieldOrTextV4
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
 
-    Public Function GenerateImage_NotInUse(pintDesiredLayoutWidth As Integer, ByRef par_image As Image,
-                                  par_elementInfo_Text As IElement_TextOnly, par_elementInfo_Base As IElement_Base) As Image
+    Public Overrides Function ImageForBadgeImage(par_recipient As IRecipient,
+                                                 par_scaleW As Single,
+                                                   par_scaleH As Single) As Image
+        ''03/2023  pdoubleScalingH As Double,
+        ''03/2023  
+        ''03/2023  ByRef par_image As Image,
+        ''03/2023  par_elementInfo_Text As IElement_TextOnly,
+        ''03/2023  par_elementInfo_Base As IElement_Base) As Image
         ''
         ''Added 8/14 & 7/17/2019 thomas downes
         ''
         ''Retired in favor of ClassLabelToImage.TextImage(), on 9/3/2019 td  
         ''
-        Dim gr As Graphics ''= Graphics.FromImage(img)
+        Dim gr_local_image_of_element As Graphics ''= Graphics.FromImage(img)
         Dim pen_backcolor As Pen
         Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
         Dim pen_border As Pen ''Added 9/3/2019 thomas downes  
@@ -820,7 +826,19 @@ Public Class ClassElementFieldOrTextV4
 
         End If ''End of "If (par_image Is Nothing) Then"
 
-        gr = Graphics.FromImage(par_image)
+        ''3/09/2023 gr = Graphics.FromImage(par_image)
+        ''3/09/2023 gr_local_image_of_element = Graphics.FromImage(local_image_of_element)
+        gr_local_image_of_element = Graphics.FromImage(par_image)
+
+        With gr_local_image_of_element
+            ''
+            'Set various modes to higher quality
+            ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            .InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+            .SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+            .TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        End With ''End of "With gr_local_image_of_element"
 
         ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
         pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
@@ -829,7 +847,8 @@ Public Class ClassElementFieldOrTextV4
         ''Added 8/28/2019 td
         ''8/29/2019 td''brush_backcolor = New SolidBrush(par_elementInfo_Text.BackColor)
         brush_backcolor = New SolidBrush(par_elementInfo_Base.Back_Color)
-        gr.FillRectangle(brush_backcolor, 0, 0, intNewElementWidth, intNewElementHeight)
+        gr_local_image_of_element.FillRectangle(brush_backcolor, 0, 0,
+                                                intNewElementWidth, intNewElementHeight)
 
         ''Added 9/3/2019 td
         pen_border = New Pen(par_elementInfo_Base.Border_Color,
@@ -851,7 +870,7 @@ Public Class ClassElementFieldOrTextV4
         Using br_brush As SolidBrush = New SolidBrush(par_elementInfo_Base.Back_Color)
             ''8/15 td''gr.FillRectangle(br_brush,
             ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
-            gr.FillRectangle(br_brush,
+            gr_local_image_of_element.FillRectangle(br_brush,
                          New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
         End Using
 
@@ -863,7 +882,8 @@ Public Class ClassElementFieldOrTextV4
             boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
             If (boolNonzeroBorder) Then
                 ''Added 9/03/2019 td
-                gr.DrawRectangle(pen_border, New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+                gr_local_image_of_element.DrawRectangle(pen_border,
+                        New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
             End If ''End of "If (boolNonzeroBorder) Then"
         End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
 
@@ -874,7 +894,7 @@ Public Class ClassElementFieldOrTextV4
             ''Added 8/2/2019 td
             ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
             ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
-            gr.DrawRectangle(pen_highlighting,
+            gr_local_image_of_element.DrawRectangle(pen_highlighting,
                          New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
         End If ''End of "If (par_element.SelectedHighlighting) Then"
 
@@ -888,10 +908,113 @@ Public Class ClassElementFieldOrTextV4
         ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
         ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
 
-        gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
-        gr.DrawString(par_elementInfo_Text.Text_StaticLine,
-                      par_elementInfo_Text.FontDrawingClass, Brushes.Black, 20, 5)
-        ''--6/2022--par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
+        ''3/9/2023 gr.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+        ''6/ /2022 par_elementInfo_Text.Font_DrawingClass, Brushes.Black, 20, 5)
+        ''#1 3/9/2023 gr.DrawString(par_elementInfo_Text.Text_StaticLine,
+        ''#1 3/9/2023         par_elementInfo_Text.FontDrawingClass, Brushes.Black, 20, 5)
+        '' #2 3/9/2023 gr.DrawString(par_elementInfo_Text.Text_StaticLine,
+        '' #2 3/9/2023         par_elementInfo_Text.FontDrawingClass, brush_forecolor, 20, 5)
+
+        Dim stringSize As SizeF = New SizeF()
+        Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
+
+        With Me ''03/09/2023 With par_elemTextFld
+
+            ''Added 11/24/2021 thomas downes
+            '']]]If (.FontSize_Pixels < 5) Then .FontSize_Pixels = 7 ''Throw New Exception("Font Size is less than 10. Hard to read.")
+            ''//If (.FontSize_Pixels < 5) Then Throw New Exception("Font Size is less than 10. Hard to read.")
+
+            ''Added 9/15/2019 thomas d.
+            If (.FontFamilyName Is Nothing) Then
+                ''Added 9/15/2019 thomas d.
+                System.Diagnostics.Debugger.Break()
+            End If ''End of "If (.FontFamilyName Is Nothing) Then"
+
+            ''Added 9/15/2019 td
+            ''6/2022  If (.Font_DrawingClass Is Nothing) Then
+            If (.FontDrawingClass Is Nothing) Then
+                ''Added 9/15/2019 td
+                ''6/07/2022 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                .FontDrawingClass = .FontMaxGalkin.ToFont_AnyUnits()
+
+            Else
+                Dim bRegenerateFontObjectClass As Boolean ''Added 9/23/2019 td 
+                ''6/2022 bRegenerateFontObjectClass = (CInt(.Font_DrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
+                bRegenerateFontObjectClass = (CInt(.FontDrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
+                If (bRegenerateFontObjectClass) Then ''Added 9/23/2019 td 
+                    ''Added 9/23/2019 td 
+                    .FontDrawingClass = modFonts.SetFontSize_Pixels(.FontDrawingClass, .FontSize_Pixels)
+                End If ''End of '"If (bRegenerateFont) Then .... ElseIf ...."
+            End If ''End of '"If (.Font_DrawingClass Is Nothing) Then .... ElseIf ...."
+
+            ''Added 9/8/2019 td
+            ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
+            ''9/13/2022 td''font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, pdoubleScalingH)
+
+            ''Added 2/25/2023 
+            If (.FontColor = Color.Empty) Then
+                .FontColor = Color.Black
+            End If
+
+            ''Added 8/17/2019 td
+            Dim singleOffsetX As Integer = .FontOffset_X
+            Dim singleOffsetY As Integer = .FontOffset_Y
+
+            ''Added 8/23/2022 thomas downes
+            Using br_brushForecolor As SolidBrush = New SolidBrush(.FontColor)
+
+                ''Added 8/18/2019 td
+                Select Case .TextAlignment''Added 8/18/2019 td
+
+                    Case HorizontalAlignment.Left
+
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                          singleOffsetX, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                                          singleOffsetX, singleOffsetY)
+
+                    Case HorizontalAlignment.Center
+                        ''// Measure string.
+                        ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
+
+                        Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                        ''Added 8/18/2019 td 
+                        singleOffsetX_AlignRight = (singleOffsetX + (local_image_of_element.Width - stringSize.Width) / 2)
+
+                        ''Added 8/18/2019 td
+                        ''
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                        ''                            singleOffsetX_AlignRight, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                 singleOffsetX_AlignRight, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                                  singleOffsetX_AlignRight, singleOffsetY)
+
+                    Case HorizontalAlignment.Right
+                        ''// Measure string.
+                        ''
+                        ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
+
+                        Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                        singleOffsetX_AlignRight = (local_image_of_element.Width - stringSize.Width - singleOffsetX)
+
+                        ''Added 8/18/2019 td 
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                        ''                           singleOffsetX_AlignRight, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                           singleOffsetX_AlignRight, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                                  singleOffsetX_AlignRight, singleOffsetY)
+
+                End Select ''End of "Select Case par_design.TextAlignment"
+
+            End Using
+
+        End With ''ENd of "With Me"
 
         Return par_image ''Return Nothing
 
@@ -1238,8 +1361,11 @@ Public Class ClassElementFieldOrTextV4
     ''End Function ''End of "Public Function LabelText(par_previewExample As Boolean) As String"
 
 
-    Public Overloads Function ImageForBadgeImage(par_recipient As IRecipient,
-                                                 par_scale As Single) As Image ''9/4/2022 Implements IElement_Base.ImageForBadgeImage
+    Public Overridable Function ImageForBadgeImage_Stub(par_recipient As IRecipient,
+                                                 par_scaleW As Single,
+                                                   par_scaleH As Single) As Image ''9/4/2022 Implements IElement_Base.ImageForBadgeImage
+        ''3/08/2022 Public Overloads Function ImageForBadgeImage(par_recipient As IRecipient,
+
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()

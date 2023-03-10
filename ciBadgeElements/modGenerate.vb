@@ -7,18 +7,444 @@ Imports System.Drawing ''Added 9/19/2019 thomas d
 Imports System.Drawing.Text ''Added 9/19/2019 thomas d
 Imports System.Windows.Forms ''Only for Horizontal Alignment.  ----9/19/2019 td
 Imports ciBadgeInterfaces ''Added 9/19/2019 thomas d
-Imports ciBadgeLayouts_NoElems ''Added 9/19/2019 thomas d
+''03/09/2023  Imports ciBadgeLayouts_NoElems ''Added 9/19/2019 thomas d
 
 Public Module modGenerate
     ''
     ''Added 9/19/2019 thomas d
     ''
+
+#Disable Warning CA1707 ''Disable warning to remove underscores.--3/09/2023
+
     Public Function GenerateImage_ByDesiredLayoutWidth_Deprecated(pintDesiredLayoutWidth As Integer) As Image
 
 
 
 
     End Function
+
+
+    Public Function TextImage_ByElemInfo(par_Text As String,
+                                         pdoubleScalingW As Double,
+                                         pdoubleScalingH As Double,
+                   par_elemTextFld As ciBadgeElements.ClassElementFieldOrTextV4,
+                   par_elemBase As ciBadgeElements.ClassElementBase,
+                   ByRef pref_rotated As Boolean,
+                   ByVal par_bIsDesignStage As Boolean) As Image
+        ''
+        '' Added 3/09/2023 
+        ''
+        Dim intNewElementWidth As Integer ''Added 8/15 
+        Dim intNewElementHeight As Integer ''Added 8/15
+        Dim local_image_of_element As Bitmap ''Added 9/4/2019 td  
+        Dim gr_local_image_of_element As Graphics ''= Graphics.FromImage(img)
+        Dim pen_backcolor As Pen
+        Dim pen_highlighting As Pen ''Added 8/2/2019 thomas downes  
+        Dim pen_border As Pen ''Added 9/3/2019 thomas downes  
+        Dim brush_forecolor As Brush
+
+        ''Added 8/17/2019 td
+        ''3/9/2023 Dim singleOffsetX As Integer = par_elementInfo_TextFld.FontOffset_X
+        ''3/9/2023 Dim singleOffsetY As Integer = par_elementInfo_TextFld.FontOffset_Y
+        Dim intStarting_Width As Integer ''Added 8/19/2019 thomas 
+        Dim intStarting_Height As Integer ''Added 8/19/2019 thomas
+
+        ''Added 8/15/2019 td
+        intNewElementWidth = CInt(pdoubleScalingW * par_elemBase.Width_Pixels)
+        intNewElementHeight = CInt(pdoubleScalingH * par_elemBase.Height_Pixels)
+
+        ''Added 9/13/2022 td
+        If (intNewElementHeight = 0) Then System.Diagnostics.Debugger.Break()
+        If (intNewElementWidth = 0) Then System.Diagnostics.Debugger.Break()
+
+        ''Copied from ClassElementText.GenerateImage_NotInUse, 9/3/2019 & 8/15/2019 thomas d. 
+        ''9/4/2019 td''If (par_image Is Nothing) Then
+        ''
+        ''Create the image from scratch, If needed. 
+        ''
+        ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
+
+        ''9/3/2019 td''par_image = New Bitmap(par_elementInfo_Base.Width_Pixels,
+        ''9/3/2019 td''                       par_elementInfo_Base.Height_Pixels)
+
+        ''Added 8/15/2019 td
+        ''#1 9/4/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
+        '' #2 9/4/20 19 td''par_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+        ''  #3 9/4/2019 td''local_image = New Bitmap(intNewElementWidth, intNewElementWidth, Imaging.PixelFormat.Format32bppPArgb)
+
+        ''
+        ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+        ''
+        Const c_UseHighResolutionTips As Boolean = True ''False ''Hasn't been tested yet. ----Added 9/19/2019 td
+
+        If (c_UseHighResolutionTips) Then
+
+            local_image_of_element = New Bitmap(intNewElementWidth, intNewElementHeight,
+                                     Imaging.PixelFormat.Format32bppPArgb)
+
+            ''Set the resolution to 300 DPI
+            ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            ''9/4/2019 td''par_image.SetResolution(300, 300)
+            If (False) Then local_image_of_element.SetResolution(300, 300)
+
+        Else
+            local_image_of_element = New Bitmap(intNewElementWidth, intNewElementHeight)
+
+        End If ''End of "If (c_UseHighResolutionTips) Then ... Else ..."
+
+        ''9/4/2019 td''End If ''End of "If (par_image Is Nothing) Then"
+
+        ''Moved here from above. ---9.3.2019 td 
+        intStarting_Width = local_image_of_element.Width
+        intStarting_Height = local_image_of_element.Height
+
+        gr_local_image_of_element = Graphics.FromImage(local_image_of_element)
+
+        With gr_local_image_of_element
+            ''
+            'Set various modes to higher quality
+            ''  https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            .InterpolationMode = Drawing2D.InterpolationMode.HighQualityBicubic
+            .SmoothingMode = Drawing2D.SmoothingMode.AntiAlias
+            .TextRenderingHint = Drawing.Text.TextRenderingHint.AntiAlias
+        End With
+
+        ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
+        pen_backcolor = New Pen(par_elemBase.Back_Color)
+
+        ''Added 9/3/2019 td
+        ''pen_border = New Pen(par_elementInfo_Base.Border_Color,
+        ''     par_elementInfo_Base.Border_WidthInPixels)
+        ''
+        Dim bBorderNonzero As Boolean ''Added 7/22/2022
+        Dim bBorderDisplayed As Boolean ''Added 7/22/2022 
+        Dim intBorder_WidthInPixels As Integer ''Added 7/22/2022 
+        Dim colorOfBorder As Drawing.Color ''Added 7/22/2022 
+
+        If (par_elemBase IsNot Nothing) Then ''Conditioned 7/22/2022 
+            ''Added 7/22/2022 thomas downes
+            bBorderDisplayed = par_elemBase.Border_Displayed
+            bBorderNonzero = par_elemBase.Border_WidthInPixels > 0
+            intBorder_WidthInPixels = par_elemBase.Border_WidthInPixels ''Added 7/22/2022
+            colorOfBorder = par_elemBase.Border_Color ''Added 7/22/2022
+            ''-Aug25 2022--pen_border = New Pen(Color.Black,
+            ''---                    par_elemBase.Border_bWidthInPixels)
+            pen_border = New Pen(colorOfBorder,
+                                 par_elemBase.Border_WidthInPixels)
+        Else
+            ''Added 7/22/2022 thomas downes
+            bBorderDisplayed = par_elemBase.Border_Displayed
+            bBorderNonzero = par_elemBase.Border_WidthInPixels > 0
+            intBorder_WidthInPixels = par_elemBase.Border_WidthInPixels
+            colorOfBorder = par_elemBase.Border_Color ''Added 7/22/2022
+            ''Pre-7/22/2022 thomas downes
+            ''-Aug25 2022--pen_border = New Pen(Color.Black,
+            ''                                  par_elementInfo_Base.Border_WidthInPixels)
+            pen_border = New Pen(colorOfBorder,
+                                 par_elemBase.Border_WidthInPixels)
+
+        End If ''End of ""If (par_elemBase IsNot Nothing) Then... Else..."
+
+        ''8/28/2019 td''pen_backcolor = New Pen(Color.White)
+        ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
+        pen_highlighting = New Pen(Color.Yellow, 6)
+
+        brush_forecolor = New SolidBrush(par_elemTextFld.FontColor)
+
+        ''
+        ''Added 8/28/2019 td
+        ''
+        ''---*----Obselete. 9/19/2019 td
+        ''---*--Dim boolClashOfColors As Boolean ''Added 8/28/2019 td
+        ''---*--Static s_boolRunOnce As Boolean ''Added 8/28/2019 td
+        ''
+        ''---*--boolClashOfColors = (par_elementInfo_Base.Back_Color <>
+        ''                      par_elementInfo_Base.Back_Color)
+        ''
+        ''---*--If (boolClashOfColors) Then
+        ''    If (Not s_boolRunOnce) Then
+        ''        ''Added 8/28/2019 td
+        ''        s_boolRunOnce = True
+        ''        ''Added 8/28/2019 td
+        ''        MessageBox.Show("A clash of colors--which Property is reliable?", "",
+        ''             MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        ''        ''Added 8/29/2019 td
+        ''        DialogDisplayColor.ShowColor("par_design.BackColor", par_elementInfo_Base.Back_Color)
+        ''
+        ''        ''8/29/2019 td''DialogDisplayColor.ShowColor("par_element.BackColor", par_elementInfo_Text.BackColor)
+        ''
+        ''    End If ''eND OF "If (Not s_boolRunOnce) Then"
+        ''End If ''Endof "If (boolClashOfColors) Then"
+
+        ''
+        ''Draw the select background color, so that hopefully the text can be read easily.
+        ''
+        ''7/30/2019 td''gr.DrawRectangle(Brushes.White....
+
+        ''
+        ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
+        ''
+        Dim boolSuppressBackColor As Boolean ''Added 9/8/2019
+        boolSuppressBackColor = (par_elemBase.Back_Transparent)
+
+        If (boolSuppressBackColor) Then
+            ''
+            ''The Transparent flag is True, so don't apply
+            ''  any background color. ----9/4/2019 thomas downes
+            ''
+        Else
+
+            Using br_brushBackcolor = New SolidBrush(par_elemBase.Back_Color)
+                ''Major call.  
+                ''----#1 9/4 td---gr.FillRectangle(br_brush,
+                ''           New Rectangle(0, 0, par_elementInfo_Base.Width_Pixels, par_elementInfo_Base.Height_Pixels))
+                ''---- #2 9/4 td---gr_element.FillRectangle(br_brush,
+                ''             New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
+            End Using
+
+            ''
+            '' https://stackoverflow.com/questions/2478502/when-creating-an-bitmap-image-from-scratch-in-vb-net-the-quality-stinks
+            ''
+            gr_local_image_of_element.Clear(par_elemBase.Back_Color) ''Added 9/4/2019 td 
+
+        End If ''End of "If (boolSuppressBackColor) Then ... Else ...."
+
+        ''
+        ''Added 9/03/2019 td
+        ''
+        ''   Draw the border about the element.  
+        ''
+        ''7/22/2022 td''Dim boolNonzeroBorder As Boolean ''9/9 td
+        ''7/22/2022 td''If (par_elementInfo_Base.Border_Displayed) Then
+        ''7/22/2022 td''boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
+        ''7/22/2022 td''If (boolNonzeroBorder) Then
+        If (bBorderDisplayed AndAlso bBorderNonzero) Then
+            ''
+            ''Added 9/03/2019 td
+            ''
+            ''9/6/2019 td''gr_element.DrawRectangle(pen_border, New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+            ''7/22/2022 DrawBorder_PixelsWide(par_elementInfo_Base.Border_WidthInPixels,
+            ''                          gr_element, intNewElementWidth, intNewElementHeight,
+            ''                          par_elementInfo_Base.Border_Color)
+            DrawBorder_PixelsWide(intBorder_WidthInPixels,
+                                      gr_local_image_of_element, intNewElementWidth, intNewElementHeight,
+                                      colorOfBorder)
+
+        End If ''End of "If (bBorderDisplayed AndAlso bBorderNonzero) Then"
+
+        ''
+        ''Added 8/02/2019 td
+        ''
+        Dim boolAddHighlighting As Boolean ''Added 9/8/2019 td
+
+        ''Added 9/8/2019 td
+        If (par_elemBase.SelectedHighlighting) Then
+            ''
+            ''The conditional expression above Is redundant, 
+            ''   but the programmer might want to put a 
+            ''   breakpoint below. ----9/8/2019 td
+            ''
+            boolAddHighlighting = (par_bIsDesignStage And
+                par_elemBase.SelectedHighlighting)
+
+        End If ''End of "If (par_elementInfo_Base.SelectedHighlighting) Then"
+
+        If (boolAddHighlighting) Then
+            ''Added 8/2/2019 td
+            ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
+            ''       New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+
+            ''9/4/2019 td''gr.DrawRectangle(pen_highlighting,
+            ''     New Rectangle(3, 3, par_elementInfo_Base.Width_Pixels - 6,
+            ''     par_elementInfo_Base.Height_Pixels - 6))
+
+            gr_local_image_of_element.DrawRectangle(pen_highlighting,
+                         New Rectangle(3, 3, intNewElementWidth - 6,
+                                             intNewElementHeight - 6))
+
+        End If ''End of "If (boolHighlighting) Then"
+
+        ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
+
+        ''Font TextFont = New Font("Times New Roman", 25, FontStyle.Italic);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.SingleBitPerPixelGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 20);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 85);
+        ''    e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+        ''    e.Graphics.DrawString("Sample Text", TextFont, Brushes.Black, 20, 150);
+        ''
+        gr_local_image_of_element.TextRenderingHint = TextRenderingHint.AntiAliasGridFit
+        Dim stringSize = New SizeF()
+        Dim font_scaled As System.Drawing.Font ''Added 9/8/2019 td
+
+        With par_elemTextFld
+
+            ''Added 11/24/2021 thomas downes
+            '']]]If (.FontSize_Pixels < 5) Then .FontSize_Pixels = 7 ''Throw New Exception("Font Size is less than 10. Hard to read.")
+            ''//If (.FontSize_Pixels < 5) Then Throw New Exception("Font Size is less than 10. Hard to read.")
+
+            ''Added 9/15/2019 thomas d.
+            If (.FontFamilyName Is Nothing) Then
+                ''Added 9/15/2019 thomas d.
+                System.Diagnostics.Debugger.Break()
+            End If ''End of "If (.FontFamilyName Is Nothing) Then"
+
+            ''Added 9/15/2019 td
+            ''6/2022  If (.Font_DrawingClass Is Nothing) Then
+            If (.FontDrawingClass Is Nothing) Then
+                ''Added 9/15/2019 td
+                ''6/07/2022 .Font_DrawingClass = modFonts.MakeFont(.FontFamilyName, .FontSize_Pixels, .FontBold, .FontItalics, .FontUnderline)
+                .FontDrawingClass = .FontMaxGalkin.ToFont_AnyUnits()
+
+            Else
+                Dim bRegenerateFontObjectClass As Boolean ''Added 9/23/2019 td 
+                ''6/2022 bRegenerateFontObjectClass = (CInt(.Font_DrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
+                bRegenerateFontObjectClass = (CInt(.FontDrawingClass.Size) <> .FontSize_Pixels) ''Added 9/23/2019 td 
+                If (bRegenerateFontObjectClass) Then ''Added 9/23/2019 td 
+                    ''Added 9/23/2019 td 
+                    .FontDrawingClass = modFonts.SetFontSize_Pixels(.FontDrawingClass, .FontSize_Pixels)
+                End If ''End of '"If (bRegenerateFont) Then .... ElseIf ...."
+            End If ''End of '"If (.Font_DrawingClass Is Nothing) Then .... ElseIf ...."
+
+            ''Added 9/8/2019 td
+            ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
+            ''9/13/2022 td''font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, pdoubleScalingH)
+
+            ''Added 2/25/2023 
+            If (par_elemTextFld.FontColor = Color.Empty) Then
+                par_elemTextFld.FontColor = Color.Black
+            End If
+
+            ''Added 8/17/2019 td
+            Dim singleOffsetX As Integer = par_elemTextFld.FontOffset_X
+            Dim singleOffsetY As Integer = par_elemTextFld.FontOffset_Y
+
+            ''Added 8/23/2022 thomas downes
+            Using br_brushForecolor = New SolidBrush(par_elemTextFld.FontColor)
+
+                ''Added 8/18/2019 td
+                Select Case par_elemTextFld.TextAlignment''Added 8/18/2019 td
+
+                    Case HorizontalAlignment.Left
+
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                          singleOffsetX, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                                          singleOffsetX, singleOffsetY)
+
+                    Case HorizontalAlignment.Center
+                        ''// Measure string.
+                        ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
+
+                        Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                        ''Added 8/18/2019 td 
+                        singleOffsetX_AlignRight = (singleOffsetX + (local_image_of_element.Width - stringSize.Width) / 2)
+
+                        ''Added 8/18/2019 td
+                        ''
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                        ''                            singleOffsetX_AlignRight, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                 singleOffsetX_AlignRight, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                                  singleOffsetX_AlignRight, singleOffsetY)
+
+                    Case HorizontalAlignment.Right
+                        ''// Measure string.
+                        ''
+                        ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
+                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
+
+                        Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
+                        singleOffsetX_AlignRight = (local_image_of_element.Width - stringSize.Width - singleOffsetX)
+
+                        ''Added 8/18/2019 td 
+                        ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
+                        ''                           singleOffsetX_AlignRight, singleOffsetY)
+                        ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
+                        ''                           singleOffsetX_AlignRight, singleOffsetY)
+                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                                  singleOffsetX_AlignRight, singleOffsetY)
+
+                End Select ''End of "Select Case par_design.TextAlignment"
+
+            End Using
+
+        End With ''ENd of "With par_elementInfo_Text"
+
+        ''
+        ''Added 8/7/2019 thomas downes 
+        ''
+        ''8/18 td''image_Pic = picturePortrait.Image
+        ''8/18 td''boolSeemsInPortraitMode = (image_Pic.Height > image_Pic.Width)
+        ''8/18 td''boolLetsRotate90 = True ''boolSeemsInPortraitMode
+
+        Dim boolLetsRotate90 As Boolean ''Added 8/18/2019 td 
+        boolLetsRotate90 = (par_elemBase.OrientationInDegrees > 0)
+
+        ''Added 8/7/2019 thomas downes 
+        If (boolLetsRotate90) Then
+
+            Dim intRotateIndex As Integer ''Added 8/18/2019 td  
+
+            For intRotateIndex = 1 To CInt(par_elemBase.OrientationInDegrees / 90)
+
+                pref_rotated = (Not pref_rotated) ''Added 8/18/2019 td 
+
+                ''Added 8/7/2019 thomas downes 
+                ''8/7 td''image_Rotated = CType(image_Pic.Clone, Image)
+
+                ''8/18 td''image_Pic = picturePortrait.Image
+                Dim bm_rotation As Bitmap
+                bm_rotation = New Bitmap(local_image_of_element)
+                bm_rotation.RotateFlip(RotateFlipType.Rotate90FlipNone)
+
+                local_image_of_element = bm_rotation
+
+                ''Denigrated. ---9/19/2019 td''If (par_pictureBox IsNot Nothing) Then
+                ''    ''
+                ''    ''Added 8/19/2019 thomas downes
+                ''    ''
+                ''    par_pictureBox.Width = intStarting_Height ''Switching!! Height & Width are switched.
+                ''    par_pictureBox.Height = intStarting_Width ''Switching!! Height & Width are switched.
+
+                ''    par_graphicalCtl.Width = intStarting_Height ''Switching!!  Height & Width are switched. ---8/8/2019 td
+                ''    par_graphicalCtl.Height = intStarting_Width ''Switching!!  Height & Width are switched. ---8/8/2019 td 
+
+                ''    par_pictureBox.Refresh()
+
+                ''    par_pictureBox.Image = bm_rotation
+                ''    ''8/19/2019 td''par_pictureBox.SizeMode = PictureBoxSizeMode.Zoom
+                ''    par_pictureBox.Refresh()
+
+                ''    ''9/4/2019 td''local_image = par_pictureBox.Image
+                ''    local_image = New Bitmap(par_pictureBox.Image)
+
+                ''Else
+
+                ''    local_image = bm_rotation
+
+                ''End If ''End of "If (par_pictureBox IsNot Nothing) Then .... Else ...."
+
+            Next intRotateIndex
+
+        End If ''End of "If (boolLetsRotate90) Then"
+
+        gr_local_image_of_element.Dispose() ''Added 9/4/2019 thomas downes
+
+        ''#1 9/4/2019 td''Return par_image ''Return Nothing
+        '' #2 9/4/2019 td''par_image = local_image
+
+        Return local_image_of_element ''Return Noth ing
+
+    End Function ''End of "Public Function TextImage_ByElemInfo(par_label As Label) As Image"
+
 
 
     Public Function TextImage_ByElemInfo(par_Text As String,
@@ -95,7 +521,7 @@ Public Module modGenerate
 
         ''Added 9/4/2019 thomas downes
         ''9/19/2019 td''boo_LikelyRatioIsMistaken = ciLayoutPrintLib.LayoutPrint.RatioIsLikelyBad(doubleW_div_H)
-        boo_LikelyRatioIsMistaken = modLayFunctions.RatioIsLikelyBad(doubleW_div_H)
+        boo_LikelyRatioIsMistaken = False ''03/09/2023 modLayFunctions.RatioIsLikelyBad(doubleW_div_H)
 
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
         ''9/5/2019 td''doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
@@ -132,6 +558,9 @@ Public Module modGenerate
                         pref_rotated, par_bIsDesignStage, par_elemBase)
 
     End Function ''End of ""Public Function TextImage_ByElemInfo(...)""
+
+
+
 
 
     Public Function TextImage_ByElemInfo(par_Text As String,
@@ -423,12 +852,16 @@ Public Module modGenerate
             ''Added 9/8/2019 td
             ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
             ''9/13/2022 td''font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
-            font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScalingH)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, pdoubleScalingH)
 
             ''Added 2/25/2023 
             If (par_elementInfo_TextFld.FontColor = Color.Empty) Then
                 par_elementInfo_TextFld.FontColor = Color.Black
             End If
+
+            ''Added 8/17/2019 td
+            Dim singleOffsetX As Integer = par_elementInfo_TextFld.FontOffset_X
+            Dim singleOffsetY As Integer = par_elementInfo_TextFld.FontOffset_Y
 
             ''Added 8/23/2022 thomas downes
             Using br_brushForecolor = New SolidBrush(par_elementInfo_TextFld.FontColor)

@@ -15,6 +15,8 @@ Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.
 ''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
 ''Imports AutoMapper ''Added 11/17/2021 thomas d. 
 Imports System.Windows.Forms ''Added 5/11/2022
+Imports System.Drawing ''Added 3/08/2023 thomas downes
+
 
 Public Class ClassElementFieldV4
     Inherits ClassElementFieldOrTextV4
@@ -395,6 +397,61 @@ Public Class ClassElementFieldV4
         Return objCopy
 
     End Function ''End of "Public Function CopyToElementFieldV4() As ClassElementFieldV4"
+
+
+    ''
+    ''Added 3/05/2023
+    ''
+    Public Overrides Function GetImageForPrinting(par_recipient As IRecipient,
+                                       par_scaleW As Single,
+                                       par_scaleH As Single,
+                                       ByRef pboolNotShownOnBadge As Boolean,
+                                       Optional ByRef par_location As Drawing.Point = Nothing) As Image
+        ''This function is prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023
+        pboolNotShownOnBadge = (Not Me.Visible)
+
+        par_location = New Drawing.Point(CInt(LeftEdge_Pixels * par_scaleW),
+                                         CInt(TopEdge_Pixels * par_scaleH))
+
+        ''3/09/2023 Return ImageForBadgeImage(par_recipient, par_scale)
+        Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
+
+    End Function ''End of "Public Function GetImageForPrinting() As Image"
+
+
+    Public Overrides Function ImageForBadgeImage(par_recipient As IRecipient,
+                     par_scaleW As Single, par_scaleH As Single) As Image ''Implements IElement_Base.ImageForBadgeImage
+        ''    Throw New NotImplementedException()
+
+        ''12/31/2022 Return Nothing
+        ''12/31/2022 Return New Bitmap(MyBase.Width_Pixels, MyBase.Height_Pixels)
+        ''3/09/2022 Return Nothing
+
+        ''3/09/2022 Dim intDesiredLayout_Width As Integer '' = par_imageBadgeCard.Width
+        ''3/09/2022 Dim intDesiredLayout_Height As Integer '' = par_imageBadgeCard.Height ''//Added 3/9/2023 & 9/13/2022 td
+        Dim boolRotated As Boolean = False ''//Added 3/9/2022 & 10/14/2019 td
+        Dim image_textStandard As Image
+        Dim strTextToDisplay As String ''Added 3/09/2023 td
+
+        strTextToDisplay = LabelText_ToDisplay(False)
+
+        image_textStandard =
+            modGenerate.TextImage_ByElemInfo(strTextToDisplay,
+            par_scaleW, par_scaleH, Me, Me,
+               boolRotated, False) ''//;  // 7-29-2022 ref boolRotated, False);
+
+        ''3/9/2023   intDesiredLayout_Width,
+        ''3/9/2023   intDesiredLayout_Height,
+        ''3/9/2023      par_elementField, par_elementField,
+        ''3/9/2023      ref boolRotated, False, par_elementField) ''//;  // 7-29-2022 ref boolRotated, False);
+
+        Return image_textStandard
+
+    End Function ''End of ""Public Function ImageForBadgeImage""
 
 
 

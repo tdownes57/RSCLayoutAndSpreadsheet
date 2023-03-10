@@ -138,7 +138,8 @@ Public Class ClassElementBase
 
 
     Public Overridable Function ImageForBadgeImage(par_recipient As IRecipient,
-                                       par_scale As Single) As Image Implements IElement_Base.ImageForBadgeImage
+                                       par_scaleW As Single,
+                                       par_scaleH As Single) As Image ''3/8/2022 Implements IElement_Base.ImageForBadgeImage
         ''    Throw New NotImplementedException()
 
         ''12/31/2022 Return Nothing
@@ -149,10 +150,48 @@ Public Class ClassElementBase
 
 
     ''
+    ''Added 3/09/2023
+    ''
+    Public Overridable Sub Print(par_graphicsOfBadge As Graphics,
+                                       par_recipient As IRecipient,
+                                       par_scaleW As Single,
+                                       par_scaleH As Single,
+                                       ByRef pboolNotShownOnBadge As Boolean,
+                                       Optional pboolDisplayRegardless As Boolean = False)
+        ''This function is prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023
+        pboolNotShownOnBadge = (Not Me.Visible)
+
+        ''3/9/2023''If (pboolNotShownOnBadge) Then
+        If (pboolNotShownOnBadge And (Not pboolDisplayRegardless)) Then
+            ''
+            ''Don't print on the badge.
+            ''    (Override is False: pboolDisplayRegardless)
+            ''
+        Else
+            Dim locationPoint As Point = New Drawing.Point(CInt(LeftEdge_Pixels * par_scaleW),
+                                             CInt(TopEdge_Pixels * par_scaleH))
+
+            Dim image_element As Image = ImageForBadgeImage(par_recipient,
+                                                            par_scaleW, par_scaleH)
+
+            par_graphicsOfBadge.DrawImage(image_element, locationPoint)
+            ''              New PointF(intDesiredLeft, intDesiredTop));
+
+        End If ''ENd of ""If (pboolNotShownOnBadge) Then... Else..."
+
+    End Sub ''End of "Public Overridable Sub Print()"
+
+
+    ''
     ''Added 3/05/2023
     ''
     Public Overridable Function GetImageForPrinting(par_recipient As IRecipient,
-                                       par_scale As Single,
+                                       par_scaleW As Single,
+                                       par_scaleH As Single,
                                        ByRef pboolNotShownOnBadge As Boolean,
                                        Optional ByRef par_location As Drawing.Point = Nothing) As Image
         ''This function is prompted by my study of C++.
@@ -162,10 +201,11 @@ Public Class ClassElementBase
         ''  ---3/05/2023
         pboolNotShownOnBadge = (Not Me.Visible)
 
-        par_location = New Drawing.Point(CInt(LeftEdge_Pixels * par_scale),
-                                         CInt(TopEdge_Pixels * par_scale))
+        par_location = New Drawing.Point(CInt(LeftEdge_Pixels * par_scaleW),
+                                         CInt(TopEdge_Pixels * par_scaleH))
 
-        Return ImageForBadgeImage(par_recipient, par_scale)
+        ''3/09/2023 Return ImageForBadgeImage(par_recipient, par_scale)
+        Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
 
     End Function ''End of "Public Function GetImage() As Image"
 

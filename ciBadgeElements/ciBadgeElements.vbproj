@@ -110,6 +110,8 @@
     <Compile Include="InterfaceDesignerForm.vb" />
     <Compile Include="MessageBoxTD.vb" />
     <Compile Include="modFonts.vb" />
+    <Compile Include="modGenerate.vb" />
+    <Compile Include="modLayFunctions.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

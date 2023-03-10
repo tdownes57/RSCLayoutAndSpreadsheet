@@ -77,8 +77,9 @@ Public Interface IElement_Base
     ''Added 12/19/2021 Thomas 
     ''
     Property ZOrder As Integer ''This is to address the issue of overlapping. ---12/19/2021 thomasd. 
-    Function ImageForBadgeImage(par_recipient As IRecipient,
-                                par_scale As Single) As Image ''Added 12/19/2021 thomas downes
+
+    ''3/8/2023 Function ImageForBadgeImage(par_recipient As IRecipient,
+    ''3/8/2023                             par_scale As Single) As Image ''Added 12/19/2021 thomas downes
 
     ''Added 5/27/2022 td
     ''---May 28 2022 Property ConditionalExpressionInUse As Boolean
