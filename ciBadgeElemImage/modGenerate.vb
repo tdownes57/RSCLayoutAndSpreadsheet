@@ -160,6 +160,10 @@ Public Module modGenerate
         Dim intStarting_Width As Integer ''Added 8/19/2019 thomas 
         Dim intStarting_Height As Integer ''Added 8/19/2019 thomas
 
+        ''Added 3/14/2023
+        Dim singleOffsetX As Integer = par_elementInfo_TextFld.FontOffset_X
+        Dim singleOffsetY As Integer = par_elementInfo_TextFld.FontOffset_Y
+
         ''Added 8/15/2019 td
         intNewElementWidth = CInt(pdoubleScalingW * par_elementInfo_Base.Width_Pixels)
         intNewElementHeight = CInt(pdoubleScalingH * par_elementInfo_Base.Height_Pixels)
@@ -423,7 +427,7 @@ Public Module modGenerate
             ''Added 9/8/2019 td
             ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
             ''9/13/2022 td''font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
-            font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScalingH)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, pdoubleScalingH)
 
             ''Added 2/25/2023 
             If (par_elementInfo_TextFld.FontColor = Color.Empty) Then

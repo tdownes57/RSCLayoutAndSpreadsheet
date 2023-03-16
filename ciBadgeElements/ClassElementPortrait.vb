@@ -350,10 +350,12 @@ Public Class ClassElementPortrait ''Renamed to ClassElementPortrait from ClassEl
     ''End Sub ''ENd of "Public Shared Sub CheckWidthVsLength_OfPic()"
 
     Public Overloads Function ImageForBadgeImage(par_recipient As IRecipient,
-                                                 par_scale As Single) As Image Implements IElement_Base.ImageForBadgeImage
+                                                 par_scale As Single) As Image
+        ''3/16/2023  Implements IElement_Base.ImageForBadgeImage
 
         ''12/31/2022 Return DirectCast(ElementPicture, IElement_Base).ImageForBadgeImage(par_recipient)
-        Return DirectCast(ElementPicture, IElement_Base).ImageForBadgeImage(par_recipient, par_scale)
+        ''3/16/2023  Return DirectCast(ElementPicture, IElement_Base).ImageForBadgeImage(par_recipient, par_scale)
+        Return MyBase.ImageForBadgeImage(par_recipient, par_scale)
 
     End Function
 End Class

@@ -16,6 +16,7 @@ Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.
 ''Imports AutoMapper ''Added 11/17/2021 thomas d. 
 Imports System.Windows.Forms ''Added 5/11/2022
 Imports System.Drawing ''Added 3/08/2023 thomas downes
+Imports ciBadgeElements
 
 
 Public Class ClassElementFieldV4
@@ -423,8 +424,12 @@ Public Class ClassElementFieldV4
     End Function ''End of "Public Function GetImageForPrinting() As Image"
 
 
-    Public Overrides Function ImageForBadgeImage(par_recipient As IRecipient,
-                     par_scaleW As Single, par_scaleH As Single) As Image ''Implements IElement_Base.ImageForBadgeImage
+    Public Overrides Function ImageForBadgeImage(ByRef par_recipient As IRecipient,
+                     par_scaleW As Single,
+                     par_scaleH As Single,
+                     Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
+                     Optional ByRef par_text As String = "",
+                     Optional ByRef par_image As Image = Nothing) As Image ''Implements IElement_Base.ImageForBadgeImage
         ''    Throw New NotImplementedException()
 
         ''12/31/2022 Return Nothing
@@ -439,10 +444,15 @@ Public Class ClassElementFieldV4
 
         strTextToDisplay = LabelText_ToDisplay(False)
 
+        ''3/16/2023  image_textStandard =
+        ''    modGenerate.TextImage_ByElemInfo(strTextToDisplay,
+        ''    par_scaleW, par_scaleH, Me, Me,
+        ''       boolRotated, False) ''//;  // 7-29-2022 ref boolRotated, False);
         image_textStandard =
-            modGenerate.TextImage_ByElemInfo(strTextToDisplay,
-            par_scaleW, par_scaleH, Me, Me,
-               boolRotated, False) ''//;  // 7-29-2022 ref boolRotated, False);
+            MyBase.ImageForBadgeImage(par_recipient,
+            par_scaleW, par_scaleH,
+            EnumCIBFields.Undetermined,
+            strTextToDisplay) ''//;  // 7-29-2022 ref boolRotated, False);
 
         ''3/9/2023   intDesiredLayout_Width,
         ''3/9/2023   intDesiredLayout_Height,

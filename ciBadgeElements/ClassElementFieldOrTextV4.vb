@@ -12,6 +12,7 @@ Imports ciBadgeRecipients ''Added 10/16/2019 thomas d.
 ''Imports ciBadgeInterfaces ''Added 11/16/2019 thomas d. 
 Imports AutoMapper ''Added 11/17/2021 thomas d.
 Imports ciBadgeSerialize ''Added 6/07/2022 thomas d. 
+Imports System.Security
 ''
 ''Added 1/29/2022 thomas d.
 ''
@@ -773,9 +774,13 @@ Public Class ClassElementFieldOrTextV4
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
 
-    Public Overrides Function ImageForBadgeImage(par_recipient As IRecipient,
-                                                 par_scaleW As Single,
-                                                   par_scaleH As Single) As Image
+    Public Overrides Function ImageForBadgeImage(ByRef par_recipient As IRecipient,
+                                    par_scaleW As Single,
+                                    par_scaleH As Single,
+                     Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
+                     Optional ByRef par_text As String = "",
+                     Optional ByRef par_image As Image = Nothing) As Image
+        ''03/2022  Public Function GenerateImage_NotInUse
         ''03/2023  pdoubleScalingH As Double,
         ''03/2023  
         ''03/2023  ByRef par_image As Image,
@@ -793,31 +798,44 @@ Public Class ClassElementFieldOrTextV4
         Dim brush_forecolor As Brush
         Dim brush_backcolor As Brush ''Added 8/28/2019 td
         Dim doubleW_div_H As Double ''Added 8/15/2019 td  
-        Dim doubleScaling As Double ''Added 8/15/2019 td  
+        ''3/12/2022 Dim doubleScaling As Double ''Added 8/15/2019 td  
         Dim intNewElementWidth As Integer ''Added 8/15 
         Dim intNewElementHeight As Integer ''Added 8/15
+        Dim strTextForElement As String ''Added 3/15/2023
 
-        Application.DoEvents()
+        ''3/15/2023 Application.DoEvents()
+
+        ''Added 3/15/2023 td
+        If (par_enumField = EnumCIBFields.Undetermined) Then
+            strTextForElement = par_text
+        ElseIf (par_text <> "") Then
+            strTextForElement = par_text
+        Else
+            strTextForElement = "[undetermined]"
+        End If ''End of ""If (par_enumField = EnumCIBFields.Undetermined) Then ... ElseIf ... Else ...""
 
         ''Added 8/15/2019 td
-        doubleW_div_H = (par_elementInfo_Base.Width_Pixels / par_elementInfo_Base.Height_Pixels)
+        doubleW_div_H = (Me.Width_Pixels / Me.Height_Pixels)
         ''8/24 td''doubleScaling = (pintFinalLayoutWidth / par_element.LayoutWidth_Pixels)
-        doubleScaling = (pintDesiredLayoutWidth / par_elementInfo_Base.Width_Pixels)
+        ''3/12/2022 doubleScaling = (pintDesiredLayoutWidth / Me.Width_Pixels)
 
         If (par_image Is Nothing) Then
             ''Create the image from scratch, if needed. 
             ''7/29 td''par_image = New Bitmap(par_element.Width_Pixels, par_element.Height_Pixels)
 
             ''Added 8/15/2019 td
-            intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
-            intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
+            ''3/12/2022 intNewElementWidth = CInt(doubleScaling * par_elementInfo_Base.Width_Pixels)
+            ''3/12/2022 intNewElementHeight = CInt(doubleScaling * par_elementInfo_Base.Height_Pixels)
+            intNewElementWidth = CInt(par_scaleW * Me.Width_Pixels)
+            intNewElementHeight = CInt(par_scaleH * Me.Height_Pixels)
 
             ''Added 8/15/2019 td
             ''
             If (False) Then ''9/18/2019 td''If (ClassLabelToImage.UseHighResolutionTips) Then
 
                 ''9/6/2019 td''par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
-                par_image = New Bitmap(intNewElementWidth, intNewElementHeight, Imaging.PixelFormat.Format32bppPArgb)
+                par_image = New Bitmap(intNewElementWidth, intNewElementHeight,
+                                       Imaging.PixelFormat.Format32bppPArgb)
 
             Else
                 par_image = New Bitmap(intNewElementWidth, intNewElementHeight)
@@ -841,23 +859,25 @@ Public Class ClassElementFieldOrTextV4
         End With ''End of "With gr_local_image_of_element"
 
         ''8/29/2019 td''pen_backcolor = New Pen(par_design.BackColor)
-        pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
+        ''3/12/2023 pen_backcolor = New Pen(par_elementInfo_Base.Back_Color)
+        pen_backcolor = New Pen(Me.Back_Color)
         ''pen_backcolor = New Pen(Color.White)
 
         ''Added 8/28/2019 td
         ''8/29/2019 td''brush_backcolor = New SolidBrush(par_elementInfo_Text.BackColor)
-        brush_backcolor = New SolidBrush(par_elementInfo_Base.Back_Color)
+        ''3/12/2023 brush_backcolor = New SolidBrush(par_elementInfo_Base.Back_Color)
+        brush_backcolor = New SolidBrush(Me.Back_Color)
         gr_local_image_of_element.FillRectangle(brush_backcolor, 0, 0,
                                                 intNewElementWidth, intNewElementHeight)
 
         ''Added 9/3/2019 td
-        pen_border = New Pen(par_elementInfo_Base.Border_Color,
-                             par_elementInfo_Base.Border_WidthInPixels)
+        pen_border = New Pen(Me.Border_Color,
+                             Me.Border_WidthInPixels)
 
         ''8/5/2019 td''pen_highlighting = New Pen(Color.YellowGreen, 5)
         pen_highlighting = New Pen(Color.Yellow, 6)
 
-        brush_forecolor = New SolidBrush(par_elementInfo_Text.FontColor)
+        brush_forecolor = New SolidBrush(Me.FontColor)
 
         ''
         ''Draw the select background color, so that hopefully the text can be read easily.
@@ -867,7 +887,7 @@ Public Class ClassElementFieldOrTextV4
         ''
         ''  https://stackoverflow.com/questions/5183856/converting-from-a-color-to-a-brush
         ''
-        Using br_brush As SolidBrush = New SolidBrush(par_elementInfo_Base.Back_Color)
+        Using br_brush As SolidBrush = New SolidBrush(Me.Back_Color)
             ''8/15 td''gr.FillRectangle(br_brush,
             ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
             gr_local_image_of_element.FillRectangle(br_brush,
@@ -878,19 +898,19 @@ Public Class ClassElementFieldOrTextV4
         ''Added 9/03/2019 td
         ''
         Dim boolNonzeroBorder As Boolean ''9/9 td 
-        If (par_elementInfo_Base.Border_Displayed) Then
-            boolNonzeroBorder = (0 < par_elementInfo_Base.Border_WidthInPixels)
+        If (Me.Border_Displayed) Then
+            boolNonzeroBorder = (0 < Me.Border_WidthInPixels)
             If (boolNonzeroBorder) Then
                 ''Added 9/03/2019 td
                 gr_local_image_of_element.DrawRectangle(pen_border,
                         New Rectangle(0, 0, intNewElementWidth, intNewElementHeight))
             End If ''End of "If (boolNonzeroBorder) Then"
-        End If ''End of "If (par_elementInfo_Base.Border_Displayed) Then"
+        End If ''End of "If (Me.Border_Displayed) Then"
 
         ''
         ''Added 8/02/2019 td
         ''
-        If (par_elementInfo_Base.SelectedHighlighting) Then
+        If (Me.SelectedHighlighting) Then
             ''Added 8/2/2019 td
             ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
             ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
@@ -950,7 +970,7 @@ Public Class ClassElementFieldOrTextV4
             ''Added 9/8/2019 td
             ''6/2022 font_scaled = modFonts.ScaledFont(.Font_DrawingClass, doubleScaling)
             ''9/13/2022 td''font_scaled = modFonts.ScaledFont(.FontDrawingClass, doubleScaling)
-            font_scaled = modFonts.ScaledFont(.FontDrawingClass, pdoubleScalingH)
+            font_scaled = modFonts.ScaledFont(.FontDrawingClass, CDbl(par_scaleH))
 
             ''Added 2/25/2023 
             If (.FontColor = Color.Empty) Then
@@ -972,17 +992,21 @@ Public Class ClassElementFieldOrTextV4
                         ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black, singleOffsetX, singleOffsetY)
                         ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
                         ''                          singleOffsetX, singleOffsetY)
-                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                        ''3/16/2023 td''gr_local_image_of_element.DrawString(par_text, font_scaled, br_brushForecolor,
+                        ''                   singleOffsetX, singleOffsetY)
+                        gr_local_image_of_element.DrawString(strTextForElement, font_scaled, br_brushForecolor,
                                           singleOffsetX, singleOffsetY)
 
                     Case HorizontalAlignment.Center
                         ''// Measure string.
                         ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
+                        ''3/16/2023 td ''stringSize = gr_local_image_of_element.MeasureString(par_text, font_scaled)
+                        stringSize = gr_local_image_of_element.MeasureString(strTextForElement, font_scaled)
 
                         Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
                         ''Added 8/18/2019 td 
-                        singleOffsetX_AlignRight = (singleOffsetX + (local_image_of_element.Width - stringSize.Width) / 2)
+                        ''3/16/2023 singleOffsetX_AlignRight = (singleOffsetX + (local_image_of_element.Width - stringSize.Width) / 2)
+                        singleOffsetX_AlignRight = (singleOffsetX + (par_image.Width - stringSize.Width) / 2)
 
                         ''Added 8/18/2019 td
                         ''
@@ -990,24 +1014,28 @@ Public Class ClassElementFieldOrTextV4
                         ''                            singleOffsetX_AlignRight, singleOffsetY)
                         ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
                         ''                 singleOffsetX_AlignRight, singleOffsetY)
-                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                        gr_local_image_of_element.DrawString(par_text, font_scaled, br_brushForecolor,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
                     Case HorizontalAlignment.Right
                         ''// Measure string.
                         ''
                         ''9/8/2019 td''stringSize = gr_element.MeasureString(.Text, .Font_DrawingClass)
-                        stringSize = gr_local_image_of_element.MeasureString(par_Text, font_scaled)
+                        ''3/16/2023 td ''stringSize = gr_local_image_of_element.MeasureString(par_text, font_scaled)
+                        stringSize = gr_local_image_of_element.MeasureString(strTextForElement, font_scaled)
 
                         Dim singleOffsetX_AlignRight As Single ''Added 8/18/2019 td 
-                        singleOffsetX_AlignRight = (local_image_of_element.Width - stringSize.Width - singleOffsetX)
+                        ''3/16/2023 td ''singleOffsetX_AlignRight = (local_image_of_element.Width - stringSize.Width - singleOffsetX)
+                        singleOffsetX_AlignRight = (par_image.Width - stringSize.Width - singleOffsetX)
 
                         ''Added 8/18/2019 td 
                         ''9/8/2019 td''gr_element.DrawString(.Text, .Font_DrawingClass, Brushes.Black,
                         ''                           singleOffsetX_AlignRight, singleOffsetY)
                         ''8/23/2019 td''gr_element.DrawString(par_Text, font_scaled, Brushes.Black,
                         ''                           singleOffsetX_AlignRight, singleOffsetY)
-                        gr_local_image_of_element.DrawString(par_Text, font_scaled, br_brushForecolor,
+                        ''3/16/2023 td ''gr_local_image_of_element.DrawString(par_text, font_scaled, br_brushForecolor,
+                        ''                singleOffsetX_AlignRight, singleOffsetY)
+                        gr_local_image_of_element.DrawString(strTextForElement, font_scaled, br_brushForecolor,
                                   singleOffsetX_AlignRight, singleOffsetY)
 
                 End Select ''End of "Select Case par_design.TextAlignment"

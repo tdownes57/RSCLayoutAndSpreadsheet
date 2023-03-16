@@ -137,9 +137,12 @@ Public Class ClassElementBase
     End Property
 
 
-    Public Overridable Function ImageForBadgeImage(par_recipient As IRecipient,
-                                       par_scaleW As Single,
-                                       par_scaleH As Single) As Image ''3/8/2022 Implements IElement_Base.ImageForBadgeImage
+    Public Overridable Function ImageForBadgeImage(ByRef par_recipient As IRecipient,
+                            par_scaleW As Single,
+                            par_scaleH As Single,
+                            Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
+                            Optional ByRef par_text As String = "",
+                            Optional ByRef par_image As Image = Nothing) As Image ''3/8/2022 Implements IElement_Base.ImageForBadgeImage
         ''    Throw New NotImplementedException()
 
         ''12/31/2022 Return Nothing

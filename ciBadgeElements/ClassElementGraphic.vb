@@ -364,7 +364,7 @@ Public Class ClassElementGraphic
     End Sub ''End of "Public Sub LoadGraphic() "
 
     Public Overloads Function ImageForBadgeImage(par_recipient As IRecipient, par_scale As Single) As Image _
-        Implements IElement_Base.ImageForBadgeImage
+        ''3/16/2023 td  Implements IElement_Base.ImageForBadgeImage
         ''Throw New NotImplementedException()
 
         '9/1/2022 Throw New NotImplementedException()
