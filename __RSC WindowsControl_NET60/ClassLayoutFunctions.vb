@@ -40,6 +40,7 @@ Public Class ClassLayoutFunctions
         End Set
     End Property
 
+
     Public Property ControlThatWasClicked As Control Implements ILayoutFunctions.ControlThatWasClicked
         ''Added 9/01/2022
         Get
@@ -60,11 +61,50 @@ Public Class ClassLayoutFunctions
         End Set
     End Property
 
+
+    Public Property ControlLastMouseUpShiftKey As Control Implements ILayoutFunctions.ControlLastMouseUpShiftKey
+        ''Added 3/16/2023
+        Get
+            ''Added 3/016/2023
+            System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(107,
+                                                    "Property ControlLastMouseUpShiftKey",
+                  "Property Get is not implemented") ''Added 11/16/2022
+
+        End Get
+        Set(value As Control)
+            ''Throw New NotImplementedException()
+            __RSC_Error_Logging.RSCErrorLogging.Log(108,
+                                                    "Property ControlLastMouseUpShiftKey",
+                  "Property Set is not implemented") ''Added 11/16/2022
+        End Set
+    End Property
+
+
+    Public Property ControlLastMouseUpCtrlKey As Control Implements ILayoutFunctions.ControlLastMouseUpCtrlKey
+        ''Added 3/16/2023
+        Get
+            ''Added 3/016/2023
+            System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(109,
+                                                    "Property ControlLastMouseUpShiftKey",
+                  "Property Get is not implemented") ''Added 11/16/2022
+
+        End Get
+        Set(value As Control)
+            ''Throw New NotImplementedException()
+            __RSC_Error_Logging.RSCErrorLogging.Log(110,
+                                                    "Property ControlLastMouseUpShiftKey",
+                  "Property Set is not implemented") ''Added 11/16/2022
+        End Set
+    End Property
+
+
     Public Sub AutoPreview_IfChecked(Optional par_controlElement As Control = Nothing, Optional par_stillMoving As Boolean = False) Implements ILayoutFunctions.AutoPreview_IfChecked
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
-        __RSC_Error_Logging.RSCErrorLogging.Log(107, "Public Sub AutoPreview_IfChecked",
+        __RSC_Error_Logging.RSCErrorLogging.Log(111, "Public Sub AutoPreview_IfChecked",
                   "AutoPreview_IfChecked is not implemented") ''Added 11/16/2022
 
     End Sub
@@ -73,7 +113,7 @@ Public Class ClassLayoutFunctions
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
-        __RSC_Error_Logging.RSCErrorLogging.Log(108, "Public Sub RedrawForm",
+        __RSC_Error_Logging.RSCErrorLogging.Log(112, "Public Sub RedrawForm",
                   "Property Set is not implemented") ''Added 11/16/2022
 
     End Sub
@@ -82,7 +122,7 @@ Public Class ClassLayoutFunctions
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
-        __RSC_Error_Logging.RSCErrorLogging.Log(109,
+        __RSC_Error_Logging.RSCErrorLogging.Log(113,
                   "Public Function Layout_Width_Pixels",
                   "Function is not implemented") ''Added 11/16/2022
     End Function
@@ -91,7 +131,7 @@ Public Class ClassLayoutFunctions
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
-        __RSC_Error_Logging.RSCErrorLogging.Log(110, "Public Fun Layout_Height_Pixels",
+        __RSC_Error_Logging.RSCErrorLogging.Log(114, "Public Fun Layout_Height_Pixels",
                   "Function is not implemented") ''Added 11/16/2022
     End Function
 
@@ -99,7 +139,7 @@ Public Class ClassLayoutFunctions
         ''Throw New NotImplementedException()
         ''9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
-        __RSC_Error_Logging.RSCErrorLogging.Log(111, "Public Fun Layout_Height_Pixels",
+        __RSC_Error_Logging.RSCErrorLogging.Log(115, "Public Fun Layout_Height_Pixels",
                   "Function is not implemented") ''Added 11/16/2022
     End Function
 

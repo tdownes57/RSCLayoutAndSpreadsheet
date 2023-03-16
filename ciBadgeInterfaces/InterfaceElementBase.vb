@@ -52,6 +52,7 @@ Public Interface IElement_Base
     Property Back_Transparent As Boolean ''Added 9/4/2019 thomas downes
 
     Property SelectedHighlighting As Boolean ''Added 8/2/2019 thomas downes  
+    Property SelectedToProcessSubset As Boolean ''Alias Prorerty. ---Added 3/16/2023 thomas downes  
 
     ''See above.''Property Border_Pixels As Integer ''Added 8/29/2019 thoma d. 
     ''See above.''Property Border_Color As Color ''Added 8/29/2019 thoma d. 

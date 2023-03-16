@@ -110,7 +110,11 @@ Public Class ClassElementBase
     End Property
 
 
+    ''Added 8/2/2019 td
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td 
+
+    ''Alias Prorerty. ---Added 3/16/2023 td 
+    Public Property SelectedToProcessSubset As Boolean Implements IElement_Base.SelectedToProcessSubset ''Alias Prorerty. ---Added 3/16/2023 td 
 
     Public Property PositionalMode As String Implements IElement_Base.PositionalMode ''Added 8/14/2019 td 
 
@@ -137,9 +141,9 @@ Public Class ClassElementBase
     End Property
 
 
-    Public Overridable Function ImageForBadgeImage(ByRef par_recipient As IRecipient,
-                            par_scaleW As Single,
+    Public Overridable Function ImageForBadgeImage(par_scaleW As Single,
                             par_scaleH As Single,
+                            Optional ByRef par_recipient As IRecipient = Nothing,
                             Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                             Optional ByRef par_text As String = "",
                             Optional ByRef par_image As Image = Nothing) As Image ''3/8/2022 Implements IElement_Base.ImageForBadgeImage
@@ -178,8 +182,9 @@ Public Class ClassElementBase
             Dim locationPoint As Point = New Drawing.Point(CInt(LeftEdge_Pixels * par_scaleW),
                                              CInt(TopEdge_Pixels * par_scaleH))
 
-            Dim image_element As Image = ImageForBadgeImage(par_recipient,
-                                                            par_scaleW, par_scaleH)
+            ''3/16/2023 Dim image_element As Image = ImageForBadgeImage(par_recipient,
+            ''                                         par_scaleW, par_scaleH)
+            Dim image_element As Image = ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
 
             par_graphicsOfBadge.DrawImage(image_element, locationPoint)
             ''              New PointF(intDesiredLeft, intDesiredTop));
@@ -208,7 +213,8 @@ Public Class ClassElementBase
                                          CInt(TopEdge_Pixels * par_scaleH))
 
         ''3/09/2023 Return ImageForBadgeImage(par_recipient, par_scale)
-        Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
+        ''3/16/2023 Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
+        Return ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
 
     End Function ''End of "Public Function GetImage() As Image"
 

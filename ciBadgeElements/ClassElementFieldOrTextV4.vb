@@ -774,12 +774,13 @@ Public Class ClassElementFieldOrTextV4
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
 
-    Public Overrides Function ImageForBadgeImage(ByRef par_recipient As IRecipient,
-                                    par_scaleW As Single,
+    Public Overrides Function ImageForBadgeImage(par_scaleW As Single,
                                     par_scaleH As Single,
+                     Optional ByRef par_recipient As IRecipient = Nothing,
                      Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                      Optional ByRef par_text As String = "",
                      Optional ByRef par_image As Image = Nothing) As Image
+
         ''03/2022  Public Function GenerateImage_NotInUse
         ''03/2023  pdoubleScalingH As Double,
         ''03/2023  

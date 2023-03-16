@@ -581,7 +581,8 @@ Public Class CtlGraphicFieldV4
         intBadgeLayoutWidth = Me.LayoutFunctions.Layout_Width_Pixels()
         intBadgeLayoutHeight = Me.LayoutFunctions.Layout_Height_Pixels() ''Added 9/13/2022
 
-        ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureFieldOrText.Image, Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
+        ''9/4/2019 td''LabelToImage.TextImage(intLayoutWidth, pictureFieldOrText.Image,
+        ''   Me.ElementInfo_Text, Me.ElementInfo_Base, boolRotated)
 
         ''
         ''Major call !!
@@ -616,6 +617,9 @@ Public Class CtlGraphicFieldV4
                                    Me.ElementInfo_TextOnly,
                                    Me.ElementInfo_Base,
                                    boolRotated, True, Me.ElementClass_Obj)
+
+            ''Added 3/16/2023 thomas downes
+            newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0)
 
         Else
             ''9/20/2019 td''pictureFieldOrText.Image =

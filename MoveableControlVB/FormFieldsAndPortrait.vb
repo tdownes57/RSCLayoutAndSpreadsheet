@@ -366,15 +366,28 @@ Public Class FormFieldsAndPortrait
         ''
         ''Added 1/7/2022 thomas downes 
         ''
-        mod_ctlField1.Dispose()
+        ''3/16/2023 mod_ctlField1.Dispose()
+        ''3/16/2023 mod_ctlField1_V3.Dispose()
+        mod_ctlField1_V3.Dispose()
+        mod_ctlField1_V4.Dispose()
+        mod_ctlField2_V3.Dispose()
+        mod_ctlField2_V4.Dispose()
         mod_ctlPortrait.Dispose()
         mod_ctlQRCode.Dispose()
 
-        mod_ctlField1.Visible = False
+        ''3/16/2023 mod_ctlField1.Visible = False
+        mod_ctlField1_V3.Visible = False
+        mod_ctlField1_V4.Visible = False
+        mod_ctlField2_V3.Visible = False
+        mod_ctlField2_V4.Visible = False
         mod_ctlPortrait.Visible = False
         mod_ctlQRCode.Visible = False
 
-        Me.Controls.Remove(mod_ctlField1)
+        ''3/16/2023 Me.Controls.Remove(mod_ctlField1)
+        Me.Controls.Remove(mod_ctlField1_V3)
+        Me.Controls.Remove(mod_ctlField1_V4)
+        Me.Controls.Remove(mod_ctlField2_V3)
+        Me.Controls.Remove(mod_ctlField2_V4)
         Me.Controls.Remove(mod_ctlPortrait)
         Me.Controls.Remove(mod_ctlQRCode)
 

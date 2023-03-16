@@ -419,14 +419,15 @@ Public Class ClassElementFieldV4
                                          CInt(TopEdge_Pixels * par_scaleH))
 
         ''3/09/2023 Return ImageForBadgeImage(par_recipient, par_scale)
-        Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
+        ''3/16/2023 Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
+        Return ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
 
     End Function ''End of "Public Function GetImageForPrinting() As Image"
 
 
-    Public Overrides Function ImageForBadgeImage(ByRef par_recipient As IRecipient,
-                     par_scaleW As Single,
-                     par_scaleH As Single,
+    Public Overrides Function ImageForBadgeImage(par_scaleW As Single,
+                                                 par_scaleH As Single,
+                     Optional ByRef par_recipient As IRecipient = Nothing,
                      Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                      Optional ByRef par_text As String = "",
                      Optional ByRef par_image As Image = Nothing) As Image ''Implements IElement_Base.ImageForBadgeImage
@@ -449,10 +450,9 @@ Public Class ClassElementFieldV4
         ''    par_scaleW, par_scaleH, Me, Me,
         ''       boolRotated, False) ''//;  // 7-29-2022 ref boolRotated, False);
         image_textStandard =
-            MyBase.ImageForBadgeImage(par_recipient,
-            par_scaleW, par_scaleH,
-            EnumCIBFields.Undetermined,
-            strTextToDisplay) ''//;  // 7-29-2022 ref boolRotated, False);
+            MyBase.ImageForBadgeImage(par_scaleW, par_scaleH,
+                                      par_recipient, EnumCIBFields.Undetermined,
+                                      strTextToDisplay) ''//;  // 7-29-2022 ref boolRotated, False);
 
         ''3/9/2023   intDesiredLayout_Width,
         ''3/9/2023   intDesiredLayout_Height,

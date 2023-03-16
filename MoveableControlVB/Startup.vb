@@ -660,6 +660,12 @@ Public Class Startup
 
         End If ''End of "If (pboolNewFileXML) Then"
 
+        ''Added 3/16/2023 thomas
+        Dim objBadgeLayoutDims As BadgeLayoutDimensionsClass ''Added 3/16/2023 thomas
+        With par_designForm ''Added 3/16/2023 thomas
+            objBadgeLayoutDims = .BadgeLayout
+        End With
+
         ''Added 10/14/2019 thomas d. 
         ''Jan19 2022''obj_cache_elements.LoadElement_StaticText_IfNeeded(strStaticText,
         ''12/022 obj_cache_elements.LoadNewElement_StaticText(strStaticText,
@@ -667,7 +673,8 @@ Public Class Startup
                             intLeft_Text, intTop_Text,
                             intWidth_Text, intHeight_Text,
                             par_designForm.MyPictureBackgroundFront,
-                            EnumWhichSideOfCard.EnumFrontside) ''Added 10/14/2019 td
+                            EnumWhichSideOfCard.EnumFrontside,
+                            objBadgeLayoutDims) ''Added 10/14/2019 td
 
         ''Added 9/24/2019 thomas 
         ''Was just for testing. ---10/10/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
