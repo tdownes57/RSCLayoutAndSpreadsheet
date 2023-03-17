@@ -610,16 +610,25 @@ Public Class CtlGraphicFieldV4
 
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
-            newTextImage =
-                 modGenerate.TextImage_ByElemInfo(strTextToDisplay,
-                                             intBadgeLayoutWidth,
-                                             intBadgeLayoutHeight,
-                                   Me.ElementInfo_TextOnly,
-                                   Me.ElementInfo_Base,
-                                   boolRotated, True, Me.ElementClass_Obj)
+            ''3/16/2023 td''newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0)
 
             ''Added 3/16/2023 thomas downes
-            newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0)
+            If (ciBadgeInterfaces.StrongOOP.StrongEncapsulation) Then
+
+                ''Added 3/16/2023 thomas downes
+                newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0, , , strTextToDisplay)
+
+            Else
+
+                newTextImage =
+                     modGenerate.TextImage_ByElemInfo(strTextToDisplay,
+                                                 intBadgeLayoutWidth,
+                                                 intBadgeLayoutHeight,
+                                       Me.ElementInfo_TextOnly,
+                                       Me.ElementInfo_Base,
+                                       boolRotated, True, Me.ElementClass_Obj)
+
+            End If ''End of ""If (ciBadgeInterfaces.StrongOOP.StrongEncapsulation) Then... Else"
 
         Else
             ''9/20/2019 td''pictureFieldOrText.Image =

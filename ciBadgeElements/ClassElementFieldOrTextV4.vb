@@ -781,6 +781,12 @@ Public Class ClassElementFieldOrTextV4
                      Optional ByRef par_text As String = "",
                      Optional ByRef par_image As Image = Nothing) As Image
 
+        ''This function is inspired/prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023 thomas clifton downes
+        ''
         ''03/2022  Public Function GenerateImage_NotInUse
         ''03/2023  pdoubleScalingH As Double,
         ''03/2023  
@@ -802,18 +808,34 @@ Public Class ClassElementFieldOrTextV4
         ''3/12/2022 Dim doubleScaling As Double ''Added 8/15/2019 td  
         Dim intNewElementWidth As Integer ''Added 8/15 
         Dim intNewElementHeight As Integer ''Added 8/15
-        Dim strTextForElement As String ''Added 3/15/2023
+        Dim strTextForElement As String = "" ''Added 3/15/2023
 
         ''3/15/2023 Application.DoEvents()
 
-        ''Added 3/15/2023 td
-        If (par_enumField = EnumCIBFields.Undetermined) Then
+        ''Added 3/16/2023 td
+        Dim bParFieldGiven As Boolean ''Added 3/16/2023 td
+        Dim bParFieldUnknown As Boolean ''Added 3/16/2023 td
+
+        ''Added 3/16/2023 td
+        bParFieldGiven = (par_enumField <> EnumCIBFields.Undetermined)
+        bParFieldUnknown = (par_enumField = EnumCIBFields.Undetermined)
+
+        If (bParFieldUnknown) Then
             strTextForElement = par_text
         ElseIf (par_text <> "") Then
             strTextForElement = par_text
-        Else
-            strTextForElement = "[undetermined]"
+        ElseIf (bParFieldUnknown Or par_recipient Is Nothing) Then
+            ''Added 3/16/2023 thomas downes 
+            strTextForElement = par_text ''par_recipient.GetTextValue(Me.field)
+        ElseIf (bParFieldGiven And par_recipient IsNot Nothing) Then
+            ''Added 3/16/2023 thomas downes 
+            strTextForElement = par_recipient.GetTextValue(par_enumField)
         End If ''End of ""If (par_enumField = EnumCIBFields.Undetermined) Then ... ElseIf ... Else ...""
+
+        ''Added 3/16/2023 td
+        If ("" = strTextForElement) Then
+            strTextForElement = "[undetermined]"
+        End If ''End of ""If ("" = strTextForElement) Then""
 
         ''Added 8/15/2019 td
         doubleW_div_H = (Me.Width_Pixels / Me.Height_Pixels)

@@ -147,6 +147,12 @@ Public Class ClassElementBase
                             Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                             Optional ByRef par_text As String = "",
                             Optional ByRef par_image As Image = Nothing) As Image ''3/8/2022 Implements IElement_Base.ImageForBadgeImage
+        ''This function is inspired/prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023 thomas clifton downes
+        ''
         ''    Throw New NotImplementedException()
 
         ''12/31/2022 Return Nothing
@@ -165,11 +171,13 @@ Public Class ClassElementBase
                                        par_scaleH As Single,
                                        ByRef pboolNotShownOnBadge As Boolean,
                                        Optional pboolDisplayRegardless As Boolean = False)
-        ''This function is prompted by my study of C++.
+
+        ''This function is inspired/prompted by my study of C++.
         ''   Objects should be responsible for the processing of their 
         ''   contents, following the principle of information hiding 
         ''   or encapsulation. 
-        ''  ---3/05/2023
+        ''  ---3/05/2023 thomas clifton downes
+
         pboolNotShownOnBadge = (Not Me.Visible)
 
         ''3/9/2023''If (pboolNotShownOnBadge) Then

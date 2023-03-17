@@ -309,9 +309,10 @@ Public Class ClassElementFieldV4
 #Disable Warning CA1707 ''Remove underscores. 
 
     Public Function LabelText_ToDisplay(par_isForLayout_OrPreview As Boolean,
-                                        Optional par_iRecipInfo As IRecipient = Nothing,
-                                        Optional pbAllowExampleValues As Boolean = True,
-                                        Optional par_fieldAny As ClassFieldAny = Nothing) As String
+                        Optional par_iRecipInfo As IRecipient = Nothing,
+                        Optional pbAllowExampleValues As Boolean = True,
+                        Optional par_fieldAny As ClassFieldAny = Nothing,
+                        Optional par_enum As EnumCIBFields = EnumCIBFields.Undetermined) As String
         ''
         ''Added 10/16/2016 & 7/25/2019 thomas d 
         ''
@@ -370,6 +371,11 @@ Public Class ClassElementFieldV4
 
                 ''Added 5/29/2022 & 5/12/2022 td
                 Return par_fieldAny.FieldLabelCaption
+
+            Case (par_enum <> EnumCIBFields.Undetermined)
+
+                ''Added 3/16/2023 td
+                Return par_enum.ToString()
 
             Case Else
 
@@ -433,6 +439,12 @@ Public Class ClassElementFieldV4
                      Optional ByRef par_image As Image = Nothing) As Image ''Implements IElement_Base.ImageForBadgeImage
         ''    Throw New NotImplementedException()
 
+        ''This function is prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023 thomas clifton downes
+        ''
         ''12/31/2022 Return Nothing
         ''12/31/2022 Return New Bitmap(MyBase.Width_Pixels, MyBase.Height_Pixels)
         ''3/09/2022 Return Nothing
@@ -443,7 +455,15 @@ Public Class ClassElementFieldV4
         Dim image_textStandard As Image
         Dim strTextToDisplay As String ''Added 3/09/2023 td
 
-        strTextToDisplay = LabelText_ToDisplay(False)
+        ''#1 3/16/2023 strTextToDisplay = LabelText_ToDisplay(False)
+        '' #2 3/16/2023 objFieldAny = ElementsCache.GetFieldByFieldEnum(Me.FieldEnum)
+        ''  #3 3/16/2023 Dim strFieldNameCaption As String ''As ClassFieldAny ''Added 3/16/2023 
+        ''  #3 3/16/2023 strFieldNameCaption = Me.FieldNameCaptionText() ''Added 3/16/2023
+        If (par_text = "") Then
+            strTextToDisplay = LabelText_ToDisplay(False, , , , Me.FieldEnum)
+        Else
+            strTextToDisplay = par_text ''Added 3/16/2023
+        End If ''End of ""If (par_text = "") Then ... Else ..."
 
         ''3/16/2023  image_textStandard =
         ''    modGenerate.TextImage_ByElemInfo(strTextToDisplay,

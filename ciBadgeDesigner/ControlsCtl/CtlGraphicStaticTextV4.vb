@@ -612,13 +612,36 @@ Public Class CtlGraphicStaticTextV4
 
             ''11/18 td''newTextImage =
             ''   modGenerate.TextImage_ByElemInfo(Me.ElementClass_Obj.LabelText_ToDisplay(True),
-            newTextImage =
-                 modGenerate.TextImage_ByElemInfo(strTextToDisplay,
-                                             intBadgeLayoutWidth,
-                                             intBadgeLayoutHeight,
-                                   Me.ElementInfo_TextOnly,
-                                   Me.ElementInfo_Base,
-                                   boolRotated, True, Me.ElementBase)
+            ''3/16/2023 newTextImage =
+            ''3/16/2023      modGenerate.TextImage_ByElemInfo(strTextToDisplay,
+            ''                                 intBadgeLayoutWidth,
+            ''                                 intBadgeLayoutHeight,
+            ''                       Me.ElementInfo_TextOnly,
+            ''                       Me.ElementInfo_Base,
+            ''                       boolRotated, True, Me.ElementBase)
+
+            ''Added 3/16/2023 thomas downes
+            If (ciBadgeInterfaces.StrongOOP.StrongEncapsulation) Then
+
+                ''Added 3/16/2023 thomas downes
+                ''3/16/2023 newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0)
+                ''3/19/2023 newTextImage = Me.ElementClass_Obj.ImageForBadgeImage(1.0, 1.0)
+                newTextImage = Me.ElementClass_Obj.ImageForBadgeImage(1.0, 1.0,
+                           Nothing, EnumCIBFields.Undetermined, strTextToDisplay)
+
+            Else
+
+                newTextImage =
+                     modGenerate.TextImage_ByElemInfo(strTextToDisplay,
+                                                 intBadgeLayoutWidth,
+                                                 intBadgeLayoutHeight,
+                                       Me.ElementInfo_TextOnly,
+                                       Me.ElementInfo_Base,
+                                       boolRotated, True, Me.ElementBase)
+
+            End If ''End of ""If (ciBadgeInterfaces.StrongOOP.StrongEncapsulation) Then... Else"
+
+
         Else
             ''9/20/2019 td''pictureFieldOrText.Image =
             newTextImage =
