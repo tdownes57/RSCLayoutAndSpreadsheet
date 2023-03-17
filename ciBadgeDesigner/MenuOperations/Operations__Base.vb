@@ -51,6 +51,7 @@ Public MustInherit Class Operations__Base
 
     Public Property Designer As ciBadgeDesigner.ClassDesigner ''Added 8/1/2022 td
 
+
     Public Sub Switch_To_Other_Side_Of_Badge_BA1001(sender As Object, e As EventArgs)
         ''
         ''Stubbed 12/30/2021 td
@@ -311,6 +312,61 @@ Public MustInherit Class Operations__Base
         Me.CtlCurrentElement.Refresh()
 
     End Sub ''End of ""Public Sub Refresh_Element_Image_EE1301"" 
+
+
+    Public Sub Select_To_Process_Subset_Of_Elements_EE1302(sender As Object, e As EventArgs)
+        ''
+        ''Added 3/16/2023 td 
+        ''
+        Me.CtlCurrentElement.ElementBase.SelectedHighlighting = True
+        Me.CtlCurrentElement.ElementBase.SelectedToProcessSubset = True
+        Me.CtlCurrentElement.RefreshElementImage()
+        Me.CtlCurrentElement.Refresh()
+
+        ''Added 3/16/2023 td 
+        Me.Designer.RefreshBackgroundArrows()
+
+    End Sub ''End of ""Public Sub Select_To_Process_Subset_Of_Elements_EE1302""
+
+
+    Public Sub Deselect_To_Omit_From_Subset_Of_Elements_EE1303(sender As Object, e As EventArgs)
+        ''
+        ''Added 3/16/2023 td 
+        ''
+        Me.CtlCurrentElement.ElementBase.SelectedHighlighting = False
+        Me.CtlCurrentElement.ElementBase.SelectedToProcessSubset = False
+        Me.CtlCurrentElement.RefreshElementImage()
+        Me.CtlCurrentElement.Refresh()
+
+        ''Added 3/16/2023 td 
+        Me.Designer.RefreshBackgroundArrows()
+
+    End Sub ''End of ""Public Sub Deselect_To_Omit_From_Subset_Of_Elements_EE1303""
+
+
+    Public Sub Bring_To_Foreground_of_Elements_EE1304()
+        ''
+        ''Added 3/16/2023 thomas downes
+        ''
+        ''  Bring element to the foreground (front of the stack of elements)).
+        ''
+        Me.CtlCurrentElement.BringToFront()
+        Me.CtlCurrentElement.BringToFront_OfElements()
+
+    End Sub ''ENd of ""Public Sub Bring_To_Front_Foreground_EE1304()""
+
+
+    Public Sub Push_To_Background_of_Elements_EE1304()
+        ''
+        ''Added 3/16/2023 thomas downes
+        ''
+        ''  Send element to the background (behind the stack of (foreground) elements).
+        ''
+        Me.CtlCurrentElement.SendToBack()
+        Me.CtlCurrentElement.SendToBack_OfElements()
+
+    End Sub ''ENd of ""Public Sub Push_To_Background_Of_Elements_EE1304()""
+
 
 
     Public Sub Give_Layout_Information_EE1003(sender As Object, e As EventArgs)

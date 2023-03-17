@@ -2285,5 +2285,28 @@ Public Class RSCMoveableControlVB
     End Function ''End of ""Protected Overrides Function ProcessCmdKey""s
 
 
+    Public Sub BringToFront_OfElements()
+        ''Can't Override it. 03/2023 Public Overrides Sub BringToFront()
+        ''
+        ''Added 3/16/2023 td 
+        ''
+        MyBase.BringToFront()
+        ElementsCache.BringToFront_OfElements(ElementBase)
+
+    End Sub ''End of ""Public Overrides Sub BringToFront_OfElements()""
+
+
+    Public Sub SendToBack_OfElements() ''PushToBack_ForElement
+        ''Can't Override it. 03/2023 Public Overrides Sub SendToBack()
+        ''
+        ''Added 3/16/2023 td 
+        ''
+        MyBase.SendToBack()
+        ElementsCache.SendToBack_OfElements(ElementBase)
+
+    End Sub ''End of ""Public Overrides Sub SendToBack_OfElements()""
+
+
+
 
 End Class
