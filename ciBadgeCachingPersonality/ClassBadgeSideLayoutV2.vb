@@ -13,16 +13,40 @@ Public Class ClassBadgeSideLayoutV2
     ''
     ''Added 1/13/2022 td 
     ''
+    ''   What was my purpose here?  How does V2 differ from V1?
+    ''
+    ''   What V2 came first in my mind, interface IBadgeSideLayoutElementsV2
+    ''     or Class ClassBadgeSideLayoutV2?
+    ''
+    ''  As of 3/2023, I think I recall the purpose of V2 is to leverage the following
+    ''
+    ''     Property ElementLists As ClassElementLists ''Added 2/10/2022 thomas downes
+    ''
+    ''  which replaces the following of V1:  
+    ''
+    ''     Property ListElementFieldsV3 As HashSet(Of ClassElementFieldV3)
+    ''     Property ListElementFieldsV4 As HashSet(Of ClassElementFieldV4)
+    ''     Property ListElementStaticTextsV3 As HashSet(Of ClassElementStaticTextV3)
+    ''     Property ListElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV4)
+    ''     Property ListElementPortraits As HashSet(Of ClassElementPortrait)
+    ''     Property ListElementQRCodes As HashSet(Of ClassElementQRCode)
+    ''     Property ListElementSignatures As HashSet(Of ClassElementSignature)
+    ''     Property ListElementStaticTexts As HashSet(Of ClassElementStaticTextV3)
+    ''     Property ListElementGraphics As HashSet(Of ClassElementGraphic)
+    ''     Property ListElementLaysections As HashSet(Of ClassElementLaysection)
+    ''
+    '' ---3/17/2023 td
+    ''
     <System.Xml.Serialization.XmlIgnore>
     Public Property BackgroundImage As Image Implements IBadgeSideLayoutElementsV2.BackgroundImage
     Public Property BackgroundImage_Path As String = "" ''Added 1/14/2020 td
     Public Property BackgroundImage_FTitle As String = "" ''Added 1/14/2020 td
 
-    Private mod_listElementFields As New HashSet(Of ClassElementFieldV3)
-    Private mod_listElementPics As New HashSet(Of ClassElementPortrait)
-    Private mod_listElementStatics As New HashSet(Of ClassElementStaticTextV3)
-    Private mod_listElementGraphics As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
-    Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019
+    ''Private mod_listElementFields As New HashSet(Of ClassElementFieldV3)
+    ''Private mod_listElementPics As New HashSet(Of ClassElementPortrait)
+    ''Private mod_listElementStatics As New HashSet(Of ClassElementStaticTextV3)
+    ''Private mod_listElementGraphics As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
+    ''Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019
 
     <System.Xml.Serialization.XmlIgnore>
     Public Property RecipientPortrait1 As Image Implements IBadgeSideLayoutElementsV2.RecipientPortrait1
@@ -225,6 +249,41 @@ Public Class ClassBadgeSideLayoutV2
     ''''        Throw New NotImplementedException()
     ''''    End Set
     ''''End Property
+
+    Public Shared Function CompareRSC(par1 As ClassElementBase, par2 As ClassElementBase) As Integer
+        ''
+        ''Added 3/18/2023 Thomas  
+        ''
+        If (par1.ZOrder > par2.ZOrder) Then Return 1
+        If (par1.ZOrder < par2.ZOrder) Then Return -1
+        Return 0
+
+    End Function ''End of ""Public Shared Function CompareRSC""
+
+
+    Public Function GetQueueOfAllElements() As Queue(Of ClassElementBase)
+        ''
+        ''Added 3/18/2023 Thomas  
+        ''
+        Dim objList As New List(Of ClassElementBase)
+
+        ''3/18/2023 objList.AddRange(ElementLists.ListElementFieldsV3)
+        objList.AddRange(ElementLists.ListElementFieldsV4)
+        objList.AddRange(ElementLists.ListElementGraphics)
+        objList.AddRange(ElementLists.ListElementPortraits)
+        ''3/18/2023 objList.AddRange(ElementLists.ListElementStaticsV3)
+        objList.AddRange(ElementLists.ListElementStaticsV4)
+        objList.AddRange(ElementLists.ListElementQRCodes)
+        objList.AddRange(ElementLists.ListElementSignatures)
+
+        ''--++++This is a function & returns a new list. 
+        ''--++objList.OrderBy(Function(x) x.ZOrder)
+
+        objList.Sort(Function(x, y) CompareRSC(x, y))
+        Return New Queue(Of ClassElementBase)(objList)
+
+    End Function ''End of ""Public Function GetQueueOfAllElements()""
+
 
 End Class
 

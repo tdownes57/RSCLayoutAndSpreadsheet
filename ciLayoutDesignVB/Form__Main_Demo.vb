@@ -2714,10 +2714,15 @@ Public Class Form__Main_Demo
                 img_Prod = picturePreview.Image
 
                 ''Added 5/21/2022 thomas 
-                Dim infoLayoutElements As IBadgeSideLayoutElementsV1 ''Added 5/21/2022 td 
-                infoLayoutElements =
-                Me.ElementsCache_Edits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside,
+                Dim objLayoutElementsV1 As ClassBadgeSideLayoutV1 ''Added 5/21/2022 td 
+                Dim infoLayoutElementsV1 As IBadgeSideLayoutElementsV1 ''Added 5/21/2022 td 
+                ''3/2023 infoLayoutElements =
+                ''3/2023 Me.ElementsCache_Edits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside,
+                ''3/2023       Me.BadgeLayout)
+                objLayoutElementsV1 =
+                Me.ElementsCache_Edits.GetAllBadgeSideLayoutElementsV1(EnumWhichSideOfCard.EnumFrontside,
                                            Me.BadgeLayout)
+                infoLayoutElementsV1 = objLayoutElementsV1 ''Added 3/17/2023
 
                 '' Dec18 2021 td''img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient(Me.BadgeLayout,
                 ''May 21 2022---img_Prod = objBadgeGenerator.MakeBadgeImage_ByRecipient_Front(Me.BadgeLayout,
@@ -2726,7 +2731,7 @@ Public Class Form__Main_Demo
                 ''                        Me.BadgeLayout.Width_Pixels,
                 ''                        Me.BadgeLayout.Height_Pixels, each_recip, Nothing)
                 img_Prod = objBadgeGenerator.MakeBadgeImage_AnySide(Me.BadgeLayout,
-                                        infoLayoutElements,
+                                        infoLayoutElementsV1,
                                         Me.ElementsCache_Edits,
                                         Me.BadgeLayout.Width_Pixels,
                                         Me.BadgeLayout.Height_Pixels, each_recip, Nothing)

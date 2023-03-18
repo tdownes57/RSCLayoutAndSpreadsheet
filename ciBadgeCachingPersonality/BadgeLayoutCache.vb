@@ -13,10 +13,14 @@ Public Class BadgeLayoutCache
 
     Public Property LayoutName As String ''Added 10/11/2019 td 
 
-    Public Property DoubleSided As Boolean ''Added 10/11/2019 td
+    ''Needed here??? 3.2023 Public Property DoubleSided As Boolean ''Added 10/11/2019 td
 
-    Public Property Side1orFirst_Cache As ClassElementsCache_Deprecated ''The Front side. ----Added 10/11/2019 td 
-    Public Property Side2orSecond_Cache As ClassElementsCache_Deprecated ''The Back side of the badge, if applicable. ----Added 10/11/2019 td 
+    ''Added 3/17/2023 td  
+    ''3/17/2023 td Public Property LayoutSide As ClassBadgeSideLayoutV1
+    Public Property LayoutSide As ClassBadgeSideLayoutV2
+
+    ''Needed here??? 3.2023 Public Property Side1orFirst_Cache As ClassElementsCache_Deprecated ''The Front side. ----Added 10/11/2019 td 
+    ''Needed here??? 3.2023 Public Property Side2orSecond_Cache As ClassElementsCache_Deprecated ''The Back side of the badge, if applicable. ----Added 10/11/2019 td 
 
     ''
     ''Conditional-Expression Design, so that a Personality does not

@@ -3466,7 +3466,7 @@ Public Class ClassDesigner
         Else
 
             ''5/20/2022 objBadgeSide = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(Me.EnumSideOfCard_Current)
-            objBadgeSide = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(Me.EnumSideOfCard_Current,
+            objBadgeSide = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElementsV1(Me.EnumSideOfCard_Current,
                    Me.BadgeLayout_Class)
 
             ''

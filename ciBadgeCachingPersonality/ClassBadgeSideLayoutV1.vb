@@ -18,11 +18,15 @@ Public Class ClassBadgeSideLayoutV1
     Public Property BackgroundImage_Path As String = "" ''Added 1/14/2020 td
     Public Property BackgroundImage_FTitle As String = "" ''Added 1/14/2020 td
 
-    Private mod_listElementFields As New HashSet(Of ClassElementFieldV3)
+    Private mod_listElementFieldsV3 As New HashSet(Of ClassElementFieldV3)
+    Private mod_listElementFieldsV4 As New HashSet(Of ClassElementFieldV4)
     Private mod_listElementPics As New HashSet(Of ClassElementPortrait)
-    Private mod_listElementStatics As New HashSet(Of ClassElementStaticTextV3)
+    Private mod_listElementStaticsV3 As New HashSet(Of ClassElementStaticTextV3)
+    Private mod_listElementStaticsV4 As New HashSet(Of ClassElementStaticTextV4)
     Private mod_listElementGraphics As New HashSet(Of ClassElementGraphic) ''Added 1/8/2022 td
     Private mod_listElementLaysections As New HashSet(Of ClassElementLaysection) ''Added 9/17/2019
+    Private mod_listElementQRCodes As HashSet(Of ClassElementQRCode) ''Added 3/18/2023
+    Private mod_listElementSignatures As HashSet(Of ClassElementSignature) ''Added 3/18/2023
 
     <System.Xml.Serialization.XmlIgnore>
     Public Property RecipientPic As Image Implements IBadgeSideLayoutElementsV1.RecipientPic
@@ -125,5 +129,47 @@ Public Class ClassBadgeSideLayoutV1
 
     ''Added 1/14/2022 td  
     Public Property ListAllElements_RSC As HashSet(Of ClassElementBase) Implements IBadgeSideLayoutElementsV1.ListAllElements_RSC
+
+
+    Public Shared Function CompareRSC(par1 As ClassElementBase, par2 As ClassElementBase) As Integer
+        ''
+        ''Added 3/18/2023 Thomas  
+        ''
+        If (par1.ZOrder > par2.ZOrder) Then Return 1
+        If (par1.ZOrder < par2.ZOrder) Then Return -1
+        Return 0
+
+    End Function ''End of ""Public Shared Function CompareRSC""
+
+
+    Public Function GetQueueOfAllElements_ByZOrder(Optional par_reverseOrder As Boolean = False) _
+              As Queue(Of ClassElementBase)
+        ''
+        ''Added 3/18/2023 Thomas  
+        ''
+        Dim objList As New List(Of ClassElementBase)
+
+        objList.AddRange(mod_listElementFieldsV3)
+        objList.AddRange(mod_listElementFieldsV4)
+        objList.AddRange(mod_listElementGraphics)
+        objList.AddRange(mod_listElementPics)
+        objList.AddRange(mod_listElementStaticsV3)
+        objList.AddRange(mod_listElementStaticsV4)
+        objList.AddRange(mod_listElementQRCodes)
+        objList.AddRange(mod_listElementSignatures)
+
+        ''--++++This is a function & returns a new list. 
+        ''--++objList.OrderBy(Function(x) x.ZOrder)
+
+        If (par_reverseOrder) Then
+            objList.Sort(Function(x, y) (-1 * CompareRSC(x, y)))
+        Else
+            objList.Sort(Function(x, y) CompareRSC(x, y))
+        End If
+
+        Return New Queue(Of ClassElementBase)(objList)
+
+    End Function ''End of ""Public Function GetQueueOfAllElements()""
+
 
 End Class

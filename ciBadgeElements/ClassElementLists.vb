@@ -89,5 +89,38 @@ Public Class ClassElementLists
     End Function ''ENd of ""Public Function ListOfElements_Base()""
 
 
+    Public Shared Function CompareRSC(par1 As ClassElementBase, par2 As ClassElementBase) As Integer
+        ''
+        ''Added 3/18/2023 Thomas  
+        ''
+        If (par1.ZOrder > par2.ZOrder) Then Return 1
+        If (par1.ZOrder < par2.ZOrder) Then Return -1
+        Return 0
+
+    End Function ''End of ""Public Shared Function CompareRSC""
+
+
+    Public Function GetQueueOfAllElements() As Queue(Of ClassElementBase)
+        ''
+        ''Added 3/18/2023 Thomas  
+        ''
+        Dim objList As New List(Of ClassElementBase)
+
+        objList.AddRange(_ListElementFieldsV4)
+        objList.AddRange(_ListElementGraphics)
+        objList.AddRange(_ListElementPortraits)
+        objList.AddRange(_ListElementQRCodes)
+        objList.AddRange(_ListElementSignatures)
+        objList.AddRange(_ListElementStaticsV4)
+
+        ''--++++This is a function & returns a new list. 
+        ''--++objList.OrderBy(Function(x) x.ZOrder)
+
+        objList.Sort(Function(x, y) CompareRSC(x, y))
+        Return New Queue(Of ClassElementBase)(objList)
+
+    End Function ''End of ""Public Function GetQueueOfAllElements()""
+
+
 
 End Class

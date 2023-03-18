@@ -163,7 +163,7 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function GetElementSig(par_backside As Boolean) As ClassElementSignature"
 
 
-        Public Function GetAllBadgeSideLayoutElements(par_enumWhichSide As EnumWhichSideOfCard,
+        Public Function GetAllBadgeSideLayoutElementsV1(par_enumWhichSide As EnumWhichSideOfCard,
                                                       par_iBadgeLayout As IBadgeLayoutDimensions,
                                          Optional pbBackgroundInfoUpdated As Boolean = True) _
                                                       As ClassBadgeSideLayoutV1
@@ -348,7 +348,7 @@ Namespace ciBadgeCachePersonality
 
             Return objSide
 
-        End Function ''End of "Public Function GetAllBadgeSideLayoutElements"
+        End Function ''End of "Public Function GetAllBadgeSideLayoutElementsV1"
 
 
         Public Function ListOfFields_SC_Any() As List(Of ClassFieldAny)
@@ -3611,7 +3611,73 @@ Namespace ciBadgeCachePersonality
                 Return BackgroundImage_Front_Path
             End If
 
-        End Function
+        End Function ''End of ""Public Function GetBackgroundImage_Path""
+
+
+        Public Sub BringToFront_OfElements(par_element As ClassElementBase,
+                                           par_enumSide As EnumWhichSideOfCard)
+            ''
+            ''Added 3/17/2023 thomas downes
+            ''
+            BringToFront_OfElements(par_element, par_enumSide, False)
+
+        End Sub
+
+
+        Public Sub SendToBack_OfElements(par_element As ClassElementBase, par_enumSide As EnumWhichSideOfCard)
+            '';;
+            '';;  Added 3/17/2023 thomas downes
+            '';;
+            Const c_reverseOrder As Boolean = True
+            ''
+            ''---------------------------------------------------------------
+            ''CONFUSING 
+            ''    We are calling the Sub BringToFront_OfElements()
+            ''    but flagged to do the operation --IN REVERSE--. 
+            ''---------------------------------------------------------------
+            BringToFront_OfElements(par_element, par_enumSide, c_reverseOrder)
+
+        End Sub ''ENd of ""Public Sub SendToBack_OfElements(par_element As ClassElementBase)""
+
+
+        Private Sub BringToFront_OfElements(par_element As ClassElementBase,
+                                           par_enumSide As EnumWhichSideOfCard,
+                                           par_reverseOrder As Boolean)
+            '';;
+            '';;  Added 3/17/2023 thomas downes
+            '';;
+            ''----Dim objLayoutSide As BadgeLayoutCache
+            Dim objLayoutSideV1 As ClassBadgeSideLayoutV1
+            ''3/17 Dim objLayoutSideV2 As ClassBadgeSideLayoutV2
+            ''3/18/2023  Dim objLayoutSideListElems As ClassListOfElements
+            Dim bFoundElem As Boolean
+
+            objLayoutSideV1 = GetAllBadgeSideLayoutElementsV1(par_enumSide, Me.BadgeLayoutDims)
+            ''3/17 objLayoutSideV2 = GetAllBadgeSideLayoutElementsV2(par_enumSide, Me.BadgeLayoutDims)
+
+            Dim queueElements As Queue(Of ClassElementBase)
+            queueElements = objLayoutSideV1.GetQueueOfAllElements_ByZOrder(par_reverseOrder)
+            Dim zOrder_Minimum As Integer
+            Dim zOrder_Differential As Integer = Integer.MinValue
+            Dim intIncrement As Integer = 1
+            If (par_reverseOrder) Then intIncrement = -1
+
+            zOrder_Minimum = queueElements.Peek().ZOrder
+            While (queueElements.Count > 0)
+                bFoundElem = (queueElements.Peek() Is par_element)
+                If (bFoundElem) Then
+                    zOrder_Differential = (queueElements.Peek().ZOrder - zOrder_Minimum)
+                    queueElements.Dequeue().ZOrder -= (intIncrement + zOrder_Differential)
+                Else
+                    queueElements.Dequeue()
+                End If
+            End While ''End of ""While (queueElements.Count > 0)""
+
+        End Sub ''ENd of ""Public Sub BrintToFront_OfElements(par_element As ClassElementBase)""
+
+
+
+
 
     End Class ''End of ClassElementsCache 
 
