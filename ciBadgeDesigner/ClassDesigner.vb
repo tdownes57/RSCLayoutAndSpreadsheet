@@ -1862,10 +1862,10 @@ Public Class ClassDesigner
         ''
         Dim iBadgeSideElements As IBadgeSideLayoutElementsV1
         ''5/20/2022 iBadgeSideElements = par_cache.GetAllBadgeSideLayoutElements(par_enumSideOfCard)
-        iBadgeSideElements = par_cache.GetAllBadgeSideLayoutElements(par_enumSideOfCard,
+        iBadgeSideElements = par_cache.GetAllBadgeSideLayoutElementsV1(par_enumSideOfCard,
                                                 Me.BadgeLayout_Class)
 
-        ''12/22/2021 td''If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
+        ''12/22/20 21 td''If (par_enumSideOfCard = EnumWhichSideOfCard.EnumBackside) Then
         ''12/22/2021 td''     ''For now, omit the picture and the signature from the back side of the card. 
         ''12/22/2021 td''     ''   ----12/8/2021 td
         ''12/22/2021 td''Else
@@ -3963,7 +3963,7 @@ Public Class ClassDesigner
             ''Major call !!
             ''
             ''5/20/2022 td'' objMakeBadgeElements = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
-            objMakeBadgeElements = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside, Me.BadgeLayout_Class)
+            objMakeBadgeElements = Me.ElementsCache_UseEdits.GetAllBadgeSideLayoutElementsV1(EnumWhichSideOfCard.EnumFrontside, Me.BadgeLayout_Class)
 
             ''Added 12/26/2021 td
             objMakeBadgeElements.BackgroundImage = obj_image_clone_resized

@@ -300,9 +300,10 @@ Public Class ClassRecipient
     End Function ''ENd of ""Public Function RecipientID() As String""
 
 
-    Public Function Equals(par_recip As ClassRecipient,
+    Public Function EqualsRecipient(par_recip As ClassRecipient,
                             par_listFieldEnums As List(Of EnumCIBFields),
                             Optional ByRef pref_singMatchPercent As Single = 0) As Boolean
+        ''3/18/2023 td  Public Function EqualsRecipient(par_recip As ClassRecipient,
         ''
         ''Added 6/28/2022 thomas downes
         ''
@@ -313,7 +314,7 @@ Public Class ClassRecipient
         Dim each_bMatches As Boolean
         Dim bMatches_aggregate As Boolean
         Dim intCountFieldMatches As Integer
-        Dim intCountFieldUnmatch As Integer
+        ''Unused. 3/2023 Dim intCountFieldUnmatch As Integer
         Dim intCountFieldsChecked As Integer
 
         For Each each_enum In par_listFieldEnums

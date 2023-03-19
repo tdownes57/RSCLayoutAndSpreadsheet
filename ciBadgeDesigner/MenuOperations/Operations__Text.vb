@@ -53,7 +53,7 @@ Public MustInherit Class Operations__Text
             ''Added 8/1/2022 
             enumCurrentSide = Me.Designer.EnumSideOfCard_Current
             With Me.ElementsCacheManager.CacheForEditing
-                objSideLayoutV1 = .GetAllBadgeSideLayoutElements(enumCurrentSide,
+                objSideLayoutV1 = .GetAllBadgeSideLayoutElementsV1(enumCurrentSide,
                         Me.Designer.DesignerForm_Interface.BadgeLayout)
                 enum_backside = ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard.EnumBackside
                 enum_frontside = ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard.EnumFrontside

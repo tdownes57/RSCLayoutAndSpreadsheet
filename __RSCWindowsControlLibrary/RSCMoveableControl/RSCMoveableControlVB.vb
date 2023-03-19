@@ -2291,7 +2291,8 @@ Public Class RSCMoveableControlVB
         ''Added 3/16/2023 td 
         ''
         MyBase.BringToFront()
-        ElementsCache.BringToFront_OfElements(Me.ElementBase)
+        ElementsCache.BringToFront_OfElements(Me.ElementBase,
+                                              Me.ElementBase.WhichSideOfCard)
 
     End Sub ''End of ""Public Overrides Sub BringToFront_OfElements()""
 
@@ -2302,7 +2303,8 @@ Public Class RSCMoveableControlVB
         ''Added 3/16/2023 td 
         ''
         MyBase.SendToBack()
-        ElementsCache.SendToBack_OfElements(Me.ElementBase)
+        ElementsCache.SendToBack_OfElements(Me.ElementBase,
+                                              Me.ElementBase.WhichSideOfCard)
 
     End Sub ''End of ""Public Overrides Sub SendToBack_OfElements()""
 

@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using ciBadgeInterfaces;  // Added 12/17/2021 td
+
 //
 //  This class is a copy of class ControlMove_GroupMove_TD,  
 //    with the keyword "static" removed.  
@@ -1363,6 +1364,10 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+// #pragma warning disable IDE0035
+#pragma warning disable CSO162  // Unreachable code detected. --3/18/2023
+
+
         private void MoveControl_EditLocation(Control par_controlG,
                           int newLocation_x,
                           int newLocation_y,
@@ -1370,7 +1375,7 @@ namespace MoveAndResizeControls_Monem
         {
             //
             // Encapsulated 1//13/2022 td
-            //
+             //
             //
             // Huge!!!!!!   Moves the control !!!!!!!
             //

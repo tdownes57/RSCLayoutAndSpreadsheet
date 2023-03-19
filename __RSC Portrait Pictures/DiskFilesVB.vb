@@ -197,7 +197,7 @@ Public Class DiskFilesVB
         ''
         ''  If the input string is "Thomas Downes.jpg", the function may return "Thomas Downes (4).jpg". 
         ''
-        Dim intLengthOfFileExtension As Integer
+        ''Unused local variable. 3/2023 td Dim intLengthOfFileExtension As Integer
 
         ''Dim objNewFileInfo As New FileInfo(pstrFileTitle)
         ''Dim strFileExention As String
@@ -224,6 +224,13 @@ Public Class DiskFilesVB
         ''
         ''Added 12/19/2021 thomas downes
         ''
+        Dim strPathToFolderXML As String
+        Dim strFileTitle As String
+
+        strPathToFolderXML = DiskFolders.PathToFolder_XML
+        strFileTitle = ("XML timestamp " & Now.ToString("HH mm ss") & ".xml")
+
+        Return IO.Path.Combine(strPathToFolderXML, strFileTitle)
 
     End Function ''End of "Public Shared Function FullPathToTimestampedXML() As String"
 

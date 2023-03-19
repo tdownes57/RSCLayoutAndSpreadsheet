@@ -45,21 +45,29 @@ Public Structure WhyOmitted_StructV1 ''Added 11/10/2021 thomas downes
             Return ""
         End Function
 
-        ''
-        ''For this commented procedure (Public Sub SetDateTime), please see library CIBadgeInterfaces,
-        ''    Public Structure WhyOmitted_StructV2.----1/23/2022 td
-        ''
-        ''1/23/2022 TD''Public Sub SetDateTime(par_datetime As Date)
-        ''    ''Added 1/23/2022 td
-        ''    If (DateOmittedCreated.Year > 2020) Then
-        ''        DateOmittedUpdated = par_datetime
-        ''    Else
-        ''        DateOmittedCreated = par_datetime
-        ''        DateOmittedUpdated = par_datetime
-        ''    End If
-        ''End Sub ''End of "Public Sub SetDateTime()"
+    ''
+    ''For this commented procedure (Public Sub SetDateTime), please see library CIBadgeInterfaces,
+    ''    Public Structure WhyOmitted_StructV2.----1/23/2022 td
+    ''
+    ''1/23/2022 TD''Public Sub SetDateTime(par_datetime As Date)
+    ''    ''Added 1/23/2022 td
+    ''    If (DateOmittedCreated.Year > 2020) Then
+    ''        DateOmittedUpdated = par_datetime
+    ''    Else
+    ''        DateOmittedCreated = par_datetime
+    ''        DateOmittedUpdated = par_datetime
+    ''    End If
+    ''End Sub ''End of "Public Sub SetDateTime()"
 
-    End Structure ''End of "Public Structure WhyOmitted_StructV1"
+    ''Added 3/18/2023  
+    Public Overrides Function Equals(obj As Object) As Boolean
+        ''Added 3/18/2023  
+        Return False ''MyBase.Equals(obj)
+    End Function
+
+
+
+End Structure ''End of "Public Structure WhyOmitted_StructV1"
 
 
 

@@ -270,7 +270,7 @@ Public MustInherit Class Operations__Base
     End Sub ''End of ""Public Sub Add_Conditional_Expression_BA1080(sender As Object, e As EventArgs)""
 
 
-    Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
+    Public Sub Border_Design_EE1300(sender As Object, e As EventArgs)
         ''
         ''Added 7/19/2022 & 5/31/2022 & 9/ 2/2019 thomas downes
         ''
@@ -301,7 +301,7 @@ Public MustInherit Class Operations__Base
         Me.CtlCurrentElement.Top = intSave_Top
         Me.CtlCurrentElement.BringToFront()
 
-    End Sub ''End of ""Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)""
+    End Sub ''End of ""Public Sub Border_Design_EE1300(sender As Object, e As EventArgs)""
 
 
     Public Sub Refresh_Element_Image_EE1301(sender As Object, e As EventArgs)
@@ -314,7 +314,7 @@ Public MustInherit Class Operations__Base
     End Sub ''End of ""Public Sub Refresh_Element_Image_EE1301"" 
 
 
-    Public Sub Select_To_Process_Subset_Of_Elements_EE1302(sender As Object, e As EventArgs)
+    Public Sub Select_To_Process_Elements_EE1302(sender As Object, e As EventArgs)
         ''
         ''Added 3/16/2023 td 
         ''
@@ -326,10 +326,10 @@ Public MustInherit Class Operations__Base
         ''Added 3/16/2023 td 
         Me.Designer.RefreshBackgroundArrows()
 
-    End Sub ''End of ""Public Sub Select_To_Process_Subset_Of_Elements_EE1302""
+    End Sub ''End of ""Public Sub Select_To_Process_Elements_EE1302""
 
 
-    Public Sub Deselect_To_Omit_From_Subset_Of_Elements_EE1303(sender As Object, e As EventArgs)
+    Public Sub Deselect_To_Skip_Processing_EE1303(sender As Object, e As EventArgs)
         ''
         ''Added 3/16/2023 td 
         ''
@@ -341,10 +341,10 @@ Public MustInherit Class Operations__Base
         ''Added 3/16/2023 td 
         Me.Designer.RefreshBackgroundArrows()
 
-    End Sub ''End of ""Public Sub Deselect_To_Omit_From_Subset_Of_Elements_EE1303""
+    End Sub ''End of ""Public Sub Deselect_To_Skip_Processing_EE1303""
 
 
-    Public Sub Bring_To_Foreground_of_Elements_EE1304()
+    Public Sub Bring_To_Foreground_of_Elements_EE1304(sender As Object, e As EventArgs)
         ''
         ''Added 3/16/2023 thomas downes
         ''
@@ -356,7 +356,7 @@ Public MustInherit Class Operations__Base
     End Sub ''ENd of ""Public Sub Bring_To_Front_Foreground_EE1304()""
 
 
-    Public Sub Push_To_Background_of_Elements_EE1304()
+    Public Sub Push_To_Background_of_Elements_EE1305(sender As Object, e As EventArgs)
         ''
         ''Added 3/16/2023 thomas downes
         ''
@@ -365,11 +365,11 @@ Public MustInherit Class Operations__Base
         Me.CtlCurrentElement.SendToBack()
         Me.CtlCurrentElement.SendToBack_OfElements()
 
-    End Sub ''ENd of ""Public Sub Push_To_Background_Of_Elements_EE1304()""
+    End Sub ''ENd of ""Public Sub Push_To_Background_Of_Elements_EE1305()""
 
 
 
-    Public Sub Give_Layout_Information_EE1003(sender As Object, e As EventArgs)
+    Public Sub Give_Layout_Information_EE1306(sender As Object, e As EventArgs)
         ''
         ''Added 9/3/2022 thomas downes
         ''
@@ -394,7 +394,7 @@ Public MustInherit Class Operations__Base
         MessageBoxTD.Show_StatementLongform("Layout Description",
                 strBuilder.ToString(), 1.0, 1.0)
 
-    End Sub ''End of ""Public Sub Give_Layout_Information_EE1302(sender As Object, e As EventArgs)""
+    End Sub ''End of ""Public Sub Give_Layout_Information_EE1306(sender As Object, e As EventArgs)""
 
 
     Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)

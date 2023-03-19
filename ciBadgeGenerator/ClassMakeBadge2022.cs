@@ -35,6 +35,9 @@ namespace ciBadgeGenerator
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
 
 
+// #pragma warning disable IDE0035
+#pragma warning disable CSO162  // Unreachable code detected. --3/18/2023
+
         public Image MakeBadgeImage_AnySide(IBadgeLayoutDimensions par_layoutDims,
                             IBadgeSideLayoutElementsV1 par_layoutElements,
                             ClassElementsCache_Deprecated par_cache,
@@ -132,6 +135,9 @@ namespace ciBadgeGenerator
             listOfElementFieldsV4 = par_layoutElements.ListElementFieldsV4;
 
             //Dec18 2021//else listOfElementFields = par_cache.ListOfBadgeDisplayElements_Flds_Front(false);
+
+// #pragma warning disable IDE0035
+#pragma warning disable CSO162  // Unreachable code detected. --3/18/2023
 
             const bool c_boolUseLocalProc = true;  // 11-9-2021 false;  // true;  // false;  //Added 10/5/2019 td
             if (c_boolUseLocalProc)

@@ -692,8 +692,8 @@ Public Class RSCFieldSpreadsheet
         With Me.ElementsCache_Deprecated
             ''5/20/2022 objBadgeSideElementsFront = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside)
             ''5/20/2022 objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumBackside)
-            objBadgeSideElementsFront = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumFrontside, objbadgeLayoutClass)
-            objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElements(EnumWhichSideOfCard.EnumBackside, objbadgeLayoutClass)
+            objBadgeSideElementsFront = .GetAllBadgeSideLayoutElementsV1(EnumWhichSideOfCard.EnumFrontside, objbadgeLayoutClass)
+            objBadgeSideElementsBackside = .GetAllBadgeSideLayoutElementsV1(EnumWhichSideOfCard.EnumBackside, objbadgeLayoutClass)
         End With
 
         ''May21 2022 thomas downes''obj_generator = New ciBadgeGenerator.ClassMakeBadge_Corrupt

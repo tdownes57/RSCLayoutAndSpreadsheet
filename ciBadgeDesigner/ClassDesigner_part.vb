@@ -34,7 +34,7 @@ Partial Public Class ClassDesigner
             ''Added 8/1/2022 
             enumCurrentSide = EnumSideOfCard_Current ''---Me.Designer.EnumSideOfCard_Current
             With ElementsCache_UseEdits ''---Me.ElementsCacheManager.CacheForEditing
-                objSideLayoutV1 = .GetAllBadgeSideLayoutElements(enumCurrentSide,
+                objSideLayoutV1 = .GetAllBadgeSideLayoutElementsV1(enumCurrentSide,
                         DesignerForm_Interface.BadgeLayout) ''---Me.Designer.DesignerForm_Interface.BadgeLayout)
                 enum_backside = ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard.EnumBackside
                 enum_frontside = ciBadgeInterfaces.ModEnumsAndStructs.EnumWhichSideOfCard.EnumFrontside

@@ -7,8 +7,8 @@ Option Strict On ''Added 12/17/2021
 ''
 '' </summary>
 
-Imports MoveAndResizeControls_Monem
-Imports ciBadgeInterfaces ''Added 9/20/2019 td  
+''Warning, unnecessary. 3/18/2023  Imports MoveAndResizeControls_Monem
+''Possibly unnecessary. 3/18/2023  Imports ciBadgeInterfaces ''Added 9/20/2019 td  
 Imports System.Windows.Forms ''Added 1/3/2022 td 
 
 Public Class GroupMoveEvents_Singleton
