@@ -4,7 +4,7 @@
 Imports ciBadgeInterfaces
 Imports ciBadgeElements ''Added 1/19/2022 td
 
-Public MustInherit Class ClassListOfElements
+Public MustInherit Class ClassListOfElementsShared
     ''
     ''Added 1/19/2022 thomas downes
     ''
@@ -138,7 +138,7 @@ Public MustInherit Class ClassListOfElements
 
 
     Public Shared Function GetListOfElements(par_enum As Enum_ElementType,
-            Optional pbUseOlderVersionOfField As Boolean = False) As ClassListOfElements
+            Optional pbUseOlderVersionOfField As Boolean = False) As ClassListOfElementsShared
         ''
         ''Added 1/19/2022 thomas downes
         ''

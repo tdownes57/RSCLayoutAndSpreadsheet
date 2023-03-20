@@ -163,6 +163,53 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Function GetElementSig(par_backside As Boolean) As ClassElementSignature"
 
 
+
+
+        Public Function GetAllElementsListingOneSide(par_enumWhichSide As EnumWhichSideOfCard) _
+                                                      As Queue(Of ClassElementBase)
+            ''
+            ''Added 3/18/2023 Thomas Downes  
+            ''
+            ''#1 Dim objSide As New List(Of ClassElementBase)
+            ''#2 Dim objSide As New ClassListOfElements 
+            Dim objSide As New ClassBadgeSideLayoutV1 ''ClassListOfElements ''List(Of ClassElementBase)
+            Dim bBackside As Boolean
+            bBackside = (par_enumWhichSide = EnumWhichSideOfCard.EnumBackside)
+            If (bBackside) Then
+                ''
+                ''Back side of card. 
+                ''
+                objSide.ListElementFieldsV3 = Me.ListOfElementFields_BacksideV3
+                objSide.ListElementFieldsV4 = Me.ListOfElementFields_BacksideV4
+                objSide.ListElementGraphics = Me.ListOfElementGraphics_Backside
+                objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Backside
+                objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Backside
+                objSide.ListElementPortraits = Me.ListOfElementPics_Back
+                objSide.ListElementQRCodes = Me.ListOfElementQRCodes_Back
+                objSide.ListElementSignatures = Me.ListOfElementSignatures_Back
+
+            Else
+                ''
+                ''Front side of card. 
+                ''
+                objSide.ListElementFieldsV3 = Me.ListOfElementFields_FrontV3
+                objSide.ListElementFieldsV4 = Me.ListOfElementFields_FrontV4
+                objSide.ListElementGraphics = Me.ListOfElementGraphics_Front
+                objSide.ListElementStaticTextsV3 = Me.ListOfElementTextsV3_Front
+                objSide.ListElementStaticTextsV4 = Me.ListOfElementTextsV4_Front
+                objSide.ListElementPortraits = Me.ListOfElementPics_Front
+                objSide.ListElementQRCodes = Me.ListOfElementQRCodes_Front
+                objSide.ListElementSignatures = Me.ListOfElementSignatures_Front
+
+            End If ''end of "If (bBackside) Then... Else"
+
+            Dim objQueue As Queue(Of ClassElementBase)
+            objQueue = objSide.GetQueueOfAllElements_ByZOrder()
+            Return objQueue
+
+        End Function ''End of ""Public Function GetAllElementsListingOneSide"
+
+
         Public Function GetAllBadgeSideLayoutElementsV1(par_enumWhichSide As EnumWhichSideOfCard,
                                                       par_iBadgeLayout As IBadgeLayoutDimensions,
                                          Optional pbBackgroundInfoUpdated As Boolean = True) _
@@ -3647,16 +3694,18 @@ Namespace ciBadgeCachePersonality
             '';;  Added 3/17/2023 thomas downes
             '';;
             ''----Dim objLayoutSide As BadgeLayoutCache
-            Dim objLayoutSideV1 As ClassBadgeSideLayoutV1
+            ''3/20/2023 Dim objLayoutSideV1 As ClassBadgeSideLayoutV1
             ''3/17 Dim objLayoutSideV2 As ClassBadgeSideLayoutV2
             ''3/18/2023  Dim objLayoutSideListElems As ClassListOfElements
             Dim bFoundElem As Boolean
 
-            objLayoutSideV1 = GetAllBadgeSideLayoutElementsV1(par_enumSide, Me.BadgeLayoutDims)
-            ''3/17 objLayoutSideV2 = GetAllBadgeSideLayoutElementsV2(par_enumSide, Me.BadgeLayoutDims)
+            ''3/20/2023 objLayoutSideV1 = GetAllBadgeSideLayoutElementsV1(par_enumSide, Me.BadgeLayoutDims)
 
+            ''3/17/2023 objLayoutSideV2 = GetAllBadgeSideLayoutElementsV2(par_enumSide, Me.BadgeLayoutDims)
             Dim queueElements As Queue(Of ClassElementBase)
-            queueElements = objLayoutSideV1.GetQueueOfAllElements_ByZOrder(par_reverseOrder)
+            ''3/20/2023 queueElements = objLayoutSideV1.GetQueueOfAllElements_ByZOrder(par_reverseOrder)
+            queueElements = GetAllElementsListingOneSide(par_enumSide)
+
             Dim zOrder_Minimum As Integer
             Dim zOrder_Differential As Integer = Integer.MinValue
             Dim intIncrement As Integer = 1

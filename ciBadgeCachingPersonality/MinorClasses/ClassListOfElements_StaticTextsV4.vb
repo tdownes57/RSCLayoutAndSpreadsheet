@@ -8,7 +8,7 @@ Imports ciBadgeElements
 ''
 
 Public Class ClassListOfElements_StaticTextsV4
-    Inherits ClassListOfElements
+    Inherits ClassListOfElementsShared
     ''
     ''Added 2/01/2022 thomas downes
     ''

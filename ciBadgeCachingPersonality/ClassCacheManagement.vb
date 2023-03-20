@@ -1094,21 +1094,21 @@ ExitHandler:
             ''
             ''Added 1/19/2022 thomas d. 
             ''
-            Dim objClassLists As ClassListOfElements
+            Dim objClassLists As ClassListOfElementsShared
             ''Dim boolSuccess As Boolean ''Addded 1/21/2022 td
             Dim bUseOlderVersionOfField As Boolean ''Added 5/16/2022 
 
-            ClassListOfElements.Initialize_IfNeeded(Me.CacheForEditing)
+            ClassListOfElementsShared.Initialize_IfNeeded(Me.CacheForEditing)
             ''5/16/2022 td''objClassLists = ClassListOfElements.GetListOfElements(par_enum)
 
             ''Use Older Version (e.g. V3 (e.g. ClassList_FieldsV3)) 
             bUseOlderVersionOfField = True ''Added 5/16/2022
-            objClassLists = ClassListOfElements.GetListOfElements(par_enum, bUseOlderVersionOfField)
+            objClassLists = ClassListOfElementsShared.GetListOfElements(par_enum, bUseOlderVersionOfField)
             objClassLists.RemoveElement(par_infoBase, pref_boolSuccess)
 
             ''Use newer, less-old Version (e.g. V4 (e.g. ClassList_FieldsV4)) 
             bUseOlderVersionOfField = False ''Added 5/16/2022
-            objClassLists = ClassListOfElements.GetListOfElements(par_enum, bUseOlderVersionOfField)
+            objClassLists = ClassListOfElementsShared.GetListOfElements(par_enum, bUseOlderVersionOfField)
             objClassLists.RemoveElement(par_infoBase, pref_boolSuccess)
 
             ''
@@ -1122,7 +1122,7 @@ ExitHandler:
                 ''
                 ''The element is orphaned, and/or misplaced. ---2/3/2022 td
                 ''
-                ClassListOfElements.RemoveOrphanedElement(par_infoBase, pref_boolSuccess)
+                ClassListOfElementsShared.RemoveOrphanedElement(par_infoBase, pref_boolSuccess)
 
             End If ''End of "If (pref_boolSuccess) Then ... Else...."
 
@@ -1262,9 +1262,9 @@ ExitHandler:
             ''
             ''Added 1/17/2022 thomas d. 
             ''
-            Dim objClassLists As ClassListOfElements
-            ClassListOfElements.Initialize_IfNeeded(Me.CacheForEditing)
-            objClassLists = ClassListOfElements.GetListOfElements(par_enum)
+            Dim objClassLists As ClassListOfElementsShared
+            ClassListOfElementsShared.Initialize_IfNeeded(Me.CacheForEditing)
+            objClassLists = ClassListOfElementsShared.GetListOfElements(par_enum)
             objClassLists.SwitchElementToOtherSideOfCard(par_infoBase, pref_bSuccess)
 
             ''Added 2/5/2022 td
@@ -1272,7 +1272,7 @@ ExitHandler:
                 ''
                 ''Try another way. 
                 ''
-                ClassListOfElements.SwitchOrphanedElement(par_infoBase, pref_bSuccess)
+                ClassListOfElementsShared.SwitchOrphanedElement(par_infoBase, pref_bSuccess)
 
             End If ''End of "If (Not pref_bSuccess) Then"
 

@@ -5,7 +5,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeElements
 
 Public Class ClassListOfElements_FieldsV3
-    Inherits ClassListOfElements
+    Inherits ClassListOfElementsShared
     ''
     ''Added 1/19/2022 thomas downes
     ''

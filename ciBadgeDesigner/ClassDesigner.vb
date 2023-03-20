@@ -302,7 +302,7 @@ Public Class ClassDesigner
         ''  Must be done, otherwise we will have trouble with the right-click menu,
         ''  in particuler the "Remove Element" and "Switch Element to the Other Side"
         ''  options. ---1/21/2022 td
-        ClassListOfElements.UnloadListReferences()
+        ClassListOfElementsShared.UnloadListReferences()
 
         ''
         ''Address the controls that are contained in mod_listOfDesignerControls.
