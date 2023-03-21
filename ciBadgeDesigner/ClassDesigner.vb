@@ -3714,7 +3714,19 @@ Public Class ClassDesigner
             ''               par_recentlyMovedV3,
             ''               par_recentlyMovedV4,
             ''               par_elementBaseToOmit)
-            obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+
+            Dim boolStrongOOP As Boolean ''Added 3/21/2023 td
+            ''Added 3/21/2023 td
+            boolStrongOOP = ciBadgeInterfaces.StrongOOP.StrongEncapsulation
+            ''Added 3/21/2023 td
+            If (boolStrongOOP) Then ''Added 3/21/2023 td
+
+                ''Added 3/21/2023 td
+                Dim queueElements As Queue(Of ClassElementBase)
+                queueElements = Me.ElementsCache_UseEdits.GetAllElementsListingOneSide(par_enumCurrentSide)
+
+                obj_image = obj_generator.MakeBadgeSide_ByQueue(queueElements,
+                           Me.BadgeLayout_Class,
                            par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
                            intPixelsOfBadgeWidth,
                            intPixelsOfBadgeHeight,
@@ -3724,19 +3736,33 @@ Public Class ClassDesigner
                            par_recentlyMovedV4,
                            par_elementBaseToOmit)
 
+            Else
+
+                obj_image = obj_generator.MakeBadgeImage_AnySide(Me.BadgeLayout_Class,
+                           par_objMakeBadgeElements, Me.ElementsCache_UseEdits,
+                           intPixelsOfBadgeWidth,
+                           intPixelsOfBadgeHeight,
+                           par_recipient,
+                           Nothing, Nothing, Nothing,
+                           par_recentlyMovedV3,
+                           par_recentlyMovedV4,
+                           par_elementBaseToOmit)
+
+            End If ''End of ""If (boolStrongOOP) Then... Else""
+
             ''Added 1/23/2022 td
             ''Provide automated problem-related feedback to user. 
             If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
-                ''Added 1/23/2022 td
-                If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
-                    ''Provide automated problem-related feedback to user. 
-                    MessageBoxTD.Show_Statement(obj_generator.Messages)
-                End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
-            End If ''End of "If (boolGeneratorMessageExists) Then"
+                    ''Added 1/23/2022 td
+                    If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
+                        ''Provide automated problem-related feedback to user. 
+                        MessageBoxTD.Show_Statement(obj_generator.Messages)
+                    End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
+                End If ''End of "If (boolGeneratorMessageExists) Then"
 
-        End If ''End of "If (c_boolUseFunction2022) Then ..."
+            End If ''End of "If (c_boolUseFunction2022) Then ..."
 
-        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
+            ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         ''Added 8/01/2022 thomas d.
         pref_image = Nothing

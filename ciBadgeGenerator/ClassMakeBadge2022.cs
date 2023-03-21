@@ -35,8 +35,118 @@ namespace ciBadgeGenerator
         public static bool OmitOutlyingElements = false;  // true; // Added 11/10/2021 td
 
 
-// #pragma warning disable IDE0035
+        // #pragma warning disable IDE0035
 #pragma warning disable CSO162  // Unreachable code detected. --3/18/2023
+
+        public Image MakeBadgeSide_ByQueue(Queue<ClassElementBase> par_queueElements,
+                    IBadgeLayoutDimensions par_layoutDims,
+                    IBadgeSideLayoutElementsV1 par_layoutElements,
+                    ClassElementsCache_Deprecated par_cache,
+                    int par_newBadge_width_pixels,
+                    int par_newBadge_height_pixels,
+                    IRecipient par_iRecipientInfo = null,
+                    List<string> par_listMessages = null,
+                    List<string> par_listFieldsIncluded = null,
+                    List<string> par_listFieldsNotIncluded = null,
+                    ClassElementFieldV3 par_recentlyMovedV3 = null,
+                    ClassElementFieldV4 par_recentlyMovedV4 = null,
+                    ClassElementBase par_elementBaseToOmit = null)
+        {
+            //
+            // Added 3/20/2023 td
+            //
+            //bool bMissingElementPortrait = false; //Added 1/14/2022 td
+            //bool boolCheckMatchBaseToOmit = false; //Added 8/01/2022 td
+            //bool each_boolMatchBaseToOmit = false; //Added 8/01/2022 td
+
+            //
+            // ------------------------------------------------------------------------
+            // Part 1 of 3.  Prepare the background image. 
+            // ------------------------------------------------------------------------
+            //
+            //Added 5/21/2022 thomas 
+            ClassMakeAssistant objAssistant = new ClassMakeAssistant(); //Added 5/21/2022
+            objAssistant.ImageQRCode = this.ImageQRCode;
+            objAssistant.ImageQRCode_Example = this.ImageQRCode_Example;
+            objAssistant.PathToFile_QR = this.PathToFile_QR;
+            objAssistant.PathToFile_Sig = this.PathToFile_Sig;
+            objAssistant.Messages = this.Messages;
+            this.Messages = ""; //We will integrate concatenate this.Messages & objAssistant.Messages later, at the end of this procedure. 
+
+            if (par_layoutElements.BackgroundImage != null)  //Added May 20, 2022
+            {
+                par_layoutElements.BackgroundImage =
+                    ClassProportions.Proportions_FixLayout(par_layoutElements.BackgroundImage);
+
+                ClassProportions.ProportionsAreSlightlyOff(par_layoutElements.BackgroundImage, true, "Background Image");
+            }
+
+            LayoutElements objPrintLibElems = null;
+            if (par_iRecipientInfo != null) objPrintLibElems = new LayoutElements(par_iRecipientInfo);
+            else objPrintLibElems = new LayoutElements(ClassElementFieldV3.iRecipientInfo);
+
+            const bool c_bLetsSkipBackground = false;   
+            Image obj_imageOutput;  // Added 1-16-2020 thomas downes
+            bool bSkipBackground = (c_bLetsSkipBackground ||
+                                   (par_layoutElements.BackgroundImage == null));
+
+            // May20 200 //if (c_bSkipBackground)
+            if (bSkipBackground)
+            {
+                //Added 1-16-2020 thomas downes
+                obj_imageOutput = new Bitmap(par_newBadge_width_pixels,
+                                             par_newBadge_height_pixels);
+                //Added 1-16-2020 thomas downes
+                Graphics g = Graphics.FromImage(obj_imageOutput);
+                g.Clear(Color.White);
+
+            } //End of ""if (bSkipBackground){....}
+
+            else
+            {
+                //Dec18 2021 td//obj_imageOutput = (Image)par_backgroundImage.Clone();
+                obj_imageOutput = (Image)par_layoutElements.BackgroundImage.Clone();
+
+                Image obj_image_resized = objAssistant.ResizeImage_WidthAndHeight(obj_imageOutput,
+                    par_newBadge_width_pixels, par_newBadge_height_pixels);
+
+                obj_imageOutput = obj_image_resized;
+
+            } //End of ""if (bSkipBackground){....} else {.....}
+
+
+            //
+            // ------------------------------------------------------------------------
+            // Part 2 of 3.  Process the queue of elements. ---3/20/2023 thomas d.  
+            // ------------------------------------------------------------------------
+            //
+            Graphics g_graphics = Graphics.FromImage(obj_imageOutput);
+
+            foreach (ClassElementBase each_element
+                          in par_queueElements)
+            {
+                bool boolNotShown = false;
+                float scaleW, scaleH;
+
+                scaleW = par_newBadge_width_pixels / par_layoutDims.Width_Pixels;
+                scaleH = par_newBadge_height_pixels / par_layoutDims.Height_Pixels;
+
+                each_element.Print(g_graphics, par_iRecipientInfo, 
+                               scaleW, scaleH, ref boolNotShown);
+            }
+
+
+            //
+            // ------------------------------------------------------------------------
+            // Part 3 of 3.  Exiting the function. ---3/20/2023 thomas d.  
+            // ------------------------------------------------------------------------
+            //
+            this.Messages += (Environment.NewLine + Environment.NewLine +
+                objAssistant.Messages);
+
+            return obj_imageOutput;
+
+        }
 
         public Image MakeBadgeImage_AnySide(IBadgeLayoutDimensions par_layoutDims,
                             IBadgeSideLayoutElementsV1 par_layoutElements,

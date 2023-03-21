@@ -48,49 +48,49 @@ Public Class ClassBadgeSideLayoutV1
     ''End Property
 
     Public Property ListElementFieldsV3 As HashSet(Of ClassElementFieldV3) Implements IBadgeSideLayoutElementsV1.ListElementFieldsV3
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementField))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+        Get ''Added 3/20/2023 td
+            Return mod_listElementFieldsV3
+        End Get
+        Set(value As HashSet(Of ClassElementFieldV3))
+            mod_listElementFieldsV3 = value
+        End Set
+    End Property
 
     Public Property ListElementFieldsV4 As HashSet(Of ClassElementFieldV4) Implements IBadgeSideLayoutElementsV1.ListElementFieldsV4
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementField))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+        Get ''Added 3/20/2023 td
+            Return mod_listElementFieldsV4
+        End Get
+        Set(value As HashSet(Of ClassElementFieldV4))
+            mod_listElementFieldsV4 = value
+        End Set
+    End Property
 
     Public Property ListElementStaticTextsV3 As HashSet(Of ClassElementStaticTextV3) Implements IBadgeSideLayoutElementsV1.ListElementStaticTextsV3
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementStaticText))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+        Get ''Added 3/20/2023 td
+            Return mod_listElementStaticsV3
+        End Get
+        Set(value As HashSet(Of ClassElementStaticTextV3))
+            mod_listElementStaticsV3 = value
+        End Set
+    End Property
 
     Public Property ListElementStaticTextsV4 As HashSet(Of ClassElementStaticTextV4) Implements IBadgeSideLayoutElementsV1.ListElementStaticTextsV4
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementStaticText))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+        Get ''Added 3/20/2023 td
+            Return mod_listElementStaticsV4
+        End Get
+        Set(value As HashSet(Of ClassElementStaticTextV4))
+            mod_listElementStaticsV4 = value
+        End Set
+    End Property
 
     Public Property ListElementGraphics As HashSet(Of ClassElementGraphic) Implements IBadgeSideLayoutElementsV1.ListElementGraphics
-    ''    Get
-    ''        Throw New NotImplementedException()
-    ''    End Get
-    ''    Set(value As HashSet(Of ClassElementGraphic))
-    ''        Throw New NotImplementedException()
-    ''    End Set
-    ''End Property
+        Get ''Added 3/20/2023 td
+            Return mod_listElementGraphics
+        End Get
+        Set(value As HashSet(Of ClassElementGraphic))
+            mod_listElementGraphics = value
+        End Set
+    End Property
 
     ''5/15/2022 td''Public Property ElementPortrait_1st As ClassElementPortrait Implements IBadgeSideLayoutElementsV1.ElementPortrait_1st
     ''    Get
@@ -124,11 +124,35 @@ Public Class ClassBadgeSideLayoutV1
     ''Added 1/14/2022 td  
     ''
     Public Property ListElementPortraits As HashSet(Of ClassElementPortrait) Implements IBadgeSideLayoutElementsV1.ListElementPortraits
+        Get ''Added 3/20/2023 td
+            Return mod_listElementPics
+        End Get
+        Set(value As HashSet(Of ClassElementPortrait))
+            mod_listElementPics = value
+        End Set
+    End Property
+
     Public Property ListElementQRCodes As HashSet(Of ClassElementQRCode) Implements IBadgeSideLayoutElementsV1.ListElementQRCodes
+        Get ''Added 3/20/2023 td
+            Return mod_listElementQRCodes
+        End Get
+        Set(value As HashSet(Of ClassElementQRCode))
+            mod_listElementQRCodes = value
+        End Set
+    End Property
+
     Public Property ListElementSignatures As HashSet(Of ClassElementSignature) Implements IBadgeSideLayoutElementsV1.ListElementSignatures
+        Get ''Added 3/20/2023 td
+            Return mod_listElementSignatures
+        End Get
+        Set(value As HashSet(Of ClassElementSignature))
+            mod_listElementSignatures = value
+        End Set
+    End Property
 
     ''Added 1/14/2022 td  
-    Public Property ListAllElements_RSC As HashSet(Of ClassElementBase) Implements IBadgeSideLayoutElementsV1.ListAllElements_RSC
+    Public Property ListAllElements_RSC As HashSet(Of ClassElementBase) _
+        Implements IBadgeSideLayoutElementsV1.ListAllElements_RSC
 
 
     Public Shared Function CompareRSC(par1 As ClassElementBase, par2 As ClassElementBase) As Integer
@@ -155,8 +179,13 @@ Public Class ClassBadgeSideLayoutV1
         objList.AddRange(mod_listElementPics)
         objList.AddRange(mod_listElementStaticsV3)
         objList.AddRange(mod_listElementStaticsV4)
-        objList.AddRange(mod_listElementQRCodes)
-        objList.AddRange(mod_listElementSignatures)
+
+        If (mod_listElementQRCodes IsNot Nothing) Then ''Added 3/20/2023 td
+            objList.AddRange(mod_listElementQRCodes)
+        End If
+        If (mod_listElementSignatures IsNot Nothing) Then ''Added 3/20/2023 td
+            objList.AddRange(mod_listElementSignatures)
+        End If
 
         ''--++++This is a function & returns a new list. 
         ''--++objList.OrderBy(Function(x) x.ZOrder)

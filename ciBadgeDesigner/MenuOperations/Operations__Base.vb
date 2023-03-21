@@ -365,6 +365,10 @@ Public MustInherit Class Operations__Base
         Me.CtlCurrentElement.SendToBack()
         Me.CtlCurrentElement.SendToBack_OfElements()
 
+ExitHandler:
+        ''Don't let the background picturebox obscure any of the elements. ---3/20/2023
+        Me.Designer.BackgroundBox_Front.SendToBack()
+        Me.Designer.BackgroundBox_Backside.SendToBack()
     End Sub ''ENd of ""Public Sub Push_To_Background_Of_Elements_EE1305()""
 
 
