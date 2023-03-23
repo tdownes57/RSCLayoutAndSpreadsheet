@@ -91,6 +91,8 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "__RSC WindowsControl_NET70"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoveAndResize_Monem_NET70", "MoveAndResize_Monem_NET60\MoveAndResize_Monem_NET70.csproj", "{BD2147C1-3908-4D98-AA38-9CF8F1675909}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSCFields", "RSCFields\RSCFields.csproj", "{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -451,6 +453,14 @@ Global
 		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD2147C1-3908-4D98-AA38-9CF8F1675909}.Release|x86.Build.0 = Release|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Debug|x86.Build.0 = Debug|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Release|x86.ActiveCfg = Release|Any CPU
+		{3314D005-2BDB-41BF-B572-BA4DBA8F95EC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
