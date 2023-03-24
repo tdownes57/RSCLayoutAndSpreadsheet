@@ -4,7 +4,7 @@
     {
 
         public ClassFieldAny() { }
-
+,
         public ClassFieldAny(bool pIsStandard,
                         bool pIsCustomizable,
                         bool pIsDateField,
@@ -22,6 +22,18 @@
         }
 
 
+        public ClassFieldAny_Serial GetSerial()
+        {
+            return new ClassFieldAny_Serial(IsStandard,
+                IsCustomizable,
+                IsDateField,
+                FieldLabelCaption,
+                OtherDbField_Optional,
+                FieldEnumValue);
+
+        }
+
+
         //
         /// <summary>
         /// Private members
@@ -32,10 +44,6 @@
         string FieldLabelCaption = "";
         string OtherDbField_Optional = "";
         EnumCIBFields FieldEnumValue;
-
-
-
-
 
     }
 }

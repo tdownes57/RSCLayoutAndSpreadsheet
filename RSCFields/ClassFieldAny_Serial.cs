@@ -33,9 +33,12 @@ namespace RSCFields
 
         ClassFieldAny GetClass_Nonserial()
         {
-
-
-
+            return new ClassFieldAny(IsStandard,
+                    IsCustomizable,
+                    IsDateField,
+                    FieldLabelCaption,
+                    OtherDbField_Optional,
+                    FieldEnumValue);
 
         }
 
