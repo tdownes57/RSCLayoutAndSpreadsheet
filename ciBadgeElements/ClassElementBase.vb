@@ -130,15 +130,15 @@ Public Class ClassElementBase
 
 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
-        Get
-            ''9/5/2022 Throw New NotImplementedException()
-            Return 0
-
-        End Get
-        Set(value As Integer)
-            ''9/5/2022 Throw New NotImplementedException()
-        End Set
-    End Property
+    ''3/24/2023    Get
+    ''        ''9/5/2022 Throw New NotImplementedException()
+    ''        Return 0
+    ''
+    ''    End Get
+    ''    Set(value As Integer)
+    ''        ''9/5/2022 Throw New NotImplementedException()
+    ''    End Set
+    ''End Property
 
 
     Public Overridable Function ImageForBadgeImage(par_scaleW As Single,

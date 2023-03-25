@@ -675,6 +675,8 @@ Partial Class Form__Main_Demo
         'checkAutoPreview
         '
         Me.checkAutoPreview.AutoSize = True
+        Me.checkAutoPreview.Checked = True
+        Me.checkAutoPreview.CheckState = System.Windows.Forms.CheckState.Checked
         Me.checkAutoPreview.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.checkAutoPreview.Location = New System.Drawing.Point(936, 124)
         Me.checkAutoPreview.Margin = New System.Windows.Forms.Padding(1, 3, 1, 3)

@@ -9,6 +9,7 @@ Imports ciBadgeInterfaces
 ''Imports ciBadgeElements
 Imports __RSCWindowsControlLibrary ''Added 1/2/2022 td 
 Imports MoveAndResizeControls_Monem ''Added 2/02/2022 thomas d. 
+Imports ciBadgeElements
 
 Public MustInherit Class Operations__Base
     Implements ICurrentElement ''Added 12/28/2021 td
@@ -353,6 +354,13 @@ Public MustInherit Class Operations__Base
         Me.CtlCurrentElement.BringToFront()
         Me.CtlCurrentElement.BringToFront_OfElements()
 
+        ''3/25/2023 Move this to the initial loading of the controls. ---td
+        If (False) Then
+            Me.Designer.RefreshChildIndexOfElems_ZOrder()
+        End If
+
+        Me.Designer.RefreshPreview()
+
     End Sub ''ENd of ""Public Sub Bring_To_Front_Foreground_EE1304()""
 
 
@@ -364,6 +372,7 @@ Public MustInherit Class Operations__Base
         ''
         Me.CtlCurrentElement.SendToBack()
         Me.CtlCurrentElement.SendToBack_OfElements()
+        Me.Designer.RefreshPreview()
 
 ExitHandler:
         ''Don't let the background picturebox obscure any of the elements. ---3/20/2023
@@ -393,6 +402,11 @@ ExitHandler:
         strBuilder.AppendLine("---Badge Dimensions---")
         strBuilder.AppendLine(infoBadgeDimensions_DesignLayout.NameForDebug)
         strBuilder.AppendLine(infoBadgeDimensions_DesignLayout.Description)
+
+        Dim oElement As ClassElementBase ''Added 3/24/2023 td
+        oElement = ElementObject_Base ''Added 3/24/2023 td 
+        strBuilder.AppendLine("---Z Order (Stack Order), Element---")
+        strBuilder.AppendLine("Z Order = " & oElement.ZOrder)
 
         ''Added 9/3/2022 thomas downes
         MessageBoxTD.Show_StatementLongform("Layout Description",

@@ -128,8 +128,8 @@ namespace ciBadgeGenerator
                 bool boolNotShown = false;
                 float scaleW, scaleH;
 
-                scaleW = par_newBadge_width_pixels / par_layoutDims.Width_Pixels;
-                scaleH = par_newBadge_height_pixels / par_layoutDims.Height_Pixels;
+                scaleW = (float)par_newBadge_width_pixels / par_layoutDims.Width_Pixels;
+                scaleH = (float)par_newBadge_height_pixels / par_layoutDims.Height_Pixels;
 
                 each_element.Print(g_graphics, par_iRecipientInfo, 
                                scaleW, scaleH, ref boolNotShown);

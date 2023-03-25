@@ -3722,8 +3722,12 @@ Public Class ClassDesigner
             If (boolStrongOOP) Then ''Added 3/21/2023 td
 
                 ''Added 3/21/2023 td
-                Dim queueElements As Queue(Of ClassElementBase)
-                queueElements = Me.ElementsCache_UseEdits.GetAllElementsListingOneSide(par_enumCurrentSide)
+                Dim queueElements As Queue(Of ClassElementBase) ''Added 3/21/2023 td
+                ''Order will be, the rear elements will be first in the queue, 
+                ''   i.e. the bigger, more foundational elements to be drawn first.
+                Dim bReverse As Boolean = False ''Normal order, as we are drawing them (vs. modifying
+                '' their order).---3/21/2023    
+                queueElements = Me.ElementsCache_UseEdits.GetAllElementsListingOneSide(par_enumCurrentSide, bReverse)
 
                 obj_image = obj_generator.MakeBadgeSide_ByQueue(queueElements,
                            Me.BadgeLayout_Class,
@@ -5223,6 +5227,30 @@ Public Class ClassDesigner
         ''Jan14End If
 
     End Sub ''End of "Public Sub RefreshPreview()"
+
+
+    Public Sub RefreshChildIndexOfElems_ZOrder()
+        ''
+        ''Added 3/25/2023 Thomas Downes 
+        ''
+        Dim objListOfAllControls As New List(Of CtlGraphicFieldOrTextV4)
+        objListOfAllControls.AddRange(mod_listOfFieldControlsV4)
+        objListOfAllControls.AddRange(mod_listOfTextControlsV4)
+        For Each each_ctl As CtlGraphicFieldOrTextV4 In objListOfAllControls
+            ''
+            ''Use (100 - ...) in order to reverse the ordering.  My mistake!
+            ''
+            ''3/2023 Me.DesignerForm.Controls.SetChildIndex(each_ctl, each_ctl.ElementBase.ZOrder)
+            Me.DesignerForm.Controls.SetChildIndex(each_ctl, (100 - each_ctl.ElementBase.ZOrder))
+
+        Next each_ctl
+
+        ''Probably need to send the background-box control to the back, 
+        ''   behind all of the elements. --3/25/2023 td
+        Me.BackgroundBox_Backside.SendToBack()
+        Me.BackgroundBox_Front.SendToBack()
+
+    End Sub ''End of ""Public Sub RefreshChildIndexOfElems_ZOrder()""
 
 
     Public Function GetParametersToGetElementControl() As ClassGetElementControlParams

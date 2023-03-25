@@ -165,8 +165,8 @@ Namespace ciBadgeCachePersonality
 
 
 
-        Public Function GetAllElementsListingOneSide(par_enumWhichSide As EnumWhichSideOfCard) _
-                                                      As Queue(Of ClassElementBase)
+        Public Function GetAllElementsListingOneSide(par_enumWhichSide As EnumWhichSideOfCard,
+                                  par_reverseZOrder As Boolean) As Queue(Of ClassElementBase)
             ''
             ''Added 3/18/2023 Thomas Downes  
             ''
@@ -204,7 +204,8 @@ Namespace ciBadgeCachePersonality
             End If ''end of "If (bBackside) Then... Else"
 
             Dim objQueue As Queue(Of ClassElementBase)
-            objQueue = objSide.GetQueueOfAllElements_ByZOrder()
+            ''3/24/2023 objQueue = objSide.GetQueueOfAllElements_ByZOrder(par_reverseZOrder)
+            objQueue = objSide.GetQueueOfAllElements_ByZOrder(par_reverseZOrder)
             Return objQueue
 
         End Function ''End of ""Public Function GetAllElementsListingOneSide"
@@ -3690,9 +3691,39 @@ Namespace ciBadgeCachePersonality
         Private Sub BringToFront_OfElements(par_element As ClassElementBase,
                                            par_enumSide As EnumWhichSideOfCard,
                                            par_reverseOrder As Boolean)
-            '';;
-            '';;  Added 3/17/2023 thomas downes
-            '';;
+            ''
+            ''  If the badge-side elements have the following Z-Order values... 
+            ''
+            ''        1, 4, 6, 9 
+            ''
+            ''  then the ZOrder values will be sorted as: 
+            ''
+            ''        9, 6, 4, 1 
+            ''
+            ''  then the parameter-specified element will be given a Z-Order of 10,
+            ''  resulting in the following:  
+            ''
+            ''        9, 6=>10, 4, 1 
+            ''    or  9, 6, 4=>10, 1 
+            ''    or  9, 6, 4, 1=>10 
+            ''
+            ''  unless the given element is the same element with a Z order of 9, 
+            ''  in which case the result should be: 
+            ''
+            ''        9, 6, 4, 1 
+            ''
+            ''  (in other words, no change).  In case of par_reverseOrder, then
+            ''  sorting will be ascending instead of descending. Example of
+            ''  final result: 
+            ''
+            ''        1, 4=>0, 6, 9 
+            ''    or  1, 4, 6=>0, 9 
+            ''    or  1, 4, 6, 9=>0 
+            ''
+            ''  ---3/24/2023 td 
+            ''
+            '' Added 3/17/2023 thomas downes
+            ''
             ''----Dim objLayoutSide As BadgeLayoutCache
             ''3/20/2023 Dim objLayoutSideV1 As ClassBadgeSideLayoutV1
             ''3/17 Dim objLayoutSideV2 As ClassBadgeSideLayoutV2
@@ -3704,23 +3735,97 @@ Namespace ciBadgeCachePersonality
             ''3/17/2023 objLayoutSideV2 = GetAllBadgeSideLayoutElementsV2(par_enumSide, Me.BadgeLayoutDims)
             Dim queueElements As Queue(Of ClassElementBase)
             ''3/20/2023 queueElements = objLayoutSideV1.GetQueueOfAllElements_ByZOrder(par_reverseOrder)
-            queueElements = GetAllElementsListingOneSide(par_enumSide)
+            ''3/24/2023 queueElements = GetAllElementsListingOneSide(par_enumSide, par_reverseOrder)
+            Dim bBigZOrdersFirst As Boolean ''Added 3/24/2023
+            bBigZOrdersFirst = (Not par_reverseOrder) ''Added 3/24/2023
+            queueElements = GetAllElementsListingOneSide(par_enumSide, bBigZOrdersFirst)
 
-            Dim zOrder_Minimum As Integer
+            Dim zOrder_Min_egZero As Integer
+            Dim zOrder_Max_egFive As Integer
+            Dim zOrder_MaxOrMin As Integer
             Dim zOrder_Differential As Integer = Integer.MinValue
             Dim intIncrement As Integer = 1
-            If (par_reverseOrder) Then intIncrement = -1
+            Dim intNewestZOrder As Integer = 0 ''Added 3/24/2023
+            Dim objFirstElement As ClassElementBase ''Added 3/24/2023
+            Dim bIsAlreadySortedCorrectly As Boolean ''Added 3/25/2023
+            ''3/24/2023 If (par_reverseOrder) Then intIncrement = -1
 
-            zOrder_Minimum = queueElements.Peek().ZOrder
-            While (queueElements.Count > 0)
-                bFoundElem = (queueElements.Peek() Is par_element)
-                If (bFoundElem) Then
-                    zOrder_Differential = (queueElements.Peek().ZOrder - zOrder_Minimum)
-                    queueElements.Dequeue().ZOrder -= (intIncrement + zOrder_Differential)
-                Else
-                    queueElements.Dequeue()
-                End If
-            End While ''End of ""While (queueElements.Count > 0)""
+            objFirstElement = queueElements.Peek()
+
+            ''3/25 If (par_reverseOrder) Then
+            If (bBigZOrdersFirst) Then
+                ''Big Z Orders imply smaller elements.
+                ''  (Large ZOrders are drawn last, for smaller,
+                ''  capping elements.  (Last cube placed at the
+                ''  top of the pyramid, the capstone.))
+                zOrder_Max_egFive = objFirstElement.ZOrder
+                zOrder_MaxOrMin = zOrder_Max_egFive
+                bIsAlreadySortedCorrectly = (objFirstElement Is par_element)
+            Else
+                ''Small Z Orders imply bigger elements.
+                ''  (Small ZOrders are drawn first, for bigger, foundational elements.)
+                zOrder_Min_egZero = objFirstElement.ZOrder
+                zOrder_MaxOrMin = zOrder_Min_egZero
+                bIsAlreadySortedCorrectly = (objFirstElement Is par_element)
+            End If ''End of "" If (bBigZOrdersFirst) Then... Else..."
+
+            If (bIsAlreadySortedCorrectly) Then
+                ''
+                ''No need to do anything to any of the Z Order values. 
+                ''
+            Else
+                While (queueElements.Count > 0)
+                    bFoundElem = (queueElements.Peek() Is par_element)
+                    If (bFoundElem) Then
+                        ''3/24 zOrder_Differential = (queueElements.Peek().ZOrder - zOrder_Minimum)
+                        zOrder_Differential = Math.Abs(par_element.ZOrder - zOrder_MaxOrMin)
+                        Dim objElemToRemoveModify As ClassElementBase
+                        objElemToRemoveModify = queueElements.Dequeue()
+                        ''3/24 objElemToRemoveModify.ZOrder -= (intIncrement + zOrder_Differential)
+                        ''3/25 If (par_reverseOrder) Then
+                        If (bBigZOrdersFirst) Then
+                            ''If the Maximum ZOrder of the elements is three(3),
+                            ''   then set the the element to ZOrder = 4 (top of stack,
+                            ''   completely visible).  (Small ZOrders are drawn first.) 
+                            par_element.ZOrder = (zOrder_Max_egFive + intIncrement)
+                            intNewestZOrder = par_element.ZOrder
+                        Else
+                            ''If the Minimum ZOrder of the elements is zero (likely),
+                            ''   then set the the element to ZOrder = -1 (very behind,
+                            ''   and only partially visible) (bottom of stack,
+                            ''   usually the larger-size elements will be behind
+                            ''   every thing else).  (Large ZOrders are drawn last.) 
+                            par_element.ZOrder = (zOrder_Min_egZero - intIncrement) ''May
+                            ''     create negative ZOrder numbers, which might be unexpected
+                            ''     but it programmatically fine.
+                            intNewestZOrder = par_element.ZOrder
+                        End If ''End of ""If (bBigZOrdersFirst) Then... Else..."
+                        Exit While
+                    Else
+                        queueElements.Dequeue()
+                    End If ''End of ""If (bFoundElem) Then ... Else....""
+
+                End While ''End of ""While (queueElements.Count > 0)""
+
+                ''
+                ''
+                ''Do we want to prevent negative ZOrders? 
+                ''
+                ''
+                Const c_bNoZeroOrNegativeNums As Boolean = True
+                If (c_bNoZeroOrNegativeNums) Then
+                    If (intNewestZOrder <= 0) Then
+                        queueElements = GetAllElementsListingOneSide(par_enumSide,
+                            par_reverseOrder) ''Actually order is not important.
+                        While (queueElements.Count > 0)
+                            ''Change the ZOrder by the exact same amount as the other
+                            ''  elements, so that all the elements are a positive number. 
+                            queueElements.Dequeue().ZOrder += (1 - intNewestZOrder)
+                        End While ''End of ""While (queueElements.Count > 0)""
+                    End If ''End of ""If (intNewestZOrder < 0) Then""
+                End If ''End of ""If (c_boolNoNegativeNums) Then""
+
+            End If ''End of "If (bIsAlreadySortedCorrectly) ... Else..."
 
         End Sub ''ENd of ""Public Sub BrintToFront_OfElements(par_element As ClassElementBase)""
 
