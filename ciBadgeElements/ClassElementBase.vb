@@ -129,8 +129,13 @@ Public Class ClassElementBase
     Public Property Visible As Boolean = True Implements IElement_Base.Visible ''Added 9/18/2019 td  
 
 
+    ''VB6 property to address layering. This is to address the issue of overlapping. ---12/19/2021 thomasd. 
     Public Property ZOrder As Integer Implements IElement_Base.ZOrder
-    ''3/24/2023    Get
+
+    ''MS.NET solution to address layering. This is also to address the issue of overlapping. ---3/26/2023 thomasd.
+    Public Property ChildIndex As Integer Implements IElement_Base.ChildIndex ''MS.NET property to address layering. 
+
+    ''3/24/2023    Get  ''Public Property ZOrder As Integer
     ''        ''9/5/2022 Throw New NotImplementedException()
     ''        Return 0
     ''

@@ -354,8 +354,12 @@ Public MustInherit Class Operations__Base
         Me.CtlCurrentElement.BringToFront()
         Me.CtlCurrentElement.BringToFront_OfElements()
 
+        ''Added 3/26/2023 td
+        Me.Designer.RecordChildIndexOfAllElementControls()
+
         ''3/25/2023 Move this to the initial loading of the controls. ---td
         If (False) Then
+            ''Not needed here.  Move this to the initial loading of the controls. ---td
             Me.Designer.RefreshChildIndexOfElems_ZOrder()
         End If
 
@@ -405,8 +409,11 @@ ExitHandler:
 
         Dim oElement As ClassElementBase ''Added 3/24/2023 td
         oElement = ElementObject_Base ''Added 3/24/2023 td 
-        strBuilder.AppendLine("---Z Order (Stack Order), Element---")
+        strBuilder.AppendLine("---Stack/Layer Order, Element---")
         strBuilder.AppendLine("Z Order = " & oElement.ZOrder)
+        strBuilder.AppendLine("ChildIndex (de jure) = " & oElement.ChildIndex)
+        strBuilder.AppendLine("ChildIndex (de facto) = " &
+               Me.Designer.GetChildIndexOfControl(Me.CtlCurrentControl))
 
         ''Added 9/3/2022 thomas downes
         MessageBoxTD.Show_StatementLongform("Layout Description",

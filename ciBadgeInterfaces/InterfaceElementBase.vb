@@ -77,7 +77,8 @@ Public Interface IElement_Base
     ''
     ''Added 12/19/2021 Thomas 
     ''
-    Property ZOrder As Integer ''This is to address the issue of overlapping. ---12/19/2021 thomasd. 
+    Property ZOrder As Integer ''VB6 solution to address layering. This is to address the issue of overlapping. ---12/19/2021 thomasd. 
+    Property ChildIndex As Integer ''MS.NET solution to address layering. This is also to address the issue of overlapping. ---3/26/2023 thomasd. 
 
     ''3/8/2023 Function ImageForBadgeImage(par_recipient As IRecipient,
     ''3/8/2023                             par_scale As Single) As Image ''Added 12/19/2021 thomas downes

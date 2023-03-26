@@ -1,20 +1,19 @@
 ﻿Option Explicit On
 Option Strict On
 Option Infer Off
-''
-''Added 10/1/2019 thomas downes 
-''
-Imports System.Windows.Forms ''Added 10/1/2019 thomas downes 
-Imports ciBadgeInterfaces ''Added 10/1/2019 thomas downes 
-Imports ciBadgeElements ''Added 10/1/2019 thomas downes 
 Imports System.Drawing ''Added 10/1/2019 thomas downes 
-Imports ciLayoutPrintLib ''Added 10/1/2019 td
+Imports System.IO ''Added 12/3/2021 thomas d.
+Imports __RSCWindowsControlLibrary ''Added 1/02/2022 thomas d. 
 ''Imports MoveAndResizeControls_Monem ''Added 10/3/2019 td
 ''Imports ciBadgeGenerator ''Added 10/5/2019 thomas d. 
 Imports ciBadgeCachePersonality ''Added 12/4/2021 thomas d. 
-Imports System.IO ''Added 12/3/2021 thomas d.
-Imports __RSCWindowsControlLibrary ''Added 1/02/2022 thomas d. 
+Imports ciBadgeElements ''Added 10/1/2019 thomas downes 
+''
+''Added 10/1/2019 thomas downes 
+''
+Imports ciBadgeInterfaces ''Added 10/1/2019 thomas downes 
 Imports ciBadgeSerialize ''Added 6/07/2022 thomas downes
+Imports ciLayoutPrintLib ''Added 10/1/2019 td
 
 ''10/1/2019 td''Public Event ElementField_Clicked(par_elementField As ClassElementField)
 
@@ -842,6 +841,12 @@ Public Class ClassDesigner
             End If ''End of "If (Me.ElementsCache_Saved.MissingTheElementTexts) Then .... Else ..."
 
         End If ''End of ""If (par_bAutoLoadMissingElements) Then""
+
+        ''
+        ''Added 3/26/2023 Thomas Downes
+        ''
+        RefreshChildIndexOfElems_ZOrder()
+
 
         ''Added 9/24/2019 thomas 
         ''  10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
@@ -3757,16 +3762,16 @@ Public Class ClassDesigner
             ''Added 1/23/2022 td
             ''Provide automated problem-related feedback to user. 
             If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
-                    ''Added 1/23/2022 td
-                    If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
-                        ''Provide automated problem-related feedback to user. 
-                        MessageBoxTD.Show_Statement(obj_generator.Messages)
-                    End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
-                End If ''End of "If (boolGeneratorMessageExists) Then"
+                ''Added 1/23/2022 td
+                If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then
+                    ''Provide automated problem-related feedback to user. 
+                    MessageBoxTD.Show_Statement(obj_generator.Messages)
+                End If ''End of ""If (Not String.IsNullOrWhiteSpace(obj_generator.Messages)) Then""
+            End If ''End of "If (boolGeneratorMessageExists) Then"
 
-            End If ''End of "If (c_boolUseFunction2022) Then ..."
+        End If ''End of "If (c_boolUseFunction2022) Then ..."
 
-            ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
+        ClassFixTheControlWidth.ProportionsAreSlightlyOff(obj_image, True, "RefreshPreview_Redux #4")
 
         ''Added 8/01/2022 thomas d.
         pref_image = Nothing
@@ -5233,15 +5238,27 @@ Public Class ClassDesigner
         ''
         ''Added 3/25/2023 Thomas Downes 
         ''
-        Dim objListOfAllControls As New List(Of CtlGraphicFieldOrTextV4)
+        ''3/26/23 Dim objListOfAllControls As New List(Of CtlGraphicFieldOrTextV4)
+        Dim objListOfAllControls As New List(Of RSCMoveableControlVB)
+        objListOfAllControls.AddRange(mod_listOfFieldControlsV3)
         objListOfAllControls.AddRange(mod_listOfFieldControlsV4)
+        objListOfAllControls.AddRange(mod_listOfTextControlsV3)
         objListOfAllControls.AddRange(mod_listOfTextControlsV4)
+        objListOfAllControls.AddRange(mod_listOfGraphicControls)
+
+        If (mod_listOfDesignerControls.Count > objListOfAllControls.Count) Then
+            objListOfAllControls.Clear()
+            objListOfAllControls.AddRange(mod_listOfDesignerControls)
+        End If
+
         For Each each_ctl As CtlGraphicFieldOrTextV4 In objListOfAllControls
             ''
             ''Use (100 - ...) in order to reverse the ordering.  My mistake!
             ''
             ''3/2023 Me.DesignerForm.Controls.SetChildIndex(each_ctl, each_ctl.ElementBase.ZOrder)
-            Me.DesignerForm.Controls.SetChildIndex(each_ctl, (100 - each_ctl.ElementBase.ZOrder))
+            With Me.DesignerForm.Controls
+                .SetChildIndex(each_ctl, (100 - each_ctl.ElementBase.ZOrder))
+            End With
 
         Next each_ctl
 
@@ -5251,6 +5268,70 @@ Public Class ClassDesigner
         Me.BackgroundBox_Front.SendToBack()
 
     End Sub ''End of ""Public Sub RefreshChildIndexOfElems_ZOrder()""
+
+
+    Public Sub RecordChildIndexOfAllElementControls() '' (par_dictionary As Dictionary(Of EnumCIBFields, Integer))
+        ''
+        ''Added 3/26/2023 thomas downes
+        ''
+        Dim objListElementControls As New List(Of RSCMoveableControlVB)
+        ''Dim intSumDesignerControls As Integer = 0
+
+        ''intSumDesignerControls += mod_listOfFieldControlsV4.Count
+        ''intSumDesignerControls += mod_listOfTextControlsV4.Count
+        ''intSumDesignerControls += mod_listOfGraphicControls.Count
+
+        ''If (mod_listOfDesignerControls.Count > intSumDesignerControls) Then
+        ''    ''Doubtful, but perhaps mod_listOfDesignerControls
+        ''    ''   is a list of all of the element controls?  I don't think so, 
+        ''    ''   but it's possible.--3/2023 
+        ''    objListElementControls.AddRange(mod_listOfDesignerControls)
+        ''Else
+        ''    ''If we want to get as many of the controls as we can, we probably should 
+        ''    ''  leverage the separate lists. --3/2023  
+        ''    objListElementControls.AddRange(mod_listOfFieldControlsV4)
+        ''    objListElementControls.AddRange(mod_listOfTextControlsV4)
+        ''    objListElementControls.AddRange(mod_listOfGraphicControls)
+        ''End If
+
+        objListElementControls.AddRange(mod_listOfFieldControlsV3)
+        objListElementControls.AddRange(mod_listOfFieldControlsV4)
+        objListElementControls.AddRange(mod_listOfTextControlsV3)
+        objListElementControls.AddRange(mod_listOfTextControlsV4)
+        objListElementControls.AddRange(mod_listOfGraphicControls)
+
+        ''Added 3/26/2023  
+        Dim bLetsUseTheMasterList As Boolean
+        bLetsUseTheMasterList = (mod_listOfDesignerControls.Count >
+            objListElementControls.Count)
+        If bLetsUseTheMasterList Then
+            ''Doubtful, but perhaps mod_listOfDesignerControls
+            ''   is a list of all of the element controls?  I don't think so, 
+            ''   but it's possible.--3/2023 
+            objListElementControls.Clear()
+            objListElementControls.AddRange(mod_listOfDesignerControls)
+        End If ''End of ""If bLetsUseTheMasterList Then""
+
+        For Each controlElement As RSCMoveableControlVB In objListElementControls
+
+            With controlElement.ElementBase
+
+                ''Grab the defacto value of the ChildIndex, for each control,
+                ''  and save it to the element property.
+                .ChildIndex = Me.DesignerForm.Controls.GetChildIndex(controlElement)
+
+            End With
+
+        Next controlElement
+
+    End Sub ''End of ""Public Sub RecordChildIndexOfAllElementControls()""
+
+    Public Function GetChildIndexOfControl(par_control As Control) As Integer
+
+        ''Added 3/26/2023 thomas downes
+        Return Me.DesignerForm.Controls.GetChildIndex(par_control)
+
+    End Function ''End of ""Public Function GetChildIndexOfControl""
 
 
     Public Function GetParametersToGetElementControl() As ClassGetElementControlParams
