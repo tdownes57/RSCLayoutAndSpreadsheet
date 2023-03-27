@@ -11,6 +11,7 @@ Imports System.Xml.Serialization ''Added 9/5/2022 & 9/24/2019 td
 Public Class ClassElementBase
     ''9/05/2022 Implements IElement_Base_InDevelopment  ''//_Temporary
     Implements IElement_Base  ''//_Temporary
+    Implements IComparable(Of ClassElementBase) ''Added 3/27/2023
     ''Not implemented yet.  ----Implements IElement_Base
     ''
     ''Added 1/8/2022 thomas downes
@@ -175,7 +176,8 @@ Public Class ClassElementBase
                                        par_scaleW As Single,
                                        par_scaleH As Single,
                                        ByRef pboolNotShownOnBadge As Boolean,
-                                       Optional pboolDisplayRegardless As Boolean = False)
+                                       Optional pboolDisplayRegardless As Boolean = False,
+                                       Optional pstrTextToDisplay As String = "")
 
         ''This function is inspired/prompted by my study of C++.
         ''   Objects should be responsible for the processing of their 
@@ -198,6 +200,9 @@ Public Class ClassElementBase
             ''3/16/2023 Dim image_element As Image = ImageForBadgeImage(par_recipient,
             ''                                         par_scaleW, par_scaleH)
             Dim image_element As Image = ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
+
+            ''Aded 3/27/2023 
+            If (par_graphicsOfBadge Is Nothing) Then Exit Sub
 
             par_graphicsOfBadge.DrawImage(image_element, locationPoint)
             ''              New PointF(intDesiredLeft, intDesiredTop));
@@ -313,4 +318,34 @@ Public Class ClassElementBase
 
     End Function
 
+    Public Function CompareTo(other As ClassElementBase) As Integer _
+        Implements IComparable(Of ClassElementBase).CompareTo
+
+        ''3/27/2023 TD'' Throw New NotImplementedException()
+
+        If (ZOrder < other.ZOrder) Then
+            ''
+            ''Lower ZOrders should be sorted first.
+            ''   (I'm not sure how it was in VB6.) 
+            ''
+            ''3/27/2023 Return ("A".CompareTo("Z")) 
+            Return -1 ''3/27/2023 ("A".CompareTo("Z")) ''1 or -1 ??
+
+        ElseIf (ZOrder > other.ZOrder) Then
+            ''
+            ''Bigger ZOrders should be sorted last.
+            ''   (I'm not sure how it was in VB6.) 
+            ''
+            ''3/27/2023 Return ("Z".CompareTo("A")) ''1 or -1 ??
+            Return 1 ''3/27/2023 ("A".CompareTo("Z")) ''1 or -1 ??
+
+        Else
+
+            ''Return 0
+            Return 0 '' "A".CompareTo("A") ''Probably 0. 
+
+        End If ''ENd of ""If (ElementBase.ZOrder < other.ElementBase.ZOrder) Then... ElseIf ... Else ..."
+
+
+    End Function
 End Class

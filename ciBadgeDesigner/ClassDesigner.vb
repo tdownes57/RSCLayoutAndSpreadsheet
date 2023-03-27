@@ -3245,10 +3245,10 @@ Public Class ClassDesigner
         Dim each_infoSaveToModel As ISaveToModel ''Added 1/5/2022 td
 
         ''Added 10/14/2019 td 
-        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_Portrait.SaveToModel()
-        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_QRCode.SaveToModel()
-        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_Signat.SaveToModel()
-        ''See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_StaticText_temp.SaveToModel() ''Added 12/16/2021 thomas downes
+        ''  See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_Portrait.SaveToModel()
+        ''  See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_QRCode.SaveToModel()
+        ''  See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_Signat.SaveToModel()
+        ''  See the For Each loop, Step #1a, below.---1/5/2022 td''Me.CtlGraphic_StaticText_temp.SaveToModel() ''Added 12/16/2021 thomas downes
 
         ''
         ''Step #1 of 2. 
@@ -3264,37 +3264,48 @@ Public Class ClassDesigner
             End If ''End of "If (TypeOf each_control Is ISaveToModel) Then"
 
             ''
-            ''Step #1b. Clear any highlighting. 
+            ''Step #1b. Clear any highlighting??? 
             ''
-            If (TypeOf each_control Is CtlGraphicFieldV3) Then
+            Const c_bRemoveHighlighting As Boolean = False ''Added 3/26/2023 td
+            If (c_bRemoveHighlighting) Then
 
-                each_ctl_field = CType(each_control, CtlGraphicFieldV3)
-                each_ctl_field.SelectedHighlighting_Denigrated = False ''Clear any/all highlighting. ---Added 10/14/2019 td
+                If (TypeOf each_control Is CtlGraphicFieldV3) Then
 
-                each_element_field = each_ctl_field.ElementClass_ObjV3 ''Added 10/14/2019 td 
+                    each_ctl_field = CType(each_control, CtlGraphicFieldV3)
+                    each_ctl_field.SelectedHighlighting_Denigrated = False ''Clear any/all highlighting. ---Added 10/14/2019 td
 
-                ''Clear any/all highlighting.  ---10/14/2019 td 
-                With each_element_field
-                    If (.SelectedHighlighting) Then
-                        ''Clear any/all highlighting.  ---10/14/2019 td 
-                        .SelectedHighlighting = False ''Added 10/14/2019 td
-                        ''Redraw without highlighting. ---10/14 td
-                        each_ctl_field.Refresh_ImageV3(False)
-                    End If ''end of "If (.SelectedHighlighting) Then"
-                End With
+                    each_element_field = each_ctl_field.ElementClass_ObjV3 ''Added 10/14/2019 td 
 
-                each_ctl_field.SaveToModel()
+                    ''Clear any/all highlighting.  ---10/14/2019 td 
+                    With each_element_field
+                        If (.SelectedHighlighting) Then
+                            ''Clear any/all highlighting.  ---10/14/2019 td 
+                            .SelectedHighlighting = False ''Added 10/14/2019 td
+                            ''Redraw without highlighting. ---10/14 td
+                            each_ctl_field.Refresh_ImageV3(False)
+                        End If ''end of "If (.SelectedHighlighting) Then"
+                    End With
 
-            ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
-                ''
-                ''Added 7/31/2019 thomas downes  
-                ''
-                each_ctl_portrait = CType(each_control, CtlGraphicPortrait)
-                each_ctl_portrait.SaveToModel()
+                    each_ctl_field.SaveToModel()
 
-            End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
+                ElseIf (TypeOf each_control Is CtlGraphicPortrait) Then
+                    ''
+                    ''Added 7/31/2019 thomas downes  
+                    ''
+                    each_ctl_portrait = CType(each_control, CtlGraphicPortrait)
+                    each_ctl_portrait.SaveToModel()
+
+                End If ''end of "If (TypeOf each_control Is GraphicFieldLabel) Then .... ElseIf ..."
+
+            End If ''End of ""If (c_bRemoveHighlighting) Then""
 
         Next each_control
+
+        ''
+        ''Record the child index to the elements. 
+        ''    ---3/26/2023 td  
+        ''
+        RecordChildIndexOfAllElementControls()
 
         ''
         ''
@@ -5251,14 +5262,21 @@ Public Class ClassDesigner
             objListOfAllControls.AddRange(mod_listOfDesignerControls)
         End If
 
+        ''Added 3/27/2023 Thomas Downes
+        ''  Sorts using the IComparable<T>.CompareTo() function.
+        objListOfAllControls.Sort()
+
         For Each each_ctl As CtlGraphicFieldOrTextV4 In objListOfAllControls
             ''
             ''Use (100 - ...) in order to reverse the ordering.  My mistake!
             ''
             ''3/2023 Me.DesignerForm.Controls.SetChildIndex(each_ctl, each_ctl.ElementBase.ZOrder)
             With Me.DesignerForm.Controls
-                .SetChildIndex(each_ctl, (100 - each_ctl.ElementBase.ZOrder))
-            End With
+
+                ''---.SetChildIndex(each_ctl, (100 - each_ctl.ElementBase.ZOrder))
+                each_ctl.BringToFront()
+
+            End With ''End of ""With Me.DesignerForm.Controls""
 
         Next each_ctl
 
@@ -5312,6 +5330,11 @@ Public Class ClassDesigner
             objListElementControls.AddRange(mod_listOfDesignerControls)
         End If ''End of ""If bLetsUseTheMasterList Then""
 
+        ''
+        ''Looping through the elements to record the "de facto" ChildIndex
+        ''  property (from the control) to the element's .ChildIndex property. 
+        ''  ---3/26/2023
+        ''
         For Each controlElement As RSCMoveableControlVB In objListElementControls
 
             With controlElement.ElementBase

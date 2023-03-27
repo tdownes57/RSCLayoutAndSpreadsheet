@@ -774,6 +774,55 @@ Public Class ClassElementFieldOrTextV4
     End Function ''End of "Public Function GenerateImage_ByDesiredLayoutHeight_Deprecated() As Image Implements IElementText.GenerateImage_ByDesiredLayoutWidth"
 
 
+    ''
+    ''Added 3/27/2023
+    ''
+    Public Overrides Sub Print(par_graphicsOfBadge As Graphics,
+                                       par_recipient As IRecipient,
+                                       par_scaleW As Single,
+                                       par_scaleH As Single,
+                                       ByRef pboolNotShownOnBadge As Boolean,
+                                       Optional pboolDisplayRegardless As Boolean = False,
+                                       Optional pstrTextToDisplay As String = "")
+
+        ''This function is inspired/prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023 thomas clifton downes
+
+        pboolNotShownOnBadge = (Not Me.Visible)
+
+        ''3/9/2023''If (pboolNotShownOnBadge) Then
+        If (pboolNotShownOnBadge And (Not pboolDisplayRegardless)) Then
+            ''
+            ''Don't print on the badge.
+            ''    (Override is False: pboolDisplayRegardless)
+            ''
+        Else
+            Dim locationPoint As Point = New Drawing.Point(CInt(LeftEdge_Pixels * par_scaleW),
+                                             CInt(TopEdge_Pixels * par_scaleH))
+
+            ''3/16/2023 Dim image_element As Image = ImageForBadgeImage(par_recipient,
+            ''                                         par_scaleW, par_scaleH)
+            ''3/27/2023 Dim image_element As Image = ImageForBadgeImage(par_scaleW,
+            ''                     par_scaleH, par_recipient)
+            Dim image_element As Image = ImageForBadgeImage(par_scaleW, par_scaleH,
+                                                            par_recipient,
+                                                            EnumCIBFields.Undetermined,
+                                                            pstrTextToDisplay)
+
+            ''Added 3/27/2023
+            If (par_graphicsOfBadge Is Nothing) Then Throw New NotImplementedException()
+
+            par_graphicsOfBadge.DrawImage(image_element, locationPoint)
+            ''              New PointF(intDesiredLeft, intDesiredTop));
+
+        End If ''ENd of ""If (pboolNotShownOnBadge) Then... Else..."
+
+    End Sub ''End of "Public Overridable Sub Print()"
+
+
     Public Overrides Function ImageForBadgeImage(par_scaleW As Single,
                                     par_scaleH As Single,
                      Optional ByRef par_recipient As IRecipient = Nothing,

@@ -23,7 +23,7 @@ Public Class CtlGraphicStaticTextV4
     Private Shared mod_intFieldTexts As Integer ''Feb01 2022 td'' += 1
     Private Shared mod_intStaticTexts As Integer ''Feb01 2022 td'' += 1
 
-    Public Element_StaticText As New ClassElementStaticTextV3 ''Added 5/03/2022 td
+    ''3/27/2023 Public Element_StaticText As New ClassElementStaticTextV3 ''Added 5/03/2022 td
     Public Overrides Property ElementInfo_Base As ciBadgeInterfaces.IElement_Base  ''Added 5/03/2022 td
 
     ''These properties are making use of the Dependency Injection pattern.
@@ -58,8 +58,16 @@ Public Class CtlGraphicStaticTextV4
             ''Added 10/10/2019 td 
             mod_strTextToDisplay = value
 
-            If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
-            Me.ElementInfo_TextOnly.Text_StaticLine = value
+            ''3/27 td''If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
+            ''3/27 td''''Me.ElementInfo_TextOnly.Text_StaticLine = value
+            If (value.Contains(vbCr)) Then
+                ''Doesn't require much.
+                Me.Element_StaticTextV4.Text_IsMultiLine = True
+                Me.Element_StaticTextV4.Text_StaticLine = value
+            Else
+                Me.Element_StaticTextV4.Text_IsMultiLine = False
+                Me.Element_StaticTextV4.Text_StaticLine = value
+            End If
 
             ''---textTypeExample.Text = mod_strTextToDisplay
             textTypeExample.SendToBack()

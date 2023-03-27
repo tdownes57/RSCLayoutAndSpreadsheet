@@ -182,6 +182,69 @@ Public Module ModEnumsAndStructs
     End Enum ''End of "Public Enum EnumCIBFields"
 
 
+    Public Class EnumCIBFieldsText
+        ''
+        '' https://stackoverflow.com/questions/479410/enum-tostring-with-user-friendly-strings
+        ''
+        Public Function Caption(par_enum As EnumCIBFields)
+
+            Select Case par_enum
+
+                Case EnumCIBFields.fstrID
+                    Return "ID of Cardholder"
+
+                Case EnumCIBFields.fstrFirstName
+                    Return "First Name"
+
+                Case EnumCIBFields.fstrMidName
+                    Return "Middle Name"
+
+                Case EnumCIBFields.fstrLastName
+                    Return "Last Name"
+
+                Case EnumCIBFields.fstrAddress
+                    Return "Address"
+
+                Case EnumCIBFields.fstrNameAbbreviated
+                    Return "Name, Abbreviated"
+
+                Case EnumCIBFields.fstrFullName
+                    Return "Full Name"
+
+                Case EnumCIBFields.fstrCity
+                    Return "City"
+
+                Case EnumCIBFields.fstrRFID_Unique
+                    Return "RFID"
+
+                Case EnumCIBFields.intTimesPrinted
+                    Return "Times Printed"
+
+                Case EnumCIBFields.PortraitPhotoID
+                    Return "Portrait Photo ID"
+
+                Case EnumCIBFields.fdatTimeStamp
+                    Return "Time Stamp"
+
+                Case EnumCIBFields.fstrBarCode
+                    Return "Bar Code"
+
+                Case EnumCIBFields.fstrState
+                    Return "State or Province"
+
+                Case EnumCIBFields.fstrZip
+                    Return "Zip Code"
+
+                Case EnumCIBFields.fdateRecDate
+                    Return "Record Date"
+
+            End Select ''End of""Select Case par_enum""
+
+        End Function ''End of ""Public Function Caption(par_enum As EnumCIBFields)""
+
+    End Class ''End of ""Public Class EnumCIBFieldsText""
+
+
     Public Function GetListOfAllFieldEnums() As List(Of EnumCIBFields)
         ''
         ''Added 5/5/2022 td

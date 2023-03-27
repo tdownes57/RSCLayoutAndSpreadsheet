@@ -47,6 +47,7 @@ Public Interface IElement_TextField
 
     Property FieldEnum As EnumCIBFields ''Added 10/12/2019 thomas d.
     Property FieldIsCustomizable As Boolean ''Added 5/11/2022 thomas d.
+    Property FieldCaptionText As String ''Added 3/27/2022 thomas d.
 
     ''--16----Replaced by a Shared Property (of ciBadgeElements.ClassElementField)
     ''--16----   and having the same name, "Recipient".---10/16/2019 td

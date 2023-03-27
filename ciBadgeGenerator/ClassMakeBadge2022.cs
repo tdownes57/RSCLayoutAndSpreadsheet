@@ -121,6 +121,7 @@ namespace ciBadgeGenerator
             // ------------------------------------------------------------------------
             //
             Graphics g_graphics = Graphics.FromImage(obj_imageOutput);
+            Dictionary<ModEnumsAndStructs.EnumCIBFields, string> dictionaryFields = null;
 
             foreach (ClassElementBase each_element
                           in par_queueElements)
@@ -131,8 +132,22 @@ namespace ciBadgeGenerator
                 scaleW = (float)par_newBadge_width_pixels / par_layoutDims.Width_Pixels;
                 scaleH = (float)par_newBadge_height_pixels / par_layoutDims.Height_Pixels;
 
-                each_element.Print(g_graphics, par_iRecipientInfo, 
-                               scaleW, scaleH, ref boolNotShown);
+                if (each_element is ClassElementFieldV4)
+                {
+                    // Added 3/27/2023 td 
+                    if (dictionaryFields == null) 
+                        dictionaryFields = par_cache.GetFieldLabelCaptions();
+
+                    ClassElementFieldV4 each_fieldElem = (ClassElementFieldV4)each_element;
+                    each_fieldElem.Print(g_graphics, scaleW, scaleH,
+                                        par_iRecipientInfo, dictionaryFields, "",
+                                        ref boolNotShown);
+                }
+                else
+                {
+                    each_element.Print(g_graphics, par_iRecipientInfo,
+                                   scaleW, scaleH, ref boolNotShown);
+                }
             }
 
 

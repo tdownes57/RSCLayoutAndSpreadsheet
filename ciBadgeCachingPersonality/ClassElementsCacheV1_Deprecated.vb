@@ -12,6 +12,7 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 Imports ciBadgeRecipients ''Added 10/16/2019 thomas d. 
 Imports ciBadgeElements ''Added 12/4/2021 thomas downes  
 Imports System.Runtime.InteropServices.WindowsRuntime
+Imports System.ComponentModel
 
 Namespace ciBadgeCachePersonality
 
@@ -2903,6 +2904,26 @@ Namespace ciBadgeCachePersonality
             Return Nothing ''Not found among the Customizible fields.  Added 5/11/2022
 
         End Function ''ENd of "Public Function GetFieldByFieldEnum_Custom  
+
+
+        Public Function GetFieldLabelCaptions() As Dictionary(Of EnumCIBFields, String)
+            ''
+            ''Added 3/27/2023 td  
+            ''
+            Dim output As New Dictionary(Of EnumCIBFields, String)
+
+            For Each objFld As ClassFieldStandard In mod_listFields_Standard
+                output.Add(objFld.FieldEnumValue, objFld.FieldLabelCaption)
+            Next objFld
+
+            ''Second, check custom fields. 
+            For Each objFld As ClassFieldCustomized In mod_listFields_Custom
+                output.Add(objFld.FieldEnumValue, objFld.FieldLabelCaption)
+            Next objFld
+
+            Return output
+
+        End Function ''End of ""Public Function GetFieldLabelCaptions()""
 
 
         ''Public Function GetElementIndexByFieldIndex_1stTry(pintFieldIndex As Integer) As Integer

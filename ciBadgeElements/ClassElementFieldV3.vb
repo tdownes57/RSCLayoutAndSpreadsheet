@@ -273,6 +273,9 @@ Public Class ClassElementFieldV3
     Public Property FieldEnum As EnumCIBFields Implements IElement_TextField.FieldEnum
     Public Property FieldIsCustomizable As Boolean Implements IElement_TextField.FieldIsCustomizable
 
+    ''Added 3/27/2023 thomas downes
+    Public Property FieldCaptionText As String Implements IElement_TextField.FieldCaptionText
+
     ''Added 9/17/2019 td 
     ''--5/10/2022--<Xml.Serialization.XmlIgnore>
     ''--5/10/2022--Public Property FieldInfo As ICIBFieldStandardOrCustom Implements IElement_TextField.FieldInfo

@@ -63,6 +63,7 @@ Public Class ClassElementFieldV4
 
     ''Added 10/12/2019 thomas downes
     Public Property FieldEnum As EnumCIBFields Implements IElement_TextField.FieldEnum
+    Public Property FieldCaptionText As String Implements IElement_TextField.FieldCaptionText ''Added 3/27/2023 td
     Public Property FieldIsCustomizable As Boolean Implements IElement_TextField.FieldIsCustomizable ''Added 5/11/2022
 
     ''--5/10/2022--<Xml.Serialization.XmlIgnore>
@@ -98,6 +99,7 @@ Public Class ClassElementFieldV4
         ''5/10/2022 td''Me.FieldInfo = par_fieldInfo ''Added 9/17/2019 td 
         Me.FieldEnum = par_fieldInfo.FieldEnumValue ''Added 10/12/2019 thomas d. 
         Me.FieldIsCustomizable = par_fieldInfo.IsCustomizable ''Added 5/11/2022 td
+        Me.FieldCaptionText = par_fieldInfo.DataEntryText ''Added 3/27/2023 td
 
         Me.BadgeLayout = New ciBadgeInterfaces.BadgeLayoutDimensionsClass ''Added 9/12/2019
 
@@ -303,6 +305,7 @@ Public Class ClassElementFieldV4
         ''5/11/2022 td''Return (FieldInfo.CIBadgeField & "/" & FieldInfo.DataEntryText)
         Return (FieldEnum.ToString())
 
+
     End Function ''End of ""Public Function FieldNmCaptionText() As String""
 
 
@@ -374,8 +377,9 @@ Public Class ClassElementFieldV4
 
             Case (par_enum <> EnumCIBFields.Undetermined)
 
-                ''Added 3/16/2023 td
-                Return par_enum.ToString()
+                ''Added 3/16 /2023 td
+                ''3/27/2023 Return par_enum.ToString()
+                Return Me.FieldNameCaptionText
 
             Case Else
 
@@ -404,6 +408,41 @@ Public Class ClassElementFieldV4
         Return objCopy
 
     End Function ''End of "Public Function CopyToElementFieldV4() As ClassElementFieldV4"
+
+
+    ''
+    ''Added 3/27/2023
+    ''
+    Public Sub Print(par_graphicsOfBadge As Graphics,
+                               par_scaleW As Single,
+                               par_scaleH As Single,
+                     Optional par_recipient As IRecipient = Nothing,
+                     Optional par_labels As Dictionary(Of EnumCIBFields, String) = Nothing,
+                     Optional par_text As String = "",
+                     Optional ByRef pboolNotShownOnBadge As Boolean = False,
+                     Optional pboolDisplayRegardless As Boolean = False)
+
+        ''This function is inspired/prompted by my study of C++.
+        ''   Objects should be responsible for the processing of their 
+        ''   contents, following the principle of information hiding 
+        ''   or encapsulation. 
+        ''  ---3/05/2023 thomas clifton downes
+
+        ''Added 3/27/2023 thomas d. 
+        Dim strFieldCaptionLabel As String = ""
+        If (par_recipient Is Nothing) Then
+            If (par_labels IsNot Nothing) Then
+                ''Get the Data-Entry Caption Label Text. 
+                strFieldCaptionLabel = par_labels.Item(Me.FieldEnum)
+            End If
+        End If ''End of ""If (par_recipient Is Nothing) Then""
+
+        MyBase.Print(par_graphicsOfBadge, par_recipient,
+                     par_scaleW, par_scaleH,
+                     pboolNotShownOnBadge, pboolDisplayRegardless, 
+                     strFieldCaptionLabel)
+
+    End Sub ''End of ""Public Sub Print()""
 
 
     ''

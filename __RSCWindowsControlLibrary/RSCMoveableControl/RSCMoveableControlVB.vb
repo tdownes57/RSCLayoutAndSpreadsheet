@@ -14,6 +14,7 @@ Imports ciBadgeElements ''added 1/22/2022
 Public Class RSCMoveableControlVB
     Implements ISaveToModel ''Added 1/2/2022 td 
     Implements IRefreshElementImage ''Added 1/28/2022 td
+    Implements IComparable(Of RSCMoveableControlVB) ''Added 3/2/2023 td
 
     ''Jan12 2022 td ''Public MustInherit Class RSCMoveableControlVB
     ''Jan12 2022 td''Implements IElement_Base ''Added 1/12/2022 td
@@ -2309,6 +2310,37 @@ Public Class RSCMoveableControlVB
     End Sub ''End of ""Public Overrides Sub SendToBack_OfElements()""
 
 
+    Public Function CompareTo(other As RSCMoveableControlVB) As Integer _
+        Implements IComparable(Of RSCMoveableControlVB).CompareTo
+
+        ''3/27/2023 TD'' Throw New NotImplementedException()
+
+        If (ElementBase.ZOrder < other.ElementBase.ZOrder) Then
+            ''
+            ''Lower ZOrders should be sorted first.
+            ''   (I'm not sure how it was in VB6.) 
+            ''
+            ''3/27/2023 Return ("A".CompareTo("Z")) 
+            Return -1 ''3/27/2023 ("A".CompareTo("Z")) ''1 or -1 ??
+
+        ElseIf (ElementBase.ZOrder > other.ElementBase.ZOrder) Then
+            ''
+            ''Bigger ZOrders should be sorted last.
+            ''   (I'm not sure how it was in VB6.) 
+            ''
+            ''3/27/2023 Return ("Z".CompareTo("A")) 
+            Return 1 ''Added 3/27/2023 ("Z".CompareTo("A")) ''1 or -1 ??
+
+        Else
+
+            ''Return 0
+            Return 0 '' "A".CompareTo("A") ''Probably 0. 
+
+        End If ''ENd of ""If (ElementBase.ZOrder < other.ElementBase.ZOrder) Then... ElseIf ... Else ..."
+
+
+
+    End Function
 
 
 End Class
