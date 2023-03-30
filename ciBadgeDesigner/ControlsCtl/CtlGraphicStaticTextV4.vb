@@ -58,16 +58,39 @@ Public Class CtlGraphicStaticTextV4
             ''Added 10/10/2019 td 
             mod_strTextToDisplay = value
 
-            ''3/27 td''If (Me.ElementInfo_TextOnly Is Nothing) Then Me.ElementInfo_TextOnly = Me.Element_StaticText
+            If (Me.ElementInfo_TextOnly Is Nothing) Then
+                Me.ElementInfo_TextOnly = Me.Element_StaticTextV4
+            End If
             ''3/27 td''''Me.ElementInfo_TextOnly.Text_StaticLine = value
-            If (value.Contains(vbCr)) Then
+
+            ''Added 3/27/2023
+            Dim boolSTV4 As Boolean = (Me.Element_StaticTextV4 IsNot Nothing)
+            Dim boolValueVBCR As Boolean = value.Contains(vbCr)
+
+            If (boolSTV4 And boolValueVBCR) Then
                 ''Doesn't require much.
                 Me.Element_StaticTextV4.Text_IsMultiLine = True
                 Me.Element_StaticTextV4.Text_StaticLine = value
-            Else
+            ElseIf (boolSTV4) Then
+                ''Multiline text.
                 Me.Element_StaticTextV4.Text_IsMultiLine = False
                 Me.Element_StaticTextV4.Text_StaticLine = value
-            End If
+            Else
+                ''Older, pre-3/27/2023 code. 
+                If (Me.ElementInfo_TextOnly Is Nothing) Then
+                    Me.ElementInfo_TextOnly = Me.Element_StaticTextV4
+                End If
+                If (Me.ElementInfo_TextOnly IsNot Nothing) Then
+                    If (boolValueVBCR) Then
+                        ''Multiline text.
+                        Me.ElementInfo_TextOnly.Text_IsMultiLine = False
+                        Me.ElementInfo_TextOnly.Text_StaticLine = value
+                    Else
+                        Me.ElementInfo_TextOnly.Text_IsMultiLine = False
+                        Me.ElementInfo_TextOnly.Text_StaticLine = value
+                    End If ''ENd of "If (boolValueVBCR) Then ... Else..."
+                End If ''End of ""If (Me.ElementInfo_TextOnly IsNot Nothing) Then""
+            End If ''End of ""If (boolSTV4 And boolValueVBCR) Then... ElseIf... Else..."
 
             ''---textTypeExample.Text = mod_strTextToDisplay
             textTypeExample.SendToBack()
@@ -197,6 +220,8 @@ Public Class CtlGraphicStaticTextV4
             .ElementInfo_TextOnly = par_elementStaticText ''Added 2/2/2022 td
             ''Added 7/22/2022 thomas downes
             .ElementObject_Base = par_elementStaticText ''Added 7/22/2022 td
+            ''Added 3/27/2023 thomas downes
+            .ElementStaticTextV4 = par_elementStaticText ''Added 3/27/2023 td
 
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
 

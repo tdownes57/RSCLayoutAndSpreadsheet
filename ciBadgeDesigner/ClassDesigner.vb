@@ -1617,7 +1617,8 @@ Public Class ClassDesigner
                         par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
                         Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
                         Optional par_elementBaseToOmit As ClassElementBase = Nothing,
-                        Optional par_objBadgeLayoutClass As BadgeLayoutDimensionsClass = Nothing) As Image
+                        Optional par_objBadgeLayoutClass As BadgeLayoutDimensionsClass = Nothing,
+                        Optional par_listElementsToOmit As List(Of ClassElementBase) = Nothing) As Image
         ''
         ''Added 8/01/2022 Thomas Downes  
         ''
@@ -1650,7 +1651,8 @@ Public Class ClassDesigner
                  Nothing, Nothing, par_recipient, True,
                  objBadgeLayout_Class,
                  objImageOfBadgeSide,
-                 par_elementBaseToOmit)
+                 par_elementBaseToOmit,
+                 par_listElementsToOmit)
 
         Return objImageOfBadgeSide
 
@@ -3502,14 +3504,15 @@ Public Class ClassDesigner
 
 
     Public Sub RefreshPreview_EitherSide(par_enumCurrentSide As EnumWhichSideOfCard,
-                                        par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
-                                         Optional par_recentlyMovedV3 As ClassElementFieldV3 = Nothing,
-                                         Optional par_recentlyMovedV4 As ClassElementFieldV4 = Nothing,
-                                         Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
-                                         Optional pboolReturnImage As Boolean = False,
-                                         Optional par_badgeLayout As BadgeLayoutDimensionsClass = Nothing,
-                                         Optional ByRef pref_image As Drawing.Image = Nothing,
-                                         Optional par_elementBaseToOmit As ClassElementBase = Nothing)
+                    par_objMakeBadgeElements As ClassBadgeSideLayoutV1,
+                        Optional par_recentlyMovedV3 As ClassElementFieldV3 = Nothing,
+                        Optional par_recentlyMovedV4 As ClassElementFieldV4 = Nothing,
+                        Optional par_recipient As ciBadgeRecipients.ClassRecipient = Nothing,
+                        Optional pboolReturnImage As Boolean = False,
+                        Optional par_badgeLayout As BadgeLayoutDimensionsClass = Nothing,
+                        Optional ByRef pref_image As Drawing.Image = Nothing,
+                        Optional par_elementBaseToOmit As ClassElementBase = Nothing,
+                        Optional par_listElementsToOmit As List(Of ClassElementBase) = Nothing)
         ''
         ''Stubbed 12/27/2021
         ''
@@ -3754,7 +3757,8 @@ Public Class ClassDesigner
                            Nothing, Nothing, Nothing,
                            par_recentlyMovedV3,
                            par_recentlyMovedV4,
-                           par_elementBaseToOmit)
+                           par_elementBaseToOmit,
+                           par_listElementsToOmit)
 
             Else
 
@@ -3766,7 +3770,8 @@ Public Class ClassDesigner
                            Nothing, Nothing, Nothing,
                            par_recentlyMovedV3,
                            par_recentlyMovedV4,
-                           par_elementBaseToOmit)
+                           par_elementBaseToOmit,
+                            par_listElementsToOmit)
 
             End If ''End of ""If (boolStrongOOP) Then... Else""
 
@@ -4727,7 +4732,10 @@ Public Class ClassDesigner
         ''---For Each each_control As CtlGraphicFldLabel In mod_selectedCtls
         ''---Next each_control
         Try
-            Return mod_selectedCtls.Where(Function(ctl) ctl.Top > par_ctl.Top).OrderBy(Function(ctl) ctl.Top).First
+            ''Use a lambda function!!
+            Return mod_selectedCtls.Where(Function(ctl)
+                                              Return ctl.Top > par_ctl.Top
+                                          End Function).OrderBy(Function(ctl) ctl.Top).First
         Catch ex_linq As Exception
             ''Apparently the command above fails is there are not any lower controls.  --8/16 td 
             Return Nothing
@@ -4743,7 +4751,10 @@ Public Class ClassDesigner
         ''---Next each_control
 
         Try
-            Return mod_selectedCtls.Where(Function(ctl) ctl.Top < par_ctl.Top).OrderByDescending(Function(ctl) ctl.Top).First
+            ''Use a lambda function!!
+            Return mod_selectedCtls.Where(Function(ctl)
+                                              Return ctl.Top < par_ctl.Top
+                                          End Function).OrderByDescending(Function(ctl) ctl.Top).First
         Catch ex_linq As Exception
             ''Apparently the command above fails is there are not any higher controls.  --8/16 td 
             Return Nothing
@@ -4796,6 +4807,27 @@ Public Class ClassDesigner
         Return (Not (mod_selectedCtls.Contains(par_control)))
 
     End Function
+
+
+    Public Function ElementsList_AllSelectedToProcess() As List(Of RSCMoveableControlVB)
+        ''
+        ''added 3/27/2023
+        ''
+        Dim listElems As New List(Of RSCMoveableControlVB)
+
+        ''
+        ''Use a lambda function !!
+        ''
+        ''.Where(Function(ctl) ctl.Top > par_ctl.Top).OrderBy(Function(ctl) ctl.Top).First
+        With mod_listOfDesignerControls
+            listElems.AddRange(.Where(Function(ctl)
+                                          Return (ctl.ElementBase.SelectedToProcessSubset Or
+                                                   ctl.ElementBase.SelectedHighlighting)
+                                      End Function))
+        End With ''End of ""With mod_listOfDesignerControls""
+
+    End Function ''END OF ""
+
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
         ''Added 9/3/2019 thomas downes

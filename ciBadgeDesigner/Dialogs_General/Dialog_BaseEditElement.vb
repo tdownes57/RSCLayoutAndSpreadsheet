@@ -4,6 +4,7 @@
 Imports ciBadgeElements ''Added 8/1/2022 thomas downes
 Imports ciBadgeInterfaces ''Added 8/04/2022
 Imports ciBadgeCachePersonality ''Added 10/24/2022
+Imports __RSCWindowsControlLibrary
 
 Public Class Dialog_BaseEditElement
     ''
@@ -15,7 +16,8 @@ Public Class Dialog_BaseEditElement
                    par_infoElemBase As IElement_Base,
                    par_designer As ClassDesigner,
                    par_events As GroupMoveEvents_Singleton,
-                   Optional par_imageOfBadge As Drawing.Image = Nothing)
+                   Optional par_imageOfBadge As Drawing.Image = Nothing,
+                   Optional par_listOfElementControls As List(Of RSCMoveableControlVB) = Nothing)
         ''
         ''Added 5/31/2022 td 
         ''
@@ -23,7 +25,8 @@ Public Class Dialog_BaseEditElement
                    par_elementsCache,
                    par_elementBase, par_infoElemBase,
                    par_designer, par_events,
-                   par_imageOfBadge)
+                   par_imageOfBadge,
+                   par_listOfElementControls)
 
         ' This call is required by the designer.
         InitializeComponent()

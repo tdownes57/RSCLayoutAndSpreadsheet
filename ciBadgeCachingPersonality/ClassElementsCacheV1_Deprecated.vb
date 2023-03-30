@@ -897,7 +897,10 @@ Namespace ciBadgeCachePersonality
             ''Return ListOfBadgeDisplayElements_Flds_Front(pboolRefresh)
 
             With mod_listElementFields_FrontV3
-                Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
+                ''Use a lambda function!!
+                Return .Where(Function(objEl)
+                                  Return objEl.IsDisplayedOnBadge_Visibly()
+                              End Function)
             End With
 
         End Function ''End of "Public Function BadgeDisplayElements_Fields_FrontV3"
@@ -905,6 +908,9 @@ Namespace ciBadgeCachePersonality
         Public Function BadgeDisplayElements_Fields_FrontV4() As IEnumerable(Of ClassElementFieldV4)
             ''Added 2/10/2022 thomas downes 
             With mod_listElementFields_FrontV4
+                ''
+                ''5/10/2022 Use a lambda function !!
+                ''
                 ''5/10/2022 Return .Where(Function(objEl) objEl.IsDisplayedOnBadge_Visibly())
             End With
 

@@ -278,7 +278,9 @@ Partial Public Class FormMainEntry_v90
         ''---For Each each_control As CtlMainEntryBox_v90 In mod_selectedCtls
         ''---Next each_control
         Try
-            Return mod_selectedCtls.Where(Function(ctl) ctl.Top > par_ctl.Top).OrderBy(Function(ctl) ctl.Top).First
+            Return mod_selectedCtls.Where(Function(ctl)
+                                              Return ctl.Top > par_ctl.Top
+                                          End Function).OrderBy(Function(ctl) ctl.Top).First
         Catch ex_linq As Exception
             ''Apparently the command above fails is there are not any lower controls.  --8/16 td 
             Return Nothing
@@ -294,7 +296,9 @@ Partial Public Class FormMainEntry_v90
         ''---Next each_control
 
         Try
-            Return mod_selectedCtls.Where(Function(ctl) ctl.Top < par_ctl.Top).OrderByDescending(Function(ctl) ctl.Top).First
+            Return mod_selectedCtls.Where(Function(ctl)
+                                              Return ctl.Top < par_ctl.Top
+                                          End Function).OrderByDescending(Function(ctl) ctl.Top).First
         Catch ex_linq As Exception
             ''Apparently the command above fails is there are not any higher controls.  --8/16 td 
             Return Nothing

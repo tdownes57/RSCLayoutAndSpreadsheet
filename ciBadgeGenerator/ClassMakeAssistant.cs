@@ -926,7 +926,8 @@ namespace ciBadgeGenerator
                                           List<String> par_listFieldsNotIncluded = null,
                                           ClassElementFieldV3 par_recentlyMovedV3 = null,
                                           ClassElementFieldV4 par_recentlyMovedV4 = null,
-                                          ClassElementBase par_elementBaseToOmit = null)
+                                          ClassElementBase par_elementBaseToOmit = null,
+                                          List<ClassElementBase> par_listOfElementsToOmit = null)
         {
             //    ''Added 8/14/2019 td  
             //    ''
@@ -979,6 +980,9 @@ namespace ciBadgeGenerator
                 // Element Field, Version #3     
                 //
                 //        intEachIndex += 1
+                if (each_elementFieldV3 == par_elementBaseToOmit) continue;
+                if (par_listOfElementsToOmit.Contains( each_elementFieldV3)) continue;
+
                 par_datetimeLastUpdated = MaxDateTime(each_elementFieldV3.DatetimeUpdated,
                     par_datetimeLastUpdated);
 
@@ -1024,6 +1028,9 @@ namespace ciBadgeGenerator
                 {
                     //Skip the element w/ specified base (par_elementBaseToOmit).
                     each_boolMatchBaseToOmit = (par_elementBaseToOmit == (ClassElementBase)each_elementFieldV4);
+                    if (each_boolMatchBaseToOmit) continue; //Skip the current element. 
+                    //Added 3/28/2023 td
+                    each_boolMatchBaseToOmit = (par_listOfElementsToOmit.Contains(par_elementBaseToOmit));
                     if (each_boolMatchBaseToOmit) continue; //Skip the current element. 
                 }
 

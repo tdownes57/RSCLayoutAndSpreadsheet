@@ -3,9 +3,9 @@ Option Strict On
 
 Imports MoveAndResizeControls_Monem ''Added 12/22/2021 td
 Imports ciBadgeInterfaces ''Added 12/22/2021 td
-''--Imports windows.Forms ''Added 12/22/2021
-Imports System.Windows.Forms
-Imports ciBadgeDesigner ''Added 12/27/2021 td 
+''--Imports windows.Forms ''Added 12/22/2021  
+''3/2023  Imports System.Windows.Forms
+''3/2023  Imports ciBadgeDesigner ''Added 12/27/2021 td 
 Imports ciBadgeElements ''added 1/22/2022
 
 ''

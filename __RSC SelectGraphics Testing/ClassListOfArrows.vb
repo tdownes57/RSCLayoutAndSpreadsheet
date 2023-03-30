@@ -65,7 +65,9 @@ Public Class ClassListOfArrows
         Get
             ''Added 12/17/2022
             ''----Return List.Select(Of ClassArrowTriangle)()
-            Return List.Where(Function(t) t.Name = par_name).FirstOrDefault
+            Return List.Where(Function(t)
+                                  Return t.Name = par_name
+                              End Function).FirstOrDefault
         End Get
     End Property
 

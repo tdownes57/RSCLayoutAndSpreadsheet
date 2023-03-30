@@ -6,7 +6,7 @@ Option Infer Off
 ''Added 1/15/2022 td
 ''
 Imports ciBadgeInterfaces
-Imports ciBadgeDesigner
+''3/2023 Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 Imports ciBadgeCachePersonality ''Added 1/18/2022 td
 

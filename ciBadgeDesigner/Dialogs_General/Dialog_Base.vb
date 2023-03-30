@@ -20,6 +20,12 @@ Public Class Dialog_Base
     Protected mod_elementText As ciBadgeElements.ClassElementFieldOrTextV4 ''Added 12/30/2022 td
     Protected mod_controlLastTouched As Control ''Added 9/01/2022 
 
+    ''Added 3/29/2023 td
+    ''  Enabling more than one element to be edited at a time!!
+    ''
+    Protected mod_listOfElementControls As List(Of RSCMoveableControlVB)
+    Protected mod_listOfElements As List(Of ciBadgeElements.ClassElementBase)
+
     Protected mod_controlLastMouseUpShiftKey As Control ''Added 2/20/2023 
     Protected mod_controlLastMouseUpCtrlKey As Control ''Added 2/20/2023
 
@@ -96,7 +102,8 @@ Public Class Dialog_Base
                    par_infoElementBase As ciBadgeInterfaces.IElement_Base,
                    par_designer As ciBadgeDesigner.ClassDesigner,
                    par_events As GroupMoveEvents_Singleton,
-                   Optional par_imageOfBadge As Drawing.Image = Nothing)
+                   Optional par_imageOfBadge As Drawing.Image = Nothing,
+                   Optional par_listOfElementControls As List(Of RSCMoveableControlVB) = Nothing)
         ''
         ''Added 10/24/2022 
         ''
@@ -110,7 +117,8 @@ Public Class Dialog_Base
                    par_elementBase,
                    par_infoElementBase,
                    par_designer, par_events,
-                   par_imageOfBadge)
+                   par_imageOfBadge,
+                   par_listOfElementControls)
 
         ''Added 10/24/2022 thomas d.
         mod_elementsCache = par_elementsCache
@@ -152,7 +160,8 @@ Public Class Dialog_Base
                    par_infoElementBase As ciBadgeInterfaces.IElement_Base,
                    par_designer As ciBadgeDesigner.ClassDesigner,
                    par_events As GroupMoveEvents_Singleton,
-                   Optional par_imageOfBadge As Drawing.Image = Nothing)
+                   Optional par_imageOfBadge As Drawing.Image = Nothing,
+                   Optional par_listOfElementControls As List(Of RSCMoveableControlVB) = Nothing)
         ''
         ''Encapsulated 10/24/2022 td
         ''
@@ -202,6 +211,13 @@ Public Class Dialog_Base
             mod_controlFieldOrTextV4.Visible = True
             mod_controlFieldOrTextV4.BringToFront()
 
+            ''
+            ''New as of 3/2023, enable multiple elements to be edited at once. 
+            ''
+            If (par_listOfElementControls IsNot Nothing) Then
+                mod_listOfElementControls = par_listOfElementControls
+
+            End If ''End of ""If (par_listOfElementControls IsNot Nothing) Then""
 
         Catch ex_MyBaseNew As Exception
             ''

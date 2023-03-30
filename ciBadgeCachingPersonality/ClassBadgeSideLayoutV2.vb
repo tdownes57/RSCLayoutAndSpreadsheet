@@ -279,7 +279,8 @@ Public Class ClassBadgeSideLayoutV2
         ''--++++This is a function & returns a new list. 
         ''--++objList.OrderBy(Function(x) x.ZOrder)
 
-        objList.Sort(Function(x, y) CompareRSC(x, y))
+        ''3/27/2023 td''objList.Sort(Function(x, y) CompareRSC(x, y))
+        objList.Sort()
         Return New Queue(Of ClassElementBase)(objList)
 
     End Function ''End of ""Public Function GetQueueOfAllElements()""

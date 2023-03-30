@@ -87,7 +87,11 @@ ExitHandler:
             Return Nothing
         End If ''End if "If (0 = mod_images.Count) Then"
 
-        Return mod_images.Where(Function(a_image) True).Last
+        ''3/28/2023 mod_images.Sort()
+
+        Return mod_images.Where(Function(a_image)
+                                    Return True
+                                End Function).Last
 
     End Function ''End of "Public Shared Function GetLatestImage(par_image As Image)"
 

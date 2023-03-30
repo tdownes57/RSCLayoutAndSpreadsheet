@@ -50,7 +50,8 @@ namespace ciBadgeGenerator
                     List<string> par_listFieldsNotIncluded = null,
                     ClassElementFieldV3 par_recentlyMovedV3 = null,
                     ClassElementFieldV4 par_recentlyMovedV4 = null,
-                    ClassElementBase par_elementBaseToOmit = null)
+                    ClassElementBase par_elementBaseToOmit = null,
+                    List<ClassElementBase> par_listOfElemsToOmit = null)
         {
             //
             // Added 3/20/2023 td
@@ -59,12 +60,12 @@ namespace ciBadgeGenerator
             //bool boolCheckMatchBaseToOmit = false; //Added 8/01/2022 td
             //bool each_boolMatchBaseToOmit = false; //Added 8/01/2022 td
 
-            //
-            // ------------------------------------------------------------------------
-            // Part 1 of 3.  Prepare the background image. 
-            // ------------------------------------------------------------------------
-            //
-            //Added 5/21/2022 thomas 
+        //
+        // ------------------------------------------------------------------------
+        // Part 1 of 3.  Prepare the background image. 
+        // ------------------------------------------------------------------------
+        //
+        //Added 5/21/2022 thomas 
             ClassMakeAssistant objAssistant = new ClassMakeAssistant(); //Added 5/21/2022
             objAssistant.ImageQRCode = this.ImageQRCode;
             objAssistant.ImageQRCode_Example = this.ImageQRCode_Example;
@@ -129,6 +130,12 @@ namespace ciBadgeGenerator
                 bool boolNotShown = false;
                 float scaleW, scaleH;
 
+                //
+                // Skipping certain elements. 
+                //
+                if (par_elementBaseToOmit != null && each_element == par_elementBaseToOmit) continue; //Skip element.
+                if (par_listOfElemsToOmit != null && par_listOfElemsToOmit.Contains(each_element)) continue; //Skip element. 
+
                 scaleW = (float)par_newBadge_width_pixels / par_layoutDims.Width_Pixels;
                 scaleH = (float)par_newBadge_height_pixels / par_layoutDims.Height_Pixels;
 
@@ -163,6 +170,7 @@ namespace ciBadgeGenerator
 
         }
 
+
         public Image MakeBadgeImage_AnySide(IBadgeLayoutDimensions par_layoutDims,
                             IBadgeSideLayoutElementsV1 par_layoutElements,
                             ClassElementsCache_Deprecated par_cache,
@@ -174,7 +182,8 @@ namespace ciBadgeGenerator
                             List<string> par_listFieldsNotIncluded = null,
                             ClassElementFieldV3 par_recentlyMovedV3 = null,
                             ClassElementFieldV4 par_recentlyMovedV4 = null,
-                            ClassElementBase par_elementBaseToOmit = null)
+                            ClassElementBase par_elementBaseToOmit = null,
+                    List<ClassElementBase> par_listOfElemsToOmit = null)
         {
             //
             // Added 12/18/2021 td
@@ -288,7 +297,8 @@ namespace ciBadgeGenerator
                          par_listFieldsNotIncluded,
                              par_recentlyMovedV3, 
                              par_recentlyMovedV4, 
-                             par_elementBaseToOmit);
+                             par_elementBaseToOmit, 
+                             par_listOfElemsToOmit);
 
                 //Added 11/29/2021 td  
                 string strLastUpdate = dateMostRecentUpdate.ToString();

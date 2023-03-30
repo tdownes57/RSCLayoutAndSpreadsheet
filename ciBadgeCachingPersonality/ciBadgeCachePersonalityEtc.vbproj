@@ -121,7 +121,7 @@
     <Compile Include="MessageAndInputBoxes\FormTextEditor.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MinorClasses\ClassListOfElements__Normal.vb" />
+    <Compile Include="MinorClasses\ClassListOfElements__PPL.vb" />
     <Compile Include="RSCCache\ClassRSCColumnWidthAndData.vb" />
     <Compile Include="MinorClasses\ClassListOfElements_FieldsV3.vb" />
     <Compile Include="MinorClasses\ClassListOfElements__Shared.vb" />

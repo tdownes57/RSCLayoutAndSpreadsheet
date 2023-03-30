@@ -6,7 +6,7 @@ Option Infer Off
 ''
 
 Imports ciBadgeInterfaces
-Imports ciBadgeDesigner
+''3/2023  Imports ciBadgeDesigner
 ''----Imports ciBadgeElements
 
 Public Class Operations__Generic

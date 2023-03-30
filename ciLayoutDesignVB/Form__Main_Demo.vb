@@ -5,10 +5,8 @@ Option Strict On
 ''
 ''Added 7/18/2019 Thomas DOWNES
 ''
-Imports System.Collections.Generic
-Imports System.Linq
-Imports ciBadgeCachePersonality ''Added 12/4/2021 thomas downes  
-Imports ciBadgeCustomer ''Added 10/11/2019 thomas d.  
+Imports __RSCWindowsControlLibrary
+Imports ciBadgeCachePersonality ''Added 10/11/2019 thomas d.  
 Imports ciBadgeDesigner ''Added 10/3/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td
 ''10/3/2019 td''Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
@@ -17,8 +15,7 @@ Imports ciBadgeFields ''Added 9/18/2019 td
 ''9/9/2019 td''Imports ControlManager
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.  
 Imports ciBadgeRecipients ''Added 10/11/2019 thomas d.  
-Imports EmailingFilesViaGmail_Framework ''Added 9/17/2021 thomas downes 
-Imports MoveAndResizeControls_Monem
+Imports EmailingFilesViaGmail_Framework
 
 Public Class Form__Main_Demo
     Implements IDesignerForm ''Added 10/13/2019 td 
@@ -4107,17 +4104,35 @@ ExitHandler:
         ''
         ''Added 8/26/2022 thomas downes  
         ''
-        Dim objRSC As __RSCWindowsControlLibrary.RSCMoveableControlVB
+        Dim objLastControlRSC As __RSCWindowsControlLibrary.RSCMoveableControlVB
+        Dim listSelected As List(Of RSCMoveableControlVB) ''Added 3/27/2023
 
-        objRSC = mod_designer.LastControlTouchedRSC
+        ''Added 3/27/2023
+        listSelected = mod_designer.ElementsList_AllSelectedToProcess()
 
-        If (objRSC Is Nothing) Then
+        Dim bNoneSelected As Boolean = (0 = listSelected.Count)
+
+        objLastControlRSC = mod_designer.LastControlTouchedRSC
+
+        If (objLastControlRSC Is Nothing And bNoneSelected) Then
             ''Added 8/26/2022 thomas downes  
             MessageBoxTD.Show_StatementLongform("No element",
                             "No element is currently selected.", 0.9, 1.0, False)
 
         Else
-            mod_designer.Edit_Element_with_Multiple_Dialogs_TE9400(objRSC)
+
+            ''3/2023 mod_designer.Edit_Element_with_Multiple_Dialogs_TE9400(objRSC)
+            If (objLastControlRSC IsNot Nothing) Then
+                Dim bNeedToAddLastControl As Boolean ''Added 3/2023 
+                bNeedToAddLastControl = (Not listSelected.Contains(objLastControlRSC))
+                If (bNeedToAddLastControl) Then
+                    listSelected.Add(objLastControlRSC)
+                End If ''End of ""If (bNeedToAddLastControl) Then""
+            End If ''End of ""If (objLastControlRSC IsNot Nothing) Then""
+
+            ''#1 3/2023 mod_designer.Edit_Element_with_Multiple_Dialogs_TE9400(objRSC)
+            ''#2 3/2023  mod_designer.Edit_Elements_with_Multiple_Dialogs_TE4400(listSelected)
+            mod_designer.Edit_Elements_with_Multiple_Dialogs_TE4400(objLastControlRSC, listSelected)
 
         End If ''ENd of ""If (mod_designer.LastControlTouchedRSC Is Nothing) Then""
 
