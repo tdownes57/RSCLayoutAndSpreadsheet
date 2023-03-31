@@ -416,6 +416,7 @@ Public Class ClassElementFieldV4
     Public Sub Print(par_graphicsOfBadge As Graphics,
                                par_scaleW As Single,
                                par_scaleH As Single,
+                               par_enumPrintMode As EnumPrintMode,
                      Optional par_recipient As IRecipient = Nothing,
                      Optional par_labels As Dictionary(Of EnumCIBFields, String) = Nothing,
                      Optional par_text As String = "",
@@ -437,9 +438,9 @@ Public Class ClassElementFieldV4
             End If
         End If ''End of ""If (par_recipient Is Nothing) Then""
 
-        MyBase.Print(par_graphicsOfBadge, par_recipient,
+        MyBase.Print(par_graphicsOfBadge, par_enumPrintMode, par_recipient,
                      par_scaleW, par_scaleH,
-                     pboolNotShownOnBadge, pboolDisplayRegardless, 
+                     pboolNotShownOnBadge, pboolDisplayRegardless,
                      strFieldCaptionLabel)
 
     End Sub ''End of ""Public Sub Print()""
@@ -451,6 +452,7 @@ Public Class ClassElementFieldV4
     Public Overrides Function GetImageForPrinting(par_recipient As IRecipient,
                                        par_scaleW As Single,
                                        par_scaleH As Single,
+                                       par_enumPrintMode As EnumPrintMode,
                                        ByRef pboolNotShownOnBadge As Boolean,
                                        Optional ByRef par_location As Drawing.Point = Nothing) As Image
         ''This function is prompted by my study of C++.
@@ -465,13 +467,16 @@ Public Class ClassElementFieldV4
 
         ''3/09/2023 Return ImageForBadgeImage(par_recipient, par_scale)
         ''3/16/2023 Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
-        Return ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
+        ''3/31/2023 Return ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
+        Return ImageForBadgeImage(par_scaleW, par_scaleH,
+                                  par_enumPrintMode, par_recipient)
 
     End Function ''End of "Public Function GetImageForPrinting() As Image"
 
 
     Public Overrides Function ImageForBadgeImage(par_scaleW As Single,
                                                  par_scaleH As Single,
+                                                 par_enumPrintMode As EnumPrintMode,
                      Optional ByRef par_recipient As IRecipient = Nothing,
                      Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                      Optional ByRef par_text As String = "",
@@ -509,7 +514,7 @@ Public Class ClassElementFieldV4
         ''    par_scaleW, par_scaleH, Me, Me,
         ''       boolRotated, False) ''//;  // 7-29-2022 ref boolRotated, False);
         image_textStandard =
-            MyBase.ImageForBadgeImage(par_scaleW, par_scaleH,
+            MyBase.ImageForBadgeImage(par_scaleW, par_scaleH, par_enumPrintMode,
                                       par_recipient, EnumCIBFields.Undetermined,
                                       strTextToDisplay) ''//;  // 7-29-2022 ref boolRotated, False);
 

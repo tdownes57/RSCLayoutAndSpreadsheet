@@ -1598,14 +1598,18 @@ ExitHandler:
     End Sub ''End of ""Public Sub DeleteIfConfirmed()""
 
 
-    Public Sub Print(par_graphics As Graphics, par_irecip As IRecipient,
+    Public Sub Print(par_graphics As Graphics,
+                     par_enumPrintMode As EnumPrintMode,
+                     par_irecip As IRecipient,
                      par_scaleW As Single, par_scaleH As Single,
                      ByRef pboolNotShownOnBadge As Boolean,
                      pboolDisplayRegardless As Boolean)
         ''
         ''Added 3/27/2023 td
         ''
-        Me.ElementClass_Obj.Print(par_graphics, par_irecip,
+        Me.ElementClass_Obj.Print(par_graphics,
+                                  par_enumPrintMode,
+                                  par_irecip,
                   par_scaleW, par_scaleH,
                   pboolNotShownOnBadge,
                   pboolDisplayRegardless)

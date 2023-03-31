@@ -24,6 +24,16 @@ Public Module ModEnumsAndStructs
     End Structure
 
 
+    ''Added 3/30/2023 td
+    Public Enum EnumPrintMode
+        Undetermined
+        Designer
+        PostDesign ''Preview or FinalID.  --Added 3/31/2023 
+        Preview
+        FinalID
+    End Enum
+
+
     ''
     ''On 1/19/2022, I found the below code by copying the following Public Enum definition
     ''  from __RSC WindowsControlLibrary.Module1Enumerations.EnumElementType.

@@ -80,6 +80,7 @@ Public Class ClassElementStaticTextV4
     ''Added 3/27/2023
     ''
     Public Overrides Sub Print(par_graphicsOfBadge As Graphics,
+                               par_enumPrintMode As EnumPrintMode,
                                        par_recipient As IRecipient,
                                        par_scaleW As Single,
                                        par_scaleH As Single,
@@ -110,12 +111,14 @@ Public Class ClassElementStaticTextV4
             strTextToDisplay = pstrTextToDisplay
             If (strTextToDisplay = "") Then
                 strTextToDisplay = Text_StaticLine
-            End If
+            End If ''End of ""If (strTextToDisplay = "") Then""
 
             ''3/16/2023 Dim image_element As Image = ImageForBadgeImage(par_recipient,
             ''                                         par_scaleW, par_scaleH)
             Dim image_element As Image = ImageForBadgeImage(par_scaleW,
-                                                            par_scaleH, par_recipient,
+                                                            par_scaleH,
+                                                            par_enumPrintMode,
+                                                            par_recipient,
                                            EnumCIBFields.Undetermined, strTextToDisplay)
             ''3/27/2023                    EnumCIBFields.Undetermined, Text_StaticLine)
 
@@ -132,6 +135,7 @@ Public Class ClassElementStaticTextV4
 
     Public Overrides Function ImageForBadgeImage(par_scaleW As Single,
                                     par_scaleH As Single,
+                                    par_enumPrintMode As EnumPrintMode,
                      Optional ByRef par_recipient As IRecipient = Nothing,
                      Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                      Optional ByRef par_text As String = "",
@@ -145,7 +149,7 @@ Public Class ClassElementStaticTextV4
         ''
         If (par_text = "") Then par_text = Text_StaticLine
 
-        Return MyBase.ImageForBadgeImage(par_scaleW, par_scaleH,
+        Return MyBase.ImageForBadgeImage(par_scaleW, par_scaleH, par_enumPrintMode,
                                          par_recipient, par_enumField,
                                          par_text, par_image)
 

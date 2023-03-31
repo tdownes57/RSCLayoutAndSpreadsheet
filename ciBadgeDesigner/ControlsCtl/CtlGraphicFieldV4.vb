@@ -616,7 +616,9 @@ Public Class CtlGraphicFieldV4
             If (ciBadgeInterfaces.StrongOOP.StrongEncapsulation) Then
 
                 ''Added 3/16/2023 thomas downes
-                newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0, , , strTextToDisplay)
+                ''3/2023 newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0, , , strTextToDisplay)
+                newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0,
+                                           EnumPrintMode.Designer, , , strTextToDisplay)
 
             Else
 

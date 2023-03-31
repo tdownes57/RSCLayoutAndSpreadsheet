@@ -1878,75 +1878,90 @@ Public Class RSCMoveableControlVB
         bHandledByChildControl = (TypeOf par_sender Is PictureBox)
 
         Dim bKeyDownShiftKey As Boolean ''Added 1/9/2023
-        Dim bKeyDownControl As Boolean ''Added 1/9/2023
+        Dim bKeyDownControlKey As Boolean ''Added 1/9/2023
         ''Added 1/9/2023
         bKeyDownShiftKey = (My.Computer.Keyboard.ShiftKeyDown)
-        bKeyDownControl = (My.Computer.Keyboard.CtrlKeyDown)
+        bKeyDownControlKey = (My.Computer.Keyboard.CtrlKeyDown)
 
         If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
             ''
-            Me.RaiseEvent_LeftClicked() ''Added 5/18/2022 
+            ''Moved to Else below. 3/30/2023 Me.RaiseEvent_LeftClicked() ''Added 5/18/2022 
 
             ''Added 1/9/2023 td 
-            If (bKeyDownShiftKey) Then Me.RaiseEvent_ShiftKeyClick() ''Added 1/09/2023 
-            If (bKeyDownControl) Then Me.RaiseEvent_CtrlKeyClick() ''Added 1/09/2023 
+            If (bKeyDownShiftKey Or bKeyDownControlKey) Then
+                If (bKeyDownShiftKey) Then Me.RaiseEvent_ShiftKeyClick() ''Added 1/09/2023 
+                If (bKeyDownControlKey) Then Me.RaiseEvent_CtrlKeyClick() ''Added 1/09/2023 
+            Else
+                Me.RaiseEvent_LeftClicked() ''Added 5/18/2022 
+            End If ''End of ""If (bKeyDownShiftKey Or bKeyDownControlKey) Then... Else..."
 
             ''Added 3/20/2022 td
             If (mod_boolRemoveMoveability) Then Exit Sub
 
-            ''Let the module know that a MouseUp took place. 
-            ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
+                ''Let the module know that a MouseUp took place. 
+                ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
 
-            ''----Nasty bug.  Don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
-            ''
-            ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
-            Dim info_SaveToModel As ISaveToModel ''Added 1/14/2022 td
-            Dim info_RefreshElementImage As IRefreshElementImage ''Added 1/28/2022 td
-            Dim info_RefreshCardPreview As IRefreshCardPreview ''Added 1/28/2022 td
-            Dim objCTLGraphicOrRSCMoveable As Control ''Added 1/14/2022
+                ''----Nasty bug.  Don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
+                ''
+                ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
+                Dim info_SaveToModel As ISaveToModel ''Added 1/14/2022 td
+                Dim info_RefreshElementImage As IRefreshElementImage ''Added 1/28/2022 td
+                Dim info_RefreshCardPreview As IRefreshCardPreview ''Added 1/28/2022 td
+                Dim objCTLGraphicOrRSCMoveable As Control ''Added 1/14/2022
 
-            ''Added 1/14/2022
-            info_SaveToModel = CType(Me, ISaveToModel)
+                ''Added 1/14/2022
+                info_SaveToModel = CType(Me, ISaveToModel)
 
-            ''Added 1/28/2022
-            ''6/4/2022 info_RefreshElementImage = CType(Me, IRefreshElementImage)
-            ''6/6/2022 info_RefreshElementImage = Me.InfoRefreshElementImage
-            info_RefreshElementImage = CType(Me, IRefreshElementImage)
+                ''Added 1/28/2022
+                ''6/4/2022 info_RefreshElementImage = CType(Me, IRefreshElementImage)
+                ''6/6/2022 info_RefreshElementImage = Me.InfoRefreshElementImage
+                info_RefreshElementImage = CType(Me, IRefreshElementImage)
 
-            ''Jan30 2022 td''info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
-            info_RefreshCardPreview = CType(Me.mod_iRefreshCardPreview, IRefreshCardPreview)
+                ''Jan30 2022 td''info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
+                info_RefreshCardPreview = CType(Me.mod_iRefreshCardPreview, IRefreshCardPreview)
 
-            If (TypeOf par_sender Is PictureBox) Then
-                objCTLGraphicOrRSCMoveable = Me
-            Else
-                objCTLGraphicOrRSCMoveable = CType(par_sender, Control)
-            End If ''End of "If (TypeOf par_sender Is PictureBox) Then ... Else"
+                If (TypeOf par_sender Is PictureBox) Then
+                    objCTLGraphicOrRSCMoveable = Me
+                Else
+                    objCTLGraphicOrRSCMoveable = CType(par_sender, Control)
+                End If ''End of "If (TypeOf par_sender Is PictureBox) Then ... Else"
 
-            ''Added 6/22/2022 td
-            If (mod_iMoveOrResizeFunctionality Is Nothing) Then Exit Sub
+                ''Added 6/22/2022 td
+                If (mod_iMoveOrResizeFunctionality Is Nothing) Then Exit Sub
 
-            ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
-            ''   Let's don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
-            ''Jan27 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizing(objCTLGraphicOrRSCMoveable, info_SaveToModel)
-            ''Jan28 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizingV1(objCTLGraphicOrRSCMoveable, info_SaveToModel)
-            mod_iMoveOrResizeFunctionality.StopDragOrResizingV2(objCTLGraphicOrRSCMoveable,
+                ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
+                ''   Let's don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
+                ''Jan27 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizing(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+                ''Jan28 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizingV1(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+                mod_iMoveOrResizeFunctionality.StopDragOrResizingV2(objCTLGraphicOrRSCMoveable,
                                                                 info_SaveToModel,
                                                                 info_RefreshElementImage,
                                                                 info_RefreshCardPreview)
-            ''Added 9/01/2022 td
-            Dim objParentControl As Control ''Added 1/11/20222
-            objParentControl = Me ''Added 1/11/20222
-            mod_iMoveOrResizeFunctionality.ClickedParentControl(objParentControl, par_e)
+                ''Added 9/01/2022 td
+                Dim objParentControl As Control ''Added 1/11/20222
+                objParentControl = Me ''Added 1/11/20222
+            ''Moved to Else below. 3/30/2023 mod_iMoveOrResizeFunctionality.ClickedParentControl(objParentControl, par_e)
+
+            ''Added 3/30/2023 td 
+            If (bKeyDownShiftKey Or bKeyDownControlKey) Then
+                If bKeyDownShiftKey Then _
+                   mod_iMoveOrResizeFunctionality.MouseUpWithShiftKey(objParentControl, par_e)
+                If bKeyDownControlKey Then _
+                    mod_iMoveOrResizeFunctionality.MouseUpWithCtrlKey(objParentControl, par_e)
+            Else
+                mod_iMoveOrResizeFunctionality.ClickedParentControl(objParentControl, par_e)
+
+            End If ''End of ""If (bKeyDownShiftKey Or bKeyDownControl) Then ... Else...""
 
 
         ElseIf (par_e.Button = MouseButtons.Right) Then
-            ''            ''
-            ''  Right-Button click, i.e. a context-menu request by user.          
-            ''            ''-----Added 12/28/2021 td
-            ''            ''
-            mod_designer_ElementRightClicked(par_e.X, par_e.Y)
+                ''            ''
+                ''  Right-Button click, i.e. a context-menu request by user.          
+                ''            ''-----Added 12/28/2021 td
+                ''            ''
+                mod_designer_ElementRightClicked(par_e.X, par_e.Y)
 
         End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
 

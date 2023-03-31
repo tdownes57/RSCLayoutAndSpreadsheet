@@ -79,6 +79,7 @@ Public Class ClassBadgeSideLayoutV2
     ''Added 3/05/2023
     ''
     Public Function GetImageForPrinting(par_recipient As IRecipient,
+                                        par_enumPrintMode As EnumPrintMode,
                         par_scaleW As Single,
                         par_scaleH As Single,
                         par_layoutBadgeDims As BadgeLayoutDimensionsClass,
@@ -170,6 +171,7 @@ Public Class ClassBadgeSideLayoutV2
             bInvisibleOnBadge = True ''Default value.
             eachImage = objElementBase.GetImageForPrinting(par_recipient,
                                                            par_scaleW, par_scaleH,
+                                                           par_enumPrintMode,
                                              bInvisibleOnBadge, pointLocationOnBadge)
 
             If (bInvisibleOnBadge Or (eachImage Is Nothing)) Then

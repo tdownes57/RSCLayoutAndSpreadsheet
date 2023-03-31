@@ -604,9 +604,14 @@ Public Class ClassDesignerEventListener
 
         Dim boolResizedAFieldCtl As Boolean ''Added 9/14/2019 td
         Dim ctl_ControlLastTouched As Control
-        Dim ctl_FieldControlLastTouched As CtlGraphicFieldV3
+        Dim ctl_FieldControlLastTouched As CtlGraphicFieldV3 = Nothing ''Added 3/30/2023
 
         ctl_ControlLastTouched = mod_designer.mod_ControlLastTouched
+
+        ''Added 3/30/2023 td
+        If (ctl_FieldControlLastTouched Is Nothing) Then
+            Throw New NotImplementedException
+        End If ''End of ""If (ctl_FieldControlLastTouched Is Nothing) Then""
 
         If (TypeOf mod_designer.mod_RSCControlLastTouched Is CtlGraphicFieldV3) Then
             ''We know it's a Element-Field control. ---1/12/2022 td
@@ -685,12 +690,34 @@ Public Class ClassDesignerEventListener
         ''---AutoPreview_IfChecked()
         mod_designer.AutoPreview_IfChecked()
 
-    End Sub ''End of "Private Sub Resizing_End() Handles mod_groupedMove.Resizing_End"
+    End Sub ''End of "Private Sub Resizing_EndV1() Handles mod_groupedMove.Resizing_EndV1"
+
+
+    Private Sub Resizing_EndV2(par_iSave As ISaveToModel,
+                               par_iRefreshElement As IRefreshElementImage,
+                               par_iRefreshCardPreview As IRefreshCardPreview,
+                               par_bHeightResized As Boolean) _
+        Handles mod_eventsGroupedMove.Resizing_EndV2
+        ''
+        ''Added 3/30/2023 Thomas Downes 
+        ''
+        ''  What is supposed to happen here?   Why does V2 (suffix)
+        ''  of this event have all of the following parameters?
+        ''
+        ''      par_iSave As ISaveToModel,
+        ''      par_iRefreshElement As IRefreshElementImage,
+        ''      par_iRefreshCardPreview As IRefreshCardPreview,
+        ''      par_bHeightResized As Boolean
+        ''
+        Debugger.Break()
+
+    End Sub ''End of "" ''End of "Private Sub Resizing_EndV1() Handles mod_groupedMove.Resizing_EndV1"""
 
 
 
 
-    Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) Handles mod_eventsGroupedMove.Moving_End
+    Private Sub MovingElement_End(par_ctlElement As Control, par_iSave As ISaveToModel) _
+        Handles mod_eventsGroupedMove.Moving_End
 
         ''12/17/2021 td''Private Sub MovingElement_End(par_ctlElement As Control) Handles mod_groupedMove.Moving_End
         ''11/29/2021 ''Private Sub MovingElement_End() Handles mod_groupedMove.Moving_End
@@ -841,7 +868,7 @@ Public Class ClassDesignerEventListener
                                               par_iRefreshImage As IRefreshElementImage,
                                               par_iRefreshPreview As IRefreshCardPreview,
                                               pboolHeightResized As Boolean) _
-                                              Handles SizingElementEvents.Resizing_EndV2
+                                         Handles SizingElementEvents.Resizing_EndV2
         ''Dec12 2021 td''Handles mod_sizingEvents_Pic.Resizing_End
         ''Jan26 2022 td''Private Sub mod_sizingEvents_Resizing_End(par_iSave As ISaveToModel)
 
@@ -858,6 +885,25 @@ Public Class ClassDesignerEventListener
         par_iRefreshImage.RefreshElementImage(pboolHeightResized)
 
     End Sub
+
+
+    ''Private Sub mod_eventsGroupedMove_Resizing_EndV2(par_iSave As ISaveToModel, par_iRefreshElement As IRefreshElementImage, par_iRefreshCardPreview As IRefreshCardPreview, par_bHeightResized As Boolean) _
+    ''    Handles mod_eventsGroupedMove.Resizing_EndV2
+    ''    ''
+    ''    ''Added 3/30/2023 Thomas Downes 
+    ''    ''
+    ''    ''  What is supposed to happen here?   Why does V2 (suffix)
+    ''    ''  of this event have all of the following parameters?
+    ''    ''
+    ''    ''      par_iSave As ISaveToModel,
+    ''    ''      par_iRefreshElement As IRefreshElementImage,
+    ''    ''      par_iRefreshCardPreview As IRefreshCardPreview,
+    ''    ''      par_bHeightResized As Boolean
+    ''    ''
+    ''    Debugger.Break()
+
+    ''End Sub
+
 
     ''Private Sub mod_sizingQR_events_Moving_End(par_control As Control, par_iSave As ISaveToModel) Handles SizingElementEvents.Moving_End
 
@@ -1002,7 +1048,24 @@ Public Class ClassDesignerEventListener
         ''
         ''Added 1/09/2023 thomas downes
         ''
-        Throw New NotImplementedException("No.")
+        ''3/30/2023 Throw New NotImplementedException("No.")
+        mod_designer.SelectControlShiftKey(par_control)
+
+    End Sub
+
+    Private Sub mod_eventsGroupedMove_Resizing_EndV2(par_iSave As ISaveToModel, par_iRefreshElement As IRefreshElementImage, par_iRefreshCardPreview As IRefreshCardPreview, par_bHeightResized As Boolean) Handles mod_eventsGroupedMove.Resizing_EndV2
+        ''
+        ''Added 3/30/2023 Thomas Downes 
+        ''
+        ''  What is supposed to happen here?   Why does V2 (suffix)
+        ''  of this event have all of the following parameters?
+        ''
+        ''      par_iSave As ISaveToModel,
+        ''      par_iRefreshElement As IRefreshElementImage,
+        ''      par_iRefreshCardPreview As IRefreshCardPreview,
+        ''      par_bHeightResized As Boolean
+        ''
+        Debugger.Break()
 
     End Sub
 

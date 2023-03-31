@@ -778,6 +778,7 @@ Public Class ClassElementFieldOrTextV4
     ''Added 3/27/2023
     ''
     Public Overrides Sub Print(par_graphicsOfBadge As Graphics,
+                                       par_printMode As EnumPrintMode,
                                        par_recipient As IRecipient,
                                        par_scaleW As Single,
                                        par_scaleH As Single,
@@ -808,6 +809,7 @@ Public Class ClassElementFieldOrTextV4
             ''3/27/2023 Dim image_element As Image = ImageForBadgeImage(par_scaleW,
             ''                     par_scaleH, par_recipient)
             Dim image_element As Image = ImageForBadgeImage(par_scaleW, par_scaleH,
+                                                            par_printMode,
                                                             par_recipient,
                                                             EnumCIBFields.Undetermined,
                                                             pstrTextToDisplay)
@@ -825,6 +827,7 @@ Public Class ClassElementFieldOrTextV4
 
     Public Overrides Function ImageForBadgeImage(par_scaleW As Single,
                                     par_scaleH As Single,
+                                    par_enumPrintMode As EnumPrintMode,
                      Optional ByRef par_recipient As IRecipient = Nothing,
                      Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                      Optional ByRef par_text As String = "",
@@ -982,13 +985,15 @@ Public Class ClassElementFieldOrTextV4
         ''
         ''Added 8/02/2019 td
         ''
-        If (Me.SelectedHighlighting) Then
-            ''Added 8/2/2019 td
-            ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
-            ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
-            gr_local_image_of_element.DrawRectangle(pen_highlighting,
-                         New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
-        End If ''End of "If (par_element.SelectedHighlighting) Then"
+        If (par_enumPrintMode = EnumPrintMode.Designer) Then
+            If (Me.SelectedHighlighting) Then
+                ''Added 8/2/2019 td
+                ''8/5/2019 td''gr.DrawRectangle(pen_highlighting,
+                ''             New Rectangle(0, 0, par_element.Width_Pixels, par_element.Height_Pixels))
+                gr_local_image_of_element.DrawRectangle(pen_highlighting,
+                             New Rectangle(3, 3, intNewElementWidth - 6, intNewElementHeight - 6))
+            End If ''End of "If (Me.SelectedHighlighting) Then"
+        End If ''End of ""If (par_enumPrintMode = EnumPrintMode.Designer) Then""
 
         ''7/30/2019''gr.DrawString(par_design.Text, par_design.Font_DrawingClass, brush_forecolor, New Point(0, 0))
 

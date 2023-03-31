@@ -5537,7 +5537,7 @@ Public Class ClassDesigner
     End Sub ''end of ""Friend Sub PositionElementArrow(par_controlElement As Control)"" 
 
 
-    Friend Sub SelectControlCtrlKey(par_controlElement As Control)
+    Friend Sub SelectControlCtrlKey(par_controlElement As Control, Optional pbForceSelect As Boolean = False)
         ''
         ''Added 1/9/2023 thomas
         ''
@@ -5545,12 +5545,13 @@ Public Class ClassDesigner
         Dim found_rscMoveable As RSCMoveableControlVB = Nothing ''Added 1/9/2023
         Dim boolMatch As Boolean
 
-        For Each eachRscMoveable In mod_selectedCtls
+        ''3/2023 For Each eachRscMoveable In mod_selectedCtls
+        For Each eachRscMoveable In mod_listOfDesignerControls
             boolMatch = (par_controlElement Is CType(eachRscMoveable, Control))
             If (boolMatch) Then
                 found_rscMoveable = eachRscMoveable
                 Exit For
-            End If
+            End If ''End of ""If (boolMatch) Then""
         Next eachRscMoveable
 
         ''Did we (not) succeed?  
@@ -5559,13 +5560,80 @@ Public Class ClassDesigner
             Exit Sub
         End If ''end of ""If (found_rscMoveable Is Nothing) Then""
 
-        If (mod_selectedCtls.Contains(found_rscMoveable)) Then
+        Dim bDeselection As Boolean ''Added 3/30/2023
+        Dim bPriorSelection As Boolean ''Added 3/30/2023
+        ''Added 3/30/2023
+        bPriorSelection = (mod_selectedCtls.Contains(found_rscMoveable))
+        bDeselection = (bPriorSelection And (Not pbForceSelect))
+
+        ''3/2023 If (mod_selectedCtls.Contains(found_rscMoveable)) Then
+        If (bDeselection) Then
+            ''We need to toggle selection,
+            ''  i.e. we need to UN- or DE-select the control. 
             mod_selectedCtls.Remove(found_rscMoveable)
+            ''Added 3/30/2023
+            found_rscMoveable.ElementBase.SelectedHighlighting = False
+            found_rscMoveable.ElementBase.SelectedToProcessSubset = False
 
         Else
+            ''We need to toggle selection,
+            ''  and thus to SELECT the control. 
             mod_selectedCtls.Add(found_rscMoveable)
+            ''Added 3/30/2023
+            found_rscMoveable.ElementBase.SelectedHighlighting = True
+            found_rscMoveable.ElementBase.SelectedToProcessSubset = True
 
-        End If
+        End If ''end of ""If (bDeselection) Then ... Else ..."
+
+    End Sub ''End of ""Friend Sub SelectControlCtrlKey""
+
+
+    Friend Sub SelectControlShiftKey(par_controlElement As Control)
+        ''
+        ''Added 3/30/2023 thomas
+        ''
+        Static s_priorControl As Control ''RSCMoveableControlVB
+
+        If (s_priorControl Is Nothing) Then
+
+            SelectControlCtrlKey(par_controlElement)
+            s_priorControl = par_controlElement
+
+        Else
+            ''
+            ''All of the controls between pointShift1 and pointShift2 will be selected.
+            ''
+            Dim pointShift1 As Point = s_priorControl.Location
+            Dim pointShift2 As Point = par_controlElement.Location
+            Dim intMaxX As Integer = CInt(IIf(pointShift1.X > pointShift2.X, pointShift1.X, pointShift2.X))
+            Dim intMaxY As Integer = CInt(IIf(pointShift1.Y > pointShift2.Y, pointShift1.Y, pointShift2.Y))
+            Dim intMinX As Integer = CInt(IIf(pointShift1.X > pointShift2.X, pointShift2.X, pointShift1.X))
+            Dim intMinY As Integer = CInt(IIf(pointShift1.Y > pointShift2.Y, pointShift2.Y, pointShift1.Y))
+            Dim each_control As RSCMoveableControlVB
+            Dim list_controlsBetween As IEnumerable(Of RSCMoveableControlVB)
+
+            ''
+            ''All of the controls between pointShift1 and pointShift2 will be selected.
+            ''
+            list_controlsBetween = mod_listOfDesignerControls.Where(Function(ctlB As RSCMoveableControlVB)
+                                                                        Return (ctlB.Location.X <= intMaxX And
+                                                         ctlB.Location.Y <= intMaxY And
+                                                         ctlB.Location.X >= intMinX And
+                                                         ctlB.Location.Y >= intMinY)
+                                                                    End Function)
+
+            For Each each_control In list_controlsBetween
+                ''Toggle their selected status. 
+                SelectControlCtrlKey(par_controlElement)
+            Next each_control
+
+            ''Clear the 2nd Shift control, so we can start the process over again. 
+            s_priorControl = Nothing
+
+        End If ''End of ""If (s_priorControl Is Nothing) Then""
+
+ExitHandler:
+        ''Moved upward.  s_priorControl = par_controlElement
 
     End Sub ''End of ""Friend Sub SelectControlCtrlKey""
 

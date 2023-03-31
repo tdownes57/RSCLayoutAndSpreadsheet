@@ -119,6 +119,11 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         //Added 9/01/2022 thomas downes
         void ClickedParentControl(Control par_controlParent, MouseEventArgs e);
 
+        //Added 3/30/2023 thomas downes
+        void MouseUpWithShiftKey(Control par_controlParent, MouseEventArgs e);
+        void MouseUpWithCtrlKey(Control par_controlParent, MouseEventArgs e);
+
+
         //Added 3/3/2022 thomas downes
         //StructResizeParams ResizeParams
         //{

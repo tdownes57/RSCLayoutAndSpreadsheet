@@ -660,6 +660,7 @@ Public Class CtlGraphicStaticTextV4
                 ''3/16/2023 newTextImage = Me.ElementClass_ObjV4.ImageForBadgeImage(1.0, 1.0)
                 ''3/19/2023 newTextImage = Me.ElementClass_Obj.ImageForBadgeImage(1.0, 1.0)
                 newTextImage = Me.ElementClass_Obj.ImageForBadgeImage(1.0, 1.0,
+                           EnumPrintMode.Designer,
                            Nothing, EnumCIBFields.Undetermined, strTextToDisplay)
 
             Else

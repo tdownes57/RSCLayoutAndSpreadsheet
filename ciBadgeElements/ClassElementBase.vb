@@ -8,6 +8,9 @@ Imports System.Drawing ''Added 9/18/2019 td
 Imports System.Windows.Forms ''Added 9/18/2019 td 
 Imports System.Xml.Serialization ''Added 9/5/2022 & 9/24/2019 td
 
+#Disable Warning CA1036 ''Warning CA1036: Since it implements IComparable", ClassElementBase 
+''  should define operators == > < <= >= <>.   ---3/30/2023
+
 Public Class ClassElementBase
     ''9/05/2022 Implements IElement_Base_InDevelopment  ''//_Temporary
     Implements IElement_Base  ''//_Temporary
@@ -149,6 +152,7 @@ Public Class ClassElementBase
 
     Public Overridable Function ImageForBadgeImage(par_scaleW As Single,
                             par_scaleH As Single,
+                            par_enumMode As EnumPrintMode,
                             Optional ByRef par_recipient As IRecipient = Nothing,
                             Optional ByVal par_enumField As EnumCIBFields = EnumCIBFields.Undetermined,
                             Optional ByRef par_text As String = "",
@@ -172,6 +176,7 @@ Public Class ClassElementBase
     ''Added 3/09/2023
     ''
     Public Overridable Sub Print(par_graphicsOfBadge As Graphics,
+                                       par_printMode As EnumPrintMode,
                                        par_recipient As IRecipient,
                                        par_scaleW As Single,
                                        par_scaleH As Single,
@@ -199,7 +204,10 @@ Public Class ClassElementBase
 
             ''3/16/2023 Dim image_element As Image = ImageForBadgeImage(par_recipient,
             ''                                         par_scaleW, par_scaleH)
-            Dim image_element As Image = ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
+            Dim image_element As Image = ImageForBadgeImage(par_scaleW, par_scaleH,
+                                                            par_printMode, par_recipient,
+                                                            EnumCIBFields.Undetermined,
+                                                            "", Nothing)
 
             ''Aded 3/27/2023 
             If (par_graphicsOfBadge Is Nothing) Then Exit Sub
@@ -218,6 +226,7 @@ Public Class ClassElementBase
     Public Overridable Function GetImageForPrinting(par_recipient As IRecipient,
                                        par_scaleW As Single,
                                        par_scaleH As Single,
+                                       par_enumPrintMode As EnumPrintMode,
                                        ByRef pboolNotShownOnBadge As Boolean,
                                        Optional ByRef par_location As Drawing.Point = Nothing) As Image
         ''This function is prompted by my study of C++.
@@ -232,7 +241,8 @@ Public Class ClassElementBase
 
         ''3/09/2023 Return ImageForBadgeImage(par_recipient, par_scale)
         ''3/16/2023 Return ImageForBadgeImage(par_recipient, par_scaleW, par_scaleH)
-        Return ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
+        ''3/31/2023 Return ImageForBadgeImage(par_scaleW, par_scaleH, par_recipient)
+        Return ImageForBadgeImage(par_scaleW, par_scaleH, par_enumPrintMode, par_recipient)
 
     End Function ''End of "Public Function GetImage() As Image"
 
@@ -322,6 +332,7 @@ Public Class ClassElementBase
         Implements IComparable(Of ClassElementBase).CompareTo
 
         ''3/27/2023 TD'' Throw New NotImplementedException()
+        If (other Is Nothing) Then Throw New NotImplementedException()
 
         If (ZOrder < other.ZOrder) Then
             ''

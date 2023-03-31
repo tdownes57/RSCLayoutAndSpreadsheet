@@ -146,14 +146,22 @@ namespace ciBadgeGenerator
                         dictionaryFields = par_cache.GetFieldLabelCaptions();
 
                     ClassElementFieldV4 each_fieldElem = (ClassElementFieldV4)each_element;
-                    each_fieldElem.Print(g_graphics, scaleW, scaleH,
+
+                    //Added parameter EnumPrintMode, 3/31/2023 
+                    each_fieldElem.Print(g_graphics, 
+                                        scaleW, scaleH,
+                                        ModEnumsAndStructs.EnumPrintMode.PostDesign,
                                         par_iRecipientInfo, dictionaryFields, "",
                                         ref boolNotShown);
                 }
                 else
                 {
-                    each_element.Print(g_graphics, par_iRecipientInfo,
-                                   scaleW, scaleH, ref boolNotShown);
+                    //3-2023 each_element.Print(g_graphics, par_iRecipientInfo,
+                    //               scaleW, scaleH, ref boolNotShown);
+                    each_element.Print(g_graphics, 
+                        ModEnumsAndStructs.EnumPrintMode.PostDesign, 
+                        par_iRecipientInfo,
+                        scaleW, scaleH, ref boolNotShown);
                 }
             }
 

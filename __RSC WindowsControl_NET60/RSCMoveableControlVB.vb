@@ -7,6 +7,7 @@ Imports ciBadgeInterfaces ''Added 12/22/2021 td
 ''--Imports System.Windows.Forms
 ''--Imports ciBadgeDesigner ''Added 12/27/2021 td 
 Imports ciBadgeElements ''added 1/22/2022
+Imports Microsoft.VisualBasic.Devices
 
 ''
 ''Added 12/22/2021 td  
@@ -292,7 +293,7 @@ Public Class RSCMoveableControlVB
     Private mod_typeOperations As Type ''Added 12/28/2021 td
     Private mod_enumElementType As EnumElementType ''Added 12/28/2021 td
     Private Const mc_intMarginForResize As Integer = 10 ''Added 1/12/2022
-    Protected RightclickMouseInfo As IRightclickMouseInfo ''Added 2/5/2022 td
+    Protected RightclickMouseInfo As IRightClickMouseInfo ''Added 2/5/2022 td
 
     Public Sub New()
 
@@ -1826,6 +1827,13 @@ Public Class RSCMoveableControlVB
         ''Jan14 2022''If (bHandledByChildControl) Then par_e.Button = MouseButtons.Left
         bHandledByChildControl = (TypeOf par_sender Is PictureBox)
 
+        Dim bKeyDownShiftKey As Boolean ''Added 1/9/2023
+        Dim bKeyDownControl As Boolean ''Added 1/9/2023
+
+        ''Added 1/9/2023
+        bKeyDownShiftKey = False ''3/30/2023 (My.Computer.Keyboard.ShiftKeyDown)
+        bKeyDownControl = False ''3/30/2023 (My.Computer.Keyboard.CtrlKeyDown)
+
         If (mod_bHandleMouseMoveEvents_ByVB6 AndAlso (par_e.Button = MouseButtons.Left)) Then
             ''
             ''It's a Left-Button click.    (i.e. a Click-And-Drag action by user)
@@ -1879,6 +1887,13 @@ Public Class RSCMoveableControlVB
             objParentControl = Me ''Added 1/11/20222
             mod_iMoveOrResizeFunctionality.ClickedParentControl(objParentControl, par_e)
 
+            ''Added 3/30/2023 td 
+            If (bKeyDownShiftKey Or bKeyDownControl) Then
+                If bKeyDownShiftKey Then _
+                   mod_iMoveOrResizeFunctionality.MouseUpWithShiftKey(objParentControl, par_e)
+                If bKeyDownControl Then _
+                    mod_iMoveOrResizeFunctionality.MouseUpWithCtrlKey(objParentControl, par_e)
+            End If ''End of ""If (bKeyDownShiftKey Or bKeyDownControl) Then""
 
         ElseIf (par_e.Button = MouseButtons.Right) Then
             ''            ''

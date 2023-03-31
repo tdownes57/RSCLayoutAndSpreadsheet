@@ -955,9 +955,31 @@ namespace MoveAndResizeControls_Monem
                 //Added 9/01/2021 td
                 mod_events_groupedCtls.Control_WasClicked(par_controlParentF);
             }
-
-
         }
+
+        public void MouseUpWithShiftKey(Control par_controlParentF, MouseEventArgs e)
+        {
+            //
+            // Added 3/30/2023 thomas downes
+            //
+            if (mod_events_groupedCtls != null)
+            {
+                mod_events_groupedCtls.MouseUpShiftKey(par_controlParentF);
+            }
+        }
+
+
+        public void MouseUpWithCtrlKey(Control par_controlParentF, MouseEventArgs e)
+        {
+            //
+            // Added 3/30/2023 thomas downes
+            //
+            if (mod_events_groupedCtls != null)
+            {
+                mod_events_groupedCtls.MouseUpCtrlKey(par_controlParentF);
+            }
+        }
+
 
         private void MoveControl_GroupMove(Control par_controlG, MouseEventArgs par_e)
         {
