@@ -847,6 +847,10 @@ Public Class ClassDesigner
         ''
         RefreshChildIndexOfElems_ZOrder()
 
+        ''
+        ''Added 3/31/2023 Thomas Downes
+        ''
+        RefreshListOfSelectedControls()
 
         ''Added 9/24/2019 thomas 
         ''  10/1/2019 td''Dim serial_tools As New ciBadgeSerialize.ClassSerial
@@ -4826,7 +4830,9 @@ Public Class ClassDesigner
                                       End Function))
         End With ''End of ""With mod_listOfDesignerControls""
 
-    End Function ''END OF ""
+        Return listElems
+
+    End Function ''END OF ""Public Function ElementsList_AllSelectedToProcess()"
 
 
     Public Function Layout_Width_Pixels() As Integer Implements ILayoutFunctions.Layout_Width_Pixels
@@ -5320,6 +5326,23 @@ Public Class ClassDesigner
     End Sub ''End of ""Public Sub RefreshChildIndexOfElems_ZOrder()""
 
 
+    Public Sub RefreshListOfSelectedControls()
+        ''
+        ''Added 3/31/2023 td
+        ''
+        Dim each_isSelected As Boolean = False
+        mod_selectedCtls = New HashSet(Of RSCMoveableControlVB)
+
+        For Each each_RSCCtrl As RSCMoveableControlVB In mod_listOfDesignerControls
+
+            each_isSelected = each_RSCCtrl.ElementBase.SelectedHighlighting
+            If (each_isSelected) Then mod_selectedCtls.Add(each_RSCCtrl)
+
+        Next each_RSCCtrl
+
+    End Sub ''End of ""Public Sub RefreshListOfSelectedControls()""
+
+
     Public Sub RecordChildIndexOfAllElementControls() '' (par_dictionary As Dictionary(Of EnumCIBFields, Integer))
         ''
         ''Added 3/26/2023 thomas downes
@@ -5562,6 +5585,7 @@ Public Class ClassDesigner
 
         Dim bDeselection As Boolean ''Added 3/30/2023
         Dim bPriorSelection As Boolean ''Added 3/30/2023
+
         ''Added 3/30/2023
         bPriorSelection = (mod_selectedCtls.Contains(found_rscMoveable))
         bDeselection = (bPriorSelection And (Not pbForceSelect))
@@ -5582,8 +5606,14 @@ Public Class ClassDesigner
             ''Added 3/30/2023
             found_rscMoveable.ElementBase.SelectedHighlighting = True
             found_rscMoveable.ElementBase.SelectedToProcessSubset = True
+            ''Added 3/31/2023 thomas downes
+            PositionElementArrow(par_controlElement)
 
         End If ''end of ""If (bDeselection) Then ... Else ..."
+
+ExitHandler:
+        ''Added 3/31/2023 thomas downes
+        found_rscMoveable.Refresh_Master()
 
     End Sub ''End of ""Friend Sub SelectControlCtrlKey""
 
@@ -5596,7 +5626,8 @@ Public Class ClassDesigner
 
         If (s_priorControl Is Nothing) Then
 
-            SelectControlCtrlKey(par_controlElement)
+            ''3/31/2023 SelectControlCtrlKey(par_controlElement)
+            SelectControlCtrlKey(par_controlElement, True)
             s_priorControl = par_controlElement
 
         Else
@@ -5624,7 +5655,8 @@ Public Class ClassDesigner
 
             For Each each_control In list_controlsBetween
                 ''Toggle their selected status. 
-                SelectControlCtrlKey(par_controlElement)
+                ''3/31/2023 SelectControlCtrlKey(each_control)
+                SelectControlCtrlKey(each_control, True)
             Next each_control
 
             ''Clear the 2nd Shift control, so we can start the process over again. 
@@ -5635,7 +5667,10 @@ Public Class ClassDesigner
 ExitHandler:
         ''Moved upward.  s_priorControl = par_controlElement
 
-    End Sub ''End of ""Friend Sub SelectControlCtrlKey""
+        ''Added 3/31/2023 thomas downes
+        PositionElementArrow(par_controlElement)
+
+    End Sub ''End of ""Friend Sub SelectControlShiftKey""
 
 
     Private Sub CheckboxShowGoldArrow_CheckedChanged(sender As Object, e As EventArgs) Handles CheckboxShowGoldArrow.CheckedChanged

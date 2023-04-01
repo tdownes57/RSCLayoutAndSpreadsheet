@@ -115,6 +115,10 @@ Public Class ClassElementBase
 
 
     ''Added 8/2/2019 td
+    ''' <summary>
+    ''' Selected for processing a subset of elements. Selection is indicated graphically.
+    ''' </summary>
+    ''' <returns></returns>
     Public Property SelectedHighlighting As Boolean Implements IElement_Base.SelectedHighlighting ''Added 8/2/2019 td 
 
     ''Alias Prorerty. ---Added 3/16/2023 td 

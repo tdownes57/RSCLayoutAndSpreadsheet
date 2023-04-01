@@ -7,6 +7,7 @@ Option Strict On
 ''
 Imports __RSCWindowsControlLibrary
 Imports ciBadgeCachePersonality ''Added 10/11/2019 thomas d.  
+Imports ciBadgeCustomer
 Imports ciBadgeDesigner ''Added 10/3/2019 td
 Imports ciBadgeElements ''Added 9/18/2019 td
 ''10/3/2019 td''Imports ciLayoutPrintLib ''Added 8/28/2019 thomas d. 
@@ -4130,9 +4131,14 @@ ExitHandler:
                 End If ''End of ""If (bNeedToAddLastControl) Then""
             End If ''End of ""If (objLastControlRSC IsNot Nothing) Then""
 
-            ''#1 3/2023 mod_designer.Edit_Element_with_Multiple_Dialogs_TE9400(objRSC)
-            ''#2 3/2023  mod_designer.Edit_Elements_with_Multiple_Dialogs_TE4400(listSelected)
-            mod_designer.Edit_Elements_with_Multiple_Dialogs_TE4400(objLastControlRSC, listSelected)
+            If (objLastControlRSC Is Nothing) Then
+                ''Added 3/31/2023 
+                MessageBoxTD.Show_Statement("Please click a design element.")
+            Else
+                ''#1 3/2023 mod_designer.Edit_Element_with_Multiple_Dialogs_TE9400(objRSC)
+                ''#2 3/2023  mod_designer.Edit_Elements_with_Multiple_Dialogs_TE4400(listSelected)
+                mod_designer.Edit_Elements_with_Multiple_Dialogs_TE4400(objLastControlRSC, listSelected)
+            End If ''End of ""If (objLastControlRSC Is Nothing) Then ... Else...""
 
         End If ''ENd of ""If (mod_designer.LastControlTouchedRSC Is Nothing) Then""
 

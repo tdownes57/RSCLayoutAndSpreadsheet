@@ -215,7 +215,16 @@ Public Class Dialog_Base
             ''New as of 3/2023, enable multiple elements to be edited at once. 
             ''
             If (par_listOfElementControls IsNot Nothing) Then
+
                 mod_listOfElementControls = par_listOfElementControls
+
+                ''Added 3/31/2023 thomas downes
+                For Each each_RSC As RSCMoveableControlVB In mod_listOfElementControls
+                    PositionElement(each_RSC, each_RSC.ElementBase)
+                Next each_RSC
+
+                ''Allow the element controls be be visible. 
+                panelDisplayElement.SendToBack()
 
             End If ''End of ""If (par_listOfElementControls IsNot Nothing) Then""
 
