@@ -209,6 +209,13 @@ ExitHandler:
             ''7/03/2022 td''.RecipientsCache = Me.RecipientsCache ''Added 3/29/2022 thomas downes
             ''7/04/2022 td''.PersonalityCache_Recipients = Me.RecipientsCache ''Added 3/29/2022 thomas downes
             .PersonalityCache_Recipients = Me.PersonalityRecipientsCache ''Added 3/29/2022 thomas downes
+
+            ''Added 3/31/2023 td
+            .NumberOfRowsNeededToStart = Me.PersonalityRecipientsCache.ListOfRecipients.Count
+            If (.NumberOfRowsNeededToStart = 0) Then
+                .NumberOfRowsNeededToStart = Me.PersonalityRecipientsCache.GetRowCount()
+            End If ''end of ""If (.NumberOfRowsNeededToStart = 0) Then""
+
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
             .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
             .Load_Form()

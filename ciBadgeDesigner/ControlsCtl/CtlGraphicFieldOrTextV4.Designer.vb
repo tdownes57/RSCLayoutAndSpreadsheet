@@ -2,7 +2,8 @@
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicFieldOrTextV4
-    Inherits RSCMoveableControlVB ''Added 1/30/2022 td
+    ''4/2/2023 Inherits RSCMoveableControlVB ''Added 1/30/2022 td
+    Inherits CtlGraphic__Factory ''Added 1/30/2022 td
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

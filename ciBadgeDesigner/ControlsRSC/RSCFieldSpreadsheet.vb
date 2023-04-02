@@ -19,7 +19,7 @@ Public Class RSCFieldSpreadsheet
     ''Public RscFieldColumn1 As RSCFieldColumn ''Added 3/25/2022 td
     ''Renamed 7/03/2022 td''Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
     Public PersonalityCache_Recipients As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''Added 3/28/2022 thomas downes
-
+    Public NumberOfRowsNeededToStart As Integer ''Added 4/1/2023 
 
     Public Shared Function GetListOfRecipients(par_cache As CacheRSCFieldColumnWidthsEtc) As List(Of ciBadgeRecipients.ClassRecipient)
         ''
@@ -1352,7 +1352,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Step 2b of 5.  Generate columns (type: RSCFieldColumn).
         ''
-        Const c_bUseEncapsulation As Boolean = True ''Added 3/20/2022 td
+        Const c_bUseEncapsulation As Boolean = False ''3/31/2023 True ''Added 3/20/2022 td
 
         For intNeededIndex = 1 To intNeededMax
 
@@ -1481,6 +1481,8 @@ Public Class RSCFieldSpreadsheet
             ''
             ''Ensure the needed # of RSCDataCells are present.----4/15/2022
             ''
+            ''Dim intRowCount As Integer = mod_array_RSCColumns(0)
+            Dim intRowCount As Integer = NumberOfRowsNeededToStart
             each_Column.Load_EmptyRows(RscFieldColumn1.CountOfRows())
 
             ''

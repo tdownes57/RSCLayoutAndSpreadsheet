@@ -33,6 +33,124 @@ Public Class CtlGraphicStaticGraphic
 
 
     Public Shared Function GetStaticGraphic(par_parametersGetElementControl As ClassGetElementControlParams,
+                    par_elementStaticGraphic As ClassElementGraphic,
+                    par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
+                    par_iSizeIfNeeded As Size,
+                    par_bProportionSizing As Boolean,
+                    Optional pbUseMonemProportionalityClass As Boolean = False) As CtlGraphicStaticGraphic
+        ''
+        ''Added 4/02/2023 td
+        ''
+        '''4/2/2023 Const c_enumElemType As EnumElementType = EnumElementType.StaticGraphic
+        Const bAddFunctionalitySooner As Boolean = False
+        Const bAddFunctionalityLater As Boolean = True
+
+        Dim typeOps As Type
+        Dim objOperations As Object ''Added 12/29/2021 td 
+        Dim objOperationsSG As Operations_StaticGraphic ''Added 12/31/2021 td 
+        Dim CtlStaticGraphic1 As CtlGraphicStaticGraphic
+
+        ''Modified 1/2/2022 td
+        objOperationsSG = New Operations_StaticGraphic() ''Added 1/1/2022 td
+
+        typeOps = objOperationsSG.GetType()
+        objOperations = objOperationsSG
+
+        If (objOperations Is Nothing) Then
+            ''Added 12/29/2021
+            Throw New Exception("Ops is Nothing, so I guess Element Type is Undetermined.")
+        End If ''end of "If (objOperations Is Nothing) Then"
+
+        ''Added 12/2/2022 td
+        Dim enumElementType_Enum As EnumElementType = EnumElementType.StaticGraphic
+
+        With par_parametersGetElementControl
+
+            CtlStaticGraphic1 = New CtlGraphicStaticGraphic(par_elementStaticGraphic,
+                                par_parametersGetElementControl,
+                                .DesignerForm,
+                                .iLayoutFunctions,
+                                par_parametersGetElementControl.iRefreshPreview,
+                                par_iSizeIfNeeded,
+                                par_bProportionSizing,
+                                typeOps, objOperations,
+                                bAddFunctionalitySooner,
+                                bAddFunctionalitySooner,
+                                .iControlLastTouched,
+                                par_oMoveEventsForGroupedCtls,
+                                pbUseMonemProportionalityClass)
+
+        End With ''End of ""With par_parametersGetElementControl""
+
+        With CtlStaticGraphic1
+            ''4/2/2023 .Name = par_nameOfControl
+            .Name = par_parametersGetElementControl.NameOfControl
+            ''1/10/2022 td''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
+            ''1/11/2022 td''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun, True, True)
+            ''1/11/2022 td''If (bAddFunctionalityLater) Then .AddClickability()
+            If (bAddFunctionalityLater) Then
+                Dim oMoveEventsForSingleCtl_Dummy As GroupMoveEvents_Singleton ''Added 1/11/2022 thomas d.
+                oMoveEventsForSingleCtl_Dummy = Nothing ''Added 1/11/2022 thomas d.
+
+                ''Jan11 2022''.AddMoveability(par_oMoveEventsForGroupedCtls,
+                ''                oMoveEventsForSingleCtl_Dummy,
+                ''                par_iLayoutFun, True, True)
+                ''4/2023 .AddMoveability(par_iLayoutFun,
+                .AddMoveability(par_parametersGetElementControl.iLayoutFunctions,
+                                par_oMoveEventsForGroupedCtls,
+                                oMoveEventsForSingleCtl_Dummy,
+                                True, True)
+                ''
+                ''Add context menus (right-click for context menus).
+                ''
+                .AddClickability()
+
+            End If ''End of "If (bAddFunctionalityLater) Then"
+
+            ''Added 2/5/2022 td
+            .RightclickMouseInfo = objOperationsSG ''Added 2/5/2022 td
+
+        End With ''eNd of "With CtlStaticGraphic1"
+
+        ''
+        ''Specify the current element to the Operations object. 
+        ''
+        Dim infoOps = CType(objOperations, ICurrentElement) ''.CtlCurrentElement = MoveableControlVB1
+        infoOps.CtlCurrentElement = CtlStaticGraphic1
+
+        ''Added 1/17/2022 td 
+        infoOps.ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+
+        ''Added 1/24/2022 thomas d. 
+        With objOperationsSG
+
+            ''4/2023 .CtlCurrentForm = par_formParent ''Added 5/6/2022 td 
+            .CtlCurrentForm = par_parametersGetElementControl.DesignerForm ''Added 5/6/2022 td 
+
+            .CtlCurrentControl = CtlStaticGraphic1
+            .CtlCurrentElement = CtlStaticGraphic1
+            ''.Designer = par_oMoveEventsForGroupedCtls.
+            .Designer = par_parametersGetElementControl.DesignerClass
+            .ElementInfo_Base = par_elementStaticGraphic
+            .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
+            .Element_Type = Enum_ElementType.StaticGraphic
+            .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
+            .EventsForMoveability_Single = Nothing
+            ''Added 1/24/2022 thomas downes
+            .LayoutFunctions = .Designer
+            .Monem_iMoveOrResizeFun = CtlStaticGraphic1.mod_iMoveOrResizeFunctionality ''Added 2/02/2022 td
+            .InfoRefresh = par_parametersGetElementControl.iRefreshPreview ''Added 5/10/2022
+            ''Added 8/01/2022 td
+            .Designer = par_parametersGetElementControl.DesignerClass
+
+        End With ''End of "With objOperationsSG"
+
+        Return CtlStaticGraphic1
+
+    End Function ''end of "Public Shared Function GetStaticGraphic() As CtlGraphicStaticGraphic"
+
+
+    Public Shared Function GetStaticGraphic_Obselete(par_parametersGetElementControl As ClassGetElementControlParams,
                                            par_elementStaticGraphic As ClassElementGraphic,
                                             par_formParent As Form,
                                       par_nameOfControl As String,

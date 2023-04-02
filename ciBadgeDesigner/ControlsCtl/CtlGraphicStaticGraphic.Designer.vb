@@ -1,9 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicStaticGraphic
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Inherits CtlGraphic__Factory ''Added 4/2/2023
+    ''4/2023 Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +21,7 @@ Partial Class CtlGraphicStaticGraphic
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.pictureStaticGraphic = New System.Windows.Forms.PictureBox()
         CType(Me.pictureStaticGraphic, System.ComponentModel.ISupportInitialize).BeginInit()

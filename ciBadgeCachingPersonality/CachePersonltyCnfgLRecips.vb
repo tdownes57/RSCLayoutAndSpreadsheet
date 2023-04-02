@@ -335,6 +335,16 @@ Namespace ciBadgeCachePersonality
         End Function ''ENd of "Public Function MissingTheLayouts() As Boolean"
 
 
+        Public Function GetRowCount() As Integer
+            ''
+            ''Added 4/1/2023 Thomas Downes
+            ''
+            If (ListOfRecipients Is Nothing) Then Return 0 
+            Return ListOfRecipients.Count
+
+        End Function ''End of ""Public Function GetRowCount() As Integer""
+
+
         Public Shared Function GetLoadedCache(pstrPathToXML As String,
                                           pboolNewFileXML As Boolean) As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig
             ''

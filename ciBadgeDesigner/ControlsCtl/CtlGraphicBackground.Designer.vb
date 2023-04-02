@@ -1,6 +1,7 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicBackground
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Inherits CtlGraphic__Factory ''Added 4/1/2023 thomas downes
+    ''4/1/2023 Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
     ''Jan14 2022 td''Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.

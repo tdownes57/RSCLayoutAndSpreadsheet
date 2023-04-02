@@ -147,6 +147,18 @@
     <Compile Include="ControlsCtl\CtlConfigFldSimpleStandard.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsCtl\CtlGraphic.Designer.vb">
+      <DependentUpon>CtlGraphic.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphic.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphic__Factory.Designer.vb">
+      <DependentUpon>CtlGraphic__Factory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphic__Factory.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsCtl\CtlGraphicBackground.Designer.vb">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
     </Compile>
