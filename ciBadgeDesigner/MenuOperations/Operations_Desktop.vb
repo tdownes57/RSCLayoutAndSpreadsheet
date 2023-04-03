@@ -364,13 +364,16 @@ Public Class Operations_Desktop
             ''
             ''Next, create the control which will display the Element-StaticText.   
             ''
+            ''4/2/2023 objElementControl = CtlGraphicStaticGraphic.GetStaticGraphic(obj_parametersGetElementControl,
+            ''4/2/2023           objElementStaticGraphic,
+            ''                   MyBase.ParentForm,
+            ''                        "CtlGraphicStaticGraphic",
+            ''                        DesignerClass, sizeGraphic, True,
+            ''                        .iControlLastTouched,
+            ''                        .oMoveEventsGroupedControls)
             objElementControl = CtlGraphicStaticGraphic.GetStaticGraphic(obj_parametersGetElementControl,
-                                    objElementStaticGraphic,
-                                    MyBase.ParentForm,
-                                    "CtlGraphicStaticGraphic",
-                                    DesignerClass, sizeGraphic, True,
-                                    .iControlLastTouched,
-                                    .oMoveEventsGroupedControls)
+                                    objElementStaticGraphic, .oMoveEventsGroupedControls, sizeGraphic,
+                                    True)
 
             ''
             ''Next, refresh/initiate the control (e.g. size & location & image).  

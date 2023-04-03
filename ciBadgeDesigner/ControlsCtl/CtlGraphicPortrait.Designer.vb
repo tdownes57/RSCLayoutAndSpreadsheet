@@ -1,7 +1,8 @@
 ﻿Imports System.Windows.Forms
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class CtlGraphicPortrait
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Inherits CtlGraphic__Factory
+    ''4/2/2023 Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _

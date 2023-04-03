@@ -317,7 +317,7 @@ Public Class CtlGraphicStaticGraphic
                    par_iLayoutFun As ILayoutFunctions,
                    par_iRefreshPreview As IRefreshCardPreview,
                    par_iSizeIfNeeded As Size,
-                  pboolResizeProportionally As Boolean,
+                   pboolResizeProportionally As Boolean,
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,

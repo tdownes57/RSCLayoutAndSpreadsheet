@@ -56,12 +56,20 @@ Public Class CtlGraphic__Factory
                 Dim objElementPic As ClassElementPortrait
                 objElementPic = CType(par_element, ClassElementPortrait)
 
+                ''Return CtlGraphicPortrait.GetPortrait(par_parametersGetElementControl,
+                ''    objElementPic,
+                ''    par_parametersGetElementControl.DesignerForm,
+                ''    par_parametersGetElementControl.NameOfControl,
+                ''    par_parametersGetElementControl.iLayoutFunctions,
+                ''    pbUseMonemProportionalityClass)
                 Return CtlGraphicPortrait.GetPortrait(par_parametersGetElementControl,
                     objElementPic,
                     par_parametersGetElementControl.DesignerForm,
                     par_parametersGetElementControl.NameOfControl,
-                    par_parametersGetElementControl.iLayoutFunctions,
-                    pbUseMonemProportionalityClass)
+                    par_parametersGetElementControl.iLayoutFunctions, True,
+                    par_parametersGetElementControl.iControlLastTouched,
+                    par_parametersGetElementControl.iRecordElemLastTouched,
+                    par_parametersGetElementControl.oMoveEventsGroupedControls)
 
 
         End Select
@@ -109,6 +117,48 @@ Public Class CtlGraphic__Factory
         Return Nothing
 
     End Function ''End of ""Public Shared Function GetControl""
+
+
+    Public Sub New()
+
+        MyBase.New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+    End Sub
+
+    Public Sub New(par_enumElementType As EnumElementType,
+                   par_elementBase As ClassElementBase,
+                   par_cache As ciBadgeCachePersonality.ClassElementsCache_Deprecated,
+                   par_formParent As Form,
+                   pboolResizeProportionally As Boolean,
+                   par_iLayoutFun As ILayoutFunctions,
+                   par_iRefreshCardPreview As IRefreshCardPreview,
+                   par_iSizeIfNeeded As Size,
+                   par_operationsType As Type,
+                   par_operationsAny As Object,
+                   pboolAddMoveability As Boolean,
+                   pboolAddClickability As Boolean,
+                   par_iLastTouched As ILastControlTouched,
+                   par_oMoveabilityEventsForGroup As GroupMoveEvents_Singleton,
+                   par_proportionWH_IfNeeded As Single,
+                   Optional pbHandleMouseEventsThroughVB6 As Boolean = True,
+                   Optional pbUseMonemProportionalityClass As Boolean = False) ''----As IOperations)
+        ''
+        ''Added 4/02/2023 
+        ''
+        MyBase.New(par_enumElementType, par_elementBase, par_cache, par_formParent,
+              pboolResizeProportionally, par_iLayoutFun, par_iRefreshCardPreview,
+              par_iSizeIfNeeded, par_operationsType, par_operationsAny,
+              pboolAddMoveability, pboolAddClickability,
+              par_iLastTouched, par_oMoveabilityEventsForGroup,
+              par_proportionWH_IfNeeded, pbHandleMouseEventsThroughVB6,
+              pbUseMonemProportionalityClass)
+
+
+    End Sub ''End of ""Public Sub New""
+
 
 
 

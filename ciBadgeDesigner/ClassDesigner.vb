@@ -2612,11 +2612,14 @@ Public Class ClassDesigner
             ''
             ''Create the graphic control. 
             ''
+            ''4/2/2023 each_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(oGetControlParameters,
+            ''4/2/2023           each_element_static, Me.DesignerForm,
+            ''        String.Format("CtlGraphicStaticText{0}", indexControl),
+            ''        CType(Me, ILayoutFunctions), sizeGraphic,
+            ''        c_bProportionalTrue, mod_ctlLasttouched, mod_oGroupMoveEvents, False)
             each_ctlStaticGraphic = CtlGraphicStaticGraphic.GetStaticGraphic(oGetControlParameters,
-                                            each_element_static, Me.DesignerForm,
-                    String.Format("CtlGraphicStaticText{0}", indexControl),
-                    CType(Me, ILayoutFunctions), sizeGraphic,
-                    c_bProportionalTrue, mod_ctlLasttouched, mod_oGroupMoveEvents, False)
+                                            each_element_static, mod_oGroupMoveEvents,
+                                            sizeGraphic, c_bProportionalTrue)
 
             each_ctlStaticGraphic.ParentForm = Me.DesignerForm ''Added 1/16/2022 thomas d.
             ''----ListCtlGraphic_StaticTexts.Add(each_ctlStaticGraphic)
