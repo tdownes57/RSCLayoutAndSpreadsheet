@@ -108,6 +108,7 @@ Public Class CtlGraphicQRCode
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
                                                     par_oMoveEventsGroupedCtls,
                                                     pbHandleMouseEventsThroughFormVB6)
@@ -191,6 +192,7 @@ Public Class CtlGraphicQRCode
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveEvents As GroupMoveEvents_Singleton,
@@ -210,7 +212,7 @@ Public Class CtlGraphicQRCode
                         par_iRefreshPreview,
                         par_iSizeIfNeeded,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, pboolAddSizeability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
                         CSng(172 / 170),
                         pbHandleMouseEventsThroughFormVB6)

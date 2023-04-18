@@ -336,7 +336,7 @@ Public Class CtlGraphicStaticGraphic
                    par_formDesigner, pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeIfNeeded,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, False, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents, 0, True,
                         pbUseMonemProportionalityClass)
 

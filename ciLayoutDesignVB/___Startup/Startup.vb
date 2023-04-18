@@ -418,6 +418,8 @@ Public Class Startup
             Try
                 obj_formToShow_Demo.ShowDialog() ''Added 10/11/2019 td 
             Catch ex_show As Exception
+                MessageBoxTD.Show_StatementLongform("Error in main form",
+                                                    ex_show.ToString(), 1.0, 1.0)
                 System.Diagnostics.Debugger.Break() ''Added 6/13/2022 thomas 
             End Try
 

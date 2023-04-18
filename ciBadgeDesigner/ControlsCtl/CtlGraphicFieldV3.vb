@@ -88,6 +88,7 @@ Public Class CtlGraphicFieldV3
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
                                                    par_iRecordLastTouched,
                                                    par_iControlLastTouched,
                                                     par_oMoveEventsForGroupedCtls)
@@ -265,6 +266,7 @@ Public Class CtlGraphicFieldV3
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iRecordLastTouched As IRecordElementLastTouched,
                    par_iLastTouched As ILastControlTouched,
@@ -280,7 +282,7 @@ Public Class CtlGraphicFieldV3
                         par_oParentForm, False,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, pboolAddSizeability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
                         par_singleDummy) ''---mod_singleDummy)
 

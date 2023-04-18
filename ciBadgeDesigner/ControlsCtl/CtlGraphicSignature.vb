@@ -201,7 +201,7 @@ Public Class CtlGraphicSignature
                         pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, False, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
                         559 / 185)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,

@@ -139,6 +139,7 @@ Public Class CtlGraphic__Factory
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveabilityEventsForGroup As GroupMoveEvents_Singleton,
@@ -151,7 +152,7 @@ Public Class CtlGraphic__Factory
         MyBase.New(par_enumElementType, par_elementBase, par_cache, par_formParent,
               pboolResizeProportionally, par_iLayoutFun, par_iRefreshCardPreview,
               par_iSizeIfNeeded, par_operationsType, par_operationsAny,
-              pboolAddMoveability, pboolAddClickability,
+              pboolAddMoveability, pboolAddSizeability, pboolAddClickability,
               par_iLastTouched, par_oMoveabilityEventsForGroup,
               par_proportionWH_IfNeeded, pbHandleMouseEventsThroughVB6,
               pbUseMonemProportionalityClass)

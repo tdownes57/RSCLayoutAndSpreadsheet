@@ -143,6 +143,7 @@ Public Class CtlGraphicStaticTextV3
                                 typeOps, objOperations,
                                 bAddFunctionalitySooner,
                                 bAddFunctionalitySooner,
+                                bAddFunctionalitySooner,
                                 par_iControlLastTouched,
                                 par_oMoveEventsGroupedControls)
 
@@ -234,6 +235,7 @@ Public Class CtlGraphicStaticTextV3
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveEvents As GroupMoveEvents_Singleton,
@@ -248,7 +250,7 @@ Public Class CtlGraphicStaticTextV3
                         mod_c_bResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, pboolAddSizeability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents, 0,
                         pbHandleMouseEventsThroughFormVB6)
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,

@@ -301,7 +301,7 @@ Public Class RSCRowHeaders
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, False, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
                         CSng(100 / 150))
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,

@@ -180,6 +180,7 @@ Public Class RSCFieldColumnV1
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
                                                     par_oMoveEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
@@ -252,6 +253,7 @@ Public Class RSCFieldColumnV1
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveEvents As GroupMoveEvents_Singleton)
@@ -267,7 +269,7 @@ Public Class RSCFieldColumnV1
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, pboolAddSizeability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
                         CSng(100 / 150))
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
@@ -1102,6 +1104,15 @@ Public Class RSCFieldColumnV1
     End Sub ''End of ""Public Sub Load_EmptyRows()""
 
 
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False)
+        ''
+        ''Added 4/10/2022 thomas 
+        ''
+        ''   This is a placeholder!!   Needs to be here, but doesn't do anything.  x
+        ''
+    End Sub ''End of ""Public Overrides Sub RefreshElementImage()""
+
+
     Private Sub Load_EmptyRows_CreateRows(par_intRowsRequired As Integer)
         ''
         ''Added 3/29/2022 thomas downes
@@ -1148,7 +1159,7 @@ Public Class RSCFieldColumnV1
 
         Next intRowIndex
 
-    End Sub ''End of ""Public Sub Load_EmptyRows_CreateRows()""
+    End Sub ''End of ""Private Sub Load_EmptyRows_CreateRows()""
 
 
 
@@ -1179,7 +1190,8 @@ Public Class RSCFieldColumnV1
 
 
 
-    End Sub ''End of ""Public Sub Load_EmptyRows_DeleteRows()""
+    End Sub ''End of ""Private Sub Load_EmptyRows_DeleteRows()""
+
 
 
 

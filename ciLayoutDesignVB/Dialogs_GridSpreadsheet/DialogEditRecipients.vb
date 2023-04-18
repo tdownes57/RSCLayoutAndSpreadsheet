@@ -12,6 +12,8 @@ Public Class DialogEditRecipients
     ''
     Public ElementsCache_Deprecated As ClassElementsCache_Deprecated
 
+    ''Moved to RSCFieldSpreadsheet. 4/2023 Public StillHavingColumnTrouble As Boolean = True ''Added 4/11/2023 td
+
     ''Renamed 7/3/2022 td''Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
     Public PersonalityRecipientsCache As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
 
@@ -217,8 +219,19 @@ ExitHandler:
             End If ''end of ""If (.NumberOfRowsNeededToStart = 0) Then""
 
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
-            .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
-            .Load_Form()
+
+            ''4/11/2023 If (Me.StillHavingColumnTrouble) Then ''Added 4/11/2023
+            If (RSCFieldSpreadsheet.StillHavingColumnTrouble) Then ''Added 4/11/2023
+                ''
+                ''Don't call these loading procedures, they might be doing
+                '' wacky things. 4/11/2023 
+                ''
+            Else
+                .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
+                .Load_Form()
+
+            End If ''End of ""If (RSCFieldSpreadsheet.StillHavingColumnTrouble) Then... Else...
+
             ''.Invalidate()
             ''.Refresh()
             .RemoveMoveability() ''Added 3/20/2022 td

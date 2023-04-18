@@ -14,6 +14,7 @@ Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 Imports ciBadgeFields ''Added 3/8/2022 thomas downes
 Imports ciBadgeCachePersonality ''Added 3/14/2022 
 Imports ciBadgeRecipients ''Added 3/22/2022 td
+Imports ciBadgeElements
 
 Public Class RSCFieldColumnV2
     ''
@@ -203,6 +204,7 @@ Public Class RSCFieldColumnV2
                                                    typeOps, objOperations,
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
+                                                   bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
                                                     par_oMoveEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
@@ -279,6 +281,7 @@ Public Class RSCFieldColumnV2
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveEvents As GroupMoveEvents_Singleton)
@@ -295,7 +298,7 @@ Public Class RSCFieldColumnV2
                    pboolResizeProportionally,
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
-                        pboolAddMoveability, pboolAddClickability,
+                        pboolAddMoveability, pboolAddSizeability, pboolAddClickability,
                         par_iLastTouched, par_oMoveEvents,
                         CSng(100 / 150))
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
@@ -1353,8 +1356,8 @@ Public Class RSCFieldColumnV2
                 End If ''End of ""If (boolMismatch_ColumnData) Then""
             End If ''End of ""If (pboolCheck_ColumnWidthAndData) Then""
 
-                ''5/1/2022 td''each_box.Text = each_value
-                each_box.Text = each_value.Trim()
+            ''5/1/2022 td''each_box.Text = each_value
+            each_box.Text = each_value.Trim()
 
             ''Added 4/12/2022 thomas d.
             each_box.Recipient = Me.ListRecipients(intRowIndex)
@@ -1905,6 +1908,15 @@ Public Class RSCFieldColumnV2
         RscSelectCIBField1.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
     End Sub ''End of "Public Sub RefreshFieldDropdown()"
+
+
+    Public Overrides Sub RefreshElementImage(Optional pbAfterResizingHeight As Boolean = False)
+        ''
+        ''Added 4/10/2022 thomas 
+        ''
+        ''   This is a placeholder!!   Needs to be here, but doesn't do anything.  x
+        ''
+    End Sub ''End of ""Public Overrides Sub RefreshElementImage()""
 
 
     Public Sub Load_OneEmptyRow_IfNeeded(par_intRowIndex As Integer,
@@ -2546,6 +2558,9 @@ Public Class RSCFieldColumnV2
 
     Private Sub RSCFieldColumn_MouseUp(par_sender As Object, par_e As MouseEventArgs) Handles MyBase.MouseUp
 
+        ''Added 4/7/2023
+        If (Me.ParentSpreadsheet Is Nothing) Then System.Diagnostics.Debugger.Break()
+
         ''Added 5/13/2022 td 
         Me.ParentSpreadsheet.ClearHighlightingOfSelectedColumns()
         Me.FocusRelated_UserHasSelectedColumn = True
@@ -2559,7 +2574,10 @@ Public Class RSCFieldColumnV2
                 Dim objParentControl As Control = Me ''Added 1/11/2022
                 MyBase.MoveableControl_MouseUp(objParentControl, par_e)
             End If
-        End If
+        End If ''End of ""If mod_bHandleMouseMoveEvents_ByVB6 Then""
+
+        ''Added 4/07/2023 
+        MessageBoxTD.Show_Statement("My name is ...." & Me.Name)
 
     End Sub
 
@@ -2673,6 +2691,13 @@ Public Class RSCFieldColumnV2
 
         ''Added 6/22/2022 thomas d.
         RscSelectCIBField1.BackColor = Me.BackColor
+
+    End Sub
+
+    Private Sub RSCFieldColumnV2_Click(sender As Object, e As EventArgs) Handles Me.Click
+
+        ''Added 4/07/2023 
+        MessageBoxTD.Show_Statement("RSCFieldColumn... My name is ...." & Me.Name)
 
     End Sub
 

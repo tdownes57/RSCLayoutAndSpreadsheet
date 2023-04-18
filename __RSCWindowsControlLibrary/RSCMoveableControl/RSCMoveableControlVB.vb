@@ -295,7 +295,8 @@ Public Class RSCMoveableControlVB
     Private mod_moveability_Monem As MonemControlMove_AllFunctionality = Nothing
 
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
-    Protected mod_iMoveOrResizeFunctionality As IMonemMoveOrResizeFunctionality ''Added 12/28/2021 td
+    ''4/11/2023   Protected mod_iMoveOrResizeFunctionality As IMonemMoveOrResizeFunctionality ''Added 12/28/2021 td
+    Public mod_iMoveOrResizeFunctionality As IMonemMoveOrResizeFunctionality ''Added 12/28/2021 td
 
     ''1/3/2022 td''Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
     ''Jan4 2022''Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
@@ -388,6 +389,7 @@ Public Class RSCMoveableControlVB
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveabilityEventsForGroup As GroupMoveEvents_Singleton,
@@ -438,6 +440,7 @@ Public Class RSCMoveableControlVB
                             par_operationsType,
                             par_operationsAny,
                             pboolAddMoveability,
+                            pboolAddSizeability,
                             pboolAddClickability,
                             par_iLastTouched,
                             par_oMoveabilityEventsForGroup,
@@ -486,6 +489,7 @@ Public Class RSCMoveableControlVB
                    par_operationsType As Type,
                    par_operationsAny As Object,
                    pboolAddMoveability As Boolean,
+                   pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
                    par_oMoveEventsGroupOfCtls As GroupMoveEvents_Singleton,
@@ -518,7 +522,12 @@ Public Class RSCMoveableControlVB
                            pbHandleMouseEventsThroughVB6,
                            pbUseMonemProportionalityClass)
 
-        End If ''EDNOF "If (pboolAddMoveability) Then"
+        ElseIf (pboolAddSizeability) Then
+
+            ''Added 4/11/2023 thomas downes
+            AddSizeability()
+
+        End If ''End of "If (pboolAddMoveability) Then ... ElseIf (pboolAddSizeability)..."
 
         ''Encapsulated 12/22/2021 thomas downes
         ''Dec28 2021 td''Me.MyToolstripItemCollection = par_toolstrip ''Added 12/28/2021 td
