@@ -17,13 +17,16 @@ Public Class RSCSpreadManager
 
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
                    par_columnDesignV2 As RSCFieldColumnV2,
-                   par_cacheElemements As ClassElementsCache_Deprecated)
+                   par_cacheElemements As ClassElementsCache_Deprecated,
+                   par_cacheColumnWidthsEtc As CacheRSCFieldColumnWidthsEtc)
         ''
         ''Added 4/18/2023  
         ''
         mod_controlSpread = par_controlSpread
         mod_manageCols = New RSCSpreadManagerCols(par_controlSpread, par_columnDesignV2,
-                                                  par_cacheElemements)
+                                                  par_cacheElemements,
+                                                  par_cacheColumnWidthsEtc)
+
         ''4/19/2023 mod_manageRows = New RSCSpreadManagerRows(par_controlSpread)
         mod_manageRows = mod_manageCols.GetSpreadManagerRows()
 
