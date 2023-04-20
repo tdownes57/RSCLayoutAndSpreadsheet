@@ -25,6 +25,7 @@ Public Class RSCFieldSpreadsheet
     Public NumberOfRowsNeededToStart As Integer ''Added 4/1/2023 
 
     Private mod_intRowDisplayCardHeight As Integer = 0 ''= 0 ''Added 5/30/2022 td
+    Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
     Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
@@ -314,12 +315,12 @@ Public Class RSCFieldSpreadsheet
         boolDataIsOkay = ReviewPastedData_IsOkay(Clipboard.GetText(), strWarningMsg,
                                                  intNumLines, intNumColumns)
 
-
         Try
-            columnLeftHandMost = mod_dict_RSCColumns(0)
-            If (columnLeftHandMost Is Nothing) Then
-                columnLeftHandMost = mod_dict_RSCColumns(1)
-            End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
+            ''columnLeftHandMost = mod_dict_RSCColumns(0)
+            ''If (columnLeftHandMost Is Nothing) Then
+            ''    columnLeftHandMost = mod_dict_RSCColumns(1)
+            ''End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
+            columnLeftHandMost = mod_manager.Rows.LeftHandColumn()
 
         Catch exceptionRSC
             boolException = True
@@ -1299,7 +1300,58 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/8/2022 thomas downes 
         ''
+        ''Major call!!
+        ''
         mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer)
+        ''Probably not needed. mod_manager.Rows = mod_manager.GetSpreadManagerRows()
+
+        ''
+        ''Step 1b of 5.  Load run-time row-header control (RSCRowHeaders1). ----3/24/2022 
+        ''
+        ''   Step 1b(1):  Remove design-time control
+        ''   Step 1b(2):  Load run-time control
+        ''
+        ''Step 1b(1):  Remove design-time control
+        RscRowHeaders1.Visible = False ''Hardly matters, but go ahead. 
+        Me.Controls.Remove(RscRowHeaders1)
+
+        ''Step 1b(2):  Load run-time control
+        Dim intCurrentPropertyLeft As Integer = 0
+        Dim intNextPropertyLeft As Integer = 0
+        RscRowHeaders1 = RSCRowHeaders.GetRSCRowHeaders(Me.Designer, Me.ParentForm,
+             "RscRowHeaders1", Me)
+        Me.Controls.Add(RscRowHeaders1)
+        RscRowHeaders1.Visible = True
+        RscRowHeaders1.Top = (intSavePropertyTop_RSCColumnCtl + intSavePropertyTop_FirstRow - 2)
+        RscRowHeaders1.Left = (intCurrentPropertyLeft)
+        ''---RscRowHeaders1.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
+        intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
+        ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
+        RscRowHeaders1.PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
+        RscRowHeaders1.ParentRSCSpreadsheet = Me ''Added 4/29/2022 thomas  
+
+        ''---Dim mod_array_RSCColumns As RSCFieldColumn()
+        Dim intNeededMaxCols As Integer
+        intNeededMaxCols = mod_manager.Cols.Count()
+        If (intNeededMaxCols > 1) Then ''Added 5/30/2022
+            ''added 5/30/2022 & 5/13/2022
+            If mc_boolKeepUILookingClean Then
+                ''Hide the buttons which formerly occupied the blank area
+                '' of the spreadsheet. ---5/13/2022 
+                ButtonAddColumns2.Visible = False
+                ButtonPasteData2.Visible = False
+            End If ''End of ""If c_boolKeepUILookingClean Then""
+        End If ''End of ""If (intNeededMax > 1) Then""
+
+        ''
+        ''Step 8 of 8.  Make sure that the Row Headers match the longest column of data
+        ''       inside the cache collection Me.ColumnDataCache. 
+        ''       ----6/22/2022 thomas d. 
+        ''
+        With Me.ColumnDataCache
+            RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
+            RscRowHeaders1.Load_ColumnListDataToColumnEtc()
+        End With
 
     End Sub  ''End of ""Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)""
 

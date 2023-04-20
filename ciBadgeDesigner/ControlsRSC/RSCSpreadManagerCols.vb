@@ -17,7 +17,6 @@ Public Class RSCSpreadManagerCols
     Private mod_controlSpread As RSCFieldSpreadsheet ''Added 4/18/2023 
     Private mod_columnDesignedV2 As RSCFieldColumnV2 ''Added 4/18/2023
 
-    Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
     ''4/17/2012 Private mod_array_RSCColumns As RSCFieldColumnV2() ''Added 3/14/2022 td
     Private mod_dict_RSCColumns As New Dictionary(Of Integer, RSCFieldColumnV2) ''Modified 4/17/2023 td
 
@@ -49,6 +48,40 @@ Public Class RSCSpreadManagerCols
         mod_cacheElements = par_cacheElements
 
     End Sub ''End of ""Public Sub New""
+
+
+    Public Function GetSpreadManagerRows() As RSCSpreadManagerRows
+        ''
+        ''Added 4/19/2023  
+        ''
+        Dim output As RSCSpreadManagerRows
+        output = New RSCSpreadManagerRows(mod_controlSpread,
+                                          mod_dict_RSCColumns,
+                                          mod_columnDesignedV2)
+        Return output
+
+    End Function ''End of ""Public Function GetSpreadManagerRows()""
+
+
+    Public Function Count() As Integer
+
+        ''Added 4/19/2023 thomas d
+        Return mod_dict_RSCColumns.Count
+
+    End Function
+
+    Public Function LeftHandColumn() As RSCFieldColumnV2
+        ''
+        ''Added 4/19/2023 td
+        ''
+        Dim columnLeftHandMost As RSCFieldColumnV2
+        columnLeftHandMost = mod_dict_RSCColumns(0)
+        If (columnLeftHandMost Is Nothing) Then
+            columnLeftHandMost = mod_dict_RSCColumns(1)
+        End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
+        Return columnLeftHandMost
+
+    End Function ''End of ""Public Function LeftHandColumn()""
 
 
     Public Function ListOfColumns() As List(Of RSCFieldColumnV2)
@@ -98,30 +131,31 @@ Public Class RSCSpreadManagerCols
             MessageBoxTD.Show_Statement("Cache is missing")
         End If ''end of ""If (Me.ElementsCache_Deprecated Is Nothing) Then"'
 
-        ''
-        ''Step 1b of 5.  Load run-time row-header control (RSCRowHeaders1). ----3/24/2022 
-        ''
-        ''   Step 1b(1):  Remove design-time control
-        ''   Step 1b(2):  Load run-time control
-        ''
-        ''Step 1b(1):  Remove design-time control
-        RscRowHeaders1.Visible = False ''Hardly matters, but go ahead. 
-        Me.Controls.Remove(RscRowHeaders1)
-
-        ''Step 1b(2):  Load run-time control
+        ''===See the procedure LoadRuntimeColumns_AfterClearingDesign. ---4/19/2023 td
+        ''===''
+        ''===''Step 1b of 5.  Load run-time row-header control (RSCRowHeaders1). ----3/24/2022 
+        ''===''
+        ''===''   Step 1b(1):  Remove design-time control
+        ''===''   Step 1b(2):  Load run-time control
+        ''===''
+        ''===''Step 1b(1):  Remove design-time control
+        ''===RscRowHeaders1.Visible = False ''Hardly matters, but go ahead. 
+        ''===Me.Controls.Remove(RscRowHeaders1)
+        ''===
+        ''===''Step 1b(2):  Load run-time control
         Dim intCurrentPropertyLeft As Integer = 0
-        Dim intNextPropertyLeft As Integer = 0
-        RscRowHeaders1 = RSCRowHeaders.GetRSCRowHeaders(Me.Designer, Me.ParentForm,
-             "RscRowHeaders1", Me)
-        Me.Controls.Add(RscRowHeaders1)
-        RscRowHeaders1.Visible = True
-        RscRowHeaders1.Top = (intSavePropertyTop_RSCColumnCtl + intSavePropertyTop_FirstRow - 2)
-        RscRowHeaders1.Left = (intCurrentPropertyLeft)
+        Dim intNextPropertyLeft As Integer = mod_columnDesignedV2.Left '' 0
+        ''===RscRowHeaders1 = RSCRowHeaders.GetRSCRowHeaders(Me.Designer, Me.ParentForm,
+        ''===     "RscRowHeaders1", Me)
+        ''===Me.Controls.Add(RscRowHeaders1)
+        ''===RscRowHeaders1.Visible = True
+        ''===RscRowHeaders1.Top = (intSavePropertyTop_RSCColumnCtl + intSavePropertyTop_FirstRow - 2)
+        ''===RscRowHeaders1.Left = (intCurrentPropertyLeft)
         ''---RscRowHeaders1.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
-        intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
-        ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
-        RscRowHeaders1.PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
-        RscRowHeaders1.ParentRSCSpreadsheet = Me ''Added 4/29/2022 thomas  
+        ''===intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
+        ''===''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
+        ''===RscRowHeaders1.PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
+        ''===RscRowHeaders1.ParentRSCSpreadsheet = Me ''Added 4/29/2022 thomas  
 
         ''
         ''Step 2 of 5.  Load run- time columns. 
@@ -143,22 +177,22 @@ Public Class RSCSpreadManagerCols
             intNeededMax = Me.ColumnDataCache.ListOfColumns.Count
         End If ''End of "If (0 = Me.ColumnDataCache.ListOfColumns.Count) Then ... Else ..."
 
-        ''---Dim mod_array_RSCColumns As RSCFieldColumn()
-        If (intNeededMax > 1) Then ''Added 5/30/2022
-            ''added 5/30/2022 & 5/13/2022
-            If mc_boolKeepUILookingClean Then
-                ''Hide the buttons which formerly occupied the blank area
-                '' of the spreadsheet. ---5/13/2022 
-                ButtonAddColumns2.Visible = False
-                ButtonPasteData2.Visible = False
-            End If ''End of ""If c_boolKeepUILookingClean Then""
-        End If ''End of ""If (intNeededMax > 1) Then""
+        ''''---Dim mod_array_RSCColumns As RSCFieldColumn()
+        ''If (intNeededMax > 1) Then ''Added 5/30/2022
+        ''    ''added 5/30/2022 & 5/13/2022
+        ''    ''4/19/2023 If mc_boolKeepUILookingClean Then
+        ''    ''Hide the buttons which formerly occupied the blank area
+        ''    '' of the spreadsheet. ---5/13/2022 
+        ''    ButtonAddColumns2.Visible = False
+        ''    ButtonPasteData2.Visible = False
+        ''    ''4/19/2023 End If ''End of ""If c_boolKeepUILookingClean Then""
+        ''End If ''End of ""If (intNeededMax > 1) Then""
 
 
         ''The number passed to ReDim Preserve is the upper bound of the array, 
         ''  not the length. ---4/15/2022
         ''
-        ReDim mod_dict_RSCColumns(intNeededMax)
+        ''Not required for dictionaries. 4/19/2023 ReDim mod_dict_RSCColumns(intNeededMax)
         Dim each_field As ciBadgeFields.ClassFieldAny
 
         ''
@@ -206,17 +240,22 @@ Public Class RSCSpreadManagerCols
                 ''Prepare for next iteration. 
                 ''----intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
                 intNextPropertyLeft = (each_Column.Left + each_Column.Width + mc_ColumnMarginGap)
-                Me.Controls.Add(each_Column)
+
+                ''4/19/2023  Me.Controls.Add(each_Column)
+                mod_controlSpread.Controls.Add(each_Column)
+
                 ''Added 3/12/2022 thomas downes 
                 mod_dict_RSCColumns(intNeededIndex) = each_Column
 
                 ''Added 3/16/2022 td
                 ''  Redundant, assigned in Step 4 below.
                 ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
-                each_Column.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+                ''4/19/2023 each_Column.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+                each_Column.ElementsCache_Deprecated = mod_cacheElements
                 each_Column.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
                 ''Added 4/11/2022 thomas d.
-                each_Column.ParentSpreadsheet = Me
+                ''4/19/2023 each_Column.ParentSpreadsheet = Me
+                each_Column.ParentSpreadsheet = mod_controlSpread
 
                 ''Test for uniqueness. 
                 Dim bUnexpectedMatch As Boolean
@@ -291,22 +330,30 @@ Public Class RSCSpreadManagerCols
             each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
             each_Column.ColumnWidthAndData = each_columnWidthEtc
             each_Column.Top = intSavePropertyTop_RSCColumnCtl ''Added 3/21/2022
-            each_Column.BackColor = RscRowHeaders1.BackColor ''Added 4/11/2022 td
+
+            ''4/19/2023 each_Column.BackColor = RscRowHeaders1.BackColor ''Added 4/11/2022 td
+            each_Column.BackColor = mod_columnDesignedV2.BackColor ''Added 4/11/2022 td
 
             ''
             ''Ensure the needed # of RSCDataCells are present.----4/15/2022
             ''
             ''Dim intRowCount As Integer = mod_array_RSCColumns(0)
-            each_Column.Load_EmptyRows(RscFieldColumn1.CountOfRows())
-            Dim intRowCount As Integer = NumberOfRowsNeededToStart
-            If (intRowCount = 0) Then intRowCount = Me.DefaultBlankRowCount
-            each_Column.Load_EmptyRows(intRowCount)
+            ''4/19/2023 each_Column.Load_EmptyRows(RscFieldColumn1.CountOfRows())
+
+            ''/// Use the Row manager for this. --4/19/2023 td
+            ''/// each_Column.Load_EmptyRows(mod_columnDesignedV2.CountOfRows())
+            ''/// ''4/19/2023 Dim intRowCount As Integer = NumberOfRowsNeededToStart
+            ''/// Dim intRowCount As Integer = mod_columnDesignedV2.CountOfRows()
+            ''/// If (intRowCount = 0) Then intRowCount = Me.DefaultBlankRowCount
+            ''/// each_Column.Load_EmptyRows(intRowCount)
 
             ''
             ''Major call!
             ''
-            each_Column.ParentSpreadsheet = Me ''Added 4/11/2022 thomas d. 
-            each_Column.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+            ''4/19/2023 each_Column.ParentSpreadsheet = Me ''Added 4/11/2022 thomas d. 
+            ''4/19/2023 each_Column.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+            each_Column.ParentSpreadsheet = mod_controlSpread ''Added 4/19/2023 thomas d. 
+            each_Column.Load_FieldsFromCache(mod_cacheElements)
 
             ''
             ''Load the data which is saved in the Column-Widths-and-Data cache.  
@@ -626,7 +673,7 @@ Public Class RSCSpreadManagerCols
 
     Public Function CountOfColumnsWithoutFields(Optional ByRef pref_intCountAllColumns As Integer = 0) As Integer
         ''
-        '' Added 5/25/2022  
+        '' Added 4/18/2023 & 5/25/2022  
         ''
         Dim intCountColsAll As Integer = 0
         Dim intCountColsWithout As Integer = 0

@@ -340,6 +340,7 @@
     </Compile>
     <Compile Include="ControlsRSC\RSCSpreadManager.vb" />
     <Compile Include="ControlsRSC\RSCSpreadManagerCols.vb" />
+    <Compile Include="ControlsRSC\RSCSpreadManagerRowheaders.vb" />
     <Compile Include="ControlsRSC\RSCSpreadManagerRows.vb" />
     <Compile Include="Dialogs_General\DialogAllRSCSelectCIBFields.Designer.vb">
       <DependentUpon>DialogAllRSCSelectCIBFields.vb</DependentUpon>
