@@ -1144,30 +1144,30 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
 
 
-    Public Sub Load_EmptyRowsToAllNewColumns()
-        ''
-        ''Added 4/15/2022 td
-        ''
-        Dim intEachRowCount As Integer = 1
-        Dim intMaxRowCount As Integer = 1
-        Dim list_columns As List(Of RSCFieldColumnV2)
-        Dim boolMissingRows As Boolean
-
-        list_columns = ListOfColumns()
-
-        For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
-            intEachRowCount = each_column.CountOfRows()
-            If (intEachRowCount > intMaxRowCount) Then intMaxRowCount = intEachRowCount
-        Next each_column
-
-        For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
-            boolMissingRows = (each_column.CountOfRows() < intMaxRowCount)
-            If (boolMissingRows) Then
-                each_column.Load_EmptyRows(intMaxRowCount)
-            End If ''End of ""If (boolMissingRows) Then""
-        Next each_column
-
-    End Sub ''End of ""Public Sub Load_EmptyRowsToAllNewColumns()""
+    ''Public Sub Load_EmptyRowsToAllNewColumns_NotInUse()
+    ''    ''
+    ''    ''Added 4/15/2022 td
+    ''    ''
+    ''    Dim intEachRowCount As Integer = 1
+    ''    Dim intMaxRowCount As Integer = 1
+    ''    Dim list_columns As List(Of RSCFieldColumnV2)
+    ''    Dim boolMissingRows As Boolean
+    ''
+    ''    list_columns = ListOfColumns()
+    ''
+    ''    For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
+    ''        intEachRowCount = each_column.CountOfRows()
+    ''        If (intEachRowCount > intMaxRowCount) Then intMaxRowCount = intEachRowCount
+    ''    Next each_column
+    ''
+    ''    For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
+    ''        boolMissingRows = (each_column.CountOfRows() < intMaxRowCount)
+    ''        If (boolMissingRows) Then
+    ''            each_column.Load_EmptyRows(intMaxRowCount)
+    ''        End If ''End of ""If (boolMissingRows) Then""
+    ''    Next each_column
+    ''
+    ''End Sub ''End of ""Public Sub Load_EmptyRowsToAllNewColumns()""
 
 
     Public Sub ClearBorderStyle_PriorCell(par_objNextCell As RSCDataCell)
@@ -1302,7 +1302,8 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Major call!!
         ''
-        mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer)
+        ''4/26/2023 mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer)
+        mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer, mc_intPixelsFromRowToRow)
         ''Probably not needed. mod_manager.Rows = mod_manager.GetSpreadManagerRows()
 
         ''
@@ -1344,6 +1345,18 @@ Public Class RSCFieldSpreadsheet
         End If ''End of ""If (intNeededMax > 1) Then""
 
         ''
+        ''Step 6 of 6.  Resize the form itself. 
+        ''
+        ''4/2023 If (Me.ColumnDataCache.FormSize.Width > mc_ColumnWidthDefault) Then
+        If (Me.ColumnDataCache.FormSize.Width > RscFieldColumn1.Width) Then
+            ''
+            ''Resize the form based on the save form size.
+            ''
+            Me.ParentForm_DesignerDialog.Size = Me.ColumnDataCache.FormSize
+
+        End If ''end of ""If Me.ColumnDataCache.FormSize.Width > 100 Then""
+
+        ''
         ''Step 8 of 8.  Make sure that the Row Headers match the longest column of data
         ''       inside the cache collection Me.ColumnDataCache. 
         ''       ----6/22/2022 thomas d. 
@@ -1352,6 +1365,13 @@ Public Class RSCFieldSpreadsheet
             RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
             RscRowHeaders1.Load_ColumnListDataToColumnEtc()
         End With
+
+        ''
+        ''Step 9 of 11. 
+        ''
+        ''Moved to Row Manager, RSCSpreadManagerRows.  4/26/2023
+        ''4/26/2023  Load_EmptyRowsToAllNewColumns()
+        mod_manager.Rows.Load_EmptyRowsToAllNewColumns()
 
     End Sub  ''End of ""Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)""
 
@@ -1650,30 +1670,46 @@ Public Class RSCFieldSpreadsheet
 
     ''End Sub ''End of Public Sub LoadRuntimeColumns_AfterClearingDesign
 
-
     Public Sub AddToEdgeOfSpreadsheet_Row()
-        ''4/2022 Public Sub AddRowToBottomOfSpreadsheet() 
 
-        ''Added 4/30/2022 thomas downes
-        ''Me.ParentSpreadsheet.AddRowToBottomOfSpreadsheet()
-        Dim intRowCount As Integer
-        Dim intRowCount_PlusOne As Integer
-        intRowCount = RscRowHeaders1.CountOfRows()
-        intRowCount_PlusOne = (intRowCount + 1)
-        RscRowHeaders1.Load_OneEmptyRow_IfNeeded(intRowCount_PlusOne) ''(1 + intRowCount)
-        ''Add a new textbox to each column. 
-        For Each each_RSCCol As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
-            If (each_RSCCol Is Nothing) Then Continue For
-            each_RSCCol.Load_EmptyRows(intRowCount_PlusOne)
-        Next each_RSCCol
+        ''Added 4/24/2023 thomas downes
+        mod_manager.Rows.AddToEdgeOfSpreadsheet_Row()
 
     End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Row()""
+
+
+    ''Public Sub AddToEdgeOfSpreadsheet_Row_NotInUse()
+    ''    ''4/2022 Public Sub AddRowToBottomOfSpreadsheet() 
+    ''
+    ''    ''Added 4/30/2022 thomas downes
+    ''    ''Me.ParentSpreadsheet.AddRowToBottomOfSpreadsheet()
+    ''    Dim intRowCount As Integer
+    ''    Dim intRowCount_PlusOne As Integer
+    ''    intRowCount = RscRowHeaders1.CountOfRows()
+    ''    intRowCount_PlusOne = (intRowCount + 1)
+    ''    RscRowHeaders1.Load_OneEmptyRow_IfNeeded(intRowCount_PlusOne) ''(1 + intRowCount)
+    ''
+    ''    ''Add a new textbox to each column. 
+    ''    For Each each_RSCCol As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+    ''        If (each_RSCCol Is Nothing) Then Continue For
+    ''        each_RSCCol.Load_EmptyRows(intRowCount_PlusOne)
+    ''    Next each_RSCCol
+    ''
+    ''End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Row()""
 
 
     Public Sub AddToEdgeOfSpreadsheet_Column()
 
         ''Added 4/18/2023 thomas downes
         mod_manager.Cols.AddToEdgeOfSpreadsheet_Column()
+
+        ''Added 4/26/2023 thomas downes
+        If mc_boolKeepUILookingClean Then
+            ''Hide the buttons which formerly occupied the blank area
+            '' of the spreadsheet. ---5/13/2022 
+            ButtonAddColumns2.Visible = False
+            ButtonPasteData2.Visible = False
+        End If ''End of ""If mc_boolKeepUILookingClean Then""
 
     End Sub
 

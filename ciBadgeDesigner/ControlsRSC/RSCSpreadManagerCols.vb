@@ -101,7 +101,8 @@ Public Class RSCSpreadManagerCols
     End Function ''End of ""Public Function ListOfColumns() As List(Of RSCFieldColumn)""
 
 
-    Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)
+    Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner,
+                                                      par_intPixelsFromRowToRow As Integer)
         ''
         ''Added 3/8/2022 thomas downes 
         ''
@@ -217,10 +218,11 @@ Public Class RSCSpreadManagerCols
                 each_Column = GenerateRSCFieldColumn_General(intNeededIndex,
                                                             intCurrentPropertyLeft,
                                                             intNextPropertyLeft,
-                                                            priorColumn)
+                                                            priorColumn,
+                                                            par_intPixelsFromRowToRow)
 
                 ''Added 3/25/2022 td 
-                If (intNeededIndex = 1) Then RscFieldColumn1 = each_Column
+                ''Not needed. 4/2023 If (intNeededIndex = 1) Then RscFieldColumn1 = each_Column
 
                 ''Added 4/11/2023 thomas downes
                 each_Column.RemoveMoveability()
@@ -382,16 +384,16 @@ Public Class RSCSpreadManagerCols
 
         Next intNeededIndex
 
+        ''''
+        ''''Step 6 of 6.  Resize the form itself. 
+        ''''
+        ''If (Me.ColumnDataCache.FormSize.Width > mc_ColumnWidthDefault) Then
+        ''    ''
+        ''    ''Resize the form based on the save form size.
+        ''    ''
+        ''    Me.ParentForm_DesignerDialog.Size = Me.ColumnDataCache.FormSize
         ''
-        ''Step 6 of 6.  Resize the form itself. 
-        ''
-        If (Me.ColumnDataCache.FormSize.Width > mc_ColumnWidthDefault) Then
-            ''
-            ''Resize the form based on the save form size.
-            ''
-            Me.ParentForm_DesignerDialog.Size = Me.ColumnDataCache.FormSize
-
-        End If ''end of ""If Me.ColumnDataCache.FormSize.Width > 100 Then""
+        ''End If ''end of ""If Me.ColumnDataCache.FormSize.Width > 100 Then""
 
         ''
         ''Step 7 of 7.  Align the row headers.
@@ -401,18 +403,19 @@ Public Class RSCSpreadManagerCols
 
         ''
         ''Step 8 of 8.  Make sure that the Row Headers match the longest column of data
-        ''       inside the cache collection Me.ColumnDataCache. 
+        ''        inside the cache collection Me.ColumnDataCache. 
         ''       ----6/22/2022 thomas d. 
         ''
-        With Me.ColumnDataCache
-            RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
-            RscRowHeaders1.Load_ColumnListDataToColumnEtc()
-        End With
+        ''4/2023 With Me.ColumnDataCache
+        ''4/2023    RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
+        ''4/2023    RscRowHeaders1.Load_ColumnListDataToColumnEtc()
+        ''4/2023 End With
 
     End Sub ''End of Public Sub LoadRuntimeColumns_AfterClearingDesign
 
 
-    Public Sub AddColumnsToRighthandSide(par_intNumber As Integer)
+    Public Sub AddColumnsToRighthandSide(par_intNumber As Integer,
+                                         par_intPixelsBetweenRows As Integer)
         ''
         ''Added 3/16/2022 Thomas Downes 
         ''
@@ -420,7 +423,8 @@ Public Class RSCSpreadManagerCols
         ''Not needed.''objLastColumnGoingRight = GetLastColumn()
         For intIndex As Integer = 1 To par_intNumber
             ''Not needed.''objLastColumnGoingRight.AddToEdgeOfSpreadsheet_Column()
-            AddToEdgeOfSpreadsheet_Column()
+            ''4/26/2023 td AddToEdgeOfSpreadsheet_Column()
+            AddToEdgeOfSpreadsheet_Column(par_intPixelsBetweenRows)
         Next intIndex
 
         ''Dim each_columnData As ClassRSCColumnWidthAndData ''4/13/2022 As ClassColumnWidthAndData
@@ -440,7 +444,7 @@ Public Class RSCSpreadManagerCols
     End Sub ''End of "Public Sub AddColumnsToRighthandSide()"
 
 
-    Public Sub AddToEdgeOfSpreadsheet_Column()
+    Public Sub AddToEdgeOfSpreadsheet_Column(par_intPixelsBetweenRows As Integer)
 
         ''Added 4/30/2022 thomas downes
         Dim intColumnCount As Integer
@@ -457,16 +461,18 @@ Public Class RSCSpreadManagerCols
         End If ''End of ""If (mod_array_RSCColumns Is Nothing) Then ... Else ..."  
 
         intColumnCount_PlusOne = (1 + intColumnCount)
-        InsertNewColumnByIndex(intColumnCount_PlusOne)
+        ''4/26/2023 InsertNewColumnByIndex(intColumnCount_PlusOne)
+        InsertNewColumnByIndex(intColumnCount_PlusOne, par_intPixelsBetweenRows)
 
     End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Column()""
 
 
-    Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)
+    Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer,
+                                      par_intPixelsBetweenRows As Integer)
         ''
         ''Added 3/20/2022 thomas downes 
         ''
-        Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
+        ''4/26/2023 Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
         Dim newRSCColumn As RSCFieldColumnV2
         Dim intNewLength As Integer
         Dim intNewColumnPropertyLeft As Integer
@@ -485,7 +491,8 @@ Public Class RSCSpreadManagerCols
             ''
             ''Added 4/17/2022 td
             ''
-            intNewColumnPropertyLeft = RscFieldColumn1.Left
+            ''4/26/2023 intNewColumnPropertyLeft = RscFieldColumn1.Left
+            intNewColumnPropertyLeft = mod_columnDesignedV2.Left
 
         Else
             ''Added 4/14/2022
@@ -577,14 +584,18 @@ Public Class RSCSpreadManagerCols
         newRSCColumn = GenerateRSCFieldColumn_General(par_intColumnIndex,
                                                     intNewColumnPropertyLeft,
                                                     intNextColumnPropertyLeft,
-                                                    objColumnAdjacent)
+                                                    objColumnAdjacent,
+                                                    par_intPixelsBetweenRows)
 
         ''
         ''Step 4 of 11. 
         ''
-        newRSCColumn.ParentSpreadsheet = Me ''Added 4/30/2022 td
-        newRSCColumn.Top = RscFieldColumn1.Top
-        newRSCColumn.Height = RscFieldColumn1.Height
+        ''4/26/2023 newRSCColumn.ParentSpreadsheet = Me ''Added 4/30/2022 td
+        newRSCColumn.ParentSpreadsheet = mod_controlSpread ''Added 4/30/2022 td
+        ''4/26/2023 newRSCColumn.Top = RscFieldColumn1.Top
+        ''4/26/2023 newRSCColumn.Height = RscFieldColumn1.Height
+        newRSCColumn.Top = mod_columnDesignedV2.Top
+        newRSCColumn.Height = mod_columnDesignedV2.Height
         ''April 1st 2022 ''newRSCColumn.ListOfColumnsToBumpRight = New List(Of RSCFieldColumn)
         Dim list_columnsToBumpRight As New List(Of RSCFieldColumnV2)
 
@@ -620,7 +631,8 @@ Public Class RSCSpreadManagerCols
         ''
         ''Step 5 of 11. 
         ''
-        newRSCColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+        ''4/26/2023 newRSCColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
+        newRSCColumn.Load_FieldsFromCache(mod_cacheElements)
 
         ''
         ''Step 6 of 11. 
@@ -676,7 +688,8 @@ Public Class RSCSpreadManagerCols
         ''
         ''Step 9 of 11. 
         ''
-        Load_EmptyRowsToAllNewColumns()
+        ''===Moved to Row Manager, RSCSpreadManagerRows.  4/26/2023
+        ''==Load_EmptyRowsToAllNewColumns()
 
         ''
         ''Step 10 of 11.  Add the new column to the list of columns in the cache. 
@@ -695,12 +708,12 @@ Public Class RSCSpreadManagerCols
         Next intColIndex
 
         ''Added 5/30/2022 
-        If mc_boolKeepUILookingClean Then
-            ''Hide the buttons which formerly occupied the blank area
-            '' of the spreadsheet. ---5/13/2022 
-            ButtonAddColumns2.Visible = False
-            ButtonPasteData2.Visible = False
-        End If ''End of ""If mc_boolKeepUILookingClean Then""
+        ''4/26/2023 If mc_boolKeepUILookingClean Then
+        ''    ''Hide the buttons which formerly occupied the blank area
+        ''    '' of the spreadsheet. ---5/13/2022 
+        ''    ButtonAddColumns2.Visible = False
+        ''    ButtonPasteData2.Visible = False
+        ''End If ''End of ""If mc_boolKeepUILookingClean Then""
 
     End Sub ''End of "Public Sub InsertNewColumnByIndex(Me.ColumnIndex)"
 
@@ -709,7 +722,8 @@ Public Class RSCSpreadManagerCols
     Private Function GenerateRSCFieldColumn_General(p_intIndexCurrent As Integer,
                                                     p_intCurrentPropertyLeft As Integer,
                                                     ByRef pref_intNextPropertyLeft As Integer,
-                                                    p_priorColumn As RSCFieldColumnV2) As RSCFieldColumnV2
+                                                    p_priorColumn As RSCFieldColumnV2,
+                                                    par_intPixelsFromRowToRow As Integer) As RSCFieldColumnV2
         ''
         '' Added 3/20/2022 td
         ''
@@ -751,7 +765,8 @@ Public Class RSCSpreadManagerCols
 
             ''Prepare for next iteration. 
             pref_intNextPropertyLeft = (.Left + .Width + 3)
-            Me.Controls.Add(newRSCColumn_output)
+            ''4/26/2023 td Me.Controls.Add(newRSCColumn_output)
+            mod_controlSpread.Controls.Add(newRSCColumn_output)
 
             ''Added 3/12/2022 thomas downes 
             mod_dict_RSCColumns(p_intIndexCurrent) = newRSCColumn_output
@@ -759,7 +774,8 @@ Public Class RSCSpreadManagerCols
             ''  Redundant, assigned in Step 4 below.
             ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
 
-            .ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+            ''4/26/2023 td .ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+            .ElementsCache_Deprecated = mod_cacheElements
             .ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + p_intIndexCurrent)
 
             ''Added 4/14/2022 td
@@ -773,7 +789,8 @@ Public Class RSCSpreadManagerCols
             End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
 
             ''Added 4/5/2022
-            .PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
+            ''4/26/2023 .PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
+            .PixelsFromRowToRow = par_intPixelsFromRowToRow ''Added 4/5/2022
 
         End With ''END OF "With newRSCColumn_output"
 
@@ -794,7 +811,8 @@ Public Class RSCSpreadManagerCols
         ''Added 4/14/2022 td
         ''
         Dim intRowsNeeded As Integer
-        intRowsNeeded = Me.GetFirstColumn().CountOfRows()
+        ''4/26/2023 intRowsNeeded = Me.GetFirstColumn().CountOfRows()
+        intRowsNeeded = mod_dict_RSCColumns(0).CountOfRows()
         newRSCColumn_output.Load_EmptyRows(intRowsNeeded)
 
         ''Exit Handler.....
