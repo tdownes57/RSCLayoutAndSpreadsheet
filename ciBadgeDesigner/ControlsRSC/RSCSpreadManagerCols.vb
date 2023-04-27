@@ -14,6 +14,7 @@ Public Class RSCSpreadManagerCols
     ''
     Public ColumnDataCache As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
 
+    Private mod_designer As ClassDesigner ''Added 4/26/2023
     Private mod_controlSpread As RSCFieldSpreadsheet ''Added 4/18/2023 
     Private mod_columnDesignedV2 As RSCFieldColumnV2 ''Added 4/18/2023
 
@@ -34,12 +35,14 @@ Public Class RSCSpreadManagerCols
 
 
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
+                   par_designer As ClassDesigner,
                    par_columnDesignedV2 As RSCFieldColumnV2,
                    par_cacheElements As ClassElementsCache_Deprecated,
                    par_cacheColumnWidthsEtc As CacheRSCFieldColumnWidthsEtc)
         ''
         ''Added 4/18/2023  
         ''
+        mod_designer = par_designer ''Added 4/26/2023 thomas d
         mod_controlSpread = par_controlSpread
 
         ''This is for template purposes (design time), not for use at run time. 
@@ -61,10 +64,44 @@ Public Class RSCSpreadManagerCols
         Dim output As RSCSpreadManagerRows
         output = New RSCSpreadManagerRows(mod_controlSpread,
                                           mod_dict_RSCColumns,
-                                          mod_columnDesignedV2)
+                                          mod_columnDesignedV2,
+                                          mod_controlSpread.RscRowHeaders1)
         Return output
 
     End Function ''End of ""Public Function GetSpreadManagerRows()""
+
+
+    Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
+                               par_iRowIndex As Integer,
+                               Optional ByRef pboolFailure As Boolean = False,
+                               Optional ByRef pintHowManyColumnsFailed As Integer = 0)
+        ''
+        ''Added 5/19/2022 
+        ''
+        Dim each_column As RSCFieldColumnV2
+        Dim each_failure As Boolean  ''Added 5/25/2022 
+
+        ''Track how many columns have failures. 
+        pintHowManyColumnsFailed = 0 ''Initialize.  5/245/2022 
+
+        For Each each_column In mod_dict_RSCColumns.Values ''4/17/2023 mod_array_RSCColumns
+
+            ''Added 5/20/2022 td
+            If (each_column Is Nothing) Then Continue For
+
+            With each_column
+                ''#1 5/25/2022 ''.SaveToRecipient(par_objRecipient, par_iRowIndex)
+                ''#2 5/25/2022 ''.SaveToRecipient(par_objRecipient, par_iRowIndex, pboolFailure)
+                each_failure = False ''Initialize. 5/25/2022
+                .SaveToRecipient(par_objRecipient, par_iRowIndex, each_failure)
+            End With
+
+            If (each_failure) Then pboolFailure = True
+            If (each_failure) Then pintHowManyColumnsFailed += 1
+
+        Next each_column
+
+    End Sub ''End of ""Public Sub SaveToRecipient(...)""
 
 
     Public Function Count() As Integer
@@ -830,21 +867,30 @@ Public Class RSCSpreadManagerCols
         ''March9 2022 ''objNewColumn = RSCFieldColumn.GetFieldColumn()
         ''Added 1/17/2022 td
         Dim objGetParametersForGetControl As ciBadgeDesigner.ClassGetElementControlParams
-        objGetParametersForGetControl = Me.Designer.GetParametersToGetElementControl()
+        '4/26/2023 objGetParametersForGetControl = Me.Designer.GetParametersToGetElementControl()
+        objGetParametersForGetControl = mod_designer.GetParametersToGetElementControl()
         objGetParametersForGetControl.ElementObject = New ciBadgeElements.ClassElementBase()
 
         Const c_boolProportional As Boolean = False ''Added 3/11/2022 td 
 
+        ''objNewColumn = RSCFieldColumnV2.GetRSCFieldColumn(objGetParametersForGetControl,
+        ''                                                 par_objField, Me.ParentForm,
+        ''                                                 "RSCFieldColumn" & CStr(par_intFieldIndex),
+        ''                                                  Me.Designer, c_boolProportional,
+        ''                                                  mod_ctlLasttouched, Me.Designer,
+        ''                                                  mod_eventsSingleton,
+        ''                                                  Me, par_intFieldIndex)
         objNewColumn = RSCFieldColumnV2.GetRSCFieldColumn(objGetParametersForGetControl,
-                                                         par_objField, Me.ParentForm,
+                                                         par_objField, mod_designer.DesignerForm,
                                                          "RSCFieldColumn" & CStr(par_intFieldIndex),
-                                                          Me.Designer, c_boolProportional,
-                                                          mod_ctlLasttouched, Me.Designer,
-                                                          mod_eventsSingleton,
-                                                          Me, par_intFieldIndex)
+                                                          mod_designer, c_boolProportional,
+                                                          mod_designer.ControlLastTouched, mod_designer,
+                                                          mod_designer.GroupMoveEvents,
+                                                          mod_controlSpread, par_intFieldIndex)
 
         ''Added 3/13/2022 thomas downes
-        objNewColumn.BackColor = mod_colorOfColumnsBackColor
+        ''4/26/2023 objNewColumn.BackColor = mod_colorOfColumnsBackColor
+        objNewColumn.BackColor = mod_columnDesignedV2.BackColor
 
         Return objNewColumn
 
@@ -921,15 +967,15 @@ Public Class RSCSpreadManagerCols
             intColumnAboutToDelete_Left = columnAboutToDelete.Left
 
             ''Added 4/15/2022 td
-            If (columnAboutToDelete Is RscFieldColumn1) Then
-                Try
-                    RscFieldColumn1 = mod_dict_RSCColumns(par_intColumnIndex + 1)
-                Catch
-                    ''If the user has deleted all of the columns, then this is the result.
-                    ''   (Zero columns left.) ---4/15/2022 thomas d
-                    RscFieldColumn1 = Nothing
-                End Try
-            End If ''End of ""If (columnAboutToDelete Is RscFieldColumn1) Then""
+            ''4/26/2023 If (columnAboutToDelete Is mod_columnDesignedV2) Then
+            ''    Try
+            ''        mod_columnDesignedV2 = mod_dict_RSCColumns(par_intColumnIndex + 1)
+            ''    Catch
+            ''        ''If the user has deleted all of the columns, then this is the result.
+            ''        ''   (Zero columns left.) ---4/15/2022 thomas d
+            ''        ''Not needed. 4/26/2023  mod_columnDesignedV2 = Nothing
+            ''    End Try
+            ''End If ''End of ""If (columnAboutToDelete Is RscFieldColumn1) Then""
 
         Else
             ''
@@ -984,7 +1030,7 @@ Public Class RSCSpreadManagerCols
         ''The number passed to ReDim Preserve is the upper bound of the array, 
         ''  not the length. ---4/15/2022
         ''
-        ReDim Preserve mod_dict_RSCColumns(-1 + intNewLengthOfArray_ByMinus1)  ''Modified 3/21/2022 td
+        ''4/26/2023 ReDim Preserve mod_dict_RSCColumns(-1 + intNewLengthOfArray_ByMinus1)  ''Modified 3/21/2022 td
         If (mod_dict_RSCColumns.Count <> intNewLengthOfArray_ByMinus1) Then Throw New Exception
         intNewLengthOfArray = intNewLengthOfArray_ByMinus1 ''We don't need the suffix anymore. 
 
@@ -1041,7 +1087,8 @@ Public Class RSCSpreadManagerCols
         ''
         ''Remove the column from the controls.
         ''
-        Me.Controls.Remove(columnAboutToDelete)
+        ''4/26/2023 Me.Controls.Remove(columnAboutToDelete)
+        mod_controlSpread.Controls.Remove(columnAboutToDelete)
 
         ''
         ''Remove the column from the column-width cache 
@@ -1053,13 +1100,13 @@ Public Class RSCSpreadManagerCols
         ''
         ''Check to see if RSCColumn1 is affected. 
         ''
-        If (RscFieldColumn1 Is columnAboutToDelete) Then
-            RscFieldColumn1 = mod_dict_RSCColumns(0) ''Probably a null reference,
-            '' as 0 is not being used!?  ----4/15/2022
-            If (RscFieldColumn1 Is Nothing) Then
-                RscFieldColumn1 = mod_dict_RSCColumns(1)
-            End If ''End of ""If (RscFieldColumn1 Is Nothing) Then""
-        End If ''ENdof ""If (RscFieldColumn1 = columnAboutToDelete) Then""
+        ''Not needed. 4/26/2023 If (RscFieldColumn1 Is columnAboutToDelete) Then
+        ''    RscFieldColumn1 = mod_dict_RSCColumns(0) ''Probably a null reference,
+        ''    '' as 0 is not being used!?  ----4/15/2022
+        ''    If (RscFieldColumn1 Is Nothing) Then
+        ''        RscFieldColumn1 = mod_dict_RSCColumns(1)
+        ''    End If ''End of ""If (RscFieldColumn1 Is Nothing) Then""
+        ''End If ''ENdof ""If (RscFieldColumn1 = columnAboutToDelete) Then""
 
     End Sub ''End of "Public Sub DeleteColumnByIndex(Me.ColumnIndex)"
 
@@ -1089,6 +1136,240 @@ Public Class RSCSpreadManagerCols
 
     End Function ''End of ""Public Function CountOfColumnsWithoutFields() As Integer""
 
+
+    Public Function ReviewColumnDisplayForRelevantFields_1to1(pboolMessageUser As Boolean,
+                                           ByRef pbUserWantsFieldsManager As Boolean) As DialogResult
+        ''5/2022 ''Public Sub ReviewColumnDisplayForRelevantFields_1to1
+        ''
+        ''Added 4/26/2022 thomas 
+        ''
+        ''Populate both dictionaries. 
+        ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
+        ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary. 
+        ''
+        Dim dictionary1FC_FieldsToRSCColumn As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        Dim dictionary2CF_ColumnToEnumField As New Dictionary(Of RSCFieldColumnV2, EnumCIBFields)
+        Dim eachRSCColumn As RSCFieldColumnV2
+        Dim objectStringBuilder1FC As New System.Text.StringBuilder(150)
+        Dim objectStringBuilder2CF As New System.Text.StringBuilder(150)
+        Dim objectStringBuilder1FC_Expanded As System.Text.StringBuilder
+        Dim dictionary1FC_Expanded As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        ''4/26/2023 Dim bUserWantsFieldsManager As Boolean = False ''Added 5/13/2022
+        Dim output_dialogResult As DialogResult ''Added 5/13/2022 
+
+        For Each eachRSCColumn In mod_dict_RSCColumns.Values
+            ''
+            ''Build the dictionaries. 
+            ''
+            If (eachRSCColumn Is Nothing) Then Continue For
+
+            eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionary1FC_FieldsToRSCColumn,
+                dictionary2CF_ColumnToEnumField,
+                objectStringBuilder1FC,
+                objectStringBuilder2CF)
+
+        Next eachRSCColumn
+
+        ''Refresh the module-level objects.
+        m_dictionary1FC_FieldsToRSCColumn = dictionary1FC_FieldsToRSCColumn
+        m_dictionary2CF_ColumnToEnumField = dictionary2CF_ColumnToEnumField
+
+        ''Message the user, if required by parameter. ---4/30 td
+        If (pboolMessageUser) Then
+            ''
+            ''   2CF. Column-->Field. (RSCFieldColumn-->EnumCIBFields) dictionary. 
+            ''
+            ''
+            ''5/13/2022 MessageBoxTD.Show_Statement("Here is the list of Columns & corresponding Fields:",
+            ''                  objectStringBuilder2CF.ToString())
+            output_dialogResult =
+            MessageBoxTD.Show_StatementLongform("Here is the list of Columns && corresponding Relevant Fields:",
+                                        objectStringBuilder2CF.ToString(),
+                                        1.7, 1.0, False)
+
+            ''
+            ''   1FC. Field-->Column. (EnumCIBFields-->RSCFieldColumn dictionary. 
+            ''
+            Const c_expandToShowAllRelevantFields As Boolean = True ''Added 4/30/2022 td
+            If (c_expandToShowAllRelevantFields) Then
+
+                ''Added 4/30/2022 td
+                objectStringBuilder1FC_Expanded = New System.Text.StringBuilder(200)
+                dictionary1FC_Expanded =
+                   ExpandDictionary1FC(dictionary1FC_FieldsToRSCColumn, objectStringBuilder1FC_Expanded)
+
+                ''MessageBoxTD.Show_Statement("Here is the list of Relevant Fields & corresponding columns.",
+                ''    objectStringBuilder1FC_Expanded.ToString())
+                Const c_showFieldsButton As Boolean = True ''Added 5/13/2022
+                Dim bUserPressedButton As Boolean = False ''Added 5/13/2022
+
+                If (c_showFieldsButton) Then
+                    ''Added 5/13/2022
+                    output_dialogResult =
+                    MessageBoxTD.Show_SpecialButton("Here is the list of Relevant Fields && corresponding columns:",
+                                            objectStringBuilder1FC_Expanded.ToString(),
+                                            1.7, 2.0, "Manage Relevant Fields", bUserPressedButton)
+                    ''4/26/2023 pbUserWantsFieldsManager = bUserPressedButton
+                    pbUserWantsFieldsManager = bUserPressedButton
+
+                Else
+                    ''Added 5/13/2022
+                    output_dialogResult =
+                    MessageBoxTD.Show_StatementLongform("Here is the list of Fields && corresponding columns:",
+                                            objectStringBuilder1FC_Expanded.ToString(),
+                                            1.7, 2.0)
+                End If ''End of ""If (c_showFieldsButton) Then.... Else..."
+
+            Else
+                ''Added 4/30/2022
+                ''MessageBoxTD.Show_Statement("Here is the list of Fields & corresponding columns.",
+                ''                        objectStringBuilder1FC.ToString())
+                output_dialogResult =
+                MessageBoxTD.Show_StatementLongform("Here is the list of Fields & corresponding columns:",
+                                        objectStringBuilder1FC.ToString(),
+                                        1.0, 2.0)
+
+            End If ''End of "If (c_expandToShowAllRelevantFields) Then... Else..."
+
+        End If ''End of ""If (pboolMessageUser) Then""
+
+        ''
+        ''Show Fields Manager, if appopriate.  ---5/13/2022 td
+        ''
+        ''4/26/2023 If (bUserWantsFieldsManager) Then ShowFieldsManagement()
+
+        ''Added 5/13/2022 td
+        Return output_dialogResult
+
+    End Function ''End of ""Public Sub ReviewColumnDisplayForRelevantFields()""
+
+
+    Private Function ExpandDictionary1FC(par_dictionary1FC_FieldsToColumn As Dictionary(Of EnumCIBFields, RSCFieldColumnV2),
+                                    par_stringbuilder As System.Text.StringBuilder) _
+                                As Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        ''
+        ''Added 4/30/2022 thomas d.
+        ''
+        Dim output_dictionary As Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
+        ''--Dim list_enumFieldsRelevant As List(Of EnumCIBFields)
+        Dim list_fieldsRelevant As List(Of ClassFieldAny)
+        ''---list_enumFieldsRelevant = ModEnumsAndStructs.GetListOfAllFieldEnums_Relevant()
+        Dim each_fieldRelevant As ClassFieldAny
+        Dim each_enumRelevant As EnumCIBFields
+        Dim each_RSCColumn As RSCFieldColumnV2
+        Dim boolFoundColumn As Boolean
+
+        par_stringbuilder.AppendLine()
+
+        list_fieldsRelevant = Me.ElementsCache_Deprecated.ListOfFields_AnyRelevent()
+        output_dictionary = New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)()
+
+        For Each each_fieldRelevant In list_fieldsRelevant
+
+            each_RSCColumn = Nothing ''Reinitialize. 
+            each_enumRelevant = each_fieldRelevant.FieldEnumValue
+            boolFoundColumn = par_dictionary1FC_FieldsToColumn.ContainsKey(each_enumRelevant)
+
+            ''Will this return a Null value?
+            If (boolFoundColumn) Then
+                each_RSCColumn = par_dictionary1FC_FieldsToColumn.Item(each_enumRelevant)
+                output_dictionary.Add(each_enumRelevant, each_RSCColumn)
+                ''Added 5/13/2022
+                par_stringbuilder.AppendLine("Field """ + each_fieldRelevant.FieldLabelCaption + """" +
+                                             " is assigned to Column # " +
+                                             each_RSCColumn.GetIndexOfColumn().ToString())
+
+            Else
+                ''Enter a null value.  
+                output_dictionary.Add(each_enumRelevant, Nothing)
+                ''Added 5/13/2022
+                par_stringbuilder.AppendLine("Field """ + each_fieldRelevant.FieldLabelCaption + """" +
+                                             " is not assigned to any column.")
+
+            End If ''end of ""If (boolFoundColumn) Then ... Else ""
+
+        Next each_fieldRelevant
+
+        ''
+        ''Exit Handler
+        ''
+        Return output_dictionary
+
+    End Function ''End of ""Private Sub ExpandDictionary1FC""
+
+
+    Public Sub ReviewForAbnormalLengthValues_NotInUse(Optional ByRef pboolOneOrMore As Boolean = False,
+                                             Optional ByVal pboolGiveMessageIfNeeded As Boolean = False)
+        ''
+        ''Added 4/26/2022 td
+        ''
+        Dim each_RSCColumn As RSCFieldColumnV2
+        Dim each_isAbnormal As Boolean
+
+        ''
+        '' Looping each column. ---4/10/2022 td
+        ''
+        ''4/17/2023 For Each each_RSCColumn In mod_array_RSCColumns
+        For Each each_RSCColumn In mod_dict_RSCColumns.Values
+
+            each_RSCColumn.ReviewForAbnormalLengthValues(each_isAbnormal)
+            pboolOneOrMore = (pboolOneOrMore Or each_isAbnormal)
+
+        Next each_RSCColumn
+
+        ''
+        ''Possibly give a message. 
+        ''
+        If (pboolOneOrMore And pboolGiveMessageIfNeeded) Then
+
+            ''Added 4/26/2022 td 
+            MessageBoxTD.Show_Statement("Please review cell values. One of more cells have unexpected values.")
+
+        End If ''End of "If (pboolOneOrMore And pboolGiveMessageIfNeeded) Then"
+
+
+    End Sub ''End of ""Public Sub ReviewForAbnormalLengthValues_NotInUse()""
+
+
+    Public Sub MoveTextCaret_IfNeeded(par_intNewRowIndex As Integer)
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Const c_bMustHaveCaret As Boolean = False ''False, since when the user clicks on the 
+        ''  spreadsheet's row-header control, the Textbox in the RSCDataCell no longer
+        ''  pass "True" from the function Textbox.HasFocus(). ----5/13/2022
+
+        ''4/17/2023 For Each each_RSColumn As RSCFieldColumnV2 In mod_array_RSCColumns
+        For Each each_RSColumn As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+
+            If (each_RSColumn Is Nothing) Then Continue For
+
+            If (each_RSColumn.FocusRelated_ColumnHasCellFocus(c_bMustHaveCaret)) Then
+
+                each_RSColumn.MoveTextCaretToNewRow(par_intNewRowIndex)
+                Exit For ''Leave the "For Each" loop.
+
+            End If ''End of ""If (each_RSColumn.FocusRelated_ColumnHasCellFocus()) Then""
+
+        Next each_RSColumn
+
+    End Sub ''End of ""Public Sub MoveTextCaret_IfNeeded()" 
+
+
+    Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
+        ''
+        ''Added 4/15/2022 td
+        ''
+        ''4/17/23  For intColIndex As Integer = 0 To (-1 + mod_array_RSCColumns.Length)
+        For intColIndex As Integer = 0 To (-1 + mod_dict_RSCColumns.Values.Count) ''4/17/23 mod_array_RSCColumns.Length)
+
+            If (mod_dict_RSCColumns(intColIndex) Is par_column) Then Return intColIndex
+
+        Next intColIndex
+
+        Return -1
+
+    End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
 
 
 End Class

@@ -16,6 +16,7 @@ Public Class RSCSpreadManager
 
 
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
+                   par_designer As ClassDesigner,
                    par_columnDesignV2 As RSCFieldColumnV2,
                    par_cacheElemements As ClassElementsCache_Deprecated,
                    par_cacheColumnWidthsEtc As CacheRSCFieldColumnWidthsEtc)
@@ -23,7 +24,12 @@ Public Class RSCSpreadManager
         ''Added 4/18/2023  
         ''
         mod_controlSpread = par_controlSpread
-        mod_manageCols = New RSCSpreadManagerCols(par_controlSpread, par_columnDesignV2,
+
+        ''4/26/2023 mod_manageCols = New RSCSpreadManagerCols(par_controlSpread, par_columnDesignV2,
+        ''                                          par_cacheElemements,
+        ''                                          par_cacheColumnWidthsEtc)
+        mod_manageCols = New RSCSpreadManagerCols(par_controlSpread, par_designer,
+                                                  par_columnDesignV2,
                                                   par_cacheElemements,
                                                   par_cacheColumnWidthsEtc)
 
