@@ -1851,36 +1851,32 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/29/2022 td
         ''
-        For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        mod_manager.Cols.DeemphasizeRows_NoHighlight(par_intRowIndex_Start, par_intRowIndex_End)
 
-            If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 td 
-
-            each_col.DeemphasizeRows_NoHighlight(par_intRowIndex_Start, par_intRowIndex_End)
-
-        Next each_col
+        ''4/26/2023 For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        ''    If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 td 
+        ''    each_col.DeemphasizeRows_NoHighlight(par_intRowIndex_Start, par_intRowIndex_End)
+        ''Next each_col
 
     End Sub ''End of ""Public Sub EmphasizeRows_Highlight"
 
 
-    Public Function HasIndentifyingData() As Boolean
+    Public Function HasIdentifyingData() As Boolean
         ''
         ''Added 5/14/2022 thomas downes 
         ''
-        Dim each_column As RSCFieldColumnV2
-        Dim bColHasIdentifyingData As Boolean
+        Return mod_manager.Cols.HasIdentifyingData()
 
-        For Each each_column In mod_dict_RSCColumns.Values
+        ''4/28/2028 Dim each_column As RSCFieldColumnV2
+        ''Dim bColHasIdentifyingData As Boolean
+        ''For Each each_column In mod_dict_RSCColumns.Values
+        ''    If (each_column Is Nothing) Then Continue For
+        ''    bColHasIdentifyingData = each_column.HasIdentifyingData()
+        ''    If (bColHasIdentifyingData) Then Return True
+        ''Next each_column
+        ''Return False
 
-            If (each_column Is Nothing) Then Continue For
-
-            bColHasIdentifyingData = each_column.HasIdentifyingData()
-            If (bColHasIdentifyingData) Then Return True
-
-        Next each_column
-
-        Return False
-
-    End Function ''End of ""Public Function HasIndentifyingData() As Boolean""
+    End Function ''End of ""Public Function HasIdentifyingData() As Boolean""
 
 
     ''Private Function GenerateRSCFieldColumn_General_NotInUse(p_intIndexCurrent As Integer,

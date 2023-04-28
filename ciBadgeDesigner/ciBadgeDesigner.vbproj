@@ -339,7 +339,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlsRSC\RSCSpreadManager.vb" />
-    <Compile Include="ControlsRSC\RSCSpreadManagerCols.vb" />
+    <Compile Include="ControlsRSC\RSCSpreadManagerCols_Etc.vb" />
+    <Compile Include="ControlsRSC\RSCSpreadManagerCols_Main.vb" />
+    <Compile Include="ControlsRSC\RSCSpreadManagerCols_Funs.vb" />
     <Compile Include="ControlsRSC\RSCSpreadManagerRowheaders.vb" />
     <Compile Include="ControlsRSC\RSCSpreadManagerRows.vb" />
     <Compile Include="Dialogs_General\DialogAllRSCSelectCIBFields.Designer.vb">
