@@ -320,7 +320,7 @@ Public Class RSCFieldSpreadsheet
             ''If (columnLeftHandMost Is Nothing) Then
             ''    columnLeftHandMost = mod_dict_RSCColumns(1)
             ''End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
-            columnLeftHandMost = mod_manager.Rows.LeftHandColumn()
+            columnLeftHandMost = mod_manager.Cols.LeftHandColumn()
 
         Catch exceptionRSC
             boolException = True
@@ -948,20 +948,18 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Dim each_column As RSCFieldColumnV2
-        Dim boolMatches As Boolean
-        Dim boolMatches_Prior As Boolean
+        Return mod_manager.Cols.GetNextColumn_RightOf(par_column)
 
-        For Each each_column In mod_dict_RSCColumns.Values
-
-            boolMatches = (each_column Is par_column)
-            If (boolMatches_Prior) Then Return each_column
-            ''Prepare for the next iteration. 
-            boolMatches_Prior = boolMatches
-
-        Next each_column
-
-        Return Nothing
+        ''Dim each_column As RSCFieldColumnV2
+        ''Dim boolMatches As Boolean
+        ''Dim boolMatches_Prior As Boolean
+        ''For Each each_column In mod_dict_RSCColumns.Values
+        ''    boolMatches = (each_column Is par_column)
+        ''    If (boolMatches_Prior) Then Return each_column
+        ''    ''Prepare for the next iteration. 
+        ''    boolMatches_Prior = boolMatches
+        ''Next each_column
+        ''Return Nothing
 
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
 
@@ -970,37 +968,35 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Dim each_column As RSCFieldColumnV2
-        Dim prior_column As RSCFieldColumnV2 = Nothing
-        Dim boolMatches As Boolean
-        Dim boolMatches_Prior As Boolean
+        Return mod_manager.Cols.GetNextColumn_LeftOf(par_column)
 
-        For Each each_column In mod_dict_RSCColumns.Values
-
-            boolMatches = (each_column Is par_column)
-            If (boolMatches) Then Return prior_column
-
-            ''
-            ''Prepare for the next iteration.
-            ''
-            prior_column = each_column
-            boolMatches_Prior = boolMatches
-
-        Next each_column
-
-        Return Nothing
-
-    End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
+        ''Dim each_column As RSCFieldColumnV2
+        ''Dim prior_column As RSCFieldColumnV2 = Nothing
+        ''Dim boolMatches As Boolean
+        ''Dim boolMatches_Prior As Boolean
+        ''For Each each_column In mod_dict_RSCColumns.Values
+        ''    boolMatches = (each_column Is par_column)
+        ''    If (boolMatches) Then Return prior_column
+        ''    ''
+        ''    ''Prepare for the next iteration.
+        ''    ''
+        ''    prior_column = each_column
+        ''    boolMatches_Prior = boolMatches
+        ''Next each_column
+        ''Return Nothing
+    End Function ''End of ""Public Function GetNextColumn_LeftOf(....)""
 
 
     Public Function GetFirstColumn() As RSCFieldColumnV2
         ''
         ''Added 4/12/2022 thomas downes
         ''
+        Return mod_manager.Cols.GetFirstColumn()
+
         ''4/2023 If (0 = mod_array_RSCColumns.Length) Then Return Nothing
-        If (0 = mod_dict_RSCColumns.Values.Count) Then Return Nothing
-        If (mod_dict_RSCColumns(0) Is Nothing) Then Return mod_dict_RSCColumns(1)
-        Return mod_dict_RSCColumns(0)
+        ''If (0 = mod_dict_RSCColumns.Values.Count) Then Return Nothing
+        ''If (mod_dict_RSCColumns(0) Is Nothing) Then Return mod_dict_RSCColumns(1)
+        ''Return mod_dict_RSCColumns(0)
 
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
 
@@ -1166,7 +1162,9 @@ Public Class RSCFieldSpreadsheet
             ''
             ''Ensure the needed # of RSCDataCells are present across all columns.----4/15/2022
             ''
-            Load_EmptyRowsToAllNewColumns()
+            ''4/26/2023 Load_EmptyRowsToAllNewColumns()
+            mod_manager.Rows.Load_EmptyRowsToAllNewColumns()
+
             ''Dim intEachRowCount As Integer = 1
             ''Dim intMaxRowCount As Integer = 1
             ''For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
@@ -1248,12 +1246,14 @@ Public Class RSCFieldSpreadsheet
             intRowEmphasis_Start = mod_intEmphasisRowIndex_Start
             intRowEmphasis_End = mod_intEmphasisRowIndex_End
 
-            For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
-                If (each_column Is Nothing) Then Continue For
-                intRowOfDataCell = -1
-                intRowOfDataCell = each_column.GetRowIndexOfCell(par_objDataCell)
-                If (intRowOfDataCell > 0) Then Exit For
-            Next each_column
+            ''4/27/2023 td For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+            ''    If (each_column Is Nothing) Then Continue For
+            ''    intRowOfDataCell = -1
+            ''    intRowOfDataCell = each_column.GetRowIndexOfCell(par_objDataCell)
+            ''    If (intRowOfDataCell > 0) Then Exit For
+            ''Next each_column
+
+            intRowOfDataCell = mod_manager.GetRowIndexOfCell(par_objDataCell)
 
             Dim boolRowHasEmphasis As Boolean
 
@@ -1286,7 +1286,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/29/2022 thomas downes
         ''
-        Dim objRSCFieldColumn As RSCFieldColumnV2
+        ''4/26/2023 Dim objRSCFieldColumn As RSCFieldColumnV2
         Dim boolConfirmed As Boolean
 
         boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this spreadsheet?",
@@ -1294,10 +1294,12 @@ Public Class RSCFieldSpreadsheet
 
         If (boolConfirmed) Then
             ''Confirmed, so clear the data from each column.  
-            For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
-                objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
-                objRSCFieldColumn.ClearDataFromColumn_Do()
-            Next each_column
+            ''4/26/2023 For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
+            ''    objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+            ''    objRSCFieldColumn.ClearDataFromColumn_Do()
+            ''Next each_column
+            mod_manager.Cols.ClearDataFromSpreadsheet_NoConfirm()
+
         Else
             ''Added 3/29/2022 td
             pboolUserCancelled = True
@@ -1307,33 +1309,34 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_1stConfirm()""
 
 
-    Public Sub ClearDataFromSpreadsheet_NoConfirm()
-        ''
-        ''Added 4/01/2022 thomas downes
-        ''
-        Dim objRSCFieldColumn As RSCFieldColumnV2
-        Dim boolConfirmed As Boolean
+    ''4/27/2023 Public Sub ClearDataFromSpreadsheet_NoConfirm()
+    ''    ''
+    ''    ''Added 4/01/2022 thomas downes
+    ''    ''
+    ''    Dim objRSCFieldColumn As RSCFieldColumnV2
+    ''    Dim boolConfirmed As Boolean
 
-        For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
-            objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
-            objRSCFieldColumn.ClearDataFromColumn_Do()
-        Next each_column
+    ''    For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
+    ''        objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+    ''        objRSCFieldColumn.ClearDataFromColumn_Do()
+    ''    Next each_column
 
-    End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_NoConfirm()""
+    ''End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_NoConfirm()""
 
 
     Public Sub ClearHighlightingOfSelectedColumns()
         ''
         ''Added 5/13/2022 thomas downes
         ''
-        Dim objRSCFieldColumn As RSCFieldColumnV2
-        For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
-            objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
-            objRSCFieldColumn.FocusRelated_UserHasSelectedColumn = False
-            objRSCFieldColumn.FocusRelated_SetHighlightingOff()
-        Next each_column
+        ''4/26/2023 Dim objRSCFieldColumn As RSCFieldColumnV2
+        ''For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
+        ''    objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+        ''    objRSCFieldColumn.FocusRelated_UserHasSelectedColumn = False
+        ''    objRSCFieldColumn.FocusRelated_SetHighlightingOff()
+        ''Next each_column
+        mod_manager.Cols.ClearHighlightingOfSelectedColumns()
 
-    End Sub
+    End Sub ''End of ""Public Sub ClearHighlightingOfSelectedColumns()""
 
 
 
@@ -1827,14 +1830,17 @@ Public Class RSCFieldSpreadsheet
             mod_intEmphasisRowIndex_End = mod_intEmphasisRowIndex_Start
         End If
 
-        For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        ''Encapsulated 4/28/2023 
+        mod_manager.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
 
-            If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 thomas d
-
-            ''---each_col.PaintEmphasisOfRows(par_intRowIndex_Start, par_intRowIndex_End)
-            each_col.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
-
-        Next each_col
+        ''4/28/2023 For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        ''
+        ''    If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 thomas d
+        ''
+        ''    ''---each_col.PaintEmphasisOfRows(par_intRowIndex_Start, par_intRowIndex_End)
+        ''    each_col.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
+        ''
+        ''Next each_col
 
 
     End Sub ''End of ""Public Sub EmphasizeRows_Highlight"

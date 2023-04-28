@@ -74,12 +74,33 @@ Public Class RSCSpreadManager
     End Property
 
 
+    Public Function GetRowIndexOfCell(par_objDataCell As RSCDataCell) As Integer
+        ''
+        ''Added 4/27/2022 thomas downes
+        ''
+        Return mod_manageCols.GetRowIndexOfCell(par_objDataCell)
+
+    End Function ''End of ""Public Function GetRowIndexOfCell(par_objDataCell As RSCDataCell)""
 
 
+    Public Sub ClearDataFromSpreadsheet_NoConfirm()
+        ''
+        ''Added 4/26/2022 thomas downes
+        ''
+        mod_manageCols.ClearDataFromSpreadsheet_NoConfirm()
+
+    End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_NoConfirm()""
 
 
+    Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
+                  Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 4/29/2022 td
+        ''
+        mod_manageCols.EmphasizeRows_Highlight(par_intRowIndex_Start,
+                                                par_intRowIndex_End)
 
-
+    End Sub ''End of ""Public Sub EmphasizeRows_Highlight"
 
 
 End Class

@@ -1298,6 +1298,53 @@ Public Class RSCSpreadManagerCols
     End Function ''End of ""Private Sub ExpandDictionary1FC""
 
 
+    Public Sub ClearHighlightingOfSelectedColumns()
+        ''
+        ''Added 5/13/2022 thomas downes
+        ''
+        Dim objRSCFieldColumn As RSCFieldColumnV2
+        For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
+            objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+            objRSCFieldColumn.FocusRelated_UserHasSelectedColumn = False
+            objRSCFieldColumn.FocusRelated_SetHighlightingOff()
+        Next each_column
+
+    End Sub ''End of ""Public Sub ClearHighlightingOfSelectedColumns()""
+
+
+    Public Sub ClearDataFromSpreadsheet_NoConfirm()
+        ''
+        ''Added 4/01/2022 thomas downes
+        ''
+        Dim objRSCFieldColumn As RSCFieldColumnV2
+        ''4/26/2023 Dim boolConfirmed As Boolean
+
+        For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+            objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
+            objRSCFieldColumn.ClearDataFromColumn_Do()
+        Next each_column
+
+    End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_NoConfirm()""
+
+
+    Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
+                  Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 4/29/2022 td
+        ''
+        For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+
+            If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 thomas d
+
+            ''---each_col.PaintEmphasisOfRows(par_intRowIndex_Start, par_intRowIndex_End)
+            each_col.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
+
+        Next each_col
+
+
+    End Sub ''End of ""Public Sub EmphasizeRows_Highlight"
+
+
     Public Sub ReviewForAbnormalLengthValues_NotInUse(Optional ByRef pboolOneOrMore As Boolean = False,
                                              Optional ByVal pboolGiveMessageIfNeeded As Boolean = False)
         ''
@@ -1356,6 +1403,67 @@ Public Class RSCSpreadManagerCols
     End Sub ''End of ""Public Sub MoveTextCaret_IfNeeded()" 
 
 
+    Public Function GetFirstColumn() As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        ''4/2023 If (0 = mod_array_RSCColumns.Length) Then Return Nothing
+        If (0 = mod_dict_RSCColumns.Values.Count) Then Return Nothing
+        If (mod_dict_RSCColumns(0) Is Nothing) Then Return mod_dict_RSCColumns(1)
+        Return mod_dict_RSCColumns(0)
+
+    End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
+
+
+    Public Function GetNextColumn_LeftOf(par_column As RSCFieldColumnV2) As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim each_column As RSCFieldColumnV2
+        Dim prior_column As RSCFieldColumnV2 = Nothing
+        Dim boolMatches As Boolean
+        Dim boolMatches_Prior As Boolean
+
+        For Each each_column In mod_dict_RSCColumns.Values
+
+            boolMatches = (each_column Is par_column)
+            If (boolMatches) Then Return prior_column
+
+            ''
+            ''Prepare for the next iteration.
+            ''
+            prior_column = each_column
+            boolMatches_Prior = boolMatches
+
+        Next each_column
+
+        Return Nothing
+
+    End Function ''End of ""Public Function GetNextColumn_LeftOf(....)""
+
+
+    Public Function GetNextColumn_RightOf(par_column As RSCFieldColumnV2) As RSCFieldColumnV2
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        Dim each_column As RSCFieldColumnV2
+        Dim boolMatches As Boolean
+        Dim boolMatches_Prior As Boolean
+
+        For Each each_column In mod_dict_RSCColumns.Values
+
+            boolMatches = (each_column Is par_column)
+            If (boolMatches_Prior) Then Return each_column
+            ''Prepare for the next iteration. 
+            boolMatches_Prior = boolMatches
+
+        Next each_column
+
+        Return Nothing
+
+    End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
+
+
     Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
         ''
         ''Added 4/15/2022 td
@@ -1370,6 +1478,24 @@ Public Class RSCSpreadManagerCols
         Return -1
 
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
+
+
+    Public Function GetRowIndexOfCell(par_objDataCell As RSCDataCell) As Integer
+        ''
+        ''Added 4/27/2022 thomas downes
+        ''
+        Dim intRowOfDataCell As Integer = 0
+
+        For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+            If (each_column Is Nothing) Then Continue For
+            intRowOfDataCell = -1
+            intRowOfDataCell = each_column.GetRowIndexOfCell(par_objDataCell)
+            If (intRowOfDataCell > 0) Then Exit For
+        Next each_column
+
+        Return intRowOfDataCell
+
+    End Function ''End of ""Public Function GetRowIndexOfCell(par_objDataCell As RSCDataCell)""
 
 
 End Class
