@@ -39,6 +39,73 @@ Partial Public Class RSCSpreadManagerCols
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
 
 
+
+    Public Sub SaveDataColumnByColumnXML(Optional pboolOpenXML As Boolean = False)
+        ''---June29 2022---Public Sub SaveDataColumnByColumn
+        ''
+        ''Added 3/17/2022 thomas downes
+        ''
+        ''STEP 1 of 5 
+        ''
+        '' Save the column data to the ColumnDataCache. 
+        ''
+        For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+
+            Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
+            eachColumn = mod_dict_RSCColumns(intIndex)
+            ''4/12/2022 td''eachColumn.SaveDataToColumn()
+            eachColumn.SaveDataTo_ColumnCache()
+
+        Next intIndex
+
+        ''
+        ''Resize the form based on the save form size.---3/20/2022
+        ''
+        ''4/26/2023 Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
+
+        ''
+        ''STEP 3 of 5 
+        ''
+        '' Save the ColumnDataCache to disk. 
+        ''
+        Dim strPathToXML_Opened As String = Me.ColumnDataCache.PathToXml_Opened
+        Dim strPathToXML_Saved As String = Me.ColumnDataCache.PathToXml_Saved
+
+        If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened = strPathToXML_Saved
+        If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened =
+            DiskFilesVB.PathToFile_XML_RSCFieldSpreadsheet()
+
+        Me.ColumnDataCache.SaveToXML(strPathToXML_Opened)
+        Me.ColumnDataCache.PathToXml_Saved = strPathToXML_Opened
+
+        ''
+        ''STEP 4 of 5 
+        ''
+        ''  Column by column, save the current data value to the appropriate recipient field.  
+        ''
+        For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+
+            Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
+            eachColumn = mod_dict_RSCColumns(intIndex)
+            ''4/12/2022 td''eachColumn.SaveDataToColumn()
+            eachColumn.SaveDataTo_RecipientCache()
+
+        Next intIndex
+
+        ''
+        ''Resize the form based on the save form size.---3/20/2022
+        ''
+        ''Moved up.3/20/22 ''Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
+
+        ''Added 3/18/2022 td
+        If (pboolOpenXML) Then
+            System.Diagnostics.Process.Start(Me.ColumnDataCache.PathToXml_Saved)
+        End If ''End of "If (pboolOpenXML) Then"
+
+    End Sub ''End of "Public Sub SaveDataColumnByColumnXML()"
+
+
+
     Public Sub ClearHighlightingOfSelectedColumns()
         ''
         ''Added 5/13/2022 thomas downes

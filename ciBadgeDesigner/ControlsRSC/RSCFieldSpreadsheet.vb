@@ -2090,58 +2090,52 @@ Public Class RSCFieldSpreadsheet
         ''
         '' Save the column data to the ColumnDataCache. 
         ''
-        For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+        ''4/26/2023 For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+        ''    Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
+        ''    eachColumn = mod_dict_RSCColumns(intIndex)
+        ''    ''4/12/2022 td''eachColumn.SaveDataToColumn()
+        ''    eachColumn.SaveDataTo_ColumnCache()
+        ''Next intIndex
 
-            Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
-            eachColumn = mod_dict_RSCColumns(intIndex)
-            ''4/12/2022 td''eachColumn.SaveDataToColumn()
-            eachColumn.SaveDataTo_ColumnCache()
-
-        Next intIndex
+        ''Encapsulated 4/26/2023 td
+        mod_manager.Cols.SaveDataColumnByColumnXML(pboolOpenXML)
 
         ''
         ''Resize the form based on the save form size.---3/20/2022
         ''
         Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
 
-        ''
-        ''STEP 3 of 5 
-        ''
-        '' Save the ColumnDataCache to disk. 
-        ''
-        Dim strPathToXML_Opened As String = Me.ColumnDataCache.PathToXml_Opened
-        Dim strPathToXML_Saved As String = Me.ColumnDataCache.PathToXml_Saved
-
-        If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened = strPathToXML_Saved
-        If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened =
-            DiskFilesVB.PathToFile_XML_RSCFieldSpreadsheet()
-
-        Me.ColumnDataCache.SaveToXML(strPathToXML_Opened)
-        Me.ColumnDataCache.PathToXml_Saved = strPathToXML_Opened
-
-        ''
-        ''STEP 4 of 5 
-        ''
-        ''  Column by column, save the current data value to the appropriate recipient field.  
-        ''
-        For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
-
-            Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
-            eachColumn = mod_dict_RSCColumns(intIndex)
-            ''4/12/2022 td''eachColumn.SaveDataToColumn()
-            eachColumn.SaveDataTo_RecipientCache()
-
-        Next intIndex
-
-        ''
-        ''Resize the form based on the save form size.---3/20/2022
-        ''
-        ''Moved up.3/20/22 ''Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
-
-        ''Added 3/18/2022 td
-        If (pboolOpenXML) Then
-            System.Diagnostics.Process.Start(Me.ColumnDataCache.PathToXml_Saved)
-        End If ''End of "If (pboolOpenXML) Then"
+        ''''
+        ''''STEP 3 of 5 
+        ''''
+        '''' Save the ColumnDataCache to disk. 
+        ''''
+        ''Dim strPathToXML_Opened As String = Me.ColumnDataCache.PathToXml_Opened
+        ''Dim strPathToXML_Saved As String = Me.ColumnDataCache.PathToXml_Saved
+        ''If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened = strPathToXML_Saved
+        ''If String.IsNullOrEmpty(strPathToXML_Opened) Then strPathToXML_Opened =
+        ''    DiskFilesVB.PathToFile_XML_RSCFieldSpreadsheet()
+        ''Me.ColumnDataCache.SaveToXML(strPathToXML_Opened)
+        ''Me.ColumnDataCache.PathToXml_Saved = strPathToXML_Opened
+        ''''
+        ''''STEP 4 of 5 
+        ''''
+        ''''  Column by column, save the current data value to the appropriate recipient field.  
+        ''''
+        ''For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+        ''    Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
+        ''    eachColumn = mod_dict_RSCColumns(intIndex)
+        ''    ''4/12/2022 td''eachColumn.SaveDataToColumn()
+        ''    eachColumn.SaveDataTo_RecipientCache()
+        ''Next intIndex
+        ''''
+        ''''Resize the form based on the save form size.---3/20/2022
+        ''''
+        ''''Moved up.3/20/22 ''Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
+        ''''Added 3/18/2022 td
+        ''If (pboolOpenXML) Then
+        ''    System.Diagnostics.Process.Start(Me.ColumnDataCache.PathToXml_Saved)
+        ''End If ''End of "If (pboolOpenXML) Then"
 
     End Sub ''End of "Public Sub SaveDataColumnByColumnXML()"
 
@@ -2420,187 +2414,188 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/18/2022 thomas downes 
         ''
-        mod_manager.DeleteColumnByIndex(par_intColumnIndex)
+        mod_manager.Cols.DeleteColumnByIndex(par_intColumnIndex)
 
     End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
 
-    Public Sub DeleteColumnByIndex_NotInUse(par_intColumnIndex As Integer)
-        ''
-        ''Added 4/14/2022 thomas downes 
-        ''
-        ''Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
-        ''Dim newRSCColumn As RSCFieldColumnV2
-        Dim intCurrentLengthOfArray As Integer
-        Dim intNewLengthOfArray_ByMinus1 As Integer
-        Dim intNewLengthOfArray As Integer
-        ''Dim intNewColumnPropertyLeft As Integer
-        ''Dim intNewColumnWidth As Integer
-        Dim intFirstBumpedColumn_Left As Integer ''Added 4/1/2022 thomas downes
 
-        ''
-        ''Step 0 of 5.  Run some basic checks. 
-        ''
-        Dim columnAboutToDelete As RSCFieldColumnV2 ''Added 4/14/2022
-        Dim intColumnAboutToDelete_Left As Integer ''Added 4/15/2022
-        Dim boolPlaceWithinArray As Boolean ''Added 4/14/2022
-        Dim intIndexLastColumn As Integer ''Added 4/14/2022
-        Dim intWidthOfDeletedColumn As Integer ''Added 4/15/2022
+    ''4/26/2023 td Public Sub DeleteColumnByIndex_NotInUse(par_intColumnIndex As Integer)
+    ''    ''
+    ''    ''Added 4/14/2022 thomas downes 
+    ''    ''
+    ''    ''Dim objCacheOfData As CacheRSCFieldColumnWidthsEtc
+    ''    ''Dim newRSCColumn As RSCFieldColumnV2
+    ''    Dim intCurrentLengthOfArray As Integer
+    ''    Dim intNewLengthOfArray_ByMinus1 As Integer
+    ''    Dim intNewLengthOfArray As Integer
+    ''    ''Dim intNewColumnPropertyLeft As Integer
+    ''    ''Dim intNewColumnWidth As Integer
+    ''    Dim intFirstBumpedColumn_Left As Integer ''Added 4/1/2022 thomas downes
 
-        ''
-        ''Added 4/14/2022
-        ''
-        ''4/15/2022 td ''boolPlaceWithinArray = (par_intColumnIndex <= mod_array_RSCColumns.Length)
-        boolPlaceWithinArray = (par_intColumnIndex < mod_dict_RSCColumns.Values.Count) ''4/2023 .Length)
+    ''    ''
+    ''    ''Step 0 of 5.  Run some basic checks. 
+    ''    ''
+    ''    Dim columnAboutToDelete As RSCFieldColumnV2 ''Added 4/14/2022
+    ''    Dim intColumnAboutToDelete_Left As Integer ''Added 4/15/2022
+    ''    Dim boolPlaceWithinArray As Boolean ''Added 4/14/2022
+    ''    Dim intIndexLastColumn As Integer ''Added 4/14/2022
+    ''    Dim intWidthOfDeletedColumn As Integer ''Added 4/15/2022
 
-        If boolPlaceWithinArray Then
-            columnAboutToDelete = mod_dict_RSCColumns(par_intColumnIndex)
-            ''intNewColumnPropertyLeft = existingColumn.Left
-            columnAboutToDelete.Visible = False ''Render it invisible.
-            ''Added 4/15/2022 td
-            intColumnAboutToDelete_Left = columnAboutToDelete.Left
+    ''    ''
+    ''    ''Added 4/14/2022
+    ''    ''
+    ''    ''4/15/2022 td ''boolPlaceWithinArray = (par_intColumnIndex <= mod_array_RSCColumns.Length)
+    ''    boolPlaceWithinArray = (par_intColumnIndex < mod_dict_RSCColumns.Values.Count) ''4/2023 .Length)
 
-            ''Added 4/15/2022 td
-            If (columnAboutToDelete Is RscFieldColumn1) Then
-                Try
-                    RscFieldColumn1 = mod_dict_RSCColumns(par_intColumnIndex + 1)
-                Catch
-                    ''If the user has deleted all of the columns, then this is the result.
-                    ''   (Zero columns left.) ---4/15/2022 thomas d
-                    RscFieldColumn1 = Nothing
-                End Try
-            End If ''End of ""If (columnAboutToDelete Is RscFieldColumn1) Then""
+    ''    If boolPlaceWithinArray Then
+    ''        columnAboutToDelete = mod_dict_RSCColumns(par_intColumnIndex)
+    ''        ''intNewColumnPropertyLeft = existingColumn.Left
+    ''        columnAboutToDelete.Visible = False ''Render it invisible.
+    ''        ''Added 4/15/2022 td
+    ''        intColumnAboutToDelete_Left = columnAboutToDelete.Left
 
-        Else
-            ''
-            ''Shouldn't happen. 
-            ''
-            System.Diagnostics.Debugger.Break() ''Throw new Exception("Why wasn't the column found?")
+    ''        ''Added 4/15/2022 td
+    ''        If (columnAboutToDelete Is RscFieldColumn1) Then
+    ''            Try
+    ''                RscFieldColumn1 = mod_dict_RSCColumns(par_intColumnIndex + 1)
+    ''            Catch
+    ''                ''If the user has deleted all of the columns, then this is the result.
+    ''                ''   (Zero columns left.) ---4/15/2022 thomas d
+    ''                RscFieldColumn1 = Nothing
+    ''            End Try
+    ''        End If ''End of ""If (columnAboutToDelete Is RscFieldColumn1) Then""
 
-            ''Added 4/14/2022 td
-            ''  Use -1 to shift our focus to the last column in the array.
-            intIndexLastColumn = (-1 + mod_dict_RSCColumns.Values.Count)  ''4/2023 .Length)
-            columnAboutToDelete = mod_dict_RSCColumns(intIndexLastColumn)
-            ''intNewColumnPropertyLeft = (existingColumn.Left + existingColumn.Width + mc_ColumnMarginGap)
-            columnAboutToDelete.Visible = False ''Render it invisible.
+    ''    Else
+    ''        ''
+    ''        ''Shouldn't happen. 
+    ''        ''
+    ''        System.Diagnostics.Debugger.Break() ''Throw new Exception("Why wasn't the column found?")
 
-        End If ''End of ""If boolPlaceWithinArray Then ... Else ..."
+    ''        ''Added 4/14/2022 td
+    ''        ''  Use -1 to shift our focus to the last column in the array.
+    ''        intIndexLastColumn = (-1 + mod_dict_RSCColumns.Values.Count)  ''4/2023 .Length)
+    ''        columnAboutToDelete = mod_dict_RSCColumns(intIndexLastColumn)
+    ''        ''intNewColumnPropertyLeft = (existingColumn.Left + existingColumn.Width + mc_ColumnMarginGap)
+    ''        columnAboutToDelete.Visible = False ''Render it invisible.
 
-        ''intNewColumnWidth = mc_ColumnWidthDefault
+    ''    End If ''End of ""If boolPlaceWithinArray Then ... Else ..."
 
-        ''
-        ''Step 1a of 6.  Make room in the array which tracks the columns.  
-        ''
+    ''    ''intNewColumnWidth = mc_ColumnWidthDefault
 
-        ''----objCacheOfData =
-        ''For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
-        ''    Dim eachColumn As RSCFieldColumn ''Added 3/18/2022 thomas downes
-        ''    eachColumn = mod_array_RSCColumns(intIndex)
-        ''Next intIndex
+    ''    ''
+    ''    ''Step 1a of 6.  Make room in the array which tracks the columns.  
+    ''    ''
 
-        ''Moved below. intNewLengthOfArray_Minus1 = (-1 + mod_array_RSCColumns.Length)
-        ''Moved below. ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
-        ''Moved below. ReDim Preserve mod_array_RSCColumns(intNewLengthOfArray_Minus1)  ''Modified 3/21/2022 td
-        ''Moved below. If (mod_array_RSCColumns.Length <> intNewLengthOfArray_Minus1) Then Throw New Exception
+    ''    ''----objCacheOfData =
+    ''    ''For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+    ''    ''    Dim eachColumn As RSCFieldColumn ''Added 3/18/2022 thomas downes
+    ''    ''    eachColumn = mod_array_RSCColumns(intIndex)
+    ''    ''Next intIndex
 
-        intCurrentLengthOfArray = mod_dict_RSCColumns.Values.Count ''4/2023 .Length
+    ''    ''Moved below. intNewLengthOfArray_Minus1 = (-1 + mod_array_RSCColumns.Length)
+    ''    ''Moved below. ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+    ''    ''Moved below. ReDim Preserve mod_array_RSCColumns(intNewLengthOfArray_Minus1)  ''Modified 3/21/2022 td
+    ''    ''Moved below. If (mod_array_RSCColumns.Length <> intNewLengthOfArray_Minus1) Then Throw New Exception
 
-        For intColIndex As Integer = par_intColumnIndex To (-1 - 1 + intCurrentLengthOfArray)
-            ''---For intColIndex As Integer = par_intColumnIndex To (-1 + intCurrentLengthOfArray)
-            ''
-            ''Move the object references to the left (lower-higher index). 
-            ''
-            mod_dict_RSCColumns(intColIndex) = mod_dict_RSCColumns(intColIndex + 1)
+    ''    intCurrentLengthOfArray = mod_dict_RSCColumns.Values.Count ''4/2023 .Length
 
-        Next intColIndex
+    ''    For intColIndex As Integer = par_intColumnIndex To (-1 - 1 + intCurrentLengthOfArray)
+    ''        ''---For intColIndex As Integer = par_intColumnIndex To (-1 + intCurrentLengthOfArray)
+    ''        ''
+    ''        ''Move the object references to the left (lower-higher index). 
+    ''        ''
+    ''        mod_dict_RSCColumns(intColIndex) = mod_dict_RSCColumns(intColIndex + 1)
 
-        ''
-        ''Remove the last item in the array.  
-        ''
-        ''April 18 2023 intNewLengthOfArray_ByMinus1 = (-1 + mod_dict_RSCColumns.Length)
-        intNewLengthOfArray_ByMinus1 = (-1 + mod_dict_RSCColumns.Count)
-        ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
-        ''
-        ''The number passed to ReDim Preserve is the upper bound of the array, 
-        ''  not the length. ---4/15/2022
-        ''
-        ReDim Preserve mod_dict_RSCColumns(-1 + intNewLengthOfArray_ByMinus1)  ''Modified 3/21/2022 td
-        If (mod_dict_RSCColumns.Count <> intNewLengthOfArray_ByMinus1) Then Throw New Exception
-        intNewLengthOfArray = intNewLengthOfArray_ByMinus1 ''We don't need the suffix anymore. 
+    ''    Next intColIndex
 
-        ''
-        ''Step 1b of 6.  Move the columns to the left, in place of the soon-to-be-deleted column. 
-        ''
-        intWidthOfDeletedColumn = columnAboutToDelete.Width
+    ''    ''
+    ''    ''Remove the last item in the array.  
+    ''    ''
+    ''    ''April 18 2023 intNewLengthOfArray_ByMinus1 = (-1 + mod_dict_RSCColumns.Length)
+    ''    intNewLengthOfArray_ByMinus1 = (-1 + mod_dict_RSCColumns.Count)
+    ''    ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+    ''    ''
+    ''    ''The number passed to ReDim Preserve is the upper bound of the array, 
+    ''    ''  not the length. ---4/15/2022
+    ''    ''
+    ''    ReDim Preserve mod_dict_RSCColumns(-1 + intNewLengthOfArray_ByMinus1)  ''Modified 3/21/2022 td
+    ''    If (mod_dict_RSCColumns.Count <> intNewLengthOfArray_ByMinus1) Then Throw New Exception
+    ''    intNewLengthOfArray = intNewLengthOfArray_ByMinus1 ''We don't need the suffix anymore. 
 
-        intFirstBumpedColumn_Left = Integer.MaxValue ''Default value
-        For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
-            ''---For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLengthOfArray) '' (-1 + intNewLengthOfArray)
-            ''
-            ''If the column's Left edge is greater (bigger in X value) then 
-            ''   the column we are deleting....
-            ''   Then move the column to the left, in place of the deleted column. 
-            ''   ----4/15/2022
-            ''
-            If (each_col Is Nothing) Then
-                ''
-                ''Don't process a Null reference. ---4/15/2022
-                ''
-            ElseIf (each_col.Left > intColumnAboutToDelete_Left) Then
+    ''    ''
+    ''    ''Step 1b of 6.  Move the columns to the left, in place of the soon-to-be-deleted column. 
+    ''    ''
+    ''    intWidthOfDeletedColumn = columnAboutToDelete.Width
 
-                each_col.Left -= (intWidthOfDeletedColumn + mc_ColumnMarginGap)
+    ''    intFirstBumpedColumn_Left = Integer.MaxValue ''Default value
+    ''    For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+    ''        ''---For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLengthOfArray) '' (-1 + intNewLengthOfArray)
+    ''        ''
+    ''        ''If the column's Left edge is greater (bigger in X value) then 
+    ''        ''   the column we are deleting....
+    ''        ''   Then move the column to the left, in place of the deleted column. 
+    ''        ''   ----4/15/2022
+    ''        ''
+    ''        If (each_col Is Nothing) Then
+    ''            ''
+    ''            ''Don't process a Null reference. ---4/15/2022
+    ''            ''
+    ''        ElseIf (each_col.Left > intColumnAboutToDelete_Left) Then
 
-                ''Added 4/1/2022 thomas downes
-                ''   Save the new location of the leftmost column.
-                ''   Whichever is furthest left, supplies the final value.
-                If (each_col.Left < intFirstBumpedColumn_Left) Then
-                    intFirstBumpedColumn_Left = each_col.Left
-                End If
+    ''            each_col.Left -= (intWidthOfDeletedColumn + mc_ColumnMarginGap)
 
-            End If ''End of ""ElseIf (each_col.Left > intColumnAboutToDelete_Left) Then""
+    ''            ''Added 4/1/2022 thomas downes
+    ''            ''   Save the new location of the leftmost column.
+    ''            ''   Whichever is furthest left, supplies the final value.
+    ''            If (each_col.Left < intFirstBumpedColumn_Left) Then
+    ''                intFirstBumpedColumn_Left = each_col.Left
+    ''            End If
 
-        Next each_col
+    ''        End If ''End of ""ElseIf (each_col.Left > intColumnAboutToDelete_Left) Then""
 
-        ''
-        ''Step 7 of 7.  Remove the deleted column as a "Bump Column" for all the columns to the left.  
-        ''
-        Dim bIgnoreIndex0 As Boolean ''Added 4/14/2022 td 
+    ''    Next each_col
 
-        For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) ''To (-1 + intNewLength)
-            ''---For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) 
-            ''
-            ''Add the column as a "Bump Column" for all the columns to the left. 
-            ''
-            bIgnoreIndex0 = (intColIndex = 0 And mod_dict_RSCColumns(intColIndex) Is Nothing)
-            If bIgnoreIndex0 Then Continue For
+    ''    ''
+    ''    ''Step 7 of 7.  Remove the deleted column as a "Bump Column" for all the columns to the left.  
+    ''    ''
+    ''    Dim bIgnoreIndex0 As Boolean ''Added 4/14/2022 td 
 
-            mod_dict_RSCColumns(intColIndex).RemoveBumpColumn(columnAboutToDelete)
+    ''    For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) ''To (-1 + intNewLength)
+    ''        ''---For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) 
+    ''        ''
+    ''        ''Add the column as a "Bump Column" for all the columns to the left. 
+    ''        ''
+    ''        bIgnoreIndex0 = (intColIndex = 0 And mod_dict_RSCColumns(intColIndex) Is Nothing)
+    ''        If bIgnoreIndex0 Then Continue For
 
-        Next intColIndex
+    ''        mod_dict_RSCColumns(intColIndex).RemoveBumpColumn(columnAboutToDelete)
 
-        ''
-        ''Remove the column from the controls.
-        ''
-        Me.Controls.Remove(columnAboutToDelete)
+    ''    Next intColIndex
 
-        ''
-        ''Remove the column from the column-width cache 
-        ''
-        Dim delete_columnWidthAndData As ClassRSCColumnWidthAndData
-        delete_columnWidthAndData = columnAboutToDelete.ColumnWidthAndData
-        Me.ColumnDataCache.ListOfColumns.Remove(delete_columnWidthAndData)
+    ''    ''
+    ''    ''Remove the column from the controls.
+    ''    ''
+    ''    Me.Controls.Remove(columnAboutToDelete)
 
-        ''
-        ''Check to see if RSCColumn1 is affected. 
-        ''
-        If (RscFieldColumn1 Is columnAboutToDelete) Then
-            RscFieldColumn1 = mod_dict_RSCColumns(0) ''Probably a null reference,
-            '' as 0 is not being used!?  ----4/15/2022
-            If (RscFieldColumn1 Is Nothing) Then
-                RscFieldColumn1 = mod_dict_RSCColumns(1)
-            End If ''End of ""If (RscFieldColumn1 Is Nothing) Then""
-        End If ''ENdof ""If (RscFieldColumn1 = columnAboutToDelete) Then""
+    ''    ''
+    ''    ''Remove the column from the column-width cache 
+    ''    ''
+    ''    Dim delete_columnWidthAndData As ClassRSCColumnWidthAndData
+    ''    delete_columnWidthAndData = columnAboutToDelete.ColumnWidthAndData
+    ''    Me.ColumnDataCache.ListOfColumns.Remove(delete_columnWidthAndData)
 
-    End Sub ''End of "Public Sub DeleteColumnByIndex(Me.ColumnIndex)"
+    ''    ''
+    ''    ''Check to see if RSCColumn1 is affected. 
+    ''    ''
+    ''    If (RscFieldColumn1 Is columnAboutToDelete) Then
+    ''        RscFieldColumn1 = mod_dict_RSCColumns(0) ''Probably a null reference,
+    ''        '' as 0 is not being used!?  ----4/15/2022
+    ''        If (RscFieldColumn1 Is Nothing) Then
+    ''            RscFieldColumn1 = mod_dict_RSCColumns(1)
+    ''        End If ''End of ""If (RscFieldColumn1 Is Nothing) Then""
+    ''    End If ''ENdof ""If (RscFieldColumn1 = columnAboutToDelete) Then""
+
+    ''End Sub ''End of "Public Sub DeleteColumnByIndex(Me.ColumnIndex)"
 
 
     Public Sub ReviewRelevantFieldsViaDialogForm()
