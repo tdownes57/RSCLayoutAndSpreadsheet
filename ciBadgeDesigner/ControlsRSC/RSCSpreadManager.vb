@@ -103,4 +103,40 @@ Public Class RSCSpreadManager
     End Sub ''End of ""Public Sub EmphasizeRows_Highlight"
 
 
+    Public Sub LoadRowHeadersControl()
+        ''
+        ''Step 1b of 5.  Load run-time row-header control (RSCRowHeaders1). ----3/24/2022 
+        ''
+        ''   Step 1b(1):  Remove design-time control
+        ''   Step 1b(2):  Load run-time control
+        ''
+        ''Step 1b(1):  Remove design-time control
+        mod_controlSpread.RscRowHeaders1.Visible = False ''Hardly matters, but go ahead. 
+        mod_controlSpread.Controls.Remove(mod_controlSpread.RscRowHeaders1)
+
+        ''Step 1b(2):  Load run-time control
+        Dim intCurrentPropertyLeft As Integer = 0
+        Dim intNextPropertyLeft As Integer = 0
+        RscRowHeaders1 = RSCRowHeaders.GetRSCRowHeaders(Me.Designer, Me.ParentForm,
+             "RscRowHeaders1", Me)
+        Me.Controls.Add(RscRowHeaders1)
+        RscRowHeaders1.Visible = True
+        RscRowHeaders1.Top = (intSavePropertyTop_RSCColumnCtl +
+            intSavePropertyTop_FirstRow - 2)
+        RscRowHeaders1.Left = (intCurrentPropertyLeft)
+
+        ''---RscRowHeaders1.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
+        ''4/29/2023 intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
+        intNextPropertyLeft += (RscRowHeaders1.Width + RSCSpreadManagerCols.mc_ColumnMarginGap)
+
+        ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
+        RscRowHeaders1.PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
+        RscRowHeaders1.ParentRSCSpreadsheet = Me ''Added 4/29/2022 thomas  
+
+
+
+    End Sub ''End of ""Public Sub LoadRowHeaders()""
+
+
+
 End Class

@@ -22,7 +22,7 @@ Public Class RSCSpreadManagerCols
     Private mod_dict_RSCColumns As New Dictionary(Of Integer, RSCFieldColumnV2) ''Modified 4/17/2023 td
 
     Private Const mc_ColumnWidthDefault As Integer = 150 ''72 ''Added 3/20/2022 td
-    Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
+    Public Shared mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
     Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
 
     ''Added 4/18/2023  

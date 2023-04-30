@@ -6,6 +6,21 @@ Partial Public Class RSCSpreadManagerCols
     ''
     ''Added 4/28/2023  
     ''
+    Public Sub RefreshFieldDropdowns()
+        ''
+        ''Added 4/13/2022 thomas downes
+        ''
+        For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+            ''Added 4/13/2022 thomas downes
+            If (each_column IsNot Nothing) Then
+                each_column.RefreshFieldDropdown()
+            End If ''end of "If (each_column IsNot Nothing) Then"
+
+        Next each_column
+
+    End Sub ''End of "Public Sub RefreshFieldDropdowns()"
+
+
     Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
                                par_iRowIndex As Integer,
                                Optional ByRef pboolFailure As Boolean = False,

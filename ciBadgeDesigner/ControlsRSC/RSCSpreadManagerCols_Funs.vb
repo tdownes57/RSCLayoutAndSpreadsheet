@@ -370,4 +370,26 @@ Partial Public Class RSCSpreadManagerCols
     End Function ''End of ""Public Function HasIdentifyingData() As Boolean""
 
 
+    Public Function Equals_RecipientListAtClose(par_list_recipients As List(Of ciBadgeRecipients.ClassRecipient)) As Boolean
+        ''
+        ''Encapsulated 4/28/2023 
+        ''
+        Dim bEachCol_matches As Boolean
+        Dim bSum_matches As Boolean
+
+        For Each each_column In mod_dict_RSCColumns.Values
+
+            If (each_column Is Nothing) Then Continue For
+
+            bEachCol_matches = each_column.Equals_RecipientListAtClose(par_list_recipients)
+            bSum_matches = (bSum_matches And bEachCol_matches)
+
+        Next each_column
+
+        Return bSum_matches
+
+    End Function ''End of ""Public Function Equals_RecipientListAtClose() As Boolean""
+
+
+
 End Class ''End of ""Partial Public Class RSCSpreadManagerCols""

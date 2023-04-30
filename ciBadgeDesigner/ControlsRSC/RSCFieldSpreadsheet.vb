@@ -1356,24 +1356,7 @@ Public Class RSCFieldSpreadsheet
         ''   Step 1b(1):  Remove design-time control
         ''   Step 1b(2):  Load run-time control
         ''
-        ''Step 1b(1):  Remove design-time control
-        RscRowHeaders1.Visible = False ''Hardly matters, but go ahead. 
-        Me.Controls.Remove(RscRowHeaders1)
-
-        ''Step 1b(2):  Load run-time control
-        Dim intCurrentPropertyLeft As Integer = 0
-        Dim intNextPropertyLeft As Integer = 0
-        RscRowHeaders1 = RSCRowHeaders.GetRSCRowHeaders(Me.Designer, Me.ParentForm,
-             "RscRowHeaders1", Me)
-        Me.Controls.Add(RscRowHeaders1)
-        RscRowHeaders1.Visible = True
-        RscRowHeaders1.Top = (intSavePropertyTop_RSCColumnCtl + intSavePropertyTop_FirstRow - 2)
-        RscRowHeaders1.Left = (intCurrentPropertyLeft)
-        ''---RscRowHeaders1.Anchor = CType((AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Right), AnchorStyles)
-        intNextPropertyLeft += (RscRowHeaders1.Width + mc_ColumnMarginGap)
-        ''Assigned within the loop below.--3/24/2022 td''intCurrentPropertyLeft = intNextPropertyLeft
-        RscRowHeaders1.PixelsFromRowToRow = mc_intPixelsFromRowToRow ''Added 4/5/2022
-        RscRowHeaders1.ParentRSCSpreadsheet = Me ''Added 4/29/2022 thomas  
+        mod_manager.LoadRowHeadersControl()
 
         ''---Dim mod_array_RSCColumns As RSCFieldColumn()
         Dim intNeededMaxCols As Integer
@@ -2646,13 +2629,15 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/13/2022 thomas downes
         ''
-        For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
-            ''Added 4/13/2022 thomas downes
-            If (each_column IsNot Nothing) Then
-                each_column.RefreshFieldDropdown()
-            End If ''end of "If (each_column IsNot Nothing) Then"
+        mod_manager.Cols.RefreshFieldDropdowns()
 
-        Next each_column
+        ''4/2023 For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        ''    ''Added 4/13/2022 thomas downes
+        ''    If (each_column IsNot Nothing) Then
+        ''        each_column.RefreshFieldDropdown()
+        ''    End If ''end of "If (each_column IsNot Nothing) Then"
+
+        ''Next each_column
 
     End Sub ''End of "Public Sub RefreshFieldDropdowns()"
 
@@ -2698,7 +2683,7 @@ Public Class RSCFieldSpreadsheet
         Dim exampleColumnMaxCells As RSCFieldColumnV2
         Dim exampleColumnMaxVals As ClassRSCColumnWidthAndData
         Dim list_enumsRelevant As List(Of EnumCIBFields)
-        Dim list_recipients As List(Of ciBadgeRecipients.ClassRecipient) ''Added 7/4/2022
+        Dim list_recipients As List(Of ciBadgeRecipients.ClassRecipient) = Nothing ''Added 7/4/2022
         Dim intHowManyRecips As Integer
         Dim intHowManyDataValues As Integer
         Dim intHowManyRowHeaders As Integer
@@ -2715,7 +2700,8 @@ Public Class RSCFieldSpreadsheet
         list_enumsRelevant = ElementsCache.ListOfFieldEnums_Relevant()
 
         exampleColumnMaxVals = Me.ColumnDataCache.RSCColumnWithMaximalDataCells()
-        exampleColumnMaxCells = mod_dict_RSCColumns(0)
+        ''4/2023 exampleColumnMaxCells = mod_dict_RSCColumns(0)
+        exampleColumnMaxCells = mod_manager.Cols.GetFirstColumn()
 
         intHowManyCellRows = exampleColumnMaxCells.CountOfRows()
         intHowManyDataValues = exampleColumnMaxVals.ColumnData.Count
@@ -2734,21 +2720,20 @@ Public Class RSCFieldSpreadsheet
             System.Diagnostics.Debugger.Break()
         End If
 
-        Dim each_column As RSCFieldColumnV2
-        Dim each_match1of2 As Boolean
+        ''4/2023 Dim each_column As RSCFieldColumnV2
+        ''4/2023 Dim each_match1of2 As Boolean
         Dim sum_matches1of2 As Boolean = True ''Default to true
 
         ''
         ''Matching-Checks routine #1 of 2--Column by Column  
         ''
-        For Each each_column In mod_dict_RSCColumns.Values
+        sum_matches1of2 = mod_manager.Cols.Equals_RecipientListAtClose(list_recipients)
 
-            If (each_column Is Nothing) Then Continue For
-
-            each_match1of2 = each_column.Equals_RecipientListAtClose(list_recipients)
-            sum_matches1of2 = (sum_matches1of2 And each_match1of2)
-
-        Next each_column
+        ''4/2023 For Each each_column In mod_dict_RSCColumns.Values
+        ''    If (each_column Is Nothing) Then Continue For
+        ''    each_match1of2 = each_column.Equals_RecipientListAtClose(list_recipients)
+        ''    sum_matches1of2 = (sum_matches1of2 And each_match1of2)
+        ''Next each_column
 
         ''
         ''Matching-Checks routine #2 of 2--Row by Row    
