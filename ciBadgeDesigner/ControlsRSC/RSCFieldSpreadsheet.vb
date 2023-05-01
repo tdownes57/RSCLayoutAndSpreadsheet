@@ -1356,7 +1356,7 @@ Public Class RSCFieldSpreadsheet
         ''   Step 1b(1):  Remove design-time control
         ''   Step 1b(2):  Load run-time control
         ''
-        mod_manager.LoadRowHeadersControl()
+        mod_manager.LoadRowHeadersControl(mc_intPixelsFromRowToRow)
 
         ''---Dim mod_array_RSCColumns As RSCFieldColumn()
         Dim intNeededMaxCols As Integer
