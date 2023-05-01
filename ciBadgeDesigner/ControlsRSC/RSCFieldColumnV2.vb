@@ -212,8 +212,9 @@ Public Class RSCFieldColumnV2
         With CtlFieldColumn1
             .Name = par_nameOfControl
             ''1/11/2022''If (bAddFunctionalityLater) Then .AddMoveability(par_oMoveEvents, par_iLayoutFun)
-            If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
-                                                             par_oMoveEventsForGroupedCtls, Nothing)
+            ''4/30/2023 If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
+            ''                   par_oMoveEventsForGroupedCtls, Nothing)
+            ''                   par_oMoveEventsForGroupedCtls, Nothing)
             If (bAddFunctionalityLater) Then .AddClickability()
 
             ''Added 2/5/2022 td

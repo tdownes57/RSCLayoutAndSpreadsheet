@@ -1043,7 +1043,7 @@ Public Class RSCFieldSpreadsheet
         If (mod_manager Is Nothing) Then
             ''Add new column-and-row manager.  ---4/30/2023 thomas downes
             mod_manager = New RSCSpreadManager(Me, par_designer, RscFieldColumn1,
-                  Me.ElementsCache, Me.ColumnDataCache)
+                  Me.ElementsCache_Deprecated, Me.ColumnDataCache)
         End If ''End of ""If (mod_manager Is Nothing) Then""
 
         ''4/26/2023 mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer)
@@ -2948,3 +2948,5 @@ Public Class RSCFieldSpreadsheet
 
 
 End Class
+
+

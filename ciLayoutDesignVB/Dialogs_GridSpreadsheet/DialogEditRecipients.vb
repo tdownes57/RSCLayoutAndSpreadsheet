@@ -51,6 +51,7 @@ Public Class DialogEditRecipients
         RscFieldSpreadsheet1.Designer = mod_designer
         Me.ElementsCache_Deprecated = par_cacheElements
         RscFieldSpreadsheet1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
+        RscFieldSpreadsheet1.ElementsCache = Me.ElementsCache_Deprecated ''Added 4/30/2023 
         ''Added 3/28/2022 td
         RscFieldSpreadsheet1.PersonalityCache_Recipients = par_cacheRecipients
         ''7/4/2022 thomas d'' Me.RecipientsCache = par_cacheRecipients
