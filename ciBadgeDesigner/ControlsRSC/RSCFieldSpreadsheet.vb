@@ -12,7 +12,7 @@ Public Class RSCFieldSpreadsheet
     ''
     ''Added 2/21/2022 td
     ''
-    Public Shared StillHavingColumnTrouble As Boolean = True ''Added 4/11/2023 td
+    Public Shared StillHavingColumnTrouble As Boolean = False ''5/01/2023 True ''Added 4/11/2023 td
 
     Public ParentForm_DesignerDialog As Form ''ciBadgeDesigner.DialogEditRecipients 
     Public Designer As ClassDesigner ''Added 3/10/2022 td

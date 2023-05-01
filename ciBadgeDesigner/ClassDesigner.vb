@@ -164,6 +164,7 @@ Public Class ClassDesigner
     Public mod_ControlLastMouseUpCtrlKey As Control ''Added 2/19/2022 td
 
     Private WithEvents mod_oGroupMoveEvents As GroupMoveEvents_Singleton ''Added 1/4/2022 thomas d.
+    Private WithEvents mod_oGroupSizeEvents As GroupMoveEvents_Singleton ''Added 5/01/2023 thomas d.
     ''Jan2 2022''Public mod_IControlLastTouched As New ClassLastControlTouched ''Added 1/02/2021 thomas d. 
     ''Jan2 2022''Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
     Private mod_ElementLastTouched As RSCMoveableControlVB ''Modified 1/12/2021 td 
@@ -230,6 +231,15 @@ Public Class ClassDesigner
             Return mod_oGroupMoveEvents
         End Get
     End Property
+
+
+    Public ReadOnly Property GroupSizeEvents() As GroupMoveEvents_Singleton
+        Get
+            ''Added 5/01/2022 thomas d.
+            Return mod_oGroupSizeEvents
+        End Get
+    End Property
+
 
     Public ReadOnly Property ControlLastTouched() As ClassLastControlTouched
         Get
@@ -650,7 +660,8 @@ Public Class ClassDesigner
         ClassFixTheControlWidth.ProportionsAreSlightlyOff(Me.PreviewBox, True) ''-----(Me.PreviewBox, True)
 
         ''Added 10/9/2019 td  
-        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutDimensionsClass(Me.BackgroundBox_Front.Width, Me.BackgroundBox_Front.Height)
+        Me.BadgeLayout_Class = New ciBadgeInterfaces.BadgeLayoutDimensionsClass(Me.BackgroundBox_Front.Width,
+                                                                                Me.BackgroundBox_Front.Height)
 
         ''Added 1/13/2022 td
         ''5/23/2022 Load_BackgroundImage()
@@ -1012,6 +1023,14 @@ Public Class ClassDesigner
 
     End Sub ''End of "Public Sub LoadDesigner"
 
+
+    Public Sub LoadEvents(par_oMoveEvents As GroupMoveEvents_Singleton,
+                          par_oSizeEvents As GroupMoveEvents_Singleton)
+        ''Added 5/01/2023 thomas 
+        mod_oGroupMoveEvents = par_oMoveEvents
+        mod_oGroupSizeEvents = par_oSizeEvents
+
+    End Sub ''End of ""Public Sub LoadEvents(par_oMoveEvents As GroupMoveEvents_Singleton)""
 
     Public Sub Load_NewElementToCacheAndForm_FieldV4(par_enumField As EnumCIBFields,
                                      par_rectForElement As Rectangle)

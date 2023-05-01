@@ -155,7 +155,7 @@ Public Class RSCFieldColumnV2
                                       par_bProportionSizing As Boolean,
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
-                                     par_oMoveEventsForGroupedCtls As GroupMoveEvents_Singleton,
+                                     par_oSizeEventsForGroupedCtls As GroupMoveEvents_Singleton,
                                      par_oSpreadsheet As RSCFieldSpreadsheet,
                                      par_intColumnIndex As Integer) As RSCFieldColumnV2
         ''
@@ -206,7 +206,7 @@ Public Class RSCFieldColumnV2
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oMoveEventsForGroupedCtls)
+                                                    par_oSizeEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlFieldColumn1
@@ -215,6 +215,11 @@ Public Class RSCFieldColumnV2
             ''4/30/2023 If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
             ''                   par_oMoveEventsForGroupedCtls, Nothing)
             ''                   par_oMoveEventsForGroupedCtls, Nothing)
+            ''5/01/2023 If (bAddFunctionalityLater) Then .AddSizeability(par_iLayoutFun,
+            ''                 par_oMoveEventsForGroupedCtls, Nothing)
+            If (bAddFunctionalityLater) Then .AddSizeability(par_iLayoutFun,
+                               par_oSizeEventsForGroupedCtls, False, Nothing)
+
             If (bAddFunctionalityLater) Then .AddClickability()
 
             ''Added 2/5/2022 td
@@ -241,8 +246,10 @@ Public Class RSCFieldColumnV2
             .ElementsCacheManager = par_parametersGetElementControl.ElementsCacheManager
             ''Feb3 2022 td''.Element_Type = Enum_ElementType.StaticGraphic
             .Element_Type = Enum_ElementType.Portrait ''Added 2/3/2022 thomas d.
-            .EventsForMoveability_Group = par_oMoveEventsForGroupedCtls
-            .EventsForMoveability_Single = Nothing
+            ''5/1/2023 .EventsForMoveability_Group = Nothing ''5/1/2023 par_oMoveEventsForGroupedCtls
+            ''5/1/2023 .EventsForMoveability_Single = Nothing
+            .EventsForSizeability_Group = par_oSizeEventsForGroupedCtls
+            .EventsForSizeability_Single = Nothing
             ''Added 1/24/2022 thomas downes
             .LayoutFunctions = .Designer
 

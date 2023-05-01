@@ -86,7 +86,7 @@ Public Class CtlGraphicFieldV4
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
         Dim objOperationsField_V4 As Operations_FieldV4
-        Dim sizeFieldElement As Size ''Added 1/26/2022 td
+        ''5/1/2023 Unused. Dim sizeFieldElement As Size ''Added 1/26/2022 td
 
         ''Instantiate the Operations Object. 
         objOperationsField_V4 = New Operations_FieldV4() ''Added 1/31/2022 td

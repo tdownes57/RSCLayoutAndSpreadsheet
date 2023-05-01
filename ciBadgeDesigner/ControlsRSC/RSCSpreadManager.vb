@@ -26,6 +26,7 @@ Public Class RSCSpreadManager
         ''
         mod_cacheElements = par_cacheElements ''Added 4/30/2023
         mod_controlSpread = par_controlSpread
+        mod_designer = par_designer ''Added 5/01/2023 thomas downes
 
         ''4/26/2023 mod_manageCols = New RSCSpreadManagerCols(par_controlSpread, par_columnDesignV2,
         ''                                          par_cacheElemements,

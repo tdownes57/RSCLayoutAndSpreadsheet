@@ -12,6 +12,20 @@ Public Class RSCSpreadManagerCols
     ''
     ''Added 4/18/2023 
     ''
+    ''Procedures in this module:
+    ''
+    ''   New
+    ''   AddColumnsToRighthandSide
+    ''   AddToEdgeOfSpreadsheet_Column
+    ''   ColumnDataCache (Public Property)
+    ''   DeleteColumnByIndex
+    ''   GenerateRSCFieldColumn_General
+    ''   GenerateRSCFieldColumn_Special 
+    ''   InsertNewColumnByIndex
+    ''   LoadRuntimeColumns_AfterClearingDesign
+    ''   RemoveRSCColumnsFromDesignTime
+    ''
+    ''
     Public ColumnDataCache As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
 
     Private mod_designer As ClassDesigner ''Added 4/26/2023
@@ -767,8 +781,17 @@ Public Class RSCSpreadManagerCols
         ''Added 4/14/2022 td
         ''
         Dim intRowsNeeded As Integer
+        Dim strErrorMessage As String ''Added 5/1/2023 td
         ''4/26/2023 intRowsNeeded = Me.GetFirstColumn().CountOfRows()
-        intRowsNeeded = mod_dict_RSCColumns(0).CountOfRows()
+        ''4/26/2023 intRowsNeeded = mod_dict_RSCColumns(0).CountOfRows()
+
+        Try
+            intRowsNeeded = mod_dict_RSCColumns(0).CountOfRows()
+        Catch ex_dict As Exception
+            strErrorMessage = ex_dict.Message
+            intRowsNeeded = mod_columnDesignedV2.CountOfRows()
+        End Try
+
         newRSCColumn_output.Load_EmptyRows(intRowsNeeded)
 
         ''Exit Handler.....
@@ -804,7 +827,7 @@ Public Class RSCSpreadManagerCols
                                                          "RSCFieldColumn" & CStr(par_intFieldIndex),
                                                           mod_designer, c_boolProportional,
                                                           mod_designer.ControlLastTouched, mod_designer,
-                                                          mod_designer.GroupMoveEvents,
+                                                          mod_designer.GroupSizeEvents,
                                                           mod_controlSpread, par_intFieldIndex)
 
         ''Added 3/13/2022 thomas downes

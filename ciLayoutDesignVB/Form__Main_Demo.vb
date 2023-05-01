@@ -4040,6 +4040,8 @@ ExitHandler:
         Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
         ''02/2023  Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
 
+        Me.Cursor = Cursors.WaitCursor ''Added 5/1/2023 
+
         ''Added 5/20/2022 td
         With Me.ElementsCache_Edits
             ''.BackgroundImage_Front_Path =  ?? updated w/ latest selection ??  --5/20/2022 
@@ -4081,6 +4083,8 @@ ExitHandler:
         ''March21 2022 ''frm_ToShow.Show()
         Me.UserEditedRecipients = True
         frm_ToShow.ShowDialog()
+
+        Me.Cursor = Cursors.Default ''Added 5/1/2023 
 
     End Sub
 

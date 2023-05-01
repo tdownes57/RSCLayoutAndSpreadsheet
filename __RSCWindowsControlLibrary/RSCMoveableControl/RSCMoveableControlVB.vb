@@ -168,6 +168,31 @@ Public Class RSCMoveableControlVB
     End Property
 
 
+    Public Property SizeabilityEventsForGroupCtls As GroupMoveEvents_Singleton
+        ''Added 5/1/2023 thomas downes
+        Get
+            ''Added 5/01/2023 td 
+            Return mod_eventsForGroupSize_NotNeeded
+        End Get
+        Set(value As GroupMoveEvents_Singleton)
+            ''Added 5/01/2023 td  
+            mod_eventsForGroupSize_NotNeeded = value
+        End Set
+    End Property
+
+
+    Public Property SizeabilityEventsForSingleMove As GroupMoveEvents_Singleton
+        Get
+            ''Added 5/01/2023 td 
+            Return mod_eventsForSingleSize
+        End Get
+        Set(value As GroupMoveEvents_Singleton)
+            ''Added 5/01/2023 td  
+            mod_eventsForSingleSize = value
+        End Set
+    End Property
+
+
     ''
     '' Oops!  Classes should mostly expose methods, not properties.)  
     '' ---2/7/2023
@@ -293,6 +318,7 @@ Public Class RSCMoveableControlVB
     ''Jan10 2022''Private mod_moveResizeKeepRatio As ControlResizeProportionally_TD = Nothing
     ''Jan11 2022''Private mod_moveability_Monem As ControlMove_Group_NonStatic = Nothing
     Private mod_moveability_Monem As MonemControlMove_AllFunctionality = Nothing
+    Private mod_sizeability_Monem As MonemControlMove_AllFunctionality = Nothing
 
     ''Dec29 2021''Private mod_iMoveOrResize As InterfaceMoveOrResize ''Added 12/28/2021 td
     ''4/11/2023   Protected mod_iMoveOrResizeFunctionality As IMonemMoveOrResizeFunctionality ''Added 12/28/2021 td
@@ -302,6 +328,10 @@ Public Class RSCMoveableControlVB
     ''Jan4 2022''Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
     Protected mod_eventsForGroupMove_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
     Protected WithEvents mod_eventsForSingleMove As GroupMoveEvents_Singleton ''InterfaceEvents
+
+    ''Added 5/1/2023 thomas downes 
+    Protected mod_eventsForGroupSize_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
+    Protected WithEvents mod_eventsForSingleSize As GroupMoveEvents_Singleton ''InterfaceEvents
 
     ''
     '' Oops!  Classes should mostly expose methods, not properties.)  
@@ -760,7 +790,7 @@ Public Class RSCMoveableControlVB
         ''Jan11 2022''Me.mod_moveInAGroup = Nothing
         Me.mod_moveability_Monem = Nothing
 
-    End Sub ''End of "Public Sub AddClickability()"
+    End Sub ''End of "Public Sub RemoveClickability()"
 
     ''Added 3/4/2022 thomas downes 
     ''Not needed. --3/4/2022''Private c_blankParams As StructResizeParams = New StructResizeParams()
@@ -780,6 +810,73 @@ Public Class RSCMoveableControlVB
         ''     We need to negate the Boolean variable (Not bAddSizing).
         ''
         mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
+
+        ''
+        ''Added 3/3/2022 td
+        ''
+        If (par_structResizeParams IsNot Nothing) Then
+
+            mod_iMoveOrResizeFunctionality.ResizeParams = par_structResizeParams
+
+        End If ''End of "If (par_structResizeParams IsNot Nothing) Then"
+
+    End Sub ''End of ""Public Sub AddSizeability""
+
+
+
+    Public Sub AddSizeability(par_iLayoutFunctions As ILayoutFunctions,
+                              Optional par_objEventsSizeGroupOfCtls As GroupMoveEvents_Singleton = Nothing,
+                              Optional pbAddProportionality As Boolean = False,
+                              Optional par_structResizeParams As ClassStructResizeParams = Nothing)
+        ''
+        ''Added 5/01/2023 td
+        ''
+        Dim bAddSizing As Boolean = True ''True, because we want sizing.''Dec 29 2021 td
+
+        mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+
+        ''Added 5/1/2023 thomas downes
+        If (mod_sizeability_Monem Is Nothing) Then
+            mod_sizeability_Monem = New MoveAndResizeControls_Monem.MonemControlMove_AllFunctionality()
+            mod_iMoveOrResizeFunctionality = mod_sizeability_Monem
+        End If ''End of ""If (mod_sizeability_Monem Is Nothing) Then""
+
+        ''----DIFFICULT & CONFUSING-------
+        ''     We need to negate the Boolean variable (Not bAddSizing).
+        ''
+        mod_iMoveOrResizeFunctionality.RemoveSizeability = False ''(Not bAddSizing) ''Added 12/28/2021 td
+
+        ''Added 1/10/2022 td
+        If (par_objEventsSizeGroupOfCtls Is Nothing) Then
+
+            par_objEventsSizeGroupOfCtls = Me.SizeabilityEventsForGroupCtls ''Added 1/11/2022
+
+            ''The parameter object-reference is for the movement of a group of controls, so
+            ''  we probably can't simple instantiate a class. In fact, it's certain we have to
+            ''  throw an exception. ---1/10/2022 td
+            If (par_objEventsSizeGroupOfCtls Is Nothing) Then
+                ''8/4/2022 Throw New NullReferenceException("Group-related events must be shared across controls.")
+                System.Diagnostics.Debugger.Break()
+            End If ''End of If (par_objEventsSizeGroupOfCtls Is Nothing) Then
+
+            ''5/01/2023 ElseIf (par_objEventsSizeSingleControl Is Nothing) Then
+            ''
+            ''    par_objEventsSizeSingleControl = Me.SizeabilityEventsForSingleMove ''Added 1/11/2022
+            ''
+            ''    ''We need to instantiate a class. It's just for the movement of a single control, so
+            ''    ''  we probably don't need to use a shared class. In fact, it's better if we don't.
+            ''    ''  ---1/10/2022 td
+            ''    If (par_objEventsSizeSingleControl Is Nothing) Then
+            ''        par_objEventsSizeSingleControl = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+            ''    End If ''End of If (par_objEventsMoveSingleControl Is Nothing) Then
+
+        End If ''End of "If (par_objEventsMoveGroupOfCtls Is Nothing) Then .... ElseIf (par_objEventsMoveSingleControl Is Nothing) Then"
+
+        ''
+        ''Save the parameter object references. ----1/11/2022 td
+        ''
+        Me.SizeabilityEventsForGroupCtls = par_objEventsSizeGroupOfCtls
+        Me.SizeabilityEventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
 
         ''
         ''Added 3/3/2022 td

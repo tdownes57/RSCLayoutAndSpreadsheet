@@ -5,6 +5,7 @@ Option Strict On
 ''
 Imports ciBadgeDesigner ''Added 3/10/2022 t2h2o2m2a2s2 d2o2w2n2e2s
 Imports ciBadgeCachePersonality ''added 3/13/2022 
+Imports ciBadgeInterfaces
 
 Public Class DialogEditRecipients
     ''
@@ -17,11 +18,13 @@ Public Class DialogEditRecipients
     ''Renamed 7/3/2022 td''Public RecipientsCache As ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
     Public PersonalityRecipientsCache As CachePersnltyCnfgLRecips ''7/4/2022 ClassCacheOnePersonalityConfig ''Added 3/29/2022 thomas downes
 
-    Private mod_designer As ClassDesigner ''Added 3/10/2022 td
+    Private mod_designer As New ClassDesigner ''Added 3/10/2022 td
     Private mod_stringPastedData As String ''Added 2/22/2022  
     ''April 13 2022 ''Private mod_cacheColumnWidthsAndData As ciBadgeDesigner.CacheRSCFieldColumnWidthsEtc ''Added 3/16/2022 
     Private mod_cacheColumnWidthsAndData As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''Added 4/13 & 3/16/2022 
     Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
+    ''5/01/2023 Private mod_oGroupSizeEvents As New GroupMoveEvents_Singleton(mod_designer, False) ''Added 5/01/2023 td  
+    Private mod_oGroupSizeEvents As New GroupMoveEvents_Singleton(mod_designer, True) ''Added 5/01/2023 td  
 
 
     Public Sub New()
@@ -46,8 +49,15 @@ Public Class DialogEditRecipients
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        mod_designer = New ClassDesigner()
+        ''5/01/2023 mod_designer = New ClassDesigner()
         mod_designer.DontAutoRefreshPreview = True ''Added 3/11/2022 td
+
+        ''Added 5/01/2023 td 
+        ''5/01/2023 mod_designer.NameOfForm = "DialogEditRecipients"
+        mod_designer.DesignerForm = Me
+        ''5/1/2023 mod_designer.LoadDesigner("For spreadsheet", False, False, mod_oGroupSizeEvents, False)
+        mod_designer.LoadEvents(Nothing, mod_oGroupSizeEvents)
+
         RscFieldSpreadsheet1.Designer = mod_designer
         Me.ElementsCache_Deprecated = par_cacheElements
         RscFieldSpreadsheet1.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
@@ -129,6 +139,7 @@ ExitHandler:
         Return (Not boolMismatchedColumnCount)
 
     End Function ''End of "Private Function ReviewPastedData_IsOkay()"
+
 
     Private Sub DialogEditRecipients_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
