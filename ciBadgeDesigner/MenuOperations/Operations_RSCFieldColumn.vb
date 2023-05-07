@@ -217,7 +217,8 @@ Public Class Operations_RSCFieldColumn
 
             ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
             Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
-            rscParentSpreadsheet.DeleteColumnByIndex(Me.ColumnIndex)
+            ''5/7/2023 rscParentSpreadsheet.DeleteColumnByIndex(Me.ColumnIndex)
+            rscParentSpreadsheet.DeleteColumn(Me.FieldColumn, Me.ColumnIndex)
 
         End If ''end of ""If (MessageBoxTD.Show_Confirmed("Delete .....") ....
 

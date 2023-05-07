@@ -872,8 +872,57 @@ Public Class RSCSpreadManagerCols
     End Sub ''end of "Private Sub RemoveRSCColumnsFromDesignTime()"
 
 
+    Public Sub DeleteColumnByIndex_NotInUse(par_intColumnIndex As Integer)
+        ''
+        ''Added 4/14/2022 thomas downes 
+        ''
 
-    Public Sub DeleteColumnByIndex(par_intColumnIndex As Integer)
+    End Sub
+
+
+    Public Sub DeleteColumn(par_columnToDelete As RSCFieldColumnV2, par_intColumnIndex As Integer)
+        ''
+        ''Added 5/07/2023 thomas downes 
+        ''
+        Dim boolDoesMatch As Boolean
+        boolDoesMatch = (par_columnToDelete Is mod_dict_RSCColumns.Item(par_intColumnIndex))
+        If (Not boolDoesMatch) Then Throw New ArgumentException()
+
+        par_columnToDelete.Visible = False
+        ''5/7/2023 mod_dict_RSCColumns.Remove(par_intColumnIndex)
+        mod_controlSpread.Controls.Remove(par_columnToDelete)
+
+        Dim dictionaryNew As New Dictionary(Of Integer, RSCFieldColumnV2)
+        Dim intIndexNew As Integer = 1
+        Dim intIndexOld As Integer = 1
+        Dim each_column As RSCFieldColumnV2
+        Dim bKeepColumn As Boolean
+
+        ''5/7/2023 For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        For intIndexOld = 1 To mod_dict_RSCColumns.Values.Count
+
+            each_column = mod_dict_RSCColumns.Item(intIndexOld)
+
+            bKeepColumn = (mod_dict_RSCColumns.ContainsKey(intIndexOld) AndAlso
+                          each_column IsNot par_columnToDelete)
+
+            If (bKeepColumn) Then
+                dictionaryNew.Add(intIndexNew, each_column)
+                intIndexNew += 1
+            End If ''ENd of ""If (bKeepColumn) Then""
+
+        Next intIndexOld
+
+        ''
+        ''exit handler
+        ''
+        CompactColumnsAfterDeletion(par_columnToDelete, par_intColumnIndex)
+
+    End Sub ''End of ""Public Sub DeleteColumn(par_columnToDelete As RSCFieldColumnV2, par_intColumnIndex As Integer)""
+
+
+    Public Sub DeleteColumn_Obselete(par_intColumnIndex As Integer)
+        ''5/07/2023 Public Sub DeleteColumnByIndex(par_intColumnIndex As Integer)
         ''
         ''Added 4/14/2022 thomas downes 
         ''
@@ -902,6 +951,9 @@ Public Class RSCSpreadManagerCols
         boolPlaceWithinArray = (par_intColumnIndex < mod_dict_RSCColumns.Values.Count) ''4/2023 .Length)
 
         If boolPlaceWithinArray Then
+            ''
+            ''We will probably find the column in the dictionary. 5/2/2023 
+            ''
             columnAboutToDelete = mod_dict_RSCColumns(par_intColumnIndex)
             ''intNewColumnPropertyLeft = existingColumn.Left
             columnAboutToDelete.Visible = False ''Render it invisible.
@@ -982,6 +1034,7 @@ Public Class RSCSpreadManagerCols
         intWidthOfDeletedColumn = columnAboutToDelete.Width
 
         intFirstBumpedColumn_Left = Integer.MaxValue ''Default value
+
         For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
             ''---For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLengthOfArray) '' (-1 + intNewLengthOfArray)
             ''

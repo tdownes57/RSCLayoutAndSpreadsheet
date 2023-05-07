@@ -67,6 +67,10 @@ Public Class DialogEditRecipients
         ''7/4/2022 thomas d'' Me.RecipientsCache = par_cacheRecipients
         Me.PersonalityRecipientsCache = par_cacheRecipients
 
+        ''Added 5/6/2023 thomas 
+        ''5/6/2023 Me.Width = RscFieldSpreadsheet1.ColumnDataCache.FormSize.Width
+        ''5/6/2023 Me.Height = RscFieldSpreadsheet1.ColumnDataCache.FormSize.Height
+
     End Sub
 
     Private Sub ButtonPasteData_Click(sender As Object, e As EventArgs) Handles ButtonPasteData.Click
@@ -254,9 +258,14 @@ ExitHandler:
         End With ''End of "With RscFieldSpreadsheet1"
 
         ''Added 3/20/2022 td
-        If (mod_cacheColumnWidthsAndData.FormSize.Width > ButtonOK.Width) Then
+        ''5/6/2023 If (mod_cacheColumnWidthsAndData.FormSize.Width > ButtonOK.Width) Then
+        Dim boolRealistic As Boolean ''Added 5/6/2023
+        boolRealistic = (mod_cacheColumnWidthsAndData.FormSize.Width > ButtonOK.Width)
+        If (boolRealistic) Then
             Me.Size = mod_cacheColumnWidthsAndData.FormSize
-        End If
+            ''Added 5/6/2023 td
+            Me.Location = mod_cacheColumnWidthsAndData.FormLocation
+        End If ''End of ""If (boolRealistic) Then"" 
 
         ''Added 5/13/2022 td
         ButtonOK.BringToFront()

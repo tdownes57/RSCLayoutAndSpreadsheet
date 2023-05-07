@@ -319,10 +319,24 @@ Partial Public Class RSCSpreadManagerCols
         ''
         ''Added 4/15/2022 td
         ''
+        Dim strErrorMessage As String ''Added 5/6/2023 td
+
         ''4/17/23  For intColIndex As Integer = 0 To (-1 + mod_array_RSCColumns.Length)
         For intColIndex As Integer = 0 To (-1 + mod_dict_RSCColumns.Values.Count) ''4/17/23 mod_array_RSCColumns.Length)
 
-            If (mod_dict_RSCColumns(intColIndex) Is par_column) Then Return intColIndex
+            Try
+                ''5/7/2023 If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then Return intColIndex
+                If (mod_dict_RSCColumns.ContainsKey(intColIndex)) Then
+                    If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then
+                        Return intColIndex
+                    End If ''End of ""If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then""
+                End If ''End of ""If (mod_dict_RSCColumns.ContainsKey(intColIndex)) Then""
+
+            Catch ex_dict As Exception
+                ''Added 5/06/2023 td 
+                strErrorMessage = ex_dict.Message
+
+            End Try
 
         Next intColIndex
 

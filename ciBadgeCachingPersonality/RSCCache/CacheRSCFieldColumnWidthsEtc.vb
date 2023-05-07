@@ -31,6 +31,7 @@ Namespace ciBadgeCachePersonality
         Public Property DateAndTimeUpdated As DateTime ''Added 11/29/2021 thomas d. 
 
         Public Property FormSize As Drawing.Size ''Added 3/15/2022 thomas downes
+        Public Property FormLocation As Drawing.Point ''Added 5/06/2023 thomas downes
 
         ''
         ''Should these properties be a class in itself?  

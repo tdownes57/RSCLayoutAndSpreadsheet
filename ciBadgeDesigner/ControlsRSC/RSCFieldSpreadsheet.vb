@@ -2102,7 +2102,12 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Resize the form based on the save form size.---3/20/2022
         ''
-        Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
+        Const c_bUpdateAfterSave_Useless As Boolean = True ''False
+        If (c_bUpdateAfterSave_Useless) Then
+            Me.ColumnDataCache.FormSize = Me.ParentForm_DesignerDialog.Size
+            ''Added 5/6/2023 td
+            Me.ColumnDataCache.FormLocation = Me.ParentForm_DesignerDialog.Location
+        End If ''End of ""If (c_bUpdateAfterSave_Useless) Then""
 
     End Sub ''End of "Public Sub SaveDataColumnByColumnXML()"
 
@@ -2148,6 +2153,16 @@ Public Class RSCFieldSpreadsheet
         ''Added 4/18/2022 thomas downes 
         ''
         mod_manager.Cols.DeleteColumnByIndex(par_intColumnIndex)
+
+    End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
+
+
+    Public Sub DeleteColumn(par_column As RSCFieldColumnV2, par_intColumnIndex As Integer)
+        ''
+        ''Added 4/18/2022 thomas downes 
+        ''
+        ''5/7/2023 mod_manager.Cols.DeleteColumnByIndex(par_intColumnIndex)
+        mod_manager.Cols.DeleteColumn(par_column, par_intColumnIndex)
 
     End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
 

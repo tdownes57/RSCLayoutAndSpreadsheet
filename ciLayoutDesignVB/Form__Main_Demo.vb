@@ -4041,6 +4041,8 @@ ExitHandler:
         ''02/2023  Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
 
         Me.Cursor = Cursors.WaitCursor ''Added 5/1/2023 
+        Application.DoEvents() ''Added 5/1/2023 
+        Application.DoEvents() ''Added 5/1/2023 
 
         ''Added 5/20/2022 td
         With Me.ElementsCache_Edits
@@ -4082,7 +4084,17 @@ ExitHandler:
 
         ''March21 2022 ''frm_ToShow.Show()
         Me.UserEditedRecipients = True
-        frm_ToShow.ShowDialog()
+
+        Dim strErrorMessage As String ''Added 5/6/2023 thomas d.
+
+        Try
+            frm_ToShow.ShowDialog()
+
+        Catch ex_editRecips As Exception ''Added 5/6/2023 td
+            ''Added 5/6/2023 td
+            strErrorMessage = ex_editRecips.Message
+
+        End Try
 
         Me.Cursor = Cursors.Default ''Added 5/1/2023 
 
