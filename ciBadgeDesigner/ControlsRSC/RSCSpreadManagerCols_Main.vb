@@ -33,7 +33,8 @@ Public Class RSCSpreadManagerCols
     Private mod_columnDesignedV2 As RSCFieldColumnV2 ''Added 4/18/2023
 
     ''4/17/2012 Private mod_array_RSCColumns As RSCFieldColumnV2() ''Added 3/14/2022 td
-    Private mod_dict_RSCColumns As New Dictionary(Of Integer, RSCFieldColumnV2) ''Modified 4/17/2023 td
+    ''5/07/2012 Private mod_dict_RSCColumns As New Dictionary(Of Integer, RSCFieldColumnV2) ''Modified 4/17/2023 td
+    Private mod_dlist_RSCColumns As New RSCFieldColumnList ''Added 5/7/2023 td
 
     Private Const mc_ColumnWidthDefault As Integer = 150 ''72 ''Added 3/20/2022 td
     Public Shared mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td

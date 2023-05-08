@@ -32,7 +32,10 @@ Public Class RSCFieldColumnV2
     Public Shared BackColor_NoEmphasis As Drawing.Color = Drawing.Color.Plum ''.Magenta ''Aded 5/13/2022
     Public Shared BackColor_WithEmphasis As Drawing.Color = Drawing.Color.Cyan ''Aded 5/13/2022
 
-    Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
+    ''5/7/2023 Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
+    Public FieldColumnNextRight As RSCFieldColumnV2
+    Public FieldColumnNextLeft As RSCFieldColumnV2
+
     ''April 13 2022 ''Private mod_columnWidthAndData As ClassColumnWidthAndData_NotInUse ''Added 3/18/2022  
     Private mod_columnWidthAndData As ClassRSCColumnWidthAndData ''Added 3/18/2022  
     Private mod_arrayOfData_Undo As String() ''Added 3/20/2022 thomas d.
