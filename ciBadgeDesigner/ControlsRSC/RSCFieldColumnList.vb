@@ -418,15 +418,15 @@ Public Class RSCFieldColumnList
     End Property ''End of ""Public Property Item(par_index As Integer) As RSCFieldColumnV2""
 
 
-    Public Sub Reset() Implements IEnumerator.Reset
+    ''5/8/2023 Public Sub Reset() Implements IEnumerator.Reset
+    ''
+    ''    ''Added 5/8/2023 thomas d.
+    ''    mod_columnCurrent = Nothing ''mod_columnFirstLeft
+    ''
+    ''End Sub
 
-        ''Added 5/8/2023 thomas d.
-        mod_columnCurrent = Nothing ''mod_columnFirstLeft
 
-    End Sub
-
-
-    ''Public ReadOnly Property Current() As RSCFieldColumnV2 _
+    ''5/8/2023 Public ReadOnly Property Current() As RSCFieldColumnV2 _
     ''    Implements IEnumerator(Of RSCFieldColumnV2).Current
 
     ''    ''Added 5/08/2023
@@ -442,35 +442,40 @@ Public Class RSCFieldColumnList
     ''    End Get
     ''End Property
 
-    ''Public Function MoveNext() As Boolean Implements IEnumerator(Of RSCFieldColumnV2).MoveNext
-
+    ''5/8/2023 Public Function MoveNext() As Boolean Implements IEnumerator(Of RSCFieldColumnV2).MoveNext
+    ''
     ''    If (mod_columnCurrent Is Nothing) Then
-
+    ''
     ''        mod_columnCurrent = mod_columnFirstLeft
     ''        Return True ''mod_columnCurrent
-
+    ''
     ''    Else
-
+    ''
     ''        Dim bNotDone As Boolean
     ''        mod_columnCurrent = mod_columnCurrent.FieldColumnNextRight
     ''        bNotDone = (mod_columnCurrent IsNot Nothing)
     ''        Return bNotDone ''True ''mod_columnCurrent
-
+    ''
     ''    End If
-
+    ''
     ''End Function ''End of ""Public Function MoveNext() As Boolean""
 
 
     Public Function GetEnumerator() As IEnumerator(Of RSCFieldColumnV2) _
         Implements IEnumerable(Of RSCFieldColumnV2).GetEnumerator
-
+        ''
+        ''Added 5/8/2023
+        ''
         Return New RSCFieldColumnEnumerator(mod_columnFirstLeft)
 
     End Function
 
 
-    Private Function IEnumerable_GetEnumerator() As IEnumerator Implements IEnumerable.GetEnumerator
-
+    Private Function IEnumerable_GetEnumerator() As _
+        IEnumerator Implements IEnumerable.GetEnumerator
+        ''
+        ''Added 5/8/2023
+        ''
         ''Throw New NotImplementedException()
         Return GetEnumerator()
 

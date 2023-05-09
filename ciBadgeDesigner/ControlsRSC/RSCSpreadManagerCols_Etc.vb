@@ -42,7 +42,8 @@ Partial Public Class RSCSpreadManagerCols
         ''Track how many columns have failures. 
         pintHowManyColumnsFailed = 0 ''Initialize.  5/245/2022 
 
-        For Each each_column In mod_dict_RSCColumns.Values ''4/17/2023 mod_array_RSCColumns
+        ''5/9/2023 For Each each_column In mod_dict_RSCColumns.Values ''4/17/2023 mod_array_RSCColumns
+        For Each each_column In mod_dlist_RSCColumns ''5/9/2023 .Values ''4/17/2023 mod_array_RSCColumns
 
             ''Added 5/20/2022 td
             If (each_column Is Nothing) Then Continue For
@@ -82,7 +83,8 @@ Partial Public Class RSCSpreadManagerCols
         For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
 
             Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
-            eachColumn = mod_dict_RSCColumns(intIndex)
+            ''5/09/2023 eachColumn = mod_dict_RSCColumns(intIndex)
+            eachColumn = mod_dlist_RSCColumns.GetColumnAtIndex(intIndex)
             ''4/12/2022 td''eachColumn.SaveDataToColumn()
             eachColumn.SaveDataTo_ColumnCache()
 
@@ -116,7 +118,8 @@ Partial Public Class RSCSpreadManagerCols
         For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
 
             Dim eachColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
-            eachColumn = mod_dict_RSCColumns(intIndex)
+            ''5/9/2023 eachColumn = mod_dict_RSCColumns(intIndex)
+            eachColumn = mod_dlist_RSCColumns.GetColumnAtIndex(intIndex)
             ''4/12/2022 td''eachColumn.SaveDataToColumn()
             eachColumn.SaveDataTo_RecipientCache()
 

@@ -32,7 +32,9 @@ Public Class RSCFieldColumnV2
     Public Shared BackColor_NoEmphasis As Drawing.Color = Drawing.Color.Plum ''.Magenta ''Aded 5/13/2022
     Public Shared BackColor_WithEmphasis As Drawing.Color = Drawing.Color.Cyan ''Aded 5/13/2022
 
-    ''5/7/2023 Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
+    ''No longer needed, as we have RSCFieldColumnList.RefreshHorizontalPositions.  5/09/2023
+    ''5/09/2023 Private mod_listOfColumnsToBumpRight As List(Of RSCFieldColumnV2)
+
     Public FieldColumnNextRight As RSCFieldColumnV2
     Public FieldColumnNextLeft As RSCFieldColumnV2
 
@@ -96,30 +98,32 @@ Public Class RSCFieldColumnV2
     End Property
 
 
-    Public Property ListOfColumnsToBumpRight As List(Of RSCFieldColumnV2) ''Added 3/12/2022 td 
-        Get
-            Return mod_listOfColumnsToBumpRight
-        End Get
-        Set(value As List(Of RSCFieldColumnV2))
-            ''
-            ''Important, set the local list of columns to match the list which
-            ''    is part of the composition of MyBase.mod_iMoveOrResizeFunctionality 
-            ''    ---04/1/2022 thomas d. 
-            ''
-            mod_listOfColumnsToBumpRight = value
-
-            If (MyBase.mod_iMoveOrResizeFunctionality Is Nothing) Then Return
-
-            If (value Is Nothing) Then
-                MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = Nothing
-            Else
-                Dim listUserControls As New List(Of UserControl)(value)
-                ''March13 2022 td''MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = value
-                MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = listUserControls
-            End If
-
-        End Set
-    End Property
+    ''---**--No longer needed, as the columns are now managed by RSCFieldColumnList. --5/9/2023
+    ''---**Public Property ListOfColumnsToBumpRight_Obselete As List(Of RSCFieldColumnV2) ''Added 3/12/2022 td 
+    ''    Get
+    ''        Return mod_listOfColumnsToBumpRight
+    ''    End Get
+    ''
+    ''    Set(value As List(Of RSCFieldColumnV2))
+    ''        ''
+    ''        ''Important, set the local list of columns to match the list which
+    ''        ''    is part of the composition of MyBase.mod_iMoveOrResizeFunctionality 
+    ''        ''    ---04/1/2022 thomas d. 
+    ''        ''
+    ''        mod_listOfColumnsToBumpRight = value
+    ''
+    ''        If (MyBase.mod_iMoveOrResizeFunctionality Is Nothing) Then Return
+    ''
+    ''        If (value Is Nothing) Then
+    ''            MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = Nothing
+    ''        Else
+    ''            Dim listUserControls As New List(Of UserControl)(value)
+    ''            ''March13 2022 td''MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = value
+    ''            MyBase.mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight = listUserControls
+    ''        End If
+    ''
+    ''    End Set
+    ''End Property
 
 
     Public Shared Function GetRSCFieldColumn(par_designer As ClassDesigner,
@@ -638,42 +642,44 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub Handle_CellHasFocus""
 
 
-    Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumnV2)
-        ''
-        ''Added 4/1/2022 thomas 
-        ''
-        If (mod_listOfColumnsToBumpRight Is Nothing) Then
-            mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumnV2)
-        End If
+    ''No longer needed, as we have RSCFieldColumnList.RefreshHorizontalPositions.  5/09/2023
+    ''Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumnV2)
+    ''    ''
+    ''    ''Added 4/1/2022 thomas 
+    ''    ''
+    ''    If (mod_listOfColumnsToBumpRight Is Nothing) Then
+    ''        mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumnV2)
+    ''    End If
+    ''
+    ''    If (Not mod_listOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+    ''        mod_listOfColumnsToBumpRight.Add(par_columnToBump)
+    ''    End If
+    ''
+    ''    ''----If (Not mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+    ''    mod_iMoveOrResizeFunctionality.AddColumnToBumpRight(par_columnToBump)
+    ''    ''---End If
+    ''
+    ''End Sub ''End of "Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)"
 
-        If (Not mod_listOfColumnsToBumpRight.Contains(par_columnToBump)) Then
-            mod_listOfColumnsToBumpRight.Add(par_columnToBump)
-        End If
 
-        ''----If (Not mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight.Contains(par_columnToBump)) Then
-        mod_iMoveOrResizeFunctionality.AddColumnToBumpRight(par_columnToBump)
-        ''---End If
+    ''No longer needed, as we have RSCFieldColumnList.RefreshHorizontalPositions.  5/09/2023
+    ''Public Sub RemoveBumpColumn(par_columnToBump As RSCFieldColumnV2)
+    ''    ''
+    ''    ''Added 4/15/2022 thomas 
+    ''    ''
+    ''    If (mod_listOfColumnsToBumpRight Is Nothing) Then Return
+    ''    ''    mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumnV2)
+    ''    ''End If
 
-    End Sub ''End of "Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)"
+    ''    If (mod_listOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+    ''        mod_listOfColumnsToBumpRight.Remove(par_columnToBump)
+    ''    End If
 
+    ''    ''----If (Not mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight.Contains(par_columnToBump)) Then
+    ''    mod_iMoveOrResizeFunctionality.RemoveColumnToBumpRight(par_columnToBump)
+    ''    ''---End If
 
-    Public Sub RemoveBumpColumn(par_columnToBump As RSCFieldColumnV2)
-        ''
-        ''Added 4/15/2022 thomas 
-        ''
-        If (mod_listOfColumnsToBumpRight Is Nothing) Then Return
-        ''    mod_listOfColumnsToBumpRight = New List(Of RSCFieldColumnV2)
-        ''End If
-
-        If (mod_listOfColumnsToBumpRight.Contains(par_columnToBump)) Then
-            mod_listOfColumnsToBumpRight.Remove(par_columnToBump)
-        End If
-
-        ''----If (Not mod_iMoveOrResizeFunctionality.ListOfColumnsToBumpRight.Contains(par_columnToBump)) Then
-        mod_iMoveOrResizeFunctionality.RemoveColumnToBumpRight(par_columnToBump)
-        ''---End If
-
-    End Sub ''End of "Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)"
+    ''End Sub ''End of "Public Sub AddBumpColumn(par_columnToBump As RSCFieldColumn)"
 
 
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)

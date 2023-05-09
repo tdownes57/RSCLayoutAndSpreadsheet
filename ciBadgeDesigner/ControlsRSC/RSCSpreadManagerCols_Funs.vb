@@ -21,7 +21,8 @@ Partial Public Class RSCSpreadManagerCols
         Dim intCountColsWithout As Integer = 0
         Dim eachRSCColumn As RSCFieldColumnV2
 
-        For Each eachRSCColumn In mod_dict_RSCColumns.Values ''4/17/2023  mod_array_RSCColumns
+        ''5/09/2023 For Each eachRSCColumn In mod_dict_RSCColumns.Values ''4/17/2023  mod_array_RSCColumns
+        For Each eachRSCColumn In mod_dlist_RSCColumns ''5/9/2023 .Values ''4/17/2023  mod_array_RSCColumns
             ''
             ''Build the dictionaries. 
             ''
@@ -59,16 +60,17 @@ Partial Public Class RSCSpreadManagerCols
         ''4/26/2023 Dim bUserWantsFieldsManager As Boolean = False ''Added 5/13/2022
         Dim output_dialogResult As DialogResult ''Added 5/13/2022 
 
-        For Each eachRSCColumn In mod_dict_RSCColumns.Values
+        ''5/9/2023 For Each eachRSCColumn In mod_dict_RSCColumns.Values
+        For Each eachRSCColumn In mod_dlist_RSCColumns ''5/9/2023 .Values
             ''
             ''Build the dictionaries. 
             ''
             If (eachRSCColumn Is Nothing) Then Continue For
 
             eachRSCColumn.ReviewColumnDisplayForRelevantFields(dictionary1FC_FieldsToRSCColumn,
-                dictionary2CF_ColumnToEnumField,
-                objectStringBuilder1FC,
-                objectStringBuilder2CF)
+                    dictionary2CF_ColumnToEnumField,
+                    objectStringBuilder1FC,
+                    objectStringBuilder2CF)
 
         Next eachRSCColumn
 
@@ -202,25 +204,28 @@ Partial Public Class RSCSpreadManagerCols
     End Function ''End of ""Private Sub ExpandDictionary1FC""
 
 
-
-
-
     Public Function Count() As Integer
 
         ''Added 4/19/2023 thomas d
-        Return mod_dict_RSCColumns.Count
+        ''5/9/2023 Return mod_dict_RSCColumns.Count
+        Return mod_dlist_RSCColumns.Count
 
-    End Function
+    End Function ''End of ""Public Function Count() As Integer""
+
 
     Public Function LeftHandColumn() As RSCFieldColumnV2
         ''
         ''Added 4/19/2023 td
         ''
         Dim columnLeftHandMost As RSCFieldColumnV2
-        columnLeftHandMost = mod_dict_RSCColumns(0)
+        ''5/9/2023 columnLeftHandMost = mod_dict_RSCColumns(0)
+        columnLeftHandMost = mod_dlist_RSCColumns.GetFirst()
+
         If (columnLeftHandMost Is Nothing) Then
-            columnLeftHandMost = mod_dict_RSCColumns(1)
+            ''5/9/2023 columnLeftHandMost = mod_dict_RSCColumns(1)
+            System.Diagnostics.Debugger.Break()
         End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
+
         Return columnLeftHandMost
 
     End Function ''End of ""Public Function LeftHandColumn()""
@@ -232,7 +237,8 @@ Partial Public Class RSCSpreadManagerCols
         ''\\---Return New List(Of RSCFieldColumn)(mod_array_RSCColumns)
         Dim oList As List(Of RSCFieldColumnV2)
         ''4/17/2023 oList = New List(Of RSCFieldColumnV2)(mod_array_RSCColumns)
-        oList = New List(Of RSCFieldColumnV2)(mod_dict_RSCColumns.Values)
+        ''5/09/2023 oList = New List(Of RSCFieldColumnV2)(mod_dict_RSCColumns.Values)
+        oList = New List(Of RSCFieldColumnV2)(mod_dlist_RSCColumns)
         oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
         Return oList
 
