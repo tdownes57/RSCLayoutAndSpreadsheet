@@ -2139,6 +2139,15 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of ""Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)""
 
 
+    Public Sub InsertColumnLeftOfSpecified(par_column As RSCFieldColumnV2)
+        ''    
+        ''Added 5/08/2023 thomas downes 
+        ''    
+        mod_manager.Cols.InsertColumnLeftOfSpecified(par_column, mc_intPixelsFromRowToRow)
+
+    End Sub ''End of ""Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)""
+
+
     Public Sub DeleteRecipientFromCache(par_recipient As ciBadgeRecipients.ClassRecipient)
         ''
         ''Added 5/1/2022 td
@@ -2157,12 +2166,12 @@ Public Class RSCFieldSpreadsheet
     End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
 
 
-    Public Sub DeleteColumn(par_column As RSCFieldColumnV2, par_intColumnIndex As Integer)
+    Public Sub DeleteColumn(par_columnToDelete As RSCFieldColumnV2, par_intColumnIndex As Integer)
         ''
         ''Added 4/18/2022 thomas downes 
         ''
         ''5/7/2023 mod_manager.Cols.DeleteColumnByIndex(par_intColumnIndex)
-        mod_manager.Cols.DeleteColumn(par_column, par_intColumnIndex)
+        mod_manager.Cols.DeleteColumn(par_columnToDelete, par_intColumnIndex)
 
     End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
 

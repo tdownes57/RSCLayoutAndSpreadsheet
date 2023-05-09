@@ -168,7 +168,7 @@ Public Class RSCSpreadManagerCols
         ''The number passed to ReDim Preserve is the upper bound of the array, 
         ''  not the length. ---4/15/2022
         ''
-        ''Not required for dictionaries. 4/19/2023 ReDim mod_dict_RSCColumns(intNeededMax)
+        ''Not required for dictionaries. 4/19/2023 ReDim mod_dlist_RSCColumns(intNeededMax)
         Dim each_field As ciBadgeFields.ClassFieldAny
 
         ''
@@ -222,7 +222,8 @@ Public Class RSCSpreadManagerCols
                 mod_controlSpread.Controls.Add(each_Column)
 
                 ''Added 3/12/2022 thomas downes 
-                mod_dict_RSCColumns(intNeededIndex) = each_Column
+                ''5/8/2023 mod_dlist_RSCColumns(intNeededIndex) = each_Column
+                mod_dlist_RSCColumns.InsertColumnLeftToRight(each_Column)
 
                 ''Added 3/16/2022 td
                 ''  Redundant, assigned in Step 4 below.
@@ -265,7 +266,7 @@ Public Class RSCSpreadManagerCols
             '' i.e. going from right to left (vs. the standard of going left to right).  
             ''     ---3/12/20022 td
 
-            each_Column = mod_dict_RSCColumns(intNeededIndex)
+            each_Column = mod_dlist_RSCColumns(intNeededIndex)
             ''Moved below. 3/13/2022 td''listColumnsRight.Add(eachColumn)
 
             ''Let's initialize the list "each_list" with the list "listColumnsRight"
@@ -297,7 +298,7 @@ Public Class RSCSpreadManagerCols
         Dim each_columnWidthEtc As ciBadgeCachePersonality.ClassRSCColumnWidthAndData
         For intNeededIndex = 1 To intNeededMax
 
-            each_Column = mod_dict_RSCColumns(intNeededIndex)
+            each_Column = mod_dlist_RSCColumns(intNeededIndex)
             ''Moved below. 3/16/2022 td''eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
             ''Added 3/15/2022 td
             ''  This may not be needed.  See eachColumn.ColumnWidthAndData.
@@ -348,8 +349,8 @@ Public Class RSCSpreadManagerCols
         ''
         For intNeededIndex = 2 To intNeededMax
 
-            priorColumn = mod_dict_RSCColumns(intNeededIndex - 1)
-            each_Column = mod_dict_RSCColumns(intNeededIndex)
+            priorColumn = mod_dlist_RSCColumns(intNeededIndex - 1)
+            each_Column = mod_dlist_RSCColumns(intNeededIndex)
 
             each_Column.Left = (priorColumn.Left + priorColumn.Width + 4)
 
@@ -421,14 +422,16 @@ Public Class RSCSpreadManagerCols
         Dim intColumnCount As Integer
         Dim intColumnCount_PlusOne As Integer
 
-        If (mod_dict_RSCColumns Is Nothing) Then ''Added 4/17/2023 td
-            ''4/2023 mod_dict_RSCColumns = {} ''Added 4/17/2023 td
-            mod_dict_RSCColumns = New Dictionary(Of Integer, RSCFieldColumnV2) ''Added 4/17/2023 td
+        If (mod_dlist_RSCColumns Is Nothing) Then ''Added 4/17/2023 td
+            ''4/2023 mod_dlist_RSCColumns = {} ''Added 4/17/2023 td
+            ''5/2023 mod_dlist_RSCColumns = New Dictionary(Of Integer, RSCFieldColumnV2) ''Added 4/17/2023 td
+            mod_dlist_RSCColumns = New RSCFieldColumnList ''Added 5/07/2023 td
             intColumnCount = 0 ''Added 4/17/2022 td
         Else
             ''4/2023 intColumnCount = mod_array_RSCColumns.Length
-            intColumnCount = mod_dict_RSCColumns.Values.Count ''.Length
-            If (mod_dict_RSCColumns(0) Is Nothing) Then intColumnCount -= 1
+            ''5/2023 intColumnCount = mod_dlist_RSCColumns.Values.Count ''.Length
+            intColumnCount = mod_dlist_RSCColumns.Count ''.Length
+            ''5/2023 If (mod_dlist_RSCColumns(0) Is Nothing) Then intColumnCount -= 1
         End If ''End of ""If (mod_array_RSCColumns Is Nothing) Then ... Else ..."  
 
         intColumnCount_PlusOne = (1 + intColumnCount)
@@ -436,6 +439,74 @@ Public Class RSCSpreadManagerCols
         InsertNewColumnByIndex(intColumnCount_PlusOne, par_intPixelsBetweenRows)
 
     End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Column()""
+
+
+    Public Sub InsertColumnLeftOfSpecified(par_columnExisting As RSCFieldColumnV2,
+                                      par_intPixelsBetweenRows As Integer)
+        ''
+        ''Added 5/08/2023 thomas downes 
+        ''
+        Dim newRSCColumn As RSCFieldColumnV2
+        Dim intNewColumnWidth As Integer
+        Dim intNewColumnPropertyLeft As Integer
+        Dim intNewColumnIndex As Integer
+        Dim intNextColumnPropertyLeft As Integer
+
+        intNewColumnWidth = mc_ColumnWidthDefault
+        intNewColumnPropertyLeft = par_columnExisting.Left
+        intNewColumnIndex = mod_dlist_RSCColumns.GetIndexOf(par_columnExisting)
+        intNewColumnPropertyLeft = (intNewColumnPropertyLeft +
+            mc_ColumnWidthDefault + mc_ColumnMarginGap)
+
+        ''
+        ''Major call!!
+        ''
+        newRSCColumn = GenerateRSCFieldColumn_General(intNewColumnIndex,
+                                                    intNewColumnPropertyLeft,
+                                                    intNextColumnPropertyLeft,
+                                                    par_columnExisting,
+                                                    par_intPixelsBetweenRows)
+
+        mod_dlist_RSCColumns.InsertColumnLeftOfSpecified(newRSCColumn, par_columnExisting)
+
+        mod_dlist_RSCColumns.RefreshHorizontalPositions(par_columnExisting, mc_ColumnMarginGap)
+
+        newRSCColumn.ParentSpreadsheet = mod_controlSpread ''Added 4/30/2022 td
+        newRSCColumn.Top = mod_columnDesignedV2.Top
+        newRSCColumn.Height = mod_columnDesignedV2.Height
+
+        ''Added 4/14/2022 td
+        With newRSCColumn
+            If (.ColumnWidthAndData Is Nothing) Then
+                ''Added 4/14/2022 td
+                .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
+                .ColumnWidthAndData.Width = mc_ColumnWidthDefault
+            End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
+        End With ''End of ""With newRSCColumn""
+
+        newRSCColumn.Load_FieldsFromCache(mod_cacheElements)
+
+        ''
+        ''Step 10 of 11.  Add the new column to the list of columns in the cache. 
+        ''
+        Me.ColumnDataCache.ListOfColumns.Add(newRSCColumn.ColumnWidthAndData)
+
+        ''
+        ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
+        ''
+        Dim intNewLength As Integer
+        intNewLength = mod_dlist_RSCColumns.Count()
+
+        For intColIndex As Integer = (1 + intNewColumnIndex) To (-1 + intNewLength)
+            ''
+            ''Display the corrected column index on each columns to the right. 
+            ''
+            mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
+
+        Next intColIndex
+
+    End Sub ''END OF ""Public Sub InsertColumnLeftOfSpecified""
 
 
     Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer,
@@ -447,18 +518,20 @@ Public Class RSCSpreadManagerCols
         Dim newRSCColumn As RSCFieldColumnV2
         Dim intNewLength As Integer
         Dim intNewColumnPropertyLeft As Integer
+        Dim intNextColumnPropertyLeft As Integer
         Dim intNewColumnWidth As Integer
         Dim intFirstBumpedColumn_Left As Integer ''Added 4/1/2022 thomas downes
 
         ''
         ''Step 1 of 11.  Record the Left position which the new column will occupy. 
         ''
-        Dim existingColumn As RSCFieldColumnV2 ''Added 4/14/2022
+        Dim existingColumn As RSCFieldColumnV2 = Nothing ''Added 4/14/2022
         Dim boolPlaceWithinArray As Boolean ''Added 4/14/2022
         Dim intIndexLastColumn As Integer ''Added 4/14/2022
 
         ''4/2023 If (0 = mod_array_RSCColumns.Length) Then
-        If (0 = mod_dict_RSCColumns.Values.Count) Then ''Added 4/17/2022
+        ''5/2023 If (0 = mod_dict_RSCColumns.Values.Count) Then ''Added 4/17/2022
+        If (0 = mod_dlist_RSCColumns.Count) Then ''Added 4/17/2022
             ''
             ''Added 4/17/2022 td
             ''
@@ -467,87 +540,97 @@ Public Class RSCSpreadManagerCols
 
         Else
             ''Added 4/14/2022
-            boolPlaceWithinArray = (par_intColumnIndex < mod_dict_RSCColumns.Values.Count) ''Length)
+            ''5/8/2023 boolPlaceWithinArray = (par_intColumnIndex < mod_dict_RSCColumns.Values.Count) ''Length)
+            boolPlaceWithinArray = (par_intColumnIndex < mod_dlist_RSCColumns.Count) ''Length)
 
             If boolPlaceWithinArray Then
-                existingColumn = mod_dict_RSCColumns(par_intColumnIndex)
+                existingColumn = mod_dlist_RSCColumns(par_intColumnIndex)
                 intNewColumnPropertyLeft = existingColumn.Left
             Else
                 ''Added 4/14/2022 td
                 ''  Use -1 to shift our focus to the last column in the array.
-                intIndexLastColumn = (-1 + mod_dict_RSCColumns.Values.Count) '' .Length)
-                existingColumn = mod_dict_RSCColumns(intIndexLastColumn)
+                ''5/8/2023 intIndexLastColumn = (-1 + mod_dict_RSCColumns.Values.Count) '' .Length)
+                intIndexLastColumn = (-1 + mod_dlist_RSCColumns.Count) '' .Length)
+                existingColumn = mod_dlist_RSCColumns(intIndexLastColumn)
                 intNewColumnPropertyLeft = (existingColumn.Left + existingColumn.Width + mc_ColumnMarginGap)
             End If ''End of ""If boolPlaceWithinArray Then ... Else ..."
 
-        End If ''End of ""If (0 = mod_array_RSCColumns.Length) Then... Else..."
+        End If ''End of ""If (0 = mod_dlist_RSCColumns.Count) Then... Else..."
 
         intNewColumnWidth = mc_ColumnWidthDefault
 
         ''
         ''Step 2a of 11.  Make room in the array which tracks the columns.  
         ''
-
-        ''----objCacheOfData =
-        ''For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
-        ''    Dim eachColumn As RSCFieldColumn ''Added 3/18/2022 thomas downes
-        ''    eachColumn = mod_array_RSCColumns(intIndex)
-        ''Next intIndex
-
-        intNewLength = (1 + mod_dict_RSCColumns.Values.Count) ''4/2023 .Length)
-        ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
-
-        ''The number passed to ReDim Preserve is the upper bound of the array, 
-        ''  not the length. ---4/15/2022
+        ''''----objCacheOfData =
+        ''''For intIndex As Integer = 1 To Me.ColumnDataCache.ListOfColumns.Count
+        ''''    Dim eachColumn As RSCFieldColumn ''Added 3/18/2022 thomas downes
+        ''''    eachColumn = mod_array_RSCColumns(intIndex)
+        ''''Next intIndex
         ''
-        ''4/18/2023 ReDim Preserve mod_dict_RSCColumns(intNewLength - 1)  ''Modified 3/21/2022 td
-        ''4/2023 If (mod_dict_RSCColumns.Length <> intNewLength) Then Throw New Exception
-        If (mod_dict_RSCColumns.Values.Count <> intNewLength) Then Throw New Exception
-
-        For intColIndex As Integer = (-1 + intNewLength) To (1 + par_intColumnIndex) Step -1
-            ''Move the object references to the right (new-higher index). 
-            ''
-            ''The qualification of "Step -1" makes the index run from a large value to a smaller value.
-            ''
-            mod_dict_RSCColumns(intColIndex) = mod_dict_RSCColumns(-1 + intColIndex)
-
-        Next intColIndex
-
-        ''The place will be filled by the new column. --Added 4/1/2022
-        Try
-            mod_dict_RSCColumns(par_intColumnIndex) = Nothing ''The place will be filled by the new column. --Added 4/1/2022  
-        Catch ex As Exception
-            ''Nothing needs to be done.04/17/2023 
-        End Try
+        ''intNewLength = (1 + mod_dlist_RSCColumns.Values.Count) ''4/2023 .Length)
+        ''''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
+        ''
+        ''''The number passed to ReDim Preserve is the upper bound of the array, 
+        ''''  not the length. ---4/15/2022
+        ''''
+        ''''4/18/2023 ReDim Preserve mod_dlist_RSCColumns(intNewLength - 1)  ''Modified 3/21/2022 td
+        ''''4/2023 If (mod_dlist_RSCColumns.Length <> intNewLength) Then Throw New Exception
+        ''If (mod_dlist_RSCColumns.Values.Count <> intNewLength) Then Throw New Exception
+        ''
+        ''For intColIndex As Integer = (-1 + intNewLength) To (1 + par_intColumnIndex) Step -1
+        ''    ''Move the object references to the right (new-higher index). 
+        ''    ''
+        ''    ''The qualification of "Step -1" makes the index run from a large value to a smaller value.
+        ''    ''
+        ''    mod_dlist_RSCColumns(intColIndex) = mod_dlist_RSCColumns(-1 + intColIndex)
+        ''    mod_dlist_RSCColumns(intColIndex) = mod_dlist_RSCColumns(-1 + intColIndex)
+        ''
+        ''Next intColIndex
+        ''
+        ''''The place will be filled by the new column. --Added 4/1/2022
+        ''Try
+        ''    mod_dlist_RSCColumns(par_intColumnIndex) = Nothing ''The place will be filled by the new column. --Added 4/1/2022  
+        ''Catch ex As Exception
+        ''    ''Nothing needs to be done.04/17/2023 
+        ''End Try
 
         ''
         ''Step 2b of 11.  Move the columns to the right, to make room for the new column. 
         ''
-        For intColIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
-            ''
-            ''Move the columns to the right, to make room for the new column. 
-            ''
-            mod_dict_RSCColumns(intColIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
+        ''For intColIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
+        ''    ''
+        ''    ''Move the columns to the right, to make room for the new column. 
+        ''    ''
+        ''    mod_dlist_RSCColumns(intColIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
 
-            ''Added 4/1/2022 thomas downes
-            If (0 = intFirstBumpedColumn_Left) Then
-                intFirstBumpedColumn_Left = mod_dict_RSCColumns(intColIndex).Left
-            End If ''End of "If (0 = intFirstBumpedColumn_Left) Then"
+        ''    ''Added 4/1/2022 thomas downes
+        ''    If (0 = intFirstBumpedColumn_Left) Then
+        ''        intFirstBumpedColumn_Left = mod_dlist_RSCColumns(intColIndex).Left
+        ''    End If ''End of "If (0 = intFirstBumpedColumn_Left) Then"
 
-        Next intColIndex
+        ''Next intColIndex
 
-        ''
-        ''Step 3 of 11.  Make a new column.   
-        ''
-        ''
-        Dim intNextColumnPropertyLeft As Integer
-        Dim objColumnAdjacent As RSCFieldColumnV2 = Nothing
+        ''''
+        ''''Step 3 of 11.  Make a new column.   
+        ''''
+        ''''
+        ''Dim intNextColumnPropertyLeft As Integer
+        ''Dim objColumnAdjacent As RSCFieldColumnV2 = Nothing
 
-        If (par_intColumnIndex > 0) Then
-            objColumnAdjacent = mod_dict_RSCColumns(-1 + par_intColumnIndex)
-        Else
-            objColumnAdjacent = mod_dict_RSCColumns(+1 + par_intColumnIndex)
-        End If
+        ''If (par_intColumnIndex > 0) Then
+        ''    objColumnAdjacent = mod_dlist_RSCColumns(-1 + par_intColumnIndex)
+        ''Else
+        ''    objColumnAdjacent = mod_dlist_RSCColumns(+1 + par_intColumnIndex)
+        ''End If
+
+        intNextColumnPropertyLeft = (intNewColumnPropertyLeft +
+                                    intNewColumnWidth +
+                                    mc_ColumnMarginGap)
+
+        If (existingColumn Is Nothing) Then
+            existingColumn = mod_columnDesignedV2
+        End If ''end of ""If (existingColumn Is Nothing) Then""
 
         ''
         ''Major call!!
@@ -555,7 +638,7 @@ Public Class RSCSpreadManagerCols
         newRSCColumn = GenerateRSCFieldColumn_General(par_intColumnIndex,
                                                     intNewColumnPropertyLeft,
                                                     intNextColumnPropertyLeft,
-                                                    objColumnAdjacent,
+                                                    existingColumn,
                                                     par_intPixelsBetweenRows)
 
         ''
@@ -567,27 +650,31 @@ Public Class RSCSpreadManagerCols
         ''4/26/2023 newRSCColumn.Height = RscFieldColumn1.Height
         newRSCColumn.Top = mod_columnDesignedV2.Top
         newRSCColumn.Height = mod_columnDesignedV2.Height
-        ''April 1st 2022 ''newRSCColumn.ListOfColumnsToBumpRight = New List(Of RSCFieldColumn)
-        Dim list_columnsToBumpRight As New List(Of RSCFieldColumnV2)
 
-        For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLength - 1)
-            ''
-            ''Move the columns to the right, to make room for the new column. 
-            ''
-            ''----With newRSCColumn.ListOfColumnsToBumpRight
-            With list_columnsToBumpRight
-                .Add(mod_dict_RSCColumns(intColIndex))
-            End With
-
-            ''Added 4/1/2022 thomas downes 
-            newRSCColumn.AddBumpColumn(mod_dict_RSCColumns(intColIndex))
-
-        Next intColIndex
-
+        ''''April 1st 2022 ''newRSCColumn.ListOfColumnsToBumpRight = New List(Of RSCFieldColumn)
+        ''Dim list_columnsToBumpRight As New List(Of RSCFieldColumnV2)
         ''
-        ''This will set the MoveAndResizeControls_Monem functionality as well. 
+        ''For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLength - 1)
+        ''    ''
+        ''    ''Move the columns to the right, to make room for the new column. 
+        ''    ''
+        ''    ''----With newRSCColumn.ListOfColumnsToBumpRight
+        ''    With list_columnsToBumpRight
+        ''        .Add(mod_dlist_RSCColumns(intColIndex))
+        ''    End With
         ''
-        newRSCColumn.ListOfColumnsToBumpRight = list_columnsToBumpRight
+        ''    ''Added 4/1/2022 thomas downes 
+        ''    newRSCColumn.AddBumpColumn(mod_dlist_RSCColumns(intColIndex))
+        ''
+        ''Next intColIndex
+
+        ''''
+        ''''This will set the MoveAndResizeControls_Monem functionality as well. 
+        ''''
+        ''newRSCColumn.ListOfColumnsToBumpRight = list_columnsToBumpRight
+
+        ''Added 5/8/2023 thomas 
+        mod_dlist_RSCColumns.InsertColumnAtIndex(newRSCColumn, par_intColumnIndex)
 
         ''Added 4/14/2022 td
         With newRSCColumn
@@ -627,34 +714,34 @@ Public Class RSCSpreadManagerCols
         ''Step 7 of 11.   Move the columns to the right, to make room for the new column. 
         ''     (This is similar to Step 1(b) of 6 above, but is a further adjustment.) 
         ''
-        If (intDifferenceDelta > 0) Then
-            For intColIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
-                ''
-                ''Move the columns to the right, as a 2nd, final attempt to make room for the new column. 
-                ''
-                ''---mod_array_RSCColumns(intIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
-                mod_dict_RSCColumns(intColIndex).Left += intDifferenceDelta
-
-            Next intColIndex
-        End If ''End of "If (intDifferenceDelta > 0) Then"
+        ''If (intDifferenceDelta > 0) Then
+        ''    For intColIndex As Integer = (1 + par_intColumnIndex) To (-1 + intNewLength)
+        ''        ''
+        ''        ''Move the columns to the right, as a 2nd, final attempt to make room for the new column. 
+        ''        ''
+        ''        ''---mod_array_RSCColumns(intIndex).Left += (intNewColumnWidth + mc_ColumnMarginGap)
+        ''        mod_dlist_RSCColumns(intColIndex).Left += intDifferenceDelta
+        ''
+        ''    Next intColIndex
+        ''End If ''End of "If (intDifferenceDelta > 0) Then"
 
         ''
         ''Step 8 of 11.  Add the column as a "Bump Column" for all the columns to the left.  
         ''
-        Dim bIgnoreIndex0 As Boolean ''Added 4/14/2022 td 
-
-        For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) ''To (-1 + intNewLength)
-            ''---For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) 
-            ''
-            ''Add the column as a "Bump Column" for all the columns to the left. 
-            ''
-            bIgnoreIndex0 = (intColIndex = 0 And mod_dict_RSCColumns(intColIndex) Is Nothing)
-            If bIgnoreIndex0 Then Continue For
-
-            ''4/14/2022 mod_array_RSCColumns(intColIndex).ListOfColumnsToBumpRight.Add(newRSCColumn)
-            mod_dict_RSCColumns(intColIndex).AddBumpColumn(newRSCColumn)
-
-        Next intColIndex
+        ''Dim bIgnoreIndex0 As Boolean ''Added 4/14/2022 td 
+        ''
+        ''For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) ''To (-1 + intNewLength)
+        ''    ''---For intColIndex As Integer = 0 To (-1 + par_intColumnIndex) 
+        ''    ''
+        ''    ''Add the column as a "Bump Column" for all the columns to the left. 
+        ''    ''
+        ''    bIgnoreIndex0 = (intColIndex = 0 And mod_dlist_RSCColumns(intColIndex) Is Nothing)
+        ''    If bIgnoreIndex0 Then Continue For
+        ''
+        ''    ''4/14/2022 mod_array_RSCColumns(intColIndex).ListOfColumnsToBumpRight.Add(newRSCColumn)
+        ''    mod_dlist_RSCColumns(intColIndex).AddBumpColumn(newRSCColumn)
+        ''
+        ''Next intColIndex
 
         ''
         ''Step 9 of 11. 
@@ -674,7 +761,7 @@ Public Class RSCSpreadManagerCols
             ''
             ''Display the corrected column index on each columns to the right. 
             ''
-            mod_dict_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
+            mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
 
         Next intColIndex
 
@@ -740,7 +827,8 @@ Public Class RSCSpreadManagerCols
             mod_controlSpread.Controls.Add(newRSCColumn_output)
 
             ''Added 3/12/2022 thomas downes 
-            mod_dict_RSCColumns(p_intIndexCurrent) = newRSCColumn_output
+            ''Should be done in the calling function 5/8/2023 mod_dlist_RSCColumns(p_intIndexCurrent) = newRSCColumn_output
+
             ''Added 3/16/2022 td
             ''  Redundant, assigned in Step 4 below.
             ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
@@ -784,10 +872,10 @@ Public Class RSCSpreadManagerCols
         Dim intRowsNeeded As Integer
         Dim strErrorMessage As String ''Added 5/1/2023 td
         ''4/26/2023 intRowsNeeded = Me.GetFirstColumn().CountOfRows()
-        ''4/26/2023 intRowsNeeded = mod_dict_RSCColumns(0).CountOfRows()
+        ''4/26/2023 intRowsNeeded = mod_dlist_RSCColumns(0).CountOfRows()
 
         Try
-            intRowsNeeded = mod_dict_RSCColumns(0).CountOfRows()
+            intRowsNeeded = mod_dlist_RSCColumns(0).CountOfRows()
         Catch ex_dict As Exception
             strErrorMessage = ex_dict.Message
             intRowsNeeded = mod_columnDesignedV2.CountOfRows()
@@ -873,24 +961,41 @@ Public Class RSCSpreadManagerCols
     End Sub ''end of "Private Sub RemoveRSCColumnsFromDesignTime()"
 
 
-    Public Sub DeleteColumnByIndex_NotInUse(par_intColumnIndex As Integer)
+    Public Sub DeleteColumnByIndex(par_intColumnIndex As Integer)
         ''
         ''Added 4/14/2022 thomas downes 
         ''
+        Dim columnToDelete As RSCFieldColumnV2
 
-    End Sub
+        columnToDelete = mod_dlist_RSCColumns.GetColumnAtIndex(par_intColumnIndex)
+        DeleteColumn(columnToDelete, par_intColumnIndex)
+
+    End Sub ''End of ""Public Sub DeleteColumnByIndex(par_intColumnIndex As Integer)""
 
 
-    Public Sub DeleteColumn(par_columnToDelete As RSCFieldColumnV2, par_intColumnIndex As Integer)
+
+    Public Sub DeleteColumn(par_columnToDelete As RSCFieldColumnV2,
+                            par_intColumnIndex As Integer)
+        ''
+        ''Added 5/08/2023 thomas downes 
+        ''
+        mod_dlist_RSCColumns.DeleteColumnFromList(par_columnToDelete)
+        mod_dlist_RSCColumns.RefreshHorizontalPositions(par_intColumnIndex, mc_ColumnMarginGap)
+
+    End Sub ''End of ""Public Sub DeleteColumn""
+
+
+    Public Sub DeleteColumn_NotInUse(par_columnToDelete As RSCFieldColumnV2,
+                                     par_intColumnIndex As Integer)
         ''
         ''Added 5/07/2023 thomas downes 
         ''
         Dim boolDoesMatch As Boolean
-        boolDoesMatch = (par_columnToDelete Is mod_dict_RSCColumns.Item(par_intColumnIndex))
+        boolDoesMatch = (par_columnToDelete Is mod_dlist_RSCColumns.Item(par_intColumnIndex))
         If (Not boolDoesMatch) Then Throw New ArgumentException()
 
         par_columnToDelete.Visible = False
-        ''5/7/2023 mod_dict_RSCColumns.Remove(par_intColumnIndex)
+        ''5/7/2023 mod_dlist_RSCColumns.Remove(par_intColumnIndex)
         mod_controlSpread.Controls.Remove(par_columnToDelete)
 
         Dim dictionaryNew As New Dictionary(Of Integer, RSCFieldColumnV2)
@@ -899,13 +1004,15 @@ Public Class RSCSpreadManagerCols
         Dim each_column As RSCFieldColumnV2
         Dim bKeepColumn As Boolean
 
-        ''5/7/2023 For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
-        For intIndexOld = 1 To mod_dict_RSCColumns.Values.Count
+        ''5/7/2023 For Each each_col As RSCFieldColumnV2 In mod_dlist_RSCColumns.Values
+        ''5/8/2023 For intIndexOld = 1 To mod_dlist_RSCColumns.Values.Count
+        For intIndexOld = 1 To mod_dlist_RSCColumns.Count()
 
-            each_column = mod_dict_RSCColumns.Item(intIndexOld)
+            each_column = mod_dlist_RSCColumns.Item(intIndexOld)
 
-            bKeepColumn = (mod_dict_RSCColumns.ContainsKey(intIndexOld) AndAlso
-                          each_column IsNot par_columnToDelete)
+            ''5/8/2023 bKeepColumn = (mod_dlist_RSCColumns.ContainsKey(intIndexOld) AndAlso
+            ''                 each_column IsNot par_columnToDelete)
+            bKeepColumn = (each_column IsNot par_columnToDelete)
 
             If (bKeepColumn) Then
                 dictionaryNew.Add(intIndexNew, each_column)
@@ -949,13 +1056,13 @@ Public Class RSCSpreadManagerCols
         ''Added 4/14/2022
         ''
         ''4/15/2022 td ''boolPlaceWithinArray = (par_intColumnIndex <= mod_array_RSCColumns.Length)
-        boolPlaceWithinArray = (par_intColumnIndex < mod_dict_RSCColumns.Values.Count) ''4/2023 .Length)
+        boolPlaceWithinArray = (par_intColumnIndex < mod_dlist_RSCColumns.Values.Count) ''4/2023 .Length)
 
         If boolPlaceWithinArray Then
             ''
             ''We will probably find the column in the dictionary. 5/2/2023 
             ''
-            columnAboutToDelete = mod_dict_RSCColumns(par_intColumnIndex)
+            columnAboutToDelete = mod_dlist_RSCColumns(par_intColumnIndex)
             ''intNewColumnPropertyLeft = existingColumn.Left
             columnAboutToDelete.Visible = False ''Render it invisible.
             ''Added 4/15/2022 td
@@ -964,7 +1071,7 @@ Public Class RSCSpreadManagerCols
             ''Added 4/15/2022 td
             ''4/26/2023 If (columnAboutToDelete Is mod_columnDesignedV2) Then
             ''    Try
-            ''        mod_columnDesignedV2 = mod_dict_RSCColumns(par_intColumnIndex + 1)
+            ''        mod_columnDesignedV2 = mod_dlist_RSCColumns(par_intColumnIndex + 1)
             ''    Catch
             ''        ''If the user has deleted all of the columns, then this is the result.
             ''        ''   (Zero columns left.) ---4/15/2022 thomas d
@@ -980,8 +1087,8 @@ Public Class RSCSpreadManagerCols
 
             ''Added 4/14/2022 td
             ''  Use -1 to shift our focus to the last column in the array.
-            intIndexLastColumn = (-1 + mod_dict_RSCColumns.Values.Count)  ''4/2023 .Length)
-            columnAboutToDelete = mod_dict_RSCColumns(intIndexLastColumn)
+            intIndexLastColumn = (-1 + mod_dlist_RSCColumns.Values.Count)  ''4/2023 .Length)
+            columnAboutToDelete = mod_dlist_RSCColumns(intIndexLastColumn)
             ''intNewColumnPropertyLeft = (existingColumn.Left + existingColumn.Width + mc_ColumnMarginGap)
             columnAboutToDelete.Visible = False ''Render it invisible.
 
@@ -1004,29 +1111,29 @@ Public Class RSCSpreadManagerCols
         ''Moved below. ReDim Preserve mod_array_RSCColumns(intNewLengthOfArray_Minus1)  ''Modified 3/21/2022 td
         ''Moved below. If (mod_array_RSCColumns.Length <> intNewLengthOfArray_Minus1) Then Throw New Exception
 
-        intCurrentLengthOfArray = mod_dict_RSCColumns.Values.Count ''4/2023 .Length
+        intCurrentLengthOfArray = mod_dlist_RSCColumns.Values.Count ''4/2023 .Length
 
         For intColIndex As Integer = par_intColumnIndex To (-1 - 1 + intCurrentLengthOfArray)
             ''---For intColIndex As Integer = par_intColumnIndex To (-1 + intCurrentLengthOfArray)
             ''
             ''Move the object references to the left (lower-higher index). 
             ''
-            mod_dict_RSCColumns(intColIndex) = mod_dict_RSCColumns(intColIndex + 1)
+            mod_dlist_RSCColumns(intColIndex) = mod_dlist_RSCColumns(intColIndex + 1)
 
         Next intColIndex
 
         ''
         ''Remove the last item in the array.  
         ''
-        ''April 18 2023 intNewLengthOfArray_ByMinus1 = (-1 + mod_dict_RSCColumns.Length)
-        intNewLengthOfArray_ByMinus1 = (-1 + mod_dict_RSCColumns.Count)
+        ''April 18 2023 intNewLengthOfArray_ByMinus1 = (-1 + mod_dlist_RSCColumns.Length)
+        intNewLengthOfArray_ByMinus1 = (-1 + mod_dlist_RSCColumns.Count)
         ''3/21/2022 td''ReDim Preserve mod_array_RSCColumns(intNewLength)  ''---(1 + mod_array_RSCColumns.Length)
         ''
         ''The number passed to ReDim Preserve is the upper bound of the array, 
         ''  not the length. ---4/15/2022
         ''
-        ''4/26/2023 ReDim Preserve mod_dict_RSCColumns(-1 + intNewLengthOfArray_ByMinus1)  ''Modified 3/21/2022 td
-        If (mod_dict_RSCColumns.Count <> intNewLengthOfArray_ByMinus1) Then Throw New Exception
+        ''4/26/2023 ReDim Preserve mod_dlist_RSCColumns(-1 + intNewLengthOfArray_ByMinus1)  ''Modified 3/21/2022 td
+        If (mod_dlist_RSCColumns.Count <> intNewLengthOfArray_ByMinus1) Then Throw New Exception
         intNewLengthOfArray = intNewLengthOfArray_ByMinus1 ''We don't need the suffix anymore. 
 
         ''
@@ -1036,7 +1143,7 @@ Public Class RSCSpreadManagerCols
 
         intFirstBumpedColumn_Left = Integer.MaxValue ''Default value
 
-        For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        For Each each_col As RSCFieldColumnV2 In mod_dlist_RSCColumns.Values
             ''---For intColIndex As Integer = (1 + par_intColumnIndex) To (intNewLengthOfArray) '' (-1 + intNewLengthOfArray)
             ''
             ''If the column's Left edge is greater (bigger in X value) then 
@@ -1073,10 +1180,10 @@ Public Class RSCSpreadManagerCols
             ''
             ''Add the column as a "Bump Column" for all the columns to the left. 
             ''
-            bIgnoreIndex0 = (intColIndex = 0 And mod_dict_RSCColumns(intColIndex) Is Nothing)
+            bIgnoreIndex0 = (intColIndex = 0 And mod_dlist_RSCColumns(intColIndex) Is Nothing)
             If bIgnoreIndex0 Then Continue For
 
-            mod_dict_RSCColumns(intColIndex).RemoveBumpColumn(columnAboutToDelete)
+            mod_dlist_RSCColumns(intColIndex).RemoveBumpColumn(columnAboutToDelete)
 
         Next intColIndex
 
@@ -1097,10 +1204,10 @@ Public Class RSCSpreadManagerCols
         ''Check to see if RSCColumn1 is affected. 
         ''
         ''Not needed. 4/26/2023 If (RscFieldColumn1 Is columnAboutToDelete) Then
-        ''    RscFieldColumn1 = mod_dict_RSCColumns(0) ''Probably a null reference,
+        ''    RscFieldColumn1 = mod_dlist_RSCColumns(0) ''Probably a null reference,
         ''    '' as 0 is not being used!?  ----4/15/2022
         ''    If (RscFieldColumn1 Is Nothing) Then
-        ''        RscFieldColumn1 = mod_dict_RSCColumns(1)
+        ''        RscFieldColumn1 = mod_dlist_RSCColumns(1)
         ''    End If ''End of ""If (RscFieldColumn1 Is Nothing) Then""
         ''End If ''ENdof ""If (RscFieldColumn1 = columnAboutToDelete) Then""
 

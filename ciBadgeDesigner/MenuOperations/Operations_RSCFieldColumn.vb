@@ -154,7 +154,8 @@ Public Class Operations_RSCFieldColumn
         rscParentSpreadsheet = Me.ParentSpreadsheet
         ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
         Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
-        rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex)
+        ''5/8/2023 rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex)
+        rscParentSpreadsheet.InsertColumnLeftOfSpecified(Me.FieldColumn)
 
     End Sub ''End of "Public Sub Insert_New_Column_To_The_Left_FC2003"
 
