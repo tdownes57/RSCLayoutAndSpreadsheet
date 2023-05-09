@@ -3,7 +3,9 @@
 ''
 
 Public Class RSCFieldColumnList
-    ''
+    Implements IEnumerable(Of RSCFieldColumnV2)
+    ''5/8/2023 Implements IEnumerator(Of RSCFieldColumnV2)
+    ''`
     ''Added 5/7/2023 thomas downes
     ''
     '' This is modelled after the Doubly-Linked List 
@@ -12,6 +14,15 @@ Public Class RSCFieldColumnList
     Private mod_columnFirstLeft As RSCFieldColumnV2
     Private mod_columnLastRight As RSCFieldColumnV2
     Private mod_numberOfColumns As Integer = 0
+    Private mod_columnCurrent As RSCFieldColumnV2 ''Added 5/8/2023 
+    Private disposedValue As Boolean
+
+    Public Sub New()
+
+        ''Added 5/8/2023
+        Reset()
+
+    End Sub
 
     Public Function Count() As Integer
 
@@ -29,6 +40,10 @@ Public Class RSCFieldColumnList
             mod_columnFirstLeft = par_newColumn
             mod_numberOfColumns += 1
             If (mod_columnLastRight IsNot Nothing) Then Throw New Exception("Both Left & Right should be Null.")
+
+            ''For the very first item in the collection,
+            ''   both mod_columnLastRight & mod_columnFirstLeft
+            ''   need to be specified. ---5/8/2023 td
             mod_columnLastRight = par_newColumn
 
         Else
@@ -74,6 +89,10 @@ Public Class RSCFieldColumnList
             mod_columnLastRight = par_newColumn
             mod_numberOfColumns += 1
             If (mod_columnFirstLeft IsNot Nothing) Then Throw New Exception("Both Left & Right should be Null.")
+
+            ''For the very first item in the collection,
+            ''   both mod_columnLastRight & mod_columnFirstLeft
+            ''   need to be specified. ---5/8/2023 td
             mod_columnFirstLeft = par_newColumn
 
         Else
@@ -357,6 +376,14 @@ Public Class RSCFieldColumnList
     End Function ''End of ""Public Function GetIndexOf(par_existingCol As RSCFieldColumnV2)""
 
 
+    Public Function GetFirst() As RSCFieldColumnV2
+        ''
+        ''Added 5/08/2023 thomas downes
+        ''
+        Return mod_columnFirstLeft
+
+    End Function ''End of ""Public Function GetFirst() As RSCFieldColumnV2""
+
     Public Function GetColumnAtIndex(par_indexOfCol As Integer) As RSCFieldColumnV2
         ''
         ''Added 5/08/2023 thomas downes
@@ -390,6 +417,108 @@ Public Class RSCFieldColumnList
 
     End Property ''End of ""Public Property Item(par_index As Integer) As RSCFieldColumnV2""
 
+
+    Public Sub Reset() Implements IEnumerator.Reset
+
+        ''Added 5/8/2023 thomas d.
+        mod_columnCurrent = Nothing ''mod_columnFirstLeft
+
+    End Sub
+
+
+    ''Public ReadOnly Property Current() As RSCFieldColumnV2 _
+    ''    Implements IEnumerator(Of RSCFieldColumnV2).Current
+
+    ''    ''Added 5/08/2023
+    ''    Get
+    ''        Return mod_columnCurrent
+    ''    End Get
+
+    ''End Property
+
+    ''Private ReadOnly Property IEnumerator_Current As Object Implements IEnumerator.Current
+    ''    Get
+    ''        Throw New NotImplementedException()
+    ''    End Get
+    ''End Property
+
+    ''Public Function MoveNext() As Boolean Implements IEnumerator(Of RSCFieldColumnV2).MoveNext
+
+    ''    If (mod_columnCurrent Is Nothing) Then
+
+    ''        mod_columnCurrent = mod_columnFirstLeft
+    ''        Return True ''mod_columnCurrent
+
+    ''    Else
+
+    ''        Dim bNotDone As Boolean
+    ''        mod_columnCurrent = mod_columnCurrent.FieldColumnNextRight
+    ''        bNotDone = (mod_columnCurrent IsNot Nothing)
+    ''        Return bNotDone ''True ''mod_columnCurrent
+
+    ''    End If
+
+    ''End Function ''End of ""Public Function MoveNext() As Boolean""
+
+
+    Public Function GetEnumerator() As IEnumerator(Of RSCFieldColumnV2) _
+        Implements IEnumerable(Of RSCFieldColumnV2).GetEnumerator
+
+        Return New RSCFieldColumnEnumerator(mod_columnFirstLeft)
+
+    End Function
+
+
+    Private Function IEnumerable_GetEnumerator() As IEnumerator Implements IEnumerable.GetEnumerator
+
+        ''Throw New NotImplementedException()
+        Return GetEnumerator()
+
+    End Function
+
+
+    ''Protected Overridable Sub Dispose(disposing As Boolean)
+    ''    If Not disposedValue Then
+    ''        If disposing Then
+    ''            ' TODO: dispose managed state (managed objects)
+    ''        End If
+
+    ''        ' TODO: free unmanaged resources (unmanaged objects) and override finalizer
+    ''        ' TODO: set large fields to null
+    ''        disposedValue = True
+    ''    End If
+    ''End Sub
+
+    ' ' TODO: override finalizer only if 'Dispose(disposing As Boolean)' has code to free unmanaged resources
+    ' Protected Overrides Sub Finalize()
+    '     ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+    '     Dispose(disposing:=False)
+    '     MyBase.Finalize()
+    ' End Sub
+
+    ''Public Sub Dispose() Implements IDisposable.Dispose
+    ''    ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+    ''    Dispose(disposing:=True)
+    ''    GC.SuppressFinalize(Me)
+    ''End Sub
+
+
+    ''5/8/2023 Public Function Enumerator() As IEnumerable(Of RSCFieldColumnV2)
+    ''    ''
+    ''    ''Added 5/8/2023 thomas d.
+    ''    ''
+    ''    Dim tempColumn As RSCFieldColumnV2 = mod_columnFirstLeft
+    ''
+    ''    While (tempColumn IsNot Nothing)
+    ''
+    ''        tempColumn = tempColumn.FieldColumnNextRight
+    ''        Return tempColumn
+    ''
+    ''    End While
+    ''
+    ''    Return tempColumn
+    ''
+    ''End Function
 
 
 End Class

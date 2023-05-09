@@ -12,13 +12,19 @@ Partial Public Class RSCSpreadManagerCols
         ''
         ''Added 4/13/2022 thomas downes
         ''
-        For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        Dim each_column As RSCFieldColumnV2 ''Added 5/8/2023
+        each_column = mod_dlist_RSCColumns.GetFirst()
+
+        ''5/8/2023 For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        Do While (each_column IsNot Nothing)
             ''Added 4/13/2022 thomas downes
             If (each_column IsNot Nothing) Then
                 each_column.RefreshFieldDropdown()
             End If ''end of "If (each_column IsNot Nothing) Then"
 
-        Next each_column
+            ''5/8/2023 Next each_column
+            each_column = each_column.FieldColumnNextRight
+        Loop
 
     End Sub ''End of "Public Sub RefreshFieldDropdowns()"
 

@@ -390,15 +390,21 @@ Partial Public Class RSCSpreadManagerCols
         ''
         Dim bEachCol_matches As Boolean
         Dim bSum_matches As Boolean
+        Dim each_column As RSCFieldColumnV2
 
-        For Each each_column In mod_dict_RSCColumns.Values
+        ''5/8/2023 For Each each_column In mod_dict_RSCColumns.Values
 
-            If (each_column Is Nothing) Then Continue For
+        ''5/8/2023 If (each_column Is Nothing) Then Continue For
+
+        each_column = mod_dlist_RSCColumns.GetFirst()
+
+        Do While (each_column IsNot Nothing)
 
             bEachCol_matches = each_column.Equals_RecipientListAtClose(par_list_recipients)
             bSum_matches = (bSum_matches And bEachCol_matches)
+            each_column = each_column.FieldColumnNextRight
 
-        Next each_column
+        Loop ''5/8/2023 Next each_column
 
         Return bSum_matches
 

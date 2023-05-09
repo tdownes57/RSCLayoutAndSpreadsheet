@@ -301,6 +301,7 @@
     <Compile Include="ControlsRSC\RSCDataCell.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsRSC\RSCFieldColumnEnumerator.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumnList.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumnV1.designer.vb">
       <DependentUpon>RSCFieldColumnV1.vb</DependentUpon>
