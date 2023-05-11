@@ -17,6 +17,9 @@ Public Class RSCFieldColumnList
     Private mod_columnCurrent As RSCFieldColumnV2 ''Added 5/8/2023 
     Private disposedValue As Boolean
 
+    ''Added 5/9/2023 td 
+    Private mod_stackDeletedRSCColumns As Stack(Of RSCFieldColumnV2)
+
     Public Sub New()
 
         ''Added 5/8/2023
@@ -125,16 +128,27 @@ Public Class RSCFieldColumnList
                 ''  --5/7/2023 
                 Dim columnToTheLeft = nextColumn.FieldColumnNextLeft
                 Dim columnToTheRight = nextColumn.FieldColumnNextRight
+
                 bDone = True
+
                 If (columnToTheLeft Is Nothing) Then
                     columnToTheRight.FieldColumnNextLeft = Nothing
                 ElseIf (columnToTheRight Is Nothing) Then
                     columnToTheLeft.FieldColumnNextRight = Nothing
                 Else
                     columnToTheLeft.FieldColumnNextRight = columnToTheRight
+                    ''Added 5/10/2023 
+                    columnToTheRight.FieldColumnNextLeft = columnToTheLeft
                 End If
 
                 mod_numberOfColumns -= 1 ''Decrement the count.
+
+                ''Added 5/10/2023
+                ''  Store the deleted column. 
+                If (mod_stackDeletedRSCColumns Is Nothing) Then
+                    mod_stackDeletedRSCColumns = New Stack(Of RSCFieldColumnV2)
+                End If
+                mod_stackDeletedRSCColumns.Push(par_columnToDelete)
 
             Else
                 ''
@@ -333,6 +347,84 @@ Public Class RSCFieldColumnList
         End While
 
     End Sub ''End of ""Public Sub RefreshHorizontalPositions""
+
+
+    Public Sub UndoLastColumnDeletion(Optional ByRef pref_columnRestored As RSCFieldColumnV2 = Nothing)
+        ''
+        ''Added 5/9/2023 
+        ''
+        Dim objColumnToRestore As RSCFieldColumnV2
+        Dim bLeftColumnIsInList As Boolean
+        Dim bRightColumnIsInList As Boolean
+
+        ''
+        ''Take it from the stack of deleted columns.
+        ''
+        objColumnToRestore = mod_stackDeletedRSCColumns.Pop()
+
+        ''Added 5/10/2023 
+        pref_columnRestored = objColumnToRestore
+
+        bLeftColumnIsInList = ((objColumnToRestore.FieldColumnNextLeft IsNot Nothing) _
+              AndAlso IsStillInList(objColumnToRestore.FieldColumnNextLeft))
+        bRightColumnIsInList = ((objColumnToRestore.FieldColumnNextRight IsNot Nothing) _
+              AndAlso IsStillInList(objColumnToRestore.FieldColumnNextRight))
+
+        If (bLeftColumnIsInList) Then
+
+            InsertColumnRightOfSpecified(objColumnToRestore,
+                                         objColumnToRestore.FieldColumnNextLeft)
+
+        ElseIf (bRightColumnIsInList) Then
+
+            InsertColumnLeftOfSpecified(objColumnToRestore,
+                                         objColumnToRestore.FieldColumnNextRight)
+
+        Else
+
+            InsertColumnAtFarRight(objColumnToRestore)
+
+        End If ''End of ""If (bLeftColumnIsInList) Then ... Else...""
+
+    End Sub ''End of ""Public Sub UndoLastColumnDeletion()""
+
+
+    Public Function IsStillInList(par_existingCol As RSCFieldColumnV2) As Boolean
+        ''
+        ''Added 5/09/2023 td
+        ''
+        Dim boolMatch As Boolean '' = False
+        Dim boolMatchAny As Boolean = False
+        Dim boolDone As Boolean = False
+        Dim tempColumn As RSCFieldColumnV2 = mod_columnFirstLeft
+        ''5/2023 Dim tempIndex As Integer = 1
+
+        If (par_existingCol Is Nothing) Then Throw New Exception("Parameter is nothing.")
+
+        ''
+        ''Find the existing column
+        ''
+        While ((Not boolDone) AndAlso (tempColumn IsNot Nothing))
+
+            boolMatch = (tempColumn Is par_existingCol)
+            boolMatchAny = (boolMatch Or boolMatchAny)
+
+            If (boolMatch) Then
+
+                boolDone = True
+
+            Else
+                ''Prepare for next iteration.
+                tempColumn = tempColumn.FieldColumnNextRight
+                ''5/2023 tempIndex += 1
+
+            End If ''|End of ""If (boolMatch) Then"
+
+        End While
+
+        Return (boolMatchAny)
+
+    End Function ''End of ""Public Function IsStillInList""
 
 
     Public Function GetIndexOf(par_existingCol As RSCFieldColumnV2) As Integer

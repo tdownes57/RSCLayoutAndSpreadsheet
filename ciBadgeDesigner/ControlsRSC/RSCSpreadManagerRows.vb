@@ -5,24 +5,42 @@ Public Class RSCSpreadManagerRows
     ''
     ''Added 4/18/2023 
     ''
-    Private mod_controlSpread As RSCFieldSpreadsheet ''Added 4/18/2023 
-    Private mod_dict_columns As Dictionary(Of Integer, RSCFieldColumnV2)
+    ''Not currently in use. 5/9/2023 Private mod_controlSpread As RSCFieldSpreadsheet ''Added 4/18/2023 
+    ''Obselete. 5/9/2023 Private mod_dict_columns As Dictionary(Of Integer, RSCFieldColumnV2)
+    Private mod_dlist_columns As RSCFieldColumnList ''Added 5/09/2023 
     Private mod_columnDesignedV2 As RSCFieldColumnV2
     Private mod_rowHeadersRSCCtl As RSCRowHeaders ''Added 4/26/2023 td
 
+
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
-                   par_dictionaryColumns As Dictionary(Of Integer, RSCFieldColumnV2),
+                   par_listOfColumns As RSCFieldColumnList,
                    par_columnDesignTemplate As RSCFieldColumnV2,
                    par_rowHeadersRSCCtl As RSCRowHeaders)
         ''
         ''Added 4/18/2023  
         ''
-        mod_controlSpread = par_controlSpread
-        mod_dict_columns = par_dictionaryColumns
+        ''Not currently in use. 5/9/2023 mod_controlSpread = par_controlSpread
+        mod_dlist_columns = par_listOfColumns
         mod_columnDesignedV2 = par_columnDesignTemplate ''Added 4/26/2023
         mod_rowHeadersRSCCtl = par_rowHeadersRSCCtl ''Added 4/26/2023
 
     End Sub ''End of Publice Sub New
+
+
+    ''Obselete as of 5/9/2023
+    ''Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
+    ''               par_dictionaryColumns As Dictionary(Of Integer, RSCFieldColumnV2),
+    ''               par_columnDesignTemplate As RSCFieldColumnV2,
+    ''               par_rowHeadersRSCCtl As RSCRowHeaders)
+    ''    ''
+    ''    ''Added 4/18/2023  
+    ''    ''
+    ''    mod_controlSpread = par_controlSpread
+    ''    mod_dict_columns = par_dictionaryColumns
+    ''    mod_columnDesignedV2 = par_columnDesignTemplate ''Added 4/26/2023
+    ''    mod_rowHeadersRSCCtl = par_rowHeadersRSCCtl ''Added 4/26/2023
+    ''
+    ''End Sub ''End of Publice Sub New
 
 
     Public Sub AddToEdgeOfSpreadsheet_Row()
@@ -42,7 +60,8 @@ Public Class RSCSpreadManagerRows
 
         ''Add a new textbox to each column. 
         ''4/26/2023 td''For Each each_RSCCol As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
-        For Each each_RSCCol As RSCFieldColumnV2 In mod_dict_columns.Values
+        ''5/09/2023 For Each each_RSCCol As RSCFieldColumnV2 In mod_dict_columns.Values
+        For Each each_RSCCol As RSCFieldColumnV2 In mod_dlist_columns ''5/2023 .Values
             If (each_RSCCol Is Nothing) Then Continue For
             each_RSCCol.Load_EmptyRows(intRowCount_PlusOne)
         Next each_RSCCol
@@ -53,7 +72,8 @@ Public Class RSCSpreadManagerRows
     Public Sub LoadEmptyRows()
 
         ''Use the Row manager for this. --4/19/2023 td
-        For Each each_column As RSCFieldColumnV2 In mod_dict_columns.Values
+        ''5/09/2023 For Each each_column As RSCFieldColumnV2 In mod_dict_columns.Values
+        For Each each_column As RSCFieldColumnV2 In mod_dlist_columns ''5/2023 .Values
 
             each_column.Load_EmptyRows(mod_columnDesignedV2.CountOfRows())
             ''4/19/2023 Dim intRowCount As Integer = NumberOfRowsNeededToStart
@@ -76,18 +96,20 @@ Public Class RSCSpreadManagerRows
         ''
         Dim intEachRowCount As Integer = 1
         Dim intMaxRowCount As Integer = 1
-        Dim list_columns As List(Of RSCFieldColumnV2)
+        '5/09/2023 Dim list_columns As List(Of RSCFieldColumnV2)
         Dim boolMissingRows As Boolean
 
         ''4/26/2023 list_columns = ListOfColumns()
-        list_columns = mod_dict_columns.Values.ToList()
+        ''5/09/2023 list_columns = mod_dict_columns.Values.ToList()
 
-        For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
+        ''5/9/2023 For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
+        For Each each_column As RSCFieldColumnV2 In mod_dlist_columns
             intEachRowCount = each_column.CountOfRows()
             If (intEachRowCount > intMaxRowCount) Then intMaxRowCount = intEachRowCount
         Next each_column
 
-        For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
+        ''5/9/2023 For Each each_column As RSCFieldColumnV2 In list_columns ''March30 2022 td''Me.ListOfColumns()
+        For Each each_column As RSCFieldColumnV2 In mod_dlist_columns
             boolMissingRows = (each_column.CountOfRows() < intMaxRowCount)
             If (boolMissingRows) Then
                 each_column.Load_EmptyRows(intMaxRowCount)

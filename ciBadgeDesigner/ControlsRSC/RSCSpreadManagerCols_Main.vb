@@ -198,6 +198,9 @@ Public Class RSCSpreadManagerCols
                 ''Added 4/11/2023 thomas downes
                 each_Column.RemoveMoveability()
 
+                ''Added 5/10/2023 
+                mod_dlist_RSCColumns.InsertColumnLeftToRight(each_Column)
+
                 ''Prepare for next iteration.
                 priorColumn = each_Column
 
@@ -257,39 +260,39 @@ Public Class RSCSpreadManagerCols
         ''
         ''Step 3 of 5.  Link the columns together.  
         ''
-        Dim listColumnsRight = New List(Of RSCFieldColumnV2)
-        Dim each_list As List(Of RSCFieldColumnV2)
-        Dim prior_list As List(Of RSCFieldColumnV2)
-        Dim bNotTheRightmostColumn As Boolean
-
-        For intNeededIndex = intNeededMax To 1 Step -1 ''Going backward, i.e. decrementing the index,
-            '' i.e. going from right to left (vs. the standard of going left to right).  
-            ''     ---3/12/20022 td
-
-            each_Column = mod_dlist_RSCColumns(intNeededIndex)
-            ''Moved below. 3/13/2022 td''listColumnsRight.Add(eachColumn)
-
-            ''Let's initialize the list "each_list" with the list "listColumnsRight"
-            ''   because  we want "each_list" to be a partial listing of the columns.
-            ''   By "a partial listing", I mean only those columns which are on the //right-hand//
-            ''   side of column #intNeededIndex.      ---3/12/20022 td
-            ''   
-            each_list = New List(Of RSCFieldColumnV2)(listColumnsRight) ''Basically, a copy of listColumnsRight.
-
-            ''Added 3/12/2022 thomas d. 
-            bNotTheRightmostColumn = (intNeededIndex < intNeededMax)
-            If (bNotTheRightmostColumn) Then
-
-                If (each_list.Contains(each_Column)) Then Throw New Exception("self-referential")
-                each_Column.ListOfColumnsToBumpRight = each_list
-
-            End If ''End of "If (bNotTheRightmostColumn) Then"
-
-            ''Prepare for next iteration.
-            prior_list = each_list
-            listColumnsRight.Add(each_Column)
-
-        Next intNeededIndex
+        ''Dim listColumnsRight = New List(Of RSCFieldColumnV2)
+        ''Dim each_list As List(Of RSCFieldColumnV2)
+        ''Dim prior_list As List(Of RSCFieldColumnV2)
+        ''Dim bNotTheRightmostColumn As Boolean
+        ''
+        ''For intNeededIndex = intNeededMax To 1 Step -1 ''Going backward, i.e. decrementing the index,
+        ''    '' i.e. going from right to left (vs. the standard of going left to right).  
+        ''    ''     ---3/12/20022 td
+        ''
+        ''    each_Column = mod_dlist_RSCColumns(intNeededIndex)
+        ''    ''Moved below. 3/13/2022 td''listColumnsRight.Add(eachColumn)
+        ''
+        ''    ''Let's initialize the list "each_list" with the list "listColumnsRight"
+        ''    ''   because  we want "each_list" to be a partial listing of the columns.
+        ''    ''   By "a partial listing", I mean only those columns which are on the //right-hand//
+        ''    ''   side of column #intNeededIndex.      ---3/12/20022 td
+        ''    ''   
+        ''    each_list = New List(Of RSCFieldColumnV2)(listColumnsRight) ''Basically, a copy of listColumnsRight.
+        ''
+        ''    ''Added 3/12/2022 thomas d. 
+        ''    bNotTheRightmostColumn = (intNeededIndex < intNeededMax)
+        ''    If (bNotTheRightmostColumn) Then
+        ''
+        ''        If (each_list.Contains(each_Column)) Then Throw New Exception("self-referential")
+        ''        each_Column.ListOfColumnsToBumpRight = each_list
+        ''
+        ''    End If ''End of "If (bNotTheRightmostColumn) Then"
+        ''
+        ''    ''Prepare for next iteration.
+        ''    prior_list = each_list
+        ''    listColumnsRight.Add(each_Column)
+        ''
+        ''Next intNeededIndex
 
         ''
         ''Step 4 of 5.  Load the list of editable fields.  
@@ -298,14 +301,30 @@ Public Class RSCSpreadManagerCols
         Dim each_columnWidthEtc As ciBadgeCachePersonality.ClassRSCColumnWidthAndData
         For intNeededIndex = 1 To intNeededMax
 
-            each_Column = mod_dlist_RSCColumns(intNeededIndex)
+            ''5/2023 each_Column = mod_dlist_RSCColumns(intNeededIndex)
+            each_Column = mod_dlist_RSCColumns.GetColumnAtIndex(intNeededIndex)
+
+            ''Added 5/10/2023
+            If (each_Column Is Nothing) Then
+                System.Diagnostics.Debugger.Break()
+            End If ''Endof ""If (each_Column Is Nothing) Then""
+
             ''Moved below. 3/16/2022 td''eachColumn.Load_FieldsFromCache(Me.ElementsCache_Deprecated)
             ''Added 3/15/2022 td
             ''  This may not be needed.  See eachColumn.ColumnWidthAndData.
             each_Column.ColumnDataCache = Me.ColumnDataCache ''Added 3/15/2022 td
+
             ''Added 3/15/2022 td
             ''  Tell the column what width, field & field values to display.
-            each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
+            ''
+            ''5/10/2023 each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
+            If (Me.ColumnDataCache.ListOfColumns Is Nothing) Then
+                each_columnWidthEtc = Nothing
+                System.Diagnostics.Debugger.Break()
+            Else
+                each_columnWidthEtc = Me.ColumnDataCache.ListOfColumns(intNeededIndex - 1)
+            End If
+
             each_Column.ColumnWidthAndData = each_columnWidthEtc
             each_Column.Top = intSavePropertyTop_RSCColumnCtl ''Added 3/21/2022
 
@@ -980,9 +999,26 @@ Public Class RSCSpreadManagerCols
         ''Added 5/08/2023 thomas downes 
         ''
         mod_dlist_RSCColumns.DeleteColumnFromList(par_columnToDelete)
+        par_columnToDelete.Visible = False ''Added 5/10/2023
+        mod_controlSpread.Controls.Remove(par_columnToDelete) ''Added 5/10/2023
         mod_dlist_RSCColumns.RefreshHorizontalPositions(par_intColumnIndex, mc_ColumnMarginGap)
 
     End Sub ''End of ""Public Sub DeleteColumn""
+
+
+    Public Sub UndoLastColumnDeletion()
+        ''
+        ''Added 5/9/2023 
+        ''
+        Dim columnRestored As RSCFieldColumnV2 = Nothing ''Added 5/09/2023 
+
+        mod_dlist_RSCColumns.UndoLastColumnDeletion(columnRestored)
+
+        ''Added 5/9/2023 
+        columnRestored.Visible = True
+        mod_controlSpread.Controls.Add(columnRestored)
+
+    End Sub ''ENd of ""Public Sub UndoLastColumnDeletion()""
 
 
     ''Public Sub DeleteColumn_NotInUse(par_columnToDelete As RSCFieldColumnV2,

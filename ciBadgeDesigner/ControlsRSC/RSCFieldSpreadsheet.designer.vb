@@ -59,7 +59,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn1.BackColor = System.Drawing.Color.MediumTurquoise
         Me.RscFieldColumn1.ColumnWidthAndData = Nothing
         Me.RscFieldColumn1.ElementInfo_Base = Nothing
-        Me.RscFieldColumn1.ListOfColumnsToBumpRight = Nothing
+        ''Me.RscFieldColumn1.ListOfColumnsToBumpRight = Nothing
         Me.RscFieldColumn1.Location = New System.Drawing.Point(131, 30)
         Me.RscFieldColumn1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing

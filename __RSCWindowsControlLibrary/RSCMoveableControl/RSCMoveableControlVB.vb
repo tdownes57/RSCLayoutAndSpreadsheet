@@ -374,7 +374,8 @@ Public Class RSCMoveableControlVB
     Private mod_typeOperations As Type ''Added 12/28/2021 td
     Private mod_enumElementType As EnumElementType ''Added 12/28/2021 td
     Private Const mc_intMarginForResize As Integer = 10 ''Added 1/12/2022
-    Protected RightclickMouseInfo As IRightclickMouseInfo ''Added 2/5/2022 td
+    ''5/2023 Protected RightclickMouseInfo As IRightClickMouseInfo ''Added 2/5/2022 td
+    Public RightclickMouseInfo As IRightClickMouseInfo ''Added 2/5/2022 td
 
     Public Sub New()
 
@@ -2461,7 +2462,65 @@ Public Class RSCMoveableControlVB
 
 
 
-    End Function
+    End Function ''End of ""Public Function CompareTo ... Implements IComparable""
+
+
+    Public Sub DisableMenuItemsByCode(pstrCode1 As String,
+                                      Optional pstrCode2 As String = "",
+                                      Optional pstrCode3 As String = "")
+        ''
+        ''Added 5/09/2023 td 
+        ''
+        ''Disable the ToolStripItem by code. 
+        ''
+        For Each each_menuItem As ToolStripItem In Me.ContextMenuStrip1.Items
+
+            If (pstrCode1 <> "" AndAlso each_menuItem.Text.Contains(pstrCode1)) Then
+
+                each_menuItem.Enabled = False
+
+            ElseIf (pstrCode2 <> "" AndAlso each_menuItem.Text.Contains(pstrCode2)) Then
+
+                each_menuItem.Enabled = False
+
+            ElseIf (pstrCode3 <> "" AndAlso each_menuItem.Text.Contains(pstrCode3)) Then
+
+                each_menuItem.Enabled = False
+
+            End If
+
+        Next each_menuItem
+
+    End Sub ''End of ""Public Sub DisableMenuItemsByCode()""
+
+
+    Public Sub EnableMenuItemsByCode(pstrCode1 As String,
+                                      Optional pstrCode2 As String = "",
+                                      Optional pstrCode3 As String = "")
+        ''
+        ''Added 5/09/2023 td 
+        ''
+        ''Disable the ToolStripItem by code. 
+        ''
+        For Each each_menuItem As ToolStripItem In Me.ContextMenuStrip1.Items
+
+            If (pstrCode1 <> "" AndAlso each_menuItem.Text.Contains(pstrCode1)) Then
+
+                each_menuItem.Enabled = True ''False
+
+            ElseIf (pstrCode2 <> "" AndAlso each_menuItem.Text.Contains(pstrCode2)) Then
+
+                each_menuItem.Enabled = True ''False
+
+            ElseIf (pstrCode3 <> "" AndAlso each_menuItem.Text.Contains(pstrCode3)) Then
+
+                each_menuItem.Enabled = True ''False
+
+            End If
+
+        Next each_menuItem
+
+    End Sub ''End of ""Public Sub EnableMenuItemsByCode()""
 
 
 End Class

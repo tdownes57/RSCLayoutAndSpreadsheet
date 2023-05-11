@@ -251,10 +251,12 @@ Partial Public Class RSCSpreadManagerCols
         ''Added 4/19/2023  
         ''
         Dim output As RSCSpreadManagerRows
+        ''5/9/2023 output = New RSCSpreadManagerRows(mod_controlSpread,
+        ''                mod_dict_RSCColumns,
         output = New RSCSpreadManagerRows(mod_controlSpread,
-                                          mod_dict_RSCColumns,
-                                          mod_columnDesignedV2,
-                                          mod_controlSpread.RscRowHeaders1)
+                        mod_dlist_RSCColumns,
+                        mod_columnDesignedV2,
+                        mod_controlSpread.RscRowHeaders1)
         Return output
 
     End Function ''End of ""Public Function GetSpreadManagerRows()""
@@ -265,9 +267,11 @@ Partial Public Class RSCSpreadManagerCols
         ''Added 4/12/2022 thomas downes
         ''
         ''4/2023 If (0 = mod_array_RSCColumns.Length) Then Return Nothing
-        If (0 = mod_dict_RSCColumns.Values.Count) Then Return Nothing
-        If (mod_dict_RSCColumns(0) Is Nothing) Then Return mod_dict_RSCColumns(1)
-        Return mod_dict_RSCColumns(0)
+        ''5/2023 If (0 = mod_dict_RSCColumns.Values.Count) Then Return Nothing
+        ''5/2023 If (mod_dict_RSCColumns(0) Is Nothing) Then Return mod_dict_RSCColumns(1)
+        ''5/2023 Return mod_dict_RSCColumns(0)
+
+        Return mod_dlist_RSCColumns.GetFirst()
 
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
 
@@ -276,25 +280,20 @@ Partial Public Class RSCSpreadManagerCols
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Dim each_column As RSCFieldColumnV2
-        Dim prior_column As RSCFieldColumnV2 = Nothing
-        Dim boolMatches As Boolean
-        Dim boolMatches_Prior As Boolean
+        Return par_column.FieldColumnNextLeft
 
-        For Each each_column In mod_dict_RSCColumns.Values
-
-            boolMatches = (each_column Is par_column)
-            If (boolMatches) Then Return prior_column
-
-            ''
-            ''Prepare for the next iteration.
-            ''
-            prior_column = each_column
-            boolMatches_Prior = boolMatches
-
-        Next each_column
-
-        Return Nothing
+        ''Dim each_column As RSCFieldColumnV2
+        ''Dim prior_column As RSCFieldColumnV2 = Nothing
+        ''Dim boolMatches As Boolean
+        ''Dim boolMatches_Prior As Boolean
+        ''For Each each_column In mod_dlist_RSCColumns ''5/2023 mod_dict_RSCColumns.Values
+        ''    boolMatches = (each_column Is par_column)
+        ''    If (boolMatches) Then Return prior_column
+        ''    ''Prepare for the next iteration.
+        ''    prior_column = each_column
+        ''    boolMatches_Prior = boolMatches
+        ''Next each_column
+        ''Return Nothing
 
     End Function ''End of ""Public Function GetNextColumn_LeftOf(....)""
 
@@ -303,20 +302,18 @@ Partial Public Class RSCSpreadManagerCols
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Dim each_column As RSCFieldColumnV2
-        Dim boolMatches As Boolean
-        Dim boolMatches_Prior As Boolean
+        Return par_column.FieldColumnNextRight
 
-        For Each each_column In mod_dict_RSCColumns.Values
-
-            boolMatches = (each_column Is par_column)
-            If (boolMatches_Prior) Then Return each_column
-            ''Prepare for the next iteration. 
-            boolMatches_Prior = boolMatches
-
-        Next each_column
-
-        Return Nothing
+        ''Dim each_column As RSCFieldColumnV2
+        ''Dim boolMatches As Boolean
+        ''Dim boolMatches_Prior As Boolean
+        ''For Each each_column In mod_dict_RSCColumns.Values
+        ''    boolMatches = (each_column Is par_column)
+        ''    If (boolMatches_Prior) Then Return each_column
+        ''    ''Prepare for the next iteration. 
+        ''    boolMatches_Prior = boolMatches
+        ''Next each_column
+        ''Return Nothing
 
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
 
@@ -325,28 +322,24 @@ Partial Public Class RSCSpreadManagerCols
         ''
         ''Added 4/15/2022 td
         ''
-        Dim strErrorMessage As String ''Added 5/6/2023 td
+        Return mod_dlist_RSCColumns.GetIndexOf(par_column)
 
-        ''4/17/23  For intColIndex As Integer = 0 To (-1 + mod_array_RSCColumns.Length)
-        For intColIndex As Integer = 0 To (-1 + mod_dict_RSCColumns.Values.Count) ''4/17/23 mod_array_RSCColumns.Length)
-
-            Try
-                ''5/7/2023 If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then Return intColIndex
-                If (mod_dict_RSCColumns.ContainsKey(intColIndex)) Then
-                    If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then
-                        Return intColIndex
-                    End If ''End of ""If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then""
-                End If ''End of ""If (mod_dict_RSCColumns.ContainsKey(intColIndex)) Then""
-
-            Catch ex_dict As Exception
-                ''Added 5/06/2023 td 
-                strErrorMessage = ex_dict.Message
-
-            End Try
-
-        Next intColIndex
-
-        Return -1
+        ''Dim strErrorMessage As String ''Added 5/6/2023 td
+        ''''4/17/23  For intColIndex As Integer = 0 To (-1 + mod_array_RSCColumns.Length)
+        ''For intColIndex As Integer = 0 To (-1 + mod_dict_RSCColumns.Values.Count) ''4/17/23 mod_array_RSCColumns.Length
+        ''    Try
+        ''        ''5/7/2023 If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then Return intColIndex
+        ''        If (mod_dict_RSCColumns.ContainsKey(intColIndex)) Then
+        ''            If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then
+        ''                Return intColIndex
+        ''            End If ''End of ""If (mod_dict_RSCColumns.Item(intColIndex) Is par_column) Then""
+        ''        End If ''End of ""If (mod_dict_RSCColumns.ContainsKey(intColIndex)) Then""
+        ''    Catch ex_dict As Exception
+        ''        ''Added 5/06/2023 td 
+        ''        strErrorMessage = ex_dict.Message
+        ''    End Try
+        ''Next intColIndex
+        ''Return -1
 
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
 
@@ -357,7 +350,7 @@ Partial Public Class RSCSpreadManagerCols
         ''
         Dim intRowOfDataCell As Integer = 0
 
-        For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        For Each each_column As RSCFieldColumnV2 In mod_dlist_RSCColumns ''mod_dict_RSCColumns.Values
             If (each_column Is Nothing) Then Continue For
             intRowOfDataCell = -1
             intRowOfDataCell = each_column.GetRowIndexOfCell(par_objDataCell)
@@ -376,7 +369,7 @@ Partial Public Class RSCSpreadManagerCols
         Dim each_column As RSCFieldColumnV2
         Dim bColHasIdentifyingData As Boolean
 
-        For Each each_column In mod_dict_RSCColumns.Values
+        For Each each_column In mod_dlist_RSCColumns ''mod_dict_RSCColumns.Values
 
             If (each_column Is Nothing) Then Continue For
 
@@ -416,6 +409,40 @@ Partial Public Class RSCSpreadManagerCols
 
     End Function ''End of ""Public Function Equals_RecipientListAtClose() As Boolean""
 
+
+    Public Function ToString_ByRow(par_intRowIndex As Integer,
+                        Optional pboolRowIndices As Boolean = False) As String
+        ''
+        ''Added 4/03/2022
+        ''
+        ''5/2023 Dim intCountColumns As Integer
+        ''5/2023 Dim list_columns As List(Of RSCFieldColumnV2)
+        Dim each_column As RSCFieldColumnV2
+        Dim strValue As String
+        Dim strLine As String = ""
+
+        ''Added 4/12/2022 td
+        If (pboolRowIndices) Then strLine = par_intRowIndex.ToString
+
+        ''5/2023 list_columns = ListOfColumns()
+        ''5/2023 intCountColumns = list_columns.Count()
+        ''5/2023 For intColIndex As Integer = 0 To intCountColumns - 1
+        ''    each_column = list_columns(intColIndex)
+
+        For Each each_column In mod_dlist_RSCColumns
+            strValue = each_column.ToString_ByRow(par_intRowIndex)
+            If (strValue = "") Then
+                strLine &= (strValue)
+            Else
+                strLine &= (vbTab & strValue)
+            End If
+
+            ''5/2023 Next intColIndex
+        Next each_column
+
+        Return strLine
+
+    End Function ''End of ""Public Function ToString_ByRow()""
 
 
 End Class ''End of ""Partial Public Class RSCSpreadManagerCols""

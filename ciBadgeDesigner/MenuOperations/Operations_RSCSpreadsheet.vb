@@ -111,7 +111,16 @@ Public Class Operations_RSCSpreadsheet
     End Sub ''End of ""Public Sub Undo_of_Clearing_Data_From_Column_FC2002""
 
 
-    Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003(sender As Object, e As EventArgs)
+    Public Sub Undo_Deletion_Of_Column_FC2003(sender As Object, e As EventArgs)
+        ''
+        ''Added 5/09/2023  
+        ''
+
+
+    End Sub ''End of ""Public Sub Undo_Deletion_Of_Column_FC2003(sender As Object, e As EventArgs)""
+
+
+    Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2004(sender As Object, e As EventArgs)
         ''
         ''Added 4/03/2022 thomas downes
         ''  
@@ -119,10 +128,10 @@ Public Class Operations_RSCSpreadsheet
 
 
 
-    End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
+    End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2004""
 
 
-    Public Sub Copy_All_Spreadsheet_Data_without_Headers_FC2003(sender As Object, e As EventArgs)
+    Public Sub Copy_All_Spreadsheet_Data_without_Headers_FC2005(sender As Object, e As EventArgs)
         ''
         ''Added 4/03/2022 thomas downes
         ''  
@@ -165,16 +174,16 @@ Public Class Operations_RSCSpreadsheet
         ''IO.File.WriteAllText(strPathTXT, mod_sbSpreadheetData.ToString())
         ''System.Diagnostics.Process.Start(strPathTXT)
 
-    End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2003""
+    End Sub ''End of ""Public Sub Copy_All_Spreadsheet_Data_with_Headers_FC2005""
 
 
-    Public Sub Copy_Spreadsheet_Data_with_Row_Index_FC2004(sender As Object, e As EventArgs)
+    Public Sub Copy_Spreadsheet_Data_with_Row_Index_FC2006(sender As Object, e As EventArgs)
         ''
         ''Added 4/11/2022  thomas downes
         ''  
         CopySpreadsheetData(False, True)
 
-    End Sub
+    End Sub ''ENd of ""Public Sub Copy_Spreadsheet_Data_with_Row_Index_FC2006""
 
 
     Public Sub CopySpreadsheetData(pboolIncludeFieldnames As Boolean,
@@ -318,6 +327,39 @@ Public Class Operations_RSCSpreadsheet
         End If ''Endof ""If (IO.File.Exists(strPathToXML)) Then... Else..."
 
     End Sub ''End of ""Private Sub OpenFolderAndFile(par_strPathToXML As String)""
+
+
+    Public Function IsMenuItemDisabledByDefault(pstrMenuText As String) As Boolean
+        ''
+        ''Added 5/9/2023 td  
+        ''
+        ''Let's disable ""Undo of Clearing Data From Column FC2002""
+        ''   Public Sub Undo_of_Clearing_Data_From_Column_FC2002(sender As Object, e As EventArgs)
+        ''Let's disable ""Undo Deletion Of Column FC2003""
+        ''   Public Sub Undo_Deletion_of_Column_FC2003(sender As Object, e As EventArgs)
+        ''
+        Select Case True
+
+            Case (pstrMenuText.Contains("FC2002"))
+                ''
+                ''Let's disable ""Undo of Clearing Data From Column FC2002""
+                ''   Public Sub Undo_of_Clearing_Data_From_Column_FC2002(sender As Object, e As EventArgs)
+                ''
+                Return True
+
+            Case (pstrMenuText.Contains("FC2003"))
+                ''
+                ''Let's disable ""Undo Deletion Of Column FC2003""
+                ''   Public Sub Undo_Deletion_of_Column_FC2003(sender As Object, e As EventArgs)
+                ''
+                Return True
+
+        End Select
+
+        Return False
+
+    End Function ''\end of ""Public Function IsSetMenuItemDisabledByDefault""
+
 
 
 End Class

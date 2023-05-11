@@ -207,7 +207,7 @@ Public Class RSCFieldSpreadsheet
             .ParentSpreadsheet = CtlFieldSheet1 ''----par_oSpreadsheet
             ''.ColumnIndex = par_intColumnIndex
 
-        End With ''End of "With objOperationsPortrait"
+        End With ''End of "With objOperationsFieldSheet"
 
         ''
         ''Return output value.
@@ -2176,6 +2176,14 @@ Public Class RSCFieldSpreadsheet
     End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
 
 
+    Public Sub UndoLastColumnDeletion()
+        ''
+        ''Added 5/9/2023 
+        ''
+        mod_manager.Cols.UndoLastColumnDeletion()
+
+    End Sub ''ENd of ""Public Sub UndoLastColumnDeletion()""
+
     Public Sub ReviewRelevantFieldsViaDialogForm()
         ''
         ''We will open the All-Fields dialog (Standard & Custom fields).  ---4/13/2022 td
@@ -2242,33 +2250,28 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/03/2022
         ''
-        Dim intCountColumns As Integer
-        Dim list_columns As List(Of RSCFieldColumnV2)
-        Dim each_column As RSCFieldColumnV2
-        Dim strValue As String
-        Dim strLine As String = ""
+        Return mod_manager.Cols.ToString_ByRow(par_intRowIndex, pboolRowIndices)
 
-        ''Added 4/12/2022 td
-        If (pboolRowIndices) Then strLine = par_intRowIndex.ToString
+        ''Dim intCountColumns As Integer
+        ''Dim list_columns As List(Of RSCFieldColumnV2)
+        ''Dim each_column As RSCFieldColumnV2
+        ''Dim strValue As String
+        ''Dim strLine As String = ""
+        ''If (pboolRowIndices) Then strLine = par_intRowIndex.ToString
+        ''list_columns = ListOfColumns()
+        ''intCountColumns = list_columns.Count()
+        ''For intColIndex As Integer = 0 To intCountColumns - 1
+        ''    each_column = list_columns(intColIndex)
+        ''    strValue = each_column.ToString_ByRow(par_intRowIndex)
+        ''    If (strValue = "") Then
+        ''        strLine &= (strValue)
+        ''    Else
+        ''        strLine &= (vbTab & strValue)
+        ''    End If
+        ''Next intColIndex
+        ''Return strLine
 
-        list_columns = ListOfColumns()
-        intCountColumns = list_columns.Count()
-
-        For intColIndex As Integer = 0 To intCountColumns - 1
-
-            each_column = list_columns(intColIndex)
-            strValue = each_column.ToString_ByRow(par_intRowIndex)
-            If (strValue = "") Then
-                strLine &= (strValue)
-            Else
-                strLine &= (vbTab & strValue)
-            End If
-
-        Next intColIndex
-
-        Return strLine
-
-    End Function ''Ednd of ""Public Function ToString_ByRow()""
+    End Function ''End of ""Public Function ToString_ByRow()""
 
 
     Public Function Equals_RecipientListAtClose() As Boolean

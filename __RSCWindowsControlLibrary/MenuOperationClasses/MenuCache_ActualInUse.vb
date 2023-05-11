@@ -385,6 +385,12 @@ Public Class MenuCache_ActualInUse ''Replaced "_NonShared" with "_InUse" May 6, 
             each_toolMenuItem.Visible = True
             each_toolMenuItem.Text = strMethodWithSpaces
 
+            ''Added 5/9/2023 td
+            If (IsMenuItemDisabledByDefault(strMethodWithSpaces)) Then
+                ''Added 5/9/2023 td
+                each_toolMenuItem.Enabled = False
+            End If ''End of ""If (IsMenuItemDisabledByDefault(strMethodWithSpaces)) Then""
+
             ''AddHandler each_link.LinkClicked, AddressOf each_member
 
             ''Dim tt As Type = each_link.GetType
@@ -595,6 +601,41 @@ Public Class MenuCache_ActualInUse ''Replaced "_NonShared" with "_InUse" May 6, 
 
     End Sub ''End of "Private Sub Generate_ReflectionWork()
 
+
+    Public Function IsMenuItemDisabledByDefault(pstrMenuText As String) As Boolean
+        ''
+        ''Added 5/9/2023 td  
+        ''
+        ''Let's disable ""Undo of Clearing Data From Column FC2002""
+        ''   P ublic Sub Undo_of_Clearing_Data_From_Column_FC2002(sender As Object, e As EventArgs)
+        ''Let's disable ""Undo Deletion Of Column FC2003""
+        ''   Public Sub Undo_Deletion_of_Column_FC2003(sender As Object, e As EventArgs)
+        ''
+        Select Case True
+
+            Case (pstrMenuText.Contains("FC2002"))
+                ''
+                ''ciBadgeDesigner.Operations_RSCSpreadsheet.vb
+                ''
+                ''Let's disable ""Undo of Clearing Data From Column FC2002""
+                ''   Public Sub Undo_of_Clearing_Data_From_Column_FC2002(sender As Object, e As EventArgs)
+                ''
+                Return True
+
+            Case (pstrMenuText.Contains("FC2003"))
+                ''
+                ''ciBadgeDesigner.Operations_RSCSpreadsheet.vb
+                ''
+                ''Let's disable ""Undo Deletion Of Column FC2003""
+                ''   Public Sub Undo_Deletion_of_Column_FC2003(sender As Object, e As EventArgs)
+                ''
+                Return True
+
+        End Select
+
+        Return False
+
+    End Function ''\end of ""Public Function IsSetMenuItemDisabledByDefault""
 
 
     Private Sub Generate_Grouped()

@@ -233,6 +233,10 @@ Public Class RSCFieldColumnV2
             ''3/13/2022 td''.RightclickMouseInfo = objOperationsPortrait ''Added 2/5/2022 td
             .RightclickMouseInfo = objOperationsFieldColumn ''Added 3/5/2022 td
 
+            ''Added 5/10/2023 
+            ''  Cascade the menu-operations object to the sub-control RscSelectCIBField1.
+            .RscSelectCIBField1.RightclickMouseInfo = objOperationsFieldColumn
+
         End With ''eNd of "With CtlPortrait1"
 
         ''

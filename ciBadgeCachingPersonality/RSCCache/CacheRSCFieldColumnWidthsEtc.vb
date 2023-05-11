@@ -45,6 +45,17 @@ Namespace ciBadgeCachePersonality
         Public Property ListOfColumns As HashSet(Of ClassRSCColumnWidthAndData)
 
 
+        Public Sub AddColumnDataBucket(par_control As Windows.Forms.Control)
+
+            ''Added 5/10/2023 
+            ffffffffffff
+            ddddddddd
+
+
+        End Sub
+
+
+
         Public Function RSCColumnWithMaximalDataCells() As ClassRSCColumnWidthAndData
             ''
             ''Added 6/22/2022 thomas downes 
