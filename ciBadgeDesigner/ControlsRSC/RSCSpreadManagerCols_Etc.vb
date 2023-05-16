@@ -87,6 +87,7 @@ Partial Public Class RSCSpreadManagerCols
 
         ''Added 5/10/2023 
         Dim each_columnData As ClassRSCColumnWidthAndData ''Added 5/10/2023 
+        ''Needed? Dim each_columnDataFromColumn As ClassRSCColumnWidthAndData ''Added 5/10/2023
         Dim each_RSCColumn As RSCFieldColumnV2 ''Added 3/18/2022 thomas downes
         Dim each_ctlWindows As Windows.Forms.Control ''Added 5/2023 thomas downes
         Dim boolNotDeleted As Boolean ''Added 5/2023 thomas downes
@@ -98,6 +99,7 @@ Partial Public Class RSCSpreadManagerCols
             each_RSCColumn = CType(each_ctlWindows, RSCFieldColumnV2)
             boolNotDeleted = (mod_dlist_RSCColumns.IsStillInList(each_RSCColumn))
             If (boolNotDeleted) Then
+                ''Needed? each_columnDataFromColumn = each_RSCColumn.ColumnWidthAndData
                 each_RSCColumn.SaveDataTo_ColumnCache()
             End If ''End of "If (boolNotDeleted) Then"
         Next each_columnData

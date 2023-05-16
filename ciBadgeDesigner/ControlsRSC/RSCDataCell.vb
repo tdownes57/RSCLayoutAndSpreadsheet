@@ -20,6 +20,12 @@ Public Class RSCDataCell
     Public RowIndex_NeededIfDeleted As Integer ''Added 4/25/2022 td
     Public Event GotFocus_Cell(sender As Object, e As EventArgs) ''Added 5/13/2022
 
+    ''Not yet in use, provisional as of 5/15/2023.  
+    Public CellAbove As RSCDataCell
+    Public CellRight As RSCDataCell
+    Public Cell_Left As RSCDataCell
+    Public CellBelow As RSCDataCell
+
     Public Shared BackColor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
     Public Shared BackColor_WithEmphasisOnRow As System.Drawing.Color = System.Drawing.Color.LightGray
     Public Shared BackColor_WithCellFocus As System.Drawing.Color = System.Drawing.Color.White

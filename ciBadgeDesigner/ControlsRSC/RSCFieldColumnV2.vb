@@ -1679,11 +1679,13 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Dim objSpreadsheet As RSCFieldSpreadsheet
-        Dim objColumn_Right As RSCFieldColumnV2
-        objSpreadsheet = Me.ParentSpreadsheet
-        objColumn_Right = objSpreadsheet.GetNextColumn_RightOf(Me)
-        Return objColumn_Right
+        Return Me.FieldColumnNextRight
+
+        ''5/15/2023 Dim objSpreadsheet As RSCFieldSpreadsheet
+        ''5/15/2023 Dim objColumn_Right As RSCFieldColumnV2
+        ''5/15/2023 objSpreadsheet = Me.ParentSpreadsheet
+        ''5/15/2023 objColumn_Right = objSpreadsheet.GetNextColumn_RightOf(Me)
+        ''5/15/2023 Return objColumn_Right
 
     End Function ''End of ""Public Function GetNextColumn_Right() As RSCFieldColumnV2""
 
@@ -1692,11 +1694,13 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Dim objSpreadsheet As RSCFieldSpreadsheet
-        Dim objColumn_Left As RSCFieldColumnV2
-        objSpreadsheet = Me.ParentSpreadsheet
-        objColumn_Left = objSpreadsheet.GetNextColumn_LeftOf(Me)
-        Return objColumn_Left
+        Return Me.FieldColumnNextLeft
+
+        ''5/15/2023 Dim objSpreadsheet As RSCFieldSpreadsheet
+        ''5/15/2023 Dim objColumn_Left As RSCFieldColumnV2
+        ''5/15/2023 objSpreadsheet = Me.ParentSpreadsheet
+        ''5/15/2023 objColumn_Left = objSpreadsheet.GetNextColumn_LeftOf(Me)
+        ''5/15/2023 Return objColumn_Left
 
     End Function ''End of ""Public Function GetNextColumn_Left() As RSCFieldColumnV2""
 
@@ -1711,7 +1715,7 @@ Public Class RSCFieldColumnV2
         objColumn_First = objSpreadsheet.GetFirstColumn()
         Return objColumn_First
 
-    End Function
+    End Function ''End of ""Public Function GetFirstRSCFieldColumn() As RSCFieldColumnV2""
 
 
     Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer

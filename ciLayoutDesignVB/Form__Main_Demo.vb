@@ -4035,6 +4035,9 @@ ExitHandler:
         ''
         '' Added 5/13/2022 & 2/22/2022 td
         ''
+        Dim frm_HowToLoad As New FormHowToLoadGrid
+        frm_HowToLoad.ShowDialog()
+
         Dim frm_ToShow As DialogEditRecipients
         Dim cache_elements As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
         Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  

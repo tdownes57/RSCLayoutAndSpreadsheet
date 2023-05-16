@@ -45,14 +45,24 @@ Namespace ciBadgeCachePersonality
         Public Property ListOfColumns As HashSet(Of ClassRSCColumnWidthAndData)
 
 
-        Public Sub AddColumnDataBucket(par_control As Windows.Forms.Control)
-
+        Public Sub AddDataBucketForNewColumn(par_controlRSCFieldColumn As InterfaceRSCColumnData)
+            ''                      (par_controlRSCFieldColumn As Windows.Forms.Control)
+            ''
             ''Added 5/10/2023 
-            ffffffffffff
-            ddddddddd
+            ''
+            ''  We need to expand the ListOfColumns to include any new columns
+            ''  that have been inserted into the worksheet by the user, via
+            ''  the spreadsheet's right-click menu. --5/10/2023 
+            ''
+            Dim objColumnData As New ClassRSCColumnWidthAndData
+            ListOfColumns.Add(objColumnData)
+            objColumnData.CIBField = EnumCIBFields.Undetermined
+            objColumnData.Width = -1
+            objColumnData.Rows = -1
+            objColumnData.ColumnData = New List(Of String)()
+            par_controlRSCFieldColumn.ColumnWidthAndData = objColumnData
 
-
-        End Sub
+        End Sub ''End of ""Public Sub AddColumnDataBucket""
 
 
 

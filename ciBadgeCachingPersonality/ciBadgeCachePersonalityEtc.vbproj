@@ -83,6 +83,7 @@
     <Compile Include="ClassPersonalityConfig.vb" />
     <Compile Include="ClassCacheListRecipients.vb" />
     <Compile Include="Interfaces\InterfaceCacheToXML.vb" />
+    <Compile Include="Interfaces\InterfaceRSCColumnData.vb" />
     <Compile Include="MessageAndInputBoxes\FormInputBox.Designer.vb">
       <DependentUpon>FormInputBox.vb</DependentUpon>
     </Compile>

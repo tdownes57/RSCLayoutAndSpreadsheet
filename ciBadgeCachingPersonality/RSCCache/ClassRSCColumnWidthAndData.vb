@@ -10,14 +10,19 @@ Namespace ciBadgeCachePersonality
         ''
         '' Added 3/15/2022 thomas downes  
         ''
+        ''Public for serialization. 
         Public Property Width As Integer
+
+        ''Public for serialization. 
         Public Property Rows As Integer
 
+        ''Public for serialization. 
         Public Property CIBField As ciBadgeInterfaces.EnumCIBFields
 
+        ''Public for serialization. 
         Public Property ColumnData As List(Of String)
 
-        ''Added 5/10/2023   
+        ''Public for serialization.--Added 5/10/2023   
         Private mod_controlAssociatedRSCColumn As Windows.Forms.Control
 
 

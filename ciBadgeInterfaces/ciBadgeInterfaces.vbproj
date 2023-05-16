@@ -81,6 +81,7 @@
     <Compile Include="InterfaceRefreshCardPreview.vb" />
     <Compile Include="InterfaceRefreshElementImage.vb" />
     <Compile Include="InterfaceRightClickMouseInfo.vb" />
+    <Compile Include="InterfaceRSCColumnData_NotInUse.vb" />
     <Compile Include="InterfaceSaveToModel.vb" />
     <Compile Include="InterfaceSigMenu.vb" />
     <Compile Include="InterfaceBadgeLayoutDimensions.vb" />

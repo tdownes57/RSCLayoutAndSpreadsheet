@@ -466,6 +466,12 @@
     <Compile Include="Dialogs_Background\FormBackgroundTestScreenscrape.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormHowToLoadGrid.Designer.vb">
+      <DependentUpon>FormHowToLoadGrid.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormHowToLoadGrid.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormDisplayCacheLayouts.Designer.vb">
       <DependentUpon>FormDisplayCacheLayouts.vb</DependentUpon>
     </Compile>
@@ -843,6 +849,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormFieldsVsElements.resx">
       <DependentUpon>FormFieldsVsElements.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormHowToLoadGrid.resx">
+      <DependentUpon>FormHowToLoadGrid.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLoginRSCIDCard.resx">
       <DependentUpon>FormLoginRSCIDCard.vb</DependentUpon>
