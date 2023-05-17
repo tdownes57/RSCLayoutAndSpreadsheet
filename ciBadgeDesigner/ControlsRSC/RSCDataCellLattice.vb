@@ -13,8 +13,45 @@ Public Class RSCDataCellLattice
     ''Not needed?  Private mod_cellLowerLeft As RSCDataCell
     ''Not needed?  Private mod_cellLowerRight As RSCDataCell
 
+    Private mod_rscRowHeaderBlock As RSCRowHeaders ''Added 5/16/2023  
     Private mod_dictTopmostCells As New Dictionary(Of RSCFieldColumnV2, RSCDataCell)
     Private mod_dictLeftmostCells As New Dictionary(Of RSCRowHeader, RSCDataCell)
+
+
+    Public Sub New(par_rowHeaderBlock As RSCRowHeaders,
+                   par_columnStart As RSCFieldColumnV2,
+                   par_intNumRows As Integer)
+        ''
+        ''Added 5/16/2023  
+        ''
+        mod_rscRowHeaderBlock = par_rowHeaderBlock
+
+        ''Add the first column.
+        Dim tempColumnRight As RSCFieldColumnV2
+        Dim tempColumnLeft As RSCFieldColumnV2
+
+        tempColumnRight = par_columnStart
+        tempColumnLeft = par_columnStart.FieldColumnNextLeft
+
+        ''
+        ''Add the specified columna and all connected columns to the right. 
+        '' 
+        Do While (tempColumnRight IsNot Nothing)
+            AddColumn(tempColumnRight, True, par_intNumRows)
+            ''Prepare for the next iteration.
+            tempColumnRight = tempColumnRight.FieldColumnNextRight
+        Loop
+
+        ''
+        ''Add all connected columns to the left. 
+        '' 
+        Do While (tempColumnLeft IsNot Nothing)
+            AddColumn(tempColumnLeft, True, par_intNumRows)
+            ''Prepare for the next iteration.
+            tempColumnLeft = tempColumnLeft.FieldColumnNextLeft
+        Loop
+
+    End Sub ''ENd of ""Public Sub New()"  
 
 
     Public Sub AddColumn(par_column As RSCFieldColumnV2,
@@ -28,8 +65,10 @@ Public Class RSCDataCellLattice
         mod_dictTopmostCells.Add(par_column, objTopmostCell)
 
         If (par_doBuildLatice) Then ''5/2023 If (par_doConnectLeftAndRight) Then
+            ''
             ''Encapsulated 5/15/2023 
-            BuildLatticeByColumn(par_column, par_intNumRows)
+            ''
+            BuildLatticeByColumn_OneCol(par_column, par_intNumRows)
 
         End If ''end of ""If (par_doBuildLatice) Then""
 
@@ -84,6 +123,62 @@ Public Class RSCDataCellLattice
 
     End Sub ''End of ""Public Sub DeleteColumn()""
 
+
+    Public Sub DeleteRows(par_rowDeleteStart As RSCRowHeader,
+                          par_rowDeleteFinish As RSCRowHeader)
+        ''
+        ''Added 5/16/2023 td  
+        ''
+        Dim objLeftmostCellofDeleteRowStart As RSCDataCell
+        Dim objLeftmostCellofDeleteRowEnding As RSCDataCell
+
+        Dim bExpectedOrder As Boolean
+        Dim intRowDeleteStart As Integer
+        Dim intRowDeleteFinish As Integer
+
+        intRowDeleteStart = par_rowDeleteStart.RowIndex
+        intRowDeleteFinish = par_rowDeleteFinish.RowIndex
+        bExpectedOrder = (intRowDeleteStart < intRowDeleteFinish)
+        If (Not bExpectedOrder) Then System.Diagnostics.Debugger.Break()
+
+        objLeftmostCellofDeleteRowStart = mod_dictLeftmostCells.Item(par_rowDeleteStart)
+        objLeftmostCellofDeleteRowEnding = mod_dictLeftmostCells.Item(par_rowDeleteFinish)
+
+        Dim objNextHeaderAbove As RSCRowHeader
+        Dim objNextHeaderBelow As RSCRowHeader
+
+        objNextHeaderAbove = par_rowDeleteStart.RowHeaderNextAbove
+        objNextHeaderBelow = par_rowDeleteStart.RowHeaderNextBelow
+
+        Dim objNextHeaderAbove_FirstCell = mod_dictLeftmostCells.Item(objNextHeaderAbove)
+        Dim objNextHeaderBelow_FirstCell = mod_dictLeftmostCells.Item(objNextHeaderBelow)
+
+        Dim tempCellAbove As RSCDataCell = objNextHeaderAbove_FirstCell
+        Dim tempCellBelow As RSCDataCell = objNextHeaderBelow_FirstCell
+
+        ''
+        ''Terms:
+        ''    Pre-indexed means having a lower row index than the rows being deleted.
+        ''    Post-indexed means having a greater row index than the rows being deleted.
+        ''
+        ''Let effectively delete the rows by causing a "gap" or "jump"
+        ''  from the [highest-indexed pre-indexed non-deleted row].to 
+        ''  the [lowst-indexed post-indexed non-deleted row].
+        ''
+        Do While (tempCellAbove IsNot Nothing)
+
+            tempCellAbove.SetFieldCellBelow(tempCellBelow)
+            tempCellBelow.SetFieldCellAbove(tempCellAbove)
+
+            ''Prepare for nexst iteration.
+            tempCellAbove = tempCellAbove.GetNextCell_Right()
+            tempCellBelow = tempCellBelow.GetNextCell_Right()
+
+        Loop
+
+
+
+    End Sub ''ENd of ""Public Sub DeleteRows()"  
 
 
     Public Sub ClearCellLinks_ToTheLeft(par_columnWhoseLinksToClear As RSCFieldColumnV2,
