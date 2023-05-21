@@ -14,6 +14,11 @@ Public Class RSCRowHeader
 
     Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
 
+    ''Added 5/17/2023
+    ''  This will help it to be a doubly-linked list. 
+    Public RowHeaderNextAbove As RSCRowHeader
+    Public RowHeaderNextBelow As RSCRowHeader
+
     ''Added 4/29/2022 td
     ''5/1/2022 Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
     ''5/1/2022 Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End

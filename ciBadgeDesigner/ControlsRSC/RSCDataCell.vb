@@ -125,6 +125,21 @@ Public Class RSCDataCell
     End Property
 
 
+    Public Sub SetFieldCellBelow(par_cellBelow As RSCDataCell)
+
+        ''Added 5/17/2023 
+        Me.CellBelow = par_cellBelow
+
+    End Sub
+
+    Public Sub SetFieldCellAbove(par_cellAbove As RSCDataCell)
+
+        ''Added 5/17/2023 
+        Me.CellAbove = par_cellAbove
+
+    End Sub
+
+
     Public Function GetNextCell_Right(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
         ''
         ''4/12/2022 td

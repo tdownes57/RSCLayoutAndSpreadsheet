@@ -32,7 +32,8 @@ Public Class RSCRowHeaders
     Private mod_colorHeadersBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.SystemColors.ButtonFace
     Private mod_colorHeadersBackcolor_WithEmphasis As System.Drawing.Color = System.Drawing.Color.Cyan ''5/13/2022 .Gray
 
-    Private mod_array_RSCColumns As RSCFieldColumnV1() ''Added 3/14/2022 td
+    ''Probably not needed. 5/2023 Private mod_array_RSCColumns As RSCFieldColumnV1() ''Added 3/14/2022 td
+
     Private Const mc_ColumnWidthDefault As Integer = 72 ''Added 3/20/2022 td
     Private Const mc_ColumnMarginGap As Integer = 3 ''---4 ''Added 3/20/2022 td
     Private Const mod_c_intPixelsFromRowToRow As Integer = 24 ''Added 4/04/2022 td
@@ -40,7 +41,12 @@ Public Class RSCRowHeaders
     ''Added 4/04/2022 thomas downes
     ''4/5/2022 Private mod_listTextboxesByRow As New Dictionary(Of Integer, TextBox)
     ''5/14/2022 td''Private mod_listTextboxesByRow As New Dictionary(Of Integer, RSCRowHeader)
+
+    ''
+    ''Should be replace this structure with a doubly-linked list?  ---5/17/2023 
+    ''
     Private mod_listRowHeadersByRow As New Dictionary(Of Integer, RSCRowHeader)
+
     Private mod_columnWidthAndData As ClassRSCColumnWidthAndData ''Added 6/22/2022 & 3/18/2022  
 
     ''Added 4/04/2022 thomas downes
@@ -109,16 +115,17 @@ Public Class RSCRowHeaders
 
 
 
-    Public Function ListOfColumns() As List(Of RSCFieldColumnV1)
-
-        ''Added 3/21/2022 thomas downes
-        ''\\---Return New List(Of RSCFieldColumn)(mod_array_RSCColumns)
-        Dim oList As List(Of RSCFieldColumnV1)
-        oList = New List(Of RSCFieldColumnV1)(mod_array_RSCColumns)
-        oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
-        Return oList
-
-    End Function ''ENd of "Public Function ListOfColumns() As List(Of RSCFieldColumn)"
+    ''5/17/2023 td Public Function ListOfColumns() As List(Of RSCFieldColumnV1)
+    ''5/17/2023 td Public Function ListOfColumns() As List(Of RSCFieldColumnV1)
+    ''
+    ''    ''Added 3/21/2022 thomas downes
+    ''    ''\\---Return New List(Of RSCFieldColumn)(mod_array_RSCColumns)
+    ''    Dim oList As List(Of RSCFieldColumnV1)
+    ''    oList = New List(Of RSCFieldColumnV1)(mod_array_RSCColumns)
+    ''    oList.Remove(Nothing) ''Item #0 is Nothing, so let's omit the Null reference. 
+    ''    Return oList
+    ''
+    ''End Function ''ENd of "Public Function ListOfColumns() As List(Of RSCFieldColumn)"
 
 
     Public Function GetRowHeaderByRowIndex(par_intRowIndex As Integer) As RSCRowHeader

@@ -2145,7 +2145,16 @@ Public Class RSCFieldSpreadsheet
         ''    
         mod_manager.Cols.InsertColumnLeftOfSpecified(par_column, mc_intPixelsFromRowToRow)
 
-    End Sub ''End of ""Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)""
+    End Sub ''End of ""Public Sub InsertColumnLeftOfSpecified(par_intColumnIndex As Integer)""
+
+
+    Public Sub InsertColumnLeftOfSpecified(par_column As RSCFieldColumnV2)
+        ''    
+        ''Added 5/20/2023 thomas downes 
+        ''    
+        mod_manager.Cols.InsertColumnRightOfSpecified(par_column, mc_intPixelsFromRowToRow)
+
+    End Sub ''End of ""Public Sub InserColumnRightOfSpecified(par_intColumnIndex As Integer)""
 
 
     Public Sub DeleteRecipientFromCache(par_recipient As ciBadgeRecipients.ClassRecipient)

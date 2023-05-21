@@ -165,10 +165,22 @@ Public Class Operations_RSCFieldColumn
         ''Added 3/20/2022 thomas downes
         ''
         Dim rscParentSpreadsheet As RSCFieldSpreadsheet
-        rscParentSpreadsheet = Me.ParentSpreadsheet
-        ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
-        Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
-        rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
+        Const c_boolPreMay2023 As Boolean = False
+
+        If (c_boolPreMay2023) Then
+            rscParentSpreadsheet = Me.ParentSpreadsheet
+            ''In case other columns were deleted, we need to refresh the Column Index.---4/15/2022
+            Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
+            rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
+
+        Else
+            ''Added 5/20/2023 td
+            Dim rsc_column As RSCFieldColumnV2 ''Added 5/20/2023 td
+            rsc_column = Me.FieldColumn
+            Me.ParentSpreadsheet.InsertColumnRightOfSpecified(rsc_column)
+
+
+        End If ''Endof '"If (c_boolPreMay2023) Then... ElseIf..."
 
     End Sub ''End of "Public Sub Insert_New_Column_To_The_Right_FC2003"
 

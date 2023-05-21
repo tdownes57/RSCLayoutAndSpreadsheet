@@ -167,6 +167,7 @@ Public Class RSCDataCellLattice
         ''
         Do While (tempCellAbove IsNot Nothing)
 
+            ''Added 5/16/2023 td  
             tempCellAbove.SetFieldCellBelow(tempCellBelow)
             tempCellBelow.SetFieldCellAbove(tempCellAbove)
 
@@ -174,7 +175,7 @@ Public Class RSCDataCellLattice
             tempCellAbove = tempCellAbove.GetNextCell_Right()
             tempCellBelow = tempCellBelow.GetNextCell_Right()
 
-        Loop
+        Loop ''End of ""Do While (tempCellAbove IsNot Nothing)""
 
 
 
