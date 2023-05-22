@@ -460,72 +460,72 @@ Public Class RSCSpreadManagerCols
     End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Column()""
 
 
-    Public Sub InsertColumnLeftOfSpecified(par_columnExisting As RSCFieldColumnV2,
-                                      par_intPixelsBetweenRows As Integer)
-        ''
-        ''Added 5/08/2023 thomas downes 
-        ''
-        Dim newRSCColumn As RSCFieldColumnV2
-        Dim intNewColumnWidth As Integer
-        Dim intNewColumnPropertyLeft As Integer
-        Dim intNewColumnIndex As Integer
-        Dim intNextColumnPropertyLeft As Integer
+    ''Public Sub InsertColumnLeftOfSpecified_Obselete(par_columnExisting As RSCFieldColumnV2,
+    ''                                  par_intPixelsBetweenRows As Integer)
+    ''    ''
+    ''    ''Added 5/08/2023 thomas downes 
+    ''    ''
+    ''    Dim newRSCColumn As RSCFieldColumnV2
+    ''    Dim intNewColumnWidth As Integer
+    ''    Dim intNewColumnPropertyLeft As Integer
+    ''    Dim intNewColumnIndex As Integer
+    ''    Dim intNextColumnPropertyLeft As Integer
 
-        intNewColumnWidth = mc_ColumnWidthDefault
-        intNewColumnPropertyLeft = par_columnExisting.Left
-        intNewColumnIndex = mod_dlist_RSCColumns.GetIndexOf(par_columnExisting)
-        ''5/2023 intNewColumnPropertyLeft = (intNewColumnPropertyLeft +
-        ''5/2023   mc_ColumnWidthDefault + mc_ColumnMarginGap)
+    ''    intNewColumnWidth = mc_ColumnWidthDefault
+    ''    intNewColumnPropertyLeft = par_columnExisting.Left
+    ''    intNewColumnIndex = mod_dlist_RSCColumns.GetIndexOf(par_columnExisting)
+    ''    ''5/2023 intNewColumnPropertyLeft = (intNewColumnPropertyLeft +
+    ''    ''5/2023   mc_ColumnWidthDefault + mc_ColumnMarginGap)
 
-        ''
-        ''Major call!!
-        ''
-        newRSCColumn = GenerateRSCFieldColumn_General(intNewColumnIndex,
-                                                    intNewColumnPropertyLeft,
-                                                    intNextColumnPropertyLeft,
-                                                    par_columnExisting,
-                                                    par_intPixelsBetweenRows)
+    ''    ''
+    ''    ''Major call!!
+    ''    ''
+    ''    newRSCColumn = GenerateRSCFieldColumn_General(intNewColumnIndex,
+    ''                                                intNewColumnPropertyLeft,
+    ''                                                intNextColumnPropertyLeft,
+    ''                                                par_columnExisting,
+    ''                                                par_intPixelsBetweenRows)
 
-        mod_dlist_RSCColumns.InsertColumnLeftOfSpecified(newRSCColumn, par_columnExisting)
-
-        mod_dlist_RSCColumns.RefreshHorizontalPositions(par_columnExisting, mc_ColumnMarginGap)
-
-        newRSCColumn.ParentSpreadsheet = mod_controlSpread ''Added 4/30/2022 td
-        newRSCColumn.Top = mod_columnDesignedV2.Top
-        newRSCColumn.Height = mod_columnDesignedV2.Height
-
-        ''Added 4/14/2022 td
-        With newRSCColumn
-            If (.ColumnWidthAndData Is Nothing) Then
-                ''Added 4/14/2022 td
-                .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
-                .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
-                .ColumnWidthAndData.Width = mc_ColumnWidthDefault
-            End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
-        End With ''End of ""With newRSCColumn""
-
-        newRSCColumn.Load_FieldsFromCache(mod_cacheElements)
-
-        ''
-        ''Step 10 of 11.  Add the new column to the list of columns in the cache. 
-        ''
-        Me.ColumnDataCache.ListOfColumns.Add(newRSCColumn.ColumnWidthAndData)
-
-        ''
-        ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
-        ''
-        Dim intNewLength As Integer
-        intNewLength = mod_dlist_RSCColumns.Count()
-
-        For intColIndex As Integer = (1 + intNewColumnIndex) To (-1 + intNewLength)
-            ''
-            ''Display the corrected column index on each columns to the right. 
-            ''
-            mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
-
-        Next intColIndex
-
-    End Sub ''END OF ""Public Sub InsertColumnLeftOfSpecified""
+    ''    mod_dlist_RSCColumns.InsertColumnLeftOfSpecified(newRSCColumn, par_columnExisting)
+    ''
+    ''    mod_dlist_RSCColumns.RefreshHorizontalPositions(par_columnExisting, mc_ColumnMarginGap)
+    ''
+    ''    newRSCColumn.ParentSpreadsheet = mod_controlSpread ''Added 4/30/2022 td
+    ''    newRSCColumn.Top = mod_columnDesignedV2.Top
+    ''    newRSCColumn.Height = mod_columnDesignedV2.Height
+    ''  
+    ''    ''Added 4/14/2022 td
+    ''    With newRSCColumn
+    ''        If (.ColumnWidthAndData Is Nothing) Then
+    ''            ''Added 4/14/2022 td
+    ''            .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+    ''            .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
+    ''            .ColumnWidthAndData.Width = mc_ColumnWidthDefault
+    ''        End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
+    ''    End With ''End of ""With newRSCColumn""
+    ''
+    ''    newRSCColumn.Load_FieldsFromCache(mod_cacheElements)
+    ''
+    ''    ''
+    ''    ''Step 10 of 11.  Add the new column to the list of columns in the cache. 
+    ''    ''
+    ''    Me.ColumnDataCache.ListOfColumns.Add(newRSCColumn.ColumnWidthAndData)
+    ''
+    ''    ''
+    ''    ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
+    ''    ''
+    ''    Dim intNewLength As Integer
+    ''    intNewLength = mod_dlist_RSCColumns.Count()
+    ''
+    ''    For intColIndex As Integer = (1 + intNewColumnIndex) To (-1 + intNewLength)
+    ''        ''
+    ''        ''Display the corrected column index on each columns to the right. 
+    ''        ''
+    ''        mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
+    ''
+    ''    Next intColIndex
+    ''
+    ''End Sub ''END OF ""Public Sub InsertColumnLeftOfSpecified""
 
 
     Public Sub InsertColumnLeftOfSpecified(par_columnExisting As RSCFieldColumnV2,
@@ -626,13 +626,17 @@ Public Class RSCSpreadManagerCols
         ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
         ''
         Dim intNewLength As Integer
+        Dim ithColumn As RSCFieldColumnV2 ''Added 5/22/2023 
         intNewLength = mod_dlist_RSCColumns.Count()
 
         For intColIndex As Integer = (1 + intNewColumnIndex) To (-1 + intNewLength)
             ''
             ''Display the corrected column index on each columns to the right. 
             ''
-            mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
+            ''5/23/2023 mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
+            ithColumn = mod_dlist_RSCColumns.Item(intColIndex)
+            If (ithColumn Is Nothing) Then Exit For
+            ithColumn.DisplayColumnIndex(intColIndex)
 
         Next intColIndex
 

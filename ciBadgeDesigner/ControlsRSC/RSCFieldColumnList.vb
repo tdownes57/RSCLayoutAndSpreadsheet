@@ -194,7 +194,10 @@ Public Class RSCFieldColumnList
         Dim tempColumn As RSCFieldColumnV2 = mod_columnFirstLeft
         ''Dim tempColumnToTheLeft As RSCFieldColumnV2 = Nothing
 
-        If (par_existingCol Is Nothing) Then Throw New Exception("Parameter is nothing.")
+        If (par_existingCol Is Nothing) Then
+            System.Diagnostics.Debugger.Break() ''Added 5/22/2023
+            Throw New Exception("Parameter is nothing. (InsertColumnLeftOfSpecified)")
+        End If  ''End of ""If (par_existingCol Is Nothing) Then""
 
         If (par_existingCol Is mod_columnFirstLeft) Then
             InsertColumnAtFarLeft(par_newColumn)
@@ -273,7 +276,11 @@ Public Class RSCFieldColumnList
         Dim tempColumn As RSCFieldColumnV2 = mod_columnLastRight
         Dim tempColumnToTheRight As RSCFieldColumnV2 = Nothing
 
-        If (par_existingCol Is Nothing) Then Throw New Exception("Parameter is nothing.")
+        ''5/22/2023 If (par_existingCol Is Nothing) Then Throw New Exception("Parameter is nothing.")
+        If (par_existingCol Is Nothing) Then
+            System.Diagnostics.Debugger.Break() ''Added 5/22/2023
+            Throw New Exception("Parameter is nothing. (InsertColumnRightOfSpecified)")
+        End If  ''End of ""If (par_existingCol Is Nothing) Then""
 
         If (par_existingCol Is mod_columnLastRight) Then
             InsertColumnAtFarRight(par_newColumn)
@@ -399,7 +406,11 @@ Public Class RSCFieldColumnList
         Dim tempColumn As RSCFieldColumnV2 = mod_columnFirstLeft
         ''5/2023 Dim tempIndex As Integer = 1
 
-        If (par_existingCol Is Nothing) Then Throw New Exception("Parameter is nothing.")
+        ''5/22/2023 If (par_existingCol Is Nothing) Then Throw New Exception("Parameter is nothing.")
+        If (par_existingCol Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+            Throw New Exception("Parameter is nothing. (Function IsStillInList)")
+        End If ''ENd of ""If (par_existingCol Is Nothing) Then""
 
         ''
         ''Find the existing column

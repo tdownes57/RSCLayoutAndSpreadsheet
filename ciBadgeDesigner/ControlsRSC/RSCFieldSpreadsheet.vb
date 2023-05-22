@@ -2148,11 +2148,20 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of ""Public Sub InsertColumnLeftOfSpecified(par_intColumnIndex As Integer)""
 
 
-    Public Sub InsertColumnLeftOfSpecified(par_column As RSCFieldColumnV2)
+    Public Sub InsertColumnRightOfSpecified(par_column As RSCFieldColumnV2,
+                                            Optional pint_howManyNewColumns As Integer = 1)
         ''    
         ''Added 5/20/2023 thomas downes 
         ''    
-        mod_manager.Cols.InsertColumnRightOfSpecified(par_column, mc_intPixelsFromRowToRow)
+        ''5/22/2023 mod_manager.Cols.InsertColumnRightOfSpecified(par_column, mc_intPixelsFromRowToRow)
+
+        ''By default, this For-Next loop runs for exactly one(1) iteration. ---5/22/2023
+        For indexNew As Integer = 1 To pint_howManyNewColumns
+
+            ''By default, this Insert procedure exactly one(1) time. ---5/22/2023
+            mod_manager.Cols.InsertColumnRightOfSpecified(par_column, mc_intPixelsFromRowToRow)
+
+        Next indexNew
 
     End Sub ''End of ""Public Sub InserColumnRightOfSpecified(par_intColumnIndex As Integer)""
 

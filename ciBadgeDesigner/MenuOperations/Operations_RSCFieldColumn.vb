@@ -208,8 +208,12 @@ Public Class Operations_RSCFieldColumn
         Me.ColumnIndex = rscParentSpreadsheet.GetIndexOfColumn(Me.FieldColumn)
 
         For intNewColIndex = 1 To intHowManyNewColumns
-            ''Insert as many columns to the rightt as needed.  
-            rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
+            ''
+            ''Insert as many columns to the right as needed.
+            ''
+            ''5/22/2023 rscParentSpreadsheet.InsertNewColumnByIndex(Me.ColumnIndex + 1)
+            rscParentSpreadsheet.InsertColumnRightOfSpecified(Me.FieldColumn, intHowManyNewColumns)
+
         Next intNewColIndex
 
     End Sub ''End of "Public Sub Insert_Up_To_9_Columns_To_The_Right_FC2005"

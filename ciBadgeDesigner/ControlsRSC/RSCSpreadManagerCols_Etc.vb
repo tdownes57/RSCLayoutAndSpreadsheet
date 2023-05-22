@@ -94,14 +94,23 @@ Partial Public Class RSCSpreadManagerCols
 
         ''Added 5/10/2023 
         For Each each_columnData In Me.ColumnDataCache.ListOfColumns
-            ''Added 5/10/2023 
+            ''
+            ''We need to call .SaveDataTo_ColumnCache() for each undeleted column. 
+            ''    ---Added 5/10/2023 
+            ''
             each_ctlWindows = each_columnData.GetRSCColumnAsControl()
+
+            If (each_ctlWindows) Is Nothing Then
+                System.Diagnostics.Debugger.Break() ''Added 5/22/2023
+            End If ''ENd of ""If (each_ctlWindows) Is Nothing Then""
+
             each_RSCColumn = CType(each_ctlWindows, RSCFieldColumnV2)
             boolNotDeleted = (mod_dlist_RSCColumns.IsStillInList(each_RSCColumn))
             If (boolNotDeleted) Then
                 ''Needed? each_columnDataFromColumn = each_RSCColumn.ColumnWidthAndData
                 each_RSCColumn.SaveDataTo_ColumnCache()
             End If ''End of "If (boolNotDeleted) Then"
+
         Next each_columnData
 
         ''
