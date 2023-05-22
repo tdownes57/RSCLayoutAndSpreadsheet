@@ -38,6 +38,8 @@ Public Class RSCFieldSpreadsheet
     Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
 
     Public ColumnDataCache As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
+    Public LoadByReadingColumnCache As Boolean ''Added 5/22/2023 thomas
+
     ''Added 4/18/2023 td
     Private mod_manager As RSCSpreadManager
 
@@ -1089,9 +1091,17 @@ Public Class RSCFieldSpreadsheet
         ''       ----6/22/2022 thomas d. 
         ''
         With Me.ColumnDataCache
+
             RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
-            RscRowHeaders1.Load_ColumnListDataToColumnEtc()
-        End With
+
+            If (Me.LoadByReadingColumnCache) Then
+                ''
+                ''Does this load prior session's data into the columns, e.g. "Robin Forbes", etc.?  
+                ''  ---5/22/2023
+                RscRowHeaders1.Load_ColumnListDataToColumnEtc()
+            End If ''ENd of ""If (Me.LoadByReadingColumnCache) Then""
+
+        End With ''End of""With Me.ColumnDataCache""
 
         ''
         ''Step 9 of 11. 

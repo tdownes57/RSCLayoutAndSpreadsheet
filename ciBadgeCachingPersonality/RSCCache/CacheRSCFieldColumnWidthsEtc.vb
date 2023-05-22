@@ -45,8 +45,8 @@ Namespace ciBadgeCachePersonality
         Public Property ListOfColumns As HashSet(Of ClassRSCColumnWidthAndData)
 
 
-        Public Sub AddDataBucketForNewColumn(par_controlRSCFieldColumn As InterfaceRSCColumnData)
-            ''                      (par_controlRSCFieldColumn As Windows.Forms.Control)
+        Public Sub AddDataBucketForNewColumn(par_infoRSCFieldColumn As InterfaceRSCColumnData,
+                                  par_controlRSCFieldColumn As Windows.Forms.Control)
             ''
             ''Added 5/10/2023 
             ''
@@ -60,7 +60,12 @@ Namespace ciBadgeCachePersonality
             objColumnData.Width = -1
             objColumnData.Rows = -1
             objColumnData.ColumnData = New List(Of String)()
-            par_controlRSCFieldColumn.ColumnWidthAndData = objColumnData
+
+            ''5/22/2023 par_controlRSCFieldColumn.ColumnWidthAndData = objColumnData
+            par_infoRSCFieldColumn.ColumnWidthAndData = objColumnData
+
+            ''Added 5/22/2023
+            objColumnData.SetRSCColumnAsControl(par_controlRSCFieldColumn)
 
         End Sub ''End of ""Public Sub AddColumnDataBucket""
 

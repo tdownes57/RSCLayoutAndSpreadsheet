@@ -12,6 +12,7 @@ Public Class DialogEditRecipients
     '' Added 2/22/2022 thomas  
     ''
     Public ElementsCache_Deprecated As ClassElementsCache_Deprecated
+    Public LoadByReadingColumnCache As Boolean ''Added 5/22/2023 thomas 
 
     ''Moved to RSCFieldSpreadsheet. 4/2023 Public StillHavingColumnTrouble As Boolean = True ''Added 4/11/2023 td
 
@@ -43,7 +44,8 @@ Public Class DialogEditRecipients
     End Sub
 
     Public Sub New(par_cacheElements As ClassElementsCache_Deprecated,
-                   Optional par_cacheRecipients As CachePersnltyCnfgLRecips = Nothing) ''7/4/2022 ClassCacheOnePersonalityConfig = Nothing)
+                   Optional par_cacheRecipients As CachePersnltyCnfgLRecips = Nothing,
+                   Optional par_boolLoadByColumnCache As Boolean = True) ''7/4/2022 ClassCacheOnePersonalityConfig = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -71,7 +73,12 @@ Public Class DialogEditRecipients
         ''5/6/2023 Me.Width = RscFieldSpreadsheet1.ColumnDataCache.FormSize.Width
         ''5/6/2023 Me.Height = RscFieldSpreadsheet1.ColumnDataCache.FormSize.Height
 
+        ''Added 5/23/2023 
+        Me.LoadByReadingColumnCache = par_boolLoadByColumn ''Added 5/22/2023
+
+
     End Sub
+
 
     Private Sub ButtonPasteData_Click(sender As Object, e As EventArgs) Handles ButtonPasteData.Click
         ''
@@ -235,6 +242,7 @@ ExitHandler:
             End If ''end of ""If (.NumberOfRowsNeededToStart = 0) Then""
 
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
+            .LoadByReadingColumnCache = Me.LoadByReadingColumnCache ''Added 5/22/2023 
 
             ''4/11/2023 If (Me.StillHavingColumnTrouble) Then ''Added 4/11/2023
             If (RSCFieldSpreadsheet.StillHavingColumnTrouble) Then ''Added 4/11/2023

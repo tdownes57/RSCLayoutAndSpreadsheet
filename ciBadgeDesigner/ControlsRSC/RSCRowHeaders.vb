@@ -1155,8 +1155,8 @@ Public Class RSCRowHeaders
         ''4/15/2022 thomas d''LoadDataToColumn(mod_columnWidthAndData.ColumnData)
         ''6/22/2022 thomas d''Load_ColumnListDataToColumn(mod_columnWidthAndData.ColumnData)
         With Me.ColumnDataCache
-                Load_ColumnListDataToColumn(.RSCColumnWithMaximalDataCells())
-            End With
+            Load_ColumnListDataToColumn(.RSCColumnWithMaximalDataCells())
+        End With
 
         ''6/22/2022 thomas d''End If ''If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
 

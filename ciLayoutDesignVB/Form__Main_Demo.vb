@@ -4035,15 +4035,26 @@ ExitHandler:
         ''
         '' Added 5/13/2022 & 2/22/2022 td
         ''
-        Dim frm_HowToLoad As New FormHowToLoadGrid
-        frm_HowToLoad.ShowDialog()
+        Dim frm_HowToLoad As New FormHowToLoadGrid ''Added 5/2023
+
+        ''Not helpful. 5/2023 Me.Cursor = Cursors.WaitCursor ''Added 5/1/2023 
+        ''Helpful...
+        ''    https://stackoverflow.com/questions/1568557/how-can-i-make-the-cursor-turn-to-the-wait-cursor
+        ''    --Found 5/22/2023
+        Cursor.Current = Cursors.WaitCursor ''Added 5/22/2023 
+
+        frm_HowToLoad.ShowDialog() ''Added 5/2023
+
+        Dim boolLoadByColumn As Boolean ''Added 5/22/2023
+        ''Added 5/22/2023
+        boolLoadByColumn = frm_HowToLoad.LoadByColumn
 
         Dim frm_ToShow As DialogEditRecipients
         Dim cache_elements As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
         Dim objDeserialize As New ciBadgeSerialize.ClassDeserial ''Added 10/10/2019 td  
         ''02/2023  Dim strPathToElementsCacheXML_Selected As String ''Added 3/14/2022 td  
 
-        Me.Cursor = Cursors.WaitCursor ''Added 5/1/2023 
+
         Application.DoEvents() ''Added 5/1/2023 
         Application.DoEvents() ''Added 5/1/2023 
 
@@ -4083,7 +4094,8 @@ ExitHandler:
         ''March 15 2022 td''frm_ToShow.LoadForm_ByCache(cache_elements) ''added 3/14/2022
         ''March 28 2022 td''frm_ToShow = New DialogEditRecipients(cache_elements) ''added 3/14/2022
         frm_ToShow = New DialogEditRecipients(cache_elements,
-                                          Me.PersonalityCache_Recipients) ''added 3/14/2022
+                                          Me.PersonalityCache_Recipients,
+                                           boolLoadByColumn) ''added 3/14/2022
 
         ''March21 2022 ''frm_ToShow.Show()
         Me.UserEditedRecipients = True
@@ -4099,7 +4111,11 @@ ExitHandler:
 
         End Try
 
-        Me.Cursor = Cursors.Default ''Added 5/1/2023 
+        ''Not helpful. 5/2023 Me.Cursor = Cursors.DefaultCursor ''Added 5/1/2023 
+        ''Helpful...
+        ''    https://stackoverflow.com/questions/1568557/how-can-i-make-the-cursor-turn-to-the-wait-cursor
+        ''    --Found 5/22/2023
+        Cursor.Current = Cursors.DefaultCursor ''Added 5/22/2023 
 
     End Sub
 

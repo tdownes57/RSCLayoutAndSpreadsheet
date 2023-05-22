@@ -622,6 +622,9 @@ Public Class RSCSpreadManagerCols
         ''
         Me.ColumnDataCache.ListOfColumns.Add(newRSCColumn.ColumnWidthAndData)
 
+        ''Added 5/22/2023 
+        newRSCColumn.ColumnWidthAndData.SetRSCColumnAsControl(newRSCColumn)
+
         ''
         ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
         ''
@@ -817,6 +820,7 @@ Public Class RSCSpreadManagerCols
                 .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
                 .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
                 .ColumnWidthAndData.Width = mc_ColumnWidthDefault
+                .ColumnWidthAndData.SetRSCColumnAsControl(newRSCColumn) ''Added 5/22/2023
             End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
         End With ''End of ""With newRSCColumn""
 
@@ -887,6 +891,9 @@ Public Class RSCSpreadManagerCols
         ''Step 10 of 11.  Add the new column to the list of columns in the cache. 
         ''
         Me.ColumnDataCache.ListOfColumns.Add(newRSCColumn.ColumnWidthAndData)
+
+        ''Addec 5/22/2023
+        newRSCColumn.ColumnWidthAndData.SetRSCColumnAsControl(newRSCColumn)
 
         ''
         ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
@@ -979,6 +986,10 @@ Public Class RSCSpreadManagerCols
                 .ColumnWidthAndData.Width = mc_ColumnWidthDefault
                 .ColumnWidthAndData.ColumnData = New List(Of String)
                 Me.ColumnDataCache.ListOfColumns.Add(.ColumnWidthAndData)
+
+                ''Added 5/22/2023 
+                .ColumnWidthAndData.SetRSCColumnAsControl(newRSCColumn_output)
+
             End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
 
             ''Added 4/5/2022
