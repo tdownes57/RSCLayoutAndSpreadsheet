@@ -45,7 +45,7 @@ Public Class DialogEditRecipients
 
     Public Sub New(par_cacheElements As ClassElementsCache_Deprecated,
                    Optional par_cacheRecipients As CachePersnltyCnfgLRecips = Nothing,
-                   Optional par_boolLoadByColumnCache As Boolean = True) ''7/4/2022 ClassCacheOnePersonalityConfig = Nothing)
+                   Optional par_bLoadByColumnCache As Boolean = True) ''7/4/2022 ClassCacheOnePersonalityConfig = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -74,7 +74,7 @@ Public Class DialogEditRecipients
         ''5/6/2023 Me.Height = RscFieldSpreadsheet1.ColumnDataCache.FormSize.Height
 
         ''Added 5/23/2023 
-        Me.LoadByReadingColumnCache = par_boolLoadByColumn ''Added 5/22/2023
+        Me.LoadByReadingColumnCache = par_bLoadByColumnCache ''Added 5/22/2023
 
 
     End Sub

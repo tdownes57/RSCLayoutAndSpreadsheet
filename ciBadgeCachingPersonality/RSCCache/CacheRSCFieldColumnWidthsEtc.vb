@@ -54,7 +54,9 @@ Namespace ciBadgeCachePersonality
             ''  that have been inserted into the worksheet by the user, via
             ''  the spreadsheet's right-click menu. --5/10/2023 
             ''
-            Dim objColumnData As New ClassRSCColumnWidthAndData
+            ''5/25/2023 Dim objColumnData As New ClassRSCColumnWidthAndData
+            Dim objColumnData As New ClassRSCColumnWidthAndData(par_infoRSCFieldColumn,
+                                          par_controlRSCFieldColumn)
             ListOfColumns.Add(objColumnData)
             objColumnData.CIBField = EnumCIBFields.Undetermined
             objColumnData.Width = -1
@@ -176,25 +178,30 @@ Namespace ciBadgeCachePersonality
         End Function ''End of "Public Shared Function GetCache"
 
 
-        Public Sub AddColumns(par_intNumber As Integer)
-            ''
-            ''Added 3/16/2022 Thomas Downes 
-            ''
-            Dim each_columnData As ClassRSCColumnWidthAndData
-
-            For intIndex As Integer = 1 To par_intNumber
-
-                each_columnData = New ClassRSCColumnWidthAndData
-                each_columnData.CIBField = EnumCIBFields.Undetermined
-                each_columnData.Width = -1
-                each_columnData.Rows = -1
-                each_columnData.ColumnData = New List(Of String)()
-
-                Me.ListOfColumns.Add(each_columnData)
-
-            Next intIndex
-
-        End Sub ''End of "Public Sub AddColumns()"
+        ''Public Sub AddColumns_Obselete(par_intNumber As Integer)
+        ''    ''
+        ''    ''Added 3/16/2022 Thomas Downes 
+        ''    ''
+        ''    Dim each_columnData As ClassRSCColumnWidthAndData
+        ''
+        ''    For intIndex As Integer = 1 To par_intNumber
+        ''
+        ''        each_columnData = New ClassRSCColumnWidthAndData
+        ''        each_columnData.CIBField = EnumCIBFields.Undetermined
+        ''        each_columnData.Width = -1
+        ''        each_columnData.Rows = -1
+        ''        each_columnData.ColumnData = New List(Of String)()
+        ''
+        ''        ''Added 5/25/2023 thomas
+        ''        ''5/25/2023 each_columnData.SetRSCColumnAsControl(par_column)
+        ''        System.Diagnostics.Debugger.Break() ''We don't have par_column
+        ''        ''  parameter. ---5/25/2023 thomas downes 
+        ''
+        ''        Me.ListOfColumns.Add(each_columnData)
+        ''
+        ''    Next intIndex
+        ''
+        ''End Sub ''End of "Public Sub AddColumns()"
 
 
     End Class ''ENd of Public Class ClassCacheListRecipients

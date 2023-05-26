@@ -1,5 +1,7 @@
 ﻿Option Explicit On '' Added 3/15/2022 thomas downes 
 Option Strict On '' Added 3/15/2022 thomas downes 
+Imports System.Reflection
+Imports System.Windows.Forms
 ''
 '' Added 3/15/2022 thomas downes  
 ''
@@ -24,6 +26,26 @@ Namespace ciBadgeCachePersonality
 
         ''Public for serialization.--Added 5/10/2023   
         Private mod_controlAssociatedRSCColumn As Windows.Forms.Control
+
+        Public Sub New(par_infoRSCFieldColumn As InterfaceRSCColumnData,
+                       par_controlRSCFieldColumn As Windows.Forms.Control)
+
+            ''Added 5/25/2023 
+            mod_controlAssociatedRSCColumn = par_controlRSCFieldColumn
+            par_infoRSCFieldColumn.ColumnWidthAndData = Me
+
+        End Sub ''End of ""Public Sub New"
+
+
+        Public Overrides Function ToString() As String
+
+            ''Added 5/25/2023 thomas downes
+            Return "Recipient data related to field " & CIBField.ToString() &
+                "   " &
+                 CStr(IIf(mod_controlAssociatedRSCColumn Is Nothing,
+                          " (No RSCColumn)", ""))
+
+        End Function ''End of ""Public Overrides Function ToString() As String""
 
 
         Public Sub SetRSCColumnAsControl(par_column As System.Windows.Forms.Control)

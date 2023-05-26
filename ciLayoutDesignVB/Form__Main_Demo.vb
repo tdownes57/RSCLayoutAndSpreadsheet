@@ -4047,7 +4047,7 @@ ExitHandler:
 
         Dim boolLoadByColumn As Boolean ''Added 5/22/2023
         ''Added 5/22/2023
-        boolLoadByColumn = frm_HowToLoad.LoadByColumn
+        boolLoadByColumn = frm_HowToLoad.LoadColumnByColumn
 
         Dim frm_ToShow As DialogEditRecipients
         Dim cache_elements As ciBadgeCachePersonality.ClassElementsCache_Deprecated ''added 3/14/2022
@@ -4115,7 +4115,8 @@ ExitHandler:
         ''Helpful...
         ''    https://stackoverflow.com/questions/1568557/how-can-i-make-the-cursor-turn-to-the-wait-cursor
         ''    --Found 5/22/2023
-        Cursor.Current = Cursors.DefaultCursor ''Added 5/22/2023 
+        ''
+        Cursor.Current = Cursors.Default ''Added 5/22/2023 
 
     End Sub
 

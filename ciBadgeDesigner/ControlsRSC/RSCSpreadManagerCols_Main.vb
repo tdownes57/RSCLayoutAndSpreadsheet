@@ -143,14 +143,18 @@ Public Class RSCSpreadManagerCols
         Dim intNeededIndex As Integer = 1
         Dim each_Column As RSCFieldColumnV2
         Dim priorColumn As RSCFieldColumnV2 = Nothing
+        ''I don't know this is needed. 5/2023 Dim intNeededMax As Integer = 4
         Dim intNeededMax As Integer = 4
 
         ''Added 3/16/2022 td
         If (0 = Me.ColumnDataCache.ListOfColumns.Count) Then
             ''Added 3/16/2022 td
-            Me.ColumnDataCache.AddColumns(intNeededMax)
+            ''By calling ColumnDataCache.AddDataBucketForNewColumn( , ) instead, we can 
+            ''    create "back and forth" references between the RSC column and the ColumnWidthData
+            ''    objects. ---5/25/2023 
+            ''5/25/2023 Me.ColumnDataCache.AddColumns(intNeededMax)
         Else
-            intNeededMax = Me.ColumnDataCache.ListOfColumns.Count
+            ''I don't know this is needed. 5/2023 intNeededMax = Me.ColumnDataCache.ListOfColumns.Count
         End If ''End of "If (0 = Me.ColumnDataCache.ListOfColumns.Count) Then ... Else ..."
 
         ''''---Dim mod_array_RSCColumns As RSCFieldColumn()
@@ -209,14 +213,19 @@ Public Class RSCSpreadManagerCols
                 ''Original unencapsulated code. 
                 ''
                 each_field = New ciBadgeFields.ClassFieldAny()
+
                 ''each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
-                each_field.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax).CIBField
+                ''Why use the last index for each iteration (-1 + intNeededMax)??
+                ''   --5/25/2023 td
+                ''?? 5/25/2023 each_field.FieldEnumValue = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax).CIBField
+                each_field.FieldEnumValue = ciBadgeInterfaces.EnumCIBFields.Undetermined
 
                 ''3/20/2022 td''eachColumn = GenerateRSCFieldColumn(each_field, intNeededIndex)
                 each_Column = GenerateRSCFieldColumn_Special(each_field, intNeededIndex)
                 intCurrentPropertyLeft = intNextPropertyLeft ''Check prior iteration.
                 each_Column.Left = intCurrentPropertyLeft
                 each_Column.Visible = True
+
                 ''Prepare for next iteration. 
                 ''----intNextPropertyLeft = (eachColumn.Left + eachColumn.Width + 3)
                 intNextPropertyLeft = (each_Column.Left + each_Column.Width + mc_ColumnMarginGap)
@@ -233,7 +242,23 @@ Public Class RSCSpreadManagerCols
                 ''Oops....3/18/2022 ''eachColumn.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededMax)
                 ''4/19/2023 each_Column.ElementsCache_Deprecated = Me.ElementsCache_Deprecated
                 each_Column.ElementsCache_Deprecated = mod_cacheElements
-                each_Column.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
+
+                ''5/25/2023 By calling ColumnDataCache.AddDataBucketForNewColumn( , ) instead, we can 
+                ''5/25/2023    create "back and forth" references between the RSC column and the ColumnWidthData
+                ''5/25/2023    objects. ---5/25/2023 
+                ''5/25/2023 each_Column.ColumnWidthAndData = Me.ColumnDataCache.ListOfColumns(-1 + intNeededIndex)
+
+                Dim infoColumnData As InterfaceRSCColumnData ''Added 5/25/2023
+                infoColumnData = CType(each_Column, InterfaceRSCColumnData) ''Added 5/25/2023
+
+                ''Added 5/25/2023 thomas downes
+                ''
+                ''By calling ColumnDataCache.AddDataBucketForNewColumn( , ) instead, we can 
+                ''    create "back and forth" references between the RSC column and the ColumnWidthData
+                ''    objects. ---5/25/2023
+                ''    
+                Me.ColumnDataCache.AddDataBucketForNewColumn(infoColumnData, each_Column)
+
                 ''Added 4/11/2022 thomas d.
                 ''4/19/2023 each_Column.ParentSpreadsheet = Me
                 each_Column.ParentSpreadsheet = mod_controlSpread
@@ -609,7 +634,9 @@ Public Class RSCSpreadManagerCols
         With newRSCColumn
             If (.ColumnWidthAndData Is Nothing) Then
                 ''Added 4/14/2022 td
-                .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                ''5/25/2023 td.ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                .ColumnWidthAndData = New ClassRSCColumnWidthAndData(CType(newRSCColumn,
+                                                                     InterfaceRSCColumnData), newRSCColumn)
                 .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
                 .ColumnWidthAndData.Width = mc_ColumnWidthDefault
             End If ''End of ""If (.ColumnWidthAndData Is Nothing) Then""
@@ -817,7 +844,9 @@ Public Class RSCSpreadManagerCols
         With newRSCColumn
             If (.ColumnWidthAndData Is Nothing) Then
                 ''Added 4/14/2022 td
-                .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                ''5/25/2023 .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                .ColumnWidthAndData = New ClassRSCColumnWidthAndData(CType(newRSCColumn,
+                                                    InterfaceRSCColumnData), newRSCColumn)
                 .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
                 .ColumnWidthAndData.Width = mc_ColumnWidthDefault
                 .ColumnWidthAndData.SetRSCColumnAsControl(newRSCColumn) ''Added 5/22/2023
@@ -981,7 +1010,9 @@ Public Class RSCSpreadManagerCols
             ''Added 4/14/2022 td
             If (.ColumnWidthAndData Is Nothing) Then
                 ''Added 4/14/2022 td
-                .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                ''5/25/2023 .ColumnWidthAndData = New ClassRSCColumnWidthAndData()
+                .ColumnWidthAndData = New ClassRSCColumnWidthAndData(CType(newRSCColumn_output,
+                                                   InterfaceRSCColumnData), newRSCColumn_output)
                 .ColumnWidthAndData.CIBField = EnumCIBFields.Undetermined
                 .ColumnWidthAndData.Width = mc_ColumnWidthDefault
                 .ColumnWidthAndData.ColumnData = New List(Of String)
