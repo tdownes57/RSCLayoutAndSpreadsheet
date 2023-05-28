@@ -48,12 +48,19 @@ Public Class RSCSpreadManagerCols
     Private m_dictionary1FC_FieldsToRSCColumn As New Dictionary(Of EnumCIBFields, RSCFieldColumnV2)
     Private m_dictionary2CF_ColumnToEnumField As New Dictionary(Of RSCFieldColumnV2, EnumCIBFields)
 
+    Private mod_bLoadColumnListByUsingColumnCache As Boolean = True ''Added 5/27/2023 thomas downes  
+    Private mod_bLoadColumnDataByUsingColumnCache As Boolean = True ''Added 5/27/2023 thomas downes
+    Private mod_bLoadColumnDataByUsingRecipients As Boolean = False ''Added 5/27/2023 thomas downes
+
 
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
                    par_designer As ClassDesigner,
                    par_columnDesignedV2 As RSCFieldColumnV2,
                    par_cacheElements As ClassElementsCache_Deprecated,
-                   par_cacheColumnWidthsEtc As CacheRSCFieldColumnWidthsEtc)
+                   par_cacheColumnWidthsEtc As CacheRSCFieldColumnWidthsEtc,
+                   par_bLoadColumnListByUsingColumnCache As Boolean,
+                   par_bLoadColumnDataByUsingColumnCache As Boolean,
+                   par_bLoadColumnDataByUsingRecipients As Boolean)
         ''
         ''Added 4/18/2023  
         ''
@@ -69,11 +76,19 @@ Public Class RSCSpreadManagerCols
         ''Added 4/20/2023
         Me.ColumnDataCache = par_cacheColumnWidthsEtc
 
+        ''Added 5/27/2023 td
+        mod_bLoadColumnListByUsingColumnCache = par_bLoadColumnListByUsingColumnCache
+        mod_bLoadColumnDataByUsingColumnCache = par_bLoadColumnDataByUsingColumnCache
+        mod_bLoadColumnDataByUsingRecipients = par_bLoadColumnDataByUsingRecipients
+
     End Sub ''End of ""Public Sub New""
 
 
     Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner,
-                                                      par_intPixelsFromRowToRow As Integer)
+                                                      par_intPixelsFromRowToRow As Integer,
+                                                      par_bLoadColumnListByColumnCache As Boolean,
+                                                      par_bLoadColumnDataByColumnCache As Boolean,
+                                                      par_bLoadColumnDataByRecipients As Boolean)
         ''
         ''Added 3/8/2022 thomas downes 
         ''
@@ -94,6 +109,56 @@ Public Class RSCSpreadManagerCols
             RemoveRSCColumnsFromDesignTime()
 
         End If ''End of ""If (c_boolRemoveDesignColumns_Step1a) Then""
+
+
+        ''Added 5/27/2023
+        If (mod_bLoadColumnListByUsingColumnCache) Then
+
+            ''Added 5/27/2023
+            LoadColumnHeaders_ByColumnCache(par_designer, par_intPixelsFromRowToRow,
+                       intSavePropertyTop_RSCColumnCtl)
+
+        End If ''End of ""If (par_bLoadColumnListByColumnCache) Then ... ElseIf...
+
+        ''
+        ''Added 5/27/2023 thomas downes
+        ''
+        If (par_bLoadColumnDataByColumnCache) Then
+
+            ''Added 5/27/2023
+            LoadColumnData_ByColumnCache()
+
+        ElseIf (par_bLoadColumnDataByRecipients) Then
+
+            ''Added 5/27/2023
+            System.Diagnostics.Debugger.Break()
+
+        End If ''End of ""If (par_bLoadColumnDataByColumnCache) Then ... ElseIf...
+
+
+    End Sub ''End of ""Public Sub LoadRuntimeColumns_AfterClearingDesign""
+
+
+    Private Sub LoadColumnData_ByColumnCache()
+        ''
+        ''Load the data which is saved in the Column-Widths-and-Data cache.  
+        ''    -----4/15/2022 td
+        ''
+        For Each each_RSCColumn As RSCFieldColumnV2 In mod_dlist_RSCColumns
+
+            each_RSCColumn.Load_ColumnListDataToColumnEtc()
+
+        Next each_RSCColumn
+
+    End Sub ''End of ""Private Sub LoadColumnData_ByColumnCache()""
+
+
+    Private Sub LoadColumnHeaders_ByColumnCache(par_designer As ClassDesigner,
+                                                par_intPixelsFromRowToRow As Integer,
+                                                par_intPixelsFromTop As Integer)
+        ''
+        ''Added 3/8/2022 thomas downes 
+        ''
 
         ''Added 3/15/2022 td
         If (mod_cacheElements Is Nothing) Then
@@ -153,8 +218,10 @@ Public Class RSCSpreadManagerCols
             ''    create "back and forth" references between the RSC column and the ColumnWidthData
             ''    objects. ---5/25/2023 
             ''5/25/2023 Me.ColumnDataCache.AddColumns(intNeededMax)
+            Me.ColumnDataCache.AddColumns_Deprecated(intNeededMax)
         Else
             ''I don't know this is needed. 5/2023 intNeededMax = Me.ColumnDataCache.ListOfColumns.Count
+            intNeededMax = Me.ColumnDataCache.ListOfColumns.Count
         End If ''End of "If (0 = Me.ColumnDataCache.ListOfColumns.Count) Then ... Else ..."
 
         ''''---Dim mod_array_RSCColumns As RSCFieldColumn()
@@ -351,7 +418,8 @@ Public Class RSCSpreadManagerCols
             End If
 
             each_Column.ColumnWidthAndData = each_columnWidthEtc
-            each_Column.Top = intSavePropertyTop_RSCColumnCtl ''Added 3/21/2022
+            ''5/27/2023 each_Column.Top = intSavePropertyTop_RSCColumnCtl ''Added 3/21/2022
+            each_Column.Top = par_intPixelsFromRowToRow ''Added 5/27/2023 thomas downes
 
             ''4/19/2023 each_Column.BackColor = RscRowHeaders1.BackColor ''Added 4/11/2022 td
             each_Column.BackColor = mod_columnDesignedV2.BackColor ''Added 4/11/2022 td
@@ -381,7 +449,8 @@ Public Class RSCSpreadManagerCols
             ''Load the data which is saved in the Column-Widths-and-Data cache.  
             ''    -----4/15/2022 td
             ''
-            each_Column.Load_ColumnListDataToColumnEtc()
+            ''***Let's not do this here. it's ---5/27/2023
+            ''***each_Column.Load_ColumnListDataToColumnEtc()
 
 
         Next intNeededIndex
@@ -427,7 +496,7 @@ Public Class RSCSpreadManagerCols
         ''4/2023    RscRowHeaders1.Load_ColumnListDataToColumnEtc()
         ''4/2023 End With
 
-    End Sub ''End of Public Sub LoadRuntimeColumns_AfterClearingDesign
+    End Sub ''End of Public Sub LoadColumnListEtc_ByColumnCache
 
 
     Public Sub AddColumnsToRighthandSide(par_intNumber As Integer,

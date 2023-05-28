@@ -14,13 +14,19 @@ Public Class RSCSpreadManager
     Private mod_controlSpread As RSCFieldSpreadsheet ''Added 4/18/2023 
     Private mod_cacheElements As ClassElementsCache_Deprecated
     Private mod_designer As ClassDesigner ''Added 4/30/2023 
+    Private mod_bLoadColumnListByColumnCache As Boolean = True ''Added 5/27/2023 
+    Private mod_bLoadColumnDataByColumnCache As Boolean = True ''Added 5/27/2023 
+    Private mod_bLoadColumnDataByRecipients As Boolean = True ''Added 5/27/2023 
 
 
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
                    par_designer As ClassDesigner,
                    par_columnDesignV2 As RSCFieldColumnV2,
                    par_cacheElements As ClassElementsCache_Deprecated,
-                   par_cacheColumnWidthsEtc As CacheRSCFieldColumnWidthsEtc)
+                   par_cacheColumnWidthsEtc As CacheRSCFieldColumnWidthsEtc,
+                   par_bLoadColumnListByColumnCache As Boolean,
+                   par_bLoadColumnDataByColumnCache As Boolean,
+                   par_bLoadColumnDataByRecipients As Boolean)
         ''
         ''Added 4/18/2023  
         ''
@@ -28,13 +34,21 @@ Public Class RSCSpreadManager
         mod_controlSpread = par_controlSpread
         mod_designer = par_designer ''Added 5/01/2023 thomas downes
 
+        mod_bLoadColumnListByColumnCache = par_bLoadColumnListByColumnCache ''Added 5/27/2023 td
+        mod_bLoadColumnDataByColumnCache = par_bLoadColumnDataByColumnCache ''Added 5/27/2023 td
+        mod_bLoadColumnDataByRecipients = par_bLoadColumnDataByRecipients ''Added 5/27/2023 td
+
         ''4/26/2023 mod_manageCols = New RSCSpreadManagerCols(par_controlSpread, par_columnDesignV2,
-        ''                                          par_cacheElemements,
-        ''                                          par_cacheColumnWidthsEtc)
+        ''        par_cacheElements,
+        ''        par_cacheColumnWidthsEtc)
+        ''
         mod_manageCols = New RSCSpreadManagerCols(par_controlSpread, par_designer,
                                                   par_columnDesignV2,
                                                   par_cacheElements,
-                                                  par_cacheColumnWidthsEtc)
+                                                  par_cacheColumnWidthsEtc,
+                                                  par_bLoadColumnListByColumnCache,
+                                                  par_bLoadColumnDataByColumnCache,
+                                                  par_bLoadColumnDataByRecipients)
 
         ''4/19/2023 mod_manageRows = New RSCSpreadManagerRows(par_controlSpread)
         mod_manageRows = mod_manageCols.GetSpreadManagerRows()

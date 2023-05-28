@@ -28,6 +28,10 @@ Public Class ClassDeserial
         ''9/29/2019 td''Dim srObj As ClassParent
         Dim srObj As Object
 
+        ''Added 5/27/2023 thomas
+        ''---If (par_TypeOfObject == TypeOf (CacheRSCFieldColumnWidthsEtc)) Then
+        ''---End If ''End of If (par_TypeOfObject == TypeOf (CacheRSCFieldColumnWidthsEtc)) Then
+
         Try
             Using serialStream = New FileStream(Me.PathToXML, FileMode.Open, FileAccess.Read, FileShare.Read)
 

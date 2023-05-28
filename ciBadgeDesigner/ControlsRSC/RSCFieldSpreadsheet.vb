@@ -1036,7 +1036,10 @@ Public Class RSCFieldSpreadsheet
 
 
 
-    Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)
+    Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner,
+                    par_bLoadColumnListByReadingColumnCache,
+                    par_bLoadColumnDataByReadingColumnCache,
+                    par_bLoadColumnDataByListOfRecipients)
         ''
         ''Added 3/8/2022 thomas downes 
         ''
@@ -1045,7 +1048,10 @@ Public Class RSCFieldSpreadsheet
         If (mod_manager Is Nothing) Then
             ''Add new column-and-row manager.  ---4/30/2023 thomas downes
             mod_manager = New RSCSpreadManager(Me, par_designer, RscFieldColumn1,
-                  Me.ElementsCache_Deprecated, Me.ColumnDataCache)
+                  Me.ElementsCache_Deprecated, Me.ColumnDataCache,
+                    par_bLoadColumnListByReadingColumnCache,
+                    par_bLoadColumnDataByReadingColumnCache,
+                    par_bLoadColumnDataByListOfRecipients)
         End If ''End of ""If (mod_manager Is Nothing) Then""
 
         ''4/26/2023 mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer)

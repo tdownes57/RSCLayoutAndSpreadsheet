@@ -37,6 +37,14 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of ""Public Sub New"
 
 
+        Public Sub New()
+            ''Added 5/27/2023 
+            ''
+            ''  Needed for deserialization.  
+            ''
+        End Sub ''End of ""Public Sub New"
+
+
         Public Overrides Function ToString() As String
 
             ''Added 5/25/2023 thomas downes
