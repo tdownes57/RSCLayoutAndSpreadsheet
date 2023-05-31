@@ -280,6 +280,9 @@ Public Class RSCMoveableControlVB
 
     Private mod_boolResizeProportionally As Boolean
     Private mod_boolRemoveMoveability As Boolean = False ''Added 3/20/2022 td
+    Private mod_boolRemoveSizeability As Boolean = False ''Added 5/31/2022 td
+    Private mod_boolRemoveClickability As Boolean = False ''Added 5/31/2022 td
+    Private mod_bRemoveSizingAndMoving As Boolean = False ''Added 5/31/2022 td
 
     ''Added 1/10/2022 td 
     ''
@@ -602,6 +605,7 @@ Public Class RSCMoveableControlVB
         Dim boolInstantiated As Boolean ''Added 12/28/2021 td
 
         mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+        mod_bRemoveSizingAndMoving = False ''Added 5/31/2023 td
 
         ''Jan11 2022 td''boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
         boolInstantiated = (mod_eventsForSingleMove IsNot Nothing)
@@ -646,6 +650,8 @@ Public Class RSCMoveableControlVB
             ''  If instantiated, then set the Boolean property to false. 
             ''
             mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False
+            mod_iMoveOrResizeFunctionality.RemoveMoveability = False ''Added 5/31/2023
+
             ''Jan11 2022''If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
             ''Jan11 2022''If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
 
@@ -695,6 +701,7 @@ Public Class RSCMoveableControlVB
         mod_iMoveOrResizeFunctionality.AddMoveability_ViaLabel(par_Label)
 
         mod_boolRemoveMoveability = False ''Added 3/20/2022 td 
+        mod_bRemoveSizingAndMoving = False ''Added 5/31/2023 td
 
     End Sub
 
@@ -704,8 +711,20 @@ Public Class RSCMoveableControlVB
         ''Added 1/4/2022 td
         ''
         mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+        mod_bRemoveSizingAndMoving = False ''Added 5/31/2023 td
 
     End Sub
+
+
+    Public Sub RemoveBothSizingAndMoving()
+        ''
+        ''Added 5/31/2023 td
+        ''
+        mod_boolRemoveMoveability = True ''Added 5/31/2022 thomas d. 
+        mod_boolRemoveSizeability = True ''Added 5/31/2022 thomas d. 
+        mod_bRemoveSizingAndMoving = True ''Added 5/31/2022 thomas d. 
+
+    End Sub ''ENd of ""Public Sub RemoveBothSizingAndMoving()""
 
 
     Public Sub RemoveMoveability(Optional pboolUseEasyWay As Boolean = True,
@@ -730,9 +749,12 @@ Public Class RSCMoveableControlVB
             mod_iMoveOrResizeFunctionality.Reverse_Init() ''Added 12/28/2021 td
 
         ElseIf (pboolUseEasyWay) Then
-            mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
 
-        End If
+            ''#1 5/31/2023 mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
+            If (False) Then mod_iMoveOrResizeFunctionality.RemoveSizeability = True ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality.RemoveMoveability = True ''Added 5/31/2023 td
+
+        End If ''End of ""If (Not pboolUseEasyWay And pbBlackholeMethed) Then... ElseIf () Then... ElseIf...
 
 
         ''If (True Or Not mod_boolResizeProportionally) Then
@@ -805,11 +827,14 @@ Public Class RSCMoveableControlVB
         ''
         Dim bAddSizing As Boolean = True ''True, because we want sizing.''Dec 29 2021 td
 
-        mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+        ''5/31/2023 mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+        mod_boolRemoveSizeability = False ''Added 5/31/2022 td
+        mod_bRemoveSizingAndMoving = False ''Added 5/31/2023 td
 
         ''----DIFFICULT & CONFUSING-------
         ''     We need to negate the Boolean variable (Not bAddSizing).
         ''
+        mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = (Not bAddSizing) ''Added 5/31/2023 td
         mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
 
         ''
@@ -827,6 +852,7 @@ Public Class RSCMoveableControlVB
 
     Public Sub AddSizeability(par_iLayoutFunctions As ILayoutFunctions,
                               Optional par_objEventsSizeGroupOfCtls As GroupMoveEvents_Singleton = Nothing,
+                              Optional par_objEventsSizeSingleCtl As GroupMoveEvents_Singleton = Nothing,
                               Optional pbAddProportionality As Boolean = False,
                               Optional par_structResizeParams As ClassStructResizeParams = Nothing)
         ''
@@ -834,7 +860,8 @@ Public Class RSCMoveableControlVB
         ''
         Dim bAddSizing As Boolean = True ''True, because we want sizing.''Dec 29 2021 td
 
-        mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+        ''5/31/2023 td mod_boolRemoveMoveability = False ''Added 3/20/2022 td
+        mod_boolRemoveSizeability = False ''Added 3/20/2022 td
 
         ''Added 5/1/2023 thomas downes
         If (mod_sizeability_Monem Is Nothing) Then
@@ -845,6 +872,7 @@ Public Class RSCMoveableControlVB
         ''----DIFFICULT & CONFUSING-------
         ''     We need to negate the Boolean variable (Not bAddSizing).
         ''
+        mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False ''Added 5/31/2023 td
         mod_iMoveOrResizeFunctionality.RemoveSizeability = False ''(Not bAddSizing) ''Added 12/28/2021 td
 
         ''Added 1/10/2022 td
@@ -901,6 +929,9 @@ Public Class RSCMoveableControlVB
         ''     We need to negate the Boolean variable (Not bAddSizing).
         ''
         mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
+
+        ''Added 5/31/2023 thomas downes
+        mod_boolRemoveSizeability = True ''Added 5/31/2023 thomas downes
 
     End Sub ''End of ""Public Sub RemoveSizeability""
 
@@ -1935,14 +1966,18 @@ Public Class RSCMoveableControlVB
 
         ''Added 3/02/2022 thomas downes
         ''3/20/22 ''If (mod_iMoveOrResizeFunctionality Is Nothing) Then
-        If (mod_boolRemoveMoveability) Then
+        ''5/31/2023  If (mod_boolRemoveMoveability) Then
+        If (mod_bRemoveSizingAndMoving) Then ''Added 5/31/2023 td
+            ''
+            ''Only if BOTH moving & sizing are not allowed. --5/31/2023
+            ''
             Return ''Added 3/20/2022 td
 
         ElseIf (mod_iMoveOrResizeFunctionality Is Nothing) Then
             ''Throw New Exception("Moving object is nothing.")
             ''System.Diagnostics.Debugger.Break()
             Exit Sub
-        End If
+        End If ''Endof ""If (mod_bRemoveSizingAndMoving) Then... ElseIf..."
 
         ''1/7/2022 td''boolButtonIsOkay = (par_e.Button = MouseButtons.Left)
         boolButtonIsOkay = ((par_e.Button = MouseButtons.Left) Or

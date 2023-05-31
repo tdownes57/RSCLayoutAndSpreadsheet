@@ -556,6 +556,8 @@ Public Class RSCMoveableControlVB
             ''  If instantiated, then set the Boolean property to false. 
             ''
             mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False
+            mod_iMoveOrResizeFunctionality.RemoveMoveability = False ''Added 5/31/2023
+
             ''Jan11 2022''If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
             ''Jan11 2022''If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
 
@@ -640,9 +642,11 @@ Public Class RSCMoveableControlVB
             mod_iMoveOrResizeFunctionality.Reverse_Init() ''Added 12/28/2021 td
 
         ElseIf (pboolUseEasyWay) Then
-            mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
 
-        End If
+            ''5/31/2023 mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
+            mod_iMoveOrResizeFunctionality.RemoveMoveability = True ''Added 5/31/2023 td
+
+        End If ''ENd of ""If (Not pboolUseEasyWay And pbBlackholeMethed) Then... ElseIf... ElseIf..."
 
 
         ''If (True Or Not mod_boolResizeProportionally) Then

@@ -78,12 +78,29 @@ namespace MoveAndResizeControls_Monem //.Interfaces
         }
 
 
+        bool RemoveMoveability
+        {
+            //Added 5/31/2023 thomas downes
+            get;
+            set;
+        }
+
+
         bool RemoveSizeability
         {
             //Added 12/28/2021 thomas downes
             get;
             set;
         }
+
+
+        bool RemoveClickability
+        {
+            //Added 5/31/2023 thomas downes
+            get;
+            set;
+        }
+
 
         bool RemoveProportionality
         {

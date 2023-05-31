@@ -38,7 +38,11 @@ Public Class RSCFieldSpreadsheet
     Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
 
     Public ColumnDataCache As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
-    Public LoadByReadingColumnCache As Boolean ''Added 5/22/2023 thomas
+
+    ''5/31/2023 td Public LoadByReadingColumnCache As Boolean ''Added 5/22/2023 thomas
+    Public LoadColumnListByReadingColumnCache As Boolean ''Added 5/31/2023 thomas
+    Public LoadColumnDataByReadingColumnCache As Boolean ''Added 5/31/2023 thomas
+    Public LoadColumnDataByReadingRecipients As Boolean ''Added 5/31/2023 thomas
 
     ''Added 4/18/2023 td
     Private mod_manager As RSCSpreadManager
@@ -1106,18 +1110,21 @@ Public Class RSCFieldSpreadsheet
         ''       inside the cache collection Me.ColumnDataCache. 
         ''       ----6/22/2022 thomas d. 
         ''
-        With Me.ColumnDataCache
-
-            RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
-
-            If (Me.LoadByReadingColumnCache) Then
-                ''
-                ''Does this load prior session's data into the columns, e.g. "Robin Forbes", etc.?  
-                ''  ---5/22/2023
-                RscRowHeaders1.Load_ColumnListDataToColumnEtc()
-            End If ''ENd of ""If (Me.LoadByReadingColumnCache) Then""
-
-        End With ''End of""With Me.ColumnDataCache""
+        ''5/31/2023  With Me.ColumnDataCache
+        ''
+        ''    RscRowHeaders1.ColumnDataCache = Me.ColumnDataCache
+        ''
+        ''    ''5/31/2023 If (Me.LoadByReadingColumnCache) Then
+        ''    If (Me.LoadColumnListByReadingColumnCache) Then
+        ''        ''
+        ''        ''Does this load prior session's data into the columns, e.g. "Robin Forbes", etc.?  
+        ''        ''  ---5/22/2023
+        ''#1 5/31/2023 RscRowHeaders1.Load_ColumnListDataToColumnEtc() ''What is this for??  Only to determine the number of row headers?---5/31/2023
+        ''#2 5/31/2023 RscRowHeaders1.Load_ColumnListDataToColumnEtc_DepricatedJune2023() ''What is this for??  Only to determine the number of row headers?---5/31/2023
+        ''
+        ''    End If ''ENd of ""If (Me.LoadByReadingColumnCache) Then""
+        ''
+        ''End With ''End of""With Me.ColumnDataCache""
 
         ''
         ''Step 9 of 11. 

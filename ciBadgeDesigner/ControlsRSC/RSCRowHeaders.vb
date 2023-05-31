@@ -1144,7 +1144,7 @@ Public Class RSCRowHeaders
     End Sub ''End of ""Public Sub Load_EmptyRows()""
 
 
-    Public Sub Load_ColumnListDataToColumnEtc()
+    Public Sub Load_ColumnListDataToColumnEtc_DepricatedJune2023()
         ''
         ''Encapsulated 4/15/2022 thomas d.
         ''
@@ -1155,15 +1155,16 @@ Public Class RSCRowHeaders
         ''4/15/2022 thomas d''LoadDataToColumn(mod_columnWidthAndData.ColumnData)
         ''6/22/2022 thomas d''Load_ColumnListDataToColumn(mod_columnWidthAndData.ColumnData)
         With Me.ColumnDataCache
-            Load_ColumnListDataToColumn(.RSCColumnWithMaximalDataCells())
+            ''5/31/ 2023 Load_ColumnListDataToColumn(.RSCColumnWithMaximalDataCells())
+            Load_ColumnListDataToColumn_Deprecated(.RSCColumnWithMaximalDataCells())
         End With
 
         ''6/22/2022 thomas d''End If ''If (0 <> mod_columnWidthAndData.ColumnData.Count) Then
 
-    End Sub ''end of "Public Sub Load_ColumnListDataToColumnEtc"
+    End Sub ''end of "Public Sub Load_ColumnListDataToColumnEtc_DepricatedJune2023"
 
 
-    Private Sub Load_ColumnListDataToColumn(par_column As ClassRSCColumnWidthAndData)
+    Private Sub Load_ColumnListDataToColumn_Deprecated(par_column As ClassRSCColumnWidthAndData)
         ''---6/22/2022 td---Private Sub Load_ColumnListDataToColumn(par_listData As List(Of String))
         ''---4/15/2022 td---Private Sub LoadDataToColumn(par_listData As List(Of String))
         ''
@@ -1198,7 +1199,7 @@ Public Class RSCRowHeaders
 
 
 
-    End Sub ''End of "Private Sub Load_ColumnListDataToColumn()"
+    End Sub ''End of "Private Sub Load_ColumnListDataToColumn_Deprecated()"
 
 
 

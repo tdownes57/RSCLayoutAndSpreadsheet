@@ -211,6 +211,7 @@ Public Class MoveableControlVB
             ''--If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
             ''--If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
             mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = False
+            mod_iMoveOrResizeFunctionality.RemoveMoveability = False ''Added 5/31/2023
 
         Else
             ''#1 Jan2 2022 td''InitializeMoveability(mod_boolResizeProportionally, mod_iSaveToModel, mod_iLayoutFunctions)
@@ -231,7 +232,8 @@ Public Class MoveableControlVB
         ''Added 12/28/2021 td
         ''
         If (Not pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.Reverse_Init() ''Added 12/28/2021 td
-        If (pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
+        ''5/31/2023 If (pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = True ''Added 12/28/2021 td
+        If (pboolUseEasyWay) Then mod_iMoveOrResizeFunctionality.RemoveMoveability = True ''Added 12/28/2021 td
 
         AbleMoveable = False ''Added dec29
 

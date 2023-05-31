@@ -12,7 +12,11 @@ Public Class DialogEditRecipients
     '' Added 2/22/2022 thomas  
     ''
     Public ElementsCache_Deprecated As ClassElementsCache_Deprecated
-    Public LoadByReadingColumnCache As Boolean ''Added 5/22/2023 thomas 
+
+    ''5/31/2023 Public LoadByReadingColumnCache As Boolean ''Added 5/22/2023 thomas 
+    Public LoadColumnListByReadingColumnCache As Boolean ''Added 5/22/2023 thomas 
+    Public LoadColumnDataByReadingColumnCache As Boolean ''Added 5/31/2023 thomas 
+    Public LoadColumnDataByRecipients As Boolean ''Added 5/31/2023 thomas 
 
     ''Moved to RSCFieldSpreadsheet. 4/2023 Public StillHavingColumnTrouble As Boolean = True ''Added 4/11/2023 td
 
@@ -45,7 +49,10 @@ Public Class DialogEditRecipients
 
     Public Sub New(par_cacheElements As ClassElementsCache_Deprecated,
                    Optional par_cacheRecipients As CachePersnltyCnfgLRecips = Nothing,
-                   Optional par_bLoadByColumnCache As Boolean = True) ''7/4/2022 ClassCacheOnePersonalityConfig = Nothing)
+                   Optional par_bLoadColumnListByColumnCache As Boolean = True,
+                   Optional par_bLoadColumnDataByColumnCache As Boolean = True,
+                   Optional par_bLoadColumnDataByRecipients As Boolean = True)
+        ''5/31/2023 Optional par_bLoadByColumnCache As Boolean = True) ''7/4/2022 ClassCacheOnePersonalityConfig = Nothing)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -74,7 +81,10 @@ Public Class DialogEditRecipients
         ''5/6/2023 Me.Height = RscFieldSpreadsheet1.ColumnDataCache.FormSize.Height
 
         ''Added 5/23/2023 
-        Me.LoadByReadingColumnCache = par_bLoadByColumnCache ''Added 5/22/2023
+        Me.LoadColumnListByReadingColumnCache = par_bLoadColumnListByColumnCache ''Added 5/22/2023
+        ''Added 5/31/2023 
+        Me.LoadColumnDataByReadingColumnCache = par_bLoadColumnDataByColumnCache ''Added 5/31/2023
+        Me.LoadColumnDataByRecipients = par_bLoadColumnDataByRecipients ''Added 5/31/2023
 
 
     End Sub
@@ -242,7 +252,10 @@ ExitHandler:
             End If ''end of ""If (.NumberOfRowsNeededToStart = 0) Then""
 
             .ColumnDataCache = mod_cacheColumnWidthsAndData ''Added 3/16/2022 td
-            .LoadByReadingColumnCache = Me.LoadByReadingColumnCache ''Added 5/22/2023 
+            ''5/31/2023 .LoadByReadingColumnCache = Me.LoadByReadingColumnCache ''Added 5/22/2023 
+            .LoadColumnListByReadingColumnCache = Me.LoadColumnListByReadingColumnCache ''Added 5/31/2023 
+            .LoadColumnDataByReadingColumnCache = Me.LoadColumnDataByReadingColumnCache ''Added 5/31/2023 
+            .LoadColumnDataByReadingRecipients = Me.LoadColumnDataByRecipients ''Added 5/31/2023 
 
             ''4/11/2023 If (Me.StillHavingColumnTrouble) Then ''Added 4/11/2023
             If (RSCFieldSpreadsheet.StillHavingColumnTrouble) Then ''Added 4/11/2023
@@ -251,10 +264,14 @@ ExitHandler:
                 '' wacky things. 4/11/2023 
                 ''
             Else
-                .LoadRuntimeColumns_AfterClearingDesign(mod_designer)
+                ''5/31/2023  .LoadRuntimeColumns_AfterClearingDesign(mod_designer,
+                .LoadRuntimeColumns_AfterClearingDesign(mod_designer,
+                            Me.LoadColumnListByReadingColumnCache,
+                            Me.LoadColumnListByReadingColumnCache,
+                            Me.LoadColumnDataByRecipients)
                 .Load_Form()
 
-            End If ''End of ""If (RSCFieldSpreadsheet.StillHavingColumnTrouble) Then... Else...
+            End If ''End of ""If (RSCFieldSpre adsheet.StillHavingColumnTrouble) Then... Else...
 
             ''.Invalidate()
             ''.Refresh()

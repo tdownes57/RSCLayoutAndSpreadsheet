@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using ciBadgeInterfaces;  // Added 12/17/2021 td
+using System.Net.Security;
 
 //
 //  This class is a copy of class ControlMove_GroupMove_TD,  
@@ -103,6 +104,14 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+
+        public bool RemoveMoveability // Added 5/31/2023
+        {
+            get;
+            set;
+        }
+
+
         public bool RemoveSizeability // = false;  //Added 12/28/2021 //
         {
             get
@@ -132,6 +141,14 @@ namespace MoveAndResizeControls_Monem
                 _SizeProportionally = (false == value);
             }
         }
+
+
+        public bool RemoveClickability // Added 5/31/2023
+        {
+            get;
+            set;
+        }
+
 
         public List<UserControl> ListOfColumnsToBumpRight
         {
@@ -688,9 +705,10 @@ namespace MoveAndResizeControls_Monem
 
         private void UpdateMouseEdgeProperties(Control par_controlC, Point mouseLocationInControl)
         {
-            if (WorkType == MoveOrResize.Move)
+            // 5/31/2023 if (WorkType == MoveOrResize.Move)
+            if (_moving)
             {
-                return;
+                    return;
             }
 
             //MouseIsInLeftEdge = Math.Abs(mouseLocationInControl.X) <= 2;
@@ -744,12 +762,13 @@ namespace MoveAndResizeControls_Monem
 
         private void UpdateMouseCursor(Control par_controlD)
         {
-            if (WorkType == MoveOrResize.Move)
+            // 5/31/2023 if (WorkType == MoveOrResize.Move)
+            if (_moving)
             {
-                //
-                // We are currently moving the control.  No need to change the mouse cursor.
-                //
-                return;
+                    //
+                    // We are currently moving the control.  No need to change the mouse cursor.
+                    //
+                    return;
             }
 
             if (MouseIsInLeftEdge)
@@ -852,12 +871,16 @@ namespace MoveAndResizeControls_Monem
             //    MouseIsInBottomEdge
             //
             // ''//''Might be causing moveability problems. Jan10 2022
-            UpdateMouseEdgeProperties(par_controlE, new Point(par_eMouse.X, par_eMouse.Y));
+            if (!RemoveSizeability) //Added 5/31/2023 td  
+            {
+                UpdateMouseEdgeProperties(par_controlE, new Point(par_eMouse.X, par_eMouse.Y));
+            }
 
             //
             // Initiate resizing or moving, as the case may be. ---1/11/2022 td
             //
             if (WorkType != MoveOrResize.Move &&
+                (!RemoveSizeability) &&
                 (MouseIsInRightEdge || MouseIsInLeftEdge || MouseIsInTopEdge || MouseIsInBottomEdge))
             {
                 //
@@ -918,6 +941,10 @@ namespace MoveAndResizeControls_Monem
             //--(--  are never called). ---1/12/2022 td 
             //--if (!(_moving || _resizing)) return; //Added 1/11/2022 td 
 
+            // 5/31/2023 if (RemoveMoveability) return; //Added 5/31/2023 td
+            if (RemoveAllFunctionality) return; //Added 5/31/2023 td
+            if (RemoveMoveability && RemoveSizeability) return; //Added 5/31/2023 td
+
             //Renamed 1/4/2022 td
             //Added 8/3/2019 thomas downes
             //
@@ -950,6 +977,8 @@ namespace MoveAndResizeControls_Monem
             //
             // Added 9/01/2022 thomas downes
             //
+            if (RemoveClickability) return; //Added 5/31/2023 td
+
             if (mod_events_groupedCtls != null)
             {
                 //Added 9/01/2021 td
@@ -962,6 +991,8 @@ namespace MoveAndResizeControls_Monem
             //
             // Added 3/30/2023 thomas downes
             //
+            if (RemoveClickability) return; //Added 5/31/2023 td
+
             if (mod_events_groupedCtls != null)
             {
                 mod_events_groupedCtls.MouseUpShiftKey(par_controlParentF);
@@ -974,6 +1005,8 @@ namespace MoveAndResizeControls_Monem
             //
             // Added 3/30/2023 thomas downes
             //
+            if (RemoveClickability) return; //Added 5/31/2023 td
+
             if (mod_events_groupedCtls != null)
             {
                 mod_events_groupedCtls.MouseUpCtrlKey(par_controlParentF);
@@ -1008,14 +1041,23 @@ namespace MoveAndResizeControls_Monem
                 //    MouseIsInTopEdge
                 //    MouseIsInBottomEdge
                 //
-                UpdateMouseEdgeProperties(par_controlG, new Point(par_e.X, par_e.Y));
-                UpdateMouseCursor(par_controlG);
+                //5/31/2023 UpdateMouseEdgeProperties(par_controlG, new Point(par_e.X, par_e.Y));
+                if (!RemoveSizeability)
+                    UpdateMouseEdgeProperties(par_controlG, new Point(par_e.X, par_e.Y));
+                if (!RemoveSizeability)
+                    UpdateMouseCursor(par_controlG);
+
                 return; //Added 1/12/2022 td
             }
 
             if (_resizing)
             {
-                if (MouseIsInLeftEdge)
+                if (RemoveSizeability)
+                {
+                    //Enforce the module-level "No Resizing" by setting the internal boolean to false. 
+                    _resizing = false; //Added 5/31/2023 
+                }
+                else if (MouseIsInLeftEdge)
                 {
                     if (MouseIsInTopEdge)
                     {
@@ -1151,14 +1193,17 @@ namespace MoveAndResizeControls_Monem
                 //
                 if (_SizeProportionally)
                 {
-                    //
-                    // Enforce (or "control", "check") proportionalilty of Width & Height.
-                    //    ----1/10/2022 thomas d. 
-                    //
-                    ControlProportionality(par_controlG,
-                            bMouseIsInTopEdge_Only, bMouseIsInBottomEdge_Only,
-                            bMouseIsInLeftEdge_Only, bMouseIsInRightEdge_Only);
-
+                    if (!RemoveProportionality) //Added 5/31/2023
+                    {
+                        //
+                        // Enforce (or "control", "check") proportionalilty of Width & Height.
+                        //    ----1/10/2022 thomas d. 
+                        //
+                        ControlProportionality(par_controlG,
+                                bMouseIsInTopEdge_Only, bMouseIsInBottomEdge_Only,
+                                bMouseIsInLeftEdge_Only, bMouseIsInRightEdge_Only);
+                    
+                    }
                 }
 
 
@@ -1169,7 +1214,13 @@ namespace MoveAndResizeControls_Monem
                 // Why toggle this Boolean value? ---8/6/2022 td
                 _moveIsInterNal = !_moveIsInterNal;
 
-                if (!_moveIsInterNal)
+                if (RemoveMoveability)
+                {
+                    //Enforce the module-level "No Moving" by setting the internal boolean to false. 
+                    _moving = false; //Added 5/31/2023 
+
+                }
+                else if (!_moveIsInterNal)
                 {
                     //
                     // Calculate the new location !!!!!-----1/11/2022 td
