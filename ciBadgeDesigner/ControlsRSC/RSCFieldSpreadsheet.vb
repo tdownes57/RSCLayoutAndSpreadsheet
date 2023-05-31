@@ -770,7 +770,13 @@ Public Class RSCFieldSpreadsheet
             If (StillHavingColumnTrouble) Then
                 ''We need to find the loading procedure(s) which are causing problems. --4/11/2023
             Else
-                LoadRuntimeColumns_AfterClearingDesign(objDesigner)
+                ''5/31/2023 LoadRuntimeColumns_AfterClearingDesign(objDesigner)
+                Const c_bLoadColumnListByCache As Boolean = True ''Added 5/31/2023
+                Const c_bLoadColumnDataByCache As Boolean = True ''Added 5/31/2023
+                LoadRuntimeColumns_AfterClearingDesign(objDesigner,
+                                                       c_bLoadColumnListByCache,
+                                                        c_bLoadColumnDataByCache, False)
+
             End If ''End of ""If (StillHavingColumnTrouble) Then... Else..."
 
         End If ''End of " If (c_boolLetsAutoLoadColumns) Then"
@@ -1037,9 +1043,9 @@ Public Class RSCFieldSpreadsheet
 
 
     Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner,
-                    par_bLoadColumnListByReadingColumnCache,
-                    par_bLoadColumnDataByReadingColumnCache,
-                    par_bLoadColumnDataByListOfRecipients)
+                    par_bLoadColumnListByReadingColumnCache As Boolean,
+                    par_bLoadColumnDataByReadingColumnCache As Boolean,
+                    par_bLoadColumnDataByListOfRecipients As Boolean)
         ''
         ''Added 3/8/2022 thomas downes 
         ''
@@ -1055,7 +1061,11 @@ Public Class RSCFieldSpreadsheet
         End If ''End of ""If (mod_manager Is Nothing) Then""
 
         ''4/26/2023 mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer)
-        mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer, mc_intPixelsFromRowToRow)
+        mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer,
+                                                     mc_intPixelsFromRowToRow,
+                                                par_bLoadColumnListByReadingColumnCache,
+                                                par_bLoadColumnDataByReadingColumnCache,
+                                                par_bLoadColumnDataByListOfRecipients)
         ''Probably not needed. mod_manager.Rows = mod_manager.GetSpreadManagerRows()
 
         ''
@@ -1179,7 +1189,13 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 2/16/2022 thomas downes
         ''
-        LoadRuntimeColumns_AfterClearingDesign(Nothing) ''mod_designer)
+        Const c_bLoadColumnListByCache As Boolean = True ''Added 5/31/2023
+        Const c_bLoadColumnDataByCache As Boolean = True ''Added 5/31/2023
+
+        ''5/31/2023 LoadRuntimeColumns_AfterClearingDesign(Nothing)
+        LoadRuntimeColumns_AfterClearingDesign(Nothing,
+            c_bLoadColumnListByCache,
+              c_bLoadColumnDataByCache, False) ''mod_designer)
 
     End Sub ''end of sub "Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)"
 
