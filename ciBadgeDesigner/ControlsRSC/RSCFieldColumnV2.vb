@@ -15,6 +15,7 @@ Imports ciBadgeFields ''Added 3/8/2022 thomas downes
 Imports ciBadgeCachePersonality ''Added 3/14/2022 
 Imports ciBadgeRecipients ''Added 3/22/2022 td
 Imports ciBadgeElements
+Imports System.Runtime.CompilerServices
 
 Public Class RSCFieldColumnV2
     ''
@@ -163,7 +164,6 @@ Public Class RSCFieldColumnV2
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
                                      par_oSizeEventsForGroupedCtls As GroupMoveEvents_Singleton,
-                                     par_oSizeEventsForSingleCtl As GroupMoveEvents_Singleton,
                                      par_oSpreadsheet As RSCFieldSpreadsheet,
                                      par_intColumnIndex As Integer) As RSCFieldColumnV2
         ''
@@ -214,8 +214,7 @@ Public Class RSCFieldColumnV2
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                    par_oSizeEventsForSingleCtl)
-        ''                                         5/31/2023  par_oSizeEventsForGroupedCtls)
+                                                   par_oSizeEventsForGroupedCtls)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlFieldColumn1
@@ -230,7 +229,7 @@ Public Class RSCFieldColumnV2
             ''                 par_oSizeEventsForGroupedCtls, False, Nothing)
             If (bAddFunctionalityLater) Then .AddSizeability(par_iLayoutFun,
                                par_oSizeEventsForGroupedCtls,
-                               par_oSizeEventsForSingleCtl, False, Nothing)
+                               False, Nothing)
 
             If (bAddFunctionalityLater) Then .AddClickability()
 
@@ -241,6 +240,11 @@ Public Class RSCFieldColumnV2
             ''Added 5/10/2023 
             ''  Cascade the menu-operations object to the sub-control RscSelectCIBField1.
             .RscSelectCIBField1.RightclickMouseInfo = objOperationsFieldColumn
+
+            ''Added 5/31/2023
+            If (.mod_eventsForSingleSize Is Nothing) Then
+                .mod_eventsForSingleSize = New GroupMoveEvents_Singleton
+            End If ''End of ""If (.mod_eventsForSingleSize Is Nothing) Then""
 
         End With ''eNd of "With CtlPortrait1"
 
@@ -266,7 +270,8 @@ Public Class RSCFieldColumnV2
             ''5/1/2023 .EventsForMoveability_Single = Nothing
             .EventsForSizeability_Group = par_oSizeEventsForGroupedCtls
             ''5/23/2023 .EventsForSizeability_Single = Nothing
-            .EventsForSizeability_Single = par_oSizeEventsForSingleCtl ''Added 5/31/2023
+            ''5/23/2023 .EventsForSizeability_Single = par_oSizeEventsForSingleCtl ''Added 5/31/2023
+            .EventsForSizeability_Single = CtlFieldColumn1.mod_eventsForSingleSize ''Added 5/31/2023
 
             ''Added 1/24/2022 thomas downes
             .LayoutFunctions = .Designer

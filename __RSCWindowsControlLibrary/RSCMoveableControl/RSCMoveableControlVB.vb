@@ -184,10 +184,21 @@ Public Class RSCMoveableControlVB
     Public Property SizeabilityEventsForSingleMove As GroupMoveEvents_Singleton
         Get
             ''Added 5/01/2023 td 
-            Return mod_eventsForSingleSize
+            ''5/31/2023 Return mod_eventsForSingleSize
+            Return mod_eventsForSingleMove
         End Get
         Set(value As GroupMoveEvents_Singleton)
             ''Added 5/01/2023 td  
+            ''5/31/2023 mod_eventsForSingleSize = value
+            mod_eventsForSingleMove = value
+        End Set
+    End Property
+
+    Public Property SizeabilityEventsForSingleSize As GroupMoveEvents_Singleton
+        Get ''Added 5/31/2023 
+            Return mod_eventsForSingleSize
+        End Get
+        Set(value As GroupMoveEvents_Singleton)
             mod_eventsForSingleSize = value
         End Set
     End Property
@@ -852,7 +863,6 @@ Public Class RSCMoveableControlVB
 
     Public Sub AddSizeability(par_iLayoutFunctions As ILayoutFunctions,
                               Optional par_objEventsSizeGroupOfCtls As GroupMoveEvents_Singleton = Nothing,
-                              Optional par_objEventsSizeSingleCtl As GroupMoveEvents_Singleton = Nothing,
                               Optional pbAddProportionality As Boolean = False,
                               Optional par_structResizeParams As ClassStructResizeParams = Nothing)
         ''
@@ -905,7 +915,9 @@ Public Class RSCMoveableControlVB
         ''Save the parameter object references. ----1/11/2022 td
         ''
         Me.SizeabilityEventsForGroupCtls = par_objEventsSizeGroupOfCtls
-        Me.SizeabilityEventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+        ''Me.SizeabilityEventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+        ''Me.SizeabilityEventsForSingleMove = Me.mod_eventsForSingleMove
+        Me.SizeabilityEventsForSingleSize = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
 
         ''
         ''Added 3/3/2022 td
