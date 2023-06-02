@@ -66,7 +66,17 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                           bool pbRemoveAnyHandlers = false,
                           bool pbHookUpEventHandlers = true);
 
+        //Added 6/01/2023 thomas downes
+        void InitForSizing(Control par_container, int par_margin,
+                          InterfaceMoveEvents par_eventsGroupOfCtls,
+                          InterfaceMoveEvents par_eventsSingleCtl,
+                          bool pbResizeProportionally,
+                          ClassStructResizeParams par_structResize,
+                          bool pbHookUpEventHandlers = true);
+
         bool NowInMotion(); //Added 1/10/2022 td
+
+        bool HasEventsForSingleCtl(); // Added 6/01/2023 thomas d. 
 
         void Reverse_Init();
         void RemoveEventHandlers();

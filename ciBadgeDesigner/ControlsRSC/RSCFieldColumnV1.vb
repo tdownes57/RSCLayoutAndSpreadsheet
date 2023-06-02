@@ -689,11 +689,14 @@ Public Class RSCFieldColumnV1
         ''March4 2022 ''Dim sizingParams As New MoveAndResizeControls_Monem.StructResizeParams
         Dim sizingParams As New MoveAndResizeControls_Monem.ClassStructResizeParams
 
+        sizingParams.ResizeProportionally = False ''Added 6/01/2023  
         sizingParams.InitiateResizing = True ''Added 3/13/2022 td
         sizingParams.KeepProportional_HtoW = False ''Added 3/13/2022 td
         sizingParams.RightEdgeResizing_Only = True
 
-        MyBase.AddSizeability(True, sizingParams)
+        ''6/1/2023 MyBase.AddSizeability(True, sizingParams)
+        MyBase.AddSizeability(LayoutFunctions, mod_eventsForGroupMove_NotNeeded,
+                              False, sizingParams)
 
     End Sub ''End of "Public Sub Load_ResizeWidthability()"
 

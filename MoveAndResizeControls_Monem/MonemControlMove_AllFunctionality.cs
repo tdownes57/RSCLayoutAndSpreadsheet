@@ -521,6 +521,90 @@ namespace MoveAndResizeControls_Monem
         }
 
 
+        //Added 6/01/2023 thomas downes
+        public void InitForSizing(Control par_container, int par_margin,
+                          InterfaceMoveEvents par_eventsGroupOfCtls,
+                          InterfaceMoveEvents par_eventsSingleCtl,
+                          bool pbResizeProportionally,
+                          ClassStructResizeParams par_structResize,
+                          bool pbHookUpEventHandlers = true,
+                          bool pbUndoAndReverseEverything = false)
+        {
+            //
+            //Added 6/01/2023 thomas downes
+            //
+            _SizeProportionally = pbResizeProportionally; //Added 1/12/2022 td
+
+            //
+            //Added 1/12/2022 & 10/09/2019 thomas downes 
+            //
+            if (par_structResize.ProportionalRatio_HtoW != 0)
+            {
+                _proportionWH = (decimal)(par_structResize.ProportionalRatio_HtoW);
+            }
+            else
+            {
+                _proportionWH = (decimal)par_container.Width /
+                        (decimal)par_container.Height;
+            }
+
+            //Added 1/10/2022 td
+            mod_events_singleCtl = par_eventsSingleCtl; //Added 1/10/2022
+
+            _moving = false;
+            _repaintAfterResize = true; // pbRepaintAfterResize; //Added 7/31/2019 td 
+            _resizing = false; // This is a temporary variable, to
+            // indicate that resizing is currently occurring in the moment.
+            _resizingHeight = false; //Added 6/6/2022 td
+            _moveIsInterNal = false;
+            _cursorStartPoint = Point.Empty;
+            _margin = par_margin;
+            mod_iRefreshElementImage = (IRefreshElementImage)par_container;
+            MouseIsInLeftEdge = false;
+            MouseIsInLeftEdge = false;
+            MouseIsInRightEdge = false;
+            MouseIsInTopEdge = false;
+            MouseIsInBottomEdge = false;
+            WorkType = MoveOrResize.Resize;
+
+            if (pbUndoAndReverseEverything)
+            {
+                // Remove the object references. ---Dec28 2021  
+                _controlCurrent = null;  // par_controlPictureB;
+                _controlPictureBox1 = null; // par_controlPictureB;
+                _controlPictureBox2 = null; // par_controlPictureB;
+                _controlMoveableElement = null; // par_containerElement;
+                _labelIfNeeded = null;  //Added 1/4/2022 td
+            }
+            else
+            {
+                _controlCurrent = par_container;
+                _controlMoveableElement = par_container;
+                if (_controlCurrent == null) _controlCurrent = par_container;
+
+            }
+
+            //
+            //Modified 6/1/2023, encapsulated 1/4/2022 td
+            //
+            if (pbHookUpEventHandlers)
+            {
+                if (par_container != null)
+                {
+                    // We don't have a parameter for this, as we are currently
+                    // creating this function for the RSC Field Columns, which
+                    // are on the RSC Spreadsheet NOT the RSC IDCard Designer.
+                    //   ---6/1/2023 Thomas Downes 
+                    ISaveToModel iSave = null; 
+
+                    HookUpEventHandlers(par_container, par_container,
+                             iSave, pbUndoAndReverseEverything);
+                }
+            }
+
+        }
+
+
         private void HookUpEventHandlers(Control par_controlToHook, Control par_container,
                        ISaveToModel par_iSave, bool pbUndoAndReverseEverything)
         {
@@ -1999,6 +2083,15 @@ namespace MoveAndResizeControls_Monem
             //
             //throw new NotImplementedException();
             return _moving;
+        }
+
+        public bool HasEventsForSingleCtl()
+        {
+            //
+            //Added 6/01/2023 Thomas Downes
+            //
+            return (mod_events_singleCtl != null);
+        
         }
 
         #endregion

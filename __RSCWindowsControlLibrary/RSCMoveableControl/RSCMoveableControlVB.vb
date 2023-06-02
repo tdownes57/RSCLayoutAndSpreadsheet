@@ -831,8 +831,9 @@ Public Class RSCMoveableControlVB
     ''Not needed. --3/4/2022''Private Const c_blankParams_NotUsed As StructResizeParams_NotInUse = 0
     ''Not needed. --3/4/2022''Private c_blankParams_NotUsed As New StructResizeParams_NotInUse
 
-    Public Sub AddSizeability(Optional pboolUseEasyWay As Boolean = True,
-                              Optional par_structResizeParams As ClassStructResizeParams = Nothing)
+    Public Sub AddSizeability(par_iLayoutFunctions As ILayoutFunctions,
+                              par_structResizeParams As ClassStructResizeParams,
+                              par_bResizeProportionally As Boolean)
         ''
         ''Added 12/28/2021 td
         ''
@@ -845,8 +846,30 @@ Public Class RSCMoveableControlVB
         ''----DIFFICULT & CONFUSING-------
         ''     We need to negate the Boolean variable (Not bAddSizing).
         ''
-        mod_iMoveOrResizeFunctionality.RemoveAllFunctionality = (Not bAddSizing) ''Added 5/31/2023 td
-        mod_iMoveOrResizeFunctionality.RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
+        With mod_iMoveOrResizeFunctionality
+
+            .RemoveAllFunctionality = (Not bAddSizing) ''Added 5/31/2023 td
+            .RemoveSizeability = (Not bAddSizing) ''Added 12/28/2021 td
+
+            ''
+            ''Added 6/1/2023
+            ''
+            ''6/1/2023 mod_iMoveOrResizeFunctionalityt.Ini
+            If (.HasEventsForSingleCtl()) Then
+                ''
+                ''No need to call .InitForSizing.
+                ''
+            Else
+                ''Added 6/1/2023
+                .InitForSizing(Me, 10,
+                    mod_eventsForGroupSize_NotNeeded,
+                    mod_eventsForSingleSize,
+                    par_bResizeProportionally,
+                    par_structResizeParams)
+
+            End If ''End of ""If (.HasEventsForSingleCtl()) Then ... Else...""
+
+        End With ''End of ""With mod_iMoveOrResizeFunctionality""
 
         ''
         ''Added 3/3/2022 td
