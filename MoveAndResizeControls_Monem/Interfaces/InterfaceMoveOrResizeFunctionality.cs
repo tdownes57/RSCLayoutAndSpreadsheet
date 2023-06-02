@@ -72,7 +72,8 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                           InterfaceMoveEvents par_eventsSingleCtl,
                           bool pbResizeProportionally,
                           ClassStructResizeParams par_structResize,
-                          bool pbHookUpEventHandlers = true);
+                          bool pbHookUpEventHandlers = true,
+                          bool pbUndoAndReverseEverything = false);
 
         bool NowInMotion(); //Added 1/10/2022 td
 

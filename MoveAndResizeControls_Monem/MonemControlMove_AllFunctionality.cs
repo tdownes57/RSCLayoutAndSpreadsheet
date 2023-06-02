@@ -520,6 +520,16 @@ namespace MoveAndResizeControls_Monem
 
         }
 
+        //
+        // Copy from public interface IMonemMoveOrResizeFunctionality 
+        //    ---6/2/2023 
+        //
+        //void InitForSizing(Control par_container, int par_margin,
+        //           InterfaceMoveEvents par_eventsGroupOfCtls,
+        //           InterfaceMoveEvents par_eventsSingleCtl,
+        //           bool pbResizeProportionally,
+        //           ClassStructResizeParams par_structResize,
+        //           bool pbHookUpEventHandlers = true);
 
         //Added 6/01/2023 thomas downes
         public void InitForSizing(Control par_container, int par_margin,

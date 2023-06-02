@@ -885,8 +885,9 @@ Public Class RSCMoveableControlVB
 
 
     Public Sub AddSizeability(par_iLayoutFunctions As ILayoutFunctions,
-                              Optional par_objEventsSizeGroupOfCtls As GroupMoveEvents_Singleton = Nothing,
-                              Optional pbAddProportionality As Boolean = False,
+                              par_objEventsSizeGroupOfCtls As GroupMoveEvents_Singleton,
+                              par_objEventsSizeSingleControl As GroupMoveEvents_Singleton,
+                              pbAddProportionality As Boolean,
                               Optional par_structResizeParams As ClassStructResizeParams = Nothing)
         ''
         ''Added 5/01/2023 td
@@ -950,6 +951,11 @@ Public Class RSCMoveableControlVB
             mod_iMoveOrResizeFunctionality.ResizeParams = par_structResizeParams
 
         End If ''End of "If (par_structResizeParams IsNot Nothing) Then"
+
+        ''
+        ''Added 6/02/2023 Thomas Downes  
+        ''
+        mod_iMoveOrResizeFunctionality.InitSize()
 
     End Sub ''End of ""Public Sub AddSizeability""
 

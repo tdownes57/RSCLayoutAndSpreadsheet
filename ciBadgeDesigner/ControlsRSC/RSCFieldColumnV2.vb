@@ -1176,11 +1176,31 @@ Public Class RSCFieldColumnV2
         ''March4 2022 ''Dim sizingParams As New MoveAndResizeControls_Monem.StructResizeParams
         Dim sizingParams As New MoveAndResizeControls_Monem.ClassStructResizeParams
 
+        Const c_bProportionalWH As Boolean = False ''False, since this is only about width. --6/2/2023 td
+
         sizingParams.InitiateResizing = True ''Added 3/13/2022 td
-        sizingParams.KeepProportional_HtoW = False ''Added 3/13/2022 td
+        sizingParams.KeepProportional_HtoW = c_bProportionalWH ''6/2023 False ''Added 3/13/2022 td
         sizingParams.RightEdgeResizing_Only = True
 
-        MyBase.AddSizeability(True, sizingParams)
+        ''Added 6/02/2023 thomas downes
+        Const c_boolEventsAlreadyAdded As Boolean = False ''Added 6/02/2023 thomas downes
+
+        If (c_boolEventsAlreadyAdded) Then
+
+            ''6/2023 MyBase.AddSizeability(True, sizingParams)
+            MyBase.AddSizeability(Me.LayoutFunctions, sizingParams, c_bProportionalWH)
+
+        Else
+            ''
+            '' Let's include events, so it acually works!!
+            ''
+            ''6/02/2023 td---MyBase.AddSizeability(True, sizingParams)
+            MyBase.AddSizeability(Me.LayoutFunctions,
+                       mod_eventsForGroupSize_NotNeeded,
+                       mod_eventsForSingleSize,
+                       c_bProportionalWH, sizingParams)
+
+        End If ''End of ""If (c_boolEventsAlreadyAdded) Then ... Else ..."
 
     End Sub ''End of "Public Sub Load_ResizeWidthability()"
 
