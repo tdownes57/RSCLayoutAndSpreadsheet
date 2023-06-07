@@ -235,7 +235,8 @@ Public Class RSCFieldColumn_NotInUse
 
         sizingParams.RightEdgeResizing_Only = True
 
-        MyBase.AddSizeability(True, sizingParams)
+        ''6/03/2022 td''MyBase.AddSizeability(True, sizingParams)
+        MyBase.AddSizeability(Me.LayoutFunctions, sizingParams, False)
 
     End Sub
 

@@ -570,7 +570,8 @@ Public Class RSCMoveableControlVB
         ElseIf (pboolAddSizeability) Then
 
             ''Added 4/11/2023 thomas downes
-            AddSizeability()
+            ''6/2023 AddSizeability()
+            AddSizeability(Me.LayoutFunctions, New ClassStructResizeParams(), False)
 
         End If ''End of "If (pboolAddMoveability) Then ... ElseIf (pboolAddSizeability)..."
 
@@ -955,7 +956,9 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 6/02/2023 Thomas Downes  
         ''
-        mod_iMoveOrResizeFunctionality.InitSize()
+        mod_iMoveOrResizeFunctionality.InitForSizing(Me, 10, par_objEventsSizeGroupOfCtls,
+                 par_objEventsSizeSingleControl,
+                 pbAddProportionality, par_structResizeParams)
 
     End Sub ''End of ""Public Sub AddSizeability""
 

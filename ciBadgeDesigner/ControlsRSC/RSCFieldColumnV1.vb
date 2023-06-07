@@ -695,7 +695,9 @@ Public Class RSCFieldColumnV1
         sizingParams.RightEdgeResizing_Only = True
 
         ''6/1/2023 MyBase.AddSizeability(True, sizingParams)
-        MyBase.AddSizeability(LayoutFunctions, mod_eventsForGroupMove_NotNeeded,
+        MyBase.AddSizeability(LayoutFunctions,
+                              mod_eventsForGroupMove_NotNeeded,
+                              mod_eventsForSingleSize,
                               False, sizingParams)
 
     End Sub ''End of "Public Sub Load_ResizeWidthability()"

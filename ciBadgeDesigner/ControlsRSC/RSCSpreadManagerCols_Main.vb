@@ -1162,6 +1162,7 @@ Public Class RSCSpreadManagerCols
                                                           mod_designer, c_boolProportional,
                                                           mod_designer.ControlLastTouched, mod_designer,
                                                           mod_designer.GroupSizeEvents,
+                                                          mod_designer.GroupSizeEvents,
                                                           mod_controlSpread, par_intFieldIndex)
 
         ''Added 3/13/2022 thomas downes

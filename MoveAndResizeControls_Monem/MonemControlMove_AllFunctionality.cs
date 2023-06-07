@@ -1052,7 +1052,9 @@ namespace MoveAndResizeControls_Monem
                 MoveControl_GroupMove(par_controlParentF, e);
 
                 //Added 12/6/2021 td
-                mod_events_groupedCtls.Control_IsMoving();
+                // 6-06-2023 mod_events_groupedCtls.Control_IsMoving();
+                if (mod_events_groupedCtls != null) mod_events_groupedCtls.Control_IsMoving();
+                if (mod_events_singleCtl != null) mod_events_singleCtl.Control_IsMoving();
 
             }
             if (mod_events_groupedCtls == null)
@@ -1375,7 +1377,8 @@ namespace MoveAndResizeControls_Monem
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
-                mod_events_groupedCtls.ControlBeingMoved(par_controlG);
+                if (mod_events_groupedCtls != null)
+                    mod_events_groupedCtls.ControlBeingMoved(par_controlG);
 
                 // 8-12-2019 td//delta_Top = 0;
                 // 8-12-2019 td//delta_Left = 0;
@@ -1383,17 +1386,16 @@ namespace MoveAndResizeControls_Monem
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-12-2022 td//mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top,
+                if (mod_events_singleCtl != null)
+                    mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top,
                                                         delta_Width, delta_Height,
                                                         bEditedLocation);
 
                 if (mod_events_groupedCtls != null)
-                {
                     // 1-12-2022 td//mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
                     mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top,
                                                            delta_Width, delta_Height, 
                                                            bEditedLocation);
-                }
 
                 // Added 1/11/2022 td
                 //===/===No, this should start at the MouseDown() event.----1/11/2022 td 
@@ -1406,18 +1408,18 @@ namespace MoveAndResizeControls_Monem
                 //
                 //Allow a group of controls to be affected in unison.   
                 //
-                mod_events_groupedCtls.ControlBeingMoved(par_controlG);
+                if (mod_events_groupedCtls != null)
+                    mod_events_groupedCtls.ControlBeingMoved(par_controlG);
                 delta_Width = 0;
                 delta_Height = 0;
 
                 // 8-5-2019 td //mod_events.GroupMove(delta_Left, delta_Top, delta_Width, delta_Height);
                 // 1-10-2022 td//mod_events.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height);
-                mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
+                if (mod_events_singleCtl != null)
+                    mod_events_singleCtl.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
 
                 if (mod_events_groupedCtls != null)
-                {
                     mod_events_groupedCtls.GroupMove_Change(delta_Left, delta_Top, delta_Width, delta_Height, bEditedLocation);
-                }
 
             }
 

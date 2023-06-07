@@ -7,6 +7,7 @@
 ''4/26/2023 Imports __RSCWindowsControlLibrary
 ''4/26/2023 Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 ''4/26/2023 Imports ciBadgeElements
+Imports ciBadgeCachePersonality
 Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
 
@@ -275,6 +276,27 @@ Partial Public Class RSCSpreadManagerCols
 
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
 
+    Public Function GetColumnWithColumnData(par_columnData As ClassRSCColumnWidthAndData) As RSCFieldColumnV2
+        ''
+        ''Added 6/06/2023
+        ''
+        Dim each_column As RSCFieldColumnV2
+        Dim bColHasIdentifyingData As Boolean
+
+        For Each each_column In mod_dlist_RSCColumns ''mod_dict_RSCColumns.Values
+
+            If (each_column Is Nothing) Then Continue For
+
+            bColHasIdentifyingData =
+                (each_column.ColumnWidthAndData Is par_columnData)
+
+            If (bColHasIdentifyingData) Then Return each_column
+
+        Next each_column
+
+        Return Nothing
+
+    End Function ''end of ""Public Function GetColumnWithColumnData""
 
     Public Function GetNextColumn_LeftOf(par_column As RSCFieldColumnV2) As RSCFieldColumnV2
         ''

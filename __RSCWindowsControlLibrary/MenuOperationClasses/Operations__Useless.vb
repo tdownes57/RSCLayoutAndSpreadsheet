@@ -1,4 +1,5 @@
 ﻿Imports ciBadgeInterfaces ''Added 1/3/2022 td
+Imports MoveAndResizeControls_Monem
 
 Public Class Operations__Useless
     Implements ICurrentElement ''Added 12/28/2021 td
@@ -103,7 +104,10 @@ Public Class Operations__Useless
         ''
         ''Added 12/28/2021 thomas downes  
         ''
-        CtlCurrentElement.AddSizeability()
+        ''6/03/2023 CtlCurrentElement.AddSizeability()
+        Dim structResize As New ClassStructResizeParams
+        structResize.ProportionalRatio_HtoW = False
+        CtlCurrentElement.AddSizeability(LayoutFunctions, structResize, False)
 
     End Sub
 

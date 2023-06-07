@@ -16,6 +16,7 @@ Imports ciBadgeCachePersonality ''Added 3/14/2022
 Imports ciBadgeRecipients ''Added 3/22/2022 td
 Imports ciBadgeElements
 Imports System.Runtime.CompilerServices
+Imports MoveAndResizeControls_Monem
 
 Public Class RSCFieldColumnV2
     ''
@@ -140,6 +141,10 @@ Public Class RSCFieldColumnV2
         Dim objParametersGetElementCtl As ClassGetElementControlParams
         objParametersGetElementCtl = par_designer.GetParametersToGetElementControl()
 
+        ''Added 6/03/2023 
+        Dim objMoveEventsForSingleControl As GroupMoveEvents_Singleton ''Added 6/03/2023 
+        objMoveEventsForSingleControl = New GroupMoveEvents_Singleton()
+
         Return GetRSCFieldColumn(objParametersGetElementCtl,
                                  par_field,
                                  par_formParent,
@@ -149,6 +154,7 @@ Public Class RSCFieldColumnV2
                                     CType(par_designer.ControlLastTouched, ILastControlTouched),
                                     CType(par_designer, IRecordElementLastTouched),
                                     par_designer.GroupMoveEvents,
+                                    objMoveEventsForSingleControl,
                                      par_oSpreadsheet,
                                      par_intColumnIndex)
 
@@ -164,6 +170,7 @@ Public Class RSCFieldColumnV2
                                       par_iControlLastTouched As ILastControlTouched,
                                      par_iRecordLastControl As IRecordElementLastTouched,
                                      par_oSizeEventsForGroupedCtls As GroupMoveEvents_Singleton,
+                                     par_oSizeEventsForSingleControl As GroupMoveEvents_Singleton,
                                      par_oSpreadsheet As RSCFieldSpreadsheet,
                                      par_intColumnIndex As Integer) As RSCFieldColumnV2
         ''
@@ -227,9 +234,20 @@ Public Class RSCFieldColumnV2
             ''                 par_oMoveEventsForGroupedCtls, Nothing)
             ''5/01/2023 If (bAddFunctionalityLater) Then .AddSizeability(par_iLayoutFun,
             ''                 par_oSizeEventsForGroupedCtls, False, Nothing)
+            ''6/06/2023 If (bAddFunctionalityLater) Then .AddSizeability(par_iLayoutFun,
+            ''                   par_oSizeEventsForGroupedCtls,
+            ''                   par_oSizeEventsForSingleControl,
+            ''                   False, Nothing)
+
+            Dim oStructResizeParams As New ClassStructResizeParams ''Added 6/06/2023
+            ''Added 6/06/2023
+            oStructResizeParams.RightEdgeResizing_Only = True ''Added 6/06/2023
+            oStructResizeParams.KeepProportional_HtoW = False ''Added 6/06/2023
+
             If (bAddFunctionalityLater) Then .AddSizeability(par_iLayoutFun,
                                par_oSizeEventsForGroupedCtls,
-                               False, Nothing)
+                               par_oSizeEventsForSingleControl,
+                               False, oStructResizeParams)
 
             If (bAddFunctionalityLater) Then .AddClickability()
 
@@ -2754,7 +2772,7 @@ Public Class RSCFieldColumnV2
     Private Sub RSCFieldColumnV2_Click(sender As Object, e As EventArgs) Handles Me.Click
 
         ''Added 4/07/2023 
-        MessageBoxTD.Show_Statement("RSCFieldColumn... My name is ...." & Me.Name)
+        ''6/06/2023 MessageBoxTD.Show_Statement("RSCFieldColumn... My name is ...." & Me.Name)
 
     End Sub
 
