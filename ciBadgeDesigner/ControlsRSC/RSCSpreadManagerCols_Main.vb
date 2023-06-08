@@ -128,6 +128,9 @@ Public Class RSCSpreadManagerCols
             ''Added 5/27/2023
             LoadColumnData_ByColumnCache()
 
+            ''Added 6/08/2023 
+            RefreshAllColumnsLeftProperty()
+
         ElseIf (par_bLoadColumnDataByRecipients) Then
 
             ''Added 5/27/2023
@@ -460,14 +463,16 @@ Public Class RSCSpreadManagerCols
         ''   the width of the columns determined by the user's resizing behavior
         ''   in the prior session.  
         ''
-        For intNeededIndex = 2 To intNeededMax
-
-            priorColumn = mod_dlist_RSCColumns(intNeededIndex - 1)
-            each_Column = mod_dlist_RSCColumns(intNeededIndex)
-
-            each_Column.Left = (priorColumn.Left + priorColumn.Width + 4)
-
-        Next intNeededIndex
+        ''6/7/2023 td ''For intNeededIndex = 2 To intNeededMax
+        ''
+        ''    priorColumn = mod_dlist_RSCColumns(intNeededIndex - 1)
+        ''    each_Column = mod_dlist_RSCColumns(intNeededIndex)
+        ''
+        ''    ''6/7/2023 each_Column.Left = (priorColumn.Left + priorColumn.Width + 4)
+        ''    each_Column.Left = (priorColumn.Left + priorColumn.Width + mc_ColumnMarginGap)
+        ''
+        ''Next intNeededIndex
+        RefreshAllColumnsLeftProperty()
 
         ''''
         ''''Step 6 of 6.  Resize the form itself. 

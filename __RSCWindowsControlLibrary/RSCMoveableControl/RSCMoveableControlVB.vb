@@ -344,7 +344,7 @@ Public Class RSCMoveableControlVB
     Protected WithEvents mod_eventsForSingleMove As GroupMoveEvents_Singleton ''InterfaceEvents
 
     ''Added 5/1/2023 thomas downes 
-    Protected mod_eventsForGroupSize_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
+    Protected mod_eventsForGroupSize_Needed As GroupMoveEvents_Singleton ''InterfaceEvents
     Protected WithEvents mod_eventsForSingleSize As GroupMoveEvents_Singleton ''InterfaceEvents
 
     ''
@@ -1310,6 +1310,24 @@ Public Class RSCMoveableControlVB
 
 
     End Sub ''End of "Private Sub InitializeMoveability_Proportional()"
+
+
+    Public Sub InitializeSizeability(par_iLayoutFunctions As ILayoutFunctions,
+                              par_objEventsSizeGroupOfCtls As GroupMoveEvents_Singleton,
+                              par_objEventsSizeSingleControl As GroupMoveEvents_Singleton,
+                              pbAddProportionality As Boolean,
+                              Optional par_structResizeParams As ClassStructResizeParams = Nothing)
+
+        ''Added 6/8/2023  
+        AddSizeability(par_iLayoutFunctions,
+                       par_objEventsSizeGroupOfCtls,
+                       par_objEventsSizeSingleControl,
+                       pbAddProportionality,
+                       par_structResizeParams)
+
+    End Sub ''End of ""Private Sub InitializeSizeability()""
+
+
 
     ''Added 1/12/2022 td
     Private Delegate Sub SomeMouseEventHandler(sender As Object, e As MouseEventArgs) ''Added 1/12/2022 td

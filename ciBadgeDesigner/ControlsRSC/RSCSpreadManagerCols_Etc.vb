@@ -295,6 +295,47 @@ Partial Public Class RSCSpreadManagerCols
     End Sub ''End of ""Public Sub MoveTextCaret_IfNeeded()" 
 
 
+    Public Sub RefreshAllColumnsLeftProperty()
+        ''
+        '' Added 6/7/2023 
+        ''
+        Dim objFirstColumn As RSCFieldColumnV2 '' Added 6/7/2023 
+        Dim objTempColumnLeft As RSCFieldColumnV2 '' Added 6/7/2023 
+        Dim objTempColumnNext As RSCFieldColumnV2 '' Added 6/7/2023 
+
+        objFirstColumn = GetFirstColumn()
+        objTempColumnLeft = objFirstColumn
+
+        ''
+        ''Step 5 of 5.  Adjust the .Left property of the columns, to accomodate
+        ''   the width of the columns determined by the user's resizing behavior
+        ''   in the prior session.  
+        ''
+        ''6/7/2023 td ''For intNeededIndex = 2 To intNeededMax
+        ''
+        ''    priorColumn = mod_dlist_RSCColumns(intNeededIndex - 1)
+        ''    each_Column = mod_dlist_RSCColumns(intNeededIndex)
+        ''
+        ''    ''6/7/2023 each_Column.Left = (priorColumn.Left + priorColumn.Width + 4)
+        ''    each_Column.Left = (priorColumn.Left + priorColumn.Width + mc_ColumnMarginGap)
+        ''
+        ''Next intNeededIndex
+
+        Do While (objTempColumnLeft.FieldColumnNextRight IsNot Nothing)
+
+            objTempColumnNext = objTempColumnLeft.FieldColumnNextRight
+
+            objTempColumnNext.Left = (objTempColumnLeft.Left +
+                                      objTempColumnLeft.Width + mc_ColumnMarginGap)
+
+            ''Prepare for next iteration.
+            objTempColumnLeft = objTempColumnNext
+
+        Loop ''End of ""Do While (objTempColumnLeft.FieldColumnNextRight IsNot Nothing)""
+
+    End Sub ''End of ""Public Sub RefreshAllColumnsLeftProperty()""
+
+
     ''Public Sub CompactColumnsAfterDeletion(par_columnAboutToDelete As RSCFieldColumnV2,
     ''                                       par_intColumnIndex As Integer)
     ''    ''

@@ -28,7 +28,7 @@ Public Class RSCFieldSpreadsheet
     Private mod_colorOfColumnsBackColor As System.Drawing.Color = Drawing.Color.AntiqueWhite ''Added 3/13/2022 thomas downes
 
     Private mod_ctlLasttouched As New ClassLastControlTouched ''Added 1/4/2022 td
-    Private mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
+    Private WithEvents mod_eventsSingleton As New GroupMoveEvents_Singleton(Me.Designer, False, True) ''Added 1/4/2022 td  
 
     Private Const mc_intPixelsFromRowToRow As Integer = 24 ''Added 4/05/2022 td
     Private Const mc_boolKeepUILookingClean As Boolean = True ''Moved to module-level 5/30/2022
@@ -2533,6 +2533,15 @@ Public Class RSCFieldSpreadsheet
         ''Added 4/10/2023
         ''
         MessageBoxTD.Show_Statement("Spreadsheet..." & Me.Name)
+
+    End Sub
+
+
+    Private Sub mod_eventsSingleton_Resizing_EndV2(par_iSave As ISaveToModel, par_iRefreshElement As IRefreshElementImage, par_iRefreshCardPreview As IRefreshCardPreview, par_bHeightResized As Boolean) Handles mod_eventsSingleton.Resizing_EndV2
+        ''
+        ''Added 4/10/2023
+        ''
+        mod_manager.Cols.RefreshAllColumnsLeftProperty()
 
     End Sub
 

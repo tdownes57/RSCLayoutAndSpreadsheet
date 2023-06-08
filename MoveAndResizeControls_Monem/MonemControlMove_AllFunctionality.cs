@@ -45,41 +45,6 @@ namespace MoveAndResizeControls_Monem
 
 {
     //
-    // Added 2/2/2022 thomas downes
-    //
-    //public struct StructResizeParams_NotInUse //Not in use.  See public class ClassStructResizeParams
-    //{
-    //    //
-    //    //Suffixed as "_NotInUse" on 3/4/2022 td.  See public class ClassStructResizeParams
-    //    //
-    //    // Added 2/2/2022 thomas downes
-    //    //
-    //    // Suffixed as "_NotInUse" on 3/4/2022 td
-    //    //
-    //    //  This will centralize the resizing information. ---2/2/2022 td
-    //    //
-    //    public bool KeepProportional_HtoW_NotInUse; //Not in use.  See public class ClassStructResizeParams
-    //    //
-    //    // Suffixed "_NotInUse" on 3/13/2022 td.  See public class ClassStructResizeParams
-    //    //
-    //    public float ProportionalRatio_HtoW_NotInUse;  // proportionWH
-    //    // This will assist the layout program to enforcing a Width > Height rule. ---2/2/2022
-    //    public bool KeepLandscape_WgtH;
-    //    // This will assist the layout program to enforcing a Height > Width rule. ---2/2/2022
-    //    public bool KeepPortrait_HgtW;
-    //    //Added 3/13/2022 thomas Downes
-    //    public bool InitiateResizing_NotInUse;  //Not in use.  See public class ClassStructResizeParams
-    //    //Don't allow resizing.
-    //    public bool StopAllResizing_NotInUse; //Not in use.  See public class ClassStructResizeParams
-    //    //Repaint after resizing. 
-    //    public bool RepaintAfterResize;
-    //    //Only allow re-sizing of the right-hand edge.
-    //    //   (No moving of the control allowed.)
-    //    public bool RightEdgeResizing_Only;
-    //}
-
-
-    //
     // Added 11/29/2021 thomas downes 
     //
     public class MonemControlMove_AllFunctionality : IMonemMoveOrResizeFunctionality // InterfaceMoveOrResize
@@ -96,6 +61,48 @@ namespace MoveAndResizeControls_Monem
         //       https://www.codeproject.com/info/cpol10.aspx
         //  This class was modified in August 2019 by Thomas C. Downes
         //
+        private bool _moving = false; // Default value added 1/7/2022 td
+        private bool _repaintAfterResize;  // Added 7/31/2019 td  
+        /// </summary>
+        private Point _cursorStartPoint;
+        private bool _moveIsInterNal;
+        private bool _resizing = false; // Default value added 1/7/2022 td
+        private bool _resizingHeight = false; //A change of element height implies a possible change to font height.--Added 6/06/2022 td
+        private Size _currentControlStartSize;
+
+        //Added 1/10/2022 thomas downes
+        private decimal _proportionWH; //Added 1/10/2022 thomas downes
+
+        private Control _controlCurrent; // Added 11/29/2021 td
+        //''1/4/2022 td''private Control _controlPictureBox;  // = par_controlPictureB;
+        private PictureBox _controlPictureBox1;  // = par_controlPictureB;
+        private PictureBox _controlPictureBox2;  // = par_controlPictureB;
+        private Control _controlMoveableElement; // = par_containerElement;
+        private ISaveToModel _iSaveToModel;  // Added 12/17/2021 td
+        private IRefreshElementImage _iRefreshElementImage;  // Added 1/27/2022 td
+        private IRefreshCardPreview _iRefreshCardPreview;  // Added 1/27/2022 td
+        private Label _labelIfNeeded;  //Added 1/04/2022 thomas d.
+
+        //Added 7/18/2019 thomas downes
+        //
+        private int _margin; //Added 7/18/2019 thomas downes
+
+        internal bool MouseIsInLeftEdge { get; set; }
+        internal bool MouseIsInRightEdge { get; set; }
+        internal bool MouseIsInTopEdge { get; set; }
+        internal bool MouseIsInBottomEdge { get; set; }
+
+        internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
+
+        private bool _SizeProportionally = false;  //Added 1/10/2022 td
+        private bool _SizeDisallowSquares = false;  //Added 2/2/2022 td
+        private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
+        private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
+
+        //3/2/2022 //private StructResizeParams _structResizingParams;
+        private ClassStructResizeParams _structResizingParams = new ClassStructResizeParams();
+
+
         // Dec28 2021 //public bool RemoveAllFunctionality = false; //Added 12/28/2021 td
         public bool RemoveAllFunctionality // = false;  //Added 12/28/2021 //
         {
@@ -204,46 +211,39 @@ namespace MoveAndResizeControls_Monem
             _SizeProportionally = false;
         }
 
-        private bool _moving = false; // Default value added 1/7/2022 td
-        private bool _repaintAfterResize;  // Added 7/31/2019 td  
-        /// </summary>
-        private Point _cursorStartPoint;
-        private bool _moveIsInterNal;
-        private bool _resizing = false; // Default value added 1/7/2022 td
-        private bool _resizingHeight = false; //A change of element height implies a possible change to font height.--Added 6/06/2022 td
-        private Size _currentControlStartSize;
-
-        //Added 1/10/2022 thomas downes
-        private decimal _proportionWH; //Added 1/10/2022 thomas downes
-
-        private Control _controlCurrent; // Added 11/29/2021 td
-        //''1/4/2022 td''private Control _controlPictureBox;  // = par_controlPictureB;
-        private PictureBox _controlPictureBox1;  // = par_controlPictureB;
-        private PictureBox _controlPictureBox2;  // = par_controlPictureB;
-        private Control _controlMoveableElement; // = par_containerElement;
-        private ISaveToModel _iSaveToModel;  // Added 12/17/2021 td
-        private IRefreshElementImage _iRefreshElementImage;  // Added 1/27/2022 td
-        private IRefreshCardPreview _iRefreshCardPreview;  // Added 1/27/2022 td
-        private Label _labelIfNeeded;  //Added 1/04/2022 thomas d.
-
-        //Added 7/18/2019 thomas downes
-        //
-        private int _margin; //Added 7/18/2019 thomas downes
-
-        internal bool MouseIsInLeftEdge { get; set; }
-        internal bool MouseIsInRightEdge { get; set; }
-        internal bool MouseIsInTopEdge { get; set; }
-        internal bool MouseIsInBottomEdge { get; set; }
-
-        internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
-
-        private bool _SizeProportionally = false;  //Added 1/10/2022 td
-        private bool _SizeDisallowSquares = false;  //Added 2/2/2022 td
-        private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
-        private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
-
+        //private bool _moving = false; // Default value added 1/7/2022 td
+        //private bool _repaintAfterResize;  // Added 7/31/2019 td  
+        ///// </summary>
+        //private Point _cursorStartPoint;
+        //private bool _moveIsInterNal;
+        //private bool _resizing = false; // Default value added 1/7/2022 td
+        //private bool _resizingHeight = false; //A change of element height implies a possible change to font height.--Added 6/06/2022 td
+        //private Size _currentControlStartSize;
+        ////Added 1/10/2022 thomas downes
+        //private decimal _proportionWH; //Added 1/10/2022 thomas downes
+        //private Control _controlCurrent; // Added 11/29/2021 td
+        ////''1/4/2022 td''private Control _controlPictureBox;  // = par_controlPictureB;
+        //private PictureBox _controlPictureBox1;  // = par_controlPictureB;
+        //private PictureBox _controlPictureBox2;  // = par_controlPictureB;
+        //private Control _controlMoveableElement; // = par_containerElement;
+        //private ISaveToModel _iSaveToModel;  // Added 12/17/2021 td
+        //private IRefreshElementImage _iRefreshElementImage;  // Added 1/27/2022 td
+        //private IRefreshCardPreview _iRefreshCardPreview;  // Added 1/27/2022 td
+        //private Label _labelIfNeeded;  //Added 1/04/2022 thomas d.
+        ////Added 7/18/2019 thomas downes
+        //private int _margin; //Added 7/18/2019 thomas downes
+        //internal bool MouseIsInLeftEdge { get; set; }
+        //internal bool MouseIsInRightEdge { get; set; }
+        //internal bool MouseIsInTopEdge { get; set; }
+        //internal bool MouseIsInBottomEdge { get; set; }
+        //internal bool SetBreakpoint_AfterMove { get; set; } //Added 9/13/2019 td 
+        //private bool _SizeProportionally = false;  //Added 1/10/2022 td
+        //private bool _SizeDisallowSquares = false;  //Added 2/2/2022 td
+        //private bool _SizeKeepHeightMoreThanWidth = true;  //Added 2/02/2022 td
+        //private bool _SizeKeepWidthMoreThanHeight = true;  //Added 2/02/2022 td
         //3/2/2022 //private StructResizeParams _structResizingParams;
-        private ClassStructResizeParams _structResizingParams = new ClassStructResizeParams();
+        //private ClassStructResizeParams _structResizingParams = new ClassStructResizeParams();
+        
         public ClassStructResizeParams ResizeParams      //Added 2/2/2022 td 
         {
             get
@@ -782,19 +782,18 @@ namespace MoveAndResizeControls_Monem
         }
 
 
-        private void FillTheBlackhole(InterfaceMoveEvents par_sharedEventsObject)
-        {
-            //
-            // Added 1/3/2022 thomas downes
-            //
-            // We remove ("Fill") the event-killing blackhole, by 
-            //   replacing the blackhole with a universally-shared
-            //   events object. 
-            //   ----1/3/2022 td
-            //
-            mod_events_groupedCtls = par_sharedEventsObject;
-
-        }
+        //private void FillTheBlackhole(InterfaceMoveEvents par_sharedEventsObject)
+        //{
+        //    //
+        //    // Added 1/3/2022 thomas downes
+        //    //
+        //    // We remove ("Fill") the event-killing blackhole, by 
+        //    //   replacing the blackhole with a universally-shared
+        //    //   events object. 
+        //    //   ----1/3/2022 td
+        //    //
+        //    mod_events_groupedCtls = par_sharedEventsObject;
+        //}
 
 
         private void UpdateMouseEdgeProperties(Control par_controlC, Point mouseLocationInControl)
@@ -2109,4 +2108,41 @@ namespace MoveAndResizeControls_Monem
         #endregion
 
     }
+
+
+    //
+    // Added 2/2/2022 thomas downes
+    //
+    //public struct StructResizeParams_NotInUse //Not in use.  See public class ClassStructResizeParams
+    //{
+    //    //
+    //    //Suffixed as "_NotInUse" on 3/4/2022 td.  See public class ClassStructResizeParams
+    //    //
+    //    // Added 2/2/2022 thomas downes
+    //    //
+    //    // Suffixed as "_NotInUse" on 3/4/2022 td
+    //    //
+    //    //  This will centralize the resizing information. ---2/2/2022 td
+    //    //
+    //    public bool KeepProportional_HtoW_NotInUse; //Not in use.  See public class ClassStructResizeParams
+    //    //
+    //    // Suffixed "_NotInUse" on 3/13/2022 td.  See public class ClassStructResizeParams
+    //    //
+    //    public float ProportionalRatio_HtoW_NotInUse;  // proportionWH
+    //    // This will assist the layout program to enforcing a Width > Height rule. ---2/2/2022
+    //    public bool KeepLandscape_WgtH;
+    //    // This will assist the layout program to enforcing a Height > Width rule. ---2/2/2022
+    //    public bool KeepPortrait_HgtW;
+    //    //Added 3/13/2022 thomas Downes
+    //    public bool InitiateResizing_NotInUse;  //Not in use.  See public class ClassStructResizeParams
+    //    //Don't allow resizing.
+    //    public bool StopAllResizing_NotInUse; //Not in use.  See public class ClassStructResizeParams
+    //    //Repaint after resizing. 
+    //    public bool RepaintAfterResize;
+    //    //Only allow re-sizing of the right-hand edge.
+    //    //   (No moving of the control allowed.)
+    //    public bool RightEdgeResizing_Only;
+    //}
+
+
 }

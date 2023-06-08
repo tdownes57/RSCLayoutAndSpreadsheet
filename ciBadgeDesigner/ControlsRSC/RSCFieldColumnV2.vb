@@ -221,7 +221,8 @@ Public Class RSCFieldColumnV2
                                                    bAddFunctionalitySooner,
                                                    bAddFunctionalitySooner,
                                                    par_iControlLastTouched,
-                                                   par_oSizeEventsForGroupedCtls)
+                                                   par_oSizeEventsForGroupedCtls,
+                                                   par_oSizeEventsForSingleControl)
         ''Jan2 2022 ''                       ''Jan2 2022 ''par_iSaveToModel, typeOps,
 
         With CtlFieldColumn1
@@ -333,7 +334,8 @@ Public Class RSCFieldColumnV2
                    pboolAddSizeability As Boolean,
                    pboolAddClickability As Boolean,
                    par_iLastTouched As ILastControlTouched,
-                   par_oMoveEvents As GroupMoveEvents_Singleton)
+                   par_oMoveEventsGroup As GroupMoveEvents_Singleton,
+                   Optional par_oMoveEventsSingle As GroupMoveEvents_Singleton = Nothing)
         ''         ''Not needed. 1/2/2022'' par_iSaveToModel As ISaveToModel,
         ''         ''Not needed. 1/2/2022'' par_enumElementType As EnumElementType,
         ''
@@ -348,7 +350,7 @@ Public Class RSCFieldColumnV2
                         par_iLayoutFun, par_iRefreshPreview, par_iSizeDesired,
                         par_operationsType, par_operationsAny,
                         pboolAddMoveability, pboolAddSizeability, pboolAddClickability,
-                        par_iLastTouched, par_oMoveEvents,
+                        par_iLastTouched, par_oMoveEventsGroup,
                         CSng(100 / 150))
         ''          Jan2 2022'' par_iSaveToModel, par_iLayoutFun,
 
@@ -1221,6 +1223,22 @@ Public Class RSCFieldColumnV2
         End If ''End of ""If (c_boolEventsAlreadyAdded) Then ... Else ..."
 
     End Sub ''End of "Public Sub Load_ResizeWidthability()"
+
+
+    Public Overloads Sub InitializeSizeability(par_iLayoutFunctions As ILayoutFunctions,
+                              par_objEventsSizeGroupOfCtls As GroupMoveEvents_Singleton,
+                              par_objEventsSizeSingleControl As GroupMoveEvents_Singleton,
+                              pbAddProportionality As Boolean,
+                              Optional par_structResizeParams As ClassStructResizeParams = Nothing)
+
+        ''Added 6/8/2023  
+        MyBase.AddSizeability(par_iLayoutFunctions,
+                       par_objEventsSizeGroupOfCtls,
+                       par_objEventsSizeSingleControl,
+                       pbAddProportionality,
+                       par_structResizeParams)
+
+    End Sub ''End of ""Private Sub InitializeSizeability()""
 
 
     Public Overrides Sub RemoveMouseEventHandlers_ChildClass()
@@ -2652,7 +2670,7 @@ Public Class RSCFieldColumnV2
         End If ''End of ""If mod_bHandleMouseMoveEvents_ByVB6 Then""
 
         ''Added 4/07/2023 
-        MessageBoxTD.Show_Statement("My name is ...." & Me.Name)
+        ''6/08/2023 MessageBoxTD.Show_Statement("My name is ...." & Me.Name)
 
     End Sub
 
