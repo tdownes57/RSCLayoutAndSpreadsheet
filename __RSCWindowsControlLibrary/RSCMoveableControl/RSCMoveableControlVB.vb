@@ -143,11 +143,13 @@ Public Class RSCMoveableControlVB
         ''Jan4 2022''Public WriteOnly Property MoveabilityEvents As GroupMoveEvents_Singleton
         Get
             ''Added 1/4/2022 td 
-            Return mod_eventsForGroupMove_NotNeeded
+            ''6/2023 Return mod_eventsForGroupMove_NotNeeded
+            Return mod_eventsForGroupMove
         End Get
         Set(value As GroupMoveEvents_Singleton)
             ''Added 1/3/2022 td  
-            mod_eventsForGroupMove_NotNeeded = value
+            ''6/2023 mod_eventsForGroupMove_NotNeeded = value
+            mod_eventsForGroupMove = value
         End Set
     End Property
 
@@ -172,11 +174,14 @@ Public Class RSCMoveableControlVB
         ''Added 5/1/2023 thomas downes
         Get
             ''Added 5/01/2023 td 
-            Return mod_eventsForGroupSize_NotNeeded
+            ''6/2023 Return mod_eventsForGroupSize_NotNeeded
+            Return mod_eventsForGroupSize_Needed
         End Get
         Set(value As GroupMoveEvents_Singleton)
             ''Added 5/01/2023 td  
-            mod_eventsForGroupSize_NotNeeded = value
+            ''6/2023 mod_eventsForGroupSize_NotNeeded = value
+            mod_eventsForGroupSize_Needed = value
+
         End Set
     End Property
 
@@ -340,7 +345,8 @@ Public Class RSCMoveableControlVB
 
     ''1/3/2022 td''Private WithEvents mod_events As New GroupMoveEvents_Singleton ''InterfaceEvents
     ''Jan4 2022''Private WithEvents mod_events As GroupMoveEvents_Singleton ''InterfaceEvents
-    Protected mod_eventsForGroupMove_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
+    ''6/8/2023 Protected mod_eventsForGroupMove_NotNeeded As GroupMoveEvents_Singleton ''InterfaceEvents
+    Protected mod_eventsForGroupMove As GroupMoveEvents_Singleton ''InterfaceEvents
     Protected WithEvents mod_eventsForSingleMove As GroupMoveEvents_Singleton ''InterfaceEvents
 
     ''Added 5/1/2023 thomas downes 
@@ -414,7 +420,10 @@ Public Class RSCMoveableControlVB
         ''Don't expect the Moveability to work, we are sending the events
         ''   into a blackhole!!  ---1/4/2022 td
         Dim dummyLayout As New ClassLayoutFunctions
-        Dim oEventkillingBlackhole As New GroupMoveEvents_Singleton(dummyLayout, False, True)
+
+        Dim oEventkillingBlackhole As New GroupMoveEvents_Singleton(dummyLayout, False, True,
+                "Event_Killing Blackhole")
+
         InitializeClickability(EnumElementType.Undetermined, oEventkillingBlackhole)
 
         ''Added 1/3/2022 td
@@ -462,7 +471,7 @@ Public Class RSCMoveableControlVB
         Me.ExpectedProportionWH = par_proportionWH_IfNeeded
 
         ''Jan10 2022''mod_events = par_oMoveabilityEvents
-        mod_eventsForGroupMove_NotNeeded = par_oMoveabilityEventsForGroup
+        mod_eventsForGroupMove = par_oMoveabilityEventsForGroup
 
         ''Added 1/30/2022 td
         mod_iRefreshCardPreview = par_iRefreshCardPreview
@@ -471,9 +480,18 @@ Public Class RSCMoveableControlVB
         ''We need to instantiate a class. It's just for the movement of a single control, so
         ''  we probably don't need to use a shared class. In fact, it's better if we don't.
         ''  ---1/10/2022 td
+        Const c_strDescription As String = "Initalized in New() for RSCMoveableControlVB"
+
         If (pboolAddMoveability) Then
-            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFun, True)
-        End If ''End of "If (pboolAddMoveability) Then"
+            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFun, True, False,
+                                                  c_strDescription & " (pboolAddMoveability)")
+        ElseIf (pboolAddSizeability) Then
+            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFun, True, False,
+                                                  c_strDescription & " (pboolAddSizeability)")
+        ElseIf (pboolAddClickability) Then
+            mod_eventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFun, True, False,
+                                                  c_strDescription & " (pboolAddClickability)")
+        End If ''End of "If (pboolAddMoveability) Then ... ElseIf... ElseIf..."
 
         ''Added 1/26/2022 thomas 
         If (par_iSizeIfNeeded.Height > 0) Then Me.Height = par_iSizeIfNeeded.Height
@@ -862,8 +880,8 @@ Public Class RSCMoveableControlVB
                 ''
             Else
                 ''Added 6/1/2023
-                .InitForSizing(Me, 10,
-                    mod_eventsForGroupSize_NotNeeded,
+                .InitForResizing(Me, 10,
+                    mod_eventsForGroupSize_Needed,
                     mod_eventsForSingleSize,
                     par_bResizeProportionally,
                     par_structResizeParams)
@@ -942,7 +960,9 @@ Public Class RSCMoveableControlVB
         Me.SizeabilityEventsForGroupCtls = par_objEventsSizeGroupOfCtls
         ''Me.SizeabilityEventsForSingleMove = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
         ''Me.SizeabilityEventsForSingleMove = Me.mod_eventsForSingleMove
-        Me.SizeabilityEventsForSingleSize = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+        ''6/08/2023 Me.SizeabilityEventsForSingleSize = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True)
+        Me.SizeabilityEventsForSingleSize = New GroupMoveEvents_Singleton(par_iLayoutFunctions, True, False,
+               "Init'd by RSCMoveableControlVB.AddSizeability (for internal control)")
 
         ''
         ''Added 3/3/2022 td
@@ -956,7 +976,8 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 6/02/2023 Thomas Downes  
         ''
-        mod_iMoveOrResizeFunctionality.InitForSizing(Me, 10, par_objEventsSizeGroupOfCtls,
+        mod_iMoveOrResizeFunctionality.InitForResizing(Me, 10,
+                 par_objEventsSizeGroupOfCtls,
                  par_objEventsSizeSingleControl,
                  pbAddProportionality, par_structResizeParams)
 
@@ -1059,12 +1080,14 @@ Public Class RSCMoveableControlVB
         ''Jan10 2022 td''mod_events = par_objMoveEvents ''Added 1/3/2022 thomas 
         ''Jan10 2022 td''mod_events.LayoutFunctions = par_iLayoutFunctions
 
-        mod_eventsForGroupMove_NotNeeded = par_objMoveEventsForGroupMove ''Added 1/3/2022 thomas 
+        ''June 2023  mod_eventsForGroupMove_NotNeeded = par_objMoveEventsForGroupMove ''Added 1/3/2022 thomas 
+        mod_eventsForGroupMove = par_objMoveEventsForGroupMove ''Added 1/3/2022 thomas 
         mod_eventsForSingleMove = par_objMoveEventsForSingleCtl ''Added 1/10/2022 thomas 
 
         ''Jan10 2022 td''mod_events.LayoutFunctions = par_iLayoutFunctions
-        If (mod_eventsForGroupMove_NotNeeded.LayoutFunctions Is Nothing) Then ''Added 1/10/2022
-            mod_eventsForGroupMove_NotNeeded.LayoutFunctions = par_iLayoutFunctions ''Added 1/10/2022
+        ''6/2023 If (mod_eventsForGroupMove_NotNeeded.LayoutFunctions Is Nothing) Then ''Added 1/10/2022
+        If (mod_eventsForGroupMove.LayoutFunctions Is Nothing) Then ''Added 1/10/2022
+            mod_eventsForGroupMove.LayoutFunctions = par_iLayoutFunctions ''Added 1/10/2022
         End If
         mod_eventsForSingleMove.LayoutFunctions = par_iLayoutFunctions ''Added 1/10/2022
 
@@ -1295,7 +1318,7 @@ Public Class RSCMoveableControlVB
 
         ''Modified V1-->V3 on 3/4/2022 thomas d.
         mod_moveability_Monem.Init_V3(par_objPictureBox, Me, mc_intMarginForResize,
-                                            mod_eventsForGroupMove_NotNeeded,
+                                            mod_eventsForGroupMove,
                                             mod_eventsForSingleMove,
                                             False, CType(Me, ISaveToModel),
                                             Me, mod_iRefreshCardPreview,

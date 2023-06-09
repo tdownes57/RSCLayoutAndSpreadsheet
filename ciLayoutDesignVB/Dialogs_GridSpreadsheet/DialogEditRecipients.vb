@@ -28,8 +28,10 @@ Public Class DialogEditRecipients
     ''April 13 2022 ''Private mod_cacheColumnWidthsAndData As ciBadgeDesigner.CacheRSCFieldColumnWidthsEtc ''Added 3/16/2022 
     Private mod_cacheColumnWidthsAndData As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''Added 4/13 & 3/16/2022 
     Private Const mod_intRscFieldColumn1_Top As Integer = 19 ''Added 4/3/2022 thomas downes
+
     ''5/01/2023 Private mod_oGroupSizeEvents As New GroupMoveEvents_Singleton(mod_designer, False) ''Added 5/01/2023 td  
-    Private mod_oGroupSizeEvents As New GroupMoveEvents_Singleton(mod_designer, True) ''Added 5/01/2023 td  
+    ''6/08/2023 Private mod_oGroupSizeEvents As New GroupMoveEvents_Singleton(mod_designer, True) ''Added 5/01/2023 td  
+    Private WithEvents mod_oGroupResizingEvents As GroupMoveEvents_Singleton ''6/8/2023 (mod_designer, True) ''Added 5/01/2023 td  
 
 
     Public Sub New()
@@ -38,6 +40,14 @@ Public Class DialogEditRecipients
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+
+        ''Addeed 6/08/2023
+        If (mod_designer Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+        Else
+            ''6/2023 mod_oGroupSizeEvents = New GroupMoveEvents_Singleton(mod_designer, True)
+            mod_oGroupResizingEvents = New GroupMoveEvents_Singleton(mod_designer, True)
+        End If
 
         ''-----Please see Public Sub New(par_cache As ClassElementsCache_Deprecated). 3/13/2022
         ''---mod_designer = New ClassDesigner()
@@ -61,11 +71,21 @@ Public Class DialogEditRecipients
         ''5/01/2023 mod_designer = New ClassDesigner()
         mod_designer.DontAutoRefreshPreview = True ''Added 3/11/2022 td
 
+        ''Addeed 6/08/2023
+        If (mod_designer Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+        Else
+            ''6/2023 mod_oGroupSizeEvents = New GroupMoveEvents_Singleton(mod_designer, True)
+            mod_oGroupResizingEvents = New GroupMoveEvents_Singleton(mod_designer, True, False,
+                  "Init'd by DialogEditRecipients, New (working constructor)")
+        End If ''end of ""If (mod_designer Is Nothing) Then...Else""
+
         ''Added 5/01/2023 td 
         ''5/01/2023 mod_designer.NameOfForm = "DialogEditRecipients"
         mod_designer.DesignerForm = Me
         ''5/1/2023 mod_designer.LoadDesigner("For spreadsheet", False, False, mod_oGroupSizeEvents, False)
-        mod_designer.LoadEvents(Nothing, mod_oGroupSizeEvents)
+        ''6/08/2023 mod_designer.LoadEvents(Nothing, mod_oGroupSizeEvents)
+        mod_designer.LoadEvents(Nothing, mod_oGroupResizingEvents)
 
         RscFieldSpreadsheet1.Designer = mod_designer
         Me.ElementsCache_Deprecated = par_cacheElements
@@ -512,6 +532,13 @@ ExitHandler:
 
         ''Added 4/6/2022 thomas downes
         RscFieldSpreadsheet1.RefreshHeightOfRowHeaders()
+
+    End Sub
+
+    Private Sub mod_oGroupResizingEvents_Resizing_EndV2(par_iSave As ISaveToModel, par_iRefreshElement As IRefreshElementImage, par_iRefreshCardPreview As IRefreshCardPreview, par_bHeightResized As Boolean) Handles mod_oGroupResizingEvents.Resizing_EndV2
+
+        ''Added 6/08/2023 thomas downes
+        RscFieldSpreadsheet1.RefreshLeftEdgeOfColumns()
 
     End Sub
 End Class

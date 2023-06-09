@@ -1216,7 +1216,7 @@ Public Class RSCFieldColumnV2
             ''
             ''6/02/2023 td---MyBase.AddSizeability(True, sizingParams)
             MyBase.AddSizeability(Me.LayoutFunctions,
-                       mod_eventsForGroupSize_NotNeeded,
+                       mod_eventsForGroupSize_Needed,
                        mod_eventsForSingleSize,
                        c_bProportionalWH, sizingParams)
 

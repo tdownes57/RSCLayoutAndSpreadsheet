@@ -58,6 +58,8 @@ Public Class GroupMoveEvents_Singleton
     ''9/20/2019 td''Public ParentLayoutForm As FormDesignProtoTwo ''Added 8/4/2019
     Public LayoutFunctions As ILayoutFunctions ''Added 9/20/2019 td
 
+    Public Description As String = "" ''Added 6/8/2023 thomas
+
     ''----------------------------------10/3/2019 td----------------------------------
     ''Public Sub New(par_form As FormDesignProtoTwo)
     ''
@@ -70,7 +72,8 @@ Public Class GroupMoveEvents_Singleton
 
     Public Sub New(par_layoutFun As ILayoutFunctions,
                    Optional pboolAutomatedSingleMovement As Boolean = False,
-                   Optional pbEventkillingBlackhole As Boolean = False)
+                   Optional pbEventkillingBlackhole As Boolean = False,
+                   Optional pstrDescription As String = "")
         ''
         ''Added 9/20/2019 td  
         ''
@@ -103,6 +106,9 @@ Public Class GroupMoveEvents_Singleton
                                     " it creates an event black hole!")
             End If ''end of "If (CountInstantiation > 1) Then"
         End If ''End of "If (bPleaseNoBlackholes) Then"
+
+        ''Added 6/8/2023 
+        Me.Description &= pstrDescription
 
     End Sub
 
@@ -243,5 +249,19 @@ Public Class GroupMoveEvents_Singleton
         RaiseEvent Moving_End(par_control, par_iSave)
 
     End Sub
+
+
+    Public Overrides Function ToString() As String
+        ''
+        ''Added 6/8/2023 td
+        ''
+        ''Return MyBase.ToString())
+        If (Me.Description <> "") Then Return Me.Description
+
+        Return "MoveEvents_GroupSingleton (OrIndividualControl)"
+
+    End Function
+
+
 
 End Class

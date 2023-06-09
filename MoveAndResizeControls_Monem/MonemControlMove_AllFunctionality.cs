@@ -532,7 +532,7 @@ namespace MoveAndResizeControls_Monem
         //           bool pbHookUpEventHandlers = true);
 
         //Added 6/01/2023 thomas downes
-        public void InitForSizing(Control par_container, int par_margin,
+        public void InitForResizing(Control par_container, int par_margin,
                           InterfaceMoveEvents par_eventsGroupOfCtls,
                           InterfaceMoveEvents par_eventsSingleCtl,
                           bool pbResizeProportionally,
@@ -560,6 +560,10 @@ namespace MoveAndResizeControls_Monem
 
             //Added 1/10/2022 td
             mod_events_singleCtl = par_eventsSingleCtl; //Added 1/10/2022
+            
+            //Added 6/08/2023 td
+            //  Huge mistake, I omitted this line (below).  Oops!! --6/2023
+            mod_events_groupedCtls = par_eventsGroupOfCtls; //Added 6/08/2023
 
             _moving = false;
             _repaintAfterResize = true; // pbRepaintAfterResize; //Added 7/31/2019 td 

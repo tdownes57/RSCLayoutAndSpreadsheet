@@ -67,7 +67,7 @@ namespace MoveAndResizeControls_Monem //.Interfaces
                           bool pbHookUpEventHandlers = true);
 
         //Added 6/01/2023 thomas downes
-        void InitForSizing(Control par_container, int par_margin,
+        void InitForResizing(Control par_container, int par_margin,
                           InterfaceMoveEvents par_eventsGroupOfCtls,
                           InterfaceMoveEvents par_eventsSingleCtl,
                           bool pbResizeProportionally,

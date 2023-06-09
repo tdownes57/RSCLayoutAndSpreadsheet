@@ -164,7 +164,7 @@ Public Class ClassDesigner
     Public mod_ControlLastMouseUpCtrlKey As Control ''Added 2/19/2022 td
 
     Private WithEvents mod_oGroupMoveEvents As GroupMoveEvents_Singleton ''Added 1/4/2022 thomas d.
-    Private WithEvents mod_oGroupSizeEvents As GroupMoveEvents_Singleton ''Added 5/01/2023 thomas d.
+    Private WithEvents mod_oGroupResizingEvents As GroupMoveEvents_Singleton ''Added 5/01/2023 thomas d.
     ''Jan2 2022''Public mod_IControlLastTouched As New ClassLastControlTouched ''Added 1/02/2021 thomas d. 
     ''Jan2 2022''Private mod_ElementLastTouched As Control ''Let's change this to IElement_Base soon. ---Added 9/14/2019 td 
     Private mod_ElementLastTouched As RSCMoveableControlVB ''Modified 1/12/2021 td 
@@ -233,10 +233,12 @@ Public Class ClassDesigner
     End Property
 
 
-    Public ReadOnly Property GroupSizeEvents() As GroupMoveEvents_Singleton
+    Public ReadOnly Property GroupResizingEvents() As GroupMoveEvents_Singleton
+        ''6/2023 Public ReadOnly Property GroupSizeEvents() As GroupMoveEvents_Singleton
         Get
             ''Added 5/01/2022 thomas d.
-            Return mod_oGroupSizeEvents
+            ''6/2023 Return mod_oGroupSizeEvents
+            Return mod_oGroupResizingEvents
         End Get
     End Property
 
@@ -1024,11 +1026,23 @@ Public Class ClassDesigner
     End Sub ''End of "Public Sub LoadDesigner"
 
 
-    Public Sub LoadEvents(par_oMoveEvents As GroupMoveEvents_Singleton,
-                          par_oSizeEvents As GroupMoveEvents_Singleton)
+    Public Sub LoadEvents(par_oGroupMoveEvents As GroupMoveEvents_Singleton,
+                          par_oGroupResizingEvents As GroupMoveEvents_Singleton)
+        ''
         ''Added 5/01/2023 thomas 
-        mod_oGroupMoveEvents = par_oMoveEvents
-        mod_oGroupSizeEvents = par_oSizeEvents
+        ''
+        mod_oGroupMoveEvents = par_oGroupMoveEvents
+        mod_oGroupResizingEvents = par_oGroupResizingEvents
+
+        ''Added 6/8/2023 
+        If (mod_oGroupMoveEvents IsNot Nothing) Then
+            mod_oGroupMoveEvents.Description &= " (Loaded by LoadEvents (mod_oGroupMove))"
+        End If
+
+        ''Added 6/8/2023 
+        If (mod_oGroupResizingEvents IsNot Nothing) Then
+            mod_oGroupResizingEvents.Description &= " (Loaded by LoadEvents (mod_oGroupResizing))"
+        End If
 
     End Sub ''End of ""Public Sub LoadEvents(par_oMoveEvents As GroupMoveEvents_Singleton)""
 

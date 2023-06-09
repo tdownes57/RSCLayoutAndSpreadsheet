@@ -1161,13 +1161,29 @@ Public Class RSCSpreadManagerCols
         ''                                                  mod_ctlLasttouched, Me.Designer,
         ''                                                  mod_eventsSingleton,
         ''                                                  Me, par_intFieldIndex)
+        ''6/2023 objNewColumn = RSCFieldColumnV2.GetRSCFieldColumn(objGetParametersForGetControl,
+        ''                                                 par_objField, mod_designer.DesignerForm,
+        ''                                                 "RSCFieldColumn" & CStr(par_intFieldIndex),
+        ''                                                  mod_designer, c_boolProportional,
+        ''                                                  mod_designer.ControlLastTouched, mod_designer,
+        ''                                                  mod_designer.GroupSizeEvents,
+        ''                                                  mod_designer.GroupSizeEvents,
+        ''                                                  mod_controlSpread, par_intFieldIndex)
+
+        Dim events_singleCtl_null As GroupMoveEvents_Singleton = Nothing ''Added 6/8/2023  
+
+        ''Added 6/8/2026 td
+        If (mod_designer.GroupResizingEvents Is Nothing) Then
+            System.Diagnostics.Debugger.Break()
+        End If
+
         objNewColumn = RSCFieldColumnV2.GetRSCFieldColumn(objGetParametersForGetControl,
                                                          par_objField, mod_designer.DesignerForm,
                                                          "RSCFieldColumn" & CStr(par_intFieldIndex),
                                                           mod_designer, c_boolProportional,
                                                           mod_designer.ControlLastTouched, mod_designer,
-                                                          mod_designer.GroupSizeEvents,
-                                                          mod_designer.GroupSizeEvents,
+                                                          mod_designer.GroupResizingEvents,
+                                                          events_singleCtl_null,
                                                           mod_controlSpread, par_intFieldIndex)
 
         ''Added 3/13/2022 thomas downes

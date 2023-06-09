@@ -1192,6 +1192,15 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub RefreshHeightOfRowHeaders()"
 
 
+    Public Sub RefreshLeftEdgeOfColumns()
+        ''
+        ''Added 4/6/2022 thomas d.
+        ''
+        mod_manager.Cols.RefreshAllColumnsLeftProperty()
+
+    End Sub ''End of ""Public Sub RefreshLeftEdgeOfColumns()""
+
+
     Public Sub Load_FieldsFromCache(par_cache As ClassElementsCache_Deprecated)
         ''
         ''Added 2/16/2022 thomas downes
