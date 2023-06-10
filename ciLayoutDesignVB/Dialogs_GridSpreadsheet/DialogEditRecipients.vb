@@ -535,10 +535,29 @@ ExitHandler:
 
     End Sub
 
-    Private Sub mod_oGroupResizingEvents_Resizing_EndV2(par_iSave As ISaveToModel, par_iRefreshElement As IRefreshElementImage, par_iRefreshCardPreview As IRefreshCardPreview, par_bHeightResized As Boolean) Handles mod_oGroupResizingEvents.Resizing_EndV2
+    Private Sub mod_oGroupResizingEvents_Resizing_EndV2(par_iSave As ISaveToModel,
+                                                        par_iRefreshElement As IRefreshElementImage,
+                                                        par_iRefreshCardPreview As IRefreshCardPreview,
+                                                        par_bHeightResized As Boolean) Handles mod_oGroupResizingEvents.Resizing_EndV2
 
         ''Added 6/08/2023 thomas downes
         RscFieldSpreadsheet1.RefreshLeftEdgeOfColumns()
+
+    End Sub
+
+    Private Sub mod_oGroupResizingEvents_Resizing_EndV1(par_iSave As ISaveToModel) Handles mod_oGroupResizingEvents.Resizing_EndV1
+
+        ''Added 6/08/2023 thomas downes
+        RscFieldSpreadsheet1.RefreshLeftEdgeOfColumns()
+
+    End Sub
+
+    Private Sub mod_oGroupResizingEvents_Resizing_Start() Handles mod_oGroupResizingEvents.Resizing_Start
+
+        ''Added 6/08/2023 thomas downes
+        If (False) Then
+            System.Diagnostics.Debugger.Break()
+        End If
 
     End Sub
 End Class
