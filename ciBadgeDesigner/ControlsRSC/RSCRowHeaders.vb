@@ -727,6 +727,10 @@ Public Class RSCRowHeaders
     End Sub ''End of ""Public Sub ShowRecipientsIDCard""
 
 
+
+
+
+
     Private Sub EmphasizeRowHeaders(par_intRowIndex_Start As Integer,
                                   Optional par_intRowIndex_End As Integer = -1)
         ''

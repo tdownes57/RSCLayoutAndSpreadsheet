@@ -69,9 +69,12 @@ Partial Class RSCSelectCIBField
         Me.Controls.Add(Me.LabelHeader)
         Me.Controls.Add(Me.LinkLabelOnlyRelevant)
         Me.Controls.Add(Me.comboBoxRelevantFields)
-        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "RSCSelectCIBField"
         Me.Size = New System.Drawing.Size(182, 64)
+        Me.Controls.SetChildIndex(Me.comboBoxRelevantFields, 0)
+        Me.Controls.SetChildIndex(Me.LinkLabelOnlyRelevant, 0)
+        Me.Controls.SetChildIndex(Me.LabelHeader, 0)
+        Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

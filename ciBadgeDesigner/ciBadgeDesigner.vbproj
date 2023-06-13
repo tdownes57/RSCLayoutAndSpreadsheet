@@ -316,6 +316,9 @@
     <Compile Include="ControlsRSC\RSCFieldColumnV2.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsRSC\RSCFieldSpreadsheet_CommentedCode.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsRSC\RSCInterfaceMouseEvents.vb" />
     <Compile Include="ControlsRSC\RSCLinearGradientBrush.Designer.vb">
       <DependentUpon>RSCLinearGradientBrush.vb</DependentUpon>

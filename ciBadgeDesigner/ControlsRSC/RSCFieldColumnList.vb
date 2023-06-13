@@ -324,7 +324,17 @@ Public Class RSCFieldColumnList
         ''
         Dim objColumnToStart As RSCFieldColumnV2
         objColumnToStart = GetColumnAtIndex(par_indexToStart)
-        RefreshHorizontalPositions(objColumnToStart, par_intPixelsOfGap)
+
+        If (objColumnToStart Is Nothing) Then
+            ''
+            ''Possibly one of the columns was just deleted.
+            ''---6/12/2023 td
+            ''
+        Else
+            ''Object objColumnToStart has a non-null value. 
+            RefreshHorizontalPositions(objColumnToStart, par_intPixelsOfGap)
+
+        End If ''End of ""If (objColumnToStart Is Nothing) Then... Else...""
 
     End Sub ''End of ""Public Sub RefreshHorizontalPositions""
 

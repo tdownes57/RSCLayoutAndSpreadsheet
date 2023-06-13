@@ -103,7 +103,7 @@ Partial Public Class RSCSpreadManagerCols
             each_ctlWindows = each_columnData.GetRSCColumnAsControl()
 
             If (each_ctlWindows) Is Nothing Then
-                System.Diagnostics.Debugger.Break() ''Added 5/22/2023
+                ''System.Diagnostics.Debugger.Break() ''Added 5/22/2023
                 each_RSCColumn = GetColumnWithColumnData(each_columnData)
             Else
                 each_RSCColumn = CType(each_ctlWindows, RSCFieldColumnV2)
@@ -111,11 +111,19 @@ Partial Public Class RSCSpreadManagerCols
 
             ''Moved into above ELSE. 6/06/2023 each_RSCColumn = CType(each_ctlWindows, RSCFieldColumnV2)
 
-            boolNotDeleted = (mod_dlist_RSCColumns.IsStillInList(each_RSCColumn))
-            If (boolNotDeleted) Then
-                ''Needed? each_columnDataFromColumn = each_RSCColumn.ColumnWidthAndData
-                each_RSCColumn.SaveDataTo_ColumnCache()
-            End If ''End of "If (boolNotDeleted) Then"
+            If (each_RSCColumn Is Nothing) Then ''Added 6/12/2023
+                ''
+                ''Do nothing. ---6/12/2023
+                ''
+            Else
+                ''If-Else added 6/12/2023
+                boolNotDeleted = (mod_dlist_RSCColumns.IsStillInList(each_RSCColumn))
+                If (boolNotDeleted) Then
+                    ''Needed? each_columnDataFromColumn = each_RSCColumn.ColumnWidthAndData
+                    each_RSCColumn.SaveDataTo_ColumnCache()
+                End If ''End of "If (boolNotDeleted) Then"
+
+            End If ''End of ""If (each_RSCColumn Is Nothing) Then ... Else..."
 
         Next each_columnData
 
@@ -167,6 +175,16 @@ Partial Public Class RSCSpreadManagerCols
     End Sub ''End of "Public Sub SaveDataColumnByColumnXML()"
 
 
+    Public Sub DeemphasizeCols_NoHighlighting()
+        ''
+        ''Added 6/10/2023 & 5/13/2022 thomas downes
+        ''
+        ''This is an alias function, to assist with quick location by developer(s).
+
+        ClearHighlightingOfSelectedColumns()
+
+    End Sub ''End of ""Public Sub DeemphasizeCols_NoHighlighting()""
+
 
     Public Sub ClearHighlightingOfSelectedColumns()
         ''
@@ -176,7 +194,7 @@ Partial Public Class RSCSpreadManagerCols
         For Each each_column As RSCFieldColumnV2 In Me.ListOfColumns
             objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
             objRSCFieldColumn.FocusRelated_UserHasSelectedColumn = False
-            objRSCFieldColumn.FocusRelated_SetHighlightingOff()
+            objRSCFieldColumn.FocusRelatedCol_SetHighlightingOff()
         Next each_column
 
     End Sub ''End of ""Public Sub ClearHighlightingOfSelectedColumns()""
@@ -196,6 +214,51 @@ Partial Public Class RSCSpreadManagerCols
         Next each_column
 
     End Sub ''End of ""Public Sub ClearDataFromSpreadsheet_NoConfirm()""
+
+
+    Public Sub FocusColumn_Highlight(par_columnToFocus As RSCFieldColumnV2,
+                  Optional par_bUnfocusOthers As Boolean = False)
+        ''
+        ''Added 6/10/2023 td
+        ''
+        ''This is an alias procedure, to aid in location by developer. 
+        ''
+        EmphasizeColumn_Highlight(par_columnToFocus)
+
+    End Sub ''End of ""Public Sub FocusColumn_Highlight
+
+
+
+    Public Sub FocusRows_Highlight(par_intRowIndex_Start As Integer,
+                  Optional par_intRowIndex_End As Integer = -1)
+        ''
+        ''Added 6/10/2023 and 4/29/2022 td
+        ''
+        ''This is an alias procedure, to aid in location by developer. 
+        ''
+        EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
+
+    End Sub ''end Public Sub FocusRows_Highlight
+
+
+    Public Sub EmphasizeColumn_Highlight(par_columnToFocus As RSCFieldColumnV2,
+                  Optional par_bUnfocusOthers As Boolean = False)
+        ''
+        ''Added 6/10/2023 td
+        ''
+        ''This is an alias procedure, to aid in location by developer. 
+        ''
+        If (par_bUnfocusOthers) Then
+            For Each each_col As RSCFieldColumnV2 In mod_dlist_RSCColumns
+                ''Unfocus / clear highlighting / Set Focus Off / Deemphasize.  
+                each_col.FocusRelatedCol_SetHighlightingOff()
+            Next each_col
+        End If ''End fo ""If (par_bUnfocusOthers) Then""
+
+        par_columnToFocus.FocusRelatedCol_SetHighlightingOn()
+
+    End Sub ''End of ""Public Sub EmphasizeColumn_Highlight
+
 
 
     Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,

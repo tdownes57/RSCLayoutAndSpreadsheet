@@ -24,19 +24,19 @@ Partial Class RSCFieldSpreadsheet
     Private Sub InitializeComponent()
         Me.LinkLabelRightClickMenu = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelReviewFields = New System.Windows.Forms.LinkLabel()
-        Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumnV2()
-        Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
         Me.ButtonPasteData1 = New System.Windows.Forms.Button()
         Me.ButtonAddColumns1 = New System.Windows.Forms.Button()
         Me.ButtonAddColumns2 = New System.Windows.Forms.Button()
         Me.ButtonPasteData2 = New System.Windows.Forms.Button()
+        Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumnV2()
+        Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
         Me.SuspendLayout()
         '
         'LinkLabelRightClickMenu
         '
         Me.LinkLabelRightClickMenu.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelRightClickMenu.AutoSize = True
-        Me.LinkLabelRightClickMenu.Location = New System.Drawing.Point(620, 0)
+        Me.LinkLabelRightClickMenu.Location = New System.Drawing.Point(569, 0)
         Me.LinkLabelRightClickMenu.Name = "LinkLabelRightClickMenu"
         Me.LinkLabelRightClickMenu.Size = New System.Drawing.Size(153, 13)
         Me.LinkLabelRightClickMenu.TabIndex = 6
@@ -47,42 +47,12 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.LinkLabelReviewFields.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelReviewFields.AutoSize = True
-        Me.LinkLabelReviewFields.Location = New System.Drawing.Point(367, 0)
+        Me.LinkLabelReviewFields.Location = New System.Drawing.Point(316, 0)
         Me.LinkLabelReviewFields.Name = "LinkLabelReviewFields"
         Me.LinkLabelReviewFields.Size = New System.Drawing.Size(234, 13)
         Me.LinkLabelReviewFields.TabIndex = 7
         Me.LinkLabelReviewFields.TabStop = True
         Me.LinkLabelReviewFields.Text = "Review which fields are Relevant and available."
-        '
-        'RscFieldColumn1
-        '
-        Me.RscFieldColumn1.BackColor = System.Drawing.Color.MediumTurquoise
-        Me.RscFieldColumn1.ColumnWidthAndData = Nothing
-        Me.RscFieldColumn1.ElementInfo_Base = Nothing
-        ''Me.RscFieldColumn1.ListOfColumnsToBumpRight = Nothing
-        Me.RscFieldColumn1.Location = New System.Drawing.Point(131, 30)
-        Me.RscFieldColumn1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscFieldColumn1.Name = "RscFieldColumn1"
-        Me.RscFieldColumn1.PixelsFromRowToRow = 24
-        Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 555)
-        Me.RscFieldColumn1.TabIndex = 9
-        '
-        'RscRowHeaders1
-        '
-        Me.RscRowHeaders1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.RscRowHeaders1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscRowHeaders1.ElementInfo_Base = Nothing
-        Me.RscRowHeaders1.Location = New System.Drawing.Point(2, 139)
-        Me.RscRowHeaders1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscRowHeaders1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscRowHeaders1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscRowHeaders1.Name = "RscRowHeaders1"
-        Me.RscRowHeaders1.PixelsFromRowToRow = 24
-        Me.RscRowHeaders1.Size = New System.Drawing.Size(125, 455)
-        Me.RscRowHeaders1.TabIndex = 8
         '
         'ButtonPasteData1
         '
@@ -124,6 +94,46 @@ Partial Class RSCFieldSpreadsheet
         Me.ButtonPasteData2.Text = "Paste Data"
         Me.ButtonPasteData2.UseVisualStyleBackColor = False
         '
+        'RscFieldColumn1
+        '
+        Me.RscFieldColumn1.BackColor = System.Drawing.Color.MediumTurquoise
+        Me.RscFieldColumn1.ColumnWidthAndData = Nothing
+        Me.RscFieldColumn1.ElementInfo_Base = Nothing
+        Me.RscFieldColumn1.ImageLocation = Nothing
+        Me.RscFieldColumn1.Location = New System.Drawing.Point(150, 36)
+        Me.RscFieldColumn1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscFieldColumn1.Name = "RscFieldColumn1"
+        Me.RscFieldColumn1.PixelsFromRowToRow = 24
+        Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 555)
+        Me.RscFieldColumn1.SizeabilityEventsForGroupCtls = Nothing
+        Me.RscFieldColumn1.SizeabilityEventsForSingleMove = Nothing
+        Me.RscFieldColumn1.SizeabilityEventsForSingleSize = Nothing
+        Me.RscFieldColumn1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscFieldColumn1.TabIndex = 9
+        '
+        'RscRowHeaders1
+        '
+        Me.RscRowHeaders1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.RscRowHeaders1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscRowHeaders1.ColumnWidthAndData = Nothing
+        Me.RscRowHeaders1.ElementInfo_Base = Nothing
+        Me.RscRowHeaders1.ImageLocation = Nothing
+        Me.RscRowHeaders1.Location = New System.Drawing.Point(2, 139)
+        Me.RscRowHeaders1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscRowHeaders1.MoveabilityEventsForGroupCtls = Nothing
+        Me.RscRowHeaders1.MoveabilityEventsForSingleMove = Nothing
+        Me.RscRowHeaders1.Name = "RscRowHeaders1"
+        Me.RscRowHeaders1.PixelsFromRowToRow = 24
+        Me.RscRowHeaders1.Size = New System.Drawing.Size(125, 507)
+        Me.RscRowHeaders1.SizeabilityEventsForGroupCtls = Nothing
+        Me.RscRowHeaders1.SizeabilityEventsForSingleMove = Nothing
+        Me.RscRowHeaders1.SizeabilityEventsForSingleSize = Nothing
+        Me.RscRowHeaders1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
+        Me.RscRowHeaders1.TabIndex = 8
+        '
         'RSCFieldSpreadsheet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -140,7 +150,8 @@ Partial Class RSCFieldSpreadsheet
         Me.Controls.Add(Me.LinkLabelReviewFields)
         Me.Controls.Add(Me.LinkLabelRightClickMenu)
         Me.Name = "RSCFieldSpreadsheet"
-        Me.Size = New System.Drawing.Size(787, 576)
+        Me.Size = New System.Drawing.Size(736, 576)
+        Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelRightClickMenu, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelReviewFields, 0)
         Me.Controls.SetChildIndex(Me.RscRowHeaders1, 0)

@@ -242,7 +242,8 @@ Public Class RSCSelectCIBField
 
     Private Sub RSCSelectCIBField_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
 
-
+        ''Added 6/10/2023 thomas downes
+        RaiseEvent RSCMouseUp(Me, e)
 
     End Sub
 
@@ -261,6 +262,10 @@ Public Class RSCSelectCIBField
 
         ''Added 4/13/2022
         Me.Cursor = Cursors.Default
+
+    End Sub
+
+    Private Sub RSCSelectCIBField_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
 End Class

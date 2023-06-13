@@ -625,7 +625,8 @@ Public Class RSCMoveableControlVB
                               Optional par_objEventsMoveSingleControl As GroupMoveEvents_Singleton = Nothing,
                               Optional pbAddProportionality As Boolean = False,
                               Optional pbHandleMouseEventsThroughUseControlVB As Boolean = True,
-                              Optional pbUseMonemProportionalityClass As Boolean = False)
+                              Optional pbUseMonemProportionalityClass As Boolean = False,
+                              Optional pbOnlyToggleTwoBooleans As Boolean = False)
         ''Jan3 2022 ''Public Sub AddMoveability()
         ''
         ''Added 12/28/2021 td
@@ -636,6 +637,9 @@ Public Class RSCMoveableControlVB
 
         mod_boolRemoveMoveability = False ''Added 3/20/2022 td
         mod_bRemoveSizingAndMoving = False ''Added 5/31/2023 td
+
+        ''Added 6/11/2023 
+        If (pbOnlyToggleTwoBooleans) Then Exit Sub
 
         ''Jan11 2022 td''boolInstantiated = (mod_moveInAGroup IsNot Nothing) OrElse (mod_moveResizeKeepRatio IsNot Nothing)
         boolInstantiated = (mod_eventsForSingleMove IsNot Nothing)
@@ -685,7 +689,8 @@ Public Class RSCMoveableControlVB
             ''Jan11 2022''If (mod_moveInAGroup IsNot Nothing) Then mod_moveInAGroup.RemoveAllFunctionality = False
             ''Jan11 2022''If (mod_moveResizeKeepRatio IsNot Nothing) Then mod_moveResizeKeepRatio.RemoveAllFunctionality = False
 
-            ''Added 1/3/2022 td
+            ''Added 1/3/2022
+            ''td
             ''  Refresh the module-level reference with the
             ''  object reference from the Designer-Form itself. 
             ''  ---1/4/2022 td  
@@ -1856,11 +1861,15 @@ Public Class RSCMoveableControlVB
         ''Added 3/19/2022 thomas downes
         If (ContextMenuStrip1.Items.Count = 0) Then
             ''Added 3/19/2022 thomas downes
-            MessageBoxTD.Show_Statement("The context menu is currently empty.")
-        End If ''End of "If (ContextMenuStrip1.Items.Count = 0) Then"
+            ''6/2023 MessageBoxTD.Show_Statement("The context menu is currently empty.")
+            Exit Sub
+        Else
+            ''6/2023 System.Diagnostics.Debugger.Break()
+        End If ''End of "If (ContextMenuStrip1.Items.Count = 0) Then ... Else..."
 
         ''Feb4 2022 td''ContextMenuStrip1.Show()
-        ContextMenuStrip1.Show(Me.Left + par_intX, Me.Top + par_intY)
+        ''Jun12 2023 ContextMenuStrip1.Show(Me.Left + par_intX, Me.Top + par_intY)
+        ContextMenuStrip1.Show(Me, par_intX, par_intY)
 
         ''Dim objDisplayMenu As New ClassDisplayContextMenu(ContextMenuStrip1)
         ''Const c_intRandom As Integer = 5

@@ -250,6 +250,17 @@ Public Class RSCFieldColumnV2
                                par_oSizeEventsForSingleControl,
                                False, oStructResizeParams)
 
+            ''Added 6/11/2023 td
+            Const c_bAllowColumnSwitching As Boolean = False ''True
+            If (c_bAllowColumnSwitching) Then
+                Const c_bToggleTwoMovingBooleans As Boolean = True
+                Const c_bHandleMouseEventsByControl As Boolean = True ''False
+                If (bAddFunctionalityLater) Then .AddMoveability(par_iLayoutFun,
+                                   par_oSizeEventsForGroupedCtls,
+                                   par_oSizeEventsForSingleControl,
+                                   False, c_bHandleMouseEventsByControl, False, c_bToggleTwoMovingBooleans)
+            End If ''End of ""If (c_bAllowColumnSwitching) Then""
+
             If (bAddFunctionalityLater) Then .AddClickability()
 
             ''Added 2/5/2022 td
@@ -673,7 +684,7 @@ Public Class RSCFieldColumnV2
         ''Added 5/13/2022 td 
         Me.ParentSpreadsheet.ClearHighlightingOfSelectedColumns()
         Me.FocusRelated_UserHasSelectedColumn = True
-        Me.FocusRelated_SetHighlightingOn()
+        Me.FocusRelatedCol_SetHighlightingOn()
 
     End Sub ''End of ""Public Sub Handle_CellHasFocus""
 
@@ -2281,7 +2292,26 @@ Public Class RSCFieldColumnV2
 
     End Sub ''End of ""Public Sub Load_EmptyRows_CreateRows()""
 
-    Public Sub FocusRelated_SetHighlightingOn()
+
+    Public Sub EmphasizeColumn_SetHighlighting()
+        ''
+        ''Added 6/10/2023 
+        ''
+        FocusRelatedCol_SetHighlightingOn()
+
+    End Sub ''End of ""Public Sub EmphasizeColumn_SetHighlighting()""
+
+
+    Public Sub DeemphasizeColumn_UndoHighlighting()
+        ''
+        ''Added 6/10/2023 
+        ''
+        FocusRelatedCol_SetHighlightingOff()
+
+    End Sub ''End of ""Public Sub DeemphasizeColumn_SetHighlighting()""
+
+
+    Public Sub FocusRelatedCol_SetHighlightingOn()
         ''
         ''Added 5/13/2022 
         ''
@@ -2292,14 +2322,14 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub FocusRelated_SetHighlightingOn()""
 
 
-    Public Sub FocusRelated_SetHighlightingOff()
+    Public Sub FocusRelatedCol_SetHighlightingOff()
         ''
         ''Added 5/13/2022 
         ''
         ''5/13/2022 ''Me.BackColor = RSCDataCell.BackColor_NoEmphasis
         Me.BackColor = RSCFieldColumnV2.BackColor_NoEmphasis
 
-    End Sub ''End of ""Public Sub FocusRelated_SetHighlightingOff()""
+    End Sub ''End of ""Public Sub FocusRelatedCol_SetHighlightingOff()""
 
 
     Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
@@ -2657,7 +2687,9 @@ Public Class RSCFieldColumnV2
         ''Added 5/13/2022 td 
         Me.ParentSpreadsheet.ClearHighlightingOfSelectedColumns()
         Me.FocusRelated_UserHasSelectedColumn = True
-        Me.FocusRelated_SetHighlightingOn()
+
+        ''6/2023 Me.FocusRelated_SetHighlightingOn()
+        Me.FocusRelatedCol_SetHighlightingOn()
 
         ''Added 3/11/2022 thomas downes
         If mod_bHandleMouseMoveEvents_ByVB6 Then
@@ -2731,7 +2763,12 @@ Public Class RSCFieldColumnV2
 
             MyBase.MoveableControl_MouseUp(Me, par_argsEvent)
 
-        End If ''End of "If (par_argsEvent.Button = MouseButtons.Right) Then"
+        Else
+
+            ''6/2023 EmphasizeColumn_SetHighlighting()
+            ParentSpreadsheet.EmphasizeCol_Highlight(Me, True)
+
+        End If ''End of "If (par_argsEvent.Button = MouseButtons.Right) Then ... Else"
 
     End Sub
 
