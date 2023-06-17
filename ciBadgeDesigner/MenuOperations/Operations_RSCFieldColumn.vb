@@ -78,13 +78,14 @@ Public Class Operations_RSCFieldColumn
         ''Copy-pasted 1/24/2022 thomas downes
         ''Added 8/17/2019 thomas downes
         ''         
-        Dim objRSCFieldColumn As RSCFieldColumnV1
+        Dim objRSCFieldColumn As RSCFieldColumnV2 ''6/2023 RSCFieldColumnV1
         Dim boolConfirmed As Boolean
 
         boolConfirmed = (MessageBoxTD.Show_Confirmed("Clear all data from this column?",
                                                      "(To undo, hit Cancel or select Undo.)", True))
         If (boolConfirmed) Then
-            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
+            ''6/2023 objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV1)
+            objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV2)
             objRSCFieldColumn.ClearDataFromColumn_Do()
             mod_bClearingExists_MayBeUndone = True
         End If ''End of "If (boolConfirmed) Then"
@@ -239,7 +240,20 @@ Public Class Operations_RSCFieldColumn
 
         End If ''end of ""If (MessageBoxTD.Show_Confirmed("Delete .....") ....
 
-    End Sub ''End of "Public Sub Delete_This_Column_FC2005"
+    End Sub ''End of "Public Sub Delete_This_Column_FC2006"
+
+
+    Public Sub Allow_This_Column_To_Be_Moved_FC2007(sender As Object, e As EventArgs)
+        ''
+        ''Added 6/12/2023 thomas downes
+        ''
+        Dim objRSCFieldColumn As RSCFieldColumnV2 ''6/2023 RSCFieldColumnV1
+        objRSCFieldColumn = CType(CtlCurrentControl, RSCFieldColumnV2)
+
+        objRSCFieldColumn.AddMoveability(Me.Designer)
+
+    End Sub ''End of "Public Sub Delete_This_Column_FC2007"
+
 
 
 
