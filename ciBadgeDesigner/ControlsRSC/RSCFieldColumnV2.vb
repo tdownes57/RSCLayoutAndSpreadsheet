@@ -2831,6 +2831,14 @@ Public Class RSCFieldColumnV2
 
     End Sub
 
+    Private Sub LabelMoveLeft_Click(sender As Object, e As EventArgs) Handles LabelMoveLeft.Click
+
+        ''Added 6/18/2023 thomas downes
+        Const c_boolSwitchLeft As Boolean = True
+        ParentSpreadsheet.SwitchColumnPositions(Me, c_boolSwitchLeft)
+
+    End Sub
+
     ''Private Sub RSCDataCell3_TextChanged(sender As Object, e As EventArgs) Handles RSCDataCell6a.TextChanged
 
     ''End Sub

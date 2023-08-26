@@ -1362,6 +1362,30 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of ""Public Sub InsertColumnLeftOfSpecified(par_intColumnIndex As Integer)""
 
 
+    Public Sub SwitchColumnToLeftOfSpecified(par_column As RSCFieldColumnV2)
+        ''    
+        ''Added 6/18/2023 thomas downes 
+        ''    
+        ''mod_manager.Cols.SwitchColumnToTheLeft(par_column)
+        ''mod_manager.Cols.ShiftColumnToTheLeft(par_column)
+        ''mod_manager.Cols.MoveColumnToTheLeft(par_column)
+        mod_manager.Cols.SwitchColumnWithOneToTheLeft(par_column)
+
+    End Sub ''End of ""Public Sub SwitchColumnToLeftOfSpecified(par_column As RSCFieldColumnV2)""
+
+
+    Public Sub SwitchColumnToRightOfSpecified(par_column As RSCFieldColumnV2)
+        ''    
+        ''Added 6/18/2023 thomas downes 
+        ''    
+        ''mod_manager.Cols.SwitchColumnToTheRight(par_column)
+        ''mod_manager.Cols.ShiftColumnToTheRight(par_column)
+        ''mod_manager.Cols.MoveColumnToTheRight(par_column)
+        mod_manager.Cols.SwitchColumnWithOneToTheRight(par_column)
+
+    End Sub ''End of ""Public Sub SwitchColumnToLeftOfSpecified(par_column As RSCFieldColumnV2)""
+
+
     Public Sub InsertColumnRightOfSpecified(par_column As RSCFieldColumnV2,
                                             Optional pint_howManyNewColumns As Integer = 1)
         ''    

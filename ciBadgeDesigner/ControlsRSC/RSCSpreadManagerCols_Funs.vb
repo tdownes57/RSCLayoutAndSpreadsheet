@@ -7,6 +7,7 @@
 ''4/26/2023 Imports __RSCWindowsControlLibrary
 ''4/26/2023 Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 ''4/26/2023 Imports ciBadgeElements
+Imports System.Drawing.Text
 Imports ciBadgeCachePersonality
 Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
@@ -276,6 +277,7 @@ Partial Public Class RSCSpreadManagerCols
 
     End Function ''End of ""Public Function GetNextColumn_RightOf(....)""
 
+
     Public Function GetColumnWithColumnData(par_columnData As ClassRSCColumnWidthAndData) As RSCFieldColumnV2
         ''
         ''Added 6/06/2023
@@ -297,6 +299,7 @@ Partial Public Class RSCSpreadManagerCols
         Return Nothing
 
     End Function ''end of ""Public Function GetColumnWithColumnData""
+
 
     Public Function GetNextColumn_LeftOf(par_column As RSCFieldColumnV2) As RSCFieldColumnV2
         ''
@@ -364,6 +367,91 @@ Partial Public Class RSCSpreadManagerCols
         ''Return -1
 
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
+
+
+    Public Sub SwitchColumnWithOneToTheLeft(par_column As RSCFieldColumnV2)
+        ''
+        ''Added 4/15/2022 td
+        ''
+        Dim columnToTheLeft As RSCFieldColumnV2 = par_column.FieldColumnNextLeft
+        Dim columnToLeftOfLeft As RSCFieldColumnV2 = columnToTheLeft.FieldColumnNextLeft
+        Dim columnToTheRight As RSCFieldColumnV2 = par_column.FieldColumnNextRight
+
+        Dim column1_Orig = columnToLeftOfLeft
+        Dim column2_Orig = columnToTheLeft
+        Dim column3_Orig = par_column
+        Dim column4_Orig = columnToTheRight
+
+        Dim column1_Final = column1_Orig
+        Dim column2_Final = column3_Orig ''#2 (Final) points to #3 (Orig) NOT #2 (Orig) (SWITCHING!!)
+        Dim column3_Final = column2_Orig ''#3 (Final) points to #2 (Orig) NOT #3 (Orig) (SWITCHING!!)
+        Dim column4_Final = column4_Orig
+
+        ''
+        ''Attach the four(4) columns in the correct order.
+        ''
+        AttachFourColumnsToEachother(column1_Final, column2_Final,
+                                     column3_Final, column4_Final)
+
+    End Sub ''Public Sub SwitchColumnWithOneToTheLeft(par_column As RSCFieldColumnV2)
+
+
+    Public Sub SwitchColumnWithOneToTheRight(par_column As RSCFieldColumnV2)
+        ''
+        ''Added 4/15/2022 td
+        ''
+        Dim columnToTheLeft As RSCFieldColumnV2 = par_column.FieldColumnNextLeft
+        Dim columnToTheRight As RSCFieldColumnV2 = par_column.FieldColumnNextRight
+        Dim columnToRightOfRight As RSCFieldColumnV2 = columnToTheRight.FieldColumnNextRight
+
+        Dim column1_Orig = columnToTheLeft
+        Dim column2_Orig = par_column
+        Dim column3_Orig = columnToTheRight
+        Dim column4_Orig = columnToRightOfRight
+
+        Dim column1_Final = column1_Orig
+        Dim column2_Final = column3_Orig ''#2 (Final) points to #3 (Orig) NOT #2 (Orig) (SWITCHING!!)
+        Dim column3_Final = column2_Orig ''#3 (Final) points to #2 (Orig) NOT #3 (Orig) (SWITCHING!!)
+        Dim column4_Final = column4_Orig
+
+        ''
+        ''Attach the four(4) columns in the correct order.
+        ''
+        AttachFourColumnsToEachother(column1_Final, column2_Final,
+                                     column3_Final, column4_Final)
+
+    End Sub ''Public Sub SwitchColumnWithOneToTheRight(par_column As RSCFieldColumnV2)
+
+
+    Private Sub AttachFourColumnsToEachother(pcolumn1 As RSCFieldColumnV2, pcolumn2 As RSCFieldColumnV2,
+                                            pcolumn3 As RSCFieldColumnV2, pcolumn4 As RSCFieldColumnV2)
+        ''
+        ''Create the inner connections for four(4) columns, 
+        ''  in the order implied by the parameter list. 
+        ''
+        ''Column 1
+        If (pcolumn1 IsNot Nothing) Then
+            pcolumn1.FieldColumnNextRight = pcolumn2
+        End If
+
+        ''Column 2
+        pcolumn2.FieldColumnNextLeft = pcolumn1
+        pcolumn2.FieldColumnNextRight = pcolumn3
+
+        ''Column 3
+        pcolumn3.FieldColumnNextLeft = pcolumn2
+        pcolumn3.FieldColumnNextRight = pcolumn4
+
+        ''Column 4
+        If (pcolumn4 IsNot Nothing) Then
+            pcolumn4.FieldColumnNextLeft = pcolumn3
+        End If
+
+        ''
+        ''Brilliant!!
+        ''
+
+    End Sub ''Public Sub AttachFourColumnsToEachother(pcolumn1 As RSCFieldColumnV2....)
 
 
     Public Function GetRowIndexOfCell(par_objDataCell As RSCDataCell) As Integer
