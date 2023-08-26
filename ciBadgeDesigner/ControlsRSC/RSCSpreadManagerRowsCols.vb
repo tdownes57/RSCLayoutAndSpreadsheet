@@ -4,13 +4,13 @@
 
 Imports ciBadgeCachePersonality
 
-Public Class RSCSpreadManager
+Public Class RSCSpreadManagerRowsCols
     ''
     ''Added 4/18/2023 
     ''
     Private mod_manageRows As RSCSpreadManagerRows ''Added 4/18/2023 
     Private mod_manageCols As RSCSpreadManagerCols ''Added 4/18/2023 
-    Private mod_manageRowHeaders As RSCSpreadManagerRowHeaders ''Added 4/19/2023 
+    Private mod_manageRowHeaders As RSCSpreadManagerRowheaders ''Added 4/19/2023 
     Private mod_controlSpread As RSCFieldSpreadsheet ''Added 4/18/2023 
     Private mod_cacheElements As ClassElementsCache_Deprecated
     Private mod_designer As ClassDesigner ''Added 4/30/2023 
@@ -82,7 +82,7 @@ Public Class RSCSpreadManager
     End Property
 
 
-    Public ReadOnly Property RowHeaders As RSCSpreadManagerRowHeaders
+    Public ReadOnly Property RowHeaders As RSCSpreadManagerRowheaders
         Get
             ''Added 4/18/2023
             ''  Return the RowHeaders Manager. 

@@ -45,7 +45,7 @@ Public Class RSCFieldSpreadsheet
     Public LoadColumnDataByReadingRecipients As Boolean ''Added 5/31/2023 thomas
 
     ''Added 4/18/2023 td
-    Private mod_manager As RSCSpreadManager
+    Private mod_managerRowsCols As RSCSpreadManagerRowsCols
 
     Private Const DefaultBlankRowCount As Integer = 18 ''20 ''Added 4/4/2023 td
 
@@ -88,7 +88,7 @@ Public Class RSCFieldSpreadsheet
     Public Function ListOfColumns() As List(Of RSCFieldColumnV2)
 
         ''Added 4/18/2023 
-        Return mod_manager.Cols.ListOfColumns()
+        Return mod_managerRowsCols.Cols.ListOfColumns()
 
     End Function ''End of ""Public Function ListOfColumns() As List(Of RSCFieldColumn)""
 
@@ -326,7 +326,7 @@ Public Class RSCFieldSpreadsheet
             ''If (columnLeftHandMost Is Nothing) Then
             ''    columnLeftHandMost = mod_dict_RSCColumns(1)
             ''End If ''End of ""If (columnLeftHandMost Is Nothing) Then""
-            columnLeftHandMost = mod_manager.Cols.LeftHandColumn()
+            columnLeftHandMost = mod_managerRowsCols.Cols.LeftHandColumn()
 
         Catch exceptionRSC
             boolException = True
@@ -356,7 +356,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 5/13/2022 thomas downes
         ''
-        mod_manager.Cols.MoveTextCaret_IfNeeded(par_intNewRowIndex)
+        mod_managerRowsCols.Cols.MoveTextCaret_IfNeeded(par_intNewRowIndex)
 
     End Sub
 
@@ -369,7 +369,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Encapsulated 4/26/2023  
         ''
-        mod_manager.Cols.SaveToRecipient(par_objRecipient, par_iRowIndex,
+        mod_managerRowsCols.Cols.SaveToRecipient(par_objRecipient, par_iRowIndex,
                                          pboolFailure, pintHowManyColumnsFailed)
 
     End Sub
@@ -396,7 +396,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/15/2022 td
         ''
-        Return mod_manager.Cols.GetIndexOfColumn(par_column)
+        Return mod_managerRowsCols.Cols.GetIndexOfColumn(par_column)
 
     End Function ''end of Public Function GetIndexOfColumn(par_column As RSCFieldColumnV2) As Integer
 
@@ -461,7 +461,7 @@ Public Class RSCFieldSpreadsheet
         ''
         '' Added 5/25/2022  
         ''
-        mod_manager.Cols.CountOfColumnsWithoutFields()
+        mod_managerRowsCols.Cols.CountOfColumnsWithoutFields()
 
     End Function ''End of ""Public Function CountOfColumnsWithoutFields() As Integer""
 
@@ -473,7 +473,7 @@ Public Class RSCFieldSpreadsheet
         ''
         Dim bUserWantsFieldsManager As Boolean
 
-        Return mod_manager.Cols.ReviewColumnDisplayForRelevantFields_1to1(pboolMessageUser,
+        Return mod_managerRowsCols.Cols.ReviewColumnDisplayForRelevantFields_1to1(pboolMessageUser,
                                     bUserWantsFieldsManager)
 
         If (bUserWantsFieldsManager) Then ShowFieldsManagement()
@@ -673,7 +673,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Return mod_manager.Cols.GetNextColumn_RightOf(par_column)
+        Return mod_managerRowsCols.Cols.GetNextColumn_RightOf(par_column)
 
         ''Dim each_column As RSCFieldColumnV2
         ''Dim boolMatches As Boolean
@@ -693,7 +693,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Return mod_manager.Cols.GetNextColumn_LeftOf(par_column)
+        Return mod_managerRowsCols.Cols.GetNextColumn_LeftOf(par_column)
 
         ''Dim each_column As RSCFieldColumnV2
         ''Dim prior_column As RSCFieldColumnV2 = Nothing
@@ -716,7 +716,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/12/2022 thomas downes
         ''
-        Return mod_manager.Cols.GetFirstColumn()
+        Return mod_managerRowsCols.Cols.GetFirstColumn()
 
         ''4/2023 If (0 = mod_array_RSCColumns.Length) Then Return Nothing
         ''If (0 = mod_dict_RSCColumns.Values.Count) Then Return Nothing
@@ -894,7 +894,7 @@ Public Class RSCFieldSpreadsheet
             ''Ensure the needed # of RSCDataCells are present across all columns.----4/15/2022
             ''
             ''4/26/2023 Load_EmptyRowsToAllNewColumns()
-            mod_manager.Rows.Load_EmptyRowsToAllNewColumns()
+            mod_managerRowsCols.Rows.Load_EmptyRowsToAllNewColumns()
 
             ''Dim intEachRowCount As Integer = 1
             ''Dim intMaxRowCount As Integer = 1
@@ -959,7 +959,7 @@ Public Class RSCFieldSpreadsheet
             ''    If (intRowOfDataCell > 0) Then Exit For
             ''Next each_column
 
-            intRowOfDataCell = mod_manager.GetRowIndexOfCell(par_objDataCell)
+            intRowOfDataCell = mod_managerRowsCols.GetRowIndexOfCell(par_objDataCell)
 
             Dim boolRowHasEmphasis As Boolean
 
@@ -1004,7 +1004,7 @@ Public Class RSCFieldSpreadsheet
             ''    objRSCFieldColumn = each_column ''---CType(each_column, RSCFieldColumn)
             ''    objRSCFieldColumn.ClearDataFromColumn_Do()
             ''Next each_column
-            mod_manager.Cols.ClearDataFromSpreadsheet_NoConfirm()
+            mod_managerRowsCols.Cols.ClearDataFromSpreadsheet_NoConfirm()
 
         Else
             ''Added 3/29/2022 td
@@ -1040,7 +1040,7 @@ Public Class RSCFieldSpreadsheet
         ''    objRSCFieldColumn.FocusRelated_UserHasSelectedColumn = False
         ''    objRSCFieldColumn.FocusRelated_SetHighlightingOff()
         ''Next each_column
-        mod_manager.Cols.ClearHighlightingOfSelectedColumns()
+        mod_managerRowsCols.Cols.ClearHighlightingOfSelectedColumns()
 
     End Sub ''End of ""Public Sub ClearHighlightingOfSelectedColumns()""
 
@@ -1055,9 +1055,9 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Major call!!
         ''
-        If (mod_manager Is Nothing) Then
+        If (mod_managerRowsCols Is Nothing) Then
             ''Add new column-and-row manager.  ---4/30/2023 thomas downes
-            mod_manager = New RSCSpreadManager(Me, par_designer, RscFieldColumn1,
+            mod_managerRowsCols = New RSCSpreadManagerRowsCols(Me, par_designer, RscFieldColumn1,
                   Me.ElementsCache_Deprecated, Me.ColumnDataCache,
                     par_bLoadColumnListByReadingColumnCache,
                     par_bLoadColumnDataByReadingColumnCache,
@@ -1065,7 +1065,7 @@ Public Class RSCFieldSpreadsheet
         End If ''End of ""If (mod_manager Is Nothing) Then""
 
         ''4/26/2023 mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer)
-        mod_manager.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer,
+        mod_managerRowsCols.Cols.LoadRuntimeColumns_AfterClearingDesign(par_designer,
                                                      mc_intPixelsFromRowToRow,
                                                 par_bLoadColumnListByReadingColumnCache,
                                                 par_bLoadColumnDataByReadingColumnCache,
@@ -1078,11 +1078,11 @@ Public Class RSCFieldSpreadsheet
         ''   Step 1b(1):  Remove design-time control
         ''   Step 1b(2):  Load run-time control
         ''
-        mod_manager.LoadRowHeadersControl(mc_intPixelsFromRowToRow)
+        mod_managerRowsCols.LoadRowHeadersControl(mc_intPixelsFromRowToRow)
 
         ''---Dim mod_array_RSCColumns As RSCFieldColumn()
         Dim intNeededMaxCols As Integer
-        intNeededMaxCols = mod_manager.Cols.Count()
+        intNeededMaxCols = mod_managerRowsCols.Cols.Count()
         If (intNeededMaxCols > 1) Then ''Added 5/30/2022
             ''added 5/30/2022 & 5/13/2022
             If mc_boolKeepUILookingClean Then
@@ -1131,7 +1131,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Moved to Row Manager, RSCSpreadManagerRows.  4/26/2023
         ''4/26/2023  Load_EmptyRowsToAllNewColumns()
-        mod_manager.Rows.Load_EmptyRowsToAllNewColumns()
+        mod_managerRowsCols.Rows.Load_EmptyRowsToAllNewColumns()
 
     End Sub  ''End of ""Public Sub LoadRuntimeColumns_AfterClearingDesign(par_designer As ClassDesigner)""
 
@@ -1140,7 +1140,7 @@ Public Class RSCFieldSpreadsheet
     Public Sub AddToEdgeOfSpreadsheet_Row()
 
         ''Added 4/24/2023 thomas downes
-        mod_manager.Rows.AddToEdgeOfSpreadsheet_Row()
+        mod_managerRowsCols.Rows.AddToEdgeOfSpreadsheet_Row()
 
     End Sub ''End of ""Public Sub AddToEdgeOfSpreadsheet_Row()""
 
@@ -1148,7 +1148,7 @@ Public Class RSCFieldSpreadsheet
     Public Sub AddToEdgeOfSpreadsheet_Column()
 
         ''Added 4/18/2023 thomas downes
-        mod_manager.Cols.AddToEdgeOfSpreadsheet_Column(mc_intPixelsFromRowToRow)
+        mod_managerRowsCols.Cols.AddToEdgeOfSpreadsheet_Column(mc_intPixelsFromRowToRow)
 
         ''Added 4/26/2023 thomas downes
         If mc_boolKeepUILookingClean Then
@@ -1196,7 +1196,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/6/2022 thomas d.
         ''
-        mod_manager.Cols.RefreshAllColumnsLeftProperty()
+        mod_managerRowsCols.Cols.RefreshAllColumnsLeftProperty()
 
     End Sub ''End of ""Public Sub RefreshLeftEdgeOfColumns()""
 
@@ -1221,7 +1221,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 6/10/2023
         ''
-        mod_manager.Cols.EmphasizeColumn_Highlight(par_column, pboolDemphasizeOthers)
+        mod_managerRowsCols.Cols.EmphasizeColumn_Highlight(par_column, pboolDemphasizeOthers)
 
     End Sub ''End of ""Public Sub EmphasizeCol_High light""
 
@@ -1239,7 +1239,7 @@ Public Class RSCFieldSpreadsheet
         End If
 
         ''Encapsulated 4/28/2023 
-        mod_manager.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
+        mod_managerRowsCols.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
 
         ''4/28/2023 For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
         ''
@@ -1259,7 +1259,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/29/2022 td
         ''
-        mod_manager.Cols.DeemphasizeRows_NoHighlight(par_intRowIndex_Start, par_intRowIndex_End)
+        mod_managerRowsCols.Cols.DeemphasizeRows_NoHighlight(par_intRowIndex_Start, par_intRowIndex_End)
 
         ''4/26/2023 For Each each_col As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
         ''    If (each_col Is Nothing) Then Continue For ''Added 4/29/2022 td 
@@ -1273,7 +1273,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 5/14/2022 thomas downes 
         ''
-        Return mod_manager.Cols.HasIdentifyingData()
+        Return mod_managerRowsCols.Cols.HasIdentifyingData()
 
         ''4/28/2028 Dim each_column As RSCFieldColumnV2
         ''Dim bColHasIdentifyingData As Boolean
@@ -1291,7 +1291,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/8/2022 thomas d
         ''
-        mod_manager.Cols.RemoveRSCColumnsFromDesignTime()
+        mod_managerRowsCols.Cols.RemoveRSCColumnsFromDesignTime()
 
     End Sub ''End of ""Private Sub RemoveRSCColumnsFromDesignTime()""
 
@@ -1300,7 +1300,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 3/16/2022 Thomas Downes 
         ''
-        mod_manager.Cols.AddColumnsToRighthandSide(par_intNumber, mc_intPixelsFromRowToRow)
+        mod_managerRowsCols.Cols.AddColumnsToRighthandSide(par_intNumber, mc_intPixelsFromRowToRow)
 
     End Sub ''ENd of "Public Sub AddColumnsToRighthandSide(par_intNumber As Integer)""
 
@@ -1311,7 +1311,7 @@ Public Class RSCFieldSpreadsheet
     Public Sub SaveDataColumnByColumnXML(Optional pboolOpenXML As Boolean = False)
 
         ''Encapsulated 4/26/2023 td
-        mod_manager.Cols.SaveDataColumnByColumnXML(pboolOpenXML)
+        mod_managerRowsCols.Cols.SaveDataColumnByColumnXML(pboolOpenXML)
 
         ''
         ''Resize the form based on the save form size.---3/20/2022
@@ -1348,7 +1348,7 @@ Public Class RSCFieldSpreadsheet
         ''    ''
         ''    ''Added 3/20/2022 thomas downes 
         ''    ''
-        mod_manager.Cols.InsertNewColumnByIndex(par_intColumnIndex, mc_intPixelsFromRowToRow)
+        mod_managerRowsCols.Cols.InsertNewColumnByIndex(par_intColumnIndex, mc_intPixelsFromRowToRow)
 
     End Sub ''End of ""Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer)""
 
@@ -1357,7 +1357,7 @@ Public Class RSCFieldSpreadsheet
         ''    
         ''Added 5/08/2023 thomas downes 
         ''    
-        mod_manager.Cols.InsertColumnLeftOfSpecified(par_column, mc_intPixelsFromRowToRow)
+        mod_managerRowsCols.Cols.InsertColumnLeftOfSpecified(par_column, mc_intPixelsFromRowToRow)
 
     End Sub ''End of ""Public Sub InsertColumnLeftOfSpecified(par_intColumnIndex As Integer)""
 
@@ -1369,7 +1369,7 @@ Public Class RSCFieldSpreadsheet
         ''mod_manager.Cols.SwitchColumnToTheLeft(par_column)
         ''mod_manager.Cols.ShiftColumnToTheLeft(par_column)
         ''mod_manager.Cols.MoveColumnToTheLeft(par_column)
-        mod_manager.Cols.SwitchColumnWithOneToTheLeft(par_column)
+        mod_managerRowsCols.Cols.SwitchColumnWithOneToTheLeft(par_column)
 
     End Sub ''End of ""Public Sub SwitchColumnToLeftOfSpecified(par_column As RSCFieldColumnV2)""
 
@@ -1381,7 +1381,7 @@ Public Class RSCFieldSpreadsheet
         ''mod_manager.Cols.SwitchColumnToTheRight(par_column)
         ''mod_manager.Cols.ShiftColumnToTheRight(par_column)
         ''mod_manager.Cols.MoveColumnToTheRight(par_column)
-        mod_manager.Cols.SwitchColumnWithOneToTheRight(par_column)
+        mod_managerRowsCols.Cols.SwitchColumnWithOneToTheRight(par_column)
 
     End Sub ''End of ""Public Sub SwitchColumnToLeftOfSpecified(par_column As RSCFieldColumnV2)""
 
@@ -1397,7 +1397,7 @@ Public Class RSCFieldSpreadsheet
         For indexNew As Integer = 1 To pint_howManyNewColumns
 
             ''By default, this Insert procedure exactly one(1) time. ---5/22/2023
-            mod_manager.Cols.InsertColumnRightOfSpecified(par_column, mc_intPixelsFromRowToRow)
+            mod_managerRowsCols.Cols.InsertColumnRightOfSpecified(par_column, mc_intPixelsFromRowToRow)
 
         Next indexNew
 
@@ -1417,7 +1417,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/18/2022 thomas downes 
         ''
-        mod_manager.Cols.DeleteColumnByIndex(par_intColumnIndex)
+        mod_managerRowsCols.Cols.DeleteColumnByIndex(par_intColumnIndex)
 
     End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
 
@@ -1427,7 +1427,7 @@ Public Class RSCFieldSpreadsheet
         ''Added 4/18/2022 thomas downes 
         ''
         ''5/7/2023 mod_manager.Cols.DeleteColumnByIndex(par_intColumnIndex)
-        mod_manager.Cols.DeleteColumn(par_columnToDelete, par_intColumnIndex)
+        mod_managerRowsCols.Cols.DeleteColumn(par_columnToDelete, par_intColumnIndex)
 
     End Sub ''ENd of ""Public Sub DeleteColumnByIndex""
 
@@ -1436,7 +1436,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 5/9/2023 
         ''
-        mod_manager.Cols.UndoLastColumnDeletion()
+        mod_managerRowsCols.Cols.UndoLastColumnDeletion()
 
     End Sub ''ENd of ""Public Sub UndoLastColumnDeletion()""
 
@@ -1488,7 +1488,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/13/2022 thomas downes
         ''
-        mod_manager.Cols.RefreshFieldDropdowns()
+        mod_managerRowsCols.Cols.RefreshFieldDropdowns()
 
         ''4/2023 For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
         ''    ''Added 4/13/2022 thomas downes
@@ -1501,12 +1501,26 @@ Public Class RSCFieldSpreadsheet
     End Sub ''End of "Public Sub RefreshFieldDropdowns()"
 
 
+    Public Sub SwitchColumnPositions(par_column As RSCFieldColumnV2, par_doSwitchLeft As Boolean)
+        ''
+        ''Added 8/25/2023 
+        ''
+        If (par_doSwitchLeft) Then
+            mod_managerRowsCols.Cols.SwitchColumnWithOneToTheLeft(par_column)
+        Else
+            mod_managerRowsCols.Cols.SwitchColumnWithOneToTheRight(par_column)
+        End If
+
+    End Sub ''Public Sub SwitchColumnPositions
+
+
+
     Public Function ToString_ByRow(par_intRowIndex As Integer,
                         Optional pboolRowIndices As Boolean = False) As String
         ''
         ''Added 4/03/2022
         ''
-        Return mod_manager.Cols.ToString_ByRow(par_intRowIndex, pboolRowIndices)
+        Return mod_managerRowsCols.Cols.ToString_ByRow(par_intRowIndex, pboolRowIndices)
 
         ''Dim intCountColumns As Integer
         ''Dim list_columns As List(Of RSCFieldColumnV2)
@@ -1555,7 +1569,7 @@ Public Class RSCFieldSpreadsheet
 
         exampleColumnMaxVals = Me.ColumnDataCache.RSCColumnWithMaximalDataCells()
         ''4/2023 exampleColumnMaxCells = mod_dict_RSCColumns(0)
-        exampleColumnMaxCells = mod_manager.Cols.GetFirstColumn()
+        exampleColumnMaxCells = mod_managerRowsCols.Cols.GetFirstColumn()
 
         intHowManyCellRows = exampleColumnMaxCells.CountOfRows()
         intHowManyDataValues = exampleColumnMaxVals.ColumnData.Count
@@ -1581,7 +1595,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Matching-Checks routine #1 of 2--Column by Column  
         ''
-        sum_matches1of2 = mod_manager.Cols.Equals_RecipientListAtClose(list_recipients)
+        sum_matches1of2 = mod_managerRowsCols.Cols.Equals_RecipientListAtClose(list_recipients)
 
         ''4/2023 For Each each_column In mod_dict_RSCColumns.Values
         ''    If (each_column Is Nothing) Then Continue For
@@ -1740,7 +1754,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/10/2023
         ''
-        mod_manager.Cols.RefreshAllColumnsLeftProperty()
+        mod_managerRowsCols.Cols.RefreshAllColumnsLeftProperty()
 
     End Sub
 

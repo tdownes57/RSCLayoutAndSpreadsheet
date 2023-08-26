@@ -344,7 +344,7 @@
     <Compile Include="ControlsRSC\RSCRowHeaders_Test.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlsRSC\RSCSpreadManager.vb" />
+    <Compile Include="ControlsRSC\RSCSpreadManagerRowsCols.vb" />
     <Compile Include="ControlsRSC\RSCSpreadManagerCols_Etc.vb" />
     <Compile Include="ControlsRSC\RSCSpreadManagerCols_Main.vb" />
     <Compile Include="ControlsRSC\RSCSpreadManagerCols_Funs.vb" />

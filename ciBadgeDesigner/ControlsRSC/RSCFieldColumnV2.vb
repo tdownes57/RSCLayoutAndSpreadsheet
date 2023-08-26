@@ -2835,7 +2835,9 @@ Public Class RSCFieldColumnV2
 
         ''Added 6/18/2023 thomas downes
         Const c_boolSwitchLeft As Boolean = True
+
         ParentSpreadsheet.SwitchColumnPositions(Me, c_boolSwitchLeft)
+
 
     End Sub
 
