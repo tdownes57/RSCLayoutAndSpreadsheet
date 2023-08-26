@@ -1,7 +1,8 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class RSCSelectCIBField
     ''6/22/2022 Inherits System.Windows.Forms.UserControl
-    Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    ''8/23/2023 Inherits __RSCWindowsControlLibrary.RSCMoveableControlVB
+    Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -59,7 +60,7 @@ Partial Class RSCSelectCIBField
         Me.comboBoxRelevantFields.Location = New System.Drawing.Point(2, 23)
         Me.comboBoxRelevantFields.Margin = New System.Windows.Forms.Padding(2)
         Me.comboBoxRelevantFields.Name = "comboBoxRelevantFields"
-        Me.comboBoxRelevantFields.Size = New System.Drawing.Size(179, 21)
+        Me.comboBoxRelevantFields.Size = New System.Drawing.Size(162, 21)
         Me.comboBoxRelevantFields.TabIndex = 5
         '
         'RSCSelectCIBField
@@ -74,7 +75,7 @@ Partial Class RSCSelectCIBField
         Me.Controls.SetChildIndex(Me.comboBoxRelevantFields, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelOnlyRelevant, 0)
         Me.Controls.SetChildIndex(Me.LabelHeader, 0)
-        Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
+        ''Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -39,11 +39,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField1
         '
         Me.RscSelectCIBField1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField1.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField1.ElementInfo_Base = Nothing
         Me.RscSelectCIBField1.Location = New System.Drawing.Point(17, 105)
         Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField1.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField1.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField1.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
         Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField1.Size = New System.Drawing.Size(182, 64)
@@ -52,11 +52,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField2
         '
         Me.RscSelectCIBField2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField2.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField2.ElementInfo_Base = Nothing
         Me.RscSelectCIBField2.Location = New System.Drawing.Point(203, 105)
         Me.RscSelectCIBField2.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField2.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField2.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField2.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField2.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField2.Name = "RscSelectCIBField2"
         Me.RscSelectCIBField2.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField2.Size = New System.Drawing.Size(182, 64)
@@ -65,11 +65,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField3
         '
         Me.RscSelectCIBField3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField3.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField3.ElementInfo_Base = Nothing
         Me.RscSelectCIBField3.Location = New System.Drawing.Point(389, 105)
         Me.RscSelectCIBField3.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField3.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField3.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField3.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField3.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField3.Name = "RscSelectCIBField3"
         Me.RscSelectCIBField3.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField3.Size = New System.Drawing.Size(182, 64)
@@ -78,11 +78,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField4
         '
         Me.RscSelectCIBField4.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField4.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField4.ElementInfo_Base = Nothing
         Me.RscSelectCIBField4.Location = New System.Drawing.Point(575, 105)
         Me.RscSelectCIBField4.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField4.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField4.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField4.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField4.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField4.Name = "RscSelectCIBField4"
         Me.RscSelectCIBField4.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField4.Size = New System.Drawing.Size(182, 64)
@@ -125,11 +125,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField5
         '
         Me.RscSelectCIBField5.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField5.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField5.ElementInfo_Base = Nothing
         Me.RscSelectCIBField5.Location = New System.Drawing.Point(586, 309)
         Me.RscSelectCIBField5.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField5.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField5.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField5.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField5.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField5.Name = "RscSelectCIBField5"
         Me.RscSelectCIBField5.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField5.Size = New System.Drawing.Size(182, 64)
@@ -138,11 +138,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField6
         '
         Me.RscSelectCIBField6.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField6.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField6.ElementInfo_Base = Nothing
         Me.RscSelectCIBField6.Location = New System.Drawing.Point(400, 309)
         Me.RscSelectCIBField6.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField6.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField6.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField6.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField6.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField6.Name = "RscSelectCIBField6"
         Me.RscSelectCIBField6.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField6.Size = New System.Drawing.Size(182, 64)
@@ -151,11 +151,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField7
         '
         Me.RscSelectCIBField7.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField7.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField7.ElementInfo_Base = Nothing
         Me.RscSelectCIBField7.Location = New System.Drawing.Point(214, 309)
         Me.RscSelectCIBField7.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField7.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField7.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField7.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField7.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField7.Name = "RscSelectCIBField7"
         Me.RscSelectCIBField7.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField7.Size = New System.Drawing.Size(182, 64)
@@ -164,11 +164,11 @@ Partial Class DialogAllRSCSelectCIBFields
         'RscSelectCIBField8
         '
         Me.RscSelectCIBField8.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField8.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField8.ElementInfo_Base = Nothing
         Me.RscSelectCIBField8.Location = New System.Drawing.Point(28, 309)
         Me.RscSelectCIBField8.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField8.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField8.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField8.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField8.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField8.Name = "RscSelectCIBField8"
         Me.RscSelectCIBField8.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField8.Size = New System.Drawing.Size(182, 64)

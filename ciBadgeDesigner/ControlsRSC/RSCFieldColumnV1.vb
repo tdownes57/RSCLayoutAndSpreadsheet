@@ -198,7 +198,7 @@ Public Class RSCFieldColumnV1
 
             ''Added 5/10/2023 
             ''  Cascade the menu-operations object to the sub-control RscSelectCIBField1.
-            .RscSelectCIBField1.RightclickMouseInfo = objOperationsFieldColumn
+            ''.RscSelectCIBField1.RightclickMouseInfo = objOperationsFieldColumn
 
         End With ''eNd of "With CtlPortrait1"
 

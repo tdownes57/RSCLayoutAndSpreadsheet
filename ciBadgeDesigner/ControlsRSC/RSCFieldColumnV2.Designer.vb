@@ -28,8 +28,8 @@ Partial Class RSCFieldColumnV2
         Me.components = New System.ComponentModel.Container()
         Me.LinkLabelRightClick = New System.Windows.Forms.LinkLabel()
         Me.LabelHeader1 = New System.Windows.Forms.Label()
-        Me.RscDataCell18 = New ciBadgeDesigner.RSCDataCell()
-        Me.RscDataCell17 = New ciBadgeDesigner.RSCDataCell()
+        Me.LabelMoveLeft = New System.Windows.Forms.Label()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.RscDataCell16 = New ciBadgeDesigner.RSCDataCell()
         Me.RscDataCell14 = New ciBadgeDesigner.RSCDataCell()
         Me.RscDataCell13 = New ciBadgeDesigner.RSCDataCell()
@@ -45,18 +45,21 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell3 = New ciBadgeDesigner.RSCDataCell()
         Me.RscDataCell2 = New ciBadgeDesigner.RSCDataCell()
         Me.RscDataCell1 = New ciBadgeDesigner.RSCDataCell()
-        Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.RscDataCell15 = New ciBadgeDesigner.RSCDataCell()
-        Me.LabelMoveLeft = New System.Windows.Forms.Label()
-        Me.LabelMoveRight = New System.Windows.Forms.Label()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.RscDataCell17 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscDataCell18 = New ciBadgeDesigner.RSCDataCell()
+        Me.RscSelectCIBField1 = New ciBadgeDesigner.RSCSelectCIBField()
         Me.SuspendLayout()
+        '
+        'LinkLabelConditional
+        '
+        Me.LinkLabelConditional.Location = New System.Drawing.Point(82, 0)
         '
         'LinkLabelRightClick
         '
         Me.LinkLabelRightClick.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelRightClick.AutoSize = True
-        Me.LinkLabelRightClick.Location = New System.Drawing.Point(126, 76)
+        Me.LinkLabelRightClick.Location = New System.Drawing.Point(126, 91)
         Me.LinkLabelRightClick.Name = "LinkLabelRightClick"
         Me.LinkLabelRightClick.Size = New System.Drawing.Size(58, 13)
         Me.LinkLabelRightClick.TabIndex = 66
@@ -74,29 +77,17 @@ Partial Class RSCFieldColumnV2
         Me.LabelHeader1.TabIndex = 64
         Me.LabelHeader1.Text = "Recipient Data"
         '
-        'RscDataCell18
+        'LabelMoveLeft
         '
-        Me.RscDataCell18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RscDataCell18.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
-        Me.RscDataCell18.Location = New System.Drawing.Point(0, 533)
-        Me.RscDataCell18.Name = "RscDataCell18"
-        Me.RscDataCell18.Size = New System.Drawing.Size(184, 23)
-        Me.RscDataCell18.TabIndex = 85
-        Me.RscDataCell18.Tag_Text = ""
-        Me.RscDataCell18.Text_CellValue = ""
-        '
-        'RscDataCell17
-        '
-        Me.RscDataCell17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RscDataCell17.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
-        Me.RscDataCell17.Location = New System.Drawing.Point(0, 509)
-        Me.RscDataCell17.Name = "RscDataCell17"
-        Me.RscDataCell17.Size = New System.Drawing.Size(184, 23)
-        Me.RscDataCell17.TabIndex = 84
-        Me.RscDataCell17.Tag_Text = ""
-        Me.RscDataCell17.Text_CellValue = ""
+        Me.LabelMoveLeft.AutoSize = True
+        Me.LabelMoveLeft.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelMoveLeft.Location = New System.Drawing.Point(2, 2)
+        Me.LabelMoveLeft.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.LabelMoveLeft.Name = "LabelMoveLeft"
+        Me.LabelMoveLeft.Size = New System.Drawing.Size(40, 18)
+        Me.LabelMoveLeft.TabIndex = 86
+        Me.LabelMoveLeft.Text = "◄◄"
+        Me.ToolTip1.SetToolTip(Me.LabelMoveLeft, "Switch column position with the column to the left")
         '
         'RscDataCell16
         '
@@ -292,26 +283,6 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell1.Tag_Text = ""
         Me.RscDataCell1.Text_CellValue = ""
         '
-        'RscSelectCIBField1
-        '
-        Me.RscSelectCIBField1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RscSelectCIBField1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField1.ElementInfo_Base = Nothing
-        Me.RscSelectCIBField1.ImageLocation = Nothing
-        Me.RscSelectCIBField1.Location = New System.Drawing.Point(0, 17)
-        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField1.MoveabilityEventsForSingleMove = Nothing
-        Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
-        Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
-        Me.RscSelectCIBField1.Size = New System.Drawing.Size(184, 72)
-        Me.RscSelectCIBField1.SizeabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField1.SizeabilityEventsForSingleMove = Nothing
-        Me.RscSelectCIBField1.SizeabilityEventsForSingleSize = Nothing
-        Me.RscSelectCIBField1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
-        Me.RscSelectCIBField1.TabIndex = 65
-        '
         'RscDataCell15
         '
         Me.RscDataCell15.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -325,37 +296,48 @@ Partial Class RSCFieldColumnV2
         Me.RscDataCell15.Tag_Text = ""
         Me.RscDataCell15.Text_CellValue = ""
         '
-        'LabelMoveLeft
+        'RscDataCell17
         '
-        Me.LabelMoveLeft.AutoSize = True
-        Me.LabelMoveLeft.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelMoveLeft.Location = New System.Drawing.Point(2, 0)
-        Me.LabelMoveLeft.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LabelMoveLeft.Name = "LabelMoveLeft"
-        Me.LabelMoveLeft.Size = New System.Drawing.Size(72, 18)
-        Me.LabelMoveLeft.TabIndex = 86
-        Me.LabelMoveLeft.Text = "◄◄◄◄"
-        Me.ToolTip1.SetToolTip(Me.LabelMoveLeft, "Switch column position with the column to the left")
+        Me.RscDataCell17.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell17.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
+        Me.RscDataCell17.Location = New System.Drawing.Point(0, 509)
+        Me.RscDataCell17.Name = "RscDataCell17"
+        Me.RscDataCell17.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell17.TabIndex = 84
+        Me.RscDataCell17.Tag_Text = ""
+        Me.RscDataCell17.Text_CellValue = ""
         '
-        'LabelMoveRight
+        'RscDataCell18
         '
-        Me.LabelMoveRight.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelMoveRight.AutoSize = True
-        Me.LabelMoveRight.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelMoveRight.Location = New System.Drawing.Point(112, 0)
-        Me.LabelMoveRight.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LabelMoveRight.Name = "LabelMoveRight"
-        Me.LabelMoveRight.Size = New System.Drawing.Size(72, 18)
-        Me.LabelMoveRight.TabIndex = 87
-        Me.LabelMoveRight.Text = "►►►►"
-        Me.ToolTip1.SetToolTip(Me.LabelMoveRight, "Switch column position with the column to the right")
+        Me.RscDataCell18.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscDataCell18.BorderStyle_Textbox = System.Windows.Forms.BorderStyle.None
+        Me.RscDataCell18.Location = New System.Drawing.Point(0, 533)
+        Me.RscDataCell18.Name = "RscDataCell18"
+        Me.RscDataCell18.Size = New System.Drawing.Size(184, 23)
+        Me.RscDataCell18.TabIndex = 85
+        Me.RscDataCell18.Tag_Text = ""
+        Me.RscDataCell18.Text_CellValue = ""
+        '
+        'RscSelectCIBField1
+        '
+        Me.RscSelectCIBField1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RscSelectCIBField1.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.RscSelectCIBField1.Location = New System.Drawing.Point(0, 25)
+        Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
+        Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
+        Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
+        Me.RscSelectCIBField1.Size = New System.Drawing.Size(184, 64)
+        Me.RscSelectCIBField1.TabIndex = 87
         '
         'RSCFieldColumnV2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Controls.Add(Me.LabelMoveRight)
+        Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.LabelMoveLeft)
         Me.Controls.Add(Me.RscDataCell18)
         Me.Controls.Add(Me.RscDataCell17)
@@ -375,14 +357,12 @@ Partial Class RSCFieldColumnV2
         Me.Controls.Add(Me.RscDataCell2)
         Me.Controls.Add(Me.RscDataCell1)
         Me.Controls.Add(Me.LinkLabelRightClick)
-        Me.Controls.Add(Me.RscSelectCIBField1)
         Me.Controls.Add(Me.LabelHeader1)
         Me.Controls.Add(Me.RscDataCell15)
         Me.Name = "RSCFieldColumnV2"
         Me.Size = New System.Drawing.Size(188, 585)
         Me.Controls.SetChildIndex(Me.RscDataCell15, 0)
         Me.Controls.SetChildIndex(Me.LabelHeader1, 0)
-        Me.Controls.SetChildIndex(Me.RscSelectCIBField1, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelRightClick, 0)
         Me.Controls.SetChildIndex(Me.RscDataCell1, 0)
         Me.Controls.SetChildIndex(Me.RscDataCell2, 0)
@@ -403,14 +383,13 @@ Partial Class RSCFieldColumnV2
         Me.Controls.SetChildIndex(Me.RscDataCell18, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         Me.Controls.SetChildIndex(Me.LabelMoveLeft, 0)
-        Me.Controls.SetChildIndex(Me.LabelMoveRight, 0)
+        Me.Controls.SetChildIndex(Me.RscSelectCIBField1, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents LinkLabelRightClick As LinkLabel
-    Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents RscDataCell1 As RSCDataCell
     Friend WithEvents RscDataCell2 As RSCDataCell
@@ -421,7 +400,6 @@ Partial Class RSCFieldColumnV2
     Friend WithEvents RscDataCell7 As RSCDataCell
     Friend WithEvents RscDataCell8 As RSCDataCell
     Friend WithEvents RscDataCell9 As RSCDataCell
-    Friend WithEvents RscDataCell17 As RSCDataCell
     Friend WithEvents RscDataCell16 As RSCDataCell
     Friend WithEvents RscDataCell15 As RSCDataCell
     Friend WithEvents RscDataCell14 As RSCDataCell
@@ -429,8 +407,9 @@ Partial Class RSCFieldColumnV2
     Friend WithEvents RscDataCell12 As RSCDataCell
     Friend WithEvents RscDataCell11 As RSCDataCell
     Friend WithEvents RscDataCell10 As RSCDataCell
-    Friend WithEvents RscDataCell18 As RSCDataCell
     Friend WithEvents LabelMoveLeft As Label
-    Friend WithEvents LabelMoveRight As Label
     Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents RscDataCell17 As RSCDataCell
+    Friend WithEvents RscDataCell18 As RSCDataCell
+    Friend WithEvents RscSelectCIBField1 As RSCSelectCIBField
 End Class

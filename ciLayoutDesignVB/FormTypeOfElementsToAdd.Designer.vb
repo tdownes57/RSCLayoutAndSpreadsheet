@@ -293,12 +293,12 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.RscSelectCIBField5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscSelectCIBField5.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField5.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField5.ElementInfo_Base = Nothing
         Me.RscSelectCIBField5.Enabled = False
         Me.RscSelectCIBField5.Location = New System.Drawing.Point(412, 443)
         Me.RscSelectCIBField5.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField5.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField5.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField5.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField5.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField5.Name = "RscSelectCIBField5"
         Me.RscSelectCIBField5.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField5.Size = New System.Drawing.Size(182, 64)
@@ -309,12 +309,12 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.RscSelectCIBField4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscSelectCIBField4.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField4.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField4.ElementInfo_Base = Nothing
         Me.RscSelectCIBField4.Enabled = False
         Me.RscSelectCIBField4.Location = New System.Drawing.Point(412, 367)
         Me.RscSelectCIBField4.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField4.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField4.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField4.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField4.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField4.Name = "RscSelectCIBField4"
         Me.RscSelectCIBField4.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField4.Size = New System.Drawing.Size(182, 64)
@@ -325,12 +325,12 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.RscSelectCIBField3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscSelectCIBField3.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField3.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField3.ElementInfo_Base = Nothing
         Me.RscSelectCIBField3.Enabled = False
         Me.RscSelectCIBField3.Location = New System.Drawing.Point(412, 299)
         Me.RscSelectCIBField3.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField3.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField3.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField3.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField3.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField3.Name = "RscSelectCIBField3"
         Me.RscSelectCIBField3.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField3.Size = New System.Drawing.Size(182, 64)
@@ -341,12 +341,12 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.RscSelectCIBField2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscSelectCIBField2.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField2.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField2.ElementInfo_Base = Nothing
         Me.RscSelectCIBField2.Enabled = False
         Me.RscSelectCIBField2.Location = New System.Drawing.Point(412, 231)
         Me.RscSelectCIBField2.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField2.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField2.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField2.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField2.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField2.Name = "RscSelectCIBField2"
         Me.RscSelectCIBField2.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField2.Size = New System.Drawing.Size(182, 64)
@@ -389,11 +389,11 @@ Partial Class FormTypeOfElementsToAdd
         '
         Me.RscSelectCIBField1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.RscSelectCIBField1.BackColor = System.Drawing.SystemColors.ActiveCaption
-        Me.RscSelectCIBField1.ElementInfo_Base = Nothing
+        ''Me.RscSelectCIBField1.ElementInfo_Base = Nothing
         Me.RscSelectCIBField1.Location = New System.Drawing.Point(412, 163)
         Me.RscSelectCIBField1.Margin = New System.Windows.Forms.Padding(2)
-        Me.RscSelectCIBField1.MoveabilityEventsForGroupCtls = Nothing
-        Me.RscSelectCIBField1.MoveabilityEventsForSingleMove = Nothing
+        ''Me.RscSelectCIBField1.MoveabilityEventsForGroupCtls = Nothing
+        ''Me.RscSelectCIBField1.MoveabilityEventsForSingleMove = Nothing
         Me.RscSelectCIBField1.Name = "RscSelectCIBField1"
         Me.RscSelectCIBField1.SelectedValue = ciBadgeInterfaces.ModEnumsAndStructs.EnumCIBFields.Undetermined
         Me.RscSelectCIBField1.Size = New System.Drawing.Size(182, 64)

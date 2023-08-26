@@ -729,11 +729,21 @@ Public Class RSCSpreadManagerCols
         ''
         ''Step 11 of 11.  Display the corrected column index on each columns to the right.  
         ''
+        RefreshDisplayedColumnIndex(intNewColumnIndex)
+
+    End Sub ''END OF ""Public Sub InsertColumnNextToSpecified""
+
+
+    Public Sub RefreshDisplayedColumnIndex(Optional pintNewColumnIndex As Integer = -1)
+        ''
+        ''Encapsulated 8/25/2023 td
+        ''
         Dim intNewLength As Integer
         Dim ithColumn As RSCFieldColumnV2 ''Added 5/22/2023 
+
         intNewLength = mod_dlist_RSCColumns.Count()
 
-        For intColIndex As Integer = (1 + intNewColumnIndex) To (-1 + intNewLength)
+        For intColIndex As Integer = (1 + pintNewColumnIndex) To (-1 + intNewLength)
             ''
             ''Display the corrected column index on each columns to the right. 
             ''
@@ -744,7 +754,7 @@ Public Class RSCSpreadManagerCols
 
         Next intColIndex
 
-    End Sub ''END OF ""Public Sub InsertColumnNextToSpecified""
+    End Sub ''END OF ""Public Sub RefreshDisplayedColumnIndex""
 
 
     Public Sub InsertNewColumnByIndex(par_intColumnIndex As Integer,

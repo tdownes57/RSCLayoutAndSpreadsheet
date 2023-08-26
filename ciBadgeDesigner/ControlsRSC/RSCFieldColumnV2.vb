@@ -269,7 +269,7 @@ Public Class RSCFieldColumnV2
 
             ''Added 5/10/2023 
             ''  Cascade the menu-operations object to the sub-control RscSelectCIBField1.
-            .RscSelectCIBField1.RightclickMouseInfo = objOperationsFieldColumn
+            ''.RscSelectCIBField1.RightclickMouseInfo = objOperationsFieldColumn
 
             ''Added 5/31/2023
             If (.mod_eventsForSingleSize Is Nothing) Then
@@ -2706,6 +2706,7 @@ Public Class RSCFieldColumnV2
 
     End Sub
 
+
     Private Sub LinkLabelRightClick_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelRightClick.LinkClicked
         ''
         ''Added 3/20/2022 td
@@ -2743,7 +2744,7 @@ Public Class RSCFieldColumnV2
     ''End Sub
 
 
-    Private Sub RscSelectCIBField1_MouseUp(sender As Object, e As MouseEventArgs) Handles RscSelectCIBField1.MouseUp
+    Private Sub RscSelectCIBField1_MouseUp(sender As Object, e As MouseEventArgs)
 
         ''Added 4/1/2022 td
         If (e.Button = MouseButtons.Right) Then
@@ -2756,7 +2757,7 @@ Public Class RSCFieldColumnV2
 
     End Sub
 
-    Private Sub RscSelectCIBField1_RSCMouseUp(sender As Object, par_argsEvent As MouseEventArgs) Handles RscSelectCIBField1.RSCMouseUp
+    Private Sub RscSelectCIBField1_RSCMouseUp(sender As Object, par_argsEvent As MouseEventArgs)
 
         ''Added 4/1/2022 td
         If (par_argsEvent.Button = MouseButtons.Right) Then
@@ -2772,7 +2773,7 @@ Public Class RSCFieldColumnV2
 
     End Sub
 
-    Private Sub RscSelectCIBField1_RSCFieldChanged(newCIBField As EnumCIBFields) Handles RscSelectCIBField1.RSCFieldChanged
+    Private Sub RscSelectCIBField1_RSCFieldChanged(newCIBField As EnumCIBFields)
 
         ''Added 6/25/2022 thomas downes  
         If (Me.ListRecipients Is Nothing) Then
@@ -2833,11 +2834,24 @@ Public Class RSCFieldColumnV2
 
     Private Sub LabelMoveLeft_Click(sender As Object, e As EventArgs) Handles LabelMoveLeft.Click
 
+        ''Added 8/25/2023 td
+        ''  Highlight the column, if needed. 
+        If (Not Me.FocusRelated_UserHasSelectedColumn) Then
+            Me.ParentSpreadsheet.ClearHighlightingOfSelectedColumns()
+            Me.FocusRelated_UserHasSelectedColumn = True
+            Me.FocusRelatedCol_SetHighlightingOn()
+        End If ''End of ""If (Not Me.FocusRelated_UserHasSelectedColumn) Then
+
         ''Added 6/18/2023 thomas downes
         Const c_boolSwitchLeft As Boolean = True
 
+        ''Major call.
         ParentSpreadsheet.SwitchColumnPositions(Me, c_boolSwitchLeft)
 
+
+    End Sub
+
+    Private Sub RscDataCell18_Load(sender As Object, e As EventArgs)
 
     End Sub
 

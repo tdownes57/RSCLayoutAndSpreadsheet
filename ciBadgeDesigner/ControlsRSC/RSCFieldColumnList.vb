@@ -497,6 +497,16 @@ Public Class RSCFieldColumnList
 
     End Function ''End of ""Public Function GetFirst() As RSCFieldColumnV2""
 
+
+    Public Sub SetFirst(par_column As RSCFieldColumnV2)
+        ''
+        ''Added 5/08/2023 thomas downes
+        ''
+        mod_columnFirstLeft = par_column
+
+    End Sub ''End of ""Public Sub SetFirst(par_column As RSCFieldColumnV2)""
+
+
     Public Function GetColumnAtIndex(par_indexOfCol As Integer) As RSCFieldColumnV2
         ''
         ''Added 5/08/2023 thomas downes
