@@ -2,6 +2,7 @@
 ''Added 4/28/2023  
 ''
 
+Imports __RSC_Error_Logging
 Imports ciBadgeCachePersonality
 
 Partial Public Class RSCSpreadManagerCols
@@ -63,6 +64,37 @@ Partial Public Class RSCSpreadManagerCols
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
 
 
+    Public Sub RefreshColumnsInDataCache()
+        ''
+        ''Added 8/26/2023 thomas downes
+        ''
+        Dim infoColumnData As InterfaceRSCColumnData ''Added 5/25/2023
+
+        ''
+        ''Let's start from scratch, by deleting all of the columns.
+        ''
+        Me.ColumnDataCache.ClearCacheOfColumns()
+
+        ''
+        ''Add the columns to the cache, from the spreadsheet columns. --8/2023
+        ''
+        Try
+            For Each each_RSCColumn As RSCFieldColumnV2 In mod_dlist_RSCColumns
+
+                infoColumnData = CType(each_RSCColumn, InterfaceRSCColumnData) ''Added 5/25/2023
+
+                Me.ColumnDataCache.AddDataBucketForNewColumn(infoColumnData, each_RSCColumn)
+
+            Next each_RSCColumn
+
+        Catch ex_refresh As Exception
+
+            RSCErrorLogging.Log(84, "RefreshColumnsInDataCache", ex_refresh.Message)
+
+        End Try
+
+    End Sub ''End of ""Public Sub RefreshColumnsInDataCache()""
+
 
     Public Sub SaveDataColumnByColumnXML(Optional pboolOpenXML As Boolean = False)
         ''---June29 2022---Public Sub SaveDataColumnByColumn
@@ -92,9 +124,12 @@ Partial Public Class RSCSpreadManagerCols
         Dim each_ctlWindows As Windows.Forms.Control ''Added 5/2023 thomas downes
         Dim boolNotDeleted As Boolean ''Added 5/2023 thomas downes
         Dim iCountIterations As Integer = 0
+        ''Added 8/26/2023 
+        Dim listOfOrderedColumns As List(Of ClassRSCColumnWidthAndData) =
+            Me.ColumnDataCache.ListOfColumns.ToList() ''.OrderBy(Function(n) n.)
 
         ''Added 5/10/2023 
-        For Each each_columnData In Me.ColumnDataCache.ListOfColumns
+        For Each each_columnData In listOfOrderedColumns
             ''
             ''We need to call .SaveDataTo_ColumnCache() for each undeleted column. 
             ''    ---Added 5/10/2023 
@@ -399,7 +434,9 @@ Partial Public Class RSCSpreadManagerCols
     End Sub ''End of ""Public Sub RefreshAllColumnsLeftProperty()""
 
 
-    Public Sub SwitchColumnWithOneToTheLeft(par_column As RSCFieldColumnV2)
+    Public Sub SwitchColumnWithOneToTheLeft(par_column As RSCFieldColumnV2,
+                                             Optional pbForceToRenumberColumns As Boolean = False,
+                                             Optional pbAskToRenumberColumns As Boolean = True)
         ''
         ''Added 4/15/2022 td
         ''
@@ -434,10 +471,39 @@ Partial Public Class RSCSpreadManagerCols
         ''  --8/25/2023
         RefreshAllColumnsLeftProperty()
 
+        ''Added 8/26/2023 tdownes
+        Dim boolRenumberCols As Boolean ''Added 8/26/2023 tdownes
+
+        ''Added 8/26/2023 tdownes
+        If (pbForceToRenumberColumns) Then
+
+            boolRenumberCols = True
+
+        ElseIf (pbAskToRenumberColumns) Then
+
+            boolRenumberCols = MessageBoxTD.Show_Confirm("Renumber columns?")
+
+        End If ''ENd of ""If (pbForceToRenumberColumns) Then... Else..."
+
+        ''Added 8/26/2023 tdownes
+        Try
+            If (boolRenumberCols) Then
+                RefreshDisplayedColumnIndex()
+            End If '' End If (boolRenumberCols) Then
+        Catch ex_renumber As Exception
+            ''
+            ''Added 8/26/2023
+            ''
+            RSCErrorLogging.Log(288, "SwitchColumnWithOneToTheLeft", ex_renumber.Message)
+
+        End Try
+
     End Sub ''Public Sub SwitchColumnWithOneToTheLeft(par_column As RSCFieldColumnV2)
 
 
-    Public Sub SwitchColumnWithOneToTheRight(par_column As RSCFieldColumnV2)
+    Public Sub SwitchColumnWithOneToTheRight(par_column As RSCFieldColumnV2,
+                                             Optional pbForceToRenumberColumns As Boolean = False,
+                                             Optional pbAskToRenumberColumns As Boolean = False)
         ''
         ''Added 4/15/2022 td
         ''
@@ -470,6 +536,22 @@ Partial Public Class RSCSpreadManagerCols
         ''  --8/25/2023
         RefreshAllColumnsLeftProperty()
 
+        ''Added 8/26/2023 tdownes
+        Dim boolRenumberCols As Boolean ''Added 8/26/2023 tdownes
+
+        ''Added 8/26/2023 tdownes
+        If (pbForceToRenumberColumns) Then
+
+            boolRenumberCols = True
+
+        ElseIf (pbAskToRenumberColumns) Then
+
+            boolRenumberCols = MessageBoxTD.Show_Confirm("Renumber columns?")
+
+        End If
+
+        ''Added 8/26/2023 tdownes
+        RefreshDisplayedColumnIndex()
 
     End Sub ''Public Sub SwitchColumnWithOneToTheRight(par_column As RSCFieldColumnV2)
 

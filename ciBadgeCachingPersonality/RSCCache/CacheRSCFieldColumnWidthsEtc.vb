@@ -72,6 +72,15 @@ Namespace ciBadgeCachePersonality
         End Sub ''End of ""Public Sub AddColumnDataBucket""
 
 
+        Public Sub ClearCacheOfColumns()
+            ''
+            ''Added 8/26/2023 thomas downes
+            ''
+            ListOfColumns.Clear()
+
+        End Sub ''End of ""Public Sub ClearCacheOfColumns()""
+
+
 
         Public Function RSCColumnWithMaximalDataCells() As ClassRSCColumnWidthAndData
             ''

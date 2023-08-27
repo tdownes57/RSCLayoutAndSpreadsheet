@@ -7,6 +7,7 @@ Imports ciBadgeInterfaces ''Added 12/22/2021 td
 ''3/2023  Imports System.Windows.Forms
 ''3/2023  Imports ciBadgeDesigner ''Added 12/27/2021 td 
 Imports ciBadgeElements ''added 1/22/2022
+Imports __RSC_Error_Logging
 
 ''
 ''Added 12/22/2021 td  
@@ -2136,48 +2137,48 @@ Public Class RSCMoveableControlVB
             ''Added 3/20/2022 td
             If (mod_boolRemoveMoveability) Then Exit Sub
 
-                ''Let the module know that a MouseUp took place. 
-                ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
+            ''Let the module know that a MouseUp took place. 
+            ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
 
-                ''----Nasty bug.  Don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
-                ''
-                ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
-                Dim info_SaveToModel As ISaveToModel ''Added 1/14/2022 td
-                Dim info_RefreshElementImage As IRefreshElementImage ''Added 1/28/2022 td
-                Dim info_RefreshCardPreview As IRefreshCardPreview ''Added 1/28/2022 td
-                Dim objCTLGraphicOrRSCMoveable As Control ''Added 1/14/2022
+            ''----Nasty bug.  Don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
+            ''
+            ''--MyBase.MoveableControl_MouseUp(par_sender, par_e)
+            Dim info_SaveToModel As ISaveToModel ''Added 1/14/2022 td
+            Dim info_RefreshElementImage As IRefreshElementImage ''Added 1/28/2022 td
+            Dim info_RefreshCardPreview As IRefreshCardPreview ''Added 1/28/2022 td
+            Dim objCTLGraphicOrRSCMoveable As Control ''Added 1/14/2022
 
-                ''Added 1/14/2022
-                info_SaveToModel = CType(Me, ISaveToModel)
+            ''Added 1/14/2022
+            info_SaveToModel = CType(Me, ISaveToModel)
 
-                ''Added 1/28/2022
-                ''6/4/2022 info_RefreshElementImage = CType(Me, IRefreshElementImage)
-                ''6/6/2022 info_RefreshElementImage = Me.InfoRefreshElementImage
-                info_RefreshElementImage = CType(Me, IRefreshElementImage)
+            ''Added 1/28/2022
+            ''6/4/2022 info_RefreshElementImage = CType(Me, IRefreshElementImage)
+            ''6/6/2022 info_RefreshElementImage = Me.InfoRefreshElementImage
+            info_RefreshElementImage = CType(Me, IRefreshElementImage)
 
-                ''Jan30 2022 td''info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
-                info_RefreshCardPreview = CType(Me.mod_iRefreshCardPreview, IRefreshCardPreview)
+            ''Jan30 2022 td''info_RefreshCardPreview = CType(Me, IRefreshCardPreview)
+            info_RefreshCardPreview = CType(Me.mod_iRefreshCardPreview, IRefreshCardPreview)
 
-                If (TypeOf par_sender Is PictureBox) Then
-                    objCTLGraphicOrRSCMoveable = Me
-                Else
-                    objCTLGraphicOrRSCMoveable = CType(par_sender, Control)
-                End If ''End of "If (TypeOf par_sender Is PictureBox) Then ... Else"
+            If (TypeOf par_sender Is PictureBox) Then
+                objCTLGraphicOrRSCMoveable = Me
+            Else
+                objCTLGraphicOrRSCMoveable = CType(par_sender, Control)
+            End If ''End of "If (TypeOf par_sender Is PictureBox) Then ... Else"
 
-                ''Added 6/22/2022 td
-                If (mod_iMoveOrResizeFunctionality Is Nothing) Then Exit Sub
+            ''Added 6/22/2022 td
+            If (mod_iMoveOrResizeFunctionality Is Nothing) Then Exit Sub
 
-                ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
-                ''   Let's don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
-                ''Jan27 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizing(objCTLGraphicOrRSCMoveable, info_SaveToModel)
-                ''Jan28 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizingV1(objCTLGraphicOrRSCMoveable, info_SaveToModel)
-                mod_iMoveOrResizeFunctionality.StopDragOrResizingV2(objCTLGraphicOrRSCMoveable,
-                                                                info_SaveToModel,
-                                                                info_RefreshElementImage,
-                                                                info_RefreshCardPreview)
-                ''Added 9/01/2022 td
-                Dim objParentControl As Control ''Added 1/11/20222
-                objParentControl = Me ''Added 1/11/20222
+            ''Jan14 2022 td''mod_iMoveOrResizeFunctionality.StopDragOrResizing(CType(par_sender, Control), Me)
+            ''   Let's don't use par_sender here, since it could be a PictureBox. ---1/11/2022 td
+            ''Jan27 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizing(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+            ''Jan28 2022 td ''mod_iMoveOrResizeFunctionality.StopDragOrResizingV1(objCTLGraphicOrRSCMoveable, info_SaveToModel)
+            mod_iMoveOrResizeFunctionality.StopDragOrResizingV2(objCTLGraphicOrRSCMoveable,
+                                                            info_SaveToModel,
+                                                            info_RefreshElementImage,
+                                                            info_RefreshCardPreview)
+            ''Added 9/01/2022 td
+            Dim objParentControl As Control ''Added 1/11/20222
+            objParentControl = Me ''Added 1/11/20222
             ''Moved to Else below. 3/30/2023 mod_iMoveOrResizeFunctionality.ClickedParentControl(objParentControl, par_e)
 
             ''Added 3/30/2023 td 
@@ -2193,11 +2194,11 @@ Public Class RSCMoveableControlVB
 
 
         ElseIf (par_e.Button = MouseButtons.Right) Then
-                ''            ''
-                ''  Right-Button click, i.e. a context-menu request by user.          
-                ''            ''-----Added 12/28/2021 td
-                ''            ''
-                mod_designer_ElementRightClicked(par_e.X, par_e.Y)
+            ''            ''
+            ''  Right-Button click, i.e. a context-menu request by user.          
+            ''            ''-----Added 12/28/2021 td
+            ''            ''
+            mod_designer_ElementRightClicked(par_e.X, par_e.Y)
 
         End If ''End of "If (mod_bHandleMouseMoveEvents And par_e.Button = MouseButtons.Left) Then"
 
@@ -2517,6 +2518,8 @@ Public Class RSCMoveableControlVB
         ''
         ''Added 8/15/2022 
         ''
+        Dim bResult As Boolean ''Added 8/26/2023 td
+
         ''----Return MyBase.ProcessCmdKey(msg, keyData)
         If (keyData = Keys.Delete) Then
 
@@ -2525,9 +2528,18 @@ Public Class RSCMoveableControlVB
             ''8/2022 objOpsBase = CType(mod_objOperationsAny, ciBadgeDesigner.Operations__Base)
 
             Dim infoDelete As IDeleteElement
-            infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
-            infoDelete.DeleteElementIfConfirmed()
-            Return True
+            Try
+                infoDelete = CType(mod_objOperationsAny, ciBadgeInterfaces.IDeleteElement)
+                infoDelete.DeleteElementIfConfirmed()
+                bResult = True ''Added 8/26/2023 td
+
+            Catch ex_Process As Exception
+                ''Added 8/;26/2023
+                RSCErrorLogging.Log(90, "ProcessCmdKey", ex_Process.Message)
+                bResult = False ''Added 8/26/2023 td
+            End Try
+
+            Return bResult
 
         Else
             Return False

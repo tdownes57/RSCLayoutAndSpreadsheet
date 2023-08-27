@@ -19,6 +19,9 @@ Imports System.Runtime.CompilerServices
 Imports MoveAndResizeControls_Monem
 
 Public Class RSCFieldColumnV2
+    Implements InterfaceRSCColumnData ''Added 8/27/2023 
+    ''Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
+
     ''
     ''Added 4/8/2022 and 2/21/2022 thomas downes  
     ''
@@ -85,7 +88,11 @@ Public Class RSCFieldColumnV2
     End Property
 
 
-    Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
+    Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData _
+        Implements ciBadgeCachePersonality.InterfaceRSCColumnData.ColumnWidthAndData
+        ''Added 3/15/2022 td
+        ''Implements ciBadgeCachePersonality.InterfaceRSCColumnData
+
         ''---4/2022--Public Property ColumnWidthAndData() As ClassColumnWidthAndData ''Added 3/15/2022 td
         ''Added 3/18/2022 thomas 
         Get

@@ -734,7 +734,7 @@ Public Class RSCSpreadManagerCols
     End Sub ''END OF ""Public Sub InsertColumnNextToSpecified""
 
 
-    Public Sub RefreshDisplayedColumnIndex(Optional pintNewColumnIndex As Integer = -1)
+    Public Sub RefreshDisplayedColumnIndex(Optional pintNewColumnIndex As Integer = 0) ''8/2023 As Integer = -1)
         ''
         ''Encapsulated 8/25/2023 td
         ''
@@ -743,16 +743,27 @@ Public Class RSCSpreadManagerCols
 
         intNewLength = mod_dlist_RSCColumns.Count()
 
-        For intColIndex As Integer = (1 + pintNewColumnIndex) To (-1 + intNewLength)
-            ''
-            ''Display the corrected column index on each columns to the right. 
-            ''
-            ''5/23/2023 mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
-            ithColumn = mod_dlist_RSCColumns.Item(intColIndex)
-            If (ithColumn Is Nothing) Then Exit For
-            ithColumn.DisplayColumnIndex(intColIndex)
+        Try
+            For intColIndex As Integer = (1 + pintNewColumnIndex) To (-1 + intNewLength)
+                ''
+                ''Display the corrected column index on each columns to the right. 
+                ''
+                ''5/23/2023 mod_dlist_RSCColumns(intColIndex).DisplayColumnIndex(intColIndex)
+                ithColumn = mod_dlist_RSCColumns.Item(intColIndex)
+                If (ithColumn Is Nothing) Then Exit For
+                ithColumn.DisplayColumnIndex(intColIndex)
 
-        Next intColIndex
+            Next intColIndex
+
+        Catch ex_ForNext As Exception
+            ''//
+            ''// Added 8/26/2023
+            ''//
+            __RSC_Error_Logging.RSCErrorLogging.Log(98,
+               "RefreshDisplayedColumnIndex", ex_ForNext.Message)
+
+        End Try
+
 
     End Sub ''END OF ""Public Sub RefreshDisplayedColumnIndex""
 

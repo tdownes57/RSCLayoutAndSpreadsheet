@@ -2,6 +2,7 @@
 ''Added 2/21/2022 td
 ''
 Imports System.Drawing ''Added 3/20/2022 thomas downes
+Imports __RSC_Error_Logging
 Imports __RSCWindowsControlLibrary
 Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 ''4/2023 Imports ciBadgeElements
@@ -794,12 +795,12 @@ Public Class RSCFieldSpreadsheet
             Load_Recipients()
         End If ''End of ""If (StillHavingColumnTrouble) Then... Else..."
 
-        ''
-        ''Added 4/11/2022 td
-        ''
-        Dim intTopOfGrid As Integer
-        intTopOfGrid = (RscFieldColumn1.Top + RscFieldColumn1.GetFirstRSCDataCell().Top)
-        RscRowHeaders1.Top = intTopOfGrid
+        ''''
+        ''''Added 4/11/2022 td
+        ''''
+        ''Dim intTopOfGrid As Integer
+        ''intTopOfGrid = (RscFieldColumn1.Top + RscFieldColumn1.GetFirstRSCDataCell().Top)
+        ''8/26/2023 RscRowHeaders1.Top = intTopOfGrid
 
     End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
 
@@ -1310,6 +1311,9 @@ Public Class RSCFieldSpreadsheet
 
     Public Sub SaveDataColumnByColumnXML(Optional pboolOpenXML As Boolean = False)
 
+        ''Added 8/26/2023 
+        mod_managerRowsCols.Cols.RefreshColumnsInDataCache()
+
         ''Encapsulated 4/26/2023 td
         mod_managerRowsCols.Cols.SaveDataColumnByColumnXML(pboolOpenXML)
 
@@ -1505,11 +1509,20 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 8/25/2023 
         ''
-        If (par_doSwitchLeft) Then
-            mod_managerRowsCols.Cols.SwitchColumnWithOneToTheLeft(par_column)
-        Else
-            mod_managerRowsCols.Cols.SwitchColumnWithOneToTheRight(par_column)
-        End If
+        Try
+            If (par_doSwitchLeft) Then
+                mod_managerRowsCols.Cols.SwitchColumnWithOneToTheLeft(par_column)
+            Else
+                mod_managerRowsCols.Cols.SwitchColumnWithOneToTheRight(par_column)
+            End If
+
+        Catch ex_switch As Exception
+            ''
+            ''Added 8/26/2023
+            ''
+            RSCErrorLogging.Log(345, "SwitchColumnPositions", ex_switch.Message)
+
+        End Try
 
     End Sub ''Public Sub SwitchColumnPositions
 
@@ -1745,7 +1758,7 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 4/10/2023
         ''
-        MessageBoxTD.Show_Statement("Spreadsheet..." & Me.Name)
+        ''8/26/2023 MessageBoxTD.Show_Statement("Spreadsheet..." & Me.Name)
 
     End Sub
 

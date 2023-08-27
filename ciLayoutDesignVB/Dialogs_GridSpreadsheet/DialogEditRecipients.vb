@@ -291,6 +291,9 @@ ExitHandler:
                             Me.LoadColumnDataByRecipients)
                 .Load_Form()
 
+                ''Added 8/26/2023
+                .AlignRowHeadersWithSpreadsheet()
+
             End If ''End of ""If (RSCFieldSpre adsheet.StillHavingColumnTrouble) Then... Else...
 
             ''.Invalidate()
