@@ -436,7 +436,7 @@ Partial Public Class RSCSpreadManagerCols
 
     Public Sub SwitchColumnWithOneToTheLeft(par_column As RSCFieldColumnV2,
                                              Optional pbForceToRenumberColumns As Boolean = False,
-                                             Optional pbAskToRenumberColumns As Boolean = True)
+                                             Optional pbAskToRenumberColumns As Boolean = False) ''---= True)
         ''
         ''Added 4/15/2022 td
         ''
@@ -482,6 +482,9 @@ Partial Public Class RSCSpreadManagerCols
         ElseIf (pbAskToRenumberColumns) Then
 
             boolRenumberCols = MessageBoxTD.Show_Confirm("Renumber columns?")
+
+        Else
+            boolRenumberCols = True ''Added 8/27/2023
 
         End If ''ENd of ""If (pbForceToRenumberColumns) Then... Else..."
 

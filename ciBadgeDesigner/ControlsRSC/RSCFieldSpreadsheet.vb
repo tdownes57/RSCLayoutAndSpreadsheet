@@ -556,13 +556,16 @@ Public Class RSCFieldSpreadsheet
 
         ''Aded 5/20/2022 thomas downes
         If (objBadgeSideElems.BackgroundImage Is Nothing) Then
-            ''Aded 5/20/2022 thomas downes
-            MessageBoxTD.Show_Statement("Problem loading the background image. (Front of card)")
-            ''May20 2022 ''Exit Sub
+            Dim bHasImageTitle = (0 < objBadgeSideElems.BackgroundImage_FTitle.Length)
+            If (bHasImageTitle) Then
+                ''Aded 5/20/2022 thomas downes
+                MessageBoxTD.Show_Statement("Problem loading the background image. (Front of card)")
+                ''May20 2022 ''Exit Sub
+            End If ''End of "If (0 < objBadgeSideElems.BackgroundImage_FTitle.Length) Then"
         End If ''End of ""If (objBadgeSideElems.BackgroundImage Is Nothing) Then"
 
         ''
-        ''Mahor call!!  
+        ''Major call!!  
         ''
         objBadgeImageFront = obj_generator.MakeBadgeImage_AnySide(objbadgeLayoutClass,
                         objBadgeSideElems, Me.ElementsCache_Deprecated,
@@ -600,11 +603,23 @@ Public Class RSCFieldSpreadsheet
 
         End If ''End of ""If (boolBacksideExists) Then""
 
+        Dim bNullOrEmpty As Boolean ''Added  8/27/2023
+        Dim bIsWhitespace As Boolean ''Added  8/27/2023
+        Dim bUnsubstantive As Boolean ''Added  8/27/2023
+        Dim bSubstantialMessage As Boolean ''Added  8/27/2023
+
+        ''Added  8/27/2023
+        bNullOrEmpty = String.IsNullOrEmpty(obj_generator.Messages)
+        bIsWhitespace = String.IsNullOrWhiteSpace(obj_generator.Messages)
+        bUnsubstantive = (bNullOrEmpty Or bIsWhitespace)
+        bSubstantialMessage = (Not bUnsubstantive)
+
         ''Added 1/23/2022 td
-        If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
+        ''Aud2023 If (Not String.IsNullOrEmpty(obj_generator.Messages)) Then
+        If (bSubstantialMessage) Then
             ''Added 1/23/2022 td
             MessageBoxTD.Show_Statement(obj_generator.Messages)
-        End If ''End of "If (boolGeneratorMessageExists) Then"
+        End If ''End of "If (bSubstantial) Then"
 
         ''Added 5/19/2022
         dialog_ToShow.BadgeImage_FrontSide = objBadgeImageFront
