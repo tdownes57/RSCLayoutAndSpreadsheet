@@ -17,6 +17,11 @@ Public Class CtlConfigFldSimpleCustom
     Public ModelFieldInfo As ICIBFieldStandardOrCustom ''Added 8/29/2019 thomas d. 
 
     Public Event RelevancyChangedTo(pbRelevant As Boolean) ''Added 4/13/2022 td
+
+    ''Added 8/27/2023 
+    Public Event RelevantFieldAdded_Enum(par_enum As EnumCIBFields) ''Added 8/2023 
+    Public Event ModifiedField_Enum(par_enum As EnumCIBFields) ''Added 8/2023 
+
     Public NewlyAdded As Boolean ''Add 7/23/2019 td 
 
     ''9/16/2019 td''Private mod_model As ICIBFieldStandardOrCustom
@@ -178,6 +183,20 @@ ExitHandler:
         ''Added 5/11/2022 td
         ''
         LoadCheckboxFontStyle()
+
+        ''Added 8/27/2023
+        mod_model_copy.IsRelevantToPersonality = CType(sender, CheckBox).Checked  ''CheckBoxRelevant.Checked
+        mod_model_copy.DateEdited = Now
+
+        ''8/2023 RaiseEvent ModifiedField(new_field) ''Added 5/12/2022 td
+        ''Added 8/27/2023
+        RaiseEvent ModifiedField_Enum(mod_model_copy.FieldEnumValue) ''Added 8/27/2023 td
+
+        ''Added 8/27/2023 td
+        If (mod_model_copy.IsRelevantToPersonality) Then
+            ''Added 8/27/2023 td
+            RaiseEvent RelevantFieldAdded_Enum(mod_model_copy.FieldEnumValue) ''Added 5/12/2022 td
+        End If ''End of ""If (new_field.IsRelevantToPersonality) Then""
 
     End Sub
 End Class

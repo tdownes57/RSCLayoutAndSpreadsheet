@@ -214,7 +214,8 @@ Public Class GroupMoveEvents_Singleton
         ''Dec17 2021''RaiseEvent Resizing_End()
         ''#1 Jan26 2022''RaiseEvent Resizing_End(par_iSave)
         ''#2 Jan26 2022''RaiseEvent Resizing_End(par_iSave, par_iRefreshElement, par_iRefreshPreview)
-        RaiseEvent Resizing_EndV1(par_iSave)
+
+        ''Obselete. Aug2023 RaiseEvent Resizing_EndV1(par_iSave)
 
     End Sub ''End of "Public Sub Resizing_TerminateV1"
 

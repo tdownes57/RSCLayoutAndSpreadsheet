@@ -610,7 +610,8 @@ Public Class ClassDesignerEventListener
 
         ''Added 3/30/2023 td
         If (ctl_FieldControlLastTouched Is Nothing) Then
-            Throw New NotImplementedException
+            ''8/27/2023 Throw New NotImplementedException
+            Exit Sub ''Added 8/27/2023 
         End If ''End of ""If (ctl_FieldControlLastTouched Is Nothing) Then""
 
         If (TypeOf mod_designer.mod_RSCControlLastTouched Is CtlGraphicFieldV3) Then

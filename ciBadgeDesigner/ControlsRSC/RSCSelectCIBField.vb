@@ -227,6 +227,13 @@ Public Class RSCSelectCIBField
             ''Added 4/13/2022 td
             Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
+            ''Added 8/27/2023 td 
+            Dim strFieldAddedFirst As String ''Added 8/27/2023 td 
+            Dim strFieldAddedLast As String ''Added 8/27/2023 td 
+
+            strFieldAddedFirst = form_ToShow.Output_FieldAddedFirst
+            strFieldAddedLast = form_ToShow.Output_FieldAddedLast
+
         End If ''End of ""If (dialog_result = ...)"
 
 

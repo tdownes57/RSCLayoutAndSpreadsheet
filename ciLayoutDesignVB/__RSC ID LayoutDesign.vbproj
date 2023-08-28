@@ -1053,6 +1053,12 @@
     <None Include="Resources\CodeNinjas in NB.png" />
     <None Include="Resources\No backside exists.jpg" />
     <None Include="Resources\RSC IDs &amp; Tags %28FF%29-01.png" />
+    <None Include="Resources\306666267_162456189739677_5688707531589718740_n.jpg" />
+    <None Include="Resources\20200118_134606.jpg" />
+    <None Include="Resources\20181003_010822.jpg" />
+    <None Include="Resources\BackExample.jpg" />
+    <None Include="Resources\ExampleBack.jpg" />
+    <None Include="Resources\BackExample_20.jpg" />
     <Content Include="XML\CodeNinjas_Dec8.xml" />
     <Content Include="XML\ElementsCache_Current.xml" />
     <Content Include="XML\ElementsCache_Current2.xml" />

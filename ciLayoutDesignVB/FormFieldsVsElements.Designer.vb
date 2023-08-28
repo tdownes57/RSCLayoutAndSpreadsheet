@@ -35,6 +35,7 @@ Partial Class FormFieldsVsElements
         Me.pictBackground = New System.Windows.Forms.PictureBox()
         Me.pictAddElements = New System.Windows.Forms.PictureBox()
         Me.pictDataFields = New System.Windows.Forms.PictureBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         CType(Me.pictBackground, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictAddElements, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictDataFields, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -44,33 +45,36 @@ Partial Class FormFieldsVsElements
         '
         Me.ButtonAddFields.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonAddFields.BackColor = System.Drawing.Color.Cyan
         Me.ButtonAddFields.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonAddFields.Location = New System.Drawing.Point(132, 58)
+        Me.ButtonAddFields.Location = New System.Drawing.Point(94, 398)
         Me.ButtonAddFields.Name = "ButtonAddFields"
-        Me.ButtonAddFields.Size = New System.Drawing.Size(390, 57)
+        Me.ButtonAddFields.Size = New System.Drawing.Size(375, 57)
         Me.ButtonAddFields.TabIndex = 0
-        Me.ButtonAddFields.Text = "1. Add Data Fields (Administrative) *"
+        Me.ButtonAddFields.Text = "3. Add Data Fields (Administrative) *"
         Me.ToolTip1.SetToolTip(Me.ButtonAddFields, "Add or Remove Data Fields")
-        Me.ButtonAddFields.UseVisualStyleBackColor = True
+        Me.ButtonAddFields.UseVisualStyleBackColor = False
         '
         'ButtonAddElements
         '
         Me.ButtonAddElements.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonAddElements.BackColor = System.Drawing.Color.Cyan
         Me.ButtonAddElements.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonAddElements.Location = New System.Drawing.Point(132, 250)
+        Me.ButtonAddElements.Location = New System.Drawing.Point(94, 162)
         Me.ButtonAddElements.Name = "ButtonAddElements"
-        Me.ButtonAddElements.Size = New System.Drawing.Size(387, 57)
+        Me.ButtonAddElements.Size = New System.Drawing.Size(413, 57)
         Me.ButtonAddElements.TabIndex = 1
-        Me.ButtonAddElements.Text = "3. Add Graphical or Text Elements **"
-        Me.ButtonAddElements.UseVisualStyleBackColor = True
+        Me.ButtonAddElements.Text = "2. Add Graphical or Text Elements **"
+        Me.ButtonAddElements.UseVisualStyleBackColor = False
         '
         'ButtonCancel
         '
         Me.ButtonCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ButtonCancel.Location = New System.Drawing.Point(418, 369)
+        Me.ButtonCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ButtonCancel.Location = New System.Drawing.Point(645, 405)
         Me.ButtonCancel.Name = "ButtonCancel"
-        Me.ButtonCancel.Size = New System.Drawing.Size(104, 35)
+        Me.ButtonCancel.Size = New System.Drawing.Size(104, 73)
         Me.ButtonCancel.TabIndex = 2
         Me.ButtonCancel.Text = "Cancel"
         Me.ButtonCancel.UseVisualStyleBackColor = True
@@ -79,7 +83,7 @@ Partial Class FormFieldsVsElements
         '
         Me.LabelFooter1.AutoSize = True
         Me.LabelFooter1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFooter1.Location = New System.Drawing.Point(12, 119)
+        Me.LabelFooter1.Location = New System.Drawing.Point(51, 458)
         Me.LabelFooter1.Name = "LabelFooter1"
         Me.LabelFooter1.Size = New System.Drawing.Size(539, 17)
         Me.LabelFooter1.TabIndex = 3
@@ -89,7 +93,7 @@ Partial Class FormFieldsVsElements
         'LabelFooter2
         '
         Me.LabelFooter2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFooter2.Location = New System.Drawing.Point(12, 310)
+        Me.LabelFooter2.Location = New System.Drawing.Point(14, 260)
         Me.LabelFooter2.Name = "LabelFooter2"
         Me.LabelFooter2.Size = New System.Drawing.Size(519, 41)
         Me.LabelFooter2.TabIndex = 4
@@ -99,24 +103,25 @@ Partial Class FormFieldsVsElements
         'LabelAddingElementsHdr
         '
         Me.LabelAddingElementsHdr.AutoSize = True
-        Me.LabelAddingElementsHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelAddingElementsHdr.Location = New System.Drawing.Point(12, 21)
+        Me.LabelAddingElementsHdr.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelAddingElementsHdr.Location = New System.Drawing.Point(12, 361)
         Me.LabelAddingElementsHdr.Name = "LabelAddingElementsHdr"
-        Me.LabelAddingElementsHdr.Size = New System.Drawing.Size(207, 20)
+        Me.LabelAddingElementsHdr.Size = New System.Drawing.Size(495, 25)
         Me.LabelAddingElementsHdr.TabIndex = 5
-        Me.LabelAddingElementsHdr.Text = "Adding Elements to ID Card"
+        Me.LabelAddingElementsHdr.Text = "Data Management--Create Personnel Fields for ID Card"
         '
         'ButtonBackgroundImage
         '
         Me.ButtonBackgroundImage.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ButtonBackgroundImage.BackColor = System.Drawing.Color.Cyan
         Me.ButtonBackgroundImage.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ButtonBackgroundImage.Location = New System.Drawing.Point(132, 148)
+        Me.ButtonBackgroundImage.Location = New System.Drawing.Point(94, 60)
         Me.ButtonBackgroundImage.Name = "ButtonBackgroundImage"
-        Me.ButtonBackgroundImage.Size = New System.Drawing.Size(390, 57)
+        Me.ButtonBackgroundImage.Size = New System.Drawing.Size(413, 57)
         Me.ButtonBackgroundImage.TabIndex = 6
-        Me.ButtonBackgroundImage.Text = "2.  Select a Background Image"
-        Me.ButtonBackgroundImage.UseVisualStyleBackColor = True
+        Me.ButtonBackgroundImage.Text = "1.  Select a Background Image"
+        Me.ButtonBackgroundImage.UseVisualStyleBackColor = False
         '
         'ButtonAddElementsH
         '
@@ -124,7 +129,7 @@ Partial Class FormFieldsVsElements
         Me.ButtonAddElementsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
         Me.ButtonAddElementsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonAddElementsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.ButtonAddElementsH.Location = New System.Drawing.Point(54, 221)
+        Me.ButtonAddElementsH.Location = New System.Drawing.Point(94, 225)
         Me.ButtonAddElementsH.Name = "ButtonAddElementsH"
         Me.ButtonAddElementsH.Size = New System.Drawing.Size(465, 32)
         Me.ButtonAddElementsH.TabIndex = 94
@@ -132,9 +137,10 @@ Partial Class FormFieldsVsElements
         '
         'pictBackground
         '
-        Me.pictBackground.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.flag_of_USA
+        Me.pictBackground.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.ExampleBack
         Me.pictBackground.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.pictBackground.Location = New System.Drawing.Point(54, 148)
+        Me.pictBackground.Image = Global.ciLayoutDesignVB.My.Resources.Resources.BackExample_20
+        Me.pictBackground.Location = New System.Drawing.Point(16, 60)
         Me.pictBackground.Name = "pictBackground"
         Me.pictBackground.Size = New System.Drawing.Size(72, 48)
         Me.pictBackground.TabIndex = 95
@@ -144,7 +150,7 @@ Partial Class FormFieldsVsElements
         '
         Me.pictAddElements.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Badge001
         Me.pictAddElements.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
-        Me.pictAddElements.Location = New System.Drawing.Point(54, 259)
+        Me.pictAddElements.Location = New System.Drawing.Point(16, 171)
         Me.pictAddElements.Name = "pictAddElements"
         Me.pictAddElements.Size = New System.Drawing.Size(72, 48)
         Me.pictAddElements.TabIndex = 96
@@ -153,17 +159,29 @@ Partial Class FormFieldsVsElements
         'pictDataFields
         '
         Me.pictDataFields.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.GoldDiagonal_Land
-        Me.pictDataFields.Location = New System.Drawing.Point(54, 58)
+        Me.pictDataFields.Location = New System.Drawing.Point(16, 398)
         Me.pictDataFields.Name = "pictDataFields"
         Me.pictDataFields.Size = New System.Drawing.Size(72, 48)
         Me.pictDataFields.TabIndex = 97
         Me.pictDataFields.TabStop = False
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(12, 25)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(252, 25)
+        Me.Label1.TabIndex = 98
+        Me.Label1.Text = "Graphics && Positioning Text"
+        '
         'FormFieldsVsElements
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(571, 416)
+        Me.BackColor = System.Drawing.Color.LightCyan
+        Me.ClientSize = New System.Drawing.Size(761, 490)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.pictDataFields)
         Me.Controls.Add(Me.pictAddElements)
         Me.Controls.Add(Me.pictBackground)
@@ -198,4 +216,5 @@ Partial Class FormFieldsVsElements
     Friend WithEvents pictBackground As PictureBox
     Friend WithEvents pictAddElements As PictureBox
     Friend WithEvents pictDataFields As PictureBox
+    Friend WithEvents Label1 As Label
 End Class

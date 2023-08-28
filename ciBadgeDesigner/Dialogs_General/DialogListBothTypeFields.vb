@@ -7,6 +7,7 @@ Option Infer Off ''On ''3/17/2022 td ''Off
 ''
 Imports ciBadgeInterfaces
 Imports ciBadgeFields ''Added 9/19/2019 td   
+Imports System.Reflection.Emit
 
 Public Structure StructLoadWhatFields
     ''Added 4/30/2022 thomas
@@ -36,6 +37,14 @@ Public Class DialogListBothTypeFields
     Public Property ClosingOK_SoSaveWork As Boolean Implements InterfaceShowListFields.ClosingOK_SoSaveWork ''Added 12/6/2021 thomas downes
 
     Public Property SimpleMode As Boolean = True Implements InterfaceShowListFields.SimpleMode ''Added 5/12/2022 td
+
+    ''Added 8/27/2023 thomas downes
+    Public Property Output_FieldAddedFirst_Caption As String ''Added 8/27/2023 thomas downes
+    Public Property Output_FieldAddedLast_Caption As String ''Added 8/27/2023 thomas downes
+
+    ''Added 8/27/2023 thomas downes
+    Public Property Output_FieldAddedFirst_Enum As EnumCIBFields ''Added 8/28/2023 thomas downes
+    Public Property Output_FieldAddedLast_Enum As EnumCIBFields ''Added 8/28/2023 thomas downes
 
     Private mod_structLoad As StructLoadWhatFields ''Added 4/30/2022 td
     Private mod_colorWarning As Drawing.Color = Drawing.Color.Gold ''Added 5/13/2022
@@ -302,6 +311,10 @@ Public Class DialogListBothTypeFields
                 userControl_Irrelevant.Load_CustomControl(par_customfld)
                 userControl_Irrelevant.Visible = True
                 FlowLayoutPanel1.Controls.Add(userControl_Irrelevant)
+
+                ''Added 8/27/2023 thomas downes
+                AddHandler userControl_Irrelevant.RelevantFieldAdded_Enum, AddressOf HandleRelevantField
+
             End If ''End of ""If (par_checkLoad.NonrelevantFields) Then""
 
         ElseIf (par_checkLoad.RelevantFields) Then ''Conditioned 4/30/2022
@@ -630,6 +643,10 @@ Public Class DialogListBothTypeFields
                 userControl_Irrelevant.Load_StandardControl(par_standardFld) '', ICIBFieldStandardOrCustom))
                 userControl_Irrelevant.Visible = True
                 FlowLayoutPanel1.Controls.Add(userControl_Irrelevant)
+
+                ''Added 8/27/2023 thomas downes
+                AddHandler userControl_Irrelevant.RelevantFieldAdded_Enum, AddressOf HandleRelevantField
+
             End If ''End of ""If (par_checkLoad.NonrelevantFields) Then""
 
         ElseIf (par_checkLoad.RelevantFields) Then ''Condition added 4/30/2022
@@ -907,5 +924,22 @@ Public Class DialogListBothTypeFields
         End If ''End of ""If (ConfirmAutoSave()) Then"
 
     End Sub
+
+
+    Private Sub HandleRelevantField(par_enum As EnumCIBFields)
+        ''
+        ''Added 8/28/2023 td
+        ''
+        Output_FieldAddedLast_Enum = par_enum
+
+        If (Output_FieldAddedFirst_Enum = EnumCIBFields.Undetermined) Then
+
+            Output_FieldAddedFirst_Enum = par_enum
+
+        End If
+
+
+    End Sub ''End of ""Private Sub HandleRelevantField""
+
 
 End Class

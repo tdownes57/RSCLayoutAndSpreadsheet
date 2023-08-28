@@ -546,16 +546,24 @@ namespace MoveAndResizeControls_Monem_Net70
             {
                 // Remove these EventHandlers. ---12/28/2021 td
                 par_controlToHook.MouseDown -= (sender, e) => StartMovingOrResizing(par_controlToHook, e);
-                par_controlToHook.MouseUp -= (sender, e) => StopDragOrResizingV1(par_controlToHook, _iSaveToModel);
+                
+                //Obselete. 8/27/2023 par_controlToHook.MouseUp -= (sender, e) => StopDragOrResizingV1(par_controlToHook, _iSaveToModel);
+                par_controlToHook.MouseUp -= (sender, e) => StopDragOrResizingV2(par_controlToHook, _iSaveToModel, 
+                        _iRefreshElementImage, _iRefreshCardPreview);
+                
                 _bAllowMoves = false; //Added 12/20/2022
 
             }
             else
             {
                 par_controlToHook.MouseDown += (sender, e) => StartMovingOrResizing(par_controlToHook, e);
+
                 //Dec17 2021 td//par_controlPictureB.MouseUp += (sender, e) => StopDragOrResizing(par_controlToHook);
                 //Jan4 2022 //if (par_controlToHook.MouseUp != null) throw new Exception("This MouseUp may already be assigned.");
-                par_controlToHook.MouseUp += (sender, e) => StopDragOrResizingV1(par_controlToHook, _iSaveToModel);
+                //Obselete. 8/27/2023 par_controlToHook.MouseUp += (sender, e) => StopDragOrResizingV1(par_controlToHook, _iSaveToModel);
+                par_controlToHook.MouseUp += (sender, e) => StopDragOrResizingV2(par_controlToHook, _iSaveToModel,
+                        _iRefreshElementImage, _iRefreshCardPreview);
+
                 _bAllowMoves = true; //Added 12/20/2022
 
             }
@@ -602,7 +610,11 @@ namespace MoveAndResizeControls_Monem_Net70
                     // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
                     //Dec2022 _labelIfNeeded.MouseMove -= (sender, e) => MoveParentControl(_controlMoveableElement, e);
                     _labelIfNeeded.MouseMove -= (sender, e) => MoveParentControl((Control)sender, e);  // (null, e); // _controlMoveableElement, e);
-                    _labelIfNeeded.MouseUp -= (sender, e) => StopDragOrResizingV1(_labelIfNeeded, _iSaveToModel);
+
+                    //Obselete. 8/27/2023 _labelIfNeeded.MouseUp -= (sender, e) => StopDragOrResizingV1(_labelIfNeeded, _iSaveToModel);
+                    _labelIfNeeded.MouseUp -= (sender, e) => StopDragOrResizingV2(_labelIfNeeded, _iSaveToModel,
+                            _iRefreshElementImage, _iRefreshCardPreview);
+
                 }
             }
 
@@ -625,7 +637,10 @@ namespace MoveAndResizeControls_Monem_Net70
             _labelIfNeeded.MouseDown += (sender, e) => StartMovingOrResizing(_labelIfNeeded, e);
             // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
             _labelIfNeeded.MouseMove += (sender, e) => MoveParentControl(_controlMoveableElement, e);
-            _labelIfNeeded.MouseUp += (sender, e) => StopDragOrResizingV1(_labelIfNeeded, _iSaveToModel);
+
+            //Obselete. 8/27/2023 _labelIfNeeded.MouseUp += (sender, e) => StopDragOrResizingV1(_labelIfNeeded, _iSaveToModel);
+            _labelIfNeeded.MouseUp += (sender, e) => StopDragOrResizingV2(_labelIfNeeded, _iSaveToModel, 
+                _iRefreshElementImage, _iRefreshCardPreview);
 
         }
 
@@ -640,7 +655,10 @@ namespace MoveAndResizeControls_Monem_Net70
             _controlPictureBox2.MouseDown += (sender, e) => StartMovingOrResizing(_controlPictureBox2, e);
             // Yes, MoveParentControl(_controlMoveableElement is correct.... Jan4 2022 td
             _controlPictureBox2.MouseMove += (sender, e) => MoveParentControl(_controlMoveableElement, e);  // Yes, MoveParentControl(_controlMoveableElement
-            _controlPictureBox2.MouseUp += (sender, e) => StopDragOrResizingV1(_controlPictureBox2, _iSaveToModel);
+
+            //Obselete. 8/27/2023 _controlPictureBox2.MouseUp += (sender, e) => StopDragOrResizingV1(_controlPictureBox2, _iSaveToModel);
+            _controlPictureBox2.MouseUp += (sender, e) => StopDragOrResizingV2(_controlPictureBox2, _iSaveToModel, 
+                _iRefreshElementImage, _iRefreshCardPreview);
 
         }
 
@@ -1836,13 +1854,13 @@ namespace MoveAndResizeControls_Monem_Net70
             {
                 //Jan10 2022 //mod_events.Resizing_Terminate(par_iSave);
                 //June 4 2022 // mod_events_singleCtl.Resizing_TerminateV1(par_iSave);
-                
+
                 //See same call below.6/6/2022//mod_events_singleCtl.Resizing_TerminateV2(par_iSave, 
                 //                       //    par_iRefreshElemImage, 
                 //                       //    par_iRefreshCardPreview);
 
-                if (mod_events_groupedCtls != null)
-                    mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
+                //Obselete. 8/2023 if (mod_events_groupedCtls != null)
+                //Obselete. 8/2023      mod_events_groupedCtls.Resizing_TerminateV1(par_iSave);
 
                 //Added 6/4/2022 
                 //.... ///// new idea....

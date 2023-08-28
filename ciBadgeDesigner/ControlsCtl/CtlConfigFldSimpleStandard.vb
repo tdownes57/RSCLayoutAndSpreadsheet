@@ -16,7 +16,14 @@ Public Class CtlConfigFldSimpleStandard
     ''
     ''8/29/2019 td''Public Model As ClassFieldStandard ''Added 8/19/2019 thomas d.
     Public ModelFieldInfo As ICIBFieldStandardOrCustom ''Added 8/29/2019 thomas d. 
+
     Public Event ModifiedField(par_field As ClassFieldStandard) ''Added 5/12/2022 
+
+    ''Added 8/27/2023 
+    ''8/2023 Public Event RelevantFieldAdded(par_field As ClassFieldStandard) ''Added 5/12/2022 
+    ''8/2023 Public Event RelevantFieldAdded_Text(par_strFieldCaption As String) ''Added 5/12/2022 
+    Public Event RelevantFieldAdded_Enum(par_enum As EnumCIBFields) ''Added 8/2023 
+    Public Event ModifiedField_Enum(par_enum As EnumCIBFields) ''Added 8/2023 
 
     Public NewlyAdded As Boolean ''Add 8/19/2019 td 
 
@@ -231,11 +238,26 @@ ExitHandler:
         LoadCheckboxFontStyle() ''Add boldface and underlining.
 
         ''Added 5/12/2022 td
-        Dim new_field As New ClassFieldStandard ''Added 5/12/2022 td
-        new_field.IsRelevantToPersonality = CheckBoxRelevant.Checked
-        new_field.FieldEnumValue = mod_model_info.FieldEnumValue
-        new_field.DateEdited = Now
-        RaiseEvent ModifiedField(new_field) ''Added 5/12/2022 td
+        ''8/2023 Dim new_field As New ClassFieldStandard ''Added 5/12/2022 td
+        ''8/2023 new_field.IsRelevantToPersonality = CType(sender, CheckBox).Checked  ''CheckBoxRelevant.Checked
+        ''8/2023 new_field.FieldEnumValue = mod_model_info.FieldEnumValue
+        ''8/2023 new_field.DateEdited = Now
+
+        ''Added 8/27/2023
+        mod_model_copy.IsRelevantToPersonality = CType(sender, CheckBox).Checked  ''CheckBoxRelevant.Checked
+        mod_model_copy.DateEdited = Now
+
+        ''8/2023 RaiseEvent ModifiedField(new_field) ''Added 5/12/2022 td
+        ''Added 8/27/2023
+        ''#2 8/2023 RaiseEvent ModifiedField(mod_model_object)  
+        RaiseEvent ModifiedField(mod_model_copy) ''Added 5/12/2022 td
+        RaiseEvent ModifiedField_Enum(mod_model_info.FieldEnumValue) ''Added 8/27/2023 td
+
+        ''Added 8/27/2023 td
+        If (mod_model_copy.IsRelevantToPersonality) Then
+            ''Added 8/27/2023 td
+            RaiseEvent RelevantFieldAdded_Enum(mod_model_info.FieldEnumValue) ''Added 5/12/2022 td
+        End If ''End of ""If (new_field.IsRelevantToPersonality) Then""
 
         ''With CheckBoxRelevant
         ''    If (.Checked) Then
