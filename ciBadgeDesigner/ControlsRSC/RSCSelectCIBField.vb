@@ -228,11 +228,13 @@ Public Class RSCSelectCIBField
             Load_FieldsFromCache(Me.ElementsCache_Deprecated)
 
             ''Added 8/27/2023 td 
-            Dim strFieldAddedFirst As String ''Added 8/27/2023 td 
-            Dim strFieldAddedLast As String ''Added 8/27/2023 td 
+            Dim enumFieldAddedFirst As EnumCIBFields ''Added 8/27/2023 td 
+            Dim enumFieldAddedLast As EnumCIBFields ''Added 8/27/2023 td 
 
-            strFieldAddedFirst = form_ToShow.Output_FieldAddedFirst
-            strFieldAddedLast = form_ToShow.Output_FieldAddedLast
+            ''Added 8/27/2023 td 
+            enumFieldAddedFirst = form_ToShow.Output_FieldAddedFirst_Enum
+            enumFieldAddedLast = form_ToShow.Output_FieldAddedLast_Enum
+            comboBoxRelevantFields.SelectedValue = enumFieldAddedFirst
 
         End If ''End of ""If (dialog_result = ...)"
 

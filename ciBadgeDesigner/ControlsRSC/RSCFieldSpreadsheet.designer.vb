@@ -30,13 +30,15 @@ Partial Class RSCFieldSpreadsheet
         Me.ButtonPasteData2 = New System.Windows.Forms.Button()
         Me.RscFieldColumn1 = New ciBadgeDesigner.RSCFieldColumnV2()
         Me.RscRowHeaders1 = New ciBadgeDesigner.RSCRowHeaders()
+        Me.linkPrintAll = New System.Windows.Forms.LinkLabel()
+        Me.linkDisplayAll = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'LinkLabelRightClickMenu
         '
         Me.LinkLabelRightClickMenu.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelRightClickMenu.AutoSize = True
-        Me.LinkLabelRightClickMenu.Location = New System.Drawing.Point(569, 0)
+        Me.LinkLabelRightClickMenu.Location = New System.Drawing.Point(518, 0)
         Me.LinkLabelRightClickMenu.Name = "LinkLabelRightClickMenu"
         Me.LinkLabelRightClickMenu.Size = New System.Drawing.Size(153, 13)
         Me.LinkLabelRightClickMenu.TabIndex = 6
@@ -47,7 +49,7 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.LinkLabelReviewFields.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelReviewFields.AutoSize = True
-        Me.LinkLabelReviewFields.Location = New System.Drawing.Point(316, 0)
+        Me.LinkLabelReviewFields.Location = New System.Drawing.Point(437, 16)
         Me.LinkLabelReviewFields.Name = "LinkLabelReviewFields"
         Me.LinkLabelReviewFields.Size = New System.Drawing.Size(234, 13)
         Me.LinkLabelReviewFields.TabIndex = 7
@@ -106,7 +108,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn1.Name = "RscFieldColumn1"
         Me.RscFieldColumn1.PixelsFromRowToRow = 24
-        Me.RscFieldColumn1.Size = New System.Drawing.Size(198, 555)
+        Me.RscFieldColumn1.Size = New System.Drawing.Size(175, 555)
         Me.RscFieldColumn1.SizeabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn1.SizeabilityEventsForSingleMove = Nothing
         Me.RscFieldColumn1.SizeabilityEventsForSingleSize = Nothing
@@ -127,12 +129,34 @@ Partial Class RSCFieldSpreadsheet
         Me.RscRowHeaders1.MoveabilityEventsForSingleMove = Nothing
         Me.RscRowHeaders1.Name = "RscRowHeaders1"
         Me.RscRowHeaders1.PixelsFromRowToRow = 24
-        Me.RscRowHeaders1.Size = New System.Drawing.Size(125, 507)
+        Me.RscRowHeaders1.Size = New System.Drawing.Size(125, 552)
         Me.RscRowHeaders1.SizeabilityEventsForGroupCtls = Nothing
         Me.RscRowHeaders1.SizeabilityEventsForSingleMove = Nothing
         Me.RscRowHeaders1.SizeabilityEventsForSingleSize = Nothing
         Me.RscRowHeaders1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal
         Me.RscRowHeaders1.TabIndex = 8
+        '
+        'linkPrintAll
+        '
+        Me.linkPrintAll.AutoSize = True
+        Me.linkPrintAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.linkPrintAll.Location = New System.Drawing.Point(328, 0)
+        Me.linkPrintAll.Name = "linkPrintAll"
+        Me.linkPrintAll.Size = New System.Drawing.Size(145, 29)
+        Me.linkPrintAll.TabIndex = 14
+        Me.linkPrintAll.TabStop = True
+        Me.linkPrintAll.Text = "Print All IDs"
+        '
+        'linkDisplayAll
+        '
+        Me.linkDisplayAll.AutoSize = True
+        Me.linkDisplayAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.linkDisplayAll.Location = New System.Drawing.Point(145, 0)
+        Me.linkDisplayAll.Name = "linkDisplayAll"
+        Me.linkDisplayAll.Size = New System.Drawing.Size(177, 29)
+        Me.linkDisplayAll.TabIndex = 15
+        Me.linkDisplayAll.TabStop = True
+        Me.linkDisplayAll.Text = "Display All IDs"
         '
         'RSCFieldSpreadsheet
         '
@@ -141,6 +165,8 @@ Partial Class RSCFieldSpreadsheet
         Me.AutoScroll = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.Controls.Add(Me.linkDisplayAll)
+        Me.Controls.Add(Me.linkPrintAll)
         Me.Controls.Add(Me.ButtonAddColumns2)
         Me.Controls.Add(Me.ButtonPasteData2)
         Me.Controls.Add(Me.ButtonAddColumns1)
@@ -150,7 +176,7 @@ Partial Class RSCFieldSpreadsheet
         Me.Controls.Add(Me.LinkLabelReviewFields)
         Me.Controls.Add(Me.LinkLabelRightClickMenu)
         Me.Name = "RSCFieldSpreadsheet"
-        Me.Size = New System.Drawing.Size(736, 576)
+        Me.Size = New System.Drawing.Size(685, 576)
         Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelRightClickMenu, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelReviewFields, 0)
@@ -160,6 +186,8 @@ Partial Class RSCFieldSpreadsheet
         Me.Controls.SetChildIndex(Me.ButtonAddColumns1, 0)
         Me.Controls.SetChildIndex(Me.ButtonPasteData2, 0)
         Me.Controls.SetChildIndex(Me.ButtonAddColumns2, 0)
+        Me.Controls.SetChildIndex(Me.linkPrintAll, 0)
+        Me.Controls.SetChildIndex(Me.linkDisplayAll, 0)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -173,4 +201,6 @@ Partial Class RSCFieldSpreadsheet
     Friend WithEvents ButtonAddColumns1 As Button
     Friend WithEvents ButtonAddColumns2 As Button
     Friend WithEvents ButtonPasteData2 As Button
+    Friend WithEvents linkPrintAll As LinkLabel
+    Friend WithEvents linkDisplayAll As LinkLabel
 End Class

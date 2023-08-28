@@ -8,6 +8,7 @@ Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 ''4/2023 Imports ciBadgeElements
 Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
+Imports ciBadgeRecipients
 
 Public Class RSCFieldSpreadsheet
     ''
@@ -37,6 +38,11 @@ Public Class RSCFieldSpreadsheet
     ''Added 4/29/2022 td
     Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
     Private mod_intEmphasisRowIndex_End As Integer = -1 ''= par_intRowIndex_End
+
+    ''Added 8/27/2023
+    ''    Store the horizontal lines, one corresponding to the
+    ''    unique .Top property of each spreadsheet row's 1st-column cell 
+    Private mod_listHorizontalLines As List(Of Integer)
 
     Public ColumnDataCache As ciBadgeCachePersonality.CacheRSCFieldColumnWidthsEtc ''ClassColumnWidthsEtc ''Added 3/15/2022 td
 
@@ -514,6 +520,28 @@ Public Class RSCFieldSpreadsheet
 
 
     End Sub ''End of ""Private Sub ShowFieldsManagement()""
+
+
+    Public Sub ShowRecipientsIDCard_All()
+        ''
+        ''Added 5/19/2022 thomas d
+        ''
+        Dim listRowHeaders0of2 As RSCRowHeaders
+        Dim listRowHeaders1of2 As RSCSpreadManagerRowheaders
+        Dim listRowHeaders2of2 As List(Of RSCRowHeader)
+
+        listRowHeaders1of2 = mod_managerRowsCols.RowHeaders
+        listRowHeaders2of2 = RscRowHeaders1.ListOfRowHeaders_TopToBottom
+
+        For Each each_rowHdr As RSCRowHeader In listRowHeaders2of2
+
+55555 =====
+
+
+        Next each_row
+
+
+    End Sub ''End of ""Public Sub ShowRecipientsIDCard_All()""
 
 
     Public Sub ShowRecipientsIDCard(par_objRecipient As ciBadgeRecipients.ClassRecipient)
@@ -1786,9 +1814,14 @@ Public Class RSCFieldSpreadsheet
 
     End Sub
 
+    Private Sub linkDisplayAll_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkDisplayAll.LinkClicked
+        ''
+        ''Added 8/28/2023
+        ''
+        ShowRecipientsIDCard_All()
 
 
-
+    End Sub
 End Class
 
 
