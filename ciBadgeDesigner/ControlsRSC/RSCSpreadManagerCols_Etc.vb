@@ -32,13 +32,14 @@ Partial Public Class RSCSpreadManagerCols
 
     Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
                                par_iRowIndex As Integer,
-                               Optional ByRef pboolFailure As Boolean = False,
+                               Optional ByRef pboolAnyFailure As Boolean = False,
                                Optional ByRef pintHowManyColumnsFailed As Integer = 0)
         ''
         ''Added 5/19/2022 
         ''
         Dim each_column As RSCFieldColumnV2
         Dim each_failure As Boolean  ''Added 5/25/2022 
+        Dim bAnyColumnsFailed As Boolean ''Added 8/29/2023
 
         ''Track how many columns have failures. 
         pintHowManyColumnsFailed = 0 ''Initialize.  5/245/2022 
@@ -54,12 +55,19 @@ Partial Public Class RSCSpreadManagerCols
                 ''#2 5/25/2022 ''.SaveToRecipient(par_objRecipient, par_iRowIndex, pboolFailure)
                 each_failure = False ''Initialize. 5/25/2022
                 .SaveToRecipient(par_objRecipient, par_iRowIndex, each_failure)
+
             End With
 
-            If (each_failure) Then pboolFailure = True
-            If (each_failure) Then pintHowManyColumnsFailed += 1
+            If (each_failure) Then
+                bAnyColumnsFailed = True
+                pintHowManyColumnsFailed += 1
+            End If ''end of "If (each_failure) Then"
 
         Next each_column
+
+        ''Added 8/29/2023
+        If (bAnyColumnsFailed) Then System.Diagnostics.Debugger.Break()
+        If (bAnyColumnsFailed) Then pboolAnyFailure = True
 
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
 

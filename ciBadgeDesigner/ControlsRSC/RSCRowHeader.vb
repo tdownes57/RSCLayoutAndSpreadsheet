@@ -3,7 +3,9 @@ Option Strict On ''Added 5/19/2022
 ''
 ''Added 4/6/2022 thomas d
 ''
+Imports __RSC_Error_Logging
 Imports ciBadgeInterfaces ''Added 5/19/2022 thomas 
+Imports ciBadgeRecipients
 
 Public Class RSCRowHeader
     ''
@@ -196,6 +198,36 @@ Public Class RSCRowHeader
     End Function ''eND OF ""Public Sub FocusRelated_RowHasEmphasis()""
 
 
+    Public Function GetRecipient() As ClassRecipient
+        ''
+        ''Added 8/29/2023 td
+        ''
+        Dim objRecipient As ClassRecipient
+        Dim intRowIndex As Integer
+        Dim bFailure As Boolean
+        objRecipient = Me.Recipient
+        If (objRecipient Is Nothing) Then
+            objRecipient = New ClassRecipient
+            Me.Recipient = objRecipient
+        End If ''End ""If (objRecipient Is Nothing) Then
+
+        ''Minor call
+        intRowIndex = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
+
+        ''Added 8/29/2023 
+        If (intRowIndex < 0) Then
+            System.Diagnostics.Debugger.Break()
+            RSCErrorLogging.Log(34, "GetRecipient", "RowIndex is -1.")
+        Else
+            ''Major call
+            Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, intRowIndex, bFailure)
+            If (bFailure) Then Return Nothing
+        End If ''Endof ""If (intRowIndex < 0) Then...Else
+        Return objRecipient
+
+    End Function ''End of ""Public Function GetRecipient()""
+
+
     Private Sub textRowHeader1_MouseUp(sender As Object, e As MouseEventArgs) _
         Handles textRowHeader1.MouseUp
 
@@ -279,7 +311,8 @@ Public Class RSCRowHeader
 
         End If ''End of "If (e.Button = MouseButtons.Right) Then .... ElseIf ... Else ...."
 
-    End Sub
+    End Sub ''End of ""Private Sub textRowHeader1_MouseUp""
+
 
     Private Sub LinkLabelShowID_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelShowID.LinkClicked
 
@@ -299,7 +332,7 @@ Public Class RSCRowHeader
 
 
 
-    End Sub
+    End Sub ''End of ""Private Sub LinkLabelShowID_LinkClicked""
 
 
 End Class

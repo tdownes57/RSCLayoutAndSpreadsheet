@@ -5,6 +5,7 @@ Imports System.Drawing ''Added 3/20/2022 thomas downes
 Imports __RSC_Error_Logging
 Imports __RSCWindowsControlLibrary
 Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
+Imports ciBadgeElements
 ''4/2023 Imports ciBadgeElements
 Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
@@ -524,21 +525,35 @@ Public Class RSCFieldSpreadsheet
 
     Public Sub ShowRecipientsIDCard_All()
         ''
-        ''Added 5/19/2022 thomas d
+        ''Added 8/29/2023 thomas d
         ''
         Dim listRowHeaders0of2 As RSCRowHeaders
         Dim listRowHeaders1of2 As RSCSpreadManagerRowheaders
         Dim listRowHeaders2of2 As List(Of RSCRowHeader)
+        Dim each_recipient As ClassRecipient ''Added 8/29/2023
+        Dim intCountRecips As Integer = 0
+        Dim intCountNothings As Integer = 0
 
         listRowHeaders1of2 = mod_managerRowsCols.RowHeaders
         listRowHeaders2of2 = RscRowHeaders1.ListOfRowHeaders_TopToBottom
 
         For Each each_rowHdr As RSCRowHeader In listRowHeaders2of2
+            ''Added 8/29/2023
+            each_recipient = each_rowHdr.GetRecipient()
+            If (each_recipient Is Nothing) Then
+                intCountNothings += 1
+            Else
+                intCountRecips += 1
+                ShowRecipientsIDCard(each_recipient)
+            End If
 
-55555 =====
+        Next each_rowHdr
 
-
-        Next each_row
+        ''Inform the user of the counts. 
+        If (intCountRecips = 0) Then
+            ''Added 8/29/2023
+            MessageBoxTD.Show_Statement("We found zero(0) recipients to display.")
+        End If ''end of ""If (intCountRecips = 0) Then""
 
 
     End Sub ''End of ""Public Sub ShowRecipientsIDCard_All()""

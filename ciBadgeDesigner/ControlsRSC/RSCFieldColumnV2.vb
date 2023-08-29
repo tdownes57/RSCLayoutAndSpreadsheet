@@ -1943,12 +1943,20 @@ Public Class RSCFieldColumnV2
 
         enumCIBField = RscSelectCIBField1.SelectedValue
 
-        one_RSCDataCell = GetCellWithRowIndex(par_iRowIndex)
+        Try
+            one_RSCDataCell = GetCellWithRowIndex(par_iRowIndex)
 
-        ''one_RSCDataCell.SaveDataToRecipient(par_objRecipient, enumCIBField)
-        ''5/25/2022 td ''one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField)
-        one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField, pboolFailure)
+            ''one_RSCDataCell.SaveDataToRecipient(par_objRecipient, enumCIBField)
+            ''5/25/2022 td ''one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField)
+            one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField, pboolFailure)
 
+        Catch ex_Save As Exception
+            ''Added 8/29/2023 td
+            System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(239, "SaveToRecipient",
+                 ex_Save.Message)
+
+        End Try
 
     End Sub ''End of ""Public Sub SaveToRecipient""
 

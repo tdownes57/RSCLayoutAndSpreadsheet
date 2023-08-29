@@ -38,7 +38,7 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.LinkLabelRightClickMenu.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelRightClickMenu.AutoSize = True
-        Me.LinkLabelRightClickMenu.Location = New System.Drawing.Point(518, 0)
+        Me.LinkLabelRightClickMenu.Location = New System.Drawing.Point(513, 0)
         Me.LinkLabelRightClickMenu.Name = "LinkLabelRightClickMenu"
         Me.LinkLabelRightClickMenu.Size = New System.Drawing.Size(153, 13)
         Me.LinkLabelRightClickMenu.TabIndex = 6
@@ -49,7 +49,7 @@ Partial Class RSCFieldSpreadsheet
         '
         Me.LinkLabelReviewFields.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LinkLabelReviewFields.AutoSize = True
-        Me.LinkLabelReviewFields.Location = New System.Drawing.Point(437, 16)
+        Me.LinkLabelReviewFields.Location = New System.Drawing.Point(432, 16)
         Me.LinkLabelReviewFields.Name = "LinkLabelReviewFields"
         Me.LinkLabelReviewFields.Size = New System.Drawing.Size(234, 13)
         Me.LinkLabelReviewFields.TabIndex = 7
@@ -102,7 +102,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscFieldColumn1.ColumnWidthAndData = Nothing
         Me.RscFieldColumn1.ElementInfo_Base = Nothing
         Me.RscFieldColumn1.ImageLocation = Nothing
-        Me.RscFieldColumn1.Location = New System.Drawing.Point(150, 36)
+        Me.RscFieldColumn1.Location = New System.Drawing.Point(115, 43)
         Me.RscFieldColumn1.Margin = New System.Windows.Forms.Padding(2)
         Me.RscFieldColumn1.MoveabilityEventsForGroupCtls = Nothing
         Me.RscFieldColumn1.MoveabilityEventsForSingleMove = Nothing
@@ -129,7 +129,7 @@ Partial Class RSCFieldSpreadsheet
         Me.RscRowHeaders1.MoveabilityEventsForSingleMove = Nothing
         Me.RscRowHeaders1.Name = "RscRowHeaders1"
         Me.RscRowHeaders1.PixelsFromRowToRow = 24
-        Me.RscRowHeaders1.Size = New System.Drawing.Size(125, 552)
+        Me.RscRowHeaders1.Size = New System.Drawing.Size(125, 574)
         Me.RscRowHeaders1.SizeabilityEventsForGroupCtls = Nothing
         Me.RscRowHeaders1.SizeabilityEventsForSingleMove = Nothing
         Me.RscRowHeaders1.SizeabilityEventsForSingleSize = Nothing
@@ -176,7 +176,7 @@ Partial Class RSCFieldSpreadsheet
         Me.Controls.Add(Me.LinkLabelReviewFields)
         Me.Controls.Add(Me.LinkLabelRightClickMenu)
         Me.Name = "RSCFieldSpreadsheet"
-        Me.Size = New System.Drawing.Size(685, 576)
+        Me.Size = New System.Drawing.Size(668, 559)
         Me.Controls.SetChildIndex(Me.LinkLabelConditional, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelRightClickMenu, 0)
         Me.Controls.SetChildIndex(Me.LinkLabelReviewFields, 0)

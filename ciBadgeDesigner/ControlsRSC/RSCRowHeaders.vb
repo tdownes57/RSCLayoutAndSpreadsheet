@@ -266,6 +266,11 @@ Public Class RSCRowHeaders
         ''---For Each obj_header As RSCRowHeader In mod_listTextboxesByRow.
         Dim each_header As RSCRowHeader
 
+        ''Added 8/29/2023
+        If mod_listRowHeadersByRow.Count = 0 Then
+            System.Diagnostics.Debugger.Break()
+        End If
+
         ''Added 4/25/2022 td
         For Each each_key As Integer In mod_listRowHeadersByRow.Keys
             each_header = mod_listRowHeadersByRow.Values(each_key)

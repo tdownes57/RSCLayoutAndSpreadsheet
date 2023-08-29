@@ -32,6 +32,7 @@ Partial Class FormWelcomeNotes
         Me.LinkLabelShowWarnings = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelTurnOffWarnings = New System.Windows.Forms.LinkLabel()
         Me.imgCIS = New System.Windows.Forms.PictureBox()
+        Me.LabelGoalMicrosoftStore = New System.Windows.Forms.Label()
         CType(Me.pictureBoxLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgCIS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -43,11 +44,11 @@ Partial Class FormWelcomeNotes
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.BackColor = System.Drawing.SystemColors.Control
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBox1.Location = New System.Drawing.Point(12, 250)
+        Me.TextBox1.Location = New System.Drawing.Point(12, 266)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(541, 166)
+        Me.TextBox1.Size = New System.Drawing.Size(541, 150)
         Me.TextBox1.TabIndex = 0
         '
         'ButtonCancelEdits
@@ -145,11 +146,22 @@ Partial Class FormWelcomeNotes
         Me.imgCIS.TabIndex = 18
         Me.imgCIS.TabStop = False
         '
+        'LabelGoalMicrosoftStore
+        '
+        Me.LabelGoalMicrosoftStore.AutoSize = True
+        Me.LabelGoalMicrosoftStore.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelGoalMicrosoftStore.Location = New System.Drawing.Point(12, 230)
+        Me.LabelGoalMicrosoftStore.Name = "LabelGoalMicrosoftStore"
+        Me.LabelGoalMicrosoftStore.Size = New System.Drawing.Size(438, 31)
+        Me.LabelGoalMicrosoftStore.TabIndex = 19
+        Me.LabelGoalMicrosoftStore.Text = "Goal:  Publishing to Microsoft Store"
+        '
         'FormWelcomeNotes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 489)
+        Me.Controls.Add(Me.LabelGoalMicrosoftStore)
         Me.Controls.Add(Me.imgCIS)
         Me.Controls.Add(Me.LinkLabelTurnOffWarnings)
         Me.Controls.Add(Me.LinkLabelShowWarnings)
@@ -179,4 +191,5 @@ Partial Class FormWelcomeNotes
     Friend WithEvents LinkLabelShowWarnings As LinkLabel
     Friend WithEvents LinkLabelTurnOffWarnings As LinkLabel
     Friend WithEvents imgCIS As PictureBox
+    Friend WithEvents LabelGoalMicrosoftStore As Label
 End Class

@@ -4045,6 +4045,9 @@ ExitHandler:
 
         frm_HowToLoad.ShowDialog() ''Added 5/2023
 
+        ''Added 8/29/2023 
+        If (frm_HowToLoad.UserHasCancelled) Then Exit Sub
+
         Dim boolLoadByColumn As Boolean ''Added 5/22/2023
         ''Added 5/22/2023
         boolLoadByColumn = frm_HowToLoad.LoadColumnByColumn
