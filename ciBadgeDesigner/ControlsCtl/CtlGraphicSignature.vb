@@ -52,7 +52,7 @@ Public Class CtlGraphicSignature
         ''
         ''Added 1/02/2022 td
         ''
-        Const c_enumElemType As EnumElementType = EnumElementType.Signature
+        ''Const c_enumElemType As EnumElementType = EnumElementType.Signature
         Const bAddFunctionalitySooner As Boolean = False
         Const bAddFunctionalityLater As Boolean = True
 

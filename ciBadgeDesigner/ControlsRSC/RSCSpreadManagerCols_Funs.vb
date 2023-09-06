@@ -258,7 +258,7 @@ Partial Public Class RSCSpreadManagerCols
         output = New RSCSpreadManagerRows(mod_controlSpread,
                         mod_dlist_RSCColumns,
                         mod_columnDesignedV2,
-                        mod_controlSpread.RscRowHeaders1)
+                        mod_controlSpread.RscRowHeaders1, Me)
         Return output
 
     End Function ''End of ""Public Function GetSpreadManagerRows()""
@@ -468,6 +468,17 @@ Partial Public Class RSCSpreadManagerCols
         Return strLine
 
     End Function ''End of ""Public Function ToString_ByRow()""
+
+
+    Public Function IsRowEmpty(par_intRowIndex As Integer) As Boolean
+        ''
+        ''Added 9/05/2023 Thomas Downes 
+        ''
+        ''
+        Throw New NotImplementedException()
+
+    End Function ''End of ""Public Function IsRowEmpty(par_intRowIndex As Integer) As Boolean""
+
 
 
 End Class ''End of ""Partial Public Class RSCSpreadManagerCols""

@@ -136,7 +136,7 @@ Public Class CtlGraphicStaticTextV4
         Dim typeOps As Type
         Dim objOperations As Object ''Added 12/29/2021 td 
         Dim objOperationsStaticText_V4 As Operations_StaticTextV4
-        Dim sizeFieldElement As Size ''Added 1/26/2022 td
+        ''Dim sizeFieldElement As Size ''Added 1/26/2022 td
 
         ''Instantiate the Operations Object. 
         objOperationsStaticText_V4 = New Operations_StaticTextV4() ''Added 1/31/2022 td

@@ -287,6 +287,7 @@ Public Class RSCDataCell
         ''Added 4/30/2022 td
         Dim boolHasFocus As Boolean ''Added 4/30/2022 td
         boolHasFocus = Textbox1a.Focused
+        Return boolHasFocus ''Added 8/31/2023
 
     End Function ''End of ""Public Function FocusRelated_CellHasFocus() As Boolean""  
 
@@ -297,6 +298,7 @@ Public Class RSCDataCell
         ''Added 4/30/2022 td
         Dim boolHasFocus As Boolean ''Added 4/30/2022 td
         boolHasFocus = Textbox1a.Focused
+        Return boolHasFocus ''Added 8/31/2023
 
     End Function ''End of ""Public Function FocusRelated_TextboxHasFocus() As Boolean""  
 
@@ -327,7 +329,8 @@ Public Class RSCDataCell
         Dim bFailedToSave As Boolean ''Added 5/25/2022
 
         ''5/25/2022 td''par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text)
-        par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text, bFailedToSave)
+        ''8/29/2022 td''par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text, bFailedToSave)
+        par_objRecipient.SaveTextValue(par_enumCIBField, Textbox1a.Text.Trim(), bFailedToSave)
 
         If (bFailedToSave) Then
             ''Added 5/25/2022 
@@ -619,6 +622,41 @@ Public Class RSCDataCell
 
 
     End Sub ''End of ""Public Sub PasteDataFromClipboard()""
+
+
+
+    Public Sub ShowMessage_RowIsEmpty()
+        ''
+        ''Added 9/3/2023 
+        ''
+        ToggleMessage_RowIsEmpty(True, True)
+
+    End Sub ''End of ""Public Sub ToggleMessage_RowIsEmpty""
+
+
+    Public Sub ToggleMessage_RowIsEmpty(Optional par_bGuaranteeStatus As Boolean = False,
+                                        Optional par_bSetRowToEmpty As Boolean = True)
+        ''
+        ''Added 9/3/2023 
+        ''
+        Dim bStatusEmpty_Prior As Boolean
+        Dim bStatusEmpty_Needed As Boolean
+
+        bStatusEmpty_Prior = LinkLabelEmptyRow.Visible
+
+        If (par_bGuaranteeStatus) Then
+            bStatusEmpty_Needed = par_bSetRowToEmpty
+        Else
+            ''Toggle the message on/off.
+            bStatusEmpty_Needed = (Not bStatusEmpty_Prior)
+        End If
+
+        LinkLabelEmptyRow.Visible = bStatusEmpty_Needed
+
+        ''Hide or display the textbox. 
+        Textbox1a.Visible = (Not LinkLabelEmptyRow.Visible)
+
+    End Sub ''End of ""Public Sub ToggleMessage_RowIsEmpty""
 
 
 

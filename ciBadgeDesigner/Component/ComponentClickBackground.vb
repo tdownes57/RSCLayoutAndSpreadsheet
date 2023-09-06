@@ -115,7 +115,7 @@ Public Class ComponentClickBackground
         End If ''end of "If (ContextMenuStrip1 Is Nothing) Then"
 
         Dim objDisplayMenu As New ClassDisplayContextMenu(MyBase.ContextMenuStrip1)
-        Const c_intRandom As Integer = 5
+        ''Const c_intRandom As Integer = 5
         With objDisplayMenu
 
             Dim objParentControl As Control ''Added 1/15/2022

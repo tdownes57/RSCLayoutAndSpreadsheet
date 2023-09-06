@@ -18,6 +18,7 @@ Imports ciBadgeElements
 Imports System.Runtime.CompilerServices
 Imports MoveAndResizeControls_Monem
 
+
 Public Class RSCFieldColumnV2
     Implements InterfaceRSCColumnData ''Added 8/27/2023 
     ''Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
@@ -545,6 +546,25 @@ Public Class RSCFieldColumnV2
 
 
     End Sub ''End of ""Public Sub New(par_field As .........)"
+
+
+    Public Sub ToggleMessage_RowIsEmpty(par_intRowIndex As Integer,
+                                        Optional par_bGuaranteeStatus As Boolean = False,
+                                        Optional par_bSetRowToEmpty As Boolean = True)
+        ''
+        ''Added 9/3/2023 
+        ''
+        Dim objDataCell As RSCDataCell
+        Try
+            objDataCell = GetCellWithRowIndex(par_intRowIndex)
+            objDataCell.ToggleMessage_RowIsEmpty(par_bGuaranteeStatus, par_bSetRowToEmpty)
+        Catch ex_Toggle As Exception
+            System.Diagnostics.Debugger.Break()
+            __RSC_Error_Logging.RSCErrorLogging.Log(32, "ToggleMessage_RowIsEmpty", ex_Toggle.Message)
+        End Try
+
+
+    End Sub ''End of ""Public Sub ToggleMessage_RowIsEmpty""
 
 
     Public Sub DisplayColumnIndex(par_intColumnIndex As Integer)
@@ -1934,29 +1954,35 @@ Public Class RSCFieldColumnV2
 
     Public Sub SaveToRecipient(par_objRecipient As ClassRecipient,
                                par_iRowIndex As Integer,
-                               Optional ByRef pboolFailure As Boolean = False)
+                               Optional ByRef pref_boolFailure As Boolean = False,
+                               Optional ByRef pref_fieldFailed As EnumCIBFields = EnumCIBFields.Undetermined)
         ''
         ''Added 5/19/2022 thomas downes
         ''
         Dim one_RSCDataCell As RSCDataCell
-        Dim enumCIBField As EnumCIBFields
+        Dim enumCIBFieldOfCol As EnumCIBFields
 
-        enumCIBField = RscSelectCIBField1.SelectedValue
+        enumCIBFieldOfCol = RscSelectCIBField1.SelectedValue
 
         Try
             one_RSCDataCell = GetCellWithRowIndex(par_iRowIndex)
 
             ''one_RSCDataCell.SaveDataToRecipient(par_objRecipient, enumCIBField)
             ''5/25/2022 td ''one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField)
-            one_RSCDataCell.SaveDataToRecipientField(par_objRecipient, enumCIBField, pboolFailure)
+            one_RSCDataCell.SaveDataToRecipientField(par_objRecipient,
+                                                     enumCIBFieldOfCol, pref_boolFailure)
 
         Catch ex_Save As Exception
             ''Added 8/29/2023 td
+            pref_boolFailure = True ''Added 9/1/2023
             System.Diagnostics.Debugger.Break()
             __RSC_Error_Logging.RSCErrorLogging.Log(239, "SaveToRecipient",
                  ex_Save.Message)
 
         End Try
+
+        ''Added 8/31/2023
+        If (pref_boolFailure) Then pref_fieldFailed = enumCIBFieldOfCol
 
     End Sub ''End of ""Public Sub SaveToRecipient""
 

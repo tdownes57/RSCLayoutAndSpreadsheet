@@ -33,16 +33,19 @@ Partial Public Class RSCSpreadManagerCols
     Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
                                par_iRowIndex As Integer,
                                Optional ByRef pboolAnyFailure As Boolean = False,
-                               Optional ByRef pintHowManyColumnsFailed As Integer = 0)
+                               Optional ByRef pintHowManyColumnsFailed As Integer = 0,
+                               Optional ByRef pintHowManyColumnsWorked As Integer = 0)
         ''
         ''Added 5/19/2022 
         ''
         Dim each_column As RSCFieldColumnV2
         Dim each_failure As Boolean  ''Added 5/25/2022 
         Dim bAnyColumnsFailed As Boolean ''Added 8/29/2023
+        Dim enum_failure As ciBadgeInterfaces.EnumCIBFields ''Added 9/01/2023
 
         ''Track how many columns have failures. 
         pintHowManyColumnsFailed = 0 ''Initialize.  5/245/2022 
+        pintHowManyColumnsWorked = 0 ''Initialize.  5/245/2022 
 
         ''5/9/2023 For Each each_column In mod_dict_RSCColumns.Values ''4/17/2023 mod_array_RSCColumns
         For Each each_column In mod_dlist_RSCColumns ''5/9/2023 .Values ''4/17/2023 mod_array_RSCColumns
@@ -54,14 +57,17 @@ Partial Public Class RSCSpreadManagerCols
                 ''#1 5/25/2022 ''.SaveToRecipient(par_objRecipient, par_iRowIndex)
                 ''#2 5/25/2022 ''.SaveToRecipient(par_objRecipient, par_iRowIndex, pboolFailure)
                 each_failure = False ''Initialize. 5/25/2022
-                .SaveToRecipient(par_objRecipient, par_iRowIndex, each_failure)
+                .SaveToRecipient(par_objRecipient, par_iRowIndex,
+                                 each_failure, enum_failure)
 
             End With
 
             If (each_failure) Then
                 bAnyColumnsFailed = True
                 pintHowManyColumnsFailed += 1
-            End If ''end of "If (each_failure) Then"
+            Else
+                pintHowManyColumnsWorked += 1
+            End If ''end of "If (each_failure) Then... Else"
 
         Next each_column
 
@@ -611,6 +617,22 @@ Partial Public Class RSCSpreadManagerCols
         ''
 
     End Sub ''Public Sub AttachFourColumnsToEachother(pcolumn1 As RSCFieldColumnV2....)
+
+
+    Public Sub ToggleMessage_RowIsEmpty(par_intRowIndex As Integer,
+                                     Optional par_bGuaranteeStatus As Boolean = False,
+                                     Optional par_bSetRowToEmpty As Boolean = True)
+        ''
+        ''Added 9/3/2023 
+        ''
+        For Each each_column As RSCFieldColumnV2 In mod_dlist_RSCColumns
+
+            each_column.ToggleMessage_RowIsEmpty(par_intRowIndex,
+                               par_bGuaranteeStatus, par_bSetRowToEmpty)
+
+        Next each_column
+
+    End Sub ''End of ""Public Sub ToggleMessage_RowIsEmpty""
 
 
     ''Public Sub CompactColumnsAfterDeletion(par_columnAboutToDelete As RSCFieldColumnV2,

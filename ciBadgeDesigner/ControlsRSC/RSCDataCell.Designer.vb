@@ -25,6 +25,7 @@ Partial Class RSCDataCell
         Me.Textbox1a = New System.Windows.Forms.TextBox()
         Me.LinkLabelCrLf = New System.Windows.Forms.LinkLabel()
         Me.LinkLabelOutlier = New System.Windows.Forms.LinkLabel()
+        Me.LinkLabelEmptyRow = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'Textbox1a
@@ -67,10 +68,25 @@ Partial Class RSCDataCell
         Me.LinkLabelOutlier.Text = "Outlier"
         Me.LinkLabelOutlier.Visible = False
         '
+        'LinkLabelEmptyRow
+        '
+        Me.LinkLabelEmptyRow.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LinkLabelEmptyRow.AutoSize = True
+        Me.LinkLabelEmptyRow.BackColor = System.Drawing.Color.Transparent
+        Me.LinkLabelEmptyRow.Location = New System.Drawing.Point(3, 0)
+        Me.LinkLabelEmptyRow.Name = "LinkLabelEmptyRow"
+        Me.LinkLabelEmptyRow.Size = New System.Drawing.Size(70, 13)
+        Me.LinkLabelEmptyRow.TabIndex = 40
+        Me.LinkLabelEmptyRow.TabStop = True
+        Me.LinkLabelEmptyRow.Tag = "Row has data in unselected fields"
+        Me.LinkLabelEmptyRow.Text = "Row is empty"
+        Me.LinkLabelEmptyRow.Visible = False
+        '
         'RSCDataCell
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.LinkLabelEmptyRow)
         Me.Controls.Add(Me.LinkLabelOutlier)
         Me.Controls.Add(Me.LinkLabelCrLf)
         Me.Controls.Add(Me.Textbox1a)
@@ -84,4 +100,5 @@ Partial Class RSCDataCell
     Public WithEvents Textbox1a As TextBox
     Friend WithEvents LinkLabelCrLf As LinkLabel
     Friend WithEvents LinkLabelOutlier As LinkLabel
+    Friend WithEvents LinkLabelEmptyRow As LinkLabel
 End Class

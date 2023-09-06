@@ -242,42 +242,49 @@ Public Class ClassDesigner2Sides
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return 0 ''False
     End Function
 
     Public Function ElementsList_OneOrMoreItems() As Boolean Implements ISelectingElements.ElementsList_OneOrMoreItems
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return False
     End Function
 
     Public Function ElementsList_TwoOrMoreItems() As Boolean Implements ISelectingElements.ElementsList_TwoOrMoreItems
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return False
     End Function
 
     Public Function ElementsList_IsItemIncluded(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.ElementsList_IsItemIncluded
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return False
     End Function
 
     Public Function ElementsList_IsItemUnselected(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.ElementsList_IsItemUnselected
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return False
     End Function
 
     Public Function HasAtLeastOne__Up(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.HasAtLeastOne__Up
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return False
     End Function
 
     Public Function HasAtLeastOne_Down(par_control As RSCMoveableControlVB) As Boolean Implements ISelectingElements.HasAtLeastOne_Down
         ''Throw New NotImplementedException()
         '9/1/2022 Throw New NotImplementedException()
         System.Diagnostics.Debugger.Break()
+        Return False
     End Function
 
     Public Sub SwitchControls___Up(par_control As RSCMoveableControlVB) Implements ISelectingElements.SwitchControls___Up

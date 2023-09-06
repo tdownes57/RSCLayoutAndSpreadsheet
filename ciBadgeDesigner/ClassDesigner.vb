@@ -1327,7 +1327,7 @@ Public Class ClassDesigner
         Dim intPicWidth As Integer
         Dim intPicHeight As Integer
         Dim objNewElementFieldV3 As ClassElementFieldV3
-        Dim objNewElementFieldV4 As ClassElementFieldV3
+        ''Dim objNewElementFieldV4 As ClassElementFieldV3
 
         Static s_countCalls As Integer = 0
 
@@ -1448,6 +1448,7 @@ Public Class ClassDesigner
             ''                     EnumSideOfCard_Current)
 
             ''Return objNewElementFieldV3
+            Return Nothing
 
         End If ''End of ""If (c_boolVersion4_TestingOK) Then... Else...."
 

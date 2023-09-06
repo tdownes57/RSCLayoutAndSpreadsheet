@@ -7,7 +7,8 @@ Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
 Imports ciBadgeCachePersonality ''Added 3/14/2.0.2.2. t.//downes
 Imports System.Drawing ''Added 3/20/2022 thomas downes
-
+Imports __RSC_Error_Logging
+Imports ciBadgeRecipients
 
 Public Class RSCRowHeaders
     ''
@@ -133,8 +134,17 @@ Public Class RSCRowHeaders
         ''Added 5/13/2022 td
         ''
         Dim objRowHeader As RSCRowHeader
-        objRowHeader =
-            mod_listRowHeadersByRow.Item(par_intRowIndex)
+
+        Try
+            objRowHeader =
+                mod_listRowHeadersByRow.Item(par_intRowIndex)
+
+        Catch ex_Get As System.Collections.Generic.KeyNotFoundException
+            ''Added 8/30/2023 td
+            System.Diagnostics.Debugger.Break()
+            RSCErrorLogging.Log(92, "GetRowHeaderByRowIndex", ex_Get.Message)
+
+        End Try
 
         Return objRowHeader
 
@@ -343,6 +353,7 @@ Public Class RSCRowHeaders
         textRowHeader1.ParentRSCRowHeaders = Me
         ''textRowHeader1.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
         mod_listRowHeadersByRow.Add(1, textRowHeader1)
+
         ''Dim struct1 As New StructLabelAndRowSeparator()
         ''struct1.Cellbox = textRowHeader1
         ''struct1.BottomBar = PictureBox1a
@@ -584,6 +595,32 @@ Public Class RSCRowHeaders
     End Function ''End of ""Public Function GetRecipient_ByGuid6(par_strGuidChars6 As String) As RSCRowHeader ""
 
 
+    Public Function GetListOfRecipients() As List(Of ClassRecipient)
+        ''
+        ''Added 8/31/2023  thomas Downes
+        ''
+        Dim listOfRecipients As New List(Of ClassRecipient)
+        Dim eachRecipient As ClassRecipient
+        Dim eachIsRowEmpty As Boolean
+
+        For Each each_header In ListOfRowHeaders_TopToBottom()
+
+            eachIsRowEmpty = False
+            eachRecipient = each_header.GetRecipient(eachIsRowEmpty)
+
+            If (eachIsRowEmpty) Then
+                ''Don't add the blank recipient.
+            Else
+                listOfRecipients.Add(each_header.GetRecipient())
+            End If
+
+        Next each_header
+
+        Return listOfRecipients
+
+    End Function ''End of ""Public Function GetListOfRecipients() As List(Of ClassRecipient)"" 
+
+
     ''Public Function GetBottomBarForRow() As PictureBox
     ''    ''
     ''    ''Added 4/05/2022 td
@@ -709,15 +746,16 @@ Public Class RSCRowHeaders
 
     Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
                                par_iRowIndex As Integer,
-                               Optional ByRef pboolFailure As Boolean = False,
-                               Optional ByRef pref_intCountFailures As Integer = 0)
+                               Optional ByRef pref_bAnyFailure As Boolean = False,
+                               Optional ByRef pref_intCountFailures As Integer = 0,
+                               Optional ByRef pref_bRowIsEmpty As Boolean = False)
         ''
         ''Added 5/19/2022 
         ''
         ''#1 5/25/2022 Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex)
         ''#2 5/25/2022 Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex, pboolFailure)
         Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex,
-                                                pboolFailure, pref_intCountFailures)
+                                                pref_bAnyFailure, pref_intCountFailures)
 
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
 

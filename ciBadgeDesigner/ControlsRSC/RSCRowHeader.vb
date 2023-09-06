@@ -198,13 +198,16 @@ Public Class RSCRowHeader
     End Function ''eND OF ""Public Sub FocusRelated_RowHasEmphasis()""
 
 
-    Public Function GetRecipient() As ClassRecipient
+    Public Function GetRecipient(Optional ByRef pboolAnyFieldsFailed As Boolean = False,
+                                 Optional ByRef pboolRowIsEmpty As Boolean = False) As ClassRecipient
         ''
         ''Added 8/29/2023 td
         ''
         Dim objRecipient As ClassRecipient
         Dim intRowIndex As Integer
         Dim bFailure As Boolean
+        Dim intCountOfFailedColumns As Integer ''Added 9/01/2023
+
         objRecipient = Me.Recipient
         If (objRecipient Is Nothing) Then
             objRecipient = New ClassRecipient
@@ -218,10 +221,17 @@ Public Class RSCRowHeader
         If (intRowIndex < 0) Then
             System.Diagnostics.Debugger.Break()
             RSCErrorLogging.Log(34, "GetRecipient", "RowIndex is -1.")
+            Return Nothing ''Added 8/29/2023 td
         Else
             ''Major call
-            Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, intRowIndex, bFailure)
-            If (bFailure) Then Return Nothing
+            Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, intRowIndex,
+                                                   bFailure, intCountOfFailedColumns,
+                                                   pboolRowIsEmpty)
+            If (bFailure) Then
+                pboolAnyFieldsFailed = bFailure
+                Return Nothing
+            End If ''Eng of ""If (bFailure) Then""
+
         End If ''Endof ""If (intRowIndex < 0) Then...Else
         Return objRecipient
 

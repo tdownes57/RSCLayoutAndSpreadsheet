@@ -58,19 +58,20 @@ Public Class RSCFieldSpreadsheet
     Private Const DefaultBlankRowCount As Integer = 18 ''20 ''Added 4/4/2023 td
 
 
-    Public Shared Function GetListOfRecipients(par_cache As CacheRSCFieldColumnWidthsEtc) As List(Of ciBadgeRecipients.ClassRecipient)
+    Public Function GetListOfRecipients(par_cache As CacheRSCFieldColumnWidthsEtc) As List(Of ciBadgeRecipients.ClassRecipient)
         ''
         ''Added 7/10/2022 thomas downes
         ''
         ''We will fill a spreadsheet but not display it. We will then call
-        ''  a spreadsheet function which will create Recipient objects 
+        ''  a spreadsheet function which w ill create Recipient objects 
         ''  from each of the rows. ----7/10/2022 td 
         ''
+        Dim objListRecips As New List(Of ClassRecipient)
 
+        ''objListRecips = mod_managerRowsCols.RowHeaders.GetListOfRecipients()
+        objListRecips = mod_managerRowsCols.Rows.GetListOfRecipients()
 
-
-
-
+        Return objListRecips
 
     End Function ''End of ""Public Shared Function GetListOfRecipients""
 
@@ -372,13 +373,13 @@ Public Class RSCFieldSpreadsheet
 
     Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
                                par_iRowIndex As Integer,
-                               Optional ByRef pboolFailure As Boolean = False,
+                               Optional ByRef pref_bAnyFailure As Boolean = False,
                                Optional ByRef pintHowManyColumnsFailed As Integer = 0)
         ''
         ''Encapsulated 4/26/2023  
         ''
         mod_managerRowsCols.Cols.SaveToRecipient(par_objRecipient, par_iRowIndex,
-                                         pboolFailure, pintHowManyColumnsFailed)
+                                         pref_bAnyFailure, pintHowManyColumnsFailed)
 
     End Sub
 
@@ -970,8 +971,23 @@ Public Class RSCFieldSpreadsheet
         End If ''End of ""If (Me.RecipientsCache Is Nothing) Then.... Else....""
 
 
-    End Sub ''End of event handler Private Sub RSCFieldSpreadsheet_Load
+    End Sub ''End of event handler Public Sub Load_Recipients
 
+
+    Public Sub ToggleMessage_RowIsEmpty(par_intRowIndex As Integer,
+                                        Optional par_bGuaranteeStatus As Boolean = False,
+                                        Optional par_bSetRowToEmpty As Boolean = True)
+        ''
+        ''Added 9/3/2023 
+        ''
+        ''mod_managerRowsCols.Rows.ToggleMessage_RowIsEmpty(par_intRowIndex,
+        ''     par_bGuaranteeStatus, par_bSetRowToEmpty)
+        mod_managerRowsCols.Cols.ToggleMessage_RowIsEmpty(par_intRowIndex,
+                               par_bGuaranteeStatus, par_bSetRowToEmpty)
+
+
+
+    End Sub ''End of ""Public Sub ToggleMessage_RowIsEmpty""
 
 
     Public Sub ClearBorderStyle_PriorCell(par_objNextCell As RSCDataCell)

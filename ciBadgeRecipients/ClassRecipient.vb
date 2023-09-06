@@ -417,6 +417,49 @@ ExitHandler:
     Property TextField15 As String Implements IRecipient.TextField15
 
 
+    Public Function IsEmpty() As Boolean
+        ''
+        ''Added 9/5/2023  
+        ''
+        Dim boolfstrEmpty As Boolean
+        Dim bCustomTextEmpty As Boolean
+
+        boolfstrEmpty = ((fstrAddress.TrimEnd() = "") And
+          (fstrBarcode.TrimEnd() = "") And
+          (fstrCity.TrimEnd() = "") And
+          (fstrEmailAddress.TrimEnd() = "") And
+          (fstrFirstName.TrimEnd() = "") And
+          (fstrFullName.TrimEnd() = "") And
+          (fstrID.TrimEnd() = "") And
+          (fstrLastName.TrimEnd() = "") And
+          (fstrMidName.TrimEnd() = "") And
+          (fstrNameAbbreviated.TrimEnd() = "") And
+          (fstrRFID_Unique.TrimEnd() = "") And
+          (fstrState.TrimEnd() = "") And
+          (fstrZip.TrimEnd() = ""))
+
+        bCustomTextEmpty = ((TextField01.TrimEnd() = "") And
+            (TextField01.TrimEnd() = "") And
+            (TextField02.TrimEnd() = "") And
+            (TextField03.TrimEnd() = "") And
+            (TextField04.TrimEnd() = "") And
+            (TextField05.TrimEnd() = "") And
+            (TextField06.TrimEnd() = "") And
+            (TextField07.TrimEnd() = "") And
+            (TextField08.TrimEnd() = "") And
+            (TextField09.TrimEnd() = "") And
+            (TextField10.TrimEnd() = "") And
+            (TextField11.TrimEnd() = "") And
+            (TextField12.TrimEnd() = "") And
+            (TextField13.TrimEnd() = "") And
+            (TextField14.TrimEnd() = "") And
+            (TextField15.TrimEnd() = ""))
+
+        Return (boolfstrEmpty And bCustomTextEmpty)
+
+    End Function ''End of ""Public Function IsEmpty()""
+
+
     Public Sub PopulateGuid_IfNeeded()
         ''
         ''Added 6/28/2022 thomas downes

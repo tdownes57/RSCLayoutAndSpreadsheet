@@ -298,7 +298,7 @@ ExitHandler:
             ''
             ''The current control is NOT part of a group of selected items. ---2/3/2022 td
             ''
-            Dim strFontUnit As String
+            ''Dim strFontUnit As String
             ''With Me.FontDialog1
             ''    If (.Font.Size = .Font.SizeInPoints) Then
             ''        ''This is a bug in the font dialog!!!
