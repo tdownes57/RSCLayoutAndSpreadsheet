@@ -171,5 +171,14 @@ Public Class RSCSpreadManagerRowsCols
     End Sub ''End of ""Public Sub LoadRowHeaders()""
 
 
+    Public Sub ToggleEmptyRowMessage_ShowIfApplicable()
+        ''
+        ''Added 9/12/2023 Thomas Downes
+        ''
+        ''-----Cols.ToggleMessage_RowIsEmpty(1)
+        Rows.ToggleEmptyRowMessage_ShowIfApplicable()
+
+
+    End Sub ''End of ""Public Sub ToggleEmptyRowMessage_ShowIfApplicable()""  
 
 End Class

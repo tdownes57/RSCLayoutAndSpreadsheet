@@ -852,6 +852,11 @@ Public Class RSCFieldSpreadsheet
             ''We need to find the loading procedure(s) which are causing problems. --4/11/2023
         Else
             Load_Recipients()
+
+            ''Added 9/12/2023 
+            ''__Sept122023__mod_managerRowsCols.ToggleMessage_EmptyRows()
+            mod_managerRowsCols.ToggleEmptyRowMessage_ShowIfApplicable()
+
         End If ''End of ""If (StillHavingColumnTrouble) Then... Else..."
 
         ''''

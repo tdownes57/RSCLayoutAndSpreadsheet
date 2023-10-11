@@ -12,6 +12,8 @@ Public Class RSCRowHeader
     ''Added 4/6/2022 thomas d
     ''
     Public ParentRSCRowHeaders As RSCRowHeaders
+    Public ParentRSCSpreadsheet As RSCFieldSpreadsheet ''Added 9/18/2023 td
+
     Public Property RowIndex As Integer ''Added 4/24/2022 td
 
     Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
@@ -66,6 +68,166 @@ Public Class RSCRowHeader
             MyBase.BackColor = value
         End Set
     End Property
+
+
+
+    Public Function FocusRelated_RowHasEmphasis() As Boolean
+        ''
+        ''Added 5/13/2022 td 
+        ''
+        Dim boolOkayStart As Boolean
+        Dim boolOkayEnd As Boolean
+
+        With Me.ParentRSCRowHeaders
+            ''Added 5/13/2022 td 
+            boolOkayStart = (.EmphasisRowIndex_Start = Me.RowIndex)
+            boolOkayEnd = (-1 = .EmphasisRowIndex_End)
+
+        End With ''End of ""With Me.ParentRSCRowHeaders""
+
+        Return (boolOkayStart And boolOkayEnd)
+
+    End Function ''eND OF ""Public Sub FocusRelated_RowHasEmphasis()""
+
+
+    Public Function GetRecipient(Optional ByRef pboolAnyFieldsFailed As Boolean = False,
+                                 Optional ByRef pboolRowIsEmpty As Boolean = False) As ClassRecipient
+        ''
+        ''Added 8/29/2023 td
+        ''
+        Dim objRecipient As ClassRecipient
+        Dim intRowIndex As Integer
+        Dim bFailure As Boolean
+        Dim intCountOfFailedColumns As Integer ''Added 9/01/2023
+
+        objRecipient = Me.Recipient
+        If (objRecipient Is Nothing) Then
+            objRecipient = New ClassRecipient
+            Me.Recipient = objRecipient
+        End If ''End ""If (objRecipient Is Nothing) Then
+
+        ''Minor call
+        If (Me.ParentRSCRowHeaders Is Nothing) Then
+            ''9/12/2023 Return Nothing ''Added 9/12/2023 td
+            intRowIndex = Me.RowIndex
+        Else
+            ''9/12/2023 intRowIndex = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
+            intRowIndex = Me.RowIndex
+        End If
+
+        ''Added 8/29/2023 
+        If (intRowIndex < 0) Then
+            System.Diagnostics.Debugger.Break()
+            RSCErrorLogging.Log(34, "GetRecipient", "RowIndex is -1.")
+            Return Nothing ''Added 8/29/2023 td
+        Else
+            ''Major call
+            Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, intRowIndex,
+                                                   bFailure, intCountOfFailedColumns,
+                                                   pboolRowIsEmpty)
+
+            If (bFailure) Then
+                pboolAnyFieldsFailed = bFailure
+                Return Nothing
+            End If ''Eng of ""If (bFailure) Then""
+
+        End If ''Endof ""If (intRowIndex < 0) Then...Else
+        Return objRecipient
+
+    End Function ''End of ""Public Function GetRecipient()""
+
+
+    Public Function GetBuildNextRowsHeader(pbOverwriteExisting As Boolean,
+               Optional pbThrowErrorIfAlreadyExists As Boolean = False,
+               Optional pbDisplayNewHeader As Boolean = True,
+               Optional pref_bIsNew As Boolean = False) As RSCRowHeader
+        ''
+        ''Added 10/6/2023 td 
+        ''
+        ''Administrative code.  --10/2023
+        If (Not pbOverwriteExisting) Then
+            If (Me.RowHeaderNextBelow IsNot Nothing) Then
+                If (pbThrowErrorIfAlreadyExists) Then
+                    Throw New InvalidOperationException("Row Header already exists")
+                End If ''If (pbThrowErrorIfAlreadyExists) Then
+                Return Me.RowHeaderNextBelow
+            End If ''If (Me.RowHeaderNextBelow IsNot Nothing) Then
+        End If ''End of ""If (Not pbOverwriteExisting) Then""
+
+        ''Substantive code. 
+        pref_bIsNew = True
+        Dim objNewHeader = New RSCRowHeader With {
+          .Text = CStr(1 + Integer.Parse(Me.Text)),
+          .Left = Me.Left,
+          .Width = Me.Width,
+          .Height = Me.Height,
+          .RowHeaderNextAbove = Me,
+          .Visible = True
+        }
+
+        ''Record a reference to the new object, so this object can allow
+        ''   parent objects to find the new RowHeader. 
+        Me.RowHeaderNextBelow = objNewHeader
+
+        Return objNewHeader
+
+    End Function ''End of ""Public Function GetBuildNextRowsHeader""  
+
+
+    Public Function GetRowHeader_ByIndex(pintRowIndex As Integer,
+                                         pbCallingFromFirstRow As Boolean) As RSCRowHeader
+        ''Added 10/06/2023
+        ''
+        If (Not pbCallingFromFirstRow) Then
+            Throw New Exception("Calling from first-row header works, all else beware!")
+        End If
+
+        Dim intEachIndex As Integer = 1
+        Dim bContinue As Boolean = True
+        Dim eachRSCHeader As RSCRowHeader = Me
+
+        Do While (bContinue)
+
+            If (intEachIndex = pintRowIndex) Then
+                Return eachRSCHeader
+            Else
+                intEachIndex += 1
+                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+            End If
+        Loop
+
+    End Function ''Public Function GetRowHeader_ByIndex
+
+
+    Public Sub BuildNextRowsHeader(pbOverwriteExisting As Boolean,
+               Optional pbThrowErrorIfAlreadyExists As Boolean = False,
+               Optional pbDisplayNewHeader As Boolean = True)
+        ''
+        ''Added 10/6/2023
+        ''
+        Dim boolIsBrandNew As Boolean
+
+        ''Added 10/6/2023 td 
+        ''Call the function, but we don't need to pass the new RowHeader 
+        '' back to the calling procedure.  Presumably, the calling 
+        '' procedure doesn't require a reference to the new RowHeader. 
+        ''  --10/2023 
+        GetBuildNextRowsHeader(pbOverwriteExisting,
+                               pbThrowErrorIfAlreadyExists,
+                               pbDisplayNewHeader,
+                               boolIsBrandNew)
+
+        If (boolIsBrandNew And pbDisplayNewHeader) Then
+
+            ''Added 10/2023
+            ''--DIFFICULT AND CONFUSING---
+            Throw New Exception("Suggestion, use GetBuild instead, as the new RowHeader " &
+            " will VERY likely be invisble!! it must be added to the " &
+            "parent control's control collection.")
+
+        End If ''If     `-/  /(boolIsBrandNew And pbDisplayNewHeader) Then
+
+    End Sub ''End of ""Public Sub BuildNextRowsHeader""  
 
 
     Public Sub ShowRecipientsIDCard(Optional ByRef pref_boolFailure As Boolean = False,
@@ -149,6 +311,22 @@ Public Class RSCRowHeader
     End Sub ''End of ""Public Sub ShowRecipientsIDCard()""
 
 
+    Public Sub SaveToRecipient(par_objRecipient As ciBadgeRecipients.ClassRecipient,
+                               par_iRowIndex As Integer,
+                               Optional ByRef pref_bAnyFailure As Boolean = False,
+                               Optional ByRef pref_intCountFailures As Integer = 0,
+                               Optional ByRef pref_bRowIsEmpty As Boolean = False)
+        ''
+        ''Added 9/18/2023 & 5/19/2022 
+        ''
+        ''#1 5/25/2022 Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex)
+        ''#2 5/25/2022 Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex, pboolFailure)
+        Me.ParentRSCSpreadsheet.SaveToRecipient(par_objRecipient, par_iRowIndex,
+                                                pref_bAnyFailure, pref_intCountFailures)
+
+    End Sub ''End of ""Public Sub SaveToRecipient(...)""
+
+
     Public Sub FocusRelated_EmphasizeRow()
         ''
         ''Added 5/13/2022 td 
@@ -179,63 +357,70 @@ Public Class RSCRowHeader
     End Sub ''eND OF ""Public Sub FocusRelated_EmphasizeRow()""
 
 
-    Public Function FocusRelated_RowHasEmphasis() As Boolean
-        ''
-        ''Added 5/13/2022 td 
-        ''
-        Dim boolOkayStart As Boolean
-        Dim boolOkayEnd As Boolean
+    ''Public Function FocusRelated_RowHasEmphasis() As Boolean
+    ''    ''
+    ''    ''Added 5/13/2022 td 
+    ''    ''
+    ''    Dim boolOkayStart As Boolean
+    ''    Dim boolOkayEnd As Boolean
 
-        With Me.ParentRSCRowHeaders
-            ''Added 5/13/2022 td 
-            boolOkayStart = (.EmphasisRowIndex_Start = Me.RowIndex)
-            boolOkayEnd = (-1 = .EmphasisRowIndex_End)
+    ''    With Me.ParentRSCRowHeaders
+    ''        ''Added 5/13/2022 td 
+    ''        boolOkayStart = (.EmphasisRowIndex_Start = Me.RowIndex)
+    ''        boolOkayEnd = (-1 = .EmphasisRowIndex_End)
 
-        End With ''End of ""With Me.ParentRSCRowHeaders""
+    ''    End With ''End of ""With Me.ParentRSCRowHeaders""
 
-        Return (boolOkayStart And boolOkayEnd)
+    ''    Return (boolOkayStart And boolOkayEnd)
 
-    End Function ''eND OF ""Public Sub FocusRelated_RowHasEmphasis()""
+    ''End Function ''eND OF ""Public Sub FocusRelated_RowHasEmphasis()""
 
 
-    Public Function GetRecipient(Optional ByRef pboolAnyFieldsFailed As Boolean = False,
-                                 Optional ByRef pboolRowIsEmpty As Boolean = False) As ClassRecipient
-        ''
-        ''Added 8/29/2023 td
-        ''
-        Dim objRecipient As ClassRecipient
-        Dim intRowIndex As Integer
-        Dim bFailure As Boolean
-        Dim intCountOfFailedColumns As Integer ''Added 9/01/2023
+    ''Public Function GetRecipient(Optional ByRef pboolAnyFieldsFailed As Boolean = False,
+    ''                             Optional ByRef pboolRowIsEmpty As Boolean = False) As ClassRecipient
+    ''    ''
+    ''    ''Added 8/29/2023 td
+    ''    ''
+    ''    Dim objRecipient As ClassRecipient
+    ''    Dim intRowIndex As Integer
+    ''    Dim bFailure As Boolean
+    ''    Dim intCountOfFailedColumns As Integer ''Added 9/01/2023
 
-        objRecipient = Me.Recipient
-        If (objRecipient Is Nothing) Then
-            objRecipient = New ClassRecipient
-            Me.Recipient = objRecipient
-        End If ''End ""If (objRecipient Is Nothing) Then
+    ''    objRecipient = Me.Recipient
+    ''    If (objRecipient Is Nothing) Then
+    ''        objRecipient = New ClassRecipient
+    ''        Me.Recipient = objRecipient
+    ''    End If ''End ""If (objRecipient Is Nothing) Then
 
-        ''Minor call
-        intRowIndex = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
+    ''    ''Minor call
+    ''    If (Me.ParentRSCRowHeaders Is Nothing) Then
+    ''        ''9/12/2023 Return Nothing ''Added 9/12/2023 td
+    ''        intRowIndex = Me.RowIndex
+    ''    Else
+    ''        ''9/12/2023 intRowIndex = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
+    ''        intRowIndex = Me.RowIndex
+    ''    End If
 
-        ''Added 8/29/2023 
-        If (intRowIndex < 0) Then
-            System.Diagnostics.Debugger.Break()
-            RSCErrorLogging.Log(34, "GetRecipient", "RowIndex is -1.")
-            Return Nothing ''Added 8/29/2023 td
-        Else
-            ''Major call
-            Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, intRowIndex,
-                                                   bFailure, intCountOfFailedColumns,
-                                                   pboolRowIsEmpty)
-            If (bFailure) Then
-                pboolAnyFieldsFailed = bFailure
-                Return Nothing
-            End If ''Eng of ""If (bFailure) Then""
+    ''    ''Added 8/29/2023 
+    ''    If (intRowIndex < 0) Then
+    ''        System.Diagnostics.Debugger.Break()
+    ''        RSCErrorLogging.Log(34, "GetRecipient", "RowIndex is -1.")
+    ''        Return Nothing ''Added 8/29/2023 td
+    ''    Else
+    ''        ''Major call
+    ''        Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, intRowIndex,
+    ''                                               bFailure, intCountOfFailedColumns,
+    ''                                               pboolRowIsEmpty)
 
-        End If ''Endof ""If (intRowIndex < 0) Then...Else
-        Return objRecipient
+    ''        If (bFailure) Then
+    ''            pboolAnyFieldsFailed = bFailure
+    ''            Return Nothing
+    ''        End If ''Eng of ""If (bFailure) Then""
 
-    End Function ''End of ""Public Function GetRecipient()""
+    ''    End If ''Endof ""If (intRowIndex < 0) Then...Else
+    ''    Return objRecipient
+
+    ''End Function ''End of ""Public Function GetRecipient()""
 
 
     Private Sub textRowHeader1_MouseUp(sender As Object, e As MouseEventArgs) _
@@ -343,6 +528,9 @@ Public Class RSCRowHeader
 
 
     End Sub ''End of ""Private Sub LinkLabelShowID_LinkClicked""
+
+
+
 
 
 End Class

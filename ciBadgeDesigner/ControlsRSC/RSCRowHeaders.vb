@@ -46,9 +46,31 @@ Public Class RSCRowHeaders
     ''
     ''Should be replace this structure with a doubly-linked list?  ---5/17/2023 
     ''
-    Private mod_listRowHeadersByRow As New Dictionary(Of Integer, RSCRowHeader)
+    ''Not needed''Private mod_listRowHeadersByRow As New Dictionary(Of Integer, RSCRowHeader)
 
     Private mod_columnWidthAndData As ClassRSCColumnWidthAndData ''Added 6/22/2022 & 3/18/2022  
+
+    ''Added 10/06/2023 thomas downes
+    ''Private textHeader2 As RSCRowHeader
+    ''Private textHeader3 As RSCRowHeader
+    ''Private textHeader4 As RSCRowHeader
+    ''Private textHeader5 As RSCRowHeader
+    ''Private textHeader6 As RSCRowHeader
+    ''Private textHeader7 As RSCRowHeader
+    ''Private textHeader8 As RSCRowHeader
+    ''Private textHeader9 As RSCRowHeader
+    ''Private textHeader10 As RSCRowHeader
+    ''Private textHeader11 As RSCRowHeader
+    ''Private textHeader12 As RSCRowHeader
+    ''Private textHeader13 As RSCRowHeader
+    ''Private textHeader14 As RSCRowHeader
+    ''Private textHeader15 As RSCRowHeader
+    ''Private textHeader16 As RSCRowHeader
+    ''Private textHeader17 As RSCRowHeader
+    Private mod_rowHeaderFirst As RSCRowHeader = textRowHeader1
+    Private mod_rowHeaderLast As RSCRowHeader = textRowHeader1
+    Private mod_iCountOfRows As Integer ''Added 10/6/2023
+    ''
 
     ''Added 4/04/2022 thomas downes
     ''Private Structure StructLabelAndRowSeparator
@@ -133,11 +155,24 @@ Public Class RSCRowHeaders
         ''
         ''Added 5/13/2022 td
         ''
-        Dim objRowHeader As RSCRowHeader
+        Dim eachRowHeader As RSCRowHeader
+        Dim intEachRowIndex As Integer ''10/6/2023
+        Dim bStillOtherRows As Boolean = True ''Added 10/6/2023
+        Dim bFoundRow As Boolean ''Added 10/6/2023 
+
+        eachRowHeader = textRowHeader1 ''Initialize.
 
         Try
-            objRowHeader =
-                mod_listRowHeadersByRow.Item(par_intRowIndex)
+            ''objRowHeader =
+            ''   mod_listRowHeadersByRow.Item(par_intRowIndex)
+            intEachRowIndex = 1
+            Do While (bStillOtherRows) ''(intEachRowIndex < mod_iCountOfRows)
+                bFoundRow = (intEachRowIndex = par_intRowIndex)
+                If (bFoundRow) Then Return eachRowHeader
+                intEachRowIndex += 1
+                eachRowHeader = eachRowHeader.RowHeaderNextBelow
+                bStillOtherRows = (intEachRowIndex < mod_iCountOfRows)
+            Loop ''End of Do While (bStillOtherRows)
 
         Catch ex_Get As System.Collections.Generic.KeyNotFoundException
             ''Added 8/30/2023 td
@@ -146,7 +181,7 @@ Public Class RSCRowHeaders
 
         End Try
 
-        Return objRowHeader
+        Return Nothing ''objRowHeader
 
     End Function ''End of""Public Function GetRowHeaderByRowIndex()"
 
@@ -274,21 +309,40 @@ Public Class RSCRowHeaders
         ''Added 4/25/2025 thomas downes
         ''
         ''---For Each obj_header As RSCRowHeader In mod_listTextboxesByRow.
-        Dim each_header As RSCRowHeader
+        Dim intRowIndex As Integer = 1
+
+        If (mod_rowHeaderFirst Is par_oRowHeader) Then
+            Return 1
+        Else
+            Dim eachRowHeader As RSCRowHeader = mod_rowHeaderFirst
+            Dim bContinue As Boolean = True
+            Do While bContinue
+                If (eachRowHeader Is par_oRowHeader) Then
+                    bContinue = False
+                    Return intRowIndex
+                ElseIf (eachRowHeader Is Nothing) Then
+                    bContinue = False
+                    Throw New Exception("not found")
+                Else
+                    intRowIndex += 1
+                    eachRowHeader = eachRowHeader.RowHeaderNextBelow
+                End If
+            Loop
+        End If ''End of ""Else... If (mod_rowHeaderFirst Is par_oRowHeader) Then""
 
         ''Added 8/29/2023
-        If mod_listRowHeadersByRow.Count = 0 Then
-            System.Diagnostics.Debugger.Break()
-        End If
-
-        ''Added 4/25/2022 td
-        For Each each_key As Integer In mod_listRowHeadersByRow.Keys
-            each_header = mod_listRowHeadersByRow.Values(each_key)
-            If (each_header Is par_oRowHeader) Then
-                Return CInt(each_key)
-            End If ''End of ""If (each_header Is par_oRowHeader) Then""
-        Next each_key ''----obj_header
-        Return -1
+        ''If mod_listRowHeadersByRow.Count = 0 Then
+        ''    System.Diagnostics.Debugger.Break()
+        ''End If
+        ''
+        ''''Added 4/25/2022 td
+        ''For Each each_key As Integer In mod_listRowHeadersByRow.Keys
+        ''    each_header = mod_listRowHeadersByRow.Values(each_key)
+        ''    If (each_header Is par_oRowHeader) Then
+        ''        Return CInt(each_key)
+        ''    End If ''End of ""If (each_header Is par_oRowHeader) Then""
+        ''Next each_key ''----obj_header
+        ''Return -1
 
     End Function ''End of ""Public Function GetRowIndex_OfHeader(par_oRowHeader As RSCRowHeader) As Integer""
 
@@ -350,30 +404,39 @@ Public Class RSCRowHeaders
         ''
         textRowHeader1.RowIndex = 1
         textRowHeader1.Text = "1"
+        ''Allow code to navigate to this parent collection.
         textRowHeader1.ParentRSCRowHeaders = Me
+
+        ''Added 9/18/2023 td
+        textRowHeader1.ParentRSCSpreadsheet = Me.ParentRSCSpreadsheet
+
         ''textRowHeader1.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listRowHeadersByRow.Add(1, textRowHeader1)
+        ''10/2023 td''mod_listRowHeadersByRow.Add(1, textRowHeader1)
+        mod_rowHeaderFirst = textRowHeader1
 
         ''Dim struct1 As New StructLabelAndRowSeparator()
         ''struct1.Cellbox = textRowHeader1
         ''struct1.BottomBar = PictureBox1a
         ''.Add(1, struct1)
 
-        textRowHeader2.RowIndex = 2
-        textRowHeader2.Text = "2"
-        textRowHeader2.ParentRSCRowHeaders = Me
+        ''Sept18 2023 textRowHeader2.RowIndex = 2
+        ''Sept18 2023 textRowHeader2.Text = "2"
+        ''Sept18 2023 textRowHeader2.ParentRSCRowHeaders = Me
         ''textRowHeader2.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listRowHeadersByRow.Add(2, textRowHeader2)
+        ''Sept18 2023 mod_listRowHeadersByRow.Add(2, textRowHeader2)
+
         ''Dim struct2 As New StructLabelAndRowSeparator()
         ''struct2.Cellbox = textRowHeader2
         ''struct2.BottomBar = PictureBox2a
         ''.Add(2, struct2)
 
-        textRowHeader3.RowIndex = 3
-        textRowHeader3.Text = "3"
-        textRowHeader3.ParentRSCRowHeaders = Me
+        ''Sept18 2023 textRowHeader3.RowIndex = 3
+        ''Sept18 2023 textRowHeader3.Text = "3"
+        ''Sept18 2023 textRowHeader3.ParentRSCRowHeaders = Me
         ''textRowHeader3.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listRowHeadersByRow.Add(3, textRowHeader3)
+        ''10/2023''mod_listRowHeadersByRow.Add(3, textRowHeader3)
+
+
         ''Dim struct3 As New StructLabelAndRowSeparator()
         ''struct3.Cellbox = textRowHeader3
         ''struct3.BottomBar = PictureBox3a
@@ -382,167 +445,181 @@ Public Class RSCRowHeaders
         ''
         '' 4, 5, 6
         ''
-        textRowHeader4.RowIndex = 4
-        textRowHeader4.Text = "4"
-        textRowHeader4.ParentRSCRowHeaders = Me
+        ''10/2023 td''ctextRowHeader4.RowIndex = 4
+        ''10/2023 td''textRowHeader4.Text = "4"
+        ''10/2023 td''textRowHeader4.ParentRSCRowHeaders = Me
         ''textRowHeader4.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
-        mod_listRowHeadersByRow.Add(4, textRowHeader4)
+        ''10/2023 td''mod_listRowHeadersByRow.Add(4, textRowHeader4)
         ''Dim struct4 As New StructLabelAndRowSeparator()
         ''struct4.Cellbox = textRowHeader4
         ''struct4.BottomBar = PictureBox4a
         ''.Add(4, struct4)
 
-        textRowHeader5.RowIndex = 5
-        textRowHeader5.Text = "5"
-        textRowHeader5.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(5, textRowHeader5)
+        ''10/2023 td''textRowHeader5.RowIndex = 5
+        ''10/2023 td''textRowHeader5.Text = "5"
+        ''10/2023 td''textRowHeader5.ParentRSCRowHeaders = Me
+        ''10/2023 td''mod_listRowHeadersByRow.Add(5, textRowHeader5)
         ''Dim struct5 As New StructLabelAndRowSeparator()
         ''struct5.Cellbox = textRowHeader5
         ''struct5.BottomBar = PictureBox5a
         ''.Add(5, struct5)
 
-        textRowHeader6.RowIndex = 6
-        textRowHeader6.Text = "6"
-        textRowHeader6.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(6, textRowHeader6)
-        ''Dim struct6 As New StructLabelAndRowSeparator()
-        ''struct6.Cellbox = textRowHeader6
-        ''struct6.BottomBar = PictureBox6a
-        ''.Add(6, struct6)
+        ''''10/2023 td
+        ''textRowHeader6.RowIndex = 6
+        ''textRowHeader6.Text = "6"
+        ''textRowHeader6.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(6, textRowHeader6)
+        ''''Dim struct6 As New StructLabelAndRowSeparator()
+        ''''struct6.Cellbox = textRowHeader6
+        ''''struct6.BottomBar = PictureBox6a
+        ''''.Add(6, struct6)
 
-        ''
-        '' 7, 8, 9
-        ''
-        textRowHeader7.RowIndex = 7
-        textRowHeader7.Text = "7"
-        textRowHeader7.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(7, textRowHeader7)
-        ''Dim struct7 As New StructLabelAndRowSeparator()
-        ''struct7.Cellbox = textRowHeader7
-        ''struct7.BottomBar = PictureBox7a
-        ''.Add(7, struct7)
+        ''''
+        '''' 7, 8, 9
+        ''''
+        ''''10/2023 td
+        ''textRowHeader7.RowIndex = 7
+        ''textRowHeader7.Text = "7"
+        ''textRowHeader7.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(7, textRowHeader7)
+        ''''Dim struct7 As New StructLabelAndRowSeparator()
+        ''''struct7.Cellbox = textRowHeader7
+        ''''struct7.BottomBar = PictureBox7a
+        ''''.Add(7, struct7)
 
-        textRowHeader8.RowIndex = 8
-        textRowHeader8.Text = "8"
-        textRowHeader8.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(8, textRowHeader8)
-        ''Dim struct8 As New StructLabelAndRowSeparator()
-        ''struct8.Cellbox = textRowHeader8
-        ''struct8.BottomBar = PictureBox8a
-        ''.Add(8, struct8)
+        ''''10/2023 td
+        ''textRowHeader8.RowIndex = 8
+        ''textRowHeader8.Text = "8"
+        ''textRowHeader8.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(8, textRowHeader8)
+        ''''Dim struct8 As New StructLabelAndRowSeparator()
+        ''''struct8.Cellbox = textRowHeader8
+        ''''struct8.BottomBar = PictureBox8a
+        ''''.Add(8, struct8)
 
-        textRowHeader9.RowIndex = 9
-        textRowHeader9.Text = "9"
-        textRowHeader9.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(9, textRowHeader9)
-        ''Dim struct9 As New StructLabelAndRowSeparator()
-        ''struct9.Cellbox = textRowHeader9
-        ''struct9.BottomBar = PictureBox9a
-        ''.Add(9, struct9)
+        ''''10/2023 td
+        ''textRowHeader9.RowIndex = 9
+        ''textRowHeader9.Text = "9"
+        ''textRowHeader9.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(9, textRowHeader9)
+        ''''Dim struct9 As New StructLabelAndRowSeparator()
+        ''''struct9.Cellbox = textRowHeader9
+        ''''struct9.BottomBar = PictureBox9a
+        ''''.Add(9, struct9)
 
-        ''
-        '' 10, 11, 12
-        ''
-        textRowHeader10.RowIndex = 10
-        textRowHeader10.Text = "10"
-        textRowHeader10.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(10, textRowHeader10)
-        ''Dim struct10 As New StructLabelAndRowSeparator()
-        ''struct10.Cellbox = textRowHeader10
-        ''struct10.BottomBar = PictureBox10a
-        ''.Add(10, struct10)
+        ''''
+        '''' 10, 11, 12
+        ''''
+        ''''10/2023 td
+        ''textRowHeader10.RowIndex = 10
+        ''textRowHeader10.Text = "10"
+        ''textRowHeader10.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(10, textRowHeader10)
+        ''''Dim struct10 As New StructLabelAndRowSeparator()
+        ''''struct10.Cellbox = textRowHeader10
+        ''''struct10.BottomBar = PictureBox10a
+        ''''.Add(10, struct10)
 
-        textRowHeader11.RowIndex = 11
-        textRowHeader11.Text = "11"
-        textRowHeader11.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(11, textRowHeader11)
-        ''Dim struct11 As New StructLabelAndRowSeparator()
-        ''struct11.Cellbox = textRowHeader11
-        ''struct11.BottomBar = PictureBox11a
-        ''.Add(11, struct11)
+        ''''10/2023 td
+        ''textRowHeader11.RowIndex = 11
+        ''textRowHeader11.Text = "11"
+        ''textRowHeader11.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(11, textRowHeader11)
+        ''''Dim struct11 As New StructLabelAndRowSeparator()
+        ''''struct11.Cellbox = textRowHeader11
+        ''''struct11.BottomBar = PictureBox11a
+        ''''.Add(11, struct11)
 
-        textRowHeader12.RowIndex = 12
-        textRowHeader12.Text = "12"
-        textRowHeader12.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(12, textRowHeader12)
-        ''Dim struct12 As New StructLabelAndRowSeparator()
-        ''struct12.Cellbox = textRowHeader12
-        ''struct12.BottomBar = PictureBox12a
-        ''.Add(12, struct12)
+        ''''10/2023 td
+        ''textRowHeader12.RowIndex = 12
+        ''textRowHeader12.Text = "12"
+        ''textRowHeader12.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(12, textRowHeader12)
+        ''''Dim struct12 As New StructLabelAndRowSeparator()
+        ''''struct12.Cellbox = textRowHeader12
+        ''''struct12.BottomBar = PictureBox12a
+        ''''.Add(12, struct12)
 
-        ''
-        '' 13, 14, 15
-        ''
-        textRowHeader13.RowIndex = 13
-        textRowHeader13.Text = "13"
-        textRowHeader13.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(13, textRowHeader13)
-        ''Dim struct13 As New StructLabelAndRowSeparator()
-        ''struct13.Cellbox = textRowHeader13
-        ''struct13.BottomBar = PictureBox13a
-        ''.Add(13, struct13)
+        ''''
+        '''' 13, 14, 15
+        ''''
+        ''''10/2023 td
+        ''textRowHeader13.RowIndex = 13
+        ''textRowHeader13.Text = "13"
+        ''textRowHeader13.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(13, textRowHeader13)
+        ''''Dim struct13 As New StructLabelAndRowSeparator()
+        ''''struct13.Cellbox = textRowHeader13
+        ''''struct13.BottomBar = PictureBox13a
+        ''''.Add(13, struct13)
 
-        textRowHeader14.RowIndex = 14
-        textRowHeader14.Text = "14"
-        textRowHeader14.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(14, textRowHeader14)
-        ''Dim struct14 As New StructLabelAndRowSeparator()
-        ''struct14.Cellbox = textRowHeader14
-        ''struct14.BottomBar = PictureBox14a
-        ''.Add(14, struct14)
+        ''''10/2023 td
+        ''textRowHeader14.RowIndex = 14
+        ''textRowHeader14.Text = "14"
+        ''textRowHeader14.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(14, textRowHeader14)
+        ''''Dim struct14 As New StructLabelAndRowSeparator()
+        ''''struct14.Cellbox = textRowHeader14
+        ''''struct14.BottomBar = PictureBox14a
+        ''''.Add(14, struct14)
 
-        textRowHeader15.RowIndex = 15
-        textRowHeader15.Text = "15"
-        textRowHeader15.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(15, textRowHeader15)
-        ''Dim struct15 As New StructLabelAndRowSeparator()
-        ''struct15.Cellbox = textRowHeader15
-        ''struct15.BottomBar = PictureBox15a
-        ''.Add(15, struct15)
+        ''''10/2023 td
+        ''textRowHeader15.RowIndex = 15
+        ''textRowHeader15.Text = "15"
+        ''textRowHeader15.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(15, textRowHeader15)
+        ''''Dim struct15 As New StructLabelAndRowSeparator()
+        ''''struct15.Cellbox = textRowHeader15
+        ''''struct15.BottomBar = PictureBox15a
+        ''''.Add(15, struct15)
 
-        ''
-        '' 16, 17, 18
-        ''
-        textRowHeader16.RowIndex = 16
-        textRowHeader16.Text = "16"
-        textRowHeader16.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(16, textRowHeader16)
-        ''Dim struct16 As New StructLabelAndRowSeparator()
-        ''struct16.Cellbox = textRowHeader16
-        ''struct16.BottomBar = PictureBox16a
-        ''.Add(16, struct16)
+        ''''
+        '''' 16, 17, 18
+        ''''
+        ''''10/2023 td
+        ''textRowHeader16.RowIndex = 16
+        ''textRowHeader16.Text = "16"
+        ''textRowHeader16.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(16, textRowHeader16)
+        ''''Dim struct16 As New StructLabelAndRowSeparator()
+        ''''struct16.Cellbox = textRowHeader16
+        ''''struct16.BottomBar = PictureBox16a
+        ''''.Add(16, struct16)
 
-        textRowHeader17.RowIndex = 17
-        textRowHeader17.Text = "17"
-        textRowHeader17.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(17, textRowHeader17)
-        ''Dim struct17 As New StructLabelAndRowSeparator()
-        ''struct17.Cellbox = textRowHeader17
-        ''struct17.BottomBar = PictureBox17a
-        ''.Add(17, struct17)
+        ''''10/2023 td
+        ''textRowHeader17.RowIndex = 17
+        ''textRowHeader17.Text = "17"
+        ''textRowHeader17.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(17, textRowHeader17)
+        ''''Dim struct17 As New StructLabelAndRowSeparator()
+        ''''struct17.Cellbox = textRowHeader17
+        ''''struct17.BottomBar = PictureBox17a
+        ''''.Add(17, struct17)
 
-        textRowHeader18.RowIndex = 18
-        textRowHeader18.Text = "18"
-        textRowHeader18.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(18, textRowHeader18)
-        ''Dim struct18 As New StructLabelAndRowSeparator()
-        ''struct18.Cellbox = textRowHeader18
-        ''struct18.BottomBar = PictureBox18a
-        ''.Add(18, struct18)
+        ''''10/2023 td
+        ''textRowHeader18.RowIndex = 18
+        ''textRowHeader18.Text = "18"
+        ''textRowHeader18.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(18, textRowHeader18)
+        ''''Dim struct18 As New StructLabelAndRowSeparator()
+        ''''struct18.Cellbox = textRowHeader18
+        ''''struct18.BottomBar = PictureBox18a
+        ''''.Add(18, struct18)
 
-        ''
-        '' 19
-        ''
-        textRowHeader19.RowIndex = 19
-        textRowHeader19.Text = "19"
-        textRowHeader19.ParentRSCRowHeaders = Me
-        mod_listRowHeadersByRow.Add(19, textRowHeader19)
-        ''Dim struct19 As New TextboxAndRowSeparator()
-        ''struct19.Cellbox = TextBox19a
-        ''struct19.BottomBar = PictureBox19a
-        ''.Add(19, struct19)
+        ''''
+        '''' 19
+        ''''
+        ''''10/2023 td
+        ''textRowHeader19.RowIndex = 19
+        ''textRowHeader19.Text = "19"
+        ''textRowHeader19.ParentRSCRowHeaders = Me
+        ''mod_listRowHeadersByRow.Add(19, textRowHeader19)
+        ''''Dim struct19 As New TextboxAndRowSeparator()
+        ''''struct19.Cellbox = TextBox19a
+        ''''struct19.BottomBar = PictureBox19a
+        ''''.Add(19, struct19)
 
-        ''April 6, 2022 td ''End With ''End of "With mod_listTextAndBarByRow" 
+        ''''April 6, 2022 td ''End With ''End of "With mod_listTextAndBarByRow" 
 
 
     End Sub ''End of ""Public Sub New(par_oParentForm As .....)"
@@ -619,6 +696,15 @@ Public Class RSCRowHeaders
         Return listOfRecipients
 
     End Function ''End of ""Public Function GetListOfRecipients() As List(Of ClassRecipient)"" 
+
+
+    Public Function GetRowHeader_ByIndex(par_intRowIndex As Integer) As RSCRowHeader
+        ''
+        ''Added 10/2023  
+        ''
+        Return mod_rowHeaderFirst.GetRowHeader_ByIndex(par_intRowIndex, True)
+
+    End Function ''Public Function GetRowHeader_ByIndex 
 
 
     ''Public Function GetBottomBarForRow() As PictureBox
@@ -770,10 +856,6 @@ Public Class RSCRowHeaders
     End Sub ''End of ""Public Sub ShowRecipientsIDCard""
 
 
-
-
-
-
     Private Sub EmphasizeRowHeaders(par_intRowIndex_Start As Integer,
                                   Optional par_intRowIndex_End As Integer = -1)
         ''
@@ -781,7 +863,10 @@ Public Class RSCRowHeaders
         ''
         ''---mod_listTextboxesByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_WithEmphasis
         ''
-        mod_listRowHeadersByRow(par_intRowIndex_Start).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+        ''10/2023 mod_listRowHeadersByRow(par_intRowIndex_Start).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+        Dim objRowHeader As Control ''10/2023
+
+        objRowHeader = GetRowHeader_ByIndex(par_intRowIndex_Start)
 
         ''Added 5/2/2022 thomas d.
         Dim intRowIndex As Integer ''Added 5/02/2022 td
@@ -1591,10 +1676,7 @@ Public Class RSCRowHeaders
 
     Public Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs,
                                   Optional par_intRowIndex As Integer = -1) _
-        Handles textRowHeader1.MouseUp, textRowHeader2.MouseUp, textRowHeader3.MouseUp,
-          textRowHeader4.MouseUp, textRowHeader5.MouseUp, textRowHeader6.MouseUp,
-          textRowHeader7.MouseUp, textRowHeader8.MouseUp, textRowHeader9.MouseUp,
-          textRowHeader10.MouseUp, textRowHeader11.MouseUp, textRowHeader12.MouseUp
+        Handles textRowHeader1.MouseUp
         ''
         ''Added 4/3/2022 thomas downes
         ''
@@ -1619,11 +1701,11 @@ Public Class RSCRowHeaders
 
     End Sub
 
-    Private Sub HeaderBox_MouseUp(sender As Object, e As MouseEventArgs) Handles textRowHeader9.MouseUp, textRowHeader8.MouseUp, textRowHeader7.MouseUp, textRowHeader6.MouseUp, textRowHeader5.MouseUp, textRowHeader4.MouseUp, textRowHeader3.MouseUp, textRowHeader2.MouseUp, textRowHeader12.MouseUp, textRowHeader11.MouseUp, textRowHeader10.MouseUp, textRowHeader1.MouseUp
+    Private Sub HeaderBox_MouseUp(sender As Object, e As MouseEventArgs) Handles textRowHeader1.MouseUp
 
     End Sub
 
-    Private Sub textRowHeader15_Load(sender As Object, e As EventArgs) Handles textRowHeader15.Load
+    Private Sub textRowHeader15_Load(sender As Object, e As EventArgs)
 
     End Sub
 End Class

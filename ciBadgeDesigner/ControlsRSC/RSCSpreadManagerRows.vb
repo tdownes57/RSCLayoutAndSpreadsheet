@@ -135,7 +135,8 @@ Public Class RSCSpreadManagerRows
     End Sub ''End of ""Public Sub Load_EmptyRowsToAllNewColumns()""
 
 
-    Public Sub ShowEmptyRowMessage_IfApplicable()
+    Public Sub ToggleEmptyRowMessage_ShowIfApplicable()
+        ''---Public Sub ToggleEmptyRowMessage_IfApplicable()
         ''
         ''Added 9/3/2023 thomas downes
         ''
@@ -146,7 +147,7 @@ Public Class RSCSpreadManagerRows
         Dim each_rowIndex As Integer
 
         For Each each_rowHeader As RSCRowHeader In
-            mod_rowHeadersRSCCtl.ListOfRowHeaders_TopToBottom
+            mod_rowHeadersRSCCtl.ListOfRowHeaders_TopToBottom()
 
             each_rowIndex = each_rowHeader.RowIndex
             each_recipient = each_rowHeader.GetRecipient()
@@ -172,7 +173,7 @@ Public Class RSCSpreadManagerRows
         Next each_rowHeader
 
 
-    End Sub ''End of ""Public Sub ShowEmptyRowMessage_IfApplicable()""
+    End Sub ''End of ""Public Sub ToggleEmptyRowMessage_IfApplicable()""
 
 
 
