@@ -3,6 +3,9 @@ Option Strict On ''Added 5/19/2022
 ''
 ''Added 4/6/2022 thomas d
 ''
+Imports System.Data.SqlClient
+Imports System.Security.Cryptography
+Imports System.Threading
 Imports __RSC_Error_Logging
 Imports ciBadgeInterfaces ''Added 5/19/2022 thomas 
 Imports ciBadgeRecipients
@@ -22,6 +25,7 @@ Public Class RSCRowHeader
     ''  This will help it to be a doubly-linked list. 
     Public RowHeaderNextAbove As RSCRowHeader
     Public RowHeaderNextBelow As RSCRowHeader
+    Public FactoryMaxIndex As Integer ''Added 10/18/2023
 
     ''Added 4/29/2022 td
     ''5/1/2022 Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start
@@ -137,7 +141,7 @@ Public Class RSCRowHeader
     End Function ''End of ""Public Function GetRecipient()""
 
 
-    Public Function GetBuildNextRowsHeader(pbOverwriteExisting As Boolean,
+    Public Function GetBuildNextRowsHeader_Factory(pbOverwriteExisting As Boolean,
                Optional pbThrowErrorIfAlreadyExists As Boolean = False,
                Optional pbDisplayNewHeader As Boolean = True,
                Optional pref_bIsNew As Boolean = False) As RSCRowHeader
@@ -154,6 +158,11 @@ Public Class RSCRowHeader
             End If ''If (Me.RowHeaderNextBelow IsNot Nothing) Then
         End If ''End of ""If (Not pbOverwriteExisting) Then""
 
+        ''
+        ''
+        '' Factory / Building New RSCRowHeader
+        ''
+        ''
         ''Substantive code. 
         pref_bIsNew = True
         Dim objNewHeader = New RSCRowHeader With {
@@ -174,6 +183,115 @@ Public Class RSCRowHeader
     End Function ''End of ""Public Function GetBuildNextRowsHeader""  
 
 
+    Public Sub FactoryBuildNextRowsHeader(pbOverwriteExisting As Boolean,
+               Optional pbThrowErrorIfAlreadyExists As Boolean = False,
+               Optional pbDisplayNewHeader As Boolean = True)
+        ''
+        ''Added 10/6/2023
+        ''
+        Dim boolIsBrandNew As Boolean
+
+        ''Added 10/6/2023 td 
+        ''Call the function, but we don't need to pass the new RowHeader 
+        '' back to the calling procedure.  Presumably, the calling 
+        '' procedure doesn't require a reference to the new RowHeader. 
+        ''  --10/2023 
+        GetBuildNextRowsHeader_Factory(pbOverwriteExisting,
+                               pbThrowErrorIfAlreadyExists,
+                               pbDisplayNewHeader,
+                               boolIsBrandNew)
+
+        If (boolIsBrandNew And pbDisplayNewHeader) Then
+
+            ''Added 10/2023
+            ''--DIFFICULT AND CONFUSING---
+            Throw New Exception("Suggestion, use GetBuild instead, as the new RowHeader " &
+            " will VERY likely be invisble!! it must be added to the " &
+            "parent control's control collection.")
+
+        End If ''If     `-/  /(boolIsBrandNew And pbDisplayNewHeader) Then
+
+    End Sub ''End of ""Public Sub FactoryBuildNextRowsHeader""  
+
+
+    Public Function FactoryBuildRowHeader_IfNeeded(pintRowIndex As Integer,
+                        pintExpectedNewRowCount As Integer,
+                        pboolForceReposition As Boolean,
+                        Optional ByRef pboolNewlyBuilt As Boolean = False,
+                        Optional ByRef pboolMoreThanOneNew As Boolean = False,
+                        Optional ByRef plistRowHeaders As List(Of RSCRowHeader) = Nothing) As RSCRowHeader
+        ''
+        ''Added 10/18/2023 thomas downes
+        ''
+        Dim intEachIndex As Integer = 1
+        Dim bContinue As Boolean = True
+        Dim eachRSCHeader As RSCRowHeader = Me
+        Dim priorRSCHeader As RSCRowHeader = Nothing
+        Dim output_result As RSCRowHeader = Nothing
+        Dim boolBuiltOneAlready As Boolean = False
+        Dim newRSCHeader As RSCRowHeader = Nothing ''Added 10/18/2023
+        Dim bFoundIndicatedRow As Boolean '' = False
+        Dim intNewRowCount As Integer = 0
+
+        Do While (bContinue)
+
+            bFoundIndicatedRow = (intEachIndex = pintRowIndex)
+            If (bFoundIndicatedRow) Then ''If (intEachIndex = pintRowIndex) Then
+                bContinue = False ''Was previously not really needed, 
+                ''  due the "Return" statement below.
+                ''10/2023 Return eachRSCHeader
+                output_result = eachRSCHeader
+            Else
+                intEachIndex += 1
+                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                If (eachRSCHeader Is Nothing) Then
+                    ''##bContinue = False
+                    pboolNewlyBuilt = True
+
+                    ''Create new RSCHeader.  
+                    If (boolBuiltOneAlready) Then
+                        ''Administrative work.... :-( 
+                        ''  We need to keep track of every new row header that's
+                        ''  built.  ---10/18/2023 td
+                        If (plistRowHeaders IsNot Nothing) Then
+                            plistRowHeaders = New List(Of RSCRowHeader)
+                            pboolMoreThanOneNew = True
+                        End If ''Create new list.
+                        plistRowHeaders.Add(newRSCHeader)
+                        ''A bit redundant here...
+                        ''---pboolMoreThanOneNew = True
+                    End If ''ENd of ""If (boolBuiltOneAlready) Then... Else""
+
+                    ''Create new row header.
+                    newRSCHeader = priorRSCHeader.GetBuildNextRowsHeader_Factory(False, True)
+                    eachRSCHeader = newRSCHeader ''Prepare for next looping.
+                    output_result = newRSCHeader ''Prepare for loop termination.
+                    boolBuiltOneAlready = True ''Prepare for next looping.
+                    ''Not needed here! boolBuiltOneAlready = True
+                    Me.FactoryMaxIndex = intEachIndex
+                    intNewRowCount += 1
+
+                End If ''End of ""If (eachRSCHeader Is Nothing) Then""
+            End If ''ENd of ""If (bFoundIndicatedRow) Then""
+
+            ''Prepare for the next iteration of the loop,
+            ''  in case we come to the end of the looping. 
+            priorRSCHeader = eachRSCHeader
+
+        Loop ''End Do While (bContinue)
+
+        ''
+        ''Warn the user.
+        ''
+        If (intNewRowCount <> pintExpectedNewRowCount) Then
+            MessageBoxTD.Show_Statement("More new rows than expected...")
+        End If
+
+        Return output_result
+
+    End Function ''Public Function BuildRowHeader_IfNeeded
+
+
     Public Function GetRowHeader_ByIndex(pintRowIndex As Integer,
                                          pbCallingFromFirstRow As Boolean) As RSCRowHeader
         ''Added 10/06/2023
@@ -189,45 +307,49 @@ Public Class RSCRowHeader
         Do While (bContinue)
 
             If (intEachIndex = pintRowIndex) Then
+                bContinue = False
                 Return eachRSCHeader
             Else
                 intEachIndex += 1
                 eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                If (eachRSCHeader Is Nothing) Then bContinue = False
             End If
-        Loop
+
+        Loop ''End Do While (bContinue)
+
+        Return Nothing ''Added 10/12/2023
 
     End Function ''Public Function GetRowHeader_ByIndex
 
 
-    Public Sub BuildNextRowsHeader(pbOverwriteExisting As Boolean,
-               Optional pbThrowErrorIfAlreadyExists As Boolean = False,
-               Optional pbDisplayNewHeader As Boolean = True)
+    Public Sub RefreshHeightOfHeaders(Optional par_intNumberOfRows As Integer = 0)
         ''
-        ''Added 10/6/2023
+        ''Added 10/21/2023 td 
         ''
-        Dim boolIsBrandNew As Boolean
+        Dim intEachIndex As Integer = 1
+        Dim bContinue As Boolean = True
+        Dim eachRSCHeader As RSCRowHeader = Me
+        Dim bCountRows As Boolean = (par_intNumberOfRows > 0)
+        Dim intCountRowsRefreshed As Integer = 0
 
-        ''Added 10/6/2023 td 
-        ''Call the function, but we don't need to pass the new RowHeader 
-        '' back to the calling procedure.  Presumably, the calling 
-        '' procedure doesn't require a reference to the new RowHeader. 
-        ''  --10/2023 
-        GetBuildNextRowsHeader(pbOverwriteExisting,
-                               pbThrowErrorIfAlreadyExists,
-                               pbDisplayNewHeader,
-                               boolIsBrandNew)
+        Do While (bContinue)
 
-        If (boolIsBrandNew And pbDisplayNewHeader) Then
+            If (bCountRows And (intCountRowsRefreshed > par_intNumberOfRows)) Then
+                bContinue = False
+            Else
+                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                If (eachRSCHeader Is Nothing) Then
+                    bContinue = False
+                Else
+                    ''Set the height to be the height of the current RowHeader.
+                    eachRSCHeader.Height = Me.Height
+                    intCountRowsRefreshed += 1
+                End If ''End of ""If (eachRSCHeader Is Nothing) Then... Else...""
+            End If
 
-            ''Added 10/2023
-            ''--DIFFICULT AND CONFUSING---
-            Throw New Exception("Suggestion, use GetBuild instead, as the new RowHeader " &
-            " will VERY likely be invisble!! it must be added to the " &
-            "parent control's control collection.")
+        Loop ''End Do While (bContinue)
 
-        End If ''If     `-/  /(boolIsBrandNew And pbDisplayNewHeader) Then
-
-    End Sub ''End of ""Public Sub BuildNextRowsHeader""  
+    End Sub ''End of Public Sub RefreshHeightOfHeaders(Optional par_intNumberOfRows As Integer = 0)
 
 
     Public Sub ShowRecipientsIDCard(Optional ByRef pref_boolFailure As Boolean = False,
@@ -325,6 +447,50 @@ Public Class RSCRowHeader
                                                 pref_bAnyFailure, pref_intCountFailures)
 
     End Sub ''End of ""Public Sub SaveToRecipient(...)""
+
+
+    Public Sub SetBackColor(pintRowIndex_Start As Integer,
+                            par_colorBackground As System.Drawing.Color,
+                            Optional pintRowIndex_End As Integer = -1)
+        ''
+        ''Added 10/12/2023 Thomas Downes
+        ''
+        Dim intEachIndex As Integer = 1
+        Dim bContinue As Boolean = True
+        Dim eachRSCHeader As RSCRowHeader = Me
+        Dim bIndexMatches As Boolean ''Added 10/12/2023 thomas d
+
+        If (pintRowIndex_End = -1) Then
+            ''This is how the following algorithm will work.  We don't have to 
+            ''  have any special one-row-only commands.
+            pintRowIndex_End = pintRowIndex_Start
+        End If
+
+        Do While (bContinue)
+
+            bIndexMatches = (pintRowIndex_Start <= intEachIndex And
+                                                   intEachIndex <= pintRowIndex_End)
+
+            If (bIndexMatches) Then
+                ''bContinue = False
+                ''Return eachRSCHeader
+                eachRSCHeader.BackColor = par_colorBackground
+
+            ElseIf (intEachIndex > pintRowIndex_End) Then
+
+                ''We can exit the loop now now.
+                bContinue = False
+
+            Else
+                intEachIndex += 1
+                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                If (eachRSCHeader Is Nothing) Then bContinue = False
+
+            End If ''ENd of ""If (bIndexMatches) Then... ElseIf ... Else ..."
+
+        Loop ''End of ""Do While (bContinue)"" 
+
+    End Sub ''End of ""Public Sub SetBackColor""
 
 
     Public Sub FocusRelated_EmphasizeRow()

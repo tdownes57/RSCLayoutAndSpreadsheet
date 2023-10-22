@@ -67,7 +67,7 @@ Public Class RSCRowHeaders
     ''Private textHeader15 As RSCRowHeader
     ''Private textHeader16 As RSCRowHeader
     ''Private textHeader17 As RSCRowHeader
-    Private mod_rowHeaderFirst As RSCRowHeader = textRowHeader1
+    Private mod_rowHeaderFirst_Factory As RSCRowHeader = textRowHeader1
     Private mod_rowHeaderLast As RSCRowHeader = textRowHeader1
     Private mod_iCountOfRows As Integer ''Added 10/6/2023
     ''
@@ -311,10 +311,10 @@ Public Class RSCRowHeaders
         ''---For Each obj_header As RSCRowHeader In mod_listTextboxesByRow.
         Dim intRowIndex As Integer = 1
 
-        If (mod_rowHeaderFirst Is par_oRowHeader) Then
+        If (mod_rowHeaderFirst_Factory Is par_oRowHeader) Then
             Return 1
         Else
-            Dim eachRowHeader As RSCRowHeader = mod_rowHeaderFirst
+            Dim eachRowHeader As RSCRowHeader = mod_rowHeaderFirst_Factory
             Dim bContinue As Boolean = True
             Do While bContinue
                 If (eachRowHeader Is par_oRowHeader) Then
@@ -328,7 +328,7 @@ Public Class RSCRowHeaders
                     eachRowHeader = eachRowHeader.RowHeaderNextBelow
                 End If
             Loop
-        End If ''End of ""Else... If (mod_rowHeaderFirst Is par_oRowHeader) Then""
+        End If ''End of ""Else... If (mod_rowHeaderFirst_Factory Is par_oRowHeader) Then""
 
         ''Added 8/29/2023
         ''If mod_listRowHeadersByRow.Count = 0 Then
@@ -412,7 +412,7 @@ Public Class RSCRowHeaders
 
         ''textRowHeader1.Height = mod_c_intPixelsFromRowToRow ''+ 1 ''24
         ''10/2023 td''mod_listRowHeadersByRow.Add(1, textRowHeader1)
-        mod_rowHeaderFirst = textRowHeader1
+        mod_rowHeaderFirst_Factory = textRowHeader1
 
         ''Dim struct1 As New StructLabelAndRowSeparator()
         ''struct1.Cellbox = textRowHeader1
@@ -702,7 +702,7 @@ Public Class RSCRowHeaders
         ''
         ''Added 10/2023  
         ''
-        Return mod_rowHeaderFirst.GetRowHeader_ByIndex(par_intRowIndex, True)
+        Return mod_rowHeaderFirst_Factory.GetRowHeader_ByIndex(par_intRowIndex, True)
 
     End Function ''Public Function GetRowHeader_ByIndex 
 
@@ -869,12 +869,15 @@ Public Class RSCRowHeaders
         objRowHeader = GetRowHeader_ByIndex(par_intRowIndex_Start)
 
         ''Added 5/2/2022 thomas d.
-        Dim intRowIndex As Integer ''Added 5/02/2022 td
+        ''10/2023 Dim intRowIndex As Integer ''Added 5/02/2022 td
         If (par_intRowIndex_End > par_intRowIndex_Start) Then
-            For intRowIndex = par_intRowIndex_Start To par_intRowIndex_End
-                ''---mod_listTextboxesByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_WithEmphasis
-                mod_listRowHeadersByRow(intRowIndex).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
-            Next intRowIndex
+            ''10/2023     For intRowIndex = par_intRowIndex_Start To par_intRowIndex_End
+            ''10/2023         ''---mod_listTextboxesByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_WithEmphasis
+            ''10/2023         ''10/2023 td''mod_listRowHeadersByRow(intRowIndex).BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+            ''10/2023     Next intRowIndex
+            mod_rowHeaderFirst_Factory.SetBackColor(par_intRowIndex_Start, RSCDataCell.BackColor_WithEmphasisOnRow,
+                                            par_intRowIndex_End)
+
         End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
 
 
@@ -886,16 +889,25 @@ Public Class RSCRowHeaders
         ''
         ''Added 4/28/2022 td
         ''
-        mod_listRowHeadersByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+        ''10/2023 mod_listRowHeadersByRow(par_intRowIndex_Start).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+        Dim rowHdrStart As RSCRowHeader
+        Dim rowHdrNext As RSCRowHeader
+        rowHdrStart = mod_rowHeaderFirst_Factory.GetRowHeader_ByIndex(par_intRowIndex_Start, True)
+        rowHdrStart.BackColor = mod_colorHeadersBackcolor_NoEmphasis
 
         ''Added 5/2/2022 thomas d.
-        Dim intRowIndex As Integer ''Added 5/02/2022 td
-        If (par_intRowIndex_End > par_intRowIndex_Start) Then
-            For intRowIndex = par_intRowIndex_Start To par_intRowIndex_End
-                ''April 2, 2022''mod_listTextboxesByRow(intRowIndex).BackColor = RSCDataCell.BackColor_NoEmphasis
-                mod_listRowHeadersByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_NoEmphasis
-            Next intRowIndex
-        End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
+        If (par_intRowIndex_End <> -1) Then
+            Dim intRowIndex As Integer ''Added 5/02/2022 td
+            If (par_intRowIndex_End > par_intRowIndex_Start) Then
+                rowHdrNext = rowHdrStart
+                For intRowIndex = (+1 + par_intRowIndex_Start) To par_intRowIndex_End
+                    ''April 2, 2022''mod_listTextboxesByRow(intRowIndex).BackColor = RSCDataCell.BackColor_NoEmphasis
+                    ''10/2023 td''mod_listRowHeadersByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_NoEmphasis
+                    rowHdrNext = rowHdrNext.RowHeaderNextBelow
+                    rowHdrNext.BackColor = mod_colorHeadersBackcolor_NoEmphasis
+                Next intRowIndex
+            End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
+        End If ''End of ""If (par_intRowIndex_End <> -1) Then""
 
     End Sub ''ENd of ""Private Sub EmphasizeRowHeaders_Undo""
 
@@ -1096,148 +1108,204 @@ Public Class RSCRowHeaders
     Public Sub Load_OneEmptyRow_IfNeeded(par_intRowIndex As Integer,
                                          Optional pboolForceReposition As Boolean = False)
         ''
+        ''Refactored 10/18/2023 td
         ''Added 4/4/2022 td
         ''
         Dim bRowIndexLocated As Boolean
+        Dim boolIsNewHeader As Boolean
+        Dim boolMoreThanOneNew As Boolean
+        Dim listOfNewHeaders As List(Of RSCRowHeader) = Nothing
+        Dim objRowHeaderPossiblyNew As RSCRowHeader = Nothing
+        Dim intExpectedNewRows As Integer ''Added 10/21/2023
 
-        With mod_listRowHeadersByRow
-            bRowIndexLocated = (.ContainsKey(par_intRowIndex))
+        ''Added 10/18/2023
+        ''10/18/2023td mod_rowHeaderFirst_Factory.BuildNextRowsHeader(False, False, true)
+        With mod_rowHeaderFirst_Factory
+
+            ''Added 10/21/2023
+            intExpectedNewRows = CType(IIf(par_intRowIndex > .FactoryMaxIndex,
+                              par_intRowIndex - .FactoryMaxIndex, 0), Integer)
+
+            ''Added 10/18/2023
+            objRowHeaderPossiblyNew =
+            .FactoryBuildRowHeader_IfNeeded(par_intRowIndex, intExpectedNewRows, pboolForceReposition,
+                                            boolIsNewHeader, boolMoreThanOneNew, listOfNewHeaders)
+            bRowIndexLocated = True
         End With
 
-        If (pboolForceReposition) Then
-            ''
-            ''Don't exit. 
-            ''
-        ElseIf (bRowIndexLocated) Then
-
-            ''Added 4/29/2022 thomas d. 
-            mod_listRowHeadersByRow(par_intRowIndex).RowIndex = par_intRowIndex
-
-            Exit Sub
-
-        End If ''End of "If (pboolForceReposition) Then ... ElseIf....."
-
         ''
-        ''Create the textbox and Bottom Bar. 
         ''
-
+        ''Add the new row headers (if any) to the usercontrol's Controls collection.
         ''
-        ''Create the required textbox. 
         ''
-        Dim objTextbox As RSCRowHeader ''4/5/2022 TextBox ''4/4/2022 td''New TextBox ''Added 3/29/2022 thomas downes
-        ''Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
+        ''Added 10/18/2023
+        Dim bInconsistency As Boolean ''Added 10/18/2023
+        Dim bOnlyOneNewHeader As Boolean ''Added 10/21/2023
 
-        If (bRowIndexLocated) Then
-            objTextbox = mod_listRowHeadersByRow.Item(par_intRowIndex)
-            ''objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
+        bInconsistency = (boolMoreThanOneNew And listOfNewHeaders Is Nothing)
+        bOnlyOneNewHeader = (boolIsNewHeader And Not boolMoreThanOneNew)
 
-            ''Added 4/25/2022 td
-            If (objTextbox.RowIndex = 0) Then objTextbox.RowIndex = par_intRowIndex
+        If (bOnlyOneNewHeader) Then
+            Me.Controls.Add(objRowHeaderPossiblyNew)
+        ElseIf (boolMoreThanOneNew) Then
+            ''Added 10/21/2023
+            ''   Add every new row header to the usercontrol's Controls collection.
+            For Each eachRowHeader As RSCRowHeader In listOfNewHeaders
+                Me.Controls.Add(objRowHeaderPossiblyNew)
+                objRowHeaderPossiblyNew.Visible = True
+            Next eachRowHeader
+        End If ''End of ""If (bOnlyOneNewHeader) Then.. ElseIf...""
 
-        Else
-            ''4/4/2022 td''Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
-            objTextbox = New RSCRowHeader ''4/5/2022 TextBox ''Added 3/29/2022 thomas downes
-            objTextbox.RowIndex = par_intRowIndex ''Added 4/25/2022 td
-            mod_listRowHeadersByRow.Add(par_intRowIndex, objTextbox)
-            ''objBottomBar = GetBottomBarForRow()
-            ''Dim new_struct As New StructLabelAndRowSeparator
-            ''new_struct.BottomBar = objBottomBar
-            ''new_struct.Cellbox = objTextbox
-            ''mod_listTextAndBarByRow.Item(par_intRowIndex) = new_struct
-
-        End If ''End of ""If (bRowIndexLocated) Then... Else..."
-
-        ''4/5/2022 Dim textbox_Top As TextBox
-        Dim textbox_Top As RSCRowHeader
-        textbox_Top = Me.GetFirstTextbox()
-        With objTextbox
-            ''4/7/2022----Obselete.... call to PositionAndSizeControlByRow().---4/7/2022 td
-            ''4/7/2022-- .Left = textbox_Top.Left
-            ''4/7/2022-- .Width = textbox_Top.Width
-            ''Moved below.''.Height = textbox_Top.Height
-            .Anchor = textbox_Top.Anchor
-            .BackColor = textbox_Top.BackColor
-            .ForeColor = textbox_Top.ForeColor
-            .BorderStyle = textbox_Top.BorderStyle
-            .Font = textbox_Top.Font
-            ''---.Top = (textbox_BottomLast.Top + intTopGap)
-            ''April 5 2022 ''.Top = (textbox_Top.Top + mc_intPixelsFromRowToRow * (par_intRowIndex - 1))
-
-            ''4/7/2022----Obselete.... call to PositionAndSizeControlByRow().---4/7/2022 td
-            ''4/7/2022-- .Top = (textbox_Top.Top + Me.PixelsFromRowToRow * (par_intRowIndex - 1))
-            ''4/7/2022-- .Height = textbox_Top.Height
-
-            ''4/8 Added 4/7/2022 thomas downes
-            ''4/8 Dim temporary_textbox = New TextBox
-            ''4/8 ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, textbox_Top.Top,
-            ''4/8                                 textbox_Top.Width, temporary_textbox)
-            ''4/8 .Size = temporary_textbox.Size
-            ''4/8 .Location = temporary_textbox.Location
-
-            With objTextbox
-                ''
-                ''We will write to .Top & .Height through
-                ''   the .Location & .Size object properties.
-                ''   ---4/8/2022
-                ''
-                ''4/8 ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, textbox_Top.Top,
-                ''4/8                              textbox_Top.Width, Nothing,
-                ''4/8                             .Size,
-                ''4/8                             .Location)
-                ''
-                ''.Top = .....See Call To Module ModRSCLayout, just below.--4/8/2022
-                ''.Left = .....See Call To Module ModRSCLayout, just below.--4/8/2022
-                ''.Height = .....See Call To Module ModRSCLayout, just below.--4/8/2022
-                ''.Width = .....See Call To Module ModRSCLayout, just below.--4/8/2022
-                ''
-                ModRSCLayout.PositionAndSizeControlByRow(objTextbox, par_intRowIndex,
-                                                         textbox_Top.Top,
-                                                         textbox_Top.Width)
-            End With ''ENd of "with objTextBox"  
-
-            ''
-            ''Double-check the width property.
-            ''
-            .Width = textbox_Top.Width
-
-            .Visible = True
-            .Text = par_intRowIndex.ToString() ''Added 4/6/2022 thomas downes
-            .ParentRSCRowHeaders = Me ''Added 4/6/2022 td
-
-            ''Added 4/6/2022 thomas downes
-            .Margin = New Padding(0, 0, 0, 0)
-            .Padding = New Padding(0, 0, 0, 0)
-
-            ''Bottom  row-related horizontal line (below each textbox).
-            ''objBottomBar.Top = .Top + .Height + 1
-
-        End With ''End of ""With objTextbox""
-
-        ''Added 3/30/2022
-        If (bRowIndexLocated) Then
-            ''Textbox is already one of the controls on the form. ---4/4/2022
-        Else
-            Me.Controls.Add(objTextbox)
-            ''Added 4/08/2022 thomas d.
-            ModRSCLayout.PositionAndSizeControlByRow(objTextbox, par_intRowIndex,
-                                                     textbox_Top.Top,
-                                                     textbox_Top.Width)
-            Application.DoEvents()
-            ''4/8/2022 td''objTextbox.Height = textbox_Top.Height
-            ''4/8/2022 td''objTextbox.Width = textbox_Top.Width
-            ''Me.Controls.Add(objBottomBar)
-        End If ''End of ""If (bRowIndexLocated) Then... Else ..."
-
-        ''4/5/2022 Dim textbox_BottomLast As TextBox
-        Dim textbox_BottomLast As RSCRowHeader
-        ''Me.Height = (objTextbox.Top + objTextbox.Height + intTopGap)
-
-        ''4/5/2022 td''Dim listOfBoxes As List(Of TextBox)
-        Dim listOfBoxes As List(Of RSCRowHeader)
-        listOfBoxes = ListOfRowHeaders_TopToBottom()
-        textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
-        Me.Height = (textbox_BottomLast.Top + textbox_BottomLast.Height +
+        ''Adjust the parent RowHeaders height. ---10/21/2023 td
+        With objRowHeaderPossiblyNew
+            Me.Height = (.Top + .Height +
                     Me.PixelsFromRowToRow)  ''April 5, 2022 td ''mc_intPixelsFromRowToRow)
+        End With
+
+        ''--10/18/2023
+        ''With mod_listRowHeadersByRow
+        ''    bRowIndexLocated = (.ContainsKey(par_intRowIndex))
+        ''End With
+        ''--10/18/2023
+        ''If (pboolForceReposition) Then
+        ''    ''
+        ''    ''Don't exit. 
+        ''    ''
+        ''ElseIf (bRowIndexLocated) Then
+        ''--10/18/2023
+        ''    ''Added 4/29/2022 thomas d. 
+        ''    mod_listRowHeadersByRow(par_intRowIndex).RowIndex = par_intRowIndex
+        ''--10/18/2023
+        ''    Exit Sub
+        ''--10/18/2023
+        ''End If ''End of "If (pboolForceReposition) Then ... ElseIf....."
+        ''--10/18/2023
+        ''''
+        ''''Create the textbox and Bottom Bar. 
+        ''''
+        ''--10/18/2023
+        ''''
+        ''''Create the required textbox. 
+        ''''
+        ''Dim objRowHeaderByRowIndex As RSCRowHeader ''4/5/2022 TextBox ''4/4/2022 td''New TextBox ''Added 3/29/2022 thomas downes
+        ''''Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
+        ''--10/18/2023
+        ''If (bRowIndexLocated) Then
+        ''    objRowHeaderByRowIndex = mod_listRowHeadersByRow.Item(par_intRowIndex)
+        ''    ''objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
+        ''--10/18/2023
+        ''    ''Added 4/25/2022 td
+        ''    If (objRowHeaderByRowIndex.RowIndex = 0) Then
+        ''        objRowHeaderByRowIndex.RowIndex = par_intRowIndex
+        ''    End If
+        ''--10/18/2023
+        ''Else
+        ''    ''4/4/2022 td''Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
+        ''    objRowHeaderByRowIndex = New RSCRowHeader ''4/5/2022 TextBox ''Added 3/29/2022 thomas downes
+        ''    objRowHeaderByRowIndex.RowIndex = par_intRowIndex ''Added 4/25/2022 td
+        ''    mod_listRowHeadersByRow.Add(par_intRowIndex, objRowHeaderByRowIndex)
+        ''    ''objBottomBar = GetBottomBarForRow()
+        ''    ''Dim new_struct As New StructLabelAndRowSeparator
+        ''    ''new_struct.BottomBar = objBottomBar
+        ''    ''new_struct.Cellbox = objTextbox
+        ''    ''mod_listTextAndBarByRow.Item(par_intRowIndex) = new_struct
+        ''--10/18/2023
+        ''End If ''End of ""If (bRowIndexLocated) Then... Else..."
+        ''--10/18/2023
+        ''''4/5/2022 Dim rscRowHdrTop As TextBox
+        ''Dim rscRowHdrTopTemplate As RSCRowHeader
+        ''rscRowHdrTopTemplate = Me.GetFirstTextbox()
+        ''--10/18/2023
+        ''With objRowHeaderByRowIndex
+        ''--10/18/2023
+        ''    ''4/7/2022----Obselete.... call to PositionAndSizeControlByRow().---4/7/2022 td
+        ''    ''4/7/2022-- .Left = rscRowHdrTop.Left
+        ''    ''4/7/2022-- .Width = rscRowHdrTop.Width
+        ''    ''Moved below.''.Height = rscRowHdrTop.Height
+        ''--10/18/2023
+        ''    .Anchor = rscRowHdrTopTemplate.Anchor
+        ''    .BackColor = rscRowHdrTopTemplate.BackColor
+        ''    .ForeColor = rscRowHdrTopTemplate.ForeColor
+        ''    .BorderStyle = rscRowHdrTopTemplate.BorderStyle
+        ''    .Font = rscRowHdrTopTemplate.Font
+        ''    ''---.Top = (rscRowHdrBottomLast.Top + intTopGap)
+        ''    ''April 5 2022 ''.Top = (rscRowHdrTop.Top + mc_intPixelsFromRowToRow * (par_intRowIndex - 1))
+        ''--10/18/2023
+        ''    ''4/7/2022----Obselete.... call to PositionAndSizeControlByRow().---4/7/2022 td
+        ''    ''4/7/2022-- .Top = (rscRowHdrTop.Top + Me.PixelsFromRowToRow * (par_intRowIndex - 1))
+        ''    ''4/7/2022-- .Height = rscRowHdrTop.Height
+        ''--10/18/2023
+        ''    ''4/8 Added 4/7/2022 thomas downes
+        ''    ''4/8 Dim temporary_textbox = New TextBox
+        ''    ''4/8 ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, rscRowHdrTop.Top,
+        ''    ''4/8                                 rscRowHdrTop.Width, temporary_textbox)
+        ''    ''4/8 .Size = temporary_textbox.Size
+        ''    ''4/8 .Location = temporary_textbox.Location
+        ''--10/18/2023
+        ''    With objRowHeaderByRowIndex
+        ''        ''
+        ''        ''We will write to .Top & .Height through
+        ''        ''   the .Location & .Size object properties.
+        ''        ''   ---4/8/2022
+        ''        ''
+        ''        ''4/8 ModRSCLayout.PositionAndSizeControlByRow(par_intRowIndex, rscRowHdrTop.Top,
+        ''        ''4/8                              rscRowHdrTop.Width, Nothing,
+        ''        ''4/8                             .Size,
+        ''        ''4/8                             .Location)
+        ''        ''
+        ''        ''.Top = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+        ''        ''.Left = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+        ''        ''.Height = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+        ''        ''.Width = .....See Call To Module ModRSCLayout, just below.--4/8/2022
+        ''        ''
+        ''        ModRSCLayout.PositionAndSizeControlByRow(objRowHeaderByRowIndex, par_intRowIndex,
+        ''                                                 rscRowHdrTopTemplate.Top,
+        ''                                                 rscRowHdrTopTemplate.Width)
+        ''    End With ''ENd of "with objTextBox"  
+        ''--10/18/2023
+        ''    ''
+        ''    ''Double-check the width property.
+        ''    ''
+        ''    .Width = rscRowHdrTopTemplate.Width
+        ''--10/18/2023
+        ''    .Visible = True
+        ''    .Text = par_intRowIndex.ToString() ''Added 4/6/2022 thomas downes
+        ''    .ParentRSCRowHeaders = Me ''Added 4/6/2022 td
+        ''--10/18/2023
+        ''    ''Added 4/6/2022 thomas downes
+        ''    .Margin = New Padding(0, 0, 0, 0)
+        ''    .Padding = New Padding(0, 0, 0, 0)
+        ''--10/18/2023
+        ''    ''Bottom  row-related horizontal line (below each textbox).
+        ''    ''objBottomBar.Top = .Top + .Height + 1
+        ''--10/18/2023
+        ''End With ''End of ""With objTextbox""
+
+        ''10/21/2023 Added 3/30/2022
+        ''10/21/2023 If (bRowIndexLocated) Then
+        ''10/21/2023     ''Textbox is already one of the controls on the form. ---4/4/2022
+        ''10/21/2023 Else
+        ''    Me.Controls.Add(objRowHeaderByRowIndex)
+        ''    ''Added 4/08/2022 thomas d.
+        ''    ModRSCLayout.PositionAndSizeControlByRow(objRowHeaderByRowIndex, par_intRowIndex,
+        ''                                             rscRowHdrTopTemplate.Top,
+        ''                                             rscRowHdrTopTemplate.Width)
+        ''    Application.DoEvents()
+        ''    ''4/8/2022 td''objTextbox.Height = rscRowHdrTop.Height
+        ''    ''4/8/2022 td''objTextbox.Width = rscRowHdrTop.Width
+        ''    ''Me.Controls.Add(objBottomBar)
+        ''End If ''End of ""If (bRowIndexLocated) Then... Else ..."
+
+        ''4/5/2022 Dim rscRowHdrBottomLast As TextBox
+        ''Dim rscRowHdrBottomLast As RSCRowHeader
+        ''''Me.Height = (objTextbox.Top + objTextbox.Height + intTopGap)
+
+        ''''4/5/2022 td''Dim listOfBoxes As List(Of TextBox)
+        ''Dim listOfBoxes As List(Of RSCRowHeader)
+        ''listOfBoxes = ListOfRowHeaders_TopToBottom()
+        ''rscRowHdrBottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
+        ''Me.Height = (rscRowHdrBottomLast.Top + rscRowHdrBottomLast.Height +
+        ''            Me.PixelsFromRowToRow)  ''April 5, 2022 td ''mc_intPixelsFromRowToRow
 
     End Sub ''End of ""Public Sub Load_EmptyRow_IfNeeded(par(intRowIndex As Integer)""
 
@@ -1521,17 +1589,20 @@ Public Class RSCRowHeaders
         ''
         '' Added 4/6/2022 thomas downes
         ''
-        If (0 = par_intNumberOfRows) Then
-            par_intNumberOfRows = mod_listRowHeadersByRow.Count
-        End If ''End of ""If (0 = par_intNumberOfRows) Then""
+        mod_rowHeaderFirst_Factory.RefreshHeightOfHeaders(par_intNumberOfRows)
 
-        For intRowIndex As Integer = 1 To par_intNumberOfRows
+        ''10/21/2023 If (0 = par_intNumberOfRows) Then
+        ''   par_intNumberOfRows = mod_listRowHeadersByRow.Count
+        ''End If ''End of ""If (0 = par_intNumberOfRows) Then""
 
-            ''Added 4/4/2022 td
-            mod_listRowHeadersByRow(intRowIndex).Height = (mod_intPixelsFromRowToRow - 1)
-            mod_listRowHeadersByRow(intRowIndex).Width = Me.GetFirstTextbox().Width
-
-        Next intRowIndex
+        ''10/21/2023 For intRowIndex As Integer = 1 To par_intNumberOfRows
+        ''
+        ''    ''Added 4/4/2022 td
+        ''    ''Oops!!  mod_listRowHeadersByRow(intRowIndex).Height = (mod_intPixelsFromRowToRow - 1)
+        ''    ''mod_listRowHeadersByRow(intRowIndex).Height = Me.GetFirstTextbox().Height
+        ''    ''mod_listRowHeadersByRow(intRowIndex).Width = Me.GetFirstTextbox().Width
+        ''
+        ''Next intRowIndex
 
     End Sub ''End of "Public Sub RefreshHeightOfHeaders"
 
