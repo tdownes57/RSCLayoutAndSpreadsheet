@@ -9,6 +9,7 @@ Imports System.Threading
 Imports __RSC_Error_Logging
 Imports ciBadgeInterfaces ''Added 5/19/2022 thomas 
 Imports ciBadgeRecipients
+Imports MathNet.Numerics.LinearAlgebra.Storage
 
 Public Class RSCRowHeader
     ''
@@ -17,7 +18,7 @@ Public Class RSCRowHeader
     Public ParentRSCRowHeaders As RSCRowHeaders
     Public ParentRSCSpreadsheet As RSCFieldSpreadsheet ''Added 9/18/2023 td
 
-    Public Property RowIndex As Integer ''Added 4/24/2022 td
+    Public Property RowIndex_Denigrated As Integer ''Added 4/24/2022 td
 
     Public Recipient As ciBadgeRecipients.ClassRecipient ''Added 4/12/2022 td
 
@@ -84,7 +85,7 @@ Public Class RSCRowHeader
 
         With Me.ParentRSCRowHeaders
             ''Added 5/13/2022 td 
-            boolOkayStart = (.EmphasisRowIndex_Start = Me.RowIndex)
+            boolOkayStart = (.EmphasisRowIndex_Start = Me.RowIndex_Denigrated)
             boolOkayEnd = (-1 = .EmphasisRowIndex_End)
 
         End With ''End of ""With Me.ParentRSCRowHeaders""
@@ -113,10 +114,10 @@ Public Class RSCRowHeader
         ''Minor call
         If (Me.ParentRSCRowHeaders Is Nothing) Then
             ''9/12/2023 Return Nothing ''Added 9/12/2023 td
-            intRowIndex = Me.RowIndex
+            intRowIndex = Me.RowIndex_Denigrated
         Else
             ''9/12/2023 intRowIndex = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
-            intRowIndex = Me.RowIndex
+            intRowIndex = Me.RowIndex_Denigrated
         End If
 
         ''Added 8/29/2023 
@@ -214,12 +215,13 @@ Public Class RSCRowHeader
     End Sub ''End of ""Public Sub FactoryBuildNextRowsHeader""  
 
 
-    Public Function FactoryBuildRowHeader_IfNeeded(pintRowIndex As Integer,
-                        pintExpectedNewRowCount As Integer,
+    Public Function FactoryBuildNextRowHeader_IfNeeded(pintRowIndex As Integer,
+                        pintExpectedNewRowsCount As Integer,
                         pboolForceReposition As Boolean,
-                        Optional ByRef pboolNewlyBuilt As Boolean = False,
-                        Optional ByRef pboolMoreThanOneNew As Boolean = False,
-                        Optional ByRef plistRowHeaders As List(Of RSCRowHeader) = Nothing) As RSCRowHeader
+                        Optional ByRef pref_bNewlyBuiltAtLeastOne As Boolean = False,
+                        Optional ByRef pref_bMoreThanOneNewlyBuilt As Boolean = False,
+                        Optional ByRef pref_intNumberRowsCreated As Integer = 0) As RSCRowHeader
+        ''------------- Optional ByRef plistRowHeaders As List(Of RSCRowHeader) = Nothing) As RSCRowHeader
         ''
         ''Added 10/18/2023 thomas downes
         ''
@@ -228,14 +230,26 @@ Public Class RSCRowHeader
         Dim eachRSCHeader As RSCRowHeader = Me
         Dim priorRSCHeader As RSCRowHeader = Nothing
         Dim output_result As RSCRowHeader = Nothing
-        Dim boolBuiltOneAlready As Boolean = False
+        ''Not needed. Dim boolBuiltOneAlready As Boolean = False
         Dim newRSCHeader As RSCRowHeader = Nothing ''Added 10/18/2023
         Dim bFoundIndicatedRow As Boolean '' = False
-        Dim intNewRowCount As Integer = 0
+        ''Not needed. Dim intNewRowCount As Integer = 0
 
+        If (Me.ParentRSCRowHeaders Is Nothing) Then
+            Debugger.Break()
+            ''Throw New Exception("The Parent reference should be supplied prior to calling this.")
+        End If ''End of ""If (Me.ParentRSCRowHeaders Is Nothing) Then""
+
+        pref_intNumberRowsCreated = 0 ''Initialize. 10/24/2023
+
+        ''
+        ''We may need to create several rows, so a loop is needed.
+        ''
         Do While (bContinue)
 
+            ''Does it match the desired row index? 
             bFoundIndicatedRow = (intEachIndex = pintRowIndex)
+
             If (bFoundIndicatedRow) Then ''If (intEachIndex = pintRowIndex) Then
                 bContinue = False ''Was previously not really needed, 
                 ''  due the "Return" statement below.
@@ -244,32 +258,36 @@ Public Class RSCRowHeader
             Else
                 intEachIndex += 1
                 eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+
+                ''
+                ''Administrative work--check if we've reached the end of rows. 
+                ''
                 If (eachRSCHeader Is Nothing) Then
                     ''##bContinue = False
-                    pboolNewlyBuilt = True
 
-                    ''Create new RSCHeader.  
-                    If (boolBuiltOneAlready) Then
-                        ''Administrative work.... :-( 
-                        ''  We need to keep track of every new row header that's
-                        ''  built.  ---10/18/2023 td
-                        If (plistRowHeaders IsNot Nothing) Then
-                            plistRowHeaders = New List(Of RSCRowHeader)
-                            pboolMoreThanOneNew = True
-                        End If ''Create new list.
-                        plistRowHeaders.Add(newRSCHeader)
-                        ''A bit redundant here...
-                        ''---pboolMoreThanOneNew = True
-                    End If ''ENd of ""If (boolBuiltOneAlready) Then... Else""
-
-                    ''Create new row header.
+                    ''
+                    ''Create new row header!!!!
+                    ''
                     newRSCHeader = priorRSCHeader.GetBuildNextRowsHeader_Factory(False, True)
+
+                    pref_bNewlyBuiltAtLeastOne = True
                     eachRSCHeader = newRSCHeader ''Prepare for next looping.
                     output_result = newRSCHeader ''Prepare for loop termination.
-                    boolBuiltOneAlready = True ''Prepare for next looping.
+                    ''Not needed. 10/2023boolBuiltOneAlready = True ''Prepare for next looping.
+
                     ''Not needed here! boolBuiltOneAlready = True
                     Me.FactoryMaxIndex = intEachIndex
-                    intNewRowCount += 1
+                    pref_intNumberRowsCreated += 1
+
+                    ''Added 10/23/2023 td
+                    newRSCHeader.ParentRSCRowHeaders = Me.ParentRSCRowHeaders
+                    If (priorRSCHeader Is Nothing) Then
+                        ''
+                        ''Maintain the chain!!!  Link in both directions!!!
+                        ''
+                        newRSCHeader.RowHeaderNextAbove = priorRSCHeader
+                        priorRSCHeader.RowHeaderNextBelow = newRSCHeader
+                    End If ''End of ""If (priorRSCHeader Is Nothing) Then""
 
                 End If ''End of ""If (eachRSCHeader Is Nothing) Then""
             End If ''ENd of ""If (bFoundIndicatedRow) Then""
@@ -283,9 +301,12 @@ Public Class RSCRowHeader
         ''
         ''Warn the user.
         ''
-        If (intNewRowCount <> pintExpectedNewRowCount) Then
-            MessageBoxTD.Show_Statement("More new rows than expected...")
+        If (pref_intNumberRowsCreated <> pintExpectedNewRowsCount) Then
+            MessageBoxTD.Show_Statement("More new rows than expected. Count " &
+                                        pref_intNumberRowsCreated & " created.")
         End If
+
+        pref_bMoreThanOneNewlyBuilt = (1 < pref_intNumberRowsCreated)
 
         Return output_result
 
@@ -322,11 +343,96 @@ Public Class RSCRowHeader
     End Function ''Public Function GetRowHeader_ByIndex
 
 
+    Public Sub ToggleEmptyRowMessage_AllRowHdrs(pbIsTopRowHeader As Boolean,
+                                     par_manager_cols As RSCSpreadManagerCols)
+        ''
+        ''Added 10/23/2023 td
+        ''
+        Dim bContinue As Boolean = True
+        Dim eachRSCHeader As RSCRowHeader = Me
+        Dim intRowIndex As Integer
+
+        If (pbIsTopRowHeader) Then
+            intRowIndex = 1
+        Else
+            Debugger.Break()
+            ''Throw New Exception("This is not the top row header!!")
+        End If ''End of ""If (pbIsTopRowHeader) Then... Else...""
+
+        Do While (bContinue)
+
+            eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+            intRowIndex += 1
+            If (eachRSCHeader Is Nothing) Then
+                bContinue = False
+            Else
+                ''Toggle the Empty Row Message.
+                eachRSCHeader.ToggleEmptyRowMessage(intRowIndex, par_manager_cols)
+            End If ''End of ""If (eachRSCHeader Is Nothing) Then... Else...""
+
+        Loop ''End Do While (bContinue)
+
+    End Sub ''ENd of ""Public Sub ToggleEmptyRowMessage_AllRowHdrs()""
+
+
+    Public Sub ToggleEmptyRowMessage(pintCurrentRowIndex As Integer,
+                                     par_manager_cols As RSCSpreadManagerCols)
+        ''
+        ''Added 10/23/2023 thomas d.
+        ''
+        Dim rowIndex As Integer = Me.RowIndex_Denigrated
+        Dim recipient As ClassRecipient = Me.GetRecipient(False)
+        Dim bIsRecipientEmpty As Boolean = recipient.IsEmpty()
+        Dim bIsSpreadsheetRowEmpty As Boolean ''= par_dlist_columns.IsRowEmpty(rowIndex)
+        bIsSpreadsheetRowEmpty = par_manager_cols.IsRowEmpty(rowIndex)
+        Dim bCompletelyEmpty As Boolean = (bIsRecipientEmpty And bIsSpreadsheetRowEmpty)
+
+        If (bCompletelyEmpty) Then
+            ''
+            ''Row is completely empty. 
+            ''
+            par_manager_cols.ToggleMessage_RowIsEmpty(rowIndex,
+                     True, bCompletelyEmpty)
+        Else
+            par_manager_cols.ToggleMessage_RowIsEmpty(rowIndex,
+                     True, bCompletelyEmpty)
+        End If ''End of ""If (each_bCompletelyEmpty) Then... Else"
+
+    End Sub ''ENd of ""Public Sub ToggleEmptyRowMessage()""
+
+
+    Public Sub GetListOfRecipients_AllHdrs(plistOfRecipients As List(Of ClassRecipient))
+        ''
+        ''Added 10/23/2023
+        ''
+        Dim bContinue As Boolean = True
+        Dim eachRSCHeader As RSCRowHeader = Me
+        ''Dim intRowIndex As Integer
+        Dim eachRecipient As ClassRecipient
+
+        plistOfRecipients.Add(Me.GetRecipient())
+
+        Do While (bContinue)
+            eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+            If (eachRSCHeader Is Nothing) Then
+                bContinue = False
+            Else
+                ''Toggle the Empty Row Message.
+                eachRecipient = eachRSCHeader.GetRecipient()
+                If (eachRecipient IsNot Nothing) Then
+                    plistOfRecipients.Add(eachRecipient)
+                End If
+            End If ''End of ""If (eachRSCHeader Is Nothing) Then... Else...""
+        Loop ''End Do While (bContinue)
+
+    End Sub ''End of Public Sub GetListOfRecipients_AllHdrs
+
+
     Public Sub RefreshHeightOfHeaders(Optional par_intNumberOfRows As Integer = 0)
         ''
         ''Added 10/21/2023 td 
         ''
-        Dim intEachIndex As Integer = 1
+        ''Dim intEachIndex As Integer = 1
         Dim bContinue As Boolean = True
         Dim eachRSCHeader As RSCRowHeader = Me
         Dim bCountRows As Boolean = (par_intNumberOfRows > 0)
@@ -386,7 +492,7 @@ Public Class RSCRowHeader
 
         ''#1 5/25/2022 Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex)
         ''#2 5/25/2022 Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex, pboolFailure)
-        Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex,
+        Me.ParentRSCRowHeaders.SaveToRecipient(objRecipient, Me.RowIndex_Denigrated,
                                                pref_boolFailure, intCountColsFailed)
 
         ''Added 5/25/2022
@@ -501,7 +607,7 @@ Public Class RSCRowHeader
 
         With Me.ParentRSCRowHeaders
             ''Added 5/13/2022 td 
-            .EmphasisRowIndex_Start = Me.RowIndex
+            .EmphasisRowIndex_Start = Me.RowIndex_Denigrated
             .EmphasisRowIndex_End = -1
 
             ''Let the user know (via color-coding) that the emphasis has taken place.
@@ -515,7 +621,7 @@ Public Class RSCRowHeader
             ''  currently-focused row. ----5/13/2022 td
             ''
             With .ParentRSCSpreadsheet
-                .MoveTextCaret_IfNeeded(Me.RowIndex)
+                .MoveTextCaret_IfNeeded(Me.RowIndex_Denigrated)
             End With
 
         End With ''End of ""With Me.ParentRSCRowHeaders""
@@ -604,12 +710,12 @@ Public Class RSCRowHeader
             ''4/25/2022 td''ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e)
 
             ''Added 4/25/2022 td
-            If (Me.RowIndex <= 0) Then
-                Me.RowIndex = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
+            If (Me.RowIndex_Denigrated <= 0) Then
+                Me.RowIndex_Denigrated = Me.ParentRSCRowHeaders.GetRowIndex_OfHeader(Me)
             End If ''End If (Me.RowIndex <= 0) Then
 
             ''Added 4/25/2022 td
-            ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e, Me.RowIndex)
+            ParentRSCRowHeaders.HeaderBox_MouseUp(Me, e, Me.RowIndex_Denigrated)
 
         ElseIf (c_bGiveHeightMsg) Then
             ''
@@ -623,7 +729,7 @@ Public Class RSCRowHeader
             ''
             ''Added 4/28/2022 thomas d.
             ''
-            If (Me.RowIndex <= 0) Then System.Diagnostics.Debugger.Break()
+            If (Me.RowIndex_Denigrated <= 0) Then System.Diagnostics.Debugger.Break()
 
             ''
             ''Keep track of the range of emphasized rows.
@@ -639,16 +745,16 @@ Public Class RSCRowHeader
                     ''Determine the range of selected rows.
                     ''
                     If (0 < .EmphasisRowIndex_Start) Then
-                        If (Me.RowIndex >= .EmphasisRowIndex_Start) Then
-                            .EmphasisRowIndex_End = Me.RowIndex
+                        If (Me.RowIndex_Denigrated >= .EmphasisRowIndex_Start) Then
+                            .EmphasisRowIndex_End = Me.RowIndex_Denigrated
 
-                        ElseIf (Me.RowIndex < .EmphasisRowIndex_Start) Then
+                        ElseIf (Me.RowIndex_Denigrated < .EmphasisRowIndex_Start) Then
                             .EmphasisRowIndex_End = .EmphasisRowIndex_Start
-                            .EmphasisRowIndex_Start = Me.RowIndex
+                            .EmphasisRowIndex_Start = Me.RowIndex_Denigrated
                         End If
 
                     Else
-                        .EmphasisRowIndex_Start = Me.RowIndex
+                        .EmphasisRowIndex_Start = Me.RowIndex_Denigrated
                         .EmphasisRowIndex_End = -1
 
                     End If ''end of ""If (0 < mod_intEmphasisRowIndex_Start) Then... Else...""
@@ -660,7 +766,7 @@ Public Class RSCRowHeader
                                              .EmphasisRowIndex_End)
 
                 Else
-                    .EmphasisRowIndex_Start = Me.RowIndex
+                    .EmphasisRowIndex_Start = Me.RowIndex_Denigrated
                     .EmphasisRowIndex_End = -1
                     .EmphasizeRows_Highlight(boolUsingShiftKey,
                                              .EmphasisRowIndex_Start,

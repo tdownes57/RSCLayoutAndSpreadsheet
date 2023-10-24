@@ -140,37 +140,39 @@ Public Class RSCSpreadManagerRows
         ''
         ''Added 9/3/2023 thomas downes
         ''
-        Dim each_recipient As ClassRecipient
-        Dim each_bIsRecipientEmpty As Boolean
-        Dim each_bIsSpreadsheetRowEmpty As Boolean
-        Dim each_bCompletelyEmpty As Boolean
-        Dim each_rowIndex As Integer
+        ''Dim each_recipient As ClassRecipient
+        ''Dim each_bIsRecipientEmpty As Boolean
+        ''Dim each_bIsSpreadsheetRowEmpty As Boolean
+        ''Dim each_bCompletelyEmpty As Boolean
+        ''Dim each_rowIndex As Integer
 
-        For Each each_rowHeader As RSCRowHeader In
-            mod_rowHeadersRSCCtl.ListOfRowHeaders_TopToBottom()
+        mod_rowHeadersRSCCtl.ToggleEmptyRowMessage_ShowIfApplicable(mod_manager_cols)
 
-            each_rowIndex = each_rowHeader.RowIndex
-            each_recipient = each_rowHeader.GetRecipient()
-            each_bIsRecipientEmpty = each_recipient.IsEmpty()
-            ''each_bIsSpreadsheetRowEmpty = mod_dlist_columns.IsRowEmpty(each_rowIndex)
-            each_bIsSpreadsheetRowEmpty = mod_manager_cols.IsRowEmpty(each_rowIndex)
-            each_bCompletelyEmpty = (each_bIsRecipientEmpty And
-                    each_bIsSpreadsheetRowEmpty)
-
-            If (each_bCompletelyEmpty) Then
-                ''
-                ''Row is completely empty. 
-                ''
-                mod_manager_cols.ToggleMessage_RowIsEmpty(each_rowIndex,
-                     True, each_bCompletelyEmpty)
-
-            Else
-                mod_manager_cols.ToggleMessage_RowIsEmpty(each_rowIndex,
-                     True, each_bCompletelyEmpty)
-
-            End If ''End of ""If (each_bCompletelyEmpty) Then... Else"
-
-        Next each_rowHeader
+        ''For Each each_rowHeader As RSCRowHeader In
+        ''    mod_rowHeadersRSCCtl.ListOfRowHeaders_TopToBottom()
+        ''10.23.2023 td
+        ''    each_rowIndex = each_rowHeader.RowIndex
+        ''    each_recipient = each_rowHeader.GetRecipient(False)
+        ''    each_bIsRecipientEmpty = each_recipient.IsEmpty()
+        ''    ''each_bIsSpreadsheetRowEmpty = mod_dlist_columns.IsRowEmpty(each_rowIndex)
+        ''    each_bIsSpreadsheetRowEmpty = mod_manager_cols.IsRowEmpty(each_rowIndex)
+        ''    each_bCompletelyEmpty = (each_bIsRecipientEmpty And
+        ''            each_bIsSpreadsheetRowEmpty)
+        ''10.23.2023 td
+        ''    If (each_bCompletelyEmpty) Then
+        ''        ''
+        ''        ''Row is completely empty. 
+        ''        ''
+        ''        mod_manager_cols.ToggleMessage_RowIsEmpty(each_rowIndex,
+        ''             True, each_bCompletelyEmpty)
+        ''10.23.2023 td
+        ''    Else
+        ''        mod_manager_cols.ToggleMessage_RowIsEmpty(each_rowIndex,
+        ''             True, each_bCompletelyEmpty)
+        ''10.23.2023 td
+        ''    End If ''End of ""If (each_bCompletelyEmpty) Then... Else"
+        ''10.23.2023 td
+        ''Next each_rowHeader
 
 
     End Sub ''End of ""Public Sub ToggleEmptyRowMessage_IfApplicable()""

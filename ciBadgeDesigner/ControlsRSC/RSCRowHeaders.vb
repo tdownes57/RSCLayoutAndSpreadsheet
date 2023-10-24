@@ -110,15 +110,32 @@ Public Class RSCRowHeaders
     End Property
 
 
-    Public Function CountOfRows() As Integer
+    Public Function CountOfRows(Optional pbPerformLoopToCount As Boolean = True) As Integer
         ''
         ''Added 4/3/2022 thomas downes  
         ''
         ''4/5/2022 Dim listBoxes As List(Of TextBox)
-        Dim listBoxes As List(Of RSCRowHeader) ''4/5/2022 TextBox)
-        Const c_boolSkipSorting As Boolean = True
-        listBoxes = ListOfRowHeaders_TopToBottom(c_boolSkipSorting)
-        Return listBoxes.Count
+        ''10/24/2023 Dim listBoxes As List(Of RSCRowHeader) ''4/5/2022 TextBox)
+        ''10/24/2023 Const c_boolSkipSorting As Boolean = True
+        ''10/24/2023 listBoxes = ListOfRowHeaders_TopToBottom(c_boolSkipSorting)
+        ''10/24/2023 Return listBoxes.Count
+
+        Dim intCountRows As Integer = 0
+        Dim default_count As Integer = mod_rowHeaderFirst_Factory.FactoryMaxIndex
+        Dim currentRow As RSCRowHeader = mod_rowHeaderFirst_Factory
+
+        If (pbPerformLoopToCount) Then
+            ''Go down the doubly-linked list of row-headers. 
+            While (currentRow IsNot Nothing)
+                intCountRows += 1
+                currentRow = currentRow.RowHeaderNextBelow
+            End While
+            If (intCountRows <> default_count) Then Debugger.Break()
+            Return intCountRows
+        Else
+            Return mod_rowHeaderFirst_Factory.FactoryMaxIndex
+
+        End If ''ENd of ""If (pbPerformLoopToCount) Then ... Else""
 
     End Function ''End of ""Public Function CountOfRows() As Integer""
 
@@ -309,26 +326,91 @@ Public Class RSCRowHeaders
         ''Added 4/25/2025 thomas downes
         ''
         ''---For Each obj_header As RSCRowHeader In mod_listTextboxesByRow.
-        Dim intRowIndex As Integer = 1
+        Dim intRowIndex_SLOW As Integer = 1
+        Dim intRowIndex_FAST As Integer
+        Dim intCountRowsAbove_FAST As Integer = 0
+        Const DO_IT_FAST_AND_SMART As Boolean = True
+        Const DO_IT_SLOW_AND_CAREFUL As Boolean = True
+        Dim boolDoItBothWays As Boolean = (DO_IT_FAST_AND_SMART And DO_IT_SLOW_AND_CAREFUL)
 
         If (mod_rowHeaderFirst_Factory Is par_oRowHeader) Then
             Return 1
-        Else
-            Dim eachRowHeader As RSCRowHeader = mod_rowHeaderFirst_Factory
-            Dim bContinue As Boolean = True
-            Do While bContinue
-                If (eachRowHeader Is par_oRowHeader) Then
-                    bContinue = False
-                    Return intRowIndex
-                ElseIf (eachRowHeader Is Nothing) Then
-                    bContinue = False
-                    Throw New Exception("not found")
+        End If
+
+        If (DO_IT_FAST_AND_SMART) Then
+            ''
+            ''This is the _FAST_REVERSE way... we BEGIN at the 
+            ''   given Row Header & move up!!   We count the row-headers ABOVE
+            ''   the given Row Header.
+            ''
+            Dim eachRowHeader_FAST_REVERSE As RSCRowHeader
+            ''OFF-BY-ONE ERROR 10/2023 eachRowHeader_FAST_REVERSE = par_oRowHeader
+            eachRowHeader_FAST_REVERSE = par_oRowHeader.RowHeaderNextAbove ''Initialize to the one above.
+            Dim bContinue_FAST_REVERSE As Boolean = True ''Initialize.
+            intCountRowsAbove_FAST = 0 ''Initialize.
+
+            Do While bContinue_FAST_REVERSE
+                If (eachRowHeader_FAST_REVERSE Is Nothing) Then
+                    ''By cycling upwards, we've reached the very top row-header. 
+                    bContinue_FAST_REVERSE = False
                 Else
-                    intRowIndex += 1
-                    eachRowHeader = eachRowHeader.RowHeaderNextBelow
+                    intCountRowsAbove_FAST += 1
+                    ''Prepare for the next iteration.
+                    ''  We go to the row header ABOVE. 
+                    eachRowHeader_FAST_REVERSE =
+                        eachRowHeader_FAST_REVERSE.RowHeaderNextAbove
+                End If ''End of If (eachRowHeader_FAST_REVERSE Is Nothing) Then...Else...
+            Loop ''End of ""Do While bContinue""
+            ''---------------------DIFFICULT & CONFUSING------------------------------------------
+            ''-----THE NUMBER OF ROW-HEADERS ABOVE THE GIVEN ROW-HEADER EQUALS (ROW INDEX - 1).
+            ''-----Thomas Downes, 10/24/2013
+            intRowIndex_FAST = (intCountRowsAbove_FAST + 1) ''This is the SMART (clever) part!
+            ''------------------------------------------------------------------------------------
+            If (Not boolDoItBothWays) Then Return intRowIndex_FAST
+        End If ''End of ""If (DO_IT_FAST_AND_SMART) Then
+
+        If (DO_IT_SLOW_AND_CAREFUL) Then
+            ''
+            ''This is the _SLOW way, NOT a clever way.
+            ''
+            Dim eachRowHeader_SLOW As RSCRowHeader = mod_rowHeaderFirst_Factory
+            Dim bContinue_SLOW As Boolean = True
+            Dim bMatchesGiven_SLOW As Boolean = False
+
+            Do While bContinue_SLOW
+                bMatchesGiven_SLOW = (eachRowHeader_SLOW Is par_oRowHeader)
+                If (bMatchesGiven_SLOW) Then
+                    bContinue_SLOW = False
+                    ''10/2023 Return intRowIndex_SLOW
+                ElseIf (eachRowHeader_SLOW Is Nothing) Then
+                    bContinue_SLOW = False
+                    Debugger.Break()
+                    ''Throw New Exception("Suprisingly, the row header is not found")
+                Else
+                    intRowIndex_SLOW += 1
+                    eachRowHeader_SLOW = eachRowHeader_SLOW.RowHeaderNextBelow
                 End If
-            Loop
-        End If ''End of ""Else... If (mod_rowHeaderFirst_Factory Is par_oRowHeader) Then""
+            Loop ''End of ""Do While bContinue""
+            If (Not boolDoItBothWays) Then Return intRowIndex_SLOW
+        End If ''End of ""If (DO_IT_SLOW_AND_CAREFUL) Then""
+
+        ''
+        ''Consistency check!
+        ''
+        If (boolDoItBothWays) Then
+            If (intRowIndex_FAST <> intRowIndex_SLOW) Then
+                Debugger.Break()
+                ''Throw New Exception("The row counts are not matching as expected.
+            End If ''If (intRowIndex_FAST <> intRowIndex_SLOW) Then
+            Return intRowIndex_FAST
+
+        ElseIf (DO_IT_FAST_AND_SMART) Then
+            Return intRowIndex_FAST
+
+        ElseIf (DO_IT_SLOW_AND_CAREFUL) Then
+            Return intRowIndex_SLOW
+
+        End If ''ENd of ""If (boolDoItBothWays) Then""
 
         ''Added 8/29/2023
         ''If mod_listRowHeadersByRow.Count = 0 Then
@@ -402,7 +484,7 @@ Public Class RSCRowHeaders
         ''
         '' 1, 2, 3
         ''
-        textRowHeader1.RowIndex = 1
+        textRowHeader1.RowIndex_Denigrated = 1
         textRowHeader1.Text = "1"
         ''Allow code to navigate to this parent collection.
         textRowHeader1.ParentRSCRowHeaders = Me
@@ -629,9 +711,10 @@ Public Class RSCRowHeaders
         ''
         ''Added 4/04/2022 thomas downes
         ''
-        Dim objFirstTextbox As RSCRowHeader ''4/5/2022 TextBox
-        objFirstTextbox = ListOfRowHeaders_TopToBottom().First()
-        Return objFirstTextbox
+        ''10/2023 Dim objFirstTextbox As RSCRowHeader ''4/5/2022 TextBox
+        ''10/2023 objFirstTextbox = ListOfRowHeaders_TopToBottom().First()
+        ''10/2023 Return objFirstTextbox
+        Return mod_rowHeaderFirst_Factory
 
     End Function ''End of ""Public Function GetFirstTextbox() As TextBox""
 
@@ -680,18 +763,20 @@ Public Class RSCRowHeaders
         Dim eachRecipient As ClassRecipient
         Dim eachIsRowEmpty As Boolean
 
-        For Each each_header In ListOfRowHeaders_TopToBottom()
+        mod_rowHeaderFirst_Factory.GetListOfRecipients_AllHdrs(listOfRecipients)
 
-            eachIsRowEmpty = False
-            eachRecipient = each_header.GetRecipient(eachIsRowEmpty)
-
-            If (eachIsRowEmpty) Then
-                ''Don't add the blank recipient.
-            Else
-                listOfRecipients.Add(each_header.GetRecipient())
-            End If
-
-        Next each_header
+        ''For Each each_header In ListOfRowHeaders_TopToBottom()
+        ''
+        ''    eachIsRowEmpty = False
+        ''    eachRecipient = each_header.GetRecipient(eachIsRowEmpty)
+        ''
+        ''    If (eachIsRowEmpty) Then
+        ''        ''Don't add the blank recipient.
+        ''    Else
+        ''        listOfRecipients.Add(each_header.GetRecipient())
+        ''    End If
+        ''
+        ''Next each_header
 
         Return listOfRecipients
 
@@ -1114,9 +1199,10 @@ Public Class RSCRowHeaders
         Dim bRowIndexLocated As Boolean
         Dim boolIsNewHeader As Boolean
         Dim boolMoreThanOneNew As Boolean
-        Dim listOfNewHeaders As List(Of RSCRowHeader) = Nothing
-        Dim objRowHeaderPossiblyNew As RSCRowHeader = Nothing
+        ''Not needed. 10/2023 Dim listOfNewHeaders As List(Of RSCRowHeader) = Nothing
+        Dim objReturnedRowHeaderPossiblyNew As RSCRowHeader = Nothing
         Dim intExpectedNewRows As Integer ''Added 10/21/2023
+        Dim intNumberOfNewRows As Integer ''Added 10/24/2023
 
         ''Added 10/18/2023
         ''10/18/2023td mod_rowHeaderFirst_Factory.BuildNextRowsHeader(False, False, true)
@@ -1127,11 +1213,12 @@ Public Class RSCRowHeaders
                               par_intRowIndex - .FactoryMaxIndex, 0), Integer)
 
             ''Added 10/18/2023
-            objRowHeaderPossiblyNew =
-            .FactoryBuildRowHeader_IfNeeded(par_intRowIndex, intExpectedNewRows, pboolForceReposition,
-                                            boolIsNewHeader, boolMoreThanOneNew, listOfNewHeaders)
+            objReturnedRowHeaderPossiblyNew =
+                    .FactoryBuildNextRowHeader_IfNeeded(par_intRowIndex,
+                                   intExpectedNewRows, pboolForceReposition,
+                                   boolIsNewHeader, boolMoreThanOneNew, intNumberOfNewRows) '', listOfNewHeaders)
             bRowIndexLocated = True
-        End With
+        End With ''End of ""With mod_rowHeaderFirst_Factory""
 
         ''
         ''
@@ -1139,28 +1226,55 @@ Public Class RSCRowHeaders
         ''
         ''
         ''Added 10/18/2023
-        Dim bInconsistency As Boolean ''Added 10/18/2023
+        Dim bInconsistency1 As Boolean ''Added 10/18/2023
+        Dim bInconsistency2 As Boolean ''Added 10/18/2023
+        Dim bInconsistency3 As Boolean ''Added 10/18/2023
         Dim bOnlyOneNewHeader As Boolean ''Added 10/21/2023
+        Dim objNewRowHeaderAtGivenIndex As RSCRowHeader = Nothing ''Added 10/24/2023
 
-        bInconsistency = (boolMoreThanOneNew And listOfNewHeaders Is Nothing)
+        ''10/2023 bInconsistency = (boolMoreThanOneNew And listOfNewHeaders Is Nothing)
+        bInconsistency1 = (boolMoreThanOneNew And (intNumberOfNewRows <= 1))
+        bInconsistency2 = (boolIsNewHeader And (intNumberOfNewRows <= 0))
+        bInconsistency3 = (boolMoreThanOneNew And (Not boolIsNewHeader))
+        If (bInconsistency1) Then Debugger.Break()
+        If (bInconsistency2) Then Debugger.Break()
+        If (bInconsistency3) Then Debugger.Break()
         bOnlyOneNewHeader = (boolIsNewHeader And Not boolMoreThanOneNew)
+        If (boolIsNewHeader) Then
+            objNewRowHeaderAtGivenIndex = objReturnedRowHeaderPossiblyNew
+        End If ''End of "If (boolIsNewHeader) Then"
 
         If (bOnlyOneNewHeader) Then
-            Me.Controls.Add(objRowHeaderPossiblyNew)
+            ''Added just the one(1) new row header.
+            Me.Controls.Add(objNewRowHeaderAtGivenIndex)
+
         ElseIf (boolMoreThanOneNew) Then
             ''Added 10/21/2023
             ''   Add every new row header to the usercontrol's Controls collection.
-            For Each eachRowHeader As RSCRowHeader In listOfNewHeaders
-                Me.Controls.Add(objRowHeaderPossiblyNew)
-                objRowHeaderPossiblyNew.Visible = True
-            Next eachRowHeader
+            ''For Each eachRowHeader As RSCRowHeader In listOfNewHeaders
+            ''    Me.Controls.Add(objRowHeaderPossiblyNew)
+            ''    objRowHeaderPossiblyNew.Visible = True
+            ''Next eachRowHeader
+            Dim currentForRowHeader As RSCRowHeader
+            currentForRowHeader = objNewRowHeaderAtGivenIndex
+            For intAddIndex As Integer = 1 To intNumberOfNewRows
+                Me.Controls.Add(currentForRowHeader)
+                currentForRowHeader.Visible = True
+                ''Prepare for next loop.
+                ''  Find the row header __ABOVE__ the current one.
+                currentForRowHeader = currentForRowHeader.RowHeaderNextAbove
+            Next intAddIndex
+
         End If ''End of ""If (bOnlyOneNewHeader) Then.. ElseIf...""
 
-        ''Adjust the parent RowHeaders height. ---10/21/2023 td
-        With objRowHeaderPossiblyNew
-            Me.Height = (.Top + .Height +
-                    Me.PixelsFromRowToRow)  ''April 5, 2022 td ''mc_intPixelsFromRowToRow)
-        End With
+        ''
+        ''This is performed within RSCRowHeader.FactoryBuildRowHeader_IfNeeded
+        '' 
+        ''   ''Adjust the parent RowHeaders height. ---10/21/2023 td
+        ''   With objRowHeaderPossiblyNew
+        ''     Me.Height = (.Top + .Height +
+        ''            Me.PixelsFromRowToRow)  ''April 5, 2022 td ''mc_intPixelsFromRowToRow)
+        ''   End With
 
         ''--10/18/2023
         ''With mod_listRowHeadersByRow
@@ -1670,7 +1784,7 @@ Public Class RSCRowHeaders
 
 
 
-    Public Function ListOfRowHeaders_TopToBottom(Optional par_noSorting As Boolean = False) As List(Of RSCRowHeader) ''IOrderedEnumerable(Of TextBox)
+    Public Function ListOfRowHeaders_TopToBottom_Denigrated(Optional par_noSorting As Boolean = False) As List(Of RSCRowHeader) ''IOrderedEnumerable(Of TextBox)
         ''5/14/2022 Public Function ListOfRowHeaders_TopToBottom
         ''
         ''Added 3/19/2022 td
@@ -1744,6 +1858,16 @@ Public Class RSCRowHeaders
     ''Private Sub PictureBox8_Click(sender As Object, e As EventArgs) Handles PictureBox2a.Click
 
     ''End Sub
+
+    Public Sub ToggleEmptyRowMessage_ShowIfApplicable(par_manager_cols As RSCSpreadManagerCols)
+        ''
+        ''Added 10/23/2023 td
+        ''
+        mod_rowHeaderFirst_Factory.ToggleEmptyRowMessage_AllRowHdrs(True, par_manager_cols)
+
+
+    End Sub ''End of ""Public Sub ToggleEmptyRowMessage_ShowIfApplicable()""
+
 
     Public Sub HeaderBox_MouseUp(sender As Object, par_eArgs As MouseEventArgs,
                                   Optional par_intRowIndex As Integer = -1) _
