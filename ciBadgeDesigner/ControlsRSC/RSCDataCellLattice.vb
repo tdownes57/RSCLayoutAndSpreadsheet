@@ -136,8 +136,8 @@ Public Class RSCDataCellLattice
         Dim intRowDeleteStart As Integer
         Dim intRowDeleteFinish As Integer
 
-        intRowDeleteStart = par_rowDeleteStart.RowIndex
-        intRowDeleteFinish = par_rowDeleteFinish.RowIndex
+        intRowDeleteStart = par_rowDeleteStart.RowIndex_Denigrated
+        intRowDeleteFinish = par_rowDeleteFinish.RowIndex_Denigrated
         bExpectedOrder = (intRowDeleteStart < intRowDeleteFinish)
         If (Not bExpectedOrder) Then System.Diagnostics.Debugger.Break()
 

@@ -21,6 +21,7 @@ Imports MoveAndResizeControls_Monem
 
 Public Class RSCFieldColumnV2
     Implements InterfaceRSCColumnData ''Added 8/27/2023 
+    Implements IDoublyLinkedListDLL ''Added 10/25/2023 td
     ''Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
 
     ''
@@ -1854,6 +1855,16 @@ Public Class RSCFieldColumnV2
     End Function ''End of ""Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer""
 
 
+    Public Function GetRSCDataCell_ByRowIndexEtc(par_rowIndexEtc As RowIndexEtc) As RSCDataCell
+        ''
+        ''Added 4/12/2022 thomas downes
+        ''
+        ''---Return GetCellWithRowIndex(par_intRowIndex)
+        Return GetCellWithRowIndex(par_rowIndexEtc)
+
+    End Function ''End of ""Public Function GetRSCDataCell_ByWithRowIndex() As RSCDataCell""
+
+
     Public Function GetRSCDataCell_ByRowIndex(par_intRowIndex As Integer) As RSCDataCell
         ''
         ''Added 4/12/2022 thomas downes
@@ -1861,6 +1872,16 @@ Public Class RSCFieldColumnV2
         Return GetCellWithRowIndex(par_intRowIndex)
 
     End Function ''End of ""Public Function GetRSCDataCell_ByWithRowIndex() As RSCDataCell""
+
+
+    Public Function GetCellWithRowIndexEtc(par_rowIndexEtc As RowIndexEtc) As RSCDataCell
+        ''
+        ''Added 10/24/2022 thomas downes
+        ''
+        Return mod_listRSCDataCellsByRow(par_rowIndexEtc.RowIndex)
+
+    End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
+
 
     Public Function GetCellWithRowIndex(par_intRowIndex As Integer) As RSCDataCell
         ''

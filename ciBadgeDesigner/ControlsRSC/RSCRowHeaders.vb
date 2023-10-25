@@ -364,7 +364,7 @@ Public Class RSCRowHeaders
             ''---------------------DIFFICULT & CONFUSING------------------------------------------
             ''-----THE NUMBER OF ROW-HEADERS ABOVE THE GIVEN ROW-HEADER EQUALS (ROW INDEX - 1).
             ''-----Thomas Downes, 10/24/2013
-            intRowIndex_FAST = (intCountRowsAbove_FAST + 1) ''This is the SMART (clever) part!
+            intRowIndex_FAST = (intCountRowsAbove_FAST + 1)
             ''------------------------------------------------------------------------------------
             If (Not boolDoItBothWays) Then Return intRowIndex_FAST
         End If ''End of ""If (DO_IT_FAST_AND_SMART) Then

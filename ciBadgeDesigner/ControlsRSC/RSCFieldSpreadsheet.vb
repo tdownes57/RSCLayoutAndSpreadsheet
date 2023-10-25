@@ -11,10 +11,29 @@ Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
 Imports ciBadgeRecipients
 
+Public Structure RowIndexEtc
+    ''
+    ''Added10/24/2023
+    ''
+    ''  This will help with verifying our process.
+    ''  
+    ''  (See Shared property TEST_CONFIRM_AND_VERIFY below.)  
+    ''
+    ''  This will help to see that the Row Header & corresponding data-cells
+    ''  are in vertical alignment. 
+    ''
+    Public RowIndex As Integer
+    Public ExpectedVerticalMidPoint As Integer
+    Public ExpectedVerticalTopPoint As Integer
+
+End Structure
+
 Public Class RSCFieldSpreadsheet
     ''
     ''Added 2/21/2022 td
     ''
+    Public Shared TEST_CONFIRM_AND_VERIFY As Boolean = True ''Added 10/24/2023
+
     Public Shared StillHavingColumnTrouble As Boolean = False ''5/01/2023 True ''Added 4/11/2023 td
 
     Public ParentForm_DesignerDialog As Form ''ciBadgeDesigner.DialogEditRecipients 

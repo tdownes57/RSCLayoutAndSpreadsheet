@@ -326,6 +326,9 @@
     <Compile Include="ControlsRSC\RSCLinearGradientBrush.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ControlsRSC\RSCListItem.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ControlsRSC\RSCRowHeader.Designer.vb">
       <DependentUpon>RSCRowHeader.vb</DependentUpon>
     </Compile>

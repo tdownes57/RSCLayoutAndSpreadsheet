@@ -12,6 +12,7 @@ Imports ciBadgeRecipients
 Imports MathNet.Numerics.LinearAlgebra.Storage
 
 Public Class RSCRowHeader
+    Implements IDoublyLinkedListDLL ''Added 10/25/2023 td
     ''
     ''Added 4/6/2022 thomas d
     ''

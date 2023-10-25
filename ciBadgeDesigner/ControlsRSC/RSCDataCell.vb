@@ -11,6 +11,7 @@ Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d.
 Imports ciBadgeRecipients ''Added 3/22/2022 td
 
 Public Class RSCDataCell
+    Implements IDoublyLinkedListDLL ''Added 10/25/2023 td
     ''
     ''Added 4/7/2022 thomas downes
     ''
@@ -61,9 +62,9 @@ Public Class RSCDataCell
             Dim boolHasFocus As Boolean ''Added 4/30/2022 td
             boolHasFocus = Textbox1a.Focused
 
-            If (boolHasFocus And (value = Backcolor_WithEmphasisOnRow)) Then
+            If (boolHasFocus And (value = BackColor_WithEmphasisOnRow)) Then
                 ''Added 4/30/2022 td
-                Textbox1a.BackColor = Backcolor_WithCellFocus
+                Textbox1a.BackColor = BackColor_WithCellFocus
 
             Else
                 Textbox1a.BackColor = value
@@ -420,36 +421,36 @@ Public Class RSCDataCell
 
                 ''Parse the tabbed values.  
                 strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCrLf))
-                    Dim objNextCell As RSCDataCell
+                Dim objNextCell As RSCDataCell
+                objNextCell = Me.GetNextCell_Down()
+
+                ''Add an additional row. ----4/30/2022 td
+                If (objNextCell Is Nothing) Then
+                    ''4/30/2022 ''Me.ParentColumn.AddRowToBottomOfSpreadsheet()
+                    AddToEdgeOfSpreadsheet_Row()
                     objNextCell = Me.GetNextCell_Down()
+                End If ''End of ""If (objNextCell Is Nothing) Then""
 
-                    ''Add an additional row. ----4/30/2022 td
-                    If (objNextCell Is Nothing) Then
-                        ''4/30/2022 ''Me.ParentColumn.AddRowToBottomOfSpreadsheet()
-                        AddToEdgeOfSpreadsheet_Row()
-                        objNextCell = Me.GetNextCell_Down()
-                    End If ''End of ""If (objNextCell Is Nothing) Then""
+                If (objNextCell IsNot Nothing) Then
+                    objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+                End If ''End of ""If (objNextCell IsNot Nothing) Then""
 
-                    If (objNextCell IsNot Nothing) Then
-                        objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
-                    End If ''End of ""If (objNextCell IsNot Nothing) Then""
+                ''Textbox1a.Text = .Substring(0, .IndexOf(vbCrLf))
+                LoadTabbedData(.Substring(0, .IndexOf(vbCrLf)))
 
-                    ''Textbox1a.Text = .Substring(0, .IndexOf(vbCrLf))
-                    LoadTabbedData(.Substring(0, .IndexOf(vbCrLf)))
+            ElseIf (boolHasCrCharacter) Then
 
-                ElseIf (boolHasCrCharacter) Then
+                ''Parse the tabbed values.  
+                strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCr))
+                Dim objNextCell As RSCDataCell
+                objNextCell = Me.GetNextCell_Down()
+                If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
+                ''Textbox1a.Text = .Substring(0, .IndexOf(vbCr))
+                LoadTabbedData(.Substring(0, .IndexOf(vbCr)))
 
-                    ''Parse the tabbed values.  
-                    strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCr))
-                    Dim objNextCell As RSCDataCell
-                    objNextCell = Me.GetNextCell_Down()
-                    If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
-                    ''Textbox1a.Text = .Substring(0, .IndexOf(vbCr))
-                    LoadTabbedData(.Substring(0, .IndexOf(vbCr)))
+            Else
 
-                Else
-
-                    LoadTabbedData(par_strDelimited)
+                LoadTabbedData(par_strDelimited)
 
             End If ''End of ""If (boolHasCrLfCharacter) Then .... ElseIf .... Else...
 
