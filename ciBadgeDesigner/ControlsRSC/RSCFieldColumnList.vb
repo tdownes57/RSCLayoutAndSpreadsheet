@@ -33,6 +33,27 @@ Public Class RSCFieldColumnList
 
     End Function ''End of ""Public Function Count() As Integer""
 
+    ''''For a new generic-type interface... 
+    ''Public Sub InsertColumnAtFarLeft(par_newColumn As RSCFieldColumnV2)
+    ''Public Sub InsertColumnLeftToRight(par_newColumn As RSCFieldColumnV2)
+    ''Public Sub InsertColumnAtFarRight(par_newColumn As RSCFieldColumnV2)
+    ''Public Sub DeleteColumnFromList(par_columnToDelete As RSCFieldColumnV2)
+    ''Private Sub InsertColumnLeftOfSpecified_Quick(par_newColumn As RSCFieldColumnV2,
+    ''                                       par_existingCol As RSCFieldColumnV2)
+    ''Public Sub InsertColumnLeftOfSpecified(par_newColumn As RSCFieldColumnV2,
+    ''                                       par_existingCol As RSCFieldColumnV2)
+    ''Public Sub InsertColumnAtIndex(par_newRSCColumn As RSCFieldColumnV2, par_intColumnIndex As Integer)
+    ''Private Sub InsertColumnRightOfSpecified_Quick(par_newColumn As RSCFieldColumnV2,
+    ''                                       par_existingCol As RSCFieldColumnV2)
+    ''Public Sub InsertColumnRightOfSpecified(par_newColumn As RSCFieldColumnV2,
+    ''                                       par_existingCol As RSCFieldColumnV2)
+    ''Public Sub UndoLastColumnDeletion(Optional ByRef pref_columnRestored As RSCFieldColumnV2 = Nothing)
+    ''Public Function IsStillInList(par_existingCol As RSCFieldColumnV2) As Boolean
+    ''Public Function GetIndexOf(par_existingCol As RSCFieldColumnV2) As Integer
+    ''Public Function GetFirst() As RSCFieldColumnV2
+    ''Public Sub SetFirst(par_column As RSCFieldColumnV2)
+    ''Public Function GetColumnAtIndex(par_indexOfCol As Integer) As RSCFieldColumnV2
+
 
     Public Sub InsertColumnAtFarLeft(par_newColumn As RSCFieldColumnV2)
         ''

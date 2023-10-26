@@ -21,7 +21,7 @@ Imports MoveAndResizeControls_Monem
 
 Public Class RSCFieldColumnV2
     Implements InterfaceRSCColumnData ''Added 8/27/2023 
-    Implements IDoublyLinkedListDLL ''Added 10/25/2023 td
+    ''10/25/2023 Implements IDoublyLinkedListDLL ''Added 10/25/2023 td
     ''Public Property ColumnWidthAndData() As ClassRSCColumnWidthAndData ''Added 3/15/2022 td
 
     ''

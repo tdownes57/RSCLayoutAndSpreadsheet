@@ -72,7 +72,9 @@
     <Compile Include="Enums and Structs\ModuleStructs.vb" />
     <Compile Include="Enums and Structs\StrongOOP.vb" />
     <Compile Include="Events\GroupMoveEvents_Singleton.vb" />
-    <Compile Include="InterfaceDoublyLInkedListDLL.vb" />
+    <Compile Include="IntDoublyLinkedList_Generic.vb" />
+    <Compile Include="IntDoublyLInkedListDLL_Control.vb" />
+    <Compile Include="IntDoublyLinkedList_Horiz.vb" />
     <Compile Include="InterfaceDeleteElement.vb" />
     <Compile Include="InterfaceCtlElement_TextAny.vb" />
     <Compile Include="InterfaceDesignerForm.vb" />

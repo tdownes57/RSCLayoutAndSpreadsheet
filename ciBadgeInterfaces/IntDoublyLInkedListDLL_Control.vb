@@ -5,7 +5,7 @@
 ''
 Imports System.Windows.Forms
 
-Public Interface IDoublyLinkedListDLL
+Public Interface IDoublyLinkedListDLL_Control
     ''
     ''Thanks to Computer Science Department at Orange Coast College
     ''   (Profs. Gabriela Ernsberger & Hatice Aydin) 
@@ -49,7 +49,7 @@ Public Interface IDoublyLinkedListDLL
 
 
     ''' <summary>
-    ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
+        `   ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
     ''' </summary>
     ''' <param name="toBeNext"></param>
     Sub DLL_SetNextAs(toBeNext As Control)
