@@ -1,4 +1,6 @@
-﻿Public Class FormHowToLoadGrid
+﻿Imports ciBadgeDesigner
+
+Public Class DialogWaysToLoadGrid
 
     Public LoadColumnByColumn As Boolean ''Added 5/23/2023 
     Public LoadRecipientsAsRows As Boolean ''Added 5/23/2023 
@@ -31,4 +33,18 @@
 
     End Sub
 
+    Private Sub DialogWaysToLoadGrid_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        ''Added 10/28/2023 td
+        ''
+        ''//If (RSCFieldSpreadsheet.TEST_CONFIRM_AND_VERIFY) Then
+        Dim bTesting = RSCFieldSpreadsheet.TEST_CHECK_VERIFY_SLOWLY
+        If (bTesting) Then
+            LabelTEST_CHECK_CONFIRM.Visible = True
+        Else
+            LabelTEST_CHECK_CONFIRM.Visible = False
+
+        End If ''Endof ""If (bTesting) Then... Else..."
+
+    End Sub
 End Class

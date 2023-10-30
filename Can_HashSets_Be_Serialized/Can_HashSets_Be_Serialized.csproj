@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ClassDetail.cs" />
     <Compile Include="ClassWithHashsets.cs" />
+    <Compile Include="DLL_Operation.cs" />
     <Compile Include="FormSerializeObjectWHashset.cs">
       <SubType>Form</SubType>
     </Compile>

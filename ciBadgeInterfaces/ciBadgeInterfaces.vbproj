@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AClassOrTwo\ClassFixTheControlWidth.vb" />
+    <Compile Include="AClassOrTwo\DLL_Operation.vb" />
     <Compile Include="AClassOrTwo\RSCColor.vb" />
     <Compile Include="Enums and Structs\ModEnumsAndStructs.vb" />
     <Compile Include="Enums and Structs\ModuleStructs.vb" />

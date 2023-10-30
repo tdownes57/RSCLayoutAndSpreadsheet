@@ -49,7 +49,7 @@ Public Interface IDoublyLinkedListDLL_Control
 
 
     ''' <summary>
-        `   ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
+    ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
     ''' </summary>
     ''' <param name="toBeNext"></param>
     Sub DLL_SetNextAs(toBeNext As Control)
@@ -117,6 +117,8 @@ Public Interface IDoublyLinkedListDLL_Control
                         ByRef count_of_deleteds As Integer,
                         ByRef item_prior_undeleted As Control,
                         ByRef item_first_deleted As Control)
+
+    Sub DLL_UndoOperation(param_operation As DLL_Operation)
 
 End Interface
 

@@ -4035,7 +4035,7 @@ ExitHandler:
         ''
         '' Added 5/13/2022 & 2/22/2022 td
         ''
-        Dim frm_HowToLoad As New FormHowToLoadGrid ''Added 5/2023
+        Dim frm_HowToLoad As New DialogWaysToLoadGrid ''Added 5/2023
 
         ''Not helpful. 5/2023 Me.Cursor = Cursors.WaitCursor ''Added 5/1/2023 
         ''Helpful...

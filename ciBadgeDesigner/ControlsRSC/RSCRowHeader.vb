@@ -12,7 +12,7 @@ Imports ciBadgeRecipients
 Imports MathNet.Numerics.LinearAlgebra.Storage
 
 Public Class RSCRowHeader
-    Implements IDoublyLinkedListDLL ''Added 10/25/2023 td
+    Implements IDoublyLinkedList ''Added 10/25/2023 td
     ''
     ''Added 4/6/2022 thomas d
     ''
@@ -28,6 +28,7 @@ Public Class RSCRowHeader
     Public RowHeaderNextAbove As RSCRowHeader
     Public RowHeaderNextBelow As RSCRowHeader
     Public FactoryMaxIndex As Integer ''Added 10/18/2023
+    Public Undel_DataCellNextRight As RSCDataCell ''Added 10/30/2023 td
 
     ''Added 4/29/2022 td
     ''5/1/2022 Private mod_intEmphasisRowIndex_Start As Integer = -1 ''= par_intRowIndex_Start

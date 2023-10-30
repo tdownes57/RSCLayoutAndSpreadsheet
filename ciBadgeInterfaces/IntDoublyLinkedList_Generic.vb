@@ -45,11 +45,11 @@ Public Interface IDoublyLinkedList(Of TControl)
         ByRef count_of_new_items As Integer) As TControl ''Control
 
 
-''' <summary>
-    `   ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
-''' </summary>
-''' <param name="toBeNext"></param>
-Sub DLL_SetNextAs(toBeNext As TControl)
+    ''' <summary>
+    ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
+    ''' </summary>
+    ''' <param name="toBeNext"></param>
+    Sub DLL_SetNextAs(toBeNext As TControl)
 
     ''' <summary>
     ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
@@ -114,6 +114,15 @@ Sub DLL_SetNextAs(toBeNext As TControl)
                     ByRef count_of_deleteds As Integer,
                     ByRef item_prior_undeleted As TControl,
                     ByRef item_first_deleted As TControl)
+
+    ''//
+    ''// Suggested by my Python class, Chapter 6: Lists
+    ''/// 10/28/2023 td
+    ''//
+    Function DLL_PopItem(item_toDelete As TControl) As TControl
+    Function DLL_PopItem(index As Integer) As TControl
+    Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As TControl
+
 
 End Interface
 

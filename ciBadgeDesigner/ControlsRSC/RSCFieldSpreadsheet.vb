@@ -32,7 +32,8 @@ Public Class RSCFieldSpreadsheet
     ''
     ''Added 2/21/2022 td
     ''
-    Public Shared TEST_CONFIRM_AND_VERIFY As Boolean = True ''Added 10/24/2023
+    ''//Public Shared TEST_CONFIRM_AND_VERIFY As Boolean = True ''Added 10/24/2023
+    Public Shared TEST_CHECK_VERIFY_SLOWLY As Boolean = True ''Added 10/24/2023
 
     Public Shared StillHavingColumnTrouble As Boolean = False ''5/01/2023 True ''Added 4/11/2023 td
 

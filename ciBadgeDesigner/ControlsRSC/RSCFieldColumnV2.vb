@@ -14,9 +14,9 @@ Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 Imports ciBadgeFields ''Added 3/8/2022 thomas downes
 Imports ciBadgeCachePersonality ''Added 3/14/2022 
 Imports ciBadgeRecipients ''Added 3/22/2022 td
-Imports ciBadgeElements
-Imports System.Runtime.CompilerServices
-Imports MoveAndResizeControls_Monem
+''10/2023  Imports ciBadgeElements
+''10/2023  Imports System.Runtime.CompilerServices
+''10/2023  Imports MoveAndResizeControls_Monem
 
 
 Public Class RSCFieldColumnV2
@@ -51,8 +51,8 @@ Public Class RSCFieldColumnV2
     Private mod_arrayOfData_Undo_Tag As String() ''Added 4/01/2022 thomas d.
 
     ''Added 4/04/2022 thomas downes
-    Private mod_listRSCDataCellsByRow As New Dictionary(Of Integer, RSCDataCell) ''4/8/2022 RSCDataCell)
-    Private mod_listDeletedRSCDataCells As List(Of RSCDataCell) ''Added 4/25/2022 thomas d.
+    Private mod_listRSCDataCellsByRow_Deprecated As New Dictionary(Of Integer, RSCDataCell) ''4/8/2022 RSCDataCell)
+    Private mod_listDeletedRSCDataCells_Deprecated As List(Of RSCDataCell) ''Added 4/25/2022 thomas d.
 
     ''Added 4/04/2022 thomas downes
     ''Private Structure StructTextboxAndRowSeparator
@@ -1174,18 +1174,21 @@ Public Class RSCFieldColumnV2
         ''Added 4/04/2022 thomas downes
         ''
         ''---Dim objFirstRSCDataCell As RSCDataCell
-        Static s_objFirstRSCDataCell As RSCDataCell
-        If (s_objFirstRSCDataCell IsNot Nothing) Then Return s_objFirstRSCDataCell
+        ''10/28/2023
+        ''Static s_objFirstRSCDataCell As RSCDataCell
+        ''If (s_objFirstRSCDataCell IsNot Nothing) Then Return s_objFirstRSCDataCell
+        ''10/28/2023
+        ''Try
+        ''    s_objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
+        ''10/28/2023
+        ''Catch ex_listOfCells As Exception
+        ''    ''Added 6/25/2022 thomas downes
+        ''    System.Diagnostics.Debugger.Break()
+        ''End Try
+        ''10/28/2023
+        ''Return s_objFirstRSCDataCell
 
-        Try
-            s_objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
-
-        Catch ex_listOfCells As Exception
-            ''Added 6/25/2022 thomas downes
-            System.Diagnostics.Debugger.Break()
-        End Try
-
-        Return s_objFirstRSCDataCell
+        Return mod_firstRSCDataCell
 
     End Function ''End of ""Public Function GetFirstRSCDataCell() As RSCDataCell""
 
@@ -1209,7 +1212,7 @@ Public Class RSCFieldColumnV2
         ''
         Dim objBottomRSCDataCell As RSCDataCell
         objBottomRSCDataCell = ListOfRSCDataCells_TopToBottom().Last
-        Return objBottomRSCDataCell.Top + objBottomRSCDataCell.Height
+        Return (objBottomRSCDataCell.Top + objBottomRSCDataCell.Height)
 
     End Function ''End of ""Public Function GetRSCDataCellAtBottom_Bottom()""
 
@@ -1648,105 +1651,105 @@ Public Class RSCFieldColumnV2
     End Function ''end of Private Function ListOfData() As List(Of String)
 
 
-    Public Function ListOfRSCDataCells_TopToBottom(Optional par_bSkipSorting As Boolean = False) As List(Of RSCDataCell) ''IOrderedEnumerable(Of RSCDataCell)
-        ''
-        ''Added 3/19/2022 td
-        ''
-        Dim objListOfRSCDataCells As New List(Of RSCDataCell)
-        ''Dim objListOfRSCDataCelles_Ordered ''As New IOrderedEnumerable(Of(Of RSCDataCell)
-        Dim objListOfRSCDataCells_Ordered As List(Of RSCDataCell)
-        Dim intCountDataCells As Integer = 0 ''Added 4/15/2022 
-        Dim intRowIndex As Integer
-
-        Const c_boolSaveProcessingTime As Boolean = True
-        Dim bDictionaryHasCells As Boolean
-        Dim each_cell As RSCDataCell ''Added 5/1/2022 td
-
-        ''
-        ''Create a list of cells. ---6/25/2022 
-        ''
-        ''Added 6/25/2022 thomas downes
-        If (c_boolSaveProcessingTime) Then
-
-            ''Double-check that the dictionary of data cells has
-            ''  at least one(1) data cell.--6/25/2022
-            If (mod_listRSCDataCellsByRow Is Nothing) Then
-                Throw New Exception("mod_listRSCDataCellsByRow Is Nothing")
-                System.Diagnostics.Debugger.Break()
-            End If ''End of ""If (mod_listDeletedRSCDataCells Is Nothing) Then""
-
-            bDictionaryHasCells = (0 < mod_listRSCDataCellsByRow.Count)
-
-            If (bDictionaryHasCells) Then
-                ''
-                ''Added 4/15/2022 td
-                ''
-                objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
-                For intRowIndex = 1 To mod_listRSCDataCellsByRow.Count
-                    ''5/1/2022 objListOfRSCDataCells_Ordered.Add(mod_listRSCDataCellsByRow(intRowIndex))
-                    If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
-                        each_cell = mod_listRSCDataCellsByRow(intRowIndex)
-                        objListOfRSCDataCells_Ordered.Add(each_cell)
-                    Else
-                        ''The row has been deleted by the user. 
-                        ''---5/01/2022 thomas d. 
-                    End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
-                Next intRowIndex
-
-            Else
-                ''
-                ''Add a single data cell to the list. ----6/25/2022 td
-                ''
-                objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
-                objListOfRSCDataCells_Ordered.Add(RscDataCell1)
-
-            End If ''End of ""If (bDictionaryHasCells) Then... Else..."
-
-        Else
-            ''
-            ''This sucks up unnecessary processing time. 
-            ''
-            ''Added 3/25/2022 thomas d.
-            If (Me.Controls.Count = 0) Then
-                ''6/25/2022 td''Throw New Exception("WTF")
-                System.Diagnostics.Debugger.Break()
-            End If ''End of ""If (Me.Controls.Count = 0) Then""
-
-            For Each eachCtl As Control In Me.Controls
-                If (TypeOf eachCtl Is RSCDataCell) Then
-                    ''Strangely, .Visible is False????---3/25/2022 td''If (eachCtl.Visible) Then
-                    objListOfRSCDataCells.Add(CType(eachCtl, RSCDataCell))
-                    intCountDataCells += 1
-                    ''End If
-                End If ''End of "If (TypeOf eachCtl Is RSCDataCell) Then"
-            Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
-
-            ''
-            ''Order them in order of top-down (i.e. the Top property).
-            ''
-            ''Dim objListOfRSCDataCelles_Ordered As IOrderedEnumerable(Of RSCDataCell) =
-            ''    From objRSCDataCell In objListOfRSCDataCelles
-            ''    Select objRSCDataCell
-            ''    Order By objRSCDataCell.Top
-
-            ''objListOfRSCDataCelles.Sort(Function(elementA As RSCDataCell, elementB As RSCDataCell)
-            ''                            Return elementA.Length.CompareTo(elementB.Length)
-            ''                        End Function)
-
-            ''Added 4/2/2022 td
-            If (par_bSkipSorting) Then Return objListOfRSCDataCells
-
-            ''Dim objListOfRSCDataCells_Ordered As List(Of RSCDataCell)
-            objListOfRSCDataCells_Ordered = objListOfRSCDataCells.OrderBy(Of Integer)(Function(a) a.Top).ToList()
-
-        End If ''End of ""If (c_SaveProcessingTime) Then .... Else ...
-
-        ''
-        ''Exithandler
-        ''
-        Return objListOfRSCDataCells_Ordered
-
-    End Function ''End of "Private Function ListOfRSCDataCelles_TopToBottom() As IOrderedEnumerable(Of RSCDataCell)"
+    ''Deprecated. 10/2023 Public Function ListOfRSCDataCells_TopToBottom(Optional par_bSkipSorting As Boolean = False) As List(Of RSCDataCell) ''IOrderedEnumerable(Of RSCDataCell)
+    ''    ''
+    ''    ''Added 3/19/2022 td
+    ''    ''
+    ''    Dim objListOfRSCDataCells As New List(Of RSCDataCell)
+    ''    ''Dim objListOfRSCDataCelles_Ordered ''As New IOrderedEnumerable(Of(Of RSCDataCell)
+    ''    Dim objListOfRSCDataCells_Ordered As List(Of RSCDataCell)
+    ''    Dim intCountDataCells As Integer = 0 ''Added 4/15/2022 
+    ''    Dim intRowIndex As Integer
+    ''10/2023
+    ''    Const c_boolSaveProcessingTime As Boolean = True
+    ''    Dim bDictionaryHasCells As Boolean
+    ''    Dim each_cell As RSCDataCell ''Added 5/1/2022 td
+    ''10/2023
+    ''    ''
+    ''    ''Create a list of cells. ---6/25/2022 
+    ''    ''
+    ''    ''Added 6/25/2022 thomas downes
+    ''    If (c_boolSaveProcessingTime) Then
+    ''10/2023
+    ''        ''Double-check that the dictionary of data cells has
+    ''        ''  at least one(1) data cell.--6/25/2022
+    ''        If (mod_listRSCDataCellsByRow Is Nothing) Then
+    ''            Throw New Exception("mod_listRSCDataCellsByRow Is Nothing")
+    ''            System.Diagnostics.Debugger.Break()
+    ''        End If ''End of ""If (mod_listDeletedRSCDataCells Is Nothing) Then""
+    ''10/2023
+    ''        bDictionaryHasCells = (0 < mod_listRSCDataCellsByRow.Count)
+    ''10/2023
+    ''        If (bDictionaryHasCells) Then
+    ''            ''
+    ''            ''Added 4/15/2022 td
+    ''            ''
+    ''            objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
+    ''            For intRowIndex = 1 To mod_listRSCDataCellsByRow.Count
+    ''                ''5/1/2022 objListOfRSCDataCells_Ordered.Add(mod_listRSCDataCellsByRow(intRowIndex))
+    ''                If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
+    ''                    each_cell = mod_listRSCDataCellsByRow(intRowIndex)
+    ''                    objListOfRSCDataCells_Ordered.Add(each_cell)
+    ''                Else
+    ''                    ''The row has been deleted by the user. 
+    ''                    ''---5/01/2022 thomas d. 
+    ''                End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
+    ''            Next intRowIndex
+    ''10/2023
+    ''        Else
+    ''            ''
+    ''            ''Add a single data cell to the list. ----6/25/2022 td
+    ''            ''
+    ''            objListOfRSCDataCells_Ordered = New List(Of RSCDataCell)
+    ''            objListOfRSCDataCells_Ordered.Add(RscDataCell1)
+    ''10/2023
+    ''        End If ''End of ""If (bDictionaryHasCells) Then... Else..."
+    ''10/2023
+    ''    Else
+    ''        ''
+    ''        ''This sucks up unnecessary processing time. 
+    ''        ''
+    ''        ''Added 3/25/2022 thomas d.
+    ''        If (Me.Controls.Count = 0) Then
+    ''            ''6/25/2022 td''Throw New Exception("WTF")
+    ''            System.Diagnostics.Debugger.Break()
+    ''        End If ''End of ""If (Me.Controls.Count = 0) Then""
+    ''10/2023
+    ''        For Each eachCtl As Control In Me.Controls
+    ''            If (TypeOf eachCtl Is RSCDataCell) Then
+    ''                ''Strangely, .Visible is False????---3/25/2022 td''If (eachCtl.Visible) Then
+    ''                objListOfRSCDataCells.Add(CType(eachCtl, RSCDataCell))
+    ''                intCountDataCells += 1
+    ''                ''End If
+    ''            End If ''End of "If (TypeOf eachCtl Is RSCDataCell) Then"
+    ''        Next eachCtl ''End of ""For Each eachCtl As Control In Me.Controls""
+    ''10/2023
+    ''        ''
+    ''        ''Order them in order of top-down (i.e. the Top property).
+    ''        ''
+    ''        ''Dim objListOfRSCDataCelles_Ordered As IOrderedEnumerable(Of RSCDataCell) =
+    ''        ''    From objRSCDataCell In objListOfRSCDataCelles
+    ''        ''    Select objRSCDataCell
+    ''        ''    Order By objRSCDataCell.Top
+    ''10/2023
+    ''        ''objListOfRSCDataCelles.Sort(Function(elementA As RSCDataCell, elementB As RSCDataCell)
+    ''        ''                            Return elementA.Length.CompareTo(elementB.Length)
+    ''        ''                        End Function)
+    ''10/2023
+    ''        ''Added 4/2/2022 td
+    ''        If (par_bSkipSorting) Then Return objListOfRSCDataCells
+    ''10/2023
+    ''        ''Dim objListOfRSCDataCells_Ordered As List(Of RSCDataCell)
+    ''        objListOfRSCDataCells_Ordered = objListOfRSCDataCells.OrderBy(Of Integer)(Function(a) a.Top).ToList()
+    ''10/2023
+    ''    End If ''End of ""If (c_SaveProcessingTime) Then .... Else ...
+    ''10/2023
+    ''    ''
+    ''    ''Exithandler
+    ''    ''
+    ''    Return objListOfRSCDataCells_Ordered
+    ''10/2023
+    ''End Function ''End of "Private Function ListOfRSCDataCelles_TopToBottom() As IOrderedEnumerable(Of RSCDataCell)"
 
 
     Public Function ListOfBottomBars_TopToBottom() As List(Of PictureBox) ''IOrderedEnumerable(Of PictureBox)
@@ -1860,7 +1863,7 @@ Public Class RSCFieldColumnV2
         ''Added 4/12/2022 thomas downes
         ''
         ''---Return GetCellWithRowIndex(par_intRowIndex)
-        Return GetCellWithRowIndex(par_rowIndexEtc)
+        Return GetCellWithRowIndexEtc(par_rowIndexEtc)
 
     End Function ''End of ""Public Function GetRSCDataCell_ByWithRowIndex() As RSCDataCell""
 

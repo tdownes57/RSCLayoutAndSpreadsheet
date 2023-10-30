@@ -76,6 +76,7 @@
     <Compile Include="DialogTextOffset.Designer.cs">
       <DependentUpon>DialogTextOffset.cs</DependentUpon>
     </Compile>
+    <Compile Include="DLL_Operation.cs" />
     <Compile Include="FormDesignProtoTwo.cs">
       <SubType>Form</SubType>
     </Compile>

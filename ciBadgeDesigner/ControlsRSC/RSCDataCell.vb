@@ -2,16 +2,16 @@
 ''Added 4/7/2022 thomas downes
 ''
 Imports ciBadgeInterfaces ''Added 8/14/2019 thomas d. 
+Imports ciBadgeRecipients ''Added 3/22/2022 td
 ''Imports ciBadgeElements ''Added 9/18/2019 td 
 ''Imports ciBadgeDesigner ''Added 3/8/2022 td  
 ''Imports System.Drawing ''Added 10/01/2019 td 
 ''Imports __RSCWindowsControlLibrary ''Added 1/4/2022 td
 ''Imports ciBadgeFields ''Added 3/8/2022 thomas downes
 ''Imports ciBadgeCachePersonality ''Added 3/14/2022 
-Imports ciBadgeRecipients ''Added 3/22/2022 td
 
 Public Class RSCDataCell
-    Implements IDoublyLinkedListDLL ''Added 10/25/2023 td
+    Implements IDoublyLinkedList ''Added 10/25/2023 td
     ''
     ''Added 4/7/2022 thomas downes
     ''
@@ -26,6 +26,7 @@ Public Class RSCDataCell
     Public CellRight As RSCDataCell
     Public Cell_Left As RSCDataCell
     Public CellBelow As RSCDataCell
+    Public Undel_DataCellNextRight As RSCDataCell ''Added 10/30/2023 td
 
     Public Shared BackColor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
     Public Shared BackColor_WithEmphasisOnRow As System.Drawing.Color = System.Drawing.Color.LightGray
