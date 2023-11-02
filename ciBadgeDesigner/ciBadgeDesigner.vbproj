@@ -305,7 +305,9 @@
     <Compile Include="ControlsRSC\RSCDataCell_DoublyLinked.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlsRSC\RSCDataHeader_DoublyLinked.vb" />
+    <Compile Include="ControlsRSC\RSCRowHeader_DoublyLinked.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ControlsRSC\RSCFieldColumnEnumerator.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumnList.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumnV1.designer.vb">

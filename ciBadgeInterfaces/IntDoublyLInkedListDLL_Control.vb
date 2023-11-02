@@ -118,7 +118,7 @@ Public Interface IDoublyLinkedListDLL_Control
                         ByRef item_prior_undeleted As Control,
                         ByRef item_first_deleted As Control)
 
-    Sub DLL_UndoOperation(param_operation As DLL_Operation)
+    Sub DLL_UndoOperation(param_operation As DLL_Operation(Of Control))
 
 End Interface
 

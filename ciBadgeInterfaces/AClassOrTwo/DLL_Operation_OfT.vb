@@ -3,7 +3,7 @@
 ''
 Imports System.Windows.Forms
 
-Public Class DLL_Operation ''11/2/2023 (Of TControl)
+Public Class DLL_Operation(Of TControl)
     ''
     ''Added 10/30/2023
     ''
@@ -14,41 +14,40 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''Needed for consistency checks... 10/30/2023
     Public OperationType As Char = "?"
 
-    Public InsertSingly As IDoublyLinkedItem ''TControl
-    Public DeleteSingly As IDoublyLinkedItem ''TControl
+    Public InsertSingly As TControl
+    Public DeleteSingly As TControl
     ''Not needed.Public MovedSingly As TControl
 
-    Public DeleteRangeStart As IDoublyLinkedItem ''TControl
+    Public DeleteRangeStart As TControl
     ''Needed for consistency checks...
     Public DeleteCount As Integer ''How many linked TControl objects?
 
-    Public InsertRangeStart As IDoublyLinkedItem ''TControl
+    Public InsertRangeStart As TControl
     ''Needed for consistency checks...
     Public InsertCount As Integer ''How many linked TControl objects?
 
-    Public MovedRangeStart As IDoublyLinkedItem ''TControl
+    Public MovedRangeStart As TControl
     Public MovedCount As Integer ''TControl
-    Public Move_LefthandStart As IDoublyLinkedItem ''TControl
-    Public Move_RighthandStart As IDoublyLinkedItem ''TControl
-    Public Move_LefthandEnd As IDoublyLinkedItem ''TControl
-    Public Move_RighthandEnd As IDoublyLinkedItem ''TControl
+    Public Move_LefthandStart As TControl
+    Public Move_RighthandStart As TControl
+    Public Move_LefthandEnd As TControl
+    Public Move_RighthandEnd As TControl
 
     ''' <summary>
     ''' Only one of the following will likely be used, for any given operation. To anchor both sides, the TControl's Next property will be used. 
     ''' </summary>
-    Public LefthandAnchor As IDoublyLinkedItem ''TControl
-    Public RighthandAnchor As IDoublyLinkedItem ''TControl
+    Public LefthandAnchor As TControl
+    Public RighthandAnchor As TControl
 
     ''' <summary>
     ''' This creates the "Undo" version.
     ''' </summary>
     ''' <returns></returns>
-    Public Function GetUndoVersion() As DLL_Operation ''11/2/2023 (Of TControl)
+    Public Function GetUndoVersion() As DLL_Operation(Of TControl)
         ''
         ''Added 10/30/2023
         ''
-        Dim objUndo As New DLL_Operation ''11/2/2023 (Of TControl)
-
+        Dim objUndo As New DLL_Operation(Of TControl)
         With objUndo
 
             .LefthandAnchor = Me.LefthandAnchor
@@ -89,8 +88,8 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
             ElseIf (Me.MovedRangeStart IsNot Nothing) Then
 
-                Dim tempControlL As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-                Dim tempControlR As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                Dim tempControlL As TControl ''Added 10/30/2023 td
+                Dim tempControlR As TControl ''Added 10/30/2023 td
 
                 .OperationType = "M" '' M for Move.
 
@@ -115,7 +114,7 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''
     ''Important, check for equality.
     ''
-    Private Overloads Function Equals(lets_check As DLL_Operation) As Boolean ''11/2/2023 (Of TControl)) As Boolean
+    Private Overloads Function Equals(lets_check As DLL_Operation(Of TControl)) As Boolean
         ''Private Function Equals(lets_check As TControl) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
@@ -179,13 +178,13 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     End Function ''End of Private Function Overrides Equals() as Boolean
 
 
-    Private Function Undo2x_IsIdempotent(lets_check As DLL_Operation) As Boolean
+    Private Function Undo2x_IsIdempotent(lets_check As DLL_Operation(Of TControl)) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
         ''   double-Undo.
         ''
-        Dim objUndo_1st As DLL_Operation ''11/2/2023 (Of TControl)
-        Dim objUndo_2nd As DLL_Operation ''11/2/2023 (Of TControl)
+        Dim objUndo_1st As DLL_Operation(Of TControl)
+        Dim objUndo_2nd As DLL_Operation(Of TControl)
 
         objUndo_1st = lets_check.GetUndoVersion()
         objUndo_2nd = objUndo_1st.GetUndoVersion()
@@ -193,7 +192,6 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         Dim boolEqualMatch As Boolean
 
         boolEqualMatch = lets_check.Equals(objUndo_2nd)
-        Return boolEqualMatch
 
     End Function ''End of ""Private Function Undo2x_IsIdempotent""
 

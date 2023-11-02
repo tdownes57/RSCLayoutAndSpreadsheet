@@ -155,4 +155,15 @@ Public Class RSCListItem
         Throw New NotImplementedException()
     End Function
 
+    Public Function DLL_PopItem(item_toDelete As RSCListItem) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_PopItem
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function DLL_PopItem(index As Integer) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_PopItem
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_PopRange
+        Throw New NotImplementedException()
+    End Function
 End Class
