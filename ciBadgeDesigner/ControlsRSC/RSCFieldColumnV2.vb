@@ -16,7 +16,7 @@ Imports ciBadgeCachePersonality ''Added 3/14/2022
 Imports ciBadgeRecipients ''Added 3/22/2022 td
 ''10/2023  Imports ciBadgeElements
 ''10/2023  Imports System.Runtime.CompilerServices
-''10/2023  Imports MoveAndResizeControls_Monem
+Imports MoveAndResizeControls_Monem
 
 
 Public Class RSCFieldColumnV2
@@ -385,24 +385,24 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 4/8/2022 & 4/4/2022 thomas downes
         ''
-        mod_listRSCDataCellsByRow.Add(1, RscDataCell1)
-        mod_listRSCDataCellsByRow.Add(2, RscDataCell2)
-        mod_listRSCDataCellsByRow.Add(3, RscDataCell3)
-        mod_listRSCDataCellsByRow.Add(4, RscDataCell4)
-        mod_listRSCDataCellsByRow.Add(5, RscDataCell5)
-        mod_listRSCDataCellsByRow.Add(6, RscDataCell6)
-        mod_listRSCDataCellsByRow.Add(7, RscDataCell7)
-        mod_listRSCDataCellsByRow.Add(8, RscDataCell8)
-        mod_listRSCDataCellsByRow.Add(9, RscDataCell9)
-        mod_listRSCDataCellsByRow.Add(10, RscDataCell10)
-        mod_listRSCDataCellsByRow.Add(11, RscDataCell11)
-        mod_listRSCDataCellsByRow.Add(12, RscDataCell12)
-        mod_listRSCDataCellsByRow.Add(13, RscDataCell13)
-        mod_listRSCDataCellsByRow.Add(14, RscDataCell14)
-        mod_listRSCDataCellsByRow.Add(15, RscDataCell15)
-        mod_listRSCDataCellsByRow.Add(16, RscDataCell16)
-        mod_listRSCDataCellsByRow.Add(17, RscDataCell17)
-        mod_listRSCDataCellsByRow.Add(18, RscDataCell18)
+        ''mod_listRSCDataCellsByRow.Add(1, RscDataCell1)
+        ''mod_listRSCDataCellsByRow.Add(2, RscDataCell2)
+        ''mod_listRSCDataCellsByRow.Add(3, RscDataCell3)
+        ''mod_listRSCDataCellsByRow.Add(4, RscDataCell4)
+        ''mod_listRSCDataCellsByRow.Add(5, RscDataCell5)
+        ''mod_listRSCDataCellsByRow.Add(6, RscDataCell6)
+        ''mod_listRSCDataCellsByRow.Add(7, RscDataCell7)
+        ''mod_listRSCDataCellsByRow.Add(8, RscDataCell8)
+        ''mod_listRSCDataCellsByRow.Add(9, RscDataCell9)
+        ''mod_listRSCDataCellsByRow.Add(10, RscDataCell10)
+        ''mod_listRSCDataCellsByRow.Add(11, RscDataCell11)
+        ''mod_listRSCDataCellsByRow.Add(12, RscDataCell12)
+        ''mod_listRSCDataCellsByRow.Add(13, RscDataCell13)
+        ''mod_listRSCDataCellsByRow.Add(14, RscDataCell14)
+        ''mod_listRSCDataCellsByRow.Add(15, RscDataCell15)
+        ''mod_listRSCDataCellsByRow.Add(16, RscDataCell16)
+        ''mod_listRSCDataCellsByRow.Add(17, RscDataCell17)
+        ''mod_listRSCDataCellsByRow.Add(18, RscDataCell18)
         ''---mod_listRSCDataCellsByRow.Add(19, RscDataCell19a)
 
         ''With mod_listTextAndBarByRow
@@ -641,8 +641,8 @@ Public Class RSCFieldColumnV2
         ''
         Dim each_boolHasFocus As Boolean ''Added 4/30/2022 td
         ''boolHasFocus = Textbox1a.Focused
-        Dim each_RSCDataCell As RSCDataCell
-        Dim intForRowIndex As Integer
+        Dim each_RSCDataCell As RSCDataCell = RscDataCell1
+        ''11/2023 Dim intForRowIndex As Integer
         Dim bWeFoundACellWithFocus As Boolean ''Added 5/13/2022 td
 
         ''
@@ -656,29 +656,30 @@ Public Class RSCFieldColumnV2
         ''
         ''Next each_RSCDataCell
 
-        For intForRowIndex = 1 To mod_listRSCDataCellsByRow.Count
-            If (mod_listRSCDataCellsByRow.ContainsKey(intForRowIndex)) Then
+        ''11/2023For intForRowIndex = 1 To mod_listRSCDataCellsByRow.Count
+        ''11/2023    If (mod_listRSCDataCellsByRow.ContainsKey(intForRowIndex)) Then
+        Do Until (each_RSCDataCell Is Nothing)
 
-                each_RSCDataCell = mod_listRSCDataCellsByRow(intForRowIndex)
+            ''11/2023  each_RSCDataCell = mod_listRSCDataCellsByRow(intForRowIndex)
 
-                If (pboolStrictVersion) Then
-                    each_boolHasFocus = (each_RSCDataCell.FocusRelated_TextboxHasFocus())
-                Else
-                    each_boolHasFocus = (each_RSCDataCell.FocusRelated_CellHasFocus())
-                End If
-
-                If (each_boolHasFocus) Then
-                    ''Return True 
-                    bWeFoundACellWithFocus = True
-                    Exit For
-                End If ''End of ""If (each_boolHasFocus) Then""
-
+            If (pboolStrictVersion) Then
+                each_boolHasFocus = (each_RSCDataCell.FocusRelated_TextboxHasFocus())
             Else
-                ''The row has been deleted by the user. 
-                ''---5/01/2022 thomas d. 
-            End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
-        Next intForRowIndex
+                each_boolHasFocus = (each_RSCDataCell.FocusRelated_CellHasFocus())
+            End If
 
+            If (each_boolHasFocus) Then
+                ''Return True 
+                bWeFoundACellWithFocus = True
+                Exit Do ''11/2023 For
+            End If ''End of ""If (each_boolHasFocus) Then""
+
+            ''11/2023 Else
+            ''The row has been deleted by the user. 
+            ''---5/01/2022 thomas d. 
+            ''11/2023 End If ''End of ""If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then""
+
+        Loop ''11/2023 Next intForRowIndex
 
         ''Added 5/13/2022 thomas downes
         ''5/13/2022 td''Return Me.FocusRelated_UserHasSelectedColumn
@@ -831,15 +832,25 @@ Public Class RSCFieldColumnV2
         ''Looping to populate the data cells. 
         ''
         indexItem = 0
-        For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+        ''11/3/2023 For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+        Dim bDone As Boolean = False ''Added 11/3/2023
+        Dim each_RSCDataCell As RSCDataCell ''Added 11/3/2023 
+
+        ''11/3/2023 each_RSCDataCell = mod_topmostDataCell ''Added 11/3/2023 
+        each_RSCDataCell = RscDataCell1 ''Added 11/3/2023 
+
+        Do While (Not bDone)
 
             ''Added 4/14/2022 td
-            If (indexItem > par_listData.Count) Then Continue For
+            ''11/4/2023 If (indexItem > par_listData.Count) Then Continue For
+            ''11/4/2023 bDone = (indexItem >= par_listData.Count) ''11/2023 Then bDone = True
+            bDone = (each_RSCDataCell Is Nothing)
+            If (bDone) Then Exit Do ''Break
 
             ''Added 5/03/2022 thomas downes
             ''  Let's try to avoid run-time errors when it comes to re-opening
             ''  after having deleted a number of rows. 
-            If (indexItem >= par_listData.Count) Then Exit For
+            ''11/2033 If (indexItem >= par_listData.Count) Then Exit For
 
             each_RSCDataCell.Text = par_listData.Item(indexItem)
             ''If (each_RSCDataCell.Text = "aaa") Then System.Diagnostics.Debugger.Break()
@@ -848,8 +859,10 @@ Public Class RSCFieldColumnV2
 
             ''Prepare for next iteration
             indexItem += 1
+            each_RSCDataCell = each_RSCDataCell.GetNextCell_Down()
 
-        Next each_RSCDataCell
+        Loop ''End of ""Do While (Not bDone)""
+        ''11/3/2023 Next each_RSCDataCell
 
         ''
         ''Build statistics to describe the general number of letters & digits in the data. 
@@ -1011,18 +1024,26 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 4/3/2022 thomas downes  
         ''
-        Const c_bWasteProcessingTime As Boolean = False
-        If (c_bWasteProcessingTime) Then
-            ''
-            ''Requires unnecessary processing. 
-            ''
-            Dim listBoxes As List(Of RSCDataCell)
-            Const c_boolSkipSorting As Boolean = True
-            listBoxes = ListOfRSCDataCells_TopToBottom(c_boolSkipSorting)
-            Return listBoxes.Count
-        Else
-            Return mod_listRSCDataCellsByRow.Count
-        End If ''End of ""If (c_bWasteProcessingTime) Then....Else..."
+        Dim index As Integer
+        Dim eachCell As RSCDataCell = RscDataCell1
+        Do Until eachCell Is Nothing
+            index += 1
+            eachCell = eachCell.GetNextCell_Down()
+        Loop
+        Return index
+
+        ''11/2023 Const c_bWasteProcessingTime As Boolean = False
+        ''11/2023 If (c_bWasteProcessingTime) Then
+        ''    ''
+        ''    ''Requires unnecessary processing. 
+        ''    ''
+        ''    Dim listBoxes As List(Of RSCDataCell)
+        ''    Const c_boolSkipSorting As Boolean = True
+        ''    listBoxes = ListOfRSCDataCells_TopToBottom(c_boolSkipSorting)
+        ''    Return listBoxes.Count
+        ''11/2023 Else
+        ''    Return mod_listRSCDataCellsByRow.Count
+        ''End If ''End of ""If (c_bWasteProcessingTime) Then....Else..."
 
     End Function ''End of ""Public Function CountOfRows() As Integer""
 
@@ -1075,19 +1096,20 @@ Public Class RSCFieldColumnV2
 
         objRSCDataCell.Text_CellValue = ""
         objRSCDataCell.Visible = False
-        mod_listRSCDataCellsByRow.Remove(par_intRowIndex)
+
+        ''11/2023 mod_listRSCDataCellsByRow.Remove(par_intRowIndex)
         Me.Controls.Remove(objRSCDataCell)
 
         ''
         ''Exit Handler....
         ''
-        objRSCDataCell.RowIndex_NeededIfDeleted = par_intRowIndex
-        If (mod_listDeletedRSCDataCells Is Nothing) Then
-            mod_listDeletedRSCDataCells = New List(Of RSCDataCell)
-        End If ''End of ""If (mod_listDeletedRSCDataCells Is Nothing) Then""
+        ''11/2023 objRSCDataCell.RowIndex_NeededIfDeleted = par_intRowIndex
+        ''11/2023 If (mod_listDeletedRSCDataCells Is Nothing) Then
+        ''11/2023     mod_listDeletedRSCDataCells = New List(Of RSCDataCell)
+        ''End If ''End of ""If (mod_listDeletedRSCDataCells Is Nothing) Then""
 
-        ''Make a record of the deletion. 
-        mod_listDeletedRSCDataCells.Add(objRSCDataCell)
+        ''''Make a record of the deletion. 
+        ''11/2023 mod_listDeletedRSCDataCells.Add(objRSCDataCell)
 
     End Sub ''End of ""Public Sub DeleteRow_ByRowIndex(par_intRowIndex As Integer)""
 
@@ -1635,13 +1657,19 @@ Public Class RSCFieldColumnV2
         ''Added 3/18/2022 td   
         ''
         Dim objListData As New List(Of String)
+        Dim each_RSCDataCell As RSCDataCell = RscDataCell1
 
         ''For Each each_RSCDataCell In objListOfRSCDataCelles_Ordered
-        For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+        ''For Each each_RSCDataCell In ListOfRSCDataCells_TopToBottom()
+        Do Until (each_RSCDataCell Is Nothing)
 
             objListData.Add(each_RSCDataCell.Text)
 
-        Next each_RSCDataCell
+            ''Prepare for next.
+            each_RSCDataCell = each_RSCDataCell.GetNextCell_Down()
+
+            ''11/2023Next each_RSCDataCell
+        Loop ''End Until 
 
         ''
         ''ExitHandler
@@ -1891,7 +1919,14 @@ Public Class RSCFieldColumnV2
         ''Added 4/12/2022 thomas downes
         ''
         ''----5/02/2022 td Return ListOfRSCDataCells_TopToBottom()(-1 + par_intRowIndex)
-        Return mod_listRSCDataCellsByRow(par_intRowIndex)
+        ''11/2023 Return mod_listRSCDataCellsByRow(par_intRowIndex)
+
+        Dim eachCell As RSCDataCell = RscDataCell1
+        Dim index As Integer = 0
+        Do Until eachCell Is Nothing
+            index += 1
+            eachCell = eachCell.GetNextCell_Down()
+        Loop
 
     End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
 

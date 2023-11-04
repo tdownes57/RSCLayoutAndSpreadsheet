@@ -10,9 +10,8 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''   (Profs. Gabriela Ernsberger & Hatice Aydin) 
     ''    ---10/25/2023 thomas downes
     ''
-    Function DLL_ItemNext() As IDoublyLinkedItem ''Control
-
-    Function DLL_ItemPrior() As IDoublyLinkedItem ''Control
+    ''11/2/2023 Function DLL_ItemNext() As IDoublyLinkedItem ''Control
+    ''11/2/2023 ''Function DLL_ItemPrior() As IDoublyLinkedItem ''Control
 
     Function DLL_GetItemAtIndex(index As Integer) As IDoublyLinkedItem ''Control
 
@@ -47,39 +46,39 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
         ByRef count_of_new_items As Integer) As IDoublyLinkedItem ''Control
 
 
-    ''' <summary>
-    ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
-    ''' </summary>
-    ''' <param name="toBeNext"></param>
-    Sub DLL_SetNextAs(toBeNext As IDoublyLinkedItem)
+    '' <summary>
+    '' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
+    '' </summary>
+    '' <param name="toBeNext"></param>
+    ''11/2/2023 Sub DLL_SetNextAs(toBeNext As IDoublyLinkedItem)
 
-    ''' <summary>
-    ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
-    ''' </summary>
-    ''' <param name="toBePrior"></param>
-    Sub DLL_SetPriorAs(toBePrior As IDoublyLinkedItem) ''Control)
+    '' <summary>
+    '' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
+    '' </summary>
+    '' <param name="toBePrior"></param>
+    ''11/2/2023 Sub DLL_SetPriorAs(toBePrior As IDoublyLinkedItem) ''Control)
 
 
 
-    ''' <summary>
-    ''' This is a bit more administrative than DLL_SetNextAs, since four(4) directional links are specified (not just two).
-    ''' </summary>
-    ''' <param name="toBeInserted"></param>
-    Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem) ''Control)
+    '' <summary>
+    '' This is a bit more administrative than DLL_SetNextAs, since four(4) directional links are specified (not just two).
+    '' </summary>
+    '' <param name="toBeInserted"></param>
+    ''----Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem) ''Control)
 
     ''' <summary>
     ''' Overload of simpler, more likely used Sub.
     ''' </summary>
     ''' <param name="toBeInserted">The item to be inserted.</param>
-    ''' <param name="toUseAsAnchor">Unlikely to be needed, as the likely anchor is the concrete object which owns the procedure.</param>
+    ''' <param name="toUseAsAnchor">The item whose "Next" property will lead to the inserted item.</param>
     Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem, toUseAsAnchor As IDoublyLinkedItem)
 
 
-    ''' <summary>
-    ''' This is a bit more administrative than DLL_SetPriorAs, since four(4) directional links are specified (not just two).
-    ''' </summary>
-    ''' <param name="toBeInserted"></param>
-    Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem) ''Control)
+    ''''' <summary>
+    ''''' This is a bit more administrative than DLL_SetPriorAs, since four(4) directional links are specified (not just two).
+    ''''' </summary>
+    ''''' <param name="toBeInserted"></param>
+    ''Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem) ''Control)
 
     ''' <summary>
     ''' Overload of simpler, more likely used Sub.

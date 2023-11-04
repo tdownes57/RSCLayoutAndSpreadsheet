@@ -11,7 +11,8 @@ Imports ciBadgeRecipients ''Added 3/22/2022 td
 ''Imports ciBadgeCachePersonality ''Added 3/14/2022 
 
 Public Class RSCDataCell
-    Implements IDoublyLinkedList ''Added 10/25/2023 td
+    ''11/2023 Implements IDoublyLinkedList ''Added 10/25/2023 td
+    Implements IDoublyLinkedItem ''Added 11/03/2023 td
     ''
     ''Added 4/7/2022 thomas downes
     ''
@@ -142,6 +143,23 @@ Public Class RSCDataCell
     End Sub
 
 
+    Public Function GetRowIndex_Me() As Integer
+        ''Added 11/3/2023
+        Dim intCurrentRowIndex As Integer
+        intCurrentRowIndex = 0 ''11/2023 Me.ParentColumn.GetRowIndexOfCell(Me)
+        Dim nextAbove As RSCDataCell = Me.CellAbove
+        Dim intCountRowsAbove As Integer = 0
+        Do Until (nextAbove Is Nothing)
+            ''---CONFUSING--- Let's use "backwards" logic!!
+            intCountRowsAbove += 1 ''This counts the rows, but backwards.
+            nextAbove = nextAbove.CellAbove
+        Loop
+        intCurrentRowIndex = (intCountRowsAbove + 1) ''Row & column indexes are 1-based.
+        Return intCurrentRowIndex
+
+    End Function ''End fo""Public Function GetRowIndex_Me() As Integer""
+
+
     Public Function GetNextCell_Right(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
         ''
         ''4/12/2022 td
@@ -175,11 +193,30 @@ Public Class RSCDataCell
             pboolEdge = True
             Return Nothing
         End If ''End of ""If (objRSCDataColumn_Left Is Nothing) Then""
-        intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+
+        intCurrentRowIndex = GetRowIndex_Me()
         objRSCDataCell_Left = objRSCDataColumn_Left.GetCellWithRowIndex(intCurrentRowIndex)
         Return objRSCDataCell_Left
 
     End Function ''End of ""Public Function GetNextCell_Left() As RSCDataCell""
+
+
+    Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+        ''Added 11/2023 
+        Return GetNextCell_Up()
+    End Function
+
+
+    Public Function DLL_NotAnyPrior() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyPrior
+        ''Added 11/2023 
+        Return (Me.CellAbove Is Nothing)
+    End Function
+
+
+    Public Sub DLL_SetItemPrior(par_cell As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemPrior
+        ''Added 11/2023 
+        Me.CellAbove = CType(par_cell, RSCDataCell)
+    End Sub
 
 
     Public Function GetNextCell_Up(Optional ByRef pboolEdge As Boolean = False,
@@ -217,46 +254,77 @@ Public Class RSCDataCell
     End Function ''End of "" Public Function GetNextCell_Up() As RSCDataCell""
 
 
+    Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
+        ''Added 11/2023 
+        Return (Me.CellBelow Is Nothing)
+    End Function
+
+
+    Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
+        ''Added 11/2023 
+        Return GetNextCell_Down()
+    End Function
+
+
+    Public Sub DLL_SetItemNext(par_cell As IDoublyLinkedItem) _
+        Implements IDoublyLinkedItem.DLL_SetItemNext
+        ''Added 11/2023 
+        Me.CellBelow = CType(par_cell, RSCDataCell)
+    End Sub
+
+
     Public Function GetNextCell_Down(Optional ByRef pboolEdge As Boolean = False,
-                                    Optional par_intNumRowsToSkip As Integer = 1) As RSCDataCell
+                Optional par_intNumRowsToSkip As Integer = 0) As RSCDataCell
         ''
         ''4/12/2022 td
         ''
-        Dim intCurrentRowIndex As Integer
-        Dim intMaximumRowIndex As Integer ''Added 4/2022
-        Dim objRSCDataCell_Down As RSCDataCell
-        Dim boolBelowBottomEdge As Boolean ''Added 5/1/2022
+        Dim nextCell As RSCDataCell
+        nextCell = Me.CellBelow
+        If (nextCell Is Nothing) Then pboolEdge = True
 
-        intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
-        intMaximumRowIndex = Me.ParentColumn.ParentSpreadsheet.RscRowHeaders1.CountOfRows()
-        boolBelowBottomEdge = (intMaximumRowIndex < (intCurrentRowIndex + par_intNumRowsToSkip))
+        ''Added 11/4/2023 
+        Do While (par_intNumRowsToSkip > 0)
+            nextCell = nextCell.CellBelow
+            par_intNumRowsToSkip -= 1
+        Loop ''End If ''End of ""If (par_intNumRowsToSkip > 0) Then""
 
-        If (boolBelowBottomEdge) Then
-            ''Added 5/12022 
-            objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(intMaximumRowIndex)
+        Return nextCell ''Me.CellBelow
 
-        ElseIf (intCurrentRowIndex = Me.ParentColumn.CountOfRows()) Then
-            pboolEdge = True
-            Return Nothing
-        End If ''End of ""If (intCurrentRowIndex = 1) Then""
+        ''Dim intCurrentRowIndex As Integer
+        ''Dim intMaximumRowIndex As Integer ''Added 4/2022
+        ''Dim objRSCDataCell_Down As RSCDataCell
+        ''Dim boolBelowBottomEdge As Boolean ''Added 5/1/2022
 
-        ''April 2022''objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
-        If (boolBelowBottomEdge And par_intNumRowsToSkip > 1) Then
-            ''Get the bottom row of the spreadsheet. ---5/1/2022 td
-            ''5/1/2022 ''Const intIndexOfBottomRow As Integer = 1
-            objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(intMaximumRowIndex)
+        ''intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        ''intMaximumRowIndex = Me.ParentColumn.ParentSpreadsheet.RscRowHeaders1.CountOfRows()
+        ''boolBelowBottomEdge = (intMaximumRowIndex < (intCurrentRowIndex + par_intNumRowsToSkip))
 
-        ElseIf (par_intNumRowsToSkip > 1) Then ''Added 5/1/2022 td
-            ''Added 5/1/2022 td
-            objRSCDataCell_Down =
-                Me.ParentColumn.GetCellWithRowIndex(intCurrentRowIndex + par_intNumRowsToSkip)
+        ''If (boolBelowBottomEdge) Then
+        ''    ''Added 5/12022 
+        ''    objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(intMaximumRowIndex)
 
-        Else
-            objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
+        ''ElseIf (intCurrentRowIndex = Me.ParentColumn.CountOfRows()) Then
+        ''    pboolEdge = True
+        ''    Return Nothing
+        ''End If ''End of ""If (intCurrentRowIndex = 1) Then""
 
-        End If ''End of ""If (boolBelowBottomEdge And par_intNumRowsToSkip > 1) Then... ElseIf... Else...""
+        ''''April 2022''objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
+        ''If (boolBelowBottomEdge And par_intNumRowsToSkip > 1) Then
+        ''    ''Get the bottom row of the spreadsheet. ---5/1/2022 td
+        ''    ''5/1/2022 ''Const intIndexOfBottomRow As Integer = 1
+        ''    objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(intMaximumRowIndex)
 
-        Return objRSCDataCell_Down
+        ''ElseIf (par_intNumRowsToSkip > 1) Then ''Added 5/1/2022 td
+        ''    ''Added 5/1/2022 td
+        ''    objRSCDataCell_Down =
+        ''        Me.ParentColumn.GetCellWithRowIndex(intCurrentRowIndex + par_intNumRowsToSkip)
+
+        ''Else
+        ''    objRSCDataCell_Down = Me.ParentColumn.GetCellWithRowIndex(1 + intCurrentRowIndex)
+
+        ''End If ''End of ""If (boolBelowBottomEdge And par_intNumRowsToSkip > 1) Then... ElseIf... Else...""
+
+        ''Return objRSCDataCell_Down
 
     End Function ''End of ""Public Function GetNextCell_Down() As RSCDataCell""
 

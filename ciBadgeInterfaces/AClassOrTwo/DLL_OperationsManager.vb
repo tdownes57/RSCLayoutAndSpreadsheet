@@ -7,7 +7,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
 
     ''Private mod_list As RSCDoublyLinkedList(Of TControl)
     ''11/2/2023 Private mod_list As List(Of TControl)
-    Private mod_list As RSCDoublyLinkedList
+    Private mod_list As IDoublyLinkedList ''RSCDoublyLinkedList
 
     Public Sub ProcessOperation(param_operation As DLL_Operation) ''11/2/2023 TControl))
 
@@ -30,43 +30,74 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''
     Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
     Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
+    Private mod_lastPriorOperation As DLL_Operation
+
+    Public Function GetRecentOperation() As DLL_Operation
+        ''
+        ''Allow the new operation to be stored on a stack of operations. 
+        ''
+        Return mod_lastPriorOperation
+
+    End Function
 
     Public Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem,
                                    toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
-        Throw New NotImplementedException()
-    End Sub
+        mod_list.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
 
-    Public Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemAfter
         ''
-        ''This should set four(4) directional links (not just two(2))
+        ''Operations Management 
         ''
-        Throw New NotImplementedException()
-    End Sub
+        mod_lastPriorOperation = New DLL_Operation()
+        With mod_lastPriorOperation
+            .InsertSingly = toBeInserted
+            .OperationType = "I"
+            .LefthandAnchor = toUseAsAnchor
+        End With
+
+    End Sub ''End of ""Public Sub DLL_InsertItemAfter""
+
 
     Public Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem,
                                     toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemBefore
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
-        Throw New NotImplementedException()
+        mod_list.DLL_InsertItemBefore(toBeInserted, toUseAsAnchor)
+
+        ''
+        ''Operations Management 
+        ''
+        mod_lastPriorOperation = New DLL_Operation()
+        With mod_lastPriorOperation
+            .InsertSingly = toBeInserted
+            .OperationType = "I"
+            .RighthandAnchor = toUseAsAnchor
+        End With
+
     End Sub
 
-    Public Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemBefore
+
+    Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
+                                    toUseAsAnchorStart As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertRangeAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
-        Throw New NotImplementedException()
-    End Sub
+        mod_list.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
 
-    Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer, toUseAsAnchorStart As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
         ''
-        ''This should set four(4) directional links (not just two(2))
+        ''Operations Management 
         ''
-        Throw New NotImplementedException()
-    End Sub
+        mod_lastPriorOperation = New DLL_Operation()
+        With mod_lastPriorOperation
+            .InsertRangeStart = toBeInsertedFirst
+            .OperationType = "I"
+            .LefthandAnchor = toUseAsAnchorStart
+        End With
+
+    End Sub ''End Of ""Public Sub DLL_InsertRangeAfter""
 
 
     Public Sub DLL_DeleteItem(item_toDelete As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_DeleteItem
@@ -92,8 +123,9 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                                item_toDeleteEndInclusive As IDoublyLinkedItem,
                                yes_return_list_of_deleteds As Boolean,
                                ByRef count_of_deleteds As Integer,
-                               ByRef item_prior_undeleted As TControl,
-                               ByRef item_first_deleted As TControl) Implements IDoublyLinkedList.DLL_DeleteRange
+                               ByRef item_prior_undeleted As IDoublyLinkedItem,
+                               ByRef item_first_deleted As IDoublyLinkedItem) _
+                               Implements IDoublyLinkedList.DLL_DeleteRange
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -102,88 +134,81 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     End Sub
 
 
-    Public Sub DLL_SetNextAs(toBeNext As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetNextAs
-        ''
-        ''This is simple. It should set two(2) directional links (not four(4))
-        ''
-        Dim rsc_toBeNext = CType(toBeNext, TControl)
+    ''Public Sub DLL_SetNextAs(toBeNext As IDoublyLinkedItem) Implements IDoublyLinkedList ''(Of TControl).DLL_SetNextAs
+    ''    ''
+    ''    ''This is simple. It should set two(2) directional links (not four(4))
+    ''    ''
+    ''    Dim rsc_toBeNext = CType(toBeNext, TControl)
+    ''    Me.mod_itemNext = rsc_toBeNext ''Directional Link #1 of 2
+    ''    ''11/2/2023 rsc_toBeNext.DLL_SetPriorAs(Me) ''Directional Link #2 of 2
+    ''End Sub
 
-        Me.mod_itemNext = rsc_toBeNext ''Directional Link #1 of 2
-        ''11/2/2023 rsc_toBeNext.DLL_SetPriorAs(Me) ''Directional Link #2 of 2
-
-    End Sub
-
-    Public Sub DLL_SetPriorAs(toBePrior As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetPriorAs
-        ''
-        ''This is simple. It should set two(2) directional links (not four(4))
-        ''
-        Dim rsc_toBePrior = CType(toBePrior, TControl)
-
-        Me.mod_itemPrior = rsc_toBePrior ''Directional Link #1 of 2
-        ''11/2/2023 rsc_toBePrior.DLL_SetNextAs(Me) ''Directional Link #2 of 2
-
-    End Sub
+    ''Public Sub DLL_SetPriorAs(toBePrior As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetPriorAs
+    ''    ''
+    ''    ''This is simple. It should set two(2) directional links (not four(4))
+    ''    ''
+    ''    Dim rsc_toBePrior = CType(toBePrior, TControl)
+    ''    Me.mod_itemPrior = rsc_toBePrior ''Directional Link #1 of 2
+    ''    ''11/2/2023 rsc_toBePrior.DLL_SetNextAs(Me) ''Directional Link #2 of 2
+    ''End Sub
 
 
-    Public Function DLL_ItemNext() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemNext
-        ''
-        ''It is permissible to cast from adult-child to parent. 
-        ''
-        '' (I call it "adult child" since it contains MORE knowledge than the parent... LOL)   
-        ''
-        Return mod_itemNext ''Implicit casting (from adult-child to parent)
-
-    End Function
-
-
-    Public Function DLL_ItemPrior() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemPrior
-
-        Return mod_itemPrior ''Implicit casting (from adult-child to parent)
-
-    End Function
+    ''Public Function DLL_ItemNext() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemNext
+    ''    ''
+    ''    ''It is permissible to cast from adult-child to parent. 
+    ''    ''
+    ''    '' (I call it "adult child" since it contains MORE knowledge than the parent... LOL)   
+    ''    ''
+    ''    Return mod_itemNext ''Implicit casting (from adult-child to parent)
+    ''End Function
 
 
-    Public Function DLL_GetItemAtIndex(index As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_GetItemAtIndex
+    ''Public Function DLL_ItemPrior() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemPrior
+    ''    Return mod_itemPrior ''Implicit casting (from adult-child to parent)
+    ''End Function
+
+
+    Public Function DLL_GetItemAtIndex(index As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_GetItemAtIndex ''(Of IDoublyLinkedItem).DLL_GetItemAtIndex
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_GetItemAtIndex(index As Integer, confirm_distance As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_GetItemAtIndex
+    Public Function DLL_GetItemAtIndex(index As Integer, confirm_distance As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_GetItemAtIndex ''(Of TControl).DLL_GetItemAtIndex
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_GetIndexOfItem(input_item As TControl) As Integer Implements IDoublyLinkedList(Of TControl).DLL_GetIndexOfItem
+    Public Function DLL_GetIndexOfItem(input_item As IDoublyLinkedItem) As Integer Implements IDoublyLinkedList.DLL_GetIndexOfItem ''(Of TControl).DLL_GetIndexOfItem
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_CountItemsBefore() As Integer Implements IDoublyLinkedList(Of TControl).DLL_CountItemsBefore
+    Public Function DLL_CountItemsBefore() As Integer Implements IDoublyLinkedList.DLL_CountItemsBefore ''(Of TControl).DLL_CountItemsBefore
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_CountItemsAfter() As Integer Implements IDoublyLinkedList(Of TControl).DLL_CountItemsAfter
+    Public Function DLL_CountItemsAfter() As Integer Implements IDoublyLinkedList.DLL_CountItemsAfter ''(Of TControl).DLL_CountItemsAfter
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_CountAllItems() As Integer Implements IDoublyLinkedList(Of TControl).DLL_CountAllItems
+    Public Function DLL_CountAllItems() As Integer Implements IDoublyLinkedList.DLL_CountAllItems ''(Of TControl).DLL_CountAllItems
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_BuildListToIndex(index As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex(index As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_BuildListToIndex
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_BuildListToIndex(index As Integer, ByRef count_of_new_items As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex(index As Integer, ByRef count_of_new_items As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_BuildListToIndex
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_PopItem(item_toDelete As TControl) As TControl Implements IDoublyLinkedList(Of TControl).DLL_PopItem
+    Public Function DLL_PopItem(item_toDelete As IDoublyLinkedItem) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_PopItem
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_PopItem(index As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_PopItem
+    Public Function DLL_PopItem(index As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_PopItem
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_PopRange
+    Public Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_PopRange
         Throw New NotImplementedException()
     End Function
 
