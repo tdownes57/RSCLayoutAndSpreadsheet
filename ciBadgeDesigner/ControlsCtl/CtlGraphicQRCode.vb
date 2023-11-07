@@ -34,7 +34,7 @@ Public Class CtlGraphicQRCode
 
     ''9/9/2019 td''Public FormDesigner As FormDesignProtoTwo ''Added 9/4/2019 td
     ''9/20/2019 td''Public FormDesigner As ILayoutFunctions ''Modified 9/9/2019 td
-    Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
+    '11/07/2023 td''Public LayoutFunctions_NotInUse As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 
@@ -357,7 +357,7 @@ Public Class CtlGraphicQRCode
 
     End Sub ''End of "Public Sub New_Deprecated(par_infoForPic_Base As IElement_Base, par_infoForPic_Pic As IElementPic, par_formLayout As ILayoutFunctions)"
 
-    Public Sub Refresh_Master()
+    Public Sub Refresh_Master_NotInUse() ''Suffixed _NotInUse on 11/07/2023
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
         ''
@@ -373,20 +373,20 @@ Public Class CtlGraphicQRCode
     End Sub ''End of "Public Sub Refresh_Master()"
 
 
-    Public Sub Refresh_PositionAndSize()
-        ''
-        ''Added 9/17 & 9/5/2019 thomas d 
-        ''
-        ''9/20/2019 td''Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
-        ''9/20/2019 td''Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
-
-        Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
-        Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
-
-        Me.Width = Me.ElementInfo_Base.Width_Pixels
-        Me.Height = Me.ElementInfo_Base.Height_Pixels
-
-    End Sub ''End of "Public Sub Refresh_PositionAndSize()"
+    ''See base class. Not in use. 11/2023 Public Sub Refresh_PositionAndSize()
+    ''    ''
+    ''    ''Added 9/17 & 9/5/2019 thomas d 
+    ''    ''
+    ''    ''9/20/2019 td''Me.Left = Me.FormDesigner.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+    ''    ''9/20/2019 td''Me.Top = Me.FormDesigner.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+    ''Not in use. 11/2023 
+    ''    Me.Left = Me.LayoutFunctions.Layout_Margin_Left_Add(Me.ElementInfo_Base.LeftEdge_Pixels)
+    ''    Me.Top = Me.LayoutFunctions.Layout_Margin_Top_Add(Me.ElementInfo_Base.TopEdge_Pixels)
+    ''Not in use. 11/2023 
+    ''    Me.Width = Me.ElementInfo_Base.Width_Pixels
+    ''    Me.Height = Me.ElementInfo_Base.Height_Pixels
+    ''Not in use. 11/2023 
+    ''End Sub ''End of "Public Sub Refresh_PositionAndSize()"
 
 
     Public Sub Refresh_Image_NotInUse(pbRefreshSize As Boolean)

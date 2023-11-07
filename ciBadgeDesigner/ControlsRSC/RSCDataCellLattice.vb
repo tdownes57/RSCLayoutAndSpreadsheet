@@ -147,8 +147,10 @@ Public Class RSCDataCellLattice
         Dim objNextHeaderAbove As RSCRowHeader
         Dim objNextHeaderBelow As RSCRowHeader
 
-        objNextHeaderAbove = par_rowDeleteStart.RowHeaderNextAbove
-        objNextHeaderBelow = par_rowDeleteStart.RowHeaderNextBelow
+        ''11/2023 objNextHeaderAbove = par_rowDeleteStart.RowHeaderNextAbove
+        ''11/2023 objNextHeaderBelow = par_rowDeleteStart.RowHeaderNextBelow
+        objNextHeaderAbove = CType(par_rowDeleteStart.DLL_GetItemNext(), RSCRowHeader)
+        objNextHeaderBelow = CType(par_rowDeleteStart.DLL_GetItemPrior(), RSCRowHeader)
 
         Dim objNextHeaderAbove_FirstCell = mod_dictLeftmostCells.Item(objNextHeaderAbove)
         Dim objNextHeaderBelow_FirstCell = mod_dictLeftmostCells.Item(objNextHeaderBelow)

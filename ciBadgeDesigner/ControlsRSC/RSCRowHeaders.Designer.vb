@@ -35,7 +35,7 @@ Partial Class RSCRowHeaders
         Me.textRowHeader1.Location = New System.Drawing.Point(0, 38)
         Me.textRowHeader1.Margin = New System.Windows.Forms.Padding(0)
         Me.textRowHeader1.Name = "textRowHeader1"
-        Me.textRowHeader1.RowIndex = 0
+        ''11/2023 td Me.textRowHeader1.RowIndex = 0
         Me.textRowHeader1.Size = New System.Drawing.Size(143, 24)
         Me.textRowHeader1.TabIndex = 2
         Me.textRowHeader1.Text_RowNumber = "1"

@@ -12,7 +12,8 @@ Imports ciBadgeRecipients
 Imports MathNet.Numerics.LinearAlgebra.Storage
 
 Public Class RSCRowHeader
-    Implements IDoublyLinkedList ''Added 10/25/2023 td
+    ''11/2023 Implements IDoublyLinkedList ''Added 10/25/2023 td
+    Implements IDoublyLinkedItem ''Added 10/25/2023 td
     ''
     ''Added 4/6/2022 thomas d
     ''
@@ -25,8 +26,9 @@ Public Class RSCRowHeader
 
     ''Added 5/17/2023
     ''  This will help it to be a doubly-linked list. 
-    Public RowHeaderNextAbove As RSCRowHeader
-    Public RowHeaderNextBelow As RSCRowHeader
+    Private mod_rowHeaderPriorAbove As RSCRowHeader
+    Private mod_rowHeaderNextBelow As RSCRowHeader
+
     Public FactoryMaxIndex As Integer ''Added 10/18/2023
     Public Undel_DataCellNextRight As RSCDataCell ''Added 10/30/2023 td
 
@@ -153,11 +155,11 @@ Public Class RSCRowHeader
         ''
         ''Administrative code.  --10/2023
         If (Not pbOverwriteExisting) Then
-            If (Me.RowHeaderNextBelow IsNot Nothing) Then
+            If (Me.mod_rowHeaderNextBelow IsNot Nothing) Then
                 If (pbThrowErrorIfAlreadyExists) Then
                     Throw New InvalidOperationException("Row Header already exists")
                 End If ''If (pbThrowErrorIfAlreadyExists) Then
-                Return Me.RowHeaderNextBelow
+                Return Me.mod_rowHeaderNextBelow
             End If ''If (Me.RowHeaderNextBelow IsNot Nothing) Then
         End If ''End of ""If (Not pbOverwriteExisting) Then""
 
@@ -173,13 +175,13 @@ Public Class RSCRowHeader
           .Left = Me.Left,
           .Width = Me.Width,
           .Height = Me.Height,
-          .RowHeaderNextAbove = Me,
+          .mod_rowHeaderPriorAbove = Me,
           .Visible = True
         }
 
         ''Record a reference to the new object, so this object can allow
         ''   parent objects to find the new RowHeader. 
-        Me.RowHeaderNextBelow = objNewHeader
+        Me.mod_rowHeaderNextBelow = objNewHeader
 
         Return objNewHeader
 
@@ -259,7 +261,7 @@ Public Class RSCRowHeader
                 output_result = eachRSCHeader
             Else
                 intEachIndex += 1
-                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                eachRSCHeader = eachRSCHeader.mod_rowHeaderNextBelow
 
                 ''
                 ''Administrative work--check if we've reached the end of rows. 
@@ -287,8 +289,8 @@ Public Class RSCRowHeader
                         ''
                         ''Maintain the chain!!!  Link in both directions!!!
                         ''
-                        newRSCHeader.RowHeaderNextAbove = priorRSCHeader
-                        priorRSCHeader.RowHeaderNextBelow = newRSCHeader
+                        newRSCHeader.mod_rowHeaderPriorAbove = priorRSCHeader
+                        priorRSCHeader.mod_rowHeaderNextBelow = newRSCHeader
                     End If ''End of ""If (priorRSCHeader Is Nothing) Then""
 
                 End If ''End of ""If (eachRSCHeader Is Nothing) Then""
@@ -334,7 +336,7 @@ Public Class RSCRowHeader
                 Return eachRSCHeader
             Else
                 intEachIndex += 1
-                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                eachRSCHeader = eachRSCHeader.mod_rowHeaderNextBelow
                 If (eachRSCHeader Is Nothing) Then bContinue = False
             End If
 
@@ -363,7 +365,7 @@ Public Class RSCRowHeader
 
         Do While (bContinue)
 
-            eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+            eachRSCHeader = eachRSCHeader.mod_rowHeaderNextBelow
             intRowIndex += 1
             If (eachRSCHeader Is Nothing) Then
                 bContinue = False
@@ -415,7 +417,7 @@ Public Class RSCRowHeader
         plistOfRecipients.Add(Me.GetRecipient())
 
         Do While (bContinue)
-            eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+            eachRSCHeader = eachRSCHeader.mod_rowHeaderNextBelow
             If (eachRSCHeader Is Nothing) Then
                 bContinue = False
             Else
@@ -445,7 +447,7 @@ Public Class RSCRowHeader
             If (bCountRows And (intCountRowsRefreshed > par_intNumberOfRows)) Then
                 bContinue = False
             Else
-                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                eachRSCHeader = eachRSCHeader.mod_rowHeaderNextBelow
                 If (eachRSCHeader Is Nothing) Then
                     bContinue = False
                 Else
@@ -591,7 +593,7 @@ Public Class RSCRowHeader
 
             Else
                 intEachIndex += 1
-                eachRSCHeader = eachRSCHeader.RowHeaderNextBelow
+                eachRSCHeader = eachRSCHeader.mod_rowHeaderNextBelow
                 If (eachRSCHeader Is Nothing) Then bContinue = False
 
             End If ''ENd of ""If (bIndexMatches) Then... ElseIf ... Else ..."
@@ -804,7 +806,34 @@ Public Class RSCRowHeader
     End Sub ''End of ""Private Sub LinkLabelShowID_LinkClicked""
 
 
+    Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
+        ''11/2023 Throw New NotImplementedException()
+        Return (Me.mod_rowHeaderNextBelow Is Nothing)
+    End Function
 
+    Public Function DLL_NotAnyPrior() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyPrior
+        ''11/2023 Throw New NotImplementedException()
+        Return (Me.mod_rowHeaderPriorAbove Is Nothing)
+    End Function
 
+    Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
+        ''11/2023 Throw New NotImplementedException()
+        Return Me.mod_rowHeaderNextBelow
+    End Function
+
+    Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+        ''11/2023 Throw New NotImplementedException()
+        Return Me.mod_rowHeaderPriorAbove
+    End Function
+
+    Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemNext
+        ''11/2023 Throw New NotImplementedException()
+        Me.mod_rowHeaderNextBelow = CType(param, RSCRowHeader)
+    End Sub
+
+    Public Sub DLL_SetItemPrior(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemPrior
+        ''11/2023 Throw New NotImplementedException()
+        Me.mod_rowHeaderPriorAbove = CType(param, RSCRowHeader)
+    End Sub
 
 End Class

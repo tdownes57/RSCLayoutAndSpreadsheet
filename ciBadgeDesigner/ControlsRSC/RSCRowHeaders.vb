@@ -122,13 +122,15 @@ Public Class RSCRowHeaders
 
         Dim intCountRows As Integer = 0
         Dim default_count As Integer = mod_rowHeaderFirst_Factory.FactoryMaxIndex
-        Dim currentRow As RSCRowHeader = mod_rowHeaderFirst_Factory
+        ''Not needed. Dim currentRow As RSCRowHeader = mod_rowHeaderFirst_Factory
+        Dim currentRow As IDoublyLinkedItem = mod_rowHeaderFirst_Factory
 
         If (pbPerformLoopToCount) Then
             ''Go down the doubly-linked list of row-headers. 
             While (currentRow IsNot Nothing)
                 intCountRows += 1
-                currentRow = currentRow.RowHeaderNextBelow
+                ''11/2023 currentRow = currentRow.RowHeaderNextBelow
+                currentRow = currentRow.DLL_GetItemNext()
             End While
             If (intCountRows <> default_count) Then Debugger.Break()
             Return intCountRows
@@ -343,9 +345,11 @@ Public Class RSCRowHeaders
             ''   given Row Header & move up!!   We count the row-headers ABOVE
             ''   the given Row Header.
             ''
-            Dim eachRowHeader_FAST_REVERSE As RSCRowHeader
+            ''11/2023 Dim eachRowHeader_FAST_REVERSE As RSCRowHeader
+            Dim eachRowHeader_FAST_REVERSE As IDoublyLinkedItem ''RSCRowHeader
             ''OFF-BY-ONE ERROR 10/2023 eachRowHeader_FAST_REVERSE = par_oRowHeader
-            eachRowHeader_FAST_REVERSE = par_oRowHeader.RowHeaderNextAbove ''Initialize to the one above.
+            ''11/2023 eachRowHeader_FAST_REVERSE = par_oRowHeader.RowHeaderNextAbove ''Initialize to the one above.
+            eachRowHeader_FAST_REVERSE = par_oRowHeader.DLL_GetItemPrior() ''Initialize to the one above.
             Dim bContinue_FAST_REVERSE As Boolean = True ''Initialize.
             intCountRowsAbove_FAST = 0 ''Initialize.
 
@@ -356,11 +360,15 @@ Public Class RSCRowHeaders
                 Else
                     intCountRowsAbove_FAST += 1
                     ''Prepare for the next iteration.
-                    ''  We go to the row header ABOVE. 
+                    ''  We go to the row header ABOVE ("ItemPrior"). 
+                    ''11/2023 eachRowHeader_FAST_REVERSE =
+                    ''          eachRowHeader_FAST_REVERSE.RowHeaderNextAbove
                     eachRowHeader_FAST_REVERSE =
-                        eachRowHeader_FAST_REVERSE.RowHeaderNextAbove
+                        eachRowHeader_FAST_REVERSE.DLL_GetItemPrior()
+
                 End If ''End of If (eachRowHeader_FAST_REVERSE Is Nothing) Then...Else...
             Loop ''End of ""Do While bContinue""
+
             ''---------------------DIFFICULT & CONFUSING------------------------------------------
             ''-----THE NUMBER OF ROW-HEADERS ABOVE THE GIVEN ROW-HEADER EQUALS (ROW INDEX - 1).
             ''-----Thomas Downes, 10/24/2013
@@ -373,7 +381,8 @@ Public Class RSCRowHeaders
             ''
             ''This is the _SLOW way, NOT a clever way.
             ''
-            Dim eachRowHeader_SLOW As RSCRowHeader = mod_rowHeaderFirst_Factory
+            ''11/2023 Dim eachRowHeader_SLOW As RSCRowHeader = mod_rowHeaderFirst_Factory
+            Dim eachRowHeader_SLOW As IDoublyLinkedItem = mod_rowHeaderFirst_Factory
             Dim bContinue_SLOW As Boolean = True
             Dim bMatchesGiven_SLOW As Boolean = False
 
@@ -388,8 +397,9 @@ Public Class RSCRowHeaders
                     ''Throw New Exception("Suprisingly, the row header is not found")
                 Else
                     intRowIndex_SLOW += 1
-                    eachRowHeader_SLOW = eachRowHeader_SLOW.RowHeaderNextBelow
-                End If
+                    ''11/2023 eachRowHeader_SLOW = eachRowHeader_SLOW.RowHeaderNextBelow
+                    eachRowHeader_SLOW = eachRowHeader_SLOW.DLL_GetItemNext()
+                End If ''End of ""If (bMatchesGiven_SLOW) Then ... ElseIf... Else..."
             Loop ''End of ""Do While bContinue""
             If (Not boolDoItBothWays) Then Return intRowIndex_SLOW
         End If ''End of ""If (DO_IT_SLOW_AND_CAREFUL) Then""
@@ -1262,7 +1272,8 @@ Public Class RSCRowHeaders
                 currentForRowHeader.Visible = True
                 ''Prepare for next loop.
                 ''  Find the row header __ABOVE__ the current one.
-                currentForRowHeader = currentForRowHeader.RowHeaderNextAbove
+                ''11/2023 currentForRowHeader = currentForRowHeader.RowHeaderNextAbove
+                currentForRowHeader = CType(currentForRowHeader.DLL_GetItemPrior(), RSCRowHeader)
             Next intAddIndex
 
         End If ''End of ""If (bOnlyOneNewHeader) Then.. ElseIf...""

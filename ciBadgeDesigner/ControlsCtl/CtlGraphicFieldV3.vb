@@ -1245,29 +1245,30 @@ ExitHandler:
     ''End Sub ''End of "Public Sub Highlight_IfInsideRubberband()"
 
 
-    Public Sub ManageResizingByUser(par_bUseTempInfo As Boolean,
-                                    par_deltaWidth As Integer, par_deltaHeight As Integer,
-                                    par_deltaTop As Integer, par_deltaLeft As Integer)
-        ''
-        ''Added 10/14/2019 
-        ''
-        If (par_bUseTempInfo) Then
-
-            Me.ElementClass_ObjV3.Width_Pixels = (TempResizeInfo_W + par_deltaWidth)
-            Me.ElementClass_ObjV3.Height_Pixels = (TempResizeInfo_H + par_deltaHeight)
-        Else
-            Me.ElementClass_ObjV3.Width_Pixels += (par_deltaWidth)
-            Me.ElementClass_ObjV3.Height_Pixels += (par_deltaHeight)
-            Me.ElementClass_ObjV3.TopEdge_Pixels += (par_deltaTop)
-            Me.ElementClass_ObjV3.LeftEdge_Pixels += (par_deltaLeft)
-        End If ''End of "If (par_bUseTempInfo) Then ... Else ..."
-
-        Me.Width = Me.ElementClass_ObjV3.Width_Pixels
-        Me.Height = Me.ElementClass_ObjV3.Height_Pixels
-        Me.Top = Me.ElementClass_ObjV3.TopEdge_Pixels
-        Me.Left = Me.ElementClass_ObjV3.LeftEdge_Pixels
-
-    End Sub ''End of "Public Sub ManageResizingByUser(par_intWidth As Integer, par_intHeight As Integer)"
+    ''11/2023 Public Sub ManageResizingByUser_NotInUse(par_bUseTempInfo As Boolean,
+    ''                                par_deltaWidth As Integer, par_deltaHeight As Integer,
+    ''                                par_deltaTop As Integer, par_deltaLeft As Integer)
+    ''    ''
+    ''    ''Added 10/14/2019 
+    ''    ''Suffixed as _NotInUse on 11/7/2023
+    ''    ''
+    ''    If (par_bUseTempInfo) Then
+    ''11/2023 
+    ''        Me.ElementClass_ObjV3.Width_Pixels = (TempResizeInfo_W + par_deltaWidth)
+    ''        Me.ElementClass_ObjV3.Height_Pixels = (TempResizeInfo_H + par_deltaHeight)
+    ''    Else
+    ''        Me.ElementClass_ObjV3.Width_Pixels += (par_deltaWidth)
+    ''        Me.ElementClass_ObjV3.Height_Pixels += (par_deltaHeight)
+    ''        Me.ElementClass_ObjV3.TopEdge_Pixels += (par_deltaTop)
+    ''        Me.ElementClass_ObjV3.LeftEdge_Pixels += (par_deltaLeft)
+    ''    End If ''End of "If (par_bUseTempInfo) Then ... Else ..."
+    ''11/2023 
+    ''    Me.Width = Me.ElementClass_ObjV3.Width_Pixels
+    ''    Me.Height = Me.ElementClass_ObjV3.Height_Pixels
+    ''    Me.Top = Me.ElementClass_ObjV3.TopEdge_Pixels
+    ''    Me.Left = Me.ElementClass_ObjV3.LeftEdge_Pixels
+    ''11/2023 
+    ''End Sub ''End of "Public Sub ManageResizingByUser(par_intWidth As Integer, par_intHeight As Integer)"
 
 
     Private Sub RefreshElement_Field(sender As Object, e As EventArgs)
