@@ -110,6 +110,11 @@ Public Class RSCRowHeaders
     End Property
 
 
+    Public Function GetRowCount(Optional pbPerformLoopToCount As Boolean = True) As Integer
+        ''Added 11/08/2023 td
+        Return CountOfRows(pbPerformLoopToCount)
+    End Function
+
     Public Function CountOfRows(Optional pbPerformLoopToCount As Boolean = True) As Integer
         ''
         ''Added 4/3/2022 thomas downes  
@@ -767,15 +772,34 @@ Public Class RSCRowHeaders
         ''Added 4/04/2022 thomas downes
         ''
         Dim each_header As RSCRowHeader ''4/5/2022 TextBox
-        Dim each_matches As Boolean
-        For Each each_header In ListOfRowHeaders_TopToBottom()
-            ''Return objFirstTextbox
-            each_matches = (each_header.Recipient.ID_Guid6chars = par_strGuidChars6)
-            If (each_matches) Then Return each_header
+        Dim each_header_Next As RSCRowHeader ''4/5/2022 TextBox
+        Dim each_Guid6_matches As Boolean
 
-        Next each_header
+        each_header = mod_rowHeaderFirst_Factory
+        Do Until (each_header Is Nothing)
+
+            each_Guid6_matches = (each_header.Recipient.ID_Guid6chars = par_strGuidChars6)
+            If (each_Guid6_matches) Then Return each_header
+
+            ''
+            ''Prepare for next loop.
+            ''
+            each_header_Next = DirectCast(each_header.DLL_GetItemNext(), RSCRowHeader)
+            each_header = each_header_Next
+
+        Loop ''11/2023 Next each_header
 
         Return Nothing
+
+        ''Dim each_matches As Boolean
+        ''For Each each_header In ListOfRowHeaders_TopToBottom()
+        ''    ''Return objFirstTextbox
+        ''    each_matches = (each_header.Recipient.ID_Guid6chars = par_strGuidChars6)
+        ''    If (each_matches) Then Return each_header
+        ''11/2023
+        ''Next each_header
+        ''11/2023
+        ''Return Nothing
 
     End Function ''End of ""Public Function GetRecipient_ByGuid6(par_strGuidChars6 As String) As RSCRowHeader ""
 
@@ -1496,7 +1520,8 @@ Public Class RSCRowHeaders
         ''CountOfBoxesWithData(ref_intCountRows)
         ''intCountRows = ref_intCountRows
         ''4/8/2022 td''intCountRows = ListOfBottomBars_TopToBottom().Count
-        intCountRows = ListOfRowHeaders_TopToBottom().Count
+        ''11/2023 intCountRows = ListOfRowHeaders_TopToBottom().Count
+        intCountRows = CountOfRows(True)
 
         Const c_bUseFirstTry As Boolean = False ''Added 4/5/2022 td
 
@@ -1585,41 +1610,12 @@ Public Class RSCRowHeaders
         ''
         ''Added 5/14/2022 & 3/22/2022 td
         ''
-        ''2/2023 Dim intCountAllBoxesOrRows As Integer ''Added 3/23/2022 td
-        ''2/2023 Dim intCountBoxesEmptyOrNot As Integer ''Addexd 3/23/2022 td
+        Dim intCountRowHeaders As Integer ''Added 3/23/2022 td
 
         ''Moved here from below.---4/23/2022 td
         Dim intCountRecipients As Integer
         intCountRecipients = Me.ListRecipients.Count
         Load_EmptyRows(intCountRecipients)
-
-        ''2/2023 Dim intCountCellsWithData_Edited As Integer
-        ''March23 2022''intCountCellsWithData = CountOfBoxesWithData()
-        ''April 01 2023''intCountCellsWithData = CountOfBoxesWithData(intCountBoxesEmptyOrNot)
-        ''April 10 2023''intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot)
-        Dim strListExamples As String = "" ''Added 4/10/2022 thomas
-        Dim strMessage As String = "" ''Added 4/11/2022 thomas
-        ''2/2023 Dim bool_Confirm As Boolean ''4/11 DialogResult ''Added 4/11/2022 td
-
-        ''intCountCellsWithData_Edited = CountOfBoxesWithData_Edited(intCountBoxesEmptyOrNot, strListExamples)
-        ''If (0 <> intCountCellsWithData_Edited) Then ''.... <> 0) Then
-        ''    pboolErrorCellsHaveValues = True
-        ''    ''4/11/2022 td''Throw New Exception("Warning, non-zero >0 cells with data edited already. Edits would be lost.")
-        ''    strMessage = "Warning, non-zero >0 cells with data edited already. Edits would be lost.  Continue?"
-        ''    bool_Confirm = MessageBoxTD.Show_Confirmed(strMessage, strListExamples, True)
-        ''    If (Not bool_Confirm) Then Return ''Added 4/11/2022 td
-        ''End If ''End of ""If (intCountCellsWithData_Edited <> 0) Then""
-
-        ''Dim enumFieldSelected As EnumCIBFields
-        ''enumFieldSelected = RscSelectCIBField1.SelectedValue
-        ''If (enumFieldSelected = EnumCIBFields.Undetermined) Then
-        ''    pref_bNoFieldSelected = True
-        ''    If (Not MsgOnce_UnspecifiedField) Then
-        ''        MessageBoxTD.Show_Statement("Warning, not all columns have a specified field. GE45")
-        ''        MsgOnce_UnspecifiedField = True
-        ''    End If ''If (Not MsgUnspecifiedField) Then
-        ''    Return
-        ''End If ''End of ""If (enumFieldSelected = EnumCIBFields.Undetermined) Then""
 
         Dim boolNoRecipList As Boolean
         boolNoRecipList = (Me.ListRecipients Is Nothing)
@@ -1682,27 +1678,34 @@ Public Class RSCRowHeaders
 
         ''March25 2022 td''Dim listBoxes As IOrderedEnumerable(Of RSCDataCell)
         ''5/14/2022 Dim listBoxes As List(Of RSCDataCell)
-        Dim listHeaders As List(Of RSCRowHeader)
+        ''11/2023 td''Dim listHeaders As List(Of RSCRowHeader)
         Dim intRowIndex As Integer = -1
-        ''2/2023 Dim each_value As String
+        Dim each_value As String
         Dim boolMiscountOfRows As Boolean
         Dim intRowsInSpreadsheet As Integer
         Dim listValuesForStatistics As New List(Of String) ''Added 4/26/2022 td
+        Dim each_rowheader As RSCRowHeader ''Added 11/2023 td
+        Dim each_rowheader_next As RSCRowHeader ''Added 11/2023 td
 
         ''5/14/2022 listHeaders = ListOfRSCDataCells_TopToBottom()
-        listHeaders = ListOfRowHeaders_TopToBottom()
+        ''11/2023 td''listHeaders = ListOfRowHeaders_TopToBottom()
 
         ''Added 4/11/2022
-        intRowsInSpreadsheet = Me.CountOfRows() ''Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
-        boolMiscountOfRows = (listHeaders.Count <> intRowsInSpreadsheet)
+        intRowsInSpreadsheet = Me.ParentRSCSpreadsheet.RscFieldColumn1.CountOfRows()
+        intCountRowHeaders = Me.CountOfRows(True) ''Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
+        ''11/2023 td''boolMiscountOfRows = (listHeaders.Count <> intRowsInSpreadsheet)
+        boolMiscountOfRows = (intCountRowHeaders <> intRowsInSpreadsheet)
         If (boolMiscountOfRows) Then
             System.Diagnostics.Debugger.Break()
         End If ''End of ""If (boolMiscountOfRows) Then""
 
         ''
-        ''Looping 
+        ''Looping through all row headers. 
         ''
-        For Each each_rowheader As RSCRowHeader In listHeaders
+        ''11/2023 td''For Each each_rowheader As RSCRowHeader In listHeaders
+        each_rowheader = mod_rowHeaderFirst_Factory
+        each_rowheader_next = Nothing
+        Do While (each_rowheader IsNot Nothing)
 
             intRowIndex += 1
             each_rowheader.Recipient = Me.ListRecipients(intRowIndex)
@@ -1714,41 +1717,35 @@ Public Class RSCRowHeaders
             End With
 
             ''''4/11 td''each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
-            ''''Added 4/11/2022 td
-            ''each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+            ''Added 4/11/2022 td
+            each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
 
-            ''''Added 4/25/2022 td
-            ''listValuesForStatistics.Add(each_value)
+            ''Added 4/25/2022 td
+            listValuesForStatistics.Add(each_value)
 
             ''''Added 4/15/2022
-            ''Dim strCellDataBeforeLoadingRecip As String
-            ''Dim strCellDataFromColumnData As String
-            ''Dim boolMismatch_ColumnData As Boolean
-            ''If (pboolCheck_ColumnWidthAndData) Then
-            ''    ''Compare the Recipient data to the ColumnWidthAndData data.
-            ''    ''   ---4/14/2022
-            ''    strCellDataBeforeLoadingRecip = each_rowheader.Text.Trim() ''5/01/2022 td''each_box.Text
-            ''    strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex).Trim() ''Added .Trim() on 5/01/2022
-            ''    boolMismatch_ColumnData = (strCellDataFromColumnData <> each_value)
-            ''    If (boolMismatch_ColumnData) Then
-            ''        ''---System.Diagnostics.Debugger.Break()
-            ''        MessageBoxTD.Show_Statement("Due to a mismatch of data, we are not able to continue " &
-            ''                                    " to load the recipient data into this column.")
-            ''        Exit Sub
-            ''    End If ''End of ""If (boolMismatch_ColumnData) Then""
-            ''End If ''End of ""If (pboolCheck_ColumnWidthAndData) Then""
+            Dim strCellDataBeforeLoadingRecip As String
+            Dim strCellDataFromColumnData As String
+            Dim boolMismatch_ColumnData As Boolean
+            If (pboolCheck_ColumnWidthAndData) Then
+                ''Compare the Recipient data to the ColumnWidthAndData data.
+                ''   ---4/14/2022
+                strCellDataBeforeLoadingRecip = each_rowheader.Text.Trim() ''5/01/2022 td''each_box.Text
+                strCellDataFromColumnData = ColumnWidthAndData.ColumnData(intRowIndex).Trim() ''Added .Trim() on 5/01/2022
+                boolMismatch_ColumnData = (strCellDataFromColumnData <> each_value)
+                If (boolMismatch_ColumnData) Then
+                    ''---System.Diagnostics.Debugger.Break()
+                    MessageBoxTD.Show_Statement("Due to a mismatch of data, we are not able to continue " &
+                                                " to load the recipient data into this column.")
+                    Exit Sub
+                End If ''End of ""If (boolMismatch_ColumnData) Then""
+            End If ''End of ""If (pboolCheck_ColumnWidthAndData) Then""
 
-            ''''5/1/2022 td''each_box.Text = each_value
-            ''each_box.Text = each_value.Trim()
+            ''Prepare for (next) iteration
+            each_rowheader_next = DirectCast(each_rowheader.DLL_GetItemNext(), RSCRowHeader)
+            each_rowheader = each_rowheader_next
 
-            ''Added 4/12/2022 thomas d.
-            ''Moved up. 5/14/2022 each_rowheader.Recipient = Me.ListRecipients(intRowIndex)
-
-            ''4/11/2022 td''each_box.Tag = each_box.Text ''added 4/1/2022
-            ''each_box.Tag_Text = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
-            ''each_box.Tag = each_value ''4/11/2022 each_box.Text ''added 4/1/2022
-
-        Next each_rowheader
+        Loop ''11/2023 td''Next each_rowheader
 
         ''
         ''Build statistics to describe the general number of letters & digits in the data. 
@@ -1787,23 +1784,36 @@ Public Class RSCRowHeaders
         ''Added 3/29/2022 thomas downes
         ''
         ''4/5/2022 td ''Dim listOfBoxes As List(Of TextBox)
-        Dim listOfBoxes As List(Of RSCRowHeader)
-        Dim textbox_Top As RSCRowHeader ''4/5/2022 td ''TextBox
-        Dim textbox_BottomLast As RSCRowHeader ''4/5/2022 td ''TextBox
-        Dim textbox_BottomDeux As RSCRowHeader ''4/5/2022 td ''TextBox
+        ''11/2023 td''Dim listOfBoxes As List(Of RSCRowHeader)
+        Dim rowheader_Top As RSCRowHeader ''4/5/2022 td ''TextBox
+        Dim rowheader_Next As RSCRowHeader ''4/5/2022 td ''TextBox
+        Dim rowheader_BottomLast As RSCRowHeader ''4/5/2022 td ''TextBox
+        Dim rowheader_BottomLastPrior As RSCRowHeader ''4/5/2022 td ''TextBox
         Dim intIndexStart As Integer
         Dim intIndex__End As Integer
         Dim intTopGap As Integer
+        Dim intCountRows As Integer
 
-        listOfBoxes = ListOfRowHeaders_TopToBottom()
-        textbox_Top = listOfBoxes(0)
+        ''11/2023 td''listOfBoxes = ListOfRowHeaders_TopToBottom()
+        rowheader_Top = mod_rowHeaderFirst_Factory
 
-        textbox_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
-        textbox_BottomDeux = listOfBoxes(-2 + listOfBoxes.Count) ''.LastOrDefault
+        ''
+        ''Find the bottom two(2) row headers.
+        ''
+        ''11/2023 td''rowheader_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
+        ''11/2023 td''rowheader_BottomDeux = listOfBoxes(-2 + listOfBoxes.Count) ''.LastOrDefault
+        rowheader_Next = rowheader_Top
+        intCountRows = 1
+        Do Until (rowheader_Next.DLL_NotAnyNext())
+            rowheader_Next = DirectCast(rowheader_Next.DLL_GetItemNext(), RSCRowHeader)
+            intCountRows += 1
+        Loop
+        rowheader_BottomLast = rowheader_Next
+        rowheader_BottomLastPrior = DirectCast(rowheader_BottomLast.DLL_GetItemPrior(), RSCRowHeader)
 
-        intIndexStart = (listOfBoxes.Count - 1 + 1)
+        intIndexStart = (intCountRows - 1 + 1) ''(listOfBoxes.Count - 1 + 1)
         intIndex__End = (par_intRowsRequired - 1)
-        intTopGap = (textbox_BottomLast.Top - textbox_BottomDeux.Top)
+        intTopGap = (rowheader_BottomLast.Top - rowheader_BottomLastPrior.Top)
 
         For intRowIndex As Integer = intIndexStart To intIndex__End
             ''
@@ -1811,11 +1821,11 @@ Public Class RSCRowHeaders
             ''
             Dim objTextbox As New TextBox ''Added 3/29/2022 thomas downes
             With objTextbox
-                .Left = textbox_Top.Left
-                .Width = textbox_Top.Width
-                .Height = textbox_Top.Height
-                .Anchor = textbox_Top.Anchor
-                .BackColor = textbox_Top.BackColor
+                .Left = rowheader_Top.Left
+                .Width = rowheader_Top.Width
+                .Height = rowheader_Top.Height
+                .Anchor = rowheader_Top.Anchor
+                .BackColor = rowheader_Top.BackColor
                 .ForeColor = textbox_Top.ForeColor
                 .BorderStyle = textbox_Top.BorderStyle
                 .Font = textbox_Top.Font
