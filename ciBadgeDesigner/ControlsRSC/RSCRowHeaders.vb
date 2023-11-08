@@ -174,10 +174,11 @@ Public Class RSCRowHeaders
         ''
         ''Added 5/13/2022 td
         ''
-        Dim eachRowHeader As RSCRowHeader
+        Dim eachRowHeader As IDoublyLinkedItem ''RSCRowHeader
+        Dim resultRowHeader As RSCRowHeader ''Added 11/8/2023
         Dim intEachRowIndex As Integer ''10/6/2023
         Dim bStillOtherRows As Boolean = True ''Added 10/6/2023
-        Dim bFoundRow As Boolean ''Added 10/6/2023 
+        Dim bReachedRowIndex As Boolean ''Added 10/6/2023 
 
         eachRowHeader = textRowHeader1 ''Initialize.
 
@@ -186,10 +187,17 @@ Public Class RSCRowHeaders
             ''   mod_listRowHeadersByRow.Item(par_intRowIndex)
             intEachRowIndex = 1
             Do While (bStillOtherRows) ''(intEachRowIndex < mod_iCountOfRows)
-                bFoundRow = (intEachRowIndex = par_intRowIndex)
-                If (bFoundRow) Then Return eachRowHeader
+
+                bReachedRowIndex = (intEachRowIndex = par_intRowIndex)
+                If (bReachedRowIndex) Then
+                    resultRowHeader = DirectCast(eachRowHeader, RSCRowHeader)
+                    Return resultRowHeader
+                End If ''End of "If (bReachedRowIndex) Then"
+
                 intEachRowIndex += 1
-                eachRowHeader = eachRowHeader.RowHeaderNextBelow
+                ''11/2023 eachRowHeader = eachRowHeader.RowHeaderNextBelow
+                eachRowHeader = eachRowHeader.DLL_GetItemNext()
+
                 bStillOtherRows = (intEachRowIndex < mod_iCountOfRows)
             Loop ''End of Do While (bStillOtherRows)
 
@@ -734,13 +742,20 @@ Public Class RSCRowHeaders
         ''Added 4/04/2022 thomas downes
         ''
         Dim each_header As RSCRowHeader ''4/5/2022 TextBox
-        Dim each_matches As Boolean
-        For Each each_header In ListOfRowHeaders_TopToBottom()
-            ''Return objFirstTextbox
-            each_matches = (each_header.Recipient.ID_Guid = par_guid)
-            If (each_matches) Then Return each_header
+        Dim each_Guid_matches As Boolean
 
-        Next each_header
+        ''11/8/2023 For Each each_header In ListOfRowHeaders_TopToBottom()
+        ''Return objFirstTextbox
+        each_header = mod_rowHeaderFirst_Factory
+        Do Until (each_header Is Nothing)
+
+            each_Guid_matches = (each_header.Recipient.ID_Guid = par_guid)
+            If (each_Guid_matches) Then Return each_header
+
+            ''Prepare for next loop.
+            each_header = DirectCast(each_header.DLL_GetItemNext(), RSCRowHeader)
+
+        Loop ''11/2023 Next each_header
 
         Return Nothing
 
@@ -841,10 +856,10 @@ Public Class RSCRowHeaders
         ''March25 2022''Dim objSpreadsheet As RSCFieldSpreadsheet
         ''March25 2022''Dim objColumnOne As RSCFieldColumn
         ''4/09/2022 td ''Dim listBoxesColumn1 As List(Of TextBox)
-        Dim listBoxesColumn1 As List(Of RSCDataCell)
+        ''11/2023 td ''Dim listBoxesColumn1 As List(Of RSCDataCell)
         ''4/5/2022 td ''Dim listBoxesRowHdrs As List(Of TextBox)
-        Dim listBoxesRowHdrs As List(Of RSCRowHeader)
-        Dim listVisualBarsColumn1 As List(Of PictureBox)
+        ''11/2023 td ''Dim listBoxesRowHdrs As List(Of RSCRowHeader)
+        ''11/2023 td ''Dim listVisualBarsColumn1 As List(Of PictureBox)
         ''4/8/2022 Dim listVisualBarsRowHdrs As List(Of PictureBox)
 
         ''March25 2022''objSpreadsheet = Me.RSCSpreadsheet
@@ -854,14 +869,20 @@ Public Class RSCRowHeaders
         ''March25 2022''listBoxesColumn1 = par_listColumnBoxes
 
         ''4/9/2022 td ''listBoxesColumn1 = par_controlColumnOne.ListOfTextboxes_TopToBottom()
-        listBoxesColumn1 = par_controlColumnOne.ListOfRSCDataCells_TopToBottom()
-        listBoxesRowHdrs = ListOfRowHeaders_TopToBottom()
-        listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
+        ''11/2023 td ''listBoxesColumn1 = par_controlColumnOne.ListOfRSCDataCells_TopToBottom()
+        ''11/2023 td ''listBoxesRowHdrs = ListOfRowHeaders_TopToBottom()
+        ''11/2023 td ''listVisualBarsColumn1 = par_controlColumnOne.ListOfBottomBars_TopToBottom()
         ''4/8/2022 listVisualBarsRowHdrs = ListOfBottomBars_TopToBottom()
 
+        ''11/2023 td ''
+        Dim topRowHeader As RSCRowHeader = mod_rowHeaderFirst_Factory
+        Dim topColumnCell As RSCDataCell = par_controlColumnOne.RscDataCell1
+
         ''Major call.
-        AlignTextboxes(listBoxesColumn1, listBoxesRowHdrs)
         ''April 6, 2022 td ''AlignBottomBars(listVisualBarsColumn1, listVisualBarsRowHdrs, par_controlColumnOne)
+        ''11/2023 td ''AlignTextboxes(listBoxesColumn1, listBoxesRowHdrs)
+        AlignTextboxes(topColumnCell, topRowHeader)
+
 
     End Sub ''End of ""Public Sub AlignControlsWithSpreadsheet()""
 
@@ -998,8 +1019,12 @@ Public Class RSCRowHeaders
                 For intRowIndex = (+1 + par_intRowIndex_Start) To par_intRowIndex_End
                     ''April 2, 2022''mod_listTextboxesByRow(intRowIndex).BackColor = RSCDataCell.BackColor_NoEmphasis
                     ''10/2023 td''mod_listRowHeadersByRow(intRowIndex).BackColor = mod_colorHeadersBackcolor_NoEmphasis
-                    rowHdrNext = rowHdrNext.RowHeaderNextBelow
+                    ''11/2023 rowHdrNext = rowHdrNext.RowHeaderNextBelow
+                    rowHdrNext = DirectCast(rowHdrNext.DLL_GetItemNext(), RSCRowHeader)
+
+                    ''Use "No Emphasis" since this is an "Undo" function. 
                     rowHdrNext.BackColor = mod_colorHeadersBackcolor_NoEmphasis
+
                 Next intRowIndex
             End If ''End of ""If (par_intRowIndex_End > par_intRowIndex_Start) Then""
         End If ''End of ""If (par_intRowIndex_End <> -1) Then""
@@ -1044,76 +1069,101 @@ Public Class RSCRowHeaders
 
 
 
-    Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of Control),
-                               par_listBoxesRowHdrs As IEnumerable(Of RSCRowHeader))
+    Private Sub AlignTextboxes(par_topDataCell As RSCDataCell,
+                               par_topRowHeader As RSCRowHeader)
         ''
-        ''Added 3/24/2022 thomas d.  
+        ''Added 11/08/2023
         ''
-        ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
-        Dim eachDataCellInColumn As Control ''4/9/2022 td'' TextBox
-        Dim eachRowHeaderBox As RSCRowHeader ''April 5, 2022 TextBox
+        Dim eachDataCellInColumn As RSCDataCell = par_topDataCell
+        Dim eachRowHeaderBox As RSCRowHeader = par_topRowHeader
+        Dim bDone As Boolean = False
 
-        Dim TopBoxColumn As Control ''4/9/2922 td''TextBox ''Addded 3/25/2022 td
-        ''4/5/2022 Dim TopBoxHeader As TextBox ''Added 3/25/2022 td
-        Dim TopBoxHeader As RSCRowHeader ''4/5/2022 As TextBox ''Added 3/25/2022 td
-        Dim boolSkipTopBox As Boolean
-
-        TopBoxColumn = par_listBoxesColumn(0) ''Added 3/25/2022 td
-        TopBoxHeader = par_listBoxesRowHdrs(0) ''Added 3/25/2022 td
-        boolSkipTopBox = True
-
-        ''Added 3/30/2022 thomas downes
-        Load_EmptyRows(par_listBoxesColumn.Count)
-        par_listBoxesRowHdrs = Me.ListOfRowHeaders_TopToBottom()
-
-        ''
-        ''Loop through the rows
-        ''
-        For intBoxIndex As Integer = 0 To (-1 + par_listBoxesColumn.Count)
-
-            ''Skip the top boxes. 
-            If (boolSkipTopBox And intBoxIndex = 0) Then Continue For
-
-            eachDataCellInColumn = Nothing
-            eachRowHeaderBox = Nothing
-
-            Try
-                eachDataCellInColumn = par_listBoxesColumn(intBoxIndex)
-            Catch
-            End Try
-
-            Try
-                eachRowHeaderBox = par_listBoxesRowHdrs(intBoxIndex)
-            Catch
-            End Try
-
-            If (eachRowHeaderBox Is Nothing And eachDataCellInColumn Is Nothing) Then
-                Exit For
-
-            ElseIf (eachDataCellInColumn Is Nothing) Then
-                ''Exit Sub
-                Throw New Exception("There are more row headers than (column #1's) rows.")
-
-            ElseIf (eachRowHeaderBox Is Nothing) Then
-                ''Exit Sub
-                Throw New Exception("There are more rows than row headers.")
-
-            ElseIf (boolSkipTopBox) Then
-                ''eachBoxHeader.Height = eachBoxColumn.Height
-                eachRowHeaderBox.Height = eachDataCellInColumn.Height
-                eachRowHeaderBox.Top = (eachDataCellInColumn.Top - TopBoxColumn.Top) +
-                                       TopBoxHeader.Top
-
+        Do While (Not bDone)
+            eachRowHeaderBox.Height = eachDataCellInColumn.Height
+            eachRowHeaderBox.Top = eachDataCellInColumn.Top
+            ''Prepare for next iteration.
+            If (eachRowHeaderBox.DLL_NotAnyNext()) Then
+                ''Are we done?  Yes
+                bDone = True
             Else
-                eachRowHeaderBox.Height = eachDataCellInColumn.Height
-                eachRowHeaderBox.Top = eachDataCellInColumn.Top
+                ''Prepare for next iteration.
+                eachRowHeaderBox = DirectCast(eachRowHeaderBox.DLL_GetItemNext(), RSCRowHeader)
+                eachDataCellInColumn = DirectCast(eachDataCellInColumn.DLL_GetItemNext(), RSCDataCell)
+            End If
+        Loop
 
-            End If ''End of ""If (eachBoxHeader Is Nothing And eachBoxColumn Is Nothing) Then... ElseIf ... ElseIf ... ElseIf ... Else ...
+    End Sub ''End of ""Private Sub AlignTextboxes(par_topDataCell As RSCDataCell, ...)"
 
-        Next intBoxIndex
+    ''11/2023 Private Sub AlignTextboxes(par_listBoxesColumn As IEnumerable(Of Control),
+    ''   par_listBoxesRowHdrs As IEnumerable(Of RSCRowHeader))
+    ''
+    ''Added 3/24/2022 thomas d.  
+    ''
+    ''---For Each eachColumnBox As TextBox In par_listBoxesColumn
+    ''Dim eachDataCellInColumn As Control ''4/9/2022 td'' TextBox
+    ''    Dim eachRowHeaderBox As RSCRowHeader ''April 5, 2022 TextBox
 
-        ''---Next eachColumnBox
-    End Sub ''End of "Private Sub AlignTextboxes"
+    ''    Dim TopBoxColumn As Control ''4/9/2922 td''TextBox ''Addded 3/25/2022 td
+    ''    ''4/5/2022 Dim TopBoxHeader As TextBox ''Added 3/25/2022 td
+    ''    Dim TopBoxHeader As RSCRowHeader ''4/5/2022 As TextBox ''Added 3/25/2022 td
+    ''    Dim boolSkipTopBox As Boolean
+
+    ''    TopBoxColumn = par_listBoxesColumn(0) ''Added 3/25/2022 td
+    ''    TopBoxHeader = par_listBoxesRowHdrs(0) ''Added 3/25/2022 td
+    ''    boolSkipTopBox = True
+
+    ''    ''Added 3/30/2022 thomas downes
+    ''    Load_EmptyRows(par_listBoxesColumn.Count)
+    ''    par_listBoxesRowHdrs = Me.ListOfRowHeaders_TopToBottom()
+
+    ''    ''
+    ''    ''Loop through the rows
+    ''    ''
+    ''    For intBoxIndex As Integer = 0 To (-1 + par_listBoxesColumn.Count)
+
+    ''        ''Skip the top boxes. 
+    ''        If (boolSkipTopBox And intBoxIndex = 0) Then Continue For
+
+    ''        eachDataCellInColumn = Nothing
+    ''        eachRowHeaderBox = Nothing
+
+    ''        Try
+    ''            eachDataCellInColumn = par_listBoxesColumn(intBoxIndex)
+    ''        Catch
+    ''        End Try
+
+    ''        Try
+    ''            eachRowHeaderBox = par_listBoxesRowHdrs(intBoxIndex)
+    ''        Catch
+    ''        End Try
+
+    ''        If (eachRowHeaderBox Is Nothing And eachDataCellInColumn Is Nothing) Then
+    ''            Exit For
+    ''11/2023
+    ''        ElseIf (eachDataCellInColumn Is Nothing) Then
+    ''            ''Exit Sub
+    ''            Throw New Exception("There are more row headers than (column #1's) rows.")
+    ''11/2023
+    ''        ElseIf (eachRowHeaderBox Is Nothing) Then
+    ''            ''Exit Sub
+    ''            Throw New Exception("There are more rows than row headers.")
+    ''11/2023
+    ''        ElseIf (boolSkipTopBox) Then
+    ''            ''eachBoxHeader.Height = eachBoxColumn.Height
+    ''            eachRowHeaderBox.Height = eachDataCellInColumn.Height
+    ''            eachRowHeaderBox.Top = (eachDataCellInColumn.Top - TopBoxColumn.Top) +
+    ''                                   TopBoxHeader.Top
+    ''11/2023
+    ''        Else
+    ''            eachRowHeaderBox.Height = eachDataCellInColumn.Height
+    ''            eachRowHeaderBox.Top = eachDataCellInColumn.Top
+    ''11/2023
+    ''        End If ''End of ""If (eachBoxHeader Is Nothing And eachBoxColumn Is Nothing) Then... ElseIf ... ElseIf ... ElseIf ... Else ...
+    ''11/2023
+    ''    Next intBoxIndex
+    ''11/2023
+    ''    ''---Next eachColumnBox
+    ''End Sub ''End of "Private Sub AlignTextboxes"
 
 
     ''Private Sub AlignBottomBars(par_listBottomBarsColumn1 As IEnumerable(Of PictureBox),

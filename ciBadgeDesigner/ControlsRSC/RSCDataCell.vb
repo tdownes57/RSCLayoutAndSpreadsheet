@@ -23,10 +23,12 @@ Public Class RSCDataCell
     Public Event GotFocus_Cell(sender As Object, e As EventArgs) ''Added 5/13/2022
 
     ''Not yet in use, provisional as of 5/15/2023.  
-    Public CellAbove As RSCDataCell
-    Public CellRight As RSCDataCell
-    Public Cell_Left As RSCDataCell
-    Public CellBelow As RSCDataCell
+    Private CellPriorAbove As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private CellNextBelow As RSCDataCell ''Per G. Ernsberger, properties should be private.
+
+    Private CellRight As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private Cell_Left As RSCDataCell ''Per G. Ernsberger, properties should be private.
+
     Public Undel_DataCellNextRight As RSCDataCell ''Added 10/30/2023 td
 
     Public Shared BackColor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
@@ -131,14 +133,14 @@ Public Class RSCDataCell
     Public Sub SetFieldCellBelow(par_cellBelow As RSCDataCell)
 
         ''Added 5/17/2023 
-        Me.CellBelow = par_cellBelow
+        Me.CellNextBelow = par_cellBelow
 
     End Sub
 
     Public Sub SetFieldCellAbove(par_cellAbove As RSCDataCell)
 
         ''Added 5/17/2023 
-        Me.CellAbove = par_cellAbove
+        Me.CellPriorAbove = par_cellAbove
 
     End Sub
 
@@ -147,12 +149,12 @@ Public Class RSCDataCell
         ''Added 11/3/2023
         Dim intCurrentRowIndex As Integer
         intCurrentRowIndex = 0 ''11/2023 Me.ParentColumn.GetRowIndexOfCell(Me)
-        Dim nextAbove As RSCDataCell = Me.CellAbove
+        Dim nextAbove As RSCDataCell = Me.CellPriorAbove
         Dim intCountRowsAbove As Integer = 0
         Do Until (nextAbove Is Nothing)
             ''---CONFUSING--- Let's use "backwards" logic!!
             intCountRowsAbove += 1 ''This counts the rows, but backwards.
-            nextAbove = nextAbove.CellAbove
+            nextAbove = nextAbove.CellPriorAbove
         Loop
         intCurrentRowIndex = (intCountRowsAbove + 1) ''Row & column indexes are 1-based.
         Return intCurrentRowIndex
@@ -209,13 +211,15 @@ Public Class RSCDataCell
 
     Public Function DLL_NotAnyPrior() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyPrior
         ''Added 11/2023 
-        Return (Me.CellAbove Is Nothing)
+        Return (Me.CellPriorAbove Is Nothing)
+
     End Function
 
 
     Public Sub DLL_SetItemPrior(par_cell As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemPrior
         ''Added 11/2023 
-        Me.CellAbove = CType(par_cell, RSCDataCell)
+        Me.CellPriorAbove = CType(par_cell, RSCDataCell)
+
     End Sub
 
 
@@ -256,7 +260,7 @@ Public Class RSCDataCell
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''Added 11/2023 
-        Return (Me.CellBelow Is Nothing)
+        Return (Me.CellNextBelow Is Nothing)
     End Function
 
 
@@ -268,8 +272,10 @@ Public Class RSCDataCell
 
     Public Sub DLL_SetItemNext(par_cell As IDoublyLinkedItem) _
         Implements IDoublyLinkedItem.DLL_SetItemNext
+
         ''Added 11/2023 
-        Me.CellBelow = CType(par_cell, RSCDataCell)
+        Me.CellNextBelow = CType(par_cell, RSCDataCell)
+
     End Sub
 
 
@@ -279,12 +285,13 @@ Public Class RSCDataCell
         ''4/12/2022 td
         ''
         Dim nextCell As RSCDataCell
-        nextCell = Me.CellBelow
+
+        nextCell = Me.CellNextBelow
         If (nextCell Is Nothing) Then pboolEdge = True
 
         ''Added 11/4/2023 
         Do While (par_intNumRowsToSkip > 0)
-            nextCell = nextCell.CellBelow
+            nextCell = nextCell.CellNextBelow
             par_intNumRowsToSkip -= 1
         Loop ''End If ''End of ""If (par_intNumRowsToSkip > 0) Then""
 
@@ -1076,4 +1083,28 @@ Public Class RSCDataCell
 
     End Sub
 
+    Public Sub DLL_ClearReferencePrior() Implements IDoublyLinkedItem.DLL_ClearReferencePrior
+        ''
+        '' Whenever a Row or Column is deleted, and saved into a DLL Operation,
+        ''   the outer edges ---MUST BE CLEANED--- of obselete references.
+        ''   ---OTHERWISE, THE DELETE OPERATION CANNOT BE UNDONE & REDONE---.  
+        ''
+        '' If a surgeon was removing a section of your spine, so it could be 
+        ''   transplanted into aonother person, they would probably clean (in some way) 
+        ''   the two(2) exposed ends of the vertebra... would they not?  LOL
+        ''
+        ''   ---11/07/2023 td
+        ''
+        ''Throw New NotImplementedException()
+
+        Me.CellPriorAbove = Nothing
+
+    End Sub
+
+    Public Sub DLL_ClearReferenceNext() Implements IDoublyLinkedItem.DLL_ClearReferenceNext
+        ''Throw New NotImplementedException()
+
+        Me.CellNextBelow = Nothing
+
+    End Sub
 End Class

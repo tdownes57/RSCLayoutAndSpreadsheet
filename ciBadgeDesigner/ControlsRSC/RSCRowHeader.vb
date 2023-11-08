@@ -836,4 +836,26 @@ Public Class RSCRowHeader
         Me.mod_rowHeaderPriorAbove = CType(param, RSCRowHeader)
     End Sub
 
+    Public Sub DLL_ClearReferencePrior() Implements IDoublyLinkedItem.DLL_ClearReferencePrior
+        ''
+        '' Whenever a Row or Column is deleted, and saved into a DLL Operation,
+        ''   the outer edges ---MUST BE CLEANED--- of obselete references.
+        ''   ---OTHERWISE, THE DELETE OPERATION CANNOT BE UNDONE & REDONE---.  
+        ''
+        '' If a surgeon was removing a section of your spine, so it could be 
+        ''   transplanted into aonother person, they would probably clean (in some way) 
+        ''   the two(2) exposed ends of the vertebra... would they not?  LOL
+        ''
+        ''   ---11/07/2023 td
+        ''
+        ''''11/2023 DirectCast(mod_rowHeaderPriorAbove, IDoublyLinkedItem).DLL_ClearReferencePrior()
+        mod_rowHeaderPriorAbove = Nothing
+
+    End Sub
+
+    Public Sub DLL_ClearReferenceNext() Implements IDoublyLinkedItem.DLL_ClearReferenceNext
+        ''11/2023 DirectCast(mod_rowHeaderNextBelow, IDoublyLinkedItem).DLL_ClearReferencePrior()
+        mod_rowHeaderNextBelow = Nothing
+
+    End Sub
 End Class

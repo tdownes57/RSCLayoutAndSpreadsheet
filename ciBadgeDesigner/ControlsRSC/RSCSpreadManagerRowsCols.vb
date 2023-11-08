@@ -53,6 +53,14 @@ Public Class RSCSpreadManagerRowsCols
         ''4/19/2023 mod_manageRows = New RSCSpreadManagerRows(par_controlSpread)
         mod_manageRows = mod_manageCols.GetSpreadManagerRows()
 
+        ''Added 11/7/2023 
+        ''Needed ?? This class has only 50 lines of code. Seems unused.  Compare to 
+        ''   the user-control class RSCRowHeaders, which has 1,920 lines of code.
+        ''
+        ''   mod_manageRowHeaders = New RSCSpreadManagerRowheaders(par_controlSpread,
+        ''             mod_manageCols.GetFirstColumn(), par_rscRowHeaders)
+
+
     End Sub ''End of Public Sub New 
 
 
