@@ -1716,7 +1716,7 @@ Public Class RSCRowHeaders
                 .LinkLabelShowID.Visible = True ''Added 5/20/2022 td 
             End With
 
-            ''''4/11 td''each_box.Text = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+            ''''4/11 td''each_box.Text = Me. ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
             ''Added 4/11/2022 td
             each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
 
@@ -1727,7 +1727,10 @@ Public Class RSCRowHeaders
             Dim strCellDataBeforeLoadingRecip As String
             Dim strCellDataFromColumnData As String
             Dim boolMismatch_ColumnData As Boolean
-            If (pboolCheck_ColumnWidthAndData) Then
+            Const c_bCheck_ColumnWidthAndData As Boolean = False ''Added11/09/2023 td
+
+            If (c_bCheck_ColumnWidthAndData) Then ''Modified 11/09/2023 td
+                ''11/2023  If (pboolCheck_ColumnWidthAndData) Then
                 ''Compare the Recipient data to the ColumnWidthAndData data.
                 ''   ---4/14/2022
                 strCellDataBeforeLoadingRecip = each_rowheader.Text.Trim() ''5/01/2022 td''each_box.Text
@@ -1826,10 +1829,10 @@ Public Class RSCRowHeaders
                 .Height = rowheader_Top.Height
                 .Anchor = rowheader_Top.Anchor
                 .BackColor = rowheader_Top.BackColor
-                .ForeColor = textbox_Top.ForeColor
-                .BorderStyle = textbox_Top.BorderStyle
-                .Font = textbox_Top.Font
-                .Top = (textbox_BottomLast.Top + intTopGap)
+                .ForeColor = rowheader_Top.ForeColor
+                .BorderStyle = rowheader_Top.BorderStyle
+                .Font = rowheader_Top.Font
+                .Top = (rowheader_BottomLast.Top + intTopGap)
                 .Visible = True
                 .ReadOnly = True ''True. ---Added 4/3/2022 thomas
                 AddHandler .MouseUp, AddressOf HeaderBox_MouseUp

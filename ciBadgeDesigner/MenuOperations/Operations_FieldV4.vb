@@ -403,27 +403,28 @@ Public Class Operations_FieldV4
     ''End Sub ''eNd of "Private Sub "Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)"
 
 
-    Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
-        ''
-        ''Added 8/10/2019 thomas downes
-        ''       ''
-        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
-        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
-        ''
-        ''10/17 td''With textTypeExample
-        With Me.CtlCurrentElementFieldV4.Textbox_ExampleValue
+    ''11/2023 td Public Shadows Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8/10/2019 thomas downes
+    ''    ''       ''
+    ''    ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+    ''    ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+    ''    ''
+    ''    ''10/17 td''With textTypeExample
+    ''    With Me.CtlCurrentElementFieldV4.Textbox_ExampleValue
+    ''11/2023 td
+    ''        .Visible = True
+    ''        .Text = Me.CtlCurrentElementFieldV4.ElementInfo_TextOnly.Text_StaticLine ''Added 8/16/2019 td
+    ''        .SelectAll() ''Added 8/16/2019 td
+    ''11/2023 td
+    ''        ''Added 9/10/2019 td 
+    ''        ''  Put the focus on the textbox. 
+    ''        .Select() ''Added 9/10/2019 td 
+    ''11/2023 td
+    ''    End With ''End of "With Me.CtlCurrentElement.Textbox_Example"
+    ''11/2023 td
+    ''End Sub ''End of "Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)"  
 
-            .Visible = True
-            .Text = Me.CtlCurrentElementFieldV4.ElementInfo_TextOnly.Text_StaticLine ''Added 8/16/2019 td
-            .SelectAll() ''Added 8/16/2019 td
-
-            ''Added 9/10/2019 td 
-            ''  Put the focus on the textbox. 
-            .Select() ''Added 9/10/2019 td 
-
-        End With ''End of "With Me.CtlCurrentElement.Textbox_Example"
-
-    End Sub ''End of "Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)"  
 
     Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
         ''
@@ -717,23 +718,23 @@ Public Class Operations_FieldV4
     End Sub
 
 
-    Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
-        ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
-        ''
-        ''Added 12/12/2021 thomas downes  
-        ''
-        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
-        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
-        ''
-        ''
-        Dim strPathToNotesFolder As String
-        Dim strPathToNotesFileTXT As String
-
-        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
-        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
-        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
-
-    End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
+    ''11/2023 td Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
+    ''    ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
+    ''    ''
+    ''    ''Added 12/12/2021 thomas downes  
+    ''    ''
+    ''    ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+    ''    ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+    ''    ''
+    ''    ''
+    ''    Dim strPathToNotesFolder As String
+    ''    Dim strPathToNotesFileTXT As String
+    ''11/2023 
+    ''    strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+    ''    strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+    ''    System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+    ''11/2023 
+    ''End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
 
     Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,

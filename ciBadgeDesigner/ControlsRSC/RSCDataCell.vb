@@ -205,7 +205,7 @@ Public Class RSCDataCell
 
     Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
         ''Added 11/2023 
-        Return GetNextCell_Up()
+        Return GetCellPrior_Up()
     End Function
 
 
@@ -223,8 +223,10 @@ Public Class RSCDataCell
     End Sub
 
 
-    Public Function GetNextCell_Up(Optional ByRef pboolEdge As Boolean = False,
+    Public Function GetCellPrior_Up(Optional ByRef pboolEdge As Boolean = False,
                                    Optional par_intNumRowsToSkip As Integer = 1) As RSCDataCell
+        ''New as of 11/2023 Public Function GetCellPrior_Up
+        ''11/2023 Public Function GetNextCell_Up
         ''
         ''4/12/2022 td
         ''
@@ -255,7 +257,7 @@ Public Class RSCDataCell
 
         Return objRSCDataCell_Up
 
-    End Function ''End of "" Public Function GetNextCell_Up() As RSCDataCell""
+    End Function ''End of "" Public Function GetCellPrior_Up() As RSCDataCell""
 
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
@@ -266,7 +268,7 @@ Public Class RSCDataCell
 
     Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Added 11/2023 
-        Return GetNextCell_Down()
+        Return GetCellNext_Down()
     End Function
 
 
@@ -279,8 +281,21 @@ Public Class RSCDataCell
     End Sub
 
 
-    Public Function GetNextCell_Down(Optional ByRef pboolEdge As Boolean = False,
+    Public Function DLL_GetRscNext_Down() As RSCDataCell
+        ''Added 11/9/2023
+        Return Me.CellNextBelow
+    End Function
+
+    Public Function DLL_GetRscPrior_Up() As RSCDataCell
+        ''Added 11/9/2023
+        Return Me.CellPriorAbove
+    End Function
+
+
+    Public Function GetCellNext_Down(Optional ByRef pboolEdge As Boolean = False,
                 Optional par_intNumRowsToSkip As Integer = 0) As RSCDataCell
+        ''New name... Public Function GetCellNext_Down
+        ''11/2023 td''Public Function GetNextCell_Down
         ''
         ''4/12/2022 td
         ''
@@ -498,13 +513,13 @@ Public Class RSCDataCell
                 ''Parse the tabbed values.  
                 strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCrLf))
                 Dim objNextCell As RSCDataCell
-                objNextCell = Me.GetNextCell_Down()
+                objNextCell = Me.GetCellNext_Down()
 
                 ''Add an additional row. ----4/30/2022 td
                 If (objNextCell Is Nothing) Then
                     ''4/30/2022 ''Me.ParentColumn.AddRowToBottomOfSpreadsheet()
                     AddToEdgeOfSpreadsheet_Row()
-                    objNextCell = Me.GetNextCell_Down()
+                    objNextCell = Me.GetCellNext_Down()
                 End If ''End of ""If (objNextCell Is Nothing) Then""
 
                 If (objNextCell IsNot Nothing) Then
@@ -519,7 +534,7 @@ Public Class RSCDataCell
                 ''Parse the tabbed values.  
                 strRemainingAfterDelimiter = .Substring(1 + .IndexOf(vbCr))
                 Dim objNextCell As RSCDataCell
-                objNextCell = Me.GetNextCell_Down()
+                objNextCell = Me.GetCellNext_Down()
                 If (objNextCell IsNot Nothing) Then objNextCell.LoadDelimitedData(strRemainingAfterDelimiter)
                 ''Textbox1a.Text = .Substring(0, .IndexOf(vbCr))
                 LoadTabbedData(.Substring(0, .IndexOf(vbCr)))
@@ -856,8 +871,8 @@ Public Class RSCDataCell
         ''If e.KeyCode = Keys.Tab Then objNextCell = GetNextCell_Right() ''.SetFocus
 
         Select Case e.KeyCode
-            Case Keys.Up : objNextCell = GetNextCell_Up(bEdgeUp) ''.SetFocus
-            Case Keys.Down : objNextCell = GetNextCell_Down(bEdgeDn) ''.SetFocus()
+            Case Keys.Up : objNextCell = GetCellPrior_Up(bEdgeUp) ''.SetFocus
+            Case Keys.Down : objNextCell = GetCellNext_Down(bEdgeDn) ''.SetFocus()
             Case Keys.Left : objNextCell = GetNextCell_Left(bEdgeLt) ''.SetFocus
             Case Keys.Right
                 ''We might be in the last column of the spreadsheet. ----4/12/2022 td
@@ -867,20 +882,20 @@ Public Class RSCDataCell
                     objNextCell = GetFirstCell_NextRowDown()
                 End If
 
-            Case Keys.PageUp : objNextCell = GetNextCell_Up(bEdgeUp, 25) ''.SetFocus
-            Case Keys.PageDown : objNextCell = GetNextCell_Down(bEdgeDn, 25) ''.SetFocus()
+            Case Keys.PageUp : objNextCell = GetCellPrior_Up(bEdgeUp, 25) ''.SetFocus
+            Case Keys.PageDown : objNextCell = GetCellNext_Down(bEdgeDn, 25) ''.SetFocus()
 
             Case Keys.Tab
                 objNextCell = GetNextCell_Right(bEdgeTb) ''.SetFocus
                 ''Added 4/12/2022 
                 If (bJumpedToNextRowSuprisingly And Not bEdgeTb) Then
-                    objNextCell = objNextCell.GetNextCell_Up()
+                    objNextCell = objNextCell.GetCellPrior_Up()
                 ElseIf bEdgeTb Then
                     ''Let's go to the first column of the next row.
                     objNextCell = GetFirstCell_NextRowDown()
                     If (bJumpedToNextRowSuprisingly) Then
                         If (objNextCell IsNot Nothing) Then
-                            objNextCell = objNextCell.GetNextCell_Up()
+                            objNextCell = objNextCell.GetCellPrior_Up()
                         End If ''If (objNextCell IsNot Nothing) Then
                     End If ''If (bJumpedToNextRowSuprisingly) Then
                 End If ''End of ""If (bJumpedToNextRowSuprisingly And Not boolEdge) Then... ElseIf...""

@@ -859,7 +859,7 @@ Public Class RSCFieldColumnV2
 
             ''Prepare for next iteration
             indexItem += 1
-            each_RSCDataCell = each_RSCDataCell.GetNextCell_Down()
+            each_RSCDataCell = each_RSCDataCell.GetCellNext_Down()
 
         Loop ''End of ""Do While (Not bDone)""
         ''11/3/2023 Next each_RSCDataCell
@@ -1028,7 +1028,7 @@ Public Class RSCFieldColumnV2
         Dim eachCell As RSCDataCell = RscDataCell1
         Do Until eachCell Is Nothing
             index += 1
-            eachCell = eachCell.GetNextCell_Down()
+            eachCell = eachCell.GetCellNext_Down()
         Loop
         Return index
 
@@ -1666,7 +1666,7 @@ Public Class RSCFieldColumnV2
             objListData.Add(each_RSCDataCell.Text)
 
             ''Prepare for next.
-            each_RSCDataCell = each_RSCDataCell.GetNextCell_Down()
+            each_RSCDataCell = each_RSCDataCell.GetCellNext_Down()
 
             ''11/2023Next each_RSCDataCell
         Loop ''End Until 
@@ -1862,26 +1862,36 @@ Public Class RSCFieldColumnV2
         ''
         ''---Dim list_cells As List(Of RSCDataCell)
         ''Dim intRowIndex As Integer
-        Dim boolMatches As Boolean
+        ''Dim boolMatches As Boolean
+        Dim eachRSCDataCell As RSCDataCell ''Added 11/09/2023 
+        Dim eachRSCDataCellNext As RSCDataCell ''Added 11/09/2023 
+        Dim intCountRowsAbove As Integer ''Added 11/09/2023
+        eachRSCDataCell = par_cell
+        ''
+        ''Let's count how many cells are above. 
+        ''
+        Do Until eachRSCDataCell.DLL_NotAnyPrior()
+            intCountRowsAbove += 1
+            ''Prepare for next loop iteration.
+            eachRSCDataCellNext = DirectCast(eachRSCDataCell.DLL_GetItemPrior(), RSCDataCell)
+            eachRSCDataCell = eachRSCDataCellNext
+        Loop ''End of ""Do Until eachRSCDataCell.DLL_NotAnyNext()""
 
         ''list_cells = ListOfRSCDataCells_TopToBottom()
-
         ''For intRowIndex = 1 To list_cells.Count
-
         ''    boolMatches = (list_cells(-1 + intRowIndex) Is par_cell)
         ''    If (boolMatches) Then Return intRowIndex
-
         ''Next intRowIndex
 
-        For Each each_key As Integer In mod_listRSCDataCellsByRow.Keys
+        ''For Each each_key As Integer In mod_listRSCDataCellsByRow.Keys
+        ''11/2023
+        ''    boolMatches = (mod_listRSCDataCellsByRow(each_key) Is par_cell)
+        ''11/2023
+        ''    If (boolMatches) Then Return each_key
+        ''11/2023
+        ''Next each_key
 
-            boolMatches = (mod_listRSCDataCellsByRow(each_key) Is par_cell)
-
-            If (boolMatches) Then Return each_key
-
-        Next each_key
-
-        Return -1
+        Return (intCountRowsAbove + 1 - 1) ''-1
 
     End Function ''End of ""Public Function GetRowIndexOfCell(par_cell As RSCDataCell) As Integer""
 
@@ -1909,7 +1919,8 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 10/24/2022 thomas downes
         ''
-        Return mod_listRSCDataCellsByRow(par_rowIndexEtc.RowIndex)
+        ''11/2023 Return mod_listRSCDataCellsByRow(par_rowIndexEtc.RowIndex)
+        System.Diagnostics.Debugger.Break() ''Not implemented yet. 11/2023 
 
     End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
 
@@ -1925,7 +1936,7 @@ Public Class RSCFieldColumnV2
         Dim index As Integer = 0
         Do Until eachCell Is Nothing
             index += 1
-            eachCell = eachCell.GetNextCell_Down()
+            eachCell = eachCell.GetCellNext_Down()
         Loop
 
     End Function ''End of ""Public Function GetCellWithRowIndex() As RSCDataCell""
@@ -2133,14 +2144,27 @@ Public Class RSCFieldColumnV2
         ''4/8/2022 Dim objBottomBar As PictureBox ''Added 4/5/2022 thomas downes
         Static prior_objRSCDataCell As RSCDataCell ''4/4/2022 td''New RSCDataCell ''Added 3/29/2022 thomas downes
 
-        With mod_listRSCDataCellsByRow
-            bRowIndexLocated = (.ContainsKey(par_intRowIndex))
+        Dim intFindMaxIndexOfCell As Integer ''11/2023
+        Dim intCountCells As Integer = 1 ''11/2023
+        Dim rscDataCell_MaxIndex As RSCDataCell ''11/2023
+        Dim eachDataCell As RSCDataCell = RscDataCell1 ''11/2023
+        ''Added 11/2023
+        Do Until eachDataCell.DLL_NotAnyNext
+            intCountCells += 1
+            ''11/2023 eachDataCell = DirectCast(RscDataCell1.DLL_GetItemNext(), RSCDataCell)
+            eachDataCell = RscDataCell1.DLL_GetRscNext_Down()
+        Loop
+        intFindMaxIndexOfCell = -1 + intCountCells
+        rscDataCell_MaxIndex = eachDataCell
 
-            ''Added 4/11/2022 td
-            ''If (par_intRowIndex = 18) Then System.Diagnostics.Debugger.Break()
-            ''If (par_intRowIndex = 19) Then System.Diagnostics.Debugger.Break()
-
-        End With
+        ''''11/2023 With mod_listRSCDataCellsByRow
+        ''    bRowIndexLocated = (.ContainsKey(par_intRowIndex))
+        ''11/2023
+        ''    ''Added 4/11/2022 td
+        ''    ''If (par_intRowIndex = 18) Then System.Diagnostics.Debugger.Break()
+        ''    ''If (par_intRowIndex = 19) Then System.Diagnostics.Debugger.Break()
+        ''11/2023
+        ''End With
 
         If (pboolForceReposition) Then
             ''
@@ -2162,7 +2186,9 @@ Public Class RSCFieldColumnV2
             ''Dim prior_boolBelongsToMe As Boolean
 
             ''Added 4/11/2022 td
-            objRSCDataCell = mod_listRSCDataCellsByRow.Item(par_intRowIndex)
+            ''11/2023 objRSCDataCell = mod_listRSCDataCellsByRow.Item(par_intRowIndex)
+            objRSCDataCell = rscDataCell_MaxIndex
+            prior_objRSCDataCell = rscDataCell_MaxIndex.DLL_GetRscPrior_Up()
 
             With objRSCDataCell
                 .Visible = True
@@ -2183,7 +2209,8 @@ Public Class RSCFieldColumnV2
                 End With ''ENd of ""With objRSCDataCell""
             End If ''End of ""If (prior_objRSCDataCell IsNot Nothing) Then""
 
-            intNumberOfCells = Me.ListOfRSCDataCells_TopToBottom().Count
+            ''11/2023 intNumberOfCells = Me.ListOfRSCDataCells_TopToBottom().Count
+            intNumberOfCells = intCountCells
 
             ''If (par_intRowIndex = 18) Then System.Diagnostics.Debugger.Break()
 

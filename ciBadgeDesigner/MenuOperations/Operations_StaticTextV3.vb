@@ -18,7 +18,7 @@ Public Class Operations_StaticTextV3
     ''Jan17 2022 ''Public Property CtlCurrentElement As RSCMoveableControlVB Implements ICurrentElement.CtlCurrentElement
     Public Property CtlCurrentElementStaticText As ciBadgeDesigner.CtlGraphicStaticTextV3
     Public Property ElementStaticText As ciBadgeElements.ClassElementStaticTextV3 ''Added 1/19/2022
-    Public Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
+    ''11/2023 td Shadows''Public Shadows Property ElementInfo_TextOnly As IElement_TextOnly ''Added 1/19/2022
 
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.StaticGraphic ''Added 1/21/2022 td
 
@@ -33,12 +33,12 @@ Public Class Operations_StaticTextV3
     Public WithEvents MyToolstripItem As New ToolStripMenuItem ''Added 10/11/2019 td 
 
     ''Added 1/25/2022 td''Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    Public Property Designer As ciBadgeDesigner.ClassDesigner
-    Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
-    Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
+    ''11/2023 td Shadows''Public Shadows Property Designer As ciBadgeDesigner.ClassDesigner
+    ''11/2023 td Shadows''Public Shadows Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
+    ''11/2023 td Shadows''Public Shadows Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
 
     ''---not needed 10/3/2019 td----Public Property GroupEdits As ClassGroupMove ''Added 10/3/2019 td 
-    Public Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
+    ''11/2023 td Shadows''Public Shadows Property SelectingElements As ISelectingElements ''Added 10/3/2019 td 
 
     Public Property CacheOfFieldsEtc As ciBadgeCachePersonality.ClassElementsCache_Deprecated
 

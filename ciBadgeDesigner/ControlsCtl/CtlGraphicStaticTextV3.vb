@@ -338,9 +338,10 @@ Public Class CtlGraphicStaticTextV3
     ''
     ''End Sub
 
-    Public Sub Refresh_Master()
+    Public Shadows Sub Refresh_Master_Shadows()
         ''
         ''Added 9/17 & 9/5/2019 thomas d 
+        ''Suffixed as "Shadows" on 11/2023 td
         ''
         Refresh_PositionAndSize()
         Refresh_Image(True)

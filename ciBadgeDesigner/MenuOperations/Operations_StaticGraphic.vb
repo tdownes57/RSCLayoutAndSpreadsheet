@@ -31,8 +31,8 @@ Public Class Operations_StaticGraphic
 
     ''Jan8 2022 td''Public Property CtlCurrentElement As ciBadgeDesigner.CtlGraphicFldLabel ''CtlGraphicFldLabel
 
-    Public Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    Public Property Designer As ciBadgeDesigner.ClassDesigner
+    ''11/2023 td Public Shadows Property LayoutFunctions_Shadows As ILayoutFunctions ''Added 10/3/2019 td 
+    ''11/2023 td Public Shadows Property Designer_Shadows As ciBadgeDesigner.ClassDesigner
     ''----Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     Public Property OpenFileDialog1 As OpenFileDialog ''Added 10/15/2019 td 
     Public Property ColorDialog1 As ColorDialog ''Added 12/13/2021 td 

@@ -27,7 +27,7 @@ Public Class CtlGraphicStaticGraphic
     Public Event ElementGraphic_RightClicked(par_control As CtlGraphicStaticGraphic) ''Added 10/10/2019 td
     Public Event ElementGraphic_LeftClicked(par_control As CtlGraphicStaticGraphic) ''Added 5/18/2022 td
 
-    Public LayoutFunctions As ILayoutFunctions ''Modified 9/9/2019 td
+    ''11/2023 Public Shadows LayoutFunctions_Shadows As ILayoutFunctions ''Modified 9/9/2019 td
 
     Public Pic_CloneOfInitialImage As Image ''Added 9/23/2019 thomas downes. 
 

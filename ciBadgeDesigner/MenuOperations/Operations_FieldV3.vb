@@ -41,7 +41,7 @@ Public Class Operations_FieldV3
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.Field ''Added 1/21/2022 td 
 
     ''Not needed here.2/14/2022 td''''Public Overrides Property LayoutFunctions As ILayoutFunctions ''Added 10/3/2019 td 
-    Public Property Designer As ciBadgeDesigner.ClassDesigner
+    ''11/2023 td Public Shadows Property Designer_Shadows As ciBadgeDesigner.ClassDesigner
 
     ''Feb2 2022 td''Public Property ColorDialog1 As ColorDialog ''Added 10/3/2019 td 
     ''Feb2 2022 td''Public Property FontDialog1 As FontDialog ''Added 10/3/2019 td 
@@ -386,120 +386,120 @@ Public Class Operations_FieldV3
     ''End Sub ''eNd of "Private Sub "Open_Dialog_Font_EE1009(sender As Object, e As EventArgs)"
 
 
-    Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
-        ''
-        ''Added 8/10/2019 thomas downes
-        ''       ''
-        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
-        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
-        ''
-        ''10/17 td''With textTypeExample
-        With Me.CtlCurrentElementField.Textbox_ExampleValue
+    ''11/2023''Public Shadows Sub Shadows_ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8/10/2019 thomas downes
+    ''    ''       ''
+    ''    ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+    ''    ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+    ''    ''
+    ''    ''10/17 td''With textTypeExample
+    ''    With Me.CtlCurrentElementField.Textbox_ExampleValue
+    ''11/2023
+    ''        .Visible = True
+    ''        .Text = Me.CtlCurrentElementField.ElementInfo_TextOnly.Text_StaticLine ''Added 8/16/2019 td
+    ''        .SelectAll() ''Added 8/16/2019 td
+    ''11/2023
+    ''        ''Added 9/10/2019 td 
+    ''        ''  Put the focus on the textbox. 
+    ''        .Select() ''Added 9/10/2019 td 
+    ''11/2023
+    ''    End With ''End of "With Me.CtlCurrentElement.Textbox_Example"
+    ''11/2023
+    ''End Sub ''End of "Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)"  
 
-            .Visible = True
-            .Text = Me.CtlCurrentElementField.ElementInfo_TextOnly.Text_StaticLine ''Added 8/16/2019 td
-            .SelectAll() ''Added 8/16/2019 td
+    ''11/2023 Shadows''Public Shadows Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
+    ''    ''
+    ''    ''Added 8/10/2019 thomas downes
+    ''    ''       ''
+    ''    ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+    ''    ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+    ''    ''
+    ''    ''9/18/2019 td''Dim frm_ToShow As New DialogTextOffset
 
-            ''Added 9/10/2019 td 
-            ''  Put the focus on the textbox. 
-            .Select() ''Added 9/10/2019 td 
+    ''    With Me.CtlCurrentElementField
 
-        End With ''End of "With Me.CtlCurrentElement.Textbox_Example"
+    ''        Dim frm_ToShow As New DialogTextOffset(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy(), Me.CtlCurrentElementField)
 
-    End Sub ''End of "Public Sub ExampleValue_Edit_EE1006(sender As Object, e As EventArgs)"  
+    ''        ''
+    ''        ''Added 8/10/2019 thomas downes
+    ''        ''
+    ''        ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
+    ''        ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+    ''        ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
+    ''        ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
+    ''        frm_ToShow.LoadFieldAndFormV3(Me.LayoutFunctions, Me.CtlCurrentElementField)
 
-    Public Sub Open_OffsetText_Dialog_EE1007(sender As Object, e As EventArgs)
-        ''
-        ''Added 8/10/2019 thomas downes
-        ''       ''
-        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
-        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
-        ''
-        ''9/18/2019 td''Dim frm_ToShow As New DialogTextOffset
+    ''        ''Major call !!
+    ''        frm_ToShow.ShowDialog()
 
-        With Me.CtlCurrentElementField
+    ''        ''Refresh the form. ----8/17/2019 td
+    ''        Dim boolUserPressedOK As Boolean
+    ''        boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
 
-            Dim frm_ToShow As New DialogTextOffset(.ElementClass_ObjV3, .ElementClass_ObjV3.Copy(), Me.CtlCurrentElementField)
+    ''        If (boolUserPressedOK) Then '' ----8/17/2019 td
 
-            ''
-            ''Added 8/10/2019 thomas downes
-            ''
-            ''8/16/2019 td''frm_ToShow.LoadFieldAndForm(Me.FieldInfo, Me.FormDesigner, Me)
-            ''9/03/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
-            ''9/18/2019 td''frm_ToShow.LoadFieldAndForm(Me.ElementInfo_Base, Me.ElementInfo_Text, Me.FieldInfo, Me.FormDesigner, Me)
-            ''9/19/2019 td''frm_ToShow.LoadFieldAndForm(Me.FormDesigner, Me)
-            frm_ToShow.LoadFieldAndFormV3(Me.LayoutFunctions, Me.CtlCurrentElementField)
+    ''            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+    ''            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+    ''            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+    ''            ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
 
-            ''Major call !!
-            frm_ToShow.ShowDialog()
+    ''            If (frm_ToShow.UserConfirmed) Then
 
-            ''Refresh the form. ----8/17/2019 td
-            Dim boolUserPressedOK As Boolean
-            boolUserPressedOK = (frm_ToShow.DialogResult = DialogResult.OK)
+    ''                ''10/17/2019 td''frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
+    ''                frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
+    ''                .Refresh_ImageV3(True)
 
-            If (boolUserPressedOK) Then '' ----8/17/2019 td
+    ''            End If ''End of "If (frm_ToShow.UserConfirmed) Then"
 
-                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
-                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
-                ''Obselete.---9/18/2019 td''Me.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+    ''            ''
+    ''            ''
+    ''            ''Group Editimg
+    ''            ''
+    ''            ''
+    ''            ''Added 8/18/2019 td 
+    ''            If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
 
-                If (frm_ToShow.UserConfirmed) Then
+    ''                ''Added 8/18/2019 td 
+    ''                ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
+    ''                Dim objElements As HashSet(Of RSCMoveableControlVB) ''Added 1/12/2022 td
+    ''                objElements = Me.SelectingElements.ElementsDesignList_AllItems
 
-                    ''10/17/2019 td''frm_ToShow.UpdateInfo_ViaInterfaces(Me.ElementInfo_Base, Me.ElementInfo_Text)
-                    frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
-                    .Refresh_ImageV3(True)
+    ''                For Each each_ctl As CtlGraphicFieldV3 In objElements
+    ''                    ''
+    ''                    ''Added 8/3/2019 td  
+    ''                    ''
+    ''                    With each_ctl
+    ''                        ''.ElementInfo.Alignment = frm_ToShow.Alignment  
+    ''                        ''9/18/2019 td''.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
+    ''                        ''9/18/2019 td''.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
+    ''                        ''9/18/2019 td''.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
 
-                End If ''End of "If (frm_ToShow.UserConfirmed) Then"
+    ''                        ''Added 8/18/2019 thomas d.
+    ''                        ''9/18/2019 td''.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
+    ''                        ''9/18/2019 td''.ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
+    ''                        ''9/18/2019 td''.ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
 
-                ''
-                ''
-                ''Group Editimg
-                ''
-                ''
-                ''Added 8/18/2019 td 
-                If (Me.SelectingElements.ElementsList_IsItemIncluded(Me.CtlCurrentElementField)) Then
+    ''                        frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
 
-                    ''Added 8/18/2019 td 
-                    ''1/12/2022 td''Dim objElements As HashSet(Of CtlGraphicFldLabel)
-                    Dim objElements As HashSet(Of RSCMoveableControlVB) ''Added 1/12/2022 td
-                    objElements = Me.SelectingElements.ElementsDesignList_AllItems
+    ''                        .Refresh_ImageV3(True)
+    ''                        .Refresh()
 
-                    For Each each_ctl As CtlGraphicFieldV3 In objElements
-                        ''
-                        ''Added 8/3/2019 td  
-                        ''
-                        With each_ctl
-                            ''.ElementInfo.Alignment = frm_ToShow.Alignment  
-                            ''9/18/2019 td''.ElementInfo_Text.FontOffset_X = frm_ToShow.FontOffset_X
-                            ''9/18/2019 td''.ElementInfo_Text.FontOffset_Y = frm_ToShow.FontOffset_Y
-                            ''9/18/2019 td''.ElementInfo_Text.FontSize_Pixels = frm_ToShow.FontSize
+    ''                    End With ''End of " With each_ctl"
 
-                            ''Added 8/18/2019 thomas d.
-                            ''9/18/2019 td''.ElementInfo_Text.Font_DrawingClass = frm_ToShow.Font_DrawingClass
-                            ''9/18/2019 td''.ElementInfo_Text.TextAlignment = frm_ToShow.TextAlignment
-                            ''9/18/2019 td''.ElementInfo_Text.ExampleValue = frm_ToShow.TextExampleValue.Text
+    ''                Next each_ctl
 
-                            frm_ToShow.UpdateInfo_ViaInterfaces(.ElementInfo_Base, .ElementInfo_TextOnly)
+    ''            End If ''ENdo f "If (Me.SelectingElements.ElementsList_IsItemIncluded(Me)) Then"
 
-                            .Refresh_ImageV3(True)
-                            .Refresh()
+    ''        End If ''End of "If (boolUserPressedOK) Then"
 
-                        End With ''End of " With each_ctl"
+    ''    End With ''End of "With Me.CtlCurrentElement"
 
-                    Next each_ctl
+    ''    ''Added 9/13/2019 td
+    ''    ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
+    ''    Me.LayoutFunctions.AutoPreview_IfChecked()
 
-                End If ''ENdo f "If (Me.SelectingElements.ElementsList_IsItemIncluded(Me)) Then"
-
-            End If ''End of "If (boolUserPressedOK) Then"
-
-        End With ''End of "With Me.CtlCurrentElement"
-
-        ''Added 9/13/2019 td
-        ''9/19/2019 td''Me.FormDesigner.AutoPreview_IfChecked()
-        Me.LayoutFunctions.AutoPreview_IfChecked()
-
-    End Sub ''End of "Public Sub Open_OffsetTextDialog_EE1005(sender As Object, e As EventArgs)"
+    ''End Sub ''End of "Public Sub Open_OffsetTextDialog_EE1005(sender As Object, e As EventArgs)"
 
     Public Sub Border_Design_EE1000(sender As Object, e As EventArgs)
         ''
@@ -698,23 +698,23 @@ Public Class Operations_FieldV3
     End Sub
 
 
-    Public Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
-        ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
-        ''
-        ''Added 12/12/2021 thomas downes  
-        ''
-        ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
-        ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
-        ''
-        ''
-        Dim strPathToNotesFolder As String
-        Dim strPathToNotesFileTXT As String
+    ''11/2023 Public Shadows Sub How_Context_Menus_Are_Generated_EE9001(sender As Object, e As EventArgs)
+    ''    ''---Dec15 2021--Public Sub How_Context_Menus_Are_Generated_EE1001
+    ''    ''
+    ''    ''Added 12/12/2021 thomas downes  
+    ''    ''
+    ''    ''   We will use Reflection to convert the procedures in class Operations_EditFieldElement to clickable LinkLabels.
+    ''    ''      (See procedure MenuCache_FieldElements.Generate_BasicEdits().)
+    ''    ''
+    ''    ''
+    ''    Dim strPathToNotesFolder As String
+    ''    Dim strPathToNotesFileTXT As String
 
-        strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
-        strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
-        System.Diagnostics.Process.Start(strPathToNotesFileTXT)
+    ''    strPathToNotesFolder = DiskFolders.PathToFolder_Notes()
+    ''    strPathToNotesFileTXT = DiskFilesVB.PathToNotes_HowContextMenusAreGenerated()
+    ''    System.Diagnostics.Process.Start(strPathToNotesFileTXT)
 
-    End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
+    ''End Sub ''end of "Public Sub How_Context_Menus_Are_Generated_EE1002(sender As Object, e As EventArgs)"
 
 
     Private Sub CreateVisibleButtonMaster(par_strText As String, par_handler As EventHandler, ByRef pboolExitEarly As Boolean,

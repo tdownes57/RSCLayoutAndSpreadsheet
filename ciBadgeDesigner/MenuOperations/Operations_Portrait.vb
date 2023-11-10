@@ -20,7 +20,7 @@ Public Class Operations_Portrait
     Public Overrides Property Element_Type As Enum_ElementType = Enum_ElementType.Portrait ''Added 1/21/2022 td
 
     ''Added 1/25/2022 td 
-    Public Property Designer As ciBadgeDesigner.ClassDesigner ''Added 1/25/2022 td 
+    ''11/2023 td''Public Shadows Property Designer As ciBadgeDesigner.ClassDesigner ''Added 1/25/2022 td 
 
 
     Public Sub Context_Menu_EP9121(sender As Object, e As EventArgs)
