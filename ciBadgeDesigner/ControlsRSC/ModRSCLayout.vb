@@ -66,6 +66,8 @@
                                   par_intIndex1Control_Top As Integer,
                                      par_intHeightOfBox As Integer) As Integer
         ''
+        ''We will return the "Starting Y-coordinate".
+        ''
         ''Added 4/27/2022 thomas downes
         ''
         Dim intTopofNthBox_TopY As Integer

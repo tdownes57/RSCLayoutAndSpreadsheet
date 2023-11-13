@@ -2459,7 +2459,31 @@ Public Class RSCFieldColumnV2
     End Sub ''End of ""Public Sub FocusRelatedCol_SetHighlightingOff()""
 
 
-    Public Sub EmphasizeRows_Highlight(par_intRowIndex_Start As Integer,
+    Public Sub EmphasizeRows_Highlight(par_startingCell As RSCDataCell,
+                                        par_intHowManyCells As Integer,
+                                       Optional pboolRestoreOtherRows As Boolean = False)
+        ''
+        ''Added 11/13/2023 
+        ''
+        Dim each_cell As RSCDataCell = par_startingCell
+        Dim bCompletedLooping As Boolean
+        Dim intCount As Integer = 0
+
+        Do Until (bCompletedLooping) ''(each_cell Is Nothing)
+
+            If (each_cell Is Nothing) Then Debugger.Break()
+            each_cell.BackColor = Color.LightGray
+            each_cell.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+            intCount += 1
+            ''Prepare!!
+            each_cell = each_cell.GetCellNext_Down()
+            bCompletedLooping = (intCount = par_intHowManyCells)
+
+        Loop ''End of ""Do Until (each_cell Is Nothing)""
+
+    End Sub
+
+    Public Sub EmphasizeRows_Highlight_Deprecated(par_intRowIndex_Start As Integer,
                                    par_intRowIndex_End As Integer,
                                        Optional pboolRestoreOtherRows As Boolean = False)
         ''---Public Sub PaintEmphasisOfRows
@@ -2483,9 +2507,11 @@ Public Class RSCFieldColumnV2
         RSCDataCell_1st_Top = Me.GetFirstRSCDataCell()
         intRSCDataCell_1st_Top_Y = RSCDataCell_1st_Top.Top
 
+        ''Get the starting-Y-coordinate.
         intStartY = ModRSCLayout.EmphasisOfRows_StartingY(par_intRowIndex_Start,
                intRSCDataCell_1st_Top_Y, RSCDataCell_1st_Top.Height)
 
+        ''Get the starting-Y-coordinate.
         intEnd__Y = ModRSCLayout.EmphasisOfRows_EndingY(intRowIndex_End,
                intRSCDataCell_1st_Top_Y, RSCDataCell_1st_Top.Height)
 
@@ -2501,6 +2527,20 @@ Public Class RSCFieldColumnV2
         ''Dim listCells As List(Of RSCDataCell)
         ''listCells = ListOfRSCDataCells_TopToBottom()
         Dim each_cell As RSCDataCell
+        Dim intHowManyRows As Integer
+
+        each_cell = Me.GetCellWithRowIndex(par_intRowIndex_Start)
+        intHowManyRows = (intRowIndex_End - par_intRowIndex_Start + 1)
+
+        Do Until (each_cell Is Nothing)
+
+            each_cell.BackColor = Color.LightGray
+            ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
+            each_cell.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+            ''Prepare!!
+            each_cell = each_cell.GetCellNext_Down()
+
+        Loop ''End of ""Do Until (each_cell Is Nothing)""
 
         ''Added 4/29/2022 thomas d.
         ''Dim intRowIndex_End As Integer ''Added 4/29/2022 td
@@ -2510,20 +2550,20 @@ Public Class RSCFieldColumnV2
         ''    intRowIndex_End = par_intRowIndex_End
         ''End If
 
-        For intRowIndex As Integer = par_intRowIndex_Start To intRowIndex_End ''---par_intRowIndex_End
+        ''11/2023For intRowIndex As Integer = par_intRowIndex_Start To intRowIndex_End ''---par_intRowIndex_End
+        ''11/2023
+        ''    If (Not mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
+        ''        ''
+        ''        ''It is possible that the row has been deleted. ---4/29/2022 td
+        ''11/2023        ''
+        ''    Else
+        ''        each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+        ''        ''each_cell.BackColor = Color.LightGray
+        ''        ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
+        ''        each_cell.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
+        ''11/2023    End If ''End of "If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then"
 
-            If (Not mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then
-                ''
-                ''It is possible that the row has been deleted. ---4/29/2022 td
-                ''
-            Else
-                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
-                ''each_cell.BackColor = Color.LightGray
-                ''---each_cell.BackColor = mod_colorCellsBackcolor_WithEmphasis
-                each_cell.BackColor = RSCDataCell.BackColor_WithEmphasisOnRow
-            End If ''End of "If (mod_listRSCDataCellsByRow.ContainsKey(intRowIndex)) Then"
-
-        Next intRowIndex
+        ''Next intRowIndex
 
         ''
         ''If requested by Boolean parameter, let's de-emphasize the surrounding rows. 
