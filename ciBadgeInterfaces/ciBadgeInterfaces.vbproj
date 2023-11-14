@@ -67,11 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AClassOrTwo\ClassFixTheControlWidth.vb" />
+    <Compile Include="AClassOrTwo\DLLOperationsManager_Implementation.vb" />
     <Compile Include="AClassOrTwo\DLL_Operation.vb" />
     <Compile Include="AClassOrTwo\DLL_Operation_OfT.vb" />
     <Compile Include="AClassOrTwo\DLL_OperationsManager.vb" />
     <Compile Include="AClassOrTwo\DLL_OperationsManager_OfT.vb" />
     <Compile Include="AClassOrTwo\RSCColor.vb" />
+    <Compile Include="AClassOrTwo\Testing.vb" />
     <Compile Include="Enums and Structs\ModEnumsAndStructs.vb" />
     <Compile Include="Enums and Structs\ModuleStructs.vb" />
     <Compile Include="Enums and Structs\StrongOOP.vb" />

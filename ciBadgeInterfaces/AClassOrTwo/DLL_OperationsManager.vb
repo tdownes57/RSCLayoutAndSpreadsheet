@@ -2,7 +2,7 @@
 ''//  Added 10/30/2023 t h o m a s d o w n e s  
 ''//
 Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
-    Implements IDoublyLinkedList
+    ''Moved to Partial Class. 11/2023  ---Implements IDoublyLinkedList
     ''11/2/2023 Implements IDoublyLinkedList(Of TControl)
 
     ''General question, is this sort of casting possible??  Probably not!!
@@ -16,7 +16,11 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
     Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
     Private mod_lastPriorOperation As DLL_Operation
+
+    ''Added 11/14/2023 Thomas Downes  
     Private mod_modeColumnNotRow As Boolean ''Added 11/14/2023
+    Private mod_bModeHasBeenSet As Boolean ''Added 11/14/2023
+    Private mod_bTesting As Boolean = ciBadgeInterfaces.Testing.TestingByDefault
     Private mod_datetimeModeSet As DateTime ''Added 11/14/2023 
     Private mod_datetimeModeSetToRow As DateTime ''Added 11/14/2023 
     Private mod_datetimeModeSetToCol As DateTime ''Added 11/14/2023 
@@ -27,20 +31,36 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     Private mod_listRowHeaders As IDoublyLinkedList ''RSCDoublyLinkedList
     Private mod_listColumns As IDoublyLinkedList ''RSCDoublyLinkedList
 
-    Public Sub SetModeToColumn()
+
+    Public Sub SetModeToColumnOperations()
         ''Added 11/14/2023 
         mod_modeColumnNotRow = True
+        mod_bModeHasBeenSet = True
         ''For testing.
-        mod_datetimeModeSet = DateTime.Now
-        mod_datetimeModeSetToCol = DateTime.Now
+        If (mod_bTesting) Then
+            mod_datetimeModeSet = DateTime.Now
+            mod_datetimeModeSetToCol = DateTime.Now
+        End If ''End of ""If (mod_bTesting) Then""
     End Sub
 
-    Public Sub SetModeTo___Row()
+
+    Public Sub SetModeToTesting()
+
+        ''Added 11/14/2023 
+        mod_bTesting = True
+
+    End Sub
+
+
+    Public Sub SetModeTo___RowOperations()
         ''Added 11/14/2023 
         mod_modeColumnNotRow = False
+        mod_bModeHasBeenSet = True
         ''For testing.
-        mod_datetimeModeSet = DateTime.Now
-        mod_datetimeModeSetToRow = DateTime.Now
+        If (mod_bTesting) Then
+            mod_datetimeModeSet = DateTime.Now
+            mod_datetimeModeSetToRow = DateTime.Now
+        End If ''End of ""If (mod_bTesting) Then""
     End Sub
 
 
@@ -51,6 +71,88 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
         ''  represented by mod_list. 
         ''
         ''
+        If (mod_bModeHasBeenSet = False) Then System.Diagnostics.Debugger.Break()
+
+        ''Check for population. 
+        With param_operation
+            If (.LefthandAnchor Is Nothing And .RighthandAnchor Is Nothing) Then
+                Debugger.Break()
+            ElseIf (.InsertRangeStart Is Nothing And .InsertSingly Is Nothing) Then
+                If (.DeleteRangeStart Is Nothing And .DeleteSingly Is Nothing) Then
+                    If (.MovedRangeStart Is Nothing) Then
+                        Debugger.Break()
+                    End If
+                End If
+            End If
+        End With
+
+        If (mod_bTesting) Then
+            RaiseMessageIfModeNotRefreshed()
+        End If ''ENd of ""If (mod_bTesting) Then""
+
+        Select Case param_operation.OperationType
+            Case "I"
+                ''
+                ''An insert operation. 
+                ''
+                If (param_operation.InsertSingly IsNot Nothing) Then
+                    ''Is it a left-hand anchor, or a right-hand anchor?
+                    ''  (Is it a prior-item anchor, or a next-item anchor?)
+                    If (param_operation.LefthandAnchor IsNot Nothing) Then
+                        ''Left-hand (Prior Item) Anchor
+                        Me.DLL_InsertItemAfter(param_operation.InsertSingly,
+                                        param_operation.LefthandAnchor)
+                    Else
+                        ''Left-hand (Next Item) Anchor
+                        Me.DLL_InsertItemBefore(param_operation.InsertSingly,
+                                        param_operation.RighthandAnchor)
+                    End If
+
+                ElseIf (param_operation.InsertRangeStart IsNot Nothing) Then
+                    ''Is it a left-hand anchor, or a right-hand anchor?
+                    ''  (Is it a prior-item anchor, or a next-item anchor?)
+                    If (param_operation.LefthandAnchor IsNot Nothing) Then
+                        ''Left-hand (Prior Item) Anchor
+                        Me.DLL_InsertItemAfter(param_operation.InsertRangeStart,
+                                        param_operation.LefthandAnchor)
+                    Else
+                        ''Right-hand (Next Item) Anchor
+                        Me.DLL_InsertItemBefore(param_operation.InsertRangeStart,
+                                        param_operation.RighthandAnchor)
+                    End If
+                End If
+
+            Case "M"
+                ''
+                ''A moving operation. 
+                ''
+                ''Is it a left-hand anchor, or a right-hand anchor?
+                ''  (Is it a prior-item anchor, or a next-item anchor?)
+                If (param_operation.LefthandAnchor IsNot Nothing) Then
+                    ''Left-hand (Prior Item) Anchor
+                    Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
+                                       param_operation.MovedCount)
+                Else
+                    ''Right-hand (Next Item) Anchor
+                    Me.DLL_(param_operation.InsertRangeStart,
+                                        param_operation.RighthandAnchor)
+                End If
+
+            Case "D"
+                ''
+                ''A deleting operation. 
+                ''
+                If (param_operation.DeleteSingly IsNot Nothing) Then
+                    ''Delete the single item.
+                    Me.DLL_DeleteItem(param_operation.DeleteSingly)
+                ElseIf (param_operation.DeleteRangeStart IsNot Nothing) Then
+                    ''Delete the range.
+                    Me.DLL_DeleteRange_Simply(param_operation.DeleteRangeStart,
+                               param_operation.DeleteRangeStart)
+                End If
+
+        End Select
+
 
 
 
@@ -74,185 +176,33 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
 
     End Function
 
-    Public Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem,
-                                   toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemAfter
+
+    Public Sub RaiseMessageIfModeNotRefreshed(Optional pboolCheckIfTesting As Boolean = False)
         ''
-        ''This should set four(4) directional links (not just two(2))
+        ''Added 11/14/2023  
         ''
-        If (mod_modeColumnNotRow) Then
+        Dim timeDifference As TimeSpan = Now.Subtract(mod_datetimeModeSet)
+        ''If (Now.) Then
+        Dim bTooLongAgo As Boolean = False
+        Dim bProgrammerForgotToSetMode As Boolean = False
 
-            mod_listColumns.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
+        If (Me.mod_bTesting Or Not pboolCheckIfTesting) Then
+            bTooLongAgo = (timeDifference.Milliseconds > 500)
+            bProgrammerForgotToSetMode = bTooLongAgo
+        End If
 
-        Else
+        If (bProgrammerForgotToSetMode Or bTooLongAgo) Then
+            ''
+            ''Check for the bug of the programmer not setting the 
+            ''  mode--are we talking about Rows or Columns?
+            ''
+            Debugger.Break()
 
-            mod_listRowHeaders.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
+        End If ''End of ""If (bTooLongAgo) Then""
 
-        End If ''End of ""If (mod_modeColumnNotRow) Then... Else..."
-
-        ''
-        ''Operations Management 
-        ''
-        mod_lastPriorOperation = New DLL_Operation()
-        With mod_lastPriorOperation
-            .InsertSingly = toBeInserted
-            .OperationType = "I"
-            .LefthandAnchor = toUseAsAnchor
-        End With
-
-    End Sub ''End of ""Public Sub DLL_InsertItemAfter""
-
-
-    Public Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem,
-                                    toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemBefore
-        ''
-        ''This should set four(4) directional links (not just two(2))
-        ''
-        mod_list.DLL_InsertItemBefore(toBeInserted, toUseAsAnchor)
-
-        ''
-        ''Operations Management 
-        ''
-        mod_lastPriorOperation = New DLL_Operation()
-        With mod_lastPriorOperation
-            .InsertSingly = toBeInserted
-            .OperationType = "I"
-            .RighthandAnchor = toUseAsAnchor
-        End With
-
-    End Sub
+    End Sub ''End of ""Public Sub RaiseMessageIfModeNotRefreshed()""
 
 
-    Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
-                                    toUseAsAnchorStart As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertRangeAfter
-        ''
-        ''This should set four(4) directional links (not just two(2))
-        ''
-        mod_list.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
-
-        ''
-        ''Operations Management 
-        ''
-        mod_lastPriorOperation = New DLL_Operation()
-        With mod_lastPriorOperation
-            .InsertRangeStart = toBeInsertedFirst
-            .OperationType = "I"
-            .LefthandAnchor = toUseAsAnchorStart
-        End With
-
-    End Sub ''End Of ""Public Sub DLL_InsertRangeAfter""
-
-
-    Public Sub DLL_DeleteItem(item_toDelete As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_DeleteItem
-        ''
-        ''This should set four(4) directional links (not just two(2))
-        ''
-        ''Is this sort of casting possible??  Probably not!!
-        ''   (Impossible, since was are casting from parent to adult-child.)
-        ''   (In contrast, it is permissible to cast from adult-child to parent. 
-        ''   (I call it "adult-child" since it contains MORE knowledge than the parent... LOL)   
-        ''
-        ''11/2/2023  Dim rsc_toDelete = CType(item_toDelete, TControl)
-        ''11/2/2023  Dim rsc_prior = CType(rsc_toDelete.DLL_ItemPrior, TControl)
-        ''11/2/2023  Dim rsc_next = CType(rsc_toDelete.DLL_ItemNext, TControl)
-
-        ''rsc_prior.DLL_SetNextAs(rsc_next)
-        ''rsc_next.DLL_SetPriorAs(rsc_prior)
-
-    End Sub
-
-
-    Public Sub DLL_DeleteRange(item_toDeleteBegin As IDoublyLinkedItem,
-                               item_toDeleteEndInclusive As IDoublyLinkedItem,
-                               yes_return_list_of_deleteds As Boolean,
-                               ByRef count_of_deleteds As Integer,
-                               ByRef item_prior_undeleted As IDoublyLinkedItem,
-                               ByRef item_first_deleted As IDoublyLinkedItem) _
-                               Implements IDoublyLinkedList.DLL_DeleteRange
-        ''
-        ''This should set four(4) directional links (not just two(2))
-        ''
-
-
-    End Sub
-
-
-    ''Public Sub DLL_SetNextAs(toBeNext As IDoublyLinkedItem) Implements IDoublyLinkedList ''(Of TControl).DLL_SetNextAs
-    ''    ''
-    ''    ''This is simple. It should set two(2) directional links (not four(4))
-    ''    ''
-    ''    Dim rsc_toBeNext = CType(toBeNext, TControl)
-    ''    Me.mod_itemNext = rsc_toBeNext ''Directional Link #1 of 2
-    ''    ''11/2/2023 rsc_toBeNext.DLL_SetPriorAs(Me) ''Directional Link #2 of 2
-    ''End Sub
-
-    ''Public Sub DLL_SetPriorAs(toBePrior As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetPriorAs
-    ''    ''
-    ''    ''This is simple. It should set two(2) directional links (not four(4))
-    ''    ''
-    ''    Dim rsc_toBePrior = CType(toBePrior, TControl)
-    ''    Me.mod_itemPrior = rsc_toBePrior ''Directional Link #1 of 2
-    ''    ''11/2/2023 rsc_toBePrior.DLL_SetNextAs(Me) ''Directional Link #2 of 2
-    ''End Sub
-
-
-    ''Public Function DLL_ItemNext() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemNext
-    ''    ''
-    ''    ''It is permissible to cast from adult-child to parent. 
-    ''    ''
-    ''    '' (I call it "adult child" since it contains MORE knowledge than the parent... LOL)   
-    ''    ''
-    ''    Return mod_itemNext ''Implicit casting (from adult-child to parent)
-    ''End Function
-
-
-    ''Public Function DLL_ItemPrior() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemPrior
-    ''    Return mod_itemPrior ''Implicit casting (from adult-child to parent)
-    ''End Function
-
-
-    Public Function DLL_GetItemAtIndex(index As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_GetItemAtIndex ''(Of IDoublyLinkedItem).DLL_GetItemAtIndex
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_GetItemAtIndex(index As Integer, confirm_distance As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_GetItemAtIndex ''(Of TControl).DLL_GetItemAtIndex
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_GetIndexOfItem(input_item As IDoublyLinkedItem) As Integer Implements IDoublyLinkedList.DLL_GetIndexOfItem ''(Of TControl).DLL_GetIndexOfItem
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_CountItemsBefore() As Integer Implements IDoublyLinkedList.DLL_CountItemsBefore ''(Of TControl).DLL_CountItemsBefore
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_CountItemsAfter() As Integer Implements IDoublyLinkedList.DLL_CountItemsAfter ''(Of TControl).DLL_CountItemsAfter
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_CountAllItems() As Integer Implements IDoublyLinkedList.DLL_CountAllItems ''(Of TControl).DLL_CountAllItems
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_BuildListToIndex(index As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_BuildListToIndex
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_BuildListToIndex(index As Integer, ByRef count_of_new_items As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_BuildListToIndex
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_PopItem(item_toDelete As IDoublyLinkedItem) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_PopItem
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_PopItem(index As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_PopItem
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_PopRange
-        Throw New NotImplementedException()
-    End Function
 
 End Class
 

@@ -34,7 +34,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' </summary>
     ''' <param name="index">The expected index of the ultimate item.</param>
     ''' <returns>The ultimate item created.</returns>
-    Function DLL_BuildListToIndex(index As Integer) As IDoublyLinkedItem ''Control
+    Function DLL_BuildListToIndex_Denigrated(index As Integer) As IDoublyLinkedItem ''Control
 
     ''' <summary>
     ''' This is primarily a procedure; to make it responsive, we return the ultimate item and the number of items created.
@@ -42,7 +42,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="index"></param>
     ''' <param name="count_of_new_items">This is the number of items newly created.</param>
     ''' <returns>The ultimate item created.</returns>
-    Function DLL_BuildListToIndex(index As Integer,
+    Function DLL_BuildListToIndex_Denigrated(index As Integer,
         ByRef count_of_new_items As Integer) As IDoublyLinkedItem ''Control
 
 
@@ -98,7 +98,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
                             toBeInsertedCount As Integer,
                             toUseAsAnchorStart As IDoublyLinkedItem)
 
-    Sub DLL_DeleteItem(item_toDelete As IDoublyLinkedItem)
+    Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem)
 
     ''' <summary> 
     ''' This deletes a range of items in the list, inclusive of specified ends.
@@ -115,6 +115,9 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
                     ByRef count_of_deleteds As Integer,
                     ByRef item_prior_undeleted As IDoublyLinkedItem,
                     ByRef item_first_deleted As IDoublyLinkedItem)
+
+    Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
+                    ByVal count_of_deleteds As Integer)
 
     ''//
     ''// Suggested by my Python class, Chapter 6: Lists
