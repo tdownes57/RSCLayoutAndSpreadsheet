@@ -316,12 +316,28 @@ Partial Public Class RSCSpreadManagerCols
         ''Added 4/29/2022 td
         ''
         ''5/2023 For Each each_column As RSCFieldColumnV2 In mod_dict_RSCColumns.Values
+        Dim eachRSCDataCell_Start As RSCDataCell ''Added 11/13/2023 
+        Dim intCountOfRows As Integer ''Added 11/2023 
+
+        ''Added 11/2023 
+        If (par_intRowIndex_End = -1) Then
+            intCountOfRows = 1
+        Else
+            intCountOfRows = (par_intRowIndex_End - par_intRowIndex_Start + 1) ''Added 11/2023 
+        End If
+
+        ''
+        ''Loop through the columns.  
+        ''
         For Each each_column As RSCFieldColumnV2 In mod_dlist_RSCColumns ''5/2023 .Values
 
-            If (each_column Is Nothing) Then Continue For ''Added 4/29/2022 thomas d
+            ''11/2023 If (each_column Is Nothing) Then Continue For ''Added 4/29/2022 thomas d
+            If (each_column Is Nothing) Then Debugger.Break() ''Added 4/29/2022 thomas d
 
             ''---each_col.PaintEmphasisOfRows(par_intRowIndex_Start, par_intRowIndex_End)
-            each_column.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
+            ''11/2023 td''each_column.EmphasizeRows_Highlight(par_intRowIndex_Start, par_intRowIndex_End)
+            eachRSCDataCell_Start = each_column.GetCellWithRowIndex(par_intRowIndex_Start)
+            each_column.EmphasizeRows_Highlight(eachRSCDataCell_Start, intCountOfRows)
 
         Next each_column
 

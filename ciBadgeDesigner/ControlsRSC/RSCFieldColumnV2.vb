@@ -2481,7 +2481,8 @@ Public Class RSCFieldColumnV2
 
         Loop ''End of ""Do Until (each_cell Is Nothing)""
 
-    End Sub
+    End Sub ''End of ""Public Sub EmphasizeRows_Highlight""
+
 
     Public Sub EmphasizeRows_Highlight_Deprecated(par_intRowIndex_Start As Integer,
                                    par_intRowIndex_End As Integer,

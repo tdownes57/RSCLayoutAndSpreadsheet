@@ -2,8 +2,11 @@
 ''Added 5/7/2023 thomas downes
 ''
 
+Imports ciBadgeInterfaces
+
 Public Class RSCFieldColumnList
     Implements IEnumerable(Of RSCFieldColumnV2)
+    ''11/2023 Implements IDoublyLinkedList
     ''5/8/2023 Implements IEnumerator(Of RSCFieldColumnV2)
     ''`
     ''Added 5/7/2023 thomas downes
