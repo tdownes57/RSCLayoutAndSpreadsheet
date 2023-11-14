@@ -42,14 +42,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserControl1.cs">
+    <Compile Include="RSCDataCell.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
+    <Compile Include="RSCDataCell.Designer.cs">
+      <DependentUpon>RSCDataCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldColumn.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCFieldColumn.Designer.cs">
+      <DependentUpon>RSCFieldColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RSCFieldSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCFieldSelector.Designer.cs">
+      <DependentUpon>RSCFieldSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RSCRowHeader.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCRowHeader.Designer.cs">
+      <DependentUpon>RSCRowHeader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RSCRowHeadersAll.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCRowHeadersAll.Designer.cs">
+      <DependentUpon>RSCRowHeadersAll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RSCSpreadsheet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RSCSpreadsheet.Designer.cs">
+      <DependentUpon>RSCSpreadsheet.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="RSCSpreadsheet.resx">
+      <DependentUpon>RSCSpreadsheet.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
