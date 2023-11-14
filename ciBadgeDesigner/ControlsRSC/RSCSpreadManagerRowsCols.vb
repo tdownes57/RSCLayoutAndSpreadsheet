@@ -3,6 +3,7 @@
 ''
 
 Imports ciBadgeCachePersonality
+Imports ciBadgeInterfaces
 
 Public Class RSCSpreadManagerRowsCols
     ''
@@ -18,6 +19,13 @@ Public Class RSCSpreadManagerRowsCols
     Private mod_bLoadColumnDataByColumnCache As Boolean = True ''Added 5/27/2023 
     Private mod_bLoadColumnDataByRecipients As Boolean = True ''Added 5/27/2023 
 
+    ''Added 11/14/2023 td 
+    ''
+    ''  The following compositional element may be key to bridging the 
+    ''  user-controls and the CS-lessons of doubly-linked lists.
+    ''  (CS = Computer Science) ---11/14/2023 thomas d.
+    ''
+    Private mod_DLL_Manager As DLL_OperationsManager ''Added 11/14/2023 td
 
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
                    par_designer As ClassDesigner,

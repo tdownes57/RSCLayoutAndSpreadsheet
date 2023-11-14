@@ -5,21 +5,6 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     Implements IDoublyLinkedList
     ''11/2/2023 Implements IDoublyLinkedList(Of TControl)
 
-    ''Private mod_list As RSCDoublyLinkedList(Of TControl)
-    ''11/2/2023 Private mod_list As List(Of TControl)
-    Private mod_list As IDoublyLinkedList ''RSCDoublyLinkedList
-
-    Public Sub ProcessOperation(param_operation As DLL_Operation) ''11/2/2023 TControl))
-
-
-
-
-    End Sub
-
-    Public Function GetLastOperation()
-
-    End Function
-
     ''General question, is this sort of casting possible??  Probably not!!
     ''
     ''   (Impossible, since was are casting from parent to adult-child.)
@@ -31,6 +16,55 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
     Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
     Private mod_lastPriorOperation As DLL_Operation
+    Private mod_modeColumnNotRow As Boolean ''Added 11/14/2023
+    Private mod_datetimeModeSet As DateTime ''Added 11/14/2023 
+    Private mod_datetimeModeSetToRow As DateTime ''Added 11/14/2023 
+    Private mod_datetimeModeSetToCol As DateTime ''Added 11/14/2023 
+
+    ''Private mod_list As RSCDoublyLinkedList(Of TControl)
+    ''#1 11/2/2023 Private mod_list As List(Of TControl)
+    ''#2 11/2/2023 Private mod_list As IDoublyLinkedList ''RSCDoublyLinkedList
+    Private mod_listRowHeaders As IDoublyLinkedList ''RSCDoublyLinkedList
+    Private mod_listColumns As IDoublyLinkedList ''RSCDoublyLinkedList
+
+    Public Sub SetModeToColumn()
+        ''Added 11/14/2023 
+        mod_modeColumnNotRow = True
+        ''For testing.
+        mod_datetimeModeSet = DateTime.Now
+        mod_datetimeModeSetToCol = DateTime.Now
+    End Sub
+
+    Public Sub SetModeTo___Row()
+        ''Added 11/14/2023 
+        mod_modeColumnNotRow = False
+        ''For testing.
+        mod_datetimeModeSet = DateTime.Now
+        mod_datetimeModeSetToRow = DateTime.Now
+    End Sub
+
+
+    Private Sub ProcessOperation(param_operation As DLL_Operation) ''11/2/2023 TControl))
+        ''
+        '' Here we "parse" (process) the properties of the DLL_Operation, 
+        ''  in order to call the appropriate IDoublyLinkedList functions
+        ''  represented by mod_list. 
+        ''
+        ''
+
+
+
+    End Sub ''End of ""Public Sub ProcessOperation""
+
+
+    Public Function GetLastOperation() As DLL_Operation
+
+
+
+
+    End Function
+
+
 
     Public Function GetRecentOperation() As DLL_Operation
         ''
@@ -45,7 +79,15 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
-        mod_list.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
+        If (mod_modeColumnNotRow) Then
+
+            mod_listColumns.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
+
+        Else
+
+            mod_listRowHeaders.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
+
+        End If ''End of ""If (mod_modeColumnNotRow) Then... Else..."
 
         ''
         ''Operations Management 

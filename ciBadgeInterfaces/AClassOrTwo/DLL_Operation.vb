@@ -10,9 +10,10 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''Operations are "forward" ("Redo").
     ''
     Public ClassTypeToString As String
+    Public ModeColumnsNotRows As Boolean ''Added 11/14/2023 td
 
     ''Needed for consistency checks... 10/30/2023
-    Public OperationType As Char = "?"
+    Public OperationType As Char = "?" ''E.g. "I" for Insert, "M" for "Move", "D" is Delete
 
     Public InsertSingly As IDoublyLinkedItem ''TControl
     Public DeleteSingly As IDoublyLinkedItem ''TControl
