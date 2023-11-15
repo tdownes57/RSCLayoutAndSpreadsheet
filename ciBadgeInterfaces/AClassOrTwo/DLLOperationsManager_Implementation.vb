@@ -1,6 +1,8 @@
 ﻿''
 ''Added 11/14/2023 td
 ''
+Imports System.CodeDom.Compiler
+
 Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
     ''   extends a sister class module.  11/2023 '' _Implementation
     Implements IDoublyLinkedList
@@ -56,21 +58,59 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
 
 
     Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
-                                    toUseAsAnchorStart As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertRangeAfter
+                                    toUseAsAnchorStart As IDoublyLinkedItem) _
+                                    Implements IDoublyLinkedList.DLL_InsertRangeAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
-        mod_list.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
+        If (mod_modeColumnNotRow) Then
+            ''
+            '' Columns!!!
+            ''
+            mod_listColumns.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
 
-        ''
-        ''Operations Management 
-        ''
-        mod_lastPriorOperation = New DLL_Operation()
-        With mod_lastPriorOperation
-            .InsertRangeStart = toBeInsertedFirst
-            .OperationType = "I"
-            .LefthandAnchor = toUseAsAnchorStart
-        End With
+            ''
+            ''Operations Management 
+            ''
+            ''mod_lastPriorOperation = New DLL_Operation()
+            Dim objOperationNew As New DLL_Operation()
+            With objOperationNew
+                .InsertRangeStart = toBeInsertedFirst
+                .OperationType = "I"
+                .LefthandAnchor = toUseAsAnchorStart
+            End With
+
+            ''
+            ''Record/store this operation. 
+            ''
+            ManageNewOperation(objOperationNew)
+
+            ''Encapsulated 11/2023 
+            ''If (mod_operation1stRecord Is Nothing) Then
+            ''    ''The very first record is both first & last. 
+            ''    mod_operation1stRecord = objOperationNew
+            ''    mod_operationLastPrior = objOperationNew
+            ''    ''---Not needed here. 11/2023
+            ''    ''---mod_operationMarkUndoNext = objOperationNew
+            ''Else
+            ''    Dim tempLastPrior As DLL_Operation = mod_operationLastPrior
+            ''    ''Make sure we can travel foreward in the sequence of operations!
+            ''    mod_operationLastPrior.DLL_SetItemNext(objOperationNew)
+            ''    ''Make sure we can "start undoing" this & prior operations. 
+            ''    mod_operationLastPrior = objOperationNew
+            ''    ''Make sure we can travel backward in the sequence of operations!
+            ''    objOperationNew.DLL_SetItemPrior(tempLastPrior)
+            ''
+            ''End If ''End of ""If (mod_operation1stRecord Is Nothing) Then... Else...""
+
+        Else
+            ''
+            '' Rows!!!
+            ''
+            mod_listRowHeaders.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
+
+
+        End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
     End Sub ''End Of ""Public Sub DLL_InsertRangeAfter""
 

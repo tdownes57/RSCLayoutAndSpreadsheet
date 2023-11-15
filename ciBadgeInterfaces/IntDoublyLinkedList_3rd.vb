@@ -98,6 +98,18 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
                             toBeInsertedCount As Integer,
                             toUseAsAnchorStart As IDoublyLinkedItem)
 
+
+    ''' <summary>
+    ''' This inserts a range of items, likely to UNDO a deletion of >1 linked items.
+    ''' </summary>
+    ''' <param name="toBeInsertedFirst"></param>
+    ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
+    ''' <param name="toUseAsAnchorTerminating"></param>
+    Sub DLL_InsertRangeBefore(toBeInsertedFirst As IDoublyLinkedItem,
+                            toBeInsertedCount As Integer,
+                            toUseAsAnchorTerminating As IDoublyLinkedItem)
+
+
     Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem)
 
     ''' <summary> 

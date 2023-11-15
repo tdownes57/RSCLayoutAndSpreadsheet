@@ -19,10 +19,12 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     Private mod_operation1stRecord As DLL_Operation
 
     ''---DIFFICULT AND CONFUSING----
-    Private mod_operationMarkUndoPrior As DLL_Operation
-    Private mod_operationMarkUndoNext As DLL_Operation
-    Private mod_operationMarkRedoPrior As DLL_Operation
-    Private mod_operationMarkRedoNext As DLL_Operation
+    ''Private mod_operationMarkUndoPrior As DLL_Operation
+    ''Private mod_operationMarkUndoNext As DLL_Operation
+    ''Private mod_operationMarkRedoPrior As DLL_Operation
+    ''Private mod_operationMarkRedoNext As DLL_Operation
+    ''Private mod_operationMarker As Tuple(Of DLL_Operation, DLL_Operation)
+    Private mod_operationMarker As DLL_OperationsRedoMarker
 
     ''Added 11/14/2023 Thomas Downes  
     Private mod_modeColumnNotRow As Boolean ''Added 11/14/2023
@@ -43,7 +45,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
         ''Added 11/14/2023 
         mod_modeColumnNotRow = True
         mod_bModeHasBeenSet = True
-        ''For testing.
+        ''For testing. 11/2023
         If (mod_bTesting) Then
             mod_datetimeModeSet = DateTime.Now
             mod_datetimeModeSetToCol = DateTime.Now
@@ -63,7 +65,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
         ''Added 11/14/2023 
         mod_modeColumnNotRow = False
         mod_bModeHasBeenSet = True
-        ''For testing.
+        ''For testing. 11/2023
         If (mod_bTesting) Then
             mod_datetimeModeSet = DateTime.Now
             mod_datetimeModeSetToRow = DateTime.Now
@@ -93,12 +95,20 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
             End If
         End With
 
+        ''
+        ''Here, we check to make sure the Mode (Columns or Rows)
+        ''  has been recently refreshed. 
+        ''
         If (mod_bTesting) Then
             RaiseMessageIfModeNotRefreshed()
         End If ''ENd of ""If (mod_bTesting) Then""
 
-        Select Case param_operation.OperationType
-            Case "I"
+        ''
+        ''Let's process Inserts, Moves, and Deletes separately. 
+        ''
+        Select Case param_operation.OperationType ''Insert, Move, or Delete? 
+
+            Case "I" ''I = Insert
                 ''
                 ''An insert operation. 
                 ''
@@ -129,23 +139,45 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                     End If
                 End If
 
-            Case "M"
+            Case "M" '' M = Move
                 ''
-                ''A moving operation. 
+                ''----DIFFICULT & CONFUSING-----
                 ''
+                ''A moving operation--combines Delete & Insert. 
+                ''
+                Dim itemPriorToDelete As IDoublyLinkedItem = Nothing
+
                 ''Is it a left-hand anchor, or a right-hand anchor?
                 ''  (Is it a prior-item anchor, or a next-item anchor?)
                 If (param_operation.LefthandAnchor IsNot Nothing) Then
                     ''Left-hand (Prior Item) Anchor
+                    ''Move Step 1 of 2 -- Delete
                     Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
-                                       param_operation.MovedCount)
-                Else
+                                       param_operation.MovedCount,
+                                       itemPriorToDelete)
+                    ''Move Step 2 of 2 -- Insert
+                    Me.DLL_InsertRangeAfter(param_operation.MovedRangeStart,
+                                       param_operation.MovedCount,
+                                       param_operation.LefthandAnchor)
+
+                ElseIf (param_operation.RighthandAnchor IsNot Nothing) Then
+                    ''
                     ''Right-hand (Next Item) Anchor
-                    Me.DLL_(param_operation.InsertRangeStart,
-                                        param_operation.RighthandAnchor)
+                    ''
+                    ''Move Step 1 of 2 -- Delete
+                    Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
+                                       param_operation.MovedCount,
+                                       itemPriorToDelete)
+                    ''Move Step 2 of 2 -- Insert
+                    Me.DLL_InsertRangeBefore(param_operation.MovedRangeStart,
+                                       param_operation.MovedCount,
+                                       param_operation.RighthandAnchor)
+
                 End If
 
-            Case "D"
+
+
+            Case "D" '' D = Delete
                 ''
                 ''A deleting operation. 
                 ''
@@ -208,6 +240,80 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
         End If ''End of ""If (bTooLongAgo) Then""
 
     End Sub ''End of ""Public Sub RaiseMessageIfModeNotRefreshed()""
+
+
+    Private Sub ManageNewOperation(par_objOperationNew As DLL_Operation)
+        ''
+        ''Place a new operation in the context of the sequence
+        ''  of operations. 11/2023
+        ''
+        ''Record the new operation! 
+        ''
+        Dim bNevermindRedoMarker As Boolean
+        bNevermindRedoMarker = (mod_operationMarker Is Nothing)
+
+        If (mod_operation1stRecord Is Nothing) Then
+            ''
+            ''Record the first one! 
+            ''
+            ''The very first record is both first & last. 
+            mod_operation1stRecord = par_objOperationNew
+            mod_operationLastPrior = par_objOperationNew
+            ''---Not needed here. 11/2023
+            ''---mod_operationMarkUndoNext = objOperationNew
+
+        ElseIf (bNevermindRedoMarker) Then
+            ''
+            ''Good, we needn't concern ourselves about where we are
+            ''   in the sequence of "post-operation" Undo/Redos.
+            ''   (By "post-operation", I mean, the operation is NOT new,
+            ''   but rather a retread of recorded operations.)
+            ''
+            ''A little more challenging, place the new operation at the end of 
+            ''  the operations. 
+            ''
+            Dim tempLastPrior As DLL_Operation = mod_operationLastPrior
+            ''Make sure we can travel foreward in the sequence of operations!
+            mod_operationLastPrior.DLL_SetItemNext(par_objOperationNew)
+            ''Make sure we can "start undoing" this & prior operations. 
+            mod_operationLastPrior = par_objOperationNew
+            ''Make sure we can travel backward in the sequence of operations!
+            par_objOperationNew.DLL_SetItemPrior(tempLastPrior)
+
+
+        ElseIf (mod_operationMarker IsNot Nothing) Then
+            ''
+            ''By creating a new Row or Column operation, the user has 
+            ''   essentially stated, "I am happy with the Undo/Redos I have 
+            ''   have done (by pressing the Undo/Redo buttons).  I am ready
+            ''   to "clean the slate" of any Undo operations I have performed. 
+            ''   Going forward, this new operation will be the next "Undo", 
+            ''   (in case I do choose to perform an "Undo").  ---11/2023 td
+            ''
+            ''---DIFFICULT AND CONFUSING---
+            ''Clear all succeeding recorded operations. We
+            '' don't want to "track" branching-off from a pre-existing sequence.  We want
+            '' to replace all "going forward" (i.e. redos forward from the marker) items. 
+            ''
+            Dim tempMarkerPrior As DLL_Operation = mod_operationMarker.GetPrior()
+            mod_operationMarker = Nothing ''Clear the marker!!!!  
+            ''---DIFFICULT AND CONFUSING---
+            tempMarkerPrior.DLL_ClearReferenceNext() ''Clear all succeeding operations. We
+            '' don't want to "track" branching-off from a pre-existing sequence.  We want
+            '' to replace all "going forward" (i.e. redos forward from the marker) items. 
+            mod_operationLastPrior = tempMarkerPrior
+
+            ''Make sure we can travel foreward in the sequence of operations!
+            mod_operationLastPrior.DLL_SetItemNext(par_objOperationNew)
+            ''Make sure we can "start undoing" this & prior operations. 
+            mod_operationLastPrior = par_objOperationNew
+            ''Make sure we can travel backward in the sequence of operations!
+            par_objOperationNew.DLL_SetItemPrior(tempMarkerPrior)
+
+        End If ''End of ""If (mod_operation1stRecord Is Nothing) Then... Else...""
+
+    End Sub
+
 
 
 
