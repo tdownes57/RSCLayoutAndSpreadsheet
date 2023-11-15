@@ -106,18 +106,19 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="item_toDeleteBegin">Begin deleting with this item.</param>
     ''' <param name="item_toDeleteEndInclusive">Delete this item last.</param>
     ''' <param name="yes_return_list_of_deleteds">True if we want to keep the deleted range.</param>
-    ''' <param name="count_of_deleteds">ByRef, how many items deleted</param>
-    ''' <param name="item_prior_undeleted">ByRef, prior item where the deletion took place</param>
-    ''' <param name="item_first_deleted">ByRef, return the first deleted item</param>
-    Sub DLL_DeleteRange(item_toDeleteBegin As IDoublyLinkedItem,
+    ''' <param name="ref_count_deleteds">ByRef, how many items deleted</param>
+    ''' <param name="ref_prior_undeleted">ByRef, prior item where the deletion took place</param>
+    ''' <param name="ref_first_deleted">ByRef, return the first deleted item</param>
+    Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As IDoublyLinkedItem,
                     item_toDeleteEndInclusive As IDoublyLinkedItem,
                     yes_return_list_of_deleteds As Boolean,
-                    ByRef count_of_deleteds As Integer,
-                    ByRef item_prior_undeleted As IDoublyLinkedItem,
-                    ByRef item_first_deleted As IDoublyLinkedItem)
+                    ByRef ref_count_deleteds As Integer,
+                    ByRef ref_prior_undeleted As IDoublyLinkedItem,
+                    ByRef ref_first_deleted As IDoublyLinkedItem)
 
     Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
-                    ByVal count_of_deleteds As Integer)
+                    ByVal count_of_deleteds As Integer,
+                    ByRef ref_prior_undeleted As IDoublyLinkedItem)
 
     ''//
     ''// Suggested by my Python class, Chapter 6: Lists

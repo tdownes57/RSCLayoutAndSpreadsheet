@@ -94,19 +94,31 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
     End Sub
 
 
-    Public Sub DLL_DeleteRange(item_toDeleteBegin As IDoublyLinkedItem,
+    Public Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As IDoublyLinkedItem,
                                item_toDeleteEndInclusive As IDoublyLinkedItem,
                                yes_return_list_of_deleteds As Boolean,
-                               ByRef count_of_deleteds As Integer,
-                               ByRef item_prior_undeleted As IDoublyLinkedItem,
-                               ByRef item_first_deleted As IDoublyLinkedItem) _
-                               Implements IDoublyLinkedList.DLL_DeleteRange
+                               ByRef ref_count_of_deleteds As Integer,
+                               ByRef ref_prior_undeleted As IDoublyLinkedItem,
+                               ByRef ref_first_deleted As IDoublyLinkedItem) _
+                               Implements IDoublyLinkedList.DLL_DeleteRange_NotUsed
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
 
 
-    End Sub
+    End Sub ''End of "Public Sub DLL_DeleteRange_NotUsed" 
+
+
+    Public Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
+                               ByVal count_of_deleteds As Integer,
+                               ByRef ref_item_prior_undeleted As IDoublyLinkedItem) _
+                               Implements IDoublyLinkedList.DLL_DeleteRange_Simpler
+        ''
+        ''This should set four(4) directional links (not just two(2))
+        ''
+
+
+    End Sub ''End of "Public Sub DLL_DeleteRange" 
 
 
     ''Public Sub DLL_SetNextAs(toBeNext As IDoublyLinkedItem) Implements IDoublyLinkedList ''(Of TControl).DLL_SetNextAs
@@ -167,11 +179,13 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_BuildListToIndex(index As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex_Denigrated(index As Integer) As IDoublyLinkedItem _
+            Implements IDoublyLinkedList.DLL_BuildListToIndex_Denigrated
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_BuildListToIndex(index As Integer, ByRef count_of_new_items As Integer) As IDoublyLinkedItem Implements IDoublyLinkedList.DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex_Denigrated(index As Integer, ByRef count_of_new_items As Integer) As IDoublyLinkedItem _
+            Implements IDoublyLinkedList.DLL_BuildListToIndex_Denigrated
         Throw New NotImplementedException()
     End Function
 

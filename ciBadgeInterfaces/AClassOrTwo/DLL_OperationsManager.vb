@@ -15,7 +15,14 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''
     Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
     Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
-    Private mod_lastPriorOperation As DLL_Operation
+    Private mod_operationLastPrior As DLL_Operation
+    Private mod_operation1stRecord As DLL_Operation
+
+    ''---DIFFICULT AND CONFUSING----
+    Private mod_operationMarkUndoPrior As DLL_Operation
+    Private mod_operationMarkUndoNext As DLL_Operation
+    Private mod_operationMarkRedoPrior As DLL_Operation
+    Private mod_operationMarkRedoNext As DLL_Operation
 
     ''Added 11/14/2023 Thomas Downes  
     Private mod_modeColumnNotRow As Boolean ''Added 11/14/2023

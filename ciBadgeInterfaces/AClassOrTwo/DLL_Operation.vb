@@ -4,6 +4,7 @@
 Imports System.Windows.Forms
 
 Public Class DLL_Operation ''11/2/2023 (Of TControl)
+    Implements IDoublyLinkedItem ''DLL_GetItemNext, DLL_GetItemPrior
     ''
     ''Added 10/30/2023
     ''
@@ -39,6 +40,12 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''' </summary>
     Public LefthandAnchor As IDoublyLinkedItem ''TControl
     Public RighthandAnchor As IDoublyLinkedItem ''TControl
+
+    ''
+    ''Doubly-Linked List!!!  ---11/14/2023 
+    ''
+    Private mod_operationPrior As DLL_Operation ''Added 11/14/2023 
+    Private mod_operationNext As DLL_Operation ''Added 11/14/2023 
 
     ''' <summary>
     ''' This creates the "Undo" version.
@@ -111,6 +118,55 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         Return objUndo
 
     End Function ''End of ""Public Function GetUndoVersion() As DLL_Operation(Of TControl)""
+
+
+    Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemNext
+        ''Throw New NotImplementedException()
+        mod_operationNext = param
+    End Sub
+
+    Public Sub DLL_SetItemPrior(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemPrior
+        ''Throw New NotImplementedException()
+        mod_operationPrior = param
+    End Sub
+
+    Public Sub DLL_ClearReferencePrior() Implements IDoublyLinkedItem.DLL_ClearReferencePrior
+        ''Throw New NotImplementedException()
+        Debugger.Break() ''Shouldn't be needed. 
+        mod_operationPrior = Nothing
+    End Sub
+
+    Public Sub DLL_ClearReferenceNext() Implements IDoublyLinkedItem.DLL_ClearReferenceNext
+        ''Throw New NotImplementedException()
+        Debugger.Break() ''Shouldn't be needed. 
+        mod_operationNext = Nothing
+    End Sub
+
+    Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
+        ''11/2023 Throw New NotImplementedException()
+        Dim bNextIsNothing As Boolean
+        bNextIsNothing = (mod_operationNext Is Nothing)
+        Return bNextIsNothing
+    End Function
+
+    Public Function DLL_NotAnyPrior() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyPrior
+        ''11/2023 Throw New NotImplementedException()
+        Dim bPriorIsNothing As Boolean
+        bPriorIsNothing = (mod_operationPrior Is Nothing)
+        Return bPriorIsNothing
+    End Function
+
+    Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
+        ''11/2023 td''Throw New NotImplementedException()
+        Return mod_operationNext
+
+    End Function
+
+    Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+        ''11/2023 td''Throw New NotImplementedException()
+        Return mod_operationPrior
+
+    End Function
 
 
     ''
