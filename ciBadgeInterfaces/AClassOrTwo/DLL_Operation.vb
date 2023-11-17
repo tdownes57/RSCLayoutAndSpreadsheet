@@ -14,6 +14,9 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Public ModeColumnsNotRows As Boolean ''Added 11/14/2023 td
 
     ''Needed for consistency checks... 10/30/2023
+    ''' <summary>
+    ''' Tells us the operations is I(Insert), D(Delete), or M(Move).
+    ''' </summary>
     Public OperationType As Char = "?" ''E.g. "I" for Insert, "M" for "Move", "D" is Delete
 
     Public ItemInsertSingly As IDoublyLinkedItem ''TControl
@@ -30,20 +33,57 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
     Public MovedRangeStart As IDoublyLinkedItem ''TControl
     Public MovedCount As Integer ''TControl
-    Public Move_LefthandStart As IDoublyLinkedItem ''TControl
-    Public Move_RighthandStart As IDoublyLinkedItem ''TControl
-    Public Move_LefthandEnd As IDoublyLinkedItem ''TControl
-    Public Move_RighthandEnd As IDoublyLinkedItem ''TControl
 
-    ''' <summary>
-    ''' Anchors are in the target list, NOT in the range.  Anchor will be .Prior to the item or range-start.  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used. 
-    ''' </summary>
-    Public AnchorLeftToPrior As IDoublyLinkedItem ''TControl
+    ''I don't like this names. ---11/17/2023
+    ''  Public Move_LefthandStart As IDoublyLinkedItem ''TControl
+    ''  Public Move_RighthandStart As IDoublyLinkedItem ''TControl
+    ''  Public Move_LefthandEnd As IDoublyLinkedItem ''TControl
+    ''  Public Move_RighthandEnd As IDoublyLinkedItem ''TControl
 
+    ''We need special properties for the Move-Cut operation. 
+    Public MoveCut_PriorToRange As IDoublyLinkedItem ''TControl
+    Public MoveCut_NextToRange As IDoublyLinkedItem ''TControl
+
+    ''We need special properties for the Delete operation. 
+    Public Delete_PriorToItemOrRange As IDoublyLinkedItem ''TControl
+    Public Delete_NextToItemOrRange As IDoublyLinkedItem ''TControl
+
+    ''Let's obey Occam's Razor & so use the "Anchor" properties for the Move-Paste(Insertion) operation. 
+    ''   --11/17/2023
+    ''  Not needed.  Use AnchorLeftToPrior, instead. 11/17/2023 Public MovePaste_InsertAfterItem As IDoublyLinkedItem ''TControl
+    ''  Not needed.  Use AnchorRightTerminal, instead. 11/17/2023 Public MovePaste_InsertBeforeItem As IDoublyLinkedItem ''TControl
+
+    ''
+    '' Anchors are in the target list, NOT in the range.
+    '' AnchorToPrecede...  will be .Prior to the range-first item (or single item).
+    '' At most one(1) anchor will be given, for any given operation.
+    '' To anchor both sides, the TControl's Next property will be used.
+    '' Anchors DO NOT! refer to the pre-existing state of the operation.
+    '' Anchors ARE NOT! referenced in DELETE operations, as they are not applicable.
+    '' --11/17/2023 t.do.
+    ''
+    ''#1 11/17/2023 Public AnchorLeftToPrior As IDoublyLinkedItem ''TControl
+    ''#2 Public AnchorToPrecedeItemOrRange As IDoublyLinkedItem ''TControl
     ''' <summary>
-    ''' Anchors are in the target list, NOT in the range.  Anchor will be .Next to the item or range-last.  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used. 
+    ''' Anchors are in the target list, NOT in the range.  AnchorToPrecede will be .Prior to the range-start item (or single item).  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used.  Anchors DO NOT! refer to the pre-existing state of the operation. 
     ''' </summary>
-    Public AnchorRightTerminal As IDoublyLinkedItem ''TControl
+    Public AnchorToPrecedeItemOrRange As IDoublyLinkedItem ''TControl
+
+    ''
+    '' Anchors are in the target list, NOT in the range.
+    '' AnchorToSucceed... will be .Next to the range-last item (or single item).
+    '' At most one(1) anchor will be given, for any given operation.
+    '' To anchor both sides, the TControl's Next property will be used.
+    '' Anchors DO NOT! refer to the pre-existing state of the operation.
+    '' Anchors ARE NOT! referenced in DELETE operations, as they are not applicable.
+    '' --11/17/2023 t.do.
+    ''
+    ''#1 11/17/2023 Public AnchorRightTerminal As IDoublyLinkedItem ''TControl
+    ''#2 11/17/2023 Public AnchorToSucceedItemOrRange As IDoublyLinkedItem ''TControl
+    ''' <summary>
+    ''' Anchors are in the target list, NOT in the range.  AnchorToSucceed will be .Next to the range-last item (or single item).  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used.  Anchors DO NOT! refer to the pre-existing state of the operation.
+    ''' </summary>
+    Public AnchorToSucceedItemOrRange As IDoublyLinkedItem ''TControl
 
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
@@ -65,8 +105,10 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
             ''11/2023 .LefthandAnchor = Me.LefthandAnchor
             ''11/2023 .RighthandAnchor = Me.RighthandAnchor
-            .AnchorLeftToPrior = Me.AnchorLeftToPrior
-            .AnchorRightTerminal = Me.AnchorRightTerminal
+            ''11/17/2023 .AnchorLeftToPrior = Me.AnchorLeftToPrior
+            .AnchorToPrecedeItemOrRange = Me.AnchorToPrecedeItemOrRange
+            ''11/17/2023 .AnchorRightTerminal = Me.AnchorRightTerminal
+            .AnchorToSucceedItemOrRange = Me.AnchorToSucceedItemOrRange
 
             If (Me.ItemInsertSingly IsNot Nothing) Then
                 ''
@@ -93,6 +135,19 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
                 .InsertRangeStart = Nothing ''Let's remove ANY vestigial reference. (Already Null, but good practice.)
                 .OperationType = "D"
 
+                ''Added 11/17/2023 td
+                ''  The "Anchor" properties are no longer to be used for delete operations.
+                ''  I have added the properties ".Delete_PriorToItemOrRange"
+                ''  and ".Delete_
+                ''11/17/2023 .Delete_PriorToItemOrRange = .AnchorLeftToPrior
+                .Delete_PriorToItemOrRange = .AnchorToPrecedeItemOrRange
+                ''11/17/2023 .Delete_NextToItemOrRange = .AnchorRightTerminal
+                .Delete_NextToItemOrRange = .AnchorToSucceedItemOrRange
+                ''11/17/2023 .AnchorLeftToPrior = Nothing
+                .AnchorToPrecedeItemOrRange = Nothing
+                ''11/17/2023 .AnchorRightTerminal = Nothing
+                .AnchorToSucceedItemOrRange = Nothing
+
             ElseIf (Me.DeleteRangeStart IsNot Nothing) Then
                 ''
                 ''Create an "Delete Range" operation (for our Undo op).
@@ -108,14 +163,25 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
                 .OperationType = "M" '' M for Move.
 
-                ''Lefthand side 
-                tempControlL = Me.Move_LefthandStart ''The "Me." prefix matters.
-                .Move_LefthandStart = Me.Move_LefthandEnd ''The "Me." prefix matters.
-                .Move_LefthandEnd = tempControlL
-                ''Righthand side 
-                tempControlR = Me.Move_RighthandStart ''The "Me." prefix matters.
-                .Move_RighthandStart = Me.Move_RighthandEnd ''The "Me." prefix matters.
-                .Move_RighthandEnd = tempControlR
+                ''Per //, the Move-Paste(Insert) operation will leverage the Anchor properties. 
+                ''                    ---11/17/2023
+                ''//Lefthand side 
+                ''//tempControlL = Me.Move_LefthandStart ''The "Me." prefix matters.
+                ''//.Move_LefthandStart = Me.Move_LefthandEnd ''The "Me." prefix matters.
+                ''//.Move_LefthandEnd = tempControlL
+                ''//''Righthand side 
+                ''//tempControlR = Me.Move_RighthandStart ''The "Me." prefix matters.
+                ''//.Move_RighthandStart = Me.Move_RighthandEnd ''The "Me." prefix matters.
+                ''//.Move_RighthandEnd = tempControlR
+
+                ''Lefthand, or "Prior", side 
+                tempControlL = Me.MoveCut_PriorToRange ''The "Me." prefix matters.
+                .MoveCut_PriorToRange = Me.AnchorToPrecedeItemOrRange ''The "Me." prefix matters.
+                .AnchorToPrecedeItemOrRange = tempControlL
+                ''Righthand, or "Next" side 
+                tempControlR = Me.MoveCut_NextToRange ''The "Me." prefix matters.
+                .MoveCut_NextToRange = Me.AnchorToSucceedItemOrRange ''The "Me." prefix matters.
+                .AnchorToSucceedItemOrRange = tempControlR
 
             End If ''End of ""If (Me.InsertedSingly IsNot Nothing) Then... ElseIf..."
 
@@ -141,12 +207,30 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         ''  --11/2023 td 
         ''
         If (AnchorLeftToPrior IsNot Nothing) Then
-            If (AnchorRightTerminal Is Nothing) Then
+            If (AnchorToSucceedItemOrRange Is Nothing) Then
                 Return True
             Else
                 Debugger.Break()
             End If
+
+        ElseIf (IsForDelete()) Then
+
+            If (Delete_PriorToItemOrRange IsNot Nothing) Then
+                If (Delete_NextToItemOrRange Is Nothing) Then
+                    Return True
+                Else
+                    Debugger.Break()
+                End If
+            Else
+                If (Delete_NextToItemOrRange IsNot Nothing) Then
+                    Return False
+                Else
+                    Debugger.Break()
+                End If
+            End If ''enD OF ""If (Delete_PriorToItemOrRange IsNot Nothing) Then""
+
         End If ''End of ""If (AnchorLeftToPrior IsNot Nothing) Then""
+
         Return False
     End Function ''End of ""Public Function AnchorIs_LeftToPrevious()""
 
@@ -165,7 +249,7 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         ''  --11/2023 td 
         ''
         If (AnchorLeftToPrior IsNot Nothing) Then
-            If (AnchorRightTerminal Is Nothing) Then
+            If (AnchorToSucceedItemOrRange Is Nothing) Then
                 Return True
             Else
                 Debugger.Break()
@@ -174,6 +258,19 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         Return False
     End Function ''End of ""Public Function AnchorIs_RightToTerminate()""
 
+
+    Public Function AnchorIs_Missing() As Boolean
+        ''Added 11/17/2023 
+        ''
+        If (AnchorLeftToPrior Is Nothing) Then
+            If (AnchorToSucceedItemOrRange Is Nothing) Then
+
+                Return True
+
+            End If
+        End If
+
+    End Function ''ENd of ""Public Function AnchorIs_Missing() As Boolean""
 
     Public Function ItemIs_HandledSingly() As Boolean
         ''
@@ -234,6 +331,17 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         ''For simplicity, let's negate the contrasting function.--11/17/2023  
         ''
         Return (Not ItemIs_HandledSingly())
+
+    End Function ''End of ""Public Function IsForRangeOfItems() As Boolean""
+
+
+    Public Function IsForDelete() As Boolean
+        ''
+        ''Is this a delete operation?   (Move operations are 100% _NOT_ delete operations,
+        ''     and move operations don't contain "Delete" operations.  Move operations
+        ''     start with a "Cut" sub-operation.)
+        ''
+        Return (OperationType = "D")
 
     End Function ''End of ""Public Function IsForRangeOfItems() As Boolean""
 
@@ -334,7 +442,7 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
             ''boolEqual8 = ((.LefthandAnchor Is Nothing) = (Me.LefthandAnchor Is Nothing))
             ''boolEqual9 = ((.RighthandAnchor Is Nothing) = (Me.RighthandAnchor Is Nothing))
             boolEqual8 = ((.AnchorLeftToPrior Is Nothing) = (Me.AnchorLeftToPrior Is Nothing))
-            boolEqual9 = ((.AnchorRightTerminal Is Nothing) = (Me.AnchorRightTerminal Is Nothing))
+            boolEqual9 = ((.AnchorToSucceedItemOrRange Is Nothing) = (Me.AnchorToSucceedItemOrRange Is Nothing))
 
             boolEqual91 = (.MovedCount = Me.MovedCount)
             boolEqual92 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))

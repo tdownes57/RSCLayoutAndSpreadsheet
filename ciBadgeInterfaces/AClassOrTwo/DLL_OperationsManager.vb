@@ -85,11 +85,13 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
         ''Check for population. 
         With param_operation
             ''11/2023  If (.LefthandAnchor Is Nothing And .RighthandAnchor Is Nothing) Then
-            If (.AnchorIsMissing()) Then
+            If (.AnchorIs_Missing()) Then
                 Debugger.Break()
-            ElseIf (.InsertRangeStart Is Nothing And .InsertSingly Is Nothing) Then
-                If (.DeleteRangeStart Is Nothing And .DeleteSingly Is Nothing) Then
+
+            ElseIf (.InsertRangeStart Is Nothing And .ItemInsertSingly Is Nothing) Then
+                If (.DeleteRangeStart Is Nothing And .ItemDeleteSingly Is Nothing) Then
                     If (.MovedRangeStart Is Nothing) Then
+                        ''Oops, we have no subject-material for the operation.
                         Debugger.Break()
                     End If
                 End If
@@ -125,23 +127,24 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                     Else
                         ''Left-hand (Next Item) Anchor
                         Me.DLL_InsertItemBefore(param_operation.ItemInsertSingly,
-                                            param_operation.AnchorRightTerminal)
+                                            param_operation.AnchorToSucceedItemOrRange)
                     End If
 
-                ElseIf (param_operation.IsRangeOfItems()) Then
+                ElseIf (param_operation.IsForRangeOfItems()) Then
                     ''
                     ''A range of items.
                     ''
                     ''Is it a left-hand anchor, or a right-hand anchor?
                     ''  (Is it a prior-item anchor, or a next-item anchor?)
-                    If (param_operation.AnchorLeftToPrior IsNot Nothing) Then
+                    ''11/2023 If (param_operation.AnchorLeftToPrior IsNot Nothing) Then
+                    If (param_operation.AnchorIs_LeftToPrevious()) Then
                         ''Left-hand (Prior Item) Anchor
                         Me.DLL_InsertItemAfter(param_operation.InsertRangeStart,
-                                        param_operation.AnchorLeftToPrior)
+                                            param_operation.AnchorLeftToPrior)
                     Else
                         ''Right-hand (Next Item) Anchor
                         Me.DLL_InsertItemBefore(param_operation.InsertRangeStart,
-                                        param_operation.AnchorRightTerminal)
+                                        param_operation.AnchorToSucceedItemOrRange)
                     End If
                 End If
 
@@ -179,7 +182,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                     ''Move Step 2 of 2 -- Insert
                     Me.DLL_InsertRangeBefore(param_operation.MovedRangeStart,
                                        param_operation.MovedCount,
-                                       param_operation.AnchorRightTerminal)
+                                       param_operation.AnchorToSucceedItemOrRange)
 
                 End If
 

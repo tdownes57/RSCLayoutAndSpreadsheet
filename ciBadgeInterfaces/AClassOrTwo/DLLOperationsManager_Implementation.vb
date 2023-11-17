@@ -63,7 +63,7 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
             With objOperationNew ''mod_lastPriorOperation
                 .InsertSingly = toBeInserted
                 .OperationType = "I"
-                .AnchorRightTerminal = toUseAsAnchor
+                .AnchorToSucceedItemOrRange = toUseAsAnchor
             End With
             ''mod_operationLastPrior = objOperationNew
 
@@ -178,7 +178,7 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
                 .InsertRangeStart = toBeInsertedFirst
                 .OperationType = "I"
                 ''.AnchorLeftPrior = toUseAsAnchorStart
-                .AnchorRightTerminal = toUseAsAnchorTerminal
+                .AnchorToSucceedItemOrRange = toUseAsAnchorTerminal
             End With
 
             ''
