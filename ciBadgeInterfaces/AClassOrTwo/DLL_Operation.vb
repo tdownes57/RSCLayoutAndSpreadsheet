@@ -16,8 +16,8 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''Needed for consistency checks... 10/30/2023
     Public OperationType As Char = "?" ''E.g. "I" for Insert, "M" for "Move", "D" is Delete
 
-    Public InsertSingly As IDoublyLinkedItem ''TControl
-    Public DeleteSingly As IDoublyLinkedItem ''TControl
+    Public ItemInsertSingly As IDoublyLinkedItem ''TControl
+    Public ItemDeleteSingly As IDoublyLinkedItem ''TControl
     ''Not needed.Public MovedSingly As TControl
 
     Public DeleteRangeStart As IDoublyLinkedItem ''TControl
@@ -36,10 +36,14 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Public Move_RighthandEnd As IDoublyLinkedItem ''TControl
 
     ''' <summary>
-    ''' Only one of the following will likely be used, for any given operation. To anchor both sides, the TControl's Next property will be used. 
+    ''' Anchors are in the target list, NOT in the range.  Anchor will be .Prior to the item or range-start.  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used. 
     ''' </summary>
-    Public LefthandAnchor As IDoublyLinkedItem ''TControl
-    Public RighthandAnchor As IDoublyLinkedItem ''TControl
+    Public AnchorLeftToPrior As IDoublyLinkedItem ''TControl
+
+    ''' <summary>
+    ''' Anchors are in the target list, NOT in the range.  Anchor will be .Next to the item or range-last.  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used. 
+    ''' </summary>
+    Public AnchorRightTerminal As IDoublyLinkedItem ''TControl
 
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
@@ -59,24 +63,26 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
         With objUndo
 
-            .LefthandAnchor = Me.LefthandAnchor
-            .RighthandAnchor = Me.RighthandAnchor
+            ''11/2023 .LefthandAnchor = Me.LefthandAnchor
+            ''11/2023 .RighthandAnchor = Me.RighthandAnchor
+            .AnchorLeftToPrior = Me.AnchorLeftToPrior
+            .AnchorRightTerminal = Me.AnchorRightTerminal
 
-            If (Me.InsertSingly IsNot Nothing) Then
+            If (Me.ItemInsertSingly IsNot Nothing) Then
                 ''
                 ''Create an "Delete Singly" opertion (for our Undo op).
                 ''
                 If (Me.OperationType <> "I") Then Debugger.Break()
-                .DeleteSingly = Me.InsertSingly ''The "Me." prefix matters.
-                .InsertSingly = Nothing ''Important, remove ANY vestigial reference.  (Already Null, but good practice.)
+                .ItemDeleteSingly = Me.ItemInsertSingly ''The "Me." prefix matters.
+                .ItemInsertSingly = Nothing ''Important, remove ANY vestigial reference.  (Already Null, but good practice.)
                 .OperationType = "D"
 
-            ElseIf (Me.DeleteSingly IsNot Nothing) Then
+            ElseIf (Me.ItemDeleteSingly IsNot Nothing) Then
                 ''
                 ''Create an "Insert Singly" opertion (for our Undo op).
                 ''
-                .InsertSingly = Me.DeleteSingly ''The "Me." prefix matters.
-                .DeleteSingly = Nothing ''Let's remove ANY vestigial reference.  (Already Null, but good practice.)
+                .ItemInsertSingly = Me.ItemDeleteSingly ''The "Me." prefix matters.
+                .ItemDeleteSingly = Nothing ''Let's remove ANY vestigial reference.  (Already Null, but good practice.)
                 .OperationType = "I"
 
             ElseIf (Me.InsertRangeStart IsNot Nothing) Then
@@ -118,6 +124,118 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         Return objUndo
 
     End Function ''End of ""Public Function GetUndoVersion() As DLL_Operation(Of TControl)""
+
+
+    ''' <summary>
+    ''' Will the anchor-item be placed as the range-last item's .DLL_PriorItem, after it's been moved or inserted?
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function AnchorIs_LeftToPrevious() As Boolean
+        ''Added 11/17/2023 
+        ''
+        ''  ---- Computer-Science-friendly -----
+        ''  This "ToPrevious" suffix indicates that the anchor
+        ''  will be the range-first item's .DLL_ItemPrior,
+        ''  after it's been moved or inserted...
+        ''  assuming that the function returns True, of course.
+        ''  --11/2023 td 
+        ''
+        If (AnchorLeftToPrior IsNot Nothing) Then
+            If (AnchorRightTerminal Is Nothing) Then
+                Return True
+            Else
+                Debugger.Break()
+            End If
+        End If ''End of ""If (AnchorLeftToPrior IsNot Nothing) Then""
+        Return False
+    End Function ''End of ""Public Function AnchorIs_LeftToPrevious()""
+
+
+    ''' <summary>
+    ''' Will the anchor-item be placed as the range-last item's .DLL_NextItem, after it's been moved or inserted?
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function AnchorIs_RightToTerminate() As Boolean
+        ''Added 11/17/2023 
+        ''
+        ''  ---- Computer-Science-friendly -----
+        ''  This "ToTerminate" suffix should evoke languages such as 
+        ''  C++ and Python, in which ranges are end-exclusive, 
+        ''  e.g. (currentIndex < endingIndex) is a loop condition. 
+        ''  --11/2023 td 
+        ''
+        If (AnchorLeftToPrior IsNot Nothing) Then
+            If (AnchorRightTerminal Is Nothing) Then
+                Return True
+            Else
+                Debugger.Break()
+            End If
+        End If
+        Return False
+    End Function ''End of ""Public Function AnchorIs_RightToTerminate()""
+
+
+    Public Function ItemIs_HandledSingly() As Boolean
+        ''
+        ''Added 11/17/2023  
+        ''
+        ''  (Move Operations are --NOT-- processed via any single-item 
+        ''    procedure, they are only processed as ranges with a count
+        ''    of one (or more).---11/17/2023) 
+        ''
+        If (ItemInsertSingly IsNot Nothing) Then
+            ''
+            ''Insert operations
+            ''
+            If (InsertRangeStart Is Nothing) Then
+                If (DeleteRangeStart Is Nothing) Then
+                    ''Everything is copacetic.  
+                    Return True
+                Else
+                    Debugger.Break()
+                End If
+            Else
+                Debugger.Break()
+            End If
+
+        ElseIf (ItemDeleteSingly IsNot Nothing) Then
+            ''
+            ''Insert operations
+            ''
+            If (InsertRangeStart Is Nothing) Then
+                If (DeleteRangeStart Is Nothing) Then
+                    ''Everything is copacetic.  
+                    Return True
+                Else
+                    Debugger.Break()
+                End If
+            Else
+                Debugger.Break()
+            End If
+
+        ElseIf (MovedRangeStart IsNot Nothing) Then
+            ''  (Move Operations are --NOT-- processed via any single-item 
+            ''    procedure, they are only processed as ranges with a count
+            ''    of one (or more).---11/17/2023) 
+            Return False
+
+        Else
+            Debugger.Break()
+        End If
+
+        Debugger.Break()
+        Return False
+
+    End Function ''End of ""Public Function ItemIs_HandledSingly() As Boolean()
+
+
+    Public Function IsForRangeOfItems() As Boolean
+        ''
+        ''For simplicity, let's negate the contrasting function.--11/17/2023  
+        ''
+        Return (Not ItemIs_HandledSingly())
+
+    End Function ''End of ""Public Function IsForRangeOfItems() As Boolean""
 
 
     Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemNext
@@ -194,6 +312,12 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         Dim boolEqual94 As Boolean
         Dim boolEqual95 As Boolean
 
+        ''Added 11/17/2023  
+        Dim boolEqual96 As Boolean
+        Dim boolEqual97 As Boolean
+        Dim boolEqual98 As Boolean
+        Dim boolEqual99 As Boolean
+
         With lets_check
 
             boolEqual1 = (.ClassTypeToString = Me.ClassTypeToString)
@@ -201,14 +325,16 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
             ''Unfortunately, compiler won't let me compare directly. 
             boolEqual3 = ((.DeleteRangeStart Is Nothing) = (Me.DeleteRangeStart Is Nothing))
             ''Unfortunately, compiler won't let me compare directly. 
-            boolEqual4 = ((.DeleteSingly Is Nothing) = (Me.DeleteSingly Is Nothing))
+            boolEqual4 = ((.ItemDeleteSingly Is Nothing) = (Me.ItemDeleteSingly Is Nothing))
             boolEqual5 = (.InsertCount = Me.InsertCount)
             ''Unfortunately, compiler won't let me compare directly. 
             boolEqual6 = ((.InsertRangeStart Is Nothing) = (Me.InsertRangeStart Is Nothing))
-            boolEqual7 = ((.InsertSingly Is Nothing) = (Me.InsertSingly Is Nothing))
+            boolEqual7 = ((.ItemInsertSingly Is Nothing) = (Me.ItemInsertSingly Is Nothing))
 
-            boolEqual8 = ((.LefthandAnchor Is Nothing) = (Me.LefthandAnchor Is Nothing))
-            boolEqual9 = ((.RighthandAnchor Is Nothing) = (Me.RighthandAnchor Is Nothing))
+            ''boolEqual8 = ((.LefthandAnchor Is Nothing) = (Me.LefthandAnchor Is Nothing))
+            ''boolEqual9 = ((.RighthandAnchor Is Nothing) = (Me.RighthandAnchor Is Nothing))
+            boolEqual8 = ((.AnchorLeftToPrior Is Nothing) = (Me.AnchorLeftToPrior Is Nothing))
+            boolEqual9 = ((.AnchorRightTerminal Is Nothing) = (Me.AnchorRightTerminal Is Nothing))
 
             boolEqual91 = (.MovedCount = Me.MovedCount)
             boolEqual92 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
@@ -216,11 +342,19 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
             boolEqual94 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
             boolEqual95 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
 
+            ''Added 11/17/2023  
+            boolEqual96 = (.AnchorIs_LeftToPrevious() = Me.AnchorIs_LeftToPrevious())
+            boolEqual97 = (.AnchorIs_RightToTerminate() = Me.AnchorIs_RightToTerminate())
+            boolEqual98 = (.ItemIs_HandledSingly() = Me.ItemIs_HandledSingly())
+            boolEqual99 = (.IsForRangeOfItems() = Me.IsForRangeOfItems())
+
         End With ''End of ""With lets_check""
 
         Dim bEqual1to5 As Boolean
         Dim bEqual6to9 As Boolean
         Dim bEqual91to95 As Boolean
+        ''Added 11/17/2023  
+        Dim bEqual96to99 As Boolean
 
         bEqual1to5 = (boolEqual1 And boolEqual2 And boolEqual3 And
                       boolEqual4 And boolEqual5)
@@ -228,8 +362,14 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         bEqual91to95 = (boolEqual91 And boolEqual92 And boolEqual93 And
                           boolEqual94 And boolEqual95)
 
+        ''Added 11/17/2023  
+        bEqual96to99 = ((boolEqual96 And boolEqual97) And
+                        (boolEqual98 And boolEqual99))
+
         Dim bEqual_All As Boolean
-        bEqual_All = (bEqual1to5 And bEqual6to9 And bEqual91to95)
+        ''bEqual_All = (bEqual1to5 And bEqual6to9 And bEqual91to95)
+        bEqual_All = (bEqual1to5 And bEqual6to9 And
+                     (bEqual91to95 And bEqual96to99))
 
         Return bEqual_All
 

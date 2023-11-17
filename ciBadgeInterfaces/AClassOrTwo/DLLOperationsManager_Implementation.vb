@@ -14,6 +14,8 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
+        RaiseMessageIfModeNotRefreshed()
+
         If (mod_modeColumnNotRow) Then
 
             mod_listColumns.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
@@ -38,21 +40,39 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
 
 
     Public Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem,
-                                    toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemBefore
+                                    toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_Insert1ItemBefore
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
-        mod_list.DLL_InsertItemBefore(toBeInserted, toUseAsAnchor)
+        RaiseMessageIfModeNotRefreshed()
+
+        If (mod_modeColumnNotRow) Then
+            ''Spreadsheet columns.
+            mod_listColumns.DLL_Insert1ItemBefore(toBeInserted, toUseAsAnchor)
+        Else
+            ''Spreadsheet rows.
+            mod_listRowHeaders.DLL_Insert1ItemBefore(toBeInserted, toUseAsAnchor)
+        End If
 
         ''
         ''Operations Management 
         ''
-        mod_lastPriorOperation = New DLL_Operation()
-        With mod_lastPriorOperation
-            .InsertSingly = toBeInserted
-            .OperationType = "I"
-            .RighthandAnchor = toUseAsAnchor
-        End With
+        Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+        Dim objOperationNew As New DLL_Operation()
+        If (ADMIN_FOR_UNDOS) Then
+            With objOperationNew ''mod_lastPriorOperation
+                .InsertSingly = toBeInserted
+                .OperationType = "I"
+                .AnchorRightTerminal = toUseAsAnchor
+            End With
+            ''mod_operationLastPrior = objOperationNew
+
+            ''
+            ''Record/store this operation. 
+            ''
+            ManageNewOperation(objOperationNew)
+
+        End If ''End of ""If (ADMIN_FOR_UNDOS) Then""
 
     End Sub
 
@@ -69,15 +89,96 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
             ''
             mod_listColumns.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
 
+        Else
             ''
-            ''Operations Management 
+            '' Rows!!!
             ''
+            mod_listRowHeaders.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
+
+        End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
+
+        ''
+        ''Operations Management 
+        ''
+        Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+        Dim objOperationNew As New DLL_Operation()
+        If (ADMIN_FOR_UNDOS) Then
+            ''mod_lastPriorOperation = New DLL_Operation()
+            With objOperationNew
+                .ModeColumnsNotRows = mod_modeColumnNotRow
+                .InsertRangeStart = toBeInsertedFirst
+                .OperationType = "I"
+                ''.LefthandAnchor = toUseAsAnchorStart
+                .AnchorLeftPrior = toUseAsAnchorStart
+            End With
+            ''
+            ''Record/store this operation. 
+            ''
+            ManageNewOperation(objOperationNew)
+
+        End If ''END OF ""If (ADMIN_FOR_UNDOS) Then""
+
+
+        ''Encapsulated 11/2023 
+        ''If (mod_operation1stRecord Is Nothing) Then
+        ''    ''The very first record is both first & last. 
+        ''    mod_operation1stRecord = objOperationNew
+        ''    mod_operationLastPrior = objOperationNew
+        ''    ''---Not needed here. 11/2023
+        ''    ''---mod_operationMarkUndoNext = objOperationNew
+        ''Else
+        ''    Dim tempLastPrior As DLL_Operation = mod_operationLastPrior
+        ''    ''Make sure we can travel foreward in the sequence of operations!
+        ''    mod_operationLastPrior.DLL_SetItemNext(objOperationNew)
+        ''    ''Make sure we can "start undoing" this & prior operations. 
+        ''    mod_operationLastPrior = objOperationNew
+        ''    ''Make sure we can travel backward in the sequence of operations!
+        ''    objOperationNew.DLL_SetItemPrior(tempLastPrior)
+        ''
+        ''End If ''End of ""If (mod_operation1stRecord Is Nothing) Then... Else...""
+
+    End Sub ''End Of ""Public Sub DLL_InsertRangeAfter""
+
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="toBeInsertedFirst">This is the first item in the range.</param>
+    ''' <param name="toBeInsertedCount">How many items in the range of items to be inserted.</param>
+    ''' <param name="toUseAsAnchorTerminal">Must already be in the list, not the range. This will be the end-cap.</param>
+    Public Sub DLL_InsertRangeBefore(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
+                                    toUseAsAnchorTerminal As IDoublyLinkedItem) _
+                                    Implements IDoublyLinkedList.DLL_InsertRangeBefore
+        ''
+        ''This should set four(4) directional links (not just two(2))
+        ''
+        If (mod_modeColumnNotRow) Then
+            ''
+            '' Columns!!!
+            ''
+            mod_listColumns.DLL_InsertRangeBefore(toBeInsertedFirst, toBeInsertedCount,
+                                                  toUseAsAnchorTerminal)
+        Else
+            ''
+            '' Rows!!!
+            ''
+            mod_listRowHeaders.DLL_InsertRangeBefore(toBeInsertedFirst, toBeInsertedCount,
+                                                     toUseAsAnchorTerminal)
+        End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
+
+        ''
+        ''Operations Management 
+        ''
+        Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+        If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
             Dim objOperationNew As New DLL_Operation()
             With objOperationNew
+                .ModeColumnsNotRows = mod_modeColumnNotRow
                 .InsertRangeStart = toBeInsertedFirst
                 .OperationType = "I"
-                .LefthandAnchor = toUseAsAnchorStart
+                ''.AnchorLeftPrior = toUseAsAnchorStart
+                .AnchorRightTerminal = toUseAsAnchorTerminal
             End With
 
             ''
@@ -85,32 +186,7 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
             ''
             ManageNewOperation(objOperationNew)
 
-            ''Encapsulated 11/2023 
-            ''If (mod_operation1stRecord Is Nothing) Then
-            ''    ''The very first record is both first & last. 
-            ''    mod_operation1stRecord = objOperationNew
-            ''    mod_operationLastPrior = objOperationNew
-            ''    ''---Not needed here. 11/2023
-            ''    ''---mod_operationMarkUndoNext = objOperationNew
-            ''Else
-            ''    Dim tempLastPrior As DLL_Operation = mod_operationLastPrior
-            ''    ''Make sure we can travel foreward in the sequence of operations!
-            ''    mod_operationLastPrior.DLL_SetItemNext(objOperationNew)
-            ''    ''Make sure we can "start undoing" this & prior operations. 
-            ''    mod_operationLastPrior = objOperationNew
-            ''    ''Make sure we can travel backward in the sequence of operations!
-            ''    objOperationNew.DLL_SetItemPrior(tempLastPrior)
-            ''
-            ''End If ''End of ""If (mod_operation1stRecord Is Nothing) Then... Else...""
-
-        Else
-            ''
-            '' Rows!!!
-            ''
-            mod_listRowHeaders.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
-
-
-        End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
+        End If ''END OF ""If (ADMIN_FOR_UNDOS) Then""
 
     End Sub ''End Of ""Public Sub DLL_InsertRangeAfter""
 

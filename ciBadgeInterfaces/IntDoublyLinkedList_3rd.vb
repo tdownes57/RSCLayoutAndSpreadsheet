@@ -70,7 +70,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' Overload of simpler, more likely used Sub.
     ''' </summary>
     ''' <param name="toBeInserted">The item to be inserted.</param>
-    ''' <param name="toUseAsAnchor">The item whose "Next" property will lead to the inserted item.</param>
+    ''' <param name="toUseAsAnchor">Anchors are targets in the list, NOT in the range of items being shifted. The item whose "Next" property will ultimately ead to the inserted item.</param>
     Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem, toUseAsAnchor As IDoublyLinkedItem)
 
 
@@ -83,9 +83,9 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <summary>
     ''' Overload of simpler, more likely used Sub.
     ''' </summary>
-    ''' <param name="toBeInserted">The item to be inserted.</param>
-    ''' <param name="toUseAsAnchor">Unlikely to be needed, as the likely anchor is the concrete object which owns the procedure.</param>
-    Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem, toUseAsAnchor As IDoublyLinkedItem)
+    ''' <param name="toBeInserted">The item to be inserted into the list.</param>
+    ''' <param name="toUseAsTargetAnchor">The item which determines the location of the newly-inserted range. Range will be inserted BEFORE (PRIOR) to the Target Anchor.</param>
+    Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem, toUseAsTargetAnchor As IDoublyLinkedItem)
 
 
     ''' <summary>
@@ -93,10 +93,10 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' </summary>
     ''' <param name="toBeInsertedFirst"></param>
     ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
-    ''' <param name="toUseAsAnchorStart"></param>
+    ''' <param name="toUseAsTargetAnchorStart">Anchors are targets in the list, NOT in the range of items being shifted.</param>
     Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem,
                             toBeInsertedCount As Integer,
-                            toUseAsAnchorStart As IDoublyLinkedItem)
+                            toUseAsTargetAnchorStart As IDoublyLinkedItem)
 
 
     ''' <summary>
@@ -104,7 +104,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' </summary>
     ''' <param name="toBeInsertedFirst"></param>
     ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
-    ''' <param name="toUseAsAnchorTerminating"></param>
+    ''' <param name="toUseAsAnchorTerminating">Anchors are targets in the list, NOT in the range of items being shifted.</param>
     Sub DLL_InsertRangeBefore(toBeInsertedFirst As IDoublyLinkedItem,
                             toBeInsertedCount As Integer,
                             toUseAsAnchorTerminating As IDoublyLinkedItem)
