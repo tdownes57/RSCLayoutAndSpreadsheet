@@ -4,7 +4,7 @@
 
 Imports System.Net
 
-Public Class RSCDataCellLattice
+Public Class RSCDataCellLattice_NotInUse
     ''
     ''Added 5/15/2023 Thomas Downes  
     ''

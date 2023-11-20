@@ -23,11 +23,11 @@ Public Class RSCDataCell
     Public Event GotFocus_Cell(sender As Object, e As EventArgs) ''Added 5/13/2022
 
     ''Not yet in use, provisional as of 5/15/2023.  
-    Private CellPriorAbove As RSCDataCell ''Per G. Ernsberger, properties should be private.
-    Private CellNextBelow As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_CellPriorAbove As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_CellNextBelow As RSCDataCell ''Per G. Ernsberger, properties should be private.
 
-    Private CellRight As RSCDataCell ''Per G. Ernsberger, properties should be private.
-    Private Cell_Left As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_CellRight As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_Cell_Left As RSCDataCell ''Per G. Ernsberger, properties should be private.
 
     Public Undel_DataCellNextRight As RSCDataCell ''Added 10/30/2023 td
 
@@ -162,7 +162,10 @@ Public Class RSCDataCell
     End Function ''End fo""Public Function GetRowIndex_Me() As Integer""
 
 
-    Public Function GetNextCell_Right(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+    Public Function GetNextCell_Right_Deprecated(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+        ''
+        ''This function is deprecated.  Instead, use the following:  
+        ''     GetCell_NextRight() ''New as of 11/20/2023 td
         ''
         ''4/12/2022 td
         ''
@@ -179,10 +182,10 @@ Public Class RSCDataCell
         objRSCDataCell_Right = objRSCDataColumn_Right.GetCellWithRowIndex(intCurrentRowIndex)
         Return objRSCDataCell_Right
 
-    End Function ''End of ""Public Function GetNextCell_Right() As RSCDataCell""
+    End Function ''End of ""Public Function GetNextCell_Right_Deprecated() As RSCDataCell""
 
 
-    Public Function GetNextCell_Left(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
+    Public Function GetCell_LefthandSide(Optional ByRef pboolEdge As Boolean = False) As RSCDataCell
         ''
         ''4/12/2022 td
         ''
@@ -200,7 +203,7 @@ Public Class RSCDataCell
         objRSCDataCell_Left = objRSCDataColumn_Left.GetCellWithRowIndex(intCurrentRowIndex)
         Return objRSCDataCell_Left
 
-    End Function ''End of ""Public Function GetNextCell_Left() As RSCDataCell""
+    End Function ''End of ""Public Function GetCell_LefthandSide() As RSCDataCell""
 
 
     Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
@@ -371,6 +374,102 @@ Public Class RSCDataCell
         Return objRSCDataCell_Down
 
     End Function ''End of ""Public Function GetFirstCell_NextRowDown() As RSCDataCell""
+
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="pboolRefresh">Let's query the adjacent column, to get an updated result based on the current column configuration.</param>
+    ''' <param name="pboolCalledByUndoDelete">In contrast to Refresh mode, we don't query the adjacent column.  This is because we are in the middle of an Undo-Delete (or Redo-Insert!) operation.</param>
+    ''' <param name="pboolRetainForUndoDelete">We want to a record of the adjacent righthand cell, for a future Undo-of-Delete.</param>
+    ''' <param name="pboolRefreshIteratively">Prior to exiting, call this function on the output cell.</param>
+    ''' <param name="pboolIsLastCellIeEdge"></param>
+    ''' <param name="pboolIsNothing"></param>
+    ''' <param name="pvalRowIndex"></param>
+    ''' <returns></returns>
+    Public Function GetCell_RighthandSide(ByVal pboolRefreshOutput As Boolean,
+                                            ByVal pboolCalledByUndoDelete As Boolean,
+                                            ByVal pboolRetainForUndoDelete As Boolean,
+                                            ByVal pboolRefreshIteratively As Boolean,
+                                           ByRef pboolIsLastCellIeEdge As Boolean,
+                                           ByRef pboolIsNothing As Boolean,
+                                           Optional pvalRowIndex As Integer = -1) As RSCDataCell
+        ''
+        '' Added 11/20/2023 td
+        ''
+        Dim intCurrentRowIndex As Integer
+        Dim objRSCDataCell_NextRight As RSCDataCell
+        Dim objRSCDataColumn_Next As RSCFieldColumnV2
+
+        If (pboolRefreshOutput) Then
+            ''
+            ''This is default behavior.  We will query the adjacent column. 
+            ''
+        ElseIf (pboolCalledByUndoOrRedo) Then
+            ''We won't refresh.  We will use the retained value. 
+            Return Me.mod_cellNextRight
+        End If ''End of ""If (pboolRefresh) Then... Else ""
+
+        If (pvalRowIndex > 0) Then '' ... > -1) Then
+            intCurrentRowIndex = pvalRowIndex
+        Else
+            intCurrentRowIndex = Me.ParentColumn.GetRowIndexOfCell(Me)
+        End If
+
+        ''Not needed?  If (intCurrentRowIndex = Me.ParentColumn.CountOfRows()) Then
+        ''  pboolEdge = True
+        ''  Return Nothing
+        ''End If ''End of ""If (intCurrentRowIndex = 1) Then""
+
+        objRSCDataColumn_Next = Me.ParentColumn.GetNextColumn_Right()
+        If (objRSCDataColumn_Next Is Nothing) Then
+            ''System.Diagnostics.Debugger.Break()  Throw New Exception
+            pboolIsNothing = True
+            Return Nothing
+        End If
+
+        ''
+        ''If refreshing, ask the next column for the correct cell. 
+        ''
+        If (pboolRefreshOutput) Then
+            ''Ask the next column for the correct cell. 
+            objRSCDataCell_NextRight = objRSCDataColumn_Next.GetCellWithRowIndex(intCurrentRowIndex)
+        Else
+            objRSCDataCell_NextRight = Me.mod_cellNextRight
+
+        End If ''End of ""If (pboolRefreshOutput) Then... Else...""
+
+        ''If asked, let's record the output result. 
+        If (pboolRetainForRedoInsert) Then
+            ''Record the output result.
+            Me.mod_cellNextRight = objRSCDataCell_NextRight
+        End If ''ENd of ""If (pboolRetainForRedoInsert) Then""
+
+        ''
+        ''If asked, let's perform a recursive operation. 
+        ''
+        If (pboolRefresh And pboolRefreshIteratively) Then
+            ''Call recursively/iteratively. 
+            If (pboolIsLastCellIeEdge) Then
+                ''
+                ''We can't continue.
+                ''
+            Else
+                Dim bLastCell As Boolean
+                Dim bIsNothing As Boolean
+                With objRSCDataCell_NextRight
+                    .GetCell_NextRight(True, False, True, True, bLastCell, bIsNothing)
+                End With
+            End If ''eND OF ""If (pboolIsLastCellIeEdge) Then.... eLSE""
+        End If ''ENd of ""If (pboolRefresh and pboolRefreshIteratively) Then""
+
+        ''
+        ''Output the result.
+        ''
+        Return objRSCDataCell_NextRight
+
+    End Function ''End of ""Public Function GetCell_NextRight() As RSCDataCell""
+
 
 
     Public Function FocusRelated_CellHasFocus() As Boolean
@@ -873,7 +972,7 @@ Public Class RSCDataCell
         Select Case e.KeyCode
             Case Keys.Up : objNextCell = GetCellPrior_Up(bEdgeUp) ''.SetFocus
             Case Keys.Down : objNextCell = GetCellNext_Down(bEdgeDn) ''.SetFocus()
-            Case Keys.Left : objNextCell = GetNextCell_Left(bEdgeLt) ''.SetFocus
+            Case Keys.Left : objNextCell = GetCell_LefthandSide(bEdgeLt) ''.SetFocus
             Case Keys.Right
                 ''We might be in the last column of the spreadsheet. ----4/12/2022 td
                 objNextCell = GetNextCell_Right(bEdgeRt) ''.SetFocus

@@ -225,14 +225,49 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
     End Sub ''End of "Public Sub DLL_DeleteRange_NotUsed" 
 
 
-    Public Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
-                               ByVal count_of_deleteds As Integer,
-                               ByRef ref_item_prior_undeleted As IDoublyLinkedItem) _
+    Public Sub DLL_DeleteRange_Simpler(p_item_toDeleteBegin As IDoublyLinkedItem,
+                               ByVal p_count_of_deleteds As Integer,
+                               ByRef pref_item_prior_undeleted As IDoublyLinkedItem) _
                                Implements IDoublyLinkedList.DLL_DeleteRange_Simpler
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
+        If (mod_modeColumnNotRow) Then
+            ''
+            '' Columns!!!
+            ''
+            mod_listColumns.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
+                                                    pref_item_prior_undeleted)
+        Else
+            ''
+            '' Rows!!!
+            ''
+            mod_listRowHeaders.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
+                                                    pref_item_prior_undeleted)
+        End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
+        ''
+        ''Operations Management 
+        ''
+        Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+        If (ADMIN_FOR_UNDOS) Then
+            ''mod_lastPriorOperation = New DLL_Operation()
+            Dim objOperationNew As New DLL_Operation()
+            With objOperationNew
+                .OperationType = "D"
+                .ModeColumnsNotRows = mod_modeColumnNotRow
+                .DeleteRangeStart = item_toDeleteBegin
+                .DeleteCount = count_of_deleteds
+                ''.AnchorLeftPrior = toUseAsAnchorStart
+                .AnchorToSucceedItemOrRange = toUseAsAnchorTerminal
+            End With
+
+            ''
+            ''Record/store this operation. 
+            ''
+            ManageNewOperation(objOperationNew)
+
+        End If ''END OF ""If (ADMIN_FOR_UNDOS) Then""
 
     End Sub ''End of "Public Sub DLL_DeleteRange" 
 

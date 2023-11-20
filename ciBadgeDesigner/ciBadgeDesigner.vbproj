@@ -301,7 +301,7 @@
     <Compile Include="ControlsRSC\RSCDataCell.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ControlsRSC\RSCDataCellLattice.vb" />
+    <Compile Include="ControlsRSC\RSCDataCellLattice_NotInUse.vb" />
     <Compile Include="ControlsRSC\RSCDataCell_DoublyLinked.vb">
       <SubType>UserControl</SubType>
     </Compile>

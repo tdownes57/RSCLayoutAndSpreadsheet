@@ -92,10 +92,10 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Private mod_operationNext As DLL_Operation ''Added 11/14/2023 
 
     ''' <summary>
-    ''' This creates the "Undo" version.
+    ''' This creates the "Undo" version of the class-object operation.
     ''' </summary>
     ''' <returns></returns>
-    Public Function GetUndoVersion() As DLL_Operation ''11/2/2023 (Of TControl)
+    Public Function GetUndoVersionOfOperation() As DLL_Operation ''11/2/2023 (Of TControl)
         ''
         ''Added 10/30/2023
         ''
@@ -158,9 +158,6 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
             ElseIf (Me.MovedRangeStart IsNot Nothing) Then
 
-                Dim tempControlL As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-                Dim tempControlR As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-
                 .OperationType = "M" '' M for Move.
 
                 ''Per //, the Move-Paste(Insert) operation will leverage the Anchor properties. 
@@ -174,14 +171,40 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
                 ''//.Move_RighthandStart = Me.Move_RighthandEnd ''The "Me." prefix matters.
                 ''//.Move_RighthandEnd = tempControlR
 
-                ''Lefthand, or "Prior", side 
-                tempControlL = Me.MoveCut_PriorToRange ''The "Me." prefix matters.
-                .MoveCut_PriorToRange = Me.AnchorToPrecedeItemOrRange ''The "Me." prefix matters.
-                .AnchorToPrecedeItemOrRange = tempControlL
-                ''Righthand, or "Next" side 
-                tempControlR = Me.MoveCut_NextToRange ''The "Me." prefix matters.
-                .MoveCut_NextToRange = Me.AnchorToSucceedItemOrRange ''The "Me." prefix matters.
-                .AnchorToSucceedItemOrRange = tempControlR
+                '',Dim tempControlL As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                '',Dim tempControlR As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                '',''Lefthand, or "Prior", side 
+                '',tempControlL = Me.MoveCut_PriorToRange ''The "Me." prefix matters.
+                '',.MoveCut_PriorToRange = Me.AnchorToPrecedeItemOrRange ''The "Me." prefix matters.
+                '',.AnchorToPrecedeItemOrRange = tempControlL
+                '',''Righthand, or "Next" side 
+                '',tempControlR = Me.MoveCut_NextToRange ''The "Me." prefix matters.
+                '',.MoveCut_NextToRange = Me.AnchorToSucceedItemOrRange ''The "Me." prefix matters.
+                '',.AnchorToSucceedItemOrRange = tempControlR
+
+                ''
+                ''The "L"("Prior")-suffix side, i.e. "ItemPrior" (Column to the L(Left)) side. 
+                ''
+                Dim tempControlL_PC As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                Dim tempControlL_PP As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                tempControlL_PC = Me.GetMoveRangeItemPrior_PreCut()
+                tempControlL_PP = Me.GetMoveRangeItemPrior_PostPaste()
+                Me.SetMoveRangeItemPrior_PreCut(tempControlL_PP) ''Reverse P.C. with P.P.
+                Me.SetMoveRangeItemPrior_PostPaste(tempControlL_PC) ''Reverse P.P. with P.C.
+                tempControlL_PP = Nothing ''Clear it, not needed now.
+                tempControlL_PC = Nothing ''Clear it, not needed now.
+
+                ''
+                ''The "R"("Next")-suffix side, i.e. "Righthand" ("ItemNext") (Column to the Right) side. 
+                ''
+                Dim tempControlR_PC As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                Dim tempControlR_PP As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                tempControlR_PC = Me.GetMoveRangeItemNext_PreCut()
+                tempControlR_PP = Me.GetMoveRangeItemNext_PostPaste()
+                Me.SetMoveRangeItemNext_PreCut(tempControlR_PP) ''Reverse P.C. with P.P.
+                Me.SetMoveRangeItemNext_PostPaste(tempControlR_PC) ''Reverse P.P. with P.C.
+                tempControlR_PP = Nothing ''Clear it, not needed now.
+                tempControlR_PC = Nothing ''Clear it, not needed now.
 
             End If ''End of ""If (Me.InsertedSingly IsNot Nothing) Then... ElseIf..."
 
@@ -192,11 +215,16 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     End Function ''End of ""Public Function GetUndoVersion() As DLL_Operation(Of TControl)""
 
 
+    ''
+    ''Will the anchor-item be placed as the range-first item's .DLL_ItemPrior,
+    ''  after it's been moved or inserted? (Succeed means follow.)
+    ''
     ''' <summary>
-    ''' Will the anchor-item be placed as the range-last item's .DLL_PriorItem, after it's been moved or inserted?
+    ''' Will the anchor-item be placed as the range-first item's .DLL_ItemPrior, after it's been inserted (or moved)?
     ''' </summary>
     ''' <returns></returns>
-    Public Function AnchorIs_LeftToPrevious() As Boolean
+    Public Function AnchorWillPrecedeRangeOrItem() As Boolean
+        ''---Public Function AnchorIs_LeftToPrevious() As Boolean
         ''Added 11/17/2023 
         ''
         ''  ---- Computer-Science-friendly -----
@@ -206,7 +234,8 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         ''  assuming that the function returns True, of course.
         ''  --11/2023 td 
         ''
-        If (AnchorLeftToPrior IsNot Nothing) Then
+        ''If (AnchorLeftToPrior IsNot Nothing) Then
+        If (AnchorToPrecedeItemOrRange IsNot Nothing) Then
             If (AnchorToSucceedItemOrRange Is Nothing) Then
                 Return True
             Else
@@ -232,14 +261,19 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         End If ''End of ""If (AnchorLeftToPrior IsNot Nothing) Then""
 
         Return False
-    End Function ''End of ""Public Function AnchorIs_LeftToPrevious()""
 
+    End Function ''End of ""Public Function AnchorWillPrecedeRangeOrItem()""
 
+    ''
+    ''Will the anchor-item be placed as the range-last item's .DLL_NextItem,
+    ''  after it's been moved or inserted? (Succeed means follow.)
+    ''
     ''' <summary>
-    ''' Will the anchor-item be placed as the range-last item's .DLL_NextItem, after it's been moved or inserted?
+    ''' Will the anchor-item be placed as the range-last item's .DLL_NextItem, after it's been moved or inserted? (Succeed means follow.)
     ''' </summary>
     ''' <returns></returns>
-    Public Function AnchorIs_RightToTerminate() As Boolean
+    Public Function AnchorWillSucceedRangeOrItem() As Boolean
+        ''---Public Function AnchorIs_RightToTerminate() As Boolean
         ''Added 11/17/2023 
         ''
         ''  ---- Computer-Science-friendly -----
@@ -248,29 +282,32 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         ''  e.g. (currentIndex < endingIndex) is a loop condition. 
         ''  --11/2023 td 
         ''
-        If (AnchorLeftToPrior IsNot Nothing) Then
-            If (AnchorToSucceedItemOrRange Is Nothing) Then
+        If (AnchorToSucceedItemOrRange IsNot Nothing) Then
+            If (AnchorToPrecedeItemOrRange Is Nothing) Then
                 Return True
             Else
                 Debugger.Break()
             End If
         End If
         Return False
-    End Function ''End of ""Public Function AnchorIs_RightToTerminate()""
+    End Function ''End of ""Public Function AnchorWillSucceedRangeOrItem()""
 
 
     Public Function AnchorIs_Missing() As Boolean
         ''Added 11/17/2023 
         ''
-        If (AnchorLeftToPrior Is Nothing) Then
+        If (AnchorToPrecedeItemOrRange Is Nothing) Then
             If (AnchorToSucceedItemOrRange Is Nothing) Then
 
                 Return True
 
-            End If
-        End If
+            End If ''If (AnchorToSucceedItemOrRange Is Nothing) Then
+        End If ''If (AnchorToPrecedeItemOrRange Is Nothing) Then
+
+        Return False
 
     End Function ''ENd of ""Public Function AnchorIs_Missing() As Boolean""
+
 
     Public Function ItemIs_HandledSingly() As Boolean
         ''
@@ -341,9 +378,101 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         ''     and move operations don't contain "Delete" operations.  Move operations
         ''     start with a "Cut" sub-operation.)
         ''
+        If (Testing.TestingByDefault) Then
+            If ((OperationType = "D") <> (DeleteRangeStart IsNot Nothing _
+                Or ItemDeleteSingly IsNot Nothing)) Then
+                Debugger.Break()
+            End If
+        End If ''End of ""If (Testing.TestingByDefault) Then""
+
         Return (OperationType = "D")
 
     End Function ''End of ""Public Function IsForRangeOfItems() As Boolean""
+
+
+    Public Function GetMoveRangeItemNext_PreCut() As IDoublyLinkedItem
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        Return MoveCut_NextToRange
+
+    End Function
+
+
+    Public Function GetMoveRangeItemPrior_PreCut() As IDoublyLinkedItem
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        Return MoveCut_PriorToRange
+
+    End Function
+
+
+    Public Function GetMoveRangeItemNext_PostPaste() As IDoublyLinkedItem
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        Return AnchorToSucceedItemOrRange
+
+    End Function
+
+
+    Public Function GetMoveRangeItemPrior_PostPaste() As IDoublyLinkedItem
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        Return AnchorToPrecedeItemOrRange
+
+    End Function
+
+
+    Public Sub SetMoveRangeItemNext_PreCut(par_item As IDoublyLinkedItem)
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        If (par_item Is Nothing) Then Debugger.Break()
+
+        MoveCut_NextToRange = par_item
+
+    End Sub
+
+
+    Public Sub SetMoveRangeItemPrior_PreCut(par_item As IDoublyLinkedItem)
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        If (par_item Is Nothing) Then Debugger.Break()
+        MoveCut_PriorToRange = par_item
+
+    End Sub
+
+
+    Public Sub SetMoveRangeItemNext_PostPaste(par_item As IDoublyLinkedItem)
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        If (par_item Is Nothing) Then Debugger.Break()
+        AnchorToSucceedItemOrRange = par_item
+
+    End Sub
+
+
+    Public Sub SetMoveRangeItemPrior_PostPaste(par_item As IDoublyLinkedItem)
+        ''
+        ''This function is to improve comprehensibility when generating
+        ''  an "Undo" version of a Move operation. 
+        ''
+        If (par_item Is Nothing) Then Debugger.Break()
+        AnchorToPrecedeItemOrRange = par_item
+
+    End Sub
 
 
     Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemNext
@@ -441,18 +570,20 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
             ''boolEqual8 = ((.LefthandAnchor Is Nothing) = (Me.LefthandAnchor Is Nothing))
             ''boolEqual9 = ((.RighthandAnchor Is Nothing) = (Me.RighthandAnchor Is Nothing))
-            boolEqual8 = ((.AnchorLeftToPrior Is Nothing) = (Me.AnchorLeftToPrior Is Nothing))
+            boolEqual8 = ((.AnchorToPrecedeItemOrRange Is Nothing) = (Me.AnchorToPrecedeItemOrRange Is Nothing))
             boolEqual9 = ((.AnchorToSucceedItemOrRange Is Nothing) = (Me.AnchorToSucceedItemOrRange Is Nothing))
 
             boolEqual91 = (.MovedCount = Me.MovedCount)
-            boolEqual92 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
-            boolEqual93 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
-            boolEqual94 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
-            boolEqual95 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
+            ''boolEqual92 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
+            ''boolEqual93 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
+            ''boolEqual94 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
+            ''boolEqual95 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
+            boolEqual92 = ((.MoveCut_NextToRange Is Nothing) = (Me.MoveCut_NextToRange Is Nothing))
+            boolEqual93 = ((.MoveCut_PriorToRange Is Nothing) = (Me.MoveCut_PriorToRange Is Nothing))
 
-            ''Added 11/17/2023  
-            boolEqual96 = (.AnchorIs_LeftToPrevious() = Me.AnchorIs_LeftToPrevious())
-            boolEqual97 = (.AnchorIs_RightToTerminate() = Me.AnchorIs_RightToTerminate())
+            ''Added 11/17/20 23  
+            boolEqual96 = (.AnchorWillPrecedeRangeOrItem() = Me.AnchorWillPrecedeRangeOrItem())
+            boolEqual97 = (.AnchorWillSucceedRangeOrItem() = Me.AnchorWillSucceedItemOrRange())
             boolEqual98 = (.ItemIs_HandledSingly() = Me.ItemIs_HandledSingly())
             boolEqual99 = (.IsForRangeOfItems() = Me.IsForRangeOfItems())
 
@@ -492,8 +623,8 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         Dim objUndo_1st As DLL_Operation ''11/2/2023 (Of TControl)
         Dim objUndo_2nd As DLL_Operation ''11/2/2023 (Of TControl)
 
-        objUndo_1st = lets_check.GetUndoVersion()
-        objUndo_2nd = objUndo_1st.GetUndoVersion()
+        objUndo_1st = lets_check.GetUndoVersionOfOperation()
+        objUndo_2nd = objUndo_1st.GetUndoVersionOfOperation()
 
         Dim boolEqualMatch As Boolean
 

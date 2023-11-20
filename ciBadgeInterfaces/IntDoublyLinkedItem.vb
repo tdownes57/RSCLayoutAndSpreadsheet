@@ -9,7 +9,10 @@ Public Interface IDoublyLinkedItem
     Function DLL_NotAnyPrior() As Boolean
 
     Function DLL_GetItemNext() As IDoublyLinkedItem
+    Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem
+
     Function DLL_GetItemPrior() As IDoublyLinkedItem
+    Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem
 
     Sub DLL_SetItemNext(param As IDoublyLinkedItem)
     Sub DLL_SetItemPrior(param As IDoublyLinkedItem)

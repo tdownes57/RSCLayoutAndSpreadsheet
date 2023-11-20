@@ -9,6 +9,7 @@ Imports ciBadgeFields ''Added 3/10/2.0.2.2. thomas downes
 Imports ciBadgeInterfaces ''Added 3/11/2022 t__homas d__ownes
 
 Public Class RSCSpreadManagerCols
+    Implements IDoublyLinkedList ''Added 11/20/2023 td
     ''
     ''Added 4/18/2023 
     ''

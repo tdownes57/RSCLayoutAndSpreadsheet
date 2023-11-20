@@ -6,6 +6,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeRecipients
 
 Public Class RSCSpreadManagerRowheaders
+    Implements IDoublyLinkedList ''Added 11/20/2023 
     ''
     ''Added 4/19/2023  
     ''

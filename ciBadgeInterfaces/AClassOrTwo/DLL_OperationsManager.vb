@@ -40,7 +40,6 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     Private mod_listRowHeaders As IDoublyLinkedList ''RSCDoublyLinkedList
     Private mod_listColumns As IDoublyLinkedList ''RSCDoublyLinkedList
 
-
     Public Sub SetModeToColumnOperations()
         ''Added 11/14/2023 
         mod_modeColumnNotRow = True

@@ -68,6 +68,7 @@ Public Class RSCFieldColumnV2
 
     Private mod_emphasizeRows_TopY As Integer = -1 '' = intStartY
     Private mod_emphasizeRows_BottomY As Integer = -1 '' = intEnd__Y
+    Private mod_rscDataCell1 As RSCDataCell = RscDataCell1 ''Added 11/18/2023
 
     ''Added 4/29/2022 td
     ''---Private mod_colorCellsBackcolor_NoEmphasis As System.Drawing.Color = System.Drawing.Color.White
@@ -2228,8 +2229,11 @@ Public Class RSCFieldColumnV2
         ''Create the required RSCDataCell. 
         ''
         If (bRowIndexLocated) Then
+
             objRSCDataCell = mod_listRSCDataCellsByRow.Item(par_intRowIndex)
             ''4/8/2022 objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
+            objRSCDataCell = mod_rscDataCell1.DLL_GetItemNext(par_intRowIndex)
+
         Else
             ''4/4/2022 td''Dim objRSCDataCell As New RSCDataCell ''Added 3/29/2022 thomas downes
             objRSCDataCell = New RSCDataCell ''Added 3/29/2022 thomas downes
