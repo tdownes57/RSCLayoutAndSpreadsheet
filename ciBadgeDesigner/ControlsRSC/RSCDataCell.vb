@@ -23,11 +23,11 @@ Public Class RSCDataCell
     Public Event GotFocus_Cell(sender As Object, e As EventArgs) ''Added 5/13/2022
 
     ''Not yet in use, provisional as of 5/15/2023.  
-    Private mod_CellPriorAbove As RSCDataCell ''Per G. Ernsberger, properties should be private.
-    Private mod_CellNextBelow As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_cellPriorAbove As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_cellNextBelow As RSCDataCell ''Per G. Ernsberger, properties should be private.
 
-    Private mod_CellRight As RSCDataCell ''Per G. Ernsberger, properties should be private.
-    Private mod_Cell_Left As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_cellToSide_Right As RSCDataCell ''Per G. Ernsberger, properties should be private.
+    Private mod_cellToSide_Left_NotInUse As RSCDataCell ''Per G. Ernsberger, properties should be private.
 
     Public Undel_DataCellNextRight As RSCDataCell ''Added 10/30/2023 td
 
@@ -130,17 +130,23 @@ Public Class RSCDataCell
     End Property
 
 
-    Public Sub SetFieldCellBelow(par_cellBelow As RSCDataCell)
+    Public Sub SetFieldCell_NextBelow(par_cellNextBelow As RSCDataCell)
 
         ''Added 5/17/2023 
-        Me.CellNextBelow = par_cellBelow
+        ''Me.CellNextBelow = par_cellBelow
+        If (par_cellNextBelow Is Nothing) Then Debugger.Break() ''Let's leverage encapsulation 
+        ''  principles to make the application more secure. 
+        mod_CellNextBelow = par_cellNextBelow
 
     End Sub
 
-    Public Sub SetFieldCellAbove(par_cellAbove As RSCDataCell)
+    Public Sub SetFieldCell_PriorAbove(par_cellPriorAbove As RSCDataCell)
 
         ''Added 5/17/2023 
-        Me.CellPriorAbove = par_cellAbove
+        ''11/2023 Me.CellPriorAbove = par_cellAbove
+        If (par_cellPriorAbove Is Nothing) Then Debugger.Break() ''Let's leverage encapsulation 
+        ''  principles to make the application more secure. 
+        mod_CellPriorAbove = par_cellPriorAbove
 
     End Sub
 
@@ -265,33 +271,42 @@ Public Class RSCDataCell
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''Added 11/2023 
-        Return (Me.CellNextBelow Is Nothing)
-    End Function
+        ''11/2023 Return (Me.CellNextBelow Is Nothing)
+        Return (mod_cellNextBelow Is Nothing)
+
+    End Function ''Public Function DLL_NotAnyNext() As Boolean
 
 
     Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Added 11/2023 
-        Return GetCellNext_Down()
-    End Function
+        ''Return GetCellNext_Down()
+        Return DLL_GetRscNext_Down()
+
+    End Function ''Public Function DLL_GetItemNext() 
 
 
-    Public Sub DLL_SetItemNext(par_cell As IDoublyLinkedItem) _
+    Public Sub DLL_SetItemNext_Down(par_cell As IDoublyLinkedItem) _
         Implements IDoublyLinkedItem.DLL_SetItemNext
 
         ''Added 11/2023 
-        Me.CellNextBelow = CType(par_cell, RSCDataCell)
+        ''11/2023 Me.CellNextBelow = CType(par_cell, RSCDataCell)
+        Me.mod_cellNextBelow = CType(par_cell, RSCDataCell)
 
     End Sub
 
 
     Public Function DLL_GetRscNext_Down() As RSCDataCell
         ''Added 11/9/2023
-        Return Me.CellNextBelow
+        ''11/2023 Return Me.CellNextBelow
+        Return Me.mod_cellNextBelow
+
     End Function
 
     Public Function DLL_GetRscPrior_Up() As RSCDataCell
         ''Added 11/9/2023
-        Return Me.CellPriorAbove
+        ''11/2023 Return Me.CellPriorAbove
+        Return Me.mod_cellPriorAbove
+
     End Function
 
 
@@ -379,7 +394,7 @@ Public Class RSCDataCell
     ''' <summary>
     ''' 
     ''' </summary>
-    ''' <param name="pboolRefresh">Let's query the adjacent column, to get an updated result based on the current column configuration.</param>
+    ''' <param name="pboolRefreshOutput">Let's query the adjacent column, to get an updated result based on the current column configuration.</param>
     ''' <param name="pboolCalledByUndoDelete">In contrast to Refresh mode, we don't query the adjacent column.  This is because we are in the middle of an Undo-Delete (or Redo-Insert!) operation.</param>
     ''' <param name="pboolRetainForUndoDelete">We want to a record of the adjacent righthand cell, for a future Undo-of-Delete.</param>
     ''' <param name="pboolRefreshIteratively">Prior to exiting, call this function on the output cell.</param>
@@ -397,6 +412,19 @@ Public Class RSCDataCell
         ''
         '' Added 11/20/2023 td
         ''
+        ''  -----THIS IS A LITTLE COMPLEX!!!----- 
+        ''
+        ''  -----DO NOT BE LAZY AND BYPASS THIS GET OPERATION!!!----- 
+        ''
+        '' In object-oriented, complex Get() operations are important.  Avoid
+        ''  the strong temptation to make the following Private member public. 
+        ''
+        ''         mod_cellToSide_Right
+        ''
+        '' 
+        '' -----DO NOT BE LAZY AND BYPASS THIS GET OPERATION!!!----- 
+        ''
+        ''
         Dim intCurrentRowIndex As Integer
         Dim objRSCDataCell_NextRight As RSCDataCell
         Dim objRSCDataColumn_Next As RSCFieldColumnV2
@@ -405,9 +433,10 @@ Public Class RSCDataCell
             ''
             ''This is default behavior.  We will query the adjacent column. 
             ''
-        ElseIf (pboolCalledByUndoOrRedo) Then
+        ElseIf (pboolCalledByUndoDelete) Then
             ''We won't refresh.  We will use the retained value. 
-            Return Me.mod_cellNextRight
+            ''11/2023 Return Me.mod_cellNextRight
+            Return Me.mod_cellToSide_Right
         End If ''End of ""If (pboolRefresh) Then... Else ""
 
         If (pvalRowIndex > 0) Then '' ... > -1) Then
@@ -426,7 +455,7 @@ Public Class RSCDataCell
             ''System.Diagnostics.Debugger.Break()  Throw New Exception
             pboolIsNothing = True
             Return Nothing
-        End If
+        End If ''End of ""If (objRSCDataColumn_Next Is Nothing) Then""
 
         ''
         ''If refreshing, ask the next column for the correct cell. 
@@ -435,20 +464,23 @@ Public Class RSCDataCell
             ''Ask the next column for the correct cell. 
             objRSCDataCell_NextRight = objRSCDataColumn_Next.GetCellWithRowIndex(intCurrentRowIndex)
         Else
-            objRSCDataCell_NextRight = Me.mod_cellNextRight
+            ''11/2023 objRSCDataCell_NextRight = Me.mod_cellNextRight
+            objRSCDataCell_NextRight = Me.mod_CellToSide_Right
 
         End If ''End of ""If (pboolRefreshOutput) Then... Else...""
 
         ''If asked, let's record the output result. 
-        If (pboolRetainForRedoInsert) Then
+        If (pboolRetainForUndoDelete) Then ''----RedoInsert) Then
             ''Record the output result.
-            Me.mod_cellNextRight = objRSCDataCell_NextRight
+            ''#1 11/2023 Me.mod_cellNextRight = objRSCDataCell_NextRight
+            ''#2 11/2023 Me.mod_CellNextBelow = objRSCDataCell_NextRight
+            Me.mod_CellToSide_Right = objRSCDataCell_NextRight
         End If ''ENd of ""If (pboolRetainForRedoInsert) Then""
 
         ''
         ''If asked, let's perform a recursive operation. 
         ''
-        If (pboolRefresh And pboolRefreshIteratively) Then
+        If (pboolRefreshOutput And pboolRefreshIteratively) Then
             ''Call recursively/iteratively. 
             If (pboolIsLastCellIeEdge) Then
                 ''
@@ -458,7 +490,8 @@ Public Class RSCDataCell
                 Dim bLastCell As Boolean
                 Dim bIsNothing As Boolean
                 With objRSCDataCell_NextRight
-                    .GetCell_NextRight(True, False, True, True, bLastCell, bIsNothing)
+                    ''11/2023 .GetCell_NextRight(True, False, True, True, bLastCell, bIsNothing)
+                    .GetCell_RighthandSide(True, False, True, True, bLastCell, bIsNothing)
                 End With
             End If ''eND OF ""If (pboolIsLastCellIeEdge) Then.... eLSE""
         End If ''ENd of ""If (pboolRefresh and pboolRefreshIteratively) Then""
@@ -1197,7 +1230,7 @@ Public Class RSCDataCell
 
     End Sub
 
-    Public Sub DLL_ClearReferencePrior() Implements IDoublyLinkedItem.DLL_ClearReferencePrior
+    Public Sub DLL_ClearReferencePrior(par_why As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior
         ''
         '' Whenever a Row or Column is deleted, and saved into a DLL Operation,
         ''   the outer edges ---MUST BE CLEANED--- of obselete references.
@@ -1209,16 +1242,95 @@ Public Class RSCDataCell
         ''
         ''   ---11/07/2023 td
         ''
+        If (par_why = "D"c) Then
+            ''Deletion 
+        ElseIf (par_why = "M"c) Then
+            ''Move
+        Else
+            Debugger.Break()
+        End If
+
+        ''11/2023  Me.CellPriorAbove = Nothing
+        mod_CellPriorAbove = Nothing
+
+    End Sub ''End of ""Public Sub DLL_ClearReferencePrior()""
+
+    Public Sub DLL_ClearReferenceNext(par_typeOp_NotUsed As Char) Implements IDoublyLinkedItem.DLL_ClearReferenceNext
+        ''
+        '' Whenever a Row or Column is deleted, and saved into a DLL Operation,
+        ''   the outer edges ---MUST BE CLEANED--- of obselete references.
+        ''   ---OTHERWISE, THE DELETE OPERATION CANNOT BE UNDONE & REDONE---.  
+        ''
+        '' If a surgeon was removing a section of your spine, so it could be 
+        ''   transplanted into aonother person, they would probably clean (in some way) 
+        ''   the two(2) exposed ends of the vertebra... would they not?  LOL
+        ''
+        ''   ---11/07/2023 td
+        ''
+        If (par_typeOp_NotUsed = "D"c) Then
+            ''Deletion 
+        ElseIf (par_typeOp_NotUsed = "M"c) Then
+            ''Move
+        Else
+            Debugger.Break()
+        End If
+
+        ''11/2023  Me.CellNextBelow = Nothing
+        mod_cellNextBelow = Nothing
+
+    End Sub ''End of ""Public Sub DLL_ClearReferenceNext()""
+
+
+    Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
-        Me.CellPriorAbove = Nothing
+        ''Added 11/25/2025 td
+        Dim result As IDoublyLinkedItem = mod_operationNext ''--Nothing ''--mod_operationNext
 
-    End Sub
+        If (param_iterationsOfNext = 0) Then
+            System.Diagnostics.Debugger.Break()
+            Return Me
+        ElseIf (param_iterationsOfNext = 1) Then
+            Return result
+        ElseIf (param_iterationsOfNext > 1) Then
+            For index = 2 To param_iterationsOfNext
+                If (result IsNot Nothing) Then
+                    result = result.DLL_GetItemNext()
+                End If
+            Next index
+            Return result
+        End If
 
-    Public Sub DLL_ClearReferenceNext() Implements IDoublyLinkedItem.DLL_ClearReferenceNext
-        ''Throw New NotImplementedException()
+        System.Diagnostics.Debugger.Break()
+        Return Nothing ''Not needed.
 
-        Me.CellNextBelow = Nothing
+    End Function ''Public Function DLL_GetItemNext(param_iterationsOfNext As Integer)
 
-    End Sub
+
+    Public Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+        ''11/2023 Throw New NotImplementedException()
+        ''Added 11/25/2025 td
+        ''11/2023 Dim result As IDoublyLinkedItem = mod_operationPrior ''--Nothing ''--mod_operationNext
+        Dim result As IDoublyLinkedItem = mod_cellPriorAbove ''--Nothing ''--mod_operationNext
+
+        If (param_iterationsOfPrior = 0) Then
+            System.Diagnostics.Debugger.Break()
+            Return Me
+        ElseIf (param_iterationsOfPrior = 1) Then
+            Return result
+        ElseIf (param_iterationsOfPrior > 1) Then
+            For index = 2 To param_iterationsOfPrior
+                If (result IsNot Nothing) Then
+                    result = result.DLL_GetItemPrior()
+                End If
+            Next index
+            Return result
+        End If
+
+        System.Diagnostics.Debugger.Break()
+        Return Nothing ''Not needed.
+
+    End Function ''Public Function DLL_GetItemPrior(param_iterationsOfNext As Integer)
+
+
 End Class

@@ -1,7 +1,10 @@
 ﻿''
 ''Added 10/30/2023
 ''
+Imports System.Drawing.Text
+Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms
+Imports System.Xml.XPath
 
 Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Implements IDoublyLinkedItem ''DLL_GetItemNext, DLL_GetItemPrior
@@ -26,6 +29,14 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Public DeleteRangeStart As IDoublyLinkedItem ''TControl
     ''Needed for consistency checks...
     Public DeleteCount As Integer ''How many linked TControl objects?
+
+    ''--------------ADMINISTRATIVE, POSSIBLY CONFUSING-------------------------
+    ''------THESE WILL PROVIDE ANCHORS FOR THE UNDO OPERATION----------------
+    ''-----------MAYBE I AM WRONG, I HAVE 85% CONFIDENCE---------------------
+    ''
+    Public DeleteLocation_ItemPrior As IDoublyLinkedItem ''Added 11/25/2023
+    Public DeleteLocation_ItemNext As IDoublyLinkedItem ''Added 11/25/2023
+    ''-----------------------------------------------------------------------
 
     Public InsertRangeStart As IDoublyLinkedItem ''TControl
     ''Needed for consistency checks...
@@ -633,6 +644,56 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
     End Function ''End of ""Private Function Undo2x_IsIdempotent""
 
+    Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
+        ''Throw New NotImplementedException()
+
+        ''Added 11/25/2025 td
+        Dim result As IDoublyLinkedItem = mod_operationNext ''--Nothing ''--mod_operationNext
+
+        If (param_iterationsOfNext = 0) Then
+            System.Diagnostics.Debugger.Break()
+            Return Me
+        ElseIf (param_iterationsOfNext = 1) Then
+            Return result
+        ElseIf (param_iterationsOfNext > 1) Then
+            For index = 2 To param_iterationsOfNext
+                If (result IsNot Nothing) Then
+                    result = result.DLL_GetItemNext()
+                End If
+            Next index
+            Return result
+        End If
+
+        System.Diagnostics.Debugger.Break()
+        Return Nothing ''Not needed.
+
+    End Function ''Public Function DLL_GetItemNext(param_iterationsOfNext As Integer)
+
+
+    Public Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+
+        ''11/2023 Throw New NotImplementedException()
+        ''Added 11/25/2025 td
+        Dim result As IDoublyLinkedItem = mod_operationPrior ''--Nothing ''--mod_operationNext
+
+        If (param_iterationsOfPrior = 0) Then
+            System.Diagnostics.Debugger.Break()
+            Return Me
+        ElseIf (param_iterationsOfPrior = 1) Then
+            Return result
+        ElseIf (param_iterationsOfPrior > 1) Then
+            For index = 2 To param_iterationsOfPrior
+                If (result IsNot Nothing) Then
+                    result = result.DLL_GetItemPrior()
+                End If
+            Next index
+            Return result
+        End If
+
+        System.Diagnostics.Debugger.Break()
+        Return Nothing ''Not needed.
+
+    End Function ''Public Function DLL_GetItemPrior(param_iterationsOfNext As Integer)
 
 
 End Class

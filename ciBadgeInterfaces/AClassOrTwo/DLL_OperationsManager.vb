@@ -13,9 +13,16 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''
     ''   Dim rsc_item = CType(item_TControlToDelete, TControl)
     ''
-    Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
-    Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
+    ''Not needed. 11/2023 Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
+    ''Not needed. 11/2023 Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
+
     Private mod_operationLastPrior As DLL_Operation
+
+    ''' <summary>
+    ''' This is the first operation in the chain, the operation the 
+    ''' user performs first (e.g. 45 seconds after opening the 
+    ''' spreadsheet).
+    ''' </summary>
     Private mod_operation1stRecord As DLL_Operation
 
     ''---DIFFICULT AND CONFUSING----
@@ -24,6 +31,10 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''Private mod_operationMarkRedoPrior As DLL_Operation
     ''Private mod_operationMarkRedoNext As DLL_Operation
     ''Private mod_operationMarker As Tuple(Of DLL_Operation, DLL_Operation)
+
+    ''' <summary>
+    ''' This provides a "current" Undo/Redo tracker-positional thing.
+    ''' </summary>
     Private mod_operationMarker As DLL_OperationsRedoMarker
 
     ''Added 11/14/2023 Thomas Downes  
@@ -40,7 +51,9 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     Private mod_listRowHeaders As IDoublyLinkedList ''RSCDoublyLinkedList
     Private mod_listColumns As IDoublyLinkedList ''RSCDoublyLinkedList
 
+
     Public Sub SetModeToColumnOperations()
+
         ''Added 11/14/2023 
         mod_modeColumnNotRow = True
         mod_bModeHasBeenSet = True
@@ -49,7 +62,8 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
             mod_datetimeModeSet = DateTime.Now
             mod_datetimeModeSetToCol = DateTime.Now
         End If ''End of ""If (mod_bTesting) Then""
-    End Sub
+
+    End Sub ''end of ""Public Sub SetModeToColumnOperations()""
 
 
     Public Sub SetModeToTesting()
@@ -221,9 +235,10 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
         ''
         ''Allow the new operation to be stored on a stack of operations. 
         ''
-        Return mod_lastPriorOperation
+        ''11/2023 Return mod_lastPriorOperation
+        Return mod_operationLastPrior
 
-    End Function
+    End Function ''Public Function GetRecentOperation()
 
 
     Public Sub RaiseMessageIfModeNotRefreshed(Optional pboolCheckIfTesting As Boolean = False)

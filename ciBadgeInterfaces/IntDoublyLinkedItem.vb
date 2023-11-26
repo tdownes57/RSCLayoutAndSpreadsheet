@@ -28,7 +28,7 @@ Public Interface IDoublyLinkedItem
     ''
     ''   ---11/07/2023 td
     ''
-    Sub DLL_ClearReferencePrior()
-    Sub DLL_ClearReferenceNext()
+    Sub DLL_ClearReferencePrior(par_typeOp As Char)
+    Sub DLL_ClearReferenceNext(par_typeOp As Char)
 
 End Interface

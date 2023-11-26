@@ -9,6 +9,9 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
     ''
     ''Added 11/14/2023 td
     ''
+    Private Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+
+
     Public Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem,
                                    toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemAfter
         ''
@@ -57,7 +60,8 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
         ''
         ''Operations Management 
         ''
-        Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+        ''Modularized! Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+
         Dim objOperationNew As New DLL_Operation()
         If (ADMIN_FOR_UNDOS) Then
             With objOperationNew ''mod_lastPriorOperation
@@ -232,6 +236,33 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
+        ''
+        ''Will likely be needed for "UnDo" operation!!
+        ''
+        Dim recordDeleteLocation_ItemPrior As IDoublyLinkedItem ''Administrative!!
+        Dim recordDeleteLocation_ItemNext As IDoublyLinkedItem ''Administrative!!
+        Dim bNothingIsPrior As Boolean
+        bNothingIsPrior = (p_item_toDeleteBegin.DLL_NotAnyPrior())
+        pref_item_prior_undeleted = p_item_toDeleteBegin.DLL_GetItemPrior
+
+        ''
+        ''Operations Management (Administrative)
+        ''
+        If (ADMIN_FOR_UNDOS) Then
+            ''Will likely be needed for "UnDo" operation!!
+            With p_item_toDeleteBegin
+                If (bNothingIsPrior) Then
+                    ''We can't go above/left/prior. So,
+                    ''  get the next. 
+                    recordDeleteLocation_ItemNext = .DLL_GetItemNext(p_count_of_deleteds)
+                Else
+                    ''Will likely be needed for "UnDo" operation!!
+                    recordDeleteLocation_ItemPrior = p_item_toDeleteBegin.DLL_GetItemPrior()
+                End If ''En dof ""If (bNothingIsPrior) Then... Else..."
+            End With ''With p_item_toDeleteBegin
+        End If ''ENd of ""If (ADMIN_FOR_UNDOS) Then""
+
+
         If (mod_modeColumnNotRow) Then
             ''
             '' Columns!!!
@@ -247,20 +278,28 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
         End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
         ''
-        ''Operations Management 
+        ''Operations Management (Administrative)
         ''
-        Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
             Dim objOperationNew As New DLL_Operation()
             With objOperationNew
                 .OperationType = "D"
                 .ModeColumnsNotRows = mod_modeColumnNotRow
-                .DeleteRangeStart = item_toDeleteBegin
-                .DeleteCount = count_of_deleteds
-                ''.AnchorLeftPrior = toUseAsAnchorStart
-                .AnchorToSucceedItemOrRange = toUseAsAnchorTerminal
-            End With
+                .DeleteRangeStart = p_item_toDeleteBegin
+                .DeleteCount = p_count_of_deleteds
+
+                ''------------ADMINISTRATIVE, POSSIBLY CONFUSING--------
+                ''Deletes (considered in isolation) probably don't need anchor(s). The range
+                '' ... range provides the anchor(s).  However, to undo the delete later,
+                '' ... we probably need the anchor.  ---11/25/2023
+                '' #1 11/2023 .AnchorLeftPrior = toUseAsAnchorStart
+                '' #2 11/2023 .AnchorToSucceedItemOrRange = toUseAsAnchorTerminal
+                .DeleteLocation_ItemPrior = recordDeleteLocation_ItemPrior
+                .DeleteLocation_ItemNext = recordDeleteLocation_ItemNext
+                ''------------END ADMINISTRATIVE, POSSIBLY CONFUSING--------
+
+            End With ''With objOperationNew
 
             ''
             ''Record/store this operation. 

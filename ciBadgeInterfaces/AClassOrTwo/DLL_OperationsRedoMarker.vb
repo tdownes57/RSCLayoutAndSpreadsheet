@@ -24,8 +24,18 @@ Public Class DLL_OperationsRedoMarker
     ''  undo & redo buttons.  This is NOT for recording 
     ''  new operations. 
     ''
+    ''' <summary>
+    ''' If the user hits "Undo", this operation will be 
+    ''' inversed and the inverse will be performed. 
+    ''' </summary>
     Private mod_opPrior As DLL_Operation
-    Public mod_opNext As DLL_Operation
+
+    ''' <summary>
+    ''' If the user hits "Redo", this operation will be 
+    ''' performed as it is.  (In contrast to "Undo", we
+    ''' do NOT need to get the inverse of the operation.) 
+    ''' </summary>
+    Private mod_opNext As DLL_Operation
 
     Public Sub New(opPrior As DLL_Operation, opNext As DLL_Operation)
         ''
