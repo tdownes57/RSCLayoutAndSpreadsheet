@@ -132,16 +132,24 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                 If (param_operation.ItemIs_HandledSingly()) Then
                     ''Is it a left-hand anchor, or a right-hand anchor?
                     ''  (Is it a prior-item anchor, or a next-item anchor?)
-                    ''11/2023 If (param_operation.AnchorLeftPrior IsNot Nothing) Then
-                    If (param_operation.AnchorIs_LeftToPrevious()) Then
-                        ''Left-hand (Prior Item) Anchor
+                    ''#1 11/2023 If (param_operation.AnchorLeftPrior IsNot Nothing) Then
+                    ''#2 11/2023 If (param_operation.AnchorIs_LeftToPrevious()) Then
+                    Dim bUsePrecedingAnchor As Boolean ''Added 11/28/2023
+                    Dim bUseSucceedingAnchor As Boolean ''Added 11/28/2023
+
+                    bUsePrecedingAnchor = param_operation.AnchorWillPrecedeRangeOrItem()
+                    bUseSucceedingAnchor = (Not bUsePrecedingAnchor)
+
+                    If (bUsePrecedingAnchor) Then
+                        ''Left-hand (Prior Item) Preceding Anchor
                         Me.DLL_InsertItemAfter(param_operation.ItemInsertSingly,
-                                                param_operation.AnchorLeftToPrior)
-                    Else
-                        ''Left-hand (Next Item) Anchor
+                                            param_operation.AnchorToPrecedeItemOrRange)
+                    ElseIf (bUseSucceedingAnchor) Then
+                        ''Right-hand (Next Item), Succeeding Anchor
                         Me.DLL_InsertItemBefore(param_operation.ItemInsertSingly,
-                                            param_operation.AnchorToSucceedItemOrRange)
-                    End If
+                                      param_operation.AnchorToSucceedItemOrRange)
+                    End If ''End of ""If (bUsePrecedingAnchor) Then... Else..."
+
 
                 ElseIf (param_operation.IsForRangeOfItems()) Then
                     ''
@@ -149,17 +157,25 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                     ''
                     ''Is it a left-hand anchor, or a right-hand anchor?
                     ''  (Is it a prior-item anchor, or a next-item anchor?)
-                    ''11/2023 If (param_operation.AnchorLeftToPrior IsNot Nothing) Then
-                    If (param_operation.AnchorIs_LeftToPrevious()) Then
-                        ''Left-hand (Prior Item) Anchor
+                    ''#1 11/2023 If (param_operation.AnchorLeftToPrior IsNot Nothing) Then
+                    ''#2 11/2023 If (param_operation.AnchorIs_LeftToPrevious()) Then
+
+                    If (param_operation.AnchorWillPrecedeRangeOrItem()) Then
+                        ''
+                        ''Left-hand (Prior Item), Preceding Anchor
+                        ''
                         Me.DLL_InsertItemAfter(param_operation.InsertRangeStart,
-                                            param_operation.AnchorLeftToPrior)
+                                       param_operation.AnchorToPrecedeItemOrRange)
                     Else
-                        ''Right-hand (Next Item) Anchor
+                        ''
+                        ''Right-hand (Next Item), Succeeding Anchor
+                        ''
                         Me.DLL_InsertItemBefore(param_operation.InsertRangeStart,
                                         param_operation.AnchorToSucceedItemOrRange)
-                    End If
-                End If
+
+                    End If ''ENd of ""If (param_operation.AnchorWillPrecedeRangeOrItem()) Then... Else..."
+
+                End If ''ENd of ""If (param_operation.ItemIs_HandledSingly()) Then... ElseIf..."
 
             Case "M" '' M = Move
                 ''
@@ -173,7 +189,8 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                 ''  (Is it a prior-item anchor, or a next-item anchor?)
                 ''
                 ''11/2023 If (param_operation.AnchorLeftToPrior IsNot Nothing) Then
-                If (param_operation.AnchorIs_LeftToPrevious()) Then
+                ''#2 11/2023 If (param_operation.AnchorIs_LeftToPrevious()) Then
+                If (param_operation.AnchorWillPrecedeRangeOrItem()) Then
                     ''Left-hand (Prior Item) Anchor
                     ''Move Step 1 of 2 -- Delete
                     Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
@@ -182,9 +199,9 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                     ''Move Step 2 of 2 -- Insert
                     Me.DLL_InsertRangeAfter(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
-                                           param_operation.AnchorLeftToPrior)
+                                           param_operation.AnchorToPrecedeItemOrRange) ''param_operation.AnchorLeftToPrior)
 
-                ElseIf (param_operation.AnchorIs_RightToTerminate()) Then
+                ElseIf (param_operation.AnchorWillSucceedRangeOrItem()) Then
                     ''
                     ''Right-hand (Next Item) Anchor
                     ''
@@ -205,13 +222,25 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                 ''
                 ''A deleting operation. 
                 ''
-                If (param_operation.DeleteSingly IsNot Nothing) Then
+                Dim objItemUndeleted As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
+
+                If (param_operation.ItemDeleteSingly IsNot Nothing) Then
                     ''Delete the single item.
-                    Me.DLL_DeleteItem(param_operation.DeleteSingly)
+                    Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly)
+                    ''
+                    ''Make a record of the nearest un-deleted item. 
+                    ''
+                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted
+
                 ElseIf (param_operation.DeleteRangeStart IsNot Nothing) Then
                     ''Delete the range.
-                    Me.DLL_DeleteRange_Simply(param_operation.DeleteRangeStart,
-                               param_operation.DeleteRangeStart)
+                    Me.DLL_DeleteRange_Simpler(param_operation.DeleteRangeStart,
+                               param_operation.DeleteCount, objItemUndeleted)
+                    ''
+                    ''Make a record of the nearest un-deleted item. 
+                    ''
+                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted
+
                 End If
 
         End Select

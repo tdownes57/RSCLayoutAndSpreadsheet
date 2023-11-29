@@ -195,7 +195,16 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
     End Sub ''End Of ""Public Sub DLL_InsertRangeAfter""
 
 
-    Public Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_DeleteItemSingly
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="item_toDelete"></param>
+    ''' <param name="ref_itemUndeleted_Preceding">This must be recorded for Undo.</param>
+    ''' <param name="ref_itemUndeleted_Suceeding">This must be recorded for Undo.</param>
+    Public Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem,
+                             ByRef ref_itemUndeleted_Preceding As IDoublyLinkedItem,
+                             ByRef ref_itemUndeleted_Suceeding As IDoublyLinkedItem) _
+        Implements IDoublyLinkedList.DLL_DeleteItemSingly
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -231,7 +240,8 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
 
     Public Sub DLL_DeleteRange_Simpler(p_item_toDeleteBegin As IDoublyLinkedItem,
                                ByVal p_count_of_deleteds As Integer,
-                               ByRef pref_item_prior_undeleted As IDoublyLinkedItem) _
+                               ByRef pref_item_prior_undeleted As IDoublyLinkedItem,
+                               ByRef pref_item_next_undeleted As IDoublyLinkedItem) _
                                Implements IDoublyLinkedList.DLL_DeleteRange_Simpler
         ''
         ''This should set four(4) directional links (not just two(2))
@@ -268,13 +278,15 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
             '' Columns!!!
             ''
             mod_listColumns.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
-                                                    pref_item_prior_undeleted)
+                                                    pref_item_prior_undeleted,
+                                                    pref_item_next_undeleted)
         Else
             ''
             '' Rows!!!
             ''
             mod_listRowHeaders.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
-                                                    pref_item_prior_undeleted)
+                                                    pref_item_prior_undeleted,
+                                                    pref_item_next_undeleted)
         End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
         ''

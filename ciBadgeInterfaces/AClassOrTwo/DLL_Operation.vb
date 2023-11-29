@@ -76,7 +76,12 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''#1 11/17/2023 Public AnchorLeftToPrior As IDoublyLinkedItem ''TControl
     ''#2 Public AnchorToPrecedeItemOrRange As IDoublyLinkedItem ''TControl
     ''' <summary>
-    ''' Anchors are in the target list, NOT in the range.  AnchorToPrecede will be .Prior to the range-start item (or single item).  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used.  Anchors DO NOT! refer to the pre-existing state of the operation. 
+    ''' The anchor that will have the item or range immediately downstream. 
+    ''' Anchors are in the target list, NOT in the selected range.  
+    ''' AnchorToPrecede will be .Prior to the range-start item (or single item).  
+    ''' At most one(1) anchor will be given, for any given operation. 
+    ''' To anchor both sides, the TControl's Next property will be used.  
+    ''' Anchors DO NOT! refer to the pre-existing state of the operation. 
     ''' </summary>
     Public AnchorToPrecedeItemOrRange As IDoublyLinkedItem ''TControl
 
@@ -92,7 +97,12 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''#1 11/17/2023 Public AnchorRightTerminal As IDoublyLinkedItem ''TControl
     ''#2 11/17/2023 Public AnchorToSucceedItemOrRange As IDoublyLinkedItem ''TControl
     ''' <summary>
-    ''' Anchors are in the target list, NOT in the range.  AnchorToSucceed will be .Next to the range-last item (or single item).  At most one(1) anchor will be given, for any given operation. To anchor both sides, the TControl's Next property will be used.  Anchors DO NOT! refer to the pre-existing state of the operation.
+    ''' The anchor that will have the item or range immediately downstream. 
+    ''' Anchors are in the target list, NOT in the selected range.  
+    ''' AnchorToSucceed will be .Next to the range-last item (or single item).  
+    ''' At most one(1) anchor will be given, for any given operation. 
+    ''' To anchor both sides, the TControl's Next property will be used.  
+    ''' Anchors DO NOT! refer to the pre-existing state of the operation.
     ''' </summary>
     Public AnchorToSucceedItemOrRange As IDoublyLinkedItem ''TControl
 
@@ -496,13 +506,13 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         mod_operationPrior = param
     End Sub
 
-    Public Sub DLL_ClearReferencePrior() Implements IDoublyLinkedItem.DLL_ClearReferencePrior
+    Public Sub DLL_ClearReferencePrior(par_opType As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior
         ''Throw New NotImplementedException()
         Debugger.Break() ''Shouldn't be needed. 
         mod_operationPrior = Nothing
     End Sub
 
-    Public Sub DLL_ClearReferenceNext() Implements IDoublyLinkedItem.DLL_ClearReferenceNext
+    Public Sub DLL_ClearReferenceNext(par_opType As Char) Implements IDoublyLinkedItem.DLL_ClearReferenceNext
         ''Throw New NotImplementedException()
         Debugger.Break() ''Shouldn't be needed. 
         mod_operationNext = Nothing

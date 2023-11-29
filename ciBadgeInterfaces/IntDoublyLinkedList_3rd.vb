@@ -109,8 +109,15 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
                             toBeInsertedCount As Integer,
                             toUseAsAnchorTerminating As IDoublyLinkedItem)
 
-
-    Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem)
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="item_toDelete"></param>
+    ''' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
+    ''' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
+    Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem,
+                    ByRef ref_prior_undeleted As IDoublyLinkedItem,
+                    ByRef ref_next_undeleted As IDoublyLinkedItem)
 
     ''' <summary> 
     ''' This deletes a range of items in the list, inclusive of specified ends.
@@ -128,9 +135,17 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
                     ByRef ref_prior_undeleted As IDoublyLinkedItem,
                     ByRef ref_first_deleted As IDoublyLinkedItem)
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="item_toDeleteBegin"></param>
+    ''' <param name="count_of_deleteds">How many items are being deleted?</param>
+    ''' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
+    ''' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
     Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
                     ByVal count_of_deleteds As Integer,
-                    ByRef ref_prior_undeleted As IDoublyLinkedItem)
+                    ByRef ref_prior_undeleted As IDoublyLinkedItem,
+                    ByRef ref_next_undeleted As IDoublyLinkedItem)
 
     ''//
     ''// Suggested by my Python class, Chapter 6: Lists
