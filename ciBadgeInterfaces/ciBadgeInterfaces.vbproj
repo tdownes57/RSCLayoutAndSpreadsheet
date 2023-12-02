@@ -68,11 +68,11 @@
   <ItemGroup>
     <Compile Include="AClassOrTwo\ClassFixTheControlWidth.vb" />
     <Compile Include="AClassOrTwo\DLLOperationsManager_Implementation.vb" />
-    <Compile Include="AClassOrTwo\DLL_List_OfTControl.vb" />
+    <Compile Include="AClassOrTwo\DLL_List_OfTControl_PLEASE_USE.vb" />
     <Compile Include="AClassOrTwo\DLL_Operation.vb" />
     <Compile Include="AClassOrTwo\DLL_OperationsRedoMarker.vb" />
     <Compile Include="AClassOrTwo\DLL_Operation_OfT.vb" />
-    <Compile Include="AClassOrTwo\DLL_OperationsManager.vb" />
+    <Compile Include="AClassOrTwo\DLL_OperationsManager_SeeCIBadgeDesigner.vb" />
     <Compile Include="AClassOrTwo\DLL_OperationsManager_OfT.vb" />
     <Compile Include="AClassOrTwo\RSCColor.vb" />
     <Compile Include="AClassOrTwo\Testing.vb" />

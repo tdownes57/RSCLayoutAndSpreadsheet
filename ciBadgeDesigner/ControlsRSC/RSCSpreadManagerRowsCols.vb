@@ -25,7 +25,7 @@ Public Class RSCSpreadManagerRowsCols
     ''  user-controls and the CS-lessons of doubly-linked lists.
     ''  (CS = Computer Science) ---11/14/2023 thomas d.
     ''
-    Private mod_DLL_Manager As DLL_OperationsManager ''Added 11/14/2023 td
+    Private mod_DLL_Manager As RSC_DLL_OperationsManager ''Added 11/14/2023 td
 
     Public Sub New(par_controlSpread As RSCFieldSpreadsheet,
                    par_designer As ClassDesigner,

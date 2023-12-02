@@ -1,13 +1,11 @@
-﻿
-
-Imports System.Data.SqlTypes
+﻿''12/2023 Imports System.Data.SqlTypes
 
 ''' <summary>
 ''' We use casting as a way to access crucial methods. 
 ''' TControl is RSCFieldColumn, RSCDataHeader, or RSCDataCell.
 ''' </summary>
 ''' <typeparam name="TControl"></typeparam>
-Public Class DLL_List_OfTControl(Of TControl)
+Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Implements IDoublyLinkedList(Of TControl)
 
     Private mod_dllControlFirst As IDoublyLinkedItem ''DLL = Doubly-Linked List. 
@@ -16,7 +14,7 @@ Public Class DLL_List_OfTControl(Of TControl)
     '' 12/2023
     ''Public Sub DLL_SetNextAs(toBeNext As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetNextAs
     ''    ''Throw New NotImplementedException()
-    ''End Sub
+    ''E nd Sub
     '' 12/2023
     ''Public Sub DLL_SetPriorAs(toBePrior As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetPriorAs
     ''    Throw New NotImplementedException()
@@ -104,23 +102,39 @@ Public Class DLL_List_OfTControl(Of TControl)
     End Function
 
     ''' <summary>
-    ''' 
+    ''' Get the indexed item, and if it's a data-cell, check the horizontal alignment.
     ''' </summary>
     ''' <param name="par_index"></param>
-    ''' <param name="confirm_distanceInPixels"></param>
+    ''' <param name="ptest_cellAlignswHeader">The Row Header's (.Top + .Height/2).</param>
     ''' <returns></returns>
-    Public Function DLL_GetItemAtIndex(par_index As Integer, confirm_distanceInPixels As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_GetItemAtIndex
+    Public Function DLL_GetItemAtIndex(par_index As Integer,
+                                       ptest_cellAlignswHeader As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_GetItemAtIndex
         ''Throw New NotImplementedException()
 
-        Dim resultControl As TControl '' Windows.Forms.Control ''IDoublyLinkedItem
-        resultControl = CType(DLL_GetItemAtIndex(par_index), TControl) ''Windows.Forms.Control)
+        Dim resultControl As Windows.Forms.Control ''IDoublyLinkedItem
+        ''12/2023 resultControl = CType(DLL_GetItemAtIndex(par_index), TControl) ''Windows.Forms.Control)
+        resultControl = CType(DLL_GetItemAtIndex(par_index),
+                                IDoublyLinkedItem).DLL_UnboxControl()
 
         If (mod_bTesting) Then
-
-            Dim boolNearby As Boolean
-            boolNearby = resultControl.Top < 100
-
-        End If
+            ''
+            '' Confirm that the Data Cell is along the same horizontal line 
+            '' as the Row Header.  (The parameter confirm_alignedHLine)
+            ''
+            Dim intHorizontalLineRow As Integer ''Added 12/2023 td
+            Dim boolNearby As Boolean ''Added 12/2023 td
+            Dim boolAtOrBelowTop As Boolean ''Added 12/2023 td
+            Dim boolAboveBottom As Boolean ''Added 12/2023 td
+            With resultControl
+                intHorizontalLineRow = ptest_cellAlignswHeader
+                boolAtOrBelowTop = (.Top <= intHorizontalLineRow)
+                boolAboveBottom = (intHorizontalLineRow < (.Top + .Height))
+                boolNearby = (boolAtOrBelowTop And boolAboveBottom)
+            End With
+            If (Not boolNearby) Then
+                Debugger.Break()
+            End If ''End of ""If (Not boolNearby) Then""
+        End If ''End of ""If (mod_bTesting) Then""
 
     End Function ''enD OF ""Public Function DLL_GetItemAtIndex""
 

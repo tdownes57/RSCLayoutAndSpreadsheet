@@ -1,7 +1,24 @@
-﻿''//
+﻿
+
+
+
+''Moved.  See  CIBadgeDesigner's folder ControlsRSC for the moved module.---12/02/2023 td
+
+
+''I moved the module so that I could have the following private members (which reference
+''    reference RSC controls; e.g. "(Of RSCFieldColumnV3)"). ---12/02/2023 td
+''
+''   Private mod_listRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of RSCRowHeader) ''----(Of IDoublyLinkedItem) ''(Of RSCRowHeader) ''RSCDoublyLinkedList
+''   Private mod_listColumns As DLL_List_OfTControl_PLEASE_USE(Of RSCFieldColumnV3) ''----(Of IDoublyLinkedItem) '' RSCFieldColumnV3) ''RSCDoublyLinkedList
+
+
+
+
+
+''//
 ''//  Added 10/30/2023 t h o m a s d o w n e s  
 ''//
-Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
+Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     ''Moved to Partial Class. 11/2023  ---Implements IDoublyLinkedList
     ''11/2/2023 Implements IDoublyLinkedList(Of TControl)
 
@@ -48,8 +65,11 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''Private mod_list As RSCDoublyLinkedList(Of TControl)
     ''#1 11/2/2023 Private mod_list As List(Of TControl)
     ''#2 11/2/2023 Private mod_list As IDoublyLinkedList ''RSCDoublyLinkedList
-    Private mod_listRowHeaders As IDoublyLinkedList ''RSCDoublyLinkedList
-    Private mod_listColumns As IDoublyLinkedList ''RSCDoublyLinkedList
+    ''12/2023  Private mod_listRowHeaders As IDoublyLinkedList ''RSCDoublyLinkedList
+    ''12/2023  Private mod_listColumns As IDoublyLinkedList ''RSCDoublyLinkedList
+
+    Private mod_listRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''(Of RSCRowHeader) ''RSCDoublyLinkedList
+    Private mod_listColumns As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) '' RSCFieldColumnV3) ''RSCDoublyLinkedList
 
 
     Public Sub SetModeToColumnOperations()

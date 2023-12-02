@@ -1,7 +1,7 @@
 ﻿''//
 ''//  Added 10/30/2023 t h o m a s d o w n e s  
 ''//
-Public Class DLL_OperationsManager(Of TControl)
+Public Class DLL_OperationsManager_Deprecated(Of TControl)
     Implements IDoublyLinkedList(Of TControl)
 
     ''Private mod_list As RSCDoublyLinkedList(Of TControl)
@@ -93,45 +93,46 @@ Public Class DLL_OperationsManager(Of TControl)
     End Sub
 
 
-    Public Sub DLL_SetNextAs(toBeNext As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetNextAs
-        ''
-        ''This is simple. It should set two(2) directional links (not four(4))
-        ''
-        Dim rsc_toBeNext = CType(toBeNext, TControl)
+    ''12/2023 
+    ''Public Sub DLL_SetNextAs(toBeNext As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetNextAs
+    ''    ''
+    ''    ''This is simple. It should set two(2) directional links (not four(4))
+    ''    ''
+    ''    Dim rsc_toBeNext = CType(toBeNext, TControl)
+    ''12/2023 
+    ''    Me.mod_itemNext = rsc_toBeNext ''Directional Link #1 of 2
+    ''    ''11/2/2023 rsc_toBeNext.DLL_SetPriorAs(Me) ''Directional Link #2 of 2
+    ''12/2023 
+    ''End Sub
 
-        Me.mod_itemNext = rsc_toBeNext ''Directional Link #1 of 2
-        ''11/2/2023 rsc_toBeNext.DLL_SetPriorAs(Me) ''Directional Link #2 of 2
-
-    End Sub
-
-    Public Sub DLL_SetPriorAs(toBePrior As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetPriorAs
-        ''
-        ''This is simple. It should set two(2) directional links (not four(4))
-        ''
-        Dim rsc_toBePrior = CType(toBePrior, TControl)
-
-        Me.mod_itemPrior = rsc_toBePrior ''Directional Link #1 of 2
-        ''11/2/2023 rsc_toBePrior.DLL_SetNextAs(Me) ''Directional Link #2 of 2
-
-    End Sub
-
-
-    Public Function DLL_ItemNext() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemNext
-        ''
-        ''It is permissible to cast from adult-child to parent. 
-        ''
-        '' (I call it "adult child" since it contains MORE knowledge than the parent... LOL)   
-        ''
-        Return mod_itemNext ''Implicit casting (from adult-child to parent)
-
-    End Function
+    ''12/2023 
+    ''Public Sub DLL_SetPriorAs(toBePrior As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetPriorAs
+    ''    ''
+    ''    ''This is simple. It should set two(2) directional links (not four(4))
+    ''    ''
+    ''    Dim rsc_toBePrior = CType(toBePrior, TControl)
+    ''12/2023 
+    ''    Me.mod_itemPrior = rsc_toBePrior ''Directional Link #1 of 2
+    ''    ''11/2/2023 rsc_toBePrior.DLL_SetNextAs(Me) ''Directional Link #2 of 2
+    ''12/2023 
+    ''End Sub
 
 
-    Public Function DLL_ItemPrior() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemPrior
+    ''Public Function DLL_ItemNext() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemNext
+    ''    ''
+    ''    ''It is permissible to cast from adult-child to parent. 
+    ''    ''
+    ''    '' (I call it "adult child" since it contains MORE knowledge than the parent... LOL)   
+    ''    ''
+    ''    Return mod_itemNext ''Implicit casting (from adult-child to parent)
+    ''12/2023 
+    ''End Function
 
-        Return mod_itemPrior ''Implicit casting (from adult-child to parent)
-
-    End Function
+    ''Public Function DLL_ItemPrior() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemPrior
+    ''12/2023 
+    ''    Return mod_itemPrior ''Implicit casting (from adult-child to parent)
+    ''12/2023 
+    ''End Function
 
 
     Public Function DLL_GetItemAtIndex(index As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_GetItemAtIndex

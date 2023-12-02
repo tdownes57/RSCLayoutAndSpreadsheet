@@ -604,7 +604,7 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
             ''Added 11/17/20 23  
             boolEqual96 = (.AnchorWillPrecedeRangeOrItem() = Me.AnchorWillPrecedeRangeOrItem())
-            boolEqual97 = (.AnchorWillSucceedRangeOrItem() = Me.AnchorWillSucceedItemOrRange())
+            boolEqual97 = (.AnchorWillSucceedRangeOrItem() = Me.AnchorWillSucceedRangeOrItem())
             boolEqual98 = (.ItemIs_HandledSingly() = Me.ItemIs_HandledSingly())
             boolEqual99 = (.IsForRangeOfItems() = Me.IsForRangeOfItems())
 
@@ -705,5 +705,11 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
     End Function ''Public Function DLL_GetItemPrior(param_iterationsOfNext As Integer)
 
+    Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
+        ''
+        '' Won't be implemented.  12/01/2023 td
+        ''
+        Throw New NotImplementedException()
 
+    End Function
 End Class

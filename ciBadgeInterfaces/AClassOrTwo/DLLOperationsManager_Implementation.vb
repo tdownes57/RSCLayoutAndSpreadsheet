@@ -3,7 +3,7 @@
 ''
 Imports System.CodeDom.Compiler
 
-Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
+Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is Partial, i.e.
     ''   extends a sister class module.  11/2023 '' _Implementation
     Implements IDoublyLinkedList
     ''
