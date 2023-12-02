@@ -32,11 +32,15 @@ Partial Public Class DLL_OperationsManager ''This module is Partial, i.e.
         ''
         ''Operations Management 
         ''
-        mod_lastPriorOperation = New DLL_Operation()
-        With mod_lastPriorOperation
-            .InsertSingly = toBeInserted
+        ''//mod_lastPriorOperation = New DLL_Operation()
+        mod_operationLastPrior = New DLL_Operation()
+        With mod_operationLastPrior
+            ''.InsertSingly = toBeInserted
+            .ItemInsertSingly = toBeInserted
             .OperationType = "I"
-            .LefthandAnchor = toUseAsAnchor
+            ''.LefthandAnchor = toUseAsAnchor
+            .AnchorToPrecedeItemOrRange = toUseAsAnchor
+
         End With
 
     End Sub ''End of ""Public Sub DLL_InsertItemAfter""

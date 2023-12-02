@@ -184,6 +184,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                 ''A moving operation--combines Delete & Insert. 
                 ''
                 Dim itemPriorToDelete As IDoublyLinkedItem = Nothing
+                Dim itemFollowsDelete As IDoublyLinkedItem = Nothing
 
                 ''Is it a left-hand anchor, or a right-hand anchor?
                 ''  (Is it a prior-item anchor, or a next-item anchor?)
@@ -195,7 +196,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                     ''Move Step 1 of 2 -- Delete
                     Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
-                                           itemPriorToDelete)
+                                           itemPriorToDelete, itemFollowsDelete)
                     ''Move Step 2 of 2 -- Insert
                     Me.DLL_InsertRangeAfter(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
@@ -208,7 +209,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                     ''Move Step 1 of 2 -- Delete
                     Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
                                        param_operation.MovedCount,
-                                       itemPriorToDelete)
+                                       itemPriorToDelete, itemFollowsDelete)
                     ''Move Step 2 of 2 -- Insert
                     Me.DLL_InsertRangeBefore(param_operation.MovedRangeStart,
                                        param_operation.MovedCount,
@@ -222,24 +223,40 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
                 ''
                 ''A deleting operation. 
                 ''
-                Dim objItemUndeleted As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
+                ''----------Second-Tier Priority (Admin for Undos)-----------------
+                Dim objItemUndeleted_PriorLeft As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
+                Dim objItemUndeleted_NextAfter As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
 
                 If (param_operation.ItemDeleteSingly IsNot Nothing) Then
                     ''Delete the single item.
-                    Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly)
+
+                    ''Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly)  
+                    Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly,
+                                               objItemUndeleted_PriorLeft,
+                                               objItemUndeleted_NextAfter)
+
                     ''
+                    ''----------Second-Tier Priority (Admin for Undos)-----------------
+                    ''Administrative--record operation details for reversal, if requested
+                    '' by the user.  (Lagniappe!  LOL)  
                     ''Make a record of the nearest un-deleted item. 
                     ''
-                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted
+                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
+                    param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
 
                 ElseIf (param_operation.DeleteRangeStart IsNot Nothing) Then
                     ''Delete the range.
                     Me.DLL_DeleteRange_Simpler(param_operation.DeleteRangeStart,
-                               param_operation.DeleteCount, objItemUndeleted)
+                               param_operation.DeleteCount,
+                               objItemUndeleted_PriorLeft,
+                               objItemUndeleted_NextAfter)
                     ''
+                    ''----------Second-Tier Priority (Admin for Undos)-----------------
                     ''Make a record of the nearest un-deleted item. 
                     ''
-                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted
+                    ''11/2023 param_operation.Delete_PriorToItemOrRange = objItemUndeleted
+                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
+                    param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
 
                 End If
 
@@ -352,7 +369,7 @@ Public Class DLL_OperationsManager ''11/2/2023 (Of TControl)
             Dim tempMarkerPrior As DLL_Operation = mod_operationMarker.GetPrior()
             mod_operationMarker = Nothing ''Clear the marker!!!!  
             ''---DIFFICULT AND CONFUSING---
-            tempMarkerPrior.DLL_ClearReferenceNext() ''Clear all succeeding operations. We
+            tempMarkerPrior.DLL_ClearReferenceNext("I"c) ''Clear all succeeding operations. We
             '' don't want to "track" branching-off from a pre-existing sequence.  We want
             '' to replace all "going forward" (i.e. redos forward from the marker) items. 
             mod_operationLastPrior = tempMarkerPrior

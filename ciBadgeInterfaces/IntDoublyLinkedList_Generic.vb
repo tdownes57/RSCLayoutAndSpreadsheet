@@ -8,9 +8,8 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''   (Profs. Gabriela Ernsberger & Hatice Aydin) 
     ''    ---10/25/2023 thomas downes
     ''
-    Function DLL_ItemNext() As TControl ''Control
-
-    Function DLL_ItemPrior() As TControl ''Control
+    ''11/2023 td Function DLL_ItemNext() As TControl ''Control
+    ''11/2023 td Function DLL_ItemPrior() As TControl ''Control
 
     Function DLL_GetItemAtIndex(index As Integer) As TControl ''Control
 
@@ -18,9 +17,9 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' Get the item at the specified index and location. 
     ''' </summary>
     ''' <param name="index"></param>
-    ''' <param name="confirm_distance">This will generally be an expected number of pixels from the top.</param>
+    ''' <param name="confirm_distanceInPixels">This will generally be an expected number of pixels from the top.</param>
     ''' <returns></returns>
-    Function DLL_GetItemAtIndex(index As Integer, confirm_distance As Integer) As TControl ''Control
+    Function DLL_GetItemAtIndex(index As Integer, confirm_distanceInPixels As Integer) As TControl ''Control
 
     Function DLL_GetIndexOfItem(input_item As TControl) As Integer
 
@@ -49,13 +48,13 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
     ''' </summary>
     ''' <param name="toBeNext"></param>
-    Sub DLL_SetNextAs(toBeNext As TControl)
+    ''11/2023 td  Sub DLL_SetNextAs(toBeNext As TControl)
 
     ''' <summary>
     ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
     ''' </summary>
     ''' <param name="toBePrior"></param>
-    Sub DLL_SetPriorAs(toBePrior As TControl) ''Control)
+    ''11/2023 td  Sub DLL_SetPriorAs(toBePrior As TControl) ''Control)
 
 
 
