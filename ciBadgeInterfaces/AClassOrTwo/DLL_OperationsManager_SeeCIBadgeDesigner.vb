@@ -1,6 +1,11 @@
 ﻿
 
 
+''-----------------------------------------------------------
+''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
+''
+''    ---12/07/2023 thomas dow_nes 
+''-----------------------------------------------------------
 
 ''Moved.  See  CIBadgeDesigner's folder ControlsRSC for the moved module.---12/02/2023 td
 

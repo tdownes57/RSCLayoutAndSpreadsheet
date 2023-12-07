@@ -1,5 +1,10 @@
 ﻿''12/2023 Imports System.Data.SqlTypes
 
+''-----------------------------------------------------------
+''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
+''
+''    ---12/07/2023 thomas dow_nes 
+''-----------------------------------------------------------
 ''' <summary>
 ''' We use casting as a way to access crucial methods. 
 ''' TControl is RSCFieldColumn, RSCDataHeader, or RSCDataCell.

@@ -36,6 +36,11 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
     Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
 
     ''' <summary>
+    ''' For testing purposes. 12/7/2023
+    ''' </summary>
+    Private mod_listDLLIntegersForTest As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem)
+
+    ''' <summary>
     ''' This is the first operation in the chain, the operation the 
     ''' user performs first (e.g. 35 seconds after opening the 
     ''' spreadsheet).
@@ -175,7 +180,7 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
         ''
         ''Let's process Inserts, Moves, and Deletes separately. 
         ''
-)
+
         ''
         ''Let's process Inserts, Moves, and Deletes separately. 
         ''
@@ -285,7 +290,8 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                     ''
                     ''Move Step 1 of 2 -- Delete
                     With mod_listDLLColumns
-                        .DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
+                        ''.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
+                        .DLL_DeleteRange(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
                                            itemPriorToDelete, itemFollowsDelete)
                     End With
@@ -300,9 +306,9 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
 
 
 
-            Case "D" '' D = Delete
+            Case "D"c '' D = Delete
                 ''
-                ''A deleting operation. 
+                ''A d eleting operation. 
                 ''
                 ''----------Second-Tier Priority (Admin for Undos)-----------------
                 Dim objItemUndeleted_PriorLeft As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.

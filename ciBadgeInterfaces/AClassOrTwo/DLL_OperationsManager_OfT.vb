@@ -1,6 +1,13 @@
 ﻿''//
 ''//  Added 10/30/2023 t h o m a s d o w n e s  
 ''//
+
+''-----------------------------------------------------------
+''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
+''
+''    ---12/07/2023 thomas dow_nes 
+''-----------------------------------------------------------
+
 Public Class DLL_OperationsManager_Deprecated(Of TControl)
     Implements IDoublyLinkedList(Of TControl)
 
@@ -84,7 +91,7 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
     End Sub
 
 
-    Public Sub DLL_DeleteRange(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl, yes_return_list_of_deleteds As Boolean, ByRef count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange
+    Public Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl, yes_return_list_of_deleteds As Boolean, ByRef count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_NotUsed
         ''
         ''This should set four(4) directional links (not just two(2))
         ''

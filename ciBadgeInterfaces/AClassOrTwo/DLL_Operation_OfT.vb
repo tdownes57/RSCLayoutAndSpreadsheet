@@ -3,6 +3,13 @@
 ''
 Imports System.Windows.Forms
 
+
+''-----------------------------------------------------------
+''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
+''
+''    ---12/07/2023 thomas dow_nes 
+''-----------------------------------------------------------
+
 Public Class DLL_Operation(Of TControl)
     ''
     ''Added 10/30/2023

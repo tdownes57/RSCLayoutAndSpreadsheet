@@ -6,6 +6,11 @@ Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms
 Imports System.Xml.XPath
 
+''-----------------------------------------------------------
+''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
+''
+''    ---12/07/2023 thomas dow_nes 
+''-----------------------------------------------------------
 Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Implements IDoublyLinkedItem ''DLL_GetItemNext, DLL_GetItemPrior
     ''

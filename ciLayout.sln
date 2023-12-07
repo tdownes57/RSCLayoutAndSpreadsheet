@@ -99,6 +99,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core Libraries", "Core Libr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSCSpreadsheet", "__RSCSpreadsheet\__RSCSpreadsheet.csproj", "{FF653C8B-81C1-4C1F-9F9D-E9EA1FF90A30}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestingRSCSpreadsheet", "TestingRSCSpreadsheet\TestingRSCSpreadsheet.vbproj", "{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -475,6 +477,14 @@ Global
 		{FF653C8B-81C1-4C1F-9F9D-E9EA1FF90A30}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF653C8B-81C1-4C1F-9F9D-E9EA1FF90A30}.Release|x86.ActiveCfg = Release|Any CPU
 		{FF653C8B-81C1-4C1F-9F9D-E9EA1FF90A30}.Release|x86.Build.0 = Release|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Debug|x86.Build.0 = Debug|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Release|x86.ActiveCfg = Release|Any CPU
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -489,6 +499,7 @@ Global
 		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7} = {04696B69-E637-4D4E-921C-02C934DD2ED0}
 		{31515965-90E3-4352-9F01-61141129B29F} = {04696B69-E637-4D4E-921C-02C934DD2ED0}
 		{FF653C8B-81C1-4C1F-9F9D-E9EA1FF90A30} = {04696B69-E637-4D4E-921C-02C934DD2ED0}
+		{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3} = {04696B69-E637-4D4E-921C-02C934DD2ED0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1240457-262B-4419-B7CC-1F5E337B5336}

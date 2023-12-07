@@ -1,6 +1,12 @@
 ﻿''
 ''Added 11/14/2023 td
 ''
+
+''-----------------------------------------------------------
+''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
+''
+''    ---12/07/2023 thomas dow_nes 
+''-----------------------------------------------------------
 Imports System.CodeDom.Compiler
 
 Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is Partial, i.e.

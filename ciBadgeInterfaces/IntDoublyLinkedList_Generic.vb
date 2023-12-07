@@ -107,12 +107,24 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' <param name="count_of_deleteds">ByRef, how many items deleted</param>
     ''' <param name="item_prior_undeleted">ByRef, prior item where the deletion took place</param>
     ''' <param name="item_first_deleted">ByRef, return the first deleted item</param>
-    Sub DLL_DeleteRange(item_toDeleteBegin As TControl,
+    Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl,
                     item_toDeleteEndInclusive As TControl,
                     yes_return_list_of_deleteds As Boolean,
                     ByRef count_of_deleteds As Integer,
                     ByRef item_prior_undeleted As TControl,
                     ByRef item_first_deleted As TControl)
+
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="item_toDeleteBegin"></param>
+    ''' <param name="count_of_deleteds">How many items are being deleted?</param>
+    ''' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
+    ''' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
+    Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
+                    ByVal count_of_deleteds As Integer,
+                    ByRef ref_prior_undeleted As IDoublyLinkedItem,
+                    ByRef ref_next_undeleted As IDoublyLinkedItem)
 
     ''//
     ''// Suggested by my Python class, Chapter 6: Lists

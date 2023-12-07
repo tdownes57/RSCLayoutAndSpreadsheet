@@ -1,4 +1,10 @@
-﻿''' <summary>
+﻿
+''-----------------------------------------------------------
+''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
+''
+''    ---12/07/2023 thomas dow_nes 
+''-----------------------------------------------------------
+''' <summary>
 ''' Similar to a Tuple(Of DLL_Operation, DLL_Operation) but 
 ''' has comments & better naming of First & Second.
 ''' </summary>
