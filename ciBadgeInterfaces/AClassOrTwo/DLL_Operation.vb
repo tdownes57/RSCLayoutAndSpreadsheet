@@ -117,6 +117,23 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Private mod_operationPrior As DLL_Operation ''Added 11/14/2023 
     Private mod_operationNext As DLL_Operation ''Added 11/14/2023 
 
+
+    ''' <summary>
+    ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
+    ''' So let's add a constructor, so we can cut down on parameters on other 
+    ''' methods.  This object can be passed as a parameter.
+    ''' </summary>
+    Public Sub New(foo As Exception)
+        ''
+        ''Added 12/7/2023  
+        ''
+        '' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
+        '' So let's add a constructor, so we can cut down on parameters on other 
+        '' methods.  This object can be passed as a parameter.
+
+
+    End Sub
+
     ''' <summary>
     ''' This creates the "Undo" version of the class-object operation.
     ''' </summary>

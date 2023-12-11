@@ -64,7 +64,23 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_DeleteRange(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl, yes_return_list_of_deleteds As Boolean, ByRef count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange
+
+    Public Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl,
+                               yes_return_list_of_deleteds As Boolean,
+                               ByRef count_of_deleteds As Integer,
+                               ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) _
+                               Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_NotUsed
+
+        Throw New NotImplementedException()
+    End Sub
+
+
+    Public Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As TControl,
+                               ByVal count_of_deleteds As Integer,
+                               ByRef item_prior_undeleted As TControl,
+                               ByRef item_first_deleted As TControl) _
+                               Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_Simpler
+
         Throw New NotImplementedException()
     End Sub
 

@@ -6,7 +6,7 @@
 ''-----------------------------------------------------------
 ''' <summary>
 ''' Similar to a Tuple(Of DLL_Operation, DLL_Operation) but 
-''' has comments & better naming of First & Second.
+''' has comments and better naming of First and Second.
 ''' </summary>
 Public Class DLL_OperationsRedoMarker
     ''

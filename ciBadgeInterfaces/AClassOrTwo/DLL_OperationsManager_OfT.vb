@@ -25,6 +25,7 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
 
     End Function
 
+
     ''General question, is this sort of casting possible??  Probably not!!
     ''
     ''   (Impossible, since was are casting from parent to adult-child.)
@@ -92,6 +93,15 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
 
 
     Public Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl, yes_return_list_of_deleteds As Boolean, ByRef count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_NotUsed
+        ''
+        ''This should set four(4) directional links (not just two(2))
+        ''
+
+
+    End Sub
+
+
+    Public Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As TControl, ByVal count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_Simpler
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
