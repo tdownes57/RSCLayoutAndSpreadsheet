@@ -37,28 +37,51 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
 
 
-    Public Sub DLL_InsertItemAfter(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemAfter
-        ''Throw New NotImplementedException()
+    ''For IDoublyLinkedItem.---Public Sub DLL_InsertItemAfter(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemAfter
+    ''    ''Throw New NotImplementedException()
+    ''End Sub
 
+    Public Sub DLL_InsertOneItemAfter(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemPriorToSingle As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
+        ''12/2023 Throw New NotImplementedException()
 
+        Dim itemSingleToInsert As IDoublyLinkedItem = CType(toBeInsertedSingleItem, IDoublyLinkedItem)
+        Dim itemForAnchoring_ItemPriorToSingle As IDoublyLinkedItem = CType(toUseAsAnchor_ItemPriorToSingle, IDoublyLinkedItem)
 
-    End Sub
+        If (ciBadgeInterfaces.Testing.TestingByDefault) Then
+            ''Items passed as primary-operational (vs. anchors) must be cleaned
+            ''  of references.
+            If (itemSingleToInsert.DLL_HasNext()) Then Debugger.Break()
+            If (itemSingleToInsert.DLL_HasPrior()) Then Debugger.Break()
+        End If ''Testing
 
-    Public Sub DLL_InsertItemAfter(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemAfter
+        ''Set references #1 & #2 of 4
+        Dim temp = itemForAnchoring_ItemPriorToSingle.DLL_GetItemNext()
+        itemForAnchoring_ItemPriorToSingle.DLL_SetItemNext(itemSingleToInsert)
+        itemSingleToInsert.DLL_SetItemPrior(itemForAnchoring_ItemPriorToSingle)
+
+        ''Set references #3 & #4 of 4
+        temp.DLL_SetItemPrior(itemSingleToInsert)
+        itemSingleToInsert.DLL_SetItemNext(temp)
+
+    End Sub ''Public Sub DLL_InsertOneItemAfter
+
+    ''Public Sub DLL_InsertItemBefore(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemBefore
+    ''    Throw New NotImplementedException()
+    ''End Sub
+
+    Public Sub DLL_InsertOneItemBefore(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemNext As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemBefore
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_InsertItemBefore(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemBefore
+    Public Sub DLL_InsertRangeAfter(toBeInsertedRange_FirstItem As TControl, toBeInsertedRange_ItemCount As Integer, toUseAsAnchorPreceding As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_InsertItemBefore(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemBefore
+
+    Public Sub DLL_InsertRangeBefore(toBeInsertedRange_FirstItem As TControl, toBeInsertedRange_ItemCount As Integer, toUseAsAnchorTerminating As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeBefore
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As TControl, toBeInsertedCount As Integer, toUseAsAnchorStart As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
-        Throw New NotImplementedException()
-    End Sub
 
     Public Sub DLL_DeleteItem(item_toDelete As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteItem
         Throw New NotImplementedException()

@@ -38,14 +38,14 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     ''Not needed. 11/2023 Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
     ''Not needed. 11/2023 Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
 
-    Private mod_operationLastPrior As DLL_Operation
+    Private mod_operationLastPrior As DLL_OperationV1
 
     ''' <summary>
     ''' This is the first operation in the chain, the operation the 
     ''' user performs first (e.g. 45 seconds after opening the 
     ''' spreadsheet).
     ''' </summary>
-    Private mod_operation1stRecord As DLL_Operation
+    Private mod_operation1stRecord As DLL_OperationV1
 
     ''---DIFFICULT AND CONFUSING----
     ''Private mod_operationMarkUndoPrior As DLL_Operation
@@ -111,7 +111,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     End Sub
 
 
-    Private Sub ProcessOperation(param_operation As DLL_Operation) ''11/2/2023 TControl))
+    Private Sub ProcessOperation(param_operation As DLL_OperationV1) ''11/2/2023 TControl))
         ''
         '' Here we "parse" (process) the properties of the DLL_Operation, 
         ''  in order to call the appropriate IDoublyLinkedList functions
@@ -167,11 +167,11 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
 
                     If (bUsePrecedingAnchor) Then
                         ''Left-hand (Prior Item) Preceding Anchor
-                        Me.DLL_InsertItemAfter(param_operation.ItemInsertSingly,
+                        Me.DLL_Insert1ItemAfter(param_operation.ItemInsertSingly,
                                             param_operation.AnchorToPrecedeItemOrRange)
                     ElseIf (bUseSucceedingAnchor) Then
                         ''Right-hand (Next Item), Succeeding Anchor
-                        Me.DLL_InsertItemBefore(param_operation.ItemInsertSingly,
+                        Me.DLL_Insert1ItemBefore(param_operation.ItemInsertSingly,
                                       param_operation.AnchorToSucceedItemOrRange)
                     End If ''End of ""If (bUsePrecedingAnchor) Then... Else..."
 
@@ -189,13 +189,13 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                         ''
                         ''Left-hand (Prior Item), Preceding Anchor
                         ''
-                        Me.DLL_InsertItemAfter(param_operation.InsertRangeStart,
+                        Me.DLL_Insert1ItemAfter(param_operation.InsertRangeStart,
                                        param_operation.AnchorToPrecedeItemOrRange)
                     Else
                         ''
                         ''Right-hand (Next Item), Succeeding Anchor
                         ''
-                        Me.DLL_InsertItemBefore(param_operation.InsertRangeStart,
+                        Me.DLL_Insert1ItemBefore(param_operation.InsertRangeStart,
                                         param_operation.AnchorToSucceedItemOrRange)
 
                     End If ''ENd of ""If (param_operation.AnchorWillPrecedeRangeOrItem()) Then... Else..."
@@ -293,7 +293,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     End Sub ''End of ""Public Sub ProcessOperation""
 
 
-    Public Function GetLastOperation() As DLL_Operation
+    Public Function GetLastOperation() As DLL_OperationV1
 
 
 
@@ -302,7 +302,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
 
 
 
-    Public Function GetRecentOperation() As DLL_Operation
+    Public Function GetRecentOperation() As DLL_OperationV1
         ''
         ''Allow the new operation to be stored on a stack of operations. 
         ''
@@ -338,7 +338,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     End Sub ''End of ""Public Sub RaiseMessageIfModeNotRefreshed()""
 
 
-    Private Sub ManageNewOperation(par_objOperationNew As DLL_Operation)
+    Private Sub ManageNewOperation(par_objOperationNew As DLL_OperationV1)
         ''
         ''Place a new operation in the context of the sequence
         ''  of operations. 11/2023
@@ -368,7 +368,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
             ''A little more challenging, place the new operation at the end of 
             ''  the operations. 
             ''
-            Dim tempLastPrior As DLL_Operation = mod_operationLastPrior
+            Dim tempLastPrior As DLL_OperationV1 = mod_operationLastPrior
             ''Make sure we can travel foreward in the sequence of operations!
             mod_operationLastPrior.DLL_SetItemNext(par_objOperationNew)
             ''Make sure we can "start undoing" this & prior operations. 
@@ -391,7 +391,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
             '' don't want to "track" branching-off from a pre-existing sequence.  We want
             '' to replace all "going forward" (i.e. redos forward from the marker) items. 
             ''
-            Dim tempMarkerPrior As DLL_Operation = mod_operationMarker.GetPrior()
+            Dim tempMarkerPrior As DLL_OperationV1 = mod_operationMarker.GetPrior()
             mod_operationMarker = Nothing ''Clear the marker!!!!  
             ''---DIFFICULT AND CONFUSING---
             tempMarkerPrior.DLL_ClearReferenceNext("I"c) ''Clear all succeeding operations. We

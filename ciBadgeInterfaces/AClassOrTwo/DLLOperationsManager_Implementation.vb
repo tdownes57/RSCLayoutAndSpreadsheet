@@ -18,8 +18,8 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     Private Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
 
 
-    Public Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem,
-                                   toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_InsertItemAfter
+    Public Sub DLL_Insert1ItemAfter(toBeInserted As IDoublyLinkedItem,
+                                   toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_Insert1ItemAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -27,11 +27,11 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
 
         If (mod_modeColumnNotRow) Then
 
-            mod_listColumns.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
+            mod_listColumns.DLL_InsertOneItemAfter(toBeInserted, toUseAsAnchor)
 
         Else
 
-            mod_listRowHeaders.DLL_InsertItemAfter(toBeInserted, toUseAsAnchor)
+            mod_listRowHeaders.DLL_InsertOneItemAfter(toBeInserted, toUseAsAnchor)
 
         End If ''End of ""If (mod_modeColumnNotRow) Then... Else..."
 
@@ -39,20 +39,21 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''Operations Management 
         ''
         ''//mod_lastPriorOperation = New DLL_Operation()
-        mod_operationLastPrior = New DLL_Operation()
-        With mod_operationLastPrior
-            ''.InsertSingly = toBeInserted
-            .ItemInsertSingly = toBeInserted
-            .OperationType = "I"
-            ''.LefthandAnchor = toUseAsAnchor
-            .AnchorToPrecedeItemOrRange = toUseAsAnchor
-
-        End With
+        ''mod_operationLastPrior = New DLL_Operation()
+        ''With mod_operationLastPrior
+        ''    ''.InsertSingly = toBeInserted
+        ''    .ItemInsertSingly = toBeInserted
+        ''    .OperationType = "I"
+        ''    ''.LefthandAnchor = toUseAsAnchor
+        ''    .AnchorToPrecedeItemOrRange = toUseAsAnchor
+        ''End With
+        mod_operationLastPrior = New DLL_OperationV1("I"c,
+                   toBeInserted, 1, toUseAsAnchor, Nothing)
 
     End Sub ''End of ""Public Sub DLL_InsertItemAfter""
 
 
-    Public Sub DLL_InsertItemBefore(toBeInserted As IDoublyLinkedItem,
+    Public Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem,
                                     toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_Insert1ItemBefore
         ''
         ''This should set four(4) directional links (not just two(2))
@@ -61,25 +62,27 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
 
         If (mod_modeColumnNotRow) Then
             ''Spreadsheet columns.
-            mod_listColumns.DLL_Insert1ItemBefore(toBeInserted, toUseAsAnchor)
+            mod_listColumns.DLL_InsertOneItemBefore(toBeInserted, toUseAsAnchor)
         Else
             ''Spreadsheet rows.
-            mod_listRowHeaders.DLL_Insert1ItemBefore(toBeInserted, toUseAsAnchor)
+            mod_listRowHeaders.DLL_InsertOneItemBefore(toBeInserted, toUseAsAnchor)
         End If
 
         ''
         ''Operations Management 
         ''
-        ''Modularized! Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
+        ''Modularized! Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023    
 
-        Dim objOperationNew As New DLL_Operation()
+        Dim objOperationNew As DLL_OperationV1 '' New DLL_Operation()
         If (ADMIN_FOR_UNDOS) Then
-            With objOperationNew ''mod_lastPriorOperation
-                .InsertSingly = toBeInserted
-                .OperationType = "I"
-                .AnchorToSucceedItemOrRange = toUseAsAnchor
-            End With
+            ''With objOperationNew ''mod_lastPriorOperation
+            ''    .InsertSingly = toBeInserted
+            ''    .OperationType = "I"
+            ''    .AnchorToSucceedItemOrRange = toUseAsAnchor
+            ''End With
             ''mod_operationLastPrior = objOperationNew
+
+            objOperationNew = New DLL_OperationV1("I"c, toBeInserted, 1, Nothing, toUseAsAnchor)
 
             ''
             ''Record/store this operation. 
@@ -92,7 +95,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
 
 
     Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
-                                    toUseAsAnchorStart As IDoublyLinkedItem) _
+                                    toUseAsAnchorPreceding As IDoublyLinkedItem) _
                                     Implements IDoublyLinkedList.DLL_InsertRangeAfter
         ''
         ''This should set four(4) directional links (not just two(2))
@@ -101,13 +104,13 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             ''
             '' Columns!!!
             ''
-            mod_listColumns.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
+            mod_listColumns.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorPreceding)
 
         Else
             ''
             '' Rows!!!
             ''
-            mod_listRowHeaders.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorStart)
+            mod_listRowHeaders.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorPreceding)
 
         End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
@@ -115,7 +118,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''Operations Management 
         ''
         Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
-        Dim objOperationNew As New DLL_Operation()
+        Dim objOperationNew As New DLL_OperationV1()
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
             With objOperationNew
@@ -123,7 +126,8 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
                 .InsertRangeStart = toBeInsertedFirst
                 .OperationType = "I"
                 ''.LefthandAnchor = toUseAsAnchorStart
-                .AnchorLeftPrior = toUseAsAnchorStart
+                ''12/17/2023 .AnchorLeftPrior = toUseAsAnchorPreceding
+                .AnchorToPrecedeItemOrRange = toUseAsAnchorPreceding
             End With
             ''
             ''Record/store this operation. 
@@ -181,12 +185,12 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
         ''
-        ''Operations Management 
+        ''Operations Manag ement 
         ''
         Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
-            Dim objOperationNew As New DLL_Operation()
+            Dim objOperationNew As New DLL_OperationV1()
             With objOperationNew
                 .ModeColumnsNotRows = mod_modeColumnNotRow
                 .InsertRangeStart = toBeInsertedFirst
@@ -304,7 +308,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
-            Dim objOperationNew As New DLL_Operation()
+            Dim objOperationNew As New DLL_OperationV1()
             With objOperationNew
                 .OperationType = "D"
                 .ModeColumnsNotRows = mod_modeColumnNotRow

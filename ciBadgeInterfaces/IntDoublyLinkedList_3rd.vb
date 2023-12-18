@@ -71,7 +71,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' </summary>
     ''' <param name="toBeInserted">The item to be inserted.</param>
     ''' <param name="toUseAsAnchor">Anchors are targets in the list, NOT in the range of items being shifted. The item whose "Next" property will ultimately ead to the inserted item.</param>
-    Sub DLL_InsertItemAfter(toBeInserted As IDoublyLinkedItem, toUseAsAnchor As IDoublyLinkedItem)
+    Sub DLL_Insert1ItemAfter(toBeInserted As IDoublyLinkedItem, toUseAsAnchor As IDoublyLinkedItem)
 
 
     ''''' <summary>
@@ -84,8 +84,8 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' Overload of simpler, more likely used Sub.
     ''' </summary>
     ''' <param name="toBeInserted">The item to be inserted into the list.</param>
-    ''' <param name="toUseAsTargetAnchor">The item which determines the location of the newly-inserted range. Range will be inserted BEFORE (PRIOR) to the Target Anchor.</param>
-    Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem, toUseAsTargetAnchor As IDoublyLinkedItem)
+    ''' <param name="toUseAsTargetAnchorTerminating">The item which determines the location of the newly-inserted range. Range will be inserted BEFORE (PRIOR) to the Target Anchor.</param>
+    Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem, toUseAsTargetAnchorTerminating As IDoublyLinkedItem)
 
 
     ''' <summary>
@@ -93,10 +93,10 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' </summary>
     ''' <param name="toBeInsertedFirst"></param>
     ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
-    ''' <param name="toUseAsTargetAnchorStart">Anchors are targets in the list, NOT in the range of items being shifted.</param>
+    ''' <param name="toUseAsTargetAnchorPreceding">Anchors are targets in the list, NOT in the range of items being shifted.</param>
     Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem,
                             toBeInsertedCount As Integer,
-                            toUseAsTargetAnchorStart As IDoublyLinkedItem)
+                            toUseAsTargetAnchorPreceding As IDoublyLinkedItem)
 
 
     ''' <summary>

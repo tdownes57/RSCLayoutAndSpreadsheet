@@ -44,57 +44,67 @@ Public Interface IDoublyLinkedList(Of TControl)
         ByRef count_of_new_items As Integer) As TControl ''Control
 
 
-    ''' <summary>
-    ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
-    ''' </summary>
-    ''' <param name="toBeNext"></param>
+    '' <summary>
+    '' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
+    '' </summary>
+    '' <param name="toBeNext"></param>
     ''11/2023 td  Sub DLL_SetNextAs(toBeNext As TControl)
 
-    ''' <summary>
-    ''' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
-    ''' </summary>
-    ''' <param name="toBePrior"></param>
+    '' <summary>
+    '' This is meant as a simpler procedure, vs. DLL_InsertItemAfter. Sets two(2) directional links.
+    '' </summary>
+    '' <param name="toBePrior"></param>
     ''11/2023 td  Sub DLL_SetPriorAs(toBePrior As TControl) ''Control)
 
 
 
-    ''' <summary>
-    ''' This is a bit more administrative than DLL_SetNextAs, since four(4) directional links are specified (not just two).
-    ''' </summary>
-    ''' <param name="toBeInserted"></param>
-    Sub DLL_InsertItemAfter(toBeInserted As TControl) ''Control)
+    '' <summary>
+    '' ----Deprecated, originally for IDoublyLinkedItem.12/2023---This is a bit more administrative than DLL_SetNextAs, since four(4) directional links are specified (not just two).
+    '' </summary>
+    '' <param name="toBeInserted"></param>
+    ''----Deprecated, originally for IDoublyLinkedItem.12/2023---Sub DLL_InsertItemAfter(toBeInserted As TControl) ''Control)
 
     ''' <summary>
-    ''' Overload of simpler, more likely used Sub.
+    ''' A single item is being inserted after/below/right of the anchoring item.
     ''' </summary>
-    ''' <param name="toBeInserted">The item to be inserted.</param>
-    ''' <param name="toUseAsAnchor">Unlikely to be needed, as the likely anchor is the concrete object which owns the procedure.</param>
-    Sub DLL_InsertItemAfter(toBeInserted As TControl, toUseAsAnchor As TControl)
+    ''' <param name="toBeInsertedSingleItem">The item to be inserted.</param>
+    ''' <param name="toUseAsAnchor_ItemPrior">This is the item which was right-clicked just before Insert (After/Below/Right) is selected.</param>
+    Sub DLL_InsertOneItemAfter(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemPrior As TControl)
 
+
+    '' <summary>
+    '' ----Deprecated, originally for IDoublyLinkedItem.12/2023---This is a bit more administrative than DLL_SetPriorAs, since four(4) directional links are specified (not just two).
+    '' </summary>
+    '' <param name="toBeInserted"></param>
+    ''----Deprecated, originally for IDoublyLinkedItem.12/2023---Sub DLL_InsertItemBefore(toBeInserted As TControl) ''Control)
 
     ''' <summary>
-    ''' This is a bit more administrative than DLL_SetPriorAs, since four(4) directional links are specified (not just two).
+    ''' A single item is being inserted before/above/left of the anchoring item.
     ''' </summary>
-    ''' <param name="toBeInserted"></param>
-    Sub DLL_InsertItemBefore(toBeInserted As TControl) ''Control)
-
-    ''' <summary>
-    ''' Overload of simpler, more likely used Sub.
-    ''' </summary>
-    ''' <param name="toBeInserted">The item to be inserted.</param>
-    ''' <param name="toUseAsAnchor">Unlikely to be needed, as the likely anchor is the concrete object which owns the procedure.</param>
-    Sub DLL_InsertItemBefore(toBeInserted As TControl, toUseAsAnchor As TControl)
+    ''' <param name="toBeInsertedSingleItem">The item to be inserted.</param>
+    ''' <param name="toUseAsAnchor_ItemNext">This is the item which was right-clicked just before Insert (Before/Above/Left) is selected.</param>
+    Sub DLL_InsertOneItemBefore(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemNext As TControl)
 
 
     ''' <summary>
     ''' This inserts a range of items, likely to UNDO a deletion of >1 linked items.
     ''' </summary>
-    ''' <param name="toBeInsertedFirst"></param>
-    ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
-    ''' <param name="toUseAsAnchorStart"></param>
-    Sub DLL_InsertRangeAfter(toBeInsertedFirst As TControl,
-                            toBeInsertedCount As Integer,
-                            toUseAsAnchorStart As TControl)
+    ''' <param name="toBeInsertedRange_FirstItem"></param>
+    ''' <param name="toBeInsertedRange_ItemCount">Number of items to be inserted.</param>
+    ''' <param name="toUseAsAnchor_Preceding"></param>
+    Sub DLL_InsertRangeAfter(toBeInsertedRange_FirstItem As TControl,
+                            toBeInsertedRange_ItemCount As Integer,
+                            toUseAsAnchor_Preceding As TControl)
+
+    ''' <summary>
+    ''' This inserts a range of items, likely to UNDO a deletion of >1 linked items.
+    ''' </summary>
+    ''' <param name="toBeInsertedRange_FirstItem"></param>
+    ''' <param name="toBeInsertedRange_ItemCount">Number of items to be inserted.</param>
+    ''' <param name="toUseAsAnchor_Terminating"></param>
+    Sub DLL_InsertRangeBefore(toBeInsertedRange_FirstItem As TControl,
+                            toBeInsertedRange_ItemCount As Integer,
+                            toUseAsAnchor_Terminating As TControl)
 
     Sub DLL_DeleteItem(item_toDelete As TControl)
 

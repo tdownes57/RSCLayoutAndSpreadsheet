@@ -37,35 +37,44 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
     Private mod_itemNext As TControl
     Private mod_itemPrior As TControl
 
-    Public Sub DLL_InsertItemAfter(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemAfter
+    Public Sub DLL_InsertOneItemAfter(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_InsertItemAfter(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemAfter
+    ''Public Sub DLL_InsertItemAfter(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemAfter
+    ''    ''
+    ''    ''This should set four(4) directional links (not just two(2))
+    ''    ''
+    ''    Throw New NotImplementedException()
+    ''End Sub
+
+    Public Sub DLL_InsertOneItemBefore(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemBefore
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_InsertItemBefore(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemBefore
+    ''Public Sub DLL_InsertItemBefore(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemBefore
+    ''    ''
+    ''    ''This should set four(4) directional links (not just two(2))
+    ''    ''
+    ''    Throw New NotImplementedException()
+    ''End Sub
+
+
+    Public Sub DLL_InsertRangeAfter(toBeInserted_FirstItem As TControl, toBeInsertedRange_ItemCount As Integer, toUseAsAnchorStart As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_InsertItemBefore(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemBefore
-        ''
-        ''This should set four(4) directional links (not just two(2))
-        ''
-        Throw New NotImplementedException()
-    End Sub
 
-    Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As TControl, toBeInsertedCount As Integer, toUseAsAnchorStart As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
+    Public Sub DLL_InsertRangeBefore(toBeInsertedRange_FirstItem As TControl, toBeInsertedRange_ItemCount As Integer, toUseAsAnchorStart As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeBefore
         ''
         ''This should set four(4) directional links (not just two(2))
         ''

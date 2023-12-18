@@ -8,6 +8,17 @@ Public Interface IDoublyLinkedItem
     Function DLL_NotAnyNext() As Boolean
     Function DLL_NotAnyPrior() As Boolean
 
+    ''' <summary>
+    ''' Is there a Next?
+    ''' </summary>
+    ''' <returns>Returns a True or False.</returns>
+    Function DLL_HasNext() As Boolean
+    ''' <summary>
+    ''' Is there a Next?
+    ''' </summary>
+    ''' <returns>Returns a True or False.</returns>
+    Function DLL_HasPrior() As Boolean
+
     Function DLL_GetItemNext() As IDoublyLinkedItem
     Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem
 

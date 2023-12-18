@@ -11,7 +11,7 @@ Imports System.Xml.XPath
 ''
 ''    ---12/07/2023 thomas dow_nes 
 ''-----------------------------------------------------------
-Public Class DLL_Operation ''11/2/2023 (Of TControl)
+Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Implements IDoublyLinkedItem ''DLL_GetItemNext, DLL_GetItemPrior
     ''
     ''Added 10/30/2023
@@ -114,16 +114,28 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
     ''
-    Private mod_operationPrior As DLL_Operation ''Added 11/14/2023 
-    Private mod_operationNext As DLL_Operation ''Added 11/14/2023 
+    Private mod_operationPrior As DLL_OperationV1 ''Added 11/14/2023 
+    Private mod_operationNext As DLL_OperationV1 ''Added 11/14/2023 
 
+    ''' <summary>
+    ''' Default constructor.
+    ''' </summary>
+    Public Sub New()
+
+        ''12/17/2023
+        Me.OperationType = "?"c
+
+    End Sub
 
     ''' <summary>
     ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
     ''' So let's add a constructor, so we can cut down on parameters on other 
     ''' methods.  This object can be passed as a parameter.
     ''' </summary>
-    Public Sub New(foo As Exception)
+    Public Sub New(opType As Char, firstInRange As IDoublyLinkedItem,
+                   intCountOfItems As Integer,
+                   anchorFinalPrior As IDoublyLinkedItem,
+                   anchorFinalNext As IDoublyLinkedItem)
         ''
         ''Added 12/7/2023  
         ''
@@ -132,17 +144,19 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         '' methods.  This object can be passed as a parameter.
 
 
+
+
     End Sub
 
     ''' <summary>
     ''' This creates the "Undo" version of the class-object operation.
     ''' </summary>
     ''' <returns></returns>
-    Public Function GetUndoVersionOfOperation() As DLL_Operation ''11/2/2023 (Of TControl)
+    Public Function GetUndoVersionOfOperation() As DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''
         ''Added 10/30/2023
         ''
-        Dim objUndo As New DLL_Operation ''11/2/2023 (Of TControl)
+        Dim objUndo As New DLL_OperationV1() ''11/2/2023 (Of TControl)
 
         With objUndo
 
@@ -554,6 +568,20 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
         Return bPriorIsNothing
     End Function
 
+
+    Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext
+        Dim bNextIsSomething As Boolean ''12/17/2023
+        bNextIsSomething = (mod_operationNext IsNot Nothing)
+        Return bNextIsSomething
+    End Function
+
+    Public Function DLL_HasPrior() As Boolean Implements IDoublyLinkedItem.DLL_HasPrior
+        Dim bPriorIsSomething As Boolean ''12/17/2023
+        bPriorIsSomething = (mod_operationPrior IsNot Nothing)
+        Return bPriorIsSomething
+    End Function
+
+
     Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''11/2023 td''Throw New NotImplementedException()
         Return mod_operationNext
@@ -570,7 +598,7 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     ''
     ''Important, check for equality.
     ''
-    Private Overloads Function Equals(lets_check As DLL_Operation) As Boolean ''11/2/2023 (Of TControl)) As Boolean
+    Private Overloads Function Equals(lets_check As DLL_OperationV1) As Boolean ''11/2/2023 (Of TControl)) As Boolean
         ''Private Function Equals(lets_check As TControl) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
@@ -658,13 +686,13 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     End Function ''End of Private Function Overrides Equals() as Boolean
 
 
-    Private Function Undo2x_IsIdempotent(lets_check As DLL_Operation) As Boolean
+    Private Function Undo2x_IsIdempotent(lets_check As DLL_OperationV1) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
         ''   double-Undo.
         ''
-        Dim objUndo_1st As DLL_Operation ''11/2/2023 (Of TControl)
-        Dim objUndo_2nd As DLL_Operation ''11/2/2023 (Of TControl)
+        Dim objUndo_1st As DLL_OperationV1 ''11/2/2023 (Of TControl)
+        Dim objUndo_2nd As DLL_OperationV1 ''11/2/2023 (Of TControl)
 
         objUndo_1st = lets_check.GetUndoVersionOfOperation()
         objUndo_2nd = objUndo_1st.GetUndoVersionOfOperation()
@@ -676,10 +704,11 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
     End Function ''End of ""Private Function Undo2x_IsIdempotent""
 
+
     Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
-        ''Added 11/25/2025 td
+        ''Added 11/25/2023 td
         Dim result As IDoublyLinkedItem = mod_operationNext ''--Nothing ''--mod_operationNext
 
         If (param_iterationsOfNext = 0) Then
@@ -705,7 +734,7 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
     Public Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
 
         ''11/2023 Throw New NotImplementedException()
-        ''Added 11/25/2025 td
+        ''Added 11/25/2023 td
         Dim result As IDoublyLinkedItem = mod_operationPrior ''--Nothing ''--mod_operationNext
 
         If (param_iterationsOfPrior = 0) Then
@@ -727,6 +756,11 @@ Public Class DLL_Operation ''11/2/2023 (Of TControl)
 
     End Function ''Public Function DLL_GetItemPrior(param_iterationsOfNext As Integer)
 
+
+    ''' <summary>
+    ''' Not implemented for Operations, so don't use. (See list(s) of controls, for usage.)
+    ''' </summary>
+    ''' <returns></returns>
     Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
         ''
         '' Won't be implemented.  12/01/2023 td
