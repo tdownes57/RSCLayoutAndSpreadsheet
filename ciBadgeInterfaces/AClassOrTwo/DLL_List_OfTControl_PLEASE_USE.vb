@@ -412,7 +412,12 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Public Sub DLL_DeleteItem(ByVal p_item_toDelete As TControl,
                               ByVal p_isChangeOfEndpoint As Boolean) _
                               Implements IDoublyLinkedList(Of TControl).DLL_DeleteItem
-
+        ''
+        ''        Delete "4". (Single item.)
+        ''                |
+        ''          1 2 3 4 5 6 7 8 9 10
+        '' Result:  1 2 3 5 6 7 8 9 10
+        ''
         ''12/2023 Throw New NotImplementedException()
 
         Dim itemToDelete = CType(p_item_toDelete, IDoublyLinkedItem)
