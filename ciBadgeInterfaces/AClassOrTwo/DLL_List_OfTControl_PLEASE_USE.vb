@@ -23,8 +23,9 @@
 Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Implements IDoublyLinkedList(Of TControl)
 
-    Private mod_dllControlFirst As IDoublyLinkedItem ''DLL = Doubly-Linked List. 
+    Private mod_dllControlFirst As IDoublyLinkedItem ''Definitely needed. DLL = Doubly-Linked List. 
     Private mod_bTesting As Boolean
+    Private mod_dllControlLast As IDoublyLinkedItem ''May not be needed.  DLL = Doubly-Linked List. 
 
     '' 12/2023
     ''Public Sub DLL_SetNextAs(toBeNext As TControl) Implements IDoublyLinkedList(Of TControl).DLL_SetNextAs
@@ -51,7 +52,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     ''    ''Throw New NotImplementedException()
     ''End Sub
 
-    Public Sub DLL_InsertOneItemAfter(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemPriorToSingle As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
+    Public Sub DLL_InsertOneItemAfter(p_toBeInsertedSingleItem As TControl,
+                                      p_toUseAsAnchor_ItemPriorToSingle As TControl) _
+                                      Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
         ''12/2023 Throw New NotImplementedException()
 
         ''-----------------------------------------------------------------------------------------------------
@@ -60,34 +63,124 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''  to work... EXPLICIT CASTING!!!  ---12/18/2023
         ''-----------------------------------------------------------------------------------------------------
         ''
-        Dim itemSingleToInsert As IDoublyLinkedItem = CType(toBeInsertedSingleItem, IDoublyLinkedItem)
-        Dim itemForAnchoring_ItemPriorToSingle As IDoublyLinkedItem = CType(toUseAsAnchor_ItemPriorToSingle, IDoublyLinkedItem)
+        Dim itemSingleToInsert As IDoublyLinkedItem '' = CType(p_toBeInsertedSingleItem, IDoublyLinkedItem)
+        Dim itemForAnchoring_ItemPriorToSingle As IDoublyLinkedItem '' = CType(p_toUseAsAnchor_ItemPriorToSingle, IDoublyLinkedItem)
+        Dim bTesting As Boolean = ciBadgeInterfaces.Testing.TestingByDefault
 
-        If (ciBadgeInterfaces.Testing.TestingByDefault) Then
+        itemSingleToInsert = CType(p_toBeInsertedSingleItem, IDoublyLinkedItem)
+        itemForAnchoring_ItemPriorToSingle = CType(p_toUseAsAnchor_ItemPriorToSingle, IDoublyLinkedItem)
+
+        ''Testing...
+        If (bTesting) Then
             ''Items passed as primary-operational (vs. anchors) must be cleaned
             ''  of references.
             If (itemSingleToInsert.DLL_HasNext()) Then Debugger.Break()
             If (itemSingleToInsert.DLL_HasPrior()) Then Debugger.Break()
         End If ''Testing
 
+        ''
+        ''Save the item prior to the anchor, if it exists.
+        ''
+        Dim temp_itemNextToAnchor As IDoublyLinkedItem = Nothing
+        Dim anchorHasItemNext As Boolean
+        anchorHasItemNext = itemForAnchoring_ItemPriorToSingle.DLL_HasNext()
+        If (anchorHasItemNext) Then
+            ''We are _NOT_ at the end of the list.
+            temp_itemNextToAnchor = itemForAnchoring_ItemPriorToSingle.DLL_GetItemPrior()
+        Else
+            ''
+            ''We _ARE_ at the end of the list.
+            ''
+            ''Testing...
+            If (bTesting) Then
+                Dim bMismatch As Boolean
+                bMismatch = (mod_dllControlLast IsNot itemForAnchoring_ItemPriorToSingle)
+                If (bMismatch) Then Debugger.Break()
+            End If ''End of ""If (bTesting) Then""
+
+            ''Added 12/18/2023 td
+            mod_dllControlLast = p_toBeInsertedSingleItem
+
+        End If ''end of ""If (anchorHasItemNext) Then... Else..."
+
         ''Set references #1 & #2 of 4
         Dim temp = itemForAnchoring_ItemPriorToSingle.DLL_GetItemNext()
         itemForAnchoring_ItemPriorToSingle.DLL_SetItemNext(itemSingleToInsert)
         itemSingleToInsert.DLL_SetItemPrior(itemForAnchoring_ItemPriorToSingle)
 
-        ''Set references #3 & #4 of 4
-        temp.DLL_SetItemPrior(itemSingleToInsert)
-        itemSingleToInsert.DLL_SetItemNext(temp)
+        ''If there is a next element, set references #3 & #4 of 4
+        If (anchorHasItemNext) Then
+            ''Set references #3 & #4 of 4
+            temp_itemNextToAnchor.DLL_SetItemPrior(itemSingleToInsert)
+            itemSingleToInsert.DLL_SetItemNext(temp_itemNextToAnchor)
+        End If ''end of ""If (anchorHasItemNext) Then ... Else...""
 
     End Sub ''Public Sub DLL_InsertOneItemAfter
+
 
     ''Public Sub DLL_InsertItemBefore(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemBefore
     ''    Throw New NotImplementedException()
     ''End Sub
 
-    Public Sub DLL_InsertOneItemBefore(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemNext As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemBefore
-        Throw New NotImplementedException()
-    End Sub
+    Public Sub DLL_InsertOneItemBefore(p_toBeInsertedSingleItem As TControl,
+                                       p_toUseAsAnchor_ItemNextToSingle As TControl) _
+                                       Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemBefore
+        ''12/2023 Throw New NotImplementedException()
+
+        Dim itemSingleToInsert As IDoublyLinkedItem
+        Dim itemForAnchoring_ItemNextToSingle As IDoublyLinkedItem
+        Dim bTesting As Boolean = ciBadgeInterfaces.Testing.TestingByDefault
+
+        ''-----------------------------------------------------------------------------------------------------
+        ''---- DIFFICULT AND CONFUSING ----
+        ''  Here is the "secret sauce" that allows this Generic Type (DLL_List_OfTControl_PLEASE_USE(Of TControl))
+        ''  to work... EXPLICIT CASTING!!!  ---12/18/2023
+        ''-----------------------------------------------------------------------------------------------------
+        itemSingleToInsert = CType(p_toBeInsertedSingleItem, IDoublyLinkedItem)
+        itemForAnchoring_ItemNextToSingle = CType(p_toUseAsAnchor_ItemNextToSingle, IDoublyLinkedItem)
+
+        If (bTesting) Then
+            ''Items passed as primary-operational (vs. anchors) must be cleaned
+            ''  of references.
+            If (itemSingleToInsert.DLL_HasNext()) Then Debugger.Break()
+            If (itemSingleToInsert.DLL_HasPrior()) Then Debugger.Break()
+        End If ''Testing
+
+        ''Save the item prior to the anchor, if it exists. 
+        Dim temp_itemPriorToAnchor As IDoublyLinkedItem = Nothing
+        Dim anchorHasItemPrior As Boolean ''Added 12/18/2023
+        anchorHasItemPrior = itemForAnchoring_ItemNextToSingle.DLL_HasPrior()
+        If (anchorHasItemPrior) Then
+            temp_itemPriorToAnchor = itemForAnchoring_ItemNextToSingle.DLL_GetItemPrior()
+        Else
+            ''
+            ''We _ARE_ at the beginning of the list.
+            ''
+            ''Testing...
+            If (bTesting) Then
+                Dim bMismatch As Boolean
+                bMismatch = (mod_dllControlLast IsNot itemForAnchoring_ItemNextToSingle)
+                If (bMismatch) Then Debugger.Break()
+            End If ''End of ""If (bTesting) Then""
+
+            ''Added 12/18/2023 td
+            mod_dllControlFirst = p_toBeInsertedSingleItem
+
+        End If ''end of ""If (anchorHasItemPrior) Then ... Else...""
+
+        ''Set references #1 & #2 of 4
+        itemForAnchoring_ItemNextToSingle.DLL_SetItemPrior(itemSingleToInsert)
+        itemSingleToInsert.DLL_SetItemNext(itemForAnchoring_ItemNextToSingle)
+
+        ''Set references #3 & #4 of 4
+        If (anchorHasItemPrior) Then
+            ''Set references #3 & #4 of 4
+            temp_itemPriorToAnchor.DLL_SetItemNext(itemSingleToInsert)
+            itemSingleToInsert.DLL_SetItemPrior(temp_itemPriorToAnchor)
+        End If ''end of ""If (anchorHasItemPrior) Then""
+
+    End Sub ''Public Sub DLL_InsertOneItemBefore
+
 
     Public Sub DLL_InsertRangeAfter(toBeInsertedRange_FirstItem As TControl, toBeInsertedRange_ItemCount As Integer, toUseAsAnchorPreceding As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
         Throw New NotImplementedException()
