@@ -5,8 +5,18 @@
 ''
 ''    ---12/07/2023 thomas dow_nes 
 ''-----------------------------------------------------------
+''
+''---- DIFFICULT AND CONFUSING ----
+''  Here is the "secret sauce" that allows this Generic Type (DLL_List_OfTControl_PLEASE_USE(Of TControl))
+''  to work... EXPLICIT CASTING!!!   ---12/18/2023
+''  EXPLICIT CASTING...
+''    Dim itemToInsert As IDoublyLinkedItem = CType(toBeInsertedSingleItem, IDoublyLinkedItem)
+''    Dim itemForAnchoring As IDoublyLinkedItem = CType(toUseAsAnchor, IDoublyLinkedItem)
+''-----------------------------------------------------------------------------------------------------
+''
+
 ''' <summary>
-''' We use casting as a way to access crucial methods. 
+''' We use explicit casting as a way to access crucial methods. 
 ''' TControl is RSCFieldColumn, RSCDataHeader, or RSCDataCell.
 ''' </summary>
 ''' <typeparam name="TControl"></typeparam>
@@ -44,6 +54,12 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Public Sub DLL_InsertOneItemAfter(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemPriorToSingle As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
         ''12/2023 Throw New NotImplementedException()
 
+        ''-----------------------------------------------------------------------------------------------------
+        ''---- DIFFICULT AND CONFUSING ----
+        ''  Here is the "secret sauce" that allows this Generic Type (DLL_List_OfTControl_PLEASE_USE(Of TControl))
+        ''  to work... EXPLICIT CASTING!!!  ---12/18/2023
+        ''-----------------------------------------------------------------------------------------------------
+        ''
         Dim itemSingleToInsert As IDoublyLinkedItem = CType(toBeInsertedSingleItem, IDoublyLinkedItem)
         Dim itemForAnchoring_ItemPriorToSingle As IDoublyLinkedItem = CType(toUseAsAnchor_ItemPriorToSingle, IDoublyLinkedItem)
 
