@@ -37,7 +37,10 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
     Private mod_itemNext As TControl
     Private mod_itemPrior As TControl
 
-    Public Sub DLL_InsertOneItemAfter(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
+    Public Sub DLL_InsertOneItemAfter(ByVal toBeInserted As TControl,
+                                      ByVal toUseAsAnchor As TControl,
+                                      ByVal isChangeOfEndpoint As Boolean) _
+                                      Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -51,7 +54,10 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
     ''    Throw New NotImplementedException()
     ''End Sub
 
-    Public Sub DLL_InsertOneItemBefore(toBeInserted As TControl, toUseAsAnchor As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemBefore
+    Public Sub DLL_InsertOneItemBefore(ByVal toBeInserted As TControl,
+                                       ByVal toUseAsAnchor As TControl,
+                                       ByVal isChangeOfEndPoint As Boolean) _
+                                       Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemBefore
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -66,7 +72,25 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
     ''End Sub
 
 
-    Public Sub DLL_InsertRangeAfter(toBeInserted_FirstItem As TControl, toBeInsertedRange_ItemCount As Integer, toUseAsAnchorStart As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
+    Public Sub DLL_InsertRangeAfter(ByVal toBeInserted_FirstItem As TControl,
+                                    ByVal toBeInsertedRange_ItemCount As Integer,
+                                    ByVal toUseAsAnchorStart As TControl,
+                                    ByVal isChangeOfEndpoint As Boolean) _
+                                    Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
+        ''
+        ''This should set four(4) directional links (not just two(2))
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
+
+
+    Public Sub DLL_InsertRangeBefore(ByVal toBeInsertedRange_FirstItem As TControl,
+                                     ByVal toBeInsertedRange_ItemCount As Integer,
+                                     ByVal toUseAsAnchorStart As TControl,
+                                     ByVal isChangeOfEndpoint As Boolean) _
+        Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeBefore
+
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -74,15 +98,9 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
     End Sub
 
 
-    Public Sub DLL_InsertRangeBefore(toBeInsertedRange_FirstItem As TControl, toBeInsertedRange_ItemCount As Integer, toUseAsAnchorStart As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeBefore
-        ''
-        ''This should set four(4) directional links (not just two(2))
-        ''
-        Throw New NotImplementedException()
-    End Sub
-
-
-    Public Sub DLL_DeleteItem(item_toDelete As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteItem
+    Public Sub DLL_DeleteItem(ByVal item_toDelete As TControl,
+                              ByVal isChangeOfEndpoint As Boolean) _
+                              Implements IDoublyLinkedList(Of TControl).DLL_DeleteItem
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -101,16 +119,20 @@ Public Class DLL_OperationsManager_Deprecated(Of TControl)
     End Sub
 
 
-    Public Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl, yes_return_list_of_deleteds As Boolean, ByRef count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_NotUsed
-        ''
-        ''This should set four(4) directional links (not just two(2))
-        ''
+    ''Public Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl, yes_return_list_of_deleteds As Boolean, ByRef count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_NotUsed
+    ''    ''
+    ''    ''This should set four(4) directional links (not just two(2))
+    ''    ''
+    ''12/18/2023 td
+    ''End Sub
 
 
-    End Sub
-
-
-    Public Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As TControl, ByVal count_of_deleteds As Integer, ByRef item_prior_undeleted As TControl, ByRef item_first_deleted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_Simpler
+    Public Sub DLL_DeleteRange_Simpler(ByVal item_toDeleteBegin As TControl,
+                                       ByVal count_of_deleteds As Integer,
+                                       ByVal isChangeOfEndpoint As Boolean) _
+                                       Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_Simpler
+        ''12/2023                      ByRef item_prior_undeleted As TControl, _
+        ''12/2023                      ByRef item_first_deleted As TControl) _
         ''
         ''This should set four(4) directional links (not just two(2))
         ''

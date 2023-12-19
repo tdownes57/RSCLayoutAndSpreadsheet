@@ -69,7 +69,9 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' </summary>
     ''' <param name="toBeInsertedSingleItem">The item to be inserted.</param>
     ''' <param name="toUseAsAnchor_ItemPrior">This is the item which was right-clicked just before Insert (After/Below/Right) is selected.</param>
-    Sub DLL_InsertOneItemAfter(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemPrior As TControl)
+    Sub DLL_InsertOneItemAfter(toBeInsertedSingleItem As TControl,
+                               toUseAsAnchor_ItemPrior As TControl,
+                               isChangeOfEndPoint As Boolean)
 
 
     '' <summary>
@@ -81,60 +83,70 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' <summary>
     ''' A single item is being inserted before/above/left of the anchoring item.
     ''' </summary>
-    ''' <param name="toBeInsertedSingleItem">The item to be inserted.</param>
-    ''' <param name="toUseAsAnchor_ItemNext">This is the item which was right-clicked just before Insert (Before/Above/Left) is selected.</param>
-    Sub DLL_InsertOneItemBefore(toBeInsertedSingleItem As TControl, toUseAsAnchor_ItemNext As TControl)
+    ''' <param name="toBeInsertedSingleItem">The item to be inserted, a ByVal parameter.</param>
+    ''' <param name="toUseAsAnchor_ItemNext">This is the item which was right-clicked just before Insert (Before/Above/Left) is selected, a ByVal parameter.</param>
+    ''' <param name="isChangeOfEndPoint">Whether the endpoint is affected, a ByVal parameter.</param>
+    Sub DLL_InsertOneItemBefore(ByVal toBeInsertedSingleItem As TControl,
+                                ByVal toUseAsAnchor_ItemNext As TControl,
+                                ByVal isChangeOfEndPoint As Boolean)
 
 
     ''' <summary>
     ''' This inserts a range of items, likely to UNDO a deletion of >1 linked items.
     ''' </summary>
-    ''' <param name="toBeInsertedRange_FirstItem"></param>
-    ''' <param name="toBeInsertedRange_ItemCount">Number of items to be inserted.</param>
-    ''' <param name="toUseAsAnchor_Preceding"></param>
-    Sub DLL_InsertRangeAfter(toBeInsertedRange_FirstItem As TControl,
-                            toBeInsertedRange_ItemCount As Integer,
-                            toUseAsAnchor_Preceding As TControl)
+    ''' <param name="toBeInsertedRange_FirstItem">The first item in the range, a ByVal parameter.</param>
+    ''' <param name="toBeInsertedRange_ItemCount">Number of items to be inserted, a ByVal parameter.</param>
+    ''' <param name="toUseAsAnchor_Preceding">The target for the insertion, a ByVal parameter.</param>
+    ''' <param name="isChangeOfEndPoint">Whether the endpoint is affected, a ByVal parameter.</param>
+    Sub DLL_InsertRangeAfter(ByVal toBeInsertedRange_FirstItem As TControl,
+                             ByVal toBeInsertedRange_ItemCount As Integer,
+                             ByVal toUseAsAnchor_Preceding As TControl,
+                             ByVal isChangeOfEndPoint As Boolean)
 
     ''' <summary>
     ''' This inserts a range of items, likely to UNDO a deletion of >1 linked items.
     ''' </summary>
-    ''' <param name="toBeInsertedRange_FirstItem"></param>
-    ''' <param name="toBeInsertedRange_ItemCount">Number of items to be inserted.</param>
-    ''' <param name="toUseAsAnchor_Terminating"></param>
-    Sub DLL_InsertRangeBefore(toBeInsertedRange_FirstItem As TControl,
-                            toBeInsertedRange_ItemCount As Integer,
-                            toUseAsAnchor_Terminating As TControl)
+    ''' <param name="toBeInsertedRange_FirstItem">The first item in the range, a ByVal parameter.</param>
+    ''' <param name="toBeInsertedRange_ItemCount">Number of items to be inserted, a ByVal parameter.</param>
+    ''' <param name="toUseAsAnchor_Terminating">The target for the insertion, a ByVal parameter.</param>
+    ''' <param name="isChangeOfEndPoint">Whether the endpoint is affected, a ByVal parameter.</param>
+    Sub DLL_InsertRangeBefore(ByVal toBeInsertedRange_FirstItem As TControl,
+                              ByVal toBeInsertedRange_ItemCount As Integer,
+                              ByVal toUseAsAnchor_Terminating As TControl,
+                              ByVal isChangeOfEndPoint As Boolean)
 
-    Sub DLL_DeleteItem(item_toDelete As TControl)
+    Sub DLL_DeleteItem(ByVal item_toDelete As TControl,
+                       ByVal isChangeOfEndPoint As Boolean)
 
-    ''' <summary> 
-    ''' This deletes a range of items in the list, inclusive of specified ends.
-    ''' </summary>
-    ''' <param name="item_toDeleteBegin">Begin deleting with this item.</param>
-    ''' <param name="item_toDeleteEndInclusive">Delete this item last.</param>
-    ''' <param name="yes_return_list_of_deleteds">True if we want to keep the deleted range.</param>
-    ''' <param name="count_of_deleteds">ByRef, how many items deleted</param>
-    ''' <param name="item_prior_undeleted">ByRef, prior item where the deletion took place</param>
-    ''' <param name="item_first_deleted">ByRef, return the first deleted item</param>
-    Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl,
-                    item_toDeleteEndInclusive As TControl,
-                    yes_return_list_of_deleteds As Boolean,
-                    ByRef count_of_deleteds As Integer,
-                    ByRef item_prior_undeleted As TControl,
-                    ByRef item_first_deleted As TControl)
+    '' <summary> 
+    '' This deletes a range of items in the list, inclusive of specified ends.
+    '' </summary>
+    '' <param name="item_toDeleteBegin">Begin deleting with this item.</param>
+    '' <param name="item_toDeleteEndInclusive">Delete this item last.</param>
+    '' <param name="yes_return_list_of_deleteds">True if we want to keep the deleted range.</param>
+    '' <param name="count_of_deleteds">ByRef, how many items deleted</param>
+    '' <param name="item_prior_undeleted">ByRef, prior item where the deletion took place</param>
+    '' <param name="item_first_deleted">ByRef, return the first deleted item</param>
+    ''12/18/2023 Sub DLL_DeleteRange_NotUsed(ByVal item_toDeleteBegin As TControl,
+    ''                ByVal item_toDeleteEndInclusive As TControl,
+    ''                ByVal yes_return_list_of_deleteds As Boolean,
+    ''                ByRef count_of_deleteds As Integer,
+    ''                ByRef item_prior_undeleted As TControl,
+    ''                ByRef item_first_deleted As TControl)
 
     ''' <summary>
-    ''' 
+    ''' Delete a range of items. (May be a single item!)
     ''' </summary>
-    ''' <param name="item_toDeleteBegin"></param>
-    ''' <param name="count_of_deleteds">How many items are being deleted?</param>
-    ''' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
-    ''' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
-    Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As TControl,
-                    ByVal count_of_deleteds As Integer,
-                    ByRef ref_prior_undeleted As TControl,
-                    ByRef ref_next_undeleted As TControl)
+    ''' <param name="item_toDeleteBegin">First item in the operating range. (ByVal)</param>
+    ''' <param name="count_of_deleteds">How many items are being deleted? (ByVal)</param>
+    ''' <param name="isChangeOfEndPoint">Is a change of endpoint anticipated? (ByVal)</param>
+    Sub DLL_DeleteRange_Simpler(ByVal item_toDeleteBegin As TControl,
+                                ByVal count_of_deleteds As Integer,
+                                ByVal isChangeOfEndPoint As Boolean)
+    '' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
+    '' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
+    ''Can be determined by calling function. 12/2023''ByRef ref_prior_undeleted As TControl,
+    ''Can be determined by calling function. 12/2023''ByRef ref_next_undeleted As TControl)
 
     ''//
     ''// Suggested by my Python class, Chapter 6: Lists
