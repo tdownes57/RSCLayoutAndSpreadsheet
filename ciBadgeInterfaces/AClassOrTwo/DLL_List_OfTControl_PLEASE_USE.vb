@@ -44,22 +44,35 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''
         ''Set the initial instance variable. 
         ''
+        ''  (Also, we'll test the TControl can be converted to IDoublyLinkedItem.)
+        ''  
         mod_dllControlFirst = CType(par_firstItem, IDoublyLinkedItem)
 
         mod_bTesting = Testing.TestingByDefault
 
-    End Sub
+        ''
+        ''Test the TControl can be converted to IDoublyLinkedItem. 
+        ''  Oh... we already are doing that!!  
+        ''
+
+
+    End Sub ''Public Sub New
 
 
     Public Sub New(par_firstItem As TControl, par_lastItem As TControl)
         ''
         ''Set the initial instance variable. 
         ''
+        ''  (Also, we'll test the TControl can be converted to IDoublyLinkedItem.) 
+        ''
         mod_dllControlFirst = CType(par_firstItem, IDoublyLinkedItem)
 
         mod_bTesting = Testing.TestingByDefault
 
         ''Added 12/2023
+        ''
+        ''Test the TControl can be converted to IDoublyLinkedItem. 
+        ''
         mod_dllControlLast = CType(par_lastItem, IDoublyLinkedItem)
 
     End Sub
@@ -416,6 +429,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''        Delete "4". (Single item.)
         ''                |
         ''          1 2 3 4 5 6 7 8 9 10
+        '' Result:  1 2 3 - 5 6 7 8 9 10
         '' Result:  1 2 3 5 6 7 8 9 10
         ''
         ''12/2023 Throw New NotImplementedException()
@@ -429,6 +443,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         bDeletingEndOfList = itemToDelete.DLL_NotAnyNext
         bDeletingStartOfList = itemToDelete.DLL_NotAnyPrior
 
+        ''
+        ''Consider start of List 
+        ''
         If (bDeletingStartOfList) Then
 
             If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
@@ -436,8 +453,12 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         Else
             itemPriorToDelete = itemToDelete.DLL_GetItemPrior()
             itemPriorToDelete.DLL_SetItemNext(itemFollowingDelete)
-        End If
 
+        End If ''End of If (bDeletingStartOfList) Then... Else...
+
+        ''
+        ''Consider end of List 
+        ''
         If (bDeletingEndOfList) Then
 
             If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
@@ -445,7 +466,25 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         Else
             itemFollowingDelete = itemToDelete.DLL_GetItemNext()
             itemFollowingDelete.DLL_SetItemPrior(itemPriorToDelete)
-        End If
+
+        End If ''End of If (bDeletingEndOfList) Then... Else...
+
+        ''
+        ''Maintain start & end of list. 
+        ''
+        If (bDeletingStartOfList And bDeletingEndOfList) Then
+            ''The list is now empty of the one(1) item it had. 
+            mod_dllControlFirst = Nothing
+            mod_dllControlLast = Nothing
+
+        ElseIf (bDeletingStartOfList) Then
+            ''Save the new starting list item. 
+            mod_dllControlFirst = itemFollowingDelete ''itemToDelete
+
+        ElseIf (bDeletingEndOfList) Then
+            mod_dllControlLast = itemPriorToDelete ''itemToDelete
+
+        End If ''End of If (bDeletingStartOfList and bDeleting EndOfList) Then... Else...
 
         ''
         ''Clean range-of-items endpoints!!
@@ -470,15 +509,93 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     ''End Sub
 
 
-    Public Sub DLL_DeleteRange_Simpler(ByVal item_toDeleteBegin As TControl,
-                                       ByVal count_of_deleteds As Integer,
-                                       ByVal isChangeOfEndpoint As Boolean) _
+    Public Sub DLL_DeleteRange(ByVal p_item_toDeleteFirst As TControl,
+                                       ByVal p_count_of_deleteds As Integer,
+                                       ByVal p_isChangeOfEndpoint As Boolean) _
                                        Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_Simpler
         ''Not needed.            ByRef item_prior_undeleted As TControl,
         ''Not needed.            ByRef item_first_deleted As TControl) _
+        ''Throw New NotImplementedException()
 
-        Throw New NotImplementedException()
-    End Sub
+        ''
+        ''        Delete "4 5 6". (Range of 3 items.)
+        ''                | | |
+        ''          1 2 3 4 5 6 7 8 9 10
+        '' Result:  1 2 3 - - - 7 8 9 10 
+        '' Result:  1 2 3 7 8 9 10 
+        ''
+        Dim itemToDeleteFirst = CType(p_item_toDeleteFirst, IDoublyLinkedItem)
+        Dim itemToDeleteLast = itemToDeleteFirst.DLL_GetItemNext(-1 + p_count_of_deleteds)
+
+        Dim itemPriorToDeleteRange As IDoublyLinkedItem = Nothing
+        Dim itemFollowingDeleteRange As IDoublyLinkedItem = Nothing
+        Dim bDeletingListStartingPoint As Boolean
+        Dim bDeletingListEndingPoint As Boolean
+
+        ''bDeletingEndOfList = itemToDeleteFirst.DLL_NotAnyNext()
+
+        bDeletingListStartingPoint = itemToDeleteFirst.DLL_NotAnyPrior()
+        bDeletingListEndingPoint = itemToDeleteLast.DLL_NotAnyNext() ''(itemToDeleteFirst Is mod_dllControlLast)
+
+        ''
+        ''Consider start of List 
+        ''
+        If (bDeletingListStartingPoint) Then
+
+            If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
+            ''Save the new starting list item. 
+            mod_dllControlFirst = itemFollowingDeleteRange ''itemToDeleteFirst
+
+        Else
+            ''Hook together what comes BEFORE range & what comes AFTER range.
+            itemPriorToDeleteRange = itemToDeleteFirst.DLL_GetItemPrior()
+
+        End If ''End of ""If (bDeletingListStartpoint) Then... Else..."
+
+        ''
+        ''Consider end of List 
+        ''
+        If (bDeletingListEndingPoint) Then
+
+            '' We CANNOT hook together what comes BEFORE range to what comes AFTER, 
+            ''   since NOTHING comes after. 
+            If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
+            ''Save the new final list item. 
+            mod_dllControlLast = itemPriorToDeleteRange ''itemToDeleteLast
+
+        Else
+            itemFollowingDeleteRange = itemToDeleteLast.DLL_GetItemNext()
+
+        End If ''End of ""If (bDeletingListStartpoint) Then... Else..."
+
+        ''
+        ''Maintain start & end of list. 
+        ''
+        If (bDeletingListStartingPoint And bDeletingListEndingPoint) Then
+            ''The list is now empty of the one(1) item it had. 
+            mod_dllControlFirst = Nothing
+            mod_dllControlLast = Nothing
+
+        ElseIf (bDeletingListStartingPoint) Then
+            ''Save the new starting list item. 
+            mod_dllControlFirst = itemFollowingDeleteRange ''itemToDelete
+
+        ElseIf (bDeletingListEndingPoint) Then
+            mod_dllControlLast = itemPriorToDeleteRange ''itemToDelete
+
+        End If ''End of If (bDeletingStartOfList and bDeleting EndOfList) Then... Else...
+
+        ''
+        ''Clean range-of-items endpoints!!
+        ''
+        If (WE_CLEAN_RANGE_ENDPOINTS_ALWAYS) Then
+
+            itemToDeleteFirst.DLL_ClearReferencePrior("D"c)
+            itemToDeleteLast.DLL_ClearReferenceNext("D"c)
+
+        End If ''If (WE_CLEAN_RANGE_ENDPOINTS_ALWAYS) Then
+
+    End Sub ''End Public Sub DLL_DeleteRange
 
     '' 12/2023
     ''Public Function DLL_ItemNext() As TControl Implements IDoublyLinkedList(Of TControl).DLL_ItemNext
@@ -516,7 +633,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
         End If ''End of ""If (par_index = 0) Then... Else..."
 
-    End Function
+    End Function ''End of ""Public Function DLL_GetItemAtIndex""
 
     ''' <summary>
     ''' Get the indexed item, and if it's a data-cell, check the horizontal alignment.

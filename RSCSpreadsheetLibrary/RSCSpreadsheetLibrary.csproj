@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RSCEndpointException.cs" />
+    <Compile Include="Testing.cs" />
     <Compile Include="DLL_List_OfTControl_PLEASE_USE.cs" />
     <Compile Include="IDoublyLinkedItem.cs" />
     <Compile Include="InterfaceDoublyLinkedList.cs" />

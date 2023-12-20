@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace RSCSpreadsheetLibrary
 {
-    internal interface IDoublyLinkedItem
+    public interface IDoublyLinkedItem
     {
 
         //''
