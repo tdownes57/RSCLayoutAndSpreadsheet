@@ -26,6 +26,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Private mod_dllControlFirst As IDoublyLinkedItem ''Not necessarily needed, except for testing. DLL = Doubly-Linked List. 
     Private mod_bTesting As Boolean
     Private mod_dllControlLast As IDoublyLinkedItem ''May not be needed.  DLL = Doubly-Linked List. 
+    Private mod_intCountOfItems As Integer ''Added 12/19/2023
 
     Private Const WE_CHECK_RANGE_ENDPOINTS_ALWAYS As Boolean = False ''Added 12/18/2023
     Private Const WE_CHECK_RANGE_ENDPOINTS_TESTING As Boolean = True ''Added 12/18/2023
@@ -75,13 +76,89 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''
         mod_dllControlLast = CType(par_lastItem, IDoublyLinkedItem)
 
-    End Sub
+    End Sub ''Public Sub New
+
+
+    ''' <summary>
+    ''' Re-initialize the list.
+    ''' </summary>
+    Public Sub DLL_ClearAllItems()
+
+        mod_dllControlFirst = Nothing
+        mod_intCountOfItems = 0
+        mod_dllControlLast = Nothing
+
+
+    End Sub ''End of ""Public Sub DLL_ClearAllItems()""
 
 
 
     ''For IDoublyLinkedItem.---Public Sub DLL_InsertItemAfter(toBeInserted As TControl) Implements IDoublyLinkedList(Of TControl).DLL_InsertItemAfter
     ''    ''Throw New NotImplementedException()
     ''End Sub
+
+    Public Sub DLL_AddFirstOnlyRange(p_toAddFirstItemToEmptyList As TControl, p_intNumberOfItems As Integer)
+        ''
+        ''          Insert 1 2 3 4 5 6 7 8 9 10 into empty list. 
+        ''          |
+        '' Start:   
+        '' Result:  1 2 3 4 5 6 7 A 8 9 10
+        ''
+        Dim bTesting As Boolean = ciBadgeInterfaces.Testing.TestingByDefault
+        Dim itemFirst As IDoublyLinkedItem
+
+        ''Testing...
+        If ((bTesting And WE_CHECK_RANGE_ENDPOINTS_TESTING) Or
+            WE_CHECK_RANGE_ENDPOINTS_ALWAYS) Then
+            ''Items passed as primary-operational (vs. anchors) must be cleaned
+            ''  of references.
+            If (mod_dllControlFirst IsNot Nothing) Then
+                Debugger.Break()
+                Throw New RSCEndpointException("First is already there")
+            ElseIf (mod_dllControlLast IsNot Nothing) Then
+                Debugger.Break()
+                Throw New RSCEndpointException("Last is already there")
+            ElseIf (mod_intCountOfItems <> 0) Then
+                Debugger.Break()
+                Throw New RSCEndpointException("Count is nonzero")
+            End If
+
+        End If ''Testing
+
+        itemFirst = CType(p_toAddFirstItemToEmptyList, IDoublyLinkedItem)
+        mod_dllControlFirst = itemFirst ''toAddFirstItemToEmptyList
+        mod_dllControlLast = itemFirst.DLL_GetItemNext(-1 + p_intNumberOfItems)
+        mod_intCountOfItems = p_intNumberOfItems
+
+    End Sub ''End of ""Public Sub DLL_AddFirstOnlyRange""
+
+
+    Public Sub DLL_AddFirstAndOnlyItem(each_twoCharsItem)
+        ''
+        ''Add a single item to an empty list. 
+        ''
+        ''          Insert 1 into empty list. 
+        ''          |
+        '' Start:   
+        '' Result:  1
+        ''
+        ''Added 12/19/2023
+        DLL_AddFirstOnlyRange(each_twoCharsItem, 1)
+
+    End Sub ''end Public Sub DLL_AddFirstAndOnlyItem(each_twoCharsItem)
+
+
+    Public Sub DLL_AppendRange(p_firstItemOfRange As TControl, p_intNumberOfItems As Integer)
+        ''
+        ''          Insert 1 2 3 4 5 6 7 8 9 10 into empty list. 
+        ''          |
+        '' Start:   
+        '' Result:  1 2 3 4 5 6 7 A 8 9 10
+        ''
+        DLL_InsertRangeAfter(p_firstItemOfRange, p_intNumberOfItems, mod_dllControlLast, True)
+
+    End Sub ''End of Public Sub DLL_AppendRange
+
 
     Public Sub DLL_InsertOneItemAfter(p_toBeInsertedSingleItem As TControl,
                                       p_toUseAsAnchor_ItemPriorToSingle As TControl,
@@ -161,6 +238,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             Throw New RSCEndpointException("New starting ending point of list.")
 
         End If ''end of ""If (anchorHasItemNext) Then ... ElseIf... Else...""
+
+        ''Added 12/19/2023
+        mod_intCountOfItems += 1
 
     End Sub ''Public Sub DLL_InsertOneItemAfter
 
@@ -245,6 +325,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             Throw New RSCEndpointException("New starting point of list.")
 
         End If ''end of ""If (anchorHasItemPrior) Then ... Else...""
+
+        ''Added 12/19/2023
+        mod_intCountOfItems += 1
 
     End Sub ''Public Sub DLL_InsertOneItemBefore
 
@@ -335,6 +418,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
         End If ''end of ""If (anchorHasItemNext) Then ... ElseIf... Else...""
 
+        ''Added 12/19/2023
+        mod_intCountOfItems += p_toBeInsertedRange_ItemCount
+
     End Sub ''ENd Public Sub DLL_InsertRangeAfter
 
 
@@ -419,6 +505,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
         End If ''end of ""If (anchorHasItemPrior) Then ... Else...""
 
+        ''Added 12/19/2023
+        mod_intCountOfItems += p_toBeInsertedRange_ItemCount
+
     End Sub ''End of Public Sub DLL_InsertRangeBefore
 
 
@@ -495,6 +584,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             itemToDelete.DLL_ClearReferenceNext("D"c)
 
         End If ''If (WE_CLEAN_RANGE_ENDPOINTS_ALWAYS) Then
+
+        ''Added 12/19/2023
+        mod_intCountOfItems -= 1
 
     End Sub ''End of Public Sub DLL_DeleteItem
 
@@ -594,6 +686,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             itemToDeleteLast.DLL_ClearReferenceNext("D"c)
 
         End If ''If (WE_CLEAN_RANGE_ENDPOINTS_ALWAYS) Then
+
+        ''Added 12/19/2023
+        mod_intCountOfItems -= p_count_of_deleteds
 
     End Sub ''End Public Sub DLL_DeleteRange
 

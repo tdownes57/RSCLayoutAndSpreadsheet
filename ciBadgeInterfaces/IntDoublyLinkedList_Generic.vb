@@ -56,6 +56,10 @@ Public Interface IDoublyLinkedList(Of TControl)
     '' <param name="toBePrior"></param>
     ''11/2023 td  Sub DLL_SetPriorAs(toBePrior As TControl) ''Control)
 
+    ''Added 12/19/2023 td
+    ''Not 100% needed here. 12/2023  Sub DLL_AddFirstOnlyItem(toAddFirstItemToEmptyList As TControl)
+    ''Added 12/19/2023 td
+    ''Not 100% needed here. 12/2023  Sub DLL_AddFirstOnlyRange(toAddFirstItemToEmptyList As TControl, intNumberOfItems As Integer)
 
 
     '' <summary>

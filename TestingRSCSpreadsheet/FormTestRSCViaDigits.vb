@@ -12,6 +12,9 @@ Public Class FormTestRSCViaDigits
         Dim prior As TwoCharacterItem = Nothing
         Dim bListIsEmpty As Boolean = True
 
+        ''Clear the list.
+        mod_list.DLL_ClearAllItems()
+
         For index = 1 To 30
 
             each_strTwoChars = String.Format("{0:99}", index)
@@ -19,10 +22,11 @@ Public Class FormTestRSCViaDigits
             If (prior IsNot Nothing) Then prior.DLL_SetItemNext(each_twoCharsItem)
 
             If (bListIsEmpty) Then
-                mod_list.DLL_InsertOneItemFromEmpty(each_twoCharsItem)
+                ''Add the very first item. 
+                mod_list.DLL_AddFirstAndOnlyItem(each_twoCharsItem)
             Else
                 mod_list.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
-            End If
+            End If ''end of If (bListIsEmpty) Then... Else...
 
             ''Prepare.
             prior = each_twoCharsItem
