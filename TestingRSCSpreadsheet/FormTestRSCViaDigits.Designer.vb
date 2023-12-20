@@ -54,6 +54,7 @@ Partial Class FormTestRSCViaDigits
         ButtonInsert = New Button()
         ButtonDelete = New Button()
         ButtonMoveItems = New Button()
+        LabelNumOperations = New Label()
         CType(NumericUpDown1, ComponentModel.ISupportInitialize).BeginInit()
         CType(NumericUpDown2, ComponentModel.ISupportInitialize).BeginInit()
         CType(NumericUpDown3, ComponentModel.ISupportInitialize).BeginInit()
@@ -87,7 +88,7 @@ Partial Class FormTestRSCViaDigits
         LabelBenchmark.BorderStyle = BorderStyle.FixedSingle
         LabelBenchmark.Location = New Point(12, 97)
         LabelBenchmark.Name = "LabelBenchmark"
-        LabelBenchmark.Size = New Size(742, 24)
+        LabelBenchmark.Size = New Size(598, 24)
         LabelBenchmark.TabIndex = 2
         LabelBenchmark.Tag = "        01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
         LabelBenchmark.Text = "        01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
@@ -97,7 +98,7 @@ Partial Class FormTestRSCViaDigits
         Label2.BorderStyle = BorderStyle.FixedSingle
         Label2.Location = New Point(35, 121)
         Label2.Name = "Label2"
-        Label2.Size = New Size(742, 24)
+        Label2.Size = New Size(595, 24)
         Label2.TabIndex = 3
         Label2.Tag = "01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
         Label2.Text = " 01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
@@ -149,7 +150,7 @@ Partial Class FormTestRSCViaDigits
         ' LabelInsertHeader
         ' 
         LabelInsertHeader.AutoSize = True
-        LabelInsertHeader.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         LabelInsertHeader.Location = New Point(12, 169)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
@@ -186,7 +187,7 @@ Partial Class FormTestRSCViaDigits
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         Label8.Location = New Point(12, 289)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
@@ -249,7 +250,7 @@ Partial Class FormTestRSCViaDigits
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        Label11.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         Label11.Location = New Point(18, 379)
         Label11.Name = "Label11"
         Label11.Size = New Size(99, 21)
@@ -325,7 +326,7 @@ Partial Class FormTestRSCViaDigits
         ' 
         ' ButtonInsert
         ' 
-        ButtonInsert.Location = New Point(657, 241)
+        ButtonInsert.Location = New Point(451, 205)
         ButtonInsert.Name = "ButtonInsert"
         ButtonInsert.Size = New Size(133, 39)
         ButtonInsert.TabIndex = 30
@@ -343,18 +344,29 @@ Partial Class FormTestRSCViaDigits
         ' 
         ' ButtonMoveItems
         ' 
-        ButtonMoveItems.Location = New Point(587, 471)
+        ButtonMoveItems.Location = New Point(410, 419)
         ButtonMoveItems.Name = "ButtonMoveItems"
         ButtonMoveItems.Size = New Size(133, 39)
         ButtonMoveItems.TabIndex = 32
         ButtonMoveItems.Text = "Move Items"
         ButtonMoveItems.UseVisualStyleBackColor = True
         ' 
+        ' LabelNumOperations
+        ' 
+        LabelNumOperations.AutoSize = True
+        LabelNumOperations.Location = New Point(342, 9)
+        LabelNumOperations.Name = "LabelNumOperations"
+        LabelNumOperations.Size = New Size(99, 15)
+        LabelNumOperations.TabIndex = 33
+        LabelNumOperations.Tag = "Number of ops: {0}"
+        LabelNumOperations.Text = "Number of ops: 0"
+        ' 
         ' FormTestRSCViaDigits
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 559)
+        ClientSize = New Size(669, 530)
+        Controls.Add(LabelNumOperations)
         Controls.Add(ButtonMoveItems)
         Controls.Add(ButtonDelete)
         Controls.Add(ButtonInsert)
@@ -433,5 +445,6 @@ Partial Class FormTestRSCViaDigits
     Friend WithEvents ButtonInsert As Button
     Friend WithEvents ButtonDelete As Button
     Friend WithEvents ButtonMoveItems As Button
+    Friend WithEvents LabelNumOperations As Label
 
 End Class
