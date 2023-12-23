@@ -48,8 +48,13 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''  (Also, we'll test the TControl can be converted to IDoublyLinkedItem.)
         ''  
         mod_dllControlFirst = CType(par_firstItem, IDoublyLinkedItem)
+        ''Set the Last equal to the First, as there is only one(1) item currently.
+        mod_dllControlLast = mod_dllControlFirst ''Nothing 
 
         mod_bTesting = Testing.TestingByDefault
+
+        ''Added 12/2023
+        mod_intCountOfItems = 0
 
         ''
         ''Test the TControl can be converted to IDoublyLinkedItem. 
@@ -75,6 +80,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''Test the TControl can be converted to IDoublyLinkedItem. 
         ''
         mod_dllControlLast = CType(par_lastItem, IDoublyLinkedItem)
+
+        ''Added 12/2023
+        mod_intCountOfItems = 0
 
     End Sub ''Public Sub New
 
@@ -767,39 +775,52 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
     End Function ''enD OF ""Public Function DLL_GetItemAtIndex""
 
+
     Public Function DLL_GetIndexOfItem(input_item As TControl) As Integer Implements IDoublyLinkedList(Of TControl).DLL_GetIndexOfItem
         Throw New NotImplementedException()
     End Function
+
 
     Public Function DLL_CountItemsBefore() As Integer Implements IDoublyLinkedList(Of TControl).DLL_CountItemsBefore
         Throw New NotImplementedException()
     End Function
 
+
     Public Function DLL_CountItemsAfter() As Integer Implements IDoublyLinkedList(Of TControl).DLL_CountItemsAfter
         Throw New NotImplementedException()
     End Function
 
+
     Public Function DLL_CountAllItems() As Integer Implements IDoublyLinkedList(Of TControl).DLL_CountAllItems
-        Throw New NotImplementedException()
-    End Function
+        ''Throw New NotImplementedException()
+        Return mod_intCountOfItems
+
+    End Function ''End of ""Public Function DLL_CountAllItems()""
+
 
     Public Function DLL_BuildListToIndex(index As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex
         Throw New NotImplementedException()
     End Function
 
+
     Public Function DLL_BuildListToIndex(index As Integer, ByRef count_of_new_items As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex
         Throw New NotImplementedException()
     End Function
+
 
     Public Function DLL_PopItem(item_toDelete As TControl) As TControl Implements IDoublyLinkedList(Of TControl).DLL_PopItem
         Throw New NotImplementedException()
     End Function
 
+
     Public Function DLL_PopItem(index As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_PopItem
         Throw New NotImplementedException()
     End Function
 
+
     Public Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_PopRange
         Throw New NotImplementedException()
     End Function
+
+
 End Class
