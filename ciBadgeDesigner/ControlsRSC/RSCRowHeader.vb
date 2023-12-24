@@ -4,6 +4,7 @@ Option Strict On ''Added 5/19/2022
 ''Added 4/6/2022 thomas d
 ''
 Imports System.Data.SqlClient
+Imports System.Runtime.CompilerServices
 Imports System.Security.Cryptography
 Imports System.Threading
 Imports __RSC_Error_Logging
@@ -836,7 +837,7 @@ Public Class RSCRowHeader
         Me.mod_rowHeaderPriorAbove = CType(param, RSCRowHeader)
     End Sub
 
-    Public Sub DLL_ClearReferencePrior() Implements IDoublyLinkedItem.DLL_ClearReferencePrior
+    Public Sub DLL_ClearReferencePrior(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior
         ''
         '' Whenever a Row or Column is deleted, and saved into a DLL Operation,
         ''   the outer edges ---MUST BE CLEANED--- of obselete references.
@@ -848,14 +849,90 @@ Public Class RSCRowHeader
         ''
         ''   ---11/07/2023 td
         ''
+        Static static_charTypeOp As Char ''Added 12/23/2023 
         ''''11/2023 DirectCast(mod_rowHeaderPriorAbove, IDoublyLinkedItem).DLL_ClearReferencePrior()
         mod_rowHeaderPriorAbove = Nothing
 
+        ''Added 12/23/2023 
+        static_charTypeOp = par_typeOp
+
     End Sub
 
-    Public Sub DLL_ClearReferenceNext() Implements IDoublyLinkedItem.DLL_ClearReferenceNext
+    Public Sub DLL_ClearReferenceNext(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferenceNext
+        Static static_charTypeOp As Char ''Added 12/23/2023 
         ''11/2023 DirectCast(mod_rowHeaderNextBelow, IDoublyLinkedItem).DLL_ClearReferencePrior()
         mod_rowHeaderNextBelow = Nothing
 
+        ''Added 12/23/2023 
+        static_charTypeOp = par_typeOp
+
     End Sub
+
+    Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext
+        ''Throw New NotImplementedException()
+        Return (mod_rowHeaderNextBelow IsNot Nothing)
+    End Function
+
+    Public Function DLL_HasPrior() As Boolean Implements IDoublyLinkedItem.DLL_HasPrior
+        ''Throw New NotImplementedException()
+        Return (mod_rowHeaderPriorAbove IsNot Nothing)
+    End Function
+
+    Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
+        ''Throw New NotImplementedException()
+
+        ''Added 12/23 & 11/25/2025 td
+        Dim result As IDoublyLinkedItem = mod_rowHeaderNextBelow ''--Nothing ''--mod_operationNext
+
+        If (param_iterationsOfNext = 0) Then
+            System.Diagnostics.Debugger.Break()
+            Return Me
+        ElseIf (param_iterationsOfNext = 1) Then
+            Return result
+        ElseIf (param_iterationsOfNext > 1) Then
+            For index = 2 To param_iterationsOfNext
+                If (result IsNot Nothing) Then
+                    result = result.DLL_GetItemNext()
+                End If
+            Next index
+            Return result
+        End If
+
+        System.Diagnostics.Debugger.Break()
+        Return Nothing ''Not needed.
+
+    End Function ''eND OF ""Public Function DLL_GetItemNext""
+
+    Public Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+        ''Throw New NotImplementedException()
+
+        ''Added 12/23 & 11/25/2025 td
+        Dim result As IDoublyLinkedItem = mod_rowHeaderPriorAbove ''--Nothing ''--mod_operationNext
+
+        If (param_iterationsOfPrior = 0) Then
+            System.Diagnostics.Debugger.Break()
+            Return Me
+        ElseIf (param_iterationsOfPrior = 1) Then
+            Return result
+        ElseIf (param_iterationsOfPrior > 1) Then
+            For index = 2 To param_iterationsOfPrior
+                If (result IsNot Nothing) Then
+                    result = result.DLL_GetItemPrior()
+                End If
+            Next index
+            Return result
+        End If
+
+        System.Diagnostics.Debugger.Break()
+        Return Nothing ''Not needed.
+
+    End Function ''eND OF Public Function DLL_GetItemPrior
+
+    Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
+        ''Throw New NotImplementedException()
+        Return Me
+
+    End Function
+
+
 End Class

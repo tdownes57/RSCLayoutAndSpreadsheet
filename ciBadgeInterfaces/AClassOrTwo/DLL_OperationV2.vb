@@ -35,10 +35,16 @@ Public Class DLL_OperationV2
     ''' Inverse Anchor items are NOT in the operation range. They help UNDO/INVERSE the operation.
     ''' </summary>
     Private mod_inverseFinalPrior As IDoublyLinkedItem
+
     ''' <summary>
     ''' Inverse Anchor items are NOT in the operation range. They help UNDO/INVERSE the operation.
     ''' </summary>
     Private mod_inverseFinalNext As IDoublyLinkedItem
+
+    ''' <summary>
+    ''' (Maybe for V3. Not currently used. 12/23/2023) Sort Order items are NOT actual list items, although they may appear so. They exist to point to side data cells. They record the sort with respect to adjacent (left or right) list items.
+    ''' </summary>
+    Private mod_sortOrder_TopCopy As IDoublyLinkedItem
 
     ''' <summary>
     ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.

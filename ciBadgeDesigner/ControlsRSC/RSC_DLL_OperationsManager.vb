@@ -40,12 +40,13 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''' </summary>
     Private mod_listDLLIntegersForTest As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem)
 
+    ''12/2023 Private mod_operation1stRecord As DLL_OperationV1
     ''' <summary>
     ''' This is the first operation in the chain, the operation the 
     ''' user performs first (e.g. 35 seconds after opening the 
     ''' spreadsheet).
     ''' </summary>
-    Private mod_operation1stRecord As DLL_OperationV1
+    Private mod_operation1stRecord As DLL_OperationV2
 
     ''---DIFFICULT AND CONFUSING----
     ''Private mod_operationMarkUndoPrior As DLL_Operation
@@ -150,9 +151,9 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
 
             ProcessOperation_RowHeaders(param_operation)
 
-        End If
+        End If ''End of ""If (mod_modeColumnNotRow) Then.. Else...
 
-    End Sub
+    End Sub ''End of ""Private Sub ProcessOperation""
 
 
     ''' <summary>

@@ -52,6 +52,8 @@ Partial Class UserControlOperation
         LinkDeleteRandomize = New LinkLabel()
         LinkMoveRandomize = New LinkLabel()
         LabelBenchmarkVsIndex = New Label()
+        Label1 = New Label()
+        ListBox1 = New ListBox()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeStartBenchmark, ComponentModel.ISupportInitialize).BeginInit()
@@ -339,10 +341,32 @@ Partial Class UserControlOperation
         LabelBenchmarkVsIndex.TabIndex = 63
         LabelBenchmarkVsIndex.Text = "(Benchmark equals Index Plus(+) One)"
         ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label1.Location = New Point(19, 379)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(87, 21)
+        Label1.TabIndex = 64
+        Label1.Text = "Sort Items"
+        ' 
+        ' ListBox1
+        ' 
+        ListBox1.FormattingEnabled = True
+        ListBox1.ItemHeight = 15
+        ListBox1.Items.AddRange(New Object() {"Ascending", "Descending"})
+        ListBox1.Location = New Point(36, 403)
+        ListBox1.Name = "ListBox1"
+        ListBox1.Size = New Size(141, 34)
+        ListBox1.TabIndex = 65
+        ' 
         ' UserControlOperation
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(ListBox1)
+        Controls.Add(Label1)
         Controls.Add(LabelBenchmarkVsIndex)
         Controls.Add(LinkMoveRandomize)
         Controls.Add(LinkDeleteRandomize)
@@ -374,7 +398,7 @@ Partial Class UserControlOperation
         Controls.Add(numInsertHowMany)
         Controls.Add(numInsertAnchorBenchmark)
         Name = "UserControlOperation"
-        Size = New Size(646, 388)
+        Size = New Size(646, 445)
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         CType(numMoveRangeHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numMoveRangeStartBenchmark, ComponentModel.ISupportInitialize).EndInit()
@@ -416,5 +440,7 @@ Partial Class UserControlOperation
     Friend WithEvents LinkDeleteRandomize As LinkLabel
     Friend WithEvents LinkMoveRandomize As LinkLabel
     Friend WithEvents LabelBenchmarkVsIndex As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents ListBox1 As ListBox
 
 End Class

@@ -155,12 +155,13 @@ Public Class RSCDataCell
         ''Added 11/3/2023
         Dim intCurrentRowIndex As Integer
         intCurrentRowIndex = 0 ''11/2023 Me.ParentColumn.GetRowIndexOfCell(Me)
-        Dim nextAbove As RSCDataCell = Me.CellPriorAbove
+        Dim nextAbove As RSCDataCell = mod_cellPriorAbove ''Me.CellPriorAbove
         Dim intCountRowsAbove As Integer = 0
         Do Until (nextAbove Is Nothing)
             ''---CONFUSING--- Let's use "backwards" logic!!
             intCountRowsAbove += 1 ''This counts the rows, but backwards.
-            nextAbove = nextAbove.CellPriorAbove
+            ''12/2023 nextAbove = nextAbove.CellPriorAbove
+            nextAbove = nextAbove.mod_cellPriorAbove ''We can see the details of other cells.
         Loop
         intCurrentRowIndex = (intCountRowsAbove + 1) ''Row & column indexes are 1-based.
         Return intCurrentRowIndex
@@ -214,20 +215,24 @@ Public Class RSCDataCell
 
     Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
         ''Added 11/2023 
-        Return GetCellPrior_Up()
+        ''12/2023 Return GetCellPrior_Up()
+        Return mod_cellPriorAbove
+
     End Function
 
 
     Public Function DLL_NotAnyPrior() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyPrior
         ''Added 11/2023 
-        Return (Me.CellPriorAbove Is Nothing)
+        ''12/2023  Return (Me.CellPriorAbove Is Nothing)
+        Return (mod_cellPriorAbove Is Nothing)
 
     End Function
 
 
     Public Sub DLL_SetItemPrior(par_cell As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemPrior
         ''Added 11/2023 
-        Me.CellPriorAbove = CType(par_cell, RSCDataCell)
+        ''12/2023 Me.CellPriorAbove = CType(par_cell, RSCDataCell)
+        mod_cellNextBelow = CType(par_cell, RSCDataCell)
 
     End Sub
 
@@ -319,12 +324,15 @@ Public Class RSCDataCell
         ''
         Dim nextCell As RSCDataCell
 
-        nextCell = Me.CellNextBelow
+        ''12/2023 nextCell = Me.CellNextBelow
+        nextCell = mod_cellNextBelow
+
         If (nextCell Is Nothing) Then pboolEdge = True
 
         ''Added 11/4/2023 
         Do While (par_intNumRowsToSkip > 0)
-            nextCell = nextCell.CellNextBelow
+            ''12/2023 nextCell = nextCell.CellNextBelow
+            nextCell = nextCell.mod_cellNextBelow ''We can view into other data cells!
             par_intNumRowsToSkip -= 1
         Loop ''End If ''End of ""If (par_intNumRowsToSkip > 0) Then""
 
@@ -716,11 +724,17 @@ Public Class RSCDataCell
                     ''Parse the tabbed values.  
                     strPostTabLine = .Substring(1 + .IndexOf(vbTab))
                     Dim objNextCell As RSCDataCell
-                    objNextCell = Me.GetNextCell_Right()
+                    ''12/23/2023 objNextCell = Me.GetNextCell_Right()
+                    Dim out_bLastCell As Boolean ''Added 12/23/2023
+                    Dim out_bIsNothing As Boolean ''Added 12/23/2023
+                    objNextCell = Me.GetCell_RighthandSide(True, False, True, False, out_bLastCell, out_bIsNothing)
+
                     ''4/30/2022''If (objNextCell IsNot Nothing) Then objNextCell.LoadTabbedData(strPostTabLine)
-                    If (objNextCell Is Nothing) Then
+                    If (out_bIsNothing) Then '' objNextCell Is Nothing) Then
                         AddToEdgeOfSpreadsheet_Column()
-                        objNextCell = Me.GetNextCell_Right()
+                        ''12/23/2023 objNextCell = Me.GetNextCell_Right()
+                        objNextCell = Me.GetCell_RighthandSide(True, False, True, False,
+                                                               out_bLastCell, out_bIsNothing)
                     End If ''End of ""If (objNextCell Is Nothing) Then""
                     objNextCell.LoadTabbedData(strPostTabLine)
                     ''5/01/2022 ''Textbox1a.Text = .Substring(0, .IndexOf(vbTab))
@@ -1008,7 +1022,11 @@ Public Class RSCDataCell
             Case Keys.Left : objNextCell = GetCell_LefthandSide(bEdgeLt) ''.SetFocus
             Case Keys.Right
                 ''We might be in the last column of the spreadsheet. ----4/12/2022 td
-                objNextCell = GetNextCell_Right(bEdgeRt) ''.SetFocus
+                ''#1 12/2023 objNextCell = GetNextCell_Right(bEdgeRt) ''.SetFocus
+                ''#2 12/2023 objNextCell = GetNextCell_Right_Deprecated(bEdgeRt) ''.SetFocus
+                Dim out_isNullRt As Boolean ''Added 12/23/2023
+                objNextCell = GetCell_RighthandSide(True, False, True, True, bEdgeRt, out_isNullRt) ''.SetFocus
+
                 If bEdgeRt Then
                     ''Let's go to the first column of the next row.
                     objNextCell = GetFirstCell_NextRowDown()
@@ -1018,7 +1036,11 @@ Public Class RSCDataCell
             Case Keys.PageDown : objNextCell = GetCellNext_Down(bEdgeDn, 25) ''.SetFocus()
 
             Case Keys.Tab
-                objNextCell = GetNextCell_Right(bEdgeTb) ''.SetFocus
+                ''#1 12/2023 objNextCell = GetNextCell_Right(bEdgeTb) ''.SetFocus
+                ''#2 12/2023 objNextCell = GetNextCell_Right_Deprecated(bEdgeTb) ''.SetFocus
+                Dim out_isNullTb As Boolean ''Added 12/23/2023
+                objNextCell = GetCell_RighthandSide(True, False, True, True, bEdgeTb, out_isNullTb) ''.SetFocus
+
                 ''Added 4/12/2022 
                 If (bJumpedToNextRowSuprisingly And Not bEdgeTb) Then
                     objNextCell = objNextCell.GetCellPrior_Up()
@@ -1285,7 +1307,7 @@ Public Class RSCDataCell
         ''Throw New NotImplementedException()
 
         ''Added 11/25/2025 td
-        Dim result As IDoublyLinkedItem = mod_operationNext ''--Nothing ''--mod_operationNext
+        Dim result As IDoublyLinkedItem = mod_cellNextBelow ''--Nothing ''--mod_operationNext
 
         If (param_iterationsOfNext = 0) Then
             System.Diagnostics.Debugger.Break()
@@ -1332,5 +1354,18 @@ Public Class RSCDataCell
 
     End Function ''Public Function DLL_GetItemPrior(param_iterationsOfNext As Integer)
 
+    Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext
+        ''Throw New NotImplementedException()
+        Return (mod_cellNextBelow IsNot Nothing)
+    End Function
 
+    Public Function DLL_HasPrior() As Boolean Implements IDoublyLinkedItem.DLL_HasPrior
+        ''Throw New NotImplementedException()
+        Return (mod_cellPriorAbove IsNot Nothing)
+    End Function
+
+    Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
+        ''Throw New NotImplementedException()
+        Return Me
+    End Function
 End Class
