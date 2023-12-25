@@ -18,9 +18,9 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     Private Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
 
 
-    Public Sub DLL_Insert1ItemAfter(ptoBeInserted As IDoublyLinkedItem,
-                                    ptoUseAsAnchor As IDoublyLinkedItem,
-                                    pisEitherEndpoint As Boolean) Implements IDoublyLinkedList.DLL_Insert1ItemAfter
+    Public Sub DLL_Insert1ItemAfter(ByVal ptoBeInserted As IDoublyLinkedItem,
+                                    ByVal ptoUseAsAnchor As IDoublyLinkedItem,
+                                    ByVal pisEitherEndpoint As Boolean) Implements IDoublyLinkedList.DLL_Insert1ItemAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -60,9 +60,9 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     End Sub ''End of ""Public Sub DLL_InsertItemAfter""
 
 
-    Public Sub DLL_Insert1ItemBefore(ptoBeInserted As IDoublyLinkedItem,
-                                    ptoUseAsAnchor As IDoublyLinkedItem,
-                                     pisForEitherEndpoint As Boolean) Implements IDoublyLinkedList.DLL_Insert1ItemBefore
+    Public Sub DLL_Insert1ItemBefore(ByVal ptoBeInserted As IDoublyLinkedItem,
+                                     ByVal ptoUseAsAnchor As IDoublyLinkedItem,
+                                     ByVal pisForEitherEndpoint As Boolean) Implements IDoublyLinkedList.DLL_Insert1ItemBefore
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
@@ -107,9 +107,11 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     End Sub
 
 
-    Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
-                                    toUseAsAnchorPreceding As IDoublyLinkedItem,
-                                    pisEitherEndpoint As Boolean) _
+
+    Public Sub DLL_InsertRangeAfter(ByVal toBeInsertedFirst As IDoublyLinkedItem,
+                                    ByVal toBeInsertedCount As Integer,
+                                    ByVal toUseAsAnchorPreceding As IDoublyLinkedItem,
+                                    ByVal pisEitherEndpoint As Boolean) _
                                     Implements IDoublyLinkedList.DLL_InsertRangeAfter
         ''
         ''This should set four(4) directional links (not just two(2))
@@ -180,9 +182,9 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     ''' <param name="toBeInsertedFirst">This is the first item in the range.</param>
     ''' <param name="toBeInsertedCount">How many items in the range of items to be inserted.</param>
     ''' <param name="toUseAsAnchorTerminal">Must already be in the list, not the range. This will be the end-cap.</param>
-    Public Sub DLL_InsertRangeBefore(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
-                                    toUseAsAnchorTerminal As IDoublyLinkedItem,
-                                    pisForEitherEndpoint As Boolean) _
+    Public Sub DLL_InsertRangeBefore(ByVal toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
+                                    ByVal toUseAsAnchorTerminal As IDoublyLinkedItem,
+                                    ByVal pisForEitherEndpoint As Boolean) _
                                     Implements IDoublyLinkedList.DLL_InsertRangeBefore
         ''
         ''This should set four(4) directional links (not just two(2))
@@ -232,7 +234,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     ''' <param name="item_toDelete"></param>
     ''' <param name="ref_itemUndeleted_Preceding">This must be recorded for Undo.</param>
     ''' <param name="ref_itemUndeleted_Suceeding">This must be recorded for Undo.</param>
-    Public Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem,
+    Public Sub DLL_DeleteItemSingly(ByVal item_toDelete As IDoublyLinkedItem,
                              ByRef ref_itemUndeleted_Preceding As IDoublyLinkedItem,
                              ByRef ref_itemUndeleted_Suceeding As IDoublyLinkedItem) _
         Implements IDoublyLinkedList.DLL_DeleteItemSingly
@@ -269,7 +271,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     End Sub ''End of "Public Sub DLL_DeleteRange_NotUsed" 
 
 
-    Public Sub DLL_DeleteRange_Simpler(p_item_toDeleteBegin As IDoublyLinkedItem,
+    Public Sub DLL_DeleteRange_Simpler(ByVal p_item_toDeleteBegin As IDoublyLinkedItem,
                                ByVal p_count_of_deleteds As Integer,
                                        ByVal p_isForEitherEndpoint As Boolean,
                                ByRef pref_item_prior_undeleted As IDoublyLinkedItem,

@@ -111,7 +111,8 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     End Sub
 
 
-    Private Sub ProcessOperation(param_operation As DLL_OperationV1) ''11/2/2023 TControl))
+    Private Sub ProcessOperation(ByVal param_operation As DLL_OperationV1,
+                                 ByVal pbForEitherEndpoint As Boolean) ''11/2/2023 TControl))
         ''
         '' Here we "parse" (process) the properties of the DLL_Operation, 
         ''  in order to call the appropriate IDoublyLinkedList functions
@@ -168,11 +169,13 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                     If (bUsePrecedingAnchor) Then
                         ''Left-hand (Prior Item) Preceding Anchor
                         Me.DLL_Insert1ItemAfter(param_operation.ItemInsertSingly,
-                                            param_operation.AnchorToPrecedeItemOrRange)
+                                            param_operation.AnchorToPrecedeItemOrRange,
+                                            pbForEitherEndpoint)
                     ElseIf (bUseSucceedingAnchor) Then
                         ''Right-hand (Next Item), Succeeding Anchor
                         Me.DLL_Insert1ItemBefore(param_operation.ItemInsertSingly,
-                                      param_operation.AnchorToSucceedItemOrRange)
+                                      param_operation.AnchorToSucceedItemOrRange,
+                                            pbForEitherEndpoint)
                     End If ''End of ""If (bUsePrecedingAnchor) Then... Else..."
 
 
@@ -190,13 +193,15 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                         ''Left-hand (Prior Item), Preceding Anchor
                         ''
                         Me.DLL_Insert1ItemAfter(param_operation.InsertRangeStart,
-                                       param_operation.AnchorToPrecedeItemOrRange)
+                                       param_operation.AnchorToPrecedeItemOrRange,
+                                            pbForEitherEndpoint)
                     Else
                         ''
                         ''Right-hand (Next Item), Succeeding Anchor
                         ''
                         Me.DLL_Insert1ItemBefore(param_operation.InsertRangeStart,
-                                        param_operation.AnchorToSucceedItemOrRange)
+                                        param_operation.AnchorToSucceedItemOrRange,
+                                            pbForEitherEndpoint)
 
                     End If ''ENd of ""If (param_operation.AnchorWillPrecedeRangeOrItem()) Then... Else..."
 
@@ -221,11 +226,13 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                     ''Move Step 1 of 2 -- Delete
                     Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
+                                            pbForEitherEndpoint,
                                            itemPriorToDelete, itemFollowsDelete)
                     ''Move Step 2 of 2 -- Insert
                     Me.DLL_InsertRangeAfter(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
-                                           param_operation.AnchorToPrecedeItemOrRange) ''param_operation.AnchorLeftToPrior)
+                                           param_operation.AnchorToPrecedeItemOrRange,
+                                            pbForEitherEndpoint) ''param_operation.AnchorLeftToPrior)
 
                 ElseIf (param_operation.AnchorWillSucceedRangeOrItem()) Then
                     ''
@@ -234,11 +241,13 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                     ''Move Step 1 of 2 -- Delete
                     Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
                                        param_operation.MovedCount,
+                                            pbForEitherEndpoint,
                                        itemPriorToDelete, itemFollowsDelete)
                     ''Move Step 2 of 2 -- Insert
                     Me.DLL_InsertRangeBefore(param_operation.MovedRangeStart,
                                        param_operation.MovedCount,
-                                       param_operation.AnchorToSucceedItemOrRange)
+                                       param_operation.AnchorToSucceedItemOrRange,
+                                            pbForEitherEndpoint)
 
                 End If
 
@@ -270,9 +279,12 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                     param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
 
                 ElseIf (param_operation.DeleteRangeStart IsNot Nothing) Then
+                    ''
                     ''Delete the range.
+                    ''
                     Me.DLL_DeleteRange_Simpler(param_operation.DeleteRangeStart,
                                param_operation.DeleteCount,
+                                            pbForEitherEndpoint,
                                objItemUndeleted_PriorLeft,
                                objItemUndeleted_NextAfter)
                     ''

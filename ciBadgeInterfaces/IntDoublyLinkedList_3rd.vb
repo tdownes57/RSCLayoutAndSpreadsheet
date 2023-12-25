@@ -89,9 +89,9 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="toBeInserted">The item to be inserted into the list.</param>
     ''' <param name="toUseAsTargetAnchorTerminating">The item which determines the location of the newly-inserted range. Range will be inserted BEFORE (PRIOR) to the Target Anchor.</param>
     ''' <param name="isForEitherEndpoint">Indicates that the UI is aware of the endpoint being involved.</param>
-    Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem,
-                              toUseAsTargetAnchorTerminating As IDoublyLinkedItem,
-                             isForEitherEndpoint As Boolean)
+    Sub DLL_Insert1ItemBefore(ByVal toBeInserted As IDoublyLinkedItem,
+                              ByVal toUseAsTargetAnchorTerminating As IDoublyLinkedItem,
+                             ByVal isForEitherEndpoint As Boolean)
 
 
     ''' <summary>
@@ -101,10 +101,10 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
     ''' <param name="toUseAsTargetAnchorPreceding">Anchors are targets in the list, NOT in the range of items being shifted.</param>
     ''' <param name="isForEitherEndpoint">Indicates that the UI is aware of the endpoint being involved.</param>
-    Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem,
-                            toBeInsertedCount As Integer,
-                            toUseAsTargetAnchorPreceding As IDoublyLinkedItem,
-                             isForEitherEndpoint As Boolean)
+    Sub DLL_InsertRangeAfter(ByVal toBeInsertedFirst As IDoublyLinkedItem,
+                            ByVal toBeInsertedCount As Integer,
+                            ByVal toUseAsTargetAnchorPreceding As IDoublyLinkedItem,
+                             ByVal isForEitherEndpoint As Boolean)
 
 
     ''' <summary>
@@ -114,10 +114,10 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
     ''' <param name="toUseAsAnchorTerminating">Anchors are targets in the list, NOT in the range of items being shifted.</param>
     ''' <param name="isForEitherEndpoint">Indicates that the UI is aware of the endpoint being involved.</param>
-    Sub DLL_InsertRangeBefore(toBeInsertedFirst As IDoublyLinkedItem,
-                            toBeInsertedCount As Integer,
-                            toUseAsAnchorTerminating As IDoublyLinkedItem,
-                             isForEitherEndpoint As Boolean)
+    Sub DLL_InsertRangeBefore(ByVal toBeInsertedFirst As IDoublyLinkedItem,
+                            ByVal toBeInsertedCount As Integer,
+                            ByVal toUseAsAnchorTerminating As IDoublyLinkedItem,
+                             ByVal isForEitherEndpoint As Boolean)
 
     ''' <summary>
     ''' 
@@ -125,7 +125,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="item_toDelete"></param>
     ''' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
     ''' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
-    Sub DLL_DeleteItemSingly(item_toDelete As IDoublyLinkedItem,
+    Sub DLL_DeleteItemSingly(ByVal item_toDelete As IDoublyLinkedItem,
                     ByRef ref_prior_undeleted As IDoublyLinkedItem,
                     ByRef ref_next_undeleted As IDoublyLinkedItem)
 
@@ -152,7 +152,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="count_of_deleteds">How many items are being deleted?</param>
     ''' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
     ''' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
-    Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
+    Sub DLL_DeleteRange_Simpler(ByVal item_toDeleteBegin As IDoublyLinkedItem,
                     ByVal count_of_deleteds As Integer,
                                 ByVal isForEitherEndpoint As Boolean,
                     ByRef ref_prior_undeleted As IDoublyLinkedItem,
