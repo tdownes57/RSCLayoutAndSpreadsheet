@@ -934,5 +934,10 @@ Public Class RSCRowHeader
 
     End Function
 
+    Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
+        ''Throw New NotImplementedException()
+        ''Added 12/25/2023
+        Return (mod_rowHeaderPriorAbove Is Nothing Or mod_rowHeaderNextBelow Is Nothing)
 
+    End Function
 End Class

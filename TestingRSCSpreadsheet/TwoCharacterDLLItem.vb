@@ -135,5 +135,10 @@ Public Class TwoCharacterDLLItem
 
     End Function ''End of ""Public Function DLL_UnboxControl()""
 
+    Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
 
+        ''Throw New NotImplementedException()
+        Return ((mod_next Is Nothing) Or (mod_prior Is Nothing))
+
+    End Function
 End Class

@@ -1368,4 +1368,12 @@ Public Class RSCDataCell
         ''Throw New NotImplementedException()
         Return Me
     End Function
+
+    Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
+        ''Throw New NotImplementedException()
+
+        ''Added 12/25/2023
+        Return (mod_cellPriorAbove Is Nothing Or mod_cellNextBelow Is Nothing)
+
+    End Function
 End Class
