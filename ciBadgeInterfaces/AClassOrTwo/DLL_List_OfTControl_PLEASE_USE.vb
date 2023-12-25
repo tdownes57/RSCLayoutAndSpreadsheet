@@ -170,7 +170,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
     Public Sub DLL_InsertOneItemAfter(p_toBeInsertedSingleItem As TControl,
                                       p_toUseAsAnchor_ItemPriorToSingle As TControl,
-                                      p_isChangeOfEndpoint As Boolean) _
+                                      p_atEitherEndpoint As Boolean) _
                                       Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
         ''
         ''                Insert A after 7, the preceding anchor.
@@ -237,7 +237,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             temp_itemNextToAnchor.DLL_SetItemPrior(itemSingleToInsert)
             itemSingleToInsert.DLL_SetItemNext(temp_itemNextToAnchor)
 
-        ElseIf (p_isChangeOfEndpoint) Then
+        ElseIf (p_atEitherEndpoint) Then
             ''
             ''Do nothing. The calling procedure is already aware of the change of endpoint.
             ''

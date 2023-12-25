@@ -71,7 +71,10 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' </summary>
     ''' <param name="toBeInserted">The item to be inserted.</param>
     ''' <param name="toUseAsAnchor">Anchors are targets in the list, NOT in the range of items being shifted. The item whose "Next" property will ultimately ead to the inserted item.</param>
-    Sub DLL_Insert1ItemAfter(toBeInserted As IDoublyLinkedItem, toUseAsAnchor As IDoublyLinkedItem)
+    ''' <param name="isForEitherEndpoint">Indicates that the UI is aware of the endpoint being involved.</param>
+    Sub DLL_Insert1ItemAfter(toBeInserted As IDoublyLinkedItem,
+                             toUseAsAnchor As IDoublyLinkedItem,
+                             isForEitherEndpoint As Boolean)
 
 
     ''''' <summary>
@@ -85,7 +88,10 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' </summary>
     ''' <param name="toBeInserted">The item to be inserted into the list.</param>
     ''' <param name="toUseAsTargetAnchorTerminating">The item which determines the location of the newly-inserted range. Range will be inserted BEFORE (PRIOR) to the Target Anchor.</param>
-    Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem, toUseAsTargetAnchorTerminating As IDoublyLinkedItem)
+    ''' <param name="isForEitherEndpoint">Indicates that the UI is aware of the endpoint being involved.</param>
+    Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem,
+                              toUseAsTargetAnchorTerminating As IDoublyLinkedItem,
+                             isForEitherEndpoint As Boolean)
 
 
     ''' <summary>
@@ -94,9 +100,11 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="toBeInsertedFirst"></param>
     ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
     ''' <param name="toUseAsTargetAnchorPreceding">Anchors are targets in the list, NOT in the range of items being shifted.</param>
+    ''' <param name="isForEitherEndpoint">Indicates that the UI is aware of the endpoint being involved.</param>
     Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem,
                             toBeInsertedCount As Integer,
-                            toUseAsTargetAnchorPreceding As IDoublyLinkedItem)
+                            toUseAsTargetAnchorPreceding As IDoublyLinkedItem,
+                             isForEitherEndpoint As Boolean)
 
 
     ''' <summary>
@@ -105,9 +113,11 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="toBeInsertedFirst"></param>
     ''' <param name="toBeInsertedCount">Number of items to be inserted.</param>
     ''' <param name="toUseAsAnchorTerminating">Anchors are targets in the list, NOT in the range of items being shifted.</param>
+    ''' <param name="isForEitherEndpoint">Indicates that the UI is aware of the endpoint being involved.</param>
     Sub DLL_InsertRangeBefore(toBeInsertedFirst As IDoublyLinkedItem,
                             toBeInsertedCount As Integer,
-                            toUseAsAnchorTerminating As IDoublyLinkedItem)
+                            toUseAsAnchorTerminating As IDoublyLinkedItem,
+                             isForEitherEndpoint As Boolean)
 
     ''' <summary>
     ''' 
@@ -144,6 +154,7 @@ Public Interface IDoublyLinkedList ''11/2023 td (Of IDoublyLinkedItem)
     ''' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
     Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As IDoublyLinkedItem,
                     ByVal count_of_deleteds As Integer,
+                                ByVal isForEitherEndpoint As Boolean,
                     ByRef ref_prior_undeleted As IDoublyLinkedItem,
                     ByRef ref_next_undeleted As IDoublyLinkedItem)
 

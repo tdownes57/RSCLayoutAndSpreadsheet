@@ -62,7 +62,7 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''Not 100% needed here. 12/2023  Sub DLL_AddFirstOnlyRange(toAddFirstItemToEmptyList As TControl, intNumberOfItems As Integer)
 
 
-    '' <summary>
+    '' <su/mmary>
     '' ----Deprecated, originally for IDoublyLinkedItem.12/2023---This is a bit more administrative than DLL_SetNextAs, since four(4) directional links are specified (not just two).
     '' </summary>
     '' <param name="toBeInserted"></param>

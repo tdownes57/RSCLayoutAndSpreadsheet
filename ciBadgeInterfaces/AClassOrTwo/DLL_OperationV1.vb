@@ -569,6 +569,15 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function
 
 
+    Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
+        ''12/24/2023 Throw New NotImplementedException()
+        Dim bConnectsToNothing As Boolean
+        bConnectsToNothing = (mod_operationPrior Is Nothing OrElse mod_operationNext Is Nothing)
+        Return bConnectsToNothing
+
+    End Function ''Public Function DLL_IsEitherEndpoint()
+
+
     Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext
         Dim bNextIsSomething As Boolean ''12/17/2023
         bNextIsSomething = (mod_operationNext IsNot Nothing)

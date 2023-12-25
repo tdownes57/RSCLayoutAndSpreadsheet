@@ -18,20 +18,27 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     Private Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
 
 
-    Public Sub DLL_Insert1ItemAfter(toBeInserted As IDoublyLinkedItem,
-                                   toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_Insert1ItemAfter
+    Public Sub DLL_Insert1ItemAfter(ptoBeInserted As IDoublyLinkedItem,
+                                    ptoUseAsAnchor As IDoublyLinkedItem,
+                                    pisEitherEndpoint As Boolean) Implements IDoublyLinkedList.DLL_Insert1ItemAfter
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
         RaiseMessageIfModeNotRefreshed()
 
+        ''Added 12/24/2023
+        Dim bIsEitherEndpoint As Boolean ''Added 12/24/2023
+        ''12/2023 bIsEitherEndpoint = toUseAsAnchor.DLL_IsEitherEndpoint()
+        bIsEitherEndpoint = pisEitherEndpoint
+
         If (mod_modeColumnNotRow) Then
 
-            mod_listColumns.DLL_InsertOneItemAfter(toBeInserted, toUseAsAnchor)
+            mod_listColumns.DLL_InsertOneItemAfter(ptoBeInserted, ptoUseAsAnchor, bIsEitherEndpoint)
 
         Else
 
-            mod_listRowHeaders.DLL_InsertOneItemAfter(toBeInserted, toUseAsAnchor)
+            ''12/24/2023 td''mod_listRowHeaders.DLL_InsertOneItemAfter(toBeInserted, toUseAsAnchor)
+            mod_listRowHeaders.DLL_InsertOneItemAfter(ptoBeInserted, ptoUseAsAnchor, bIsEitherEndpoint)
 
         End If ''End of ""If (mod_modeColumnNotRow) Then... Else..."
 
@@ -48,24 +55,30 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''    .AnchorToPrecedeItemOrRange = toUseAsAnchor
         ''End With
         mod_operationLastPrior = New DLL_OperationV1("I"c,
-                   toBeInserted, 1, toUseAsAnchor, Nothing)
+                   ptoBeInserted, 1, ptoUseAsAnchor, Nothing)
 
     End Sub ''End of ""Public Sub DLL_InsertItemAfter""
 
 
-    Public Sub DLL_Insert1ItemBefore(toBeInserted As IDoublyLinkedItem,
-                                    toUseAsAnchor As IDoublyLinkedItem) Implements IDoublyLinkedList.DLL_Insert1ItemBefore
+    Public Sub DLL_Insert1ItemBefore(ptoBeInserted As IDoublyLinkedItem,
+                                    ptoUseAsAnchor As IDoublyLinkedItem,
+                                     pisForEitherEndpoint As Boolean) Implements IDoublyLinkedList.DLL_Insert1ItemBefore
         ''
         ''This should set four(4) directional links (not just two(2))
         ''
         RaiseMessageIfModeNotRefreshed()
 
+        ''Added 12/24/2023
+        Dim bIsForEitherEndpoint As Boolean ''12/24/2023
+        ''12/24/2023 bIsForEitherEndpoint = ptoUseAsAnchor.DLL_IsEitherEndpoint()
+        bIsForEitherEndpoint = pisForEitherEndpoint
+
         If (mod_modeColumnNotRow) Then
             ''Spreadsheet columns.
-            mod_listColumns.DLL_InsertOneItemBefore(toBeInserted, toUseAsAnchor)
+            mod_listColumns.DLL_InsertOneItemBefore(ptoBeInserted, ptoUseAsAnchor, bIsForEitherEndpoint)
         Else
             ''Spreadsheet rows.
-            mod_listRowHeaders.DLL_InsertOneItemBefore(toBeInserted, toUseAsAnchor)
+            mod_listRowHeaders.DLL_InsertOneItemBefore(ptoBeInserted, ptoUseAsAnchor, bIsForEitherEndpoint)
         End If
 
         ''
@@ -82,7 +95,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             ''End With
             ''mod_operationLastPrior = objOperationNew
 
-            objOperationNew = New DLL_OperationV1("I"c, toBeInserted, 1, Nothing, toUseAsAnchor)
+            objOperationNew = New DLL_OperationV1("I"c, ptoBeInserted, 1, Nothing, ptoUseAsAnchor)
 
             ''
             ''Record/store this operation. 
@@ -95,7 +108,8 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
 
 
     Public Sub DLL_InsertRangeAfter(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
-                                    toUseAsAnchorPreceding As IDoublyLinkedItem) _
+                                    toUseAsAnchorPreceding As IDoublyLinkedItem,
+                                    pisEitherEndpoint As Boolean) _
                                     Implements IDoublyLinkedList.DLL_InsertRangeAfter
         ''
         ''This should set four(4) directional links (not just two(2))
@@ -104,13 +118,15 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             ''
             '' Columns!!!
             ''
-            mod_listColumns.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorPreceding)
+            mod_listColumns.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorPreceding,
+                                    pisEitherEndpoint)
 
         Else
             ''
             '' Rows!!!
             ''
-            mod_listRowHeaders.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorPreceding)
+            mod_listRowHeaders.DLL_InsertRangeAfter(toBeInsertedFirst, toBeInsertedCount, toUseAsAnchorPreceding,
+                                    pisEitherEndpoint)
 
         End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
@@ -165,7 +181,8 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
     ''' <param name="toBeInsertedCount">How many items in the range of items to be inserted.</param>
     ''' <param name="toUseAsAnchorTerminal">Must already be in the list, not the range. This will be the end-cap.</param>
     Public Sub DLL_InsertRangeBefore(toBeInsertedFirst As IDoublyLinkedItem, toBeInsertedCount As Integer,
-                                    toUseAsAnchorTerminal As IDoublyLinkedItem) _
+                                    toUseAsAnchorTerminal As IDoublyLinkedItem,
+                                    pisForEitherEndpoint As Boolean) _
                                     Implements IDoublyLinkedList.DLL_InsertRangeBefore
         ''
         ''This should set four(4) directional links (not just two(2))
@@ -175,13 +192,13 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             '' Columns!!!
             ''
             mod_listColumns.DLL_InsertRangeBefore(toBeInsertedFirst, toBeInsertedCount,
-                                                  toUseAsAnchorTerminal)
+                                                  toUseAsAnchorTerminal, pisForEitherEndpoint)
         Else
             ''
             '' Rows!!!
             ''
             mod_listRowHeaders.DLL_InsertRangeBefore(toBeInsertedFirst, toBeInsertedCount,
-                                                     toUseAsAnchorTerminal)
+                                                     toUseAsAnchorTerminal, pisForEitherEndpoint)
         End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
         ''
@@ -254,6 +271,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
 
     Public Sub DLL_DeleteRange_Simpler(p_item_toDeleteBegin As IDoublyLinkedItem,
                                ByVal p_count_of_deleteds As Integer,
+                                       ByVal p_isForEitherEndpoint As Boolean,
                                ByRef pref_item_prior_undeleted As IDoublyLinkedItem,
                                ByRef pref_item_next_undeleted As IDoublyLinkedItem) _
                                Implements IDoublyLinkedList.DLL_DeleteRange_Simpler
@@ -263,11 +281,18 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''
         ''Will likely be needed for "UnDo" operation!!
         ''
+        Dim item_ToDeleteLastItem As IDoublyLinkedItem ''Added 12/24/2023
         Dim recordDeleteLocation_ItemPrior As IDoublyLinkedItem ''Administrative!!
         Dim recordDeleteLocation_ItemNext As IDoublyLinkedItem ''Administrative!!
         Dim bNothingIsPrior As Boolean
+
         bNothingIsPrior = (p_item_toDeleteBegin.DLL_NotAnyPrior())
         pref_item_prior_undeleted = p_item_toDeleteBegin.DLL_GetItemPrior
+
+        ''Added 12/24/2023
+        item_ToDeleteLastItem = p_item_toDeleteBegin.DLL_GetItemNext(-1 + p_count_of_deleteds)
+        recordDeleteLocation_ItemPrior = p_item_toDeleteBegin.DLL_GetItemPrior()
+        recordDeleteLocation_ItemNext = item_ToDeleteLastItem.DLL_GetItemNext()
 
         ''
         ''Operations Management (Administrative)
@@ -291,16 +316,20 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             ''
             '' Columns!!!
             ''
-            mod_listColumns.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
-                                                    pref_item_prior_undeleted,
-                                                    pref_item_next_undeleted)
+            ''12/2023 mod_listColumns.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
+            mod_listColumns.DLL_DeleteRange(p_item_toDeleteBegin, p_count_of_deleteds,
+                                                    p_isForEitherEndpoint)
+            ''12/2023 td                            pref_item_prior_undeleted,
+            ''12/2023 td                            pref_item_next_undeleted)
         Else
             ''
             '' Rows!!!
             ''
-            mod_listRowHeaders.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
-                                                    pref_item_prior_undeleted,
-                                                    pref_item_next_undeleted)
+            ''12/2023 mod_listRowHeaders.DLL_DeleteRange_Simpler(p_item_toDeleteBegin, p_count_of_deleteds,
+            mod_listRowHeaders.DLL_DeleteRange(p_item_toDeleteBegin, p_count_of_deleteds,
+                                                    p_isForEitherEndpoint)
+            ''12/2023 td                            pref_item_prior_undeleted,
+            ''12/2023 td                            pref_item_next_undeleted)
         End If ''ENd of ""If (mod_modeColumnNotRow) Then... Else..."
 
         ''

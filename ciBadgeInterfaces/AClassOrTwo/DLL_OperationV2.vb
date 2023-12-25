@@ -132,6 +132,14 @@ Public Class DLL_OperationV2
     End Function
 
 
+    Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
+
+        ''Added 12/24/2023 td
+        Return (DLL_NotAnyPrior() Or DLL_NotAnyNext())
+
+    End Function
+
+
     Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext
         Dim bNextIsSomething As Boolean ''12/17/2023
         bNextIsSomething = (mod_operationNext IsNot Nothing)

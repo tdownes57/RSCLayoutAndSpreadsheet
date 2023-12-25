@@ -9,6 +9,12 @@ Public Interface IDoublyLinkedItem
     Function DLL_NotAnyPrior() As Boolean
 
     ''' <summary>
+    ''' Is this the end of the list, either the beginning or the endpoint?
+    ''' </summary>
+    ''' <returns></returns>
+    Function DLL_IsEitherEndpoint() As Boolean
+
+    ''' <summary>
     ''' Is there a Next?
     ''' </summary>
     ''' <returns>Returns a True or False.</returns>
