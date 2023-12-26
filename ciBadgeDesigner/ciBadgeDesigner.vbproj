@@ -287,6 +287,8 @@
     </Compile>
     <Compile Include="ControlsRSC\ClassColumnWidthAndData.vb" />
     <Compile Include="ControlsRSC\CacheRSCFieldColumnWidthsEtc.vb" />
+    <Compile Include="ControlsRSC\RSCDataCell_SideLinks.vb" />
+    <Compile Include="ControlsRSC\RSCFieldColumn_ShallowCopyForSideLinks.vb" />
     <Compile Include="ControlsRSC\RSC_DLL_OperationsManager.vb" />
     <Compile Include="ControlsRSC\RSC_DLL_OperationsRedoMarker.vb" />
     <Compile Include="ControlsRSC\ModRSCLayout.vb" />

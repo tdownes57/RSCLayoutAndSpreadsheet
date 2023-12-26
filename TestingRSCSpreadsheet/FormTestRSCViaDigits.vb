@@ -4,6 +4,7 @@
 Public Class FormTestRSCViaDigits
 
     Private mod_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
+    Private mod_firstTwoChar As TwoCharacterDLLItem
 
     Public Sub New()
 
@@ -15,16 +16,45 @@ Public Class FormTestRSCViaDigits
         Load_DLL_List(mod_list)
         UserControlOperation1.DLL_List = mod_list
 
+        ''Populate the UI. 
+        ''---See the Form_Load procedure / event-handler. 
+
     End Sub
 
     Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ''Encapsulated 12/25/2023 thomas downes
-        Load_DLL_List(mod_list)
+        ''---See Public Sub New.---Load_DLL_List(mod_list)
 
-        ''UserControlOperation1.
+        ''Populate the UI. 
+        FillTheTextboxDisplayingList
+
 
     End Sub
+
+
+    Private Sub FillTheTextboxDisplayingList()
+        ''
+        ''Added 12/26/2023  
+        ''
+        Dim each_twoChar As TwoCharacterDLLItem
+        Dim bDone As Boolean = False
+
+        LabelItemsDisplay.ResetText()
+        each_twoChar = mod_firstTwoChar
+
+        ''For Each each_twoChar In mod_list
+        Do Until bDone
+
+            LabelItemsDisplay.Text.Append(" " + each_twoChar.ToString())
+
+            each_twoChar = each_twoChar.DLL_GetItemNext
+            bDone = (each_twoChar Is Nothing)
+
+        Loop
+        ''Next each_twoChar
+
+    End Sub ''Ednd of :":"Private Sub FillTheTextboxDisplayingList()""
 
 
 
@@ -44,7 +74,13 @@ Public Class FormTestRSCViaDigits
 
             each_strTwoChars = String.Format("{0:99}", index)
             each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars, prior)
-            If (prior IsNot Nothing) Then prior.DLL_SetItemNext(each_twoCharsItem)
+
+            If (prior Is Nothing) Then
+                ''Only occurs on first iteration.
+                mod_firstTwoChar = each_twoCharsItem
+            Else
+                prior.DLL_SetItemNext(each_twoCharsItem)
+            End If
 
             If (bListIsEmpty) Then
                 ''Add the very first item. 

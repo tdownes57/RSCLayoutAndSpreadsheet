@@ -25,7 +25,7 @@ Partial Class FormTestRSCViaDigits
         LabelHeader1 = New Label()
         Label1 = New Label()
         LabelBenchmark = New Label()
-        Label2 = New Label()
+        LabelItemsDisplay = New Label()
         Label3 = New Label()
         Label7 = New Label()
         ButtonReDo = New Button()
@@ -62,15 +62,15 @@ Partial Class FormTestRSCViaDigits
         LabelBenchmark.Tag = "        01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
         LabelBenchmark.Text = "        01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
         ' 
-        ' Label2
+        ' LabelItemsDisplay
         ' 
-        Label2.BorderStyle = BorderStyle.FixedSingle
-        Label2.Location = New Point(35, 121)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(595, 24)
-        Label2.TabIndex = 3
-        Label2.Tag = "01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        Label2.Text = " 01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
+        LabelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
+        LabelItemsDisplay.Location = New Point(35, 121)
+        LabelItemsDisplay.Name = "LabelItemsDisplay"
+        LabelItemsDisplay.Size = New Size(595, 24)
+        LabelItemsDisplay.TabIndex = 3
+        LabelItemsDisplay.Tag = "01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
+        LabelItemsDisplay.Text = " 01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
         ' 
         ' Label3
         ' 
@@ -136,7 +136,7 @@ Partial Class FormTestRSCViaDigits
         Controls.Add(ButtonReDo)
         Controls.Add(Label7)
         Controls.Add(Label3)
-        Controls.Add(Label2)
+        Controls.Add(LabelItemsDisplay)
         Controls.Add(LabelBenchmark)
         Controls.Add(Label1)
         Controls.Add(LabelHeader1)
@@ -149,7 +149,7 @@ Partial Class FormTestRSCViaDigits
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents LabelBenchmark As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents LabelItemsDisplay As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents ButtonReDo As Button
