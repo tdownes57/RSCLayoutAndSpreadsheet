@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ciBadgeDesigner\ciBadgeDesigner.vbproj" />
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj" />
   </ItemGroup>
 

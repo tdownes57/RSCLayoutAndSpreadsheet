@@ -365,6 +365,7 @@ Partial Class UserControlOperation
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        BackColor = SystemColors.ActiveCaption
         Controls.Add(ListBox1)
         Controls.Add(Label1)
         Controls.Add(LabelBenchmarkVsIndex)
