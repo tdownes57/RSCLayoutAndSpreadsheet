@@ -49,6 +49,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
     Public MovedRangeStart As IDoublyLinkedItem ''TControl
     Public MovedCount As Integer ''TControl
+    Public IsForEitherEndpoint As Boolean ''Endpoint impacted, start or end. 12/26/2023
 
     ''I don't like this names. ---11/17/2023
     ''  Public Move_LefthandStart As IDoublyLinkedItem ''TControl

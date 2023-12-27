@@ -48,6 +48,42 @@ Public Class UserControlOperation
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
 
+    Public Sub ToggleSingleItemMode()
+
+        Static s_insertCount As Integer = 1
+        Static s_deleteCount As Integer = 1
+        Static s_moveCount As Integer = 1
+
+        If (numDeleteHowMany.ReadOnly) Then
+
+            numDeleteHowMany.ReadOnly = False
+            numInsertHowMany.ReadOnly = False
+            numMoveRangeHowMany.ReadOnly = False
+
+            numDeleteHowMany.Value = s_deleteCount
+            numInsertHowMany.Value = s_insertCount
+            numMoveRangeHowMany.Value = s_moveCount
+
+        Else
+
+            s_insertCount = numInsertHowMany.Value
+            s_deleteCount = numDeleteHowMany.Value
+            s_moveCount = numMoveRangeHowMany.Value
+
+            numDeleteHowMany.Value = 1
+            numInsertHowMany.Value = 1
+            numMoveRangeHowMany.Value = 1
+
+            numDeleteHowMany.ReadOnly = True
+            numInsertHowMany.ReadOnly = True
+            numMoveRangeHowMany.ReadOnly = True
+
+        End If
+
+
+    End Sub ''ENd of ""Public Sub ToggleSingleItemMode()
+
+
     Private Sub ButtonInsert_Click(sender As Object, e As EventArgs) Handles buttonInsert.Click
         ''
         ''Create a DLL-Insert operation and publish it as an event,
@@ -116,6 +152,7 @@ Public Class UserControlOperation
         ''---Dim boolInsertAfter As Boolean
         Dim intHowManyItemsToDelete As Integer
         ''Dim inverse_anchorItem As TwoCharacterDLLItem
+        Dim bIsForEitherEndpoint As Boolean
 
         ''12/23/2023 intHowManyItemsToDelete = numInsertHowMany.Value
         ''#2 12/23/2023 intHowManyItemsToDelete = numDeleteHowMany.Value
@@ -125,6 +162,10 @@ Public Class UserControlOperation
         ''indexOfRangeFirst = numDeleteRangeBenchmarkStart.Value
         indexOfRangeFirst = GetIndex_BenchmarkMinusOne("D"c)
 
+        ''Added 12/26/2023
+        bIsForEitherEndpoint = ((indexOfRangeFirst = 0) Or
+             (indexOfRangeFirst = -1 + DLL_List.DLL_CountAllItems()))
+
         ''indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
         ''anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
         ''firstRangeItem = BuildNewItemsDLL_FirstInRange(intHowManyItemsToInsert)
@@ -132,7 +173,7 @@ Public Class UserControlOperation
         lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToDelete)
 
         objDLLOperation = New DLL_OperationV2("D"c, firstRangeItem,
-                intHowManyItemsToDelete, Nothing, Nothing)
+                intHowManyItemsToDelete, Nothing, Nothing, bIsForEitherEndpoint)
 
         ''//inverse_anchorItem = objDLLOperation.
 

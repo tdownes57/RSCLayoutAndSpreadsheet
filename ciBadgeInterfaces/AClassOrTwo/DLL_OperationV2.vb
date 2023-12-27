@@ -26,6 +26,7 @@ Public Class DLL_OperationV2
     ''' Anchor items are NOT in the operation range. They help locate the placement of the range.
     ''' </summary>
     Private mod_anchorFinalPrior As IDoublyLinkedItem
+
     ''' <summary>
     ''' Anchor items are NOT in the operation range. They help locate the placement of the range.
     ''' </summary>
@@ -45,6 +46,8 @@ Public Class DLL_OperationV2
     ''' (Maybe for V3. Not currently used. 12/23/2023) Sort Order items are NOT actual list items, although they may appear so. They exist to point to side data cells. They record the sort with respect to adjacent (left or right) list items.
     ''' </summary>
     Private mod_sortOrder_TopCopy As IDoublyLinkedItem
+    Private mod_operationRangeFirstIndex As Integer = -1 ''Added 12/26/2023 
+    Private mod_forEitherEndpoint As Boolean = False ''Added 12/26/203 
 
     ''' <summary>
     ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
@@ -54,7 +57,8 @@ Public Class DLL_OperationV2
     Public Sub New(p_opType As Char, p_firstInOperationRange As IDoublyLinkedItem,
                    p_intCountOfItems As Integer,
                    p_anchorFinalPrior As IDoublyLinkedItem,
-                   Optional p_anchorFinalNext As IDoublyLinkedItem = Nothing)
+                   Optional p_anchorFinalNext As IDoublyLinkedItem = Nothing,
+                   Optional p_forEitherEndpoint As Boolean = False)
         ''
         ''Added 12/7/2023  
         ''
@@ -69,6 +73,9 @@ Public Class DLL_OperationV2
         mod_operationType = p_opType
         mod_operationRangeFirstItem = p_firstInOperationRange
 
+        ''Added 12/26/2023
+        mod_forEitherEndpoint = p_forEitherEndpoint
+
         ''
         ''Inverse Anchors--Anchors for the UNDO operation.
         ''
@@ -82,6 +89,59 @@ Public Class DLL_OperationV2
         End If
 
     End Sub ''\end of ""Public Sub New""
+
+
+    ''Public Sub ImplementOperationForList(par_list As DLL_List_OfTControl_PLEASE_USE)
+    ''    ''
+    ''    ''Added 12/26/2023 
+    ''    ''
+    ''End Sub ''End of ""Public Sub ImplementOperationForList(par_list As DLL_List_OfTControl_PLEASE_USE)""
+
+    Public Function GetAnchor_precedingRange() As IDoublyLinkedItem
+
+        Return mod_anchorFinalPrior
+
+    End Function
+
+
+    Public Function GetAnchor_followingRange() As IDoublyLinkedItem
+
+        Return mod_anchorFinalNext
+
+    End Function
+
+
+    Public Function GetCountOfItems() As Integer '' IDoublyLinkedItem
+
+        Return mod_countOfItems ''mod_anchorFinalNext
+
+    End Function
+
+
+    Public Function GetIndexOfStart() As Integer
+
+        ''Added 12/26/2023 
+        Return mod_operationRangeFirstIndex
+
+    End Function ''End of ""Public Function GetIndexOfStart()""
+
+
+    Public Function GetSingleItem() As IDoublyLinkedItem
+
+        ''Return mod_countOfItems ''mod_anchorFinalNext
+        If (mod_countOfItems = 1) Then
+
+            ''Return mod_operationRangeFirstItem
+            Return mod_operationRangeFirstItem
+
+        Else
+            Debugger.Break()
+
+        End If ''End of "" If (mod_countOfItems = 1) Then .. Else...""
+
+    End Function
+
+
 
     Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''11/2023 td''Throw New NotImplementedException()
@@ -215,6 +275,54 @@ Public Class DLL_OperationV2
         ''
         Throw New NotImplementedException()
 
-    End Function
+    End Function ''End of ""Public Function DLL_UnboxControl() As Control""
+
+
+    Public Function GetCopyV1() As DLL_OperationV1
+        ''
+        ''Added 12/26/2023
+        ''
+        Dim result As New DLL_OperationV1
+
+        With result
+
+            .AnchorToPrecedeItemOrRange = mod_anchorFinalPrior
+            .AnchorToSucceedItemOrRange = mod_anchorFinalNext
+
+            If (mod_operationType = "I"c) Then
+
+                .InsertRangeStart = mod_operationRangeFirstItem
+                .InsertCount = mod_countOfItems
+
+                If (.InsertCount = 1) Then
+                    .ItemInsertSingly = mod_operationRangeFirstItem
+                    .InsertRangeStart = Nothing
+                End If ''End of ""If (.InsertCount = 1) Then""
+
+            ElseIf (mod_operationType = "D"c) Then
+
+                .DeleteRangeStart = mod_operationRangeFirstItem
+                .DeleteCount = mod_countOfItems
+                .DeleteLocation_ItemPrior = mod_inverseFinalPrior
+                .DeleteLocation_ItemNext = mod_inverseFinalNext
+
+                If (.DeleteCount = 1) Then
+                    .ItemDeleteSingly = mod_operationRangeFirstItem
+                    .DeleteRangeStart = Nothing
+                End If ''End of ""If (.DeleteCount = 1) Then""
+
+            ElseIf (mod_operationType = "M"c) Then
+
+                .MovedRangeStart = mod_operationRangeFirstItem
+                .MovedCount = mod_countOfItems
+                .MoveCut_NextToRange = mod_inverseFinalNext
+
+            End If ''End of ""If (mod_operationType = "I"c) Then ... ElseIf ... ElseIf..."
+
+        End With ''End of ""With result""
+
+        Return result
+
+    End Function ''End of ""Public Function GeCopyV1() As DLL_OperationV1""
 
 End Class

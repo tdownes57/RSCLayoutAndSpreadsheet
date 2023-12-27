@@ -18,22 +18,23 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''Not needed. 11/2023 Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
     ''Not needed. 11/2023 Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
 
+    ''--Private mod_operationLastPrior As DLL_OperationV1
     ''' <summary>
     ''' This is the most recent operation in the chain of recorded operations. 
     ''' </summary>
-    Private mod_operationLastPrior As DLL_OperationV1
+    Private mod_operationLastPrior As DLL_OperationV2
 
     ''' <summary>
     ''' This controls the DLL (doubly-linked list) manipulation of the rows.  
     ''' </summary>
-    ''----Private mod_listDLLRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of RSCRowHeader) ''RSCDoublyLinkedList
     Private mod_listDLLRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
+    ''----Private mod_listDLLRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of RSCRowHeader) ''RSCDoublyLinkedList
 
     ''' <summary>
     ''' This controls the DLL (doubly-linked list) manipulation of the columns.  
     ''' </summary>
-    ''----Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of RSCFieldColumnV2) ''RSCDoublyLinkedList
     Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
+    ''----Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of RSCFieldColumnV2) ''RSCDoublyLinkedList
 
     ''' <summary>
     ''' For testing purposes. 12/7/2023
@@ -206,16 +207,24 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                     If (bUsePrecedingAnchor) Then
                         ''Left-hand (Prior Item) Preceding Anchor
                         With par_listDLLItems ''mod_listDLLColumns
-                            .DLL_InsertItemAfter(param_operation.ItemInsertSingly,
-                                            param_operation.AnchorToPrecedeItemOrRange)
-                        End With
+                            ''.DLL_InsertItemAfter(param_operation.ItemInsertSingly,
+                            ''              param_operation.AnchorToPrecedeItemOrRange)
+                            .DLL_InsertOneItemAfter(param_operation.ItemInsertSingly,
+                                            param_operation.AnchorToPrecedeItemOrRange,
+                                            param_operation.IsForEitherEndpoint)
+
+                        End With ''End of ""With par_listDLLItems""
 
                     ElseIf (bUseSucceedingAnchor) Then
                         ''Right-hand (Next Item), Succeeding Anchor
                         With par_listDLLItems ''mod_listDLLColumns
-                            .DLL_InsertItemBefore(param_operation.ItemInsertSingly,
-                                          param_operation.AnchorToSucceedItemOrRange)
-                        End With
+                            ''.DLL_InsertItemBefore(param_operation.ItemInsertSingly,
+                            ''            param_operation.AnchorToSucceedItemOrRange)
+                            .DLL_InsertOneItemBefore(param_operation.ItemInsertSingly,
+                                          param_operation.AnchorToSucceedItemOrRange,
+                                          param_operation.IsForEitherEndpoint)
+                        End With ''End of ""With par_listDLLItems""
+
                     End If ''End of ""If (bUsePrecedingAnchor) Then... Else..."
 
 
@@ -294,16 +303,19 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         ''.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
                         .DLL_DeleteRange(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
-                                           itemPriorToDelete, itemFollowsDelete)
-                    End With
+                                           param_operation.IsForEitherEndpoint)
+                        ''                 12/2023 itemPriorToDelete, itemFollowsDelete)
+                    End With ''End of ""With mod_listDLLColumns""
+
                     ''Move Step 2 of 2 -- Insert
                     With mod_listDLLColumns
                         .DLL_InsertRangeBefore(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
-                                           param_operation.AnchorToSucceedItemOrRange)
-                    End With
+                                           param_operation.AnchorToSucceedItemOrRange,
+                                           param_operation.IsForEitherEndpoint)
+                    End With ''End of "With mod_listDLLColumns
 
-                End If
+                End If ''End of ""If (param_operation.AnchorWillPrecedeRangeOrItem()) Then... ElseIf..."
 
 
 
@@ -365,14 +377,24 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
 
 
 
-    Public Function GetRecentOperation() As DLL_OperationV1
+    Public Function GetRecentOperationV1() As DLL_OperationV1
+        ''
+        ''Allow the new operation to be stored on a stack of operations. 
+        ''
+        ''11/2023 Return mod_lastPriorOperation
+        Return mod_operationLastPrior.GetCopyV1()
+
+    End Function ''Public Function GetRecentOperationV1()
+
+
+    Public Function GetRecentOperationV2() As DLL_OperationV2
         ''
         ''Allow the new operation to be stored on a stack of operations. 
         ''
         ''11/2023 Return mod_lastPriorOperation
         Return mod_operationLastPrior
 
-    End Function ''Public Function GetRecentOperation()
+    End Function ''Public Function GetRecentOperationV2()
 
 
     Public Sub RaiseMessageIfModeNotRefreshed(Optional pboolCheckIfTesting As Boolean = False)
@@ -401,7 +423,8 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
     End Sub ''End of ""Public Sub RaiseMessageIfModeNotRefreshed()""
 
 
-    Private Sub ManageNewOperation(par_objOperationNew As DLL_OperationV1)
+    Private Sub ManageNewOperation(par_objOperationNew As DLL_OperationV2)
+        ''Private Sub ManageNewOperation(par_objOperationNew As DLL_OperationV1)
         ''
         ''Place a new operation in the context of the sequence
         ''  of operations. 11/2023
@@ -431,7 +454,7 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
             ''A little more challenging, place the new operation at the end of 
             ''  the operations. 
             ''
-            Dim tempLastPrior As DLL_OperationV1 = mod_operationLastPrior
+            Dim tempLastPrior As DLL_OperationV2 = mod_operationLastPrior
             ''Make sure we can travel foreward in the sequence of operations!
             mod_operationLastPrior.DLL_SetItemNext(par_objOperationNew)
             ''Make sure we can "start undoing" this & prior operations. 
@@ -454,7 +477,7 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
             '' don't want to "track" branching-off from a pre-existing sequence.  We want
             '' to replace all "going forward" (i.e. redos forward from the marker) items. 
             ''
-            Dim tempMarkerPrior As DLL_OperationV1 = mod_operationMarker.GetPrior()
+            Dim tempMarkerPrior As DLL_OperationV2 = mod_operationMarker.GetPrior()
             mod_operationMarker = Nothing ''Clear the marker!!!!  
             ''---DIFFICULT AND CONFUSING---
             tempMarkerPrior.DLL_ClearReferenceNext("I"c) ''Clear all succeeding operations. We

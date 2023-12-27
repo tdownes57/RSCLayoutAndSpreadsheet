@@ -32,6 +32,7 @@ Partial Class FormTestRSCViaDigits
         ButtonUndo = New Button()
         LabelNumOperations = New Label()
         UserControlOperation1 = New UserControlOperation()
+        LinkSingleItemOnly = New LinkLabel()
         SuspendLayout()
         ' 
         ' LabelHeader1
@@ -125,11 +126,22 @@ Partial Class FormTestRSCViaDigits
         UserControlOperation1.Size = New Size(649, 448)
         UserControlOperation1.TabIndex = 34
         ' 
+        ' LinkSingleItemOnly
+        ' 
+        LinkSingleItemOnly.AutoSize = True
+        LinkSingleItemOnly.Location = New Point(280, 77)
+        LinkSingleItemOnly.Name = "LinkSingleItemOnly"
+        LinkSingleItemOnly.Size = New Size(140, 15)
+        LinkSingleItemOnly.TabIndex = 62
+        LinkSingleItemOnly.TabStop = True
+        LinkSingleItemOnly.Text = "Toggle Single-Item Mode"
+        ' 
         ' FormTestRSCViaDigits
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(763, 641)
+        Controls.Add(LinkSingleItemOnly)
         Controls.Add(UserControlOperation1)
         Controls.Add(LabelNumOperations)
         Controls.Add(ButtonUndo)
@@ -156,5 +168,6 @@ Partial Class FormTestRSCViaDigits
     Friend WithEvents ButtonUndo As Button
     Friend WithEvents LabelNumOperations As Label
     Friend WithEvents UserControlOperation1 As UserControlOperation
+    Friend WithEvents LinkSingleItemOnly As LinkLabel
 
 End Class

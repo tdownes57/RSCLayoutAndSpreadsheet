@@ -209,7 +209,8 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         anchorHasItemNext = itemForAnchoring_ItemPriorToSingle.DLL_HasNext()
         If (anchorHasItemNext) Then
             ''We are _NOT_ at the end of the list.
-            temp_itemNextToAnchor = itemForAnchoring_ItemPriorToSingle.DLL_GetItemPrior()
+            ''Oops temp_itemNextToAnchor = itemForAnchoring_ItemPriorToSingle.DLL_GetItemPrior()
+            temp_itemNextToAnchor = itemForAnchoring_ItemPriorToSingle.DLL_GetItemNext()
         Else
             ''
             ''We _ARE_ at the end of the list.

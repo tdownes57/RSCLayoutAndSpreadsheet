@@ -30,16 +30,16 @@ Public Class RSC_DLL_OperationsRedoMarker
     ''' If the user hits "Undo", this operation will be 
     ''' inversed and the inverse will be performed. 
     ''' </summary>
-    Private mod_opPrior As DLL_OperationV1
+    Private mod_opPrior As DLL_OperationV2 ''As DLL_OperationV1
 
     ''' <summary>
     ''' If the user hits "Redo", this operation will be 
     ''' performed as it is.  (In contrast to "Undo", we
     ''' do NOT need to get the inverse of the operation.) 
     ''' </summary>
-    Private mod_opNext As DLL_OperationV1
+    Private mod_opNext As DLL_OperationV2 ''As DLL_OperationV1
 
-    Public Sub New(opPrior As DLL_OperationV1, opNext As DLL_OperationV1)
+    Public Sub New(opPrior As DLL_OperationV2, opNext As DLL_OperationV2)
         ''
         ''Just like a Tuple, a DLL_OperationMarker is immutable.
         ''
@@ -48,20 +48,20 @@ Public Class RSC_DLL_OperationsRedoMarker
 
     End Sub
 
-    Public Function GetPrior() As DLL_OperationV1
+    Public Function GetPrior() As DLL_OperationV2
 
         Return mod_opPrior
 
     End Function
 
-    Public Function GetNext() As DLL_OperationV1
+    Public Function GetNext() As DLL_OperationV2
 
         Return mod_opNext
 
     End Function
 
 
-    Public Sub ShiftMarker(opCurrentPrior As DLL_OperationV1, opCurrentNext As DLL_OperationV1)
+    Public Sub ShiftMarker(opCurrentPrior As DLL_OperationV2, opCurrentNext As DLL_OperationV2)
         ''
         ''Just like a Tuple, a DLL_OperationMarker is immutable.  Or, 
         ''   it would be, if not for this procedure.  So, I guess it 

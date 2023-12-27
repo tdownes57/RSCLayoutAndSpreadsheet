@@ -9,6 +9,15 @@ Public Class TwoCharacterDLLItem
     Private mod_next As TwoCharacterDLLItem
     Private mod_twoChars As String
 
+    Public Sub New(par_twoChars As String) ''// , par_prior As TwoCharacterDLLItem)
+
+        mod_prior = Nothing ''par_prior
+        ''mod_next = par_next
+        mod_twoChars = par_twoChars
+
+    End Sub
+
+
     Public Sub New(par_twoChars As String, par_prior As TwoCharacterDLLItem)
 
         mod_prior = par_prior
@@ -30,6 +39,7 @@ Public Class TwoCharacterDLLItem
     Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemNext
         ''Throw New NotImplementedException()
 
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
         mod_next = param
 
     End Sub ''End of ""Public Sub DLL_SetItemNext(...) ...""
@@ -37,6 +47,7 @@ Public Class TwoCharacterDLLItem
 
     Public Sub DLL_SetItemPrior(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemPrior
         ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
         mod_prior = param
 
     End Sub ''End of ""Public Sub DLL_SetItemPrior(...)""
@@ -86,6 +97,9 @@ Public Class TwoCharacterDLLItem
 
     Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
+
+        If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
+
         Return mod_next
 
     End Function ''End of ""Public Function DLL_GetItemNext()""
@@ -109,6 +123,8 @@ Public Class TwoCharacterDLLItem
 
     Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
         ''Throw New NotImplementedException()
+
+        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
         Return mod_prior
 
     End Function ''End of ""Public Function DLL_GetItemPrior()""
@@ -126,6 +142,9 @@ Public Class TwoCharacterDLLItem
         ''Return tempPrior
         Throw New NotImplementedException
 
+        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+        Return mod_prior
+
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
 
@@ -141,4 +160,17 @@ Public Class TwoCharacterDLLItem
         Return ((mod_next Is Nothing) Or (mod_prior Is Nothing))
 
     End Function
+
+
+    Public Overrides Function ToString() As String
+
+        ''Added 12/26/2023
+        Return mod_twoChars
+
+    End Function
+
+
+
+
+
 End Class
