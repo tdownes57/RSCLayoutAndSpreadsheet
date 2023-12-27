@@ -2230,14 +2230,18 @@ Public Class RSCFieldColumnV2
         ''
         If (bRowIndexLocated) Then
 
-            objRSCDataCell = mod_listRSCDataCellsByRow.Item(par_intRowIndex)
+            ''#1 objRSCDataCell = mod_listRSCDataCellsByRow_Deprecated.Item(par_intRowIndex)
+            '' #2 Dim itemDLL As RSCDataCell ''IDoublyLinkedItem
+            '' #2  itemDLL = mod_listRSCDataCellsByRow_Deprecated.Item(par_intRowIndex)
+            '' #2 objRSCDataCell = CType(itemDLL, RSCDataCell)
+            ''  #3 objRSCDataCell = mod_listRSCDataCellsByRow_Deprecated.Item(par_intRowIndex)
             ''4/8/2022 objBottomBar = mod_listTextAndBarByRow.Item(par_intRowIndex).BottomBar
-            objRSCDataCell = mod_rscDataCell1.DLL_GetItemNext(par_intRowIndex)
+            objRSCDataCell = CType(mod_rscDataCell1.DLL_GetItemNext(-1 + par_intRowIndex), RSCDataCell)
 
         Else
             ''4/4/2022 td''Dim objRSCDataCell As New RSCDataCell ''Added 3/29/2022 thomas downes
             objRSCDataCell = New RSCDataCell ''Added 3/29/2022 thomas downes
-            mod_listRSCDataCellsByRow.Add(par_intRowIndex, objRSCDataCell)
+            mod_listRSCDataCellsByRow_Deprecated.Add(par_intRowIndex, objRSCDataCell)
             ''4/8/2022 objBottomBar = GetBottomBarForRow()
             ''4/8/2022 Dim new_struct As New StructTextboxAndRowSeparator
             ''4/8/2022 new_struct.BottomBar = objBottomBar
@@ -2581,7 +2585,7 @@ Public Class RSCFieldColumnV2
                 For intRowIndex As Integer = 1 To (par_intRowIndex_Start - 1)
                     ''-----------CONFUSING----------
                     ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
-                    each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                    each_cell = mod_listRSCDataCellsByRow_Deprecated.Item(intRowIndex)
                     ''each_cell.BackColor = Color.White
                     ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
                     each_cell.BackColor = RSCDataCell.BackColor_NoEmphasis
@@ -2592,12 +2596,12 @@ Public Class RSCFieldColumnV2
             ''-----------CONFUSING----------
             ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
             Dim intRowIndexMaximum As Integer
-            intRowIndexMaximum = mod_listRSCDataCellsByRow.Count
+            intRowIndexMaximum = mod_listRSCDataCellsByRow_Deprecated.Count
             If (intRowIndex_End < intRowIndexMaximum) Then
                 For intRowIndex As Integer = (intRowIndex_End + 1) To intRowIndexMaximum
                     ''-----------CONFUSING----------
                     ''We will ---REMOVE EMPHASIS--- for rows outside of the range.
-                    each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                    each_cell = mod_listRSCDataCellsByRow_Deprecated.Item(intRowIndex)
                     ''each_cell.BackColor = Color.White
                     ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
                     ''///each_cell.BackColor = CellsBackcolor_NoEmphasis
@@ -2629,14 +2633,14 @@ Public Class RSCFieldColumnV2
 
         For intRowIndex As Integer = par_intRowIndex_Start To intRowIndex_End ''par_intRowIndex_End
 
-            boolDeletedRow = (Not mod_listRSCDataCellsByRow.ContainsKey(intRowIndex))
+            boolDeletedRow = (Not mod_listRSCDataCellsByRow_Deprecated.ContainsKey(intRowIndex))
             If (boolDeletedRow) Then
                 ''
                 ''Added 5/1/2022 thomas
                 ''The row is deleted, so we don't need to be concerned. 
                 ''
             Else
-                each_cell = mod_listRSCDataCellsByRow.Item(intRowIndex)
+                each_cell = mod_listRSCDataCellsByRow_Deprecated.Item(intRowIndex)
                 ''each_cell.BackColor = Color.white
                 ''---each_cell.BackColor = mod_colorCellsBackcolor_NoEmphasis
                 each_cell.BackColor = RSCDataCell.BackColor_NoEmphasis

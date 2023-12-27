@@ -170,10 +170,12 @@ Public Class RSCDataCellLattice_NotInUse
         Do While (tempCellAbove IsNot Nothing)
 
             ''Added 5/16/2023 td  
-            tempCellAbove.SetFieldCellBelow(tempCellBelow)
-            tempCellBelow.SetFieldCellAbove(tempCellAbove)
+            ''---tempCellAbove.SetFieldCellBelow(tempCellBelow)
+            ''---tempCellBelow.SetFieldCellAbove(tempCellAbove)
+            tempCellAbove.DLL_SetItemPrior(tempCellBelow)
+            tempCellBelow.DLL_SetItemPrior(tempCellAbove)
 
-            ''Prepare for nexst iteration.
+            ''Prepare for next iteration.
             tempCellAbove = tempCellAbove.GetNextCell_Right()
             tempCellBelow = tempCellBelow.GetNextCell_Right()
 

@@ -283,16 +283,24 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                     ''Left-hand (Prior Item) Anchor
                     ''Move Step 1 of 2 -- Delete
                     With mod_listDLLColumns
-                        Me.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
+                        ''.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
+                        ''   param_operation.MovedCount,
+                        ''   itemPriorToDelete, itemFollowsDelete)
+                        .DLL_DeleteRange(param_operation.MovedRangeStart,
                                                param_operation.MovedCount,
-                                               itemPriorToDelete, itemFollowsDelete)
+                                               param_operation.IsForEitherEndpoint)
                     End With
+
                     ''Move Step 2 of 2 -- Insert
                     With mod_listDLLColumns
+                        ''.DLL_InsertRangeAfter(param_operation.MovedRangeStart,
+                        ''                   param_operation.MovedCount,
+                        ''                   param_operation.AnchorToPrecedeItemOrRange) ''param_operation.AnchorLeftToPrior)
                         .DLL_InsertRangeAfter(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
-                                           param_operation.AnchorToPrecedeItemOrRange) ''param_operation.AnchorLeftToPrior)
-                    End With
+                                           param_operation.AnchorToPrecedeItemOrRange,
+                                           param_operation.IsForEitherEndpoint) ''param_operation.AnchorLeftToPrior)
+                    End With ''End of ""With mod_listDLLColumns""
 
                 ElseIf (param_operation.AnchorWillSucceedRangeOrItem()) Then
                     ''
