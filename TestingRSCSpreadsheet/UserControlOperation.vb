@@ -25,7 +25,7 @@ Public Class UserControlOperation
     ''' which the user has requested, and which hasn't yet been performed.
     ''' </summary>
     ''' <param name="par_operation">Gives detail of operation.</param>
-    Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV2)
+    Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1)
     ''--Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV2)
 
     ''' <summary>
@@ -35,7 +35,7 @@ Public Class UserControlOperation
     ''' <param name="par_operation">Gives detail of operation.</param>
     ''' <param name="par_inverseAnchor_PriorToRange">Needed in case of UNDO-OF-DELETE.</param>
     ''' <param name="par_inverseAnchor_NextToRange">Needed in case of UNDO-OF-DELETE.</param>
-    Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV2,
+    Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
     ''' <summary>
@@ -43,7 +43,7 @@ Public Class UserControlOperation
     ''' which the user has requested, and which hasn't yet been performed.
     ''' </summary>
     ''' <param name="par_operation">Gives detail of operation.</param>
-    Public Event DLLOperationCreated_MoveRange(par_operation As DLL_OperationV2,
+    Public Event DLLOperationCreated_MoveRange(par_operation As DLL_OperationV1,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
@@ -53,12 +53,20 @@ Public Class UserControlOperation
         Static s_insertCount As Integer = 1
         Static s_deleteCount As Integer = 1
         Static s_moveCount As Integer = 1
+        Dim bSingleItemMode As Boolean
 
-        If (numDeleteHowMany.ReadOnly) Then
+        ''---If (numDeleteHowMany.ReadOnly) Then
+        bSingleItemMode = (numDeleteHowMany.Enabled = False)
 
-            numDeleteHowMany.ReadOnly = False
-            numInsertHowMany.ReadOnly = False
-            numMoveRangeHowMany.ReadOnly = False
+        ''12/2023  If (numDeleteHowMany.Enabled = False) Then
+        If (bSingleItemMode) Then
+
+            ''numDeleteHowMany.ReadOnly = False
+            ''numInsertHowMany.ReadOnly = False
+            ''numMoveRangeHowMany.ReadOnly = False
+            numDeleteHowMany.Enabled = True ''False
+            numInsertHowMany.Enabled = True ''False
+            numMoveRangeHowMany.Enabled = True ''False
 
             numDeleteHowMany.Value = s_deleteCount
             numInsertHowMany.Value = s_insertCount
@@ -74,11 +82,14 @@ Public Class UserControlOperation
             numInsertHowMany.Value = 1
             numMoveRangeHowMany.Value = 1
 
-            numDeleteHowMany.ReadOnly = True
-            numInsertHowMany.ReadOnly = True
-            numMoveRangeHowMany.ReadOnly = True
+            ''numDeleteHowMany.ReadOnly = True
+            ''numInsertHowMany.ReadOnly = True
+            ''numMoveRangeHowMany.ReadOnly = True
+            numDeleteHowMany.Enabled = False
+            numInsertHowMany.Enabled = False
+            numMoveRangeHowMany.Enabled = False
 
-        End If
+        End If ''End of ""If (bSingleItemMode) Then... Else..."
 
 
     End Sub ''ENd of ""Public Sub ToggleSingleItemMode()
@@ -112,6 +123,17 @@ Public Class UserControlOperation
         ''indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
         indexOfAnchor = GetIndex_BenchmarkMinusOne("I"c, True)
 
+        ''Added 12/27/2023 td
+        Dim bAnchorAtStartingPoint As Boolean ''Added 12/27/2023 td
+        Dim bAnchorAtEndingPoint As Boolean ''Added 12/27/2023 td
+        Dim bChangeOfEitherEndPoint As Boolean
+
+        ''Added 12/27/2023 td
+        bAnchorAtStartingPoint = (indexOfAnchor = 0)
+        bAnchorAtEndingPoint = (indexOfAnchor = -1 + DLL_List.DLL_CountAllItems())
+        bChangeOfEitherEndPoint = (bAnchorAtEndingPoint And bAfter_LetsInsertRangeAfterAnchor) Or
+              (bAnchorAtStartingPoint And bBefore_LetsInsertRangeBeforeAnchor)
+
         anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
 
         ''-----------DIFFICULT & CONFUSING---------
@@ -125,15 +147,45 @@ Public Class UserControlOperation
 
         firstRangeItem = BuildNewItemsDLL_FirstInRange(intHowManyItemsToInsert)
 
-        objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
-                intHowManyItemsToInsert, anchorItem)
+        If (firstRangeItem Is Nothing) Then
+            ''added 12/2023
+            Debugger.Break()
 
-        RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
+        Else
+            ''12/2023 objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
+            ''            intHowManyItemsToInsert, anchorItem)
+            If (bAfter_LetsInsertRangeAfterAnchor) Then
+                ''
+                ''                Insert A B C after 7, as 7 is the preceding anchor. (7, then three(3) items.)
+                ''                       |
+                ''          1 2 3 4 5 6 7 8 9 10
+                '' Result:  1 2 3 4 5 6 7_A_B_C_8 9 10
+                ''
+                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
+                      intHowManyItemsToInsert, anchorItem, Nothing,
+                      bChangeOfEitherEndPoint)
 
-        ''Administrative.
-        ''  Inserts do NOT have an "inverse anchor".
-        DLL_InverseAnchor_PriorToRange = Nothing
-        DLL_InverseAnchor_NextToRange = Nothing
+            ElseIf (bBefore_LetsInsertRangeBeforeAnchor) Then
+                ''
+                ''            Insert x before 6, the terminating anchor (6). (...x 6...)
+                ''                   |
+                ''          1 2 3 4 5 6 7 8 9 10
+                '' Result:  1 2 3 4 5_x_6 7 8 9 10
+                ''
+                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
+                intHowManyItemsToInsert, Nothing, anchorItem,
+                bChangeOfEitherEndPoint)
+
+            End If
+
+            RaiseEvent DLLOperationCreated_Insert(objDLLOperation.GetCopyV1())
+
+            ''Administrative.
+            ''  Inserts do NOT have an "inverse anchor".
+            DLL_InverseAnchor_PriorToRange = Nothing
+            DLL_InverseAnchor_NextToRange = Nothing
+
+        End If ''end of ""If (firstRangeItem Is Nothing) Then... ElseIf..."
 
     End Sub ''End of ""Private Sub ButtonInsert_Click""
 
@@ -178,7 +230,7 @@ Public Class UserControlOperation
         ''//inverse_anchorItem = objDLLOperation.
 
         ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
-        RaiseEvent DLLOperationCreated_Delete(objDLLOperation,
+        RaiseEvent DLLOperationCreated_Delete(objDLLOperation.GetCopyV1(),
                          firstRangeItem.DLL_GetItemPrior(),
                          lastRangeItem.DLL_GetItemNext())
 
@@ -236,8 +288,8 @@ Public Class UserControlOperation
 
         ''//inverse_anchorItem = objDLLOperation.
 
-        ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
-        RaiseEvent DLLOperationCreated_MoveRange(objDLLOperation,
+        ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperat ion)
+        RaiseEvent DLLOperationCreated_MoveRange(objDLLOperation.GetCopyV1(),
                          firstRangeItem.DLL_GetItemPrior(),
                          lastRangeItem.DLL_GetItemNext())
 

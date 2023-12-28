@@ -18,6 +18,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''
     ''Operations are "forward" ("Redo").
     ''
+    ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
+    ''
     Public ClassTypeToString As String
     Public ModeColumnsNotRows As Boolean ''Added 11/14/2023 td
 
@@ -27,8 +29,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' </summary>
     Public OperationType As Char = "?" ''E.g. "I" for Insert, "M" for "Move", "D" is Delete
 
-    Public ItemInsertSingly As IDoublyLinkedItem ''TControl
-    Public ItemDeleteSingly As IDoublyLinkedItem ''TControl
+    Public InsertItemSingly As IDoublyLinkedItem ''TControl
+    Public DeleteItemSingly As IDoublyLinkedItem ''TControl
     ''Not needed.Public MovedSingly As TControl
 
     Public DeleteRangeStart As IDoublyLinkedItem ''TControl
@@ -49,7 +51,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
     Public MovedRangeStart As IDoublyLinkedItem ''TControl
     Public MovedCount As Integer ''TControl
-    Public IsForEitherEndpoint As Boolean ''Endpoint impacted, start or end. 12/26/2023
+    Public IsChangeOfEndpoint As Boolean ''Endpoint impacted, start or end. 12/26/2023
 
     ''I don't like this names. ---11/17/2023
     ''  Public Move_LefthandStart As IDoublyLinkedItem ''TControl
@@ -168,21 +170,21 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             ''11/17/2023 .AnchorRightTerminal = Me.AnchorRightTerminal
             .AnchorToSucceedItemOrRange = Me.AnchorToSucceedItemOrRange
 
-            If (Me.ItemInsertSingly IsNot Nothing) Then
+            If (Me.InsertItemSingly IsNot Nothing) Then
                 ''
                 ''Create an "Delete Singly" opertion (for our Undo op).
                 ''
                 If (Me.OperationType <> "I") Then Debugger.Break()
-                .ItemDeleteSingly = Me.ItemInsertSingly ''The "Me." prefix matters.
-                .ItemInsertSingly = Nothing ''Important, remove ANY vestigial reference.  (Already Null, but good practice.)
+                .DeleteItemSingly = Me.InsertItemSingly ''The "Me." prefix matters.
+                .InsertItemSingly = Nothing ''Important, remove ANY vestigial reference.  (Already Null, but good practice.)
                 .OperationType = "D"
 
-            ElseIf (Me.ItemDeleteSingly IsNot Nothing) Then
+            ElseIf (Me.DeleteItemSingly IsNot Nothing) Then
                 ''
                 ''Create an "Insert Singly" opertion (for our Undo op).
                 ''
-                .ItemInsertSingly = Me.ItemDeleteSingly ''The "Me." prefix matters.
-                .ItemDeleteSingly = Nothing ''Let's remove ANY vestigial reference.  (Already Null, but good practice.)
+                .InsertItemSingly = Me.DeleteItemSingly ''The "Me." prefix matters.
+                .DeleteItemSingly = Nothing ''Let's remove ANY vestigial reference.  (Already Null, but good practice.)
                 .OperationType = "I"
 
             ElseIf (Me.InsertRangeStart IsNot Nothing) Then
@@ -375,7 +377,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''    procedure, they are only processed as ranges with a count
         ''    of one (or more).---11/17/2023) 
         ''
-        If (ItemInsertSingly IsNot Nothing) Then
+        If (InsertItemSingly IsNot Nothing) Then
             ''
             ''Insert operations
             ''
@@ -390,7 +392,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 Debugger.Break()
             End If
 
-        ElseIf (ItemDeleteSingly IsNot Nothing) Then
+        ElseIf (DeleteItemSingly IsNot Nothing) Then
             ''
             ''Insert operations
             ''
@@ -438,7 +440,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''
         If (Testing.TestingByDefault) Then
             If ((OperationType = "D") <> (DeleteRangeStart IsNot Nothing _
-                Or ItemDeleteSingly IsNot Nothing)) Then
+                Or DeleteItemSingly IsNot Nothing)) Then
                 Debugger.Break()
             End If
         End If ''End of ""If (Testing.TestingByDefault) Then""
@@ -643,11 +645,11 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             ''Unfortunately, compiler won't let me compare directly. 
             boolEqual3 = ((.DeleteRangeStart Is Nothing) = (Me.DeleteRangeStart Is Nothing))
             ''Unfortunately, compiler won't let me compare directly. 
-            boolEqual4 = ((.ItemDeleteSingly Is Nothing) = (Me.ItemDeleteSingly Is Nothing))
+            boolEqual4 = ((.DeleteItemSingly Is Nothing) = (Me.DeleteItemSingly Is Nothing))
             boolEqual5 = (.InsertCount = Me.InsertCount)
             ''Unfortunately, compiler won't let me compare directly. 
             boolEqual6 = ((.InsertRangeStart Is Nothing) = (Me.InsertRangeStart Is Nothing))
-            boolEqual7 = ((.ItemInsertSingly Is Nothing) = (Me.ItemInsertSingly Is Nothing))
+            boolEqual7 = ((.InsertItemSingly Is Nothing) = (Me.InsertItemSingly Is Nothing))
 
             ''boolEqual8 = ((.LefthandAnchor Is Nothing) = (Me.LefthandAnchor Is Nothing))
             ''boolEqual9 = ((.RighthandAnchor Is Nothing) = (Me.RighthandAnchor Is Nothing))

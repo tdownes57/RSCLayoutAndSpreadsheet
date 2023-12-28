@@ -76,9 +76,12 @@ Public Class FormTestRSCViaDigits
         ''Next each_twoChar
 
         ''---MessageBoxTD.Show_Statement("Done loading!!")
-        Return stringbuilderLinkedItems.ToString()
+        ''Return stringbuilderLinkedItems.ToString()
+        Dim result As String
+        result = stringbuilderLinkedItems.ToString()
+        Return result
 
-    End Function ''Ednd of :":"Private Sub FillTheTextboxDisplayingList()""
+    End Function ''Ednd of :":"Private Function FillTheTextboxDisplayingList()""
 
 
 
@@ -159,12 +162,14 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
 
-    Private Sub DLL_OperationCreated_Delete(par_operation As DLL_OperationV2,
+    Private Sub DLL_OperationCreated_Delete(par_operation As DLL_OperationV1,
                                             par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                             par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
                                             Handles UserControlOperation1.DLLOperationCreated_Delete
         ''
         ''Added 12/25/2023 
+        ''
+        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
         With par_operation
 
@@ -172,20 +177,25 @@ Public Class FormTestRSCViaDigits
             ''mod_list.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
             ''.ImplementForList(mod_list)
             Dim bChangeOfEndpoint As Boolean
-            bChangeOfEndpoint = (.GetIndexOfStart() <= -1 + mod_list.DLL_CountAllItems())
+            ''V2''bChangeOfEndpoint = (.GetIndexOfStart() <= -1 + mod_list.DLL_CountAllItems())
+            bChangeOfEndpoint = (.DeleteRangeStart Is mod_list.DLL_GetLastItem())
 
-            mod_list.DLL_DeleteItem(.GetSingleItem(), bChangeOfEndpoint)
+            ''V2''mod_list.DLL_DeleteItem(.GetSingleItem(), bChangeOfEndpoint)
+            mod_list.DLL_DeleteItem(.DeleteItemSingly, bChangeOfEndpoint)
 
         End With
 
         RefreshTheUI_DisplayList()
 
-    End Sub
+    End Sub ''End of ""Private Sub DLL_OperationCreated_Delete""
 
-    Private Sub DLLOperationCreated_Insert(par_operation As DLL_OperationV2) _
+
+    Private Sub DLLOperationCreated_Insert(par_operation As DLL_OperationV1) _
                            Handles UserControlOperation1.DLLOperationCreated_Insert
         ''
         ''Added 12/25/2023 
+        ''
+        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
         ''Dim objItemToInsert_First As TwoCharacterDLLItem
 
@@ -195,25 +205,55 @@ Public Class FormTestRSCViaDigits
             ''mod_list.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
             ''.ImplementForList(mod_list)
 
-            mod_list.DLL_InsertOneItemAfter(.GetSingleItem(),
-                                            .GetAnchor_precedingRange(),
-                                            False)
+            ''V2''mod_list.DLL_InsertOneItemAfter(.GetSingleItem(),
+            ''                                .GetAnchor_precedingRange(),
+            ''                                False)
+            If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then
+                ''Insert operational item(s) AFTER anchoring item.
+                ''
+                ''                Insert A after 7, the preceding anchor.
+                ''                       |
+                ''          1 2 3 4 5 6 7 8 9 10
+                '' Result:  1 2 3 4 5 6 7 A 8 9 10
+                ''
+                mod_list.DLL_InsertOneItemAfter(.InsertItemSingly,
+                                            .AnchorToPrecedeItemOrRange,
+                                            .IsChangeOfEndpoint) ''False)
+            Else
+                ''Insert operational item(s) BEFORE anchoring item.
+                ''
+                ''            Insert x before 6, the terminating anchor.
+                ''                   |
+                ''          1 2 3 4 5 6 7 8 9 10
+                '' Result:  1 2 3 4 5 x 6 7 8 9 10
+                ''
+                mod_list.DLL_InsertOneItemBefore(.InsertItemSingly,
+                                            .AnchorToSucceedItemOrRange,
+                                            .IsChangeOfEndpoint) ''False))
 
-        End With
+            End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... Else..."
+
+            ''Added 12/28/2023
+            If (.IsChangeOfEndpoint) Then
+                ''In the 50% chance the starting item is affected...
+                mod_firstTwoChar = mod_list.DLL_GetFirstItem()
+            End If ''End of ""If (.IsChangeOfEndpoint) Then""
+
+        End With ''End of ""With par_operation""
 
         RefreshTheUI_DisplayList()
 
     End Sub
 
 
-
-
-    Private Sub UserControlOperation1_DLLOperationCreated_MoveRange(par_operation As DLL_OperationV2,
+    Private Sub UserControlOperation1_DLLOperationCreated_MoveRange(par_operation As DLL_OperationV1,
                                                                     par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                                                     par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
                                                                     Handles UserControlOperation1.DLLOperationCreated_MoveRange
         ''
         ''Added 12/25/2023 
+        ''
+        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
 
         ''Populate the UI. 

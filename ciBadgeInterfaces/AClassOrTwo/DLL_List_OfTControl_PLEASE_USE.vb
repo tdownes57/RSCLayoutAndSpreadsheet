@@ -263,7 +263,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
                                        ByVal p_isChangeOfEndpoint As Boolean) _
                                        Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemBefore
         ''
-        ''            Insert x before 6, the terminating anchor.
+        ''            Insert x before 6, the terminating anchor (6).
         ''                   |
         ''          1 2 3 4 5 6 7 8 9 10
         '' Result:  1 2 3 4 5 x 6 7 8 9 10
@@ -307,7 +307,8 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             ''Testing...
             If (bTesting) Then
                 Dim bMismatch As Boolean
-                bMismatch = (mod_dllControlLast IsNot itemForAnchoring_ItemNextToSingle)
+                ''bMismatch = (mod_dllControlLast IsNot itemForAnchoring_ItemNextToSingle)
+                bMismatch = (mod_dllControlFirst IsNot itemForAnchoring_ItemNextToSingle)
                 If (bMismatch) Then Debugger.Break()
             End If ''End of ""If (bTesting) Then""
 
@@ -347,7 +348,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
                                     p_bIsChangeOfEndPoint As Boolean) _
                                     Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
         ''
-        ''                Insert A B C after 7, the preceding anchor. (Three items.)
+        ''                Insert A B C after 7, the preceding anchor (7). (Three items.)
         ''                       |
         ''          1 2 3 4 5 6 7 8 9 10
         '' Result:  1 2 3 4 5 6 7 A B C 8 9 10
@@ -775,6 +776,22 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         End If ''End of ""If (mod_bTesting) Then""
 
     End Function ''enD OF ""Public Function DLL_GetItemAtIndex""
+
+
+    Public Function DLL_GetFirstItem() As TControl
+
+        ''Added 12/27/2023 
+        Return mod_dllControlFirst
+
+    End Function ''End of "" Public Function DLL_GetFirstItem()""
+
+
+    Public Function DLL_GetLastItem() As TControl
+
+        ''Added 12/27/2023 
+        Return mod_dllControlLast
+
+    End Function ''End of "" Public Function DLL_GetLastItem()""
 
 
     Public Function DLL_GetIndexOfItem(input_item As TControl) As Integer Implements IDoublyLinkedList(Of TControl).DLL_GetIndexOfItem

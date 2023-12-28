@@ -65,7 +65,7 @@ Partial Class UserControlOperation
         ' 
         ' buttonMoveItems
         ' 
-        buttonMoveItems.Location = New Point(485, 311)
+        buttonMoveItems.Location = New Point(325, 356)
         buttonMoveItems.Name = "buttonMoveItems"
         buttonMoveItems.Size = New Size(133, 39)
         buttonMoveItems.TabIndex = 57
@@ -83,7 +83,7 @@ Partial Class UserControlOperation
         ' 
         ' buttonInsert
         ' 
-        buttonInsert.Location = New Point(488, 45)
+        buttonInsert.Location = New Point(499, 45)
         buttonInsert.Name = "buttonInsert"
         buttonInsert.Size = New Size(133, 39)
         buttonInsert.TabIndex = 55
@@ -233,7 +233,7 @@ Partial Class UserControlOperation
         textInsertListOfValuesCSV.Size = New Size(267, 23)
         textInsertListOfValuesCSV.TabIndex = 38
         textInsertListOfValuesCSV.Tag = "00"
-        textInsertListOfValuesCSV.Text = "00 is default"
+        textInsertListOfValuesCSV.Text = "++"
         ' 
         ' LabelInsertHeader
         ' 
@@ -286,20 +286,20 @@ Partial Class UserControlOperation
         ' 
         listInsertAfterOr.FormattingEnabled = True
         listInsertAfterOr.ItemHeight = 15
-        listInsertAfterOr.Items.AddRange(New Object() {"After", "Before"})
+        listInsertAfterOr.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
         listInsertAfterOr.Location = New Point(378, 52)
         listInsertAfterOr.Name = "listInsertAfterOr"
-        listInsertAfterOr.Size = New Size(54, 34)
+        listInsertAfterOr.Size = New Size(115, 34)
         listInsertAfterOr.TabIndex = 58
         ' 
         ' listMoveAfterOr
         ' 
         listMoveAfterOr.FormattingEnabled = True
         listMoveAfterOr.ItemHeight = 15
-        listMoveAfterOr.Items.AddRange(New Object() {"After", "Before"})
+        listMoveAfterOr.Items.AddRange(New Object() {"Paste After Anchor", """      "" Before Anchor"})
         listMoveAfterOr.Location = New Point(395, 316)
         listMoveAfterOr.Name = "listMoveAfterOr"
-        listMoveAfterOr.Size = New Size(54, 34)
+        listMoveAfterOr.Size = New Size(121, 34)
         listMoveAfterOr.TabIndex = 59
         ' 
         ' LinkInsertRandomize
@@ -325,7 +325,7 @@ Partial Class UserControlOperation
         ' LinkMoveRandomize
         ' 
         LinkMoveRandomize.AutoSize = True
-        LinkMoveRandomize.Location = New Point(484, 353)
+        LinkMoveRandomize.Location = New Point(464, 379)
         LinkMoveRandomize.Name = "LinkMoveRandomize"
         LinkMoveRandomize.Size = New Size(131, 15)
         LinkMoveRandomize.TabIndex = 62

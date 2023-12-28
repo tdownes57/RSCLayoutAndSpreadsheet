@@ -1,6 +1,8 @@
 ﻿''-----------------------------------------------------------
 ''  Please see CIBadgeDesigner / Classes RSC / RSC_DLL_OperationsManager.
 ''
+''   Version #2 (DLL_OperationV2) exposes less instance-members than Version #1 (DLL_OperationV1).
+''
 ''    ---12/17/2023 thomas dow_nes 
 ''-----------------------------------------------------------
 Imports System.Windows.Forms
@@ -47,13 +49,18 @@ Public Class DLL_OperationV2
     ''' </summary>
     Private mod_sortOrder_TopCopy As IDoublyLinkedItem
     Private mod_operationRangeFirstIndex As Integer = -1 ''Added 12/26/2023 
-    Private mod_forEitherEndpoint As Boolean = False ''Added 12/26/203 
+    Private mod_isChangeOfEndpoint As Boolean = False ''Added 12/26/203 
 
     ''' <summary>
     ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
     ''' So let's add a constructor, so we can cut down on parameters on other 
     ''' methods.  This object can be passed as a parameter.
     ''' </summary>
+    ''' <param name="p_opType">I for Insert, D for Delete, M for Move.</param>
+    ''' <param name="p_firstInOperationRange">First item in the set of contiguous items which is being Deleted or Moved.</param>
+    ''' <param name="p_anchorFinalPrior">May be Nothing. The listed item which will be immediately PRIOR to the Inserted or Moved items.</param>
+    ''' <param name="p_anchorFinalNext">May be Nothing. The listed item which will immediately FOLLOW the Inserted or Moved items.</param>
+    ''' <param name="p_forEitherEndpoint">Indicates that an operation will result in a new starting or ending item.</param>
     Public Sub New(p_opType As Char, p_firstInOperationRange As IDoublyLinkedItem,
                    p_intCountOfItems As Integer,
                    p_anchorFinalPrior As IDoublyLinkedItem,
@@ -74,7 +81,7 @@ Public Class DLL_OperationV2
         mod_operationRangeFirstItem = p_firstInOperationRange
 
         ''Added 12/26/2023
-        mod_forEitherEndpoint = p_forEitherEndpoint
+        mod_isChangeOfEndpoint = p_forEitherEndpoint
 
         ''
         ''Inverse Anchors--Anchors for the UNDO operation.
@@ -288,6 +295,8 @@ Public Class DLL_OperationV2
 
             .AnchorToPrecedeItemOrRange = mod_anchorFinalPrior
             .AnchorToSucceedItemOrRange = mod_anchorFinalNext
+            ''12/28/2023
+            .IsChangeOfEndpoint = mod_isChangeOfEndpoint
 
             If (mod_operationType = "I"c) Then
 
@@ -295,7 +304,7 @@ Public Class DLL_OperationV2
                 .InsertCount = mod_countOfItems
 
                 If (.InsertCount = 1) Then
-                    .ItemInsertSingly = mod_operationRangeFirstItem
+                    .InsertItemSingly = mod_operationRangeFirstItem
                     .InsertRangeStart = Nothing
                 End If ''End of ""If (.InsertCount = 1) Then""
 
@@ -307,7 +316,7 @@ Public Class DLL_OperationV2
                 .DeleteLocation_ItemNext = mod_inverseFinalNext
 
                 If (.DeleteCount = 1) Then
-                    .ItemDeleteSingly = mod_operationRangeFirstItem
+                    .DeleteItemSingly = mod_operationRangeFirstItem
                     .DeleteRangeStart = Nothing
                 End If ''End of ""If (.DeleteCount = 1) Then""
 

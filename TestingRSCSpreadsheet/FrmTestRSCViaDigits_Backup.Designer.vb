@@ -124,7 +124,7 @@ Partial Class FrmTestRSCViaDigits_Backup
         textListOfValuesCSV.Size = New Size(267, 23)
         textListOfValuesCSV.TabIndex = 31
         textListOfValuesCSV.Tag = "00"
-        textListOfValuesCSV.Text = "00 is default"
+        textListOfValuesCSV.Text = "xx"
         ' 
         ' LabelInsertHeader
         ' 
@@ -215,7 +215,7 @@ Partial Class FrmTestRSCViaDigits_Backup
         LabelHeader1.TabIndex = 21
         LabelHeader1.Text = "Testing RSC Doubly-Linked List operations"
         ' 
-        ' FrmTestRSCViaDigits
+        ' FrmTestRSCViaDigits_Backup
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
@@ -239,7 +239,7 @@ Partial Class FrmTestRSCViaDigits_Backup
         Controls.Add(LabelBenchmark)
         Controls.Add(Label1)
         Controls.Add(LabelHeader1)
-        Name = "FrmTestRSCViaDigits"
+        Name = "FrmTestRSCViaDigits_Backup"
         Text = "FrmTestRSCViaDigits"
         CType(NumericUpDown3, ComponentModel.ISupportInitialize).EndInit()
         CType(NumericUpDown4, ComponentModel.ISupportInitialize).EndInit()

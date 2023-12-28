@@ -127,8 +127,8 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
             If (.AnchorIs_Missing()) Then
                 Debugger.Break()
 
-            ElseIf (.InsertRangeStart Is Nothing And .ItemInsertSingly Is Nothing) Then
-                If (.DeleteRangeStart Is Nothing And .ItemDeleteSingly Is Nothing) Then
+            ElseIf (.InsertRangeStart Is Nothing And .InsertItemSingly Is Nothing) Then
+                If (.DeleteRangeStart Is Nothing And .DeleteItemSingly Is Nothing) Then
                     If (.MovedRangeStart Is Nothing) Then
                         ''Oops, we have no subject-material for the operation.
                         Debugger.Break()
@@ -168,12 +168,12 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
 
                     If (bUsePrecedingAnchor) Then
                         ''Left-hand (Prior Item) Preceding Anchor
-                        Me.DLL_Insert1ItemAfter(param_operation.ItemInsertSingly,
+                        Me.DLL_Insert1ItemAfter(param_operation.InsertItemSingly,
                                             param_operation.AnchorToPrecedeItemOrRange,
                                             pbForEitherEndpoint)
                     ElseIf (bUseSucceedingAnchor) Then
                         ''Right-hand (Next Item), Succeeding Anchor
-                        Me.DLL_Insert1ItemBefore(param_operation.ItemInsertSingly,
+                        Me.DLL_Insert1ItemBefore(param_operation.InsertItemSingly,
                                       param_operation.AnchorToSucceedItemOrRange,
                                             pbForEitherEndpoint)
                     End If ''End of ""If (bUsePrecedingAnchor) Then... Else..."
@@ -261,11 +261,11 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                 Dim objItemUndeleted_PriorLeft As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
                 Dim objItemUndeleted_NextAfter As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
 
-                If (param_operation.ItemDeleteSingly IsNot Nothing) Then
+                If (param_operation.DeleteItemSingly IsNot Nothing) Then
                     ''Delete the single item.
 
                     ''Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly)  
-                    Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly,
+                    Me.DLL_DeleteItemSingly(param_operation.DeleteItemSingly,
                                                objItemUndeleted_PriorLeft,
                                                objItemUndeleted_NextAfter)
 

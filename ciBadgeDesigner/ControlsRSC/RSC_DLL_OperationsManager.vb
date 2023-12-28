@@ -126,8 +126,8 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
             If (.AnchorIs_Missing()) Then
                 Debugger.Break()
 
-            ElseIf (.InsertRangeStart Is Nothing And .ItemInsertSingly Is Nothing) Then
-                If (.DeleteRangeStart Is Nothing And .ItemDeleteSingly Is Nothing) Then
+            ElseIf (.InsertRangeStart Is Nothing And .InsertItemSingly Is Nothing) Then
+                If (.DeleteRangeStart Is Nothing And .DeleteItemSingly Is Nothing) Then
                     If (.MovedRangeStart Is Nothing) Then
                         ''Oops, we have no subject-material for the operation.
                         Debugger.Break()
@@ -209,7 +209,7 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         With par_listDLLItems ''mod_listDLLColumns
                             ''.DLL_InsertItemAfter(param_operation.ItemInsertSingly,
                             ''              param_operation.AnchorToPrecedeItemOrRange)
-                            .DLL_InsertOneItemAfter(param_operation.ItemInsertSingly,
+                            .DLL_InsertOneItemAfter(param_operation.InsertItemSingly,
                                             param_operation.AnchorToPrecedeItemOrRange,
                                             param_operation.IsForEitherEndpoint)
 
@@ -220,7 +220,7 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         With par_listDLLItems ''mod_listDLLColumns
                             ''.DLL_InsertItemBefore(param_operation.ItemInsertSingly,
                             ''            param_operation.AnchorToSucceedItemOrRange)
-                            .DLL_InsertOneItemBefore(param_operation.ItemInsertSingly,
+                            .DLL_InsertOneItemBefore(param_operation.InsertItemSingly,
                                           param_operation.AnchorToSucceedItemOrRange,
                                           param_operation.IsForEitherEndpoint)
                         End With ''End of ""With par_listDLLItems""
@@ -335,11 +335,11 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                 Dim objItemUndeleted_PriorLeft As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
                 Dim objItemUndeleted_NextAfter As IDoublyLinkedItem = Nothing ''Needs to be stored someplace.
 
-                If (param_operation.ItemDeleteSingly IsNot Nothing) Then
+                If (param_operation.DeleteItemSingly IsNot Nothing) Then
                     ''Delete the single item.
 
                     ''Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly)  
-                    Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly,
+                    Me.DLL_DeleteItemSingly(param_operation.DeleteItemSingly,
                                                objItemUndeleted_PriorLeft,
                                                objItemUndeleted_NextAfter)
 
