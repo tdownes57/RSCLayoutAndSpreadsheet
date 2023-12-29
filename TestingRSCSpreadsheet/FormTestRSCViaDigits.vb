@@ -78,27 +78,36 @@ Public Class FormTestRSCViaDigits
 
         ''LabelItemsDisplay.ResetText()
         LabelItemsDisplay.Text = ""
-        each_twoChar = mod_firstTwoChar
 
-        ''For Each each_twoChar In mod_list
-        Do Until bDone
+        If (mod_firstTwoChar Is Nothing) Then
+            ''
+            ''All the items have been deleted (most likely).
+            ''
+        Else
 
-            ''LabelItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
-            ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
-            stringbuilderLinkedItems.Append("  " + each_twoChar.ToString())
+            each_twoChar = mod_firstTwoChar
 
-            each_twoChar = each_twoChar.DLL_GetItemNext
-            bDone = (each_twoChar Is Nothing)
-            intCountLoops += 1
+            ''For Each each_twoChar In mod_list
+            Do Until bDone
 
-        Loop ''End of ""Do Until bDone""
-        ''Next each_twoChar
+                ''LabelItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
+                ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                stringbuilderLinkedItems.Append("  " + each_twoChar.ToString())
 
-        ''---MessageBoxTD.Show_Statement("Done loading!!")
-        ''Return stringbuilderLinkedItems.ToString()
-        Dim result As String
-        result = stringbuilderLinkedItems.ToString()
-        Return result
+                each_twoChar = each_twoChar.DLL_GetItemNext
+                bDone = (each_twoChar Is Nothing)
+                intCountLoops += 1
+
+            Loop ''End of ""Do Until bDone""
+            ''Next each_twoChar
+
+            ''---MessageBoxTD.Show_Statement("Done loading!!")
+            ''Return stringbuilderLinkedItems.ToString()
+            Dim result As String
+            result = stringbuilderLinkedItems.ToString()
+            Return result
+
+        End If ''End of ""If (mod_firstTwoChar Is Nothing) Then... Else..."
 
     End Function ''End of "Private Function FillTheTextboxDisplayingList()""
 
@@ -197,6 +206,10 @@ Public Class FormTestRSCViaDigits
         strListOfLinks = FillTheTextboxDisplayingList()
         LabelItemsDisplay.Text = strListOfLinks
 
+        ''Added 12/28/2023 
+        Dim itemCount As Integer = mod_list.DLL_CountAllItems()
+        UserControlOperation1.UpdateTheItemCount(itemCount)
+
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
 
@@ -237,7 +250,24 @@ Public Class FormTestRSCViaDigits
             bChangeOfEndpoint = (bChangeOfEndpoint_Start Or bChangeOfEndpoint_Endpt)
 
             ''V2''mod_list.DLL_DeleteItem(.GetSingleItem(), bChangeOfEndpoint)
-            mod_list.DLL_DeleteItem(.DeleteItemSingly, bChangeOfEndpoint)
+            If (.DeleteItemSingly IsNot Nothing) Then ''Added 12/28/2023 
+                ''Conditioned by If (...) on 12/28/2023 
+                mod_list.DLL_DeleteItem(.DeleteItemSingly, bChangeOfEndpoint)
+
+            ElseIf (.DeleteRangeStart IsNot Nothing) Then
+                ''Added 12/28/2023 thomas downes 
+                mod_list.DLL_DeleteRange(.DeleteRangeStart, .DeleteCount, bChangeOfEndpoint)
+
+            Else
+                ''Added 12/28/2023 thomas downes 
+                Debugger.Break()
+
+            End If ''End of ""If (.DeleteItemSingly IsNot Nothing) Then... ElseIf... Else...
+
+            ''Added 12/28/2023 
+            If (bChangeOfEndpoint_Start) Then
+                mod_firstTwoChar = mod_list.DLL_GetFirstItem
+            End If ''End of ""If (bChangeOfEndpoint_Start) Then"'
 
         End With ''End of ""With par_operation"" 
 
@@ -297,6 +327,9 @@ Public Class FormTestRSCViaDigits
 
         End With ''End of ""With par_operation""
 
+        ''
+        ''Refresh the Display.
+        ''
         RefreshTheUI_DisplayList()
 
     End Sub

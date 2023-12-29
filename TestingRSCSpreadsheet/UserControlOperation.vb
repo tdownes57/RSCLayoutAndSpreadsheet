@@ -1,4 +1,5 @@
 ﻿Imports ciBadgeInterfaces
+Imports ciBadgeSerialize
 
 ''' <summary>
 ''' This will allow the user to create DLLOperations.
@@ -218,7 +219,15 @@ Public Class UserControlOperation
 
         ''Added 12/26/2023
         bIsForEitherEndpoint = ((indexOfRangeFirst = 0) Or
-             (indexOfRangeFirst = -1 + DLL_List.DLL_CountAllItems()))
+             (indexOfRangeFirst >= -1 + DLL_List.DLL_CountAllItems()))
+
+        ''Added 12/28/2023
+        Dim bOutOfRange_Upper As Boolean
+        bOutOfRange_Upper = (indexOfRangeFirst > -1 + DLL_List.DLL_CountAllItems())
+        If (bOutOfRange_Upper) Then
+            MessageBoxTD.Show_Statement("Out of range / Greater than item count")
+            Exit Sub
+        End If ''Endof ""If (bOutOfRange_Upper) Then""
 
         ''indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
         ''anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
@@ -550,4 +559,44 @@ Public Class UserControlOperation
         ''buttonMove.PerformClick()
 
     End Sub
+
+
+    Public Sub UpdateTheItemCount(par_newCount As Integer)
+        ''
+        ''Added 12/28/2023 
+        ''
+        ''
+        ''Delete
+        ''
+        If (numDeleteRangeBenchmarkStart.Value > par_newCount) Then
+            numDeleteRangeBenchmarkStart.Value = par_newCount
+        End If
+        If (numDeleteRangeBenchmarkStart.Maximum > par_newCount) Then
+            numDeleteRangeBenchmarkStart.Maximum = par_newCount
+        End If
+
+        ''
+        ''Insert
+        ''
+        If (numInsertAnchorBenchmark.Value > par_newCount) Then
+            numInsertAnchorBenchmark.Value = par_newCount
+        End If
+        If (numInsertAnchorBenchmark.Maximum > par_newCount) Then
+            numInsertAnchorBenchmark.Maximum = par_newCount
+        End If
+
+        ''
+        ''Move
+        ''
+        If (numMoveAnchorBenchmark.Value > par_newCount) Then
+            numMoveAnchorBenchmark.Value = par_newCount
+        End If
+        If (numMoveAnchorBenchmark.Maximum > par_newCount) Then
+            numMoveAnchorBenchmark.Maximum = par_newCount
+        End If
+
+
+    End Sub ''End of ""Public Sub UpdateTheItemCount()"
+
+
 End Class

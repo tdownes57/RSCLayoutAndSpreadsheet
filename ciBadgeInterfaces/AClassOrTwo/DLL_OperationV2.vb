@@ -89,11 +89,18 @@ Public Class DLL_OperationV2
         If (p_firstInOperationRange.DLL_HasPrior()) Then
             ''Get the prior item. 
             mod_inverseFinalPrior = p_firstInOperationRange.DLL_GetItemPrior()
-        Else
+        End If
+
+        ''Added 12/28/2023 td 
+        Dim lastInOperationRange As IDoublyLinkedItem ''Added 12/28/2023 td 
+        lastInOperationRange = p_firstInOperationRange.DLL_GetItemNext(-1 + mod_countOfItems)
+        If (lastInOperationRange.DLL_HasNext()) Then
             ''If we iterate "Next" by p_intCountOfItem times,
             ''  we get the item __following__ the range. 
-            mod_inverseFinalNext = p_firstInOperationRange.DLL_GetItemNext(p_intCountOfItems)
-        End If
+            ''mod_inverseFinalNext = p_firstInOperationRange.DLL_GetItemNext(p_intCountOfItems)
+            mod_inverseFinalNext = lastInOperationRange.DLL_GetItemNext()
+
+        End If ''End of ""If (lastInOperationRange.DLL_HasNext()) Then""
 
     End Sub ''\end of ""Public Sub New""
 

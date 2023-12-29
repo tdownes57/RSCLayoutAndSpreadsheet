@@ -548,32 +548,51 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         If (bDeletingStartOfList) Then
 
             If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
-
-        Else
-            itemPriorToDelete = itemToDelete.DLL_GetItemPrior()
-            itemPriorToDelete.DLL_SetItemNext(itemFollowingDelete)
-
-        End If ''End of If (bDeletingStartOfList) Then... Else...
-
-        ''
-        ''Consider end of List 
-        ''
-        If (bDeletingEndOfList) Then
-
-            If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
-
-        ElseIf (p_isChangeOfEndpoint And itemPriorToDelete Is Nothing) Then
             ''
-            ''We are at the beginning of the list.
+            ''We are at the beginning of the list.  12/28/2023
             ''
             itemFollowingDelete = itemToDelete.DLL_GetItemNext()
             itemFollowingDelete.DLL_ClearReferencePrior("D"c)
 
+        ElseIf (bDeletingEndOfList) Then
+
+            If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
+            ''
+            ''We are at the end of the list.  12/28/2023
+            ''
+            itemPriorToDelete = itemToDelete.DLL_GetItemPrior()
+            itemPriorToDelete.DLL_ClearReferenceNext("D"c)
+
         Else
+            ''
+            ''Modified 12/28/2023
+            ''
+            itemPriorToDelete = itemToDelete.DLL_GetItemPrior()
             itemFollowingDelete = itemToDelete.DLL_GetItemNext()
+            itemPriorToDelete.DLL_SetItemNext(itemFollowingDelete)
             itemFollowingDelete.DLL_SetItemPrior(itemPriorToDelete)
 
-        End If ''End of If (bDeletingEndOfList) Then... ElseIf... Else...
+        End If ''End of If (bDeletingStartOfList) Then... Else...
+
+        ''''
+        ''''Consider end of List 
+        ''''
+        ''If (bDeletingEndOfList) Then
+        ''
+        ''    If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
+        ''
+        ''ElseIf (p_isChangeOfEndpoint And itemPriorToDelete Is Nothing) Then
+        ''    ''
+        ''    ''We are at the beginning of the list.
+        ''    ''
+        ''    itemFollowingDelete = itemToDelete.DLL_GetItemNext()
+        ''    itemFollowingDelete.DLL_ClearReferencePrior("D"c)
+        ''
+        ''Else
+        ''    itemFollowingDelete = itemToDelete.DLL_GetItemNext()
+        ''    itemFollowingDelete.DLL_SetItemPrior(itemPriorToDelete)
+        ''
+        ''End If ''End of If (bDeletingEndOfList) Then... ElseIf... Else...
 
         ''
         ''Maintain start & end of list. 
@@ -691,6 +710,17 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
         ElseIf (bDeletingListEndingPoint) Then
             mod_dllControlLast = itemPriorToDeleteRange ''itemToDelete
+
+        Else
+            ''Added 12/28/2023 Thomas Downes 
+            ''
+            ''     Create the Indiana-Jones-Temple-of-Doom "rope bridge" that
+            ''   bypasses the deleted items.
+            ''     (The "Prior" item is the left bank of the narrow canyon, 
+            ''   the "Following" item is the right bank of the river gorge.)
+            ''
+            itemPriorToDeleteRange.DLL_SetItemNext(itemFollowingDeleteRange)
+            itemFollowingDeleteRange.DLL_SetItemPrior(itemPriorToDeleteRange)
 
         End If ''End of If (bDeletingStartOfList and bDeleting EndOfList) Then... Else...
 
