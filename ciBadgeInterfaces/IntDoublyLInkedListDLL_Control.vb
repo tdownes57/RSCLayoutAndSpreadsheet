@@ -5,7 +5,7 @@
 ''
 Imports System.Windows.Forms
 
-Public Interface IDoublyLinkedListDLL_Control
+Public Interface IDoublyLinkedListDLL_Control_Denigrated
     ''
     ''Thanks to Computer Science Department at Orange Coast College
     ''   (Profs. Gabriela Ernsberger & Hatice Aydin) 
@@ -118,7 +118,8 @@ Public Interface IDoublyLinkedListDLL_Control
                         ByRef item_prior_undeleted As Control,
                         ByRef item_first_deleted As Control)
 
-    Sub DLL_UndoOperation(param_operation As DLL_Operation(Of Control))
+    ''12/2023 Sub DLL_UndoOperation(param_operation As DLL_Operation(Of Control))
+    Sub DLL_UndoOperation(param_operation As DLL_OperationV2)
 
 End Interface
 

@@ -6,10 +6,17 @@ Imports ciBadgeSerialize
 
 Public Class FormTestRSCViaDigits
 
+    Private Const INITIAL_ITEM_COUNT_30 As Integer = 30 ''Added 12/28/2023 td
     Private mod_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
     ''Private mod_operations As DLL_OperationsManager_Deprecated(Of TwoCharacterDLLItem)
     Private mod_operations As DLL_OperationsManager(Of TwoCharacterDLLItem)
     Private mod_firstTwoChar As TwoCharacterDLLItem
+    ''Added 12/28/2023 Thomas Downes 
+    ''12/28 Private mod_opsList As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TwoCharacterDLLItem))
+    Private mod_opsList As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)
+    Private mod_opsManager As DLL_OperationsManager(Of TwoCharacterDLLItem)
+
+
 
     Public Sub New()
 
@@ -21,13 +28,24 @@ Public Class FormTestRSCViaDigits
 
         ' Add any initialization after the InitializeComponent() call.
         ''Encapsulated 12/25/2023 thomas downes
-        Load_DLL_List(mod_list)
+        ''12/2023 Load_DLL_List(mod_list)
+        ''#2 12/2023  Dim opInitialLoad As DLL_Operation(Of TwoCharacterDLLItem)
+        Dim opInitialLoad As DLL_OperationV2
+        opInitialLoad =
+            Load_DLL_List_AsFunction(mod_list)
+
         UserControlOperation1.DLL_List = mod_list
 
         ''Populate the UI. 
         ''---See the Form_Load procedure / event-handler. 
 
-    End Sub
+        ''Added 12/28/2023 td
+        ''12/28/2023 mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TwoCharacterDLLItem))(opInitialLoad)
+        mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)(opInitialLoad)
+        mod_opsManager = New DLL_OperationsManager(Of TwoCharacterDLLItem)(mod_opsList)
+
+    End Sub ''End of ""Public Sub New()""
+
 
     Private Sub Form_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -66,7 +84,8 @@ Public Class FormTestRSCViaDigits
         Do Until bDone
 
             ''LabelItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
-            stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+            ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+            stringbuilderLinkedItems.Append("  " + each_twoChar.ToString())
 
             each_twoChar = each_twoChar.DLL_GetItemNext
             bDone = (each_twoChar Is Nothing)
@@ -81,12 +100,24 @@ Public Class FormTestRSCViaDigits
         result = stringbuilderLinkedItems.ToString()
         Return result
 
-    End Function ''Ednd of :":"Private Function FillTheTextboxDisplayingList()""
+    End Function ''End of "Private Function FillTheTextboxDisplayingList()""
 
 
-
+    ''
+    ''Encapsulated 12/28/2023 and 12/25/2023 thomas downes
+    ''
     Private Sub Load_DLL_List(par_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem),
                               Optional par_firstItem As TwoCharacterDLLItem = Nothing)
+
+        ''Encapsulated 12/28/2023 
+        Load_DLL_List_AsFunction(par_list, par_firstItem)
+
+    End Sub ''End of ""Private Sub Load_DLL_List()""
+
+
+    Private Function Load_DLL_List_AsFunction(par_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem),
+           Optional par_firstItem As TwoCharacterDLLItem = Nothing) As DLL_OperationV2
+        ''                     As DLL_Operation(Of TwoCharacterDLLItem)
         ''
         ''Encapsulated 12/25/2023 thomas downes
         ''
@@ -94,6 +125,7 @@ Public Class FormTestRSCViaDigits
         Dim each_strTwoChars As String
         Dim prior As TwoCharacterDLLItem = Nothing
         Dim bListIsEmpty As Boolean = True
+        Dim op_result As DLL_OperationV2 ''Added 12/28/2023 td
 
         ''Clear the list.
         par_list.DLL_ClearAllItems()
@@ -114,7 +146,7 @@ Public Class FormTestRSCViaDigits
         ''
         ''Iterate through the list. 
         ''
-        For benchmark = firstBenchmark_1or2 To 30
+        For benchmark = firstBenchmark_1or2 To INITIAL_ITEM_COUNT_30
 
             each_strTwoChars = String.Format("{0:00}", benchmark)
             ''12/2023 each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars, prior)
@@ -148,8 +180,14 @@ Public Class FormTestRSCViaDigits
 
         Next benchmark ''Next index
 
+        ''
+        ''Added 12/28/2023 
+        ''
+        op_result = New DLL_OperationV2("I"c, mod_firstTwoChar,
+                            INITIAL_ITEM_COUNT_30, Nothing, Nothing, True)
+        Return op_result
 
-    End Sub ''End of ""Private Sub Load_DLL_List""
+    End Function ''End of ""Private Function Load_DLL_List_AsFunction""
 
 
     Private Sub RefreshTheUI_DisplayList()
@@ -177,13 +215,31 @@ Public Class FormTestRSCViaDigits
             ''mod_list.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
             ''.ImplementForList(mod_list)
             Dim bChangeOfEndpoint As Boolean
+            Dim bChangeOfEndpoint_Start As Boolean
+            Dim bChangeOfEndpoint_Endpt As Boolean
+            Dim objDeleteRangeStart As TwoCharacterDLLItem ''12/28/2023
+            Dim objDeleteRangeEndpt As TwoCharacterDLLItem ''12/28/2023
+
+            If (.DeleteItemSingly IsNot Nothing) Then
+                ''Only a single item is being deleted. 
+                bChangeOfEndpoint_Start = (.DeleteItemSingly Is mod_firstTwoChar)
+                bChangeOfEndpoint_Endpt = (.DeleteItemSingly Is mod_list.DLL_GetLastItem())
+            Else
+                ''A range of items is being deleted. 
+                objDeleteRangeStart = .DeleteRangeStart
+                objDeleteRangeEndpt = .DeleteRangeStart.DLL_GetItemNext(-1 + .DeleteCount)
+                bChangeOfEndpoint_Start = (.DeleteRangeStart Is mod_firstTwoChar)
+                bChangeOfEndpoint_Endpt = (objDeleteRangeEndpt Is mod_list.DLL_GetLastItem())
+            End If ''End of ""If (.DeleteItemSingly IsNot Nothing) Then... Else..."
+
             ''V2''bChangeOfEndpoint = (.GetIndexOfStart() <= -1 + mod_list.DLL_CountAllItems())
-            bChangeOfEndpoint = (.DeleteRangeStart Is mod_list.DLL_GetLastItem())
+            ''12/2023 bChangeOfEndpoint_Start = (.DeleteRangeStart Is mod_list.DLL_GetLastItem())
+            bChangeOfEndpoint = (bChangeOfEndpoint_Start Or bChangeOfEndpoint_Endpt)
 
             ''V2''mod_list.DLL_DeleteItem(.GetSingleItem(), bChangeOfEndpoint)
             mod_list.DLL_DeleteItem(.DeleteItemSingly, bChangeOfEndpoint)
 
-        End With
+        End With ''End of ""With par_operation"" 
 
         RefreshTheUI_DisplayList()
 

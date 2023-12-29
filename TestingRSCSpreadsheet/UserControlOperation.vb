@@ -49,7 +49,9 @@ Public Class UserControlOperation
 
 
     Public Sub ToggleSingleItemMode()
-
+        ''
+        ''Added 12/27/2023 thomas downes
+        ''
         Static s_insertCount As Integer = 1
         Static s_deleteCount As Integer = 1
         Static s_moveCount As Integer = 1
@@ -101,7 +103,7 @@ Public Class UserControlOperation
         ''    so that the user-interface form can detect it and 
         ''    leverage this new operation.
         ''
-        Dim objDLLOperation As DLL_OperationV2
+        Dim objDLLOperation As DLL_OperationV2 = Nothing
         Dim firstRangeItem As TwoCharacterDLLItem
         ''Dim indexOfRangeFirst As Integer
         Dim indexOfAnchor As Integer

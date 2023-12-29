@@ -10,7 +10,7 @@ Imports System.Windows.Forms
 ''    ---12/07/2023 thomas dow_nes 
 ''-----------------------------------------------------------
 
-Public Class DLL_Operation(Of TControl)
+Public Class DLL_Operation_Deprecated(Of TControl)
     ''
     ''Added 10/30/2023
     ''
@@ -50,11 +50,11 @@ Public Class DLL_Operation(Of TControl)
     ''' This creates the "Undo" version.
     ''' </summary>
     ''' <returns></returns>
-    Public Function GetUndoVersion() As DLL_Operation(Of TControl)
+    Public Function GetUndoVersion() As DLL_Operation_Deprecated(Of TControl)
         ''
         ''Added 10/30/2023
         ''
-        Dim objUndo As New DLL_Operation(Of TControl)
+        Dim objUndo As New DLL_Operation_Deprecated(Of TControl)
         With objUndo
 
             .LefthandAnchor = Me.LefthandAnchor
@@ -121,7 +121,7 @@ Public Class DLL_Operation(Of TControl)
     ''
     ''Important, check for equality.
     ''
-    Private Overloads Function Equals(lets_check As DLL_Operation(Of TControl)) As Boolean
+    Private Overloads Function Equals(lets_check As DLL_Operation_Deprecated(Of TControl)) As Boolean
         ''Private Function Equals(lets_check As TControl) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
@@ -185,13 +185,13 @@ Public Class DLL_Operation(Of TControl)
     End Function ''End of Private Function Overrides Equals() as Boolean
 
 
-    Private Function Undo2x_IsIdempotent(lets_check As DLL_Operation(Of TControl)) As Boolean
+    Private Function Undo2x_IsIdempotent(lets_check As DLL_Operation_Deprecated(Of TControl)) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
         ''   double-Undo.
         ''
-        Dim objUndo_1st As DLL_Operation(Of TControl)
-        Dim objUndo_2nd As DLL_Operation(Of TControl)
+        Dim objUndo_1st As DLL_Operation_Deprecated(Of TControl)
+        Dim objUndo_2nd As DLL_Operation_Deprecated(Of TControl)
 
         objUndo_1st = lets_check.GetUndoVersion()
         objUndo_2nd = objUndo_1st.GetUndoVersion()
@@ -199,6 +199,7 @@ Public Class DLL_Operation(Of TControl)
         Dim boolEqualMatch As Boolean
 
         boolEqualMatch = lets_check.Equals(objUndo_2nd)
+        Return boolEqualMatch
 
     End Function ''End of ""Private Function Undo2x_IsIdempotent""
 

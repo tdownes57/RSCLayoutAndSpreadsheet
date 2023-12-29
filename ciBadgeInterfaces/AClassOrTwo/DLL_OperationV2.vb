@@ -334,4 +334,64 @@ Public Class DLL_OperationV2
 
     End Function ''End of ""Public Function GeCopyV1() As DLL_OperationV1""
 
+
+    Public Overloads Function Equals(lets_check As DLL_OperationV2) As Boolean
+        ''12/2023 Private Overloads Function Equals(lets_check As DLL_Operation(Of TControl)) As Boolean
+        ''Private Function Equals(lets_check As TControl) As Boolean
+        ''
+        ''This will check the Idempotency of a Undo(Undo()), i.e.
+        ''   double-Undo.
+        ''
+        Dim boolEqual1 As Boolean
+        Dim boolEqual2 As Boolean
+        Dim boolEqual3 As Boolean
+        Dim boolEqual4 As Boolean
+        Dim boolEqual5 As Boolean
+        Dim boolEqual6 As Boolean
+        Dim boolEqual7 As Boolean
+        Dim boolEqual8 As Boolean
+        Dim boolEqual9 As Boolean
+
+        Dim boolEqual91 As Boolean
+        Dim boolEqual92 As Boolean
+        Dim boolEqual93 As Boolean
+        Dim boolEqual94 As Boolean
+        Dim boolEqual95 As Boolean
+
+        With lets_check
+
+            boolEqual1 = (.mod_anchorFinalNext Is Me.mod_anchorFinalNext)
+            boolEqual2 = (.mod_anchorFinalPrior Is Me.mod_anchorFinalPrior)
+            boolEqual3 = (.mod_countOfItems = Me.mod_countOfItems)
+            boolEqual4 = (.mod_inverseFinalNext Is Me.mod_inverseFinalPrior)
+            boolEqual5 = (.mod_inverseFinalPrior Is Me.mod_inverseFinalPrior)
+            boolEqual6 = (.mod_isChangeOfEndpoint = Me.mod_isChangeOfEndpoint)
+            boolEqual7 = (.mod_operationNext Is Me.mod_operationNext)
+            boolEqual8 = (.mod_operationPrior Is Me.mod_operationPrior)
+            boolEqual9 = (.mod_operationRangeFirstIndex = .mod_operationRangeFirstIndex)
+            boolEqual91 = (.mod_operationRangeFirstItem Is Me.mod_operationRangeFirstItem)
+
+            boolEqual92 = (.mod_operationType = Me.mod_operationType)
+            boolEqual93 = (.mod_sortOrder_TopCopy Is .mod_sortOrder_TopCopy)
+
+        End With ''End of ""With lets_check""
+
+        Dim bEqual1to5 As Boolean
+        Dim bEqual6to9 As Boolean
+        Dim bEqual91to93 As Boolean
+
+        bEqual1to5 = (boolEqual1 And boolEqual2 And boolEqual3 And
+                      boolEqual4 And boolEqual5)
+        bEqual6to9 = (boolEqual6 And boolEqual7 And boolEqual8 And boolEqual9)
+        bEqual91to93 = (boolEqual91 And boolEqual92 And boolEqual93)
+
+        Dim bEqual_All As Boolean
+        bEqual_All = (bEqual1to5 And bEqual6to9 And bEqual91to93)
+
+        Return bEqual_All
+
+    End Function ''End of Private Function Overrides Equals() as Boolean
+
+
+
 End Class

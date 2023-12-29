@@ -60,8 +60,8 @@ Partial Class FormTestRSCViaDigits
         LabelBenchmark.Name = "LabelBenchmark"
         LabelBenchmark.Size = New Size(598, 24)
         LabelBenchmark.TabIndex = 2
-        LabelBenchmark.Tag = "        01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
-        LabelBenchmark.Text = "        01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
+        LabelBenchmark.Tag = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
+        LabelBenchmark.Text = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
         ' 
         ' LabelItemsDisplay
         ' 
@@ -70,8 +70,8 @@ Partial Class FormTestRSCViaDigits
         LabelItemsDisplay.Name = "LabelItemsDisplay"
         LabelItemsDisplay.Size = New Size(595, 24)
         LabelItemsDisplay.TabIndex = 3
-        LabelItemsDisplay.Tag = "01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        LabelItemsDisplay.Text = " 01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
+        LabelItemsDisplay.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
+        LabelItemsDisplay.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
         ' 
         ' Label3
         ' 

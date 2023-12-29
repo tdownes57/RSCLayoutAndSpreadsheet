@@ -13,16 +13,33 @@ Public Class DLL_OperationsManager(Of TControl)
     ''   Implements IDoublyLinkedList(Of TControl)
 
     ''Private mod_list As RSCDoublyLinkedList(Of TControl)
-    Private mod_list As List(Of TControl)
+    ''Private mod_list As List(Of TControl)
+    ''12/2023 Private mod_listOps As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TControl))
+    Private mod_listOpsV2 As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)
 
-    Public Sub ProcessOperation(param_operation As DLL_Operation(Of TControl))
+
+    Public Sub New(par_listOpsV2 As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2))
+        ''Public Sub New(par_listOps As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TControl)))
+
+        ''Added 12/28/2023 thomas downes
+        mod_listOpsV2 = par_listOpsV2
+
+
+    End Sub ''End of ""Public Sub New""
+
+
+    Public Sub ProcessOperation_Insert(param_operation As DLL_OperationV2)
+        ''Public Sub ProcessOperation(param_operation As DLL_Operation(Of TControl))
         ''
         ''Added 12/26/2023 td 
         ''
 
 
 
-    End Sub
+
+
+
+    End Sub ''ENd of ""Public Sub ProcessOperation_Insert""
 
     Public Function GetLastOperation()
 

@@ -562,11 +562,18 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
             If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
 
+        ElseIf (p_isChangeOfEndpoint And itemPriorToDelete Is Nothing) Then
+            ''
+            ''We are at the beginning of the list.
+            ''
+            itemFollowingDelete = itemToDelete.DLL_GetItemNext()
+            itemFollowingDelete.DLL_ClearReferencePrior("D"c)
+
         Else
             itemFollowingDelete = itemToDelete.DLL_GetItemNext()
             itemFollowingDelete.DLL_SetItemPrior(itemPriorToDelete)
 
-        End If ''End of If (bDeletingEndOfList) Then... Else...
+        End If ''End of If (bDeletingEndOfList) Then... ElseIf... Else...
 
         ''
         ''Maintain start & end of list. 

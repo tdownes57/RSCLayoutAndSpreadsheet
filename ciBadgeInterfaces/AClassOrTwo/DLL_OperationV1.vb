@@ -610,7 +610,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''
     ''Important, check for equality.
     ''
-    Private Overloads Function Equals(lets_check As DLL_OperationV1) As Boolean ''11/2/2023 (Of TControl)) As Boolean
+    Private Overloads Function Equals_Redundant(lets_check As DLL_OperationV1) As Boolean ''11/2/2023 (Of TControl)) As Boolean
+        ''Private Overloads Function Equals_Redundant(lets_check As DLL_OperationV1) As Boolean
         ''Private Function Equals(lets_check As TControl) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
@@ -663,6 +664,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             ''boolEqual95 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
             boolEqual92 = ((.MoveCut_NextToRange Is Nothing) = (Me.MoveCut_NextToRange Is Nothing))
             boolEqual93 = ((.MoveCut_PriorToRange Is Nothing) = (Me.MoveCut_PriorToRange Is Nothing))
+            boolEqual94 = ((.MovedRangeStart Is Nothing) = (Me.MovedRangeStart Is Nothing))
 
             ''Added 11/17/20 23  
             boolEqual96 = (.AnchorWillPrecedeRangeOrItem() = Me.AnchorWillPrecedeRangeOrItem())
@@ -674,15 +676,17 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
         Dim bEqual1to5 As Boolean
         Dim bEqual6to9 As Boolean
-        Dim bEqual91to95 As Boolean
+        ''Dim bEqual91to95 As Boolean
+        Dim bEqual91to94 As Boolean
         ''Added 11/17/2023  
         Dim bEqual96to99 As Boolean
 
         bEqual1to5 = (boolEqual1 And boolEqual2 And boolEqual3 And
                       boolEqual4 And boolEqual5)
         bEqual6to9 = (boolEqual6 And boolEqual7 And boolEqual8 And boolEqual9)
-        bEqual91to95 = (boolEqual91 And boolEqual92 And boolEqual93 And
-                          boolEqual94 And boolEqual95)
+        ''bEqual91to95 = (boolEqual91 And boolEqual92 And boolEqual93 And
+        ''                     boolEqual94 And boolEqual95)
+        bEqual91to94 = (boolEqual91 And boolEqual92 And boolEqual93 And boolEqual94)
 
         ''Added 11/17/2023  
         bEqual96to99 = ((boolEqual96 And boolEqual97) And
@@ -691,11 +695,12 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Dim bEqual_All As Boolean
         ''bEqual_All = (bEqual1to5 And bEqual6to9 And bEqual91to95)
         bEqual_All = (bEqual1to5 And bEqual6to9 And
-                     (bEqual91to95 And bEqual96to99))
+                     (bEqual91to94 And bEqual96to99))
+        ''           (bEqual91to95 And bEqual96to99))
 
         Return bEqual_All
 
-    End Function ''End of Private Function Overrides Equals() as Boolean
+    End Function ''End of Private Function Overrides Equals_Redundant() as Boolean
 
 
     Private Function Undo2x_IsIdempotent(lets_check As DLL_OperationV1) As Boolean
@@ -775,9 +780,87 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' <returns></returns>
     Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
         ''
-        '' Won't be implemented.  12/01/2023 td
+        '' Won't be implemented, this class describes an Operation (upon Controls),
+        ''   not simply a Control.  12/01/2023 td
         ''
         Throw New NotImplementedException()
 
-    End Function
+    End Function ''end of ""Public Function DLL_UnboxControl()""
+
+
+    Public Overloads Function Equals(lets_check As DLL_OperationV1) As Boolean
+        ''12/2023 Private Overloads Function Equals(lets_check As DLL_Operation(Of TControl)) As Boolean
+        ''   Private Function Equals(lets_check As TControl) As Boolean
+        ''
+        ''This will check the Idempotency of a Undo(Undo()), i.e.
+        ''   double-Undo.
+        ''
+        Dim boolEqual1 As Boolean
+        Dim boolEqual2 As Boolean
+        Dim boolEqual3 As Boolean
+        Dim boolEqual4 As Boolean
+        Dim boolEqual5 As Boolean
+        Dim boolEqual6 As Boolean
+        Dim boolEqual7 As Boolean
+        Dim boolEqual8 As Boolean
+        Dim boolEqual9 As Boolean
+
+        Dim boolEqual91 As Boolean
+        Dim boolEqual92 As Boolean
+        Dim boolEqual93 As Boolean
+        Dim boolEqual94 As Boolean
+        Dim boolEqual95 As Boolean
+
+        With lets_check
+
+            boolEqual1 = (.ClassTypeToString = Me.ClassTypeToString)
+            boolEqual2 = (.DeleteCount = Me.DeleteCount)
+
+            ''Unfortunately, compiler won't let me compare directly. 
+            boolEqual3 = ((.DeleteRangeStart Is Nothing) = (Me.DeleteRangeStart Is Nothing))
+            ''Unfortunately, compiler won't let me compare directly. 
+            boolEqual4 = ((.DeleteItemSingly Is Nothing) = (Me.DeleteItemSingly Is Nothing))
+            boolEqual5 = (.InsertCount = Me.InsertCount)
+            ''Unfortunately, compiler won't let me compare directly. 
+            boolEqual6 = ((.InsertRangeStart Is Nothing) = (Me.InsertRangeStart Is Nothing))
+            boolEqual7 = ((.InsertItemSingly Is Nothing) = (Me.InsertItemSingly Is Nothing))
+
+            ''12/2023  boolEqual8 = ((.LefthandAnchor Is Nothing) = (Me.LefthandAnchor Is Nothing))
+            ''12/2023  boolEqual9 = ((.RighthandAnchor Is Nothing) = (Me.RighthandAnchor Is Nothing))
+            boolEqual8 = ((.AnchorToPrecedeItemOrRange Is Nothing) =
+                        (Me.AnchorToPrecedeItemOrRange Is Nothing))
+            boolEqual9 = ((.AnchorToSucceedItemOrRange Is Nothing) =
+                        (Me.AnchorToSucceedItemOrRange Is Nothing))
+
+            boolEqual91 = (.MovedCount = Me.MovedCount)
+            ''boolEqual92 = ((.Move_LefthandEnd Is Nothing) = (Me.Move_LefthandEnd Is Nothing))
+            ''boolEqual93 = ((.Move_RighthandEnd Is Nothing) = (Me.Move_RighthandEnd Is Nothing))
+
+            boolEqual92 = ((.MovedRangeStart Is Nothing) = (Me.MovedRangeStart Is Nothing))
+            boolEqual93 = ((.MoveCut_PriorToRange Is Nothing) = (Me.MoveCut_PriorToRange Is Nothing))
+            boolEqual94 = ((.MoveCut_NextToRange Is Nothing) = (Me.MoveCut_PriorToRange Is Nothing))
+
+        End With ''End of ""With lets_check""
+
+        Dim bEqual1to5 As Boolean
+        Dim bEqual6to9 As Boolean
+        ''Dim bEqual91to95 As Boolean
+        Dim bEqual91to94 As Boolean
+
+        bEqual1to5 = (boolEqual1 And boolEqual2 And boolEqual3 And
+                      boolEqual4 And boolEqual5)
+        bEqual6to9 = (boolEqual6 And boolEqual7 And boolEqual8 And boolEqual9)
+        bEqual91to94 = (boolEqual91 And boolEqual92 And boolEqual93 And
+                          boolEqual94) ''boolEqual94 And boolEqual95)
+
+        Dim bEqual_All As Boolean
+        ''bEqual_All = (bEqual1to5 And bEqual6to9 And bEqual91to95)
+        bEqual_All = (bEqual1to5 And bEqual6to9 And bEqual91to94)
+
+        Return bEqual_All
+
+    End Function ''End of Private Function Overrides Equals() as Boolean
+
+
+
 End Class
