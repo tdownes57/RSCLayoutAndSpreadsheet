@@ -192,6 +192,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''Create an "Delete Range" operation (for our Undo op).
                 ''
                 .DeleteRangeStart = Me.InsertRangeStart ''The "Me." prefix matters.
+                .DeleteCount = Me.InsertCount ''Added 12/29/2023 td
                 .InsertRangeStart = Nothing ''Let's remove ANY vestigial reference. (Already Null, but good practice.)
                 .OperationType = "D"
 
@@ -213,6 +214,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''Create an "Delete Range" operation (for our Undo op).
                 ''
                 .InsertRangeStart = Me.DeleteRangeStart ''The "Me." prefix matters.
+                .InsertCount = Me.DeleteCount ''Added 12/29/2023 td
                 .DeleteRangeStart = Nothing ''Let's remove ANY vestigial reference. (Already Null, but good practice.)
                 .OperationType = "D"
 
@@ -860,6 +862,28 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Return bEqual_All
 
     End Function ''End of Private Function Overrides Equals() as Boolean
+
+
+    Public Function GetCopyV2() As DLL_OperationV2
+        ''
+        ''Added 12/28/2023 
+        ''
+        Select Case Me.OperationType
+
+            Case "D"c
+                ''Deletion
+                If (Me.DeleteRangeStart IsNot Nothing) Then
+                    Return New DLL_OperationV2(Me.OperationType, Me.DeleteRangeStart, Me.DeleteCount,
+                                           Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
+                                           Me.IsChangeOfEndpoint)
+                End If
+
+
+        End Select
+
+
+
+    End Function
 
 
 

@@ -102,6 +102,30 @@ Public Class DLL_OperationV2
 
         End If ''End of ""If (lastInOperationRange.DLL_HasNext()) Then""
 
+        ''
+        ''Added 12/28/2023
+        ''
+        If (Testing.TestingByDefault) Then
+
+            ''Added 12/28/2023
+            Dim copyOfOpV1 As DLL_OperationV1
+            copyOfOpV1 = GetCopyV1()
+            Dim inverseOfOp As DLL_OperationV1
+            inverseOfOp = copyOfOpV1.GetUndoVersionOfOperation()
+            Dim double_inverse As DLL_OperationV1
+            double_inverse = inverseOfOp.GetUndoVersionOfOperation()
+            Dim bEqualMatch As Boolean
+            bEqualMatch = double_inverse.Equals(copyOfOpV1)
+            If (Not bEqualMatch) Then Debugger.Break()
+
+            ''added 12/28
+            Dim copyOfOpV2 As DLL_OperationV2
+            copyOfOpV2 = double_inverse.GetCopyV2()
+            If (Not Me.Equals(copyOfOpV2)) Then Debugger.Break()
+
+
+        End If ''ENd of ""If (Testing.TestingByDefault) Then""
+
     End Sub ''\end of ""Public Sub New""
 
 
