@@ -119,10 +119,10 @@ Public Class DLL_OperationV2
             If (Not bEqualMatch) Then Debugger.Break()
 
             ''added 12/28
-            Dim copyOfOpV2 As DLL_OperationV2
-            copyOfOpV2 = double_inverse.GetCopyV2()
-            If (Not Me.Equals(copyOfOpV2)) Then Debugger.Break()
-
+            ''Infinitely recursive loop. (prefixed by ''+++) 12/30/2023 
+            ''+++Dim copyOfOpV2 As DLL_OperationV2
+            ''+++copyOfOpV2 = double_inverse.GetCopyV2()
+            ''+++If (Not Me.Equals(copyOfOpV2)) Then Debugger.Break()
 
         End If ''ENd of ""If (Testing.TestingByDefault) Then""
 
@@ -331,6 +331,7 @@ Public Class DLL_OperationV2
 
             If (mod_operationType = "I"c) Then
 
+                .OperationType = "I"c ''Added 12/30/2023 
                 .InsertRangeStart = mod_operationRangeFirstItem
                 .InsertCount = mod_countOfItems
 
@@ -341,6 +342,7 @@ Public Class DLL_OperationV2
 
             ElseIf (mod_operationType = "D"c) Then
 
+                .OperationType = "D"c ''Added 12/30/2023 
                 .DeleteRangeStart = mod_operationRangeFirstItem
                 .DeleteCount = mod_countOfItems
                 .DeleteLocation_ItemPrior = mod_inverseFinalPrior
@@ -353,6 +355,7 @@ Public Class DLL_OperationV2
 
             ElseIf (mod_operationType = "M"c) Then
 
+                .OperationType = "M"c ''Added 12/30/2023 
                 .MovedRangeStart = mod_operationRangeFirstItem
                 .MovedCount = mod_countOfItems
                 .MoveCut_NextToRange = mod_inverseFinalNext

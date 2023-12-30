@@ -194,9 +194,32 @@ Public Class FormTestRSCViaDigits
         ''
         op_result = New DLL_OperationV2("I"c, mod_firstTwoChar,
                             INITIAL_ITEM_COUNT_30, Nothing, Nothing, True)
+        ''added 12/28
+        Dim copyOfOpV1 As DLL_OperationV1
+        Dim copyOfOpV2 As DLL_OperationV2
+        Dim bCopyV2_ofCopyV1_match As Boolean = False
+
+        If (Testing.TestingByDefault) Then
+            copyOfOpV1 = op_result.GetCopyV1()
+            copyOfOpV2 = copyOfOpV1.GetCopyV2()
+
+            ''--bCopyV2_ofCopyV1_match = Me.Equals(copyOfOpV2)
+            bCopyV2_ofCopyV1_match = op_result.Equals(copyOfOpV2)
+            If (bCopyV2_ofCopyV1_match) Then
+                ''Bravo!!! 12/30/2023 
+            Else
+                Debugger.Break()
+            End If
+        End If ''End of ""If (Testing.TestingByDefault) Then""
+
         Return op_result
 
     End Function ''End of ""Private Function Load_DLL_List_AsFunction""
+
+
+    ''Public Overrides Function Equals(param As ) As Boolean
+    ''    Return MyBase.Equals(obj)
+    ''End Function
 
 
     Private Sub RefreshTheUI_DisplayList()

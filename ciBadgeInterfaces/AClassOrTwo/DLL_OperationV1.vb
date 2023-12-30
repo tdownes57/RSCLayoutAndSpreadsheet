@@ -172,29 +172,54 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
             If (Me.InsertItemSingly IsNot Nothing) Then
                 ''
+                ''OperationType "I" (Insert) is the likely input.
+                ''
                 ''Create an "Delete Singly" opertion (for our Undo op).
                 ''
                 If (Me.OperationType <> "I") Then Debugger.Break()
                 .DeleteItemSingly = Me.InsertItemSingly ''The "Me." prefix matters.
+                .DeleteRangeStart = Nothing ''Probably not needed.
                 .InsertItemSingly = Nothing ''Important, remove ANY vestigial reference.  (Already Null, but good practice.)
-                .OperationType = "D"
+                ''
+                ''OperationType - Undo "I"(Insert) with "D"(Delete).
+                ''
+                If (.OperationType <> "I"c) Then Debugger.Break()
+                .OperationType = "D" '' "D"(Delete) is the Undo-ing of "I"(Insert).
+
 
             ElseIf (Me.DeleteItemSingly IsNot Nothing) Then
+                ''
+                ''OperationType "D"(Delete) is the likely input.
                 ''
                 ''Create an "Insert Singly" opertion (for our Undo op).
                 ''
                 .InsertItemSingly = Me.DeleteItemSingly ''The "Me." prefix matters.
                 .DeleteItemSingly = Nothing ''Let's remove ANY vestigial reference.  (Already Null, but good practice.)
-                .OperationType = "I"
+                .DeleteRangeStart = Nothing ''Probably not needed.
+                .InsertItemSingly = Nothing ''Probably not needed.
+                ''
+                ''OperationType - Undo "D"(Delete) with "I"(Insert).
+                ''
+                If (Me.OperationType <> "D"c) Then Debugger.Break()
+                .OperationType = "I" '' "I"(Insert) is the Undo-ing of "D"(Delete)
+
 
             ElseIf (Me.InsertRangeStart IsNot Nothing) Then
+                ''
+                ''OperationType "I" (Insert) is the likely input.
                 ''
                 ''Create an "Delete Range" operation (for our Undo op).
                 ''
                 .DeleteRangeStart = Me.InsertRangeStart ''The "Me." prefix matters.
                 .DeleteCount = Me.InsertCount ''Added 12/29/2023 td
                 .InsertRangeStart = Nothing ''Let's remove ANY vestigial reference. (Already Null, but good practice.)
-                .OperationType = "D"
+                .InsertItemSingly = Nothing ''Probably not needed.
+                .DeleteItemSingly = Nothing ''Probably not needed.
+                ''
+                ''OperationType - Undo "I"(Insert) with "D"(Delete).
+                ''
+                If (Me.OperationType <> "I"c) Then Debugger.Break()
+                .OperationType = "D" '' "D"(Delete) is the Undo-ing of "I"(Insert).
 
                 ''Added 11/17/2023 td
                 ''  The "Anchor" properties are no longer to be used for delete operations.
@@ -211,15 +236,28 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
             ElseIf (Me.DeleteRangeStart IsNot Nothing) Then
                 ''
-                ''Create an "Delete Range" operation (for our Undo op).
+                ''OperationType "D"(Delete) is the likely input.
+                ''
+                ''Create an "Insert Range" operation (for our Undo op).
                 ''
                 .InsertRangeStart = Me.DeleteRangeStart ''The "Me." prefix matters.
                 .InsertCount = Me.DeleteCount ''Added 12/29/2023 td
                 .DeleteRangeStart = Nothing ''Let's remove ANY vestigial reference. (Already Null, but good practice.)
-                .OperationType = "D"
+                .DeleteItemSingly = Nothing ''Probably not needed.
+                .InsertItemSingly = Nothing ''Probably not needed.
+                ''
+                ''OperationType - Undo "D"(Delete) with "I"(Insert).
+                ''
+                If (Me.OperationType <> "D"c) Then Debugger.Break()
+                .OperationType = "I" '' "I"(Insert) is the Undo-ing of "D"(Delete)
 
             ElseIf (Me.MovedRangeStart IsNot Nothing) Then
-
+                ''
+                ''OperationType "M" (Move) is the likely input.
+                ''
+                ''OperationType - Undo " M"(Move) with another "M"(Move).
+                ''
+                If (Me.OperationType <> "M"c) Then Debugger.Break()
                 .OperationType = "M" '' M for Move.
 
                 ''Per //, the Move-Paste(Insert) operation will leverage the Anchor properties. 
@@ -247,14 +285,21 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''
                 ''The "L"("Prior")-suffix side, i.e. "ItemPrior" (Column to the L(Left)) side. 
                 ''
-                Dim tempControlL_PC As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-                Dim tempControlL_PP As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-                tempControlL_PC = Me.GetMoveRangeItemPrior_PreCut()
-                tempControlL_PP = Me.GetMoveRangeItemPrior_PostPaste()
-                Me.SetMoveRangeItemPrior_PreCut(tempControlL_PP) ''Reverse P.C. with P.P.
-                Me.SetMoveRangeItemPrior_PostPaste(tempControlL_PC) ''Reverse P.P. with P.C.
-                tempControlL_PP = Nothing ''Clear it, not needed now.
-                tempControlL_PC = Nothing ''Clear it, not needed now.
+                Dim tempControlLeft_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                Dim tempControlLeft_PostPaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+
+                ''
+                tempControlLeft_PreCut = Me.GetMoveRangeItemPrior_PreCut()
+                tempControlLeft_PostPaste = Me.GetMoveRangeItemPrior_PostPaste()
+
+                ''
+                ''---- DIFFICULT AND CONFUSING-----
+                ''Next, we perform the "Undo Switcheroo" (LOL)
+                ''
+                Me.SetMoveRangeItemPrior_PreCut(tempControlLeft_PostPaste) ''Reverse P.C. with P.P.
+                Me.SetMoveRangeItemPrior_PostPaste(tempControlLeft_PreCut) ''Reverse P.P. with P.C.
+                tempControlLeft_PostPaste = Nothing ''Clear it, not needed now.
+                tempControlLeft_PreCut = Nothing ''Clear it, not needed now.
 
                 ''
                 ''The "R"("Next")-suffix side, i.e. "Righthand" ("ItemNext") (Column to the Right) side. 
@@ -263,8 +308,12 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 Dim tempControlR_PP As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
                 tempControlR_PC = Me.GetMoveRangeItemNext_PreCut()
                 tempControlR_PP = Me.GetMoveRangeItemNext_PostPaste()
-                Me.SetMoveRangeItemNext_PreCut(tempControlR_PP) ''Reverse P.C. with P.P.
-                Me.SetMoveRangeItemNext_PostPaste(tempControlR_PC) ''Reverse P.P. with P.C.
+
+                ''---- DIFFICULT AND CONFUSING-----
+                ''Next, we perform the "Undo Switcheroo" (LOL)
+                ''
+                Me.SetMoveRangeItemNext_PreCut(tempControlR_PP) ''Undo (reversal)... Reverse P.C. with P.P.
+                Me.SetMoveRangeItemNext_PostPaste(tempControlR_PC) ''Undo (reversal)... Reverse P.P. with P.C.
                 tempControlR_PP = Nothing ''Clear it, not needed now.
                 tempControlR_PC = Nothing ''Clear it, not needed now.
 
@@ -868,22 +917,81 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''
         ''Added 12/28/2023 
         ''
+        Dim result As DLL_OperationV2 = Nothing
+
         Select Case Me.OperationType
 
             Case "D"c
-                ''Deletion
+                ''
+                ''Deletion of a range or item.
+                ''
                 If (Me.DeleteRangeStart IsNot Nothing) Then
-                    Return New DLL_OperationV2(Me.OperationType, Me.DeleteRangeStart, Me.DeleteCount,
-                                           Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
-                                           Me.IsChangeOfEndpoint)
+                    ''
+                    ''Deleting a range.
+                    ''
+                    result = New DLL_OperationV2(Me.OperationType, Me.DeleteRangeStart, Me.DeleteCount,
+                                                 Nothing, Nothing, Me.IsChangeOfEndpoint)
+                    ''                       Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
+                    ''                       Me.IsChangeOfEndpoint)
+
+                ElseIf (Me.DeleteItemSingly IsNot Nothing) Then
+                    ''
+                    ''Deleting an item.
+                    ''
+                    Const JUST_ONE As Integer = 1
+                    result = New DLL_OperationV2(Me.OperationType, Me.DeleteItemSingly, JUST_ONE,
+                                                 Nothing, Nothing, Me.IsChangeOfEndpoint)
+                    ''                       Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
+                    ''                       Me.IsChangeOfEndpoint)
+                Else
+                    Debugger.Break()
+
                 End If
 
+            Case "I"c
+                ''
+                ''Insertion of a range (of perhaps a count of 1 item?).
+                ''
+                If (Me.InsertRangeStart IsNot Nothing) Then
+                    ''
+                    ''Inserting a range.
+                    ''
+                    result = New DLL_OperationV2(Me.OperationType, Me.InsertRangeStart, Me.InsertCount,
+                                                Me.AnchorToPrecedeItemOrRange,
+                                                Me.AnchorToSucceedItemOrRange, Me.IsChangeOfEndpoint)
 
-        End Select
+                ElseIf (Me.InsertItemSingly IsNot Nothing) Then
+                    ''
+                    ''Inserting an item.
+                    ''
+                    Const JUST_ONE As Integer = 1
+                    result = New DLL_OperationV2(Me.OperationType, Me.InsertItemSingly, JUST_ONE,
+                                                 Me.AnchorToPrecedeItemOrRange,
+                                                 Me.AnchorToSucceedItemOrRange,
+                                                 Me.IsChangeOfEndpoint)
 
+                Else
+                    Debugger.Break()
 
+                End If ''End of ""If (Me.InsertRangeStart IsNot Nothing) Then... ElseIf... Else..."
 
-    End Function
+            Case "M"c
+                ''
+                ''Moving a range of items. 
+                ''
+                result = New DLL_OperationV2(Me.OperationType, Me.MovedRangeStart, Me.MovedCount,
+                                                Me.AnchorToPrecedeItemOrRange,
+                                                Me.AnchorToSucceedItemOrRange,
+                                                Me.IsChangeOfEndpoint)
+
+            Case Else
+                Debugger.Break()
+
+        End Select ''End of ""Select Case Me.OperationType""
+
+        Return result
+
+    End Function ''End of ""Public Function GetCopyV2() As DLL_OperationV2""
 
 
 
