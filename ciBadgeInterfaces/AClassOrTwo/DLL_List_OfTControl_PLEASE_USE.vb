@@ -390,7 +390,8 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         anchorHasItemNext = itemForAnchoring_ItemPriorToRange.DLL_HasNext()
         If (anchorHasItemNext) Then
             ''We are _NOT_ at the end of the list.
-            temp_itemNextToAnchor = itemForAnchoring_ItemPriorToRange.DLL_GetItemPrior()
+            ''temp_itemNextToAnchor = itemForAnchoring_ItemPriorToRange.DLL_GetItemPrior()
+            temp_itemNextToAnchor = itemForAnchoring_ItemPriorToRange.DLL_GetItemNext()
         Else
             ''
             ''We _ARE_ at the end of the list.
@@ -487,7 +488,8 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             ''Testing...
             If (bTesting) Then
                 Dim bMismatch As Boolean
-                bMismatch = (mod_dllControlLast IsNot itemForAnchoring_ItemNextToRange)
+                ''---bMismatch = (mod_dllControlLast IsNot itemForAnchoring_ItemNextToRange)
+                bMismatch = (mod_dllControlFirst IsNot itemForAnchoring_ItemNextToRange)
                 If (bMismatch) Then Debugger.Break()
             End If ''End of ""If (bTesting) Then""
 
@@ -665,39 +667,46 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         bDeletingListStartingPoint = itemToDeleteFirst.DLL_NotAnyPrior()
         bDeletingListEndingPoint = itemToDeleteLast.DLL_NotAnyNext() ''(itemToDeleteFirst Is mod_dllControlLast)
 
-        ''
-        ''Consider start of List 
+        ''-----------------------------------------------------------------------------------------
+        ''-------------------------------Step 1 of 4-----------------------------------------------
+        ''Step 1 of 4.  If possible, assign a reference to local var. itemPriorToDeleteRange.
         ''
         If (bDeletingListStartingPoint) Then
 
             If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
+
             ''Save the new starting list item. 
-            mod_dllControlFirst = itemFollowingDeleteRange ''itemToDeleteFirst
+            ''Moved below. 12/31/2023 mod_dllControlFirst = itemFollowingDeleteRange ''itemToDeleteFirst
 
         Else
             ''Hook together what comes BEFORE range & what comes AFTER range.
             itemPriorToDeleteRange = itemToDeleteFirst.DLL_GetItemPrior()
 
         End If ''End of ""If (bDeletingListStartpoint) Then... Else..."
+        ''-----------------------------------------------------------------------------------------
 
-        ''
-        ''Consider end of List 
+        ''-----------------------------------------------------------------------------------------
+        ''-------------------------------Step 2 of 4-----------------------------------------------
+        ''Step 2 of 4.  If possible, assign a reference to local var. itemFollowingDeleteRange.
         ''
         If (bDeletingListEndingPoint) Then
 
             '' We CANNOT hook together what comes BEFORE range to what comes AFTER, 
             ''   since NOTHING comes after. 
             If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
+
             ''Save the new final list item. 
-            mod_dllControlLast = itemPriorToDeleteRange ''itemToDeleteLast
+            ''Moved below. 12/31/2023 mod_dllControlLast = itemPriorToDeleteRange ''itemToDeleteLast
 
         Else
             itemFollowingDeleteRange = itemToDeleteLast.DLL_GetItemNext()
 
         End If ''End of ""If (bDeletingListStartpoint) Then... Else..."
+        ''-----------------------------------------------------------------------------------------
 
-        ''
-        ''Maintain start & end of list. 
+        ''-----------------------------------------------------------------------------------------
+        ''-------------------------------Step 3 of 4-----------------------------------------------
+        ''Step 3 of 4.  Maintain start & end of list. 
         ''
         If (bDeletingListStartingPoint And bDeletingListEndingPoint) Then
             ''The list is now empty of the one(1) item it had. 
@@ -707,9 +716,17 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ElseIf (bDeletingListStartingPoint) Then
             ''Save the new starting list item. 
             mod_dllControlFirst = itemFollowingDeleteRange ''itemToDelete
+            ''Clear the "Prior" reference, since
+            ''   there are not any "Prior" items... as
+            ''   they've been deleted.---12/31/2023
+            mod_dllControlFirst.DLL_ClearReferencePrior("D"c)
 
         ElseIf (bDeletingListEndingPoint) Then
             mod_dllControlLast = itemPriorToDeleteRange ''itemToDelete
+            ''Clear the "Next" reference, since
+            ''   there are not any "Prior" items... as
+            ''   they've been deleted.---12/31/2023
+            mod_dllControlLast.DLL_ClearReferenceNext("D"c)
 
         Else
             ''Added 12/28/2023 Thomas Downes 
@@ -723,9 +740,11 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             itemFollowingDeleteRange.DLL_SetItemPrior(itemPriorToDeleteRange)
 
         End If ''End of If (bDeletingStartOfList and bDeleting EndOfList) Then... Else...
+        ''-----------------------------------------------------------------------------------------
 
-        ''
-        ''Clean range-of-items endpoints!!
+        ''-----------------------------------------------------------------------------------------
+        ''-------------------------------Step 4 of 5-----------------------------------------------
+        ''Step 4 of 5. Clean range-of-items endpoints!!
         ''
         If (WE_CLEAN_RANGE_ENDPOINTS_ALWAYS) Then
 
@@ -733,9 +752,14 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             itemToDeleteLast.DLL_ClearReferenceNext("D"c)
 
         End If ''If (WE_CLEAN_RANGE_ENDPOINTS_ALWAYS) Then
+        ''-----------------------------------------------------------------------------------------
 
-        ''Added 12/19/2023
+        ''-----------------------------------------------------------------------------------------
+        ''-------------------------------Step 5 of 5-----------------------------------------------
+        ''Step 5 of 5.  Update the count of items.
+        '' 
         mod_intCountOfItems -= p_count_of_deleteds
+        ''-----------------------------------------------------------------------------------------
 
     End Sub ''End Public Sub DLL_DeleteRange
 

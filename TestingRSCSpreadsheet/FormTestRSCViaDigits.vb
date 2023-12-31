@@ -97,6 +97,8 @@ Public Class FormTestRSCViaDigits
                 each_twoChar = each_twoChar.DLL_GetItemNext
                 bDone = (each_twoChar Is Nothing)
                 intCountLoops += 1
+                ''If (intCountLoops > 2 * 30) Then Debugger.Break()
+                If (intCountLoops > 4 * INITIAL_ITEM_COUNT_30) Then Debugger.Break()
 
             Loop ''End of ""Do Until bDone""
             ''Next each_twoChar
