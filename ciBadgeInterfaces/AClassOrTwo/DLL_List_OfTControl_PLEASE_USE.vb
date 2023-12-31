@@ -947,12 +947,17 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Function ''End of ""Public Function DLL_CountAllItems()""
 
 
-    Public Function DLL_BuildListToIndex(index As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex_DEPRECATED(index As Integer) As TControl _
+           Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex_DEPRECATED
+        ''This is suffixed as _DEPRECATED.  --12/31/2023
         Throw New NotImplementedException()
     End Function
 
 
-    Public Function DLL_BuildListToIndex(index As Integer, ByRef count_of_new_items As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex_DEPRECATED(index As Integer,
+                         ByRef count_of_new_items As Integer) As TControl _
+           Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex_DEPRECATED
+        ''This is suffixed as _DEPRECATED.  --12/31/2023
         Throw New NotImplementedException()
     End Function
 

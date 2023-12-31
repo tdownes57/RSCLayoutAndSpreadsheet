@@ -111,6 +111,7 @@ Public Class TwoCharacterDLLItem
         Dim tempNext As TwoCharacterDLLItem = mod_next
         If (param_iterationsOfNext > 1) Then
             For index = 2 To param_iterationsOfNext
+                If (tempNext Is Nothing) Then Debugger.Break() ''12/31/2023
                 tempNext = tempNext.mod_next
             Next index
         End If ''End of ""If (param_iterationsOfNext > 1) Then""

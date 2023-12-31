@@ -67,6 +67,26 @@ Public Class FormTestRSCViaDigits
     End Sub ''end of ""Private Sub Form_Load""
 
 
+    Private Function GetFinalEndpointItem() As TwoCharacterDLLItem
+
+        ''Added 12/31/2023
+        Dim result As TwoCharacterDLLItem
+        ''result = mod_firstTwoChar.DLL_GetItemNext(mod_list.DLL_CountAllItems())
+        result = mod_list.DLL_GetLastItem()
+        Return result
+
+    End Function ''Private Function GetFinalEndpointItem()
+
+    Private Sub PrintFinalEndpointItem()
+
+        ''Added 12/31/2023
+        Dim final_item As TwoCharacterDLLItem
+        final_item = GetFinalEndpointItem()
+        LinkEndpoint.Text = final_item.ToString()
+
+    End Sub ''Private Sub PrintFinalEndpointItem()
+
+
     Private Function FillTheTextboxDisplayingList() As String
         ''
         ''Added 12/26/2023  
@@ -375,11 +395,15 @@ Public Class FormTestRSCViaDigits
 
             ElseIf (mod_firstTwoChar Is Nothing) Then
                 ''
+                ''Empty list !!!!
+                ''
                 ''Added 12/31/2023 thomas 
                 ''  We are populating an empty list, or as one might say,
                 ''  inserting a range into an empty list. 
                 ''
                 mod_list.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+                ''Be sure to save the first item.
+                mod_firstTwoChar = mod_list.DLL_GetFirstItem()
 
             End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... ElseIf... Else..."
 
@@ -476,6 +500,13 @@ Public Class FormTestRSCViaDigits
 
         ''Added 12/26/2023 td
         UserControlOperation1.ToggleSingleItemMode()
+
+    End Sub
+
+    Private Sub LinkEndpointHeading_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkEndpointHeading.LinkClicked
+
+        ''Added 12/31/2023
+        UserControlOperation1.ToggleFinalEndpointItemMode()
 
     End Sub
 End Class

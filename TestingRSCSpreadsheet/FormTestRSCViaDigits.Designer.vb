@@ -31,8 +31,10 @@ Partial Class FormTestRSCViaDigits
         ButtonReDo = New Button()
         ButtonUndo = New Button()
         LabelNumOperations = New Label()
-        UserControlOperation1 = New UserControlOperation()
+        UserControlOperation1 = New V()
         LinkSingleItemOnly = New LinkLabel()
+        LinkEndpointHeading = New LinkLabel()
+        LinkEndpoint = New LinkLabel()
         SuspendLayout()
         ' 
         ' LabelHeader1
@@ -56,7 +58,7 @@ Partial Class FormTestRSCViaDigits
         ' LabelBenchmark
         ' 
         LabelBenchmark.BorderStyle = BorderStyle.FixedSingle
-        LabelBenchmark.Location = New Point(12, 97)
+        LabelBenchmark.Location = New Point(35, 92)
         LabelBenchmark.Name = "LabelBenchmark"
         LabelBenchmark.Size = New Size(598, 24)
         LabelBenchmark.TabIndex = 2
@@ -66,7 +68,7 @@ Partial Class FormTestRSCViaDigits
         ' LabelItemsDisplay
         ' 
         LabelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
-        LabelItemsDisplay.Location = New Point(35, 121)
+        LabelItemsDisplay.Location = New Point(58, 116)
         LabelItemsDisplay.Name = "LabelItemsDisplay"
         LabelItemsDisplay.Size = New Size(595, 24)
         LabelItemsDisplay.TabIndex = 3
@@ -121,7 +123,7 @@ Partial Class FormTestRSCViaDigits
         ' UserControlOperation1
         ' 
         UserControlOperation1.BackColor = SystemColors.ActiveCaption
-        UserControlOperation1.Location = New Point(39, 158)
+        UserControlOperation1.Location = New Point(58, 166)
         UserControlOperation1.Name = "UserControlOperation1"
         UserControlOperation1.Size = New Size(649, 448)
         UserControlOperation1.TabIndex = 34
@@ -129,18 +131,40 @@ Partial Class FormTestRSCViaDigits
         ' LinkSingleItemOnly
         ' 
         LinkSingleItemOnly.AutoSize = True
-        LinkSingleItemOnly.Location = New Point(280, 77)
+        LinkSingleItemOnly.Location = New Point(544, 148)
         LinkSingleItemOnly.Name = "LinkSingleItemOnly"
         LinkSingleItemOnly.Size = New Size(140, 15)
         LinkSingleItemOnly.TabIndex = 62
         LinkSingleItemOnly.TabStop = True
         LinkSingleItemOnly.Text = "Toggle Single-Item Mode"
         ' 
+        ' LinkEndpointHeading
+        ' 
+        LinkEndpointHeading.AutoSize = True
+        LinkEndpointHeading.Location = New Point(459, 77)
+        LinkEndpointHeading.Name = "LinkEndpointHeading"
+        LinkEndpointHeading.Size = New Size(126, 15)
+        LinkEndpointHeading.TabIndex = 63
+        LinkEndpointHeading.TabStop = True
+        LinkEndpointHeading.Text = "Use Final Endpoint......."
+        ' 
+        ' LinkEndpoint
+        ' 
+        LinkEndpoint.AutoSize = True
+        LinkEndpoint.Location = New Point(591, 77)
+        LinkEndpoint.Name = "LinkEndpoint"
+        LinkEndpoint.Size = New Size(19, 15)
+        LinkEndpoint.TabIndex = 64
+        LinkEndpoint.TabStop = True
+        LinkEndpoint.Text = "30"
+        ' 
         ' FormTestRSCViaDigits
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(763, 641)
+        Controls.Add(LinkEndpoint)
+        Controls.Add(LinkEndpointHeading)
         Controls.Add(LinkSingleItemOnly)
         Controls.Add(UserControlOperation1)
         Controls.Add(LabelNumOperations)
@@ -167,7 +191,9 @@ Partial Class FormTestRSCViaDigits
     Friend WithEvents ButtonReDo As Button
     Friend WithEvents ButtonUndo As Button
     Friend WithEvents LabelNumOperations As Label
-    Friend WithEvents UserControlOperation1 As UserControlOperation
+    Friend WithEvents UserControlOperation1 As V
     Friend WithEvents LinkSingleItemOnly As LinkLabel
+    Friend WithEvents LinkEndpointHeading As LinkLabel
+    Friend WithEvents LinkEndpoint As LinkLabel
 
 End Class

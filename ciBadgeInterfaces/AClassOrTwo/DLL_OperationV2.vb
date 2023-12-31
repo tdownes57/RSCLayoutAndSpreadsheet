@@ -70,7 +70,8 @@ Public Class DLL_OperationV2
                    p_intCountOfItems As Integer,
                    p_anchorFinalPrior As IDoublyLinkedItem,
                    Optional p_anchorFinalNext As IDoublyLinkedItem = Nothing,
-                   Optional p_forEitherEndpoint As Boolean = False)
+                   Optional p_forEitherEndpoint As Boolean = False,
+                   Optional p_fillingEmptyList As Boolean = False)
         ''
         ''Added 12/7/2023  
         ''

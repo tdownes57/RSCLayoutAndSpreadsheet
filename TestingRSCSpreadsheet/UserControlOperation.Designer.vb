@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class UserControlOperation
+Partial Class V
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -54,6 +54,12 @@ Partial Class UserControlOperation
         LabelBenchmarkVsIndex = New Label()
         Label1 = New Label()
         ListBox1 = New ListBox()
+        LinkDeleteToEndpoint = New LinkLabel()
+        LinkMovRangrToEndpoint = New LinkLabel()
+        checkDeleteToEndpoint = New CheckBox()
+        checkMoveRangeExpandsToEndpoint = New CheckBox()
+        LinkUndoDelete = New LinkLabel()
+        LinkUndoMove = New LinkLabel()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeStartBenchmark, ComponentModel.ISupportInitialize).BeginInit()
@@ -65,7 +71,7 @@ Partial Class UserControlOperation
         ' 
         ' buttonMoveItems
         ' 
-        buttonMoveItems.Location = New Point(325, 356)
+        buttonMoveItems.Location = New Point(499, 353)
         buttonMoveItems.Name = "buttonMoveItems"
         buttonMoveItems.Size = New Size(133, 39)
         buttonMoveItems.TabIndex = 57
@@ -74,7 +80,7 @@ Partial Class UserControlOperation
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(274, 180)
+        buttonDelete.Location = New Point(499, 159)
         buttonDelete.Name = "buttonDelete"
         buttonDelete.Size = New Size(133, 39)
         buttonDelete.TabIndex = 56
@@ -184,9 +190,9 @@ Partial Class UserControlOperation
         Label9.AutoSize = True
         Label9.Location = New Point(13, 198)
         Label9.Name = "Label9"
-        Label9.Size = New Size(120, 15)
+        Label9.Size = New Size(164, 15)
         Label9.TabIndex = 43
-        Label9.Text = "How many list items?"
+        Label9.Text = "How many list items? (Count)"
         ' 
         ' Label10
         ' 
@@ -315,7 +321,7 @@ Partial Class UserControlOperation
         ' LinkDeleteRandomize
         ' 
         LinkDeleteRandomize.AutoSize = True
-        LinkDeleteRandomize.Location = New Point(274, 222)
+        LinkDeleteRandomize.Location = New Point(359, 183)
         LinkDeleteRandomize.Name = "LinkDeleteRandomize"
         LinkDeleteRandomize.Size = New Size(134, 15)
         LinkDeleteRandomize.TabIndex = 61
@@ -325,7 +331,7 @@ Partial Class UserControlOperation
         ' LinkMoveRandomize
         ' 
         LinkMoveRandomize.AutoSize = True
-        LinkMoveRandomize.Location = New Point(464, 379)
+        LinkMoveRandomize.Location = New Point(359, 377)
         LinkMoveRandomize.Name = "LinkMoveRandomize"
         LinkMoveRandomize.Size = New Size(131, 15)
         LinkMoveRandomize.TabIndex = 62
@@ -361,11 +367,79 @@ Partial Class UserControlOperation
         ListBox1.Size = New Size(141, 34)
         ListBox1.TabIndex = 65
         ' 
-        ' UserControlOperation
+        ' LinkDeleteToEndpoint
+        ' 
+        LinkDeleteToEndpoint.AutoSize = True
+        LinkDeleteToEndpoint.Location = New Point(264, 204)
+        LinkDeleteToEndpoint.Name = "LinkDeleteToEndpoint"
+        LinkDeleteToEndpoint.Size = New Size(201, 15)
+        LinkDeleteToEndpoint.TabIndex = 66
+        LinkDeleteToEndpoint.TabStop = True
+        LinkDeleteToEndpoint.Text = "Bypass Count--Delete Until Endpoint"
+        LinkDeleteToEndpoint.Visible = False
+        ' 
+        ' LinkMovRangrToEndpoint
+        ' 
+        LinkMovRangrToEndpoint.AutoSize = True
+        LinkMovRangrToEndpoint.Location = New Point(313, 294)
+        LinkMovRangrToEndpoint.Name = "LinkMovRangrToEndpoint"
+        LinkMovRangrToEndpoint.Size = New Size(253, 15)
+        LinkMovRangrToEndpoint.TabIndex = 67
+        LinkMovRangrToEndpoint.TabStop = True
+        LinkMovRangrToEndpoint.Text = "Bypass Count--Move Range Includes Endpoint"
+        LinkMovRangrToEndpoint.Visible = False
+        ' 
+        ' checkDeleteToEndpoint
+        ' 
+        checkDeleteToEndpoint.AutoSize = True
+        checkDeleteToEndpoint.Location = New Point(268, 204)
+        checkDeleteToEndpoint.Name = "checkDeleteToEndpoint"
+        checkDeleteToEndpoint.Size = New Size(283, 19)
+        checkDeleteToEndpoint.TabIndex = 68
+        checkDeleteToEndpoint.Text = "Bypass Count--Delete range extends to Endpoint"
+        checkDeleteToEndpoint.UseVisualStyleBackColor = True
+        ' 
+        ' checkMoveRangeExpandsToEndpoint
+        ' 
+        checkMoveRangeExpandsToEndpoint.AutoSize = True
+        checkMoveRangeExpandsToEndpoint.Location = New Point(316, 293)
+        checkMoveRangeExpandsToEndpoint.Name = "checkMoveRangeExpandsToEndpoint"
+        checkMoveRangeExpandsToEndpoint.Size = New Size(280, 19)
+        checkMoveRangeExpandsToEndpoint.TabIndex = 69
+        checkMoveRangeExpandsToEndpoint.Text = "Bypass Count--Move range extends to Endpoint"
+        checkMoveRangeExpandsToEndpoint.UseVisualStyleBackColor = True
+        ' 
+        ' LinkUndoDelete
+        ' 
+        LinkUndoDelete.AutoSize = True
+        LinkUndoDelete.Location = New Point(557, 201)
+        LinkUndoDelete.Name = "LinkUndoDelete"
+        LinkUndoDelete.Size = New Size(72, 15)
+        LinkUndoDelete.TabIndex = 70
+        LinkUndoDelete.TabStop = True
+        LinkUndoDelete.Text = "Undo Delete"
+        ' 
+        ' LinkUndoMove
+        ' 
+        LinkUndoMove.AutoSize = True
+        LinkUndoMove.Location = New Point(546, 395)
+        LinkUndoMove.Name = "LinkUndoMove"
+        LinkUndoMove.Size = New Size(69, 15)
+        LinkUndoMove.TabIndex = 71
+        LinkUndoMove.TabStop = True
+        LinkUndoMove.Text = "Undo Move"
+        ' 
+        ' V
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
+        Controls.Add(LinkUndoMove)
+        Controls.Add(LinkUndoDelete)
+        Controls.Add(checkMoveRangeExpandsToEndpoint)
+        Controls.Add(checkDeleteToEndpoint)
+        Controls.Add(LinkMovRangrToEndpoint)
+        Controls.Add(LinkDeleteToEndpoint)
         Controls.Add(ListBox1)
         Controls.Add(Label1)
         Controls.Add(LabelBenchmarkVsIndex)
@@ -398,7 +472,7 @@ Partial Class UserControlOperation
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertHowMany)
         Controls.Add(numInsertAnchorBenchmark)
-        Name = "UserControlOperation"
+        Name = "V"
         Size = New Size(646, 445)
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         CType(numMoveRangeHowMany, ComponentModel.ISupportInitialize).EndInit()
@@ -443,5 +517,11 @@ Partial Class UserControlOperation
     Friend WithEvents LabelBenchmarkVsIndex As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents LinkDeleteToEndpoint As LinkLabel
+    Friend WithEvents LinkMovRangrToEndpoint As LinkLabel
+    Friend WithEvents checkDeleteToEndpoint As CheckBox
+    Friend WithEvents checkMoveRangeExpandsToEndpoint As CheckBox
+    Friend WithEvents LinkUndoDelete As LinkLabel
+    Friend WithEvents LinkUndoMove As LinkLabel
 
 End Class

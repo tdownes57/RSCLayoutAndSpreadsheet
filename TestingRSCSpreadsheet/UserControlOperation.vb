@@ -4,7 +4,7 @@ Imports ciBadgeSerialize
 ''' <summary>
 ''' This will allow the user to create DLLOperations.
 ''' </summary>
-Public Class UserControlOperation
+Public Class V
 
     Public DLLOperation As DLL_OperationV2
     Public DLL_List As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
@@ -47,6 +47,18 @@ Public Class UserControlOperation
     Public Event DLLOperationCreated_MoveRange(par_operation As DLL_OperationV1,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+
+
+    Public Sub ToggleFinalEndpointItemMode()
+        ''
+        ''Added 12/31/2023 thomas downes
+        ''
+        Static stat_bMode As Boolean = False
+        stat_bMode = Not stat_bMode
+        checkDeleteToEndpoint.Checked = stat_bMode
+        checkMoveRangeExpandsToEndpoint.Checked = stat_bMode
+
+    End Sub ''Public Sub ToggleFinalEndpointItemMode()
 
 
     Public Sub ToggleSingleItemMode()
@@ -130,12 +142,14 @@ Public Class UserControlOperation
         Dim bAnchorAtStartingPoint As Boolean ''Added 12/27/2023 td
         Dim bAnchorAtEndingPoint As Boolean ''Added 12/27/2023 td
         Dim bChangeOfEitherEndPoint As Boolean
+        Dim bLikelyFillingEmptyList As Boolean ''Added 12/31/2023 td
 
         ''Added 12/27/2023 td
         bAnchorAtStartingPoint = (indexOfAnchor = 0)
         bAnchorAtEndingPoint = (indexOfAnchor = -1 + DLL_List.DLL_CountAllItems())
         bChangeOfEitherEndPoint = (bAnchorAtEndingPoint And bAfter_LetsInsertRangeAfterAnchor) Or
               (bAnchorAtStartingPoint And bBefore_LetsInsertRangeBeforeAnchor)
+        bLikelyFillingEmptyList = (Me.DLL_List.DLL_IsListEmpty())
 
         anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
 
@@ -157,7 +171,16 @@ Public Class UserControlOperation
         Else
             ''12/2023 objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
             ''            intHowManyItemsToInsert, anchorItem)
-            If (bAfter_LetsInsertRangeAfterAnchor) Then
+            If (bLikelyFillingEmptyList) Then
+                ''
+                ''Added 12/31/2023 thomas downes
+                ''
+                bChangeOfEitherEndPoint = True
+                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
+                          intHowManyItemsToInsert, anchorItem, Nothing,
+                          bChangeOfEitherEndPoint, bLikelyFillingEmptyList)
+
+            ElseIf (bAfter_LetsInsertRangeAfterAnchor) Then
                 ''
                 ''                Insert A B C after 7, as 7 is the preceding anchor. (7, then three(3) items.)
                 ''                       |
@@ -165,8 +188,8 @@ Public Class UserControlOperation
                 '' Result:  1 2 3 4 5 6 7_A_B_C_8 9 10
                 ''
                 objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
-                      intHowManyItemsToInsert, anchorItem, Nothing,
-                      bChangeOfEitherEndPoint)
+                          intHowManyItemsToInsert, anchorItem, Nothing,
+                          bChangeOfEitherEndPoint)
 
             ElseIf (bBefore_LetsInsertRangeBeforeAnchor) Then
                 ''
