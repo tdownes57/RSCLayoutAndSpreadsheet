@@ -266,8 +266,8 @@ Public Class UserControlOperation
         Dim intHowManyItemsToMove As Integer
         Dim indexOfAnchor As Integer
         Dim anchorItem As TwoCharacterDLLItem
-        Dim anchorItem_ToBePriorToRange As TwoCharacterDLLItem ''Added 12/23/2023
-        Dim anchorItem_ToFollowRange As TwoCharacterDLLItem ''Added 12/23/2023
+        Dim anchorItem_ToBePriorToRange As TwoCharacterDLLItem = Nothing ''Added 12/23/2023
+        Dim anchorItem_ToFollowRange As TwoCharacterDLLItem = Nothing ''Added 12/23/2023
         Dim bLetsInsertRangeBeforeAnchor As Boolean ''Added 12/23/2023
         Dim bLetsInsertRangeAfterAnchor As Boolean ''Added 12/23/2023
 
@@ -295,7 +295,9 @@ Public Class UserControlOperation
 
         '' "M" for "Move"
         objDLLOperation = New DLL_OperationV2("M"c, firstRangeItem,
-                intHowManyItemsToMove, Nothing, Nothing)
+                intHowManyItemsToMove,
+                anchorItem_ToBePriorToRange,
+                anchorItem_ToFollowRange) ''Nothing, Nothing)
 
         ''//inverse_anchorItem = objDLLOperation.
 
@@ -335,14 +337,24 @@ Public Class UserControlOperation
         Dim valuesTwoChar = textInsertListOfValuesCSV.Text.Split(" "c)
         Dim bCountMatches As Boolean
         Dim bMultipleTwoDigits As Boolean
+        Dim bOnlyOneInsertValue As Boolean ''added 12/30/2023
 
         bMultipleTwoDigits = (1 < valuesTwoChar.Length)
         bCountMatches = (pintHowManyItemsToInsert = valuesTwoChar.Length)
         If (Not bCountMatches) Then
-            strMessage = String.Format("The count of Two-Digit pairs is {0} not {1}.",
+
+            bOnlyOneInsertValue = (1 = valuesTwoChar.Length) ''added 12/30/2023
+            If (bOnlyOneInsertValue) Then ''added 12/30/2023
+                ''
+                ''We will repeat the value for every inserted item. 12/30/2023
+                ''
+            Else
+                strMessage = String.Format("The count of Two-Digit pairs is {0} not {1}.",
                  valuesTwoChar.Length, pintHowManyItemsToInsert)
-            MessageBox.Show(strMessage & vbCrLf & "Nothing to be done.")
-            Return Nothing '' Exit Function
+                MessageBox.Show(strMessage & vbCrLf & "Nothing to be done.")
+                Return Nothing '' Exit Function
+
+            End If ''ENd of "":If (bOnlyOneInsertValue) Then... Else..."
 
         End If ''End of ""If (Not bCountMatches) Then""
 
@@ -363,7 +375,7 @@ Public Class UserControlOperation
                 each_twoChars = valuesTwoChar(index)
             Else
                 each_twoChars = textInsertListOfValuesCSV.Text.Trim()
-            End If
+            End If ''end of ""If (bMultipleTwoDigits) Then...Else..."
 
             each_item = New TwoCharacterDLLItem(each_twoChars, Nothing)
 

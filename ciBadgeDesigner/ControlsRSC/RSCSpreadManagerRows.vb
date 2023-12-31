@@ -57,6 +57,14 @@ Public Class RSCSpreadManagerRows
     End Function ''End of ""Public Function GetListOfRecipients() As List(Of ClassRecipient)"" 
 
 
+    Public Function GetFirstRowHeader() As RSCRowHeader
+
+        ''Added 12/30/2023
+        Return mod_rowHeadersRSCCtl.GetFirstTextbox()
+
+    End Function ''End of ""Public Function GetFirstRowHeader() As RSCRowHeader""
+
+
     Public Sub AddToEdgeOfSpreadsheet_Row()
         ''4/2022 Public Sub AddRowToBottomOfSpreadsheet() 
 

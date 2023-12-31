@@ -658,6 +658,35 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function
 
 
+    ''' <summary>
+    ''' Get item following a range (if the implicit parameter is the first item in a range). Sometimes we need the Item which follows the Range, to prepare for a possible Undo.
+    ''' </summary>
+    ''' <param name="param_rangeSize">This is the item-count of the range, or size of the range.</param>
+    ''' <returns>The first item which follows the range.</returns>
+    Public Function DLL_GetNextItemFollowingRange(param_rangeSize As Integer, param_mayBeNull As Boolean) As IDoublyLinkedItem _
+        Implements IDoublyLinkedItem.DLL_GetNextItemFollowingRange
+
+        ''Added 12/30/2023 
+        ''---DIFFICULT AND CONFUSING---
+        ''  By CS-related rules of iteration, by moving ahead
+        ''  a number of jumps equal to the item-count of the range,
+        ''  we get the first post-range item.
+        ''                  ---12/30/2023 tdownes
+        ''12/2023 Return DLL_GetItemNext(param_rangeSize)
+
+        Dim result As IDoublyLinkedItem
+        result = DLL_GetItemNext(param_rangeSize)
+
+        ''Check for Nulls!
+        If ((Not param_mayBeNull) AndAlso result Is Nothing) Then
+            Debugger.Break()
+        End If
+
+        Return result
+
+    End Function ''DLL_GetNextItemFollowingRange
+
+
     ''
     ''Important, check for equality.
     ''

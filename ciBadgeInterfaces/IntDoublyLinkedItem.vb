@@ -54,4 +54,20 @@ Public Interface IDoublyLinkedItem
     Sub DLL_ClearReferencePrior(par_typeOp As Char)
     Sub DLL_ClearReferenceNext(par_typeOp As Char)
 
+    ''Added 12/30/2023 
+    ''---DIFFICULT AND CONFUSING---
+    ''  By CS-related rules of iteration, by moving ahead
+    ''  a number of jumps equal to the item-count of the range,
+    ''  we get the first post-range item.
+    ''  ---12/30/2023
+    ''
+    ''' <summary>
+    ''' Get item following a range (if the implicit parameter is the first item in a range). Sometimes we need the Item which follows the Range, to prepare for a possible Undo.
+    ''' </summary>
+    ''' <param name="param_rangeSize">This is the item-count of the range, or size of the range.</param>
+    ''' <returns>The first item which follows the range.</returns>
+    Function DLL_GetNextItemFollowingRange(param_rangeSize As Integer,
+                                           param_mayBeNull As Boolean) As IDoublyLinkedItem
+
+
 End Interface

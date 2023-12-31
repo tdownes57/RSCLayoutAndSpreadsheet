@@ -548,27 +548,47 @@ Public Class RSCFieldSpreadsheet
         ''
         ''Added 8/29/2023 thomas d
         ''
-        Dim listRowHeaders0of2 As RSCRowHeaders
+        ''12/2023 Dim listRowHeaders0of2 As RSCRowHeaders
         Dim listRowHeaders1of2 As RSCSpreadManagerRowheaders
-        Dim listRowHeaders2of2 As List(Of RSCRowHeader)
+        ''12/2023 Dim listRowHeaders2of2 As List(Of RSCRowHeader)
         Dim each_recipient As ClassRecipient ''Added 8/29/2023
         Dim intCountRecips As Integer = 0
         Dim intCountNothings As Integer = 0
 
-        listRowHeaders1of2 = mod_managerRowsCols.RowHeaders
-        listRowHeaders2of2 = RscRowHeaders1.ListOfRowHeaders_TopToBottom
+        ''12/30/2023 listRowHeaders1of2 = mod_managerRowsCols.RowHeaders
+        ''12/30/2023 listRowHeaders2of2 = RscRowHeaders1.ListOfRowHeaders_TopToBottom
+        ''12/30/2023 For Each each_rowHdr As RSCRowHeader In listRowHeaders1of2 ''12/2023 listRowHeaders2of2
+        ''    ''Added 8/29/2023
+        ''    each_recipient = each_rowHdr.GetRecipient()
+        ''    If (each_recipient Is Nothing) Then
+        ''        intCountNothings += 1
+        ''    Else
+        ''        intCountRecips += 1
+        ''        ''Major call!
+        ''        ShowRecipientsIDCard(each_recipient)
+        ''    End If
+        ''Next each_rowHdr
 
-        For Each each_rowHdr As RSCRowHeader In listRowHeaders2of2
+        Dim firstRowHeader As RSCRowHeader
+        firstRowHeader = mod_managerRowsCols.GetSpreadManagerRows.GetFirstRowHeader()
+        Dim eachRowHeader As RSCRowHeader = firstRowHeader
+        While (eachRowHeader IsNot Nothing)
             ''Added 8/29/2023
-            each_recipient = each_rowHdr.GetRecipient()
+            each_recipient = eachRowHeader.GetRecipient()
             If (each_recipient Is Nothing) Then
                 intCountNothings += 1
             Else
                 intCountRecips += 1
+                ''Major call!
                 ShowRecipientsIDCard(each_recipient)
             End If
+            ''Prepare iteration
+            eachRowHeader = CType(eachRowHeader.DLL_GetItemNext(), RSCRowHeader)
+        End While ''While (eachRowHeader IsNot Nothing)
 
-        Next each_rowHdr
+        ''Proposed alternative to above loop!! --12/30/2023 
+        ''  ("For Each each_rowHdr As RSCRowHeader In listRowHeaders1of2")
+        ''-----mod_managerRowsCols.ShowRecipientsIDCard_All()
 
         ''Inform the user of the counts. 
         If (intCountRecips = 0) Then
@@ -1268,14 +1288,14 @@ Public Class RSCFieldSpreadsheet
         ''
         ''3/25/2022 td''RscRowHeaders1.AlignControlsWithSpreadsheet()
         ''4/09/2022 td''Dim listBoxesColumn As List(Of TextBox)
-        Dim listBoxesColumn As List(Of RSCDataCell)
+        ''Perhaps unneeded. 12/2023 Dim listBoxesColumn As List(Of RSCDataCell)
         ''4/5/2022 Dim listBoxesRowHeader As List(Of TextBox)
         ''4/6/2022 Dim listBoxesRowHeader As List(Of Label)
-        Dim listBoxesRowHeader As List(Of RSCRowHeader)
+        ''Perhaps unneeded. 12/2023 Dim listBoxesRowHeader As List(Of RSCRowHeader)
 
         ''4/09/2022 td ''listBoxesColumn = RscFieldColumn1.ListOfTextBoxes_TopToBottom()
-        listBoxesColumn = RscFieldColumn1.ListOfRSCDataCells_TopToBottom()
-        listBoxesRowHeader = RscRowHeaders1.ListOfRowHeaders_TopToBottom()
+        ''Perhaps unneeded. 12/2023 listBoxesColumn = RscFieldColumn1.ListOfRSCDataCells_TopToBottom()
+        ''Perhaps unneeded. 12/2023 listBoxesRowHeader = RscRowHeaders1.ListOfRowHeaders_TopToBottom()
 
         ''March25 2022''RscRowHeaders1.AlignControlsWithSpreadsheet(listBoxesColumn)
         RscRowHeaders1.AlignControlsWithSpreadsheet(RscFieldColumn1)

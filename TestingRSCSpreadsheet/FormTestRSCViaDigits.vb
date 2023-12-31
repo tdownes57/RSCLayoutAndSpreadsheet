@@ -318,17 +318,34 @@ Public Class FormTestRSCViaDigits
             ''                                .GetAnchor_precedingRange(),
             ''                                False)
             If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then
-                ''Insert operational item(s) AFTER anchoring item.
+                ''
+                ''Option #1 of 2.  Insert operational item(s) AFTER anchoring item.
                 ''
                 ''                Insert A after 7, the preceding anchor.
                 ''                       |
                 ''          1 2 3 4 5 6 7 8 9 10
                 '' Result:  1 2 3 4 5 6 7 A 8 9 10
                 ''
-                mod_list.DLL_InsertOneItemAfter(.InsertItemSingly,
+                If (.InsertItemSingly IsNot Nothing) Then
+                    ''Insert a single item. 
+                    mod_list.DLL_InsertOneItemAfter(.InsertItemSingly,
                                             .AnchorToPrecedeItemOrRange,
                                             .IsChangeOfEndpoint) ''False)
+
+                ElseIf (.InsertRangeStart IsNot Nothing) Then
+                    ''Insert a range of items. 
+                    mod_list.DLL_InsertRangeAfter(.InsertRangeStart, .InsertCount,
+                                            .AnchorToPrecedeItemOrRange,
+                                            .IsChangeOfEndpoint) ''False)
+                Else
+                    Debugger.Break()
+
+                End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
+
             Else
+                ''
+                ''Option #2 of 2. Insert BEFORE anchoring item. 
+                ''
                 ''Insert operational item(s) BEFORE anchoring item.
                 ''
                 ''            Insert x before 6, the terminating anchor.
@@ -336,9 +353,21 @@ Public Class FormTestRSCViaDigits
                 ''          1 2 3 4 5 6 7 8 9 10
                 '' Result:  1 2 3 4 5 x 6 7 8 9 10
                 ''
-                mod_list.DLL_InsertOneItemBefore(.InsertItemSingly,
+                If (.InsertItemSingly IsNot Nothing) Then
+                    ''Insert a single item. 
+                    mod_list.DLL_InsertOneItemBefore(.InsertItemSingly,
                                             .AnchorToSucceedItemOrRange,
                                             .IsChangeOfEndpoint) ''False))
+
+                ElseIf (.InsertRangeStart IsNot Nothing) Then
+                    ''Insert a range of items. 
+                    mod_list.DLL_InsertRangeBefore(.InsertRangeStart, .InsertCount,
+                                            .AnchorToSucceedItemOrRange,
+                                            .IsChangeOfEndpoint) ''False)
+                Else
+                    Debugger.Break()
+
+                End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
             End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... Else..."
 
@@ -355,7 +384,7 @@ Public Class FormTestRSCViaDigits
         ''
         RefreshTheUI_DisplayList()
 
-    End Sub
+    End Sub ''End of "Private Sub DLLOperationCreated_Insert"
 
 
     Private Sub UserControlOperation1_DLLOperationCreated_MoveRange(par_operation As DLL_OperationV1,
@@ -367,6 +396,60 @@ Public Class FormTestRSCViaDigits
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
+        With par_operation
+            ''
+            ''Step 1 of 2.  Cut (via "Delete") the range from the list. 
+            ''
+            mod_list.DLL_DeleteRange(.MovedRangeStart, .MovedCount,
+                                            .IsChangeOfEndpoint) ''False)
+
+            ''Added 12/30/2023 td
+            If (Testing.TestingByDefault) Then
+                ''Test that the ends are CLEAN OF REFERENCES.
+                Dim firstItem As IDoublyLinkedItem = .MovedRangeStart
+                Dim lastItem As IDoublyLinkedItem = .MovedRangeStart.DLL_GetItemNext(-1 + .MovedCount)
+                ''Test that the ends are CLEAN OF REFERENCES.
+                If (firstItem.DLL_HasPrior()) Then Debugger.Break()
+                If (lastItem.DLL_HasNext()) Then Debugger.Break()
+            End If ''End of ""If (Testing.TestingByDefault) Then""
+
+            ''
+            ''Step 2 of 2.  Paste (via "Insert") the range into the list. 
+            ''
+            If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then
+                ''Move operational item(s) AFTER anchoring item.
+                ''
+                ''                  Move 2_3_4 after 7, the preceding anchor.
+                ''                       |
+                ''          1 2_3_4 5 6 7 8 9 10
+                '' Result:  1 5 6 7 2_3_4 8 9 10   <<< Note that 2_3_4 has been moved.
+                ''
+
+                mod_list.DLL_InsertRangeAfter(.MovedRangeStart, .MovedCount,
+                                            .AnchorToPrecedeItemOrRange,
+                                            .IsChangeOfEndpoint) ''False)
+
+            Else
+                ''Move operational item(s) BEFORE anchoring item.
+                ''
+                ''              Move 2_3_4 before 6, the terminating anchor.
+                ''                   |
+                ''          1 2_3_4 5 6 7 8 9 10
+                '' Result:  1 5 2_3_4 6 7 8 9 10
+                ''
+                mod_list.DLL_InsertRangeBefore(.MovedRangeStart, .MovedCount,
+                                            .AnchorToSucceedItemOrRange,
+                                            .IsChangeOfEndpoint) ''False))
+
+            End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... Else..."
+
+            ''Added 12/28/2023
+            If (.IsChangeOfEndpoint) Then
+                ''In the 50% chance the starting item is affected...
+                mod_firstTwoChar = mod_list.DLL_GetFirstItem()
+            End If ''End of ""If (.IsChangeOfEndpoint) Then""
+
+        End With ''End of ""With par_operation""
 
         ''Populate the UI. 
         ''Dim strListOfLinks As String
@@ -374,7 +457,8 @@ Public Class FormTestRSCViaDigits
         ''LabelItemsDisplay.Text = strListOfLinks
         RefreshTheUI_DisplayList()
 
-    End Sub
+    End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
+
 
     Private Sub LinkSingleItem_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkSingleItemOnly.LinkClicked
 

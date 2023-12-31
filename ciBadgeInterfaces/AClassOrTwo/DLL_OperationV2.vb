@@ -34,15 +34,20 @@ Public Class DLL_OperationV2
     ''' </summary>
     Private mod_anchorFinalNext As IDoublyLinkedItem
 
+    ''
+    ''Reminder, the "Inverse Anchor" is by definition the situation
+    ''  which exists _BEFORE_IN_TIME_ prior to the Move-Cut operation.
+    ''  --12/30/2023
+    ''
     ''' <summary>
-    ''' Inverse Anchor items are NOT in the operation range. They help UNDO/INVERSE the operation.
+    ''' Inverse-Anchor items are pre-operational locators. They help UNDO/INVERSE the operation. Inverse Anchor items are NOT in the operation range.
     ''' </summary>
-    Private mod_inverseFinalPrior As IDoublyLinkedItem
+    Private mod_inverseAnchorPrior As IDoublyLinkedItem
 
     ''' <summary>
     ''' Inverse Anchor items are NOT in the operation range. They help UNDO/INVERSE the operation.
     ''' </summary>
-    Private mod_inverseFinalNext As IDoublyLinkedItem
+    Private mod_inverseAnchorNext As IDoublyLinkedItem
 
     ''' <summary>
     ''' (Maybe for V3. Not currently used. 12/23/2023) Sort Order items are NOT actual list items, although they may appear so. They exist to point to side data cells. They record the sort with respect to adjacent (left or right) list items.
@@ -88,7 +93,7 @@ Public Class DLL_OperationV2
         ''
         If (p_firstInOperationRange.DLL_HasPrior()) Then
             ''Get the prior item. 
-            mod_inverseFinalPrior = p_firstInOperationRange.DLL_GetItemPrior()
+            mod_inverseAnchorPrior = p_firstInOperationRange.DLL_GetItemPrior()
         End If
 
         ''Added 12/28/2023 td 
@@ -98,7 +103,7 @@ Public Class DLL_OperationV2
             ''If we iterate "Next" by p_intCountOfItem times,
             ''  we get the item __following__ the range. 
             ''mod_inverseFinalNext = p_firstInOperationRange.DLL_GetItemNext(p_intCountOfItems)
-            mod_inverseFinalNext = lastInOperationRange.DLL_GetItemNext()
+            mod_inverseAnchorNext = lastInOperationRange.DLL_GetItemNext()
 
         End If ''End of ""If (lastInOperationRange.DLL_HasNext()) Then""
 
@@ -107,16 +112,27 @@ Public Class DLL_OperationV2
         ''
         If (Testing.TestingByDefault) Then
 
-            ''Added 12/28/2023
-            Dim copyOfOpV1 As DLL_OperationV1
-            copyOfOpV1 = GetCopyV1()
-            Dim inverseOfOp As DLL_OperationV1
-            inverseOfOp = copyOfOpV1.GetUndoVersionOfOperation()
-            Dim double_inverse As DLL_OperationV1
-            double_inverse = inverseOfOp.GetUndoVersionOfOperation()
-            Dim bEqualMatch As Boolean
-            bEqualMatch = double_inverse.Equals(copyOfOpV1)
-            If (Not bEqualMatch) Then Debugger.Break()
+            If (p_opType = "M"c) Then
+                ''
+                ''Give it some time, prior to testing Move-Undos.
+                ''
+                ''We need to test the Move itself (original, not the Undo) first.
+                ''
+                ''   ---12/30/2023 td
+                ''
+            Else
+                ''Added 12/28/2023
+                Dim copyOfOpV1 As DLL_OperationV1
+                copyOfOpV1 = GetCopyV1()
+                Dim inverseOfOp As DLL_OperationV1
+                inverseOfOp = copyOfOpV1.GetUndoVersionOfOperation()
+                Dim double_inverse As DLL_OperationV1
+                double_inverse = inverseOfOp.GetUndoVersionOfOperation()
+                Dim bEqualMatch As Boolean
+                bEqualMatch = double_inverse.Equals(copyOfOpV1)
+                If (Not bEqualMatch) Then Debugger.Break()
+
+            End If ''Endof ""If (p_opType = "M"c) Then""
 
             ''added 12/28
             ''Infinitely recursive loop. (prefixed by ''+++) 12/30/2023 
@@ -316,6 +332,35 @@ Public Class DLL_OperationV2
     End Function ''End of ""Public Function DLL_UnboxControl() As Control""
 
 
+    ''' <summary>
+    ''' Get item following a range (if the implicit parameter is the first item in a range). Sometimes we need the Item which follows the Range, to prepare for a possible Undo.
+    ''' </summary>
+    ''' <param name="param_rangeSize">This is the item-count of the range, or size of the range.</param>
+    ''' <returns>The first item which follows the range.</returns>
+    Public Function DLL_GetNextItemFollowingRange(param_rangeSize As Integer,
+                                                  param_mayBeNull As Boolean) As IDoublyLinkedItem _
+        Implements IDoublyLinkedItem.DLL_GetNextItemFollowingRange
+
+        ''Added 12/30/2023 
+        ''---DIFFICULT AND CONFUSING---
+        ''  By CS-related rules of iteration, by moving ahead
+        ''  a number of jumps equal to the item-count of the range,
+        ''  we get the first post-range item.
+        ''                  ---12/30/2023 tdownes
+        ''12/2023 Return DLL_GetItemNext(param_rangeSize)
+        Dim result As IDoublyLinkedItem
+        result = DLL_GetItemNext(param_rangeSize)
+
+        ''Check for Nulls!
+        If ((Not param_mayBeNull) AndAlso result Is Nothing) Then
+            Debugger.Break()
+        End If
+
+        Return result
+
+    End Function ''DLL_GetNextItemFollowingRange
+
+
     Public Function GetCopyV1() As DLL_OperationV1
         ''
         ''Added 12/26/2023
@@ -345,8 +390,8 @@ Public Class DLL_OperationV2
                 .OperationType = "D"c ''Added 12/30/2023 
                 .DeleteRangeStart = mod_operationRangeFirstItem
                 .DeleteCount = mod_countOfItems
-                .DeleteLocation_ItemPrior = mod_inverseFinalPrior
-                .DeleteLocation_ItemNext = mod_inverseFinalNext
+                .DeleteLocation_ItemPrior = mod_inverseAnchorPrior
+                .DeleteLocation_ItemNext = mod_inverseAnchorNext
 
                 If (.DeleteCount = 1) Then
                     .DeleteItemSingly = mod_operationRangeFirstItem
@@ -358,7 +403,40 @@ Public Class DLL_OperationV2
                 .OperationType = "M"c ''Added 12/30/2023 
                 .MovedRangeStart = mod_operationRangeFirstItem
                 .MovedCount = mod_countOfItems
-                .MoveCut_NextToRange = mod_inverseFinalNext
+
+                ''Added 12/30/2023
+                ''
+                ''Reminder, the "Inverse Anchor" is by definition the situation
+                ''  which exists _BEFORE_IN_TIME_ prior to the Move-Cut operation.
+                ''
+                ''Dim temp_moveCut_prior As IDoublyLinkedItem
+                ''Dim temp_moveRange_last As IDoublyLinkedItem
+                If (mod_inverseAnchorPrior Is Nothing) Then
+                    ''Easy, let's grab the item which precedes
+                    ''  the first item in the range (may be Null).
+                    mod_inverseAnchorPrior = mod_operationRangeFirstItem.DLL_GetItemPrior()
+                End If ''If (mod_inverseAnchorPrior Is Nothing) Then
+
+                If (mod_inverseAnchorNext Is Nothing) Then
+                    ''---DIFFICULT AND CONFUSING---
+                    ''  By CS-related rules of iteration, by moving ahead
+                    ''  a number of jumps equal to the length of the range,
+                    ''  we get the first post-range item.
+                    ''  
+                    ''12/2023 mod_inverseFinalNext = mod_operationRangeFirstItem.DLL_GetNextOfRange(.MovedCount)
+                    mod_inverseAnchorNext = mod_operationRangeFirstItem.DLL_GetNextItemFollowingRange(.MovedCount,
+                          .IsChangeOfEndpoint)
+                End If ''If (mod_inverseAnchorNext Is Nothing) Then
+
+                ''
+                ''Reminder, the "Inverse Anchor" is by definition the situation
+                ''  which exists _BEFORE_IN_TIME_ prior to the Move-Cut operation.
+                ''
+                .MoveCut_PriorToRange = mod_inverseAnchorPrior
+                .MoveCut_NextToRange = mod_inverseAnchorNext
+
+                ''===See top of function for this.
+                ''==.AnchorToPrecedeItemOrRange = 
 
             End If ''End of ""If (mod_operationType = "I"c) Then ... ElseIf ... ElseIf..."
 
@@ -397,8 +475,8 @@ Public Class DLL_OperationV2
             boolEqual1 = (.mod_anchorFinalNext Is Me.mod_anchorFinalNext)
             boolEqual2 = (.mod_anchorFinalPrior Is Me.mod_anchorFinalPrior)
             boolEqual3 = (.mod_countOfItems = Me.mod_countOfItems)
-            boolEqual4 = (.mod_inverseFinalNext Is Me.mod_inverseFinalPrior)
-            boolEqual5 = (.mod_inverseFinalPrior Is Me.mod_inverseFinalPrior)
+            boolEqual4 = (.mod_inverseAnchorNext Is Me.mod_inverseAnchorPrior)
+            boolEqual5 = (.mod_inverseAnchorPrior Is Me.mod_inverseAnchorPrior)
             boolEqual6 = (.mod_isChangeOfEndpoint = Me.mod_isChangeOfEndpoint)
             boolEqual7 = (.mod_operationNext Is Me.mod_operationNext)
             boolEqual8 = (.mod_operationPrior Is Me.mod_operationPrior)
