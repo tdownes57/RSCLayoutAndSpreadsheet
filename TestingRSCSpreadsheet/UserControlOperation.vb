@@ -577,6 +577,7 @@ Public Class UserControlOperation
         ''
         ''Added 12/28/2023 
         ''
+        If (par_newCount <= 0) Then Exit Sub ''Added 12/31/2023
         ''
         ''Delete
         ''

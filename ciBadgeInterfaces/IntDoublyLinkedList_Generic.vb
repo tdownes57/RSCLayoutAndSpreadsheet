@@ -32,7 +32,7 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' </summary>
     ''' <param name="index">The expected index of the ultimate item.</param>
     ''' <returns>The ultimate item created.</returns>
-    Function DLL_BuildListToIndex(index As Integer) As TControl ''Control
+    Function DLL_BuildListToIndex_DEPRECATED(index As Integer) As TControl ''Control
 
     ''' <summary>
     ''' This is primarily a procedure; to make it responsive, we return the ultimate item and the number of items created.
@@ -40,7 +40,7 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' <param name="index"></param>
     ''' <param name="count_of_new_items">This is the number of items newly created.</param>
     ''' <returns>The ultimate item created.</returns>
-    Function DLL_BuildListToIndex(index As Integer,
+    Function DLL_BuildListToIndex_DEPRECATED(index As Integer,
         ByRef count_of_new_items As Integer) As TControl ''Control
 
 
@@ -118,6 +118,14 @@ Public Interface IDoublyLinkedList(Of TControl)
                               ByVal toBeInsertedRange_ItemCount As Integer,
                               ByVal toUseAsAnchor_Terminating As TControl,
                               ByVal isChangeOfEndPoint As Boolean)
+
+    ''' <summary>
+    ''' This inserts a range of items, into an empty list.
+    ''' </summary>
+    ''' <param name="toBeInsertedRange_FirstItem">The first item in the range, a ByVal parameter.</param>
+    ''' <param name="toBeInsertedRange_ItemCount">Number of items to be inserted, a ByVal parameter.</param>
+    Sub DLL_InsertRangeEmptyList(ByVal toBeInsertedRange_FirstItem As TControl,
+                              ByVal toBeInsertedRange_ItemCount As Integer)
 
     Sub DLL_DeleteItem(ByVal item_toDelete As TControl,
                        ByVal isChangeOfEndPoint As Boolean)

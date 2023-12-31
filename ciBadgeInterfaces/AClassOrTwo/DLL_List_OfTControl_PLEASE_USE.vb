@@ -342,6 +342,55 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Sub ''Public Sub DLL_InsertOneItemBefore
 
 
+    Public Sub DLL_InsertRangeEmptyList(p_toBeInsertedRange_FirstItem As TControl,
+                                     p_toBeInsertedRange_ItemCount As Integer) _
+                                     Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeEmptyList
+        ''
+        ''Added 12/31/2023 td  
+        ''
+        Dim itemFirstItemToInsert As IDoublyLinkedItem '' 
+        Dim itemLastItemToInsert As IDoublyLinkedItem '' 
+        Dim intHowManyItems As Integer
+
+        intHowManyItems = p_toBeInsertedRange_ItemCount
+
+        ''-----------------------------------------------------------------------------------------------------
+        ''---- DIFFICULT AND CONFUSING ----
+        ''  Here is the "secret sauce" that allows this Generic Type (DLL_List_OfTControl_PLEASE_USE(Of TControl))
+        ''  to work... EXPLICIT CASTING!!!  ---12/18/2023
+        ''-----------------------------------------------------------------------------------------------------
+        itemFirstItemToInsert = CType(p_toBeInsertedRange_FirstItem, IDoublyLinkedItem)
+        itemLastItemToInsert = itemFirstItemToInsert.DLL_GetItemNext(-1 + intHowManyItems)
+
+        mod_dllControlFirst = itemFirstItemToInsert
+        mod_dllControlLast = itemLastItemToInsert
+
+        ''Let's make 100% sure we have the correct count. 
+        If (True Or Testing.TestingByDefault) Then
+            Dim tempItem As IDoublyLinkedItem = itemFirstItemToInsert
+            Dim intCount As Integer
+            While (tempItem IsNot Nothing)
+                intCount += 1
+                tempItem = tempItem.DLL_GetItemNext()
+            End While
+            ''Process the manually-counted number,
+            ''  throwing an exception if needed. 
+            If (intCount = p_toBeInsertedRange_ItemCount) Then
+                mod_intCountOfItems = intCount
+            Else
+                Throw New RSCEndpointException("The count is wrong.")
+            End If
+        End If ''eND OF ""If (True Or Testing.TestingByDefault) Then""
+
+        ''Administrative.
+        If (WE_CLEAN_RANGE_ENDPOINTS_ALWAYS) Then
+            itemFirstItemToInsert.DLL_ClearReferencePrior("I"c)
+            itemLastItemToInsert.DLL_ClearReferenceNext("I"c)
+        End If
+
+    End Sub ''End of ""Public Sub DLL_InsertRangeEmptyList""
+
+
     Public Sub DLL_InsertRangeAfter(p_toBeInsertedRange_FirstItem As TControl,
                                     p_toBeInsertedRange_ItemCount As Integer,
                                     p_toUseAsAnchor_ItemPriorToRange As TControl,
@@ -477,9 +526,24 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
         ''Save the item prior to the anchor, if it exists. 
         Dim temp_itemPriorToAnchor As IDoublyLinkedItem = Nothing
-        Dim anchorHasItemPrior As Boolean ''Added 12/18/2023
-        anchorHasItemPrior = itemForAnchoring_ItemNextToRange.DLL_HasPrior()
-        If (anchorHasItemPrior) Then
+        Dim bAnchorHasItemPrior As Boolean ''Added 12/18/2023
+
+        If (itemForAnchoring_ItemNextToRange Is Nothing) Then
+            ''We are starting from scratch, i.e. an empty list. ---12/31/2023
+        Else
+            bAnchorHasItemPrior = itemForAnchoring_ItemNextToRange.DLL_HasPrior()
+        End If ''If (itemForAnchoring_ItemNextToRange Is Nothing) Then... Else...
+
+        ''-------------------------------------------------------------------
+        ''-----------------------DIFFICULT & CONFUSING-----------------------
+        ''If possible, capture a reference to the item _BEFORE_ the anchor...
+        ''    so that the Inserted Range can be _NEXT_ to that same item. 
+        ''    ---12/31/2023 TDOWNES
+        If (bAnchorHasItemPrior) Then
+            ''Since we are inserting items BEFORE the anchor, we need the
+            ''  item pre-operationally located BEFORE the anchor... 
+            ''  so that the Inserted Range can be _NEXT_ to that same item. 
+            ''
             temp_itemPriorToAnchor = itemForAnchoring_ItemNextToRange.DLL_GetItemPrior()
         Else
             ''
@@ -503,12 +567,12 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         itemLastItemToInsert.DLL_SetItemNext(itemForAnchoring_ItemNextToRange)
 
         ''Set references #3 & #4 of 4
-        If (anchorHasItemPrior) Then
+        If (bAnchorHasItemPrior) Then
             ''Set references #3 & #4 of 4
             temp_itemPriorToAnchor.DLL_SetItemNext(itemFirstItemToInsert)
             itemFirstItemToInsert.DLL_SetItemPrior(temp_itemPriorToAnchor)
 
-        ElseIf (p_bIsChangeOfEndpoint) Then
+        ElseIf (p_bIsChangeOfEndPoint) Then
             ''Do nothing. The calling procedure is already aware of
             ''  the change of endpoint.
         Else
@@ -554,7 +618,13 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             ''We are at the beginning of the list.  12/28/2023
             ''
             itemFollowingDelete = itemToDelete.DLL_GetItemNext()
-            itemFollowingDelete.DLL_ClearReferencePrior("D"c)
+
+            ''itemFollowingDelete.DLL_ClearReferencePrior("D"c)
+            If (itemFollowingDelete Is Nothing) Then
+                ''We are probably deleting the ONE & ONLY item in the list.--12/31/2023
+            Else
+                itemFollowingDelete.DLL_ClearReferencePrior("D"c)
+            End If
 
         ElseIf (bDeletingEndOfList) Then
 

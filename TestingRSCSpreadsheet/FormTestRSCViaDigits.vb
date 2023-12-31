@@ -321,7 +321,7 @@ Public Class FormTestRSCViaDigits
             ''                                False)
             If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then
                 ''
-                ''Option #1 of 2.  Insert operational item(s) AFTER anchoring item.
+                ''Option #1 of 3.  Insert operational item(s) AFTER anchoring item.
                 ''
                 ''                Insert A after 7, the preceding anchor.
                 ''                       |
@@ -344,9 +344,10 @@ Public Class FormTestRSCViaDigits
 
                 End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
-            Else
+
+            ElseIf (.AnchorToSucceedItemOrRange IsNot Nothing) Then
                 ''
-                ''Option #2 of 2. Insert BEFORE anchoring item. 
+                ''Option #2 of 3. Insert BEFORE anchoring item. 
                 ''
                 ''Insert operational item(s) BEFORE anchoring item.
                 ''
@@ -371,7 +372,16 @@ Public Class FormTestRSCViaDigits
 
                 End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
-            End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... Else..."
+
+            ElseIf (mod_firstTwoChar Is Nothing) Then
+                ''
+                ''Added 12/31/2023 thomas 
+                ''  We are populating an empty list, or as one might say,
+                ''  inserting a range into an empty list. 
+                ''
+                mod_list.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+
+            End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... ElseIf... Else..."
 
             ''Added 12/28/2023
             If (.IsChangeOfEndpoint) Then
