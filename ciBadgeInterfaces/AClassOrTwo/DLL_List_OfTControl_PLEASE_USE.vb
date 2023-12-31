@@ -871,6 +871,22 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
     End Function ''End of ""Public Function DLL_GetItemAtIndex""
 
+
+    Public Function DLL_IsListEmpty() As Boolean
+        ''
+        ''Added 12/31/2023 
+        ''
+        Dim result_bEmptyList As Boolean
+        Dim bMatchesCount As Boolean
+        result_bEmptyList = (mod_dllControlFirst Is Nothing)
+        bMatchesCount = (result_bEmptyList = (mod_intCountOfItems = 0))
+        If (Not bMatchesCount) Then Debugger.Break()
+        Return result_bEmptyList ''(mod_dllControlFirst Is Nothing)
+
+    End Function ''End of ""Public Function DLL_IsListEmpty() As Boolean""
+
+
+
     ''' <summary>
     ''' Get the indexed item, and if it's a data-cell, check the horizontal alignment.
     ''' </summary>

@@ -80,6 +80,11 @@ Public Class DLL_OperationV2
         '' So let's add a constructor, so we can cut down on parameters on other 
         '' methods.  This object can be passed as a parameter.
         ''
+        Dim boolIsAnchorPrior As Boolean ''12/31/2023
+        Dim boolIsAnchorNext As Boolean ''12/31/2023
+        boolIsAnchorPrior = (p_anchorFinalPrior IsNot Nothing)
+        boolIsAnchorNext = (p_anchorFinalNext IsNot Nothing)
+
         mod_anchorFinalNext = p_anchorFinalNext
         mod_anchorFinalPrior = p_anchorFinalPrior
         mod_countOfItems = p_intCountOfItems
@@ -115,12 +120,29 @@ Public Class DLL_OperationV2
 
             If (p_opType = "M"c) Then
                 ''
-                ''Give it some time, prior to testing Move-Undos.
+                ''Move operation
                 ''
-                ''We need to test the Move itself (original, not the Undo) first.
+                ''   ---12/30/2023 td  
                 ''
-                ''   ---12/30/2023 td
-                ''
+                Dim bLocatedAnchor As Boolean
+                Dim bAnchorIsInRange As Boolean
+                Dim tempItem As IDoublyLinkedItem = p_firstInOperationRange
+                For index = 0 To p_intCountOfItems
+                    If (boolIsAnchorPrior) Then
+                        bLocatedAnchor = (tempItem Is p_anchorFinalPrior)
+                    ElseIf (boolIsAnchorNext) Then
+                        bLocatedAnchor = (tempItem Is p_anchorFinalNext)
+                    End If
+                    bAnchorIsInRange = bLocatedAnchor
+                    ''If needed, throw an RSCException. 
+                    If (bAnchorIsInRange) Then
+                        ''Exit For
+                        Throw New RSCRangeAnchorException("Range cannot include Anchor")
+
+                    End If ''bAnchorIsInRange = bLocatedAnchor
+                Next index
+
+
             Else
                 ''Added 12/28/2023
                 Dim copyOfOpV1 As DLL_OperationV1
@@ -194,7 +216,9 @@ Public Class DLL_OperationV2
 
         End If ''End of "" If (mod_countOfItems = 1) Then .. Else...""
 
-    End Function
+        Return Nothing
+
+    End Function ''End of ""Public Function GetSingleItem()""
 
 
 

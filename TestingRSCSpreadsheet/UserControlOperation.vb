@@ -293,6 +293,11 @@ Public Class V
         Dim anchorItem_ToFollowRange As TwoCharacterDLLItem = Nothing ''Added 12/23/2023
         Dim bLetsInsertRangeBeforeAnchor As Boolean ''Added 12/23/2023
         Dim bLetsInsertRangeAfterAnchor As Boolean ''Added 12/23/2023
+        Dim bChangeOfEndPoint1_Cut As Boolean ''Added 12/31/2023 thomas
+        Dim bChangeOfEndPoint2_Cut As Boolean ''Added 12/31/2023 thomas
+        Dim bChangeOfEndPoint3_Paste As Boolean ''Added 12/31/2023 thomas
+        Dim bChangeOfEndPoint4_Paste As Boolean ''Added 12/31/2023 thomas
+        Dim bChangeOfEndPointAny As Boolean ''Added 12/31/2023 thomas
 
         ''12/2023 intHowManyItemsToMove = numMoveRangeHowMany.Value
         intHowManyItemsToMove = GetHowManyItems("M"c) '' "M" for "Move"
@@ -302,6 +307,19 @@ Public Class V
 
         firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
         lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToMove)
+
+        ''Added 12/31/2023
+        ''   Consider all the ways the Move might affect either of two endpoints.
+        ''   --12/31/2023
+        Dim intListCount_Size As Integer = DLL_List.DLL_CountAllItems()
+        bChangeOfEndPoint1_Cut = (0 = indexOfRangeFirst)
+        bChangeOfEndPoint2_Cut = (indexOfRangeFirst + intHowManyItemsToMove >= intListCount_Size)
+        bChangeOfEndPoint3_Paste = ((0 = indexOfAnchor) And
+            bLetsInsertRangeBeforeAnchor)
+        bChangeOfEndPoint4_Paste = ((indexOfAnchor = -1 + intListCount_Size) And
+            bLetsInsertRangeAfterAnchor)
+        bChangeOfEndPointAny = (bChangeOfEndPoint1_Cut Or bChangeOfEndPoint2_Cut) Or
+            (bChangeOfEndPoint3_Paste Or bChangeOfEndPoint3_Paste)
 
         bLetsInsertRangeBeforeAnchor = (0 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
         bLetsInsertRangeAfterAnchor = (1 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
@@ -320,7 +338,8 @@ Public Class V
         objDLLOperation = New DLL_OperationV2("M"c, firstRangeItem,
                 intHowManyItemsToMove,
                 anchorItem_ToBePriorToRange,
-                anchorItem_ToFollowRange) ''Nothing, Nothing)
+                anchorItem_ToFollowRange,
+                bChangeOfEndPointAny) ''Nothing, Nothing)
 
         ''//inverse_anchorItem = objDLLOperation.
 
@@ -334,7 +353,7 @@ Public Class V
         Me.DLL_InverseAnchor_PriorToRange = firstRangeItem.DLL_GetItemPrior()
         Me.DLL_InverseAnchor_NextToRange = lastRangeItem.DLL_GetItemNext()
 
-    End Sub
+    End Sub  ''End of Private Sub buttonMoveItems_Click
 
 
 
@@ -351,7 +370,7 @@ Public Class V
 
         If ("" = textInsertListOfValuesCSV.Text.Trim()) Then
             strMessage = String.Format("The values box is empty.")
-            MessageBox.Show(strMessage & vbCrLf & "Nothing to be done.")
+            MessageBox.Show(strMessage & vbCrLf & "Empty... nothing to be done.")
             Return Nothing ''Exit Function
         End If
 
@@ -374,7 +393,8 @@ Public Class V
             Else
                 strMessage = String.Format("The count of Two-Digit pairs is {0} not {1}.",
                  valuesTwoChar.Length, pintHowManyItemsToInsert)
-                MessageBox.Show(strMessage & vbCrLf & "Nothing to be done.")
+                MessageBox.Show(strMessage & vbCrLf &
+                                "Mismatch... not clear what's to be done.")
                 Return Nothing '' Exit Function
 
             End If ''ENd of "":If (bOnlyOneInsertValue) Then... Else..."
@@ -620,6 +640,10 @@ Public Class V
         If (numInsertAnchorBenchmark.Maximum > par_newCount) Then
             numInsertAnchorBenchmark.Maximum = par_newCount
         End If
+        ''Added 12/31/2023
+        If (numInsertAnchorBenchmark.Maximum < par_newCount) Then
+            numInsertAnchorBenchmark.Maximum = par_newCount
+        End If
 
         ''
         ''Move
@@ -630,7 +654,10 @@ Public Class V
         If (numMoveAnchorBenchmark.Maximum > par_newCount) Then
             numMoveAnchorBenchmark.Maximum = par_newCount
         End If
-
+        ''Added 12/31/2023
+        If (numMoveAnchorBenchmark.Maximum < par_newCount) Then
+            numMoveAnchorBenchmark.Maximum = par_newCount
+        End If
 
     End Sub ''End of ""Public Sub UpdateTheItemCount()"
 

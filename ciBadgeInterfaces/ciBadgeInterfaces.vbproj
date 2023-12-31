@@ -77,6 +77,7 @@
     <Compile Include="AClassOrTwo\DLL_OperationsManager_OfT.vb" />
     <Compile Include="AClassOrTwo\RSCColor.vb" />
     <Compile Include="AClassOrTwo\RSCEndpointException.vb" />
+    <Compile Include="AClassOrTwo\RSCRangeAnchorException.vb" />
     <Compile Include="AClassOrTwo\RSC_DLL_OperationsManager.vb" />
     <Compile Include="AClassOrTwo\Testing.vb" />
     <Compile Include="Enums and Structs\ModEnumsAndStructs.vb" />

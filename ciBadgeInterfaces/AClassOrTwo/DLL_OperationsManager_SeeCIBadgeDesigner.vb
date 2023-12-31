@@ -307,10 +307,10 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
 
     Public Function GetLastOperation() As DLL_OperationV1
 
+        ''Implemented 12/31/2023 
+        Return mod_operationLastPrior
 
-
-
-    End Function
+    End Function ''End of ""Public Function GetLastOperation()""
 
 
 
