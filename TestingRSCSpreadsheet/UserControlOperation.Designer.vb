@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class V
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+Partial Class UserControlOperation
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class V
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         buttonMoveItems = New Button()
         buttonDelete = New Button()
@@ -123,7 +123,7 @@ Partial Class V
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label11.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         Label11.Location = New Point(19, 228)
         Label11.Name = "Label11"
         Label11.Size = New Size(99, 21)
@@ -178,7 +178,7 @@ Partial Class V
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label8.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         Label8.Location = New Point(13, 138)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
@@ -244,7 +244,7 @@ Partial Class V
         ' LabelInsertHeader
         ' 
         LabelInsertHeader.AutoSize = True
-        LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        LabelInsertHeader.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         LabelInsertHeader.Location = New Point(13, 18)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
@@ -350,7 +350,7 @@ Partial Class V
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label1.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         Label1.Location = New Point(19, 379)
         Label1.Name = "Label1"
         Label1.Size = New Size(87, 21)
@@ -431,7 +431,7 @@ Partial Class V
         ' 
         ' V
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
         Controls.Add(LinkUndoMove)

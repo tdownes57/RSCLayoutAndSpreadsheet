@@ -4,7 +4,7 @@ Imports ciBadgeSerialize
 ''' <summary>
 ''' This will allow the user to create DLLOperations.
 ''' </summary>
-Public Class V
+Public Class UserControlOperation
 
     Public DLLOperation As DLL_OperationV2
     Public DLL_List As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
@@ -353,7 +353,7 @@ Public Class V
         Me.DLL_InverseAnchor_PriorToRange = firstRangeItem.DLL_GetItemPrior()
         Me.DLL_InverseAnchor_NextToRange = lastRangeItem.DLL_GetItemNext()
 
-    End Sub  ''End of Private Sub buttonMoveItems_Click
+    End Sub  ''End of  Private Sub buttonMoveItems_Click
 
 
 
