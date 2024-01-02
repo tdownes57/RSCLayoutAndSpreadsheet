@@ -1,4 +1,5 @@
-﻿Imports ciBadgeInterfaces
+﻿Imports System.ComponentModel
+Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 
 ''' <summary>
@@ -34,8 +35,8 @@ Public Class UserControlOperation
     ''' which the user has requested, and which hasn't yet been performed.
     ''' </summary>
     ''' <param name="par_operation">Gives detail of operation.</param>
-    ''' <param name="par_inverseAnchor_PriorToRange">Needed in case of UNDO-OF-DELETE.</param>
-    ''' <param name="par_inverseAnchor_NextToRange">Needed in case of UNDO-OF-DELETE.</param>
+    ''' <param name="par_inverseAnchor_PriorToRange">Needed in case of a later UNDO-OF-DELETE.</param>
+    ''' <param name="par_inverseAnchor_NextToRange">Needed in case of a later UNDO-OF-DELETE.</param>
     Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
@@ -47,6 +48,16 @@ Public Class UserControlOperation
     Public Event DLLOperationCreated_MoveRange(par_operation As DLL_OperationV1,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+
+    ''Added 1/1/2024 thomas 
+    Public Event DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1,
+                                par_isUndoOfInsert As Boolean)
+    Public Event DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
+                                par_isUndoOfDelete As Boolean)
+
+    ''Added 1/01/2024 td
+    Private mod_lastPriorOpV2 As DLL_OperationV2 = Nothing ''Added 1/01/2024 td
+    Private mod_intCountOperations As Integer = 0 ''Added 1/1/2024
 
 
     Public Sub ToggleFinalEndpointItemMode()
@@ -213,6 +224,10 @@ Public Class UserControlOperation
 
         End If ''end of ""If (firstRangeItem Is Nothing) Then... ElseIf..."
 
+        ''Added 1/01/2024 td
+        ''mod_lastPriorOpV2 = objDLLOperation
+        RecordLastPriorOperation(objDLLOperation)
+
     End Sub ''End of ""Private Sub ButtonInsert_Click""
 
 
@@ -262,16 +277,23 @@ Public Class UserControlOperation
                 intHowManyItemsToDelete, Nothing, Nothing, bIsForEitherEndpoint)
 
         ''//inverse_anchorItem = objDLLOperation.
+        ''Added 1/01/2024
+        objDLLOperation.DLL_SetInverseAnchor(firstRangeItem.DLL_GetItemPrior(),
+                                             lastRangeItem.DLL_GetItemNext())
+
+        ''Administrative.
+        ''   We need the inverse anchor for the "Undo" operation. 
+        Me.DLL_InverseAnchor_PriorToRange = firstRangeItem.DLL_GetItemPrior()
+        Me.DLL_InverseAnchor_NextToRange = lastRangeItem.DLL_GetItemNext()
 
         ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
         RaiseEvent DLLOperationCreated_Delete(objDLLOperation.GetCopyV1(),
                          firstRangeItem.DLL_GetItemPrior(),
                          lastRangeItem.DLL_GetItemNext())
 
-        ''Administrative.
-        ''   We need the inverse anchor for the "Undo" operation. 
-        Me.DLL_InverseAnchor_PriorToRange = firstRangeItem.DLL_GetItemPrior()
-        Me.DLL_InverseAnchor_NextToRange = lastRangeItem.DLL_GetItemNext()
+        ''Added 1/01/2024 td
+        ''mod_lastPriorOpV2 = objDLLOperation
+        RecordLastPriorOperation(objDLLOperation)
 
     End Sub ''End of ""Private Sub ButtonDelete_Click""
 
@@ -308,6 +330,12 @@ Public Class UserControlOperation
         firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
         lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToMove)
 
+        bLetsInsertRangeBeforeAnchor = (0 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
+        bLetsInsertRangeAfterAnchor = (1 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
+        ''---indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
+        indexOfAnchor = GetIndex_BenchmarkMinusOne("M"c, pbAnchor:=True)
+        anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
+
         ''Added 12/31/2023
         ''   Consider all the ways the Move might affect either of two endpoints.
         ''   --12/31/2023
@@ -321,18 +349,39 @@ Public Class UserControlOperation
         bChangeOfEndPointAny = (bChangeOfEndPoint1_Cut Or bChangeOfEndPoint2_Cut) Or
             (bChangeOfEndPoint3_Paste Or bChangeOfEndPoint3_Paste)
 
-        bLetsInsertRangeBeforeAnchor = (0 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
-        bLetsInsertRangeAfterAnchor = (1 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
-        ''---indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
-        indexOfAnchor = GetIndex_BenchmarkMinusOne("M"c, pbAnchor:=True)
+        ''Added 1/1/2024 td
+        ''  Check to see if an logical contradiction exists--
+        ''    the anchor being inside the range. 
+        Dim bAnchorInsideRange_Error1 As Boolean ''Added 1/1/2024 td
+        ''Dim bAnchorInsideRange_Error2 As Boolean ''Added 1/1/2024 td
+        bAnchorInsideRange_Error1 = RangeIncludesAnchor_Error(indexOfRangeFirst,
+                              intHowManyItemsToMove, indexOfAnchor)
+        ''bAnchorInsideRange_Error2 =
+        ''    Me.DLL_List.DLL_RangeIncludesAnchor_Error(firstRangeItem,
+        ''                      intHowManyItemsToMove, anchorItem)
+        If (bAnchorInsideRange_Error1) Then
+            MessageBoxTD.Show_Statement("Error, anchor is inside the range. Can't proceed. #1")
+            Exit Sub
+            ''ElseIf (bAnchorInsideRange_Error2) Then
+            ''    MessageBoxTD.Show_Statement("Error, anchor is inside the range. Can't proceed. #2")
+            ''    Exit Sub
+        End If ''End of ""If (bAnchorInsideRange_Error1) Then""
 
-        anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
+        ''See above. Added 1/1/2024
+        ''See above. bChangeOfEndPoint1_Cut = (indexOfRangeFirst = 0)
+        ''See above. bChangeOfEndPoint2_Cut = (indexOfRangeFirst + intHowManyItemsToMove =
+        ''    DLL_List.DLL_CountAllItems())
 
         If (bLetsInsertRangeAfterAnchor) Then
             anchorItem_ToBePriorToRange = anchorItem
+            ''Added 1.1.2024
+            ''See above. bChangeOfEndPoint3_Paste = (indexOfAnchor = -1 + DLL_List.DLL_CountAllItems())
+
         ElseIf (bLetsInsertRangeBeforeAnchor) Then
             anchorItem_ToFollowRange = anchorItem
-        End If
+            ''Added 1.1.2024
+            ''See above. bChangeOfEndPoint3_Paste = (indexOfAnchor = 0)
+        End If ''ENd of ""If (bLetsInsertRangeAfterAnchor) Then... ElseIf..."
 
         '' "M" for "Move"
         objDLLOperation = New DLL_OperationV2("M"c, firstRangeItem,
@@ -340,8 +389,6 @@ Public Class UserControlOperation
                 anchorItem_ToBePriorToRange,
                 anchorItem_ToFollowRange,
                 bChangeOfEndPointAny) ''Nothing, Nothing)
-
-        ''//inverse_anchorItem = objDLLOperation.
 
         ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperat ion)
         RaiseEvent DLLOperationCreated_MoveRange(objDLLOperation.GetCopyV1(),
@@ -353,7 +400,53 @@ Public Class UserControlOperation
         Me.DLL_InverseAnchor_PriorToRange = firstRangeItem.DLL_GetItemPrior()
         Me.DLL_InverseAnchor_NextToRange = lastRangeItem.DLL_GetItemNext()
 
+        ''//inverse_anchorItem = objDLLOperation.
+        ''Added 1/01/2024 td
+        ''mod_lastPriorOpV2 = objDLLOperation
+        RecordLastPriorOperation(objDLLOperation)
+
     End Sub  ''End of  Private Sub buttonMoveItems_Click
+
+
+    Private Sub RecordLastPriorOperation(par_lastPriorOpV2 As DLL_OperationV2)
+        ''
+        ''Added 1/01/2024
+        ''
+        mod_intCountOperations += 1
+        mod_lastPriorOpV2 = par_lastPriorOpV2
+
+    End Sub ''End of ""Private Sub RecordLastPriorOperation()""
+
+
+    Public Function LastPriorOperation() As DLL_OperationV2
+        ''
+        ''Added 1/01/2024
+        ''
+        Return mod_lastPriorOpV2
+
+    End Function ''ENd of ""Public Function LastPriorOperation() As DLL_OperationV2""
+
+    ''' <summary>
+    ''' Indicates whether a logical error exists, that of the anchor being WITHIN the range.
+    ''' </summary>
+    ''' <param name="pIndexRangeStart">Location of start of range.</param>
+    ''' <param name="pHowManyItems">Size of range.</param>
+    ''' <param name="pIndexOfAnchor">Location of anchor (where the range will be placed).</param>
+    ''' <returns></returns>
+    Private Function RangeIncludesAnchor_Error(pIndexRangeStart As Integer,
+                                               pHowManyItems As Integer, pIndexOfAnchor As Integer)
+        ''
+        '' Added 1/01/20
+        ''
+        Dim bBeforeEnd As Boolean
+        Dim bAfterStart As Boolean
+        Dim result_bInRange As Boolean
+        bAfterStart = (pIndexOfAnchor >= pIndexRangeStart)
+        bBeforeEnd = (pIndexOfAnchor < (pIndexRangeStart + pHowManyItems))
+        result_bInRange = (bAfterStart And bBeforeEnd)
+        Return result_bInRange
+
+    End Function ''End of ""Private Function RangeIncludesAnchor_Error""
 
 
 
@@ -661,5 +754,47 @@ Public Class UserControlOperation
 
     End Sub ''End of ""Public Sub UpdateTheItemCount()"
 
+
+    Private Sub LinkUndoInsert_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkUndoInsert.LinkClicked
+        ''
+        ''Added 1/1/2024 
+        ''
+        '' Let's undo the Insert operation.
+        ''
+        Dim objLastPriorOpV2 As DLL_OperationV2
+        Dim undoOperationV1 As DLL_OperationV1
+        Dim undoOperationV2 As DLL_OperationV2
+
+        objLastPriorOpV2 = mod_lastPriorOpV2
+        undoOperationV1 = objLastPriorOpV2.GetCopyV1().GetUndoVersionOfOperation()
+        undoOperationV2 = undoOperationV1.GetCopyV2()
+        undoOperationV1.CreatedAsUndoOperation = True
+
+        ''Added 1/1/2024 
+        RaiseEvent DLLOperationCreated_UndoOfInsert(undoOperationV1, True)
+
+
+    End Sub
+
+    Private Sub LinkUndoDelete_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkUndoDelete.LinkClicked
+        ''
+        ''Added 1/1/2024 
+        ''
+        '' Let's undo the Delete operation.
+        ''
+        Dim objLastPriorOpV2 As DLL_OperationV2
+        Dim undoOperationV1 As DLL_OperationV1
+        Dim undoOperationV2 As DLL_OperationV2
+
+        objLastPriorOpV2 = mod_lastPriorOpV2
+        undoOperationV1 = objLastPriorOpV2.GetCopyV1().GetUndoVersionOfOperation()
+        undoOperationV2 = undoOperationV1.GetCopyV2()
+        undoOperationV1.CreatedAsUndoOperation = True
+
+        ''Added 1/1/2024 
+        RaiseEvent DLLOperationCreated_UndoOfDelete(undoOperationV1, True)
+
+
+    End Sub
 
 End Class

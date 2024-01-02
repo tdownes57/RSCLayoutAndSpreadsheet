@@ -886,6 +886,44 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Function ''End of ""Public Function DLL_IsListEmpty() As Boolean""
 
 
+    ''' <summary>
+    ''' Determine whether an logical error exists--the anchor being WITHIN the range.
+    ''' </summary>
+    ''' <param name="p_rangeStart"></param>
+    ''' <param name="p_rangeCount"></param>
+    ''' <param name="p_anchor"></param>
+    ''' <returns></returns>
+    Public Function DLL_RangeIncludesAnchor_Error(p_rangeStart As IDoublyLinkedItem,
+                                            p_rangeCount As Integer,
+                                            p_anchor As IDoublyLinkedItem) As Boolean
+        ''
+        ''Added 12/31/2023 
+        ''
+        Dim bLocatedAnchor As Boolean
+        Dim result_bAnchorIsInRange As Boolean
+        Dim tempItem As IDoublyLinkedItem = p_rangeStart
+
+        For index = 1 To p_rangeCount
+            ''Check to see if it's a match. 
+            bLocatedAnchor = (tempItem Is p_anchor)
+            result_bAnchorIsInRange = bLocatedAnchor
+            ''If needed, throw an RSCException. 
+            If (result_bAnchorIsInRange) Then
+                ''Exit For
+                ''Throw New RSCRangeAnchorException("Range cannot include Anchor")
+                Exit For
+            End If ''bAnchorIsInRange = bLocatedAnchor
+
+            ''Prepare for next iteration.
+            tempItem = tempItem.DLL_GetItemNext()
+
+        Next index
+
+        Return result_bAnchorIsInRange
+
+    End Function ''End of ""Public Function DLL_IsListEmpty() As Boolean""
+
+
 
     ''' <summary>
     ''' Get the indexed item, and if it's a data-cell, check the horizontal alignment.

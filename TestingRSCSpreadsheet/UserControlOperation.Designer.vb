@@ -60,6 +60,7 @@ Partial Class UserControlOperation
         checkMoveRangeExpandsToEndpoint = New CheckBox()
         LinkUndoDelete = New LinkLabel()
         LinkUndoMove = New LinkLabel()
+        LinkUndoInsert = New LinkLabel()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeStartBenchmark, ComponentModel.ISupportInitialize).BeginInit()
@@ -123,7 +124,7 @@ Partial Class UserControlOperation
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        Label11.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         Label11.Location = New Point(19, 228)
         Label11.Name = "Label11"
         Label11.Size = New Size(99, 21)
@@ -178,7 +179,7 @@ Partial Class UserControlOperation
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         Label8.Location = New Point(13, 138)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
@@ -244,7 +245,7 @@ Partial Class UserControlOperation
         ' LabelInsertHeader
         ' 
         LabelInsertHeader.AutoSize = True
-        LabelInsertHeader.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         LabelInsertHeader.Location = New Point(13, 18)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
@@ -350,7 +351,7 @@ Partial Class UserControlOperation
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        Label1.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         Label1.Location = New Point(19, 379)
         Label1.Name = "Label1"
         Label1.Size = New Size(87, 21)
@@ -429,11 +430,22 @@ Partial Class UserControlOperation
         LinkUndoMove.TabStop = True
         LinkUndoMove.Text = "Undo Move"
         ' 
-        ' V
+        ' LinkUndoInsert
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        LinkUndoInsert.AutoSize = True
+        LinkUndoInsert.Location = New Point(497, 24)
+        LinkUndoInsert.Name = "LinkUndoInsert"
+        LinkUndoInsert.Size = New Size(68, 15)
+        LinkUndoInsert.TabIndex = 72
+        LinkUndoInsert.TabStop = True
+        LinkUndoInsert.Text = "Undo Insert"
+        ' 
+        ' UserControlOperation
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
+        Controls.Add(LinkUndoInsert)
         Controls.Add(LinkUndoMove)
         Controls.Add(LinkUndoDelete)
         Controls.Add(checkMoveRangeExpandsToEndpoint)
@@ -472,7 +484,7 @@ Partial Class UserControlOperation
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertHowMany)
         Controls.Add(numInsertAnchorBenchmark)
-        Name = "V"
+        Name = "UserControlOperation"
         Size = New Size(646, 445)
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         CType(numMoveRangeHowMany, ComponentModel.ISupportInitialize).EndInit()
@@ -523,5 +535,6 @@ Partial Class UserControlOperation
     Friend WithEvents checkMoveRangeExpandsToEndpoint As CheckBox
     Friend WithEvents LinkUndoDelete As LinkLabel
     Friend WithEvents LinkUndoMove As LinkLabel
+    Friend WithEvents LinkUndoInsert As LinkLabel
 
 End Class

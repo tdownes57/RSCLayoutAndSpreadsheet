@@ -16,6 +16,9 @@ Public Class FormTestRSCViaDigits
     Private mod_opsList As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)
     Private mod_opsManager As DLL_OperationsManager(Of TwoCharacterDLLItem)
 
+    ''Added 1/01/2024 
+    Private mod_intCountOperations = 0
+    Private mod_lastPriorOpV1 As DLL_OperationV1 = Nothing ''par_lastPriorOpV1
 
 
     Public Sub New()
@@ -258,7 +261,7 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
 
-    Private Sub DLL_OperationCreated_Delete(par_operation As DLL_OperationV1,
+    Private Sub DLL_OperationCreated_Delete(par_operationV1 As DLL_OperationV1,
                                             par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                             par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
                                             Handles UserControlOperation1.DLLOperationCreated_Delete
@@ -267,7 +270,19 @@ Public Class FormTestRSCViaDigits
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
-        With par_operation
+        ProcessOperation_Delete(par_operationV1)
+
+    End Sub ''End of ""Private Sub DLL_OperationCreated_Delete""
+
+
+    Private Sub ProcessOperation_Delete(par_operationV1 As DLL_OperationV1)
+        ''
+        ''Encapsulated 1/01/2024 
+        ''Added 12/25/2023 
+        ''
+        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
+        ''
+        With par_operationV1
 
             ''objItemToInsert_First = mod_list.DLL_GetItemAtIndex(.)
             ''mod_list.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
@@ -314,14 +329,21 @@ Public Class FormTestRSCViaDigits
                 mod_firstTwoChar = mod_list.DLL_GetFirstItem
             End If ''End of ""If (bChangeOfEndpoint_Start) Then"'
 
-        End With ''End of ""With par_operation"" 
+        End With ''End of ""With par_operationV1"" 
 
+        ''
+        '' Make the Delete visible to the user.
+        ''
         RefreshTheUI_DisplayList()
 
-    End Sub ''End of ""Private Sub DLL_OperationCreated_Delete""
+        ''Added 1/01/2024
+        RecordLastPriorOperation(par_operationV1)
 
 
-    Private Sub DLLOperationCreated_Insert(par_operation As DLL_OperationV1) _
+    End Sub ''End of ""Private Sub ProcessOperation_Delete""
+
+
+    Private Sub DLLOperationCreated_Insert(par_operationV1 As DLL_OperationV1) _
                            Handles UserControlOperation1.DLLOperationCreated_Insert
         ''
         ''Added 12/25/2023 
@@ -330,7 +352,16 @@ Public Class FormTestRSCViaDigits
         ''
         ''Dim objItemToInsert_First As TwoCharacterDLLItem
 
-        With par_operation
+        ProcessOperation_Insert(par_operationV1)
+
+    End Sub ''ENd of ""Private Sub DLLOperationCreated_Insert""
+
+
+    Private Sub ProcessOperation_Insert(par_operationV1 As DLL_OperationV1)
+        ''
+        ''Encapsulation 1/1/2024 
+        ''
+        With par_operationV1
 
             ''objItemToInsert_First = mod_list.DLL_GetItemAtIndex(.)
             ''mod_list.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
@@ -413,17 +444,21 @@ Public Class FormTestRSCViaDigits
                 mod_firstTwoChar = mod_list.DLL_GetFirstItem()
             End If ''End of ""If (.IsChangeOfEndpoint) Then""
 
-        End With ''End of ""With par_operation""
+        End With ''End of ""With par_operationV1""
 
         ''
-        ''Refresh the Display.
+        ''Refresh the Display.  (Make the Insert visible to the user.)
         ''
         RefreshTheUI_DisplayList()
 
-    End Sub ''End of "Private Sub DLLOperationCreated_Insert"
+        ''Added 1/01/2024
+        RecordLastPriorOperation(par_operationV1)
 
 
-    Private Sub UserControlOperation1_DLLOperationCreated_MoveRange(par_operation As DLL_OperationV1,
+    End Sub ''End of "Private Sub ProcessOperation_Insert"
+
+
+    Private Sub UserControlOperation1_DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
                                                                     par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                                                     par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
                                                                     Handles UserControlOperation1.DLLOperationCreated_MoveRange
@@ -432,7 +467,7 @@ Public Class FormTestRSCViaDigits
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
-        With par_operation
+        With par_operationV1
             ''
             ''Step 1 of 2.  Cut (via "Delete") the range from the list. 
             ''
@@ -485,15 +520,35 @@ Public Class FormTestRSCViaDigits
                 mod_firstTwoChar = mod_list.DLL_GetFirstItem()
             End If ''End of ""If (.IsChangeOfEndpoint) Then""
 
-        End With ''End of ""With par_operation""
+        End With ''End of ""With par_operationV1""
 
         ''Populate the UI. 
         ''Dim strListOfLinks As String
         ''strListOfLinks = FillTheTextboxDisplayingList()
         ''LabelItemsDisplay.Text = strListOfLinks
+        ''
+        ''Refresh the Display.  (Make the Move-Range visible to the user.)
+        ''
         RefreshTheUI_DisplayList()
 
+        ''Added 1/01/2024
+        RecordLastPriorOperation(par_operationV1)
+
+
     End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
+
+
+    Private Sub RecordLastPriorOperation(par_lastPriorOpV1 As DLL_OperationV1)
+        ''
+        ''Added 1/01/2024
+        ''
+        mod_intCountOperations += 1
+        mod_lastPriorOpV1 = par_lastPriorOpV1
+        With LabelNumOperations
+            LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
+        End With
+
+    End Sub ''End of ""Private Sub RecordLastPriorOperation()""
 
 
     Private Sub LinkSingleItem_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkSingleItemOnly.LinkClicked
@@ -509,4 +564,21 @@ Public Class FormTestRSCViaDigits
         UserControlOperation1.ToggleFinalEndpointItemMode()
 
     End Sub
+
+    Private Sub UserControlOperation1_Load(sender As Object, e As EventArgs) Handles UserControlOperation1.Load
+
+    End Sub
+
+
+    Private Sub UserControlOperation1_DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1,
+                                                                       par_isUndoOfInsert As Boolean) _
+                                                 Handles UserControlOperation1.DLLOperationCreated_UndoOfInsert
+        ''
+        ''Added 1/1/2024  
+        ''
+        ProcessOperation_Delete(par_operation)
+
+    End Sub
+
+
 End Class

@@ -114,6 +114,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' </summary>
     Public AnchorToSucceedItemOrRange As IDoublyLinkedItem ''TControl
 
+    ''Added 1/1/2024 thomas downes
+    Public CreatedAsUndoOperation As Boolean ''Added 1/1/2024 thomas downes
+
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
     ''

@@ -120,27 +120,41 @@ Public Class DLL_OperationV2
 
             If (p_opType = "M"c) Then
                 ''
-                ''Move operation
+                ''Move operation--Check to see if the range includes the anchor. 
                 ''
-                ''   ---12/30/2023 td  
+                ''   ---12/30/2023 td   
                 ''
-                Dim bLocatedAnchor As Boolean
-                Dim bAnchorIsInRange As Boolean
-                Dim tempItem As IDoublyLinkedItem = p_firstInOperationRange
-                For index = 0 To p_intCountOfItems
-                    If (boolIsAnchorPrior) Then
-                        bLocatedAnchor = (tempItem Is p_anchorFinalPrior)
-                    ElseIf (boolIsAnchorNext) Then
-                        bLocatedAnchor = (tempItem Is p_anchorFinalNext)
-                    End If
-                    bAnchorIsInRange = bLocatedAnchor
-                    ''If needed, throw an RSCException. 
-                    If (bAnchorIsInRange) Then
-                        ''Exit For
-                        Throw New RSCRangeAnchorException("Range cannot include Anchor")
+                Dim bRangeContainsAnchor_NotKosher As Boolean ''Added 1/1/2024
+                Dim anchorNonNull As IDoublyLinkedItem = Nothing
+                ''Check to see if the range includes the anchor, a logical contradiction/infinite recursion.
+                If (p_anchorFinalPrior IsNot Nothing) Then anchorNonNull = p_anchorFinalPrior
+                If (p_anchorFinalNext IsNot Nothing) Then anchorNonNull = p_anchorFinalNext
+                ''Check to see if the range includes the anchor, a logical contradiction/infinite recursion.
+                bRangeContainsAnchor_NotKosher =
+                       RangeIncludesAnchor(p_firstInOperationRange, p_intCountOfItems, anchorNonNull)
+                If (bRangeContainsAnchor_NotKosher) Then
+                    Throw New RSCEndpointException("Range shouldn't extend so far as to include the anchor.")
+                End If ''End of ""If (bRangeContainsAnchor_NotOkay) Then""
 
-                    End If ''bAnchorIsInRange = bLocatedAnchor
-                Next index
+                ''Dim bLocatedAnchor As Boolean
+                ''Dim bAnchorIsInRange As Boolean
+                ''Dim tempItem As IDoublyLinkedItem = p_firstInOperationRange
+                ''For index = 0 To p_intCountOfItems
+                ''    If (boolIsAnchorPrior) Then
+                ''        bLocatedAnchor = (tempItem Is p_anchorFinalPrior)
+                ''    ElseIf (boolIsAnchorNext) Then
+                ''        bLocatedAnchor = (tempItem Is p_anchorFinalNext)
+                ''    End If
+                ''    bAnchorIsInRange = bLocatedAnchor
+                ''    ''If needed, throw an RSCException. 
+                ''    If (bAnchorIsInRange) Then
+                ''        ''Exit For
+                ''        Throw New RSCRangeAnchorException("Range cannot include Anchor")
+                ''    End If ''bAnchorIsInRange = bLocatedAnchor
+
+                ''    ''Prepare for next iteration.
+                ''    tempItem = tempItem.DLL_GetItemNext()
+                ''Next index
 
 
             Else
@@ -166,6 +180,41 @@ Public Class DLL_OperationV2
         End If ''ENd of ""If (Testing.TestingByDefault) Then""
 
     End Sub ''\end of ""Public Sub New""
+
+
+    Private Function RangeIncludesAnchor(p_rangeStart As IDoublyLinkedItem,
+                                            p_rangeCount As Integer,
+                                            p_anchor As IDoublyLinkedItem) As Boolean
+        ''
+        ''Added 12/31/2023 
+        ''
+        Dim bLocatedAnchor As Boolean
+        Dim result_bAnchorIsInRange As Boolean
+        Dim tempItem As IDoublyLinkedItem = p_rangeStart
+
+        If (p_rangeStart Is Nothing) Then Debugger.Break()
+        If (p_anchor Is Nothing) Then Debugger.Break()
+
+        For index = 1 To p_rangeCount
+            ''Check to see if it's a match. 
+            bLocatedAnchor = (tempItem Is p_anchor)
+            result_bAnchorIsInRange = bLocatedAnchor
+            ''If needed, throw an RSCException. 
+            If (result_bAnchorIsInRange) Then
+                ''Exit For
+                ''Throw New RSCRangeAnchorException("Range cannot include Anchor")
+                Exit For
+            End If ''bAnchorIsInRange = bLocatedAnchor
+
+            ''Prepare for next iteration.
+            tempItem = tempItem.DLL_GetItemNext()
+
+        Next index
+
+        Return result_bAnchorIsInRange
+
+    End Function ''End of ""Public Function RangeIncludesAnchor() As Boolean""
+
 
 
     ''Public Sub ImplementOperationForList(par_list As DLL_List_OfTControl_PLEASE_USE)
@@ -384,6 +433,18 @@ Public Class DLL_OperationV2
         Return result
 
     End Function ''DLL_GetNextItemFollowingRange
+
+
+    Public Sub Set_InverseAnchor(par_inverseAnchorPrior As IDoublyLinkedItem,
+                                 par_inverseAnchorNext As IDoublyLinkedItem)
+        ''
+        ''Added 1/01/2024 thomas downes
+        ''
+        mod_inverseAnchorPrior = par_inverseAnchorPrior
+        mod_inverseAnchorNext = par_inverseAnchorNext
+
+    End Sub ''End of ""Public Sub Set_InverseAnchor()""
+
 
 
     Public Function GetCopyV1() As DLL_OperationV1
