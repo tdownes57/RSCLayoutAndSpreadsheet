@@ -278,7 +278,7 @@ Public Class UserControlOperation
 
         ''//inverse_anchorItem = objDLLOperation.
         ''Added 1/01/2024
-        objDLLOperation.DLL_SetInverseAnchor(firstRangeItem.DLL_GetItemPrior(),
+        objDLLOperation.Set_InverseAnchor(firstRangeItem.DLL_GetItemPrior(),
                                              lastRangeItem.DLL_GetItemNext())
 
         ''Administrative.
@@ -783,17 +783,26 @@ Public Class UserControlOperation
         '' Let's undo the Delete operation.
         ''
         Dim objLastPriorOpV2 As DLL_OperationV2
+        Dim objLastPriorOpV1 As DLL_OperationV1
         Dim undoOperationV1 As DLL_OperationV1
-        Dim undoOperationV2 As DLL_OperationV2
+        ''Dim undoOperationV2 As DLL_OperationV2
 
         objLastPriorOpV2 = mod_lastPriorOpV2
-        undoOperationV1 = objLastPriorOpV2.GetCopyV1().GetUndoVersionOfOperation()
-        undoOperationV2 = undoOperationV1.GetCopyV2()
+        ''undoOperationV1 = objLastPriorOpV2.GetCopyV1().GetUndoVersionOfOperation()
+        ''undoOperationV2 = undoOperationV1.GetCopyV2()
+        objLastPriorOpV1 = objLastPriorOpV2.GetCopyV1()
+
+        ''Create the "Undo" version.
+        undoOperationV1 = objLastPriorOpV1.GetUndoVersionOfOperation()
         undoOperationV1.CreatedAsUndoOperation = True
 
         ''Added 1/1/2024 
         RaiseEvent DLLOperationCreated_UndoOfDelete(undoOperationV1, True)
 
+
+    End Sub
+
+    Private Sub LinkUndoDelete_Click(sender As Object, e As EventArgs) Handles LinkUndoDelete.Click
 
     End Sub
 

@@ -30,21 +30,6 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public OperationType As Char = "?" ''E.g. "I" for Insert, "M" for "Move", "D" is Delete
 
     Public InsertItemSingly As IDoublyLinkedItem ''TControl
-    Public DeleteItemSingly As IDoublyLinkedItem ''TControl
-    ''Not needed.Public MovedSingly As TControl
-
-    Public DeleteRangeStart As IDoublyLinkedItem ''TControl
-    ''Needed for consistency checks...
-    Public DeleteCount As Integer ''How many linked TControl objects?
-
-    ''--------------ADMINISTRATIVE, POSSIBLY CONFUSING-------------------------
-    ''------THESE WILL PROVIDE ANCHORS FOR THE UNDO OPERATION----------------
-    ''-----------MAYBE I AM WRONG, I HAVE 85% CONFIDENCE---------------------
-    ''
-    Public DeleteLocation_ItemPrior As IDoublyLinkedItem ''Added 11/25/2023
-    Public DeleteLocation_ItemNext As IDoublyLinkedItem ''Added 11/25/2023
-    ''-----------------------------------------------------------------------
-
     Public InsertRangeStart As IDoublyLinkedItem ''TControl
     ''Needed for consistency checks...
     Public InsertCount As Integer ''How many linked TControl objects?
@@ -62,10 +47,6 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''We need special properties for the Move-Cut operation. 
     Public MoveCut_PriorToRange As IDoublyLinkedItem ''TControl
     Public MoveCut_NextToRange As IDoublyLinkedItem ''TControl
-
-    ''We need special properties for the Delete operation. 
-    Public Delete_PriorToItemOrRange As IDoublyLinkedItem ''TControl
-    Public Delete_NextToItemOrRange As IDoublyLinkedItem ''TControl
 
     ''Let's obey Occam's Razor & so use the "Anchor" properties for the Move-Paste(Insertion) operation. 
     ''   --11/17/2023
@@ -114,8 +95,32 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' </summary>
     Public AnchorToSucceedItemOrRange As IDoublyLinkedItem ''TControl
 
+    Public DeleteItemSingly As IDoublyLinkedItem ''TControl
+    ''Not needed.Public MovedSingly As TControl
+
+    Public DeleteRangeStart As IDoublyLinkedItem ''TControl
+    ''Needed for consistency checks...
+    Public DeleteCount As Integer ''How many linked TControl objects?
+
+    ''--------------ADMINISTRATIVE, POSSIBLY CONFUSING-------------------------
+    ''------THESE WILL PROVIDE ANCHORS FOR THE UNDO OPERATION----------------
+    ''-----------MAYBE I AM WRONG, I HAVE 85% CONFIDENCE---------------------
+    ''
+    ''1/2/2024 Public DeleteLocation_ItemPrior As IDoublyLinkedItem ''Added 11/25/2023
+    ''1/2/2024 Public DeleteLocation_ItemNext As IDoublyLinkedItem ''Added 11/25/2023
+    Public DeleteLocation_ItemPriorToItemOrRange As IDoublyLinkedItem ''Added 11/25/2023
+    Public DeleteLocation_ItemNextToItemOrRange As IDoublyLinkedItem ''Added 11/25/2023
+    ''We need special properties for the Delete operation. 
+    ''Redundant. 1/2/2024 Public Delete_PriorToItemOrRange As IDoublyLinkedItem ''TControl
+    ''Redundant. 1/2/2024 Public Delete_NextToItemOrRange As IDoublyLinkedItem ''TControl
+    ''-----------------------------------------------------------------------
+
     ''Added 1/1/2024 thomas downes
     Public CreatedAsUndoOperation As Boolean ''Added 1/1/2024 thomas downes
+
+    ''Added 1/02/2024 
+    Public InverseAnchor_Preceding As IDoublyLinkedItem
+    Public InverseAnchor_Following As IDoublyLinkedItem
 
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
@@ -194,9 +199,15 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             ''11/2023 .LefthandAnchor = Me.LefthandAnchor
             ''11/2023 .RighthandAnchor = Me.RighthandAnchor
             ''11/17/2023 .AnchorLeftToPrior = Me.AnchorLeftToPrior
-            .AnchorToPrecedeItemOrRange = originalOp.AnchorToPrecedeItemOrRange
+            ''--01/02/2024 .AnchorToPrecedeItemOrRange = originalOp.AnchorToPrecedeItemOrRange
             ''11/17/2023 .AnchorRightTerminal = Me.AnchorRightTerminal
-            .AnchorToSucceedItemOrRange = originalOp.AnchorToSucceedItemOrRange
+            ''--01/02/2024 .AnchorToSucceedItemOrRange = originalOp.AnchorToSucceedItemOrRange
+
+            ''Added 1/02/2024
+            .AnchorToPrecedeItemOrRange = originalOp.InverseAnchor_Preceding
+            .AnchorToSucceedItemOrRange = originalOp.InverseAnchor_Following
+            ''Added 1/02/2024
+            .IsChangeOfEndpoint = originalOp.IsChangeOfEndpoint
 
             If (originalOp.InsertItemSingly IsNot Nothing) Then
                 ''
@@ -217,8 +228,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 .OperationType = "D" '' "D"(Delete) is the Undo-ing of "I"(Insert).
 
                 ''Added 12/30/2023 
-                .Delete_PriorToItemOrRange = originalOp.AnchorToPrecedeItemOrRange
-                .Delete_NextToItemOrRange = originalOp.AnchorToSucceedItemOrRange
+                .DeleteLocation_ItemPriorToItemOrRange = originalOp.AnchorToPrecedeItemOrRange
+                .DeleteLocation_ItemNextToItemOrRange = originalOp.AnchorToSucceedItemOrRange
                 .AnchorToPrecedeItemOrRange = Nothing
                 .AnchorToSucceedItemOrRange = Nothing
 
@@ -240,10 +251,11 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 .OperationType = "I" '' "I"(Insert) is the Undo-ing of "D"(Delete)
 
                 ''Added 12/30/2023 
-                .AnchorToPrecedeItemOrRange = originalOp.Delete_PriorToItemOrRange
-                .AnchorToSucceedItemOrRange = originalOp.Delete_NextToItemOrRange
-                .Delete_PriorToItemOrRange = Nothing ''Me.AnchorToPrecedeItemOrRange
-                .Delete_NextToItemOrRange = Nothing ''Me.AnchorToSucceedItemOrRange
+                .AnchorToPrecedeItemOrRange = originalOp.DeleteLocation_ItemPriorToItemOrRange
+                .AnchorToSucceedItemOrRange = originalOp.DeleteLocation_ItemNextToItemOrRange
+                .DeleteLocation_ItemPriorToItemOrRange = Nothing ''Me.AnchorToPrecedeItemOrRange
+                .DeleteLocation_ItemNextToItemOrRange = Nothing ''Me.AnchorToSucceedItemOrRange
+
 
             ElseIf (originalOp.InsertRangeStart IsNot Nothing) Then
                 ''
@@ -270,8 +282,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''11/17/2023 .Delete_NextToItemOrRange = .AnchorRightTerminal
                 ''11/17/2023 .AnchorLeftToPrior = Nothing
                 ''11/17/2023 .AnchorRightTerminal = Nothing
-                .Delete_PriorToItemOrRange = originalOp.AnchorToPrecedeItemOrRange
-                .Delete_NextToItemOrRange = originalOp.AnchorToSucceedItemOrRange
+                .DeleteLocation_ItemPriorToItemOrRange = originalOp.AnchorToPrecedeItemOrRange
+                .DeleteLocation_ItemNextToItemOrRange = originalOp.AnchorToSucceedItemOrRange
                 .AnchorToPrecedeItemOrRange = Nothing
                 .AnchorToSucceedItemOrRange = Nothing
 
@@ -293,10 +305,10 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 .OperationType = "I" '' "I"(Insert) is the Undo-ing of "D"(Delete)
 
                 ''Added 12/30/2023 
-                .AnchorToPrecedeItemOrRange = originalOp.Delete_PriorToItemOrRange
-                .AnchorToSucceedItemOrRange = originalOp.Delete_NextToItemOrRange
-                .Delete_PriorToItemOrRange = Nothing ''Me.AnchorToPrecedeItemOrRange
-                .Delete_NextToItemOrRange = Nothing ''Me.AnchorToSucceedItemOrRange
+                .AnchorToPrecedeItemOrRange = originalOp.DeleteLocation_ItemPriorToItemOrRange
+                .AnchorToSucceedItemOrRange = originalOp.DeleteLocation_ItemNextToItemOrRange
+                .DeleteLocation_ItemPriorToItemOrRange = Nothing ''Me.AnchorToPrecedeItemOrRange
+                .DeleteLocation_ItemNextToItemOrRange = Nothing ''Me.AnchorToSucceedItemOrRange
 
 
             ElseIf (originalOp.MovedRangeStart IsNot Nothing) Then
@@ -403,14 +415,14 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
         ElseIf (IsForDelete()) Then
 
-            If (Delete_PriorToItemOrRange IsNot Nothing) Then
-                If (Delete_NextToItemOrRange Is Nothing) Then
+            If (DeleteLocation_ItemPriorToItemOrRange IsNot Nothing) Then
+                If (DeleteLocation_ItemNextToItemOrRange Is Nothing) Then
                     Return True
                 Else
                     Debugger.Break()
                 End If
             Else
-                If (Delete_NextToItemOrRange IsNot Nothing) Then
+                If (DeleteLocation_ItemNextToItemOrRange IsNot Nothing) Then
                     Return False
                 Else
                     Debugger.Break()

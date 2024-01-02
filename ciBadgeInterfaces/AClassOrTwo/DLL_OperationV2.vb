@@ -457,6 +457,11 @@ Public Class DLL_OperationV2
 
             .AnchorToPrecedeItemOrRange = mod_anchorFinalPrior
             .AnchorToSucceedItemOrRange = mod_anchorFinalNext
+
+            ''Added 1/02/2024 
+            .InverseAnchor_Preceding = mod_inverseAnchorPrior
+            .InverseAnchor_Following = mod_inverseAnchorNext
+
             ''12/28/2023
             .IsChangeOfEndpoint = mod_isChangeOfEndpoint
 
@@ -476,8 +481,14 @@ Public Class DLL_OperationV2
                 .OperationType = "D"c ''Added 12/30/2023 
                 .DeleteRangeStart = mod_operationRangeFirstItem
                 .DeleteCount = mod_countOfItems
-                .DeleteLocation_ItemPrior = mod_inverseAnchorPrior
-                .DeleteLocation_ItemNext = mod_inverseAnchorNext
+
+                ''#1 of 2 Redundant properties!!  Added 1/02/2024
+                .DeleteLocation_ItemPriorToItemOrRange = mod_inverseAnchorPrior
+                ''Redundant property .Delete_PriorToItemOrRange = mod_inverseAnchorPrior
+
+                ''#2 of 2 Redundant properties!!  Added 1/02/2024
+                .DeleteLocation_ItemNextToItemOrRange = mod_inverseAnchorNext
+                ''Redundant property .Delete_NextToItemOrRange = mod_inverseAnchorPrior
 
                 If (.DeleteCount = 1) Then
                     .DeleteItemSingly = mod_operationRangeFirstItem
