@@ -54,6 +54,8 @@ Public Class UserControlOperation
                                 par_isUndoOfInsert As Boolean)
     Public Event DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
                                 par_isUndoOfDelete As Boolean)
+    Public Event DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
+                                par_isUndoOfMove As Boolean)
 
     ''Added 1/01/2024 td
     Private mod_lastPriorOpV2 As DLL_OperationV2 = Nothing ''Added 1/01/2024 td
@@ -802,7 +804,27 @@ Public Class UserControlOperation
 
     End Sub
 
-    Private Sub LinkUndoDelete_Click(sender As Object, e As EventArgs) Handles LinkUndoDelete.Click
+
+    Private Sub LinkUndoMove_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkUndoMove.LinkClicked
+        ''
+        ''Added 1/1/2024 
+        ''
+        '' Let's undo the Delete operation.
+        ''
+        Dim objLastPriorOpV2 As DLL_OperationV2
+        Dim objLastPriorOpV1 As DLL_OperationV1
+        Dim undoOperationV1 As DLL_OperationV1
+
+        objLastPriorOpV2 = mod_lastPriorOpV2
+        objLastPriorOpV1 = objLastPriorOpV2.GetCopyV1()
+
+        ''Create the "Undo" version.
+        undoOperationV1 = objLastPriorOpV1.GetUndoVersionOfOperation()
+        undoOperationV1.CreatedAsUndoOperation = True
+
+        ''Added 1/1/2024 
+        RaiseEvent DLLOperationCreated_UndoOfMove(undoOperationV1, True)
+
 
     End Sub
 

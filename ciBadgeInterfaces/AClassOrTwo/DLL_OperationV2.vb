@@ -508,27 +508,38 @@ Public Class DLL_OperationV2
                 ''
                 ''Dim temp_moveCut_prior As IDoublyLinkedItem
                 ''Dim temp_moveRange_last As IDoublyLinkedItem
-                If (mod_inverseAnchorPrior Is Nothing) Then
-                    ''Easy, let's grab the item which precedes
-                    ''  the first item in the range (may be Null).
-                    mod_inverseAnchorPrior = mod_operationRangeFirstItem.DLL_GetItemPrior()
-                End If ''If (mod_inverseAnchorPrior Is Nothing) Then
 
-                If (mod_inverseAnchorNext Is Nothing) Then
-                    ''---DIFFICULT AND CONFUSING---
-                    ''  By CS-related rules of iteration, by moving ahead
-                    ''  a number of jumps equal to the length of the range,
-                    ''  we get the first post-range item.
-                    ''  
-                    ''12/2023 mod_inverseFinalNext = mod_operationRangeFirstItem.DLL_GetNextOfRange(.MovedCount)
-                    mod_inverseAnchorNext = mod_operationRangeFirstItem.DLL_GetNextItemFollowingRange(.MovedCount,
-                          .IsChangeOfEndpoint)
-                End If ''If (mod_inverseAnchorNext Is Nothing) Then
+                ''Per 1/2024, this is likely too late to set this instance variable (mod_inverseAnchorPrior). 
+                ''1/2024 If (mod_inverseAnchorPrior Is Nothing) Then
+                ''    ''Easy, let's grab the item which precedes
+                ''    ''  the first item in the range (may be Null).
+                ''1/2024     mod_inverseAnchorPrior = mod_operationRangeFirstItem.DLL_GetItemPrior()
+                ''1/2024 End If ''If (mod_inverseAnchorPrior Is Nothing) Then
 
-                ''
+                ''Per 1/2024, this is likely too late to set this instance variable (mod_inverseAnchorNext). 
+                ''1/2024 If (mod_inverseAnchorNext Is Nothing) Then
+                ''    ''---DIFFICULT AND CONFUSING---
+                ''    ''  By CS-related rules of iteration, by moving ahead
+                ''    ''  a number of jumps equal to the length of the range,
+                ''    ''  we get the first post-range item.
+                ''    ''  
+                ''    ''12/2023 mod_inverseFinalNext = mod_operationRangeFirstItem.DLL_GetNextOfRange(.MovedCount)
+                ''1/2024     mod_inverseAnchorNext = mod_operationRangeFirstItem.DLL_GetNextItemFollowingRange(.MovedCount,
+                ''          .IsChangeOfEndpoint)
+                ''1/2024 End If ''If (mod_inverseAnchorNext Is Nothing) Then
+
                 ''Reminder, the "Inverse Anchor" is by definition the situation
                 ''  which exists _BEFORE_IN_TIME_ prior to the Move-Cut operation.
                 ''
+                ''If needed, let's warn the programmer that both module variables are NULL.
+                If (mod_inverseAnchorPrior Is Nothing And
+                    mod_inverseAnchorNext Is Nothing) Then
+                    ''Warn the programm that both module variables are NULL.
+                    Debugger.Break() ''Warn the programm that both module variables are NULL.
+                End If
+
+                ''Reminder, the "Inverse Anchor" is by definition the situation
+                ''  which exists _BEFORE_IN_TIME_ prior to the Move-Cut operation.
                 .MoveCut_PriorToRange = mod_inverseAnchorPrior
                 .MoveCut_NextToRange = mod_inverseAnchorNext
 

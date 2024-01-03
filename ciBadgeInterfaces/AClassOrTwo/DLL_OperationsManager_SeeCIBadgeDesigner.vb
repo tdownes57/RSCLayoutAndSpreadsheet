@@ -275,8 +275,8 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                     '' by the user.  (Lagniappe!  LOL)  
                     ''Make a record of the nearest un-deleted item. 
                     ''
-                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
-                    param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
+                    param_operation.DeleteLocation_ItemPriorToItemOrRange = objItemUndeleted_PriorLeft
+                    param_operation.DeleteLocation_ItemNextToItemOrRange = objItemUndeleted_NextAfter
 
                 ElseIf (param_operation.DeleteRangeStart IsNot Nothing) Then
                     ''
@@ -292,8 +292,8 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
                     ''Make a record of the nearest un-deleted item. 
                     ''
                     ''11/2023 param_operation.Delete_PriorToItemOrRange = objItemUndeleted
-                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
-                    param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
+                    param_operation.DeleteLocation_ItemPriorToItemOrRange = objItemUndeleted_PriorLeft
+                    param_operation.DeleteLocation_ItemNextToItemOrRange = objItemUndeleted_NextAfter
 
                 End If
 

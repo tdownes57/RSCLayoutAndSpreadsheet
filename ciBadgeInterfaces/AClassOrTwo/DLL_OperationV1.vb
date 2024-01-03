@@ -194,6 +194,12 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Dim result_newUndoOperation As New DLL_OperationV1() ''11/2/2023 (Of TControl)
         Dim originalOp As DLL_OperationV1 = Me ''12/30/2023
 
+        ''The following are Move(M)-related. 
+        Dim tempControlLeft_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+        Dim tempControlLeft_PostPaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+        Dim tempControlRight_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+        Dim tempControlRight_Postpaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+
         With result_newUndoOperation ''With objUndo
 
             ''11/2023 .LefthandAnchor = Me.LefthandAnchor
@@ -320,6 +326,14 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 If (originalOp.OperationType <> "M"c) Then Debugger.Break()
                 .OperationType = "M" '' M for Move.
 
+                ''Add 1/02/2024 
+                .MovedCount = originalOp.MovedCount
+                .MovedRangeStart = originalOp.MovedRangeStart
+
+                ''Initialize to Nothing. --1/2/2024
+                .AnchorToPrecedeItemOrRange = Nothing ''originalOp.InverseAnchor_Preceding
+                .AnchorToSucceedItemOrRange = Nothing ''originalOp.InverseAnchor_Following
+
                 ''Per //, the Move-Paste(Insert) operation will leverage the Anchor properties. 
                 ''                    ---11/17/2023
                 ''//Lefthand side 
@@ -345,10 +359,10 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''
                 ''The "L"("Prior")-suffix side, i.e. "ItemPrior" (Column to the L(Left)) side. 
                 ''
-                Dim tempControlLeft_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-                Dim tempControlLeft_PostPaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                ''top of proc Dim tempControlLeft_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                ''top of proc Dim tempControlLeft_PostPaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
 
-                ''
+                ''Get references from the Operiginal Operation.
                 tempControlLeft_PreCut = originalOp.GetMoveRangeItemPrior_PreCut()
                 tempControlLeft_PostPaste = originalOp.GetMoveRangeItemPrior_PostPaste()
 
@@ -356,26 +370,37 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''---- DIFFICULT AND CONFUSING-----
                 ''Next, we perform the "Undo Switcheroo" (LOL)
                 ''
-                .SetMoveRangeItemPrior_PreCut(tempControlLeft_PostPaste) ''Reverse P.C. with P.P.
-                .SetMoveRangeItemPrior_PostPaste(tempControlLeft_PreCut) ''Reverse P.P. with P.C.
-                tempControlLeft_PostPaste = Nothing ''Clear it, not needed now.
-                tempControlLeft_PreCut = Nothing ''Clear it, not needed now.
+                If (tempControlLeft_PostPaste IsNot Nothing) Then
+                    .SetMoveRangeItemPrior_PreCut(tempControlLeft_PostPaste) ''Reverse P.C. with P.P.
+                End If
+                If (tempControlLeft_PreCut IsNot Nothing) Then
+                    .SetMoveRangeItemPrior_PostPaste(tempControlLeft_PreCut) ''Reverse P.P. with P.C.
+                End If
+                ''Not needed 1/2/2024 ''tempControlLeft_PostPaste = Nothing ''Clear it, not needed now.
+                ''Not needed 1/2/2024 ''tempControlLeft_PreCut = Nothing ''Clear it, not needed now.
 
                 ''
                 ''The "R"("Next")-suffix side, i.e. "Righthand" ("ItemNext") (Column to the Right) side. 
                 ''
-                Dim tempControlR_PC As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-                Dim tempControlR_PP As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
-                tempControlR_PC = originalOp.GetMoveRangeItemNext_PreCut()
-                tempControlR_PP = originalOp.GetMoveRangeItemNext_PostPaste()
+                ''top of proc Dim tempControlRight_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+                ''top of proc Dim tempControlRight_Postpaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+
+                ''Get references from the Operiginal Operation.
+                tempControlRight_PreCut = originalOp.GetMoveRangeItemNext_PreCut()
+                tempControlRight_Postpaste = originalOp.GetMoveRangeItemNext_PostPaste()
 
                 ''---- DIFFICULT AND CONFUSING-----
                 ''Next, we perform the "Undo Switcheroo" (LOL)
                 ''
-                .SetMoveRangeItemNext_PreCut(tempControlR_PP) ''Undo (reversal)... Reverse P.C. with P.P.
-                .SetMoveRangeItemNext_PostPaste(tempControlR_PC) ''Undo (reversal)... Reverse P.P. with P.C.
-                tempControlR_PP = Nothing ''Clear it, not needed now.
-                tempControlR_PC = Nothing ''Clear it, not needed now.
+                If (tempControlRight_Postpaste IsNot Nothing) Then
+                    .SetMoveRangeItemNext_PreCut(tempControlRight_Postpaste) ''Undo (reversal)... Reverse P.C. with P.P.
+                End If
+                If (tempControlRight_PreCut IsNot Nothing) Then
+                    .SetMoveRangeItemNext_PostPaste(tempControlRight_PreCut) ''Undo (reversal)... Reverse P.P. with P.C.
+                End If
+
+                ''Not needed 1/2/2024 ''tempControlRight_PP = Nothing ''Clear it, not needed now.
+                ''Not needed 1/2/2024 ''tempControlRight_PC = Nothing ''Clear it, not needed now.
 
             End If ''End of ""If (Me.InsertedSingly IsNot Nothing) Then... ElseIf..."
 
@@ -566,9 +591,29 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''This function is to improve comprehensibility when generating
         ''  an "Undo" version of a Move operation. 
         ''
-        Return MoveCut_NextToRange
+        Dim bPreCut_RangePrior As Boolean ''Added 1/2/2024
+        Dim bPreCut_RangeNext As Boolean ''Added 1/2/2024
+        bPreCut_RangePrior = (MoveCut_PriorToRange IsNot Nothing)
+        bPreCut_RangeNext = (MoveCut_NextToRange IsNot Nothing)
+        Dim bPreCut_Both As Boolean ''Added 1/2/2024
+        bPreCut_Both = (bPreCut_RangePrior And bPreCut_RangeNext)
+        Dim bBothAreNonnull_MayBeSubtleError As Boolean ''Added 1/2/2024
+        bBothAreNonnull_MayBeSubtleError = bPreCut_Both
 
-    End Function
+        If (bBothAreNonnull_MayBeSubtleError) Then
+            ''We don't want both Following & Preceding to be NON-NULL.  
+            Dim bInverseFollowing As Boolean = (InverseAnchor_Following IsNot Nothing)
+            Dim bInversePreceding As Boolean = (InverseAnchor_Preceding IsNot Nothing)
+            Dim bInverseBoth As Boolean = (bInverseFollowing And bInversePreceding)
+            If (bInverseBoth) Then Debugger.Break()
+            Return InverseAnchor_Following
+
+        Else
+            Return MoveCut_NextToRange
+
+        End If ''End of ""If (bMayBeSubtleError) Then ... Else...""
+
+    End Function ''End of ""Public Function GetMoveRangeItemNext_PreCut()""
 
 
     Public Function GetMoveRangeItemPrior_PreCut() As IDoublyLinkedItem
@@ -576,9 +621,10 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''This function is to improve comprehensibility when generating
         ''  an "Undo" version of a Move operation. 
         ''
-        Return MoveCut_PriorToRange
+        ''May be problematic. 1/2/2024 Return MoveCut_PriorToRange
+        Return InverseAnchor_Preceding
 
-    End Function
+    End Function ''End of ""Public Function GetMoveRangeItemPrior_PreCut()""
 
 
     Public Function GetMoveRangeItemNext_PostPaste() As IDoublyLinkedItem

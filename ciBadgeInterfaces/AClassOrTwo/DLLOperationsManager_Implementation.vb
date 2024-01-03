@@ -352,8 +352,8 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
                 '' ... we probably need the anchor.  ---11/25/2023
                 '' #1 11/2023 .AnchorLeftPrior = toUseAsAnchorStart
                 '' #2 11/2023 .AnchorToSucceedItemOrRange = toUseAsAnchorTerminal
-                .DeleteLocation_ItemPrior = recordDeleteLocation_ItemPrior
-                .DeleteLocation_ItemNext = recordDeleteLocation_ItemNext
+                .DeleteLocation_ItemPriorToItemOrRange = recordDeleteLocation_ItemPrior
+                .DeleteLocation_ItemNextToItemOrRange = recordDeleteLocation_ItemNext
                 ''------------END ADMINISTRATIVE, POSSIBLY CONFUSING--------
 
             End With ''With objOperationNew

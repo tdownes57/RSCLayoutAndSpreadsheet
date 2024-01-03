@@ -458,14 +458,25 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of "Private Sub ProcessOperation_Insert"
 
 
-    Private Sub UserControlOperation1_DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
-                                                                    par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
-                                                                    par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
-                                                                    Handles UserControlOperation1.DLLOperationCreated_MoveRange
+    Private Sub DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
+                                        par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
+                                        par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
+                                        Handles UserControlOperation1.DLLOperationCreated_MoveRange
         ''
         ''Added 12/25/2023 
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
+        ''
+        ProcessOperation_MoveRange(par_operationV1)
+
+    End Sub
+
+
+    Private Sub ProcessOperation_MoveRange(par_operationV1 As DLL_OperationV1)
+        ''
+        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
+        ''
+        ''  Encapsulated 1/2/2024 td
         ''
         With par_operationV1
             ''
@@ -542,8 +553,17 @@ Public Class FormTestRSCViaDigits
         ''
         ''Added 1/01/2024
         ''
-        mod_intCountOperations += 1
-        mod_lastPriorOpV1 = par_lastPriorOpV1
+        If (par_lastPriorOpV1.CreatedAsUndoOperation) Then
+            ''Process the Undo Operation.
+            ''mod_intCountOperations -= 1
+            mod_intCountOperations = 0
+            mod_lastPriorOpV1 = Nothing ''par_lastPriorOpV1
+
+        Else
+            mod_intCountOperations += 1
+            mod_lastPriorOpV1 = par_lastPriorOpV1
+        End If ''End of ""If (par_lastPriorOpV1.CreatedAsUndoOperation) Then... Else..."
+
         With LabelNumOperations
             LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
         End With
@@ -580,5 +600,25 @@ Public Class FormTestRSCViaDigits
 
     End Sub
 
+    Private Sub UserControlOperation1_DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
+                                                                       par_isUndoOfDelete As Boolean) _
+                                       Handles UserControlOperation1.DLLOperationCreated_UndoOfDelete
+        ''
+        ''Added 1/1/2024  
+        ''
+        ProcessOperation_Insert(par_operation)
+
+    End Sub
+
+    Private Sub DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
+                                                                     par_isUndoOfMove As Boolean) _
+                            Handles UserControlOperation1.DLLOperationCreated_UndoOfMove
+        ''
+        ''Added 1/1/2024  
+        ''
+        ProcessOperation_MoveRange(par_operation)
+
+
+    End Sub
 
 End Class
