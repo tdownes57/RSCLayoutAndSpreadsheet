@@ -69,6 +69,7 @@
     <Compile Include="AClassOrTwo\ClassFixTheControlWidth.vb" />
     <Compile Include="AClassOrTwo\DLLOperationsManager_Implementation.vb" />
     <Compile Include="AClassOrTwo\DLL_List_OfTControl_PLEASE_USE.vb" />
+    <Compile Include="AClassOrTwo\DLL_List_OfTControl_SORTING.vb" />
     <Compile Include="AClassOrTwo\DLL_OperationV1.vb" />
     <Compile Include="AClassOrTwo\DLL_OperationsRedoMarker.vb" />
     <Compile Include="AClassOrTwo\DLL_OperationV2.vb" />

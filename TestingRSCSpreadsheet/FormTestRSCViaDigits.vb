@@ -261,6 +261,11 @@ Public Class FormTestRSCViaDigits
         Dim itemCount As Integer = mod_list.DLL_CountAllItems()
         UserControlOperation1.UpdateTheItemCount(itemCount)
 
+        ''Added 1/04/202
+        Dim last_item As TwoCharacterDLLItem
+        last_item = CType(mod_list.DLL_GetLastItem(), TwoCharacterDLLItem)
+        LinkEndpoint.Text = last_item.ToString()
+
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
 
