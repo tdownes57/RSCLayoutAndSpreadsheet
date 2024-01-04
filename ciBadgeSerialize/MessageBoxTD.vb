@@ -5,6 +5,9 @@ Imports System.Windows.forms ''Added 1/25/2022 td
 
 Public Class MessageBoxTD
 
+    ''Added 1/04/2024 & 2/06/2022 
+    Private Const _vbCrLf_Deux As String = (vbCrLf & vbCrLf)
+
     Public Shared Sub Show_Statement(pstrStatement As String)
         ''
         ''Added 12/28/2021 thomas downes
@@ -31,6 +34,22 @@ Public Class MessageBoxTD
                                MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
 
     End Function
+
+    Public Shared Sub Show_InsertWordFormat_Line1(pstrWord_ForLine1 As String,
+                                               pstrStatement_Line1 As String,
+                                     Optional pstrStatement_Line2 As String = "")
+        ''
+        ''Added 4/26/2022 thomas downes
+        ''
+        Dim strLine1_WithWord As String
+        strLine1_WithWord = String.Format(pstrStatement_Line1, pstrWord_ForLine1)
+
+        MessageBox.Show(strLine1_WithWord & _vbCrLf_Deux &
+                        pstrStatement_Line2, "MessageBoxTD-Statement",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub ''End of ""Public Shared Sub Show_InsertWordFormat_Line1""
+
 
 
 End Class

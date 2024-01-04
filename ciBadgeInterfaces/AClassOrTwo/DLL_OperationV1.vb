@@ -404,6 +404,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
             End If ''End of ""If (Me.InsertedSingly IsNot Nothing) Then... ElseIf..."
 
+            ''Added 1/03/2024 tdownes
+            .CreatedAsUndoOperation = True
+
         End With ''End of ""With result_newUndoOperation""
 
         Return result_newUndoOperation ''Return objUndo

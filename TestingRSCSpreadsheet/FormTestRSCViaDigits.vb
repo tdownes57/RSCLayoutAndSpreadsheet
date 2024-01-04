@@ -1,4 +1,5 @@
-﻿Imports System.Reflection.Emit
+﻿Imports System.Drawing.Text
+Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices.JavaScript.JSType
 Imports System.Text
 Imports ciBadgeInterfaces
@@ -388,6 +389,11 @@ Public Class FormTestRSCViaDigits
 
         ProcessOperation_Insert(par_operationV1)
 
+        ''
+        '' Make the Insert visible to the user.
+        ''
+        RefreshTheUI_DisplayList()
+
         ''Added 1/01/2024
         RecordLastPriorOperation(par_operationV1)
 
@@ -669,9 +675,9 @@ Public Class FormTestRSCViaDigits
             Case "I"c
                 ''Insert (the inverse of Delete)
                 ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
-            Case "I"c
+            Case "D"c
                 ''Delete (the inverse of Insert)
-                ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
+                ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation())
             Case "M"c
                 ''Move Range (the inverse of Move Range)
                 ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation())
@@ -701,23 +707,25 @@ Public Class FormTestRSCViaDigits
     End Sub
 
 
-    Private Sub UserControlOperation1_DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1,
+    Private Sub DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1,
                                                                        par_isUndoOfInsert As Boolean) _
                                                  Handles UserControlOperation1.DLLOperationCreated_UndoOfInsert
         ''
         ''Added 1/1/2024  
         ''
-        ProcessOperation_Delete(par_operation)
+        ''See UndoOfInsert_NoParams().---1/4/2024 
+        ''1/4/2024  ProcessOperation_Delete(par_operation)
 
     End Sub
 
-    Private Sub UserControlOperation1_DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
+    Private Sub DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
                                                                        par_isUndoOfDelete As Boolean) _
                                        Handles UserControlOperation1.DLLOperationCreated_UndoOfDelete
         ''
         ''Added 1/1/2024  
         ''
-        ProcessOperation_Insert(par_operation)
+        ''See UndoOfDelete_NoParams().---1/4/2024 
+        ''1/4/2024  ProcessOperation_Insert(par_operation)
 
     End Sub
 
@@ -727,21 +735,51 @@ Public Class FormTestRSCViaDigits
         ''
         ''Added 1/1/2024  
         ''
-        ProcessOperation_MoveRange(par_operation)
+        ''See UndoOfMove_NoParams().---1/4/2024 
+        ''1/4/2024 ProcessOperation_MoveRange(par_operation)
 
 
     End Sub
 
-    Private Sub UserControlOperation1_UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
+
+    Private Sub UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
         ''
         ''Added 1/1/2024  
         ''
+        UndoOfSpecificOperationType("D"c, "Delete")
+
+    End Sub
+
+
+    Private Sub UndoOfInsert_NoParams() Handles UserControlOperation1.UndoOfInsert_NoParams
+        ''
+        ''Added 1/1/2024  
+        ''
+        UndoOfSpecificOperationType("I"c, "Insert")
+
+    End Sub
+
+
+    Private Sub UndoOfMoveRange_NoParams() Handles UserControlOperation1.UndoOfMoveRange_NoParams
+        ''
+        ''Added 1/1/2024  
+        ''
+        UndoOfSpecificOperationType("M"c, "Move")
+
+    End Sub
+
+
+    Private Sub UndoOfSpecificOperationType(par_typeOfOp As Char, par_wordForOperation As String)
+        ''--Private Sub UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
+        ''
+        ''Encapsulated 1/3/2024 
+        ''
         Dim eachOperationType As Char
-        Dim bFoundDeleteOperationOnStack As Boolean = False
+        Dim bFoundDesiredOperationTypeOnStack As Boolean = False
         ''Dim bNotDone As Boolean = True
         Dim bCompletedWhile As Boolean = False
         Dim eachOperation As DLL_OperationV1
-        Dim each_isDelete As Boolean
+        Dim each_boolIsOfSpecifiedType As Boolean
         Dim largestIndex As Integer = (-1 + mod_stackOperations.Count())
         Dim eachIndex As Integer = largestIndex ''(-1 + mod_stackOperations.Count())
         Dim index_ofDeleteOperation As Integer
@@ -753,12 +791,19 @@ Public Class FormTestRSCViaDigits
         ''Step #1 of 2.  Does a Delete operation exist on the stack? 
         ''
         While (Not bCompletedWhile) ''While bNotDone
+            ''
+            ''Look for an operation of the specified type (par_typeOfOp).
+            ''
             eachOperation = mod_stackOperations.ElementAt(eachIndex)
             eachOperationType = eachOperation.OperationType
-            each_isDelete = (eachOperationType = "D"c)
-            bFoundDeleteOperationOnStack = (each_isDelete Or bFoundDeleteOperationOnStack)
-            If each_isDelete Then
-                bFoundDeleteOperationOnStack = True
+            ''each_isDelete = (eachOperationType = "D"c)
+            each_boolIsOfSpecifiedType = (eachOperationType = par_typeOfOp)
+
+            bFoundDesiredOperationTypeOnStack = (each_boolIsOfSpecifiedType Or
+                bFoundDesiredOperationTypeOnStack)
+
+            If each_boolIsOfSpecifiedType Then ''If each_isDelete Then
+                bFoundDesiredOperationTypeOnStack = True
                 index_ofDeleteOperation = eachIndex
                 bCompletedWhile = True
             Else
@@ -772,7 +817,11 @@ Public Class FormTestRSCViaDigits
         ''Step #2 of 2.  Execute "Undo" for all operations, down to & including
         ''   the largest-index Delete operation. 
         ''
-        If (bFoundDeleteOperationOnStack) Then
+        If (bFoundDesiredOperationTypeOnStack) Then
+            ''
+            ''Pop off the intervening operations, until we reach
+            ''  the desired operation.
+            ''
             For eachIndex = largestIndex To index_ofDeleteOperation
                 ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
                 eachOperation = mod_stackOperations.Pop()
@@ -793,12 +842,16 @@ Public Class FormTestRSCViaDigits
             ''
             ''Added 1/3/2024
             ''
-            MessageBoxTD.Show_Statement("Sorry, no Delete operations are found on the Stack!!")
+            ''#1 1/4/2024 MessageBoxTD.Show_Statement("Sorry, no Delete operations are found on the Stack!!")
+            '' #2 1/4/2024 MessageBoxTD.Show_Formatting("Sorry, no {0} operations are found on the Stack!!",
+            ''                           par_wordForOperation)
+            MessageBoxTD.Show_InsertWordFormat_Line1(par_wordForOperation,
+                        "Sorry, no {0} operations are found on the Stack!!")
 
         End If ''ENd of ""If (bFoundDeleteOperationOnStack) Then""
 
 
-    End Sub ''End of ""Private Sub UserControlOperation1_UndoOfDelete_NoParams()""
+    End Sub ''End of ""Private Sub UndoOfSpecificOperationType()""
 
 
 End Class

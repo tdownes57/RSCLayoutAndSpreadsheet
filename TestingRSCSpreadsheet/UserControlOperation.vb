@@ -58,6 +58,8 @@ Public Class UserControlOperation
                                 par_isUndoOfMove As Boolean)
     ''Added 1/1/2024 thomas 
     Public Event UndoOfDelete_NoParams()
+    Public Event UndoOfInsert_NoParams()
+    Public Event UndoOfMoveRange_NoParams()
 
     ''Added 1/01/2024 td
     Private mod_lastPriorOpV2 As DLL_OperationV2 = Nothing ''Added 1/01/2024 td
@@ -777,6 +779,8 @@ Public Class UserControlOperation
         ''Added 1/1/2024 
         RaiseEvent DLLOperationCreated_UndoOfInsert(undoOperationV1, True)
 
+        ''Added 1/03/2024 
+        RaiseEvent UndoOfInsert_NoParams()
 
     End Sub
 
@@ -802,6 +806,7 @@ Public Class UserControlOperation
 
         ''Added 1/1/2024 
         ''1/3/2024 RaiseEvent DLLOperationCreated_UndoOfDelete(undoOperationV1, True)
+        RaiseEvent DLLOperationCreated_UndoOfDelete(undoOperationV1, True)
         RaiseEvent UndoOfDelete_NoParams()
 
     End Sub
@@ -826,7 +831,8 @@ Public Class UserControlOperation
 
         ''Added 1/1/2024 
         RaiseEvent DLLOperationCreated_UndoOfMove(undoOperationV1, True)
-
+        ''Added 1/3/2024 
+        RaiseEvent UndoOfMoveRange_NoParams()
 
     End Sub
 
