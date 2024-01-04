@@ -56,6 +56,8 @@ Public Class UserControlOperation
                                 par_isUndoOfDelete As Boolean)
     Public Event DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
                                 par_isUndoOfMove As Boolean)
+    ''Added 1/1/2024 thomas 
+    Public Event UndoOfDelete_NoParams()
 
     ''Added 1/01/2024 td
     Private mod_lastPriorOpV2 As DLL_OperationV2 = Nothing ''Added 1/01/2024 td
@@ -799,8 +801,8 @@ Public Class UserControlOperation
         undoOperationV1.CreatedAsUndoOperation = True
 
         ''Added 1/1/2024 
-        RaiseEvent DLLOperationCreated_UndoOfDelete(undoOperationV1, True)
-
+        ''1/3/2024 RaiseEvent DLLOperationCreated_UndoOfDelete(undoOperationV1, True)
+        RaiseEvent UndoOfDelete_NoParams()
 
     End Sub
 

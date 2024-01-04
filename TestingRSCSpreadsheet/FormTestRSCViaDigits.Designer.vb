@@ -94,7 +94,8 @@ Partial Class FormTestRSCViaDigits
         ' 
         ' ButtonReDo
         ' 
-        ButtonReDo.Location = New Point(463, 25)
+        ButtonReDo.Enabled = False
+        ButtonReDo.Location = New Point(480, 25)
         ButtonReDo.Name = "ButtonReDo"
         ButtonReDo.Size = New Size(147, 27)
         ButtonReDo.TabIndex = 19

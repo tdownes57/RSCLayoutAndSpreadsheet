@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices.JavaScript.JSType
+﻿Imports System.Reflection.Emit
+Imports System.Runtime.InteropServices.JavaScript.JSType
 Imports System.Text
 Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
@@ -19,6 +20,7 @@ Public Class FormTestRSCViaDigits
     ''Added 1/01/2024 
     Private mod_intCountOperations = 0
     Private mod_lastPriorOpV1 As DLL_OperationV1 = Nothing ''par_lastPriorOpV1
+    Private mod_stackOperations As Stack(Of DLL_OperationV1) = New Stack(Of DLL_OperationV1)() ''par_lastPriorOpV1
 
 
     Public Sub New()
@@ -261,6 +263,18 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
 
+    Private Sub RefreshTheUI_OperationsCount()
+        ''
+        ''Added 1/03/2024 
+        ''
+        With LabelNumOperations
+            mod_intCountOperations = mod_stackOperations.Count
+            LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
+        End With
+
+    End Sub ''End of ""Private Sub RefreshTheUI_OperationsCount()""
+
+
     Private Sub DLL_OperationCreated_Delete(par_operationV1 As DLL_OperationV1,
                                             par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                             par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
@@ -270,12 +284,24 @@ Public Class FormTestRSCViaDigits
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
-        ProcessOperation_Delete(par_operationV1)
+        ProcessOperation_Delete(par_operationV1, False)
+
+        ''
+        '' Make the Delete visible to the user.
+        ''
+        RefreshTheUI_DisplayList()
+
+        ''Added 1/01/2024
+        RecordLastPriorOperation(par_operationV1)
+
+        ''Added 1/03/2024
+        RefreshTheUI_OperationsCount()
 
     End Sub ''End of ""Private Sub DLL_OperationCreated_Delete""
 
 
-    Private Sub ProcessOperation_Delete(par_operationV1 As DLL_OperationV1)
+    Private Sub ProcessOperation_Delete(par_operationV1 As DLL_OperationV1,
+                                        Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''Encapsulated 1/01/2024 
         ''Added 12/25/2023 
@@ -332,13 +358,21 @@ Public Class FormTestRSCViaDigits
         End With ''End of ""With par_operationV1"" 
 
         ''
-        '' Make the Delete visible to the user.
+        ''Admin, if requested.
         ''
-        RefreshTheUI_DisplayList()
+        If (par_bIncludePostOpAdmin) Then
+            ''
+            '' Make the Delete visible to the user.
+            ''
+            RefreshTheUI_DisplayList()
 
-        ''Added 1/01/2024
-        RecordLastPriorOperation(par_operationV1)
+            ''Added 1/01/2024
+            RecordLastPriorOperation(par_operationV1)
 
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        End If ''ENd of ""If (par_bIncludePostOpAdmin) Then""
 
     End Sub ''End of ""Private Sub ProcessOperation_Delete""
 
@@ -354,10 +388,17 @@ Public Class FormTestRSCViaDigits
 
         ProcessOperation_Insert(par_operationV1)
 
+        ''Added 1/01/2024
+        RecordLastPriorOperation(par_operationV1)
+
+        ''Added 1/03/2024
+        RefreshTheUI_OperationsCount()
+
     End Sub ''ENd of ""Private Sub DLLOperationCreated_Insert""
 
 
-    Private Sub ProcessOperation_Insert(par_operationV1 As DLL_OperationV1)
+    Private Sub ProcessOperation_Insert(par_operationV1 As DLL_OperationV1,
+                                        Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''Encapsulation 1/1/2024 
         ''
@@ -447,13 +488,21 @@ Public Class FormTestRSCViaDigits
         End With ''End of ""With par_operationV1""
 
         ''
-        ''Refresh the Display.  (Make the Insert visible to the user.)
+        ''Admin, if requested.
         ''
-        RefreshTheUI_DisplayList()
+        If (par_bIncludePostOpAdmin) Then
+            ''
+            ''Refresh the Display.  (Make the Insert visible to the user.)
+            ''
+            RefreshTheUI_DisplayList()
 
-        ''Added 1/01/2024
-        RecordLastPriorOperation(par_operationV1)
+            ''Added 1/01/2024
+            RecordLastPriorOperation(par_operationV1)
 
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        End If ''end of ""If (par_bIncludePostOpAdmin) Then""
 
     End Sub ''End of "Private Sub ProcessOperation_Insert"
 
@@ -469,10 +518,23 @@ Public Class FormTestRSCViaDigits
         ''
         ProcessOperation_MoveRange(par_operationV1)
 
+        ''
+        ''Refresh the Display.  (Make the Insert visible to the user.)
+        ''
+        RefreshTheUI_DisplayList()
+
+        ''Added 1/01/2024
+        RecordLastPriorOperation(par_operationV1)
+
+        ''Added 1/03/2024
+        RefreshTheUI_OperationsCount()
+
+
     End Sub
 
 
-    Private Sub ProcessOperation_MoveRange(par_operationV1 As DLL_OperationV1)
+    Private Sub ProcessOperation_MoveRange(par_operationV1 As DLL_OperationV1,
+                                        Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
@@ -533,18 +595,22 @@ Public Class FormTestRSCViaDigits
 
         End With ''End of ""With par_operationV1""
 
-        ''Populate the UI. 
-        ''Dim strListOfLinks As String
-        ''strListOfLinks = FillTheTextboxDisplayingList()
-        ''LabelItemsDisplay.Text = strListOfLinks
         ''
-        ''Refresh the Display.  (Make the Move-Range visible to the user.)
+        ''Admin, if requested.
         ''
-        RefreshTheUI_DisplayList()
+        If (par_bIncludePostOpAdmin) Then
+            ''
+            ''Refresh the Display.  (Make the Insert visible to the user.)
+            ''
+            RefreshTheUI_DisplayList()
 
-        ''Added 1/01/2024
-        RecordLastPriorOperation(par_operationV1)
+            ''Added 1/01/2024
+            RecordLastPriorOperation(par_operationV1)
 
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        End If ''end of ""If (par_bIncludePostOpAdmin) Then""
 
     End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
 
@@ -557,18 +623,63 @@ Public Class FormTestRSCViaDigits
             ''Process the Undo Operation.
             ''mod_intCountOperations -= 1
             mod_intCountOperations = 0
-            mod_lastPriorOpV1 = Nothing ''par_lastPriorOpV1
+            mod_lastPriorOpV1 = Nothing ''Clear the last operation.
+
+            ''Added 1/02/2024
+            If (0 < mod_stackOperations.Count()) Then
+                mod_lastPriorOpV1 = mod_stackOperations.Pop()
+            End If ''Edn of ""If (0 < mod_stackOperations.Count()) Then""
 
         Else
+            ''Increase the count of operations.
             mod_intCountOperations += 1
+
+            ''Added 1/2/2024 
+            ''If (mod_lastPriorOpV1 IsNot Nothing) Then
+            ''    mod_stackOperations.Append(mod_lastPriorOpV1)
+            ''End If ''End of ""If (mod_lastPriorOpV1 IsNot Nothing) Then""
             mod_lastPriorOpV1 = par_lastPriorOpV1
+            ''---mod_stackOperations.Append(par_lastPriorOpV1)
+            mod_stackOperations.Push(par_lastPriorOpV1)
+
         End If ''End of ""If (par_lastPriorOpV1.CreatedAsUndoOperation) Then... Else..."
 
-        With LabelNumOperations
-            LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
-        End With
+        ''With LabelNumOperations
+        ''    LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
+        ''End With
+        ''Added 1/03/2024 
+        ''RefreshTheUI_OperationsCount()
 
     End Sub ''End of ""Private Sub RecordLastPriorOperation()""
+
+
+    Private Sub UndoOperation_ViaInverseOf(parOperation As DLL_OperationV1)
+        ''
+        ''Added 1/03/2024 td
+        ''
+        Dim opType As Char
+        Dim inverse_opType As Char
+
+        opType = parOperation.OperationType
+        If (opType = "I"c) Then inverse_opType = "D"c
+        If (opType = "D"c) Then inverse_opType = "I"c
+        If (opType = "M"c) Then inverse_opType = "M"c
+
+        Select Case inverse_opType
+            Case "I"c
+                ''Insert (the inverse of Delete)
+                ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
+            Case "I"c
+                ''Delete (the inverse of Insert)
+                ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
+            Case "M"c
+                ''Move Range (the inverse of Move Range)
+                ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation())
+            Case Else
+                Debugger.Break()
+        End Select ''End of ""Select Case inverse_opType""
+
+    End Sub ''End of ""Private Sub UndoOperation_ViaInverseOf(eachOperation As DLL_OperationV1)""
 
 
     Private Sub LinkSingleItem_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkSingleItemOnly.LinkClicked
@@ -620,5 +731,74 @@ Public Class FormTestRSCViaDigits
 
 
     End Sub
+
+    Private Sub UserControlOperation1_UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
+        ''
+        ''Added 1/1/2024  
+        ''
+        Dim eachOperationType As Char
+        Dim bFoundDeleteOperationOnStack As Boolean = False
+        ''Dim bNotDone As Boolean = True
+        Dim bCompletedWhile As Boolean = False
+        Dim eachOperation As DLL_OperationV1
+        Dim each_isDelete As Boolean
+        Dim largestIndex As Integer = (-1 + mod_stackOperations.Count())
+        Dim eachIndex As Integer = largestIndex ''(-1 + mod_stackOperations.Count())
+        Dim index_ofDeleteOperation As Integer
+
+        ''Are there any operations on the Stack? 
+        bCompletedWhile = (0 = mod_stackOperations.Count())
+
+        ''
+        ''Step #1 of 2.  Does a Delete operation exist on the stack? 
+        ''
+        While (Not bCompletedWhile) ''While bNotDone
+            eachOperation = mod_stackOperations.ElementAt(eachIndex)
+            eachOperationType = eachOperation.OperationType
+            each_isDelete = (eachOperationType = "D"c)
+            bFoundDeleteOperationOnStack = (each_isDelete Or bFoundDeleteOperationOnStack)
+            If each_isDelete Then
+                bFoundDeleteOperationOnStack = True
+                index_ofDeleteOperation = eachIndex
+                bCompletedWhile = True
+            Else
+                ''Prepare for next iteration.
+                eachIndex -= 1
+                bCompletedWhile = (eachIndex < 0)
+            End If ''END OF "'If each_isDelete Then... Else..."
+        End While ''ENd of ""While Not bCompletedWhile""
+
+        ''
+        ''Step #2 of 2.  Execute "Undo" for all operations, down to & including
+        ''   the largest-index Delete operation. 
+        ''
+        If (bFoundDeleteOperationOnStack) Then
+            For eachIndex = largestIndex To index_ofDeleteOperation
+                ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
+                eachOperation = mod_stackOperations.Pop()
+                ''Major call!!
+                UndoOperation_ViaInverseOf(eachOperation)
+                RefreshTheUI_OperationsCount()
+            Next eachIndex
+
+            ''
+            ''Refresh the Display.  (Make the Insert visible to the user.)
+            ''
+            RefreshTheUI_DisplayList()
+
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        Else
+            ''
+            ''Added 1/3/2024
+            ''
+            MessageBoxTD.Show_Statement("Sorry, no Delete operations are found on the Stack!!")
+
+        End If ''ENd of ""If (bFoundDeleteOperationOnStack) Then""
+
+
+    End Sub ''End of ""Private Sub UserControlOperation1_UndoOfDelete_NoParams()""
+
 
 End Class
