@@ -20,6 +20,32 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
     End Sub ''eND OF ""Public Sub DLL_SortItems()""
 
 
+    Private Class DLL_RangeQueue
+        ''
+        ''Added 1/4/2024 thomas downes
+        ''
+        Public Count As Integer
+        Private mod_firstItem As IDoublyLinkedItem
+
+        Public Sub New(par_first As IDoublyLinkedItem, par_count As Integer)
+            mod_firstItem = par_first
+            Count = par_count
+        End Sub
+
+        Public Function Peek() As IDoublyLinkedItem
+            Return mod_firstItem
+        End Function
+
+        Public Sub Dequeue()
+            If (Count = 0) Then Debugger.Break()
+            mod_firstItem = mod_firstItem.DLL_GetItemNext
+            Count -= 1 ''Decrease the count
+        End Sub ''End of ""Public Sub Dequeue()""
+
+    End Class ''End of ""Private Class DLL_RangeQueue""
+
+
+
     ''' <summary>
     ''' Sorting a sub-list of the overall list. We will break the sub-list into two halves,
     ''' call this same function (recursion) twice (each of the two(2) halves), then finally
@@ -31,7 +57,7 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
     Private Sub SortItemsOfSublist_Recursive(par_startingItem As IDoublyLinkedItem,
                                    par_countOfItems As Integer,
                                    par_indexOfStart As Integer,
-                                   byref_firstOfSort As IDoublyLinkedItem)
+                                   ByRef byref_firstOfSort As IDoublyLinkedItem)
         ''
         ''Added 1/04/2024
         ''
@@ -51,16 +77,16 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         End If ''End of ""If (par_startingItem.DLL_HasPrior()) Then""
 
         Dim itemFirstOf_2nd_Half As IDoublyLinkedItem
-        Dim intCountOfFirstHalf As Integer
-        Dim intCountOf_2nd_Half As Integer
+        Dim countOfFirstHalf As Integer
+        Dim countOf_2nd_Half As Integer
         Dim indexOf_2nd_Half As Integer
 
-        intCountOfFirstHalf = par_countOfItems / 2
+        countOfFirstHalf = par_countOfItems / 2
         ''The following will get the first item of the second half, 
         ''  _NOT_ the last item of the first half. 
-        itemFirstOf_2nd_Half = par_startingItem.DLL_GetItemNext(intCountOfFirstHalf)
-        indexOf_2nd_Half = (par_indexOfStart + intCountOfFirstHalf)
-        intCountOf_2nd_Half = (par_countOfItems - intCountOfFirstHalf)
+        itemFirstOf_2nd_Half = par_startingItem.DLL_GetItemNext(countOfFirstHalf)
+        indexOf_2nd_Half = (par_indexOfStart + countOfFirstHalf)
+        countOf_2nd_Half = (par_countOfItems - countOfFirstHalf)
 
         Dim itemFirstOfSort_1stHalf As IDoublyLinkedItem = Nothing
         Dim itemFirstOfSort_2ndHalf As IDoublyLinkedItem = Nothing
@@ -73,10 +99,10 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         ''
         ''
         ''First half.
-        SortItemsOfSublist_Recursive(par_startingItem, intCountOfFirstHalf, par_indexOfStart,
+        SortItemsOfSublist_Recursive(par_startingItem, countOfFirstHalf, par_indexOfStart,
                                      itemFirstOfSort_1stHalf)
         ''Second half.
-        SortItemsOfSublist_Recursive(itemFirstOf_2nd_Half, intCountOf_2nd_Half, indexOf_2nd_Half,
+        SortItemsOfSublist_Recursive(itemFirstOf_2nd_Half, countOf_2nd_Half, indexOf_2nd_Half,
                                      itemFirstOfSort_2ndHalf)
 
         ''
@@ -90,6 +116,8 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         Dim postSort_itemFirstOf_2nd_Half As IDoublyLinkedItem
         postSort_itemFirstOfFirstHalf = itemFirstOfSort_1stHalf
         postSort_itemFirstOf_2nd_Half = itemFirstOfSort_2ndHalf
+        Dim postSort_queue1stHalf = New DLL_RangeQueue(postSort_itemFirstOfFirstHalf, countOfFirstHalf)
+        Dim postSort_queue2ndHalf = New DLL_RangeQueue(postSort_itemFirstOf_2nd_Half, countOf_2nd_Half)
 
         ''
         ''Merging the two halves!!
@@ -102,6 +130,16 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         ''Important for output!!!
         byref_firstOfSort = itemFirstOfMerge
 
+        Dim bFirstHalfItemIsSelected As Boolean
+        bFirstHalfItemIsSelected = bFirstArgumentIsLess
+        If (bFirstHalfItemIsSelected) Then
+            ''Remove the selected item from the queue.
+            postSort_queue1stHalf.Dequeue()
+        Else
+            ''Remove the selected item from the queue.
+            postSort_queue2ndHalf.Dequeue()
+        End If
+
         ''The following indices start from zero, regardless of the 
         ''  location of the sublist. 
         Dim intRelativeIndex_1stHalf As Integer = 0
@@ -113,34 +151,34 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         Dim itemLesser_Prior As IDoublyLinkedItem = itemFirstOfMerge
 
         ''Create two queues of items.
-        Dim postSort_queue1stHalf As New Queue(Of IDoublyLinkedItem)
-        Dim postSort_queue2ndHalf As New Queue(Of IDoublyLinkedItem)
+        ''Dim postSort_queue1stHalf As New Queue(Of IDoublyLinkedItem)
+        ''Dim postSort_queue2ndHalf As New Queue(Of IDoublyLinkedItem)
 
-        ''
-        ''Loop to fill Queue #1 of 2.  (First Half.)
-        ''
-        bCompleted = False
-        Dim temp_item As IDoublyLinkedItem = postSort_itemFirstOfFirstHalf
-        Dim intHowManyEnqueued As Integer = 0
-        While (Not bCompleted)
-            postSort_queue1stHalf.Enqueue(temp_item)
-            intHowManyEnqueued += 1
-            temp_item = temp_item.DLL_GetItemNext()
-            bCompleted = (intHowManyEnqueued >= intCountOfFirstHalf)
-        End While
+        ''''
+        ''''Loop to fill Queue #1 of 2.  (First Half.)
+        ''''
+        ''bCompleted = False
+        ''Dim temp_item As IDoublyLinkedItem = postSort_itemFirstOfFirstHalf
+        ''Dim intHowManyEnqueued As Integer = 0
+        ''While (Not bCompleted)
+        ''    postSort_queue1stHalf.Enqueue(temp_item)
+        ''    intHowManyEnqueued += 1
+        ''    temp_item = temp_item.DLL_GetItemNext()
+        ''    bCompleted = (intHowManyEnqueued >= intCountOfFirstHalf)
+        ''End While
 
-        ''
-        ''Loop to fill Queue #2 of 2.  (Second (2nd) Half.)
-        ''
-        bCompleted = False
-        temp_item = postSort_itemFirstOf_2nd_Half
-        intHowManyEnqueued = 0
-        While (Not bCompleted)
-            postSort_queue2ndHalf.Enqueue(temp_item)
-            intHowManyEnqueued += 1
-            temp_item = temp_item.DLL_GetItemNext()
-            bCompleted = (intHowManyEnqueued >= intCountOf_2nd_Half)
-        End While
+        ''''
+        ''''Loop to fill Queue #2 of 2.  (Second (2nd) Half.)
+        ''''
+        ''bCompleted = False
+        ''temp_item = postSort_itemFirstOf_2nd_Half
+        ''intHowManyEnqueued = 0
+        ''While (Not bCompleted)
+        ''    postSort_queue2ndHalf.Enqueue(temp_item)
+        ''    intHowManyEnqueued += 1
+        ''    temp_item = temp_item.DLL_GetItemNext()
+        ''    bCompleted = (intHowManyEnqueued >= intCountOf_2nd_Half)
+        ''End While
 
         ''
         ''Loop to accomplish a sorted merge. 
@@ -153,20 +191,37 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
 
             ''item_toCompare1stHalf = postSort_itemFirstOfFirstHalf.DLL_GetItemNext(intRelativeIndex_1stHalf)
             ''item_toCompare2ndHalf = postSort_itemFirstOf_2nd_Half.DLL_GetItemNext(intRelativeIndex_2ndHalf)
+
             If (hasNoItems_queue1stHalf) Then
-                itemLesser = postSort_queue2ndHalf.Dequeue()
+                itemLesser = postSort_queue2ndHalf.Peek()
+                ''We must dequeue prior to "Linkage step!!" below.
+                postSort_queue2ndHalf.Dequeue()
             ElseIf (hasNoItems_queue2ndHalf) Then
-                itemLesser = postSort_queue1stHalf.Dequeue()
+                itemLesser = postSort_queue1stHalf.Peek()
+                ''We must dequeue prior to "Linkage step!!" below.
+                postSort_queue1stHalf.Dequeue()
             Else
-                item_toCompare1stHalf = postSort_queue1stHalf.Dequeue()
-                item_toCompare2ndHalf = postSort_queue2ndHalf.Dequeue()
-            End If
+                item_toCompare1stHalf = postSort_queue1stHalf.Peek()
+                item_toCompare2ndHalf = postSort_queue2ndHalf.Peek()
+                bFirstArgumentIsLess = False ''Re-initialize.
+                itemLesser = DLL_ItemOfLesserValue(item_toCompare1stHalf,
+                                                   item_toCompare2ndHalf,
+                                                   bFirstArgumentIsLess)
+                ''
+                ''We must dequeue prior to "Linkage step!!" below.
+                ''
+                If (bFirstArgumentIsLess) Then
+                    postSort_queue1stHalf.Dequeue()
+                Else
+                    postSort_queue2ndHalf.Dequeue()
+                End If
+            End If ''End of ""If (hasNoItems_queue1stHalf) Then... ElseIf... Else..."
 
-            bFirstArgumentIsLess = False ''Re-initialize.
-            itemLesser = DLL_ItemOfLesserValue(item_toCompare1stHalf,
-                                                 item_toCompare2ndHalf,
-                                                 bFirstArgumentIsLess)
-
+            ''
+            ''Linkage step!!
+            ''
+            ''Link the newly-selected item for the next in the merged sublist.
+            ''
             itemLesser_Prior.DLL_SetItemNext(itemLesser)
             itemLesser.DLL_SetItemPrior(itemLesser_Prior)
 
@@ -175,19 +230,21 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
             ''
             itemLesser_Prior = itemLesser
 
-                ''If (bFirstArgumentIsLess) Then
-                ''    intRelativeIndex_1stHalf += 1
-                ''Else
-                ''    intRelativeIndex_2ndHalf += 1
-                ''End If
-                hasNoItems_queue1stHalf = (0 = postSort_queue1stHalf.Count())
-            hasNoItems_queue2ndHalf = (0 = postSort_queue2ndHalf.Count())
-            bCompleted = (hasNoItems_queue1stHalf And
-                            hasNoItems_queue2ndHalf)
+            ''If (bFirstArgumentIsLess) Then
+            ''    intRelativeIndex_1stHalf += 1
+            ''Else
+            ''    intRelativeIndex_2ndHalf += 1
+            ''End If
+            hasNoItems_queue1stHalf = (0 = postSort_queue1stHalf.Count)
+            hasNoItems_queue2ndHalf = (0 = postSort_queue2ndHalf.Count)
+            bCompleted = (hasNoItems_queue1stHalf And hasNoItems_queue2ndHalf)
 
         End While
 
-
+        ''
+        ''Done, so we'll pass back the first of the merged items. 
+        ''
+        byref_firstOfSort = itemFirstOfMerge
 
     End Sub ''eND OF ""Public Sub SortItems_Recursive()""
 
