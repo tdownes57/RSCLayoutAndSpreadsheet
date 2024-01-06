@@ -767,6 +767,16 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function
 
 
+    Public Function DLL_GetValue() As String
+
+        ''Added 1/5/2024 
+        ''  Not applicable!
+        ''Return "N/A"
+        Return OperationType.ToString()
+
+    End Function
+
+
     ''' <summary>
     ''' Get item following a range (if the implicit parameter is the first item in a range). Sometimes we need the Item which follows the Range, to prepare for a possible Undo.
     ''' </summary>
@@ -1131,6 +1141,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
     End Function ''End of ""Public Function GetCopyV2() As DLL_OperationV2""
 
-
-
+    Private Function IDoublyLinkedItem_DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
+        Throw New NotImplementedException()
+    End Function
 End Class

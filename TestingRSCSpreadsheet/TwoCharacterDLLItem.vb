@@ -199,8 +199,10 @@ Public Class TwoCharacterDLLItem
 
     End Function
 
+    Public Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
 
+        ''Throw New NotImplementedException()
+        Return mod_twoChars
 
-
-
+    End Function
 End Class

@@ -88,7 +88,7 @@ Public Class FormTestRSCViaDigits
         ''Added 12/31/2023
         Dim final_item As TwoCharacterDLLItem
         final_item = GetFinalEndpointItem()
-        LinkEndpoint.Text = final_item.ToString()
+        LinkToEndpoint.Text = final_item.ToString()
 
     End Sub ''Private Sub PrintFinalEndpointItem()
 
@@ -262,9 +262,26 @@ Public Class FormTestRSCViaDigits
         UserControlOperation1.UpdateTheItemCount(itemCount)
 
         ''Added 1/04/202
+        ''
+        ''  Let's maintain the two(2) linklabels which represent
+        ''    the list's endpoint & prior-to-endpoint.
+        ''
         Dim last_item As TwoCharacterDLLItem
+        Dim prior_to_last As TwoCharacterDLLItem
+
         last_item = CType(mod_list.DLL_GetLastItem(), TwoCharacterDLLItem)
-        LinkEndpoint.Text = last_item.ToString()
+        prior_to_last = CType(last_item.DLL_GetItemPrior(), TwoCharacterDLLItem)
+
+        ''Added 1/04/2024
+        LinkToEndpoint.Text = last_item.ToString()
+        LinkToEndpoint.Tag = last_item ''.ToString()
+        ''Added 1/04/2024
+        LinkToPenultimate.Text = prior_to_last.ToString()
+        LinkToPenultimate.Tag = prior_to_last ''.ToString()
+
+        ''Added 1/04/2024
+        UserControlOperation1.Lists_Endpoint = last_item
+        UserControlOperation1.Lists_Penultimate = prior_to_last
 
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
@@ -858,5 +875,55 @@ Public Class FormTestRSCViaDigits
 
     End Sub ''End of ""Private Sub UndoOfSpecificOperationType()""
 
+    Private Sub LinkToPenultimate_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkToPenultimate.LinkClicked
+
+        ''Added 1/4/2024
+        With UserControlOperation1
+
+            .SetRangeEndpoint(CType(CType(sender, Control).Tag, TwoCharacterDLLItem))
+
+        End With
+
+    End Sub
+
+    Private Sub LinkToEndpoint_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkToEndpoint.LinkClicked
+
+        ''Added 1/4/2024
+        With UserControlOperation1
+
+            .SetRangeEndpoint(CType(CType(sender, Control).Tag, TwoCharacterDLLItem))
+
+        End With
+
+
+    End Sub
+
+    Private Sub LinkToEndpoint_Click(sender As Object, e As EventArgs) Handles LinkToEndpoint.Click
+
+        ''Added 1/05/2024 thomas downes
+        With UserControlOperation1
+
+            .Struct_endpoint = New StructEndPoint(mod_list, True)
+            .UpdateTheItemCount(mod_list.DLL_CountAllItems(),
+                                True, .Struct_endpoint)
+
+        End With ''End of ""With UserControlOperation1""
+
+    End Sub
+
+    Private Sub LinkToPenultimate_Click(sender As Object, e As EventArgs) Handles LinkToPenultimate.Click
+
+        ''Added 1/05/2024 thomas downes
+        Const PENULTIMATE As Boolean = True
+        With UserControlOperation1
+            .Struct_endpoint = New StructEndPoint(mod_list, False, PENULTIMATE)
+
+            ''Added 1/05/2024 
+            .UpdateTheItemCount(mod_list.DLL_CountAllItems(),
+                                True, .Struct_endpoint)
+
+        End With ''End of ""With UserControlOperation1""
+
+    End Sub
 
 End Class

@@ -34,7 +34,8 @@ Partial Class FormTestRSCViaDigits
         UserControlOperation1 = New UserControlOperation()
         LinkSingleItemOnly = New LinkLabel()
         LinkEndpointHeading = New LinkLabel()
-        LinkEndpoint = New LinkLabel()
+        LinkToEndpoint = New LinkLabel()
+        LinkToPenultimate = New LinkLabel()
         SuspendLayout()
         ' 
         ' LabelHeader1
@@ -149,22 +150,34 @@ Partial Class FormTestRSCViaDigits
         LinkEndpointHeading.TabStop = True
         LinkEndpointHeading.Text = "Use Final Endpoint......."
         ' 
-        ' LinkEndpoint
+        ' LinkToEndpoint
         ' 
-        LinkEndpoint.AutoSize = True
-        LinkEndpoint.Location = New Point(591, 77)
-        LinkEndpoint.Name = "LinkEndpoint"
-        LinkEndpoint.Size = New Size(19, 15)
-        LinkEndpoint.TabIndex = 64
-        LinkEndpoint.TabStop = True
-        LinkEndpoint.Text = "30"
+        LinkToEndpoint.AutoSize = True
+        LinkToEndpoint.Location = New Point(616, 77)
+        LinkToEndpoint.Name = "LinkToEndpoint"
+        LinkToEndpoint.Size = New Size(19, 15)
+        LinkToEndpoint.TabIndex = 64
+        LinkToEndpoint.TabStop = True
+        LinkToEndpoint.Tag = "Link to "
+        LinkToEndpoint.Text = "30"
+        ' 
+        ' LinkToPenultimate
+        ' 
+        LinkToPenultimate.AutoSize = True
+        LinkToPenultimate.Location = New Point(591, 77)
+        LinkToPenultimate.Name = "LinkToPenultimate"
+        LinkToPenultimate.Size = New Size(19, 15)
+        LinkToPenultimate.TabIndex = 65
+        LinkToPenultimate.TabStop = True
+        LinkToPenultimate.Text = "29"
         ' 
         ' FormTestRSCViaDigits
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(763, 641)
-        Controls.Add(LinkEndpoint)
+        Controls.Add(LinkToPenultimate)
+        Controls.Add(LinkToEndpoint)
         Controls.Add(LinkEndpointHeading)
         Controls.Add(LinkSingleItemOnly)
         Controls.Add(UserControlOperation1)
@@ -195,6 +208,7 @@ Partial Class FormTestRSCViaDigits
     Friend WithEvents UserControlOperation1 As UserControlOperation
     Friend WithEvents LinkSingleItemOnly As LinkLabel
     Friend WithEvents LinkEndpointHeading As LinkLabel
-    Friend WithEvents LinkEndpoint As LinkLabel
+    Friend WithEvents LinkToEndpoint As LinkLabel
+    Friend WithEvents LinkToPenultimate As LinkLabel
 
 End Class

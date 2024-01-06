@@ -1,14 +1,20 @@
 ﻿Imports System.ComponentModel
+Imports System.IO
 Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 
 ''' <summary>
 ''' This will allow the user to create DLLOperations.
 ''' </summary>
-Public Class UserControlOperation
+Friend Class UserControlOperation
 
     Public DLLOperation As DLL_OperationV2
     Public DLL_List As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
+
+    ''Added 1/4/2024
+    Public Lists_Endpoint As TwoCharacterDLLItem ''Added 1/4/2024
+    Public Lists_Penultimate As TwoCharacterDLLItem ''Added 1/4/2024
+    Public Struct_endpoint As StructEndPoint ''Added 1/5/2024
 
     ''Added 12/23/2023
     ''' <summary>
@@ -64,6 +70,18 @@ Public Class UserControlOperation
     ''Added 1/01/2024 td
     Private mod_lastPriorOpV2 As DLL_OperationV2 = Nothing ''Added 1/01/2024 td
     Private mod_intCountOperations As Integer = 0 ''Added 1/1/2024
+
+
+    Public Sub SetRangeEndpoint(par_endOfRange As TwoCharacterDLLItem)
+
+        ''Added 1/4/2024 
+        checkMoveRangeExpandsToEndpoint.Tag = par_endOfRange ''Me.Lists_Endpoint
+        checkDeleteToEndpoint.Tag = par_endOfRange ''Me.Lists_Endpoint
+
+        checkMoveRangeExpandsToEndpoint.Checked = True
+        checkDeleteToEndpoint.Checked = True
+
+    End Sub ''end of ""Public Sub SetRangeEndpoint""
 
 
     Public Sub ToggleFinalEndpointItemMode()
@@ -244,18 +262,103 @@ Public Class UserControlOperation
         ''    leverage this new operation.
         ''
         Dim objDLLOperation As DLL_OperationV2
-        Dim firstRangeItem As TwoCharacterDLLItem
-        Dim lastRangeItem As TwoCharacterDLLItem
+        Dim lastRangeItem As TwoCharacterDLLItem = Nothing
         Dim indexOfRangeFirst As Integer
-        ''Dim indexOfAnchor As Integer
-        ''---Dim boolInsertAfter As Boolean
-        Dim intHowManyItemsToDelete As Integer
-        ''Dim inverse_anchorItem As TwoCharacterDLLItem
+        indexOfRangeFirst = GetIndex_BenchmarkMinusOne("D"c)
+        Dim firstRangeItem As TwoCharacterDLLItem
+        firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
+
+        ''Added 1/5/2024 td
+        If (Me.checkDeleteToEndpoint.Checked) Then
+
+            ''Added 1/5/2024 td
+            Dim bInclusive As Boolean ''Added 1/5/2024 td
+            ''Added 1/5/2024 td
+            bInclusive = Me.Struct_endpoint.EndpointIsInclusive
+            lastRangeItem = Me.Struct_endpoint.Endpoint
+
+            ''Major call.
+            objDLLOperation = GetOperation_Delete_ByEndpt()
+
+        Else
+            Dim intHowManyItemsToDelete As Integer
+            intHowManyItemsToDelete = GetHowManyItems("D"c)
+            ''lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToDelete)
+            ''
+            ''Major call.  (Var. lastRangeItem will populate via ByRef.)
+            ''
+            objDLLOperation = GetOperation_Delete_ByCount(intHowManyItemsToDelete, lastRangeItem)
+
+        End If ''ENd of ""If (Me.checkDeleteToEndpoint.Checked) Then ... Else...""
+
+
+        If (objDLLOperation Is Nothing) Then
+            ''
+            ''A well-formed operation could not be made. 
+            ''
+            ''We will asssume that the user has been notified
+            ''  via a pop-up message. 
+            ''
+        Else
+            ''
+            ''Publish the operation to the Parent Form.
+            ''
+            ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
+            RaiseEvent DLLOperationCreated_Delete(objDLLOperation.GetCopyV1(),
+                             firstRangeItem.DLL_GetItemPrior(),
+                             lastRangeItem.DLL_GetItemNext())
+
+            ''//inverse_anchorItem = objDLLOperation.
+            ''Added 1/01/2024
+            objDLLOperation.Set_InverseAnchor(firstRangeItem.DLL_GetItemPrior(),
+                                          lastRangeItem.DLL_GetItemNext())
+
+            ''Administrative.
+            ''   We need the inverse anchor for the "Undo" operation. 
+            Me.DLL_InverseAnchor_PriorToRange = firstRangeItem.DLL_GetItemPrior()
+            Me.DLL_InverseAnchor_NextToRange = lastRangeItem.DLL_GetItemNext()
+
+            ''
+            ''Record the operation internally (i.e. for this usercontrol).
+            ''
+            ''Added 1/01/2024 td
+            ''mod_lastPriorOpV2 = objDLLOperation
+            RecordLastPriorOperation(objDLLOperation)
+
+        End If ''End opf ""If (objDLLOperation Is Nothing) Then... Else..."
+
+    End Sub ''end of ""Private Sub ButtonDelete_Click""
+
+
+    Public Function GetOperation_Delete_ByEndpt() As DLL_OperationV2
+        ''
+        ''Encapsulated 1/5/2024 thomas d.  
+        ''
+        Dim struct_end As StructEndPoint
+        Dim dummy As TwoCharacterDLLItem = Nothing
+        Dim intHowManyItems As Integer
+        Dim intStartIndex As Integer
+        struct_end = Me.Struct_endpoint
+        intStartIndex = GetIndex_BenchmarkMinusOne("D"c)
+        intHowManyItems = (1 + struct_end.EndpointIndex - intStartIndex)
+        Return GetOperation_Delete_ByCount(intHowManyItems, dummy)
+
+    End Function ''End of Public Function GetOperation_Delete_ByEndpt()
+
+
+    Public Function GetOperation_Delete_ByCount(ByVal pintHowManyItemsInRange As Integer,
+                                                ByRef pref_lastRangeItem As TwoCharacterDLLItem) As DLL_OperationV2
+        ''
+        ''Encapsulated 1/5/2024 thomas d.  
+        ''
+        Dim result_dllOperation As DLL_OperationV2
+        Dim firstRangeItem As TwoCharacterDLLItem
+        Dim indexOfRangeFirst As Integer
         Dim bIsForEitherEndpoint As Boolean
 
         ''12/23/2023 intHowManyItemsToDelete = numInsertHowMany.Value
         ''#2 12/23/2023 intHowManyItemsToDelete = numDeleteHowMany.Value
-        intHowManyItemsToDelete = GetHowManyItems("D"c)
+        ''1/5/2024 intHowManyItemsToDelete = GetHowManyItems("D"c)
 
         ''boolInsertAfter = (1 <> listInsertAfterOr.SelectedIndex)
         ''indexOfRangeFirst = numDeleteRangeBenchmarkStart.Value
@@ -270,38 +373,28 @@ Public Class UserControlOperation
         bOutOfRange_Upper = (indexOfRangeFirst > -1 + DLL_List.DLL_CountAllItems())
         If (bOutOfRange_Upper) Then
             MessageBoxTD.Show_Statement("Out of range / Greater than item count")
-            Exit Sub
+            ''Exit Function ''Exit Sub
+            Return Nothing
         End If ''Endof ""If (bOutOfRange_Upper) Then""
 
         ''indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
         ''anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
         ''firstRangeItem = BuildNewItemsDLL_FirstInRange(intHowManyItemsToInsert)
         firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
-        lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToDelete)
 
-        objDLLOperation = New DLL_OperationV2("D"c, firstRangeItem,
-                intHowManyItemsToDelete, Nothing, Nothing, bIsForEitherEndpoint)
+        ''result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
+        ''       intHowManyItemsToDelete, Nothing, Nothing, bIsForEitherEndpoint)
+        result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
+                pintHowManyItemsInRange, Nothing, Nothing, bIsForEitherEndpoint)
+        ''
+        ''Populate the ByRef parameter.
+        ''
+        ''pref_lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToDelete)
+        pref_lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + pintHowManyItemsInRange)
 
-        ''//inverse_anchorItem = objDLLOperation.
-        ''Added 1/01/2024
-        objDLLOperation.Set_InverseAnchor(firstRangeItem.DLL_GetItemPrior(),
-                                             lastRangeItem.DLL_GetItemNext())
+        Return result_dllOperation
 
-        ''Administrative.
-        ''   We need the inverse anchor for the "Undo" operation. 
-        Me.DLL_InverseAnchor_PriorToRange = firstRangeItem.DLL_GetItemPrior()
-        Me.DLL_InverseAnchor_NextToRange = lastRangeItem.DLL_GetItemNext()
-
-        ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
-        RaiseEvent DLLOperationCreated_Delete(objDLLOperation.GetCopyV1(),
-                         firstRangeItem.DLL_GetItemPrior(),
-                         lastRangeItem.DLL_GetItemNext())
-
-        ''Added 1/01/2024 td
-        ''mod_lastPriorOpV2 = objDLLOperation
-        RecordLastPriorOperation(objDLLOperation)
-
-    End Sub ''End of ""Private Sub ButtonDelete_Click""
+    End Function  ''End of ""Private Function GetOperation_Delete_ByCount""
 
 
     Private Sub buttonMoveItems_Click(sender As Object, e As EventArgs) Handles buttonMoveItems.Click
@@ -715,50 +808,97 @@ Public Class UserControlOperation
     End Sub
 
 
-    Public Sub UpdateTheItemCount(par_newCount As Integer)
+    Public Sub UpdateTheItemCount(par_newMaxCount As Integer,
+                                  Optional par_bUseEndpoint As Boolean = False,
+             Optional par_endPointStructure As StructEndPoint = Nothing)
         ''
         ''Added 12/28/2023 
         ''
-        If (par_newCount <= 0) Then Exit Sub ''Added 12/31/2023
+        ''Dim boolEndpoint As Boolean ''Added 1/05/2024
+        ''boolEndpoint = (par_endPointInclusive IsNot Nothing)
+        ''boolEndpoint = (par_endPointStructure IsNot Nothing)
+
+        If (par_newMaxCount <= 0) Then Exit Sub ''Added 12/31/2023
+
         ''
         ''Delete
         ''
-        If (numDeleteRangeBenchmarkStart.Value > par_newCount) Then
-            numDeleteRangeBenchmarkStart.Value = par_newCount
-        End If
-        If (numDeleteRangeBenchmarkStart.Maximum > par_newCount) Then
-            numDeleteRangeBenchmarkStart.Maximum = par_newCount
+        If (par_bUseEndpoint) Then ''Added 1/05/2024
+
+            ''Added 1/05/2024
+            ''  If we know the endpoint, we know the number of items in the range. 
+            Dim intStartingIndex As Integer
+            Dim intItemsInRange As Integer ''Added 1/05/2024 
+            intStartingIndex = numDeleteRangeBenchmarkStart.Value
+            intItemsInRange = GetItemCountOfRange(intStartingIndex, par_endPointStructure)
+            numDeleteHowMany.Value = intItemsInRange
+
+        ElseIf (numDeleteRangeBenchmarkStart.Value > par_newMaxCount) Then
+            ''Show the user the new count of items.
+            numDeleteRangeBenchmarkStart.Value = par_newMaxCount
+
+        End If ''End of ""If (par_bUseEndpoint) Then""
+
+        If (numDeleteRangeBenchmarkStart.Maximum > par_newMaxCount) Then
+            numDeleteRangeBenchmarkStart.Maximum = par_newMaxCount
         End If
 
         ''
         ''Insert
         ''
-        If (numInsertAnchorBenchmark.Value > par_newCount) Then
-            numInsertAnchorBenchmark.Value = par_newCount
+        If (numInsertAnchorBenchmark.Value > par_newMaxCount) Then
+            numInsertAnchorBenchmark.Value = par_newMaxCount
         End If
-        If (numInsertAnchorBenchmark.Maximum > par_newCount) Then
-            numInsertAnchorBenchmark.Maximum = par_newCount
+        If (numInsertAnchorBenchmark.Maximum > par_newMaxCount) Then
+            numInsertAnchorBenchmark.Maximum = par_newMaxCount
         End If
+
         ''Added 12/31/2023
-        If (numInsertAnchorBenchmark.Maximum < par_newCount) Then
-            numInsertAnchorBenchmark.Maximum = par_newCount
+        If (numInsertAnchorBenchmark.Maximum < par_newMaxCount) Then
+            numInsertAnchorBenchmark.Maximum = par_newMaxCount
         End If
 
         ''
         ''Move
         ''
-        If (numMoveAnchorBenchmark.Value > par_newCount) Then
-            numMoveAnchorBenchmark.Value = par_newCount
+        If (numMoveAnchorBenchmark.Value > par_newMaxCount) Then
+            numMoveAnchorBenchmark.Value = par_newMaxCount
         End If
-        If (numMoveAnchorBenchmark.Maximum > par_newCount) Then
-            numMoveAnchorBenchmark.Maximum = par_newCount
+        If (numMoveAnchorBenchmark.Maximum > par_newMaxCount) Then
+            numMoveAnchorBenchmark.Maximum = par_newMaxCount
         End If
+
         ''Added 12/31/2023
-        If (numMoveAnchorBenchmark.Maximum < par_newCount) Then
-            numMoveAnchorBenchmark.Maximum = par_newCount
+        If (numMoveAnchorBenchmark.Maximum < par_newMaxCount) Then
+            numMoveAnchorBenchmark.Maximum = par_newMaxCount
         End If
 
     End Sub ''End of ""Public Sub UpdateTheItemCount()"
+
+
+    Private Function GetItemCountOfRange(pintStartingIndex As Integer,
+                                         par_endPointStructure As StructEndPoint) As Integer
+        ''
+        ''Added 1/5/2024 td
+        ''
+        ''Added 1/05/2024
+        ''Dim intStartingIndex As Integer
+        Dim intEndingIndex As Integer
+        Dim result_countItemsInRange As Integer ''Added 1/05/2024 
+        Dim bIncludeEndpoint As Integer
+
+        bIncludeEndpoint = (par_endPointStructure.EndpointIsInclusive)
+        intEndingIndex = par_endPointStructure.EndpointIndex
+
+        If (bIncludeEndpoint) Then
+            result_countItemsInRange = (1 + intEndingIndex - pintStartingIndex)
+        Else
+            result_countItemsInRange = (intEndingIndex - pintStartingIndex)
+        End If ''End of ""If (bIncludeEndpoint) Then... Else..."
+
+        Return result_countItemsInRange
+
+    End Function ''End of ""Private Function GetItemCountOfRange""
 
 
     Private Sub LinkUndoInsert_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkUndoInsert.LinkClicked
@@ -836,4 +976,17 @@ Public Class UserControlOperation
 
     End Sub
 
+    Private Sub checkDeleteToEndpoint_CheckedChanged(sender As Object, e As EventArgs) Handles checkDeleteToEndpoint.CheckedChanged
+
+        ''Added 1/4/2024 
+        checkDeleteToEndpoint.Tag = Me.Lists_Endpoint
+
+    End Sub
+
+    Private Sub checkMoveRangeExpandsToEndpoint_CheckedChanged(sender As Object, e As EventArgs) Handles checkMoveRangeExpandsToEndpoint.CheckedChanged
+
+        ''Added 1/4/2024 
+        checkMoveRangeExpandsToEndpoint.Tag = Me.Lists_Endpoint
+
+    End Sub
 End Class

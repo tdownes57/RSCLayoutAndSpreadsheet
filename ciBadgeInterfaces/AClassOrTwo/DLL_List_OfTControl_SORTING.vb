@@ -36,6 +36,7 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
             Return mod_firstItem
         End Function
 
+
         Public Sub Dequeue()
             If (Count = 0) Then Debugger.Break()
             mod_firstItem = mod_firstItem.DLL_GetItemNext
@@ -249,7 +250,33 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
     End Sub ''eND OF ""Public Sub SortItems_Recursive()""
 
 
+    Private Function DLL_ItemOfLesserValue(par_sort_item1 As IDoublyLinkedItem,
+                                           par_sort_item2 As IDoublyLinkedItem,
+                                           ByRef byref_bFirstArgumentIsLess As Boolean) As IDoublyLinkedItem
+        ''
+        ''Added 1/4/2024 thomas downes
+        ''
+        Dim strValue_item1 As String
+        Dim strValue_item2 As String
 
+        ''We can't naively use the .ToString() here.
+        ''  Let's add .DLL_GetValue() to the interface. 
+        strValue_item1 = par_sort_item1.DLL_GetValue()
+        strValue_item2 = par_sort_item2.DLL_GetValue()
+
+        ''Now we can compare the strings. 
+        byref_bFirstArgumentIsLess = (0 >= strValue_item1.CompareTo(strValue_item2))
+
+        If byref_bFirstArgumentIsLess Then
+            ''The first item is less than, or equal to, the 2nd item.
+            ''---bFirstArgumentIsLess = True
+            Return par_sort_item1
+        Else
+            ''---bFirstArgumentIsLess = False
+            Return par_sort_item2
+        End If
+
+    End Function ''Private Function DLL_ItemOfLesserValue
 
 
 

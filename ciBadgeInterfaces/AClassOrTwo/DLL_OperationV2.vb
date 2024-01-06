@@ -435,6 +435,17 @@ Public Class DLL_OperationV2
     End Function ''DLL_GetNextItemFollowingRange
 
 
+    Public Function DLL_GetValue() As String
+
+        ''Added 1/5/2024 
+        ''  Not applicable!
+        ''Return "N/A"
+        Return mod_operationType.ToString()
+
+    End Function
+
+
+
     Public Sub Set_InverseAnchor(par_inverseAnchorPrior As IDoublyLinkedItem,
                                  par_inverseAnchorNext As IDoublyLinkedItem)
         ''
@@ -552,7 +563,7 @@ Public Class DLL_OperationV2
 
         Return result
 
-    End Function ''End of ""Public Function GeCopyV1() As DLL_OperationV1""
+    End Function ''End of ""Public Function GetCopyV1() As DLL_OperationV1""
 
 
     Public Overloads Function Equals(lets_check As DLL_OperationV2) As Boolean
@@ -612,6 +623,7 @@ Public Class DLL_OperationV2
 
     End Function ''End of Private Function Overrides Equals() as Boolean
 
-
-
+    Private Function IDoublyLinkedItem_DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
+        Throw New NotImplementedException()
+    End Function
 End Class

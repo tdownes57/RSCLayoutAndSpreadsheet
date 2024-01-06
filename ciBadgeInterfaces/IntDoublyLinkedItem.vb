@@ -69,5 +69,7 @@ Public Interface IDoublyLinkedItem
     Function DLL_GetNextItemFollowingRange(param_rangeSize As Integer,
                                            param_mayBeNull As Boolean) As IDoublyLinkedItem
 
+    ''Added 1/4/2024 td
+    Function DLL_GetValue() As String ''Added 1/4/2024 td
 
 End Interface
