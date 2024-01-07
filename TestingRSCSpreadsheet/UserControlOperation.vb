@@ -334,6 +334,7 @@ Friend Class UserControlOperation
         ''
         ''Encapsulated 1/5/2024 thomas d.  
         ''
+        Dim result As DLL_OperationV2
         Dim struct_end As StructEndPoint
         Dim dummy As TwoCharacterDLLItem = Nothing
         Dim intHowManyItems As Integer
@@ -341,7 +342,10 @@ Friend Class UserControlOperation
         struct_end = Me.Struct_endpoint
         intStartIndex = GetIndex_BenchmarkMinusOne("D"c)
         intHowManyItems = (1 + struct_end.EndpointIndex - intStartIndex)
-        Return GetOperation_Delete_ByCount(intHowManyItems, dummy)
+        result = GetOperation_Delete_ByCount(intHowManyItems, dummy)
+        ''Set the Ending Point of the Range. 
+        result.Set_LastItemInRange(struct_end.Endpoint)
+        Return result
 
     End Function ''End of Public Function GetOperation_Delete_ByEndpt()
 
@@ -405,7 +409,7 @@ Friend Class UserControlOperation
         ''
         Dim objDLLOperation As DLL_OperationV2
         Dim firstRangeItem As TwoCharacterDLLItem
-        Dim lastRangeItem As TwoCharacterDLLItem
+        Dim lastRangeItem As TwoCharacterDLLItem = Nothing
         Dim indexOfRangeFirst As Integer
         Dim intHowManyItemsToMove As Integer
         Dim indexOfAnchor As Integer
@@ -427,7 +431,16 @@ Friend Class UserControlOperation
         indexOfRangeFirst = GetIndex_BenchmarkMinusOne("M"c, pbAnchor:=False)
 
         firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
-        lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToMove)
+        If (firstRangeItem Is Nothing) Then
+            ''
+            ''The user may have ALL (or partially) deleted the list
+            ''  (so, not enough items left.)
+            MessageBoxTD.Show_InsertWordFormat_Line1(Me.DLL_List.DLL_CountAllItems(),
+                                "There are only {0} items in the list.")
+            Exit Sub
+        Else
+            lastRangeItem = firstRangeItem.DLL_GetItemNext(-1 + intHowManyItemsToMove)
+        End If ''End of ""If (firstRangeItem Is Nothing) Then... Else..."
 
         bLetsInsertRangeBeforeAnchor = (0 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
         bLetsInsertRangeAfterAnchor = (1 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
@@ -829,12 +842,23 @@ Friend Class UserControlOperation
             ''  If we know the endpoint, we know the number of items in the range. 
             Dim intStartingIndex As Integer
             Dim intItemsInRange As Integer ''Added 1/05/2024 
-            intStartingIndex = numDeleteRangeBenchmarkStart.Value
+            intStartingIndex = (-1 + numDeleteRangeBenchmarkStart.Value)
             intItemsInRange = GetItemCountOfRange(intStartingIndex, par_endPointStructure)
+            If (intItemsInRange <= 0) Then
+                MessageBoxTD.Show_Statement("There is no discernible range.")
+                Exit Sub
+            End If ''End of ""If (intItemsInRange <= 0) Then""
+
+            If (numDeleteHowMany.Maximum < intItemsInRange) Then
+                numDeleteHowMany.Maximum = intItemsInRange
+            End If
             numDeleteHowMany.Value = intItemsInRange
 
         ElseIf (numDeleteRangeBenchmarkStart.Value > par_newMaxCount) Then
             ''Show the user the new count of items.
+            If (numDeleteRangeBenchmarkStart.Maximum < par_newMaxCount) Then
+                numDeleteRangeBenchmarkStart.Maximum = par_newMaxCount
+            End If
             numDeleteRangeBenchmarkStart.Value = par_newMaxCount
 
         End If ''End of ""If (par_bUseEndpoint) Then""
@@ -861,17 +885,41 @@ Friend Class UserControlOperation
         ''
         ''Move
         ''
-        If (numMoveAnchorBenchmark.Value > par_newMaxCount) Then
-            numMoveAnchorBenchmark.Value = par_newMaxCount
-        End If
-        If (numMoveAnchorBenchmark.Maximum > par_newMaxCount) Then
-            numMoveAnchorBenchmark.Maximum = par_newMaxCount
-        End If
+        If (par_bUseEndpoint) Then ''Added 1/05/2024
 
-        ''Added 12/31/2023
-        If (numMoveAnchorBenchmark.Maximum < par_newMaxCount) Then
-            numMoveAnchorBenchmark.Maximum = par_newMaxCount
-        End If
+            ''Added 1/05/2024
+            ''  If we know the endpoint, we know the number of items in the range. 
+            Dim intStartingIndex As Integer
+            Dim intItemsInRange As Integer ''Added 1/05/2024 
+            intStartingIndex = (-1 + numMoveRangeStartBenchmark.Value)
+            intItemsInRange = GetItemCountOfRange(intStartingIndex, par_endPointStructure)
+            If (intItemsInRange <= 0) Then
+                MessageBoxTD.Show_Statement("There is no discernible range.")
+                Exit Sub
+            End If ''End of ""If (intItemsInRange <= 0) Then""
+
+            If (numMoveRangeHowMany.Maximum < intItemsInRange) Then
+                numMoveRangeHowMany.Maximum = intItemsInRange
+            End If
+            numMoveRangeHowMany.Value = intItemsInRange
+
+        Else
+            ''
+            ''We are proceeding by count, not endpoint.
+            ''
+            If (numMoveAnchorBenchmark.Value > par_newMaxCount) Then
+                numMoveAnchorBenchmark.Value = par_newMaxCount
+            End If
+            If (numMoveAnchorBenchmark.Maximum > par_newMaxCount) Then
+                numMoveAnchorBenchmark.Maximum = par_newMaxCount
+            End If
+
+            ''Added 12/31/2023
+            If (numMoveAnchorBenchmark.Maximum < par_newMaxCount) Then
+                numMoveAnchorBenchmark.Maximum = par_newMaxCount
+            End If
+
+        End If ''End of ""If (par_bUseEndpoint) Then... Else..."
 
     End Sub ''End of ""Public Sub UpdateTheItemCount()"
 
@@ -885,7 +933,7 @@ Friend Class UserControlOperation
         ''Dim intStartingIndex As Integer
         Dim intEndingIndex As Integer
         Dim result_countItemsInRange As Integer ''Added 1/05/2024 
-        Dim bIncludeEndpoint As Integer
+        Dim bIncludeEndpoint As Boolean ''Integer
 
         bIncludeEndpoint = (par_endPointStructure.EndpointIsInclusive)
         intEndingIndex = par_endPointStructure.EndpointIndex

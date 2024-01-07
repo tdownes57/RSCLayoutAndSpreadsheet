@@ -105,7 +105,8 @@ Public Interface IDoublyLinkedList(Of TControl)
     Sub DLL_InsertRangeAfter(ByVal toBeInsertedRange_FirstItem As TControl,
                              ByVal toBeInsertedRange_ItemCount As Integer,
                              ByVal toUseAsAnchor_Preceding As TControl,
-                             ByVal isChangeOfEndPoint As Boolean)
+                             ByVal isChangeOfEndPoint As Boolean,
+                        Optional ByVal item_rangeEnd_Null As TControl = Nothing)
 
     ''' <summary>
     ''' This inserts a range of items, likely to UNDO a deletion of >1 linked items.
@@ -117,7 +118,8 @@ Public Interface IDoublyLinkedList(Of TControl)
     Sub DLL_InsertRangeBefore(ByVal toBeInsertedRange_FirstItem As TControl,
                               ByVal toBeInsertedRange_ItemCount As Integer,
                               ByVal toUseAsAnchor_Terminating As TControl,
-                              ByVal isChangeOfEndPoint As Boolean)
+                              ByVal isChangeOfEndPoint As Boolean,
+                        Optional ByVal item_rangeEnd_Null As TControl = Nothing)
 
     ''' <summary>
     ''' This inserts a range of items, into an empty list.
@@ -152,9 +154,10 @@ Public Interface IDoublyLinkedList(Of TControl)
     ''' <param name="item_toDeleteBegin">First item in the operating range. (ByVal)</param>
     ''' <param name="count_of_deleteds">How many items are being deleted? (ByVal)</param>
     ''' <param name="isChangeOfEndPoint">Is a change of endpoint anticipated? (ByVal)</param>
-    Sub DLL_DeleteRange_Simpler(ByVal item_toDeleteBegin As TControl,
+    Sub DLL_DeleteRange(ByVal item_toDeleteBegin As TControl,
                                 ByVal count_of_deleteds As Integer,
-                                ByVal isChangeOfEndPoint As Boolean)
+                                ByVal isChangeOfEndPoint As Boolean,
+                        Optional ByVal item_toDeleteEnd_Null As TControl = Nothing)
     '' <param name="ref_prior_undeleted">Needed for Administrative Undo.</param>
     '' <param name="ref_next_undeleted">Needed for Administrative Undo.</param>
     ''Can be determined by calling function. 12/2023''ByRef ref_prior_undeleted As TControl,

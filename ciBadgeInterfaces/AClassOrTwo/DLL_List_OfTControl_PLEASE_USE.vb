@@ -394,7 +394,8 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Public Sub DLL_InsertRangeAfter(p_toBeInsertedRange_FirstItem As TControl,
                                     p_toBeInsertedRange_ItemCount As Integer,
                                     p_toUseAsAnchor_ItemPriorToRange As TControl,
-                                    p_bIsChangeOfEndPoint As Boolean) _
+                                    p_bIsChangeOfEndPoint As Boolean,
+                        Optional ByVal item_rangeEnd_Null As TControl = Nothing) _
                                     Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
         ''
         ''                Insert A B C after 7, the preceding anchor (7). (Three items.)
@@ -468,7 +469,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             temp_itemNextToAnchor.DLL_SetItemPrior(itemLastItemToInsert)
             itemLastItemToInsert.DLL_SetItemNext(temp_itemNextToAnchor)
 
-        ElseIf (p_bIsChangeOfEndpoint) Then
+        ElseIf (p_bIsChangeOfEndPoint) Then
             ''
             ''Do nothing. The calling procedure is already aware of the change of endpoint.
             ''
@@ -487,7 +488,8 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Public Sub DLL_InsertRangeBefore(p_toBeInsertedRange_FirstItem As TControl,
                                      p_toBeInsertedRange_ItemCount As Integer,
                                      p_toUseAsAnchor_ItemNextToRange As TControl,
-                                     p_bIsChangeOfEndPoint As Boolean) _
+                                     p_bIsChangeOfEndPoint As Boolean,
+                        Optional ByVal item_rangeEnd_Null As TControl = Nothing) _
                                      Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeBefore
         ''
         ''                Insert A B C before 8, the terminating anchor. (Three items.)
@@ -711,8 +713,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
     Public Sub DLL_DeleteRange(ByVal p_item_toDeleteFirst As TControl,
                                        ByVal p_count_of_deleteds As Integer,
-                                       ByVal p_isChangeOfEndpoint As Boolean) _
-                                       Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange_Simpler
+                                       ByVal p_isChangeOfEndpoint As Boolean,
+                        Optional ByVal item_toDeleteEnd As TControl = Nothing) _
+                        Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange
         ''Not needed.            ByRef item_prior_undeleted As TControl,
         ''Not needed.            ByRef item_first_deleted As TControl) _
         ''Throw New NotImplementedException()

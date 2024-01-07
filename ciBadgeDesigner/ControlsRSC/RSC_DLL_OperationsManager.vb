@@ -31,7 +31,7 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''----Private mod_listDLLRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of RSCRowHeader) ''RSCDoublyLinkedList
 
     ''' <summary>
-    ''' This controls the DLL (doubly-linked list) manipulation of the columns.  
+    ''' This controls the DLL  (doubly-linked list) manipulation of the columns.  
     ''' </summary>
     Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
     ''----Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of RSCFieldColumnV2) ''RSCDoublyLinkedList
@@ -205,24 +205,28 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                     bUseSucceedingAnchor = (Not bUsePrecedingAnchor)
 
                     If (bUsePrecedingAnchor) Then
+                        ''
                         ''Left-hand (Prior Item) Preceding Anchor
+                        ''
                         With par_listDLLItems ''mod_listDLLColumns
                             ''.DLL_InsertItemAfter(param_operation.ItemInsertSingly,
                             ''              param_operation.AnchorToPrecedeItemOrRange)
                             .DLL_InsertOneItemAfter(param_operation.InsertItemSingly,
                                             param_operation.AnchorToPrecedeItemOrRange,
-                                            param_operation.IsForEitherEndpoint)
+                                            param_operation.IsChangeOfEndpoint)
 
                         End With ''End of ""With par_listDLLItems""
 
                     ElseIf (bUseSucceedingAnchor) Then
+                        ''
                         ''Right-hand (Next Item), Succeeding Anchor
+                        ''
                         With par_listDLLItems ''mod_listDLLColumns
                             ''.DLL_InsertItemBefore(param_operation.ItemInsertSingly,
                             ''            param_operation.AnchorToSucceedItemOrRange)
                             .DLL_InsertOneItemBefore(param_operation.InsertItemSingly,
                                           param_operation.AnchorToSucceedItemOrRange,
-                                          param_operation.IsForEitherEndpoint)
+                                          param_operation.IsChangeOfEndpoint)
                         End With ''End of ""With par_listDLLItems""
 
                     End If ''End of ""If (bUsePrecedingAnchor) Then... Else..."
@@ -244,8 +248,11 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         With par_listDLLItems ''mod_listDLLColumns
                             ''.DLL_InsertItemAfter(param_operation.InsertRangeStart,
                             ''                     param_operation.AnchorToPrecedeItemORange)
-                            .DLL_InsertItemAfter(CType(param_operation.InsertRangeStart, IDoublyLinkedItem),
-                                                 CType(param_operation.AnchorToPrecedeItemOrRange, IDoublyLinkedItem))
+                            .DLL_InsertRangeAfter(CType(param_operation.InsertRangeStart, IDoublyLinkedItem),
+                                                  param_operation.InsertCount,
+                                                 CType(param_operation.AnchorToPrecedeItemOrRange, IDoublyLinkedItem),
+                                                    param_operation.IsChangeOfEndpoint,
+                                                 CType(param_operation.InsertRangeEnd_Null, IDoublyLinkedItem))
                         End With
 
                     Else
@@ -257,9 +264,12 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                             ''                      param_operation.AnchorToSucceedItemOrRange)
                             ''.DLL_InsertItemBefore(CType(param_operation.InsertRangeStart, RSCFieldColumnV2),
                             ''                      CType(param_operation.AnchorToSucceedItemOrRange, RSCFieldColumnV2))
-                            .DLL_InsertItemBefore(CType(param_operation.InsertRangeStart, IDoublyLinkedItem),
-                                                  CType(param_operation.AnchorToSucceedItemOrRange, IDoublyLinkedItem))
-                        End With
+                            .DLL_InsertRangeBefore(CType(param_operation.InsertRangeStart, IDoublyLinkedItem),
+                                                  param_operation.InsertCount,
+                                                  CType(param_operation.AnchorToSucceedItemOrRange, IDoublyLinkedItem),
+                                                  param_operation.IsChangeOfEndpoint,
+                                                 CType(param_operation.InsertRangeEnd_Null, IDoublyLinkedItem))
+                        End With ''End of ""With mod_listDLLColumns""
 
                     End If ''ENd of ""If (param_operation.AnchorWillPrecedeRangeOrItem()) Then... Else..."
 
@@ -288,7 +298,8 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         ''   itemPriorToDelete, itemFollowsDelete)
                         .DLL_DeleteRange(param_operation.MovedRangeStart,
                                                param_operation.MovedCount,
-                                               param_operation.IsForEitherEndpoint)
+                                               param_operation.IsChangeOfEndpoint,
+                                               param_operation.MovedRangeEnd_Null)
                     End With
 
                     ''Move Step 2 of 2 -- Insert
@@ -299,7 +310,9 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         .DLL_InsertRangeAfter(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
                                            param_operation.AnchorToPrecedeItemOrRange,
-                                           param_operation.IsForEitherEndpoint) ''param_operation.AnchorLeftToPrior)
+                                           param_operation.IsChangeOfEndpoint,
+                                           param_operation.MovedRangeEnd_Null)
+                        ''                 ''param_operation.AnchorLeftToPrior)
                     End With ''End of ""With mod_listDLLColumns""
 
                 ElseIf (param_operation.AnchorWillSucceedRangeOrItem()) Then
@@ -311,7 +324,8 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         ''.DLL_DeleteRange_Simpler(param_operation.MovedRangeStart,
                         .DLL_DeleteRange(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
-                                           param_operation.IsForEitherEndpoint)
+                                           param_operation.IsChangeOfEndpoint,
+                                           param_operation.MovedRangeEnd_Null)
                         ''                 12/2023 itemPriorToDelete, itemFollowsDelete)
                     End With ''End of ""With mod_listDLLColumns""
 
@@ -320,7 +334,8 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                         .DLL_InsertRangeBefore(param_operation.MovedRangeStart,
                                            param_operation.MovedCount,
                                            param_operation.AnchorToSucceedItemOrRange,
-                                           param_operation.IsForEitherEndpoint)
+                                           param_operation.IsChangeOfEndpoint,
+                                           param_operation.MovedRangeEnd_Null)
                     End With ''End of "With mod_listDLLColumns
 
                 End If ''End of ""If (param_operation.AnchorWillPrecedeRangeOrItem()) Then... ElseIf..."
@@ -338,10 +353,13 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                 If (param_operation.DeleteItemSingly IsNot Nothing) Then
                     ''Delete the single item.
 
-                    ''Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly)  
-                    Me.DLL_DeleteItemSingly(param_operation.DeleteItemSingly,
-                                               objItemUndeleted_PriorLeft,
-                                               objItemUndeleted_NextAfter)
+                    With mod_listDLLColumns
+                        ''Me.DLL_DeleteItemSingly(param_operation.ItemDeleteSingly)  
+                        .DLL_DeleteItem(param_operation.DeleteItemSingly,
+                                        param_operation.IsChangeOfEndpoint)
+                        ''                       ''objItemUndeleted_PriorLeft,
+                        ''                       ''objItemUndeleted_NextAfter)
+                    End With ''End of "With mod_listDLLColumns
 
                     ''
                     ''----------Second-Tier Priority (Admin for Undos)-----------------
@@ -349,26 +367,38 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
                     '' by the user.  (Lagniappe!  LOL)  
                     ''Make a record of the nearest un-deleted item. 
                     ''
-                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
-                    param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
+                    ''1/6/2024 param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
+                    ''1/6/2024 param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
+                    param_operation.InverseAnchor_Preceding = objItemUndeleted_PriorLeft
+                    param_operation.InverseAnchor_Following = objItemUndeleted_NextAfter
 
                 ElseIf (param_operation.DeleteRangeStart IsNot Nothing) Then
                     ''Delete the range.
-                    Me.DLL_DeleteRange_Simpler(param_operation.DeleteRangeStart,
-                               param_operation.DeleteCount,
-                               objItemUndeleted_PriorLeft,
-                               objItemUndeleted_NextAfter)
+                    ''Me.DLL_DeleteRange(param_operation.DeleteRangeStart,
+                    ''               param_operation.DeleteCount,
+                    ''               objItemUndeleted_PriorLeft,
+                    ''               objItemUndeleted_NextAfter)
+                    With mod_listDLLColumns
+                        .DLL_DeleteRange(param_operation.DeleteRangeStart,
+                                   param_operation.DeleteCount,
+                                   param_operation.IsChangeOfEndpoint,
+                                   param_operation.DeleteRangeEnd_Null)
+
+                    End With ''End of "With mod_listDLLColumns
+
                     ''
                     ''----------Second-Tier Priority (Admin for Undos)-----------------
                     ''Make a record of the nearest un-deleted item. 
                     ''
                     ''11/2023 param_operation.Delete_PriorToItemOrRange = objItemUndeleted
-                    param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
-                    param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
+                    ''1/6/2024 param_operation.Delete_PriorToItemOrRange = objItemUndeleted_PriorLeft
+                    ''1/6/2024 param_operation.Delete_NextToItemOrRange = objItemUndeleted_NextAfter
+                    param_operation.InverseAnchor_Preceding = objItemUndeleted_PriorLeft
+                    param_operation.InverseAnchor_Following = objItemUndeleted_NextAfter
 
                 End If
 
-        End Select
+        End Select ''nd of ""Select Case param_operation.OperationType""
 
 
 

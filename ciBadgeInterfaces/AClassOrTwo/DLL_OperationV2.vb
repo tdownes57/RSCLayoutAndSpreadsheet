@@ -18,6 +18,10 @@ Public Class DLL_OperationV2
     Private mod_operationRangeFirstItem As IDoublyLinkedItem
     Private mod_countOfItems As Integer
 
+    ''Added 1/5/2024 td
+    ''  This object is Optional / may be Null.
+    Private mod_operationRangeLastItem_Null As IDoublyLinkedItem = Nothing ''Added 1/5/2024 
+
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
     ''
@@ -444,6 +448,15 @@ Public Class DLL_OperationV2
 
     End Function
 
+
+    Public Sub Set_LastItemInRange(par_lastIem As IDoublyLinkedItem)
+
+        ''Added 1/5/2024 td
+        ''  This object is Optional / may be Null.
+        ''
+        mod_operationRangeLastItem_Null = par_lastIem
+
+    End Sub ''End of ""Public Sub Set_LastItemInRange""
 
 
     Public Sub Set_InverseAnchor(par_inverseAnchorPrior As IDoublyLinkedItem,

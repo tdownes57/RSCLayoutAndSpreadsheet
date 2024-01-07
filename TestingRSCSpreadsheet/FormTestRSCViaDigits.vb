@@ -266,22 +266,31 @@ Public Class FormTestRSCViaDigits
         ''  Let's maintain the two(2) linklabels which represent
         ''    the list's endpoint & prior-to-endpoint.
         ''
-        Dim last_item As TwoCharacterDLLItem
-        Dim prior_to_last As TwoCharacterDLLItem
+        Dim last_item As TwoCharacterDLLItem = Nothing
+        Dim prior_to_last As TwoCharacterDLLItem = Nothing
 
         last_item = CType(mod_list.DLL_GetLastItem(), TwoCharacterDLLItem)
-        prior_to_last = CType(last_item.DLL_GetItemPrior(), TwoCharacterDLLItem)
+        If (last_item Is Nothing) Then
+            ''
+            ''The user has elected to delete the entire list. 
+            ''
+        Else
+            LinkToEndpoint.Text = last_item.ToString()
+            prior_to_last = CType(last_item.DLL_GetItemPrior(), TwoCharacterDLLItem)
+            If (prior_to_last IsNot Nothing) Then
+                LinkToPenultimate.Text = prior_to_last.ToString()
+            End If ''End of ""If (prior_to_last IsNot Nothing) Then""
+        End If ''End of ""If (last_item Is Nothing) Then... Else..."
 
         ''Added 1/04/2024
-        LinkToEndpoint.Text = last_item.ToString()
         LinkToEndpoint.Tag = last_item ''.ToString()
-        ''Added 1/04/2024
-        LinkToPenultimate.Text = prior_to_last.ToString()
-        LinkToPenultimate.Tag = prior_to_last ''.ToString()
 
         ''Added 1/04/2024
         UserControlOperation1.Lists_Endpoint = last_item
         UserControlOperation1.Lists_Penultimate = prior_to_last
+
+        ''Added 1/04/2024
+        LinkToPenultimate.Tag = prior_to_last ''.ToString()
 
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
@@ -365,7 +374,8 @@ Public Class FormTestRSCViaDigits
 
             ElseIf (.DeleteRangeStart IsNot Nothing) Then
                 ''Added 12/28/2023 thomas downes 
-                mod_list.DLL_DeleteRange(.DeleteRangeStart, .DeleteCount, bChangeOfEndpoint)
+                mod_list.DLL_DeleteRange(.DeleteRangeStart, .DeleteCount,
+                                  bChangeOfEndpoint, .DeleteRangeEnd_Null)
 
             Else
                 ''Added 12/28/2023 thomas downes 
@@ -501,7 +511,17 @@ Public Class FormTestRSCViaDigits
                 ''  We are populating an empty list, or as one might say,
                 ''  inserting a range into an empty list. 
                 ''
-                mod_list.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+                If (.InsertItemSingly IsNot Nothing) Then
+                    ''Insert a single item, into an empty list. 
+                    mod_list.DLL_InsertRangeEmptyList(.InsertItemSingly, 1)
+
+                ElseIf (.InsertRangeStart IsNot Nothing) Then
+                    ''Insert a range of items, into an empty list. 
+                    mod_list.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+                Else
+                    Debugger.Break()
+                End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
+
                 ''Be sure to save the first item.
                 mod_firstTwoChar = mod_list.DLL_GetFirstItem()
 

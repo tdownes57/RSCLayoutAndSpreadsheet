@@ -31,12 +31,19 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
     Public InsertItemSingly As IDoublyLinkedItem ''TControl
     Public InsertRangeStart As IDoublyLinkedItem ''TControl
+    Public InsertRangeEnd_Null As IDoublyLinkedItem ''Added 1/06/2024 thomas downes
+
     ''Needed for consistency checks...
     Public InsertCount As Integer ''How many linked TControl objects?
 
     Public MovedRangeStart As IDoublyLinkedItem ''TControl
     Public MovedCount As Integer ''TControl
     Public IsChangeOfEndpoint As Boolean ''Endpoint impacted, start or end. 12/26/2023
+
+    ''' <summary>
+    ''' The Moved Range End is suffixed with _Null because it's optional.
+    ''' </summary>
+    Public MovedRangeEnd_Null As IDoublyLinkedItem = Nothing ''TControl
 
     ''I don't like this names. ---11/17/2023
     ''  Public Move_LefthandStart As IDoublyLinkedItem ''TControl
@@ -99,6 +106,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''Not needed.Public MovedSingly As TControl
 
     Public DeleteRangeStart As IDoublyLinkedItem ''TControl
+    Public DeleteRangeEnd_Null As IDoublyLinkedItem ''Added 1/06/2024 thomas downes
+
     ''Needed for consistency checks...
     Public DeleteCount As Integer ''How many linked TControl objects?
 
