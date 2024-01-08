@@ -450,6 +450,22 @@ Friend Class UserControlOperation
         bLetsInsertRangeAfterAnchor = (1 <> listMoveAfterOr.SelectedIndex) ''After (0) or Before (1)
         ''---indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
         indexOfAnchor = GetIndex_BenchmarkMinusOne("M"c, pbAnchor:=True)
+
+        ''Added 1/8/2024
+        Dim bIndexNotFound As Boolean
+        Dim benchmarkOfAnchor As Integer ''A 1-based numbering of items.
+        ''Added 1/8/2024
+        ''   Benchmark = (Index + 1)
+        ''   Index = (Benchmark - 1)
+        bIndexNotFound = (Not DLL_List.DLL_IndexExists(indexOfAnchor))
+        If bIndexNotFound Then
+            ''Added 1/8/2024
+            benchmarkOfAnchor = (1 + indexOfAnchor)
+            MessageBoxTD.Show_InsertWordFormat_Line1(CStr(benchmarkOfAnchor),
+                     "Sorry, folks... Anchor benchmark [{0}] is not found.")
+            Exit Sub
+        End If ''End of ""If bIndexNotFound Then""
+
         anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
 
         ''Added 12/31/2023
@@ -1039,6 +1055,15 @@ Friend Class UserControlOperation
 
         ''Added 1/4/2024 
         checkMoveRangeExpandsToEndpoint.Tag = Me.Lists_Endpoint
+
+    End Sub
+
+    Private Sub ButtonSort_Click(sender As Object, e As EventArgs) Handles buttonSortList.Click
+
+        ''Added 1/08/2024
+        ''Me.DLL_List.DLL_SortItems()
+        RaiseEvent Sort_Ascending()
+
 
     End Sub
 End Class

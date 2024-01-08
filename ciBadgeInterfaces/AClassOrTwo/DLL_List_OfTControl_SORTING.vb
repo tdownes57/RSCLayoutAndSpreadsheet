@@ -9,6 +9,8 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''
         ''Added 1/04/2024
         ''
+        '' Sorting Algorithm:  "Merge Sort"
+        ''
         Dim firstItem As IDoublyLinkedItem
         Dim firstItem_AfterSorting As IDoublyLinkedItem = Nothing
         Dim lastItem_AfterSorting As IDoublyLinkedItem = Nothing
@@ -17,6 +19,9 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         firstItem = mod_dllControlFirst
         intHowManyItems = mod_intCountOfItems
 
+        ''
+        '' Sorting Algorithm:  "Merge Sort"
+        ''
         SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
                                      firstItem_AfterSorting,
                                      lastItem_AfterSorting)
@@ -76,6 +81,9 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
             ''
             ''Base Case
             ''
+            byref_firstOfSort = par_startingItem
+            ''The first and last item of sort is the same item!!
+            byref_lastOfSort = par_startingItem
             Exit Sub
         End If ''End of ""If (par_countOfItems <= 1) Then""
 

@@ -40,7 +40,7 @@ Public Class FormTestRSCViaDigits
         opInitialLoad =
             Load_DLL_List_AsFunction(mod_list)
 
-        UserControlOperation1.DLL_List = mod_list
+        userControlOperation1.DLL_List = mod_list
 
         ''Populate the UI. 
         ''---See the Form_Load procedure / event-handler. 
@@ -88,7 +88,7 @@ Public Class FormTestRSCViaDigits
         ''Added 12/31/2023
         Dim final_item As TwoCharacterDLLItem
         final_item = GetFinalEndpointItem()
-        LinkToEndpoint.Text = final_item.ToString()
+        linkToEndpoint.Text = final_item.ToString()
 
     End Sub ''Private Sub PrintFinalEndpointItem()
 
@@ -103,7 +103,7 @@ Public Class FormTestRSCViaDigits
         Dim intCountLoops As Integer = 0
 
         ''LabelItemsDisplay.ResetText()
-        LabelItemsDisplay.Text = ""
+        labelItemsDisplay.Text = ""
 
         If (mod_firstTwoChar Is Nothing) Then
             ''
@@ -255,11 +255,11 @@ Public Class FormTestRSCViaDigits
         ''Populate the UI. 
         Dim strListOfLinks As String
         strListOfLinks = FillTheTextboxDisplayingList()
-        LabelItemsDisplay.Text = strListOfLinks
+        labelItemsDisplay.Text = strListOfLinks
 
         ''Added 12/28/2023 
         Dim itemCount As Integer = mod_list.DLL_CountAllItems()
-        UserControlOperation1.UpdateTheItemCount(itemCount)
+        userControlOperation1.UpdateTheItemCount(itemCount)
 
         ''Added 1/04/202
         ''
@@ -275,22 +275,22 @@ Public Class FormTestRSCViaDigits
             ''The user has elected to delete the entire list. 
             ''
         Else
-            LinkToEndpoint.Text = last_item.ToString()
+            linkToEndpoint.Text = last_item.ToString()
             prior_to_last = CType(last_item.DLL_GetItemPrior(), TwoCharacterDLLItem)
             If (prior_to_last IsNot Nothing) Then
-                LinkToPenultimate.Text = prior_to_last.ToString()
+                linkToPenultimate.Text = prior_to_last.ToString()
             End If ''End of ""If (prior_to_last IsNot Nothing) Then""
         End If ''End of ""If (last_item Is Nothing) Then... Else..."
 
         ''Added 1/04/2024
-        LinkToEndpoint.Tag = last_item ''.ToString()
+        linkToEndpoint.Tag = last_item ''.ToString()
 
         ''Added 1/04/2024
-        UserControlOperation1.Lists_Endpoint = last_item
-        UserControlOperation1.Lists_Penultimate = prior_to_last
+        userControlOperation1.Lists_Endpoint = last_item
+        userControlOperation1.Lists_Penultimate = prior_to_last
 
         ''Added 1/04/2024
-        LinkToPenultimate.Tag = prior_to_last ''.ToString()
+        linkToPenultimate.Tag = prior_to_last ''.ToString()
 
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
@@ -299,9 +299,9 @@ Public Class FormTestRSCViaDigits
         ''
         ''Added 1/03/2024 
         ''
-        With LabelNumOperations
+        With labelNumOperations
             mod_intCountOperations = mod_stackOperations.Count
-            LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
+            labelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
         End With
 
     End Sub ''End of ""Private Sub RefreshTheUI_OperationsCount()""
@@ -310,7 +310,7 @@ Public Class FormTestRSCViaDigits
     Private Sub DLL_OperationCreated_Delete(par_operationV1 As DLL_OperationV1,
                                             par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                             par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
-                                            Handles UserControlOperation1.DLLOperationCreated_Delete
+                                            Handles userControlOperation1.DLLOperationCreated_Delete
         ''
         ''Added 12/25/2023 
         ''
@@ -411,7 +411,7 @@ Public Class FormTestRSCViaDigits
 
 
     Private Sub DLLOperationCreated_Insert(par_operationV1 As DLL_OperationV1) _
-                           Handles UserControlOperation1.DLLOperationCreated_Insert
+                           Handles userControlOperation1.DLLOperationCreated_Insert
         ''
         ''Added 12/25/2023 
         ''
@@ -558,7 +558,7 @@ Public Class FormTestRSCViaDigits
     Private Sub DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
                                         par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                         par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
-                                        Handles UserControlOperation1.DLLOperationCreated_MoveRange
+                                        Handles userControlOperation1.DLLOperationCreated_MoveRange
         ''
         ''Added 12/25/2023 
         ''
@@ -730,28 +730,28 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of ""Private Sub UndoOperation_ViaInverseOf(eachOperation As DLL_OperationV1)""
 
 
-    Private Sub LinkSingleItem_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkSingleItemOnly.LinkClicked
+    Private Sub LinkSingleItem_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkSingleItemOnly.LinkClicked
 
         ''Added 12/26/2023 td
-        UserControlOperation1.ToggleSingleItemMode()
+        userControlOperation1.ToggleSingleItemMode()
 
     End Sub
 
-    Private Sub LinkEndpointHeading_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkEndpointHeading.LinkClicked
+    Private Sub LinkEndpointHeading_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkEndpointHeading.LinkClicked
 
         ''Added 12/31/2023
-        UserControlOperation1.ToggleFinalEndpointItemMode()
+        userControlOperation1.ToggleFinalEndpointItemMode()
 
     End Sub
 
-    Private Sub UserControlOperation1_Load(sender As Object, e As EventArgs) Handles UserControlOperation1.Load
+    Private Sub UserControlOperation1_Load(sender As Object, e As EventArgs) Handles userControlOperation1.Load
 
     End Sub
 
 
     Private Sub DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1,
                                                                        par_isUndoOfInsert As Boolean) _
-                                                 Handles UserControlOperation1.DLLOperationCreated_UndoOfInsert
+                                                 Handles userControlOperation1.DLLOperationCreated_UndoOfInsert
         ''
         ''Added 1/1/2024  
         ''
@@ -762,7 +762,7 @@ Public Class FormTestRSCViaDigits
 
     Private Sub DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
                                                                        par_isUndoOfDelete As Boolean) _
-                                       Handles UserControlOperation1.DLLOperationCreated_UndoOfDelete
+                                       Handles userControlOperation1.DLLOperationCreated_UndoOfDelete
         ''
         ''Added 1/1/2024  
         ''
@@ -773,7 +773,7 @@ Public Class FormTestRSCViaDigits
 
     Private Sub DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
                                                                      par_isUndoOfMove As Boolean) _
-                            Handles UserControlOperation1.DLLOperationCreated_UndoOfMove
+                            Handles userControlOperation1.DLLOperationCreated_UndoOfMove
         ''
         ''Added 1/1/2024  
         ''
@@ -784,7 +784,7 @@ Public Class FormTestRSCViaDigits
     End Sub
 
 
-    Private Sub UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
+    Private Sub UndoOfDelete_NoParams() Handles userControlOperation1.UndoOfDelete_NoParams
         ''
         ''Added 1/1/2024  
         ''
@@ -793,7 +793,7 @@ Public Class FormTestRSCViaDigits
     End Sub
 
 
-    Private Sub UndoOfInsert_NoParams() Handles UserControlOperation1.UndoOfInsert_NoParams
+    Private Sub UndoOfInsert_NoParams() Handles userControlOperation1.UndoOfInsert_NoParams
         ''
         ''Added 1/1/2024  
         ''
@@ -802,7 +802,7 @@ Public Class FormTestRSCViaDigits
     End Sub
 
 
-    Private Sub UndoOfMoveRange_NoParams() Handles UserControlOperation1.UndoOfMoveRange_NoParams
+    Private Sub UndoOfMoveRange_NoParams() Handles userControlOperation1.UndoOfMoveRange_NoParams
         ''
         ''Added 1/1/2024  
         ''
@@ -895,10 +895,10 @@ Public Class FormTestRSCViaDigits
 
     End Sub ''End of ""Private Sub UndoOfSpecificOperationType()""
 
-    Private Sub LinkToPenultimate_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkToPenultimate.LinkClicked
+    Private Sub LinkToPenultimate_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkToPenultimate.LinkClicked
 
         ''Added 1/4/2024
-        With UserControlOperation1
+        With userControlOperation1
 
             .SetRangeEndpoint(CType(CType(sender, Control).Tag, TwoCharacterDLLItem))
 
@@ -906,10 +906,10 @@ Public Class FormTestRSCViaDigits
 
     End Sub
 
-    Private Sub LinkToEndpoint_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkToEndpoint.LinkClicked
+    Private Sub LinkToEndpoint_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkToEndpoint.LinkClicked
 
         ''Added 1/4/2024
-        With UserControlOperation1
+        With userControlOperation1
 
             .SetRangeEndpoint(CType(CType(sender, Control).Tag, TwoCharacterDLLItem))
 
@@ -918,10 +918,10 @@ Public Class FormTestRSCViaDigits
 
     End Sub
 
-    Private Sub LinkToEndpoint_Click(sender As Object, e As EventArgs) Handles LinkToEndpoint.Click
+    Private Sub LinkToEndpoint_Click(sender As Object, e As EventArgs) Handles linkToEndpoint.Click
 
         ''Added 1/05/2024 thomas downes
-        With UserControlOperation1
+        With userControlOperation1
 
             .Struct_endpoint = New StructEndPoint(mod_list, True)
             .UpdateTheItemCount(mod_list.DLL_CountAllItems(),
@@ -931,11 +931,11 @@ Public Class FormTestRSCViaDigits
 
     End Sub
 
-    Private Sub LinkToPenultimate_Click(sender As Object, e As EventArgs) Handles LinkToPenultimate.Click
+    Private Sub LinkToPenultimate_Click(sender As Object, e As EventArgs) Handles linkToPenultimate.Click
 
         ''Added 1/05/2024 thomas downes
         Const PENULTIMATE As Boolean = True
-        With UserControlOperation1
+        With userControlOperation1
             .Struct_endpoint = New StructEndPoint(mod_list, False, PENULTIMATE)
 
             ''Added 1/05/2024 
@@ -946,7 +946,7 @@ Public Class FormTestRSCViaDigits
 
     End Sub
 
-    Private Sub UserControlOperation1_Sort_Ascending() Handles UserControlOperation1.Sort_Ascending
+    Private Sub UserControlOperation1_Sort_Ascending() Handles userControlOperation1.Sort_Ascending
 
         ''Added 1/7/2024
         mod_list.DLL_SortItems()
@@ -954,7 +954,7 @@ Public Class FormTestRSCViaDigits
 
     End Sub
 
-    Private Sub UserControlOperation1_Sort_Descending() Handles UserControlOperation1.Sort_Descending
+    Private Sub UserControlOperation1_Sort_Descending() Handles userControlOperation1.Sort_Descending
 
         ''Added 1/7/2024
         mod_list.DLL_SortItems()

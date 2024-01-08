@@ -1003,6 +1003,13 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
     End Function ''End of ""Public Function DLL_CountAllItems()""
 
+    Public Function DLL_IndexExists(par_index As Integer) As Boolean ''Implements IDoublyLinkedList(Of TControl).DLL_CountAllItems
+        ''Throw New NotImplementedException()
+        Return (par_index < mod_intCountOfItems AndAlso
+                par_index >= 0)
+
+    End Function ''End of ""Public Function DLL_IndexExists()""
+
 
     Public Function DLL_BuildListToIndex_DEPRECATED(index As Integer) As TControl _
            Implements IDoublyLinkedList(Of TControl).DLL_BuildListToIndex_DEPRECATED

@@ -24,62 +24,64 @@ Partial Class FormTestRSCViaDigits
     Private Sub InitializeComponent()
         LabelHeader1 = New Label()
         Label1 = New Label()
-        LabelBenchmark = New Label()
-        LabelItemsDisplay = New Label()
+        labelBenchmark = New Label()
+        labelItemsDisplay = New Label()
         Label3 = New Label()
         Label7 = New Label()
-        ButtonReDo = New Button()
-        ButtonUndo = New Button()
-        LabelNumOperations = New Label()
-        UserControlOperation1 = New UserControlOperation()
-        LinkSingleItemOnly = New LinkLabel()
-        LinkEndpointHeading = New LinkLabel()
-        LinkToEndpoint = New LinkLabel()
-        LinkToPenultimate = New LinkLabel()
+        buttonReDo = New Button()
+        buttonUndo = New Button()
+        labelNumOperations = New Label()
+        userControlOperation1 = New UserControlOperation()
+        linkSingleItemOnly = New LinkLabel()
+        linkEndpointHeading = New LinkLabel()
+        linkToEndpoint = New LinkLabel()
+        linkToPenultimate = New LinkLabel()
+        labelAnchorLinkLabels = New Label()
         SuspendLayout()
         ' 
         ' LabelHeader1
         ' 
         LabelHeader1.AutoSize = True
-        LabelHeader1.Location = New Point(12, 25)
+        LabelHeader1.Font = New Font("Segoe UI", 12F)
+        LabelHeader1.Location = New Point(9, 9)
         LabelHeader1.Name = "LabelHeader1"
-        LabelHeader1.Size = New Size(229, 15)
+        LabelHeader1.Size = New Size(303, 21)
         LabelHeader1.TabIndex = 0
         LabelHeader1.Text = "Testing RSC Doubly-Linked List operations"
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(12, 62)
+        Label1.Location = New Point(12, 35)
         Label1.Name = "Label1"
         Label1.Size = New Size(226, 15)
         Label1.TabIndex = 1
         Label1.Text = "List of column positions, as a benchmark:"
         ' 
-        ' LabelBenchmark
+        ' labelBenchmark
         ' 
-        LabelBenchmark.BorderStyle = BorderStyle.FixedSingle
-        LabelBenchmark.Location = New Point(35, 92)
-        LabelBenchmark.Name = "LabelBenchmark"
-        LabelBenchmark.Size = New Size(598, 24)
-        LabelBenchmark.TabIndex = 2
-        LabelBenchmark.Tag = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
-        LabelBenchmark.Text = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
+        labelBenchmark.BorderStyle = BorderStyle.FixedSingle
+        labelBenchmark.Location = New Point(35, 65)
+        labelBenchmark.Name = "labelBenchmark"
+        labelBenchmark.Size = New Size(598, 24)
+        labelBenchmark.TabIndex = 2
+        labelBenchmark.Tag = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
+        labelBenchmark.Text = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
         ' 
-        ' LabelItemsDisplay
+        ' labelItemsDisplay
         ' 
-        LabelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
-        LabelItemsDisplay.Location = New Point(58, 116)
-        LabelItemsDisplay.Name = "LabelItemsDisplay"
-        LabelItemsDisplay.Size = New Size(595, 24)
-        LabelItemsDisplay.TabIndex = 3
-        LabelItemsDisplay.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        LabelItemsDisplay.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
+        labelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
+        labelItemsDisplay.Location = New Point(58, 89)
+        labelItemsDisplay.Name = "labelItemsDisplay"
+        labelItemsDisplay.Size = New Size(595, 24)
+        labelItemsDisplay.TabIndex = 3
+        labelItemsDisplay.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
+        labelItemsDisplay.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(35, 77)
+        Label3.Location = New Point(35, 50)
         Label3.Name = "Label3"
         Label3.Size = New Size(178, 15)
         Label3.TabIndex = 4
@@ -93,101 +95,112 @@ Partial Class FormTestRSCViaDigits
         Label7.Size = New Size(0, 15)
         Label7.TabIndex = 18
         ' 
-        ' ButtonReDo
+        ' buttonReDo
         ' 
-        ButtonReDo.Enabled = False
-        ButtonReDo.Location = New Point(480, 25)
-        ButtonReDo.Name = "ButtonReDo"
-        ButtonReDo.Size = New Size(147, 27)
-        ButtonReDo.TabIndex = 19
-        ButtonReDo.Text = "Re-do >>>"
-        ButtonReDo.UseVisualStyleBackColor = True
+        buttonReDo.Enabled = False
+        buttonReDo.Location = New Point(789, 84)
+        buttonReDo.Name = "buttonReDo"
+        buttonReDo.Size = New Size(86, 27)
+        buttonReDo.TabIndex = 19
+        buttonReDo.Text = "Re-do >>>"
+        buttonReDo.UseVisualStyleBackColor = True
         ' 
-        ' ButtonUndo
+        ' buttonUndo
         ' 
-        ButtonUndo.Location = New Point(327, 25)
-        ButtonUndo.Name = "ButtonUndo"
-        ButtonUndo.Size = New Size(147, 27)
-        ButtonUndo.TabIndex = 20
-        ButtonUndo.Text = "<<< Undo"
-        ButtonUndo.UseVisualStyleBackColor = True
+        buttonUndo.Location = New Point(669, 84)
+        buttonUndo.Name = "buttonUndo"
+        buttonUndo.Size = New Size(114, 27)
+        buttonUndo.TabIndex = 20
+        buttonUndo.Text = "<<< Undo"
+        buttonUndo.UseVisualStyleBackColor = True
         ' 
-        ' LabelNumOperations
+        ' labelNumOperations
         ' 
-        LabelNumOperations.AutoSize = True
-        LabelNumOperations.Location = New Point(342, 9)
-        LabelNumOperations.Name = "LabelNumOperations"
-        LabelNumOperations.Size = New Size(99, 15)
-        LabelNumOperations.TabIndex = 33
-        LabelNumOperations.Tag = "Number of ops: {0}"
-        LabelNumOperations.Text = "Number of ops: 0"
+        labelNumOperations.AutoSize = True
+        labelNumOperations.Location = New Point(684, 68)
+        labelNumOperations.Name = "labelNumOperations"
+        labelNumOperations.Size = New Size(99, 15)
+        labelNumOperations.TabIndex = 33
+        labelNumOperations.Tag = "Number of ops: {0}"
+        labelNumOperations.Text = "Number of ops: 0"
         ' 
-        ' UserControlOperation1
+        ' userControlOperation1
         ' 
-        UserControlOperation1.BackColor = SystemColors.ActiveCaption
-        UserControlOperation1.Location = New Point(58, 166)
-        UserControlOperation1.Name = "UserControlOperation1"
-        UserControlOperation1.Size = New Size(649, 450)
-        UserControlOperation1.TabIndex = 34
+        userControlOperation1.BackColor = SystemColors.ActiveCaption
+        userControlOperation1.Location = New Point(18, 144)
+        userControlOperation1.Name = "userControlOperation1"
+        userControlOperation1.Size = New Size(649, 450)
+        userControlOperation1.TabIndex = 34
         ' 
-        ' LinkSingleItemOnly
+        ' linkSingleItemOnly
         ' 
-        LinkSingleItemOnly.AutoSize = True
-        LinkSingleItemOnly.Location = New Point(544, 148)
-        LinkSingleItemOnly.Name = "LinkSingleItemOnly"
-        LinkSingleItemOnly.Size = New Size(140, 15)
-        LinkSingleItemOnly.TabIndex = 62
-        LinkSingleItemOnly.TabStop = True
-        LinkSingleItemOnly.Text = "Toggle Single-Item Mode"
+        linkSingleItemOnly.AutoSize = True
+        linkSingleItemOnly.Location = New Point(735, 127)
+        linkSingleItemOnly.Name = "linkSingleItemOnly"
+        linkSingleItemOnly.Size = New Size(140, 15)
+        linkSingleItemOnly.TabIndex = 62
+        linkSingleItemOnly.TabStop = True
+        linkSingleItemOnly.Text = "Toggle Single-Item Mode"
         ' 
-        ' LinkEndpointHeading
+        ' linkEndpointHeading
         ' 
-        LinkEndpointHeading.AutoSize = True
-        LinkEndpointHeading.Location = New Point(459, 77)
-        LinkEndpointHeading.Name = "LinkEndpointHeading"
-        LinkEndpointHeading.Size = New Size(126, 15)
-        LinkEndpointHeading.TabIndex = 63
-        LinkEndpointHeading.TabStop = True
-        LinkEndpointHeading.Text = "Use Final Endpoint......."
+        linkEndpointHeading.AutoSize = True
+        linkEndpointHeading.Location = New Point(459, 35)
+        linkEndpointHeading.Name = "linkEndpointHeading"
+        linkEndpointHeading.Size = New Size(126, 15)
+        linkEndpointHeading.TabIndex = 63
+        linkEndpointHeading.TabStop = True
+        linkEndpointHeading.Text = "Use Final Endpoint......."
         ' 
-        ' LinkToEndpoint
+        ' linkToEndpoint
         ' 
-        LinkToEndpoint.AutoSize = True
-        LinkToEndpoint.Location = New Point(616, 77)
-        LinkToEndpoint.Name = "LinkToEndpoint"
-        LinkToEndpoint.Size = New Size(19, 15)
-        LinkToEndpoint.TabIndex = 64
-        LinkToEndpoint.TabStop = True
-        LinkToEndpoint.Tag = "Link to "
-        LinkToEndpoint.Text = "30"
+        linkToEndpoint.AutoSize = True
+        linkToEndpoint.Location = New Point(616, 35)
+        linkToEndpoint.Name = "linkToEndpoint"
+        linkToEndpoint.Size = New Size(19, 15)
+        linkToEndpoint.TabIndex = 64
+        linkToEndpoint.TabStop = True
+        linkToEndpoint.Tag = "Link to "
+        linkToEndpoint.Text = "30"
         ' 
-        ' LinkToPenultimate
+        ' linkToPenultimate
         ' 
-        LinkToPenultimate.AutoSize = True
-        LinkToPenultimate.Location = New Point(591, 77)
-        LinkToPenultimate.Name = "LinkToPenultimate"
-        LinkToPenultimate.Size = New Size(19, 15)
-        LinkToPenultimate.TabIndex = 65
-        LinkToPenultimate.TabStop = True
-        LinkToPenultimate.Text = "29"
+        linkToPenultimate.AutoSize = True
+        linkToPenultimate.Location = New Point(591, 35)
+        linkToPenultimate.Name = "linkToPenultimate"
+        linkToPenultimate.Size = New Size(19, 15)
+        linkToPenultimate.TabIndex = 65
+        linkToPenultimate.TabStop = True
+        linkToPenultimate.Text = "29"
+        ' 
+        ' labelAnchorLinkLabels
+        ' 
+        labelAnchorLinkLabels.BorderStyle = BorderStyle.FixedSingle
+        labelAnchorLinkLabels.Location = New Point(58, 117)
+        labelAnchorLinkLabels.Name = "labelAnchorLinkLabels"
+        labelAnchorLinkLabels.Size = New Size(632, 24)
+        labelAnchorLinkLabels.TabIndex = 66
+        labelAnchorLinkLabels.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
+        labelAnchorLinkLabels.Text = "  List of subclassed LinkLabel controls, representing linked items.  Newly-operated items will be designated as Visited."
         ' 
         ' FormTestRSCViaDigits
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(763, 632)
-        Controls.Add(LinkToPenultimate)
-        Controls.Add(LinkToEndpoint)
-        Controls.Add(LinkEndpointHeading)
-        Controls.Add(LinkSingleItemOnly)
-        Controls.Add(UserControlOperation1)
-        Controls.Add(LabelNumOperations)
-        Controls.Add(ButtonUndo)
-        Controls.Add(ButtonReDo)
+        ClientSize = New Size(895, 632)
+        Controls.Add(labelAnchorLinkLabels)
+        Controls.Add(linkToPenultimate)
+        Controls.Add(linkToEndpoint)
+        Controls.Add(linkEndpointHeading)
+        Controls.Add(linkSingleItemOnly)
+        Controls.Add(userControlOperation1)
+        Controls.Add(labelNumOperations)
+        Controls.Add(buttonUndo)
+        Controls.Add(buttonReDo)
         Controls.Add(Label7)
         Controls.Add(Label3)
-        Controls.Add(LabelItemsDisplay)
-        Controls.Add(LabelBenchmark)
+        Controls.Add(labelItemsDisplay)
+        Controls.Add(labelBenchmark)
         Controls.Add(Label1)
         Controls.Add(LabelHeader1)
         Name = "FormTestRSCViaDigits"
@@ -198,17 +211,18 @@ Partial Class FormTestRSCViaDigits
 
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents LabelBenchmark As Label
-    Friend WithEvents LabelItemsDisplay As Label
+    Friend WithEvents labelBenchmark As Label
+    Friend WithEvents labelItemsDisplay As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents ButtonReDo As Button
-    Friend WithEvents ButtonUndo As Button
-    Friend WithEvents LabelNumOperations As Label
-    Friend WithEvents UserControlOperation1 As UserControlOperation
-    Friend WithEvents LinkSingleItemOnly As LinkLabel
-    Friend WithEvents LinkEndpointHeading As LinkLabel
-    Friend WithEvents LinkToEndpoint As LinkLabel
-    Friend WithEvents LinkToPenultimate As LinkLabel
+    Friend WithEvents buttonReDo As Button
+    Friend WithEvents buttonUndo As Button
+    Friend WithEvents labelNumOperations As Label
+    Friend WithEvents userControlOperation1 As UserControlOperation
+    Friend WithEvents linkSingleItemOnly As LinkLabel
+    Friend WithEvents linkEndpointHeading As LinkLabel
+    Friend WithEvents linkToEndpoint As LinkLabel
+    Friend WithEvents linkToPenultimate As LinkLabel
+    Friend WithEvents labelAnchorLinkLabels As Label
 
 End Class
