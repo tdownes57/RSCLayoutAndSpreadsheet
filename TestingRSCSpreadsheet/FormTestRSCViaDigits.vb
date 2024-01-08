@@ -946,4 +946,19 @@ Public Class FormTestRSCViaDigits
 
     End Sub
 
+    Private Sub UserControlOperation1_Sort_Ascending() Handles UserControlOperation1.Sort_Ascending
+
+        ''Added 1/7/2024
+        mod_list.DLL_SortItems()
+        RefreshTheUI_DisplayList()
+
+    End Sub
+
+    Private Sub UserControlOperation1_Sort_Descending() Handles UserControlOperation1.Sort_Descending
+
+        ''Added 1/7/2024
+        mod_list.DLL_SortItems()
+        RefreshTheUI_DisplayList()
+
+    End Sub
 End Class

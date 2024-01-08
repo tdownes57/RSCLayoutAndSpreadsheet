@@ -61,6 +61,7 @@ Partial Class UserControlOperation
         LinkUndoDelete = New LinkLabel()
         LinkUndoMove = New LinkLabel()
         LinkUndoInsert = New LinkLabel()
+        Button1 = New Button()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numMoveRangeStartBenchmark, ComponentModel.ISupportInitialize).BeginInit()
@@ -440,11 +441,21 @@ Partial Class UserControlOperation
         LinkUndoInsert.TabStop = True
         LinkUndoInsert.Text = "Undo Insert"
         ' 
+        ' Button1
+        ' 
+        Button1.Location = New Point(183, 398)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(133, 39)
+        Button1.TabIndex = 73
+        Button1.Text = "Sort Items in List"
+        Button1.UseVisualStyleBackColor = True
+        ' 
         ' UserControlOperation
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveCaption
+        Controls.Add(Button1)
         Controls.Add(LinkUndoInsert)
         Controls.Add(LinkUndoMove)
         Controls.Add(LinkUndoDelete)
@@ -536,5 +547,6 @@ Partial Class UserControlOperation
     Friend WithEvents LinkUndoDelete As LinkLabel
     Friend WithEvents LinkUndoMove As LinkLabel
     Friend WithEvents LinkUndoInsert As LinkLabel
+    Friend WithEvents Button1 As Button
 
 End Class

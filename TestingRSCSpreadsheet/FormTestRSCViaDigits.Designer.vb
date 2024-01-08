@@ -127,7 +127,7 @@ Partial Class FormTestRSCViaDigits
         UserControlOperation1.BackColor = SystemColors.ActiveCaption
         UserControlOperation1.Location = New Point(58, 166)
         UserControlOperation1.Name = "UserControlOperation1"
-        UserControlOperation1.Size = New Size(649, 448)
+        UserControlOperation1.Size = New Size(649, 450)
         UserControlOperation1.TabIndex = 34
         ' 
         ' LinkSingleItemOnly
@@ -175,7 +175,7 @@ Partial Class FormTestRSCViaDigits
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(763, 641)
+        ClientSize = New Size(763, 632)
         Controls.Add(LinkToPenultimate)
         Controls.Add(LinkToEndpoint)
         Controls.Add(LinkEndpointHeading)

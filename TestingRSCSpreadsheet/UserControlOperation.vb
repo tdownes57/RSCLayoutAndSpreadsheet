@@ -67,6 +67,10 @@ Friend Class UserControlOperation
     Public Event UndoOfInsert_NoParams()
     Public Event UndoOfMoveRange_NoParams()
 
+    ''Added 1/1/2024 thomas 
+    Public Event Sort_Ascending()
+    Public Event Sort_Descending()
+
     ''Added 1/01/2024 td
     Private mod_lastPriorOpV2 As DLL_OperationV2 = Nothing ''Added 1/01/2024 td
     Private mod_intCountOperations As Integer = 0 ''Added 1/1/2024

@@ -1,7 +1,7 @@
 ﻿''
 ''Added 1/04/2024
 ''
-Partial Public Class DLL_List_OfTControl_PLEASE_USE
+Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     ''
     ''We will use Merge Sort
     ''
@@ -9,13 +9,22 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         ''
         ''Added 1/04/2024
         ''
+        Dim firstItem As IDoublyLinkedItem
+        Dim firstItem_AfterSorting As IDoublyLinkedItem = Nothing
+        Dim lastItem_AfterSorting As IDoublyLinkedItem = Nothing
+        Dim intHowManyItems As Integer
 
+        firstItem = mod_dllControlFirst
+        intHowManyItems = mod_intCountOfItems
 
+        SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
+                                     firstItem_AfterSorting,
+                                     lastItem_AfterSorting)
 
-
-
-
-
+        ''Clean the dangling references!!
+        ''  S = Sorting 
+        firstItem_AfterSorting.DLL_ClearReferencePrior("S"c)
+        lastItem_AfterSorting.DLL_ClearReferenceNext("S"c)
 
     End Sub ''eND OF ""Public Sub DLL_SortItems()""
 
@@ -58,7 +67,8 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
     Private Sub SortItemsOfSublist_Recursive(par_startingItem As IDoublyLinkedItem,
                                    par_countOfItems As Integer,
                                    par_indexOfStart As Integer,
-                                   ByRef byref_firstOfSort As IDoublyLinkedItem)
+                                   ByRef byref_firstOfSort As IDoublyLinkedItem,
+                                   ByRef byref_lastOfSort As IDoublyLinkedItem)
         ''
         ''Added 1/04/2024
         ''
@@ -91,6 +101,8 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
 
         Dim itemFirstOfSort_1stHalf As IDoublyLinkedItem = Nothing
         Dim itemFirstOfSort_2ndHalf As IDoublyLinkedItem = Nothing
+        Dim itemLastOfSort_1stHalf As IDoublyLinkedItem = Nothing
+        Dim itemLastOfSort_2ndHalf As IDoublyLinkedItem = Nothing
 
         ''
         ''
@@ -101,10 +113,12 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         ''
         ''First half.
         SortItemsOfSublist_Recursive(par_startingItem, countOfFirstHalf, par_indexOfStart,
-                                     itemFirstOfSort_1stHalf)
+                                     itemFirstOfSort_1stHalf,
+                                     itemLastOfSort_1stHalf)
         ''Second half.
         SortItemsOfSublist_Recursive(itemFirstOf_2nd_Half, countOf_2nd_Half, indexOf_2nd_Half,
-                                     itemFirstOfSort_2ndHalf)
+                                     itemFirstOfSort_2ndHalf,
+                                     itemLastOfSort_2ndHalf)
 
         ''
         ''
@@ -124,6 +138,8 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         ''Merging the two halves!!
         ''
         Dim itemFirstOfMerge As IDoublyLinkedItem
+        ''Not usedd Dim itemLastOfMerge As IDoublyLinkedItem = Nothing
+
         Dim bFirstArgumentIsLess As Boolean = False ''This is an output parameter.
         itemFirstOfMerge = DLL_ItemOfLesserValue(postSort_itemFirstOfFirstHalf,
                                                  postSort_itemFirstOf_2nd_Half,
@@ -149,7 +165,10 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         Dim item_toCompare1stHalf As IDoublyLinkedItem
         Dim item_toCompare2ndHalf As IDoublyLinkedItem
         Dim itemLesser As IDoublyLinkedItem
-        Dim itemLesser_Prior As IDoublyLinkedItem = itemFirstOfMerge
+        Dim itemForMerge_Next As IDoublyLinkedItem = Nothing
+        Dim itemForMerge_Prior As IDoublyLinkedItem = itemFirstOfMerge
+        Dim mergedList_LastItem As IDoublyLinkedItem = itemFirstOfMerge
+        Dim itemForMerge_Final As IDoublyLinkedItem = itemFirstOfMerge
 
         ''Create two queues of items.
         ''Dim postSort_queue1stHalf As New Queue(Of IDoublyLinkedItem)
@@ -187,6 +206,10 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
         bCompleted = False
         Dim hasNoItems_queue1stHalf As Boolean = False
         Dim hasNoItems_queue2ndHalf As Boolean = False
+        Dim hasOneItem_queue1stHalf As Boolean = False
+        Dim hasOneItem_queue2ndHalf As Boolean = False
+        Dim bLastItem_queue1stHalf As Boolean = False
+        Dim bLastItem_queue2ndHalf As Boolean = False
 
         While (Not bCompleted)
 
@@ -205,6 +228,8 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
                 item_toCompare1stHalf = postSort_queue1stHalf.Peek()
                 item_toCompare2ndHalf = postSort_queue2ndHalf.Peek()
                 bFirstArgumentIsLess = False ''Re-initialize.
+
+                ''Major call.
                 itemLesser = DLL_ItemOfLesserValue(item_toCompare1stHalf,
                                                    item_toCompare2ndHalf,
                                                    bFirstArgumentIsLess)
@@ -218,18 +243,28 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
                 End If
             End If ''End of ""If (hasNoItems_queue1stHalf) Then... ElseIf... Else..."
 
+            ''-------------------------------------------------------------------------
+            ''Linkage step!!  This is what you're looking for!!  LOL 
             ''
-            ''Linkage step!!
+            ''  Link the newly-selected item for the next in the merged sublist.
             ''
-            ''Link the newly-selected item for the next in the merged sublist.
-            ''
-            itemLesser_Prior.DLL_SetItemNext(itemLesser)
-            itemLesser.DLL_SetItemPrior(itemLesser_Prior)
+            ''itemLesser_Prior.DLL_SetItemNext(itemLesser)
+            ''itemLesser.DLL_SetItemPrior(itemLesser_Prior)
+
+            itemForMerge_Next = itemLesser ''The least item is the next selected for the merge.
+            mergedList_LastItem = itemForMerge_Prior ''We need the previously-merged item, as
+            '' it is the last item in the merged list. 
+
+            ''Set up the two-way connection.
+            mergedList_LastItem.DLL_SetItemNext(itemForMerge_Next)
+            itemForMerge_Next.DLL_SetItemPrior(mergedList_LastItem)
+            ''-------------------------------------------------------------------------
 
             ''
             ''Prepare for next iteration of the While loop.
             ''
-            itemLesser_Prior = itemLesser
+            ''---itemLesser_Prior = itemLesser
+            itemForMerge_Prior = itemForMerge_Next
 
             ''If (bFirstArgumentIsLess) Then
             ''    intRelativeIndex_1stHalf += 1
@@ -240,12 +275,31 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE
             hasNoItems_queue2ndHalf = (0 = postSort_queue2ndHalf.Count)
             bCompleted = (hasNoItems_queue1stHalf And hasNoItems_queue2ndHalf)
 
-        End While
+            ''
+            ''Administratiive---Grab the Last Item
+            ''
+            ''Added 1/7/2024 
+            ''Not needed.1/7/2024 hasOneItem_queue1stHalf = (1 = postSort_queue1stHalf.Count)
+            ''Not needed.1/7/2024 hasOneItem_queue2ndHalf = (1 = postSort_queue2ndHalf.Count)
+
+            ''''Added 1/7/2024 
+            ''Not needed.1/7/2024 bLastItem_queue1stHalf = (hasOneItem_queue1stHalf And hasNoItems_queue2ndHalf)
+            ''Not needed.1/7/2024 bLastItem_queue2ndHalf = (hasOneItem_queue2ndHalf And hasNoItems_queue1stHalf)
+
+            ''''Added 1/7/2024 
+            ''Not needed. 1/7/2024 If (bLastItem_queue1stHalf) Then itemMerge_Final = itemForMerge_Prior
+            ''Not needed. 1/7/2024 If (bLastItem_queue2ndHalf) Then itemMerge_Final = itemForMerge_Prior
+
+            ''It's okay if we repeatedly assign this. 
+            itemForMerge_Final = itemForMerge_Prior
+
+        End While ''End of ""While (Not bCompleted)""
 
         ''
         ''Done, so we'll pass back the first of the merged items. 
         ''
         byref_firstOfSort = itemFirstOfMerge
+        byref_lastOfSort = itemForMerge_Final
 
     End Sub ''eND OF ""Public Sub SortItems_Recursive()""
 
