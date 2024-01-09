@@ -950,6 +950,11 @@ Public Class FormTestRSCViaDigits
 
         ''Added 1/7/2024
         mod_list.DLL_SortItems()
+
+        ''Added 1/8/2024
+        mod_firstTwoChar = mod_list.DLL_GetFirstItem
+
+        ''Added 1/7/2024
         RefreshTheUI_DisplayList()
 
     End Sub
@@ -957,7 +962,12 @@ Public Class FormTestRSCViaDigits
     Private Sub UserControlOperation1_Sort_Descending() Handles userControlOperation1.Sort_Descending
 
         ''Added 1/7/2024
-        mod_list.DLL_SortItems()
+        mod_list.DLL_SortItems(True)
+
+        ''Added 1/8/2024
+        mod_firstTwoChar = mod_list.DLL_GetFirstItem
+
+        ''Added 1/7/2024
         RefreshTheUI_DisplayList()
 
     End Sub

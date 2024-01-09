@@ -53,7 +53,7 @@ Partial Class UserControlOperation
         LinkMoveRandomize = New LinkLabel()
         LabelBenchmarkVsIndex = New Label()
         Label1 = New Label()
-        ListBox1 = New ListBox()
+        listBoxAscendDescend = New ListBox()
         LinkDeleteToEndpoint = New LinkLabel()
         LinkMovRangrToEndpoint = New LinkLabel()
         checkDeleteToEndpoint = New CheckBox()
@@ -361,15 +361,15 @@ Partial Class UserControlOperation
         Label1.TabIndex = 64
         Label1.Text = "Sort Items"
         ' 
-        ' ListBox1
+        ' listBoxAscendDescend
         ' 
-        ListBox1.FormattingEnabled = True
-        ListBox1.ItemHeight = 15
-        ListBox1.Items.AddRange(New Object() {"Ascending", "Descending"})
-        ListBox1.Location = New Point(36, 403)
-        ListBox1.Name = "ListBox1"
-        ListBox1.Size = New Size(141, 34)
-        ListBox1.TabIndex = 65
+        listBoxAscendDescend.FormattingEnabled = True
+        listBoxAscendDescend.ItemHeight = 15
+        listBoxAscendDescend.Items.AddRange(New Object() {"Ascending", "Descending"})
+        listBoxAscendDescend.Location = New Point(36, 403)
+        listBoxAscendDescend.Name = "listBoxAscendDescend"
+        listBoxAscendDescend.Size = New Size(141, 34)
+        listBoxAscendDescend.TabIndex = 65
         ' 
         ' LinkDeleteToEndpoint
         ' 
@@ -465,7 +465,7 @@ Partial Class UserControlOperation
         Controls.Add(checkDeleteToEndpoint)
         Controls.Add(LinkMovRangrToEndpoint)
         Controls.Add(LinkDeleteToEndpoint)
-        Controls.Add(ListBox1)
+        Controls.Add(listBoxAscendDescend)
         Controls.Add(Label1)
         Controls.Add(LabelBenchmarkVsIndex)
         Controls.Add(LinkMoveRandomize)
@@ -541,7 +541,7 @@ Partial Class UserControlOperation
     Friend WithEvents LinkMoveRandomize As LinkLabel
     Friend WithEvents LabelBenchmarkVsIndex As Label
     Friend WithEvents Label1 As Label
-    Friend WithEvents ListBox1 As ListBox
+    Friend WithEvents listBoxAscendDescend As ListBox
     Friend WithEvents LinkDeleteToEndpoint As LinkLabel
     Friend WithEvents LinkMovRangrToEndpoint As LinkLabel
     Friend WithEvents checkDeleteToEndpoint As CheckBox

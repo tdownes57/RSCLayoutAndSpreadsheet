@@ -1062,7 +1062,12 @@ Friend Class UserControlOperation
 
         ''Added 1/08/2024
         ''Me.DLL_List.DLL_SortItems()
-        RaiseEvent Sort_Ascending()
+
+        If (listBoxAscendDescend.SelectedIndex > 0) Then
+            RaiseEvent Sort_Descending()
+        Else
+            RaiseEvent Sort_Ascending()
+        End If
 
 
     End Sub
