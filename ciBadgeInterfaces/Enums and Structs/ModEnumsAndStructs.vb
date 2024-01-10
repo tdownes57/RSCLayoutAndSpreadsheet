@@ -250,6 +250,9 @@ Public Module ModEnumsAndStructs
 
             End Select ''End of""Select Case par_enum""
 
+            ''Added 1/09/2024
+            Return "CIBField [unknown]"
+
         End Function ''End of ""Public Function Caption(par_enum As EnumCIBFields)""
 
     End Class ''End of ""Public Class EnumCIBFieldsText""

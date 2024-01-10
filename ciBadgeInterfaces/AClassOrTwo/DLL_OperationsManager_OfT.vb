@@ -15,15 +15,32 @@ Public Class DLL_OperationsManager(Of TControl)
     ''Private mod_list As RSCDoublyLinkedList(Of TControl)
     ''Private mod_list As List(Of TControl)
     ''12/2023 Private mod_listOps As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TControl))
-    Private mod_listOpsV2 As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)
+
+    ''1/09/2024 Private mod_listOpsV2 As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)
+    Private mod_firstOperationV2 As DLL_OperationV2 ''1/09/2024
+    Private mod_lastOperationV2 As DLL_OperationV2 ''1/09/2024
+    Private mod_countOfOperations As Integer ''Added 1/09/2024 
+    Private mod_opsRedoPlaceMarker As DLL_OperationsRedoMarker ''1/09/2024
 
 
-    Public Sub New(par_listOpsV2 As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2))
+
+
+    ''1/09/2024  Public Sub New(par_listOpsV2 As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2))
+    ''    ''Public Sub New(par_listOps As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TControl)))
+    ''
+    ''    ''Added 12/28/2023 thomas downes
+    ''    mod_listOpsV2 = par_listOpsV2
+    ''
+    ''End Sub ''End of ""Public Sub New""
+
+
+    Public Sub New(par_firstOperation As DLL_OperationV2)
         ''Public Sub New(par_listOps As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TControl)))
 
         ''Added 12/28/2023 thomas downes
-        mod_listOpsV2 = par_listOpsV2
-
+        mod_firstOperationV2 = par_firstOperation
+        mod_lastOperationV2 = par_firstOperation
+        mod_countOfOperations = 1
 
     End Sub ''End of ""Public Sub New""
 
@@ -41,7 +58,12 @@ Public Class DLL_OperationsManager(Of TControl)
 
     End Sub ''ENd of ""Public Sub ProcessOperation_Insert""
 
-    Public Function GetLastOperation()
+
+    Public Function GetLastOperation() As DLL_OperationV2
+
+        ''Added 1/09/2024 td
+        ''--Return mod_listOpsV2.DLL_GetLastItem()
+        Return mod_lastOperationV2
 
     End Function
 

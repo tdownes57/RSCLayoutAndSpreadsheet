@@ -48,7 +48,8 @@ Public Class FormTestRSCViaDigits
         ''Added 12/28/2023 td
         ''12/28/2023 mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TwoCharacterDLLItem))(opInitialLoad)
         mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)(opInitialLoad)
-        mod_opsManager = New DLL_OperationsManager(Of TwoCharacterDLLItem)(mod_opsList)
+        ''mod_opsManager = New DLL_OperationsManager(Of TwoCharacterDLLItem)(mod_opsList)
+        mod_opsManager = New DLL_OperationsManager(Of TwoCharacterDLLItem)(opInitialLoad)
 
     End Sub ''End of ""Public Sub New()""
 
@@ -103,12 +104,14 @@ Public Class FormTestRSCViaDigits
         Dim intCountLoops As Integer = 0
 
         ''LabelItemsDisplay.ResetText()
-        labelItemsDisplay.Text = ""
+        ''Not needed here. ----labelItemsDisplay.Text = ""
 
         If (mod_firstTwoChar Is Nothing) Then
             ''
             ''All the items have been deleted (most likely).
             ''
+            Return "The list is empty."
+
         Else
 
             each_twoChar = mod_firstTwoChar
@@ -895,6 +898,40 @@ Public Class FormTestRSCViaDigits
 
     End Sub ''End of ""Private Sub UndoOfSpecificOperationType()""
 
+
+    Private Sub UndoOfPriorOperation_AnyType()
+        ''
+        ''Added 1/10/2024 thomas downes
+        ''
+        Dim lastOperationV1 As DLL_OperationV1
+        Dim intCountOpsInStack As Integer
+
+        intCountOpsInStack = mod_stackOperations.Count()
+
+        If (0 = intCountOpsInStack) Then
+
+            ''Added 1/10/2024 
+            MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.")
+
+        Else
+
+            lastOperationV1 = mod_stackOperations.Pop()
+            ''Major call!!
+            UndoOperation_ViaInverseOf(lastOperationV1)
+
+            ''
+            ''Refresh the Display.  (Make the Insert visible to the user.)
+            ''
+            RefreshTheUI_DisplayList()
+
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        End If ''End of ""If (0 = intCountOpsInStack) Then ... Else..."
+
+    End Sub ''ENd of ""Private Sub UndoOfPriorOperation_AnyType()""
+
+
     Private Sub LinkToPenultimate_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkToPenultimate.LinkClicked
 
         ''Added 1/4/2024
@@ -969,6 +1006,15 @@ Public Class FormTestRSCViaDigits
 
         ''Added 1/7/2024
         RefreshTheUI_DisplayList()
+
+    End Sub
+
+    Private Sub buttonUndo_Click(sender As Object, e As EventArgs) Handles buttonUndo.Click
+
+        ''Added 1/10/2024 td 
+        UndoOfPriorOperation_AnyType()
+
+
 
     End Sub
 End Class

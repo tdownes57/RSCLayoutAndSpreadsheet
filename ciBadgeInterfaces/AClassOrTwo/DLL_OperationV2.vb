@@ -599,8 +599,8 @@ Public Class DLL_OperationV2
         Dim boolEqual91 As Boolean
         Dim boolEqual92 As Boolean
         Dim boolEqual93 As Boolean
-        Dim boolEqual94 As Boolean
-        Dim boolEqual95 As Boolean
+        ''Dim boolEqual94 As Boolean
+        ''Dim boolEqual95 As Boolean
 
         With lets_check
 
@@ -635,6 +635,7 @@ Public Class DLL_OperationV2
         Return bEqual_All
 
     End Function ''End of Private Function Overrides Equals() as Boolean
+
 
     Private Function IDoublyLinkedItem_DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
         Throw New NotImplementedException()

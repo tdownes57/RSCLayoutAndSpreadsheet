@@ -617,7 +617,14 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             Dim bInverseFollowing As Boolean = (InverseAnchor_Following IsNot Nothing)
             Dim bInversePreceding As Boolean = (InverseAnchor_Preceding IsNot Nothing)
             Dim bInverseBoth As Boolean = (bInverseFollowing And bInversePreceding)
-            If (bInverseBoth) Then Debugger.Break()
+            If (bInverseBoth) Then
+                Const NOT_BOTH As Boolean = False ''Let's turn this check/warning OFF. ---1/10/2024
+                If (NOT_BOTH And Testing.TestingByDefault) Then
+                    Debugger.Break()
+                End If ''End of ""If (NOT_BOTH And Testing.TestingByDefault) Then""
+            End If ''ENd of ""If (bInverseBoth) Then""
+
+            ''This is a function, after all!
             Return InverseAnchor_Following
 
         Else
@@ -839,7 +846,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Dim boolEqual92 As Boolean
         Dim boolEqual93 As Boolean
         Dim boolEqual94 As Boolean
-        Dim boolEqual95 As Boolean
+        ''Dim boolEqual95 As Boolean
 
         ''Added 11/17/2023  
         Dim boolEqual96 As Boolean
@@ -1017,7 +1024,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Dim boolEqual92 As Boolean
         Dim boolEqual93 As Boolean
         Dim boolEqual94 As Boolean
-        Dim boolEqual95 As Boolean
+        ''Dim boolEqual95 As Boolean
 
         With lets_check
 
