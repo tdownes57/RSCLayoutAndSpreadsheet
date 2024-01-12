@@ -20,8 +20,10 @@ Public Class FormTestRSCViaDigits
 
     ''Added 1/01/2024 
     Private mod_intCountOperations = 0
+    Private mod_firstPriorOpV1 As DLL_OperationV1 = Nothing ''Added 1/11/2024
     Private mod_lastPriorOpV1 As DLL_OperationV1 = Nothing ''par_lastPriorOpV1
-    Private mod_stackOperations As Stack(Of DLL_OperationV1) = New Stack(Of DLL_OperationV1)() ''par_lastPriorOpV1
+    ''DEPRECATED Private mod_stackOperations As Stack(Of DLL_OperationV1) = New Stack(Of DLL_OperationV1)() ''par_lastPriorOpV1
+    Private mod_opRedoMarker As DLL_OperationsRedoMarker
 
 
     Public Sub New()
@@ -899,14 +901,23 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of ""Private Sub UndoOfSpecificOperationType()""
 
 
-    Private Sub UndoOfPriorOperation_AnyType()
+    Private Sub UndoOfPriorOperation_AnyType(par_opRedoMarker As DLL_OperationsRedoMarker)
+        ''
+        ''Added 1/10/2024 thomas downes
+        ''
+
+
+    End Sub ''Private Sub UndoOfPriorOperation_AnyType
+
+
+    Private Sub UndoOfPriorOperation_AnyType(par_stackOperations As Stack(Of DLL_OperationV1))
         ''
         ''Added 1/10/2024 thomas downes
         ''
         Dim lastOperationV1 As DLL_OperationV1
         Dim intCountOpsInStack As Integer
 
-        intCountOpsInStack = mod_stackOperations.Count()
+        intCountOpsInStack = par_stackOperations.Count()
 
         If (0 = intCountOpsInStack) Then
 
@@ -915,7 +926,7 @@ Public Class FormTestRSCViaDigits
 
         Else
 
-            lastOperationV1 = mod_stackOperations.Pop()
+            lastOperationV1 = par_stackOperations.Pop()
             ''Major call!!
             UndoOperation_ViaInverseOf(lastOperationV1)
 
@@ -1012,8 +1023,9 @@ Public Class FormTestRSCViaDigits
     Private Sub buttonUndo_Click(sender As Object, e As EventArgs) Handles buttonUndo.Click
 
         ''Added 1/10/2024 td 
-        UndoOfPriorOperation_AnyType()
 
+        ''1/11/2024  UndoOfPriorOperation_AnyType()
+        UndoOfPriorOperation_AnyType(mod_opRedoMarker)
 
 
     End Sub
