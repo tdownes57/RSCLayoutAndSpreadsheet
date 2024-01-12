@@ -395,7 +395,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
                                     p_toBeInsertedRange_ItemCount As Integer,
                                     p_toUseAsAnchor_ItemPriorToRange As TControl,
                                     p_bIsChangeOfEndPoint As Boolean,
-                        Optional ByVal item_rangeEnd_Null As TControl = Nothing) _
+                        Optional ByVal p_toBeInserted_LastItem_Nullable As TControl = Nothing) _
                                     Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeAfter
         ''
         ''                Insert A B C after 7, the preceding anchor (7). (Three items.)
@@ -419,8 +419,15 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         itemFirstItemToInsert = CType(p_toBeInsertedRange_FirstItem, IDoublyLinkedItem)
         ''Reminder, anchors are applicable AFTER (or DURING) the operation takes place.
         itemForAnchoring_ItemPriorToRange = CType(p_toUseAsAnchor_ItemPriorToRange, IDoublyLinkedItem)
+
         ''Calculate the final item in the range.
-        itemLastItemToInsert = itemFirstItemToInsert.DLL_GetItemNext(-1 + p_toBeInsertedRange_ItemCount)
+        ''
+        ''Major call !!
+        ''
+        ''---itemLastItemToInsert = itemFirstItemToInsert.DLL_GetItemNext(-1 + p_toBeInsertedRange_ItemCount)
+        itemLastItemToInsert = GetLastItemInRange(p_toBeInsertedRange_FirstItem,
+                                                  p_toBeInsertedRange_ItemCount,
+                                                  p_toBeInserted_LastItem_Nullable)
 
         ''Testing...
         If ((bTesting And WE_CHECK_RANGE_ENDPOINTS_TESTING) Or
@@ -489,7 +496,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
                                      p_toBeInsertedRange_ItemCount As Integer,
                                      p_toUseAsAnchor_ItemNextToRange As TControl,
                                      p_bIsChangeOfEndPoint As Boolean,
-                        Optional ByVal item_rangeEnd_Null As TControl = Nothing) _
+                        Optional ByVal p_toBeInserted_rangeEnd_Nullable As TControl = Nothing) _
                                      Implements IDoublyLinkedList(Of TControl).DLL_InsertRangeBefore
         ''
         ''                Insert A B C before 8, the terminating anchor. (Three items.)
@@ -511,8 +518,15 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         ''-----------------------------------------------------------------------------------------------------
         itemFirstItemToInsert = CType(p_toBeInsertedRange_FirstItem, IDoublyLinkedItem)
         itemForAnchoring_ItemNextToRange = CType(p_toUseAsAnchor_ItemNextToRange, IDoublyLinkedItem)
+
         ''Calculate the final item in the range.
-        itemLastItemToInsert = itemFirstItemToInsert.DLL_GetItemNext(-1 + p_toBeInsertedRange_ItemCount)
+        ''
+        ''Major call !!
+        ''
+        ''---itemLastItemToInsert = itemFirstItemToInsert.DLL_GetItemNext(-1 + p_toBeInsertedRange_ItemCount)
+        itemLastItemToInsert = GetLastItemInRange(p_toBeInsertedRange_FirstItem,
+                                                  p_toBeInsertedRange_ItemCount,
+                                                  p_toBeInserted_rangeEnd_Nullable)
 
         If ((bTesting And WE_CHECK_RANGE_ENDPOINTS_TESTING) Or
                           WE_CHECK_RANGE_ENDPOINTS_ALWAYS) Then
@@ -701,6 +715,61 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Sub ''End of Public Sub DLL_DeleteItem
 
 
+    ''' <summary>
+    ''' To get the last item in a range, this function encapsulates 
+    ''' the decision making which either leverages the range count, 
+    ''' or utilizes the passed object references.  And checks both
+    ''' if we are in a testing mode. 
+    ''' </summary>
+    ''' <param name="p_itemFirstInRange">The first item in a doubly-linked sublist (a.k.a. range).</param>
+    ''' <param name="p_countOfItemsInRange"></param>
+    ''' <param name="p_itemLast_Nullable"></param>
+    ''' <returns></returns>
+    Private Function GetLastItemInRange(p_itemFirstInRange As IDoublyLinkedItem,
+                                        p_countOfItemsInRange As Integer,
+                                        p_itemLast_Nullable As IDoublyLinkedItem)
+
+        ''Get the last item in the operational range, 
+        ''   i.e. the last item that's going to be deleted.
+        ''   ---1/11/2024 thomas d. 
+        ''
+        Dim result_itemLast As IDoublyLinkedItem
+        Dim bNoLastItemProvided As Boolean
+        bNoLastItemProvided = (p_itemLast_Nullable Is Nothing)
+
+        If (bNoLastItemProvided) Then
+            ''
+            ''No last item provided, so we have to leverage var. p_count_of_deleteds
+            ''
+            result_itemLast = p_itemFirstInRange.DLL_GetItemNext(-1 + p_countOfItemsInRange)
+
+        ElseIf (Testing.TestingByDefault) Then
+
+            ''We are testing everything.  So, we will used parameter p_item_toDeleteFirst, and
+            ''   compare it to what we get by using var. p_count_of_deleteds.
+            ''   ---1/11/2024 td
+            Dim itemTemp1 As IDoublyLinkedItem ''   ---1/11/2024 td
+            Dim itemTemp2 As IDoublyLinkedItem ''   ---1/11/2024 td
+            itemTemp1 = p_itemLast_Nullable
+            itemTemp2 = p_itemFirstInRange.DLL_GetItemNext(-1 + p_countOfItemsInRange)
+            Dim boolMatches As Boolean ''   ---1/11/2024 td
+            boolMatches = itemTemp1 Is itemTemp2
+            If (Not boolMatches) Then Debugger.Break()
+            result_itemLast = p_itemLast_Nullable
+
+        Else
+            ''We will use parameter p_item_toDeleteFirst, and
+            ''   simple ignore var. p_count_of_deleteds.
+            ''  --1/11/2024 td
+            result_itemLast = p_itemLast_Nullable
+
+        End If ''End of ""If (p_item_toDeleteEnd Is Nothing) Then... ElseIf... Else..." 
+
+        Return result_itemLast
+
+    End Function ''ENd of ""Private Function GetLastItemInRange""
+
+
     ''Public Sub DLL_DeleteRange_NotUsed(item_toDeleteBegin As TControl, item_toDeleteEndInclusive As TControl,
     ''                           yes_return_list_of_deleteds As Boolean,
     ''                           ByRef count_of_deleteds As Integer,
@@ -714,7 +783,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Public Sub DLL_DeleteRange(ByVal p_item_toDeleteFirst As TControl,
                                        ByVal p_count_of_deleteds As Integer,
                                        ByVal p_isChangeOfEndpoint As Boolean,
-                        Optional ByVal item_toDeleteEnd As TControl = Nothing) _
+                              Optional ByVal p_item_toDeleteEnd_Nullable As TControl = Nothing) _
                         Implements IDoublyLinkedList(Of TControl).DLL_DeleteRange
         ''Not needed.            ByRef item_prior_undeleted As TControl,
         ''Not needed.            ByRef item_first_deleted As TControl) _
@@ -728,7 +797,14 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         '' Result:  1 2 3 7 8 9 10 
         ''
         Dim itemToDeleteFirst = CType(p_item_toDeleteFirst, IDoublyLinkedItem)
-        Dim itemToDeleteLast = itemToDeleteFirst.DLL_GetItemNext(-1 + p_count_of_deleteds)
+        Dim itemToDeleteLast As IDoublyLinkedItem
+
+        ''Encapsulated 1/11/2024 td
+        ''
+        ''Major call !!
+        ''
+        itemToDeleteLast = GetLastItemInRange(p_item_toDeleteFirst, p_count_of_deleteds,
+                                              p_item_toDeleteEnd_Nullable)
 
         Dim itemPriorToDeleteRange As IDoublyLinkedItem = Nothing
         Dim itemFollowingDeleteRange As IDoublyLinkedItem = Nothing
@@ -766,7 +842,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
             '' We CANNOT hook together what comes BEFORE range to what comes AFTER, 
             ''   since NOTHING comes after. 
-            If (Not p_isChangeOfEndpoint) Then Throw New RSCEndpointException("No endpoint specified.")
+            If (Not p_isChangeOfEndpoint) Then
+                Throw New RSCEndpointException("No endpoint specified.")
+            End If ''End of ""If (Not p_isChangeOfEndpoint) Then""
 
             ''Save the new final list item. 
             ''Moved below. 12/31/2023 mod_dllControlLast = itemPriorToDeleteRange ''itemToDeleteLast

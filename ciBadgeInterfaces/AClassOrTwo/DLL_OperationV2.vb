@@ -494,6 +494,8 @@ Public Class DLL_OperationV2
                 .OperationType = "I"c ''Added 12/30/2023 
                 .InsertRangeStart = mod_operationRangeFirstItem
                 .InsertCount = mod_countOfItems
+                ''Added 1/11/2024 td 
+                .InsertRangeEnd_Null = mod_operationRangeLastItem_Null
 
                 If (.InsertCount = 1) Then
                     .InsertItemSingly = mod_operationRangeFirstItem
@@ -505,6 +507,8 @@ Public Class DLL_OperationV2
                 .OperationType = "D"c ''Added 12/30/2023 
                 .DeleteRangeStart = mod_operationRangeFirstItem
                 .DeleteCount = mod_countOfItems
+                ''Added 1/11/2024 td 
+                .DeleteRangeEnd_Null = mod_operationRangeLastItem_Null
 
                 ''#1 of 2 Redundant properties!!  Added 1/02/2024
                 .DeleteLocation_ItemPriorToItemOrRange = mod_inverseAnchorPrior
@@ -524,6 +528,8 @@ Public Class DLL_OperationV2
                 .OperationType = "M"c ''Added 12/30/2023 
                 .MovedRangeStart = mod_operationRangeFirstItem
                 .MovedCount = mod_countOfItems
+                ''Added 1/11/2024 td 
+                .MovedRangeEnd_Null = mod_operationRangeLastItem_Null
 
                 ''Added 12/30/2023
                 ''
