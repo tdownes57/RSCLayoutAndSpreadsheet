@@ -1160,4 +1160,65 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Private Function IDoublyLinkedItem_DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
         Throw New NotImplementedException()
     End Function
+
+    Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
+        ''Throw New NotImplementedException()
+        Const COUNT_MYSELF As Integer = 1
+        Dim countPriorItems As Integer = 0
+        Dim countNextItems As Integer = 0
+        countPriorItems = DLL_CountItemsPrior()
+        countNextItems = DLL_CountItemsNext()
+        Return (countPriorItems + COUNT_MYSELF + countNextItems)
+    End Function ''End of ""Public Function DLL_CountItemsAllInList()""
+
+
+    Public Function DLL_GetIndex() As Integer
+
+        ''Added 1/13/2024 td 
+        Dim result_index As Integer
+
+        ''Consider the base case, the very first item.
+        ''  There are zero(0) prior items.
+        ''  Also, the index is zero(0)...
+        ''  (in C++, C#, Java, Python, etc.).
+        ''
+        Const ADJUSTMENT As Integer = 0
+        result_index = (DLL_CountItemsPrior() + ADJUSTMENT)
+        Return result_index
+
+    End Function ''End of ""Public Function DLL_GetIndex() As Integer""
+
+
+    ''' <summary>
+    ''' This is called by DLL_CountItemsAllInList, to assist in counting all linked items.
+    ''' </summary>
+    ''' <returns>How many times can we call DLL_HasItemPrior() and get a result of True?</returns>
+    Private Function DLL_CountItemsPrior() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsPrior
+        ''Throw New NotImplementedException()
+        Dim result_count As Integer = 0
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior
+        While temp IsNot Nothing
+            result_count += 1
+            temp = temp.DLL_GetItemPrior()
+        End While ''End of ""While temp IsNot Nothing""
+        Return result_count
+    End Function ''End of ""Private Function DLL_CountItemsPrior()""
+
+
+    ''' <summary>
+    ''' This is called by DLL_CountItemsAllInList, to assist in counting all linked items.
+    ''' </summary>
+    ''' <returns>How many times can we call DLL_HasItemNext() and get a result of True?</returns>
+    Private Function DLL_CountItemsNext() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsNext
+        ''Throw New NotImplementedException()
+        Dim result_count As Integer = 0
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemNext
+        While temp IsNot Nothing
+            result_count += 1
+            temp = temp.DLL_GetItemNext()
+        End While ''End of ""While temp IsNot Nothing""
+        Return result_count
+    End Function ''End of ""Public Function DLL_CountItemsNext()""
+
+
 End Class

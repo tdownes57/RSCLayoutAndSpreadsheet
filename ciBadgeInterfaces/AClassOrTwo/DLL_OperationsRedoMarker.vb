@@ -34,35 +34,90 @@ Public Class DLL_OperationsRedoMarker
     ''' If the user hits "Undo", this operation will be 
     ''' inversed and the inverse will be performed. 
     ''' </summary>
-    Private mod_opPrior As DLL_OperationV1
+    Private mod_opPrior_ForUndo As DLL_OperationV1
 
     ''' <summary>
     ''' If the user hits "Redo", this operation will be 
     ''' performed as it is.  (In contrast to "Undo", we
     ''' do NOT need to get the inverse of the operation.) 
     ''' </summary>
-    Private mod_opNext As DLL_OperationV1
+    Private mod_opNext_ForRedo As DLL_OperationV1
 
     Public Sub New(opPrior As DLL_OperationV1, opNext As DLL_OperationV1)
         ''
         ''Just like a Tuple, a DLL_OperationMarker is immutable.
         ''
-        mod_opPrior = opPrior
-        mod_opNext = opNext
+        mod_opPrior_ForUndo = opPrior
+        mod_opNext_ForRedo = opNext
 
     End Sub
 
-    Public Function GetPrior() As DLL_OperationV1
 
-        Return mod_opPrior
+    Public Function GetCurrentOp_Undo() As DLL_OperationV1
+
+        Return mod_opPrior_ForUndo
 
     End Function
+
+    Public Function GetCurrentOp_Redo() As DLL_OperationV1
+
+        Return mod_opNext_ForRedo
+
+    End Function
+
+
+    Public Function GetPrior() As DLL_OperationV1
+
+        Return mod_opPrior_ForUndo
+
+    End Function
+
 
     Public Function GetNext() As DLL_OperationV1
 
-        Return mod_opNext
+        Return mod_opNext_ForRedo
 
     End Function
+
+
+    Public Function GetCurrentIndex_Redo() As Integer
+
+        ''Added 1/13/2024 
+        Return mod_opNext_ForRedo.DLL_GetIndex()
+
+    End Function
+
+
+    Public Function GetCurrentIndex_Undo() As Integer
+
+        ''Added 1/13/2024 
+        Return mod_opPrior_ForUndo.DLL_GetIndex()
+
+    End Function
+
+
+    Public Sub ShiftMarker_AfterUndo_ToPrior()
+        ''
+        ''Just like a Tuple, a DLL_OperationMarker is immutable.  Or, 
+        ''   it would be, if not for this procedure.  So, I guess it 
+        ''   is mutable... unless I comment out this procedure!!!! 
+        ''
+        mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetItemPrior() ''Shift to the Left... to Prior() item.
+        mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetItemPrior() ''Shift to the Left... to Prior() item.
+
+    End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
+
+
+    Public Sub ShiftMarker_AfterRedo_ToNext()
+        ''
+        ''Just like a Tuple, a DLL_OperationMarker is immutable.  Or, 
+        ''   it would be, if not for this procedure.  So, I guess it 
+        ''   is mutable... unless I comment out this procedure!!!! 
+        ''
+        mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetItemNext() ''Shift to the Right... to Next() item.
+        mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetItemNext() ''Shift to the Right... to Next() item.
+
+    End Sub ''End of ""Public Sub ShiftMarker_AfterRedo_ToNext""
 
 
     Public Sub ShiftMarker(opCurrentPrior As DLL_OperationV1, opCurrentNext As DLL_OperationV1)
@@ -71,8 +126,8 @@ Public Class DLL_OperationsRedoMarker
         ''   it would be, if not for this procedure.  So, I guess it 
         ''   is mutable... unless I comment out this procedure!!!! 
         ''
-        mod_opPrior = opCurrentPrior
-        mod_opNext = opCurrentNext
+        mod_opPrior_ForUndo = opCurrentPrior
+        mod_opNext_ForRedo = opCurrentNext
 
     End Sub ''End of ""Public Sub ShiftMarker""
 

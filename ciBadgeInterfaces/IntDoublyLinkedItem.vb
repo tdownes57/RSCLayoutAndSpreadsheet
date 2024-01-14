@@ -72,4 +72,14 @@ Public Interface IDoublyLinkedItem
     ''Added 1/4/2024 td
     Function DLL_GetValue() As String ''Added 1/4/2024 td
 
+    ''Added 1/13/2024 thomas downes
+    ''' <summary>
+    ''' This provides a counting of all items in the entire list, regardless of the location of this item.
+    ''' (A count of all items...one(1) for present item, plus prior items, plus next items.)
+    ''' </summary>
+    ''' <returns>A count of all items...one(1) for present item, plus prior items, plus next items.</returns>
+    Function DLL_CountItemsAllInList() As Integer
+    ''1/13/2024 Function DLL_CountItemsPrior() As Integer
+    ''1/13/2024 Function DLL_CountItemsNext() As Integer
+
 End Interface

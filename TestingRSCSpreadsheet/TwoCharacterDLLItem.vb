@@ -205,4 +205,13 @@ Public Class TwoCharacterDLLItem
         Return mod_twoChars
 
     End Function
+
+    Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
+
+        ''---Throw New NotImplementedException()
+        Debugger.Break()
+
+    End Function
+
+
 End Class

@@ -646,4 +646,40 @@ Public Class DLL_OperationV2
     Private Function IDoublyLinkedItem_DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
         Throw New NotImplementedException()
     End Function
+
+    Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
+        ''---Throw New NotImplementedException()
+        ''Const COUNT_MYSELF As Integer = 1
+        ''Dim countPriorItems As Integer = 0
+        ''Dim countNextItems As Integer = 0
+        ''countPriorItems = DLL_CountItemsPrior()
+        ''countNextItems = DLL_CountItemsNext()
+        ''Return (countPriorItems + COUNT_MYSELF + countNextItems)
+        Throw New NotImplementedException()
+    End Function
+
+    Private Function DLL_CountItemsPrior() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsPrior
+        ''---Throw New NotImplementedException()
+        ''Dim result_count As Integer = 0
+        ''Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior
+        ''While temp IsNot Nothing
+        ''    result_count += 1
+        ''    temp = temp.DLL_GetItemPrior()
+        ''End While ''End of ""While temp IsNot Nothing""
+        ''Return result_count
+        Throw New NotImplementedException()
+    End Function
+
+    Private Function DLL_CountItemsNext() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsNext
+        ''---Throw New NotImplementedException()
+        ''Dim result_count As Integer = 0
+        ''Dim temp As IDoublyLinkedItem = Me.DLL_GetItemNext()
+        ''While temp IsNot Nothing
+        ''    result_count += 1
+        ''    temp = temp.DLL_GetItemNext()
+        ''End While ''End of ""While temp IsNot Nothing""
+        ''Return result_count
+        Throw New NotImplementedException()
+    End Function
+
 End Class

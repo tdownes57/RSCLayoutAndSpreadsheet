@@ -8,13 +8,20 @@ Public Class MessageBoxTD
     ''Added 1/04/2024 & 2/06/2022 
     Private Const _vbCrLf_Deux As String = (vbCrLf & vbCrLf)
 
-    Public Shared Sub Show_Statement(pstrStatement As String)
+    Public Shared Sub Show_Statement(pstrStatement As String,
+                                     Optional pstrSecondLine As String = "")
         ''
         ''Added 12/28/2021 thomas downes
         ''
-        MessageBox.Show(pstrStatement, "MessageBoxTD-Statement", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        ''---MessageBox.Show(pstrStatement, "MessageBoxTD-Statement", MessageBoxButtons.OK,
+        ''     MessageBoxIcon.Information)
 
-    End Sub
+        MessageBox.Show(pstrStatement & _vbCrLf_Deux &
+                        pstrSecondLine, "MessageBoxTD-Statement",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
+
+    End Sub ''End of ""Public Shared Sub Show_Statement""
 
     Public Shared Function Show_QuestionYesNo(pstrQuestionYesNo As String) As DialogResult
         ''
@@ -23,7 +30,7 @@ Public Class MessageBoxTD
         Return MessageBox.Show(pstrQuestionYesNo, "MessageBoxTD-Question",
                                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question)
 
-    End Function
+    End Function ''End of ""Public Shared Function Show_QuestionYesNo""
 
 
     Public Shared Function Show_QuestionIsOkay(pstrQuestionIsOkay As String) As DialogResult
@@ -33,7 +40,7 @@ Public Class MessageBoxTD
         Return MessageBox.Show(pstrQuestionIsOkay, "MessageBoxTD-QuestionIsOkay",
                                MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
 
-    End Function
+    End Function ''End of ""Public Shared Function Show_QuestionIsOkay""
 
     Public Shared Sub Show_InsertWordFormat_Line1(pstrWord_ForLine1 As String,
                                                pstrStatement_Line1 As String,

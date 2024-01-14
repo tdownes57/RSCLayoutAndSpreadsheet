@@ -22,7 +22,7 @@ Public Class FormTestRSCViaDigits
     Private mod_intCountOperations = 0
     Private mod_firstPriorOpV1 As DLL_OperationV1 = Nothing ''Added 1/11/2024
     Private mod_lastPriorOpV1 As DLL_OperationV1 = Nothing ''par_lastPriorOpV1
-    ''DEPRECATED Private mod_stackOperations As Stack(Of DLL_OperationV1) = New Stack(Of DLL_OperationV1)() ''par_lastPriorOpV1
+    ''DEPRECATED 1/13/24 Private mod_stackOperations As Stack(Of DLL_OperationV1) = New Stack(Of DLL_OperationV1)() ''par_lastPriorOpV1
     Private mod_opRedoMarker As DLL_OperationsRedoMarker
 
 
@@ -305,9 +305,12 @@ Public Class FormTestRSCViaDigits
         ''Added 1/03/2024 
         ''
         With labelNumOperations
-            mod_intCountOperations = mod_stackOperations.Count
+            ''1/13/24 mod_intCountOperations = mod_stackOperations.Count
+            mod_intCountOperations = mod_firstPriorOpV1.DLL_CountItemsAllInList()
+
             labelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
-        End With
+
+        End With ''End of ""With labelNumOperations""
 
     End Sub ''End of ""Private Sub RefreshTheUI_OperationsCount()""
 
@@ -674,14 +677,14 @@ Public Class FormTestRSCViaDigits
         ''
         If (par_lastPriorOpV1.CreatedAsUndoOperation) Then
             ''Process the Undo Operation.
-            ''mod_intCountOperations -= 1
-            mod_intCountOperations = 0
-            mod_lastPriorOpV1 = Nothing ''Clear the last operation.
+            ''---mod_intCountOperations -= 1
+            ''1/13/24 mod_intCountOperations = 0
+            ''1/13/24 mod_lastPriorOpV1 = Nothing ''Clear the last operation.
 
             ''Added 1/02/2024
-            If (0 < mod_stackOperations.Count()) Then
-                mod_lastPriorOpV1 = mod_stackOperations.Pop()
-            End If ''Edn of ""If (0 < mod_stackOperations.Count()) Then""
+            ''1/13/24 If (0 < mod_stackOperations.Count()) Then
+            ''    mod_lastPriorOpV1 = mod_stackOperations.Pop()
+            ''End If ''Edn of ""If (0 < mod_stackOperations.Count()) Then""
 
         Else
             ''Increase the count of operations.
@@ -691,9 +694,23 @@ Public Class FormTestRSCViaDigits
             ''If (mod_lastPriorOpV1 IsNot Nothing) Then
             ''    mod_stackOperations.Append(mod_lastPriorOpV1)
             ''End If ''End of ""If (mod_lastPriorOpV1 IsNot Nothing) Then""
-            mod_lastPriorOpV1 = par_lastPriorOpV1
+
             ''---mod_stackOperations.Append(par_lastPriorOpV1)
-            mod_stackOperations.Push(par_lastPriorOpV1)
+            ''1/13/24  mod_stackOperations.Push(par_lastPriorOpV1)
+
+            ''---- SLIGHTLY DIFFICULT AND CONFUSING---------------
+            ''
+            Dim tempRef_penultimateOpV1 As DLL_OperationV1 ''Penultimate is "next to last". Temporary reference variable.
+            Dim tempRef_ultimateOpV1 As DLL_OperationV1 ''Ultimate is "very last". Temporary reference variable.
+
+            tempRef_penultimateOpV1 = mod_lastPriorOpV1 ''The former last item.
+            tempRef_ultimateOpV1 = par_lastPriorOpV1 ''The brand-new last item.
+
+            tempRef_penultimateOpV1.DLL_SetItemNext(tempRef_ultimateOpV1)
+            tempRef_ultimateOpV1.DLL_SetItemPrior(tempRef_penultimateOpV1)
+
+            ''112014 mod_lastPriorOpV1 = par_lastPriorOpV1
+            mod_lastPriorOpV1 = tempRef_ultimateOpV1 ''Save tempRef_ultimateOpV1.
 
         End If ''End of ""If (par_lastPriorOpV1.CreatedAsUndoOperation) Then... Else..."
 
@@ -824,24 +841,39 @@ Public Class FormTestRSCViaDigits
         Dim eachOperationType As Char
         Dim bFoundDesiredOperationTypeOnStack As Boolean = False
         ''Dim bNotDone As Boolean = True
-        Dim bCompletedWhile As Boolean = False
+        Dim bCompletedWhileLoop As Boolean = False
         Dim eachOperation As DLL_OperationV1
         Dim each_boolIsOfSpecifiedType As Boolean
-        Dim largestIndex As Integer = (-1 + mod_stackOperations.Count())
-        Dim eachIndex As Integer = largestIndex ''(-1 + mod_stackOperations.Count())
+
+        If (mod_firstPriorOpV1 Is Nothing) Then
+            MessageBoxTD.Show_Statement("Sorry!!", "No operations are found.")
+            Exit Sub
+        End If
+
+        Dim largestIndex As Integer ''= (-1 + mod_stackOperations.Count())
+        largestIndex = -1 + mod_firstPriorOpV1.DLL_CountItemsAllInList()
+
+        ''Dim eachIndex As Integer = largestIn dex ''(-1 + mod_stackOperations.Count())
+        Dim currentMarkerIndex_Redo As Integer = mod_opRedoMarker.GetCurrentIndex_Redo()
+        Dim currentMarkerIndex_Undo As Integer = mod_opRedoMarker.GetCurrentIndex_Undo()
         Dim index_ofDeleteOperation As Integer
 
         ''Are there any operations on the Stack? 
-        bCompletedWhile = (0 = mod_stackOperations.Count())
+        ''  Let's initialize the loop condition (var. bCompletedWhileLoop).
+        ''
+        ''---bCompletedWhile = (0 = mod_stackOperations.Count())
+        bCompletedWhileLoop = (mod_opRedoMarker.GetPrior() Is Nothing)
 
         ''
         ''Step #1 of 2.  Does a Delete operation exist on the stack? 
         ''
-        While (Not bCompletedWhile) ''While bNotDone
+        While (Not bCompletedWhileLoop) ''While bNotDone
             ''
             ''Look for an operation of the specified type (par_typeOfOp).
             ''
-            eachOperation = mod_stackOperations.ElementAt(eachIndex)
+            ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
+            eachOperation = mod_opRedoMarker.GetPrior_ShiftPositionLeft()
+
             eachOperationType = eachOperation.OperationType
             ''each_isDelete = (eachOperationType = "D"c)
             each_boolIsOfSpecifiedType = (eachOperationType = par_typeOfOp)
@@ -852,13 +884,13 @@ Public Class FormTestRSCViaDigits
             If each_boolIsOfSpecifiedType Then ''If each_isDelete Then
                 bFoundDesiredOperationTypeOnStack = True
                 index_ofDeleteOperation = eachIndex
-                bCompletedWhile = True
+                bCompletedWhileLoop = True
             Else
                 ''Prepare for next iteration.
                 eachIndex -= 1
-                bCompletedWhile = (eachIndex < 0)
+                bCompletedWhileLoop = (eachIndex < 0)
             End If ''END OF "'If each_isDelete Then... Else..."
-        End While ''ENd of ""While Not bCompletedWhile""
+            End While ''ENd of ""While Not bCompletedWhile""
 
         ''
         ''Step #2 of 2.  Execute "Undo" for all operations, down to & including
@@ -905,7 +937,38 @@ Public Class FormTestRSCViaDigits
         ''
         ''Added 1/10/2024 thomas downes
         ''
+        Dim intCountFurtherUndos As Integer
+        Dim operationToUndo As DLL_OperationV1
 
+        intCountFurtherUndos = (1 + par_opRedoMarker.GetCurrentIndex_Undo())
+
+        If (0 = intCountFurtherUndos) Then
+
+            ''Added 1/10/2024 
+            MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.")
+
+        Else
+            ''
+            '' Undo the operation which is the RedoMarker's currently-designated
+            ''   Undo operation.
+            ''
+            operationToUndo = par_opRedoMarker.GetCurrentOp_Undo()
+
+            ''Major call!!
+            UndoOperation_ViaInverseOf(operationToUndo)
+
+            ''Major call!!
+            par_opRedoMarker.ShiftMarker_AfterUndo_ToPrior()
+
+            ''
+            ''Refresh the Display.  (Make the Insert visible to the user.)
+            ''
+            RefreshTheUI_DisplayList()
+
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        End If ''End of ""If (0 = intCountOpsInStack) Then ... Else..."
 
     End Sub ''Private Sub UndoOfPriorOperation_AnyType
 
