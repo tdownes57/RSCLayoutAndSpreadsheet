@@ -1,5 +1,6 @@
 ﻿Imports System.Drawing.Text
 Imports System.Reflection.Emit
+Imports System.Runtime.InteropServices.JavaScript
 Imports System.Runtime.InteropServices.JavaScript.JSType
 Imports System.Text
 Imports ciBadgeInterfaces
@@ -315,6 +316,14 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of ""Private Sub RefreshTheUI_OperationsCount()""
 
 
+    Private Sub RefreshTheUI_UndoRedoButtons()
+        ''Added 1/15/2024 
+        buttonUndo.Enabled = mod_opRedoMarker.HasOperationPrior()
+        buttonReDo.Enabled = mod_opRedoMarker.HasOperationNext()
+
+    End Sub ''end of ""Private Sub RefreshTheUI_UndoRedoButtons()""
+
+
     Private Sub DLL_OperationCreated_Delete(par_operationV1 As DLL_OperationV1,
                                             par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                             par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
@@ -332,7 +341,7 @@ Public Class FormTestRSCViaDigits
         RefreshTheUI_DisplayList()
 
         ''Added 1/01/2024
-        RecordLastPriorOperation(par_operationV1)
+        RecordNewestOperation(par_operationV1)
 
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
@@ -396,7 +405,7 @@ Public Class FormTestRSCViaDigits
                 mod_firstTwoChar = mod_list.DLL_GetFirstItem
             End If ''End of ""If (bChangeOfEndpoint_Start) Then"'
 
-        End With ''End of ""With par_operationV1"" 
+        End With ''End o f ""With par_operationV1"" 
 
         ''
         ''Admin, if requested.
@@ -408,7 +417,7 @@ Public Class FormTestRSCViaDigits
             RefreshTheUI_DisplayList()
 
             ''Added 1/01/2024
-            RecordLastPriorOperation(par_operationV1)
+            RecordNewestOperation(par_operationV1)
 
             ''Added 1/03/2024
             RefreshTheUI_OperationsCount()
@@ -435,7 +444,7 @@ Public Class FormTestRSCViaDigits
         RefreshTheUI_DisplayList()
 
         ''Added 1/01/2024
-        RecordLastPriorOperation(par_operationV1)
+        RecordNewestOperation(par_operationV1)
 
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
@@ -553,7 +562,7 @@ Public Class FormTestRSCViaDigits
             RefreshTheUI_DisplayList()
 
             ''Added 1/01/2024
-            RecordLastPriorOperation(par_operationV1)
+            RecordNewestOperation(par_operationV1)
 
             ''Added 1/03/2024
             RefreshTheUI_OperationsCount()
@@ -580,7 +589,7 @@ Public Class FormTestRSCViaDigits
         RefreshTheUI_DisplayList()
 
         ''Added 1/01/2024
-        RecordLastPriorOperation(par_operationV1)
+        RecordNewestOperation(par_operationV1)
 
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
@@ -661,7 +670,7 @@ Public Class FormTestRSCViaDigits
             RefreshTheUI_DisplayList()
 
             ''Added 1/01/2024
-            RecordLastPriorOperation(par_operationV1)
+            RecordNewestOperation(par_operationV1)
 
             ''Added 1/03/2024
             RefreshTheUI_OperationsCount()
@@ -671,11 +680,11 @@ Public Class FormTestRSCViaDigits
     End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
 
 
-    Private Sub RecordLastPriorOperation(par_lastPriorOpV1 As DLL_OperationV1)
+    Private Sub RecordNewestOperation(par_newOpV1 As DLL_OperationV1)
         ''
         ''Added 1/01/2024
         ''
-        If (par_lastPriorOpV1.CreatedAsUndoOperation) Then
+        If (par_newOpV1.CreatedAsUndoOperation) Then
             ''Process the Undo Operation.
             ''---mod_intCountOperations -= 1
             ''1/13/24 mod_intCountOperations = 0
@@ -685,6 +694,16 @@ Public Class FormTestRSCViaDigits
             ''1/13/24 If (0 < mod_stackOperations.Count()) Then
             ''    mod_lastPriorOpV1 = mod_stackOperations.Pop()
             ''End If ''Edn of ""If (0 < mod_stackOperations.Count()) Then""
+            Debugger.Break()
+
+        ElseIf (mod_firstPriorOpV1 Is Nothing) Then
+            ''
+            ''This is the first recorded operation.
+            ''
+            mod_firstPriorOpV1 = par_newOpV1
+            mod_lastPriorOpV1 = par_newOpV1
+            mod_intCountOperations = 1
+            mod_opRedoMarker = New DLL_OperationsRedoMarker(mod_firstPriorOpV1)
 
         Else
             ''Increase the count of operations.
@@ -704,13 +723,22 @@ Public Class FormTestRSCViaDigits
             Dim tempRef_ultimateOpV1 As DLL_OperationV1 ''Ultimate is "very last". Temporary reference variable.
 
             tempRef_penultimateOpV1 = mod_lastPriorOpV1 ''The former last item.
-            tempRef_ultimateOpV1 = par_lastPriorOpV1 ''The brand-new last item.
+            tempRef_ultimateOpV1 = par_newOpV1 ''The brand-new last item.
 
-            tempRef_penultimateOpV1.DLL_SetItemNext(tempRef_ultimateOpV1)
-            tempRef_ultimateOpV1.DLL_SetItemPrior(tempRef_penultimateOpV1)
+            If (tempRef_penultimateOpV1 Is Nothing) Then
+                ''We either haven't collected an operation before this present function call,
+                ''  or we have somehow "dispensed" with all of our recorded 
+                ''  operations. --1/15/2024
+            Else
+                tempRef_penultimateOpV1.DLL_SetItemNext(tempRef_ultimateOpV1)
+                tempRef_ultimateOpV1.DLL_SetItemPrior(tempRef_penultimateOpV1)
+            End If ''If (tempRef_penultimateOpV1 Is Nothing) Then... Else...
 
             ''112014 mod_lastPriorOpV1 = par_lastPriorOpV1
             mod_lastPriorOpV1 = tempRef_ultimateOpV1 ''Save tempRef_ultimateOpV1.
+
+            ''Update the redo marker. 
+            mod_opRedoMarker.ShiftMarker_DueToNewOperation(par_newOpV1)
 
         End If ''End of ""If (par_lastPriorOpV1.CreatedAsUndoOperation) Then... Else..."
 
@@ -723,19 +751,14 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of ""Private Sub RecordLastPriorOperation()""
 
 
-    Private Sub UndoOperation_ViaInverseOf(parOperation As DLL_OperationV1)
+    Private Sub ProcessOperation_AnyType(parOperation As DLL_OperationV1)
         ''
-        ''Added 1/03/2024 td
+        ''Added 1/15/2024 
         ''
         Dim opType As Char
-        Dim inverse_opType As Char
-
         opType = parOperation.OperationType
-        If (opType = "I"c) Then inverse_opType = "D"c
-        If (opType = "D"c) Then inverse_opType = "I"c
-        If (opType = "M"c) Then inverse_opType = "M"c
 
-        Select Case inverse_opType
+        Select Case opType
             Case "I"c
                 ''Insert (the inverse of Delete)
                 ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
@@ -748,6 +771,48 @@ Public Class FormTestRSCViaDigits
             Case Else
                 Debugger.Break()
         End Select ''End of ""Select Case inverse_opType""
+
+    End Sub ''ENd of ""Private Sub ProcessOperation_AnyType""
+
+
+    Private Sub UndoOperation_ViaInverseOf(parOperation As DLL_OperationV1)
+        ''
+        ''Added 1/03/2024 td
+        ''
+        Dim opType As Char
+        Dim inverse_opType As Char
+        Const ENCAPSULATE As Boolean = True ''Added 1/15/2024
+
+        If (ENCAPSULATE) Then
+            ''Added 1/15/2024
+            ProcessOperation_AnyType(parOperation)
+
+        Else
+            opType = parOperation.OperationType
+            If (opType = "I"c) Then inverse_opType = "D"c
+            If (opType = "D"c) Then inverse_opType = "I"c
+            If (opType = "M"c) Then inverse_opType = "M"c
+
+            Select Case inverse_opType
+                Case "I"c
+                    ''Insert (the inverse of Delete)
+                    ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
+                Case "D"c
+                    ''Delete (the inverse of Insert)
+                    ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation())
+                Case "M"c
+                    ''Move Range (the inverse of Move Range)
+                    ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation())
+                Case Else
+                    Debugger.Break()
+            End Select ''End of ""Select Case inverse_opType""
+
+            ''Added 11/5/2024
+            Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
+            opUndoVersion = parOperation.GetUndoVersionOfOperation()
+            ProcessOperation_AnyType(opUndoVersion)
+
+        End If ''END OF ""If (ENCAPSULATE) Then... Else..."
 
     End Sub ''End of ""Private Sub UndoOperation_ViaInverseOf(eachOperation As DLL_OperationV1)""
 
@@ -812,6 +877,9 @@ Public Class FormTestRSCViaDigits
         ''
         UndoOfSpecificOperationType("D"c, "Delete")
 
+        ''Added 1/15/2024 
+        RefreshTheUI_UndoRedoButtons()
+
     End Sub
 
 
@@ -821,6 +889,9 @@ Public Class FormTestRSCViaDigits
         ''
         UndoOfSpecificOperationType("I"c, "Insert")
 
+        ''Added 1/15/2024 
+        RefreshTheUI_UndoRedoButtons()
+
     End Sub
 
 
@@ -829,6 +900,9 @@ Public Class FormTestRSCViaDigits
         ''Added 1/1/2024  
         ''
         UndoOfSpecificOperationType("M"c, "Move")
+
+        ''Added 1/15/2024 
+        RefreshTheUI_UndoRedoButtons()
 
     End Sub
 
@@ -856,41 +930,11 @@ Public Class FormTestRSCViaDigits
         ''Dim eachIndex As Integer = largestIn dex ''(-1 + mod_stackOperations.Count())
         Dim currentMarkerIndex_Redo As Integer = mod_opRedoMarker.GetCurrentIndex_Redo()
         Dim currentMarkerIndex_Undo As Integer = mod_opRedoMarker.GetCurrentIndex_Undo()
-        Dim index_ofDeleteOperation As Integer
-
-        ''Are there any operations on the Stack? 
-        ''  Let's initialize the loop condition (var. bCompletedWhileLoop).
-        ''
-        ''---bCompletedWhile = (0 = mod_stackOperations.Count())
-        bCompletedWhileLoop = (mod_opRedoMarker.GetPrior() Is Nothing)
 
         ''
-        ''Step #1 of 2.  Does a Delete operation exist on the stack? 
+        ''Step #1 of 2.  Does the relevant operation type exist on the stack? 
         ''
-        While (Not bCompletedWhileLoop) ''While bNotDone
-            ''
-            ''Look for an operation of the specified type (par_typeOfOp).
-            ''
-            ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
-            eachOperation = mod_opRedoMarker.GetPrior_ShiftPositionLeft()
-
-            eachOperationType = eachOperation.OperationType
-            ''each_isDelete = (eachOperationType = "D"c)
-            each_boolIsOfSpecifiedType = (eachOperationType = par_typeOfOp)
-
-            bFoundDesiredOperationTypeOnStack = (each_boolIsOfSpecifiedType Or
-                bFoundDesiredOperationTypeOnStack)
-
-            If each_boolIsOfSpecifiedType Then ''If each_isDelete Then
-                bFoundDesiredOperationTypeOnStack = True
-                index_ofDeleteOperation = eachIndex
-                bCompletedWhileLoop = True
-            Else
-                ''Prepare for next iteration.
-                eachIndex -= 1
-                bCompletedWhileLoop = (eachIndex < 0)
-            End If ''END OF "'If each_isDelete Then... Else..."
-            End While ''ENd of ""While Not bCompletedWhile""
+        bFoundDesiredOperationTypeOnStack = mod_opRedoMarker.HasTypeOfOperation_Prior(par_typeOfOp)
 
         ''
         ''Step #2 of 2.  Execute "Undo" for all operations, down to & including
@@ -901,13 +945,31 @@ Public Class FormTestRSCViaDigits
             ''Pop off the intervening operations, until we reach
             ''  the desired operation.
             ''
-            For eachIndex = largestIndex To index_ofDeleteOperation
-                ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
-                eachOperation = mod_stackOperations.Pop()
-                ''Major call!!
+            ''1/15/2024 For eachIndex = largestIndex To index_ofDeleteOperation
+            ''    ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
+            ''    eachOperation = mod_stackOperations.Pop()
+            ''    ''Major call!!
+            ''    UndoOperation_ViaInverseOf(eachOperation)
+            ''    RefreshTheUI_OperationsCount()
+            ''Next eachIndex
+
+            bCompletedWhileLoop = False ''Initialize.
+            While (Not bCompletedWhileLoop) ''While bNotDone
+                ''
+                ''Look for an operation of the specified type (par_typeOfOp).
+                ''
+                eachOperation = mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
                 UndoOperation_ViaInverseOf(eachOperation)
-                RefreshTheUI_OperationsCount()
-            Next eachIndex
+                eachOperationType = eachOperation.OperationType
+                each_boolIsOfSpecifiedType = (eachOperationType = par_typeOfOp)
+                If each_boolIsOfSpecifiedType Then ''If each_isDelete Then
+                    bFoundDesiredOperationTypeOnStack = True
+                    bCompletedWhileLoop = True
+                Else
+                    bCompletedWhileLoop = eachOperation.DLL_NotAnyPrior()
+                End If ''END OF "'If each_isDelete Then... Else..."
+
+            End While ''ENd of ""While Not bCompletedWhile""
 
             ''
             ''Refresh the Display.  (Make the Insert visible to the user.)
@@ -940,6 +1002,15 @@ Public Class FormTestRSCViaDigits
         Dim intCountFurtherUndos As Integer
         Dim operationToUndo As DLL_OperationV1
 
+        If (par_opRedoMarker.HasOperationPrior()) Then
+            ''
+            ''Great, we will be able to do the "Undo" operation.
+            ''
+        Else
+            MessageBoxTD.Show_Statement("No Undo operation is in queue.") ''1/15/24
+            Exit Sub
+        End If ''If (par_opRedoMarker.HasOperationPrior()) Then... else
+
         intCountFurtherUndos = (1 + par_opRedoMarker.GetCurrentIndex_Undo())
 
         If (0 = intCountFurtherUndos) Then
@@ -957,7 +1028,7 @@ Public Class FormTestRSCViaDigits
             ''Major call!!
             UndoOperation_ViaInverseOf(operationToUndo)
 
-            ''Major call!!
+            ''Major call!!  --1/10/2024
             par_opRedoMarker.ShiftMarker_AfterUndo_ToPrior()
 
             ''
@@ -1090,6 +1161,22 @@ Public Class FormTestRSCViaDigits
         ''1/11/2024  UndoOfPriorOperation_AnyType()
         UndoOfPriorOperation_AnyType(mod_opRedoMarker)
 
+        ''Added 1/15/2024 
+        RefreshTheUI_UndoRedoButtons()
+
+    End Sub
+
+    Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
+
+        ''Added 1/15/2024
+        Dim opReDo As DLL_OperationV1
+        opReDo =
+            mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
+
+        ProcessOperation_AnyType(opReDo)
+
+        ''Added 1/15/2024 
+        RefreshTheUI_UndoRedoButtons()
 
     End Sub
 End Class

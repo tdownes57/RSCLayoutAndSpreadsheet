@@ -205,7 +205,8 @@ Friend Class UserControlOperation
 
         If (firstRangeItem Is Nothing) Then
             ''added 12/2023
-            Debugger.Break()
+            ''Debugger.Break()
+            MessageBoxTD.Show_Statement("No insert will be done.")
 
         Else
             ''12/2023 objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
@@ -1071,4 +1072,45 @@ Friend Class UserControlOperation
 
 
     End Sub
+
+    Private Sub textInsertListOfValuesCSV_TextChanged(sender As Object, e As EventArgs) Handles textInsertListOfValuesCSV.TextChanged
+
+        ''Added 1/15/2024 
+        Static s_array_space As String() = {" "c}
+        Static s_priorLength As Integer
+        Dim split_list As String()
+        Dim curr_length As Integer
+        Dim bAddedChar As Boolean
+        Dim intLengthLastWord As Integer
+        Dim bEndsInSpace As Boolean
+        Dim bHowManyIsTooSmall As Boolean
+
+        curr_length = textInsertListOfValuesCSV.TextLength
+        bEndsInSpace = (curr_length > textInsertListOfValuesCSV.Text.TrimEnd().Length)
+        bAddedChar = (curr_length > s_priorLength)
+
+        If (bEndsInSpace) Then
+            ''
+            ''Ignore.
+            ''
+        ElseIf (bAddedChar) Then
+
+            split_list = textInsertListOfValuesCSV.Text.Split(s_array_space,
+                                         StringSplitOptions.RemoveEmptyEntries)
+            intLengthLastWord = split_list.Last().Length
+            If (intLengthLastWord = 2) Then
+                bHowManyIsTooSmall = (numInsertHowMany.Value < split_list.Length)
+                If bHowManyIsTooSmall Then
+                    numInsertHowMany.Value = split_list.Length
+                End If ''End of ""If (intLengthLastWord = 2) Then""
+            ElseIf (intLengthLastWord > 2) Then
+                MessageBoxTD.Show_Statement("The two-letter words should be 2 not 3 characters.")
+            End If ''ENd of ""If (bAddedChar) Then""
+
+        End If ''end of ""If (bEndsInSpace) Then...Else..."
+
+        s_priorLength = curr_length
+
+    End Sub
+
 End Class

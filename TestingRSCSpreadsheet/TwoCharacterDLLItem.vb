@@ -1,4 +1,5 @@
 ﻿
+Imports System.CodeDom
 Imports System.Runtime.Intrinsics
 Imports ciBadgeInterfaces
 
@@ -210,6 +211,7 @@ Public Class TwoCharacterDLLItem
 
         ''---Throw New NotImplementedException()
         Debugger.Break()
+        Return -1
 
     End Function
 
