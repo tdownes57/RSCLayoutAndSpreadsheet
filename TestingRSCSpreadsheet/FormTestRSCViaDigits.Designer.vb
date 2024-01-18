@@ -107,6 +107,7 @@ Partial Class FormTestRSCViaDigits
         ' 
         ' buttonUndo
         ' 
+        buttonUndo.Enabled = False
         buttonUndo.Location = New Point(669, 84)
         buttonUndo.Name = "buttonUndo"
         buttonUndo.Size = New Size(114, 27)

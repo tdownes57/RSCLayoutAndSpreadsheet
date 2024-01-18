@@ -126,6 +126,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
     ''Added 1/1/2024 thomas downes
     Public CreatedAsUndoOperation As Boolean ''Added 1/1/2024 thomas downes
+    Public CreatedAsRedoOperation As Boolean ''Added 1/16/2024 thomas downes
 
     ''Added 1/02/2024 
     Public InverseAnchor_Preceding As IDoublyLinkedItem
@@ -208,6 +209,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Dim tempControlLeft_PostPaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
         Dim tempControlRight_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
         Dim tempControlRight_Postpaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
+
+        ''Added 1/18/2024 td
+        CheckEndpointsAreClean()
 
         With result_newUndoOperation ''With objUndo
 
@@ -417,6 +421,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             .CreatedAsUndoOperation = True
 
         End With ''End of ""With result_newUndoOperation""
+
+        ''Added 1/18/2024 td
+        result_newUndoOperation.CheckEndpointsAreClean()
 
         Return result_newUndoOperation ''Return objUndo
 
@@ -1219,6 +1226,32 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         End While ''End of ""While temp IsNot Nothing""
         Return result_count
     End Function ''End of ""Public Function DLL_CountItemsNext()""
+
+
+    Public Sub CheckEndpointsAreClean()
+        ''
+        ''Added 1/18/2024 td  
+        ''
+        If (InsertRangeStart IsNot Nothing) Then
+            If InsertRangeStart.DLL_HasPrior() Then
+                Debugger.Break()
+            End If
+        End If
+
+        If (DeleteRangeStart IsNot Nothing) Then
+            If DeleteRangeStart.DLL_HasPrior() Then
+                Debugger.Break()
+            End If
+        End If
+
+        ''If (MovedRangeStart IsNot Nothing) Then
+        ''    If MovedRangeStart.DLL_HasPrior() Then
+        ''        Debugger.Break()
+        ''    End If
+        ''End If
+
+    End Sub ''End of ""Public Sub CheckEndpointsAreClean()"
+
 
 
 End Class

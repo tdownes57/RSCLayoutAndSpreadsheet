@@ -122,7 +122,7 @@ Public Class DLL_OperationsRedoMarker
 
         If (mod_opNext_ForRedo Is Nothing) Then ''Added 1/15/2024 td
             ''Added 1/15/2024 td
-            mod_opNext_ForRedo = mod_opPrior_ForUndo
+            mod_opNext_ForRedo = temp_op ''January 18, 2024 td ''mod_opPrior_ForUndo
         Else
             mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetItemPrior() ''Shift to the Left... to Prior() item.
         End If ''End of ""If (mod_opNext_ForRedo Is Nothing) Then ... Else"
@@ -176,16 +176,60 @@ Public Class DLL_OperationsRedoMarker
         ''
         ''Added 1/15/2024  Thomas Downes  
         ''
-        Dim temp_opPriorForUndo As DLL_OperationV1
-        Dim result_operation As DLL_OperationV1
+        Dim temp_output As DLL_OperationV1 = Nothing
+        Dim result_operation As DLL_OperationV1 = Nothing
 
-        temp_opPriorForUndo = mod_opPrior_ForUndo
-        result_operation = mod_opPrior_ForUndo
+        If (mod_opPrior_ForUndo Is Nothing) Then
 
-        mod_opPrior_ForUndo = temp_opPriorForUndo.DLL_GetItemPrior()
+            ''We should NOT be calling this function.  The calling procedure 
+            ''   should have called HasOperationNext() first, and omitted 
+            ''   a call to this procedure in the case that HasOperationNext()
+            ''   returns a False. ---1/18/2024 
+            Diagnostics.Debugger.Break()
 
-        ''Update the queued "Redo" operation.
-        mod_opNext_ForRedo = mod_opPrior_ForUndo.DLL_GetItemNext()
+        Else
+            temp_output = mod_opPrior_ForUndo
+            result_operation = mod_opPrior_ForUndo
+
+            ''
+            ''Prepare for future calls to this function, NOT for the present call....
+            ''
+            mod_opPrior_ForUndo = temp_output.DLL_GetItemPrior()
+            mod_opNext_ForRedo = temp_output
+
+        End If ''End of ""If (mod_opNext_ForRedo Is Nothing) Then... Else..."
+
+        Return result_operation
+
+    End Function ''end of ""Public Function GetMarkersPrior_ShiftPositionLeft() As DLL_OperationV1""
+
+
+    Public Function GetMarkersNext_ShiftPositionRight() As DLL_OperationV1
+        ''
+        ''Added 1/18/2024  Thomas Downes  
+        ''
+        Dim temp_output As DLL_OperationV1 = Nothing
+        Dim result_operation As DLL_OperationV1 = Nothing
+
+        If (mod_opNext_ForRedo Is Nothing) Then
+
+            ''We should NOT be calling this function.  The calling procedure 
+            ''   should have called HasOperationNext() first, and omitted 
+            ''   a call to this procedure in the case that HasOperationNext()
+            ''   returns a False. ---1/18/2024 
+            Diagnostics.Debugger.Break()
+
+        Else
+            temp_output = mod_opNext_ForRedo
+            result_operation = mod_opNext_ForRedo
+
+            ''
+            ''Prepare for future calls to this function, NOT for the present call....
+            ''
+            mod_opNext_ForRedo = temp_output.DLL_GetItemNext()
+            mod_opPrior_ForUndo = temp_output
+
+        End If ''End of ""If (mod_opNext_ForRedo Is Nothing) Then... Else..."
 
         Return result_operation
 

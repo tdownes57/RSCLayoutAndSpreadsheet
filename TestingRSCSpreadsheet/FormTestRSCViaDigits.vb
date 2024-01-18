@@ -449,6 +449,9 @@ Public Class FormTestRSCViaDigits
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
 
+        ''Added 1/015/2024
+        RefreshTheUI_UndoRedoButtons()
+
     End Sub ''ENd of ""Private Sub DLLOperationCreated_Insert""
 
 
@@ -594,6 +597,8 @@ Public Class FormTestRSCViaDigits
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
 
+        ''Added 1/015/2024
+        RefreshTheUI_UndoRedoButtons()
 
     End Sub
 
@@ -677,6 +682,9 @@ Public Class FormTestRSCViaDigits
 
         End If ''end of ""If (par_bIncludePostOpAdmin) Then""
 
+        ''Added 1/015/2024
+        RefreshTheUI_UndoRedoButtons()
+
     End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
 
 
@@ -696,18 +704,22 @@ Public Class FormTestRSCViaDigits
             ''End If ''Edn of ""If (0 < mod_stackOperations.Count()) Then""
             Debugger.Break()
 
-        ElseIf (mod_firstPriorOpV1 Is Nothing) Then
-            ''
-            ''This is the first recorded operation.
-            ''
-            mod_firstPriorOpV1 = par_newOpV1
-            mod_lastPriorOpV1 = par_newOpV1
-            mod_intCountOperations = 1
-            mod_opRedoMarker = New DLL_OperationsRedoMarker(mod_firstPriorOpV1)
+        ElseIf (par_newOpV1.CreatedAsUndoOperation) Then
+            ''Added 1/16/2024
+            Debugger.Break()
 
-        Else
-            ''Increase the count of operations.
-            mod_intCountOperations += 1
+        ElseIf (mod_firstPriorOpV1 Is Nothing) Then
+                ''
+                ''This is the first recorded operation.
+                ''
+                mod_firstPriorOpV1 = par_newOpV1
+                mod_lastPriorOpV1 = par_newOpV1
+                mod_intCountOperations = 1
+                mod_opRedoMarker = New DLL_OperationsRedoMarker(mod_firstPriorOpV1)
+
+            Else
+                ''Increase the count of operations.
+                mod_intCountOperations += 1
 
             ''Added 1/2/2024 
             ''If (mod_lastPriorOpV1 IsNot Nothing) Then
@@ -761,13 +773,13 @@ Public Class FormTestRSCViaDigits
         Select Case opType
             Case "I"c
                 ''Insert (the inverse of Delete)
-                ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
+                ProcessOperation_Insert(parOperation) ''.GetUndoVersionOfOperation())
             Case "D"c
                 ''Delete (the inverse of Insert)
-                ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation())
+                ProcessOperation_Delete(parOperation) ''.GetUndoVersionOfOperation())
             Case "M"c
                 ''Move Range (the inverse of Move Range)
-                ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation())
+                ProcessOperation_MoveRange(parOperation) ''.GetUndoVersionOfOperation())
             Case Else
                 Debugger.Break()
         End Select ''End of ""Select Case inverse_opType""
@@ -785,7 +797,9 @@ Public Class FormTestRSCViaDigits
 
         If (ENCAPSULATE) Then
             ''Added 1/15/2024
-            ProcessOperation_AnyType(parOperation)
+            Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
+            opUndoVersion = parOperation.GetUndoVersionOfOperation()
+            ProcessOperation_AnyType(opUndoVersion)
 
         Else
             opType = parOperation.OperationType
@@ -806,11 +820,6 @@ Public Class FormTestRSCViaDigits
                 Case Else
                     Debugger.Break()
             End Select ''End of ""Select Case inverse_opType""
-
-            ''Added 11/5/2024
-            Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
-            opUndoVersion = parOperation.GetUndoVersionOfOperation()
-            ProcessOperation_AnyType(opUndoVersion)
 
         End If ''END OF ""If (ENCAPSULATE) Then... Else..."
 
@@ -1170,12 +1179,19 @@ Public Class FormTestRSCViaDigits
 
         ''Added 1/15/2024
         Dim opReDo As DLL_OperationV1
+        ''opReDo =
+        ''   mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
         opReDo =
-            mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
+            mod_opRedoMarker.GetMarkersNext_ShiftPositionRight()
 
+        ''added 1/16/2024 td
+        opReDo.CreatedAsRedoOperation = True
+
+        ''Major call!!
         ProcessOperation_AnyType(opReDo)
 
         ''Added 1/15/2024 
+        RefreshTheUI_DisplayList()
         RefreshTheUI_UndoRedoButtons()
 
     End Sub
