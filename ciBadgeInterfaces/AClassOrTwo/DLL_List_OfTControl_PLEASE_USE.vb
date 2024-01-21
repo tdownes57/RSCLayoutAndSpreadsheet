@@ -483,6 +483,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         Else
             ''Inform  the calling procedures that the endpoint has changed. 
             Throw New RSCEndpointException("New ending point of list.")
+            Debugger.Break()
 
         End If ''end of ""If (anchorHasItemNext) Then ... ElseIf... Else...""
 
@@ -1052,7 +1053,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Function ''End of "" Public Function DLL_GetFirstItem()""
 
 
-    Public Function DLL_GetLastItem() As TControl
+    Public Function DLL_GetLastItem() As TControl Implements IDoublyLinkedList(Of TControl).DLL_GetLastItem
 
         ''Added 12/27/2023 
         Return mod_dllControlLast
@@ -1061,7 +1062,14 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
 
 
     Public Function DLL_GetIndexOfItem(input_item As TControl) As Integer Implements IDoublyLinkedList(Of TControl).DLL_GetIndexOfItem
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+
+        Dim linkedItem As IDoublyLinkedItem
+        Dim index As Integer
+        linkedItem = CType(input_item, IDoublyLinkedItem)
+        index = linkedItem.DLL_CountItemsPrior()
+        Return index
+
     End Function
 
 

@@ -1,6 +1,7 @@
 ﻿''
 ''Added 10/30/2023
 ''
+Imports System.CodeDom
 Imports System.Drawing.Text
 Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms
@@ -211,7 +212,10 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Dim tempControlRight_Postpaste As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
 
         ''Added 1/18/2024 td
-        CheckEndpointsAreClean()
+        ''  Calling this "Undo" function implies we have already executed once. 
+        Const AFTER_EXECUTION As Boolean = True
+        ''Check the endpoints don't have "dangling" (extraneous, unneeded) references.
+        CheckEndpointsAreClean(True, False, AFTER_EXECUTION)
 
         With result_newUndoOperation ''With objUndo
 
@@ -423,7 +427,12 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         End With ''End of ""With result_newUndoOperation""
 
         ''Added 1/18/2024 td
-        result_newUndoOperation.CheckEndpointsAreClean()
+        ''---result_newUndoOperation.CheckEndpointsAreClean()
+        Const BEFORE_EXECUTION As Boolean = True ''If the Undo operation is an Undo of an Insert, 
+        ''  and is therefore effectively a Delete, then we have performed the Insert but we have 
+        ''  not yet performed the Delete--therefore, the Delete is BEFORE_EXECUTION.
+        ''  ---1/20/2024 td
+        result_newUndoOperation.CheckEndpointsAreClean(True, BEFORE_EXECUTION)
 
         Return result_newUndoOperation ''Return objUndo
 
@@ -1200,7 +1209,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' This is called by DLL_CountItemsAllInList, to assist in counting all linked items.
     ''' </summary>
     ''' <returns>How many times can we call DLL_HasItemPrior() and get a result of True?</returns>
-    Private Function DLL_CountItemsPrior() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsPrior
+    Private Function DLL_CountItemsPrior() As Integer Implements IDoublyLinkedItem.DLL_CountItemsPrior
         ''Throw New NotImplementedException()
         Dim result_count As Integer = 0
         Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior
@@ -1228,21 +1237,55 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function ''End of ""Public Function DLL_CountItemsNext()""
 
 
-    Public Sub CheckEndpointsAreClean()
-        ''
+    ''' <summary>
+    ''' Check the endpoints don't have "dangling" (extraneous, unneeded) references.
+    ''' </summary>
+    ''' <param name="pbConditionally"></param>
+    ''' <param name="pbBeforeExecution"></param>
+    ''' <param name="pbAfterExecution"></param>
+    Public Sub CheckEndpointsAreClean(pbConditionally As Boolean,
+                                      Optional pbBeforeExecution As Boolean = False,
+                                      Optional pbAfterExecution As Boolean = False)
+        ''Check the endpoints don't have "dangling" (extraneous, unneeded) references.
         ''Added 1/18/2024 td  
         ''
-        If (InsertRangeStart IsNot Nothing) Then
-            If InsertRangeStart.DLL_HasPrior() Then
-                Debugger.Break()
-            End If
-        End If
+        Dim bProceedWithCheck_InsertRange As Boolean ''Added 1/20/2024 
+        Dim bProceedWithCheck_DeleteRange As Boolean ''Added 1/20/2024 
 
-        If (DeleteRangeStart IsNot Nothing) Then
-            If DeleteRangeStart.DLL_HasPrior() Then
-                Debugger.Break()
-            End If
-        End If
+        ''
+        ''Step #1 of 2 
+        ''
+        If (pbConditionally) Then
+            ''Check the Optional parameters.
+            bProceedWithCheck_InsertRange = pbBeforeExecution
+            bProceedWithCheck_DeleteRange = pbAfterExecution
+        Else
+            ''The parameter is false, so we are proceeding unconditionally.
+            ''Unconditionally means, the parameters pbBeforeExecution
+            ''   & pbAfterExecution are considered moot, i.e. are to be
+            ''   ignored (as a code-branching mechanism).
+            bProceedWithCheck_InsertRange = (Not pbConditionally)
+            bProceedWithCheck_DeleteRange = (Not pbConditionally)
+        End If ''End of ""If (pbConditionally) Then... Else..."
+
+        ''
+        ''Step #2 of 2 
+        ''
+        If (bProceedWithCheck_InsertRange) Then
+            If (InsertRangeStart IsNot Nothing) Then
+                If InsertRangeStart.DLL_HasPrior() Then
+                    Debugger.Break()
+                End If
+            End If ''End of ""If (InsertRangeStart IsNot Nothing) Then""
+        End If ''end of ""If (bProceedWithCheck_InsertRange) Then""
+
+        If (bProceedWithCheck_DeleteRange) Then
+            If (DeleteRangeStart IsNot Nothing) Then
+                If DeleteRangeStart.DLL_HasPrior() Then
+                    Debugger.Break()
+                End If
+            End If ''End of ""If (DeleteRangeStart IsNot Nothing) Then""
+        End If ''end of ""If (bProceedWithCheck_DeleteRange) Then""
 
         ''If (MovedRangeStart IsNot Nothing) Then
         ''    If MovedRangeStart.DLL_HasPrior() Then

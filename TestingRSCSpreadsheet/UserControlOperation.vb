@@ -344,6 +344,7 @@ Friend Class UserControlOperation
         Dim dummy As TwoCharacterDLLItem = Nothing
         Dim intHowManyItems As Integer
         Dim intStartIndex As Integer
+
         struct_end = Me.Struct_endpoint
         intStartIndex = GetIndex_BenchmarkMinusOne("D"c)
         intHowManyItems = (1 + struct_end.EndpointIndex - intStartIndex)
@@ -391,10 +392,25 @@ Friend Class UserControlOperation
         ''firstRangeItem = BuildNewItemsDLL_FirstInRange(intHowManyItemsToInsert)
         firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
 
+        ''Added 1/18/2024 
+        Dim cleaned_howManyItemsInRange As Integer ''Added 1/18/2024 
+        Dim bNeedsCleaning As Boolean ''Added 1/18/2024 
+        cleaned_howManyItemsInRange = pintHowManyItemsInRange
+        bNeedsCleaning = ((indexOfRangeFirst + pintHowManyItemsInRange) > DLL_List.DLL_CountAllItems())
+        ''Added 1/18/2024 
+        If bNeedsCleaning Then
+            ''Added 1/18/2024 
+            cleaned_howManyItemsInRange = (DLL_List.DLL_CountAllItems() - indexOfRangeFirst)
+        End If ''End of ""If bNeedsCleaning Then""
+
         ''result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
         ''       intHowManyItemsToDelete, Nothing, Nothing, bIsForEitherEndpoint)
+        ''1/2024 result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
+        ''1/2024   pintHowManyItemsInRange, Nothing, Nothing, bIsForEitherEndpoint)
         result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
-                pintHowManyItemsInRange, Nothing, Nothing, bIsForEitherEndpoint)
+                cleaned_howManyItemsInRange,
+                Nothing, Nothing, bIsForEitherEndpoint)
+
         ''
         ''Populate the ByRef parameter.
         ''
@@ -507,6 +523,8 @@ Friend Class UserControlOperation
 
         If (bLetsInsertRangeAfterAnchor) Then
             anchorItem_ToBePriorToRange = anchorItem
+            ''Added 1/20/2024 
+            bChangeOfEndPointAny = bChangeOfEndPointAny Or (anchorItem.DLL_NotAnyNext())
             ''Added 1.1.2024
             ''See above. bChangeOfEndPoint3_Paste = (indexOfAnchor = -1 + DLL_List.DLL_CountAllItems())
 
@@ -840,6 +858,32 @@ Friend Class UserControlOperation
         ''buttonMove.PerformClick()
 
     End Sub
+
+
+    Public Sub UpdateTheItemCount()
+        ''
+        ''Added 1/18/2024 
+        ''
+        Dim max_count As Integer
+        Dim boolUseEndpoint As Boolean
+        Dim intEndpointIndex As Integer
+
+        If (Me.Struct_endpoint.Endpoint Is Nothing) Then
+            ''
+            ''The following code is _NOT_ relevant.
+            ''
+        Else
+            ''Update the Endpoint Index.
+            intEndpointIndex = DLL_List.DLL_GetIndexOfItem(Me.Struct_endpoint.Endpoint)
+            Me.Struct_endpoint.EndpointIndex = intEndpointIndex
+
+            boolUseEndpoint = checkDeleteToEndpoint.Checked
+            max_count = DLL_List.DLL_CountAllItems()
+            UpdateTheItemCount(max_count, boolUseEndpoint, Me.Struct_endpoint)
+
+        End If ''End of ""If (Me.Struct_endpoint.Endpoint Is Nothing) Then ... Else""
+
+    End Sub ''End of ""Public Sub UpdateTheItemCount""
 
 
     Public Sub UpdateTheItemCount(par_newMaxCount As Integer,

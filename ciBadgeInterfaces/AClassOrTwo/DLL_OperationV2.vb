@@ -658,7 +658,7 @@ Public Class DLL_OperationV2
         Throw New NotImplementedException()
     End Function
 
-    Private Function DLL_CountItemsPrior() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsPrior
+    Private Function DLL_CountItemsPrior() As Integer Implements IDoublyLinkedItem.DLL_CountItemsPrior
         ''---Throw New NotImplementedException()
         ''Dim result_count As Integer = 0
         ''Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior

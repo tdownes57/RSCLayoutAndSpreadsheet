@@ -207,6 +207,7 @@ Public Class TwoCharacterDLLItem
 
     End Function
 
+
     Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
 
         ''---Throw New NotImplementedException()
@@ -214,6 +215,20 @@ Public Class TwoCharacterDLLItem
         Return -1
 
     End Function
+
+
+    Public Function DLL_CountItemsPrior() As Integer Implements IDoublyLinkedItem.DLL_CountItemsPrior
+
+        ''Throw New NotImplementedException()
+        Dim result_count As Integer = 0
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior
+        While temp IsNot Nothing
+            result_count += 1
+            temp = temp.DLL_GetItemPrior()
+        End While ''End of ""While temp IsNot Nothing""
+        Return result_count
+
+    End Function ''ENd of ""Public Function DLL_CountItemsPrior()""
 
 
 End Class

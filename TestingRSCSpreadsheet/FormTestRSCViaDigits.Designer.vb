@@ -37,6 +37,8 @@ Partial Class FormTestRSCViaDigits
         linkToEndpoint = New LinkLabel()
         linkToPenultimate = New LinkLabel()
         labelAnchorLinkLabels = New Label()
+        LinkClearRecordedOps = New LinkLabel()
+        LabelNotTestingManager = New Label()
         SuspendLayout()
         ' 
         ' LabelHeader1
@@ -184,11 +186,36 @@ Partial Class FormTestRSCViaDigits
         labelAnchorLinkLabels.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
         labelAnchorLinkLabels.Text = "  List of subclassed LinkLabel controls, representing linked items.  Newly-operated items will be designated as Visited."
         ' 
+        ' LinkClearRecordedOps
+        ' 
+        LinkClearRecordedOps.AutoSize = True
+        LinkClearRecordedOps.Location = New Point(735, 50)
+        LinkClearRecordedOps.Name = "LinkClearRecordedOps"
+        LinkClearRecordedOps.Size = New Size(143, 15)
+        LinkClearRecordedOps.TabIndex = 68
+        LinkClearRecordedOps.TabStop = True
+        LinkClearRecordedOps.Text = "Clear recorded operations"
+        ' 
+        ' LabelNotTestingManager
+        ' 
+        LabelNotTestingManager.AutoSize = True
+        LabelNotTestingManager.BackColor = Color.Transparent
+        LabelNotTestingManager.BorderStyle = BorderStyle.FixedSingle
+        LabelNotTestingManager.Font = New Font("Segoe UI", 12F)
+        LabelNotTestingManager.ForeColor = SystemColors.ControlDark
+        LabelNotTestingManager.Location = New Point(335, 7)
+        LabelNotTestingManager.Name = "LabelNotTestingManager"
+        LabelNotTestingManager.Size = New Size(404, 23)
+        LabelNotTestingManager.TabIndex = 69
+        LabelNotTestingManager.Text = "////not//// TESTING THE OPERATIONS MANAGER CLASS"
+        ' 
         ' FormTestRSCViaDigits
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(895, 632)
+        Controls.Add(LabelNotTestingManager)
+        Controls.Add(LinkClearRecordedOps)
         Controls.Add(labelAnchorLinkLabels)
         Controls.Add(linkToPenultimate)
         Controls.Add(linkToEndpoint)
@@ -225,5 +252,7 @@ Partial Class FormTestRSCViaDigits
     Friend WithEvents linkToEndpoint As LinkLabel
     Friend WithEvents linkToPenultimate As LinkLabel
     Friend WithEvents labelAnchorLinkLabels As Label
+    Friend WithEvents LinkClearRecordedOps As LinkLabel
+    Friend WithEvents LabelNotTestingManager As Label
 
 End Class

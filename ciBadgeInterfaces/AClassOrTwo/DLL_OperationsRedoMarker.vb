@@ -65,6 +65,15 @@ Public Class DLL_OperationsRedoMarker
     End Sub ''Public Sub New(opPrior As DLL_OperationV1)
 
 
+    Public Sub Clear()
+
+        ''Added 1/20/2024 
+        mod_opPrior_ForUndo = Nothing
+        mod_opNext_ForRedo = Nothing
+
+    End Sub ''ENd of ""Public Sub Clear()""
+
+
     Public Function GetCurrentOp_Undo() As DLL_OperationV1
 
         Return mod_opPrior_ForUndo
@@ -145,6 +154,7 @@ Public Class DLL_OperationsRedoMarker
         Else
             mod_opPrior_ForUndo = par_newOperation
             mod_opNext_ForRedo = Nothing
+
         End If ''If (par_newOperation.CreatedAsUndoOperation) Then..else
 
     End Sub ''End of ""Public Sub ShiftMarker_DueToNewOperation""

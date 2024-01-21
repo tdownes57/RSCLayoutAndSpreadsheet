@@ -79,7 +79,7 @@ Public Interface IDoublyLinkedItem
     ''' </summary>
     ''' <returns>A count of all items...one(1) for present item, plus prior items, plus next items.</returns>
     Function DLL_CountItemsAllInList() As Integer
-    ''1/13/2024 Function DLL_CountItemsPrior() As Integer
+    Function DLL_CountItemsPrior() As Integer
     ''1/13/2024 Function DLL_CountItemsNext() As Integer
 
 End Interface

@@ -13,6 +13,9 @@ Public Interface IDoublyLinkedList(Of TControl)
 
     Function DLL_GetItemAtIndex(index As Integer) As TControl ''Control
 
+    ''Added 1/20/2024 tc
+    Function DLL_GetLastItem() As TControl ''Control
+
     ''' <summary>
     ''' Get the item at the specified index and location. 
     ''' </summary>
