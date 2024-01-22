@@ -12,7 +12,7 @@ Public Class FormTestUsingManager
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30 ''Added 12/28/2023 td
     Private mod_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
 
-    Private mod_firstTwoChar As TwoCharacterDLLItem
+    ''1/22/2024  Private mod_firstTwoChar As TwoCharacterDLLItem
 
     ''Added 12/28/2023 Thomas Downes 
     ''12/28 Private mod_opsList As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TwoCharacterDLLItem))
@@ -24,11 +24,11 @@ Public Class FormTestUsingManager
     Private mod_opsManager As DLLOperationsManager(Of TwoCharacterDLLItem) ''Added 1/19/2024 
 
     ''Added 1/01/2024 
-    Private mod_intCountOperations = 0
-    Private mod_firstPriorOpV1 As DLL_OperationV1 = Nothing ''Added 1/11/2024
-    Private mod_lastPriorOpV1 As DLL_OperationV1 = Nothing ''par_lastPriorOpV1
+    ''1/22/2024  Private mod_intCountOperations = 0
+    ''1/22/2024  Private mod_firstPriorOpV1 As DLL_OperationV1 = Nothing ''Added 1/11/2024
+    ''1/22/2024  Private mod_lastPriorOpV1 As DLL_OperationV1 = Nothing ''par_lastPriorOpV1
     ''DEPRECATED 1/13/24 Private mod_stackOperations As Stack(Of DLL_OperationV1) = New Stack(Of DLL_OperationV1)() ''par_lastPriorOpV1
-    Private mod_opRedoMarker As DLL_OperationsRedoMarker
+    ''1/22/2024  Private mod_opRedoMarker As DLL_OperationsRedoMarker
 
 
     Public Sub New()
@@ -36,8 +36,11 @@ Public Class FormTestUsingManager
         ' This call is required by the designer.
         InitializeComponent()
 
+        ''Added 1/22/2024 td
+        Dim firstTwoChar As New TwoCharacterDLLItem("01") ''Added 1/22/2024 td
+
         ''Initialize the DLL list. (DLL = Doubly-Linked List)
-        mod_list = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)(mod_firstTwoChar)
+        mod_list = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)(firstTwoChar)
 
         ' Add any initialization after the InitializeComponent() call.
         ''Encapsulated 12/25/2023 thomas downes
@@ -111,11 +114,13 @@ Public Class FormTestUsingManager
         Dim bDone As Boolean = False
         Dim stringbuilderLinkedItems As New StringBuilder(120)
         Dim intCountLoops As Integer = 0
+        Dim firstTwoChar As TwoCharacterDLLItem ''Added 1/22/2024
 
         ''LabelItemsDisplay.ResetText()
         ''Not needed here. ----labelItemsDisplay.Text = ""
+        firstTwoChar = mod_list.DLL_GetFirstItem()
 
-        If (mod_firstTwoChar Is Nothing) Then
+        If (firstTwoChar Is Nothing) Then
             ''
             ''All the items have been deleted (most likely).
             ''
@@ -123,7 +128,7 @@ Public Class FormTestUsingManager
 
         Else
 
-            each_twoChar = mod_firstTwoChar
+            each_twoChar = firstTwoChar
 
             ''For Each each_twoChar In mod_list
             Do Until bDone
@@ -175,13 +180,16 @@ Public Class FormTestUsingManager
         Dim prior As TwoCharacterDLLItem = Nothing
         Dim bListIsEmpty As Boolean = True
         Dim op_result As DLL_OperationV2 ''Added 12/28/2023 td
+        Dim firstTwoChar As TwoCharacterDLLItem ''Added 1/22/2024
 
         ''Clear the list.
         par_list.DLL_ClearAllItems()
         ''prior = par_firstItem
         bListIsEmpty = (0 = par_list.DLL_CountAllItems())
         If (Not bListIsEmpty) Then Debugger.Break()
-        mod_firstTwoChar = par_firstItem
+        ''#1 1/22/2024 mod_firstTwoChar = par_firstItem
+        ''#2 1/22/2024 firstTwoChar = mod_list.DLL_GetFirstItem()
+        firstTwoChar = par_firstItem
 
         ''Added 12/26/20923
         Dim firstBenchmark_1or2 As Integer = 1
@@ -203,7 +211,8 @@ Public Class FormTestUsingManager
 
             If (prior Is Nothing) Then
                 ''Only occurs on first iteration.
-                mod_firstTwoChar = each_twoCharsItem
+                ''1/22/2024 mod_firstTwoChar = each_twoCharsItem
+
                 ''Add the very first item. 
                 par_list.DLL_AddFirstAndOnlyItem(each_twoCharsItem)
 
@@ -232,7 +241,7 @@ Public Class FormTestUsingManager
         ''
         ''Added 12/28/2023 
         ''
-        op_result = New DLL_OperationV2("I"c, mod_firstTwoChar,
+        op_result = New DLL_OperationV2("I"c, firstTwoChar,
                             INITIAL_ITEM_COUNT_30, Nothing, Nothing, True)
         ''added 12/28
         Dim copyOfOpV1 As DLL_OperationV1
@@ -311,11 +320,14 @@ Public Class FormTestUsingManager
         ''
         ''Added 1/03/2024 
         ''
+        Dim intCountOperations As Integer ''Added 1/22/2024 td
         With labelNumOperations
             ''1/13/24 mod_intCountOperations = mod_stackOperations.Count
-            mod_intCountOperations = mod_firstPriorOpV1.DLL_CountItemsAllInList()
+            ''1/22/2024 mod_intCountOperations = mod_firstPriorOpV1.DLL_CountItemsAllInList()
+            intCountOperations = mod_opsManager.CountOfOperations()
 
-            labelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
+            ''1/22/2024 labelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
+            labelNumOperations.Text = String.Format(.Tag, intCountOperations)
 
         End With ''End of ""With labelNumOperations""
 

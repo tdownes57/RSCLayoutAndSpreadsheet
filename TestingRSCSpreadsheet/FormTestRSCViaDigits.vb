@@ -330,8 +330,13 @@ Public Class FormTestRSCViaDigits
 
     Private Sub RefreshTheUI_UndoRedoButtons()
         ''Added 1/15/2024 
-        buttonUndo.Enabled = mod_opRedoMarker.HasOperationPrior()
-        buttonReDo.Enabled = mod_opRedoMarker.HasOperationNext()
+        If (mod_opRedoMarker Is Nothing) Then
+            buttonUndo.Enabled = (mod_intCountOperations > 0) ''False ''mod_opRedoMarker.HasOperationPrior()
+            buttonReDo.Enabled = False ''mod_opRedoMarker.HasOperationNext()
+        Else
+            buttonUndo.Enabled = mod_opRedoMarker.HasOperationPrior()
+            buttonReDo.Enabled = mod_opRedoMarker.HasOperationNext()
+        End If
 
     End Sub ''end of ""Private Sub RefreshTheUI_UndoRedoButtons()""
 
