@@ -336,8 +336,10 @@ Public Class FormTestUsingManager
 
     Private Sub RefreshTheUI_UndoRedoButtons()
         ''Added 1/15/2024 
-        buttonUndo.Enabled = mod_opRedoMarker.HasOperationPrior()
-        buttonReDo.Enabled = mod_opRedoMarker.HasOperationNext()
+        ''1/24/2024 buttonUndo.Enabled = mod_opRedoMarker.HasOperationPrior()
+        ''1/24/2024 buttonReDo.Enabled = mod_opRedoMarker.HasOperationNext()
+        buttonUndo.Enabled = mod_opsManager.MarkerHasOperationPrior()
+        buttonReDo.Enabled = mod_opsManager.MarkerHasOperationNext()
 
     End Sub ''end of ""Private Sub RefreshTheUI_UndoRedoButtons()""
 
@@ -528,6 +530,10 @@ Public Class FormTestUsingManager
         Dim bChangeOfEndpoint_Endpt As Boolean
         Dim objInsertRangeStart As TwoCharacterDLLItem ''12/28/2023
         Dim objInsertRangeEndpt As TwoCharacterDLLItem ''12/28/2023
+        Dim firstTwoChar As TwoCharacterDLLItem ''1/24/2024 
+
+        ''Added 1/24/2024
+        firstTwoChar = mod_list.DLL_GetFirstItem
 
         ''
         ''Administrative... to be done prior to calling the Operations Manager.
@@ -535,13 +541,13 @@ Public Class FormTestUsingManager
         With par_operationV1
             If (.InsertItemSingly IsNot Nothing) Then
                 ''Only a single item is being deleted. 
-                bChangeOfEndpoint_Start = (.InsertItemSingly Is mod_firstTwoChar)
+                bChangeOfEndpoint_Start = (.InsertItemSingly Is firstTwoChar)
                 bChangeOfEndpoint_Endpt = (.InsertItemSingly Is mod_list.DLL_GetLastItem())
             Else
                 ''A range of items is being deleted. 
                 objInsertRangeStart = .InsertRangeStart
                 objInsertRangeEndpt = .InsertRangeStart.DLL_GetItemNext(-1 + .DeleteCount)
-                bChangeOfEndpoint_Start = (.InsertRangeStart Is mod_firstTwoChar)
+                bChangeOfEndpoint_Start = (.InsertRangeStart Is firstTwoChar)
                 bChangeOfEndpoint_Endpt = (objInsertRangeEndpt Is mod_list.DLL_GetLastItem())
             End If ''End of ""If (.DeleteItemSingly IsNot Nothing) Then... Else..."
         End With ''End of ""With par_operationV1""
@@ -728,60 +734,60 @@ Public Class FormTestUsingManager
         ''
         mod_opsManager.ProcessOperation_MoveRange(par_operationV1)
 
-        With par_operationV1
-            ''
-            ''Step 1 of 2.  Cut (via "Delete") the range from the list. 
-            ''
-            mod_list.DLL_DeleteRange(.MovedRangeStart, .MovedCount,
-                                            .IsChangeOfEndpoint) ''False)
+        ''With par_operationV1
+        ''    ''
+        ''    ''Step 1 of 2.  Cut (via "Delete") the range from the list. 
+        ''    ''
+        ''    mod_list.DLL_DeleteRange(.MovedRangeStart, .MovedCount,
+        ''                                    .IsChangeOfEndpoint) ''False)
 
-            ''Added 12/30/2023 td
-            If (Testing.TestingByDefault) Then
-                ''Test that the ends are CLEAN OF REFERENCES.
-                Dim firstItem As IDoublyLinkedItem = .MovedRangeStart
-                Dim lastItem As IDoublyLinkedItem = .MovedRangeStart.DLL_GetItemNext(-1 + .MovedCount)
-                ''Test that the ends are CLEAN OF REFERENCES.
-                If (firstItem.DLL_HasPrior()) Then Debugger.Break()
-                If (lastItem.DLL_HasNext()) Then Debugger.Break()
-            End If ''End of ""If (Testing.TestingByDefault) Then""
+        ''    ''Added 12/30/2023 td
+        ''    If (Testing.TestingByDefault) Then
+        ''        ''Test that the ends are CLEAN OF REFERENCES.
+        ''        Dim firstItem As IDoublyLinkedItem = .MovedRangeStart
+        ''        Dim lastItem As IDoublyLinkedItem = .MovedRangeStart.DLL_GetItemNext(-1 + .MovedCount)
+        ''        ''Test that the ends are CLEAN OF REFERENCES.
+        ''        If (firstItem.DLL_HasPrior()) Then Debugger.Break()
+        ''        If (lastItem.DLL_HasNext()) Then Debugger.Break()
+        ''    End If ''End of ""If (Testing.TestingByDefault) Then""
 
-            ''
-            ''Step 2 of 2.  Paste (via "Insert") the range into the list. 
-            ''
-            If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then
-                ''Move operational item(s) AFTER anchoring item.
-                ''
-                ''                  Move 2_3_4 after 7, the preceding anchor.
-                ''                       |
-                ''          1 2_3_4 5 6 7 8 9 10
-                '' Result:  1 5 6 7 2_3_4 8 9 10   <<< Note that 2_3_4 has been moved.
-                ''
+        ''    ''
+        ''    ''Step 2 of 2.  Paste (via "Insert") the range into the list. 
+        ''    ''
+        ''    If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then
+        ''        ''Move operational item(s) AFTER anchoring item.
+        ''        ''
+        ''        ''                  Move 2_3_4 after 7, the preceding anchor.
+        ''        ''                       |
+        ''        ''          1 2_3_4 5 6 7 8 9 10
+        ''        '' Result:  1 5 6 7 2_3_4 8 9 10   <<< Note that 2_3_4 has been moved.
+        ''        ''
 
-                mod_list.DLL_InsertRangeAfter(.MovedRangeStart, .MovedCount,
-                                            .AnchorToPrecedeItemOrRange,
-                                            .IsChangeOfEndpoint) ''False)
+        ''        mod_list.DLL_InsertRangeAfter(.MovedRangeStart, .MovedCount,
+        ''                                    .AnchorToPrecedeItemOrRange,
+        ''                                    .IsChangeOfEndpoint) ''False)
 
-            Else
-                ''Move operational item(s) BEFORE anchoring item.
-                ''
-                ''              Move 2_3_4 before 6, the terminating anchor.
-                ''                   |
-                ''          1 2_3_4 5 6 7 8 9 10
-                '' Result:  1 5 2_3_4 6 7 8 9 10
-                ''
-                mod_list.DLL_InsertRangeBefore(.MovedRangeStart, .MovedCount,
-                                            .AnchorToSucceedItemOrRange,
-                                            .IsChangeOfEndpoint) ''False))
+        ''    Else
+        ''        ''Move operational item(s) BEFORE anchoring item.
+        ''        ''
+        ''        ''              Move 2_3_4 before 6, the terminating anchor.
+        ''        ''                   |
+        ''        ''          1 2_3_4 5 6 7 8 9 10
+        ''        '' Result:  1 5 2_3_4 6 7 8 9 10
+        ''        ''
+        ''        mod_list.DLL_InsertRangeBefore(.MovedRangeStart, .MovedCount,
+        ''                                    .AnchorToSucceedItemOrRange,
+        ''                                    .IsChangeOfEndpoint) ''False))
 
-            End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... Else..."
+        ''    End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... Else..."
 
-            ''Added 12/28/2023
-            If (.IsChangeOfEndpoint) Then
-                ''In the 50% chance the starting item is affected...
-                mod_firstTwoChar = mod_list.DLL_GetFirstItem()
-            End If ''End of ""If (.IsChangeOfEndpoint) Then""
+        ''    ''Added 12/28/2023
+        ''    If (.IsChangeOfEndpoint) Then
+        ''        ''In the 50% chance the starting item is affected...
+        ''        mod_firstTwoChar = mod_list.DLL_GetFirstItem()
+        ''    End If ''End of ""If (.IsChangeOfEndpoint) Then""
 
-        End With ''End of ""With par_operationV1""
+        ''End With ''End of ""With par_operationV1""
 
         ''
         ''Admin, if requested.
@@ -793,7 +799,7 @@ Public Class FormTestUsingManager
             RefreshTheUI_DisplayList()
 
             ''Added 1/01/2024
-            RecordNewestOperation(par_operationV1)
+            ''1/24/2024 td''RecordNewestOperation(par_operationV1)
 
             ''Added 1/03/2024
             RefreshTheUI_OperationsCount()
@@ -806,142 +812,142 @@ Public Class FormTestUsingManager
     End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
 
 
-    Private Sub RecordNewestOperation(par_newOpV1 As DLL_OperationV1)
-        ''
-        ''Added 1/01/2024
-        ''
-        If (par_newOpV1.CreatedAsUndoOperation) Then
-            ''Process the Undo Operation.
-            ''---mod_intCountOperations -= 1
-            ''1/13/24 mod_intCountOperations = 0
-            ''1/13/24 mod_lastPriorOpV1 = Nothing ''Clear the last operation.
-
-            ''Added 1/02/2024
-            ''1/13/24 If (0 < mod_stackOperations.Count()) Then
-            ''    mod_lastPriorOpV1 = mod_stackOperations.Pop()
-            ''End If ''Edn of ""If (0 < mod_stackOperations.Count()) Then""
-            Debugger.Break()
-
-        ElseIf (par_newOpV1.CreatedAsUndoOperation) Then
-            ''Added 1/16/2024
-            Debugger.Break()
-
-        ElseIf (mod_firstPriorOpV1 Is Nothing) Then
-            ''
-            ''This is the first recorded operation.
-            ''
-            mod_firstPriorOpV1 = par_newOpV1
-            mod_lastPriorOpV1 = par_newOpV1
-            mod_intCountOperations = 1
-            mod_opRedoMarker = New DLL_OperationsRedoMarker(mod_firstPriorOpV1)
-
-        Else
-            ''Increase the count of operations.
-            mod_intCountOperations += 1
-
-            ''Added 1/2/2024 
-            ''If (mod_lastPriorOpV1 IsNot Nothing) Then
-            ''    mod_stackOperations.Append(mod_lastPriorOpV1)
-            ''End If ''End of ""If (mod_lastPriorOpV1 IsNot Nothing) Then""
-
-            ''---mod_stackOperations.Append(par_lastPriorOpV1)
-            ''1/13/24  mod_stackOperations.Push(par_lastPriorOpV1)
-
-            ''---- SLIGHTLY DIFFICULT AND CONFUSING---------------
-            ''
-            Dim tempRef_penultimateOpV1 As DLL_OperationV1 ''Penultimate is "next to last". Temporary reference variable.
-            Dim tempRef_ultimateOpV1 As DLL_OperationV1 ''Ultimate is "very last". Temporary reference variable.
-
-            tempRef_penultimateOpV1 = mod_lastPriorOpV1 ''The former last item.
-            tempRef_ultimateOpV1 = par_newOpV1 ''The brand-new last item.
-
-            If (tempRef_penultimateOpV1 Is Nothing) Then
-                ''We either haven't collected an operation before this present function call,
-                ''  or we have somehow "dispensed" with all of our recorded 
-                ''  operations. --1/15/2024
-            Else
-                tempRef_penultimateOpV1.DLL_SetItemNext(tempRef_ultimateOpV1)
-                tempRef_ultimateOpV1.DLL_SetItemPrior(tempRef_penultimateOpV1)
-            End If ''If (tempRef_penultimateOpV1 Is Nothing) Then... Else...
-
-            ''112014 mod_lastPriorOpV1 = par_lastPriorOpV1
-            mod_lastPriorOpV1 = tempRef_ultimateOpV1 ''Save tempRef_ultimateOpV1.
-
-            ''Update the redo marker. 
-            mod_opRedoMarker.ShiftMarker_DueToNewOperation(par_newOpV1)
-
-        End If ''End of ""If (par_lastPriorOpV1.CreatedAsUndoOperation) Then... Else..."
-
-        ''With LabelNumOperations
-        ''    LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
-        ''End With
-        ''Added 1/03/2024 
-        ''RefreshTheUI_OperationsCount()
-
-    End Sub ''End of ""Private Sub RecordLastPriorOperation()""
-
-
-    Private Sub ProcessOperation_AnyType(parOperation As DLL_OperationV1)
-        ''
-        ''Added 1/15/2024 
-        ''
-        Dim opType As Char
-        opType = parOperation.OperationType
-
-        Select Case opType
-            Case "I"c
-                ''Insert (the inverse of Delete)
-                ProcessOperation_Insert(parOperation) ''.GetUndoVersionOfOperation())
-            Case "D"c
-                ''Delete (the inverse of Insert)
-                ProcessOperation_Delete(parOperation) ''.GetUndoVersionOfOperation())
-            Case "M"c
-                ''Move Range (the inverse of Move Range)
-                ProcessOperation_MoveRange(parOperation) ''.GetUndoVersionOfOperation())
-            Case Else
-                Debugger.Break()
-        End Select ''End of ""Select Case inverse_opType""
-
-    End Sub ''ENd of ""Private Sub ProcessOperation_AnyType""
+    ''Private Sub RecordNewestOperation(par_newOpV1 As DLL_OperationV1)
+    ''    ''
+    ''    ''Added 1/01/2024
+    ''    ''
+    ''    If (par_newOpV1.CreatedAsUndoOperation) Then
+    ''        ''Process the Undo Operation.
+    ''        ''---mod_intCountOperations -= 1
+    ''        ''1/13/24 mod_intCountOperations = 0
+    ''        ''1/13/24 mod_lastPriorOpV1 = Nothing ''Clear the last operation.
+    ''
+    ''        ''Added 1/02/2024
+    ''        ''1/13/24 If (0 < mod_stackOperations.Count()) Then
+    ''        ''    mod_lastPriorOpV1 = mod_stackOperations.Pop()
+    ''        ''End If ''Edn of ""If (0 < mod_stackOperations.Count()) Then""
+    ''        Debugger.Break()
+    ''
+    ''    ElseIf (par_newOpV1.CreatedAsUndoOperation) Then
+    ''        ''Added 1/16/2024
+    ''        Debugger.Break()
+    ''
+    ''    ElseIf (mod_firstPriorOperationV1 Is Nothing) Then
+    ''        ''
+    ''        ''This is the first recorded operation.
+    ''        ''
+    ''        mod_firstPriorOperationV1 = par_newOpV1
+    ''        mod_lastPriorOperationV1 = par_newOpV1
+    ''        mod_intCountOperations = 1
+    ''        mod_opRedoMarker = New DLL_OperationsRedoMarker(mod_firstPriorOpV1)
+    ''
+    ''    Else
+    ''        ''Increase the count of operations.
+    ''        mod_intCountOperations += 1
+    ''
+    ''        ''Added 1/2/2024 
+    ''        ''If (mod_lastPriorOpV1 IsNot Nothing) Then
+    ''        ''    mod_stackOperations.Append(mod_lastPriorOpV1)
+    ''        ''End If ''End of ""If (mod_lastPriorOpV1 IsNot Nothing) Then""
+    ''
+    ''        ''---mod_stackOperations.Append(par_lastPriorOpV1)
+    ''        ''1/13/24  mod_stackOperations.Push(par_lastPriorOpV1)
+    ''
+    ''        ''---- SLIGHTLY DIFFICULT AND CONFUSING---------------
+    ''        ''
+    ''        Dim tempRef_penultimateOpV1 As DLL_OperationV1 ''Penultimate is "next to last". Temporary reference variable.
+    ''        Dim tempRef_ultimateOpV1 As DLL_OperationV1 ''Ultimate is "very last". Temporary reference variable.
+    ''
+    ''        tempRef_penultimateOpV1 = mod_lastPriorOpV1 ''The former last item.
+    ''        tempRef_ultimateOpV1 = par_newOpV1 ''The brand-new last item.
+    ''
+    ''        If (tempRef_penultimateOpV1 Is Nothing) Then
+    ''            ''We either haven't collected an operation before this present function call,
+    ''            ''  or we have somehow "dispensed" with all of our recorded 
+    ''            ''  operations. --1/15/2024
+    ''        Else
+    ''            tempRef_penultimateOpV1.DLL_SetItemNext(tempRef_ultimateOpV1)
+    ''            tempRef_ultimateOpV1.DLL_SetItemPrior(tempRef_penultimateOpV1)
+    ''        End If ''If (tempRef_penultimateOpV1 Is Nothing) Then... Else...
+    ''
+    ''        ''112014 mod_lastPriorOpV1 = par_lastPriorOpV1
+    ''        mod_lastPriorOpV1 = tempRef_ultimateOpV1 ''Save tempRef_ultimateOpV1.
+    ''
+    ''        ''Update the redo marker. 
+    ''        mod_opRedoMarker.ShiftMarker_DueToNewOperation(par_newOpV1)
+    ''
+    ''    End If ''End of ""If (par_lastPriorOpV1.CreatedAsUndoOperation) Then... Else..."
+    ''
+    ''    ''With LabelNumOperations
+    ''    ''    LabelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
+    ''    ''End With
+    ''    ''Added 1/03/2024 
+    ''    ''RefreshTheUI_OperationsCount()
+    ''
+    ''End Sub ''End of ""Private Sub RecordNewestOperation()""
 
 
-    Private Sub UndoOperation_ViaInverseOf(parOperation As DLL_OperationV1)
-        ''
-        ''Added 1/03/2024 td
-        ''
-        Dim opType As Char
-        Dim inverse_opType As Char
-        Const ENCAPSULATE As Boolean = True ''Added 1/15/2024
+    ''Private Sub ProcessOperation_AnyType(parOperation As DLL_OperationV1)
+    ''    ''
+    ''    ''Added 1/15/2024 
+    ''    ''
+    ''    Dim opType As Char
+    ''    opType = parOperation.OperationType
+    ''
+    ''    Select Case opType
+    ''        Case "I"c
+    ''            ''Insert (the inverse of Delete)
+    ''            ProcessOperation_Insert(parOperation) ''.GetUndoVersionOfOperation())
+    ''        Case "D"c
+    ''            ''Delete (the inverse of Insert)
+    ''            ProcessOperation_Delete(parOperation) ''.GetUndoVersionOfOperation())
+    ''        Case "M"c
+    ''            ''Move Range (the inverse of Move Range)
+    ''            ProcessOperation_MoveRange(parOperation) ''.GetUndoVersionOfOperation())
+    ''        Case Else
+    ''            Debugger.Break()
+    ''    End Select ''End of ""Select Case inverse_opType""
+    ''
+    ''End Sub ''ENd of ""Private Sub ProcessOperation_AnyType""
 
-        If (ENCAPSULATE) Then
-            ''Added 1/15/2024
-            Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
-            opUndoVersion = parOperation.GetUndoVersionOfOperation()
-            ProcessOperation_AnyType(opUndoVersion)
 
-        Else
-            opType = parOperation.OperationType
-            If (opType = "I"c) Then inverse_opType = "D"c
-            If (opType = "D"c) Then inverse_opType = "I"c
-            If (opType = "M"c) Then inverse_opType = "M"c
-
-            Select Case inverse_opType
-                Case "I"c
-                    ''Insert (the inverse of Delete)
-                    ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
-                Case "D"c
-                    ''Delete (the inverse of Insert)
-                    ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation())
-                Case "M"c
-                    ''Move Range (the inverse of Move Range)
-                    ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation())
-                Case Else
-                    Debugger.Break()
-            End Select ''End of ""Select Case inverse_opType""
-
-        End If ''END OF ""If (ENCAPSULATE) Then... Else..."
-
-    End Sub ''End of ""Private Sub UndoOperation_ViaInverseOf(eachOperation As DLL_OperationV1)""
+    ''Private Sub UndoOperation_ViaInverseOf(parOperation As DLL_OperationV1)
+    ''    ''
+    ''    ''Added 1/03/2024 td
+    ''    ''
+    ''    Dim opType As Char
+    ''    Dim inverse_opType As Char
+    ''    Const ENCAPSULATE As Boolean = True ''Added 1/15/2024
+    ''
+    ''    If (ENCAPSULATE) Then
+    ''        ''Added 1/15/2024
+    ''        Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
+    ''        opUndoVersion = parOperation.GetUndoVersionOfOperation()
+    ''        ProcessOperation_AnyType(opUndoVersion)
+    ''
+    ''    Else
+    ''        opType = parOperation.OperationType
+    ''        If (opType = "I"c) Then inverse_opType = "D"c
+    ''        If (opType = "D"c) Then inverse_opType = "I"c
+    ''        If (opType = "M"c) Then inverse_opType = "M"c
+    ''
+    ''        Select Case inverse_opType
+    ''            Case "I"c
+    ''                ''Insert (the inverse of Delete)
+    ''                ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
+    ''            Case "D"c
+    ''                ''Delete (the inverse of Insert)
+    ''                ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation())
+    ''            Case "M"c
+    ''                ''Move Range (the inverse of Move Range)
+    ''                ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation())
+    ''            Case Else
+    ''                Debugger.Break()
+    ''        End Select ''End of ""Select Case inverse_opType""
+    ''
+    ''    End If ''END OF ""If (ENCAPSULATE) Then... Else..."
+    ''
+    ''End Sub ''End of ""Private Sub UndoOperation_ViaInverseOf(eachOperation As DLL_OperationV1)""
 
 
     Private Sub LinkSingleItem_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkSingleItemOnly.LinkClicked
@@ -1034,174 +1040,173 @@ Public Class FormTestUsingManager
     End Sub
 
 
-    Private Sub UndoOfSpecificOperationType(par_typeOfOp As Char, par_wordForOperation As String)
-        ''--Private Sub UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
-        ''
-        ''Encapsulated 1/3/2024 
-        ''
-        Dim eachOperationType As Char
-        Dim bFoundDesiredOperationTypeOnStack As Boolean = False
-        ''Dim bNotDone As Boolean = True
-        Dim bCompletedWhileLoop As Boolean = False
-        Dim eachOperation As DLL_OperationV1
-        Dim each_boolIsOfSpecifiedType As Boolean
-
-        If (mod_firstPriorOpV1 Is Nothing) Then
-            MessageBoxTD.Show_Statement("Sorry!!", "No operations are found.")
-            Exit Sub
-        End If
-
-        Dim largestIndex As Integer ''= (-1 + mod_stackOperations.Count())
-        largestIndex = -1 + mod_firstPriorOpV1.DLL_CountItemsAllInList()
-
-        ''Dim eachIndex As Integer = largestIn dex ''(-1 + mod_stackOperations.Count())
-        Dim currentMarkerIndex_Redo As Integer = mod_opRedoMarker.GetCurrentIndex_Redo()
-        Dim currentMarkerIndex_Undo As Integer = mod_opRedoMarker.GetCurrentIndex_Undo()
-
-        ''
-        ''Step #1 of 2.  Does the relevant operation type exist on the stack? 
-        ''
-        bFoundDesiredOperationTypeOnStack = mod_opRedoMarker.HasTypeOfOperation_Prior(par_typeOfOp)
-
-        ''
-        ''Step #2 of 2.  Execute "Undo" for all operations, down to & including
-        ''   the largest-index Delete operation. 
-        ''
-        If (bFoundDesiredOperationTypeOnStack) Then
-            ''
-            ''Pop off the intervening operations, until we reach
-            ''  the desired operation.
-            ''
-            ''1/15/2024 For eachIndex = largestIndex To index_ofDeleteOperation
-            ''    ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
-            ''    eachOperation = mod_stackOperations.Pop()
-            ''    ''Major call!!
-            ''    UndoOperation_ViaInverseOf(eachOperation)
-            ''    RefreshTheUI_OperationsCount()
-            ''Next eachIndex
-
-            bCompletedWhileLoop = False ''Initialize.
-            While (Not bCompletedWhileLoop) ''While bNotDone
-                ''
-                ''Look for an operation of the specified type (par_typeOfOp).
-                ''
-                eachOperation = mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
-                UndoOperation_ViaInverseOf(eachOperation)
-                eachOperationType = eachOperation.OperationType
-                each_boolIsOfSpecifiedType = (eachOperationType = par_typeOfOp)
-                If each_boolIsOfSpecifiedType Then ''If each_isDelete Then
-                    bFoundDesiredOperationTypeOnStack = True
-                    bCompletedWhileLoop = True
-                Else
-                    bCompletedWhileLoop = eachOperation.DLL_NotAnyPrior()
-                End If ''END OF "'If each_isDelete Then... Else..."
-
-            End While ''ENd of ""While Not bCompletedWhile""
-
-            ''
-            ''Refresh the Display.  (Make the Insert visible to the user.)
-            ''
-            RefreshTheUI_DisplayList()
-
-            ''Added 1/03/2024
-            RefreshTheUI_OperationsCount()
-
-        Else
-            ''
-            ''Added 1/3/2024
-            ''
-            ''#1 1/4/2024 MessageBoxTD.Show_Statement("Sorry, no Delete operations are found on the Stack!!")
-            '' #2 1/4/2024 MessageBoxTD.Show_Formatting("Sorry, no {0} operations are found on the Stack!!",
-            ''                           par_wordForOperation)
-            MessageBoxTD.Show_InsertWordFormat_Line1(par_wordForOperation,
-                        "Sorry, no {0} operations are found on the Stack!!")
-
-        End If ''ENd of ""If (bFoundDeleteOperationOnStack) Then""
-
-
-    End Sub ''End of ""Private Sub UndoOfSpecificOperationType()""
-
-
-    Private Sub UndoOfPriorOperation_AnyType(par_opRedoMarker As DLL_OperationsRedoMarker)
-        ''
-        ''Added 1/10/2024 thomas downes
-        ''
-        Dim intCountFurtherUndos As Integer
-        Dim operationToUndo As DLL_OperationV1
-
-        If (par_opRedoMarker.HasOperationPrior()) Then
-            ''
-            ''Great, we will be able to do the "Undo" operation.
-            ''
-        Else
-            MessageBoxTD.Show_Statement("No Undo operation is in queue.") ''1/15/24
-            Exit Sub
-        End If ''If (par_opRedoMarker.HasOperationPrior()) Then... else
-
-        intCountFurtherUndos = (1 + par_opRedoMarker.GetCurrentIndex_Undo())
-
-        If (0 = intCountFurtherUndos) Then
-
-            ''Added 1/10/2024 
-            MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.")
-
-        Else
-            ''
-            '' Undo the operation which is the RedoMarker's currently-designated
-            ''   Undo operation.
-            ''
-            operationToUndo = par_opRedoMarker.GetCurrentOp_Undo()
-
-            ''Major call!!
-            UndoOperation_ViaInverseOf(operationToUndo)
-
-            ''Major call!!  --1/10/2024
-            par_opRedoMarker.ShiftMarker_AfterUndo_ToPrior()
-
-            ''
-            ''Refresh the Display.  (Make the Insert visible to the user.)
-            ''
-            RefreshTheUI_DisplayList()
-
-            ''Added 1/03/2024
-            RefreshTheUI_OperationsCount()
-
-        End If ''End of ""If (0 = intCountOpsInStack) Then ... Else..."
-
-    End Sub ''Private Sub UndoOfPriorOperation_AnyType
+    ''Private Sub UndoOfSpecificOperationType(par_typeOfOp As Char, par_wordForOperation As String)
+    ''    ''--Private Sub UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
+    ''    ''
+    ''    ''Encapsulated 1/3/2024 
+    ''    ''
+    ''    Dim eachOperationType As Char
+    ''    Dim bFoundDesiredOperationTypeOnStack As Boolean = False
+    ''    ''Dim bNotDone As Boolean = True
+    ''    Dim bCompletedWhileLoop As Boolean = False
+    ''    Dim eachOperation As DLL_OperationV1
+    ''    Dim each_boolIsOfSpecifiedType As Boolean
+    '' 
+    ''    If (mod_firstPriorOpV1 Is Nothing) Then
+    ''        MessageBoxTD.Show_Statement("Sorry!!", "No operations are found.")
+    ''        Exit Sub
+    ''    End If ''End of ""If (mod_firstPriorOpV1 Is Nothing) Then""
+    ''
+    ''    Dim largestIndex As Integer ''= (-1 + mod_stackOperations.Count())
+    ''    largestIndex = -1 + mod_firstPriorOpV1.DLL_CountItemsAllInList()
+    ''
+    ''    ''Dim eachIndex As Integer = largestIn dex ''(-1 + mod_stackOperations.Count())
+    ''    Dim currentMarkerIndex_Redo As Integer = mod_opRedoMarker.GetCurrentIndex_Redo()
+    ''    Dim currentMarkerIndex_Undo As Integer = mod_opRedoMarker.GetCurrentIndex_Undo()
+    ''
+    ''    ''
+    ''    ''Step #1 of 2.  Does the relevant operation type exist on the stack? 
+    ''    ''
+    ''    bFoundDesiredOperationTypeOnStack = mod_opRedoMarker.HasTypeOfOperation_Prior(par_typeOfOp)
+    ''
+    ''    ''
+    ''    ''Step #2 of 2.  Execute "Undo" for all operations, down to & including
+    ''    ''   the largest-index Delete operation. 
+    ''    ''
+    ''    If (bFoundDesiredOperationTypeOnStack) Then
+    ''        ''
+    ''        ''Pop off the intervening operations, until we reach
+    ''        ''  the desired operation.
+    ''        ''
+    ''        ''1/15/2024 For eachIndex = largestIndex To index_ofDeleteOperation
+    ''        ''    ''---eachOperation = mod_stackOperations.ElementAt(eachIndex)
+    ''        ''    eachOperation = mod_stackOperations.Pop()
+    ''        ''    ''Major call!!
+    ''        ''    UndoOperation_ViaInverseOf(eachOperation)
+    ''        ''    RefreshTheUI_OperationsCount()
+    ''        ''Next eachIndex
+    ''
+    ''        bCompletedWhileLoop = False ''Initialize.
+    ''        While (Not bCompletedWhileLoop) ''While bNotDone
+    ''            ''
+    ''            ''Look for an operation of the specified type (par_typeOfOp).
+    ''            ''
+    ''            eachOperation = mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
+    ''            UndoOperation_ViaInverseOf(eachOperation)
+    ''            eachOperationType = eachOperation.OperationType
+    ''            each_boolIsOfSpecifiedType = (eachOperationType = par_typeOfOp)
+    ''            If each_boolIsOfSpecifiedType Then ''If each_isDelete Then
+    ''                bFoundDesiredOperationTypeOnStack = True
+    ''                bCompletedWhileLoop = True
+    ''            Else
+    ''                bCompletedWhileLoop = eachOperation.DLL_NotAnyPrior()
+    ''            End If ''END OF "'If each_isDelete Then... Else..."
+    ''
+    ''        End While ''ENd of ""While Not bCompletedWhile""
+    ''
+    ''        ''
+    ''        ''Refresh the Display.  (Make the Insert visible to the user.)
+    ''        ''
+    ''        RefreshTheUI_DisplayList()
+    ''
+    ''        ''Added 1/03/2024
+    ''        RefreshTheUI_OperationsCount()
+    ''
+    ''    Else
+    ''        ''
+    ''        ''Added 1/3/2024
+    ''        ''
+    ''        ''#1 1/4/2024 MessageBoxTD.Show_Statement("Sorry, no Delete operations are found on the Stack!!")
+    ''        '' #2 1/4/2024 MessageBoxTD.Show_Formatting("Sorry, no {0} operations are found on the Stack!!",
+    ''        ''                           par_wordForOperation)
+    ''        MessageBoxTD.Show_InsertWordFormat_Line1(par_wordForOperation,
+    ''                    "Sorry, no {0} operations are found on the Stack!!")
+    ''
+    ''    End If ''ENd of ""If (bFoundDeleteOperationOnStack) Then""
+    ''
+    ''End Sub ''End of ""Private Sub UndoOfSpecificOperationType()""
 
 
-    Private Sub UndoOfPriorOperation_AnyType(par_stackOperations As Stack(Of DLL_OperationV1))
-        ''
-        ''Added 1/10/2024 thomas downes
-        ''
-        Dim lastOperationV1 As DLL_OperationV1
-        Dim intCountOpsInStack As Integer
+    ''Private Sub UndoOfPriorOperation_AnyType(par_opRedoMarker As DLL_OperationsRedoMarker)
+    ''    ''
+    ''    ''Added 1/10/2024 thomas downes
+    ''    ''
+    ''    Dim intCountFurtherUndos As Integer
+    ''    Dim operationToUndo As DLL_OperationV1
+    ''
+    ''    If (par_opRedoMarker.HasOperationPrior()) Then
+    ''        ''
+    ''        ''Great, we will be able to do the "Undo" operation.
+    ''        ''
+    ''    Else
+    ''        MessageBoxTD.Show_Statement("No Undo operation is in queue.") ''1/15/24
+    ''        Exit Sub
+    ''    End If ''If (par_opRedoMarker.HasOperationPrior()) Then... else
+    ''
+    ''    intCountFurtherUndos = (1 + par_opRedoMarker.GetCurrentIndex_Undo())
+    ''
+    ''    If (0 = intCountFurtherUndos) Then
+    ''
+    ''        ''Added 1/10/2024 
+    ''        MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.")
+    ''
+    ''    Else
+    ''        ''
+    ''        '' Undo the operation which is the RedoMarker's currently-designated
+    ''        ''   Undo operation.
+    ''        ''
+    ''        operationToUndo = par_opRedoMarker.GetCurrentOp_Undo()
+    ''
+    ''        ''Major call!!
+    ''        UndoOperation_ViaInverseOf(operationToUndo)
+    ''
+    ''        ''Major call!!  --1/10/2024
+    ''        par_opRedoMarker.ShiftMarker_AfterUndo_ToPrior()
+    ''
+    ''        ''
+    ''        ''Refresh the Display.  (Make the Insert visible to the user.)
+    ''        ''
+    ''        RefreshTheUI_DisplayList()
+    ''
+    ''        ''Added 1/03/2024
+    ''        RefreshTheUI_OperationsCount()
+    ''
+    ''    End If ''End of ""If (0 = intCountOpsInStack) Then ... Else..."
+    ''
+    ''End Sub ''Private Sub UndoOfPriorOperation_AnyType
 
-        intCountOpsInStack = par_stackOperations.Count()
 
-        If (0 = intCountOpsInStack) Then
-
-            ''Added 1/10/2024 
-            MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.")
-
-        Else
-
-            lastOperationV1 = par_stackOperations.Pop()
-            ''Major call!!
-            UndoOperation_ViaInverseOf(lastOperationV1)
-
-            ''
-            ''Refresh the Display.  (Make the Insert visible to the user.)
-            ''
-            RefreshTheUI_DisplayList()
-
-            ''Added 1/03/2024
-            RefreshTheUI_OperationsCount()
-
-        End If ''End of ""If (0 = intCountOpsInStack) Then ... Else..."
-
-    End Sub ''ENd of ""Private Sub UndoOfPriorOperation_AnyType()""
+    ''Private Sub UndoOfPriorOperation_AnyType(par_stackOperations As Stack(Of DLL_OperationV1))
+    ''    ''
+    ''    ''Added 1/10/2024 thomas downes
+    ''    ''
+    ''    Dim lastOperationV1 As DLL_OperationV1
+    ''    Dim intCountOpsInStack As Integer
+    ''
+    ''    intCountOpsInStack = par_stackOperations.Count()
+    ''
+    ''    If (0 = intCountOpsInStack) Then
+    ''
+    ''        ''Added 1/10/2024 
+    ''        MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.")
+    ''
+    ''    Else
+    ''
+    ''        lastOperationV1 = par_stackOperations.Pop()
+    ''        ''Major call!!
+    ''        UndoOperation_ViaInverseOf(lastOperationV1)
+    ''
+    ''        ''
+    ''        ''Refresh the Display.  (Make the Insert visible to the user.)
+    ''        ''
+    ''        RefreshTheUI_DisplayList()
+    ''
+    ''        ''Added 1/03/2024
+    ''        RefreshTheUI_OperationsCount()
+    ''
+    ''    End If ''End of ""If (0 = intCountOpsInStack) Then ... Else..."
+    ''
+    ''End Sub ''ENd of ""Private Sub UndoOfPriorOperation_AnyType()""
 
 
     Private Sub LinkToPenultimate_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles linkToPenultimate.LinkClicked
@@ -1274,7 +1279,7 @@ Public Class FormTestUsingManager
         mod_list.DLL_SortItems()
 
         ''Added 1/8/2024
-        mod_firstTwoChar = mod_list.DLL_GetFirstItem
+        ''1/24/2024 mod_firstTwoChar = mod_list.DLL_GetFirstItem
 
         ''Added 1/7/2024
         RefreshTheUI_DisplayList()
@@ -1287,7 +1292,7 @@ Public Class FormTestUsingManager
         mod_list.DLL_SortItems(True)
 
         ''Added 1/8/2024
-        mod_firstTwoChar = mod_list.DLL_GetFirstItem
+        ''1/24/2024 td  mod_firstTwoChar = mod_list.DLL_GetFirstItem
 
         ''Added 1/7/2024
         RefreshTheUI_DisplayList()
@@ -1299,7 +1304,16 @@ Public Class FormTestUsingManager
         ''Added 1/10/2024 td 
 
         ''1/11/2024  UndoOfPriorOperation_AnyType()
-        UndoOfPriorOperation_AnyType(mod_opRedoMarker)
+        ''1/24/2024  UndoOfPriorOperation_AnyType(mod_opRedoMarker)
+        mod_opsManager.UndoPriorOperation_AnyType()
+
+        ''
+        ''Refresh the Display.  (Make the Insert visible to the user.)
+        ''
+        RefreshTheUI_DisplayList()
+
+        ''''Added 1/03/2024
+        RefreshTheUI_OperationsCount()
 
         ''Added 1/15/2024 
         RefreshTheUI_UndoRedoButtons()
