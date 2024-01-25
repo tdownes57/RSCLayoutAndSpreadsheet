@@ -353,7 +353,9 @@ Public Class FormTestUsingManager
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
-        ProcessOperation_Delete(par_operationV1, False)
+        ''--------ProcessOperation_Delete(par_operationV1, False)
+        mod_opsManager.ProcessOperation_Delete(par_operationV1,
+                                               par_operationV1.IsChangeOfEndpoint)
 
         ''
         '' Make the Delete visible to the user.
@@ -361,7 +363,7 @@ Public Class FormTestUsingManager
         RefreshTheUI_DisplayList()
 
         ''Added 1/01/2024
-        RecordNewestOperation(par_operationV1)
+        ''--------RecordNewestOperation(par_operationV1)
 
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
@@ -474,7 +476,7 @@ Public Class FormTestUsingManager
             RefreshTheUI_DisplayList()
 
             ''Added 1/01/2024
-            RecordNewestOperation(par_operationV1)
+            ''----RecordNewestOperation(par_operationV1)
 
             ''Added 1/03/2024
             RefreshTheUI_OperationsCount()
@@ -506,7 +508,7 @@ Public Class FormTestUsingManager
         RefreshTheUI_DisplayList()
 
         ''Added 1/01/2024
-        RecordNewestOperation(par_operationV1)
+        ''-----RecordNewestOperation(par_operationV1)
 
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
@@ -568,7 +570,7 @@ Public Class FormTestUsingManager
             RefreshTheUI_DisplayList()
 
             ''Added 1/01/2024
-            RecordNewestOperation(par_operationV1)
+            ''----RecordNewestOperation(par_operationV1)
 
             ''Added 1/03/2024
             RefreshTheUI_OperationsCount()
@@ -714,7 +716,7 @@ Public Class FormTestUsingManager
         RefreshTheUI_DisplayList()
 
         ''Added 1/01/2024
-        RecordNewestOperation(par_operationV1)
+        ''-----RecordNewestOperation(par_operationV1)
 
         ''Added 1/03/2024
         RefreshTheUI_OperationsCount()
@@ -732,7 +734,8 @@ Public Class FormTestUsingManager
         ''
         ''  Encapsulated 1/2/2024 td
         ''
-        mod_opsManager.ProcessOperation_MoveRange(par_operationV1)
+        mod_opsManager.ProcessOperation_MoveRange(par_operationV1,
+                par_operationV1.IsChangeOfEndpoint)
 
         ''With par_operationV1
         ''    ''

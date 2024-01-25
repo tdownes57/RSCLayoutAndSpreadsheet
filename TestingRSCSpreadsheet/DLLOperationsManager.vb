@@ -12,7 +12,7 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
     ''Added 1/18/2024
     Private mod_firstItem As T_DoublyLinkedItem
-    Private mod_list As IDoublyLinkedList(Of T_DoublyLinkedItem)
+    Private ReadOnly mod_list As IDoublyLinkedList(Of T_DoublyLinkedItem)
     Private mod_firstPriorOperationV1 As DLL_OperationV1
     Private mod_lastPriorOperationV1 As DLL_OperationV1
     Private mod_opRedoMarker As DLL_OperationsRedoMarker ''Added 1/24/2024
