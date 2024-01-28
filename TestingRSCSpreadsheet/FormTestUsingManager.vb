@@ -1011,7 +1011,8 @@ Public Class FormTestUsingManager
         ''
         ''Added 1/1/2024  
         ''
-        UndoOfSpecificOperationType("D"c, "Delete")
+        ''1/27/2024 UndoOfSpecificOperationType("D"c, "Delete")
+        mod_opsManager.UndoOfSpecificOperationType("D"c, "Delete")
 
         ''Added 1/15/2024 
         RefreshTheUI_UndoRedoButtons()
@@ -1019,28 +1020,28 @@ Public Class FormTestUsingManager
     End Sub
 
 
-    Private Sub UndoOfInsert_NoParams() Handles userControlOperation1.UndoOfInsert_NoParams
-        ''
-        ''Added 1/1/2024  
-        ''
-        UndoOfSpecificOperationType("I"c, "Insert")
+    ''Private Sub UndoOfInsert_NoParams() Handles userControlOperation1.UndoOfInsert_NoParams
+    ''    ''
+    ''    ''Added 1/1/2024  
+    ''    ''
+    ''    UndoOfSpecificOperationType("I"c, "Insert")
+    ''
+    ''    ''Added 1/15/2024 
+    ''    RefreshTheUI_UndoRedoButtons()
+    ''
+    ''End Sub
 
-        ''Added 1/15/2024 
-        RefreshTheUI_UndoRedoButtons()
 
-    End Sub
-
-
-    Private Sub UndoOfMoveRange_NoParams() Handles userControlOperation1.UndoOfMoveRange_NoParams
-        ''
-        ''Added 1/1/2024  
-        ''
-        UndoOfSpecificOperationType("M"c, "Move")
-
-        ''Added 1/15/2024 
-        RefreshTheUI_UndoRedoButtons()
-
-    End Sub
+    ''Private Sub UndoOfMoveRange_NoParams() Handles userControlOperation1.UndoOfMoveRange_NoParams
+    ''    ''
+    ''    ''Added 1/1/2024  
+    ''    ''
+    ''    UndoOfSpecificOperationType("M"c, "Move")
+    ''
+    ''    ''Added 1/15/2024 
+    ''    RefreshTheUI_UndoRedoButtons()
+    ''
+    ''End Sub
 
 
     ''Private Sub UndoOfSpecificOperationType(par_typeOfOp As Char, par_wordForOperation As String)
@@ -1308,7 +1309,8 @@ Public Class FormTestUsingManager
 
         ''1/11/2024  UndoOfPriorOperation_AnyType()
         ''1/24/2024  UndoOfPriorOperation_AnyType(mod_opRedoMarker)
-        mod_opsManager.UndoPriorOperation_AnyType()
+        ''1/27/2024  mod_opsManager.UndoPriorOperation_AnyType()
+        mod_opsManager.UndoMarkedOperation()
 
         ''
         ''Refresh the Display.  (Make the Insert visible to the user.)
@@ -1326,17 +1328,19 @@ Public Class FormTestUsingManager
     Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
 
         ''Added 1/15/2024
-        Dim opReDo As DLL_OperationV1
+        mod_opsManager.RedoMarkedOperation()
+
+        ''Dim opReDo As DLL_OperationV1
+        ''''opReDo =
+        ''''   mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
         ''opReDo =
-        ''   mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
-        opReDo =
-            mod_opRedoMarker.GetMarkersNext_ShiftPositionRight()
-
-        ''added 1/16/2024 td
-        opReDo.CreatedAsRedoOperation = True
-
-        ''Major call!!
-        ProcessOperation_AnyType(opReDo)
+        ''    mod_opRedoMarker.GetMarkersNext_ShiftPositionRight()
+        ''
+        ''''added 1/16/2024 td
+        ''opReDo.CreatedAsRedoOperation = True
+        ''
+        ''''Major call!!
+        ''ProcessOperation_AnyType(opReDo)
 
         ''Added 1/15/2024 
         RefreshTheUI_DisplayList()

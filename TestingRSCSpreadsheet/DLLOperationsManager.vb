@@ -60,9 +60,55 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
     Public Function MarkerHasOperationNext() As Boolean
 
         ''Added 1/24/2024 
-        mod_opRedoMarker.HasOperationNext()
+        Dim result_hasNext As Boolean
+        result_hasNext =
+            mod_opRedoMarker.HasOperationNext()
+        Return result_hasNext
 
     End Function ''ENd of ""Public Function MarkerHasOperationNext() As Boolean""
+
+
+    Public Sub RedoMarkedOperation()
+        ''
+        ''Added 1/27/2024 td
+        ''
+        Dim opReDo As DLL_OperationV1
+        ''opReDo =
+        ''   mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
+        opReDo =
+            mod_opRedoMarker.GetMarkersNext_ShiftPositionRight()
+
+        ''added 1/16/2024 td
+        opReDo.CreatedAsRedoOperation = True
+
+        ''Major call!!
+        ProcessOperation_AnyType(opReDo, opReDo.IsChangeOfEndpoint)
+
+    End Sub ''End of ""Public Sub RedoMarkedOperation()""
+
+
+    Public Sub UndoMarkedOperation()
+        ''
+        ''Added 1/27/2024 td
+        ''
+        UndoOfPriorOperation_AnyType()
+
+        ''Dim operationPrior As DLL_OperationV1
+        ''Dim opUnDo As DLL_OperationV1
+        ''
+        ''operationPrior =
+        ''    mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
+        ''
+        ''opUnDo = operationPrior.GetUndoVersionOfOperation()
+        ''
+        ''''added 1/16/2024 td
+        ''opUnDo.CreatedAsUndoOperation = True
+        ''
+        ''''Major call!!
+        ''ProcessOperation_AnyType(opUnDo, opUnDo.IsChangeOfEndpoint)
+
+    End Sub ''End of ""Public Sub UndoMarkedOperation()""
+
 
 
     Public Sub ProcessOperation_AnyType(parOperation As DLL_OperationV1,
@@ -450,7 +496,7 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
     End Sub ''End of ""Private Sub RecordNewestOperation()""
 
 
-    Public Sub UndoOfPriorOperation_AnyType() ''par_opRedoMarker As DLL_OperationsRedoMarker)
+    Private Sub UndoOfPriorOperation_AnyType() ''par_opRedoMarker As DLL_OperationsRedoMarker)
         ''
         ''Added 1/10/2024 thomas downes
         ''
@@ -499,7 +545,7 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
     End Sub ''Public Sub UndoOfPriorOperation_AnyType
 
 
-    Private Sub UndoOfSpecificOperationType(par_typeOfOp As Char, par_wordForOperation As String)
+    Public Sub UndoOfSpecificOperationType(par_typeOfOp As Char, par_wordForOperation As String)
         ''--Private Sub UndoOfDelete_NoParams() Handles UserControlOperation1.UndoOfDelete_NoParams
         ''
         ''Encapsulated 1/3/2024 
