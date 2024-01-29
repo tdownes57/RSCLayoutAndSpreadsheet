@@ -47,8 +47,8 @@ Public Class FormTestUsingManager
         ''12/2023 Load_DLL_List(mod_list)
         ''#2 12/2023  Dim opInitialLoad As DLL_Operation(Of TwoCharacterDLLItem)
         Dim opInitialLoad As DLL_OperationV2
-        opInitialLoad =
-            Load_DLL_List_AsFunction(mod_list)
+        ''1/28/2024  opInitialLoad = Load_DLL_List_AsFunction(mod_list)
+        opInitialLoad = Load_DLL_List_AsFunction(mod_list, firstTwoChar)
 
         userControlOperation1.DLL_List = mod_list
 

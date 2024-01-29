@@ -101,10 +101,14 @@ Public Class DLL_OperationV2
         ''
         ''Inverse Anchors--Anchors for the UNDO operation.
         ''
-        If (p_firstInOperationRange.DLL_HasPrior()) Then
+        If (p_firstInOperationRange Is Nothing) Then
+            ''Added 1/28/2024 td
+            Debugger.Break()
+
+        ElseIf (p_firstInOperationRange.DLL_HasPrior()) Then
             ''Get the prior item. 
             mod_inverseAnchorPrior = p_firstInOperationRange.DLL_GetItemPrior()
-        End If
+        End If ''Endof ""If (p_firstInOperationRange.DLL_HasPrior()) Then""
 
         ''Added 12/28/2023 td 
         Dim lastInOperationRange As IDoublyLinkedItem ''Added 12/28/2023 td 

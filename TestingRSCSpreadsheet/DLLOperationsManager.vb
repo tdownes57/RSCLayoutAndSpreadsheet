@@ -28,6 +28,9 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         mod_firstPriorOperationV1 = par_firstOperationV1
         mod_lastPriorOperationV1 = par_firstOperationV1
 
+        ''Added 1/28/2024 
+        mod_opRedoMarker = New DLL_OperationsRedoMarker(par_firstOperationV1)
+
     End Sub ''End of ""Public Sub New""  
 
 
@@ -52,7 +55,10 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
     Public Function MarkerHasOperationPrior() As Boolean
 
         ''Added 1/24/2024 
-        mod_opRedoMarker.HasOperationPrior()
+        Dim result_hasPrior As Boolean ''Added 1/28/2024 
+        result_hasPrior =
+             mod_opRedoMarker.HasOperationPrior()
+        Return result_hasPrior
 
     End Function ''ENd of ""Public Function MarkerHasOperationPrior() As Boolean""
 
@@ -82,7 +88,9 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         opReDo.CreatedAsRedoOperation = True
 
         ''Major call!!
-        ProcessOperation_AnyType(opReDo, opReDo.IsChangeOfEndpoint)
+        ''1/28/2024 ProcessOperation_AnyType(opReDo, opReDo.IsChangeOfEndpoint)
+        ProcessOperation_AnyType(opReDo, opReDo.IsChangeOfEndpoint,
+                    par_bRecordOperation:=False)
 
     End Sub ''End of ""Public Sub RedoMarkedOperation()""
 
@@ -112,7 +120,8 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
 
     Public Sub ProcessOperation_AnyType(parOperation As DLL_OperationV1,
-                                       par_changeOfEndpoint As Boolean)
+                                       par_changeOfEndpoint As Boolean,
+                                        par_bRecordOperation As Boolean)
         ''
         ''Added 1/15/2024 
         ''
@@ -122,13 +131,18 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         Select Case opType
             Case "I"c
                 ''Insert (the inverse of Delete)
-                ProcessOperation_Insert(parOperation, par_changeOfEndpoint) ''.GetUndoVersionOfOperation())
+                ''1/28/2024 ProcessOperation_Insert(parOperation, par_changeOfEndpoint) ''.GetUndoVersionOfOperation())
+                ProcessOperation_Insert(parOperation, par_changeOfEndpoint, par_bRecordOperation)
+
             Case "D"c
                 ''Delete (the inverse of Insert)
-                ProcessOperation_Delete(parOperation, par_changeOfEndpoint) ''.GetUndoVersionOfOperation())
+                ''1/28/2024 ProcessOperation_Delete(parOperation, par_changeOfEndpoint) ''.GetUndoVersionOfOperation())
+                ProcessOperation_Delete(parOperation, par_changeOfEndpoint, par_bRecordOperation) ''.GetUndoVersionOfOperation())
             Case "M"c
                 ''Move Range (the inverse of Move Range)
-                ProcessOperation_MoveRange(parOperation, par_changeOfEndpoint) ''.GetUndoVersionOfOperation())
+                ''1/28/2024 ProcessOperation_MoveRange(parOperation, par_changeOfEndpoint) ''.GetUndoVersionOfOperation())
+                ProcessOperation_MoveRange(parOperation, par_changeOfEndpoint, par_bRecordOperation) ''.GetUndoVersionOfOperation())
+
             Case Else
                 Debugger.Break()
         End Select ''End of ""Select Case inverse_opType""
@@ -140,8 +154,9 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
 
 
-    Public Sub ProcessOperation_Insert(par_operationV1 As DLL_OperationV1,
-                                       par_changeOfEndpoint As Boolean) ''1/2024 ,
+    Public Sub ProcessOperation_Insert(ByVal par_operationV1 As DLL_OperationV1,
+                                       ByVal par_changeOfEndpoint As Boolean,
+                                       ByVal par_bRecordOperation As Boolean) ''1/2024 ,
         ''1/2024 td                 Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''Encapsulation 1/1/2024 
@@ -254,7 +269,13 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         ''    RefreshTheUI_DisplayList()
         ''
         ''    ''Added 1/01/2024
-        RecordNewestOperation(par_operationV1)
+
+        If (par_bRecordOperation) Then ''Added 1/28/2024 
+
+            RecordNewestOperation(par_operationV1)
+
+        End If ''ENd of ""If (par_bRecordOperation) Then""
+
         ''
         ''    ''Added 1/03/2024
         ''    RefreshTheUI_OperationsCount()
@@ -265,7 +286,8 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
 
     Public Sub ProcessOperation_Delete(ByVal par_operationV1 As DLL_OperationV1,
-                                       ByVal par_changeOfEndpoint As Boolean) ''1/2024 ,
+                                       ByVal par_changeOfEndpoint As Boolean,
+                                       ByVal par_bRecordOperation As Boolean) ''1/2024 ,
 
         ''1/2024                       Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
@@ -343,7 +365,11 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         ''    RefreshTheUI_DisplayList()
         ''
         ''    ''Added 1/01/2024
-        RecordNewestOperation(par_operationV1)
+        If (par_bRecordOperation) Then ''Added 1/28/2024 
+
+            RecordNewestOperation(par_operationV1)
+
+        End If ''ENd of ""If (par_bRecordOperation) Then""
         ''
         ''    ''Added 1/03/2024
         ''    RefreshTheUI_OperationsCount()
@@ -354,7 +380,8 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
 
     Public Sub ProcessOperation_MoveRange(ByVal par_operationV1 As DLL_OperationV1,
-                                       ByVal par_changeOfEndpoint As Boolean) ''1/2024 ,
+                                       ByVal par_changeOfEndpoint As Boolean,
+                                          ByVal par_bRecordOperation As Boolean) ''1/2024 ,
         ''1/2024                       Optional par_bIncludePostOpAdmin As Boolean = False)
 
         With par_operationV1
@@ -416,7 +443,11 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         End With ''End of ""With par_operationV1""
 
         ''Record the operation
-        RecordNewestOperation(par_operationV1)
+        If (par_bRecordOperation) Then ''Added 1/28/2024 
+
+            RecordNewestOperation(par_operationV1)
+
+        End If ''ENd of ""If (par_bRecordOperation) Then""
 
     End Sub ''End of ""Public Sub ProcessOperation_MoveRange""
 
@@ -641,13 +672,15 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         Dim opType As Char
         Dim inverse_opType As Char
         Const ENCAPSULATE As Boolean = True ''Added 1/15/2024
+        Const RECORD_OPERATION As Boolean = False ''Added 1/28/2024 
 
         If (ENCAPSULATE) Then
             ''Added 1/15/2024
             Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
             opUndoVersion = parOperation.GetUndoVersionOfOperation()
             ProcessOperation_AnyType(opUndoVersion,
-                                     opUndoVersion.IsChangeOfEndpoint)
+                                     opUndoVersion.IsChangeOfEndpoint,
+                                     RECORD_OPERATION)
 
         Else
             opType = parOperation.OperationType
