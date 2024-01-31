@@ -355,7 +355,7 @@ Public Class FormTestUsingManager
         ''
         ''--------ProcessOperation_Delete(par_operationV1, False)
         mod_opsManager.ProcessOperation_Delete(par_operationV1,
-                                               par_operationV1.IsChangeOfEndpoint)
+                                               par_operationV1.IsChangeOfEndpoint, True)
 
         ''
         '' Make the Delete visible to the user.
@@ -414,7 +414,7 @@ Public Class FormTestUsingManager
         ''Major call !!!
         ''
         ''Encapsulated 1/20/2024
-        mod_opsManager.ProcessOperation_Delete(par_operationV1, bChangeOfEndpoint)
+        mod_opsManager.ProcessOperation_Delete(par_operationV1, bChangeOfEndpoint, True)
 
         ''With par_operationV1
         ''
@@ -500,7 +500,7 @@ Public Class FormTestUsingManager
         ''Dim objItemToInsert_First As TwoCharacterDLLItem
 
         mod_opsManager.ProcessOperation_Insert(par_operationV1,
-                                               par_operationV1.IsChangeOfEndpoint)
+                                               par_operationV1.IsChangeOfEndpoint, True)
 
         ''
         '' Make the Insert visible to the user.
@@ -558,7 +558,7 @@ Public Class FormTestUsingManager
         ''
         ''Major call !!!
         ''
-        mod_opsManager.ProcessOperation_Insert(par_operationV1, bChangeOfEndpoint)
+        mod_opsManager.ProcessOperation_Insert(par_operationV1, bChangeOfEndpoint, True)
 
         ''
         ''Admin, if requested.
@@ -735,7 +735,7 @@ Public Class FormTestUsingManager
         ''  Encapsulated 1/2/2024 td
         ''
         mod_opsManager.ProcessOperation_MoveRange(par_operationV1,
-                par_operationV1.IsChangeOfEndpoint)
+                par_operationV1.IsChangeOfEndpoint, True)
 
         ''With par_operationV1
         ''    ''
@@ -743,7 +743,6 @@ Public Class FormTestUsingManager
         ''    ''
         ''    mod_list.DLL_DeleteRange(.MovedRangeStart, .MovedCount,
         ''                                    .IsChangeOfEndpoint) ''False)
-
         ''    ''Added 12/30/2023 td
         ''    If (Testing.TestingByDefault) Then
         ''        ''Test that the ends are CLEAN OF REFERENCES.

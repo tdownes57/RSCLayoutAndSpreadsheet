@@ -1245,7 +1245,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' <param name="pbAfterExecution"></param>
     Public Sub CheckEndpointsAreClean(pbConditionally As Boolean,
                                       Optional pbBeforeExecution As Boolean = False,
-                                      Optional pbAfterExecution As Boolean = False)
+                                      Optional pbAfterExecution As Boolean = False,
+                                      Optional pbPleaseCleanIfNeeded As Boolean = False)
         ''Check the endpoints don't have "dangling" (extraneous, unneeded) references.
         ''Added 1/18/2024 td  
         ''
@@ -1253,7 +1254,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         Dim bProceedWithCheck_DeleteRange As Boolean ''Added 1/20/2024 
 
         ''
-        ''Step #1 of 2 
+        ''Step #1 of 2 -- Create Booleans for Branching.
         ''
         If (pbConditionally) Then
             ''Check the Optional parameters.
@@ -1269,22 +1270,62 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         End If ''End of ""If (pbConditionally) Then... Else..."
 
         ''
-        ''Step #2 of 2 
+        ''Step #2a of 2 -- Insert Range or Insert Single Item
         ''
         If (bProceedWithCheck_InsertRange) Then
             If (InsertRangeStart IsNot Nothing) Then
+
+                ''Check the Insert Range.
                 If InsertRangeStart.DLL_HasPrior() Then
+
                     Debugger.Break()
-                End If
-            End If ''End of ""If (InsertRangeStart IsNot Nothing) Then""
+                    ''Added 1/31/2024 
+                    If (pbPleaseCleanIfNeeded) Then
+                        InsertRangeStart.DLL_ClearReferencePrior("I"c)
+                    End If ''End of ""If (pbPleaseCleanIfNeeded) Then""
+
+                End If ''End of ""If InsertRangeStart.DLL_HasPrior() Then""
+
+            ElseIf (InsertItemSingly IsNot Nothing) Then
+
+                ''Added 1/31/2024 thomas downes 
+                Debugger.Break()
+                ''Added 1/31/2024 
+                If (pbPleaseCleanIfNeeded And pbBeforeExecution) Then
+                    InsertItemSingly.DLL_ClearReferencePrior("I"c)
+                End If ''End of ""If (pbPleaseCleanIfNeeded And pbBeforeExecution) Then""
+
+            End If ''End of ""If (InsertRangeStart IsNot Nothing) Then ... ElseIf...""
         End If ''end of ""If (bProceedWithCheck_InsertRange) Then""
 
+        ''
+        ''Step #2b of 2 -- Delete Range or Delete Item Single 
+        ''
         If (bProceedWithCheck_DeleteRange) Then
+            ''1/31/2024 If (DeleteRangeStart IsNot Nothing And pbAfterExecution) Then
+
+            ''Check the Delete Range.
             If (DeleteRangeStart IsNot Nothing) Then
                 If DeleteRangeStart.DLL_HasPrior() Then
                     Debugger.Break()
-                End If
-            End If ''End of ""If (DeleteRangeStart IsNot Nothing) Then""
+
+                    ''Added 1/31/2024 
+                    If (pbPleaseCleanIfNeeded And pbAfterExecution) Then
+                        DeleteRangeStart.DLL_ClearReferencePrior("D"c)
+                    End If ''End of ""If (pbPleaseCleanIfNeeded) Then""
+
+                End If ''End of ""If DeleteRangeStart.DLL_HasPrior() Then""
+
+            ElseIf (DeleteItemSingly IsNot Nothing) Then
+
+                ''Added 1/31/2024 thomas downes 
+                Debugger.Break()
+                ''Added 1/31/2024 
+                If (pbPleaseCleanIfNeeded And pbAfterExecution) Then
+                    DeleteItemSingly.DLL_ClearReferencePrior("I"c)
+                End If ''End of ""If (pbPleaseCleanIfNeeded And pbAfterExecution) Then""
+
+            End If ''End of ""If (DeleteRangeStart IsNot Nothing) Then ...ElseIf...""
         End If ''end of ""If (bProceedWithCheck_DeleteRange) Then""
 
         ''If (MovedRangeStart IsNot Nothing) Then

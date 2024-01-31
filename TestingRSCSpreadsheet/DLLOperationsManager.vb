@@ -678,6 +678,9 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
             ''Added 1/15/2024
             Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
             opUndoVersion = parOperation.GetUndoVersionOfOperation()
+            ''Added 1/31/2024
+            opUndoVersion.CheckEndpointsAreClean(True, True, False, True)
+            ''Major call!!
             ProcessOperation_AnyType(opUndoVersion,
                                      opUndoVersion.IsChangeOfEndpoint,
                                      RECORD_OPERATION)
@@ -692,18 +695,19 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
                 Case "I"c
                     ''Insert (the inverse of Delete)
                     ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation(),
-                                            parOperation.IsChangeOfEndpoint)
+                                            parOperation.IsChangeOfEndpoint, False)
 
                 Case "D"c
                     ''Delete (the inverse of Insert)
                     ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation(),
-                                            parOperation.IsChangeOfEndpoint)
+                                            parOperation.IsChangeOfEndpoint, False)
                 Case "M"c
                     ''Move Range (the inverse of Move Range)
                     ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation(),
-                                            parOperation.IsChangeOfEndpoint)
+                                            parOperation.IsChangeOfEndpoint, False)
                 Case Else
                     Debugger.Break()
+
             End Select ''End of ""Select Case inverse_opType""
 
         End If ''END OF ""If (ENCAPSULATE) Then... Else..."
