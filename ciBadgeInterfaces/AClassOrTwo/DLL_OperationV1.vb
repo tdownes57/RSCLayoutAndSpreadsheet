@@ -22,6 +22,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
     ''
     Public ClassTypeToString As String
+    Public ClassTypeToChar As Char ''Added 2/01/2024 td
+
     Public ModeColumnsNotRows As Boolean ''Added 11/14/2023 td
 
     ''Needed for consistency checks... 10/30/2023
