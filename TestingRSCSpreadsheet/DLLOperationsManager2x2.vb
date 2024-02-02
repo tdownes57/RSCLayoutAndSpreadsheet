@@ -63,12 +63,20 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
     End Sub ''End of ""Public Sub New""  
 
 
-    Public Function GetFirstItem() As T_DoublyLinkedItem
+    Public Function GetFirstItemH() As T_DoublyLinkedItemH
 
         ''Added 1/20/2024 td 
-        Return mod_firstItem
+        Return mod_firstItemH
 
-    End Function ''ENd of ""Public Function GetFirstItem()""
+    End Function ''ENd of ""Public Function GetFirstItemH()""
+
+
+    Public Function GetFirstItemV() As T_DoublyLinkedItemV
+
+        ''Added 1/20/2024 td 
+        Return mod_firstItemV
+
+    End Function ''ENd of ""Public Function GetFirstItemV()""
 
 
     Public Function CountOfOperations() As Integer
@@ -186,6 +194,29 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
     Public Sub ProcessOperation_Insert(ByVal par_operationV1 As DLL_OperationV1,
                                        ByVal par_changeOfEndpoint As Boolean,
                                        ByVal par_bRecordOperation As Boolean) ''1/2024 ,
+        ''
+        ''Added 2/2/2024 
+        ''
+        If (par_operationV1.IsClassTypeByChar("C"c)) Then
+            ''
+            '' C = Columns, a Horizontal List
+            ''
+            ProcessOperation_InsertH(par_operationV1, par_changeOfEndpoint, par_bRecordOperation)
+
+        ElseIf (par_operationV1.IsClassTypeByChar("R"c)) Then
+            ''
+            '' R = Row Headers, a Vertical List
+            ''
+            ProcessOperation_InsertH(par_operationV1, par_changeOfEndpoint, par_bRecordOperation)
+
+        End If ''If (par_operationV1.IsClassTypeByChar("C"c)) Then... Else...
+
+    End Sub ''Public Sub ProcessOperation_Insert(ByVal par_operationV1 As DLL_OperationV1,
+
+
+    Public Sub ProcessOperation_InsertH(ByVal par_operationV1 As DLL_OperationV1,
+                                       ByVal par_changeOfEndpoint As Boolean,
+                                       ByVal par_bRecordOperation As Boolean) ''1/2024 ,
         ''1/2024 td                 Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''Encapsulation 1/1/2024 
@@ -211,13 +242,13 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''
                 If (.InsertItemSingly IsNot Nothing) Then
                     ''Insert a single item. 
-                    mod_list.DLL_InsertOneItemAfter(.InsertItemSingly,
+                    mod_listH.DLL_InsertOneItemAfter(.InsertItemSingly,
                                             .AnchorToPrecedeItemOrRange,
                                             .IsChangeOfEndpoint) ''False)
 
                 ElseIf (.InsertRangeStart IsNot Nothing) Then
                     ''Insert a range of items. 
-                    mod_list.DLL_InsertRangeAfter(.InsertRangeStart, .InsertCount,
+                    mod_listH.DLL_InsertRangeAfter(.InsertRangeStart, .InsertCount,
                                             .AnchorToPrecedeItemOrRange,
                                             .IsChangeOfEndpoint) ''False)
                 Else
@@ -239,13 +270,13 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''
                 If (.InsertItemSingly IsNot Nothing) Then
                     ''Insert a single item. 
-                    mod_list.DLL_InsertOneItemBefore(.InsertItemSingly,
+                    mod_listH.DLL_InsertOneItemBefore(.InsertItemSingly,
                                             .AnchorToSucceedItemOrRange,
                                             .IsChangeOfEndpoint) ''False))
 
                 ElseIf (.InsertRangeStart IsNot Nothing) Then
                     ''Insert a range of items. 
-                    mod_list.DLL_InsertRangeBefore(.InsertRangeStart, .InsertCount,
+                    mod_listH.DLL_InsertRangeBefore(.InsertRangeStart, .InsertCount,
                                             .AnchorToSucceedItemOrRange,
                                             .IsChangeOfEndpoint) ''False)
                 Else
@@ -254,7 +285,7 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
 
-            ElseIf (mod_firstItem Is Nothing) Then
+            ElseIf (mod_firstItemH Is Nothing) Then
                 ''
                 ''Empty list !!!!
                 ''
@@ -264,18 +295,18 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''
                 If (.InsertItemSingly IsNot Nothing) Then
                     ''Insert a single item, into an empty list. 
-                    mod_list.DLL_InsertRangeEmptyList(.InsertItemSingly, 1)
+                    mod_listH.DLL_InsertRangeEmptyList(.InsertItemSingly, 1)
 
                 ElseIf (.InsertRangeStart IsNot Nothing) Then
                     ''Insert a range of items, into an empty list. 
-                    mod_list.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+                    mod_listH.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
                 Else
                     Debugger.Break()
                 End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
                 ''Be sure to save the first item.
                 ''1/2024 mod_firstTwoChar = mod_list.DLL_GetFirstItem()
-                mod_firstItem = mod_list.DLL_GetItemAtIndex(0)
+                mod_firstItemH = mod_listH.DLL_GetItemAtIndex(0)
 
             End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... ElseIf... Else..."
 
@@ -283,7 +314,7 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
             If (.IsChangeOfEndpoint) Then
                 ''In the 50% chance the starting item is affected...
                 ''----mod_firstTwoChar = mod_list.DLL_GetFirstItem()
-                mod_firstItem = mod_list.DLL_GetItemAtIndex(0)
+                mod_firstItemH = mod_listH.DLL_GetItemAtIndex(0)
             End If ''End of ""If (.IsChangeOfEndpoint) Then""
 
         End With ''End of ""With par_operationV1""

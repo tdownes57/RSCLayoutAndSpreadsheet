@@ -616,6 +616,16 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function ''End of ""Public Function IsForRangeOfItems() As Boolean""
 
 
+    Public Function IsClassTypeByChar(par_charType As Char) As Boolean
+
+        ''Added 2/02/2024
+        Dim result_match As Boolean
+        result_match = (Me.ClassTypeToChar == par_charType)
+        Return result_match
+
+    End Function ''Public Function IsClassTypeByChar
+
+
     Public Function GetMoveRangeItemNext_PreCut() As IDoublyLinkedItem
         ''
         ''This function is to improve comprehensibility when generating
