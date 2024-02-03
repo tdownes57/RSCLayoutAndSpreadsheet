@@ -12,15 +12,15 @@ Imports ciBadgeSerialize
 Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV)
 
     ''Added 1/18/2024
-    Private mod_firstItemH As T_DoublyLinkedItemH
-    Private mod_firstItemV As T_DoublyLinkedItemV
+    Private mod_firstItemHoriz As T_DoublyLinkedItemH
+    Private mod_firstItemVerti As T_DoublyLinkedItemV
 
     ''Added 2/01/2024 td
     Private mod_charTypeH As Char = "C"c '' C for Columns (Horizontal) C = RSCFieldColumnV2
     Private mod_charTypeV As Char = "R"c '' R for Rows (Vertical)      R = RSCRowHeaderV2
 
-    Private ReadOnly mod_listH As IDoublyLinkedList(Of T_DoublyLinkedItemH)
-    Private ReadOnly mod_listV As IDoublyLinkedList(Of T_DoublyLinkedItemV)
+    Private ReadOnly mod_listHoriz As IDoublyLinkedList(Of T_DoublyLinkedItemH)
+    Private ReadOnly mod_listVerti As IDoublyLinkedList(Of T_DoublyLinkedItemV)
 
     Private mod_firstPriorOperationV1 As DLL_OperationV1
     Private mod_lastPriorOperationV1 As DLL_OperationV1
@@ -34,8 +34,8 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
         ''
         ''Added 1/20/2024 thomas d.
         ''
-        mod_listH = par_listH
-        mod_listV = par_listV
+        mod_listHoriz = par_listH
+        mod_listVerti = par_listV
 
         ''
         ''Check the ClassType Character, to make sure it's been specified
@@ -66,7 +66,7 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
     Public Function GetFirstItemH() As T_DoublyLinkedItemH
 
         ''Added 1/20/2024 td 
-        Return mod_firstItemH
+        Return mod_firstItemHoriz
 
     End Function ''ENd of ""Public Function GetFirstItemH()""
 
@@ -74,7 +74,7 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
     Public Function GetFirstItemV() As T_DoublyLinkedItemV
 
         ''Added 1/20/2024 td 
-        Return mod_firstItemV
+        Return mod_firstItemVerti
 
     End Function ''ENd of ""Public Function GetFirstItemV()""
 
@@ -214,7 +214,9 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
     End Sub ''Public Sub ProcessOperation_Insert(ByVal par_operationV1 As DLL_OperationV1,
 
 
-    Public Sub ProcessOperation_InsertH(ByVal par_operationV1 As DLL_OperationV1,
+    Public Sub ProcessOperation_Insert_HorV(ByVal par_operationV1 As DLL_OperationV1,
+                                            ByVal pbIsHoriz As Boolean,
+                                            ByVal pbIsVerti As Boolean,
                                        ByVal par_changeOfEndpoint As Boolean,
                                        ByVal par_bRecordOperation As Boolean) ''1/2024 ,
         ''1/2024 td                 Optional par_bIncludePostOpAdmin As Boolean = False)
@@ -242,17 +244,29 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''
                 If (.InsertItemSingly IsNot Nothing) Then
                     ''Insert a single item. 
-                    mod_listH.DLL_InsertOneItemAfter(.InsertItemSingly,
+                    If (pbIsHoriz) Then mod_listHoriz.DLL_InsertOneItemAfter(.InsertItemSingly,
                                             .AnchorToPrecedeItemOrRange,
-                                            .IsChangeOfEndpoint) ''False)
+                                            .IsChangeOfEndpoint)
+                    If (pbIsVerti) Then mod_listVerti.DLL_InsertOneItemAfter(.InsertItemSingly,
+                                            .AnchorToPrecedeItemOrRange,
+                                            .IsChangeOfEndpoint)
 
                 ElseIf (.InsertRangeStart IsNot Nothing) Then
-                    ''Insert a range of items. 
-                    mod_listH.DLL_InsertRangeAfter(.InsertRangeStart, .InsertCount,
-                                            .AnchorToPrecedeItemOrRange,
-                                            .IsChangeOfEndpoint) ''False)
-                Else
-                    Debugger.Break()
+                    ''
+                    ''Insert a range of items, either the Horizontal or the Vertical list.
+                    ''
+                    Select Case (True)
+                        Case (pbIsHoriz)
+                            mod_listHoriz.DLL_InsertRangeAfter(.InsertRangeStart,
+                                            .InsertCount, .AnchorToPrecedeItemOrRange,
+                                            .IsChangeOfEndpoint)
+                        Case (pbIsVerti)
+                            mod_listVerti.DLL_InsertRangeAfter(.InsertRangeStart,
+                                            .InsertCount, .AnchorToPrecedeItemOrRange,
+                                            .IsChangeOfEndpoint)
+                        Case Else
+                            Debugger.Break()
+                    End Select
 
                 End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
@@ -270,22 +284,41 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''
                 If (.InsertItemSingly IsNot Nothing) Then
                     ''Insert a single item. 
-                    mod_listH.DLL_InsertOneItemBefore(.InsertItemSingly,
+                    Select Case True
+                        Case pbIsHoriz
+                            mod_listHoriz.DLL_InsertOneItemBefore(.InsertItemSingly,
                                             .AnchorToSucceedItemOrRange,
                                             .IsChangeOfEndpoint) ''False))
+                        Case pbIsVerti
+                            mod_listVerti.DLL_InsertOneItemBefore(.InsertItemSingly,
+                                            .AnchorToSucceedItemOrRange,
+                                            .IsChangeOfEndpoint) ''False))
+                        Case Else
+                            Debugger.Break()
+                    End Select
 
                 ElseIf (.InsertRangeStart IsNot Nothing) Then
                     ''Insert a range of items. 
-                    mod_listH.DLL_InsertRangeBefore(.InsertRangeStart, .InsertCount,
-                                            .AnchorToSucceedItemOrRange,
-                                            .IsChangeOfEndpoint) ''False)
+                    Select Case True
+                        Case pbIsHoriz
+                            mod_listHoriz.DLL_InsertRangeBefore(.InsertRangeStart, .InsertCount,
+                                                    .AnchorToSucceedItemOrRange,
+                                                    .IsChangeOfEndpoint) ''False)
+                        Case pbIsVerti
+                            mod_listVerti.DLL_InsertRangeBefore(.InsertRangeStart, .InsertCount,
+                                                    .AnchorToSucceedItemOrRange,
+                                                    .IsChangeOfEndpoint) ''False)
+                        Case Else
+                            Debugger.Break()
+                    End Select
+
                 Else
                     Debugger.Break()
 
                 End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
 
-            ElseIf (mod_firstItemH Is Nothing) Then
+            ElseIf (mod_firstItemHoriz Is Nothing) Then
                 ''
                 ''Empty list !!!!
                 ''
@@ -293,20 +326,35 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''  We are populating an empty list, or as one might say,
                 ''  inserting a range into an empty list. 
                 ''
-                If (.InsertItemSingly IsNot Nothing) Then
-                    ''Insert a single item, into an empty list. 
-                    mod_listH.DLL_InsertRangeEmptyList(.InsertItemSingly, 1)
+                Select Case True
+                    Case (pbIsHoriz And .InsertItemSingly IsNot Nothing)
+                        ''Insert a single item, into an empty list.   (Horizontal)
+                        mod_listHoriz.DLL_InsertRangeEmptyList(.InsertItemSingly, 1)
 
-                ElseIf (.InsertRangeStart IsNot Nothing) Then
-                    ''Insert a range of items, into an empty list. 
-                    mod_listH.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
-                Else
-                    Debugger.Break()
-                End If ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
+                    Case (pbIsHoriz And .InsertRangeStart IsNot Nothing)
+                        ''Insert a range of items, into an empty list. (Horizontal)
+                        mod_listHoriz.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+
+                    Case (pbIsVerti And .InsertItemSingly IsNot Nothing)
+                        ''Insert a single item, into an empty list. (Vertical) 
+                        mod_listHoriz.DLL_InsertRangeEmptyList(.InsertItemSingly, 1)
+
+                    Case (pbIsVerti And .InsertRangeStart IsNot Nothing)
+                        ''Insert a range of items, into an empty list. 
+                        mod_listVerti.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+
+                    Case (pbIsVerti And .InsertRangeStart IsNot Nothing)
+                        ''Insert a range of items, into an empty list. 
+                        mod_listVerti.DLL_InsertRangeEmptyList(.InsertRangeStart, .InsertCount)
+
+                    Case Else
+                        Debugger.Break()
+                End Select ''End of ""If (.InsertItemSingly IsNot Nothing) Then... ElseIf... Else"
 
                 ''Be sure to save the first item.
                 ''1/2024 mod_firstTwoChar = mod_list.DLL_GetFirstItem()
-                mod_firstItemH = mod_listH.DLL_GetItemAtIndex(0)
+                If (pbIsHoriz) Then mod_firstItemHoriz = mod_listHoriz.DLL_GetItemAtIndex(0)
+                If (pbIsVerti) Then mod_firstItemVerti = mod_listVerti.DLL_GetItemAtIndex(0)
 
             End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... ElseIf... Else..."
 
@@ -314,7 +362,9 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
             If (.IsChangeOfEndpoint) Then
                 ''In the 50% chance the starting item is affected...
                 ''----mod_firstTwoChar = mod_list.DLL_GetFirstItem()
-                mod_firstItemH = mod_listH.DLL_GetItemAtIndex(0)
+                If (pbIsHoriz) Then mod_firstItemHoriz = mod_listHoriz.DLL_GetItemAtIndex(0)
+                If (pbIsVerti) Then mod_firstItemVerti = mod_listVerti.DLL_GetItemAtIndex(0)
+
             End If ''End of ""If (.IsChangeOfEndpoint) Then""
 
         End With ''End of ""With par_operationV1""
