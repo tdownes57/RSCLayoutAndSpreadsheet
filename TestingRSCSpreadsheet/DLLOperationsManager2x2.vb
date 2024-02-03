@@ -392,12 +392,22 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
         ''
         ''End If ''end of ""If (par_bIncludePostOpAdmin) Then""
 
-    End Sub ''End of "Public Sub ProcessOperation_Insert"
+    End Sub ''End of "Private Sub ProcessOperation_Insert_HorV"
 
 
     Public Sub ProcessOperation_Delete(ByVal par_operationV1 As DLL_OperationV1,
                                        ByVal par_changeOfEndpoint As Boolean,
                                        ByVal par_bRecordOperation As Boolean) ''1/2024 ,
+
+
+    End Sub
+
+
+    Public Sub ProcessOperation_Delete(ByVal par_operationV1 As DLL_OperationV1,
+                                       ByVal par_changeOfEndpoint As Boolean,
+                                       ByVal par_bRecordOperation As Boolean,
+                                       ByVal pbHorizont As Boolean,
+                                       ByVal pbVertical As Boolean) ''1/2024 ,
 
         ''1/2024                       Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
@@ -407,11 +417,13 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
         ''
         Dim firstItemInList As IDoublyLinkedItem
-        firstItemInList = CType(mod_firstItem, IDoublyLinkedItem)
+
+        If (pbHorizont) Then firstItemInList = CType(mod_firstItemHoriz, IDoublyLinkedItem)
+        If (pbVertical) Then firstItemInList = CType(mod_firstItemVerti, IDoublyLinkedItem)
 
         With par_operationV1
 
-            ''objItemToInsert_First = mod_list.DLL_GetItemAtIndex(.)
+            '' objItemToInsert_First = mod_list.DLL_GetItemAtIndex(.)
             ''mod_list.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
             ''.ImplementForList(mod_list)
             Dim bChangeOfEndpoint As Boolean
@@ -443,11 +455,14 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
             ''V2''mod_list.DLL_DeleteItem(.GetSingleItem(), bChangeOfEndpoint)
             If (.DeleteItemSingly IsNot Nothing) Then ''Added 12/28/2023 
                 ''Conditioned by If (...) on 12/28/2023 
-                mod_list.DLL_DeleteItem(.DeleteItemSingly, bChangeOfEndpoint)
+                If (pbHorizont) Then mod_listHoriz.DLL_DeleteItem(.DeleteItemSingly, bChangeOfEndpoint)
+                If (pbVertical) Then mod_listVerti.DLL_DeleteItem(.DeleteItemSingly, bChangeOfEndpoint)
 
             ElseIf (.DeleteRangeStart IsNot Nothing) Then
                 ''Added 12/28/2023 thomas downes 
-                mod_list.DLL_DeleteRange(.DeleteRangeStart, .DeleteCount,
+                If (pbHorizont) Then mod_listHoriz.DLL_DeleteRange(.DeleteRangeStart, .DeleteCount,
+                                  bChangeOfEndpoint, .DeleteRangeEnd_Null)
+                If (pbVertical) Then mod_listVerti.DLL_DeleteRange(.DeleteRangeStart, .DeleteCount,
                                   bChangeOfEndpoint, .DeleteRangeEnd_Null)
 
             Else
@@ -460,7 +475,8 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
             ''1/20/2024 If (bChangeOfEndpoint_Start) Then
             If (bChangeOfEndpoint) Then
                 ''1/20/2024 mod_firstTwoChar = mod_list.DLL_GetFirstItem
-                mod_firstItem = mod_list.DLL_GetItemAtIndex(0)
+                If (pbHorizont) Then mod_firstItemHoriz = mod_listHoriz.DLL_GetItemAtIndex(0)
+                If (pbVertical) Then mod_firstItemVerti = mod_listVerti.DLL_GetItemAtIndex(0)
             End If ''End of ""If (bChangeOfEndpoint_Start) Then"'
 
         End With ''End o f ""With par_operationV1"" 
@@ -492,13 +508,36 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
     Public Sub ProcessOperation_MoveRange(ByVal par_operationV1 As DLL_OperationV1,
                                        ByVal par_changeOfEndpoint As Boolean,
                                           ByVal par_bRecordOperation As Boolean) ''1/2024 ,
+        ''
+        ''Added 2/02/2024 td
+        ''
+        Dim bHorizont As Boolean
+        Dim bVertical As Boolean
+
+        bHorizont = (par_operationV1.IsClassTypeByChar("C"c))
+        bVertical = (par_operationV1.IsClassTypeByChar("R"c))
+
+        ProcessOperation_MoveRange(par_operationV1, par_changeOfEndpoint,
+                              par_bRecordOperation,
+                               bHorizont, bVertical)
+
+    End Sub ''End of ""Public Sub ProcessOperation_MoveRange""
+
+
+    Private Sub ProcessOperation_MoveRange(ByVal par_operationV1 As DLL_OperationV1,
+                                       ByVal par_changeOfEndpoint As Boolean,
+                                          ByVal par_bRecordOperation As Boolean,
+                                          ByVal pbHorizont As Boolean,
+                                          ByVal pbVertical As Boolean) ''1/2024 ,
         ''1/2024                       Optional par_bIncludePostOpAdmin As Boolean = False)
 
         With par_operationV1
             ''
             ''Step 1 of 2.  Cut (via "Delete") the range from the list. 
             ''
-            mod_list.DLL_DeleteRange(.MovedRangeStart, .MovedCount,
+            If (pbHorizont) Then mod_listHoriz.DLL_DeleteRange(.MovedRangeStart, .MovedCount,
+                                            .IsChangeOfEndpoint) ''False)
+            If (pbVertical) Then mod_listVerti.DLL_DeleteRange(.MovedRangeStart, .MovedCount,
                                             .IsChangeOfEndpoint) ''False)
 
             ''Added 12/30/2023 td
@@ -522,10 +561,18 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''          1 2_3_4 5 6 7 8 9 10
                 '' Result:  1 5 6 7 2_3_4 8 9 10   <<< Note that 2_3_4 has been moved.
                 ''
-
-                mod_list.DLL_InsertRangeAfter(.MovedRangeStart, .MovedCount,
-                                            .AnchorToPrecedeItemOrRange,
-                                            .IsChangeOfEndpoint) ''False)
+                Select Case True
+                    Case pbHorizont
+                        mod_listHoriz.DLL_InsertRangeAfter(.MovedRangeStart, .MovedCount,
+                                                    .AnchorToPrecedeItemOrRange,
+                                                    .IsChangeOfEndpoint) ''False)
+                    Case pbHorizont
+                        mod_listVerti.DLL_InsertRangeAfter(.MovedRangeStart, .MovedCount,
+                                                    .AnchorToPrecedeItemOrRange,
+                                                    .IsChangeOfEndpoint) ''False)
+                    Case Else
+                        Debugger.Break()
+                End Select
 
             Else
                 ''Move operational item(s) BEFORE anchoring item.
@@ -535,9 +582,18 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''          1 2_3_4 5 6 7 8 9 10
                 '' Result:  1 5 2_3_4 6 7 8 9 10
                 ''
-                mod_list.DLL_InsertRangeBefore(.MovedRangeStart, .MovedCount,
-                                            .AnchorToSucceedItemOrRange,
-                                            .IsChangeOfEndpoint) ''False))
+                Select Case True
+                    Case pbHorizont
+                        mod_listHoriz.DLL_InsertRangeBefore(.MovedRangeStart, .MovedCount,
+                                                    .AnchorToSucceedItemOrRange,
+                                                    .IsChangeOfEndpoint) ''False))
+                    Case pbVertical
+                        mod_listVerti.DLL_InsertRangeBefore(.MovedRangeStart, .MovedCount,
+                                                    .AnchorToSucceedItemOrRange,
+                                                    .IsChangeOfEndpoint) ''False))
+                    Case Else
+                        Debugger.Break()
+                End Select
 
             End If ''End of ""If (.AnchorToPrecedeItemOrRange IsNot Nothing) Then ... Else..."
 
