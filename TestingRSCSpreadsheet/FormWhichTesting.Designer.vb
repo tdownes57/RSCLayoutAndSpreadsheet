@@ -24,6 +24,7 @@ Partial Class FormWhichTesting
     Private Sub InitializeComponent()
         LinkOperationsManager = New LinkLabel()
         LinkFormManagesOps = New LinkLabel()
+        LinkOpsManagerTwoLists = New LinkLabel()
         SuspendLayout()
         ' 
         ' LinkOperationsManager
@@ -46,11 +47,22 @@ Partial Class FormWhichTesting
         LinkFormManagesOps.TabStop = True
         LinkFormManagesOps.Text = "Works well!  Form manages the operations"
         ' 
+        ' LinkOpsManagerTwoLists
+        ' 
+        LinkOpsManagerTwoLists.AutoSize = True
+        LinkOpsManagerTwoLists.Location = New Point(35, 148)
+        LinkOpsManagerTwoLists.Name = "LinkOpsManagerTwoLists"
+        LinkOpsManagerTwoLists.Size = New Size(323, 15)
+        LinkOpsManagerTwoLists.TabIndex = 2
+        LinkOpsManagerTwoLists.TabStop = True
+        LinkOpsManagerTwoLists.Text = "Testing the Two-List Operations Manager (Cyan && Magenta)"
+        ' 
         ' FormWhichTesting
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(LinkOpsManagerTwoLists)
         Controls.Add(LinkFormManagesOps)
         Controls.Add(LinkOperationsManager)
         Name = "FormWhichTesting"
@@ -61,4 +73,5 @@ Partial Class FormWhichTesting
 
     Friend WithEvents LinkOperationsManager As LinkLabel
     Friend WithEvents LinkFormManagesOps As LinkLabel
+    Friend WithEvents LinkOpsManagerTwoLists As LinkLabel
 End Class

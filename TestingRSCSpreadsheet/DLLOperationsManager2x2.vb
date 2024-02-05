@@ -197,19 +197,17 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
         ''
         ''Added 2/2/2024 
         ''
-        If (par_operationV1.IsClassTypeByChar("C"c)) Then
-            ''
-            '' C = Columns, a Horizontal List
-            ''
-            ProcessOperation_InsertH(par_operationV1, par_changeOfEndpoint, par_bRecordOperation)
-
-        ElseIf (par_operationV1.IsClassTypeByChar("R"c)) Then
-            ''
-            '' R = Row Headers, a Vertical List
-            ''
-            ProcessOperation_InsertH(par_operationV1, par_changeOfEndpoint, par_bRecordOperation)
-
-        End If ''If (par_operationV1.IsClassTypeByChar("C"c)) Then... Else...
+        '' C = Columns, a Horizontal List
+        '' R = Row Headers, a Vertical List
+        ''
+        Dim bHorizont As Boolean
+        Dim bVertical As Boolean
+        bHorizont = (par_operationV1.IsClassTypeByChar("C"c)) '' C = Columns, a Horizontal List
+        bVertical = (par_operationV1.IsClassTypeByChar("R"c)) '' R = Row Headers, a Vertical List
+        ProcessOperation_Insert_HorV(par_operationV1,
+                                     par_changeOfEndpoint,
+                                     par_bRecordOperation,
+                                     bHorizont, bVertical)
 
     End Sub ''Public Sub ProcessOperation_Insert(ByVal par_operationV1 As DLL_OperationV1,
 
@@ -602,7 +600,8 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''In the 50% chance the starting item is affected...
                 ''#1 1/20/2024 td mod_firstTwoChar = mod_list.DLL_GetFirstItem()
                 ''#2 1/20/2024 mod_firstItem = mod_list.DLL_GetFirstItem()
-                mod_firstItem = mod_list.DLL_GetItemAtIndex(0)
+                If (pbHorizont) Then mod_firstItemHoriz = mod_listHoriz.DLL_GetItemAtIndex(0)
+                If (pbVertical) Then mod_firstItemVerti = mod_listVerti.DLL_GetItemAtIndex(0)
 
             End If ''End of ""If (.IsChangeOfEndpoint) Then""
 

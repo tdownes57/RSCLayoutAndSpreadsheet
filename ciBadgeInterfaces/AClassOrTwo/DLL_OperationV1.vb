@@ -620,7 +620,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
         ''Added 2/02/2024
         Dim result_match As Boolean
-        result_match = (Me.ClassTypeToChar == par_charType)
+        result_match = (Me.ClassTypeToChar = par_charType)
         Return result_match
 
     End Function ''Public Function IsClassTypeByChar
@@ -1192,8 +1192,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
         ''Throw New NotImplementedException()
         Const COUNT_MYSELF As Integer = 1
-        Dim countPriorItems As Integer = 0
-        Dim countNextItems As Integer = 0
+        Dim countPriorItems As Integer ''= 0
+        Dim countNextItems As Integer ''= 0
         countPriorItems = DLL_CountItemsPrior()
         countNextItems = DLL_CountItemsNext()
         Return (countPriorItems + COUNT_MYSELF + countNextItems)
