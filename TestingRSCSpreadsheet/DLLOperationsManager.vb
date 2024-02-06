@@ -129,6 +129,11 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
         opType = parOperation.OperationType
 
         Select Case opType
+            Case "S"c
+                ''Sorting 
+                ''---ProcessOperation_Sort(parOperation, False, par_bRecordOperation)
+                ProcessOperation_Sort(parOperation, par_bRecordOperation, False)
+
             Case "I"c
                 ''Insert (the inverse of Delete)
                 ''1/28/2024 ProcessOperation_Insert(parOperation, par_changeOfEndpoint) ''.GetUndoVersionOfOperation())
@@ -152,6 +157,38 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
     End Sub ''ENd of ""Public Sub ProcessOperation_AnyType""
 
+
+    Public Sub ProcessOperation_Sort(ByVal par_operationV1 As DLL_OperationV1,
+                                     ByVal par_bRecordOperation As Boolean,
+                                     Optional ByVal par_bUndoByQueue As Boolean = False)
+        ''
+        ''Added 2/5/2024 thomas d.
+        ''
+        Dim list As DLL_List_OfTControl_PLEASE_USE(Of T_DoublyLinkedItem)
+        list = mod_list
+
+        Select Case True
+            Case par_bUndoByQueue
+                ''
+                ''We will undo a previous sorting.  ---2/5/2024 
+                ''
+                list.DLL_SortByQueue(par_operationV1.Sort_UndoQueue)
+
+            Case par_operationV1.Sort_IsAscending
+
+                list.DLL_SortItems(True)
+
+            Case par_operationV1.Sort_IsDescending
+
+                list.DLL_SortItems(False)
+
+            Case Else
+
+                Debugger.Break()
+
+        End Select ''End of ""Select Case True""
+
+    End Sub ''ENd of ""Public Sub ProcessOperation_Sort""
 
 
     Public Sub ProcessOperation_Insert(ByVal par_operationV1 As DLL_OperationV1,
@@ -687,24 +724,34 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
         Else
             opType = parOperation.OperationType
-            If (opType = "I"c) Then inverse_opType = "D"c
-            If (opType = "D"c) Then inverse_opType = "I"c
-            If (opType = "M"c) Then inverse_opType = "M"c
+            ''Added 2/5/2024 
+            ''   "S" is for "Sorting". 
+            If (opType = "S"c) Then inverse_opType = "S"c
+            If (opType = "I"c) Then inverse_opType = "D"c '' "D" is for "Delete"
+            If (opType = "D"c) Then inverse_opType = "I"c '' "I" is for "Insert"
+            If (opType = "M"c) Then inverse_opType = "M"c '' "M" is for "Move" 
 
             Select Case inverse_opType
+                Case "S"c
+                    ''Sorting by Undo-Queue
+                    ProcessOperation_Sort(parOperation, RECORD_OPERATION, True)
+
                 Case "I"c
                     ''Insert (the inverse of Delete)
                     ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation(),
-                                            parOperation.IsChangeOfEndpoint, False)
+                                            parOperation.IsChangeOfEndpoint,
+                                            par_bRecordOperation:=False)
 
                 Case "D"c
                     ''Delete (the inverse of Insert)
                     ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation(),
-                                            parOperation.IsChangeOfEndpoint, False)
+                                            parOperation.IsChangeOfEndpoint,
+                                            par_bRecordOperation:=False)
                 Case "M"c
                     ''Move Range (the inverse of Move Range)
                     ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation(),
-                                            parOperation.IsChangeOfEndpoint, False)
+                                            parOperation.IsChangeOfEndpoint,
+                                            par_bRecordOperation:=False)
                 Case Else
                     Debugger.Break()
 

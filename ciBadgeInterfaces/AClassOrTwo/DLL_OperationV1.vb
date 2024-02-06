@@ -30,11 +30,17 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' <summary>
     ''' Tells us the operations is I(Insert), D(Delete), or M(Move).
     ''' </summary>
-    Public OperationType As Char = "?" ''E.g. "I" for Insert, "M" for "Move", "D" is Delete
+    Public OperationType As Char = "?" ''E.g. "I" for Insert, "M" for "Move",
+    ''  "D" for "Delete", and "S" for "Sort".
 
     Public InsertItemSingly As IDoublyLinkedItem ''TControl
     Public InsertRangeStart As IDoublyLinkedItem ''TControl
     Public InsertRangeEnd_Null As IDoublyLinkedItem ''Added 1/06/2024 thomas downes
+
+    ''Added 2/5/2024 
+    Public Sort_IsAscending As Boolean
+    Public Sort_IsDescending As Boolean
+    Public Sort_UndoQueue As Queue(Of IDoublyLinkedItem)
 
     ''Needed for consistency checks...
     Public InsertCount As Integer ''How many linked TControl objects?
