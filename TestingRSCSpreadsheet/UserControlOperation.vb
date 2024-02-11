@@ -62,6 +62,13 @@ Friend Class UserControlOperation
                                 par_isUndoOfDelete As Boolean)
     Public Event DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
                                 par_isUndoOfMove As Boolean)
+
+    ''Added 2/10/2024 thomas 
+    Public Event DLLOperationCreated_SortAscending(par_operation As DLL_OperationV1,
+                                par_isUndoOfSort As Boolean)
+    Public Event DLLOperationCreated_SortDescending(par_operation As DLL_OperationV1,
+                                par_isUndoOfSort As Boolean)
+
     ''Added 1/1/2024 thomas 
     Public Event UndoOfDelete_NoParams()
     Public Event UndoOfInsert_NoParams()
@@ -1108,11 +1115,22 @@ Friend Class UserControlOperation
         ''Added 1/08/2024
         ''Me.DLL_List.DLL_SortItems()
 
+        Dim objOperation As DLL_OperationV2
+        Dim boolDescending As Boolean
+
         If (listBoxAscendDescend.SelectedIndex > 0) Then
             RaiseEvent Sort_Descending()
+            boolDescending = True
         Else
             RaiseEvent Sort_Ascending()
+            boolDescending = False ''False
         End If
+
+        ''Added 2/10/2024 td
+        objOperation = New DLL_OperationV2("S"c, True, boolDescending)
+        RaiseEvent DLLOperationCreated_SortAscending(objOperation, False)
+
+
 
 
     End Sub

@@ -22,6 +22,33 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Function ''Public Function GetQueue()
 
 
+    Public Sub DLL_SortByQueue(par_queue As Queue(Of IDoublyLinkedItem))
+        ''
+        ''Added 2/08/2024  
+        ''
+        Dim currentItem As IDoublyLinkedItem = par_queue.Dequeue()
+        Dim priorItem As IDoublyLinkedItem '' = par_queue.Dequeue()
+        Dim bNotDone As Boolean = True '' False
+        mod_dllControlFirst = currentItem
+        mod_dllControlFirst.DLL_ClearReferencePrior("S"c)
+        mod_dllControlFirst.DLL_ClearReferenceNext("S"c)
+        bNotDone = (par_queue.Count() > 0)
+        priorItem = currentItem
+
+        Do While (bNotDone) ''par_queue.Count > 0
+
+            currentItem = par_queue.Dequeue()
+            priorItem.DLL_SetItemNext(currentItem)
+            currentItem.DLL_SetItemPrior(priorItem)
+            currentItem.DLL_ClearReferenceNext("S"c)
+            ''Prepare.
+            priorItem = currentItem
+            bNotDone = (par_queue.Count() > 0)
+        Loop
+
+    End Sub ''End of ""Public Sub DLL_SortByQueue(par_queue As Queue(Of ))""
+
+
     Public Sub DLL_SortItems(Optional par_descending As Boolean = False)
         ''
         ''Added 1/04/2024

@@ -190,6 +190,25 @@ Public Class DLL_OperationV2
     End Sub ''\end of ""Public Sub New""
 
 
+    Public Sub New(par_typeForSorting As Char, pboolIsForSorting As Boolean,
+                   pboolIsDescending As Boolean)
+        ''
+        ''Added 2/10/2024 td
+        ''
+        If (par_typeForSorting <> "S"c) Then
+            Diagnostics.Debugger.Break()
+        End If
+
+        If (Not pboolIsForSorting) Then
+            Diagnostics.Debugger.Break()
+        End If
+
+        dcsfdfdff
+
+
+    End Sub
+
+
     Private Function RangeIncludesAnchor(p_rangeStart As IDoublyLinkedItem,
                                             p_rangeCount As Integer,
                                             p_anchor As IDoublyLinkedItem) As Boolean
