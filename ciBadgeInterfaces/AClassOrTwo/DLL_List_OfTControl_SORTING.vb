@@ -7,7 +7,7 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     ''
     ''We will use Merge Sort
     ''
-    Public Function GetQueue() As Queue(Of TControl)
+    Public Function GetQueue_OfControls() As Queue(Of TControl)
         ''
         ''Added 2/04/2024 td
         ''
@@ -19,7 +19,23 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         Loop
         Return result_queue
 
-    End Function ''Public Function GetQueue()
+    End Function ''Public Function GetQueue_OfControls()
+
+
+    Public Function GetQueue_OfDLLItems() As Queue(Of IDoublyLinkedItem)
+        ''
+        ''Added 2/12/2024 td
+        ''
+        ''----Dim result_queue As New Queue(Of TControl)
+        Dim result_queue As New Queue(Of IDoublyLinkedItem)
+        Dim eachNext As IDoublyLinkedItem = mod_dllControlFirst
+        Do Until (eachNext Is Nothing)
+            result_queue.Enqueue(eachNext)
+            eachNext = eachNext.DLL_GetItemNext()
+        Loop
+        Return result_queue
+
+    End Function ''Public Function GetQueue_OfDLLItems()
 
 
     Public Sub DLL_SortByQueue(par_queue As Queue(Of IDoublyLinkedItem))

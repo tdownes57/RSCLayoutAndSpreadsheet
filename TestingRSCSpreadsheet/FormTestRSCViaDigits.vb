@@ -612,6 +612,74 @@ Public Class FormTestRSCViaDigits
     End Sub ''End of "Private Sub ProcessOperation_Insert"
 
 
+    Private Sub DLLOperationCreated_SortAscending(par_operationV1 As DLL_OperationV1, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortAscending
+        ''
+        ''Added 2/12/2024 
+        ''
+        ProcessOperation_Sorting(par_operationV1, False)
+
+        ''
+        '' Make the Sorting visible to the user.
+        ''
+        RefreshTheUI_DisplayList()
+        RecordNewestOperation(par_operationV1)
+        RefreshTheUI_OperationsCount()
+        RefreshTheUI_UndoRedoButtons()
+
+    End Sub ''End of ""DLLOperationCreated_SortAscending""
+
+
+    Private Sub DLLOperationCreated_SortDescending(par_operationV1 As DLL_OperationV1, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortDescending
+        ''
+        ''Added 2/12/2024 
+        ''
+        ProcessOperation_Sorting(par_operationV1, False)
+
+        ''
+        '' Make the Sorting visible to the user.
+        ''
+        RefreshTheUI_DisplayList()
+        RecordNewestOperation(par_operationV1)
+        RefreshTheUI_OperationsCount()
+        RefreshTheUI_UndoRedoButtons()
+
+    End Sub ''End of ""DLLOperationCreated_SortDescending""
+
+
+    Private Sub ProcessOperation_Sorting(par_operationV1 As DLL_OperationV1,
+                                        Optional par_bIncludePostOpAdmin As Boolean = False)
+        ''
+        ''Added 2/12/2024 
+        ''
+        With par_operationV1
+
+            mod_list.DLL_SortItems(.Sort_IsDescending)
+
+            ''Added2/12/2024 
+            mod_firstTwoChar = mod_list.DLL_GetFirstItem()
+
+        End With ''End of ""With par_operationV1""
+
+        ''
+        ''Admin, if requested.
+        ''
+        If (par_bIncludePostOpAdmin) Then
+            ''
+            ''Refresh the Display.  (Make the Insert visible to the user.)
+            ''
+            RefreshTheUI_DisplayList()
+
+            ''Added 1/01/2024
+            RecordNewestOperation(par_operationV1)
+
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        End If ''end of ""If (par_bIncludePostOpAdmin) Then""
+
+    End Sub ''End of "Private Sub ProcessOperation_Sorting"
+
+
     Private Sub DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
                                         par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                         par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
@@ -817,6 +885,9 @@ Public Class FormTestRSCViaDigits
             Case "M"c
                 ''Move Range (the inverse of Move Range)
                 ProcessOperation_MoveRange(parOperation) ''.GetUndoVersionOfOperation())
+            Case "S"c
+                ''Sort the List 
+                ProcessOperation_Sorting(parOperation) ''.GetUndoVersionOfOperation())
             Case Else
                 Debugger.Break()
         End Select ''End of ""Select Case inverse_opType""
@@ -824,7 +895,7 @@ Public Class FormTestRSCViaDigits
     End Sub ''ENd of ""Private Sub ProcessOperation_AnyType""
 
 
-    Private Sub UndoOperation_ViaInverseOf(parOperation As DLL_OperationV1)
+    Private Sub UndoOperation_ViaInverseOf(parOperationV1 As DLL_OperationV1)
         ''
         ''Added 1/03/2024 td
         ''
@@ -835,11 +906,11 @@ Public Class FormTestRSCViaDigits
         If (ENCAPSULATE) Then
             ''Added 1/15/2024
             Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
-            opUndoVersion = parOperation.GetUndoVersionOfOperation()
+            opUndoVersion = parOperationV1.GetUndoVersionOfOperation()
             ProcessOperation_AnyType(opUndoVersion)
 
         Else
-            opType = parOperation.OperationType
+            opType = parOperationV1.OperationType
             If (opType = "I"c) Then inverse_opType = "D"c
             If (opType = "D"c) Then inverse_opType = "I"c
             If (opType = "M"c) Then inverse_opType = "M"c
@@ -847,13 +918,13 @@ Public Class FormTestRSCViaDigits
             Select Case inverse_opType
                 Case "I"c
                     ''Insert (the inverse of Delete)
-                    ProcessOperation_Insert(parOperation.GetUndoVersionOfOperation())
+                    ProcessOperation_Insert(parOperationV1.GetUndoVersionOfOperation())
                 Case "D"c
                     ''Delete (the inverse of Insert)
-                    ProcessOperation_Delete(parOperation.GetUndoVersionOfOperation())
+                    ProcessOperation_Delete(parOperationV1.GetUndoVersionOfOperation())
                 Case "M"c
                     ''Move Range (the inverse of Move Range)
-                    ProcessOperation_MoveRange(parOperation.GetUndoVersionOfOperation())
+                    ProcessOperation_MoveRange(parOperationV1.GetUndoVersionOfOperation())
                 Case Else
                     Debugger.Break()
             End Select ''End of ""Select Case inverse_opType""
@@ -1266,4 +1337,6 @@ Public Class FormTestRSCViaDigits
         LabelNotTestingManager.Visible = False
 
     End Sub
+
+
 End Class

@@ -5,6 +5,7 @@
 ''
 ''    ---12/17/2023 thomas dow_nes 
 ''-----------------------------------------------------------
+Imports System.Drawing.Imaging
 Imports System.Windows.Forms
 
 ''' <summary>
@@ -56,9 +57,15 @@ Public Class DLL_OperationV2
     ''' <summary>
     ''' (Maybe for V3. Not currently used. 12/23/2023) Sort Order items are NOT actual list items, although they may appear so. They exist to point to side data cells. They record the sort with respect to adjacent (left or right) list items.
     ''' </summary>
-    Private mod_sortOrder_TopCopy As IDoublyLinkedItem
+    Private mod_sortOrder_TopCopy_NOTINUSE As IDoublyLinkedItem
     Private mod_operationRangeFirstIndex As Integer = -1 ''Added 12/26/2023 
     Private mod_isChangeOfEndpoint As Boolean = False ''Added 12/26/203 
+
+    ''Added 2/12/2024 thomas downes
+    Private mod_isSortOperation As Boolean = False ''.Sort_Operation = mod__isSorting
+    Private mod_isSortAscending As Boolean = False ''.Sort_IsAscending = mod_isSortAscending
+    Private mod_isSortDescending As Boolean = False ''.Sort_IsDescending = mod_isSortDescending
+    Private mod_sortingUndoQueue As Queue(Of IDoublyLinkedItem)
 
     ''' <summary>
     ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
@@ -137,6 +144,7 @@ Public Class DLL_OperationV2
                 ''Check to see if the range includes the anchor, a logical contradiction/infinite recursion.
                 If (p_anchorFinalPrior IsNot Nothing) Then anchorNonNull = p_anchorFinalPrior
                 If (p_anchorFinalNext IsNot Nothing) Then anchorNonNull = p_anchorFinalNext
+
                 ''Check to see if the range includes the anchor, a logical contradiction/infinite recursion.
                 bRangeContainsAnchor_NotKosher =
                        RangeIncludesAnchor(p_firstInOperationRange, p_intCountOfItems, anchorNonNull)
@@ -190,12 +198,21 @@ Public Class DLL_OperationV2
     End Sub ''\end of ""Public Sub New""
 
 
-    Public Sub New(par_typeForSorting As Char, pboolIsForSorting As Boolean,
-                   pboolIsDescending As Boolean)
+    ''' <summary>
+    ''' This constructor is only used for sorting operations.
+    ''' </summary>
+    ''' <param name="par_opTypeCharForSorting">Should be 'S' for "Sorting".</param>
+    ''' <param name="pboolIsForSorting">Should be True.</param>
+    ''' <param name="pboolIsDescending">Either True or False.</param>
+    Public Sub New(par_opTypeCharForSorting As Char, pboolIsForSorting As Boolean,
+                   pboolIsDescending As Boolean,
+                   par_queueForUndo As Queue(Of IDoublyLinkedItem))
         ''
         ''Added 2/10/2024 td
         ''
-        If (par_typeForSorting <> "S"c) Then
+        '' The first  
+        ''
+        If (par_opTypeCharForSorting <> "S"c) Then
             Diagnostics.Debugger.Break()
         End If
 
@@ -203,10 +220,14 @@ Public Class DLL_OperationV2
             Diagnostics.Debugger.Break()
         End If
 
-        dcsfdfdff
+        ''Added 2/12/2024 thomas downes
+        mod_operationType = par_opTypeCharForSorting
+        mod_isSortOperation = pboolIsForSorting
+        mod_isSortAscending = (Not pboolIsDescending)
+        mod_isSortDescending = (pboolIsDescending)
+        mod_sortingUndoQueue = par_queueForUndo
 
-
-    End Sub
+    End Sub ''End of ""Public Sub New""
 
 
     Private Function RangeIncludesAnchor(p_rangeStart As IDoublyLinkedItem,
@@ -599,6 +620,16 @@ Public Class DLL_OperationV2
                 ''===See top of function for this.
                 ''==.AnchorToPrecedeItemOrRange = 
 
+            ElseIf (mod_operationType = "S"c) Then
+                ''
+                ''Sorting.
+                ''
+                .OperationType = "S"c
+                .Sort_IsAscending = mod_isSortAscending
+                .Sort_IsDescending = mod_isSortDescending
+                ''Added 2/12/2024 thomas downes
+                .Sort_UndoQueue = mod_sortingUndoQueue
+
             End If ''End of ""If (mod_operationType = "I"c) Then ... ElseIf ... ElseIf..."
 
         End With ''End of ""With result""
@@ -645,7 +676,8 @@ Public Class DLL_OperationV2
             boolEqual91 = (.mod_operationRangeFirstItem Is Me.mod_operationRangeFirstItem)
 
             boolEqual92 = (.mod_operationType = Me.mod_operationType)
-            boolEqual93 = (.mod_sortOrder_TopCopy Is .mod_sortOrder_TopCopy)
+            boolEqual93 = (.mod_sortOrder_TopCopy_NOTINUSE Is
+                             .mod_sortOrder_TopCopy_NOTINUSE)
 
         End With ''End of ""With lets_check""
 

@@ -41,6 +41,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public Sort_IsAscending As Boolean
     Public Sort_IsDescending As Boolean
     Public Sort_UndoQueue As Queue(Of IDoublyLinkedItem)
+    ''Added 2/12/2024 
+    Public Sort_IsByQueue As Boolean
+    Private Sort___ByQueue As Queue(Of IDoublyLinkedItem)
 
     ''Needed for consistency checks...
     Public InsertCount As Integer ''How many linked TControl objects?
@@ -264,7 +267,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 .AnchorToPrecedeItemOrRange = Nothing
                 .AnchorToSucceedItemOrRange = Nothing
 
-            ElseIf (Me.DeleteItemSingly IsNot Nothing) Then
+            ElseIf (originalOp.DeleteItemSingly IsNot Nothing) Then
                 ''
                 ''OperationType "D"(Delete) is the likely input.
                 ''
@@ -426,6 +429,17 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
                 ''Not needed 1/2/2024 ''tempControlRight_PP = Nothing ''Clear it, not needed now.
                 ''Not needed 1/2/2024 ''tempControlRight_PC = Nothing ''Clear it, not needed now.
+
+            ElseIf (originalOp.OperationType = "S"c) Then
+                ''
+                ''Sorting
+                ''
+                ''Added 2/12/2024 thomas downes
+                ''-#1--.SetSortOperationOrder(Me.Sort_IsAscending, Me.Sort_IsDescending)
+                ''-#1--result_sortingOperation = New DLL_OperationV1()
+                ''--#2--.SetSortOperationOrder(Me.Sort_IsAscending, Me.Sort_IsDescending)
+                .SetSortingOperationOrder(Me.Sort_IsAscending, Me.Sort_IsDescending,
+                                           True, Me.Sort_UndoQueue)
 
             End If ''End of ""If (Me.InsertedSingly IsNot Nothing) Then... ElseIf..."
 
@@ -743,6 +757,34 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         AnchorToPrecedeItemOrRange = par_item
 
     End Sub ''End of ""Public Sub SetMoveRangeItemPrior_PostPaste""
+
+
+    Public Sub SetSortingOperationOrder(pboolAscending As Boolean, pboolDescending As Boolean,
+                      pboolSortByQueue_ForUndo As Boolean,
+                      Optional par_queueForSorting As Queue(Of IDoublyLinkedItem) = Nothing)
+        ''
+        ''Added 2/12/2024 thomas downes
+        ''
+        Me.OperationType = "S"c ''The character 'S' is for Sorting.
+        Me.Sort_IsAscending = pboolAscending
+        Me.Sort_IsDescending = pboolDescending
+
+        ''
+        ''For Undo Operations
+        ''
+        ''   ("Sort by Queue" = "Sort by the Same Queue that was created,
+        ''       just prior to an Ascending or Descending Sort Operation
+        ''       was execuated").
+        ''
+        Me.Sort_IsByQueue = pboolSortByQueue_ForUndo
+        If (pboolSortByQueue_ForUndo) Then
+            If (par_queueForSorting Is Nothing) Then
+                Diagnostics.Debugger.Break()
+            End If ''End of ""If (par_queueForSorting Is Nothing) Then""
+            Me.Sort___ByQueue = par_queueForSorting
+        End If ''ENd of ""If (pboolSortByQueue_ForUndo) Then""
+
+    End Sub ''End of ""Public Sub SetSortingOperationOrder""
 
 
     Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemNext

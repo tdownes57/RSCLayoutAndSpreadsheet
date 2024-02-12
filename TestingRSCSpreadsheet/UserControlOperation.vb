@@ -51,22 +51,22 @@ Friend Class UserControlOperation
     ''' which the user has requested, and which hasn't yet been performed.
     ''' </summary>
     ''' <param name="par_operation">Gives detail of operation.</param>
-    Public Event DLLOperationCreated_MoveRange(par_operation As DLL_OperationV1,
+    Public Event DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
     ''Added 1/1/2024 thomas 
-    Public Event DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1,
+    Public Event DLLOperationCreated_UndoOfInsert(par_operationV1 As DLL_OperationV1,
                                 par_isUndoOfInsert As Boolean)
-    Public Event DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
+    Public Event DLLOperationCreated_UndoOfDelete(par_operationV1 As DLL_OperationV1,
                                 par_isUndoOfDelete As Boolean)
     Public Event DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
                                 par_isUndoOfMove As Boolean)
 
     ''Added 2/10/2024 thomas 
-    Public Event DLLOperationCreated_SortAscending(par_operation As DLL_OperationV1,
+    Public Event DLLOperationCreated_SortAscending(par_operationV1 As DLL_OperationV1,
                                 par_isUndoOfSort As Boolean)
-    Public Event DLLOperationCreated_SortDescending(par_operation As DLL_OperationV1,
+    Public Event DLLOperationCreated_SortDescending(par_operationV1 As DLL_OperationV1,
                                 par_isUndoOfSort As Boolean)
 
     ''Added 1/1/2024 thomas 
@@ -273,7 +273,7 @@ Friend Class UserControlOperation
         ''    so that the user-interface form can detect it and 
         ''    leverage this new operation.
         ''
-        Dim objDLLOperation As DLL_OperationV2
+        Dim objDLLOperationV2 As DLL_OperationV2
         Dim lastRangeItem As TwoCharacterDLLItem = Nothing
         Dim indexOfRangeFirst As Integer
         indexOfRangeFirst = GetIndex_BenchmarkMinusOne("D"c)
@@ -290,7 +290,7 @@ Friend Class UserControlOperation
             lastRangeItem = Me.Struct_endpoint.Endpoint
 
             ''Major call.
-            objDLLOperation = GetOperation_Delete_ByEndpt()
+            objDLLOperationV2 = GetOperation_Delete_ByEndpt()
 
         Else
             Dim intHowManyItemsToDelete As Integer
@@ -299,12 +299,12 @@ Friend Class UserControlOperation
             ''
             ''Major call.  (Var. lastRangeItem will populate via ByRef.)
             ''
-            objDLLOperation = GetOperation_Delete_ByCount(intHowManyItemsToDelete, lastRangeItem)
+            objDLLOperationV2 = GetOperation_Delete_ByCount(intHowManyItemsToDelete, lastRangeItem)
 
         End If ''ENd of ""If (Me.checkDeleteToEndpoint.Checked) Then ... Else...""
 
 
-        If (objDLLOperation Is Nothing) Then
+        If (objDLLOperationV2 Is Nothing) Then
             ''
             ''A well-formed operation could not be made. 
             ''
@@ -316,13 +316,13 @@ Friend Class UserControlOperation
             ''Publish the operation to the Parent Form.
             ''
             ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
-            RaiseEvent DLLOperationCreated_Delete(objDLLOperation.GetCopyV1(),
+            RaiseEvent DLLOperationCreated_Delete(objDLLOperationV2.GetCopyV1(),
                              firstRangeItem.DLL_GetItemPrior(),
                              lastRangeItem.DLL_GetItemNext())
 
             ''//inverse_anchorItem = objDLLOperation.
             ''Added 1/01/2024
-            objDLLOperation.Set_InverseAnchor(firstRangeItem.DLL_GetItemPrior(),
+            objDLLOperationV2.Set_InverseAnchor(firstRangeItem.DLL_GetItemPrior(),
                                           lastRangeItem.DLL_GetItemNext())
 
             ''Administrative.
@@ -335,11 +335,42 @@ Friend Class UserControlOperation
             ''
             ''Added 1/01/2024 td
             ''mod_lastPriorOpV2 = objDLLOperation
-            RecordLastPriorOperation(objDLLOperation)
+            RecordLastPriorOperation(objDLLOperationV2)
 
         End If ''End opf ""If (objDLLOperation Is Nothing) Then... Else..."
 
     End Sub ''end of ""Private Sub ButtonDelete_Click""
+
+
+    Private Sub ButtonSort_Click(sender As Object, e As EventArgs) Handles buttonSortList.Click
+
+        ''Added 1/08/2024
+        ''Me.DLL_List.DLL_SortItems()
+
+        Dim objDLLOperationV2 As DLL_OperationV2
+        Dim boolDescending As Boolean
+
+        If (listBoxAscendDescend.SelectedIndex > 0) Then
+            ''RaiseEvent Sort_Descending()
+            boolDescending = True
+        Else
+            ''RaiseEvent Sort_Ascending()
+            boolDescending = False ''False
+        End If
+
+        ''Added 2/10/2024 td
+        ''2/12/2024  objDLLOperationV2 = New DLL_OperationV2("S"c, True, boolDescending)
+        objDLLOperationV2 = New DLL_OperationV2("S"c, True, boolDescending,
+                                                Me.DLL_List.GetQueue_OfDLLItems())
+
+        RaiseEvent DLLOperationCreated_SortAscending(objDLLOperationV2.GetCopyV1(), False)
+
+        ''
+        ''Record the operation internally (i.e. for this usercontrol).
+        ''
+        RecordLastPriorOperation(objDLLOperationV2)
+
+    End Sub ''ENd of ""'Private Sub ButtonSort_Click""
 
 
     Public Function GetOperation_Delete_ByEndpt() As DLL_OperationV2
@@ -1110,30 +1141,6 @@ Friend Class UserControlOperation
 
     End Sub
 
-    Private Sub ButtonSort_Click(sender As Object, e As EventArgs) Handles buttonSortList.Click
-
-        ''Added 1/08/2024
-        ''Me.DLL_List.DLL_SortItems()
-
-        Dim objOperation As DLL_OperationV2
-        Dim boolDescending As Boolean
-
-        If (listBoxAscendDescend.SelectedIndex > 0) Then
-            RaiseEvent Sort_Descending()
-            boolDescending = True
-        Else
-            RaiseEvent Sort_Ascending()
-            boolDescending = False ''False
-        End If
-
-        ''Added 2/10/2024 td
-        objOperation = New DLL_OperationV2("S"c, True, boolDescending)
-        RaiseEvent DLLOperationCreated_SortAscending(objOperation, False)
-
-
-
-
-    End Sub
 
     Private Sub textInsertListOfValuesCSV_TextChanged(sender As Object, e As EventArgs) Handles textInsertListOfValuesCSV.TextChanged
 
