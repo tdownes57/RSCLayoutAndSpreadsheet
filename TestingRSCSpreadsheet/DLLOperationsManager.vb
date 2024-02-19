@@ -172,7 +172,13 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
                 ''
                 ''We will undo a previous sorting.  ---2/5/2024 
                 ''
-                list.DLL_SortByQueue(par_operationV1.Sort_UndoQueue)
+                ''---list.DLL_SortByQueue(par_operationV1.Sort_UndoQueue)
+                Dim queueForSort As Queue(Of IDoublyLinkedItem)
+                queueForSort = par_operationV1.Queue_ForPredeterminedSort
+                If (queueForSort Is Nothing) Then
+                    queueForSort = par_operationV1.Queue_IfNeededForUndo
+                End If ''End of ""If (queueForSort Is Nothing) Then""
+                list.DLL_SortByQueue(queueForSort)
 
             Case par_operationV1.Sort_IsAscending
 

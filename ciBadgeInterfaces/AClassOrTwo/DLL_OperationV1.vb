@@ -40,10 +40,11 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''Added 2/5/2024 
     Public Sort_IsAscending As Boolean
     Public Sort_IsDescending As Boolean
-    Public Sort_UndoQueue As Queue(Of IDoublyLinkedItem)
     ''Added 2/12/2024 
     Public Sort_IsByQueue As Boolean
-    Private Sort___ByQueue As Queue(Of IDoublyLinkedItem)
+    ''Added 2/05/2024 & 2/12/2024 
+    Public Queue_ForPredeterminedSort As Queue(Of IDoublyLinkedItem)
+    Public Queue_IfNeededForUndo As Queue(Of IDoublyLinkedItem)
 
     ''Needed for consistency checks...
     Public InsertCount As Integer ''How many linked TControl objects?
@@ -209,7 +210,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' This creates the "Undo" version of the class-object operation.
     ''' </summary>
     ''' <returns></returns>
-    Public Function GetUndoVersionOfOperation() As DLL_OperationV1 ''11/2/2023 (Of TControl)
+    Public Function GetUndoVersionOfOperation(Optional pbTestIdempotence As Boolean = False) As DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''
         ''Added 10/30/2023
         ''
@@ -224,9 +225,14 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
         ''Added 1/18/2024 td
         ''  Calling this "Undo" function implies we have already executed once. 
-        Const AFTER_EXECUTION As Boolean = True
-        ''Check the endpoints don't have "dangling" (extraneous, unneeded) references.
-        CheckEndpointsAreClean(True, False, AFTER_EXECUTION)
+        ''
+        If (pbTestIdempotence) Then
+            ''Don't check the endpoints, the check will fail. ---2/18/2024
+        Else
+            Const AFTER_EXECUTION As Boolean = True
+            ''Check the endpoints don't have "dangling" (extraneous, unneeded) references.
+            CheckEndpointsAreClean(True, False, AFTER_EXECUTION)
+        End If ''Endof ""If (pbTestIdempotence) Then... Else..."
 
         With result_newUndoOperation ''With objUndo
 
@@ -439,7 +445,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''-#1--result_sortingOperation = New DLL_OperationV1()
                 ''--#2--.SetSortOperationOrder(Me.Sort_IsAscending, Me.Sort_IsDescending)
                 .SetSortingOperationOrder(Me.Sort_IsAscending, Me.Sort_IsDescending,
-                                           True, Me.Sort_UndoQueue)
+                                           True, Me.Queue_IfNeededForUndo)
 
             End If ''End of ""If (Me.InsertedSingly IsNot Nothing) Then... ElseIf..."
 
@@ -454,7 +460,17 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''  and is therefore effectively a Delete, then we have performed the Insert but we have 
         ''  not yet performed the Delete--therefore, the Delete is BEFORE_EXECUTION.
         ''  ---1/20/2024 td
-        result_newUndoOperation.CheckEndpointsAreClean(True, BEFORE_EXECUTION)
+        If (pbTestIdempotence) Then
+            ''We don't check endpoints if we are checking for idempotence.
+            ''  That's because, it's a testing operation vs. a production 
+            ''  operation... therefore we are NOT executing a "Do" operation
+            ''  and then (later) executing an "Undo" operation.  
+            ''Rather, we are testing in the absence of excecution.
+            ''  ---2/18/2024 td
+            ''
+        Else
+            result_newUndoOperation.CheckEndpointsAreClean(True, BEFORE_EXECUTION)
+        End If ''End of ""If (pbTestIdempotence) Then... Else..."
 
         Return result_newUndoOperation ''Return objUndo
 
@@ -777,11 +793,20 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''       was execuated").
         ''
         Me.Sort_IsByQueue = pboolSortByQueue_ForUndo
+
         If (pboolSortByQueue_ForUndo) Then
+            ''Added 2/18/2024 thomas downes
+            Dim queueForSorting_Copy As Queue(Of IDoublyLinkedItem)
+
             If (par_queueForSorting Is Nothing) Then
                 Diagnostics.Debugger.Break()
             End If ''End of ""If (par_queueForSorting Is Nothing) Then""
-            Me.Sort___ByQueue = par_queueForSorting
+
+            ''Feb18 2024  Me.Sort___ByQueue = par_queueForSorting
+            ''---Me.Queue_ForPredeterminedSort = par_queueForSorting
+            queueForSorting_Copy = New Queue(Of IDoublyLinkedItem)(par_queueForSorting)
+            Me.Queue_ForPredeterminedSort = queueForSorting_Copy
+
         End If ''ENd of ""If (pboolSortByQueue_ForUndo) Then""
 
     End Sub ''End of ""Public Sub SetSortingOperationOrder""
@@ -1348,7 +1373,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
             ElseIf (InsertItemSingly IsNot Nothing) Then
 
-                ''Added 1/31/2024 thomas downes 
+                ''Added 1 /31/2024 thomas downes 
                 Debugger.Break()
                 ''Added 1/31/2024 
                 If (pbPleaseCleanIfNeeded And pbBeforeExecution) Then

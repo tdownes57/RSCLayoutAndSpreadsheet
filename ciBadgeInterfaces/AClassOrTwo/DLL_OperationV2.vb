@@ -176,11 +176,12 @@ Public Class DLL_OperationV2
             Else
                 ''Added 12/28/2023
                 Dim copyOfOpV1 As DLL_OperationV1
+                Const TEST_IDEMPOTENCE As Boolean = True ''Added 2/18/2024  
                 copyOfOpV1 = GetCopyV1()
                 Dim inverseOfOp As DLL_OperationV1
-                inverseOfOp = copyOfOpV1.GetUndoVersionOfOperation()
+                inverseOfOp = copyOfOpV1.GetUndoVersionOfOperation(TEST_IDEMPOTENCE)
                 Dim double_inverse As DLL_OperationV1
-                double_inverse = inverseOfOp.GetUndoVersionOfOperation()
+                double_inverse = inverseOfOp.GetUndoVersionOfOperation(TEST_IDEMPOTENCE)
                 Dim bEqualMatch As Boolean
                 bEqualMatch = double_inverse.Equals(copyOfOpV1)
                 If (Not bEqualMatch) Then Debugger.Break()
@@ -628,7 +629,7 @@ Public Class DLL_OperationV2
                 .Sort_IsAscending = mod_isSortAscending
                 .Sort_IsDescending = mod_isSortDescending
                 ''Added 2/12/2024 thomas downes
-                .Sort_UndoQueue = mod_sortingUndoQueue
+                .Queue_IfNeededForUndo = mod_sortingUndoQueue
 
             End If ''End of ""If (mod_operationType = "I"c) Then ... ElseIf ... ElseIf..."
 

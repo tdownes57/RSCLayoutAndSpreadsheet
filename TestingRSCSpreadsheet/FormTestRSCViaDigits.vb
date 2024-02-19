@@ -653,7 +653,24 @@ Public Class FormTestRSCViaDigits
         ''
         With par_operationV1
 
-            mod_list.DLL_SortItems(.Sort_IsDescending)
+            ''Condition added 2/13/2024 td
+            If (.Sort_IsByQueue) Then
+                ''This is the "undo" sorting operation, which relies on a
+                ''  queue to enforce a prior sort order (regardless of rhyme or
+                ''  reason).
+                ''   --Added 2/13/2024 td
+                ''-----mod_list.DLL_SortByQueue(.Sort_UndoQueue)
+                Dim objPredeterminedSort As Queue(Of IDoublyLinkedItem)
+                ''objPredeterminedSort = .Sort_UndoQueue
+                objPredeterminedSort = .Queue_ForPredeterminedSort
+                If (objPredeterminedSort Is Nothing) Then Debugger.Break()
+                mod_list.DLL_SortByQueue(objPredeterminedSort)
+
+            Else
+                ''This is the primary sorting operation.
+                mod_list.DLL_SortItems(.Sort_IsDescending)
+
+            End If ''End of ""If (.Sort_IsByQueue) Then... Else..."
 
             ''Added2/12/2024 
             mod_firstTwoChar = mod_list.DLL_GetFirstItem()
@@ -1295,6 +1312,7 @@ Public Class FormTestRSCViaDigits
         RefreshTheUI_UndoRedoButtons()
 
     End Sub
+
 
     Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
 
