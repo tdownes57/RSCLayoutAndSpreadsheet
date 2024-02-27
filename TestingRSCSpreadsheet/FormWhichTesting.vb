@@ -19,7 +19,7 @@
     Private Sub LinkFormManagesTwoLists(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkOpsManagerTwoLists.LinkClicked
 
         ''Added 2/04/2024 td
-        Dim objFormToShow As New FormTestTwoLists
+        Dim objFormToShow As New FormTestTwoLists2x2
         objFormToShow.Show()
 
 

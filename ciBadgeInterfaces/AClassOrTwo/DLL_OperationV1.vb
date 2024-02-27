@@ -1374,7 +1374,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             ElseIf (InsertItemSingly IsNot Nothing) Then
 
                 ''Added 1 /31/2024 thomas downes 
-                Debugger.Break()
+                ''----2/22/2024 Debugger.Break()
                 ''Added 1/31/2024 
                 If (pbPleaseCleanIfNeeded And pbBeforeExecution) Then
                     InsertItemSingly.DLL_ClearReferencePrior("I"c)
@@ -1404,7 +1404,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             ElseIf (DeleteItemSingly IsNot Nothing) Then
 
                 ''Added 1/31/2024 thomas downes 
-                Debugger.Break()
+                ''----02/22/2024 Debugger.Break()
                 ''Added 1/31/2024 
                 If (pbPleaseCleanIfNeeded And pbAfterExecution) Then
                     DeleteItemSingly.DLL_ClearReferencePrior("I"c)

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormTestTwoLists
+Partial Class FormTestTwoLists2x2
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -38,6 +38,9 @@ Partial Class FormTestTwoLists
         Label1 = New Label()
         LabelHeader1 = New Label()
         labelItemsDisplay2 = New Label()
+        LabelHdrHorizontalCols = New Label()
+        LabelHdrVerticalRows = New Label()
+        LabelHdrRowHeaders = New Label()
         SuspendLayout()
         ' 
         ' Label2
@@ -55,7 +58,7 @@ Partial Class FormTestTwoLists
         ' labelAnchorLinkLabels
         ' 
         labelAnchorLinkLabels.BorderStyle = BorderStyle.FixedSingle
-        labelAnchorLinkLabels.Location = New Point(672, 115)
+        labelAnchorLinkLabels.Location = New Point(729, 111)
         labelAnchorLinkLabels.Name = "labelAnchorLinkLabels"
         labelAnchorLinkLabels.Size = New Size(60, 24)
         labelAnchorLinkLabels.TabIndex = 96
@@ -96,7 +99,7 @@ Partial Class FormTestTwoLists
         ' linkSingleItemOnly
         ' 
         linkSingleItemOnly.AutoSize = True
-        linkSingleItemOnly.Location = New Point(738, 125)
+        linkSingleItemOnly.Location = New Point(729, 64)
         linkSingleItemOnly.Name = "linkSingleItemOnly"
         linkSingleItemOnly.Size = New Size(140, 15)
         linkSingleItemOnly.TabIndex = 92
@@ -106,7 +109,7 @@ Partial Class FormTestTwoLists
         ' userControlOperationBoth
         ' 
         userControlOperationBoth.BackColor = Color.PaleGreen
-        userControlOperationBoth.Location = New Point(21, 142)
+        userControlOperationBoth.Location = New Point(113, 137)
         userControlOperationBoth.Name = "userControlOperationBoth"
         userControlOperationBoth.Size = New Size(649, 450)
         userControlOperationBoth.TabIndex = 91
@@ -114,7 +117,7 @@ Partial Class FormTestTwoLists
         ' labelNumOperations
         ' 
         labelNumOperations.AutoSize = True
-        labelNumOperations.Location = New Point(687, 66)
+        labelNumOperations.Location = New Point(678, 5)
         labelNumOperations.Name = "labelNumOperations"
         labelNumOperations.Size = New Size(99, 15)
         labelNumOperations.TabIndex = 90
@@ -124,7 +127,7 @@ Partial Class FormTestTwoLists
         ' buttonUndo
         ' 
         buttonUndo.Enabled = False
-        buttonUndo.Location = New Point(672, 82)
+        buttonUndo.Location = New Point(663, 21)
         buttonUndo.Name = "buttonUndo"
         buttonUndo.Size = New Size(114, 27)
         buttonUndo.TabIndex = 89
@@ -134,7 +137,7 @@ Partial Class FormTestTwoLists
         ' buttonReDo
         ' 
         buttonReDo.Enabled = False
-        buttonReDo.Location = New Point(792, 82)
+        buttonReDo.Location = New Point(783, 21)
         buttonReDo.Name = "buttonReDo"
         buttonReDo.Size = New Size(86, 27)
         buttonReDo.TabIndex = 88
@@ -154,7 +157,7 @@ Partial Class FormTestTwoLists
         ' 
         labelItemsDisplay1.BackColor = Color.PaleGreen
         labelItemsDisplay1.BorderStyle = BorderStyle.FixedSingle
-        labelItemsDisplay1.Location = New Point(61, 87)
+        labelItemsDisplay1.Location = New Point(113, 87)
         labelItemsDisplay1.Name = "labelItemsDisplay1"
         labelItemsDisplay1.Size = New Size(595, 24)
         labelItemsDisplay1.TabIndex = 86
@@ -164,7 +167,7 @@ Partial Class FormTestTwoLists
         ' labelBenchmark
         ' 
         labelBenchmark.BorderStyle = BorderStyle.FixedSingle
-        labelBenchmark.Location = New Point(38, 63)
+        labelBenchmark.Location = New Point(58, 63)
         labelBenchmark.Name = "labelBenchmark"
         labelBenchmark.Size = New Size(598, 24)
         labelBenchmark.TabIndex = 85
@@ -194,18 +197,53 @@ Partial Class FormTestTwoLists
         ' 
         labelItemsDisplay2.BackColor = Color.Plum
         labelItemsDisplay2.BorderStyle = BorderStyle.FixedSingle
-        labelItemsDisplay2.Location = New Point(61, 111)
+        labelItemsDisplay2.Location = New Point(113, 111)
         labelItemsDisplay2.Name = "labelItemsDisplay2"
         labelItemsDisplay2.Size = New Size(595, 24)
         labelItemsDisplay2.TabIndex = 98
         labelItemsDisplay2.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
         labelItemsDisplay2.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
         ' 
-        ' FormTestTwoLists
+        ' LabelHdrHorizontalCols
+        ' 
+        LabelHdrHorizontalCols.BackColor = Color.PaleGreen
+        LabelHdrHorizontalCols.BorderStyle = BorderStyle.FixedSingle
+        LabelHdrHorizontalCols.Location = New Point(3, 87)
+        LabelHdrHorizontalCols.Name = "LabelHdrHorizontalCols"
+        LabelHdrHorizontalCols.Size = New Size(104, 24)
+        LabelHdrHorizontalCols.TabIndex = 99
+        LabelHdrHorizontalCols.Tag = " Horizontal"
+        LabelHdrHorizontalCols.Text = " Horizontal (cols)"
+        ' 
+        ' LabelHdrVerticalRows
+        ' 
+        LabelHdrVerticalRows.BackColor = Color.Plum
+        LabelHdrVerticalRows.BorderStyle = BorderStyle.FixedSingle
+        LabelHdrVerticalRows.Location = New Point(3, 111)
+        LabelHdrVerticalRows.Name = "LabelHdrVerticalRows"
+        LabelHdrVerticalRows.Size = New Size(104, 24)
+        LabelHdrVerticalRows.TabIndex = 100
+        LabelHdrVerticalRows.Tag = "Vertical"
+        LabelHdrVerticalRows.Text = "Vertical (rows)"
+        ' 
+        ' LabelHdrRowHeaders
+        ' 
+        LabelHdrRowHeaders.BackColor = Color.Plum
+        LabelHdrRowHeaders.BorderStyle = BorderStyle.FixedSingle
+        LabelHdrRowHeaders.Location = New Point(3, 137)
+        LabelHdrRowHeaders.Name = "LabelHdrRowHeaders"
+        LabelHdrRowHeaders.Size = New Size(104, 419)
+        LabelHdrRowHeaders.TabIndex = 101
+        LabelHdrRowHeaders.Tag = "Vertical"
+        ' 
+        ' FormTestTwoLists2x2
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(890, 599)
+        Controls.Add(LabelHdrRowHeaders)
+        Controls.Add(LabelHdrVerticalRows)
+        Controls.Add(LabelHdrHorizontalCols)
         Controls.Add(labelItemsDisplay2)
         Controls.Add(Label2)
         Controls.Add(labelAnchorLinkLabels)
@@ -222,7 +260,7 @@ Partial Class FormTestTwoLists
         Controls.Add(labelBenchmark)
         Controls.Add(Label1)
         Controls.Add(LabelHeader1)
-        Name = "FormTestTwoLists"
+        Name = "FormTestTwoLists2x2"
         Text = "FormTestTwoLists"
         ResumeLayout(False)
         PerformLayout()
@@ -244,4 +282,7 @@ Partial Class FormTestTwoLists
     Friend WithEvents Label1 As Label
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents labelItemsDisplay2 As Label
+    Friend WithEvents LabelHdrHorizontalCols As Label
+    Friend WithEvents LabelHdrVerticalRows As Label
+    Friend WithEvents LabelHdrRowHeaders As Label
 End Class

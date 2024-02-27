@@ -1,4 +1,6 @@
-﻿Imports System.Drawing.Text
+﻿Imports System.Collections.Specialized
+Imports System.Configuration
+Imports System.Drawing.Text
 Imports System.Reflection.Emit
 Imports System.Runtime.InteropServices.JavaScript
 Imports System.Runtime.InteropServices.JavaScript.JSType
@@ -53,15 +55,40 @@ Public Class FormTestUsingManager
         userControlOperation1.DLL_List = mod_list
 
         ''Populate the UI. 
-        ''---See the Form_Load procedure / event-handler. 
+        ''---See  the Form_Load procedure / event-handler. 
 
         ''Added 12/28/2023 td
         ''12/28/2023 mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TwoCharacterDLLItem))(opInitialLoad)
         mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)(opInitialLoad)
 
         ''1/2024 mod_opsManager = New DLL_OperationsManager(Of TwoCharacterDLLItem)(mod_opsList)
-        mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list,
+        ''2/2024 mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list,
+        ''         opInitialLoad.GetCopyV1())
+        ''
+        Dim INCLUDE_LOAD_IN_REDO_LIST As Boolean = True ''False
+        Try
+            ''__Dim collection_settings As NameValueCollection ''Added 2/27/2024 thomas downes
+            ''__Dim allow_setting As String ''Added 2/27/2024 thomas downes
+            ''Added 2/27/2024 thomas downes
+            ''__collection_settings = ConfigurationManager.AppSettings
+            ''__allow_setting = collection_settings.Get("AllowUnloadOfList")
+            ''__INCLUDE_LOAD_IN_REDO_LIST = Boolean.Parse(allow_setting)
+            Dim my_app_settings As My.MySettings ''Added 2/27/2024 thomas downes
+            my_app_settings = My.Settings
+            INCLUDE_LOAD_IN_REDO_LIST = my_app_settings.AllowUnloadOfList
+
+        Catch err_config As Exception
+            MessageBoxTD.Show_Statement(err_config.Message)
+        End Try ''Catch 
+
+        If (INCLUDE_LOAD_IN_REDO_LIST) Then
+                ''Do ---REPEAT, DO-- include the loading of the list.
+                mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list,
                                                              opInitialLoad.GetCopyV1())
+            Else
+                ''Do ---NOT-- include the loading of the list.
+                mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list)
+        End If ''END OF ::If (INCLUDE_LOAD_IN_REDO_LIST) Then... Else... 
 
     End Sub ''End of ""Public Sub New()""
 
@@ -811,7 +838,40 @@ Public Class FormTestUsingManager
         ''Added 1/015/2024
         RefreshTheUI_UndoRedoButtons()
 
-    End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
+    End Sub ''ENd of ""Private Sub ProcessOperation_MoveRange"
+
+
+    Private Sub ProcessOperation_SortList(par_operationV1 As DLL_OperationV1,
+                                        Optional par_bIncludePostOpAdmin As Boolean = False)
+        ''
+        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
+        ''
+        ''  Encapsulated 1/2/2024 td
+        ''
+        mod_opsManager.ProcessOperation_Sort(par_operationV1, True)
+
+        ''
+        ''Admin, if requested.
+        ''
+        If (par_bIncludePostOpAdmin) Then
+            ''
+            ''Refresh the Display.  (Make the Insert visible to the user.)
+            ''
+            RefreshTheUI_DisplayList()
+
+            ''Added 1/01/2024
+            ''1/24/2024 td''RecordNewestOperation(par_operationV1)
+
+            ''Added 1/03/2024
+            RefreshTheUI_OperationsCount()
+
+        End If ''end of ""If (par_bIncludePostOpAdmin) Then""
+
+        ''Added 1/015/2024
+        RefreshTheUI_UndoRedoButtons()
+
+
+    End Sub ''ENd of ""Private Sub ProcessOperation_SortRange""
 
 
     ''Private Sub RecordNewestOperation(par_newOpV1 As DLL_OperationV1)
@@ -1322,7 +1382,9 @@ Public Class FormTestUsingManager
         ''Added 1/15/2024 
         RefreshTheUI_UndoRedoButtons()
 
-    End Sub
+    End Sub ''End of ""Private Sub buttonUndo_Click(...)""
+
+
 
     Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
 
@@ -1343,6 +1405,36 @@ Public Class FormTestUsingManager
 
         ''Added 1/15/2024 
         RefreshTheUI_DisplayList()
+        RefreshTheUI_UndoRedoButtons()
+
+    End Sub
+
+    Private Sub DLLOperationCreated_SortAscending(par_operationV1 As DLL_OperationV1, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortAscending
+        ''
+        ''Added 2/18/2024 
+        ''
+        ProcessOperation_SortList(par_operationV1)
+
+        ''
+        ''Refresh the Display.  (Make the Insert visible to the user.)
+        ''
+        RefreshTheUI_DisplayList()
+        RefreshTheUI_OperationsCount()
+        RefreshTheUI_UndoRedoButtons()
+
+    End Sub
+
+    Private Sub DLLOperationCreated_SortDescending(par_operationV1 As DLL_OperationV1, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortDescending
+        ''
+        ''Added 2/18/2024 
+        ''
+        ProcessOperation_SortList(par_operationV1, True)
+
+        ''
+        ''Refresh the Display.  (Make the Insert visible to the user.)
+        ''
+        RefreshTheUI_DisplayList()
+        RefreshTheUI_OperationsCount()
         RefreshTheUI_UndoRedoButtons()
 
     End Sub

@@ -132,7 +132,12 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
             Case "S"c
                 ''Sorting 
                 ''---ProcessOperation_Sort(parOperation, False, par_bRecordOperation)
-                ProcessOperation_Sort(parOperation, par_bRecordOperation, False)
+                ''2/27/2024 td''ProcessOperation_Sort(parOperation, par_bRecordOperation, False)
+                Dim boolUndoByQueue As Boolean ''Added 2/27/2024
+                ''Added 2/27/2024
+                boolUndoByQueue = parOperation.Sort_IsByQueue
+                ProcessOperation_Sort(parOperation, par_bRecordOperation, boolUndoByQueue)
+
 
             Case "I"c
                 ''Insert (the inverse of Delete)
@@ -182,17 +187,28 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
 
             Case par_operationV1.Sort_IsAscending
 
-                list.DLL_SortItems(True)
+                ''list.DLL_SortItems(True)
+                list.DLL_SortItems(False)
 
             Case par_operationV1.Sort_IsDescending
 
-                list.DLL_SortItems(False)
+                ''list.DLL_SortItems(False)
+                list.DLL_SortItems(True)
 
             Case Else
 
                 Debugger.Break()
 
         End Select ''End of ""Select Case True""
+
+        ''
+        ''Admin, if requested.
+        ''
+        If (par_bRecordOperation) Then ''Added 1/28/2024 
+
+            RecordNewestOperation(par_operationV1)
+
+        End If ''ENd of ""If (par_bRecordOperation) Then""
 
     End Sub ''ENd of ""Public Sub ProcessOperation_Sort""
 

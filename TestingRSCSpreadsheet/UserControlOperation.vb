@@ -729,6 +729,9 @@ Friend Class UserControlOperation
         listInsertAfterOr.SelectedIndex = 0
         listMoveAfterOr.SelectedIndex = 0
 
+        ''Added 2/27/2024 
+        listBoxAscendDescend.SelectedIndex = 1
+
     End Sub
 
 
