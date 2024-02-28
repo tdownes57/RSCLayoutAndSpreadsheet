@@ -15,9 +15,15 @@ Imports System.Windows.Forms
 Public Class DLL_OperationV2
     Implements IDoublyLinkedItem ''DLL_GetItemNext, DLL_GetItemPrior
 
-    Private mod_operationType As Char
-    Private mod_operationRangeFirstItem As IDoublyLinkedItem
-    Private mod_countOfItems As Integer
+    ''' <summary>
+    ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
+
+    Private ReadOnly mod_operationType As Char
+    Private ReadOnly mod_operationRangeFirstItem As IDoublyLinkedItem
+    Private ReadOnly mod_countOfItems As Integer
 
     ''Added 1/5/2024 td
     ''  This object is Optional / may be Null.
@@ -32,12 +38,12 @@ Public Class DLL_OperationV2
     ''' <summary>
     ''' Anchor items are NOT in the operation range. They help locate the placement of the range.
     ''' </summary>
-    Private mod_anchorFinalPrior As IDoublyLinkedItem
+    Private ReadOnly mod_anchorFinalPrior As IDoublyLinkedItem
 
     ''' <summary>
     ''' Anchor items are NOT in the operation range. They help locate the placement of the range.
     ''' </summary>
-    Private mod_anchorFinalNext As IDoublyLinkedItem
+    Private ReadOnly mod_anchorFinalNext As IDoublyLinkedItem
 
     ''
     ''Reminder, the "Inverse Anchor" is by definition the situation
@@ -57,15 +63,15 @@ Public Class DLL_OperationV2
     ''' <summary>
     ''' (Maybe for V3. Not currently used. 12/23/2023) Sort Order items are NOT actual list items, although they may appear so. They exist to point to side data cells. They record the sort with respect to adjacent (left or right) list items.
     ''' </summary>
-    Private mod_sortOrder_TopCopy_NOTINUSE As IDoublyLinkedItem
-    Private mod_operationRangeFirstIndex As Integer = -1 ''Added 12/26/2023 
-    Private mod_isChangeOfEndpoint As Boolean = False ''Added 12/26/203 
+    Private ReadOnly mod_sortOrder_TopCopy_NOTINUSE As IDoublyLinkedItem
+    Private ReadOnly mod_operationRangeFirstIndex As Integer = -1 ''Added 12/26/2023 
+    Private ReadOnly mod_isChangeOfEndpoint As Boolean = False ''Added 12/26/203 
 
     ''Added 2/12/2024 thomas downes
-    Private mod_isSortOperation As Boolean = False ''.Sort_Operation = mod__isSorting
-    Private mod_isSortAscending As Boolean = False ''.Sort_IsAscending = mod_isSortAscending
-    Private mod_isSortDescending As Boolean = False ''.Sort_IsDescending = mod_isSortDescending
-    Private mod_sortingUndoQueue As Queue(Of IDoublyLinkedItem)
+    Private ReadOnly mod_isSortOperation As Boolean = False ''.Sort_Operation = mod__isSorting
+    Private ReadOnly mod_isSortAscending As Boolean = False ''.Sort_IsAscending = mod_isSortAscending
+    Private ReadOnly mod_isSortDescending As Boolean = False ''.Sort_IsDescending = mod_isSortDescending
+    Private ReadOnly mod_sortingUndoQueue As Queue(Of IDoublyLinkedItem)
 
     ''' <summary>
     ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.

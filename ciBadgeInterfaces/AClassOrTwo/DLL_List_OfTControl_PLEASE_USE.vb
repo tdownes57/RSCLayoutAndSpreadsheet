@@ -24,7 +24,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Implements IDoublyLinkedList(Of TControl)
 
     Private mod_dllControlFirst As IDoublyLinkedItem ''Not necessarily needed, except for testing. DLL = Doubly-Linked List. 
-    Private mod_bTesting As Boolean
+    Private ReadOnly mod_bTesting As Boolean
     Private mod_dllControlLast As IDoublyLinkedItem ''May not be needed.  DLL = Doubly-Linked List. 
     Private mod_intCountOfItems As Integer ''Added 12/19/2023
 

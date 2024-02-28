@@ -145,6 +145,12 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public InverseAnchor_Preceding As IDoublyLinkedItem
     Public InverseAnchor_Following As IDoublyLinkedItem
 
+    ''' <summary>
+    ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
+
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
     ''

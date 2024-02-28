@@ -6,6 +6,13 @@ Imports ciBadgeInterfaces
 Public Class TwoCharacterDLLItem
     Implements IDoublyLinkedItem
 
+    ''' <summary>
+    ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
+
+
     Private mod_prior As TwoCharacterDLLItem
     Private mod_next As TwoCharacterDLLItem
     Private mod_twoChars As String

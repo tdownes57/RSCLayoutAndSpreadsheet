@@ -5,6 +5,8 @@ Public Interface IDoublyLinkedItem
     ''
     ''Added 11/02/2023 Thomas Downes
     ''
+    Property Selected As Boolean
+
     Function DLL_NotAnyNext() As Boolean
     Function DLL_NotAnyPrior() As Boolean
 

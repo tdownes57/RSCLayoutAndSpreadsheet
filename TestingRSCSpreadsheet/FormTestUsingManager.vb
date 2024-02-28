@@ -82,12 +82,12 @@ Public Class FormTestUsingManager
         End Try ''Catch 
 
         If (INCLUDE_LOAD_IN_REDO_LIST) Then
-                ''Do ---REPEAT, DO-- include the loading of the list.
-                mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list,
-                                                             opInitialLoad.GetCopyV1())
-            Else
-                ''Do ---NOT-- include the loading of the list.
-                mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list)
+            ''Do ---REPEAT, DO-- include the loading of the list.
+            mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list,
+                                                         opInitialLoad.GetCopyV1())
+        Else
+            ''Do ---NOT-- include the loading of the list.
+            mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list)
         End If ''END OF ::If (INCLUDE_LOAD_IN_REDO_LIST) Then... Else... 
 
     End Sub ''End of ""Public Sub New()""
@@ -1438,5 +1438,33 @@ Public Class FormTestUsingManager
         RefreshTheUI_UndoRedoButtons()
 
     End Sub
+
+
+    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles labelItemsDisplay.MouseUp
+        ''
+        ''Added 2/27/2024 thomas downes  
+        ''
+        Dim x_intPixelPosition As Integer
+        Dim xfactor_a1 As Double = ((0.061 * 29.0 * 29.0) / (32.0 * 28.0)) '' (0.061 * 29.0 / 32.0) = 0.05528
+        Dim xfactor_a2 As Double = 0.05479 * 29.0 / (28.73 * 1.0) ''0.0572556 * 20.0 / 20.9
+        Dim xfactor_a3 As Double = 0.055305
+        Dim ax_double As Double
+        Dim constant_b As Double = -0.14 '' -0.2 '' -0.0 '' -1.0
+        Dim index_of_item_double As Double
+        Dim index_of_item As Integer
+        Dim objectListItem As TwoCharacterDLLItem
+
+        x_intPixelPosition = e.Location.X
+        ax_double = (xfactor_a3 * x_intPixelPosition)
+        index_of_item_double = (ax_double + constant_b)
+        index_of_item = System.Math.Floor(index_of_item_double)
+        objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
+        objectListItem.Selected = True
+
+
+    End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
+
+
+
 End Class
 
