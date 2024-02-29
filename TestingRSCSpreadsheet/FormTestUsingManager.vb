@@ -142,6 +142,7 @@ Public Class FormTestUsingManager
         Dim stringbuilderLinkedItems As New StringBuilder(120)
         Dim intCountLoops As Integer = 0
         Dim firstTwoChar As TwoCharacterDLLItem ''Added 1/22/2024
+        Dim each_bIsSelected As Boolean ''Added 2/27/2024 td
 
         ''LabelItemsDisplay.ResetText()
         ''Not needed here. ----labelItemsDisplay.Text = ""
@@ -162,7 +163,14 @@ Public Class FormTestUsingManager
 
                 ''LabelItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
                 ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
-                stringbuilderLinkedItems.Append("  " + each_twoChar.ToString())
+                ''stringbuilderLinkedItems.Append("  " + each_twoChar.ToString())
+                each_bIsSelected = each_twoChar.Selected
+                If (each_bIsSelected) Then
+                    ''Added 2/27/2024 td
+                    stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
+                Else
+                    stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                End If ''End of ""If (each_bIsSelected) Then""
 
                 each_twoChar = each_twoChar.DLL_GetItemNext
                 bDone = (each_twoChar Is Nothing)
@@ -1445,22 +1453,42 @@ Public Class FormTestUsingManager
         ''Added 2/27/2024 thomas downes  
         ''
         Dim x_intPixelPosition As Integer
-        Dim xfactor_a1 As Double = ((0.061 * 29.0 * 29.0) / (32.0 * 28.0)) '' (0.061 * 29.0 / 32.0) = 0.05528
-        Dim xfactor_a2 As Double = 0.05479 * 29.0 / (28.73 * 1.0) ''0.0572556 * 20.0 / 20.9
-        Dim xfactor_a3 As Double = 0.055305
+        ''Dim xfactor_a1 As Double = ((0.061 * 29.0 * 29.0) / (32.0 * 28.0)) '' (0.061 * 29.0 / 32.0) = 0.05528
+        ''Dim xfactor_a2 As Double = 0.05479 * 29.0 / (28.73 * 1.0) ''0.0572556 * 20.0 / 20.9
+        ''Dim xfactor_a3 As Double = (0.055305 * 24.0 * 29.0 / (28.2 * 28.9469))
+        Dim xfactor_a4 As Double = 0.0471544
         Dim ax_double As Double
         Dim constant_b As Double = -0.14 '' -0.2 '' -0.0 '' -1.0
         Dim index_of_item_double As Double
         Dim index_of_item As Integer
         Dim objectListItem As TwoCharacterDLLItem
+        Dim bShiftingKey As Boolean ''Added 2/29/2024
+        Dim xfactor_a As Double ''Added 2/29/2024
 
+        xfactor_a = xfactor_a4
         x_intPixelPosition = e.Location.X
-        ax_double = (xfactor_a3 * x_intPixelPosition)
+        ax_double = (xfactor_a * x_intPixelPosition)
         index_of_item_double = (ax_double + constant_b)
         index_of_item = System.Math.Floor(index_of_item_double)
-        objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
-        objectListItem.Selected = True
+        ''Added 2/29/2024
+        bShiftingKey = (Control.ModifierKeys = Keys.Shift)
 
+        Const ENCAPSULATE As Boolean = True ''Added 2/29/2024
+        If (ENCAPSULATE) Then ''Added 2/29/2024
+
+            ''Added 2/29/2024
+            mod_list.SelectionRange_ProcessList(index_of_item, bShiftingKey)
+
+        Else
+            ''Added 2/27/2024
+            If (index_of_item > (-1 + mod_list.DLL_CountAllItems())) Then Exit Sub
+            objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
+            ''--objectListItem.Selected = True
+            objectListItem.Selected = (Not objectListItem.Selected) ''Toggle the value. ''True
+        End If ''eND OF ""If (ENCAPSULATE) Then... Else..."
+
+        ''Added 2/27/2024 
+        RefreshTheUI_DisplayList()
 
     End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
 

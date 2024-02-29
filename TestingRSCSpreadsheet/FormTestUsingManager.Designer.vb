@@ -102,7 +102,7 @@ Partial Class FormTestUsingManager
         ' labelNumOperations
         ' 
         labelNumOperations.AutoSize = True
-        labelNumOperations.Location = New Point(674, 64)
+        labelNumOperations.Location = New Point(694, 66)
         labelNumOperations.Name = "labelNumOperations"
         labelNumOperations.Size = New Size(99, 15)
         labelNumOperations.TabIndex = 75
@@ -112,7 +112,7 @@ Partial Class FormTestUsingManager
         ' buttonUndo
         ' 
         buttonUndo.Enabled = False
-        buttonUndo.Location = New Point(659, 80)
+        buttonUndo.Location = New Point(679, 82)
         buttonUndo.Name = "buttonUndo"
         buttonUndo.Size = New Size(114, 27)
         buttonUndo.TabIndex = 74
@@ -122,7 +122,7 @@ Partial Class FormTestUsingManager
         ' buttonReDo
         ' 
         buttonReDo.Enabled = False
-        buttonReDo.Location = New Point(779, 80)
+        buttonReDo.Location = New Point(799, 82)
         buttonReDo.Name = "buttonReDo"
         buttonReDo.Size = New Size(86, 27)
         buttonReDo.TabIndex = 73
@@ -149,22 +149,26 @@ Partial Class FormTestUsingManager
         ' labelItemsDisplay
         ' 
         labelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
-        labelItemsDisplay.Location = New Point(48, 85)
+        labelItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        labelItemsDisplay.Location = New Point(25, 85)
         labelItemsDisplay.Name = "labelItemsDisplay"
-        labelItemsDisplay.Size = New Size(595, 24)
+        labelItemsDisplay.Size = New Size(648, 24)
         labelItemsDisplay.TabIndex = 70
-        labelItemsDisplay.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        labelItemsDisplay.Text = " 01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
+        labelItemsDisplay.Tag = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelItemsDisplay.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelItemsDisplay.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' labelBenchmark
         ' 
         labelBenchmark.BorderStyle = BorderStyle.FixedSingle
+        labelBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         labelBenchmark.Location = New Point(25, 61)
         labelBenchmark.Name = "labelBenchmark"
-        labelBenchmark.Size = New Size(598, 24)
+        labelBenchmark.Size = New Size(648, 24)
         labelBenchmark.TabIndex = 69
-        labelBenchmark.Tag = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
-        labelBenchmark.Text = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
+        labelBenchmark.Tag = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelBenchmark.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelBenchmark.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' Label1
         ' 

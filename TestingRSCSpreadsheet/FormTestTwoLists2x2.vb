@@ -130,4 +130,24 @@ Public Class FormTestTwoLists2x2
 
     End Sub
 
+    Private Sub Display1_MouseUp(sender As Object, e As MouseEventArgs) Handles labelItemsDisplay1.MouseUp
+        ''
+        ''Added 2/29/2024 thomas downes
+        ''
+
+
+
+
+    End Sub
+
+    Private Sub Display2_MouseUp(sender As Object, e As MouseEventArgs) Handles labelItemsDisplay2.MouseUp
+        ''
+        ''Added 2/29/2024 thomas downes
+        ''
+
+
+
+    End Sub
+
+
 End Class

@@ -28,6 +28,12 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Private mod_dllControlLast As IDoublyLinkedItem ''May not be needed.  DLL = Doubly-Linked List. 
     Private mod_intCountOfItems As Integer ''Added 12/19/2023
 
+    ''Added 2/29/2024
+    ''The first integer is the unshifted (no use of shift-key) integer.
+    Private mod_tupSelect_NoShiftToShift As Tuple(Of Integer, Integer) ''Added 2/29/2024
+    ''The first integer is the lower-endpoint index.
+    Private mod_tupSelect_LowToUpper As Tuple(Of Integer, Integer) ''Added 2/29/2024
+
     Private Const WE_CHECK_RANGE_ENDPOINTS_ALWAYS As Boolean = False ''Added 12/18/2023
     Private Const WE_CHECK_RANGE_ENDPOINTS_TESTING As Boolean = True ''Added 12/18/2023
     Private Const WE_CLEAN_RANGE_ENDPOINTS_ALWAYS As Boolean = True ''Added 12/18/2023
@@ -1125,6 +1131,191 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     Public Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As TControl Implements IDoublyLinkedList(Of TControl).DLL_PopRange
         Throw New NotImplementedException()
     End Function
+
+
+    ''' <summary>
+    ''' This returns the updated range of selected items, but doesn't flag any individual items.  
+    ''' It also allows the user to select a range, by using the Shift key. 
+    ''' </summary>
+    ''' <param name="par_indexClicked">Indicates the index of the newly-clicked item.</param>
+    ''' <param name="par_bShiftKeyPressed">Indicates that the user is using the keyboard Shift key to select a 2nd item to act as the endpoint of a range of items.</param>
+    ''' <returns>The range of selected items, as expressed by a tuple of inclusive indices [begin, end].</returns>
+    Public Function SelectionRange_DontProcess(par_indexClicked As Integer,
+                                               par_bShiftKeyPressed As Boolean) As Tuple(Of Integer, Integer)
+        ''
+        ''Added 2/29/2024 
+        ''
+        ''  We will return the new selection-range, but we don't flag individual
+        ''  items in the list (.Selected property is unmodified).
+        ''
+        Const DONT_PROCESS_LIST As Boolean = False
+        Dim result_tuple As Tuple(Of Integer, Integer)
+
+        ''Major call!!
+        result_tuple = SelectionRange_ProcessList(par_indexClicked, par_bShiftKeyPressed,
+                                          DONT_PROCESS_LIST, True)
+
+        Return result_tuple
+
+    End Function ''End of ""Public Function SelectionRange_DontProcess""
+
+
+    ''' <summary>
+    ''' This sets the .Selected property for ALL items in the list, whether
+    ''' to True or False.  The .Selected property will be set to True for the item
+    ''' whose index matches par_indexClicked.  It also allows the user to select a range, 
+    ''' by using the Shift key. 
+    ''' </summary>
+    ''' <param name="par_indexClicked">Indicates the index of the newly-clicked item.</param>
+    ''' <param name="par_bShiftKeyPressed">Indicates that the user is using the keyboard Shift key to select a 2nd item to act as the endpoint of a range of items.</param>
+    ''' <param name="par_bDontProcessList">Only return the Range, don't set the .Selected property for all items.</param>
+    ''' <param name="par_bDontCleanPriors">Allows more than one range to be selected, through multiple calls.</param>
+    ''' <returns>The range of selected items, as expressed by a tuple of inclusive indices [begin, end].</returns>
+    Public Function SelectionRange_ProcessList(par_indexClicked As Integer,
+                                               par_bShiftKeyPressed As Boolean,
+                Optional par_bDontProcessList As Boolean = False,
+                Optional par_bDontCleanPriors As Boolean = False) As Tuple(Of Integer, Integer)
+        ''
+        ''Added 2/29/2024 thomas downes
+        ''
+        Dim bShift As Boolean = par_bShiftKeyPressed
+        Dim priorShifted As Integer
+        Dim priorUnshifted As Integer
+        Dim lowerIndex As Integer
+        Dim upperIndex As Integer
+
+        Const PLACEHOLDER As Integer = -1
+
+        If (mod_tupSelect_LowToUpper Is Nothing) Then
+
+            ''The first integer is the unshifted (no use of shift-key) integer.
+            If (bShift) Then
+                ''
+                ''I considered whether it makes any sense to have -1 as the Unshifted Index.
+                ''   However, I don't want to confuse myself by loading a "Shift" index in the 
+                ''   first position.     ---2/29/2024 thomas downes
+                ''
+                ''(Since the user hasn't used the Shift key (yet),
+                ''   put PLACEHOLDER as the 2nd value.)
+                ''
+                mod_tupSelect_NoShiftToShift = New Tuple(Of Integer, Integer)(PLACEHOLDER, par_indexClicked)
+
+            Else
+                ''Set the unshifted index, and use PLACEHOLDER for the missing value
+                ''   (since the user hasn't used the Shift key, yet)
+                mod_tupSelect_NoShiftToShift = New Tuple(Of Integer, Integer)(par_indexClicked, PLACEHOLDER)
+
+            End If ''End of "If (bShift) Then...Ese..."
+
+            ''The first integer is the lower integer.
+            mod_tupSelect_LowToUpper = New Tuple(Of Integer, Integer)(par_indexClicked, par_indexClicked)
+
+        Else
+            ''
+            '' We need to accomodate prior data, prior item clicks. 
+            ''
+            ''Localize the data into local variables.
+            priorUnshifted = mod_tupSelect_NoShiftToShift.Item1
+            priorShifted = mod_tupSelect_NoShiftToShift.Item2
+
+            ''The first integer is the unshifted (no use of shift-key) integer.
+            If (bShift) Then
+                ''Adjust the second integer, the shift-keyed index.
+                mod_tupSelect_NoShiftToShift =
+                    New Tuple(Of Integer, Integer)(priorUnshifted, par_indexClicked)
+
+            Else
+                ''Adjust the first integer, the N0N-shift-keyed index.
+                ''  (The shift-keyed index is NOT retained.)
+                mod_tupSelect_NoShiftToShift =
+                    New Tuple(Of Integer, Integer)(par_indexClicked, PLACEHOLDER)
+
+            End If ''End of "If (bShift) Then...Ese..."
+
+            ''
+            ''Prepare the "final" tuple.
+            ''
+            Dim index_unshifted As Integer
+            Dim index_shifted As Integer
+
+            index_unshifted = mod_tupSelect_NoShiftToShift.Item1
+            index_shifted = mod_tupSelect_NoShiftToShift.Item2
+
+            lowerIndex = IIf(index_unshifted <= index_shifted, index_unshifted, index_shifted)
+            upperIndex = IIf(index_unshifted > index_shifted, index_unshifted, index_shifted)
+
+            ''Account for the fact that we use -1 as a placeholder.
+            If (lowerIndex = PLACEHOLDER) Then lowerIndex = upperIndex
+            ''The first integer is the lower integer.
+            mod_tupSelect_LowToUpper = New Tuple(Of Integer, Integer)(lowerIndex, upperIndex)
+
+        End If ''End of ""If (mod_tupSelect_LowToUpper Is Nothing) Then""
+
+        ''
+        ''Process the list.  This will set (or re-set) the .Selected Property,
+        ''   for all items in the list.
+        ''
+        If (par_bDontProcessList) Then
+            ''Nothing to do.
+        Else
+            SelectionRange_ProcessList(mod_tupSelect_LowToUpper, par_bDontCleanPriors)
+        End If ''end of  '' If (par_bDontProcessList) Then / Else""
+
+        ''
+        ''In the chance that the caller might need feedback...
+        ''
+        Return mod_tupSelect_LowToUpper
+
+    End Function ''End of ""Public Function SelectionRange_ProcessList""
+
+
+    Private Sub SelectionRange_ProcessList(par_range As Tuple(Of Integer, Integer),
+                    Optional par_bDontCleanPriors As Boolean = False)
+        ''
+        ''Added 2/29/2024 td
+        ''
+        '' Set the .Selected property, for all items.
+        ''
+        Dim currentItem As IDoublyLinkedItem = mod_dllControlFirst
+        Dim currIndex As Integer = 0
+        Dim bLoopIsDone As Boolean = False
+        Dim bPriorToRange As Boolean
+        Dim bInsideRange As Boolean
+        Dim bNoMoreSettingOrCleaningLeft As Boolean
+
+        Do While (Not bLoopIsDone)
+
+            bPriorToRange = (currIndex < par_range.Item1)
+            bInsideRange = (Not bPriorToRange) And (currIndex <= par_range.Item2)
+
+            If (par_bDontCleanPriors) Then
+                ''Allow prior [.Selected = True] values to stay True.
+                currentItem.Selected = (bInsideRange Or currentItem.Selected)
+            Else
+                currentItem.Selected = (bInsideRange)
+            End If ''End of ""If (par_bDontCleanPriors) Then... Else..."
+
+            ''
+            ''Should we continue? 
+            ''
+            ''Can we terminate the processing?  
+            bNoMoreSettingOrCleaningLeft = (par_bDontCleanPriors And (currIndex > par_range.Item2))
+            bLoopIsDone = (currentItem.DLL_NotAnyNext() Or
+                bNoMoreSettingOrCleaningLeft)
+            If (bLoopIsDone) Then Exit Do
+            If (currentItem.DLL_NotAnyNext()) Then Exit Do
+            ''
+            ''Prepare the next iteration.
+            ''
+            currentItem = currentItem.DLL_GetItemNext()
+            currIndex += 1
+
+        Loop ''end of ""Do While (Not bLoopIsDone)""
+
+    End Sub ''Private Sub SelectionRange_ProcessList
+
+
+
 
 
 End Class

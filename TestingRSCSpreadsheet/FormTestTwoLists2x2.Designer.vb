@@ -157,12 +157,13 @@ Partial Class FormTestTwoLists2x2
         ' 
         labelItemsDisplay1.BackColor = Color.PaleGreen
         labelItemsDisplay1.BorderStyle = BorderStyle.FixedSingle
+        labelItemsDisplay1.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         labelItemsDisplay1.Location = New Point(113, 87)
         labelItemsDisplay1.Name = "labelItemsDisplay1"
         labelItemsDisplay1.Size = New Size(595, 24)
         labelItemsDisplay1.TabIndex = 86
         labelItemsDisplay1.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        labelItemsDisplay1.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
+        labelItemsDisplay1.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
         ' labelBenchmark
         ' 
@@ -197,12 +198,13 @@ Partial Class FormTestTwoLists2x2
         ' 
         labelItemsDisplay2.BackColor = Color.Plum
         labelItemsDisplay2.BorderStyle = BorderStyle.FixedSingle
+        labelItemsDisplay2.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         labelItemsDisplay2.Location = New Point(113, 111)
         labelItemsDisplay2.Name = "labelItemsDisplay2"
         labelItemsDisplay2.Size = New Size(595, 24)
         labelItemsDisplay2.TabIndex = 98
         labelItemsDisplay2.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        labelItemsDisplay2.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30"
+        labelItemsDisplay2.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
         ' LabelHdrHorizontalCols
         ' 
