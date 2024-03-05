@@ -30,7 +30,8 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
 
     Public Sub New(par_listH As IDoublyLinkedList(Of T_DoublyLinkedItemH),
                    par_listV As IDoublyLinkedList(Of T_DoublyLinkedItemV),
-                   Optional par_firstOperationV1 As DLL_OperationV1 = Nothing)
+                   Optional par_initialOperationV1_1of2 As DLL_OperationV1 = Nothing,
+                   Optional par_initialOperationV1_2of2 As DLL_OperationV1 = Nothing)
         ''
         ''Added 1/20/2024 thomas d.
         ''
@@ -44,21 +45,27 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
         ''   C = RSCFieldColumnV2
         ''   R = RSCRowHeaderV2
         ''
-        With par_firstOperationV1
+        With par_initialOperationV1_1of2
             Select Case (.ClassTypeToChar)
                 Case mod_charTypeH
                 Case mod_charTypeV
                 Case Else
                     Debugger.Break()
             End Select ''End of ""Select Case (.ClassTypeToChar)""
-        End With ''End of ""With par_firstOperationV1""
+        End With ''End of ""With par_firstOperationV1_1of2""
 
         ''mod_firstItem = par_firstItem
-        mod_firstPriorOperationV1 = par_firstOperationV1
-        mod_lastPriorOperationV1 = par_firstOperationV1
+        mod_firstPriorOperationV1 = par_initialOperationV1_1of2
+        mod_lastPriorOperationV1 = par_initialOperationV1_2of2
 
-        ''Added 1/28/2024 
-        mod_opRedoMarker = New DLL_OperationsRedoMarker(par_firstOperationV1)
+        ''Added 3/05/2024 td
+        ''  Connect the two operations to each other. 
+        mod_firstPriorOperationV1.DLL_SetItemNext(mod_lastPriorOperationV1)
+        mod_lastPriorOperationV1.DLL_SetItemPrior(mod_firstPriorOperationV1)
+
+        ''Initialize the Redo Marker to the most recent operation. ---3/2024 
+        ''   3/2024 mod_opRedoMarker = New DLL_OperationsRedoMarker(par_firstOperationV1)
+        mod_opRedoMarker = New DLL_OperationsRedoMarker(par_initialOperationV1_2of2)
 
     End Sub ''End of ""Public Sub New""  
 

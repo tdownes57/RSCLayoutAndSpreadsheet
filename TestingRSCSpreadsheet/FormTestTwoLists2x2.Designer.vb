@@ -33,11 +33,11 @@ Partial Class FormTestTwoLists2x2
         buttonUndo = New Button()
         buttonReDo = New Button()
         Label3 = New Label()
-        labelItemsDisplay1 = New Label()
+        labelItemsDisplay1Cols = New Label()
         labelBenchmark = New Label()
         Label1 = New Label()
         LabelHeader1 = New Label()
-        labelItemsDisplay2 = New Label()
+        labelItemsDisplay2Rows = New Label()
         LabelHdrHorizontalCols = New Label()
         LabelHdrVerticalRows = New Label()
         LabelHdrRowHeaders = New Label()
@@ -153,17 +153,17 @@ Partial Class FormTestTwoLists2x2
         Label3.TabIndex = 87
         Label3.Text = "List of current column positions:"
         ' 
-        ' labelItemsDisplay1
+        ' labelItemsDisplay1Cols
         ' 
-        labelItemsDisplay1.BackColor = Color.PaleGreen
-        labelItemsDisplay1.BorderStyle = BorderStyle.FixedSingle
-        labelItemsDisplay1.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        labelItemsDisplay1.Location = New Point(113, 87)
-        labelItemsDisplay1.Name = "labelItemsDisplay1"
-        labelItemsDisplay1.Size = New Size(595, 24)
-        labelItemsDisplay1.TabIndex = 86
-        labelItemsDisplay1.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        labelItemsDisplay1.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelItemsDisplay1Cols.BackColor = Color.PaleGreen
+        labelItemsDisplay1Cols.BorderStyle = BorderStyle.FixedSingle
+        labelItemsDisplay1Cols.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        labelItemsDisplay1Cols.Location = New Point(113, 87)
+        labelItemsDisplay1Cols.Name = "labelItemsDisplay1Cols"
+        labelItemsDisplay1Cols.Size = New Size(595, 24)
+        labelItemsDisplay1Cols.TabIndex = 86
+        labelItemsDisplay1Cols.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
+        labelItemsDisplay1Cols.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
         ' labelBenchmark
         ' 
@@ -194,17 +194,17 @@ Partial Class FormTestTwoLists2x2
         LabelHeader1.TabIndex = 83
         LabelHeader1.Text = "Testing RSC Doubly-Linked List operations--TESTING TWO LISTS"
         ' 
-        ' labelItemsDisplay2
+        ' labelItemsDisplay2Rows
         ' 
-        labelItemsDisplay2.BackColor = Color.Plum
-        labelItemsDisplay2.BorderStyle = BorderStyle.FixedSingle
-        labelItemsDisplay2.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        labelItemsDisplay2.Location = New Point(113, 111)
-        labelItemsDisplay2.Name = "labelItemsDisplay2"
-        labelItemsDisplay2.Size = New Size(595, 24)
-        labelItemsDisplay2.TabIndex = 98
-        labelItemsDisplay2.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        labelItemsDisplay2.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelItemsDisplay2Rows.BackColor = Color.Plum
+        labelItemsDisplay2Rows.BorderStyle = BorderStyle.FixedSingle
+        labelItemsDisplay2Rows.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        labelItemsDisplay2Rows.Location = New Point(113, 111)
+        labelItemsDisplay2Rows.Name = "labelItemsDisplay2Rows"
+        labelItemsDisplay2Rows.Size = New Size(595, 24)
+        labelItemsDisplay2Rows.TabIndex = 98
+        labelItemsDisplay2Rows.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
+        labelItemsDisplay2Rows.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
         ' LabelHdrHorizontalCols
         ' 
@@ -246,7 +246,7 @@ Partial Class FormTestTwoLists2x2
         Controls.Add(LabelHdrRowHeaders)
         Controls.Add(LabelHdrVerticalRows)
         Controls.Add(LabelHdrHorizontalCols)
-        Controls.Add(labelItemsDisplay2)
+        Controls.Add(labelItemsDisplay2Rows)
         Controls.Add(Label2)
         Controls.Add(labelAnchorLinkLabels)
         Controls.Add(linkToPenultimate)
@@ -258,7 +258,7 @@ Partial Class FormTestTwoLists2x2
         Controls.Add(buttonUndo)
         Controls.Add(buttonReDo)
         Controls.Add(Label3)
-        Controls.Add(labelItemsDisplay1)
+        Controls.Add(labelItemsDisplay1Cols)
         Controls.Add(labelBenchmark)
         Controls.Add(Label1)
         Controls.Add(LabelHeader1)
@@ -279,11 +279,11 @@ Partial Class FormTestTwoLists2x2
     Friend WithEvents buttonUndo As Button
     Friend WithEvents buttonReDo As Button
     Friend WithEvents Label3 As Label
-    Friend WithEvents labelItemsDisplay1 As Label
+    Friend WithEvents labelItemsDisplay1Cols As Label
     Friend WithEvents labelBenchmark As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents LabelHeader1 As Label
-    Friend WithEvents labelItemsDisplay2 As Label
+    Friend WithEvents labelItemsDisplay2Rows As Label
     Friend WithEvents LabelHdrHorizontalCols As Label
     Friend WithEvents LabelHdrVerticalRows As Label
     Friend WithEvents LabelHdrRowHeaders As Label

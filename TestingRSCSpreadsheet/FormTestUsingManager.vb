@@ -52,7 +52,7 @@ Public Class FormTestUsingManager
         ''1/28/2024  opInitialLoad = Load_DLL_List_AsFunction(mod_list)
         opInitialLoad = Load_DLL_List_AsFunction(mod_list, firstTwoChar)
 
-        userControlOperation1.DLL_List = mod_list
+        userControlOperation1.DLL_ListHorizontal = mod_list
 
         ''Populate the UI. 
         ''---See  the Form_Load procedure / event-handler. 

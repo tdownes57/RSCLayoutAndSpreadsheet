@@ -8,8 +8,12 @@ Imports ciBadgeSerialize
 ''' </summary>
 Friend Class UserControlOperation
 
-    Public DLLOperation As DLL_OperationV2
-    Public DLL_List As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
+    Public DLLOperationHorizontal As DLL_OperationV2
+    Public DLLOperationVertical As DLL_OperationV2 ''Added 3/2/2024 td
+
+    Public DLL_ListHorizontal As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
+    ''Added 3/2/2024 td
+    Public DLL_ListVertical As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
 
     ''Added 1/4/2024
     Public Lists_Endpoint As TwoCharacterDLLItem ''Added 1/4/2024
@@ -192,12 +196,12 @@ Friend Class UserControlOperation
 
         ''Added 12/27/2023 td
         bAnchorAtStartingPoint = (indexOfAnchor = 0)
-        bAnchorAtEndingPoint = (indexOfAnchor = -1 + DLL_List.DLL_CountAllItems())
+        bAnchorAtEndingPoint = (indexOfAnchor = -1 + DLL_ListHorizontal.DLL_CountAllItems())
         bChangeOfEitherEndPoint = (bAnchorAtEndingPoint And bAfter_LetsInsertRangeAfterAnchor) Or
               (bAnchorAtStartingPoint And bBefore_LetsInsertRangeBeforeAnchor)
-        bLikelyFillingEmptyList = (Me.DLL_List.DLL_IsListEmpty())
+        bLikelyFillingEmptyList = (Me.DLL_ListHorizontal.DLL_IsListEmpty())
 
-        anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
+        anchorItem = Me.DLL_ListHorizontal.DLL_GetItemAtIndex(indexOfAnchor)
 
         ''-----------DIFFICULT & CONFUSING---------
         If (bAfter_LetsInsertRangeAfterAnchor) Then
@@ -278,7 +282,7 @@ Friend Class UserControlOperation
         Dim indexOfRangeFirst As Integer
         indexOfRangeFirst = GetIndex_BenchmarkMinusOne("D"c)
         Dim firstRangeItem As TwoCharacterDLLItem
-        firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
+        firstRangeItem = Me.DLL_ListHorizontal.DLL_GetItemAtIndex(indexOfRangeFirst)
 
         ''Added 1/5/2024 td
         If (Me.checkDeleteToEndpoint.Checked) Then
@@ -361,7 +365,7 @@ Friend Class UserControlOperation
         ''Added 2/10/2024 td
         ''2/12/2024  objDLLOperationV2 = New DLL_OperationV2("S"c, True, boolDescending)
         objDLLOperationV2 = New DLL_OperationV2("S"c, True, boolDescending,
-                                                Me.DLL_List.GetQueue_OfDLLItems())
+                                                Me.DLL_ListHorizontal.GetQueue_OfDLLItems())
 
         RaiseEvent DLLOperationCreated_SortAscending(objDLLOperationV2.GetCopyV1(), False)
 
@@ -414,11 +418,11 @@ Friend Class UserControlOperation
 
         ''Added 12/26/2023
         bIsForEitherEndpoint = ((indexOfRangeFirst = 0) Or
-             (indexOfRangeFirst >= -1 + DLL_List.DLL_CountAllItems()))
+             (indexOfRangeFirst >= -1 + DLL_ListHorizontal.DLL_CountAllItems()))
 
         ''Added 12/28/2023
         Dim bOutOfRange_Upper As Boolean
-        bOutOfRange_Upper = (indexOfRangeFirst > -1 + DLL_List.DLL_CountAllItems())
+        bOutOfRange_Upper = (indexOfRangeFirst > -1 + DLL_ListHorizontal.DLL_CountAllItems())
         If (bOutOfRange_Upper) Then
             MessageBoxTD.Show_Statement("Out of range / Greater than item count")
             ''Exit Function ''Exit Sub
@@ -428,17 +432,17 @@ Friend Class UserControlOperation
         ''indexOfAnchor = (-1 + numInsertAnchorBenchmark.Value)
         ''anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
         ''firstRangeItem = BuildNewItemsDLL_FirstInRange(intHowManyItemsToInsert)
-        firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
+        firstRangeItem = Me.DLL_ListHorizontal.DLL_GetItemAtIndex(indexOfRangeFirst)
 
         ''Added 1/18/2024 
         Dim cleaned_howManyItemsInRange As Integer ''Added 1/18/2024 
         Dim bNeedsCleaning As Boolean ''Added 1/18/2024 
         cleaned_howManyItemsInRange = pintHowManyItemsInRange
-        bNeedsCleaning = ((indexOfRangeFirst + pintHowManyItemsInRange) > DLL_List.DLL_CountAllItems())
+        bNeedsCleaning = ((indexOfRangeFirst + pintHowManyItemsInRange) > DLL_ListHorizontal.DLL_CountAllItems())
         ''Added 1/18/2024 
         If bNeedsCleaning Then
             ''Added 1/18/2024 
-            cleaned_howManyItemsInRange = (DLL_List.DLL_CountAllItems() - indexOfRangeFirst)
+            cleaned_howManyItemsInRange = (DLL_ListHorizontal.DLL_CountAllItems() - indexOfRangeFirst)
         End If ''End of ""If bNeedsCleaning Then""
 
         ''result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
@@ -489,12 +493,12 @@ Friend Class UserControlOperation
         ''indexOfRangeFirst = numMoveRangeStartBenchmark.Value
         indexOfRangeFirst = GetIndex_BenchmarkMinusOne("M"c, pbAnchor:=False)
 
-        firstRangeItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfRangeFirst)
+        firstRangeItem = Me.DLL_ListHorizontal.DLL_GetItemAtIndex(indexOfRangeFirst)
         If (firstRangeItem Is Nothing) Then
             ''
             ''The user may have ALL (or partially) deleted the list
             ''  (so, not enough items left.)
-            MessageBoxTD.Show_InsertWordFormat_Line1(Me.DLL_List.DLL_CountAllItems(),
+            MessageBoxTD.Show_InsertWordFormat_Line1(Me.DLL_ListHorizontal.DLL_CountAllItems(),
                                 "There are only {0} items in the list.")
             Exit Sub
         Else
@@ -512,7 +516,7 @@ Friend Class UserControlOperation
         ''Added 1/8/2024
         ''   Benchmark = (Index + 1)
         ''   Index = (Benchmark - 1)
-        bIndexNotFound = (Not DLL_List.DLL_IndexExists(indexOfAnchor))
+        bIndexNotFound = (Not DLL_ListHorizontal.DLL_IndexExists(indexOfAnchor))
         If bIndexNotFound Then
             ''Added 1/8/2024
             benchmarkOfAnchor = (1 + indexOfAnchor)
@@ -521,12 +525,12 @@ Friend Class UserControlOperation
             Exit Sub
         End If ''End of ""If bIndexNotFound Then""
 
-        anchorItem = Me.DLL_List.DLL_GetItemAtIndex(indexOfAnchor)
+        anchorItem = Me.DLL_ListHorizontal.DLL_GetItemAtIndex(indexOfAnchor)
 
         ''Added 12/31/2023
         ''   Consider all the ways the Move might affect either of two endpoints.
         ''   --12/31/2023
-        Dim intListCount_Size As Integer = DLL_List.DLL_CountAllItems()
+        Dim intListCount_Size As Integer = DLL_ListHorizontal.DLL_CountAllItems()
         bChangeOfEndPoint1_Cut = (0 = indexOfRangeFirst)
         bChangeOfEndPoint2_Cut = (indexOfRangeFirst + intHowManyItemsToMove >= intListCount_Size)
         bChangeOfEndPoint3_Paste = ((0 = indexOfAnchor) And
@@ -765,7 +769,7 @@ Friend Class UserControlOperation
         ''
         ''Added 12/23/2023  
         ''
-        Dim intCountCurrentListItems As Integer = DLL_List.DLL_CountAllItems()
+        Dim intCountCurrentListItems As Integer = DLL_ListHorizontal.DLL_CountAllItems()
         Const MAX_NEW As Integer = 3
         Static random_gen As Random = New Random()
 
@@ -829,7 +833,7 @@ Friend Class UserControlOperation
         ''
         ''Added 12/23/2023  
         ''
-        Dim intCountCurrentListItems As Integer = DLL_List.DLL_CountAllItems()
+        Dim intCountCurrentListItems As Integer = DLL_ListHorizontal.DLL_CountAllItems()
         Static random_gen As Random = New Random()
 
         ''---Dim intDesiredCountOfItems As Integer
@@ -915,11 +919,11 @@ Friend Class UserControlOperation
             ''
         Else
             ''Update the Endpoint Index.
-            intEndpointIndex = DLL_List.DLL_GetIndexOfItem(Me.Struct_endpoint.Endpoint)
+            intEndpointIndex = DLL_ListHorizontal.DLL_GetIndexOfItem(Me.Struct_endpoint.Endpoint)
             Me.Struct_endpoint.EndpointIndex = intEndpointIndex
 
             boolUseEndpoint = checkDeleteToEndpoint.Checked
-            max_count = DLL_List.DLL_CountAllItems()
+            max_count = DLL_ListHorizontal.DLL_CountAllItems()
             UpdateTheItemCount(max_count, boolUseEndpoint, Me.Struct_endpoint)
 
         End If ''End of ""If (Me.Struct_endpoint.Endpoint Is Nothing) Then ... Else""

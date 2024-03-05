@@ -48,7 +48,7 @@ Public Class FormTestRSCViaDigits
         opInitialLoad =
             Load_DLL_List_AsFunction(mod_list)
 
-        userControlOperation1.DLL_List = mod_list
+        userControlOperation1.DLL_ListHorizontal = mod_list
 
         ''Populate the UI. 
         ''---See the Form_Load procedure / event-handler. 
