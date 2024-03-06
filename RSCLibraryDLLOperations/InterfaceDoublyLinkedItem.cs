@@ -8,8 +8,7 @@
 namespace RSCLibraryDLLOperations
 {
 
-
-    public interface IDoublyLinkedItem
+    public interface IDoublyLinkedItem<TypeOfItem>
     {
         // Added 11/02/2023 Thomas Downes
         bool Selected { get; set; }
@@ -35,20 +34,21 @@ namespace RSCLibraryDLLOperations
         /// <returns>Returns a True or False.</returns>
         bool DLL_HasPrior();
 
-        IDoublyLinkedItem DLL_GetItemNext();
-        IDoublyLinkedItem DLL_GetItemNext(int param_iterationsOfNext);
+        IDoublyLinkedItem<TypeOfItem> DLL_GetItemNext();
+        IDoublyLinkedItem<TypeOfItem> DLL_GetItemNext(int param_iterationsOfNext);
 
-        IDoublyLinkedItem DLL_GetItemPrior();
-        IDoublyLinkedItem DLL_GetItemPrior(int param_iterationsOfPrior);
+        IDoublyLinkedItem<TypeOfItem> DLL_GetItemPrior();
+        IDoublyLinkedItem<TypeOfItem> DLL_GetItemPrior(int param_iterationsOfPrior);
 
         /// <summary>
         /// Gets the underlying control.
         /// </summary>
         /// <returns></returns>
+        TypeOfItem DLL_UnboxControl();
         //Having trouble here. See "using" above. 3/2024  Control DLL_UnboxControl();
 
-        void DLL_SetItemNext(IDoublyLinkedItem param);
-        void DLL_SetItemPrior(IDoublyLinkedItem param);
+        void DLL_SetItemNext(IDoublyLinkedItem<TypeOfItem> param);
+        void DLL_SetItemPrior(IDoublyLinkedItem<TypeOfItem> param);
 
         // Whenever a Row or Column is deleted, and saved into a DLL Operation,
         // the outer edges ---MUST BE CLEANED--- of obselete references.
@@ -73,7 +73,7 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         /// <param name="param_rangeSize">This is the item-count of the range, or size of the range.</param>
         /// <returns>The first item which follows the range.</returns>
-        IDoublyLinkedItem DLL_GetNextItemFollowingRange(int param_rangeSize, bool param_mayBeNull);
+        IDoublyLinkedItem<TypeOfItem> DLL_GetNextItemFollowingRange(int param_rangeSize, bool param_mayBeNull);
 
         // Added 1/4/2024 td
         string DLL_GetValue(); // Added 1/4/2024 td
