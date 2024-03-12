@@ -1031,7 +1031,7 @@ Friend Class UserControlOperation
 
         End If ''End of ""If (par_bUseEndpoint) Then... Else..."
 
-    End Sub ''End of ""Public Sub UpdateTheItemCount()"
+    End Sub ''End of ""Public Sub UpdateTheItemCount_Rows()"
 
 
     Private Function GetItemCountOfRange(pintStartingIndex As Integer,

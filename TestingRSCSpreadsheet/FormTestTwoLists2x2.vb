@@ -290,9 +290,9 @@ Public Class FormTestTwoLists2x2
     End Function ''End of ""Private Function Load_DLL_List_Horizontal""
 
 
-    Private Sub RefreshTheUI_DisplayList()
+    Private Sub RefreshTheUI_DisplayList_Cols()
         ''
-        ''Populate the UI. 
+        ''Populate the UI with column-related data. 
         ''
         Dim strListOfLinks_Cols As String
         Dim strListOfLinks_Rows As String
@@ -308,9 +308,8 @@ Public Class FormTestTwoLists2x2
         ''Added 12/28/2023 
         Dim itemCount_Cols As Integer = mod_list1Cols.DLL_CountAllItems()
         Dim itemCount_Rows As Integer = mod_list2Rows.DLL_CountAllItems()
-        userControlOperationBoth.UpdateTheItemCount(itemCount_Rows)
-        userControlOperationBoth.UpdateTheItemCount_Rows(itemCount_Rows)
-        userControlOperationBoth.UpdateTheItemCount_Cols(itemCount_Cols)
+        ''----userControlOperationBoth.UpdateTheItemCount(itemCount_Rows)
+        userControlOperationBoth.UpdateTheItemCount(itemCount_Cols)
 
         ''Added 1/04/202
         ''
@@ -320,7 +319,7 @@ Public Class FormTestTwoLists2x2
         Dim last_item As TwoCharacterDLLItem = Nothing
         Dim prior_to_last As TwoCharacterDLLItem = Nothing
 
-        last_item = CType(mod_list.DLL_GetLastItem(), TwoCharacterDLLItem)
+        last_item = CType(mod_list1Cols.DLL_GetLastItem(), TwoCharacterDLLItem)
         If (last_item Is Nothing) Then
             ''
             ''The user has elected to delete the entire list. 
@@ -337,13 +336,68 @@ Public Class FormTestTwoLists2x2
         linkToEndpoint.Tag = last_item ''.ToString()
 
         ''Added 1/04/2024
-        userControlOperation1.Lists_Endpoint = last_item
-        userControlOperation1.Lists_Penultimate = prior_to_last
+        userControlOperationBoth.Lists_Endpoint = last_item
+        userControlOperationBoth.Lists_Penultimate = prior_to_last
 
         ''Added 1/04/2024
         linkToPenultimate.Tag = prior_to_last ''.ToString()
 
-    End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
+    End Sub ''End of ""Private Sub RefreshTheUI_DisplayList_Cols()""
+
+
+    Private Sub RefreshTheUI_DisplayList_Rows()
+        ''
+        ''Populate the UI with Row-related data. 
+        ''
+        Dim strListOfLinks_Cols As String
+        Dim strListOfLinks_Rows As String
+
+        ''Colums (Horizontal List of two-character numbers)
+        strListOfLinks_Rows = FillTheTextboxDisplayingList_Rows()
+        labelItemsDisplay2Rows.Text = strListOfLinks_Rows
+
+        ''Rows (Vertical List of two-character numbers)
+        strListOfLinks_Rows = FillTheTextboxDisplayingList_Rows()
+        labelItemsDisplay2Rows.Text = strListOfLinks_Rows
+
+        ''Added 12/28/2023 
+        Dim itemCount_Cols As Integer = mod_list1Cols.DLL_CountAllItems()
+        Dim itemCount_Rows As Integer = mod_list2Rows.DLL_CountAllItems()
+        ''----userControlOperationBoth.UpdateTheItemCount(itemCount_Rows)
+        userControlOperationBoth.UpdateTheItemCount(itemCount_Rows)
+
+        ''Added 1/04/202
+        ''
+        ''  Let's maintain the two(2) linklabels which represent
+        ''    the list's endpoint & prior-to-endpoint.
+        ''
+        Dim last_item As TwoCharacterDLLItem = Nothing
+        Dim prior_to_last As TwoCharacterDLLItem = Nothing
+
+        last_item = CType(mod_list2Rows.DLL_GetLastItem(), TwoCharacterDLLItem)
+        If (last_item Is Nothing) Then
+            ''
+            ''The user has elected to delete the entire list. 
+            ''
+        Else
+            linkToEndpoint.Text = last_item.ToString()
+            prior_to_last = CType(last_item.DLL_GetItemPrior(), TwoCharacterDLLItem)
+            If (prior_to_last IsNot Nothing) Then
+                linkToPenultimate.Text = prior_to_last.ToString()
+            End If ''End of ""If (prior_to_last IsNot Nothing) Then""
+        End If ''End of ""If (last_item Is Nothing) Then... Else..."
+
+        ''Added 1/04/2024
+        linkToEndpoint.Tag = last_item ''.ToString()
+
+        ''Added 1/04/2024
+        userControlOperationBoth.Lists_Endpoint = last_item
+        userControlOperationBoth.Lists_Penultimate = prior_to_last
+
+        ''Added 1/04/2024
+        linkToPenultimate.Tag = prior_to_last ''.ToString()
+
+    End Sub ''End of ""Private Sub RefreshTheUI_DisplayList_Rows()""
 
 
     Private Sub RefreshTheUI_OperationsCount()
@@ -629,7 +683,8 @@ Public Class FormTestTwoLists2x2
         End If ''eND OF ""If (ENCAPSULATE) Then... Else..."
 
         ''Added 2/27/2024 
-        RefreshTheUI_DisplayList()
+        ''3/11/2024  RefreshTheUI_DisplayList()
+        RefreshTheUI_DisplayList_Cols()
 
     End Sub
 
@@ -639,7 +694,41 @@ Public Class FormTestTwoLists2x2
         ''
         ''Added 2/29/2024 thomas downes
         ''
+        Dim x_intPixelPosition As Integer
+        Dim xfactor_a4 As Double = 0.0471544
+        Dim ax_double As Double
+        Dim constant_b As Double = -0.14 '' -0.2 '' -0.0 '' -1.0
+        Dim index_of_item_double As Double
+        Dim index_of_item As Integer
+        Dim objectListItem As TwoCharacterDLLItem
+        Dim bShiftingKey As Boolean ''Added 2/29/2024
+        Dim xfactor_a As Double ''Added 2/29/2024
 
+        xfactor_a = xfactor_a4
+        x_intPixelPosition = e.Location.X
+        ax_double = (xfactor_a * x_intPixelPosition)
+        index_of_item_double = (ax_double + constant_b)
+        index_of_item = System.Math.Floor(index_of_item_double)
+        ''Added 2/29/2024
+        bShiftingKey = (Control.ModifierKeys = Keys.Shift)
+
+        Const ENCAPSULATE As Boolean = True ''Added 2/29/2024
+        If (ENCAPSULATE) Then ''Added 2/29/2024
+
+            ''Added 2/29/2024
+            mod_list2Rows.SelectionRange_ProcessList(index_of_item, bShiftingKey)
+
+        Else
+            ''Added 2/27/2024
+            If (index_of_item > (-1 + mod_list2Rows.DLL_CountAllItems())) Then Exit Sub
+            objectListItem = mod_list2Rows.DLL_GetItemAtIndex(index_of_item)
+            ''--objectListItem.Selected = True
+            objectListItem.Selected = (Not objectListItem.Selected) ''Toggle the value. ''True
+        End If ''eND OF ""If (ENCAPSULATE) Then... Else..."
+
+        ''Added 2/27/2024 
+        ''3/11/2024  RefreshTheUI_DisplayList()
+        RefreshTheUI_DisplayList_Rows()
 
 
     End Sub
