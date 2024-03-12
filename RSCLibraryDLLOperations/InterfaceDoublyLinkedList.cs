@@ -3,7 +3,9 @@
 namespace RSCLibraryDLLOperations
 {
     /// <summary>
-    /// This is a list of methods for a doubly-linked list of UI controls.
+    /// This is a generic-type list of methods for a doubly-linked list of UI controls.
+    /// (The condition "where TUserControl : IDoublyLinkedItem<TUserControl>" will help
+    /// to ensure that the linked items have the Interface-list of methods.)
     /// </summary>
     /// <typeparam name="TControl">UI Control class, usually a UserControl class.</typeparam>
     public interface IDoublyLinkedList<TUserControl> where TUserControl : IDoublyLinkedItem<TUserControl>
