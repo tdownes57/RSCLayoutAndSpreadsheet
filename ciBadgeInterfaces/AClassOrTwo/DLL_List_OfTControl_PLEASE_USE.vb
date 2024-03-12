@@ -96,7 +96,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     ''' <summary>
     ''' Re-initialize the list.
     ''' </summary>
-    Public Sub DLL_ClearAllItems()
+    Public Sub DLL_ClearAllItems() Implements IDoublyLinkedList(Of TControl).DLL_ClearAllItems
 
         mod_dllControlFirst = Nothing
         mod_intCountOfItems = 0
@@ -147,7 +147,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Sub ''End of ""Public Sub DLL_AddFirstOnlyRange""
 
 
-    Public Sub DLL_AddFirstAndOnlyItem(each_twoCharsItem)
+    Public Sub DLL_AddFirstAndOnlyItem(each_twoCharsItem As TControl) Implements IDoublyLinkedList(Of TControl).DLL_AddFirstAndOnlyItem
         ''
         ''Add a single item to an empty list. 
         ''
@@ -960,7 +960,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Function ''End of ""Public Function DLL_GetItemAtIndex""
 
 
-    Public Function DLL_IsListEmpty() As Boolean
+    Public Function DLL_IsListEmpty() As Boolean Implements IDoublyLinkedList(Of TControl).DLL_IsListEmpty
         ''
         ''Added 12/31/2023 
         ''
@@ -1313,6 +1313,7 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
         Loop ''end of ""Do While (Not bLoopIsDone)""
 
     End Sub ''Private Sub SelectionRange_ProcessList
+
 
 
 

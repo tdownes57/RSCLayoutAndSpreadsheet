@@ -175,6 +175,12 @@ Public Interface IDoublyLinkedList(Of TControl)
     Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As TControl
 
 
+    ''Added 3/12/2024 
+    Sub DLL_ClearAllItems()
+    Function DLL_IsListEmpty() As Boolean
+    Sub DLL_AddFirstAndOnlyItem(item_toAdd As TControl)
+
+
 End Interface
 
 

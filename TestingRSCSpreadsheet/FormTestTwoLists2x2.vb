@@ -13,11 +13,24 @@ Public Class FormTestTwoLists2x2
     ''===Nice but problematic.3/2024
     ''==Private mod_list1Cols As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)
     ''==Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
+
+
+#Const USE_PARENT_CLASS = False ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
+#Const USE_LATEST_CLASS = True ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
+
+#If (USE_PARENT_CLASS) Then ''Added 3/12/2024 td
+    ''Scale back to the base class.
     Private mod_list1Cols As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
     Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
-
+    Private mod_managerOfOps As DLLOperationsManager2x2(Of TwoCharacterDLLItem,
+                                      TwoCharacterDLLItem)
+#ElseIf (USE_LATEST_CLASS) Then ''Added 3/12/2024 td
+    ''Leverage the derived subclasses.
+    Private mod_list1Cols As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)
+    Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
     Private mod_managerOfOps As DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
                                       TwoCharacterDLLVertical)
+#End If
 
     Private Enum EnumTwoListsMode
         Undetermined
@@ -61,11 +74,16 @@ Public Class FormTestTwoLists2x2
         ''
         Dim opInitialLoad1Cols As DLL_OperationV2
         Dim opInitialLoad2Rows As DLL_OperationV2
-        Dim firstTwoCharH As New TwoCharacterDLLHorizontal("01")
-        Dim firstTwoCharV As New TwoCharacterDLLVertical("01")
+        Dim firstTwoCharH As New TwoCharacterDLLHorizontal("01") ''Columns are arranged horizontally related to one another.
+        Dim firstTwoCharV As New TwoCharacterDLLVertical("01") ''Rows are are arranged vertically relative to one another.
 
+#If (USE_LATEST_CLASS) Then ''Added 3/12/2024 td
+        mod_list1Cols = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)(firstTwoCharH)
+        mod_list2Rows = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)(firstTwoCharV)
+#Else
         mod_list1Cols = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)(firstTwoCharH)
         mod_list2Rows = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)(firstTwoCharV)
+#End If
 
         opInitialLoad1Cols = Load_DLL_List_Horizontal(mod_list1Cols, firstTwoCharH)
         opInitialLoad2Rows = Load_DLL_List_Vertical(mod_list2Rows, firstTwoCharV)
@@ -96,9 +114,11 @@ Public Class FormTestTwoLists2x2
                                             opInitialLoad2Rows.GetCopyV1())
         Else
             ''Do ---NOT-- include the loading of the list.
-            ''3/2024 mod_managerOfOps = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list)
-            mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
-                   TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows)
+            ''#1 3/2024 mod_managerOfOps = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list)
+            ''#2 3/2024 mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
+            ''#2         TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows)
+            mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLItem,
+                   TwoCharacterDLLItem)(mod_list1Cols, mod_list2Rows)
 
         End If ''END OF ::If (INCLUDE_LOAD_IN_REDO_LIST) Then... Else... 
 
@@ -106,8 +126,110 @@ Public Class FormTestTwoLists2x2
     End Sub ''End of Public Sub New 
 
 
+#If USE_LATEST_CLASS Then ''We will use "(Of TwoCharacterDLLHorizontal)"
+    Private Function Load_DLL_List_Horizontal(par_listHorizontal As IDoublyLinkedList(Of TwoCharacterDLLHorizontal),
+           Optional par_firstItem As TwoCharacterDLLHorizontal = Nothing) As DLL_OperationV2
+        ''
+        ''This function is overloaded, as of 3/12/2024.
+        ''
+        ''Added 3/12/2024 thomas downes
+        ''
+        Dim each_twoCharsItem As TwoCharacterDLLItem
+        Dim each_strTwoChars As String
+        Dim prior As TwoCharacterDLLItem = Nothing
+        Dim bListIsEmpty As Boolean = True
+        Dim op_result As DLL_OperationV2 ''Added 12/28/2023 td
+        Dim firstTwoChar As TwoCharacterDLLItem ''Added 1/22/2024
+
+        ''Clear the list.
+        par_listHorizontal.DLL_ClearAllItems()
+
+        ''prior = par_firstItem
+        bListIsEmpty = (0 = par_listHorizontal.DLL_CountAllItems())
+        If (Not bListIsEmpty) Then Debugger.Break()
+        ''#1 1/22/2024 mod_firstTwoChar = par_firstItem
+        ''#2 1/22/2024 firstTwoChar = mod_list.DLL_GetFirstItem()
+        firstTwoChar = par_firstItem
+
+        ''Added 12/26/20923
+        Dim firstBenchmark_1or2 As Integer = 1
+        If (par_firstItem IsNot Nothing) Then
+            par_listHorizontal.DLL_AddFirstAndOnlyItem(par_firstItem)
+            ''--bListIsEmpty = (0 = par_listHorizontal.DLL_CountItems())
+            bListIsEmpty = par_listHorizontal.DLL_IsListEmpty()
+            firstBenchmark_1or2 = 2
+            prior = par_firstItem
+        End If ''end of ""If (par_firstItem IsNot Nothing) Then""
+
+        ''
+        ''Iterate through the list. 
+        ''
+        For benchmark = firstBenchmark_1or2 To INITIAL_ITEM_COUNT_Cols ''Collumns are arranged horizontally.
+
+            each_strTwoChars = String.Format("{0:00}", benchmark)
+            ''12/2023 each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars, prior)
+            each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars)
+
+            If (prior Is Nothing) Then
+                ''Only occurs on first iteration.
+                ''1/22/2024 mod_firstTwoChar = each_twoCharsItem
+
+                ''Add the very first item. 
+                par_listHorizontal.DLL_AddFirstAndOnlyItem(each_twoCharsItem)
+
+            Else
+                ''---Not needed here....
+                ''---prior.DLL_SetItemNext(each_twoCharsItem)
+                par_listHorizontal.DLL_InsertOneItemAfter(each_twoCharsItem, prior, True)
+
+            End If ''End of ""If (prior Is Nothing) Then... Else... "
+
+            ''
+            ''Prepare for next iteration of the loop.
+            ''
+            prior = each_twoCharsItem
+            bListIsEmpty = False
+
+        Next benchmark ''Next index
+
+        ''
+        ''Added 12/28/2023 
+        ''
+        op_result = New DLL_OperationV2("I"c, firstTwoChar,
+                            INITIAL_ITEM_COUNT_Cols, Nothing, Nothing, True)
+        ''added 12/28
+        Dim copyOfOpV1 As DLL_OperationV1
+        Dim copyOfOpV2 As DLL_OperationV2
+        Dim bCopyV2_ofCopyV1_match As Boolean = False
+
+        If (Testing.TestingByDefault) Then
+            copyOfOpV1 = op_result.GetCopyV1()
+            copyOfOpV2 = copyOfOpV1.GetCopyV2()
+
+            ''--bCopyV2_ofCopyV1_match = Me.Equals(copyOfOpV2)
+            bCopyV2_ofCopyV1_match = op_result.Equals(copyOfOpV2)
+            If (bCopyV2_ofCopyV1_match) Then
+                ''Bravo!!! 12/30/2023 
+            Else
+                Debugger.Break()
+            End If
+        End If ''End of ""If (Testing.TestingByDefault) Then""
+
+        ''
+        ''This is a function, so return the result!!
+        ''
+        Return op_result
+
+    End Function ''End of ""Private Function Load_DLL_List_Horizontal""
+
+#End If
+
+#If USE_PARENT_CLASS Then ''We will use "(Of TwoCharacterDLLItem)"
+
     Private Function Load_DLL_List_Horizontal(par_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem),
            Optional par_firstItem As TwoCharacterDLLHorizontal = Nothing) As DLL_OperationV2
+        ''
+        ''This function is overloaded, as of 3/12/2024.
         ''
         ''Encapsulated 12/25/2023 thomas downes
         ''
@@ -197,6 +319,7 @@ Public Class FormTestTwoLists2x2
 
     End Function ''End of ""Private Function Load_DLL_List_Horizontal""
 
+#End If
 
     Private Function Load_DLL_List_Vertical(par_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem),
            Optional par_firstItem As TwoCharacterDLLVertical = Nothing) As DLL_OperationV2
@@ -408,7 +531,8 @@ Public Class FormTestTwoLists2x2
         With labelNumOperations
             ''1/13/24 mod_intCountOperations = mod_stackOperations.Count
             ''1/22/2024 mod_intCountOperations = mod_firstPriorOpV1.DLL_CountItemsAllInList()
-            intCountOperations = mod_opsManager.CountOfOperations()
+            ''3/12/2024 intCountOperations = mod_opsManager.CountOfOperations()
+            intCountOperations = mod_managerOfOps.CountOfOperations()
 
             ''1/22/2024 labelNumOperations.Text = String.Format(.Tag, mod_intCountOperations)
             labelNumOperations.Text = String.Format(.Tag, intCountOperations)
@@ -422,8 +546,12 @@ Public Class FormTestTwoLists2x2
         ''Added 1/15/2024 
         ''1/24/2024 buttonUndo.Enabled = mod_opRedoMarker.HasOperationPrior()
         ''1/24/2024 buttonReDo.Enabled = mod_opRedoMarker.HasOperationNext()
-        buttonUndo.Enabled = mod_opsManager.MarkerHasOperationPrior()
-        buttonReDo.Enabled = mod_opsManager.MarkerHasOperationNext()
+
+        ''3/12/2024 buttonUndo.Enabled = mod_opsManager.MarkerHasOperationPrior()
+        ''3/12/2024 buttonReDo.Enabled = mod_opsManager.MarkerHasOperationNext()
+
+        buttonUndo.Enabled = mod_managerOfOps.MarkerHasOperationPrior()
+        buttonReDo.Enabled = mod_managerOfOps.MarkerHasOperationNext()
 
     End Sub ''end of ""Private Sub RefreshTheUI_UndoRedoButtons()""
 
@@ -737,9 +865,8 @@ Public Class FormTestTwoLists2x2
         ''
         ''Added 3/05/2024 thomas
         ''
-
-
-
+        ''---RefreshTheUI_DisplayList_Rows()
+        RefreshTheUI_DisplayList_Cols()
 
     End Sub
 
