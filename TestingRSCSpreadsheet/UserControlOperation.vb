@@ -3,6 +3,19 @@ Imports System.IO
 Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 
+''
+''Compiler code. 
+''
+#Const USE_PARENT_CLASS = False ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
+#Const USE_SPECIFIC_CLASS = True ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
+
+#If (USE_PARENT_CLASS) Then ''Added 3/12/2024 td
+    ''Scale back to the base class. Hence you see, "(Of TwoCharacterDLLItem)".
+#ElseIf (USE_SPECIFIC_CLASS) Then ''Added 3/12/2024 td
+''Leverage the derived subclasses. Hence you see, "(Of TwoCharacterDLLHorizontal)", etc.
+#End If
+
+
 ''' <summary>
 ''' This will allow the user to create DLLOperations.
 ''' </summary>
@@ -10,10 +23,17 @@ Friend Class UserControlOperation
 
     Public DLLOperationHorizontal As DLL_OperationV2
     Public DLLOperationVertical As DLL_OperationV2 ''Added 3/2/2024 td
+    Public DLL_ListItems As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem) ''Restored 3/12/2024
 
+#If (USE_PARENT_CLASS) Then ''Added 3/12/2024 td
+    ''Scale back to the base class. Hence you see, "(Of TwoCharacterDLLItem)".
     Public DLL_ListHorizontal As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
-    ''Added 3/2/2024 td
     Public DLL_ListVertical As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
+#ElseIf (USE_SPECIFIC_CLASS) Then ''Added 3/12/2024 td
+    ''Leverage the derived subclasses. Hence you see, "(Of TwoCharacterDLLHorizontal)", etc.
+    Public DLL_ListHorizontal As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)
+    Public DLL_ListVertical As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
+#End If
 
     ''Added 1/4/2024
     Public Lists_Endpoint As TwoCharacterDLLItem ''Added 1/4/2024
