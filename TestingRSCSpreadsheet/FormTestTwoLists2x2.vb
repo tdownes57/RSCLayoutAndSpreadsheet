@@ -151,7 +151,8 @@ Public Class FormTestTwoLists2x2
         ''
         ''Added 3/12/2024 thomas downes
         ''
-        Dim each_twoCharsItem As TwoCharacterDLLItem
+        ''03/2024 td''Dim each_twoCharsItem As TwoCharacterDLLItem
+        Dim each_twoCharsItem As TwoCharacterDLLHorizontal
         Dim each_strTwoChars As String
         Dim prior As TwoCharacterDLLItem = Nothing
         Dim bListIsEmpty As Boolean = True
@@ -185,7 +186,8 @@ Public Class FormTestTwoLists2x2
 
             each_strTwoChars = String.Format("{0:00}", benchmark)
             ''12/2023 each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars, prior)
-            each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars)
+            ''03/2024 each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars)
+            each_twoCharsItem = New TwoCharacterDLLHorizontal(each_strTwoChars)
 
             If (prior Is Nothing) Then
                 ''Only occurs on first iteration.
@@ -245,7 +247,8 @@ Public Class FormTestTwoLists2x2
         ''
         ''Encapsulated 12/25/2023 thomas downes
         ''
-        Dim each_twoCharsItem As TwoCharacterDLLItem
+        ''3/2024---Dim each_twoCharsItem As TwoCharacterDLLItem
+        Dim each_twoCharsItem As TwoCharacterDLLVertical
         Dim each_strTwoChars As String
         Dim prior As TwoCharacterDLLItem = Nothing
         Dim bListIsEmpty As Boolean = True
@@ -277,7 +280,8 @@ Public Class FormTestTwoLists2x2
 
             each_strTwoChars = String.Format("{0:00}", benchmark)
             ''12/2023 each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars, prior)
-            each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars)
+            ''03/2024 each_twoCharsItem = New TwoCharacterDLLItem(each_strTwoChars)
+            each_twoCharsItem = New TwoCharacterDLLVertical(each_strTwoChars)
 
             If (prior Is Nothing) Then
                 ''Only occurs on first iteration.

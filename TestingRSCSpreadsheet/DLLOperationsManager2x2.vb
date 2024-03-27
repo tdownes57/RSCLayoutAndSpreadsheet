@@ -45,27 +45,49 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
         ''   C = RSCFieldColumnV2
         ''   R = RSCRowHeaderV2
         ''
-        With par_initialOperationV1_1of2
-            Select Case (.ClassTypeToChar)
-                Case mod_charTypeH
-                Case mod_charTypeV
-                Case Else
-                    Debugger.Break()
-            End Select ''End of ""Select Case (.ClassTypeToChar)""
-        End With ''End of ""With par_firstOperationV1_1of2""
+        If (par_initialOperationV1_1of2 IsNot Nothing) Then
+            With par_initialOperationV1_1of2
+                Select Case (.ClassTypeToChar)
+                    Case mod_charTypeH
+                    Case mod_charTypeV
+                    Case Else
+                        Debugger.Break()
+                End Select ''End of ""Select Case (.ClassTypeToChar)""
+            End With ''End of ""With par_firstOperationV1_1of2""
+        End If ''End of ""If (par_initialOperationV1_1of2 IsNot Nothing) Then""
+
+        If (par_initialOperationV1_2of2 IsNot Nothing) Then
+            With par_initialOperationV1_2of2
+                Select Case (.ClassTypeToChar)
+                    Case mod_charTypeH
+                    Case mod_charTypeV
+                    Case Else
+                        Debugger.Break()
+                End Select ''End of ""Select Case (.ClassTypeToChar)""
+            End With ''End of ""With par_firstOperationV1_2of2""
+        End If ''End of ""If (par_initialOperationV1_2of2 IsNot Nothing) Then""
 
         ''mod_firstItem = par_firstItem
         mod_firstPriorOperationV1 = par_initialOperationV1_1of2
         mod_lastPriorOperationV1 = par_initialOperationV1_2of2
 
         ''Added 3/05/2024 td
-        ''  Connect the two operations to each other. 
-        mod_firstPriorOperationV1.DLL_SetItemNext(mod_lastPriorOperationV1)
-        mod_lastPriorOperationV1.DLL_SetItemPrior(mod_firstPriorOperationV1)
+        ''  Connect the two operations to each other.
+        ''
+        If (mod_lastPriorOperationV1 Is Nothing) Then
+            Debugger.Break()
+        Else
+            mod_firstPriorOperationV1.DLL_SetItemNext(mod_lastPriorOperationV1)
+            mod_lastPriorOperationV1.DLL_SetItemPrior(mod_firstPriorOperationV1)
+        End If
 
         ''Initialize the Redo Marker to the most recent operation. ---3/2024 
         ''   3/2024 mod_opRedoMarker = New DLL_OperationsRedoMarker(par_firstOperationV1)
-        mod_opRedoMarker = New DLL_OperationsRedoMarker(par_initialOperationV1_2of2)
+        If (par_initialOperationV1_2of2 Is Nothing) Then
+            Debugger.Break()
+        Else
+            mod_opRedoMarker = New DLL_OperationsRedoMarker(par_initialOperationV1_2of2)
+        End If
 
     End Sub ''End of ""Public Sub New""  
 

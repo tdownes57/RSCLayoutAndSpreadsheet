@@ -129,6 +129,14 @@ Public Class RSCDataCell
         End Set
     End Property
 
+    Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As Boolean)
+            Throw New NotImplementedException()
+        End Set
+    End Property
 
     Public Sub SetFieldCell_NextBelow(par_cellNextBelow As RSCDataCell)
 
@@ -136,7 +144,7 @@ Public Class RSCDataCell
         ''Me.CellNextBelow = par_cellBelow
         If (par_cellNextBelow Is Nothing) Then Debugger.Break() ''Let's leverage encapsulation 
         ''  principles to make the application more secure. 
-        mod_CellNextBelow = par_cellNextBelow
+        mod_cellNextBelow = par_cellNextBelow
 
     End Sub
 
@@ -146,7 +154,7 @@ Public Class RSCDataCell
         ''11/2023 Me.CellPriorAbove = par_cellAbove
         If (par_cellPriorAbove Is Nothing) Then Debugger.Break() ''Let's leverage encapsulation 
         ''  principles to make the application more secure. 
-        mod_CellPriorAbove = par_cellPriorAbove
+        mod_cellPriorAbove = par_cellPriorAbove
 
     End Sub
 
@@ -473,7 +481,7 @@ Public Class RSCDataCell
             objRSCDataCell_NextRight = objRSCDataColumn_Next.GetCellWithRowIndex(intCurrentRowIndex)
         Else
             ''11/2023 objRSCDataCell_NextRight = Me.mod_cellNextRight
-            objRSCDataCell_NextRight = Me.mod_CellToSide_Right
+            objRSCDataCell_NextRight = Me.mod_cellToSide_Right
 
         End If ''End of ""If (pboolRefreshOutput) Then... Else...""
 
@@ -482,7 +490,7 @@ Public Class RSCDataCell
             ''Record the output result.
             ''#1 11/2023 Me.mod_cellNextRight = objRSCDataCell_NextRight
             ''#2 11/2023 Me.mod_CellNextBelow = objRSCDataCell_NextRight
-            Me.mod_CellToSide_Right = objRSCDataCell_NextRight
+            Me.mod_cellToSide_Right = objRSCDataCell_NextRight
         End If ''ENd of ""If (pboolRetainForRedoInsert) Then""
 
         ''
@@ -1273,7 +1281,7 @@ Public Class RSCDataCell
         End If
 
         ''11/2023  Me.CellPriorAbove = Nothing
-        mod_CellPriorAbove = Nothing
+        mod_cellPriorAbove = Nothing
 
     End Sub ''End of ""Public Sub DLL_ClearReferencePrior()""
 
@@ -1376,4 +1384,57 @@ Public Class RSCDataCell
         Return (mod_cellPriorAbove Is Nothing Or mod_cellNextBelow Is Nothing)
 
     End Function
+
+    Public Function DLL_GetNextItemFollowingRange(param_rangeSize As Integer, param_mayBeNull As Boolean) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetNextItemFollowingRange
+        ''Throw New NotImplementedException()
+
+    End Function
+
+    Public Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
+        ''Throw New NotImplementedException()
+        Return Textbox1a.Text ''Added 3/27/2024
+    End Function
+
+
+    Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
+        ''Throw New NotImplementedException()
+        Const COUNT_MYSELF As Integer = 1
+        Dim countPriorItems As Integer ''= 0
+        Dim countNextItems As Integer ''= 0
+        countPriorItems = DLL_CountItemsPrior()
+        countNextItems = DLL_CountItemsNext()
+        Return (countPriorItems + COUNT_MYSELF + countNextItems)
+
+    End Function ''Public Function DLL_CountItemsAllInList()
+
+
+    Public Function DLL_CountItemsPrior() As Integer Implements IDoublyLinkedItem.DLL_CountItemsPrior
+        ''Throw New NotImplementedException()
+        Dim result_count As Integer = 0
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior
+        While temp IsNot Nothing
+            result_count += 1
+            temp = temp.DLL_GetItemPrior()
+        End While ''End of ""While temp IsNot Nothing""
+        Return result_count
+
+    End Function ''Public Function DLL_CountItemsPrior()
+
+
+    ''' <summary>
+    ''' This is called by DLL_CountItemsAllInList, to assist in counting all linked items.
+    ''' </summary>
+    ''' <returns>How many times can we call DLL_HasItemNext() and get a result of True?</returns>
+    Private Function DLL_CountItemsNext() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsNext
+        ''Throw New NotImplementedException()
+        Dim result_count As Integer = 0
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemNext
+        While temp IsNot Nothing
+            result_count += 1
+            temp = temp.DLL_GetItemNext()
+        End While ''End of ""While temp IsNot Nothing""
+        Return result_count
+    End Function ''End of ""Public Function DLL_CountItemsNext()""
+
+
 End Class

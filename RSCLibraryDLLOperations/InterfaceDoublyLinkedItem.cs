@@ -7,7 +7,12 @@
 
 namespace RSCLibraryDLLOperations
 {
-
+    /// <summary>
+    /// This is a generically-typed interface.  The non-generic base-interface  
+    /// is a subset of methods, naturally those methods which are NOT repeat NOT 
+    /// generically-typed.
+    /// </summary>
+    /// <typeparam name="TypeOfItem">Usually a type of user-control which is repeated many times.</typeparam>
     public interface IDoublyLinkedItem<TypeOfItem> : IDoublyLinkedItem
     {
         //-----------------------------------------------------------------------------

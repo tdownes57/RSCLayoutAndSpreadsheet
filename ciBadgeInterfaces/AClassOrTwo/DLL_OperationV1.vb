@@ -1264,7 +1264,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
     End Function ''End of ""Public Function GetCopyV2() As DLL_OperationV2""
 
-    Private Function IDoublyLinkedItem_DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
+    Private Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
         Throw New NotImplementedException()
     End Function
 
@@ -1276,6 +1276,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         countPriorItems = DLL_CountItemsPrior()
         countNextItems = DLL_CountItemsNext()
         Return (countPriorItems + COUNT_MYSELF + countNextItems)
+
     End Function ''End of ""Public Function DLL_CountItemsAllInList()""
 
 
@@ -1309,6 +1310,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
             temp = temp.DLL_GetItemPrior()
         End While ''End of ""While temp IsNot Nothing""
         Return result_count
+
     End Function ''End of ""Private Function DLL_CountItemsPrior()""
 
 

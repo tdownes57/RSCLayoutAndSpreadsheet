@@ -38,8 +38,10 @@ Public Class DialogWaysToLoadGrid
         ''Added 10/28/2023 td
         ''
         ''//If (RSCFieldSpreadsheet.TEST_CONFIRM_AND_VERIFY) Then
-        Dim bTesting = RSCFieldSpreadsheet.TEST_CHECK_VERIFY_SLOWLY
-        If (bTesting) Then
+        Dim bTesting1 = RSCFieldSpreadsheet.TEST_CHECK_VERIFY_SLOWLY
+        Dim bTesting2 = RSCFieldSpreadsheet.TEST_CHECK_VERIFY_SLOWLY
+
+        If (bTesting2) Then
             LabelTEST_CHECK_CONFIRM.Visible = True
         Else
             LabelTEST_CHECK_CONFIRM.Visible = False
