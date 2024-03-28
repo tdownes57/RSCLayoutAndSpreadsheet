@@ -112,12 +112,13 @@ Public Class FormTestTwoLists2x2
             ''                              opInitialLoad.GetCopyV1())
 #If USE_PARENT_CLASS Then ''We will use "(Of TwoCharacterDLLItem, TwoCharacterDLLItem)"
             mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLItem,
-                   TwoCharacterDLLItem)(mod_list1Cols, mod_list2Rows,
+                   TwoCharacterDLLItem)(mod_list1Cols, mod_list2Rows, 
+                                            INCLUDE_LOAD_IN_REDO_LIST,
                                             opInitialLoad1Cols.GetCopyV1(),
                                             opInitialLoad2Rows.GetCopyV1())
 #ElseIf USE_SPECIFIC_CLASS Then ''We will use "(Of TwoCharacterDLLItem, TwoCharacterDLLItem)"
             mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
-                   TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows,
+                   TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows, True,
                                             opInitialLoad1Cols.GetCopyV1(),
                                             opInitialLoad2Rows.GetCopyV1())
 #End If
@@ -133,7 +134,8 @@ Public Class FormTestTwoLists2x2
                    TwoCharacterDLLItem)(mod_list1Cols, mod_list2Rows)
 #ElseIf USE_SPECIFIC_CLASS Then ''We will use "(Of TwoCharacterDLLItem, TwoCharacterDLLItem)"
             mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
-                   TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows)
+                   TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows,
+                                            INCLUDE_LOAD_IN_REDO_LIST)
 #End If
 
         End If ''END OF ::If (INCLUDE_LOAD_IN_REDO_LIST) Then... Else... 
@@ -814,10 +816,36 @@ Public Class FormTestTwoLists2x2
         Dim enumMode As EnumTwoListsMode = GetCurrentListMode()
 
         If (enumMode = EnumTwoListsMode.HorizontalCols) Then
+            ''
+            ''Horizontal Columns 
+            ''
+            If (Not par_operation.ModeColumnsNotRows) Then Debugger.Break()
+
+            mod_managerOfOps.ProcessOperation_Delete(par_operation,
+                      par_operation.IsChangeOfEndpoint, True)
+
+            '' Make the Insert visible to the user.
+            ''
+            RefreshTheUI_DisplayList_Cols()
 
         ElseIf (enumMode = EnumTwoListsMode.VerticalRows) Then
+            ''
+            ''Vertical Rows 
+            ''
+            If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
 
-        End If
+            mod_managerOfOps.ProcessOperation_Delete(par_operation,
+                      par_operation.IsChangeOfEndpoint, True)
+
+            '' Make the Insert visible to the user.
+            ''
+            RefreshTheUI_DisplayList_Rows()
+
+        End If ''End of ""If (enumMode = ...) ... ElseIf (enumMode = ...)" 
+
+        RefreshTheUI_OperationsCount()
+        RefreshTheUI_UndoRedoButtons()
+        userControlOperationBoth.UpdateTheItemCount()
 
     End Sub
 
@@ -829,13 +857,44 @@ Public Class FormTestTwoLists2x2
         Dim enumMode As EnumTwoListsMode = GetCurrentListMode()
 
         If (enumMode = EnumTwoListsMode.HorizontalCols) Then
+            ''
+            ''Horizontal Columns 
+            ''
+            If (Not par_operation.ModeColumnsNotRows) Then Debugger.Break()
+
+            mod_managerOfOps.ProcessOperation_Insert(par_operation,
+                      par_operation.IsChangeOfEndpoint, True)
+
+            ''
+            '' Make the Insert visible to the user.
+            ''
+            RefreshTheUI_DisplayList_Cols()
 
         ElseIf (enumMode = EnumTwoListsMode.VerticalRows) Then
+            ''
+            ''Vertical Rows 
+            ''
+            If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
 
-        End If
+            mod_managerOfOps.ProcessOperation_Insert(par_operation,
+                      par_operation.IsChangeOfEndpoint, True)
 
+            ''
+            '' Make the Insert visible to the user.
+            ''
+            RefreshTheUI_DisplayList_Rows()
 
-    End Sub
+        End If ''End of ""If (enumMode = EnumTwoListsMode.HorizontalCols) Then... ElseIf enumMode = EnumTwoListsMode.VerticalRows)..."
+
+        ''
+        ''Both Columns & Rows. 
+        ''
+        RefreshTheUI_OperationsCount()
+        RefreshTheUI_UndoRedoButtons()
+        userControlOperationBoth.UpdateTheItemCount()
+
+    End Sub ''Handles event DLLOperationCreated_Insert
+
 
     Private Sub userControlOperationBoth_DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1, par_inverseAnchor_PriorToRange As TwoCharacterDLLItem, par_inverseAnchor_NextToRange As TwoCharacterDLLItem) Handles userControlOperationBoth.DLLOperationCreated_MoveRange
         ''

@@ -30,6 +30,7 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
 
     Public Sub New(par_listH As IDoublyLinkedList(Of T_DoublyLinkedItemH),
                    par_listV As IDoublyLinkedList(Of T_DoublyLinkedItemV),
+                   pbIncludeLoadOperations As Boolean,
                    Optional par_initialOperationV1_1of2 As DLL_OperationV1 = Nothing,
                    Optional par_initialOperationV1_2of2 As DLL_OperationV1 = Nothing)
         ''
@@ -75,19 +76,29 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
         ''  Connect the two operations to each other.
         ''
         If (mod_lastPriorOperationV1 Is Nothing) Then
-            Debugger.Break()
+            If (pbIncludeLoadOperations) Then
+                Debugger.Break()
+            End If ''End of ""If (pbIncludeLoadOperations) Then""
         Else
             mod_firstPriorOperationV1.DLL_SetItemNext(mod_lastPriorOperationV1)
             mod_lastPriorOperationV1.DLL_SetItemPrior(mod_firstPriorOperationV1)
-        End If
+        End If ''End of ""If (mod_lastPriorOperationV1 Is Nothing) Then... Else..."
 
         ''Initialize the Redo Marker to the most recent operation. ---3/2024 
         ''   3/2024 mod_opRedoMarker = New DLL_OperationsRedoMarker(par_firstOperationV1)
         If (par_initialOperationV1_2of2 Is Nothing) Then
-            Debugger.Break()
+            If (pbIncludeLoadOperations) Then
+                Debugger.Break()
+            Else
+                ''Load operations are --NOT-- being included for potential Undo requests.
+            End If ''ENd of ""If (pbIncludeLoadOperations) Then...Else"
         Else
+            ''
+            ''Set the Redo marker. 
+            ''
             mod_opRedoMarker = New DLL_OperationsRedoMarker(par_initialOperationV1_2of2)
-        End If
+
+        End If ''enD OF ""If (par_initialOperationV1_2of2 Is Nothing) Then... ELSE...
 
     End Sub ''End of ""Public Sub New""  
 

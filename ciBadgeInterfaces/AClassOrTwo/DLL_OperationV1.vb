@@ -890,7 +890,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function
 
 
-    Public Function DLL_GetValue() As String
+    Public Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
 
         ''Added 1/5/2024 
         ''  Not applicable!
@@ -1264,9 +1264,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
 
     End Function ''End of ""Public Function GetCopyV2() As DLL_OperationV2""
 
-    Private Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
-        Throw New NotImplementedException()
-    End Function
+    ''Private Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
+    ''    Throw New NotImplementedException()
+    ''End Function
 
     Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
         ''Throw New NotImplementedException()
