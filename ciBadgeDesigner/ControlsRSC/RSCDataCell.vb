@@ -138,6 +138,7 @@ Public Class RSCDataCell
         End Set
     End Property
 
+
     Public Sub SetFieldCell_NextBelow(par_cellNextBelow As RSCDataCell)
 
         ''Added 5/17/2023 
@@ -147,6 +148,29 @@ Public Class RSCDataCell
         mod_cellNextBelow = par_cellNextBelow
 
     End Sub
+
+
+    Public Sub SetFieldCell_Left(par_cellLeft As RSCDataCell)
+
+        ''Added 5/17/2023 
+        ''Me.CellNextBelow = par_cellBelow
+        If (par_cellLeft Is Nothing) Then Debugger.Break() ''Let's leverage encapsulation 
+        ''  principles to make the application more secure. 
+        mod_cellToSide_Left_NotInUse = par_cellLeft
+
+    End Sub
+
+
+    Public Sub SetFieldCell_Right(par_cellRight As RSCDataCell)
+
+        ''Added 5/17/2023 
+        ''Me.CellNextBelow = par_cellBelow
+        If (par_cellRight Is Nothing) Then Debugger.Break() ''Let's leverage encapsulation 
+        ''  principles to make the application more secure. 
+        mod_cellToSide_Right = par_cellRight
+
+    End Sub
+
 
     Public Sub SetFieldCell_PriorAbove(par_cellPriorAbove As RSCDataCell)
 

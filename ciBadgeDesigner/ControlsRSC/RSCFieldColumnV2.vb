@@ -892,35 +892,44 @@ Public Class RSCFieldColumnV2
         ''
         ''Added 3/20/2022 t//d//
         ''
-        Dim indexItem As Integer = 0
-        Dim listRSCDataCells As IEnumerable(Of RSCDataCell)
+        ''Dim indexItem As Integer = 0
+        ''Dim listRSCDataCells As IEnumerable(Of RSCDataCell)
+        Dim nextCell As RSCDataCell = mod_rscDataCell1
 
-        listRSCDataCells = ListOfRSCDataCells_TopToBottom()
-        ReDim mod_arrayOfData_Undo(-1 + listRSCDataCells.Count)
-        ReDim mod_arrayOfData_Undo_Tag(-1 + listRSCDataCells.Count)
+        While (nextCell IsNot Nothing)
+            nextCell.Textbox1a.Clear()
+            ''Prepare.
+            nextCell = CType(nextCell.DLL_GetItemNext(), RSCDataCell)
+        End While
 
-        ''
-        ''Looping 
-        ''
-        For Each each_RSCDataCell In listRSCDataCells '' ListOfRSCDataCelles_TopToBottom()
+        ''listRSCDataCells = ListOfRSCDataCells_TopToBottom()
+        ''listRSCDataCells = ListOfRSCDataCells_TopToBottom()
 
-            ''Enable the Undo procedure.
-            mod_arrayOfData_Undo(indexItem) = each_RSCDataCell.Text
+        ''ReDim mod_arrayOfData_Undo(-1 + listRSCDataCells.Count)
+        ''ReDim mod_arrayOfData_Undo_Tag(-1 + listRSCDataCells.Count)
 
-            ''Added 4/1/2022 td
-            If (each_RSCDataCell.Tag Is Nothing) Then each_RSCDataCell.Tag = "" ''Added 4/1/2022
-            mod_arrayOfData_Undo_Tag(indexItem) = each_RSCDataCell.Tag.ToString() ''Added 4/1/2022td
+        ''''
+        ''''Looping 
+        ''''
+        ''For Each each_RSCDataCell In listRSCDataCells '' ListOfRSCDataCelles_TopToBottom()
 
-            indexItem += 1
+        ''    ''Enable the Undo procedure.
+        ''    mod_arrayOfData_Undo(indexItem) = each_RSCDataCell.Text
 
-            ''Clear the RSCDataCell of data.  
-            each_RSCDataCell.Text = ""
-            each_RSCDataCell.Tag = "" ''Added 4/1/2022
-            each_RSCDataCell.Tag_Text = "" ''Added 4/11/2022
+        ''    ''Added 4/1/2022 td
+        ''    If (each_RSCDataCell.Tag Is Nothing) Then each_RSCDataCell.Tag = "" ''Added 4/1/2022
+        ''    mod_arrayOfData_Undo_Tag(indexItem) = each_RSCDataCell.Tag.ToString() ''Added 4/1/2022td
 
-        Next each_RSCDataCell
+        ''    indexItem += 1
 
-    End Sub ''End of "Private Sub LoadDataToColumn_Do()"
+        ''    ''Clear the RSCDataCell of data.  
+        ''    each_RSCDataCell.Text = ""
+        ''    each_RSCDataCell.Tag = "" ''Added 4/1/2022
+        ''    each_RSCDataCell.Tag_Text = "" ''Added 4/11/2022
+
+        ''Next each_RSCDataCell
+
+    End Sub ''End of "Private Sub ClearDataToColumn_Do()"
 
 
     Public Sub ClearDataFromColumn_Undo(Optional pboolSkipBoxesWithData As Boolean = False)
@@ -932,7 +941,7 @@ Public Class RSCFieldColumnV2
         Dim bExpectedLength As Boolean
         Dim boolHasDataToKeep As Boolean
 
-        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
+        listRSCDataCelles = ListOfRSCDataCells_TopToBottom_DEPRECATED()
         bExpectedLength = (listRSCDataCelles.Count = mod_arrayOfData_Undo.Length)
         If (bExpectedLength) Then
             For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
@@ -978,7 +987,7 @@ Public Class RSCFieldColumnV2
         ''Added 5/13/2022 thomas downes
         ''  Check the cells to see which has the text-caret focus ("editing focus").
         ''
-        For Each each_cell As RSCDataCell In ListOfRSCDataCells_TopToBottom()
+        For Each each_cell As RSCDataCell In ListOfRSCDataCells_TopToBottom_DEPRECATED()
             ''May 13, 2022 ''If (each_cell.HasFocus()) Then
             ''May 13, 2022 ''if (each_cell.RowHeaderHasFocus()) Then"
 
@@ -1056,7 +1065,7 @@ Public Class RSCFieldColumnV2
         Dim intCountData As Integer = 0
         Dim listRSCDataCelles As IEnumerable(Of RSCDataCell)
 
-        listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
+        listRSCDataCelles = ListOfRSCDataCells_TopToBottom_DEPRECATED()
         pref_countOfRows = listRSCDataCelles.Count ''Added 3/23/2022 td
 
         For Each each_RSCDataCell In listRSCDataCelles '' ListOfRSCDataCelles_TopToBottom()
@@ -1137,7 +1146,7 @@ Public Class RSCFieldColumnV2
         Dim intExamples As Integer
         Dim intCellIndex As Integer = 0
 
-        listRSCDataCells = ListOfRSCDataCells_TopToBottom()
+        listRSCDataCells = ListOfRSCDataCells_TopToBottom_DEPRECATED()
         pref_countOfRows = listRSCDataCells.Count ''Added 3/23/2022 td
 
         ''
@@ -1211,7 +1220,8 @@ Public Class RSCFieldColumnV2
         ''10/28/2023
         ''Return s_objFirstRSCDataCell
 
-        Return mod_firstRSCDataCell
+        ''--Return mod_firstRSCDataCell
+        Return mod_rscDataCell1
 
     End Function ''End of ""Public Function GetFirstRSCDataCell() As RSCDataCell""
 
@@ -1221,7 +1231,7 @@ Public Class RSCFieldColumnV2
         ''Added 3/24/2022 thomas downes
         ''
         Dim objFirstRSCDataCell As RSCDataCell
-        objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom().First()
+        objFirstRSCDataCell = ListOfRSCDataCells_TopToBottom_DEPRECATED().First()
         ''6/22/2022 td''If (objFirstRSCDataCell Is Nothing) Then Return -1 ''Added 6/22/2022
         If (objFirstRSCDataCell Is Nothing) Then Return RscDataCell1.Top ''Added 6/22/2022
         Return objFirstRSCDataCell.Top
@@ -1234,7 +1244,7 @@ Public Class RSCFieldColumnV2
         ''Added 4/4//2022 thomas downes 
         ''
         Dim objBottomRSCDataCell As RSCDataCell
-        objBottomRSCDataCell = ListOfRSCDataCells_TopToBottom().Last
+        objBottomRSCDataCell = ListOfRSCDataCells_TopToBottom_DEPRECATED().Last
         Return (objBottomRSCDataCell.Top + objBottomRSCDataCell.Height)
 
     End Function ''End of ""Public Function GetRSCDataCellAtBottom_Bottom()""
@@ -1461,7 +1471,7 @@ Public Class RSCFieldColumnV2
         Dim intRowsInSpreadsheet As Integer
         Dim listValuesForStatistics As New List(Of String) ''Added 4/26/2022 td
 
-        listBoxes = ListOfRSCDataCells_TopToBottom()
+        listBoxes = ListOfRSCDataCells_TopToBottom_DEPRECATED()
 
         ''Added 4/11/2022
         intRowsInSpreadsheet = Me.CountOfRows() ''Me.ParentSpreadsheet.RscFieldColumn1.CountOfRows()
@@ -1540,7 +1550,7 @@ Public Class RSCFieldColumnV2
         Dim listRSCDataCells As List(Of RSCDataCell)
         Dim each_isAbnormal As Boolean
 
-        listRSCDataCells = ListOfRSCDataCells_TopToBottom()
+        listRSCDataCells = ListOfRSCDataCells_TopToBottom_DEPRECATED()
         ''---pref_countOfRows = listRSCDataCells.Count ''Added 3/23/2022 td
 
         ''
@@ -1679,6 +1689,14 @@ Public Class RSCFieldColumnV2
 
     End Function ''end of Private Function ListOfData() As List(Of String)
 
+
+    Public Function ListOfRSCDataCells_TopToBottom_DEPRECATED(Optional par_bSkipSorting As Boolean = False) As List(Of RSCDataCell) ''IOrderedEnumerable(Of RSCDataCell)
+
+        ''Added 4/2/2024
+        ''  DEPRECATED
+        Return Nothing
+
+    End Function
 
     ''Deprecated. 10/2023 Public Function ListOfRSCDataCells_TopToBottom(Optional par_bSkipSorting As Boolean = False) As List(Of RSCDataCell) ''IOrderedEnumerable(Of RSCDataCell)
     ''    ''
@@ -1953,7 +1971,7 @@ Public Class RSCFieldColumnV2
         Dim intRowIndex As Integer
         Dim boolMatches As Boolean
 
-        list_cells = ListOfRSCDataCells_TopToBottom()
+        list_cells = ListOfRSCDataCells_TopToBottom_DEPRECATED()
 
         For Each each_cell In list_cells
 
@@ -1978,7 +1996,7 @@ Public Class RSCFieldColumnV2
         Dim intRowIndex As Integer
         Dim boolMatches As Boolean
 
-        list_cells = ListOfRSCDataCells_TopToBottom()
+        list_cells = ListOfRSCDataCells_TopToBottom_DEPRECATED()
 
         For intRowIndex = 1 To list_cells.Count
 
@@ -2312,7 +2330,7 @@ Public Class RSCFieldColumnV2
         ''Me.Height = (objRSCDataCell.Top + objRSCDataCell.Height + intTopGap)
 
         Dim listOfBoxes As List(Of RSCDataCell)
-        listOfBoxes = ListOfRSCDataCells_TopToBottom()
+        listOfBoxes = ListOfRSCDataCells_TopToBottom_DEPRECATED()
         RSCDataCell_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
         Me.Height = (RSCDataCell_BottomLast.Top + RSCDataCell_BottomLast.Height +
                     Me.PixelsFromRowToRow) ''----mc_intPixelsFromRowToRow)
@@ -2391,7 +2409,7 @@ Public Class RSCFieldColumnV2
         Dim intIndex__End As Integer
         Dim intTopGap As Integer
 
-        listOfBoxes = ListOfRSCDataCells_TopToBottom()
+        listOfBoxes = ListOfRSCDataCells_TopToBottom_DEPRECATED()
         RSCDataCell_Top = listOfBoxes(0)
 
         RSCDataCell_BottomLast = listOfBoxes(-1 + listOfBoxes.Count) ''.LastOrDefault
@@ -2689,7 +2707,7 @@ Public Class RSCFieldColumnV2
         Static listRSCDataCelles As List(Of RSCDataCell)
 
         If (pboolRefresh Or listRSCDataCelles Is Nothing) Then
-            listRSCDataCelles = ListOfRSCDataCells_TopToBottom()
+            listRSCDataCelles = ListOfRSCDataCells_TopToBottom_DEPRECATED()
         End If
 
         ''April 12 2022 ''strValue = listRSCDataCelles(par_intRowIndex).Text

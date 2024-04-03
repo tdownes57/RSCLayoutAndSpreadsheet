@@ -1718,10 +1718,10 @@ Public Class RSCRowHeaders
 
             ''''4/11 td''each_box.Text = Me. ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
             ''Added 4/11/2022 td
-            each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumFieldSelected)
+            ''4/2/2024 each_value = Me.ListRecipients(intRowIndex).GetTextValue(enumField)
 
             ''Added 4/25/2022 td
-            listValuesForStatistics.Add(each_value)
+            ''4/2/2024 listValuesForStatistics.Add(each_value)
 
             ''''Added 4/15/2022
             Dim strCellDataBeforeLoadingRecip As String

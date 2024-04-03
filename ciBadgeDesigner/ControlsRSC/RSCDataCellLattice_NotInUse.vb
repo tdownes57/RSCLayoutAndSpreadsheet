@@ -176,8 +176,10 @@ Public Class RSCDataCellLattice_NotInUse
             tempCellBelow.DLL_SetItemPrior(tempCellAbove)
 
             ''Prepare for next iteration.
-            tempCellAbove = tempCellAbove.GetNextCell_Right()
-            tempCellBelow = tempCellBelow.GetNextCell_Right()
+            ''--tempCellAbove = tempCellAbove.GetNextCell_Right()
+            ''--tempCellBelow = tempCellBelow.GetNextCell_Right()
+            tempCellAbove = CType(tempCellAbove.DLL_GetItemPrior(), RSCDataCell)
+            tempCellBelow = CType(tempCellBelow.DLL_GetItemNext(), RSCDataCell)
 
         Loop ''End of ""Do While (tempCellAbove IsNot Nothing)""
 
@@ -277,8 +279,10 @@ Public Class RSCDataCellLattice_NotInUse
             intRowIndex += 1
 
             ''Build the Lattice.
-            tempCellLeft.CellRight = tempCellRigh
-            tempCellRigh.Cell_Left = tempCellLeft
+            ''--tempCellLeft.CellRight = tempCellRigh
+            ''--tempCellRigh.Cell_Left = tempCellLeft
+            tempCellLeft.SetFieldCell_Left(tempCellRigh)
+            tempCellRigh.SetFieldCell_Right(tempCellLeft)
 
             ''Count non-nulls.
             intCountCellsNonnull += 1
@@ -334,8 +338,10 @@ Public Class RSCDataCellLattice_NotInUse
             intRowIndex += 1
 
             ''Build the Lattice.
-            If (bAssignLeft) Then tempCell.Cell_Left = tempCellLeft
-            If (bAssignRigh) Then tempCell.CellRight = tempCellRigh
+            ''--If (bAssignLeft) Then tempCell.Cell_Left = tempCellLeft
+            ''--If (bAssignRigh) Then tempCell.CellRight = tempCellRigh
+            If (bAssignLeft) Then tempCell.SetFieldCell_Left(tempCellLeft)
+            If (bAssignRigh) Then tempCell.SetFieldCell_Right(tempCellRigh)
 
             ''Count non-nulls.
             intCountCellsNonnull += 1
@@ -343,9 +349,9 @@ Public Class RSCDataCellLattice_NotInUse
             If (bAssignRigh) Then If (tempCellRigh IsNot Nothing) Then intCountCellsRigh += 1
 
             ''Prepare for next row.
-            tempCell = tempCell.CellBelow
-            If (bAssignLeft) Then tempCellLeft = tempCellLeft.CellBelow
-            If (bAssignRigh) Then tempCellRigh = tempCellRigh.CellBelow
+            tempCell = CType(tempCell.DLL_GetItemNext(), RSCDataCell)    ''.CellBelow
+            If (bAssignLeft) Then tempCellLeft = CType(tempCellLeft.DLL_GetItemNext(), RSCDataCell)   ''.CellBelow
+            If (bAssignRigh) Then tempCellRigh = CType(tempCellRigh.DLL_GetItemNext(), RSCDataCell)   ''.CellBelow
 
         End While ''End of ""While (tempCell IsNot Nothing)""
 
