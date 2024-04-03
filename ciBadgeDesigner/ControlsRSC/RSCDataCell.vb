@@ -1311,6 +1311,21 @@ Public Class RSCDataCell
     End Sub ''End of ""Public Sub DLL_ClearReferenceNext()""
 
 
+    Public Sub ClearCell_Left()
+
+        ''Added 4/2/2024
+        Me.mod_cellToSide_Left_NotInUse = Nothing
+
+    End Sub
+
+    Public Sub ClearCell_Right()
+
+        ''Added 4/2/2024
+        Me.mod_cellToSide_Right = Nothing
+
+    End Sub
+
+
     Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
@@ -1435,6 +1450,9 @@ Public Class RSCDataCell
         End While ''End of ""While temp IsNot Nothing""
         Return result_count
     End Function ''End of ""Public Function DLL_CountItemsNext()""
+
+
+
 
 
 End Class

@@ -53,8 +53,11 @@ Public Class RSCListItem
     ''    Throw New NotImplementedException()
     ''End Sub
 
-    Public Sub DLL_InsertRangeAfter(toBeInsertedRange_FirstItem As RSCListItem, toBeInsertedRange_ItemCount As Integer, toUseAsAnchor_Preceding As RSCListItem, isChangeOfEndPoint As Boolean) Implements IDoublyLinkedList(Of RSCListItem).DLL_InsertRangeAfter
+    Public Sub DLL_InsertRangeAfter(toBeInsertedRange_FirstItem As RSCListItem, toBeInsertedRange_ItemCount As Integer, toUseAsAnchor_Preceding As RSCListItem, isChangeOfEndPoint As Boolean,
+                                   Optional item_endRange_null As RSCListItem = Nothing) Implements IDoublyLinkedList(Of RSCListItem).DLL_InsertRangeAfter
+
         Throw New NotImplementedException()
+
     End Sub
 
     ''Public Sub DLL_DeleteItem(item_toDelete As RSCListItem) Implements IDoublyLinkedList(Of RSCListItem).DLL_DeleteItem
@@ -116,11 +119,23 @@ Public Class RSCListItem
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_InsertRangeBefore(toBeInsertedRange_FirstItem As RSCListItem, toBeInsertedRange_ItemCount As Integer, toUseAsAnchor_Terminating As RSCListItem, isChangeOfEndPoint As Boolean) Implements IDoublyLinkedList(Of RSCListItem).DLL_InsertRangeBefore
+    Public Sub DLL_InsertRangeBefore(toBeInsertedRange_FirstItem As RSCListItem, toBeInsertedRange_ItemCount As Integer, toUseAsAnchor_Terminating As RSCListItem, isChangeOfEndPoint As Boolean, Optional item_endRange_null As RSCListItem = Nothing) Implements IDoublyLinkedList(Of RSCListItem).DLL_InsertRangeBefore
         Throw New NotImplementedException()
     End Sub
 
-    Public Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As RSCListItem, count_of_deleteds As Integer, isChangeOfEndPoint As Boolean) Implements IDoublyLinkedList(Of RSCListItem).DLL_DeleteRange_Simpler
+    Public Sub DLL_DeleteRange_Simpler(item_toDeleteBegin As RSCListItem, count_of_deleteds As Integer, isChangeOfEndPoint As Boolean, Optional item_endRange_null As RSCListItem = Nothing) Implements IDoublyLinkedList(Of RSCListItem).DLL_DeleteRange '' .DLL_DeleteRange_Simpler
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub DLL_InsertRangeEmptyList(toBeInsertedRange_FirstItem As RSCListItem, toBeInsertedRange_ItemCount As Integer) Implements IDoublyLinkedList(Of RSCListItem).DLL_InsertRangeEmptyList
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub DLL_ClearAllItems() Implements IDoublyLinkedList(Of RSCListItem).DLL_ClearAllItems
+        Throw New NotImplementedException()
+    End Sub
+
+    Public Sub DLL_AddFirstAndOnlyItem(item_toAdd As RSCListItem) Implements IDoublyLinkedList(Of RSCListItem).DLL_AddFirstAndOnlyItem
         Throw New NotImplementedException()
     End Sub
 
@@ -166,11 +181,11 @@ Public Class RSCListItem
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_BuildListToIndex(index As Integer) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex_DEPRECATED(index As Integer) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_BuildListToIndex_DEPRECATED
         Throw New NotImplementedException()
     End Function
 
-    Public Function DLL_BuildListToIndex(index As Integer, ByRef count_of_new_items As Integer) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_BuildListToIndex
+    Public Function DLL_BuildListToIndex_DEPRECATED(index As Integer, ByRef count_of_new_items As Integer) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_BuildListToIndex_DEPRECATED
         Throw New NotImplementedException()
     End Function
 
@@ -183,6 +198,14 @@ Public Class RSCListItem
     End Function
 
     Public Function DLL_PopRange(indexStart As Integer, countOfItemsToPop As Integer) As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_PopRange
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function DLL_GetLastItem() As RSCListItem Implements IDoublyLinkedList(Of RSCListItem).DLL_GetLastItem
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function DLL_IsListEmpty() As Boolean Implements IDoublyLinkedList(Of RSCListItem).DLL_IsListEmpty
         Throw New NotImplementedException()
     End Function
 End Class

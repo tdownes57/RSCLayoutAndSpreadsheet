@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
+Imports System.Runtime.CompilerServices
 Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 
@@ -20,6 +21,10 @@ Imports ciBadgeSerialize
 ''' This will allow the user to create DLLOperations.
 ''' </summary>
 Friend Class UserControlOperation
+
+    ''Added 3/29/2024
+    Public ModeColumns As Boolean ''Columns are arranged horizontally.
+    Public Mode___Rows As Boolean ''Rows are arranged vertically.
 
     Public DLLOperationHorizontal As DLL_OperationV2
     Public DLLOperationVertical As DLL_OperationV2 ''Added 3/2/2024 td
@@ -57,7 +62,11 @@ Friend Class UserControlOperation
     ''' which the user has requested, and which hasn't yet been performed.
     ''' </summary>
     ''' <param name="par_operation">Gives detail of operation.</param>
+    ''3/2024 td Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1)
     Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1)
+    Public Event DLLOperationCreated_InsertRow(par_operation As DLL_OperationV1)
+    Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1)
+
     ''--Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV2)
 
     ''' <summary>
@@ -277,16 +286,25 @@ Friend Class UserControlOperation
 
             RaiseEvent DLLOperationCreated_Insert(objDLLOperation.GetCopyV1())
 
+            ''Added 3/29/2024 td
+            If (Me.ModeColumns) Then
+                ''Columns are arranged horizontally.
+                RaiseEvent DLLOperationCreated_InsertCol(objDLLOperation.GetCopyV1())
+            ElseIf (Me.Mode___Rows) Then
+                ''Rows are arranged vertically.
+                RaiseEvent DLLOperationCreated_InsertRow(objDLLOperation.GetCopyV1())
+            End If
+
             ''Administrative.
             ''  Inserts do NOT have an "inverse anchor".
             DLL_InverseAnchor_PriorToRange = Nothing
-            DLL_InverseAnchor_NextToRange = Nothing
+                DLL_InverseAnchor_NextToRange = Nothing
 
-        End If ''end of ""If (firstRangeItem Is Nothing) Then... ElseIf..."
+            End If ''end of ""If (firstRangeItem Is Nothing) Then... ElseIf..."
 
-        ''Added 1/01/2024 td
-        ''mod_lastPriorOpV2 = objDLLOperation
-        RecordLastPriorOperation(objDLLOperation)
+            ''Added 1/01/2024 td
+            ''mod_lastPriorOpV2 = objDLLOperation
+            RecordLastPriorOperation(objDLLOperation)
 
     End Sub ''End of ""Private Sub ButtonInsert_Click""
 

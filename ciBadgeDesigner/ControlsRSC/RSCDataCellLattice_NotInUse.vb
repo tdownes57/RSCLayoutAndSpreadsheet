@@ -225,14 +225,16 @@ Public Class RSCDataCellLattice_NotInUse
             intRowIndex += 1
 
             ''Clear the Lattice links.
-            If (par_doClearRighSide) Then tempCell.CellRight = Nothing
-            If (par_doClearLeftSide) Then tempCell.Cell_Left = Nothing
+            ''If (par_doClearRighSide) Then tempCell.CellRight = Nothing
+            ''If (par_doClearLeftSide) Then tempCell.Cell_Left = Nothing
+            If (par_doClearRighSide) Then tempCell.ClearCell_Right()
+            If (par_doClearLeftSide) Then tempCell.ClearCell_Left() '' = Nothing
 
             ''Count non-nulls.
             intCountCellsNonnull += 1
 
             ''Prepare for next row.
-            tempCell = tempCell.CellBelow
+            tempCell = CType(tempCell.DLL_GetItemNext(), RSCDataCell)    ''.CellBelow
 
         End While ''End of ""While (tempCell IsNot Nothing)""
 
@@ -282,8 +284,8 @@ Public Class RSCDataCellLattice_NotInUse
             intCountCellsNonnull += 1
 
             ''Prepare for next row.
-            tempCellLeft = tempCellLeft.CellBelow
-            tempCellRigh = tempCellRigh.CellBelow
+            tempCellLeft = tempCellLeft.GetCell_LefthandSide()   ''.CellBelow
+            tempCellRigh = tempCellRigh.GetCell_RighthandSide(False, False, False, False, False, False) ''.CellBelow
 
         End While ''End of ""While (tempCell IsNot Nothing)""
 

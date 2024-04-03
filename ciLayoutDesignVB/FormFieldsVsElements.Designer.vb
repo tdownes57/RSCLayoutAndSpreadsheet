@@ -126,7 +126,6 @@ Partial Class FormFieldsVsElements
         'ButtonAddElementsH
         '
         Me.ButtonAddElementsH.BackColor = System.Drawing.Color.RosyBrown
-        Me.ButtonAddElementsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
         Me.ButtonAddElementsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonAddElementsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ButtonAddElementsH.Location = New System.Drawing.Point(94, 225)

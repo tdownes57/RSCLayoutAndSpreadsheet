@@ -79,7 +79,14 @@ Public Class RSCRowHeader
         End Set
     End Property
 
-
+    Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
+        Get
+            Throw New NotImplementedException()
+        End Get
+        Set(value As Boolean)
+            Throw New NotImplementedException()
+        End Set
+    End Property
 
     Public Function FocusRelated_RowHasEmphasis() As Boolean
         ''
@@ -939,5 +946,21 @@ Public Class RSCRowHeader
         ''Added 12/25/2023
         Return (mod_rowHeaderPriorAbove Is Nothing Or mod_rowHeaderNextBelow Is Nothing)
 
+    End Function
+
+    Public Function DLL_GetNextItemFollowingRange(param_rangeSize As Integer, param_mayBeNull As Boolean) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetNextItemFollowingRange
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
+        Throw New NotImplementedException()
+    End Function
+
+    Public Function DLL_CountItemsPrior() As Integer Implements IDoublyLinkedItem.DLL_CountItemsPrior
+        Throw New NotImplementedException()
     End Function
 End Class

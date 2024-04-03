@@ -793,18 +793,28 @@ Public Class FormTestTwoLists2x2
 
 
 
-    Private Sub labelItemsDisplay_Click(sender As Object, e As EventArgs) Handles labelItemsDisplay1Cols.Click
+    Private Sub labelItemsDisplay1Cols_Click(sender As Object, e As EventArgs) Handles labelItemsDisplay1Cols.Click
         ''
         ''Added 1/24/2024 
         ''
-        userControlOperationBoth.BackColor = CType(sender, Control).BackColor
+        ''3/2024 userControlOperationBoth.BackColor = CType(sender, Control).BackColor
+        With userControlOperationBoth
+            .ModeColumns = True ''Columns are arranged horizontally.
+            .Mode___Rows = False
+            .BackColor = CType(sender, Control).BackColor
+        End With
 
     End Sub
 
-    Private Sub labelItemsDisplay2_Click(sender As Object, e As EventArgs) Handles labelItemsDisplay2Rows.Click
+    Private Sub labelItemsDisplay2Rows_Click(sender As Object, e As EventArgs) Handles labelItemsDisplay2Rows.Click
 
         ''Added 1/24/2024 
         userControlOperationBoth.BackColor = CType(sender, Control).BackColor
+        With userControlOperationBoth
+            .Mode___Rows = True ''Rows are arranged vertically.
+            .ModeColumns = False ''True
+            .BackColor = CType(sender, Control).BackColor
+        End With
 
     End Sub
 
@@ -819,7 +829,7 @@ Public Class FormTestTwoLists2x2
             ''
             ''Horizontal Columns 
             ''
-            If (Not par_operation.ModeColumnsNotRows) Then Debugger.Break()
+            ''Deprecated 3/2024  If (Not par_operation.ModeColumnsNotRows) Then Debugger.Break()
 
             mod_managerOfOps.ProcessOperation_Delete(par_operation,
                       par_operation.IsChangeOfEndpoint, True)
@@ -832,7 +842,7 @@ Public Class FormTestTwoLists2x2
             ''
             ''Vertical Rows 
             ''
-            If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
+            ''Deprecated 3/2024  If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
 
             mod_managerOfOps.ProcessOperation_Delete(par_operation,
                       par_operation.IsChangeOfEndpoint, True)
@@ -850,9 +860,51 @@ Public Class FormTestTwoLists2x2
     End Sub
 
 
-    Private Sub userControlOperationBoth_DLLOperationCreated_Insert(par_operation As DLL_OperationV1) Handles userControlOperationBoth.DLLOperationCreated_Insert
+    Private Sub DLLOperationCreated_InsertRow(par_operation As DLL_OperationV1) _
+        Handles userControlOperationBoth.DLLOperationCreated_InsertRow
         ''
         ''Added 2/27/2024 td
+        ''
+        Dim enumMode As EnumTwoListsMode = GetCurrentListMode()
+
+        If (enumMode = EnumTwoListsMode.HorizontalCols) Then
+            ''
+            ''Horizontal Columns 
+            ''
+            ''   As this event-handler is called ..._InsertColumn, this mode
+            ''   is unexpected. 
+            ''
+            ''Deprecated 3/2024  If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
+            Debugger.Break() ''Rows vs. Columns Confusion!
+
+        ElseIf (enumMode = EnumTwoListsMode.VerticalRows) Then
+            ''
+            ''Vertical Rows 
+            ''
+            ''Deprecated 3/2024  If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
+            mod_managerOfOps.ProcessOperation_Insert(par_operation,
+                      par_operation.IsChangeOfEndpoint, True)
+
+            ''
+            '' Make the Insert visible to the user.
+            ''
+            RefreshTheUI_DisplayList_Rows()
+
+        End If ''End of ""If (enumMode = EnumTwoListsMode.HorizontalCols) Then... ElseIf enumMode = EnumTwoListsMode.VerticalRows)..."
+
+        ''
+        ''Both Columns & Rows. 
+        ''
+        RefreshTheUI_OperationsCount()
+        RefreshTheUI_UndoRedoButtons()
+        userControlOperationBoth.UpdateTheItemCount()
+
+    End Sub ''Handles event DLLOperationCreated_InsertRow
+
+
+    Private Sub DLLOperationCreated_InsertColumn(par_operation As DLL_OperationV1) Handles userControlOperationBoth.DLLOperationCreated_InsertCol
+        ''
+        ''Added 3/29/2024 td
         ''
         Dim enumMode As EnumTwoListsMode = GetCurrentListMode()
 
@@ -874,15 +926,10 @@ Public Class FormTestTwoLists2x2
             ''
             ''Vertical Rows 
             ''
-            If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
-
-            mod_managerOfOps.ProcessOperation_Insert(par_operation,
-                      par_operation.IsChangeOfEndpoint, True)
-
+            ''   As this event-handler is called ..._InsertColumn, this mode
+            ''   is unexpected. 
             ''
-            '' Make the Insert visible to the user.
-            ''
-            RefreshTheUI_DisplayList_Rows()
+            Debugger.Break() ''Rows vs. Columns Confusion!
 
         End If ''End of ""If (enumMode = EnumTwoListsMode.HorizontalCols) Then... ElseIf enumMode = EnumTwoListsMode.VerticalRows)..."
 
@@ -893,7 +940,7 @@ Public Class FormTestTwoLists2x2
         RefreshTheUI_UndoRedoButtons()
         userControlOperationBoth.UpdateTheItemCount()
 
-    End Sub ''Handles event DLLOperationCreated_Insert
+    End Sub ''Handles event DLLOperationCreated_InsertRow
 
 
     Private Sub userControlOperationBoth_DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1, par_inverseAnchor_PriorToRange As TwoCharacterDLLItem, par_inverseAnchor_NextToRange As TwoCharacterDLLItem) Handles userControlOperationBoth.DLLOperationCreated_MoveRange

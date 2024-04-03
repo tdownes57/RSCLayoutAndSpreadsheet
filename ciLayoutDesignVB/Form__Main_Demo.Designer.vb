@@ -1012,7 +1012,6 @@ Partial Class Form__Main_Demo
         'ButtonAddElementsV
         '
         Me.ButtonAddElementsV.BackColor = System.Drawing.Color.RosyBrown
-        Me.ButtonAddElementsV.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard
         Me.ButtonAddElementsV.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonAddElementsV.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ButtonAddElementsV.Location = New System.Drawing.Point(664, 96)
@@ -1024,7 +1023,6 @@ Partial Class Form__Main_Demo
         'ButtonAddElementsH
         '
         Me.ButtonAddElementsH.BackColor = System.Drawing.Color.RosyBrown
-        Me.ButtonAddElementsH.BackgroundImage = Global.ciLayoutDesignVB.My.Resources.Resources.Add_Elements_to_IDCard_H
         Me.ButtonAddElementsH.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ButtonAddElementsH.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.ButtonAddElementsH.Location = New System.Drawing.Point(34, 518)
