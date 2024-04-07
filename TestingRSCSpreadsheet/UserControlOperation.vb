@@ -26,6 +26,10 @@ Friend Class UserControlOperation
     Public ModeColumns As Boolean ''Columns are arranged horizontally.
     Public Mode___Rows As Boolean ''Rows are arranged vertically.
 
+    ''Added 3/29/2024
+    Public ModeColumns_Color As Color ''Columns are arranged horizontally.
+    Public Mode___Rows_Color As Color ''Rows are arranged vertically.
+
     Public DLLOperationHorizontal As DLL_OperationV2
     Public DLLOperationVertical As DLL_OperationV2 ''Added 3/2/2024 td
     Public DLL_ListItems As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem) ''Restored 3/12/2024
@@ -189,6 +193,36 @@ Friend Class UserControlOperation
     End Sub ''ENd of ""Public Sub ToggleSingleItemMode()
 
 
+    Public Sub SetModeToColumns()
+
+        ''Added 4/6/2024 
+        Me.BackColor = Me.ModeColumns_Color
+        Me.ModeColumns = True '' = Me.ColorForColumns
+        Me.Mode___Rows = False
+
+        ''Added 4/6/2024 
+        If (Me.ModeColumns_Color = Me.Mode___Rows_Color) Then
+            Debugger.Break()
+        End If
+
+    End Sub ''end of ""Public Sub SetModeToColumns()""
+
+
+    Public Sub SetModeTo___Rows()
+
+        ''Added 4/6/2024 
+        Me.BackColor = Me.Mode___Rows_Color
+        Me.Mode___Rows = True '' = Me.ColorForColumns
+        Me.ModeColumns = False
+
+        ''Added 4/6/2024 
+        If (Me.ModeColumns_Color = Me.Mode___Rows_Color) Then
+            Debugger.Break()
+        End If
+
+    End Sub ''end of ""Public Sub SetModeTo___Rows()""
+
+
     Private Sub ButtonInsert_Click(sender As Object, e As EventArgs) Handles buttonInsert.Click
         ''
         ''Create a DLL-Insert operation and publish it as an event,
@@ -282,9 +316,13 @@ Friend Class UserControlOperation
                 intHowManyItemsToInsert, Nothing, anchorItem,
                 bChangeOfEitherEndPoint)
 
-            End If
+            End If ''end of ""ElseIf (bBefore_LetsInsertRangeBeforeAnchor) Then""
 
             RaiseEvent DLLOperationCreated_Insert(objDLLOperation.GetCopyV1())
+
+            ''Added 4/6/2024 td
+            If (Me.ModeColumns) Then RaiseEvent DLLOperationCreated_InsertCol(objDLLOperation.GetCopyV1())
+            If (Me.Mode___Rows) Then RaiseEvent DLLOperationCreated_InsertRow(objDLLOperation.GetCopyV1())
 
             ''Added 3/29/2024 td
             If (Me.ModeColumns) Then

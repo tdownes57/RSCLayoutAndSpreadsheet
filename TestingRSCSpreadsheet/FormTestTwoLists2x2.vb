@@ -799,10 +799,14 @@ Public Class FormTestTwoLists2x2
         ''
         ''3/2024 userControlOperationBoth.BackColor = CType(sender, Control).BackColor
         With userControlOperationBoth
-            .ModeColumns = True ''Columns are arranged horizontally.
-            .Mode___Rows = False
-            .BackColor = CType(sender, Control).BackColor
-        End With
+            ''.BackColor = CType(sender, Control).BackColor
+            ''.ModeColumns = True ''Columns are arranged horizontally.
+            ''.Mode___Rows = False
+            .ModeColumns_Color = labelItemsDisplay1Cols.BackColor
+            .Mode___Rows_Color = labelItemsDisplay2Rows.BackColor
+            .SetModeToColumns()
+
+        End With ''End of ""With userControlOperationBoth""
 
     End Sub
 
@@ -1089,8 +1093,21 @@ Public Class FormTestTwoLists2x2
         ''---RefreshTheUI_DisplayList_Rows()
         RefreshTheUI_DisplayList_Cols()
 
+        ''Added 4/6/2024 
+        With userControlOperationBoth
+            .ModeColumns_Color = labelItemsDisplay1Cols.BackColor
+            .Mode___Rows_Color = labelItemsDisplay2Rows.BackColor
+            .SetModeToColumns()
+        End With
+
     End Sub
 
+    Private Sub userControlOperationBoth_DLLOperationCreated_Insert(par_operation As DLL_OperationV1) Handles userControlOperationBoth.DLLOperationCreated_Insert
+        ''
+        ''Added 4/06/2024
+        ''
+        Debugger.Break()
 
 
+    End Sub
 End Class
