@@ -140,7 +140,8 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
             With objOperationNew
-                .ModeColumnsNotRows = mod_modeColumnNotRow
+                .ModeColumns_notRows = mod_modeColumnNotRow
+                .ModeRows____notCols = mod_modeRowNotColumn ''Added 4/08/2024
                 .InsertRangeStart = toBeInsertedFirst
                 .OperationType = "I"
                 ''.LefthandAnchor = toUseAsAnchorStart
@@ -211,7 +212,8 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             ''mod_lastPriorOperation = New DLL_Operation()
             Dim objOperationNew As New DLL_OperationV1()
             With objOperationNew
-                .ModeColumnsNotRows = mod_modeColumnNotRow
+                .ModeColumns_notRows = mod_modeColumnNotRow
+                .ModeRows____notCols = mod_modeRowNotColumn ''Added 4/8/2024 td
                 .InsertRangeStart = toBeInsertedFirst
                 .OperationType = "I"
                 ''.AnchorLeftPrior = toUseAsAnchorStart
@@ -342,7 +344,11 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             Dim objOperationNew As New DLL_OperationV1()
             With objOperationNew
                 .OperationType = "D"
-                .ModeColumnsNotRows = mod_modeColumnNotRow
+
+                ''Modified 4/08/2024
+                .ModeColumns_notRows = mod_modeColumnNotRow
+                .ModeRows____notCols = mod_modeRowNotColumn ''Added 4/8/2024
+
                 .DeleteRangeStart = p_item_toDeleteBegin
                 .DeleteCount = p_count_of_deleteds
 

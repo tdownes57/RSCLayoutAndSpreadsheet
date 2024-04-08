@@ -24,7 +24,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public ClassTypeToString As String
     Public ClassTypeToChar As Char ''Added 2/01/2024 td
 
-    Public ModeColumnsNotRows As Boolean ''Added 11/14/2023 td
+    Public ModeColumns_notRows As Boolean ''Added 11/14/2023 td
+    Public ModeRows____notCols As Boolean ''Added  4/08/2024 td
 
     ''Needed for consistency checks... 10/30/2023
     ''' <summary>

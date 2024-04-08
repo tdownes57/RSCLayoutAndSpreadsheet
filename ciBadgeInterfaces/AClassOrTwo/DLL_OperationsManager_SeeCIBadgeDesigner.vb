@@ -61,6 +61,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
 
     ''Added 11/14/2023 Thomas Downes  
     Private mod_modeColumnNotRow As Boolean ''Added 11/14/2023
+    Private mod_modeRowNotColumn As Boolean ''Added 4/08/2024
     Private mod_bModeHasBeenSet As Boolean ''Added 11/14/2023
     Private mod_bTesting As Boolean = ciBadgeInterfaces.Testing.TestingByDefault
     Private mod_datetimeModeSet As DateTime ''Added 11/14/2023 

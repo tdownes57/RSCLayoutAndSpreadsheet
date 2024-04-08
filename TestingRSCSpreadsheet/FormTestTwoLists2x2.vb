@@ -871,6 +871,10 @@ Public Class FormTestTwoLists2x2
         ''
         Dim enumMode As EnumTwoListsMode = GetCurrentListMode()
 
+        ''Added 4/08/2024
+        If (par_operation.ModeColumns_notRows) Then Debugger.Break()
+        If (Not par_operation.ModeRows____notCols) Then Debugger.Break()
+
         If (enumMode = EnumTwoListsMode.HorizontalCols) Then
             ''
             ''Horizontal Columns 
@@ -912,11 +916,15 @@ Public Class FormTestTwoLists2x2
         ''
         Dim enumMode As EnumTwoListsMode = GetCurrentListMode()
 
+        ''Added 4/07/2024
+        If (par_operation.ModeRows____notCols) Then Debugger.Break()
+        If (Not par_operation.ModeColumns_notRows) Then Debugger.Break()
+
         If (enumMode = EnumTwoListsMode.HorizontalCols) Then
             ''
             ''Horizontal Columns 
             ''
-            If (Not par_operation.ModeColumnsNotRows) Then Debugger.Break()
+            If (Not par_operation.ModeColumns_notRows) Then Debugger.Break()
 
             mod_managerOfOps.ProcessOperation_Insert(par_operation,
                       par_operation.IsChangeOfEndpoint, True)

@@ -73,6 +73,10 @@ Public Class DLL_OperationV2
     Private ReadOnly mod_isSortDescending As Boolean = False ''.Sort_IsDescending = mod_isSortDescending
     Private ReadOnly mod_sortingUndoQueue As Queue(Of IDoublyLinkedItem)
 
+    ''Added 4/08/2024 thomas downes
+    Private ReadOnly mod_modeColumns_notRows As Boolean
+    Private ReadOnly mod_modeRows____notCols As Boolean
+
     ''' <summary>
     ''' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
     ''' So let's add a constructor, so we can cut down on parameters on other 
@@ -86,6 +90,7 @@ Public Class DLL_OperationV2
     Public Sub New(p_opType As Char, p_firstInOperationRange As IDoublyLinkedItem,
                    p_intCountOfItems As Integer,
                    p_anchorFinalPrior As IDoublyLinkedItem,
+                   p_enumModeRowsOrCols As ___________
                    Optional p_anchorFinalNext As IDoublyLinkedItem = Nothing,
                    Optional p_forEitherEndpoint As Boolean = False,
                    Optional p_fillingEmptyList As Boolean = False)
@@ -638,6 +643,10 @@ Public Class DLL_OperationV2
                 .Queue_IfNeededForUndo = mod_sortingUndoQueue
 
             End If ''End of ""If (mod_operationType = "I"c) Then ... ElseIf ... ElseIf..."
+
+            ''Added 4/08/2024 
+            .ModeColumns_notRows = mod_modeColumns_notRows
+            .ModeRows____notCols = mod_modeRows____notCols
 
         End With ''End of ""With result""
 
