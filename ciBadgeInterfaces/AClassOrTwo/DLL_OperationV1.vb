@@ -1190,6 +1190,27 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''Added 12/28/2023 
         ''
         Dim result As DLL_OperationV2 = Nothing
+        Dim enum_rowsOrColumns As EnumModeRowsOrColumns ''added 4/8/2024 
+
+        ''Added 4/8/2024 
+        ''
+        ''  Columns or Rows? 
+        ''
+        enum_rowsOrColumns = EnumModeRowsOrColumns.Undetermined
+        If (Me.ModeColumns_notRows) Then
+            ''Columns mode
+            enum_rowsOrColumns = EnumModeRowsOrColumns.Cols
+            ''Testing
+            If (Testing.TestingByDefault) Then
+                If Me.ModeRows____notCols And Me.ModeColumns_notRows Then
+                    ''Logical error. 
+                    Debugger.Break()
+                End If ''End of ""If Me.ModeRows____notCols Then""
+            End If ''end of ""If (Testing.TestingByDefault) Then""
+        ElseIf (Me.ModeRows____notCols) Then
+            ''Rows mode
+            enum_rowsOrColumns = EnumModeRowsOrColumns.Rows
+        End If ''end of ""If (Me.ModeColumns_notRows) Then... ElseIf..."
 
         Select Case Me.OperationType
 
@@ -1202,7 +1223,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''Deleting a range.
                     ''
                     result = New DLL_OperationV2(Me.OperationType, Me.DeleteRangeStart, Me.DeleteCount,
-                                                 Nothing, Nothing, Me.IsChangeOfEndpoint)
+                                                 Nothing, enum_rowsOrColumns,
+                                                 Nothing, Me.IsChangeOfEndpoint)
                     ''                       Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
                     ''                       Me.IsChangeOfEndpoint)
 
@@ -1212,7 +1234,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''
                     Const JUST_ONE As Integer = 1
                     result = New DLL_OperationV2(Me.OperationType, Me.DeleteItemSingly, JUST_ONE,
-                                                 Nothing, Nothing, Me.IsChangeOfEndpoint)
+                                                 Nothing, enum_rowsOrColumns,
+                                                 Nothing, Me.IsChangeOfEndpoint)
                     ''                       Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
                     ''                       Me.IsChangeOfEndpoint)
                 Else
@@ -1229,7 +1252,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''Inserting a range.
                     ''
                     result = New DLL_OperationV2(Me.OperationType, Me.InsertRangeStart, Me.InsertCount,
-                                                Me.AnchorToPrecedeItemOrRange,
+                                                Me.AnchorToPrecedeItemOrRange, enum_rowsOrColumns,
                                                 Me.AnchorToSucceedItemOrRange, Me.IsChangeOfEndpoint)
 
                 ElseIf (Me.InsertItemSingly IsNot Nothing) Then
@@ -1238,7 +1261,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''
                     Const JUST_ONE As Integer = 1
                     result = New DLL_OperationV2(Me.OperationType, Me.InsertItemSingly, JUST_ONE,
-                                                 Me.AnchorToPrecedeItemOrRange,
+                                                 Me.AnchorToPrecedeItemOrRange, enum_rowsOrColumns,
                                                  Me.AnchorToSucceedItemOrRange,
                                                  Me.IsChangeOfEndpoint)
 
@@ -1252,7 +1275,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''Moving a range of items. 
                 ''
                 result = New DLL_OperationV2(Me.OperationType, Me.MovedRangeStart, Me.MovedCount,
-                                                Me.AnchorToPrecedeItemOrRange,
+                                                Me.AnchorToPrecedeItemOrRange, enum_rowsOrColumns,
                                                 Me.AnchorToSucceedItemOrRange,
                                                 Me.IsChangeOfEndpoint)
 

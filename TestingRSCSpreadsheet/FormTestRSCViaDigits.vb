@@ -235,11 +235,12 @@ Public Class FormTestRSCViaDigits
         ''Added 12/28/2023 
         ''
         op_result = New DLL_OperationV2("I"c, mod_firstTwoChar,
-                            INITIAL_ITEM_COUNT_30, Nothing, Nothing, True)
+                            INITIAL_ITEM_COUNT_30, Nothing,
+                                EnumModeRowsOrColumns.Undetermined, Nothing, True)
         ''added 12/28
         Dim copyOfOpV1 As DLL_OperationV1
         Dim copyOfOpV2 As DLL_OperationV2
-        Dim bCopyV2_ofCopyV1_match As Boolean = False
+        Dim bCopyV2_ofCopyV1_match As Boolean ''= False
 
         If (Testing.TestingByDefault) Then
             copyOfOpV1 = op_result.GetCopyV1()

@@ -239,6 +239,12 @@ Friend Class UserControlOperation
         Dim anchorItem As TwoCharacterDLLItem
         Dim anchorItem_ToBePriorToRange As TwoCharacterDLLItem
         Dim anchorItem_ToFollowRange As TwoCharacterDLLItem
+        Dim enumRowOrColumns As EnumModeRowsOrColumns ''Added 4/8/2024 
+
+        ''Adeded 4/8/2024 td
+        enumRowOrColumns = EnumModeRowsOrColumns.Undetermined
+        If (Me.ModeColumns) Then enumRowOrColumns = EnumModeRowsOrColumns.Cols
+        If (Me.Mode___Rows) Then enumRowOrColumns = EnumModeRowsOrColumns.Rows
 
         ''intHowManyItemsToInsert = numInsertHowMany.Value
         intHowManyItemsToInsert = GetHowManyItems("I"c)
@@ -291,7 +297,8 @@ Friend Class UserControlOperation
                 ''
                 bChangeOfEitherEndPoint = True
                 objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
-                          intHowManyItemsToInsert, anchorItem, Nothing,
+                          intHowManyItemsToInsert,
+                          anchorItem, enumRowOrColumns, Nothing,
                           bChangeOfEitherEndPoint, bLikelyFillingEmptyList)
 
             ElseIf (bAfter_LetsInsertRangeAfterAnchor) Then
@@ -302,7 +309,8 @@ Friend Class UserControlOperation
                 '' Result:  1 2 3 4 5 6 7_A_B_C_8 9 10
                 ''
                 objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
-                          intHowManyItemsToInsert, anchorItem, Nothing,
+                          intHowManyItemsToInsert,
+                          anchorItem, enumRowOrColumns, Nothing,
                           bChangeOfEitherEndPoint)
 
             ElseIf (bBefore_LetsInsertRangeBeforeAnchor) Then
@@ -313,16 +321,22 @@ Friend Class UserControlOperation
                 '' Result:  1 2 3 4 5_x_6 7 8 9 10
                 ''
                 objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
-                intHowManyItemsToInsert, Nothing, anchorItem,
+                intHowManyItemsToInsert, Nothing, enumRowOrColumns, anchorItem,
                 bChangeOfEitherEndPoint)
 
             End If ''end of ""ElseIf (bBefore_LetsInsertRangeBeforeAnchor) Then""
 
-            RaiseEvent DLLOperationCreated_Insert(objDLLOperation.GetCopyV1())
-
+            ''
+            ''Check the mode (Rows or Columns).
+            ''
             ''Added 4/6/2024 td
-            If (Me.ModeColumns) Then RaiseEvent DLLOperationCreated_InsertCol(objDLLOperation.GetCopyV1())
-            If (Me.Mode___Rows) Then RaiseEvent DLLOperationCreated_InsertRow(objDLLOperation.GetCopyV1())
+            If (Me.ModeColumns) Then
+                RaiseEvent DLLOperationCreated_InsertCol(objDLLOperation.GetCopyV1())
+            ElseIf (Me.Mode___Rows) Then
+                RaiseEvent DLLOperationCreated_InsertRow(objDLLOperation.GetCopyV1())
+            Else
+                RaiseEvent DLLOperationCreated_Insert(objDLLOperation.GetCopyV1())
+            End If ''End of ""If (Me.ModeColumns) Then... ElseIf... Else...
 
             ''Added 3/29/2024 td
             If (Me.ModeColumns) Then
@@ -526,8 +540,9 @@ Friend Class UserControlOperation
         ''1/2024 result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
         ''1/2024   pintHowManyItemsInRange, Nothing, Nothing, bIsForEitherEndpoint)
         result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
-                cleaned_howManyItemsInRange,
-                Nothing, Nothing, bIsForEitherEndpoint)
+                cleaned_howManyItemsInRange, Nothing,
+                GetModeRowOrColumns(), Nothing,
+                bIsForEitherEndpoint)
 
         ''
         ''Populate the ByRef parameter.
@@ -656,6 +671,7 @@ Friend Class UserControlOperation
         objDLLOperation = New DLL_OperationV2("M"c, firstRangeItem,
                 intHowManyItemsToMove,
                 anchorItem_ToBePriorToRange,
+                GetModeRowOrColumns(),
                 anchorItem_ToFollowRange,
                 bChangeOfEndPointAny) ''Nothing, Nothing)
 
@@ -1108,6 +1124,21 @@ Friend Class UserControlOperation
         End If ''End of ""If (par_bUseEndpoint) Then... Else..."
 
     End Sub ''End of ""Public Sub UpdateTheItemCount_Rows()"
+
+
+    Public Function GetModeRowOrColumns() As EnumModeRowsOrColumns
+        ''
+        ''Added 4/08/2024 thomas downes
+        ''
+        If (Me.ModeColumns) Then
+            Return EnumModeRowsOrColumns.Cols
+        ElseIf (Me.Mode___Rows) Then
+            Return EnumModeRowsOrColumns.Rows
+        Else
+            Return EnumModeRowsOrColumns.Undetermined
+        End If
+
+    End Function ''End of ""Public Function GetModeRowOrColumns() As EnumModeRowsOrColumns""
 
 
     Private Function GetItemCountOfRange(pintStartingIndex As Integer,

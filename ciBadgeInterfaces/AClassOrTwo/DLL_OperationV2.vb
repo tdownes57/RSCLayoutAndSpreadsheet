@@ -8,6 +8,13 @@
 Imports System.Drawing.Imaging
 Imports System.Windows.Forms
 
+Public Enum EnumModeRowsOrColumns ''Added 4/08/2024 
+    Undetermined
+    Rows
+    Cols
+End Enum
+
+
 ''' <summary>
 ''' This class records a Doubly-Linked operation, but V2 does so with less 
 ''' instance members and without exposing details.
@@ -90,7 +97,7 @@ Public Class DLL_OperationV2
     Public Sub New(p_opType As Char, p_firstInOperationRange As IDoublyLinkedItem,
                    p_intCountOfItems As Integer,
                    p_anchorFinalPrior As IDoublyLinkedItem,
-                   p_enumModeRowsOrCols As ___________
+                   p_enumModeRowsOrCols As EnumModeRowsOrColumns,
                    Optional p_anchorFinalNext As IDoublyLinkedItem = Nothing,
                    Optional p_forEitherEndpoint As Boolean = False,
                    Optional p_fillingEmptyList As Boolean = False)
@@ -98,9 +105,9 @@ Public Class DLL_OperationV2
         ''Added 12/7/2023  
         ''
         '' Uncle Bob (R.C. Martin) says that the best functions have no parameters.
-        '' I don't think he was talking about constructors. 
-        '' So let's add a constructor, so we can cut down on parameters on other 
-        '' methods.  This object can be passed as a parameter.
+        ''   I don't think he was talking about constructors. 
+        ''   So let's add a constructor, so we can cut down on parameters on other 
+        ''   methods.  This object can be passed as a parameter.
         ''
         Dim boolIsAnchorPrior As Boolean ''12/31/2023
         Dim boolIsAnchorNext As Boolean ''12/31/2023

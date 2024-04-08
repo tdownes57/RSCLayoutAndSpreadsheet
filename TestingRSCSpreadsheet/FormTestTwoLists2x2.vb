@@ -215,9 +215,11 @@ Public Class FormTestTwoLists2x2
 
         ''
         ''Added 12/28/2023 
+        ''   Columns are arranged horizontally.
         ''
         op_result = New DLL_OperationV2("I"c, firstTwoChar,
-                            INITIAL_ITEM_COUNT_Cols, Nothing, Nothing, True)
+                            INITIAL_ITEM_COUNT_Cols, Nothing,
+                            EnumModeRowsOrColumns.Cols, Nothing, True)
         ''added 12/28
         Dim copyOfOpV1 As DLL_OperationV1
         Dim copyOfOpV2 As DLL_OperationV2
@@ -309,9 +311,11 @@ Public Class FormTestTwoLists2x2
 
         ''
         ''Added 12/28/2023 
+        ''   Rows are arranged vertically.
         ''
         op_result = New DLL_OperationV2("I"c, firstTwoChar,
-                            INITIAL_ITEM_COUNT_Cols, Nothing, Nothing, True)
+                            INITIAL_ITEM_COUNT_Cols, Nothing,
+                            EnumModeRowsOrColumns.Rows, Nothing, True)
         ''added 12/28
         Dim copyOfOpV1 As DLL_OperationV1
         Dim copyOfOpV2 As DLL_OperationV2
