@@ -282,12 +282,29 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                 ''
                 If (.InsertItemSingly IsNot Nothing) Then
                     ''Insert a single item. 
-                    If (pbIsHoriz) Then mod_listHoriz.DLL_InsertOneItemAfter(.InsertItemSingly,
-                                            .AnchorToPrecedeItemOrRange,
+                    If (pbIsHoriz) Then
+                        ''Added 4/8/2024 
+                        Dim objSingleItemH As T_DoublyLinkedItemH ''Added 4/8/2024 
+                        Dim objAnchorPrecedingH As T_DoublyLinkedItemH ''Added 4/8/2024 
+                        objSingleItemH = .InsertItemSingly.DLL_UnboxControl()
+                        objAnchorPrecedingH = .AnchorToPrecedeItemOrRange.DLL_UnboxControl()
+
+                        mod_listHoriz.DLL_InsertOneItemAfter(objSingleItemH,
+                                            objAnchorPrecedingH,
                                             .IsChangeOfEndpoint)
-                    If (pbIsVerti) Then mod_listVerti.DLL_InsertOneItemAfter(.InsertItemSingly,
-                                            .AnchorToPrecedeItemOrRange,
+
+                    ElseIf (pbIsVerti) Then
+                        ''Added 4/8/2024 
+                        Dim objSingleItemV As T_DoublyLinkedItemV ''Added 4/8/2024 
+                        Dim objAnchorPrecedingV As T_DoublyLinkedItemV ''Added 4/8/2024 
+                        ''Added 4/8/2024 
+                        objSingleItemV = .InsertItemSingly
+                        objAnchorPrecedingV = .AnchorToPrecedeItemOrRange
+
+                        mod_listVerti.DLL_InsertOneItemAfter(objSingleItemV,
+                                            objAnchorPrecedingV,
                                             .IsChangeOfEndpoint)
+                    End If ''End of ""If (pbIsHoriz) Then... ElseIf (pbIsVerti)..."
 
                 ElseIf (.InsertRangeStart IsNot Nothing) Then
                     ''

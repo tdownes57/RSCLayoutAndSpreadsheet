@@ -123,6 +123,10 @@ Public Class DLL_OperationV2
         ''Added 12/26/2023
         mod_isChangeOfEndpoint = p_forEitherEndpoint
 
+        ''Added 4/8/2024 TD
+        Me.mod_modeColumns_notRows = (p_enumModeRowsOrCols = EnumModeRowsOrColumns.Cols)
+        Me.mod_modeRows____notCols = (p_enumModeRowsOrCols = EnumModeRowsOrColumns.Rows)
+
         ''
         ''Inverse Anchors--Anchors for the UNDO operation.
         ''
