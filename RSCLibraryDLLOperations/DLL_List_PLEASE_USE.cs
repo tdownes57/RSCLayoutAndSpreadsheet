@@ -295,8 +295,8 @@ namespace RSCLibraryDLLOperations
             bool bDeletingEndOfList;
             bool bDeletingStartOfList;
 
-            bDeletingEndOfList = itemToDelete.DLL_NotAnyNext;
-            bDeletingStartOfList = itemToDelete.DLL_NotAnyPrior;
+            bDeletingEndOfList = itemToDelete.DLL_NotAnyNext();
+            bDeletingStartOfList = itemToDelete.DLL_NotAnyPrior();
 
             if (bDeletingStartOfList)
             {

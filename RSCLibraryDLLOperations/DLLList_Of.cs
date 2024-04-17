@@ -11,18 +11,21 @@ namespace RSCLibraryDLLOperations
         //
         // Added 4/17/2024  
         //
-        public readonly TControl? _itemStart;
-        public readonly TControl? _itemEnding;
-        public readonly int _itemCount;
-        public readonly bool _isEmpty;
+        public TControl _itemStart;
+        public TControl _itemEnding;
+        public int _itemCount;
+        public bool _isEmpty_OrTreatAsEmpty; // This means that some user-initiated operation
+           // has removed all remaining items from the list (likely, per user's intention).  
+           // (This will relieve us from the programmatic burden of trying to Nullify
+           //   the _itemStart object. The C# compiler might not like that.) 
 
-        public DLLList()
-        {
-            _itemCount = 0;
-            _isEmpty = true;
-            //_itemStart = null;
-            //_itemEnding = null;
-        }
+        //public DLLList()
+        //{
+        //    _itemCount = 0;
+        //    _isEmpty_OrTreatAsEmpty = true;
+        //    //_itemStart = null;
+        //    //_itemEnding = null;
+        //}
 
         public DLLList(TControl itemStart,
                        TControl itemEnding, int itemCount)
@@ -30,17 +33,31 @@ namespace RSCLibraryDLLOperations
             _itemStart = itemStart;
             _itemEnding = itemEnding;
             _itemCount = itemCount;
-            _isEmpty = false;
+            _isEmpty_OrTreatAsEmpty = false;
+
+            //Testing
+            if (Testing.AreWeTesting)
+            {
+                if ((_itemCount == 1) != (itemStart.Equals(itemEnding)))
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
+            }
+
         }
 
 
         public bool Contains(TControl par_item)
         {
-            if (_isEmpty) return true;
+            //
+            // Check to see if the list contains the item.
+            //
+            if (_isEmpty_OrTreatAsEmpty) return false;
+            
             if (par_item.Equals(_itemStart)) return true;
             if (par_item.Equals(_itemEnding)) return true;
 
-            TControl? itemLocal = _itemStart;
+            TControl itemLocal = _itemStart;
             bool boolMatches = false;
             while (!boolMatches && itemLocal != null)
             {
