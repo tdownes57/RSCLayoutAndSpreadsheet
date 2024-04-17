@@ -7,8 +7,8 @@ using System.Diagnostics;
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLOperation<TControl_H, TControl_V> 
-        where TControl_H : IDoublyLinkedItem<TControl_H> 
+    internal class DLLOperation<TControl_H, TControl_V>
+        where TControl_H : IDoublyLinkedItem<TControl_H>
         where TControl_V : IDoublyLinkedItem<TControl_V>
     {
         //''
@@ -38,7 +38,7 @@ namespace RSCLibraryDLLOperations
 
         private const bool ALWAYS_CLEAN_ENDPOINTS = true;
 
-        public DLLOperation(DLLRange<TControl_H> par_range, bool par_forStartOfList, bool par_forEndOfList, 
+        public DLLOperation(DLLRange<TControl_H> par_range, bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove, TControl_H? par_anchor,
                   bool par_isSortAscending, bool par_isSortDescending)
         {
@@ -83,98 +83,184 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            if (_isInsert)
-            { 
-                //
-                // Insertion operation
-                //
-                if (_anchor_H != null && _willInsertRange_AfterAnchor)
-                {
-                    if (Testing.AreWeTesting)
-                    {
-                        if (false == par_list.Contains(_anchor_H)) Debugger.Break();
-                    }
+            if (_isSortingAscending)
+            {
 
-                    IDoublyLinkedItem<TControl_H>
-                        itemOriginallyAfterAnchor = _anchor_H.DLL_GetItemNext();
-                    _anchor_H.DLL_SetItemNext(par_list._itemStart);
+            }
+            if (_isSortingDescending)
+            {
 
-                    // Administration (i.e. easy to forget!!)
-                    par_list._itemStart.DLL_SetItemPrior(_anchor_H);
-                    par_list._itemEnding.DLL_SetItemNext(itemOriginallyAfterAnchor);
-                    itemOriginallyAfterAnchor.DLL_SetItemPrior(par_list._itemEnding);
-
-                }
-
-                else if (_anchor_H != null && _willInsertRange_PriorToAnchor)
-                {
-                    if (Testing.AreWeTesting)
-                    {
-                        if (false == par_list.Contains(_anchor_H)) Debugger.Break();
-                    }
-
-                    IDoublyLinkedItem<TControl_H>
-                        itemOriginallyBeforeAnchor = _anchor_H.DLL_GetItemPrior();
-                    _anchor_H.DLL_SetItemPrior(par_list._itemEnding);
-
-                    // Administration (i.e. easy to forget!!)
-                    par_list._itemEnding.DLL_SetItemNext(_anchor_H);
-                    par_list._itemStart.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
-                    itemOriginallyBeforeAnchor.DLL_SetItemNext(par_list._itemStart);
-
-                }
-                //
-                // End of Insertion operation.  
-                //
+            }
+            else
+            {
+                OperateOnList<TControl_H>(par_list, _range_H, _anchor_H);
             }
 
+        }
 
-            else if (_isDelete)
+
+        public void OperateOnList(DLLList<TControl_V> par_list)
+        {
+            //
+            // Added 4/17/2024
+            //
+            if (_isSortingAscending)
+            {
+
+            }
+            if (_isSortingDescending)
+            {
+
+            }
+            else
             {
                 //
-                // De-link the item BEFORE the deletion range.
-                //
-                IDoublyLinkedItem<TControl_H>
-                    itemOriginallyBeforeRange = _range_H._itemStart.DLL_GetItemPrior();
-                if (itemOriginallyBeforeRange != null)
-                {
-                    itemOriginallyBeforeRange.DLL_ClearReferenceNext('D');
-                    if (ALWAYS_CLEAN_ENDPOINTS)
-                    {
-                        _range_H._itemStart.DLL_ClearReferencePrior('D');
-                    }
-                }
-
-                //
-                // De-link the item AFTER the deletion range.
-                //
-                IDoublyLinkedItem<TControl_H>
-                    itemOriginallyAfterRange = _range_H._itemEnding.DLL_GetItemNext();
-                if (itemOriginallyAfterRange != null)
-                {
-                    itemOriginallyAfterRange.DLL_ClearReferencePrior('D');
-                    if (ALWAYS_CLEAN_ENDPOINTS)
-                    {
-                        _range_H._itemEnding.DLL_ClearReferenceNext('D');
-                    }
-                }
-
-                // Administration.  Easy to forget!
-                if (itemOriginallyAfterRange != null)
-                {
-                    if (itemOriginallyBeforeRange != null)
-                    {
-                        itemOriginallyBeforeRange.DLL_SetItemNext(itemOriginallyAfterRange);
-                        itemOriginallyAfterRange.DLL_SetItemNext(itemOriginallyBeforeRange);
-                    }
-                }
-
-                //
-                // End of Deletion operation.  
-                //
+                //   Let's leverage a private singly-generic method (Of TControl),
+                //   to obey the DRY principle inside a doubly-generic class 
+                //   (Of TControl_H, TControl_V). 
+                //  
+                OperateOnList<TControl_V>(par_list, _range_V, _anchor_V);
             }
 
+        }
 
+
+        private void OperateOnList<TControl>(DLLList<TControl> par_list,
+                                     DLLRange<TControl> par_range,
+                                     TControl? par_anchor)
+             where TControl : IDoublyLinkedItem<TControl>
+        {
+            //
+            // Added 4/17/2024
+            //
+            //   This is a private singly-generic method (Of TControl),
+            //   to obey the DRY principle inside a doubly-generic class 
+            //   (Of TControl_H, TControl_V). 
+            //  
+            if (_isInsert)
+            {
+                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor);
+            }
+            else if (_isDelete)
+            {
+                OperateOnList_Delete<TControl>(par_list, par_range);
+            }
+            else if (_isMove)
+            {
+                OperateOnList_Delete<TControl>(par_list, par_range);
+                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor);
+            }
+
+        }
+
+        private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list, 
+                                             DLLRange<TControl> par_range,
+                                             TControl? par_anchor) 
+            where TControl : IDoublyLinkedItem<TControl>
+        {
+            //
+            // Added 4/17/2024
+            //
+            //   This is a private singly-generic method (Of TControl),
+            //   to obey the DRY principle inside a doubly-generic class 
+            //   (Of TControl_H, TControl_V). 
+            //  
+            // Insertion operation
+            //
+            if (par_anchor != null && _willInsertRange_AfterAnchor)
+            {
+                if (Testing.AreWeTesting)
+                {
+                    if (false == par_list.Contains(par_anchor)) Debugger.Break();
+                }
+
+                IDoublyLinkedItem<TControl>
+                    itemOriginallyAfterAnchor = par_anchor.DLL_GetItemNext();
+
+                par_anchor.DLL_SetItemNext(par_list._itemStart);
+
+                // Administration (i.e. easy to forget!!)
+                par_list._itemStart.DLL_SetItemPrior(par_anchor);
+                par_list._itemEnding.DLL_SetItemNext(itemOriginallyAfterAnchor);
+                itemOriginallyAfterAnchor.DLL_SetItemPrior(par_list._itemEnding);
+
+            }
+
+            else if (par_anchor != null && _willInsertRange_PriorToAnchor)
+            {
+                if (Testing.AreWeTesting)
+                {
+                    if (false == par_list.Contains(par_anchor)) Debugger.Break();
+                }
+
+                IDoublyLinkedItem<TControl>
+                    itemOriginallyBeforeAnchor = par_anchor.DLL_GetItemPrior();
+                par_anchor.DLL_SetItemPrior(par_list._itemEnding);
+
+                // Administration (i.e. easy to forget!!)
+                par_list._itemEnding.DLL_SetItemNext(par_anchor);
+                par_list._itemStart.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
+                itemOriginallyBeforeAnchor.DLL_SetItemNext(par_list._itemStart);
+
+            }
+            //
+            // End of Insertion operation.  
+            //
+        }
+
+
+        private void OperateOnList_Delete<TControl>(DLLList<TControl> par_list,
+                                                DLLRange<TControl> par_range)
+            where TControl : IDoublyLinkedItem<TControl>
+        {
+            //
+            // Added 4/17/2024
+            //
+            //   This is a private singly-generic method (Of TControl),
+            //   to obey the DRY principle inside a doubly-generic class 
+            //   (Of TControl_H, TControl_V). 
+            //  
+            // De-link the item BEFORE the deletion range.
+            //
+            IDoublyLinkedItem<TControl>
+                itemOriginallyBeforeRange = par_range._itemStart.DLL_GetItemPrior();
+
+            if (itemOriginallyBeforeRange != null)
+            {
+                itemOriginallyBeforeRange.DLL_ClearReferenceNext('D');
+                if (ALWAYS_CLEAN_ENDPOINTS)
+                {
+                    par_range._itemStart.DLL_ClearReferencePrior('D');
+                }
+            }
+
+            //
+            // De-link the item AFTER the deletion range.
+            //
+            IDoublyLinkedItem<TControl>
+                itemOriginallyAfterRange = par_range._itemEnding.DLL_GetItemNext();
+            if (itemOriginallyAfterRange != null)
+            {
+                itemOriginallyAfterRange.DLL_ClearReferencePrior('D');
+                if (ALWAYS_CLEAN_ENDPOINTS)
+                {
+                    par_range._itemEnding.DLL_ClearReferenceNext('D');
+                }
+            }
+
+            // Administration.  Easy to forget!
+            if (itemOriginallyAfterRange != null)
+            {
+                if (itemOriginallyBeforeRange != null)
+                {
+                    itemOriginallyBeforeRange.DLL_SetItemNext(itemOriginallyAfterRange);
+                    itemOriginallyAfterRange.DLL_SetItemNext(itemOriginallyBeforeRange);
+                }
+            }
+
+            //
+            // End of Deletion operation.  
+            //
 
         }
 

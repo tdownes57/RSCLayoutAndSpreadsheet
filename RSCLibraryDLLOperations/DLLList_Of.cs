@@ -11,6 +11,12 @@ namespace RSCLibraryDLLOperations
         //
         // Added 4/17/2024  
         //
+        //     We are aware that System.Collections.Generic contains:  
+        //
+        //           LinkedList<T>  
+        //
+        //     This is an "inhouse" linked-list collection. 
+        //
         public TControl _itemStart;
         public TControl _itemEnding;
         public int _itemCount;
