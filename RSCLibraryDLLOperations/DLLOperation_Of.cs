@@ -24,8 +24,9 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isInsert;
         private readonly bool _isDelete;
         private readonly bool _isMove;
-        private readonly bool _isSortingAscending;
-        private readonly bool _isSortingDescending;
+        private readonly bool _isSort_Ascending;
+        private readonly bool _isSort_Descending;
+        private readonly bool _isSort_UndoOfSort; //Added 4/18/2024 
 
         private readonly bool _willInsertRange_PriorToAnchor;
         private readonly bool _willInsertRange_AfterAnchor;
@@ -33,14 +34,19 @@ namespace RSCLibraryDLLOperations
         private readonly TControl_H? _anchor_H;
         private readonly TControl_V? _anchor_V;
 
+        //Added 4/18/2024 td 
+        private readonly DLLAnchor<TControl_H>? _anchor_forUndo_H;
+        private readonly DLLAnchor<TControl_V>? _anchor_forUndo_V;
+
         private readonly DLLRange<TControl_H>? _range_H;
         private readonly DLLRange<TControl_V>? _range_V;
 
         private const bool ALWAYS_CLEAN_ENDPOINTS = true;
 
         public DLLOperation(DLLRange<TControl_H> par_range, bool par_forStartOfList, bool par_forEndOfList,
-                  bool par_isInsert, bool par_isDelete, bool par_isMove, TControl_H? par_anchor,
-                  bool par_isSortAscending, bool par_isSortDescending)
+                  bool par_isInsert, bool par_isDelete, bool par_isMove, 
+                  DLLAnchor<TControl_H>? par_anchor,
+                  bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
             _isHoriz = true;
             _range_H = par_range;
@@ -52,15 +58,35 @@ namespace RSCLibraryDLLOperations
             _isInsert = par_isInsert;
             _isDelete = par_isDelete;
             _isMove = par_isMove;
-            _isSortingAscending = par_isSortAscending;
-            _isSortingDescending = par_isSortDescending;
+            _isSort_Ascending = par_isSortAscending;
+            _isSort_Descending = par_isSortDescending;
+
+            //Added 4/18/2024 
+            _isSort_UndoOfSort = par_isSortReversal; // Undoing a sorting operation.
+
+            //
+            //  Preparing for UNDO... Determining an Anchor for a future UNDO operation.
+            //
+            //Think about undoing... an INSERT (hence, it's a DELETE)
+            if (_isInsert) _anchor_forUndo_H = null; // par_range. // Deletes don't need an anchor! 
+            if (_isDelete && _isForStartOfList)
+            {
+                //TControl_H item_afterRange = _range_H._itemEnding.DLL_GetItemNext();
+                //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange); 
+            }
+            else if (_isDelete && _isForEndOfList)
+            {
+                //TControl_H item_afterRange = _range_H._itemStart.DLL_GetItemPrior();
+                //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange);
+            }
 
         }
 
 
-        public DLLOperation(DLLRange<TControl_V> par_range, bool par_forStartOfList, bool par_forEndOfList,
-          bool par_isInsert, bool par_isDelete, bool par_isMove, TControl_V? par_anchor,
-          bool par_isSortAscending, bool par_isSortDescending)
+        public DLLOperation(bool par_dummy_vertical,
+            DLLRange<TControl_V> par_range, bool par_forStartOfList, bool par_forEndOfList,
+            bool par_isInsert, bool par_isDelete, bool par_isMove, TControl_V? par_anchor,
+            bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
             _isVerti = true;
             _range_V = par_range;
@@ -72,8 +98,8 @@ namespace RSCLibraryDLLOperations
             _isInsert = par_isInsert;
             _isDelete = par_isDelete;
             _isMove = par_isMove;
-            _isSortingAscending = par_isSortAscending;
-            _isSortingDescending = par_isSortDescending;
+            _isSort_Ascending = par_isSortAscending;
+            _isSort_Descending = par_isSortDescending;
 
         }
 
@@ -83,11 +109,11 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            if (_isSortingAscending)
+            if (_isSort_Ascending)
             {
 
             }
-            if (_isSortingDescending)
+            if (_isSort_Descending)
             {
 
             }
@@ -104,11 +130,11 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            if (_isSortingAscending)
+            if (_isSort_Ascending)
             {
 
             }
-            if (_isSortingDescending)
+            if (_isSort_Descending)
             {
 
             }
@@ -278,6 +304,75 @@ namespace RSCLibraryDLLOperations
                 //    par_list.AddAfter(linkedAnchor, each_item);
                 //}
             }
+
+        }
+
+
+        /// <summary>
+        /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
+        /// </summary>
+        /// <returns>Inverse of the present operation</returns>
+        public DLLOperation<TControl_H, TControl_V> 
+            GetInverseForUndo()
+        {
+
+            DLLOperation<TControl_H, TControl_V> result_UNDO;
+            //DLLRange<TControl_H> result_RangeOfItems_H = _range_H;
+            //DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
+            //TControl_H? result_anchor_H = _anchor_H;
+            //TControl_V? result_anchor_V = _anchor_V;
+
+            bool result_isInsert = _isDelete; // DIFFICULT & CONFUSING... inverse/opposite.
+            bool result_isDelete = _isInsert; // DIFFICULT & CONFUSING... inverse/opposite.
+            bool result_isMove = _isMove;
+            bool result_isForStartOfList = _isForStartOfList;
+            bool result_isForEndOfList = _isForEndOfList;
+            bool result_isSortAscending = false; // _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
+            bool result_isSortDescending = false; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
+            bool result_isSortUndo = true; // DIFFICULT & CONFUSING... inverse/opposite.
+
+            //--- DIFFICULT & CONFUSING ---
+            if (_isMove && _isForStartOfList) result_isForStartOfList = false;
+            if (_isMove && _isForEndOfList) result_isForEndOfList = false;
+
+            //
+            // Create a new operation.
+            //
+            if (_isHoriz)
+            {
+                DLLRange<TControl_H> result_RangeOfItems_H = _range_H;
+                TControl_H? result_anchor_H = _anchor_forUndo_H;  // Use the "forUndo" anchor.
+
+                result_UNDO = new DLLOperation<TControl_H, TControl_V>(result_RangeOfItems_H,
+                    result_isForStartOfList,
+                    result_isForEndOfList,
+                    result_isInsert,
+                    result_isDelete,
+                    result_isMove,
+                    result_anchor_H,
+                    result_isSortAscending,
+                    result_isSortDescending,
+                    result_isSortUndo);
+            }
+            else //if (_isVerti)
+            {
+                DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
+                TControl_V? result_anchor_V = _anchor_forUndo_V;  // Use the "forUndo" anchor.
+
+                result_UNDO = new DLLOperation<TControl_H, TControl_V>(true, 
+                    result_RangeOfItems_V,
+                    result_isForStartOfList,
+                    result_isForEndOfList,
+                    result_isInsert,
+                    result_isDelete,
+                    result_isMove,
+                    result_anchor_V,
+                    result_isSortAscending,
+                    result_isSortDescending,
+                    result_isSortUndo);
+            }
+
+            return result_UNDO;
 
         }
 
