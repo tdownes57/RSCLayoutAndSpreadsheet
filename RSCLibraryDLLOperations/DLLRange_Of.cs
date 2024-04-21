@@ -24,8 +24,9 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLRange(bool isSingleItem, TControl? itemSingle, TControl itemStart,
-                          TControl? itemEnding, int itemCount)
+        public DLLRange(bool isSingleItem, TControl itemStart,
+                          TControl? itemEnding, 
+                          TControl? itemSingle, int itemCount)
         {
             _isSingleItem = isSingleItem;
             _SingleItemInRange = itemSingle;
@@ -38,7 +39,7 @@ namespace RSCLibraryDLLOperations
                 // This is a single-item range.
                 //
                 _SingleItemInRange = itemSingle;
-                _StartingItem = itemSingle;
+                //_StartingItem = itemSingle;
                 _EndingItem = itemSingle;
 
             }
@@ -82,8 +83,20 @@ namespace RSCLibraryDLLOperations
             //
             // Administrative--Set the Inverse Anchors. 
             //
-            _InverseAnchor_Prior = _StartingItem.DLL_GetItemPrior().DLL_UnboxControl();
-            _InverseAnchor_After = _EndingItem.DLL_GetItemNext().DLL_UnboxControl();
+            _InverseAnchor_Prior = itemStart.DLL_GetItemPrior().DLL_UnboxControl();
+            if (itemEnding != null)
+            {
+                _InverseAnchor_After = itemEnding.DLL_GetItemNext().DLL_UnboxControl();
+            }
+            else if (itemCount == 1)
+            {
+                _InverseAnchor_After = itemStart.DLL_GetItemNext().DLL_UnboxControl();
+            }
+            else
+            {
+                // Unclear what to do.  Stop & think about it.
+                System.Diagnostics.Debugger.Break();
+            }
 
         }
 

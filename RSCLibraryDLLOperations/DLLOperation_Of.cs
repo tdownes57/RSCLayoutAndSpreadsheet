@@ -31,8 +31,12 @@ namespace RSCLibraryDLLOperations
         private readonly bool _willInsertRange_PriorToAnchor;
         private readonly bool _willInsertRange_AfterAnchor;
 
-        private readonly TControl_H? _anchor_H;
-        private readonly TControl_V? _anchor_V;
+        //private readonly TControl_H? _anchor_H;
+        ///private readonly TControl_V? _anchor_V;
+
+        // Added 4/21/2024 td
+        private readonly DLLAnchor<TControl_H>? _anchor_H;
+        private readonly DLLAnchor<TControl_V>? _anchor_V;
 
         //Added 4/18/2024 td 
         private readonly DLLAnchor<TControl_H>? _anchor_forUndo_H;
@@ -41,6 +45,11 @@ namespace RSCLibraryDLLOperations
         private readonly DLLRange<TControl_H>? _range_H;
         private readonly DLLRange<TControl_V>? _range_V;
 
+        /// <summary>
+        /// Indicate whether the ENDPOINTS (outward-facing item references 
+        /// at either end of a range of items) should be always set to NULL
+        /// after a DELETE is performed.
+        /// </summary>
         private const bool ALWAYS_CLEAN_ENDPOINTS = true;
 
         public DLLOperation(DLLRange<TControl_H> par_range, bool par_forStartOfList, bool par_forEndOfList,
@@ -85,7 +94,8 @@ namespace RSCLibraryDLLOperations
 
         public DLLOperation(bool par_dummy_vertical,
             DLLRange<TControl_V> par_range, bool par_forStartOfList, bool par_forEndOfList,
-            bool par_isInsert, bool par_isDelete, bool par_isMove, TControl_V? par_anchor,
+            bool par_isInsert, bool par_isDelete, bool par_isMove, 
+            DLLAnchor<TControl_V>? par_anchor,
             bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
             _isVerti = true;
@@ -153,7 +163,7 @@ namespace RSCLibraryDLLOperations
 
         private void OperateOnList<TControl>(DLLList<TControl> par_list,
                                      DLLRange<TControl> par_range,
-                                     TControl? par_anchor)
+                                     DLLAnchor<TControl>? par_anchor)
              where TControl : IDoublyLinkedItem<TControl>
         {
             //
@@ -181,7 +191,7 @@ namespace RSCLibraryDLLOperations
 
         private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list, 
                                              DLLRange<TControl> par_range,
-                                             TControl? par_anchor) 
+                                             DLLAnchor<TControl>? par_anchor) 
             where TControl : IDoublyLinkedItem<TControl>
         {
             //
@@ -197,16 +207,17 @@ namespace RSCLibraryDLLOperations
             {
                 if (Testing.AreWeTesting)
                 {
-                    if (false == par_list.Contains(par_anchor)) Debugger.Break();
+                    if (false == par_list.Contains(par_anchor._item)) Debugger.Break();
                 }
 
                 IDoublyLinkedItem<TControl>
-                    itemOriginallyAfterAnchor = par_anchor.DLL_GetItemNext();
+                    itemOriginallyAfterAnchor = par_anchor._item.DLL_GetItemNext();
 
-                par_anchor.DLL_SetItemNext(par_list._itemStart);
+                //par_anchor.DLL_SetItemNext(par_list._itemStart);
+                par_anchor._item.DLL_SetItemNext(par_list._itemStart);
 
                 // Administration (i.e. easy to forget!!)
-                par_list._itemStart.DLL_SetItemPrior(par_anchor);
+                par_list._itemStart.DLL_SetItemPrior(par_anchor._item);
                 par_list._itemEnding.DLL_SetItemNext(itemOriginallyAfterAnchor);
                 itemOriginallyAfterAnchor.DLL_SetItemPrior(par_list._itemEnding);
 
