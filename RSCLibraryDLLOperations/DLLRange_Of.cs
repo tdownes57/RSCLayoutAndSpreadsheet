@@ -9,31 +9,54 @@ namespace RSCLibraryDLLOperations
 {
     internal class DLLRange<TControl> where TControl : IDoublyLinkedItem<TControl>
     {
+        //
+        // Added 4/20/2024 Thomas Downes
+        //
         public readonly bool _isSingleItem;
-        public readonly TControl? _itemSingle;
-        public readonly TControl _itemStart;
-        public readonly TControl? _itemEnding;
-        public readonly int _itemCount;
+        public readonly TControl? _SingleItemInRange;
+        public readonly TControl _StartingItem;
+        public readonly TControl _EndingItem;
+        public readonly int _ItemCount;
 
-        public DLLRange(bool isSingleItem, TControl? itemSingle, TControl itemStart, 
+        // Added 4/20/2024 thomas downes
+        public readonly TControl? _InverseAnchor_Prior;
+        public readonly TControl? _InverseAnchor_After;
+
+
+
+        public DLLRange(bool isSingleItem, TControl? itemSingle, TControl itemStart,
                           TControl? itemEnding, int itemCount)
         {
             _isSingleItem = isSingleItem;
-            _itemSingle = itemSingle;
-            _itemStart = itemStart;
-            _itemCount = itemCount;
+            _SingleItemInRange = itemSingle;
+            _StartingItem = itemStart;
+            _ItemCount = itemCount;
 
-            if (itemEnding != null)
+            if (_isSingleItem && (itemSingle != null))
             {
-                _itemEnding = itemEnding;
+                //
+                // This is a single-item range.
+                //
+                _SingleItemInRange = itemSingle;
+                _StartingItem = itemSingle;
+                _EndingItem = itemSingle;
+
+            }
+            else if (itemEnding != null)
+            {
+                //
+                // This is probably _NOT_ a single-item range.
+                //   There is a ending item.
+                //
+                _EndingItem = itemEnding;
                 
                 //Administration.  Set _itemCount.
-                if (_itemCount <= 0)
+                if (_ItemCount <= 0)
                 {
                     //_itemCount = _itemStart.DLL_CountItemsAllInList(); // Won't work.  This
                     //     is a range, i.e. a subset of a list, not an entire list. 
                     //_itemCount = (1 + _itemEnding.DLL_Subtract(_itemStart));
-                    _itemCount = (1 + DLL_Distance(_itemStart, _itemEnding));
+                    _ItemCount = (1 + DLL_Distance(_StartingItem, _EndingItem));
 
                 }
                 else if (Testing.AreWeTesting)
@@ -41,16 +64,26 @@ namespace RSCLibraryDLLOperations
                     bool bTestMatch; 
                     if (itemCount > 0)
                     {
-                        bTestMatch = (_itemEnding.Equals(_itemStart.DLL_GetItemNext(itemCount - 1)));
+                        bTestMatch = (_EndingItem.Equals(_StartingItem.DLL_GetItemNext(itemCount - 1)));
                         if (!bTestMatch) System.Diagnostics.Debugger.Break();
                     }
                 }
 
             }
-            else
+            else if (_StartingItem != null)
             {
-                _itemEnding = _itemStart.DLL_GetItemNext(itemCount - 1).DLL_UnboxControl();
+                //
+                // This is probably _NOT_ a single-item range.
+                //   There is a distinct beginning and an end.
+                //
+                _EndingItem = _StartingItem.DLL_GetItemNext(itemCount - 1).DLL_UnboxControl();
             }
+
+            //
+            // Administrative--Set the Inverse Anchors. 
+            //
+            _InverseAnchor_Prior = _StartingItem.DLL_GetItemPrior().DLL_UnboxControl();
+            _InverseAnchor_After = _EndingItem.DLL_GetItemNext().DLL_UnboxControl();
 
         }
 

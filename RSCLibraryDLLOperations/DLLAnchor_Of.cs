@@ -8,9 +8,9 @@ namespace RSCLibraryDLLOperations
 {
     internal class DLLAnchor<TControl>
     {
-        TControl _item;
-        bool _insertBefore;
-        bool _insertAfter; 
+        public TControl _item;
+        public bool _insertBefore;
+        public bool _insertAfter; 
 
     }
 }
