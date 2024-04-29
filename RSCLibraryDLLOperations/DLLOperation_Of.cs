@@ -28,8 +28,8 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isSort_Descending;
         private readonly bool _isSort_UndoOfSort; //Added 4/18/2024 
 
-        private readonly bool _willInsertRange_PriorToAnchor;
-        private readonly bool _willInsertRange_AfterAnchor;
+        //private readonly bool _willInsertRange_PriorToAnchor;
+        //private readonly bool _willInsertRange_AfterAnchor;
 
         //private readonly TControl_H? _anchor_H;
         ///private readonly TControl_V? _anchor_V;
@@ -203,7 +203,10 @@ namespace RSCLibraryDLLOperations
             //  
             // Insertion operation
             //
-            if (par_anchor != null && _willInsertRange_AfterAnchor)
+
+
+            //if (par_anchor != null && _willInsertRange_AfterAnchor)
+            if (par_anchor != null && par_anchor._insertAfter)
             {
                 if (Testing.AreWeTesting)
                 {
@@ -223,19 +226,22 @@ namespace RSCLibraryDLLOperations
 
             }
 
-            else if (par_anchor != null && _willInsertRange_PriorToAnchor)
+            //else if (par_anchor != null && _willInsertRange_PriorToAnchor)
+            else if (par_anchor != null && par_anchor._insertBefore)
             {
                 if (Testing.AreWeTesting)
                 {
-                    if (false == par_list.Contains(par_anchor)) Debugger.Break();
-                }
+                    bool bAnchorIsMissingFromList; //Added 4/23/2024 td
+                    bAnchorIsMissingFromList = (false == par_list.Contains(par_anchor._item));
+                    if (bAnchorIsMissingFromList) Debugger.Break();
+                } // if (Testing.AreWeTesting )
 
                 IDoublyLinkedItem<TControl>
-                    itemOriginallyBeforeAnchor = par_anchor.DLL_GetItemPrior();
-                par_anchor.DLL_SetItemPrior(par_list._itemEnding);
+                    itemOriginallyBeforeAnchor = par_anchor._item.DLL_GetItemPrior();
+                par_anchor._item.DLL_SetItemPrior(par_list._itemEnding);
 
                 // Administration (i.e. easy to forget!!)
-                par_list._itemEnding.DLL_SetItemNext(par_anchor);
+                par_list._itemEnding.DLL_SetItemNext(par_anchor._item);
                 par_list._itemStart.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
                 itemOriginallyBeforeAnchor.DLL_SetItemNext(par_list._itemStart);
 
@@ -260,14 +266,14 @@ namespace RSCLibraryDLLOperations
             // De-link the item BEFORE the deletion range.
             //
             IDoublyLinkedItem<TControl>
-                itemOriginallyBeforeRange = par_range._itemStart.DLL_GetItemPrior();
+                itemOriginallyBeforeRange = par_range._StartingItem.DLL_GetItemPrior();
 
             if (itemOriginallyBeforeRange != null)
             {
                 itemOriginallyBeforeRange.DLL_ClearReferenceNext('D');
                 if (ALWAYS_CLEAN_ENDPOINTS)
                 {
-                    par_range._itemStart.DLL_ClearReferencePrior('D');
+                    par_range._StartingItem.DLL_ClearReferencePrior('D');
                 }
             }
 
@@ -275,13 +281,13 @@ namespace RSCLibraryDLLOperations
             // De-link the item AFTER the deletion range.
             //
             IDoublyLinkedItem<TControl>
-                itemOriginallyAfterRange = par_range._itemEnding.DLL_GetItemNext();
+                itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext();
             if (itemOriginallyAfterRange != null)
             {
                 itemOriginallyAfterRange.DLL_ClearReferencePrior('D');
                 if (ALWAYS_CLEAN_ENDPOINTS)
                 {
-                    par_range._itemEnding.DLL_ClearReferenceNext('D');
+                    par_range._EndingItem.DLL_ClearReferenceNext('D');
                 }
             }
 

@@ -14,7 +14,7 @@ namespace RSCLibraryDLLOperations
     /// TControl is RSCFieldColumn, RSCDataHeader, or RSCDataCell.
     /// </summary>
     /// <typeparam name="TControl"></typeparam>
-    public class DLL_List_PLEASE_USE<TControl> : IDoublyLinkedList<TControl>
+    public class DLL_List_PLEASE_USE<TControl> // : IDoublyLinkedList<TControl>
     {
 
         private IDoublyLinkedItem<TControl> mod_dllControlFirst; // Not necessarily needed, except for testing. DLL = Doubly-Linked List.
@@ -23,7 +23,20 @@ namespace RSCLibraryDLLOperations
         private int mod_intCountOfItems; // Added 12/19/2023
 
         // Added 2/29/2024
+        //
         // The first integer is the unshifted (no use of shift-key) integer.
+        // In other words, if the user uses the mouse to click the 2nd item
+        // in the list (e.g. 2nd column of spreadsheet cells)--without having
+        // the Shift key pressed simultaneously--then the first integer is
+        // 2 (or 1, if 0-based).   ---4/29/2024 
+        //
+        /// <summary>
+        /// The first integer is the unshifted (no use of shift-key) integer.
+        // In other words, if the user uses the mouse to click the 2nd item
+        // in the list (e.g. 2nd column of spreadsheet cells)--without having
+        // the Shift key pressed simultaneously--then the first integer is
+        // 2 (or 1, if 0-based).
+        /// </summary>
         private Tuple<int, int> mod_tupSelect_NoShiftToShift; // Added 2/29/2024
                                                               // The first integer is the lower-endpoint index.
         private Tuple<int, int> mod_tupSelect_LowToUpper; // Added 2/29/2024
@@ -41,18 +54,18 @@ namespace RSCLibraryDLLOperations
             mod_dllControlFirst = (IDoublyLinkedItem<TControl>)par_firstItem;
             // Set the Last equal to the First, as there is only one(1) item currently.
             mod_dllControlLast = mod_dllControlFirst; // Nothing
-            mod_bTesting = Testing.TestingByDefault;
+            mod_bTesting = Testing.AreWeTesting;  // .TestingByDefault
             mod_intCountOfItems = 0;
             // Test the TControl can be converted to IDoublyLinkedItem.
         }
 
-        public DLL_List_OfTControl_PLEASE_USE(TControl par_firstItem, TControl par_lastItem)
+        public DLL_List_PLEASE_USE(TControl par_firstItem, TControl par_lastItem)
         {
             // Set the initial instance variable.
             // (Also, we'll test the TControl can be converted to IDoublyLinkedItem.)
-            mod_dllControlFirst = (IDoublyLinkedItem)par_firstItem;
-            mod_bTesting = Testing.TestingByDefault;
-            mod_dllControlLast = (IDoublyLinkedItem)par_lastItem;
+            mod_dllControlFirst = (IDoublyLinkedItem<TControl>)par_firstItem;
+            mod_bTesting = Testing.AreWeTesting;  //.TestingByDefault;
+            mod_dllControlLast = (IDoublyLinkedItem<TControl>)par_lastItem;
             mod_intCountOfItems = 0;
             // Test the TControl can be converted to IDoublyLinkedItem.
         }
@@ -73,8 +86,8 @@ namespace RSCLibraryDLLOperations
             // |
             // Start:
             // Result: 1 2 3 4 5 6 7 A 8 9 10
-            bool bTesting = ciBadgeInterfaces.Testing.TestingByDefault;
-            IDoublyLinkedItem itemFirst = null;
+            bool bTesting = Testing.AreWeTesting; //ciBadgeInterfaces.Testing.TestingByDefault;
+            IDoublyLinkedItem<TControl> itemFirst = null;
 
             // Testing...
             if ((bTesting && WE_CHECK_RANGE_ENDPOINTS_TESTING) || WE_CHECK_RANGE_ENDPOINTS_ALWAYS)
@@ -98,7 +111,7 @@ namespace RSCLibraryDLLOperations
                 }
             }
 
-            itemFirst = (IDoublyLinkedItem)p_toAddFirstItemToEmptyList;
+            itemFirst = (IDoublyLinkedItem<TControl>)p_toAddFirstItemToEmptyList;
             mod_dllControlFirst = itemFirst; // toAddFirstItemToEmptyList
             mod_dllControlLast = itemFirst.DLL_GetItemNext(-1 + p_intNumberOfItems);
             mod_intCountOfItems = p_intNumberOfItems;
@@ -121,7 +134,8 @@ namespace RSCLibraryDLLOperations
             // |
             // Start:
             // Result: 1 2 3 4 5 6 7 A 8 9 10
-            DLL_InsertRangeAfter(p_firstItemOfRange, p_intNumberOfItems, mod_dllControlLast, true);
+            DLL_InsertRangeAfter(p_firstItemOfRange, p_intNumberOfItems, 
+                mod_dllControlLast.DLL_UnboxControl(), true);
         }
 
         public void DLL_InsertOneItemAfter(TControl p_toBeInsertedSingleItem, TControl p_toUseAsAnchor_ItemPriorToSingle, bool p_atEitherEndpoint)
@@ -147,8 +161,8 @@ namespace RSCLibraryDLLOperations
         public void DLL_InsertRangeEmptyList(TControl p_toBeInsertedRange_FirstItem, int p_toBeInsertedRange_ItemCount)
         {
             // Added 12/31/2023 td
-            IDoublyLinkedItem itemFirstItemToInsert = null;
-            IDoublyLinkedItem itemLastItemToInsert = null;
+            IDoublyLinkedItem<TControl> itemFirstItemToInsert = null;
+            IDoublyLinkedItem<TControl> itemLastItemToInsert = null;
             int intHowManyItems = p_toBeInsertedRange_ItemCount;
 
             //-----------------------------------------------------------------------------------------------------
@@ -217,25 +231,27 @@ namespace RSCLibraryDLLOperations
         public TControl DLL_GetAnItem(int p_Index)
         {
             // Added 12/2023
-            TControl ans = default;
-            bool bTesting = ciBadgeInterfaces.Testing.TestingByDefault;
+            TControl result_item; // = default;
+            //bool bTesting = ciBadgeInterfaces.Testing.TestingByDefault;
+            bool bTesting = Testing.AreWeTesting;
             // Will be changed
-            IDoublyLinkedItem temp = mod_dllControlFirst;
-            int ix = 1;
+            IDoublyLinkedItem<TControl> temp = mod_dllControlFirst;
+            int each_index = 1;
 
-            while (ix < p_Index && temp.DLL_GetItemNext() != null)
+            while (each_index < p_Index && temp.DLL_GetItemNext() != null)
             {
                 temp = temp.DLL_GetItemNext();
-                ix += 1;
+                each_index += 1;
             }
-            if (ix != p_Index)
+            if (each_index != p_Index)
             {
                 Debugger.Break();
                 throw new RSCEndpointException("Not found");
             }
 
-            ans = (TControl)temp;
-            return ans;
+            result_item = (TControl)temp;
+            return result_item;
+
         }
 
         public TControl DLL_GetFirstItem()
@@ -289,9 +305,9 @@ namespace RSCLibraryDLLOperations
 
         public void DLL_DeleteItem(TControl p_item_toDelete, bool p_isChangeOfEndpoint)
         {
-            IDoublyLinkedItem itemToDelete = (IDoublyLinkedItem)p_item_toDelete;
-            IDoublyLinkedItem itemPriorToDelete = null;
-            IDoublyLinkedItem itemFollowingDelete = null;
+            IDoublyLinkedItem<TControl> itemToDelete = (IDoublyLinkedItem<TControl>)p_item_toDelete;
+            IDoublyLinkedItem<TControl> itemPriorToDelete = null;
+            IDoublyLinkedItem<TControl> itemFollowingDelete = null;
             bool bDeletingEndOfList;
             bool bDeletingStartOfList;
 
@@ -353,8 +369,13 @@ namespace RSCLibraryDLLOperations
             mod_intCountOfItems--;
         }
 
-        private IDoublyLinkedItem GetLastItemInRange(IDoublyLinkedItem p_itemFirstInRange, int p_countOfItemsInRange, IDoublyLinkedItem p_itemLast_Nullable)
+        private IDoublyLinkedItem GetLastItemInRange(IDoublyLinkedItem<TControl> p_itemFirstInRange, 
+                                       int p_countOfItemsInRange, 
+                                       IDoublyLinkedItem<TControl> p_itemLast_Nullable)
         {
+            //
+            // Modified 4/29/2024 thomas downes
+            //
             IDoublyLinkedItem result_itemLast;
             bool bNoLastItemProvided = (p_itemLast_Nullable == null);
 
@@ -362,10 +383,10 @@ namespace RSCLibraryDLLOperations
             {
                 result_itemLast = p_itemFirstInRange.DLL_GetItemNext(-1 + p_countOfItemsInRange);
             }
-            else if (Testing.TestingByDefault)
+            else if (Testing.AreWeTesting)  // .TestingByDefault)
             {
-                IDoublyLinkedItem itemTemp1;
-                IDoublyLinkedItem itemTemp2;
+                IDoublyLinkedItem<TControl> itemTemp1;
+                IDoublyLinkedItem<TControl> itemTemp2;
                 itemTemp1 = p_itemLast_Nullable;
                 itemTemp2 = p_itemFirstInRange.DLL_GetItemNext(-1 + p_countOfItemsInRange);
                 bool boolMatches = itemTemp1.Equals(itemTemp2);
@@ -380,15 +401,20 @@ namespace RSCLibraryDLLOperations
             return result_itemLast;
         }
 
-        public void DLL_DeleteRange(TControl p_item_toDeleteFirst, int p_count_of_deleteds, bool p_isChangeOfEndpoint, TControl p_item_toDeleteEnd_Nullable = null)
+        public void DLL_DeleteRange(TControl p_item_toDeleteFirst, int p_count_of_deleteds, 
+                                  bool p_isChangeOfEndpoint, 
+                                  TControl p_item_toDeleteEnd)
         {
-            IDoublyLinkedItem itemToDeleteFirst = (IDoublyLinkedItem)p_item_toDeleteFirst;
-            IDoublyLinkedItem itemToDeleteLast;
+            IDoublyLinkedItem<TControl> itemToDeleteFirst = (IDoublyLinkedItem<TControl>)p_item_toDeleteFirst;
+            IDoublyLinkedItem<TControl> itemToDeleteLast = (IDoublyLinkedItem<TControl>)p_item_toDeleteEnd;
 
-            itemToDeleteLast = GetLastItemInRange(p_item_toDeleteFirst, p_count_of_deleteds, p_item_toDeleteEnd_Nullable);
+            //itemToDeleteLast = GetLastItemInRange(p_item_toDeleteFirst, p_count_of_deleteds, 
+            //                       p_item_toDeleteEnd_Nullable);
+            //itemToDeleteLast = GetLastItemInRange(itemToDeleteFirst, p_count_of_deleteds,
+            //                                       itemToDeleteLast);
 
-            IDoublyLinkedItem itemPriorToDeleteRange = null;
-            IDoublyLinkedItem itemFollowingDeleteRange = null;
+            IDoublyLinkedItem<TControl> itemPriorToDeleteRange = null;
+            IDoublyLinkedItem<TControl> itemFollowingDeleteRange = null;
             bool bDeletingListStartingPoint;
             bool bDeletingListEndingPoint;
 
@@ -451,15 +477,15 @@ namespace RSCLibraryDLLOperations
         {
             if (par_index == 0)
             {
-                return mod_dllControlFirst;
+                return mod_dllControlFirst.DLL_UnboxControl();
             }
             else
             {
-                IDoublyLinkedItem each_item = mod_dllControlFirst;
+                IDoublyLinkedItem<TControl> each_item = mod_dllControlFirst;
 
                 for (int indexFor = 1; indexFor <= par_index; indexFor++)
                 {
-                    if (each_item.DLL_NotAnyNext)
+                    if (each_item.DLL_NotAnyNext())
                     {
                         Debugger.Break();
                     }
@@ -486,10 +512,10 @@ namespace RSCLibraryDLLOperations
 
         public int DLL_GetIndexOfItem(TControl input_item)
         {
-            IDoublyLinkedItem linkedItem;
+            IDoublyLinkedItem<TControl> linkedItem;
             int index;
 
-            linkedItem = (IDoublyLinkedItem)input_item;
+            linkedItem = (IDoublyLinkedItem<TControl>)input_item;
             index = 0;
 
             while (linkedItem != mod_dllControlFirst)
