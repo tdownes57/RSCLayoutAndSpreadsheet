@@ -263,6 +263,13 @@ namespace RSCLibraryDLLOperations
             //
             if (par_anchor == null)
             {
+                //
+                // Option #1 of 3...  
+                //
+                //    The list is empty (and therefore not any anchoring-item  
+                //    included, i.e. the anchor is NULL,
+                //    as it is irrelevant (or possible)).
+                //
                 if (par_list_NotReallyNeeded._isEmpty_OrTreatAsEmpty)
                 {
                     //List is currently empty, or should be treated as such
@@ -287,12 +294,20 @@ namespace RSCLibraryDLLOperations
             //if (par_anchor != null && _willInsertRange_AfterAnchor)
             else if (par_anchor != null && par_anchor._doInsertRangeAfterThis)
             {
+                //
+                // Option #2 of 3...  
+                //
+                // Insert the range AFTER (FOLLOWING) the anchoring item. 
+                //
                 TControl? itemOriginallyAfterAnchor = default(TControl);
                 bool bAnchorHasItemAfter;
                 bAnchorHasItemAfter = par_anchor._anchorItem.DLL_HasNext();
 
                 if (par_anchor._anchorItem.DLL_HasNext())
                 {
+                    //
+                    // #2a of 3. 
+                    //
                     // Get the item AFTER the anchor; and also "unbox" it,
                     //   i.e. get the TControl object (vs. an interface).
                     itemOriginallyAfterAnchor = par_anchor._anchorItem.DLL_GetItemNext().DLL_UnboxControl();
@@ -318,6 +333,14 @@ namespace RSCLibraryDLLOperations
                             if (bInsertIsAlreadyDone) System.Diagnostics.Debugger.Break();
                             if (bInsertIsAlreadyDone) return; // Don't repeat an unneeded operation.
                         }
+                        else
+                        {
+                            //Confirm that the anchor is at the end of the list. 
+                            bool bAnchor_Is_EndOfList;
+                            bAnchor_Is_EndOfList = (par_anchor._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
+                            if (false == bAnchor_Is_EndOfList) Debugger.Break();
+                        }
+
                     }
 
                     //Perform the operation !!
@@ -332,6 +355,8 @@ namespace RSCLibraryDLLOperations
                 else
                 {
                     //
+                    // #2b of 3. Anchor is at the end of the list.
+                    //
                     // Nothing originally (pre-operation) follows the anchor,
                     //    i.e. there is no item which is "Next" after the anchor.
                     //
@@ -339,8 +364,12 @@ namespace RSCLibraryDLLOperations
                     {
                         bool bListHasAnchor = par_list_NotReallyNeeded.Contains(par_anchor._anchorItem);
                         if (false == bListHasAnchor) Debugger.Break();
+                        bool bAnchorIsEndOfList;
+                        bAnchorIsEndOfList = (par_anchor._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
+                        if (false == bAnchorIsEndOfList) Debugger.Break();
+
                     }
-                    
+
                     //Perform the operation !!
                     par_anchor._anchorItem.DLL_SetItemNext(par_range._StartingItem);
 
@@ -355,6 +384,8 @@ namespace RSCLibraryDLLOperations
             //else if (par_anchor != null && _willInsertRange_PriorToAnchor)
             else if (par_anchor != null && par_anchor._doInsertRangeBeforeThis)
             {
+                //
+                // Option #3 of 3...  
                 //
                 // Insert the range PRIOR (PRECEDING) to the anchoring item.
                 //
@@ -375,12 +406,21 @@ namespace RSCLibraryDLLOperations
                         if (bInsertIs_AlreadyDone) System.Diagnostics.Debugger.Break();
                         if (bInsertIs_AlreadyDone) return; // Don't repeat an unneeded operation.
                     }
+                    else
+                    {
+                        // Confirm that the anchor is the first item in the list.
+                        bool bAnchorIs_StartOfList;
+                        bAnchorIs_StartOfList = (par_anchor._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
+                        if (false == bAnchorIs_StartOfList) Debugger.Break();
+                    }
 
                 } // if (Testing.AreWeTesting )
 
-
                 if (bAnchorHasItemBefore)  // (itemOriginallyBeforeAnchor != null)
                 {
+                    //
+                    // #3a of 3. 
+                    //
                     // Insert the range before the anchor. 
                     par_anchor._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
 
@@ -391,6 +431,9 @@ namespace RSCLibraryDLLOperations
                 }
                 else
                 {
+                    //
+                    // #3b of 3.  Anchor is at the start of the list. 
+                    //
                     // Insert the range before the anchor. 
                     par_anchor._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
                     // Administration (i.e. easy to forget!!)
