@@ -84,7 +84,7 @@ namespace RSCLibraryDLLOperations
         void DLL_DeleteItem(TUserControl item_toDelete, bool isChangeOfEndPoint);
 
         // Delete a range of items from the list.
-        void DLL_DeleteRange(TUserControl item_toDeleteBegin, int count_of_deleteds, bool isChangeOfEndPoint, TControl item_toDeleteEnd_Null = null);
+        void DLL_DeleteRange(TUserControl item_toDeleteBegin, int count_of_deleteds, bool isChangeOfEndPoint, TUserControl item_toDeleteEnd_Null);
 
         // Pop an item from the list.
         TUserControl DLL_PopItem(TUserControl item_toDelete);

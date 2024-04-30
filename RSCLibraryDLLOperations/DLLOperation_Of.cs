@@ -7,6 +7,13 @@ using System.Diagnostics;
 
 namespace RSCLibraryDLLOperations
 {
+    /// <summary>
+    /// Moving a column is a horizontal operation, 
+    /// moving a row is a vertical operation.
+    /// </summary>
+    public enum EnumHorizontalOrVertical { Undetermined, Horizontal,  Vertical };
+        
+
     internal class DLLOperation<TControl_H, TControl_V>
         where TControl_H : IDoublyLinkedItem<TControl_H>
         where TControl_V : IDoublyLinkedItem<TControl_V>
@@ -52,11 +59,34 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         private const bool ALWAYS_CLEAN_ENDPOINTS = true;
 
-        public DLLOperation(DLLRange<TControl_H> par_range, bool par_forStartOfList, bool par_forEndOfList,
+        /// <summary>
+        /// Constructor overload is for horizontal (column) operations, 
+        /// e.g. moving a worksheet column to the extreme left-hand side, 
+        /// with TControl_H = RSDataColumn.  Overloaded.
+        /// </summary>
+        /// <param name="par_range"></param>
+        /// <param name="par_forStartOfList"></param>
+        /// <param name="par_forEndOfList"></param>
+        /// <param name="par_isInsert"></param>
+        /// <param name="par_isDelete"></param>
+        /// <param name="par_isMove"></param>
+        /// <param name="par_anchor"></param>
+        /// <param name="par_isSortAscending"></param>
+        /// <param name="par_isSortDescending"></param>
+        /// <param name="par_isSortReversal"></param>
+        public DLLOperation(EnumHorizontalOrVertical par_enum,
+                  DLLRange<TControl_H>? par_range, 
+                  bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove, 
                   DLLAnchor<TControl_H>? par_anchor,
                   bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
+            if (par_enum != EnumHorizontalOrVertical.Horizontal)
+            {
+                System.Diagnostics.Debugger.Break(); 
+                throw new InvalidOperationException("Use constructor overload for non-horizontal operations.");
+            }
+
             _isHoriz = true;
             _range_H = par_range;
             _anchor_H = par_anchor;
@@ -92,12 +122,31 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation(bool par_dummy_vertical,
-            DLLRange<TControl_V> par_range, bool par_forStartOfList, bool par_forEndOfList,
+        /// <summary>
+        /// Constructor overload is for vertical (row) operations, 
+        /// e.g. moving a worksheet's entire row to the top, 
+        /// with TControl_V = RSDataRowHeader.  Overloaded.
+        /// </summary>
+        /// <param name="pb_isOperationVertical">Must be true.</param>
+        /// <param name="par_range"></param>
+        /// <param name="par_forStartOfList"></param>
+        /// <param name="par_forEndOfList"></param>
+        /// <param name="par_isInsert"></param>
+        /// <param name="par_isDelete"></param>
+        /// <param name="par_isMove"></param>
+        /// <param name="par_anchor"></param>
+        /// <param name="par_isSortAscending"></param>
+        /// <param name="par_isSortDescending"></param>
+        /// <param name="par_isSortReversal"></param>
+        public DLLOperation(bool pb_isOperationVertical,
+            DLLRange<TControl_V>? par_range, bool par_forStartOfList, bool par_forEndOfList,
             bool par_isInsert, bool par_isDelete, bool par_isMove, 
             DLLAnchor<TControl_V>? par_anchor,
             bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
+            //Added 4/30/2024 td
+            if (!pb_isOperationVertical) System.Diagnostics.Debugger.Break();
+
             _isVerti = true;
             _range_V = par_range;
             _anchor_V = par_anchor;
@@ -189,7 +238,16 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list, 
+
+        /// <summary>
+        /// Perform an insert operation, either for TControl_H or TControl_V.
+        /// If appropriate, we perform some sanity testing prior to the operation.
+        /// </summary>
+        /// <typeparam name="TControl"></typeparam>
+        /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
+        /// <param name="par_range">This is the range of items which are being placed into the list.</param>
+        /// <param name="par_anchor">This is a simple wrapper for the item which provides the location for the insert operation.</param>
+        private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list_NotReallyNeeded, 
                                              DLLRange<TControl> par_range,
                                              DLLAnchor<TControl>? par_anchor) 
             where TControl : IDoublyLinkedItem<TControl>
@@ -203,47 +261,141 @@ namespace RSCLibraryDLLOperations
             //  
             // Insertion operation
             //
+            if (par_anchor == null)
+            {
+                if (par_list_NotReallyNeeded._isEmpty_OrTreatAsEmpty)
+                {
+                    //List is currently empty, or should be treated as such
+                    //   because user has chosen to delete all of the items.
+                    //Set the list to contain ALL & ONLY items in the range.
+                    //   ---4/30/2024 td
+                    par_list_NotReallyNeeded._itemStart = par_range._StartingItem;
+                    par_list_NotReallyNeeded._itemEnding = par_range._EndingItem;
+                    par_list_NotReallyNeeded._isEmpty_OrTreatAsEmpty = false;
+                    par_list_NotReallyNeeded._itemCount = par_range._ItemCount;
+
+                }
+                else
+                {
+                    // Debugging is needed.
+                    Debugger.Break();
+                }
+
+            }
 
 
             //if (par_anchor != null && _willInsertRange_AfterAnchor)
-            if (par_anchor != null && par_anchor._insertAfter)
+            else if (par_anchor != null && par_anchor._doInsertRangeAfterThis)
             {
-                if (Testing.AreWeTesting)
+                TControl? itemOriginallyAfterAnchor = default(TControl);
+                bool bAnchorHasItemAfter;
+                bAnchorHasItemAfter = par_anchor._anchorItem.DLL_HasNext();
+
+                if (par_anchor._anchorItem.DLL_HasNext())
                 {
-                    if (false == par_list.Contains(par_anchor._item)) Debugger.Break();
+                    // Get the item AFTER the anchor; and also "unbox" it,
+                    //   i.e. get the TControl object (vs. an interface).
+                    itemOriginallyAfterAnchor = par_anchor._anchorItem.DLL_GetItemNext().DLL_UnboxControl();
+
+                    if (Testing.AreWeTesting)
+                    {
+                        // Let's test two(2) things...
+                        //
+                        //   1) The anchor is in the list. 
+                        //   2) The operation has already taken place, or is superfluous (not needed).
+                        //
+                        bool bListHasAnchor = par_list_NotReallyNeeded.Contains(par_anchor._anchorItem);
+                        if (false == bListHasAnchor)
+                        {
+                            // Surprising situation. Some debugging ought to be performed. 
+                            Debugger.Break();
+                        }
+                        // Has the operation already taken place?  Is it not needed? 
+                        //    (If so, some debugging should be performed.)
+                        if (bAnchorHasItemAfter)
+                        {
+                            bool bInsertIsAlreadyDone = itemOriginallyAfterAnchor.Equals(par_range._StartingItem);
+                            if (bInsertIsAlreadyDone) System.Diagnostics.Debugger.Break();
+                            if (bInsertIsAlreadyDone) return; // Don't repeat an unneeded operation.
+                        }
+                    }
+
+                    //Perform the operation !!
+                    //   ---par_anchor.DLL_SetItemNext(par_list._itemStart);
+                    par_anchor._anchorItem.DLL_SetItemNext(par_range._StartingItem);
+
+                    // Administration (i.e. easy to forget!!)
+                    par_range._StartingItem.DLL_SetItemPrior(par_anchor._anchorItem);
+                    par_range._EndingItem.DLL_SetItemNext(itemOriginallyAfterAnchor);
+                    itemOriginallyAfterAnchor.DLL_SetItemPrior(par_range._EndingItem);
+                }
+                else
+                {
+                    //
+                    // Nothing originally (pre-operation) follows the anchor,
+                    //    i.e. there is no item which is "Next" after the anchor.
+                    //
+                    if (Testing.AreWeTesting)
+                    {
+                        bool bListHasAnchor = par_list_NotReallyNeeded.Contains(par_anchor._anchorItem);
+                        if (false == bListHasAnchor) Debugger.Break();
+                    }
+                    
+                    //Perform the operation !!
+                    par_anchor._anchorItem.DLL_SetItemNext(par_range._StartingItem);
+
+                    // Administration (i.e. easy to forget!!)
+                    par_range._StartingItem.DLL_SetItemPrior(par_anchor._anchorItem);
+
                 }
 
-                IDoublyLinkedItem<TControl>
-                    itemOriginallyAfterAnchor = par_anchor._item.DLL_GetItemNext();
-
-                //par_anchor.DLL_SetItemNext(par_list._itemStart);
-                par_anchor._item.DLL_SetItemNext(par_list._itemStart);
-
-                // Administration (i.e. easy to forget!!)
-                par_list._itemStart.DLL_SetItemPrior(par_anchor._item);
-                par_list._itemEnding.DLL_SetItemNext(itemOriginallyAfterAnchor);
-                itemOriginallyAfterAnchor.DLL_SetItemPrior(par_list._itemEnding);
 
             }
 
             //else if (par_anchor != null && _willInsertRange_PriorToAnchor)
-            else if (par_anchor != null && par_anchor._insertBefore)
+            else if (par_anchor != null && par_anchor._doInsertRangeBeforeThis)
             {
+                //
+                // Insert the range PRIOR (PRECEDING) to the anchoring item.
+                //
+                IDoublyLinkedItem<TControl>
+                    itemOriginallyBeforeAnchor = par_anchor._anchorItem.DLL_GetItemPrior();
+                bool bAnchorHasItemBefore;
+                bAnchorHasItemBefore = par_anchor._anchorItem.DLL_HasPrior();
+
                 if (Testing.AreWeTesting)
                 {
                     bool bAnchorIsMissingFromList; //Added 4/23/2024 td
-                    bAnchorIsMissingFromList = (false == par_list.Contains(par_anchor._item));
+                    bAnchorIsMissingFromList = (false == par_list_NotReallyNeeded.Contains(par_anchor._anchorItem));
                     if (bAnchorIsMissingFromList) Debugger.Break();
+
+                    if (bAnchorHasItemBefore)
+                    {
+                        bool bInsertIs_AlreadyDone = itemOriginallyBeforeAnchor.Equals(par_range._EndingItem);
+                        if (bInsertIs_AlreadyDone) System.Diagnostics.Debugger.Break();
+                        if (bInsertIs_AlreadyDone) return; // Don't repeat an unneeded operation.
+                    }
+
                 } // if (Testing.AreWeTesting )
 
-                IDoublyLinkedItem<TControl>
-                    itemOriginallyBeforeAnchor = par_anchor._item.DLL_GetItemPrior();
-                par_anchor._item.DLL_SetItemPrior(par_list._itemEnding);
 
-                // Administration (i.e. easy to forget!!)
-                par_list._itemEnding.DLL_SetItemNext(par_anchor._item);
-                par_list._itemStart.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
-                itemOriginallyBeforeAnchor.DLL_SetItemNext(par_list._itemStart);
+                if (bAnchorHasItemBefore)  // (itemOriginallyBeforeAnchor != null)
+                {
+                    // Insert the range before the anchor. 
+                    par_anchor._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
+
+                    // Administration (i.e. easy to forget!!)
+                    par_range._EndingItem.DLL_SetItemNext(par_anchor._anchorItem);
+                    par_range._StartingItem.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
+                    itemOriginallyBeforeAnchor.DLL_SetItemNext(par_range._StartingItem);
+                }
+                else
+                {
+                    // Insert the range before the anchor. 
+                    par_anchor._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
+                    // Administration (i.e. easy to forget!!)
+                    par_range._EndingItem.DLL_SetItemNext(par_anchor._anchorItem);
+                }
 
             }
             //
@@ -308,21 +460,52 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnList(LinkedList<TControl_H> par_list)
+        /****
+         * 
+         * 
+         * public void OperateOnList(DLLList<TControl_H> par_list)
         {
+            // public void OperateOnList(LinkedList<TControl_H> par_list)
             //
             // Added 4/17/2024
             //
-            if (_anchor_H != null && _willInsertRange_AfterAnchor)
+            //if (_anchor_H != null && _willInsertRange_AfterAnchor)
+            if (_anchor_H != null && _range_H != null 
+                && _anchor_H._doInsertRangeAfterThis)
             {
+                OperateOnList_Insert<TControl_H>(par_list, _range_H, _anchor_H);
+
                 //foreach (TControl_H each_item in _range_H)
                 //{
                 //    LinkedListNode<TControl_H> linkedAnchor = new LinkedListNode<TControl_H>(_anchor_H);
                 //    par_list.AddAfter(linkedAnchor, each_item);
                 //}
-            }
+                TControl_H? nextAfterAnchor = default(TControl_H); //null;
+                if (_anchor_H._anchorItem.DLL_HasNext())
+                {
+                    nextAfterAnchor = _anchor_H._anchorItem.DLL_GetItemNext().DLL_UnboxControl();
 
+                    // Testing for anomalies.
+                    if (Testing.AreWeTesting)
+                    {
+                        bool bAlreadyDone = nextAfterAnchor.Equals(_range_H._StartingItem);
+                        if (bAlreadyDone) System.Diagnostics.Debugger.Break();
+                        if (bAlreadyDone) return;
+                    }
+
+                    _anchor_H._anchorItem.DLL_SetItemNext(_range_H._StartingItem);
+
+                    //Administrative.  (Easy to overlook.)
+                    _range_H._StartingItem.DLL_SetItemPrior(_anchor_H._anchorItem);
+                    _range_H._EndingItem.DLL_SetItemNext(nextAfterAnchor);
+                    nextAfterAnchor.DLL_SetItemPrior(_range_H._EndingItem);
+
+                }
+            }
         }
+        *
+        *
+        **********/
 
 
         /// <summary>
@@ -357,10 +540,14 @@ namespace RSCLibraryDLLOperations
             //
             if (_isHoriz)
             {
-                DLLRange<TControl_H> result_RangeOfItems_H = _range_H;
-                TControl_H? result_anchor_H = _anchor_forUndo_H;  // Use the "forUndo" anchor.
-
-                result_UNDO = new DLLOperation<TControl_H, TControl_V>(result_RangeOfItems_H,
+                DLLRange<TControl_H>? result_RangeOfItems_H = _range_H;
+                DLLAnchor<TControl_H>? result_anchor_H = _anchor_forUndo_H;  // Use the "forUndo" anchor.
+                
+                //
+                // Use the constructor overload for horizontal operations.
+                //
+                result_UNDO = new DLLOperation<TControl_H, TControl_V>(EnumHorizontalOrVertical.Horizontal, 
+                    result_RangeOfItems_H,
                     result_isForStartOfList,
                     result_isForEndOfList,
                     result_isInsert,
@@ -374,8 +561,11 @@ namespace RSCLibraryDLLOperations
             else //if (_isVerti)
             {
                 DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
-                TControl_V? result_anchor_V = _anchor_forUndo_V;  // Use the "forUndo" anchor.
+                DLLAnchor<TControl_V>? result_anchor_V = _anchor_forUndo_V;  // Use the "forUndo" anchor.
 
+                //
+                // Use the constructor overload for vertical operations.
+                //
                 result_UNDO = new DLLOperation<TControl_H, TControl_V>(true, 
                     result_RangeOfItems_V,
                     result_isForStartOfList,

@@ -75,6 +75,28 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public TControl Get_ItemAtIndex(int par_index)
+        {
+            //
+            // Added 4/30/2024 
+            //
+            TControl result = _itemStart;
+
+            if (_itemStart != null)
+            {
+                result = _itemStart.DLL_GetItemNext(par_index).DLL_UnboxControl();
+            }
+
+            if (result == null)
+            {
+                return default(TControl);
+            }
+            else return result; 
+
+        }
+
+
+
 
     }
 }
