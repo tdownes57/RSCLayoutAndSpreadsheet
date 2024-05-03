@@ -296,7 +296,7 @@ Friend Class UserControlOperation
                 ''Added 12/31/2023 thomas downes
                 ''
                 bChangeOfEitherEndPoint = True
-                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
+                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem, firstRangeItem._Control,
                           intHowManyItemsToInsert,
                           anchorItem, enumRowOrColumns, Nothing,
                           bChangeOfEitherEndPoint, bLikelyFillingEmptyList)
@@ -308,7 +308,7 @@ Friend Class UserControlOperation
                 ''          1 2 3 4 5 6 7 8 9 10
                 '' Result:  1 2 3 4 5 6 7_A_B_C_8 9 10
                 ''
-                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
+                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem, firstRangeItem._Control,
                           intHowManyItemsToInsert,
                           anchorItem, enumRowOrColumns, Nothing,
                           bChangeOfEitherEndPoint)
@@ -320,7 +320,7 @@ Friend Class UserControlOperation
                 ''          1 2 3 4 5 6 7 8 9 10
                 '' Result:  1 2 3 4 5_x_6 7 8 9 10
                 ''
-                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem,
+                objDLLOperation = New DLL_OperationV2("I"c, firstRangeItem, firstRangeItem._Control,
                 intHowManyItemsToInsert, Nothing, enumRowOrColumns, anchorItem,
                 bChangeOfEitherEndPoint)
 
@@ -539,7 +539,7 @@ Friend Class UserControlOperation
         ''       intHowManyItemsToDelete, Nothing, Nothing, bIsForEitherEndpoint)
         ''1/2024 result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
         ''1/2024   pintHowManyItemsInRange, Nothing, Nothing, bIsForEitherEndpoint)
-        result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem,
+        result_dllOperation = New DLL_OperationV2("D"c, firstRangeItem, firstRangeItem._Control,
                 cleaned_howManyItemsInRange, Nothing,
                 GetModeRowOrColumns(), Nothing,
                 bIsForEitherEndpoint)
@@ -668,7 +668,7 @@ Friend Class UserControlOperation
         End If ''ENd of ""If (bLetsInsertRangeAfterAnchor) Then... ElseIf..."
 
         '' "M" for "Move"
-        objDLLOperation = New DLL_OperationV2("M"c, firstRangeItem,
+        objDLLOperation = New DLL_OperationV2("M"c, firstRangeItem, firstRangeItem._Control,
                 intHowManyItemsToMove,
                 anchorItem_ToBePriorToRange,
                 GetModeRowOrColumns(),

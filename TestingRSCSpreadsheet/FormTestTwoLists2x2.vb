@@ -1,6 +1,7 @@
 ﻿Imports System.Text
 Imports ciBadgeInterfaces ''Added 3/02/2024 td
 Imports ciBadgeSerialize ''Added 3/02/2024 td
+Imports RSCLibraryDLLOperations ''Added 5/03/2024 td
 
 Public Class FormTestTwoLists2x2
     ''
@@ -30,6 +31,7 @@ Public Class FormTestTwoLists2x2
     Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
     Private mod_managerOfOps As DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
                                       TwoCharacterDLLVertical)
+
 #End If
 
     Private Enum EnumTwoListsMode
@@ -117,10 +119,12 @@ Public Class FormTestTwoLists2x2
                                             opInitialLoad1Cols.GetCopyV1(),
                                             opInitialLoad2Rows.GetCopyV1())
 #ElseIf USE_SPECIFIC_CLASS Then ''We will use "(Of TwoCharacterDLLItem, TwoCharacterDLLItem)"
-            mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
-                   TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows, True,
-                                            opInitialLoad1Cols.GetCopyV1(),
-                                            opInitialLoad2Rows.GetCopyV1())
+            ''mod_managerOfOps = New DLLOperationsManager2x2_Deprecated(Of TwoCharacterDLLHorizontal,
+            ''       TwoCharacterDLLVertical)(mod_list1Cols, mod_list2Rows, True,
+            ''                                opInitialLoad1Cols.GetCopyV1(),
+            ''                                opInitialLoad2Rows.GetCopyV1())
+            mod_managerOfOps = New RSCLibraryDLLOperations.DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
+                        TwoCharacterDLLVertical)()
 #End If
 
         Else
@@ -217,7 +221,7 @@ Public Class FormTestTwoLists2x2
         ''Added 12/28/2023 
         ''   Columns are arranged horizontally.
         ''
-        op_result = New DLL_OperationV2("I"c, firstTwoChar,
+        op_result = New DLL_OperationV2("I"c, firstTwoChar, firstTwoChar._Control,
                             INITIAL_ITEM_COUNT_Cols, Nothing,
                             EnumModeRowsOrColumns.Cols, Nothing, True)
         ''added 12/28
@@ -313,7 +317,7 @@ Public Class FormTestTwoLists2x2
         ''Added 12/28/2023 
         ''   Rows are arranged vertically.
         ''
-        op_result = New DLL_OperationV2("I"c, firstTwoChar,
+        op_result = New DLL_OperationV2("I"c, firstTwoChar, firstTwoChar._Control,
                             INITIAL_ITEM_COUNT_Cols, Nothing,
                             EnumModeRowsOrColumns.Rows, Nothing, True)
         ''added 12/28

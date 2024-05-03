@@ -38,6 +38,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public InsertRangeStart As IDoublyLinkedItem ''TControl
     Public InsertRangeEnd_Null As IDoublyLinkedItem ''Added 1/06/2024 thomas downes
 
+    ''Added 5/3/2024 td 
+    Public InsertItemSingly_Control As Control
+
     ''Added 2/5/2024 
     Public Sort_IsAscending As Boolean
     Public Sort_IsDescending As Boolean
@@ -51,6 +54,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public InsertCount As Integer ''How many linked TControl objects?
 
     Public MovedRangeStart As IDoublyLinkedItem ''TControl
+    Public MovedRangeStart_Control As Control ''Added 5/3/2024 ''IDoublyLinkedItem ''TControl
     Public MovedCount As Integer ''TControl
     Public IsChangeOfEndpoint As Boolean ''Endpoint impacted, start or end. 12/26/2023
 
@@ -117,10 +121,12 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public AnchorToSucceedItemOrRange As IDoublyLinkedItem ''TControl
 
     Public DeleteItemSingly As IDoublyLinkedItem ''TControl
+    Public DeleteItemSingly_Control As Control ''IDoublyLinkedItem ''TControl
     ''Not needed.Public MovedSingly As TControl
 
     Public DeleteRangeStart As IDoublyLinkedItem ''TControl
     Public DeleteRangeEnd_Null As IDoublyLinkedItem ''Added 1/06/2024 thomas downes
+    Public DeleteRangeStart_Control As Control ''IDoublyLinkedItem ''TControl
 
     ''Needed for consistency checks...
     Public DeleteCount As Integer ''How many linked TControl objects?
@@ -1222,7 +1228,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''
                     ''Deleting a range.
                     ''
-                    result = New DLL_OperationV2(Me.OperationType, Me.DeleteRangeStart, Me.DeleteCount,
+                    result = New DLL_OperationV2(Me.OperationType, Me.DeleteRangeStart,
+                                                 Me.DeleteRangeStart_Control, Me.DeleteCount,
                                                  Nothing, enum_rowsOrColumns,
                                                  Nothing, Me.IsChangeOfEndpoint)
                     ''                       Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
@@ -1233,7 +1240,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''Deleting an item.
                     ''
                     Const JUST_ONE As Integer = 1
-                    result = New DLL_OperationV2(Me.OperationType, Me.DeleteItemSingly, JUST_ONE,
+                    result = New DLL_OperationV2(Me.OperationType, Me.DeleteItemSingly,
+                                                 Me.DeleteItemSingly_Control,
+                                                 JUST_ONE,
                                                  Nothing, enum_rowsOrColumns,
                                                  Nothing, Me.IsChangeOfEndpoint)
                     ''                       Delete_PriorToItemOrRange, Delete_NextToItemOrRange,
@@ -1251,7 +1260,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''
                     ''Inserting a range.
                     ''
-                    result = New DLL_OperationV2(Me.OperationType, Me.InsertRangeStart, Me.InsertCount,
+                    result = New DLL_OperationV2(Me.OperationType, Me.InsertRangeStart,
+                                                 Me.InsertItemSingly_Control, Me.InsertCount,
                                                 Me.AnchorToPrecedeItemOrRange, enum_rowsOrColumns,
                                                 Me.AnchorToSucceedItemOrRange, Me.IsChangeOfEndpoint)
 
@@ -1260,7 +1270,8 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                     ''Inserting an item.
                     ''
                     Const JUST_ONE As Integer = 1
-                    result = New DLL_OperationV2(Me.OperationType, Me.InsertItemSingly, JUST_ONE,
+                    result = New DLL_OperationV2(Me.OperationType, Me.InsertItemSingly,
+                                                 Me.InsertItemSingly_Control, JUST_ONE,
                                                  Me.AnchorToPrecedeItemOrRange, enum_rowsOrColumns,
                                                  Me.AnchorToSucceedItemOrRange,
                                                  Me.IsChangeOfEndpoint)
@@ -1274,7 +1285,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
                 ''
                 ''Moving a range of items. 
                 ''
-                result = New DLL_OperationV2(Me.OperationType, Me.MovedRangeStart, Me.MovedCount,
+                result = New DLL_OperationV2(Me.OperationType,
+                                             Me.MovedRangeStart, Me.MovedRangeStart_Control,
+                                             Me.MovedCount,
                                                 Me.AnchorToPrecedeItemOrRange, enum_rowsOrColumns,
                                                 Me.AnchorToSucceedItemOrRange,
                                                 Me.IsChangeOfEndpoint)

@@ -11,7 +11,7 @@ Public Class TwoCharacterDLLItem
     ''' </summary>
     ''' <returns></returns>
     Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
-
+    Public Property _Control As Control ''Added 5/3/2024 td
 
     Private mod_prior As TwoCharacterDLLItem
     Private mod_next As TwoCharacterDLLItem

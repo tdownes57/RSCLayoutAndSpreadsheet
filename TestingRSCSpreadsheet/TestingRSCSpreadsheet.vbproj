@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj" />
+    <ProjectReference Include="..\RSCLibraryDLLOperations\RSCLibraryDLLOperations.csproj" />
   </ItemGroup>
 
   <ItemGroup>

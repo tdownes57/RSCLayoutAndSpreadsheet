@@ -80,6 +80,10 @@ Public Interface IDoublyLinkedList(Of TControl)
                                toUseAsAnchor_ItemPrior As TControl,
                                isChangeOfEndPoint As Boolean)
 
+    ''// Added 5/03/2024 thomas 
+    Sub DLL_InsertOneItemAfter(toBeInsertedSingleItem As IDoublyLinkedItem,
+                               toUseAsAnchor_ItemPrior As IDoublyLinkedItem,
+                               isChangeOfEndPoint As Boolean)
 
     '' <summary>
     '' ----Deprecated, originally for IDoublyLinkedItem.12/2023---This is a bit more administrative than DLL_SetPriorAs, since four(4) directional links are specified (not just two).

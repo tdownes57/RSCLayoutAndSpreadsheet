@@ -8,7 +8,7 @@ Imports ciBadgeSerialize
 ''' Will process and record V1 operations. 
 ''' </summary>
 ''' <typeparam name="TDoublyLinkedItem"></typeparam>
-Public Class DLLOperationsManager(Of T_DoublyLinkedItem)
+Public Class DLLOperationsManager(Of T_DoublyLinkedItem As IDoublyLinkedItem)
 
     ''Added 1/18/2024
     Private mod_firstItem As T_DoublyLinkedItem

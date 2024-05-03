@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLOperationsManager2x2<T_LinkedCtlBase, T_LinkedCtlH, T_LinkedCtlV>
+    public class DLLOperationsManager2x2<T_LinkedCtlBase, T_LinkedCtlH, T_LinkedCtlV>
     {
         //''Added 1/18/2024 
         private T_LinkedCtlH mod_firstItemHoriz;

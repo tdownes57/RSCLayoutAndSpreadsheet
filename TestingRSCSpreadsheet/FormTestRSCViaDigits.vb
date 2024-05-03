@@ -234,7 +234,7 @@ Public Class FormTestRSCViaDigits
         ''
         ''Added 12/28/2023 
         ''
-        op_result = New DLL_OperationV2("I"c, mod_firstTwoChar,
+        op_result = New DLL_OperationV2("I"c, mod_firstTwoChar, mod_firstTwoChar._Control,
                             INITIAL_ITEM_COUNT_30, Nothing,
                                 EnumModeRowsOrColumns.Undetermined, Nothing, True)
         ''added 12/28

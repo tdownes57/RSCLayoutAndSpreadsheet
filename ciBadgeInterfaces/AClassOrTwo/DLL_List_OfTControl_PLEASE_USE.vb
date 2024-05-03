@@ -9,6 +9,7 @@
 ''---- DIFFICULT AND CONFUSING ----
 ''  Here is the "secret sauce" that allows this Generic Type (DLL_List_OfTControl_PLEASE_USE(Of TControl))
 ''  to work... EXPLICIT CASTING!!!   ---12/18/2023
+''
 ''  EXPLICIT CASTING...
 ''    Dim itemToInsert As IDoublyLinkedItem = CType(toBeInsertedSingleItem, IDoublyLinkedItem)
 ''    Dim itemForAnchoring As IDoublyLinkedItem = CType(toUseAsAnchor, IDoublyLinkedItem)
@@ -20,7 +21,7 @@
 ''' TControl is RSCFieldColumn, RSCDataHeader, or RSCDataCell.
 ''' </summary>
 ''' <typeparam name="TControl"></typeparam>
-Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
+Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl As IDoublyLinkedItem)
     Implements IDoublyLinkedList(Of TControl)
 
     Private mod_dllControlFirst As IDoublyLinkedItem ''Not necessarily needed, except for testing. DLL = Doubly-Linked List. 
@@ -174,8 +175,43 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl)
     End Sub ''End of Public Sub DLL_AppendRange
 
 
+
+
     Public Sub DLL_InsertOneItemAfter(p_toBeInsertedSingleItem As TControl,
                                       p_toUseAsAnchor_ItemPriorToSingle As TControl,
+                                      p_atEitherEndpoint As Boolean) _
+                                      Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
+        ''
+        ''                Insert A after 7, the preceding anchor.
+        ''                       |
+        ''          1 2 3 4 5 6 7 8 9 10
+        '' Result:  1 2 3 4 5 6 7 A 8 9 10
+        ''
+        ''12/2023 Throw New NotImplementedException()
+        Dim itemSingleToInsert As IDoublyLinkedItem '' = CType(p_toBeInsertedSingleItem, IDoublyLinkedItem)
+        ''Reminder, anchors are applicable AFTER (or DURING) the operation takes place.
+        Dim itemForAnchoring_ItemPriorToSingle As IDoublyLinkedItem ''Will ultimately precede the range of inserted items.
+        Dim bTesting As Boolean = ciBadgeInterfaces.Testing.TestingByDefault
+
+        ''-----------------------------------------------------------------------------------------------------
+        ''---- DIFFICULT AND CONFUSING ----
+        ''  Here is the "secret sauce" that allows this Generic Type (DLL_List_OfTControl_PLEASE_USE(Of TControl))
+        ''  to work... EXPLICIT CASTING!!!  ---12/18/2023
+        ''-----------------------------------------------------------------------------------------------------
+        itemSingleToInsert = CType(p_toBeInsertedSingleItem, IDoublyLinkedItem)
+        itemForAnchoring_ItemPriorToSingle = CType(p_toUseAsAnchor_ItemPriorToSingle, IDoublyLinkedItem)
+
+        ''Major call....
+        DLL_InsertOneItemAfter(itemSingleToInsert,
+                                      itemForAnchoring_ItemPriorToSingle,
+                                      p_atEitherEndpoint)
+
+
+    End Sub ''eND OF ""Public Sub DLL_InsertOneItemAfter""
+
+
+    Public Sub DLL_InsertOneItemAfter(p_toBeInsertedSingleItem As IDoublyLinkedItem,
+                                      p_toUseAsAnchor_ItemPriorToSingle As IDoublyLinkedItem,
                                       p_atEitherEndpoint As Boolean) _
                                       Implements IDoublyLinkedList(Of TControl).DLL_InsertOneItemAfter
         ''

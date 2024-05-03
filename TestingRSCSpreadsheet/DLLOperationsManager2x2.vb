@@ -9,7 +9,8 @@ Imports ciBadgeSerialize
 ''' </summary>
 ''' <typeparam name="T_DoublyLinkedItem1"></typeparam>
 ''' <typeparam name="T_DoublyLinkedItem2"></typeparam>
-Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV)
+Public Class DLLOperationsManager2x2_Deprecated(Of T_DoublyLinkedItemH As IDoublyLinkedItem,
+                                         T_DoublyLinkedItemV As IDoublyLinkedItem)
 
     ''Added 1/18/2024
     Private mod_firstItemHoriz As T_DoublyLinkedItemH
@@ -286,8 +287,8 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
                         ''Added 4/8/2024 
                         Dim objSingleItemH As T_DoublyLinkedItemH ''Added 4/8/2024 
                         Dim objAnchorPrecedingH As T_DoublyLinkedItemH ''Added 4/8/2024 
-                        objSingleItemH = .InsertItemSingly.DLL_UnboxControl()
-                        objAnchorPrecedingH = .AnchorToPrecedeItemOrRange.DLL_UnboxControl()
+                        objSingleItemH = CType(.InsertItemSingly, T_DoublyLinkedItemH)
+                        objAnchorPrecedingH = .AnchorToPrecedeItemOrRange ''--.DLL_UnboxControl()
 
                         mod_listHoriz.DLL_InsertOneItemAfter(objSingleItemH,
                                             objAnchorPrecedingH,
@@ -295,15 +296,36 @@ Public Class DLLOperationsManager2x2(Of T_DoublyLinkedItemH, T_DoublyLinkedItemV
 
                     ElseIf (pbIsVerti) Then
                         ''Added 4/8/2024 
-                        Dim objSingleItemV As T_DoublyLinkedItemV ''Added 4/8/2024 
+                        Dim objSingleItemVerti As T_DoublyLinkedItemV ''Added 4/8/2024 
+                        Dim objSingleItemHoriz_TESTING As T_DoublyLinkedItemH ''Added 4/8/2024 
                         Dim objAnchorPrecedingV As T_DoublyLinkedItemV ''Added 4/8/2024 
+
+                        ''Added 4/8/2024
+                        ''  FOR DEBUGGING / TESTING ONLY !!
+                        ''---objSingleItemHoriz_TESTING = CType(.InsertItemSingly_Control, T_DoublyLinkedItemH)
+
                         ''Added 4/8/2024 
-                        objSingleItemV = .InsertItemSingly
+                        objSingleItemVerti = CType(.InsertItemSingly, T_DoublyLinkedItemV)
                         objAnchorPrecedingV = .AnchorToPrecedeItemOrRange
 
-                        mod_listVerti.DLL_InsertOneItemAfter(objSingleItemV,
+                        ''Added 5/3/2024
+                        Const c_bPassTObjects As Boolean = False ''Added 5/3/2024 
+                        Const c_bPassInterfaces As Boolean = False ''Added 5/3/2024 
+
+                        If (c_bPassTObjects) Then ''Added 5/3/2024
+                            ''Existed prior to 5/3/2024
+                            mod_listVerti.DLL_InsertOneItemAfter(objSingleItemVerti,
                                             objAnchorPrecedingV,
                                             .IsChangeOfEndpoint)
+                        ElseIf (c_bPassInterfaces) Then
+                            ''
+                            ''Added 5/3/2024
+                            ''
+                            mod_listVerti.DLL_InsertOneItemAfter(.InsertItemSingly,
+                                            .AnchorToPrecedeItemOrRange,
+                                            .IsChangeOfEndpoint)
+                        End If ''End of ""If (c_bPassTObjects) Then... ElseIf..."
+
                     End If ''End of ""If (pbIsHoriz) Then... ElseIf (pbIsVerti)..."
 
                 ElseIf (.InsertRangeStart IsNot Nothing) Then

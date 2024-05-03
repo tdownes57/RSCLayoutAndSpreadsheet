@@ -32,6 +32,9 @@ Public Class DLL_OperationV2
     Private ReadOnly mod_operationRangeFirstItem As IDoublyLinkedItem
     Private ReadOnly mod_countOfItems As Integer
 
+    ''Added 5/3/2024 
+    Private ReadOnly mod_operationRangeFirstControl As IDoublyLinkedItem
+
     ''Added 1/5/2024 td
     ''  This object is Optional / may be Null.
     Private mod_operationRangeLastItem_Null As IDoublyLinkedItem = Nothing ''Added 1/5/2024 
@@ -94,7 +97,8 @@ Public Class DLL_OperationV2
     ''' <param name="p_anchorFinalPrior">May be Nothing. The listed item which will be immediately PRIOR to the Inserted or Moved items.</param>
     ''' <param name="p_anchorFinalNext">May be Nothing. The listed item which will immediately FOLLOW the Inserted or Moved items.</param>
     ''' <param name="p_forEitherEndpoint">Indicates that an operation will result in a new starting or ending item.</param>
-    Public Sub New(p_opType As Char, p_firstInOperationRange As IDoublyLinkedItem,
+    Public Sub New(p_opType As Char, p_firstInOperationRange_Item As IDoublyLinkedItem,
+                   p_firstInOperationRange_Control As Control,
                    p_intCountOfItems As Integer,
                    p_anchorFinalPrior As IDoublyLinkedItem,
                    p_enumModeRowsOrCols As EnumModeRowsOrColumns,
@@ -118,7 +122,9 @@ Public Class DLL_OperationV2
         mod_anchorFinalPrior = p_anchorFinalPrior
         mod_countOfItems = p_intCountOfItems
         mod_operationType = p_opType
-        mod_operationRangeFirstItem = p_firstInOperationRange
+
+        mod_operationRangeFirstItem = p_firstInOperationRange_Item
+        mod_operationRangeFirstControl = p_firstInOperationRange_Control ''Added 5/3/2024 td
 
         ''Added 12/26/2023
         mod_isChangeOfEndpoint = p_forEitherEndpoint
@@ -130,22 +136,22 @@ Public Class DLL_OperationV2
         ''
         ''Inverse Anchors--Anchors for the UNDO operation.
         ''
-        If (p_firstInOperationRange Is Nothing) Then
+        If (p_firstInOperationRange_Item Is Nothing) Then
             ''Added 1/28/2024 td
             Debugger.Break()
 
-        ElseIf (p_firstInOperationRange.DLL_HasPrior()) Then
+        ElseIf (p_firstInOperationRange_Item.DLL_HasPrior()) Then
             ''Get the prior item. 
-            mod_inverseAnchorPrior = p_firstInOperationRange.DLL_GetItemPrior()
-        End If ''Endof ""If (p_firstInOperationRange.DLL_HasPrior()) Then""
+            mod_inverseAnchorPrior = p_firstInOperationRange_Item.DLL_GetItemPrior()
+        End If ''Endof ""If (p_firstInOperationRange_Item.DLL_HasPrior()) Then""
 
         ''Added 12/28/2023 td 
         Dim lastInOperationRange As IDoublyLinkedItem ''Added 12/28/2023 td 
-        lastInOperationRange = p_firstInOperationRange.DLL_GetItemNext(-1 + mod_countOfItems)
+        lastInOperationRange = p_firstInOperationRange_Item.DLL_GetItemNext(-1 + mod_countOfItems)
         If (lastInOperationRange.DLL_HasNext()) Then
             ''If we iterate "Next" by p_intCountOfItem times,
             ''  we get the item __following__ the range. 
-            ''mod_inverseFinalNext = p_firstInOperationRange.DLL_GetItemNext(p_intCountOfItems)
+            ''mod_inverseFinalNext = p_firstInOperationRange_Item.DLL_GetItemNext(p_intCountOfItems)
             mod_inverseAnchorNext = lastInOperationRange.DLL_GetItemNext()
 
         End If ''End of ""If (lastInOperationRange.DLL_HasNext()) Then""
@@ -169,14 +175,14 @@ Public Class DLL_OperationV2
 
                 ''Check to see if the range includes the anchor, a logical contradiction/infinite recursion.
                 bRangeContainsAnchor_NotKosher =
-                       RangeIncludesAnchor(p_firstInOperationRange, p_intCountOfItems, anchorNonNull)
+                       RangeIncludesAnchor(p_firstInOperationRange_Item, p_intCountOfItems, anchorNonNull)
                 If (bRangeContainsAnchor_NotKosher) Then
                     Throw New RSCEndpointException("Range shouldn't extend so far as to include the anchor.")
                 End If ''End of ""If (bRangeContainsAnchor_NotOkay) Then""
 
                 ''Dim bLocatedAnchor As Boolean
                 ''Dim bAnchorIsInRange As Boolean
-                ''Dim tempItem As IDoublyLinkedItem = p_firstInOperationRange
+                ''Dim tempItem As IDoublyLinkedItem = p_firstInOperationRange_Item
                 ''For index = 0 To p_intCountOfItems
                 ''    If (boolIsAnchorPrior) Then
                 ''        bLocatedAnchor = (tempItem Is p_anchorFinalPrior)
