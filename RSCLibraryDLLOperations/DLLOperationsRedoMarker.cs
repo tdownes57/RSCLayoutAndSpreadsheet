@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLL_OperationsRedoMarker<TControl_H, TControl_V>
+    internal class DLLOperationsRedoMarker<TControl_H, TControl_V>
         where TControl_H : IDoublyLinkedItem<TControl_H>
         where TControl_V : IDoublyLinkedItem<TControl_V>
     {
@@ -43,6 +43,30 @@ namespace RSCLibraryDLLOperations
         //''' </summary>
         private DLLOperation<TControl_H, TControl_V> mod_opNext_ForRedo;
 
+
+        public bool HasOperationNext()
+        {
+            // Added 5/22/2024
+            return (mod_opNext_ForRedo != null);
+        }
+
+        public bool HasOperationPrior()
+        {
+            // Added 5/22/2024
+            return (mod_opPrior_ForUndo != null);
+
+        }
+
+
+        public DLLOperation<TControl_H, TControl_V> 
+            GetMarkersNext_ShiftPositionRight()
+        {
+            //
+            // Added 5/22/2024 td
+            //
+
+
+        }
 
 
     }

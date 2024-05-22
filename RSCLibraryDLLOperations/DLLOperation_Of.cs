@@ -34,6 +34,7 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isSort_Ascending;
         private readonly bool _isSort_Descending;
         private readonly bool _isSort_UndoOfSort; //Added 4/18/2024 
+        private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
         //private readonly bool _willInsertRange_PriorToAnchor;
         //private readonly bool _willInsertRange_AfterAnchor;
@@ -58,6 +59,24 @@ namespace RSCLibraryDLLOperations
         /// after a DELETE is performed.
         /// </summary>
         private const bool ALWAYS_CLEAN_ENDPOINTS = true;
+
+        /// <summary>
+        /// Is this operation created via GetUndo() or something similar?
+        /// </summary>
+        /// <returns></returns>
+        public bool CreatedAsUndoOperation()
+        {
+            // Added 5/22/2024 td
+            return _isForUndoOperation;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        public bool CreatedAsRedoOperation()
+        {
+            return false;
+        }
 
         /// <summary>
         /// Constructor overload is for horizontal (column) operations, 

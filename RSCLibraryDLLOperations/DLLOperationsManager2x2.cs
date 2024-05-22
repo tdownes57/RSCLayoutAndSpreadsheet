@@ -26,7 +26,10 @@ namespace RSCLibraryDLLOperations
         //private DLL_OperationV1<T_LinkedBase> mod_firstPriorOperationV1;
         //private DLL_OperationV1<T_LinkedBase> mod_lastPriorOperationV1;
         
-        private DLL_OperationsRedoMarker<T_LinkedCtlBase> mod_opRedoMarker; // As r ''Added 1/24/2024
+        private DLLOperationsRedoMarker<T_LinkedCtlHor, T_LinkedCtlVer> 
+            mod_opRedoMarker = 
+            new DLLOperationsRedoMarker<T_LinkedCtlHor, T_LinkedCtlVer>(); // As r ''Added 1/24/2024
+        
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
 
@@ -57,6 +60,7 @@ namespace RSCLibraryDLLOperations
 
         public bool MarkerHasOperationNext()
         {
+            //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
             bool result_hasNext = mod_opRedoMarker.HasOperationNext();
             return result_hasNext;
         }
@@ -66,7 +70,7 @@ namespace RSCLibraryDLLOperations
             DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> 
                 opReDo = mod_opRedoMarker.GetMarkersNext_ShiftPositionRight();
 
-            opReDo.CreatedAsRedoOperation = true;
+            //opReDo.CreatedAsRedoOperation = true;
             ProcessOperation_AnyType(opReDo, opReDo.IsChangeOfEndpoint, false, pbIsHoriz, pbIsVerti);
         
         }
