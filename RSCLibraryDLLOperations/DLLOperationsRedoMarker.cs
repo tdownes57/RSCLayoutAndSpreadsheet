@@ -64,9 +64,70 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/22/2024 td
             //
+            DLLOperation<TControl_H, TControl_V> temp_output = null;
+            DLLOperation<TControl_H, TControl_V> result_operation = null;
 
+            if (mod_opNext_ForRedo == null)
+            {
+                // We should NOT be calling this function. The calling procedure 
+                // should have called HasOperationNext() first, and omitted 
+                // a call to this procedure in the case that HasOperationNext()
+                // returns a False. ---1/18/2024 
+                System.Diagnostics.Debugger.Break();
+                return null;
+            }
+            else
+            {
+                temp_output = mod_opNext_ForRedo;
+                result_operation = mod_opNext_ForRedo;
+
+                // Prepare for future calls to this function, NOT for the present call....
+                mod_opNext_ForRedo = temp_output.GetNext(); //.DLL_GetItemNext();
+                mod_opPrior_ForUndo = temp_output;
+                return result_operation;
+            }
+
+            // End of "if (mod_opNext_ForRedo == null)... else..."
 
         }
+
+
+        /// <summary>
+        /// This function provides the operation which was prior / earlier, in the recorded
+        /// sequence of operations (assuming the user did one or more list-order operations
+        /// prior to changing their mind and choosing to perform the Undo). Here, the "prior"
+        /// is relative to our location within this queue of recorded operations.
+        /// </summary>
+        /// <returns></returns>
+        public DLLOperation<TControl_H, TControl_V> GetMarkersPrior_ShiftPositionLeft()
+        {
+            // Added 1/15/2024  Thomas Downes
+            DLLOperation<TControl_H, TControl_V> temp_output = null;
+            DLLOperation<TControl_H, TControl_V> result_operation = null;
+
+            if (mod_opPrior_ForUndo == null)
+            {
+                // We should NOT be calling this function. The calling procedure 
+                // should have called HasOperationNext() first, and omitted 
+                // a call to this procedure in the case that HasOperationNext()
+                // returns a False. ---1/18/2024 
+                System.Diagnostics.Debugger.Break();
+                return null; // result_operation;
+            }
+            else
+            {
+                temp_output = mod_opPrior_ForUndo;
+                result_operation = mod_opPrior_ForUndo;
+
+                // Prepare for future calls to this function, NOT for the present call....
+                mod_opPrior_ForUndo = temp_output.GetPrior();
+                mod_opNext_ForRedo = temp_output;
+                return result_operation;
+            }
+
+        }
+
+
 
 
     }
