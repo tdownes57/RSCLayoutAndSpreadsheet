@@ -106,8 +106,10 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ProcessOperation_Insert(DLL_OperationV1 par_operationV1, 
-            bool par_changeOfEndpoint, bool par_bRecordOperation)
+        internal void ProcessOperation_Insert(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> 
+                                            par_operationV1, 
+                                            bool par_changeOfEndpoint, 
+                                            bool par_bRecordOperation)
         {
             // Added 2/2/2024 
             // C = Columns, a Horizontal List
@@ -120,7 +122,10 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ProcessOperation_Insert_HorV(DLL_OperationV1 par_operationV1, bool par_changeOfEndpoint, bool par_bRecordOperation, bool pbIsHoriz, bool pbIsVerti)
+        public void ProcessOperation_Insert_HorV(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> 
+                                          par_operationV1, 
+                             bool par_changeOfEndpoint, bool par_bRecordOperation, 
+                             bool pbIsHoriz, bool pbIsVerti)
         {
             var operation = par_operationV1;
 
@@ -294,11 +299,21 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ProcessOperation_Delete(DLL_OperationV1 par_operationV1, bool par_changeOfEndpoint, bool par_bRecordOperation)
+        internal void ProcessOperation_Delete(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> 
+                                            par_operationV1, bool par_changeOfEndpoint, 
+                                                             bool par_bRecordOperation)
         {
+
+
+
+
         }
 
-        public void ProcessOperation_Delete(DLL_OperationV1 par_operationV1, bool par_changeOfEndpoint, bool par_bRecordOperation, bool pbHorizont, bool pbVertical)
+
+        internal void ProcessOperation_Delete(DLLOperation<T_LinkedCtlHor, 
+                                                  T_LinkedCtlVer> par_operationV1, 
+                           bool par_changeOfEndpoint, 
+                           bool par_bRecordOperation, bool pbHorizont, bool pbVertical)
         {
             // 1/2024 Optional par_bIncludePostOpAdmin As Boolean = False
 
@@ -332,7 +347,8 @@ namespace RSCLibraryDLLOperations
             else
             {
                 // A range of items is being deleted.
-                objDeleteRangeStart = par_operationV1.DeleteRangeStart;
+                //--objDeleteRangeStart = par_operationV1.DeleteRangeStart;
+                objDeleteRangeStart = par_operationV1.GetRange_Horiz()._StartingItem;
                 objDeleteRangeEndpt = par_operationV1.DeleteRangeStart.DLL_GetItemNext(-1 + par_operationV1.DeleteCount);
                 // 1/20/2024 bChangeOfEndpoint_Start = (par_operationV1.DeleteRangeStart == mod_firstTwoChar)
                 // 1/20/2024 TD // bChangeOfEndpoint_Start = (par_operationV1.DeleteRangeStart == firstItemInList)
@@ -405,7 +421,12 @@ namespace RSCLibraryDLLOperations
             ProcessOperation_MoveRange(par_operationV1, par_changeOfEndpoint, par_bRecordOperation, bHorizont, bVertical);
         }
 
-        private void ProcessOperation_MoveRange(DLL_OperationV1 par_operationV1, bool par_changeOfEndpoint, bool par_bRecordOperation, bool pbHorizont, bool pbVertical)
+
+        private void ProcessOperation_MoveRange(DLLOperation<T_LinkedCtlHor, 
+                                                      T_LinkedCtlVer> par_operationV1, 
+                       bool par_changeOfEndpoint, 
+                       bool par_bRecordOperation, 
+                       bool pbHorizont, bool pbVertical)
         {
             // 1/2024 Optional par_bIncludePostOpAdmin As Boolean = False
 
@@ -458,8 +479,11 @@ namespace RSCLibraryDLLOperations
                 // Result: 1 5 2_3_4 6 7 8 9 10
                 if (pbHorizont)
                 {
-                    mod_listHoriz.DLL_InsertRangeBefore(par_operationV1.MovedRangeStart, par_operationV1.MovedCount,
-                                                        par_operationV1.AnchorToSucceedItemOrRange,
+                    //mod_listHoriz.DLL_InsertRangeBefore(par_operationV1.MovedRangeStart, par_operationV1.MovedCount,
+                    //                                    par_operationV1.AnchorToSucceedItemOrRange,
+                    //                                    par_operationV1.IsChangeOfEndpoint);
+                    mod_listHoriz.DLL_InsertRangeBefore(par_operationV1.Range,
+                                                        par_operationV1.Anchor,
                                                         par_operationV1.IsChangeOfEndpoint);
                 }
                 else if (pbVertical)

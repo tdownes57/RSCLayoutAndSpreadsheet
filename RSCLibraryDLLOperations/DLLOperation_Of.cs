@@ -722,5 +722,19 @@ namespace RSCLibraryDLLOperations
         }
 
 
+
+        public DLLRange<TControl_H> GetRange_Horiz()
+        {
+            // Added 6/06/2024 td
+            return _range_H;
+        }
+
+        public DLLRange<TControl_V> GetRange_Verti()
+        {
+            // Added 6/06/2024 td
+            return _range_V;
+        }
+
+
     }
 }

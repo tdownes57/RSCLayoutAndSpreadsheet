@@ -96,6 +96,34 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_InsertRangeBefore(DLLRange<TControl> par_range, 
+                                DLLAnchor<TControl> par_anchor, 
+                                bool par_isChangeOfEndpoint)
+        {
+
+
+
+
+        }
+
+
+        public void DLL_InsertRangeAfter(DLLRange<TControl> par_range,
+                                DLLAnchor<TControl> par_anchor,
+                                bool par_isChangeOfEndpoint)
+        {
+
+
+
+
+        }
+
+
+
+
+
+
+
+
 
 
     }
