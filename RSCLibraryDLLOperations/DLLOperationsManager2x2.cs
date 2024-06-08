@@ -237,15 +237,19 @@ namespace RSCLibraryDLLOperations
                 // We are populating an empty list, or as one might say,
                 // inserting a range into an empty list.
 
-                if (pbIsHoriz && operation.InsertItemSingly != null)
+                //if (pbIsHoriz && operation.InsertItemSingly != null)
+                if (pbIsHoriz && operation.IsForSingleItem())
                 {
                     // Insert a single item, into an empty list. (Horizontal)
-                    mod_listHoriz.DLL_InsertRangeEmptyList(operation.InsertItemSingly, 1);
+                    mod_listHoriz.DLL_InsertRangeIntoEmptyList(operation.GetRange_Horiz());
                 }
-                else if (pbIsHoriz && operation.InsertRangeStart != null)
+
+                else if (pbIsHoriz && (false == operation.IsForSingleItem()))
                 {
                     // Insert a range of items, into an empty list. (Horizontal)
-                    mod_listHoriz.DLL_InsertRangeEmptyList(operation.InsertRangeStart, operation.InsertCount);
+                    //    mod_listHoriz.DLL_InsertRangeEmptyList(operation.InsertRangeStart, operation.InsertCount);
+                    mod_listHoriz.DLL_InsertRangeEmptyList(operation.GetRange_Horiz());
+
                 }
                 else if (pbIsVerti && operation.InsertItemSingly != null)
                 {
@@ -311,7 +315,7 @@ namespace RSCLibraryDLLOperations
 
 
         internal void ProcessOperation_Delete(DLLOperation<T_LinkedCtlHor, 
-                                                  T_LinkedCtlVer> par_operationV1, 
+                                                  T_LinkedCtlVer> par_operation, 
                            bool par_changeOfEndpoint, 
                            bool par_bRecordOperation, bool pbHorizont, bool pbVertical)
         {
@@ -333,26 +337,30 @@ namespace RSCLibraryDLLOperations
             }
 
             bool bChangeOfEndpoint;
-            TwoCharacterDLLItem objDeleteRangeStart; // 12/28/2023
-            TwoCharacterDLLItem objDeleteRangeEndpt; // 12/28/2023
+            //TwoCharacterDLLItem objDeleteRangeStart; // 12/28/2023
+            //TwoCharacterDLLItem objDeleteRangeEndpt; // 12/28/2023
+            IDoublyLinkedItem objDeleteRangeStart; // 12/28/2023
+            IDoublyLinkedItem objDeleteRangeEndpt; // 12/28/2023
 
-            if (par_operationV1.DeleteItemSingly != null)
+            //if (par_operation.DeleteItemSingly != null)
+            if (par_operation.IsForSingleItem())
             {
                 // Only a single item is being deleted.
-                // 1/2024 bChangeOfEndpoint_Start = (par_operationV1.DeleteItemSingly == mod_firstItem) // Is mod_firstTwoChar
-                // 1/20/2024 TD bChangeOfEndpoint_Start = (par_operationV1.DeleteItemSingly == firstItemInList) // Is mod_firstTwoChar
-                // 1/2024 bChangeOfEndpoint_Endpt = (par_operationV1.DeleteItemSingly == mod_list.DLL_GetLastItem())
-                // 1/20/2024 TD bChangeOfEndpoint_Endpt = (par_operationV1.DeleteItemSingly == mod_list.DLL_GetLastItem())
+                //   1/2024 bChangeOfEndpoint_Start = (par_operationV1.DeleteItemSingly == mod_firstItem) // Is mod_firstTwoChar
+                //   1/20/2024 TD bChangeOfEndpoint_Start = (par_operationV1.DeleteItemSingly == firstItemInList) // Is mod_firstTwoChar
+                //   1/2024 bChangeOfEndpoint_Endpt = (par_operationV1.DeleteItemSingly == mod_list.DLL_GetLastItem())
+                //   1/20/2024 TD bChangeOfEndpoint_Endpt = (par_operationV1.DeleteItemSingly == mod_list.DLL_GetLastItem())
             }
             else
             {
                 // A range of items is being deleted.
-                //--objDeleteRangeStart = par_operationV1.DeleteRangeStart;
-                objDeleteRangeStart = par_operationV1.GetRange_Horiz()._StartingItem;
-                objDeleteRangeEndpt = par_operationV1.DeleteRangeStart.DLL_GetItemNext(-1 + par_operationV1.DeleteCount);
-                // 1/20/2024 bChangeOfEndpoint_Start = (par_operationV1.DeleteRangeStart == mod_firstTwoChar)
-                // 1/20/2024 TD // bChangeOfEndpoint_Start = (par_operationV1.DeleteRangeStart == firstItemInList)
-                // 1/20/2024 TD // bChangeOfEndpoint_Endpt = (objDeleteRangeEndpt == mod_list.DLL_GetLastItem())
+                //    --objDeleteRangeStart = par_operationV1.DeleteRangeStart;
+                objDeleteRangeStart = par_operation.GetInitialItemInRange();
+                objDeleteRangeEndpt = par_operation.GetInitialItemInRange()
+                       .DLL_GetNext(-1 + par_operation.GetRangeCount());
+                //   1/20/2024 bChangeOfEndpoint_Start = (par_operationV1.DeleteRangeStart == mod_firstTwoChar)
+                //   1/20/2024 TD // bChangeOfEndpoint_Start = (par_operationV1.DeleteRangeStart == firstItemInList)
+                //   1/20/2024 TD // bChangeOfEndpoint_Endpt = (objDeleteRangeEndpt == mod_list.DLL_GetLastItem())
             }
 
             // V2 bChangeOfEndpoint = (par_operationV1.GetIndexOfStart() <= -1 + mod_list.DLL_CountAllItems())

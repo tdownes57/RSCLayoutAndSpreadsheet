@@ -722,6 +722,14 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public IDoublyLinkedItem GetInitialItemInRange()
+        {
+            // Added 6/06/2024 td
+            if (_isHoriz && _range_H != null) return _range_H._StartingItem;
+            if (_isVerti && _range_V != null) return _range_V._StartingItem;
+            return null; 
+        }
+
 
         public DLLRange<TControl_H> GetRange_Horiz()
         {
@@ -733,6 +741,16 @@ namespace RSCLibraryDLLOperations
         {
             // Added 6/06/2024 td
             return _range_V;
+        }
+
+
+        public bool IsForSingleItem()
+        {
+            // Added 6/06/2024 td
+            if (_isHoriz && _range_H != null) return _range_H._isSingleItem;
+            if (_isVerti && _range_V != null) return _range_V._isSingleItem;
+            return false;
+
         }
 
 

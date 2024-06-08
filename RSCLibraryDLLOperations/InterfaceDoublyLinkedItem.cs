@@ -138,6 +138,8 @@ namespace RSCLibraryDLLOperations
 
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemNext();
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemNext(int param_iterationsOfNext);
+        IDoublyLinkedItem DLL_GetNext();
+        IDoublyLinkedItem DLL_GetNext(int param_iterationsOfNext);
 
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemPrior();
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemPrior(int param_iterationsOfPrior);

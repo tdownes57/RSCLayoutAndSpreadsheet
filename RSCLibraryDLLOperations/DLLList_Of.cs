@@ -107,13 +107,17 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_InsertRangeAfter(DLLRange<TControl> par_range,
-                                DLLAnchor<TControl> par_anchor,
-                                bool par_isChangeOfEndpoint)
+        public void DLL_InsertRangeIntoEmptyList(DLLRange<TControl> par_range)
         {
+            //
+            // Added 6/7/2024 thomas downes
+            //
+            _itemCount = par_range._ItemCount;
+            if (0 == _itemCount) return; 
 
-
-
+            _itemStart = par_range._StartingItem;
+            //_itemEnding = _itemStart.DLL_GetItemNext(-1 + _itemCount).DLL_UnboxControl();
+            _itemEnding = par_range._EndingItem;
 
         }
 
