@@ -1,6 +1,7 @@
 ﻿//using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
@@ -104,6 +105,41 @@ namespace RSCLibraryDLLOperations
 
         }
 
+        public bool IsHorizontal() { return _isHoriz;  }
+        public bool IsVertical() { return _isVerti; }
+
+        public bool HasAnchor()
+        {
+            // Added 6/10/2024
+            return (_anchor_H != null || _anchor_H != null);
+        }
+
+
+        public bool IsAnchorToPrecedeItemOrRange()
+        {
+            //
+            // Added 6/10/2024 thomas downes
+            //
+            //----BACKWARDS AND CONFUSING----------------------------
+            if (_anchor_H != null && _isHoriz) return _anchor_H._doInsertRangeAfterThis;
+            if (_anchor_V != null && _isVerti) return _anchor_V._doInsertRangeAfterThis;
+            throw new InvalidOperationException();
+
+        }
+
+
+        public bool IsAnchorToSucceedItemOrRange()
+        {
+            //
+            // Added 6/10/2024 thomas downes
+            //
+            //----BACKWARDS AND CONFUSING----------------------------
+            if (_anchor_H != null && _isHoriz) return _anchor_H._doInsertRangeBeforeThis;
+            if (_anchor_V != null && _isVerti) return _anchor_V._doInsertRangeBeforeThis;
+            throw new InvalidOperationException();
+
+        }
+
 
 
         /// <summary>
@@ -128,6 +164,10 @@ namespace RSCLibraryDLLOperations
                   DLLAnchor<TControl_H>? par_anchor,
                   bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
+            //
+            // Let's confirm that the calling procedure intends for 
+            //   this to be Horizontal operation.--6/10/2024
+            //
             if (par_enum != EnumHorizontalOrVertical.Horizontal)
             {
                 System.Diagnostics.Debugger.Break();
@@ -225,7 +265,38 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                OperateOnList<TControl_H>(par_list, _range_H, _anchor_H);
+                OperateOnList<TControl_H>(par_list, _range_H, _anchor_H, false);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="par_list"></param>
+        /// <param name="par_doProtectEndpoints">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
+        /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
+        public void OperateOnList(DLLList<TControl_H> par_list, 
+                             bool par_doProtectEndpoints, 
+                             bool pbIsChangeOfEndpoint = false)
+        {
+            //
+            // Added 6/10/2024
+            //
+            if (_isSort_Ascending)
+            {
+
+            }
+            if (_isSort_Descending)
+            {
+
+            }
+            else
+            {
+                // OperateOnList<TControl_H>(par_list, _range_H, _anchor_H);
+                OperateOnList<TControl_H>(par_list, _range_H, _anchor_H, 
+                    par_doProtectEndpoints, pbIsChangeOfEndpoint);
             }
 
         }
@@ -251,15 +322,57 @@ namespace RSCLibraryDLLOperations
                 //   to obey the DRY principle inside a doubly-generic class 
                 //   (Of TControl_H, TControl_V). 
                 //  
-                OperateOnList<TControl_V>(par_list, _range_V, _anchor_V);
+                OperateOnList<TControl_V>(par_list, _range_V, _anchor_V, false);
             }
 
         }
 
 
+        public void OperateOnList(DLLList<TControl_V> par_list,
+                             bool par_doProtectEndpoints,
+                             bool pbIsChangeOfEndpoint = false, 
+                             bool pbRunOtherChecks = false)
+        {
+            //
+            // Added 4/17/2024
+            //
+            if (_isSort_Ascending)
+            {
+
+            }
+            if (_isSort_Descending)
+            {
+
+            }
+            else
+            {
+                //
+                //   Let's leverage a private singly-generic method (Of TControl),
+                //   to obey the DRY principle inside a doubly-generic class 
+                //   (Of TControl_H, TControl_V). 
+                //  
+                OperateOnList<TControl_V>(par_list, _range_V, _anchor_V, 
+                      par_doProtectEndpoints, pbIsChangeOfEndpoint, pbRunOtherChecks);
+            }
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TControl"></typeparam>
+        /// <param name="par_list"></param>
+        /// <param name="par_range"></param>
+        /// <param name="par_anchor"></param>
+        /// <param name="pbEndpointProtection">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
+        /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
         private void OperateOnList<TControl>(DLLList<TControl> par_list,
                                      DLLRange<TControl> par_range,
-                                     DLLAnchor<TControl>? par_anchor)
+                                     DLLAnchor<TControl>? par_anchor, 
+                                     bool pbEndpointProtection, 
+                                     bool pbIsChangeOfEndpoint = false,
+                                     bool pbRunOtherChecks = false)
              where TControl : IDoublyLinkedItem<TControl>
         {
             //
@@ -271,16 +384,24 @@ namespace RSCLibraryDLLOperations
             //  
             if (_isInsert)
             {
-                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor);
+                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor,
+                                     pbEndpointProtection,
+                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
             else if (_isDelete)
             {
-                OperateOnList_Delete<TControl>(par_list, par_range);
+                OperateOnList_Delete<TControl>(par_list, par_range,
+                                     pbEndpointProtection,
+                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
             else if (_isMove)
             {
-                OperateOnList_Delete<TControl>(par_list, par_range);
-                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor);
+                OperateOnList_Delete<TControl>(par_list, par_range,
+                                     pbEndpointProtection,
+                                     pbIsChangeOfEndpoint);
+                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor,
+                                     pbEndpointProtection,
+                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
 
         }
@@ -296,7 +417,10 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchor">This is a simple wrapper for the item which provides the location for the insert operation.</param>
         private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list_NotReallyNeeded,
                                              DLLRange<TControl> par_range,
-                                             DLLAnchor<TControl>? par_anchor)
+                                             DLLAnchor<TControl>? par_anchor,
+                                     bool pbEndpointProtection,
+                                     bool pbIsChangeOfEndpoint = false,
+                                     bool pbRunOtherChecks = false)
             where TControl : IDoublyLinkedItem<TControl>
         {
             //
@@ -495,7 +619,10 @@ namespace RSCLibraryDLLOperations
 
 
         private void OperateOnList_Delete<TControl>(DLLList<TControl> par_list,
-                                                DLLRange<TControl> par_range)
+                                                DLLRange<TControl> par_range,
+                                     bool pbEndpointProtection,
+                                     bool pbIsChangeOfEndpoint = false,
+                                     bool pbRunOtherChecks = false)
             where TControl : IDoublyLinkedItem<TControl>
         {
             //
