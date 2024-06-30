@@ -5,6 +5,7 @@
 //using System.Threading.Tasks;
 using System;
 using System.Diagnostics;
+using ciBadgeInterfaces;  // Added 6/30/2024 thomas d.
 
 namespace RSCLibraryDLLOperations
 {
@@ -135,7 +136,7 @@ namespace RSCLibraryDLLOperations
             // Start:
             // Result: 1 2 3 4 5 6 7 A 8 9 10
             DLL_InsertRangeAfter(p_firstItemOfRange, p_intNumberOfItems, 
-                mod_dllControlLast.DLL_UnboxControl(), true);
+                mod_dllControlLast.DLL_UnboxControl_OfT(), true);
         }
 
         public void DLL_InsertOneItemAfter(TControl p_toBeInsertedSingleItem, TControl p_toUseAsAnchor_ItemPriorToSingle, bool p_atEitherEndpoint)
@@ -477,7 +478,7 @@ namespace RSCLibraryDLLOperations
         {
             if (par_index == 0)
             {
-                return mod_dllControlFirst.DLL_UnboxControl();
+                return mod_dllControlFirst.DLL_UnboxControl_OfT();
             }
             else
             {

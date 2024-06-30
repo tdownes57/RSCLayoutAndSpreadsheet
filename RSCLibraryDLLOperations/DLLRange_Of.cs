@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Security;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Net.Security;
+//using System.Text;
+//using System.Threading.Tasks;
+//using System.Windows.Forms;  
+using ciBadgeInterfaces; //Added 6/20/2024  
 
 namespace RSCLibraryDLLOperations
 {
@@ -24,32 +26,33 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLRange(bool isSingleItem, TControl itemStart,
-                          TControl? itemEnding, 
-                          TControl? itemSingle, int itemCount)
+        public DLLRange(bool par_isSingleItem, TControl par_itemStart,
+                          TControl? par_itemEnding, 
+                          TControl? par_itemSingle, int par_itemCount)
         {
-            _isSingleItem = isSingleItem;
-            _SingleItemInRange = itemSingle;
-            _StartingItem = itemStart;
-            _ItemCount = itemCount;
+            _isSingleItem = par_isSingleItem;
+            _SingleItemInRange = par_itemSingle;
+            _StartingItem = par_itemStart;
+            _ItemCount = par_itemCount;
 
-            if (_isSingleItem && (itemSingle != null))
+            if (_isSingleItem && (par_itemSingle != null))
             {
                 //
                 // This is a single-item range.
                 //
-                _SingleItemInRange = itemSingle;
-                //_StartingItem = itemSingle;
-                _EndingItem = itemSingle;
+                _SingleItemInRange = par_itemSingle;
+                
+                _StartingItem = par_itemSingle;
+                _EndingItem = par_itemSingle;
 
             }
-            else if (itemEnding != null)
+            else if (par_itemEnding != null)
             {
                 //
                 // This is probably _NOT_ a single-item range.
                 //   There is a ending item.
                 //
-                _EndingItem = itemEnding;
+                _EndingItem = par_itemEnding;
                 
                 //Administration.  Set _itemCount.
                 if (_ItemCount <= 0)
@@ -63,9 +66,9 @@ namespace RSCLibraryDLLOperations
                 else if (Testing.AreWeTesting)
                 {
                     bool bTestMatch; 
-                    if (itemCount > 0)
+                    if (par_itemCount > 0)
                     {
-                        bTestMatch = (_EndingItem.Equals(_StartingItem.DLL_GetItemNext(itemCount - 1)));
+                        bTestMatch = (_EndingItem.Equals(_StartingItem.DLL_GetItemNext(par_itemCount - 1)));
                         if (!bTestMatch) System.Diagnostics.Debugger.Break();
                     }
                 }
@@ -77,26 +80,35 @@ namespace RSCLibraryDLLOperations
                 // This is probably _NOT_ a single-item range.
                 //   There is a distinct beginning and an end.
                 //
-                _EndingItem = _StartingItem.DLL_GetItemNext(itemCount - 1).DLL_UnboxControl();
+                //--Jun30 2024-_EndingItem = _StartingItem.DLL_GetItemNext(itemCount - 1).DLL_UnboxControl();
+                _EndingItem = _StartingItem.DLL_GetItemNext(par_itemCount - 1).DLL_UnboxControl_OfT();
+
             }
 
             //
             // Administrative--Set the Inverse Anchors. 
             //
-            _InverseAnchor_Prior = itemStart.DLL_GetItemPrior().DLL_UnboxControl();
-            if (itemEnding != null)
+            _InverseAnchor_Prior = par_itemStart.DLL_GetItemPrior().DLL_UnboxControl_OfT();
+
+            if (par_itemEnding != null)
             {
-                _InverseAnchor_After = itemEnding.DLL_GetItemNext().DLL_UnboxControl();
+                _InverseAnchor_After = par_itemEnding.DLL_GetItemNext().DLL_UnboxControl_OfT();
             }
-            else if (itemCount == 1)
+            else if (par_itemCount == 1)
             {
-                _InverseAnchor_After = itemStart.DLL_GetItemNext().DLL_UnboxControl();
+                _InverseAnchor_After = par_itemStart.DLL_GetItemNext().DLL_UnboxControl_OfT();
             }
             else
             {
                 // Unclear what to do.  Stop & think about it.
                 System.Diagnostics.Debugger.Break();
             }
+
+            //Added 6/30/2024
+            if (_StartingItem == null) _StartingItem = par_itemStart;
+            if (_StartingItem == null) _StartingItem = par_itemSingle;
+            if (_EndingItem == null) _EndingItem = par_itemStart;
+            if (_EndingItem == null) _EndingItem = par_itemSingle;
 
         }
 
@@ -114,14 +126,14 @@ namespace RSCLibraryDLLOperations
                 throw new InvalidOperationException();
             }
 
-            TControl item = par_start.DLL_GetItemNext().DLL_UnboxControl();
+            TControl item = par_start.DLL_GetItemNext().DLL_UnboxControl_OfT();
             int intResult = 0;
 
             while (item != null) 
             {
                 intResult++;
                 if (item.Equals(par_ending)) break;
-                item = item.DLL_GetItemNext().DLL_UnboxControl();
+                item = item.DLL_GetItemNext().DLL_UnboxControl_OfT();
             }
 
             //

@@ -1,7 +1,8 @@
 ﻿//using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
+//using System.Reflection.Metadata.Ecma335;
+using ciBadgeInterfaces; //Added 6/20/2024
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
@@ -481,7 +482,8 @@ namespace RSCLibraryDLLOperations
                     //
                     // Get the item AFTER the anchor; and also "unbox" it,
                     //   i.e. get the TControl object (vs. an interface).
-                    itemOriginallyAfterAnchor = par_anchor._anchorItem.DLL_GetItemNext().DLL_UnboxControl();
+                    itemOriginallyAfterAnchor = par_anchor._anchorItem
+                        .DLL_GetItemNext().DLL_UnboxControl_OfT();
 
                     if (Testing.AreWeTesting)
                     {
@@ -852,8 +854,8 @@ namespace RSCLibraryDLLOperations
         public IDoublyLinkedItem GetInitialItemInRange()
         {
             // Added 6/06/2024 td
-            if (_isHoriz && _range_H != null) return _range_H._StartingItem;
-            if (_isVerti && _range_V != null) return _range_V._StartingItem;
+            if (_isHoriz && _range_H != null) return (IDoublyLinkedItem)(_range_H._StartingItem);
+            if (_isVerti && _range_V != null) return (IDoublyLinkedItem)(_range_V._StartingItem);
             return null; 
         }
 

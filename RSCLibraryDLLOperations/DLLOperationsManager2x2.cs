@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ciBadgeInterfaces;  //Added 6/20/2024  
 
 namespace RSCLibraryDLLOperations
 {

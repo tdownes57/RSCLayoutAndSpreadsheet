@@ -17,7 +17,9 @@ Public Class FormTestTwoLists2x2
 
 
 #Const USE_PARENT_CLASS = False ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
-#Const USE_SPECIFIC_CLASS = True ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
+#Const USE_SPECIFIC_CLASS = False ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
+#Const USE_CSHARP_CLASS = True ''From the C-Sharp library. ''Added 6/12/2024 
+
 
 #If (USE_PARENT_CLASS) Then ''Added 3/12/2024 td
     ''Scale back to the base class. Hence you see, "(Of TwoCharacterDLLItem)".
@@ -25,12 +27,22 @@ Public Class FormTestTwoLists2x2
     Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
     Private mod_managerOfOps As DLLOperationsManager2x2(Of TwoCharacterDLLItem,
                                       TwoCharacterDLLItem)
+
 #ElseIf (USE_SPECIFIC_CLASS) Then ''Added 3/12/2024 td
     ''Leverage the derived subclasses. Hence you see, "(Of TwoCharacterDLLHorizontal)", etc.
     Private mod_list1Cols As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)
     Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
-    Private mod_managerOfOps As DLLOperationsManager2x2(Of TwoCharacterDLLHorizontal,
+    Private mod_managerOfOps As DLLOperationsManager2x2_Deprecated(Of TwoCharacterDLLHorizontal,
                                       TwoCharacterDLLVertical)
+
+#ElseIf (USE_CSHARP_CLASS) Then ''Added 6/12/2024 td
+    ''
+    ''Leverage the derived subclasses. Hence you see, "(Of TwoCharacterDLLHorizontal)", etc.
+    ''
+    Private mod_list1Cols As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)
+    Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
+    Private mod_managerOfOps As RSCLibraryDLLOperations.DLLOperationsManager2x2(Of TwoCharacterDLLItem,
+                                      TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)
 
 #End If
 

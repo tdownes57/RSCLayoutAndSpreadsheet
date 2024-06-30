@@ -3,7 +3,9 @@
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
-//Having trouble here. See "using" above. 3/2024  using System.Windows.Forms;
+//Having trouble here. See "using" above.
+//   3/2024  using System.Windows.Forms;
+using ciBadgeInterfaces; // Added 6/30/2024 thomas downes 
 
 namespace RSCLibraryDLLOperations
 {
@@ -13,7 +15,7 @@ namespace RSCLibraryDLLOperations
     /// generically-typed.
     /// </summary>
     /// <typeparam name="TypeOfItem">Usually a type of user-control which is repeated many times.</typeparam>
-    public interface IDoublyLinkedItem<TypeOfItem> : IDoublyLinkedItem
+    public interface IDoublyLinkedItem_CSharp<TypeOfItem> : IDoublyLinkedItem_CSharp 
     {
         //-----------------------------------------------------------------------------
         //-----------------------------------------------------------------------------
@@ -68,7 +70,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-    public interface IDoublyLinkedItem
+    public interface IDoublyLinkedItem_CSharp
     {
         // Added 11/02/2023 Thomas Downes
         bool Selected { get; set; }
@@ -138,8 +140,8 @@ namespace RSCLibraryDLLOperations
 
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemNext();
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemNext(int param_iterationsOfNext);
-        IDoublyLinkedItem DLL_GetNext();
-        IDoublyLinkedItem DLL_GetNext(int param_iterationsOfNext);
+        IDoublyLinkedItem_CSharp DLL_GetNext();
+        IDoublyLinkedItem_CSharp DLL_GetNext(int param_iterationsOfNext);
 
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemPrior();
         //IDoublyLinkedItem<TypeOfItem> DLL_GetItemPrior(int param_iterationsOfPrior);

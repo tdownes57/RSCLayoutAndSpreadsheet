@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ciBadgeInterfaces; //Added 6/30/2024  
 
 namespace RSCLibraryDLLOperations
 {
@@ -68,7 +69,8 @@ namespace RSCLibraryDLLOperations
             while (!boolMatches && itemLocal != null)
             {
                 if (par_item.Equals(itemLocal)) boolMatches = true;
-                else itemLocal = itemLocal.DLL_GetItemNext().DLL_UnboxControl();
+                else itemLocal = itemLocal.DLL_GetItemNext()
+                        .DLL_UnboxControl_OfT();
             }
             return boolMatches;
         
@@ -84,7 +86,8 @@ namespace RSCLibraryDLLOperations
 
             if (_itemStart != null)
             {
-                result = _itemStart.DLL_GetItemNext(par_index).DLL_UnboxControl();
+                result = _itemStart.DLL_GetItemNext(par_index)
+                    .DLL_UnboxControl_OfT();
             }
 
             if (result == null)

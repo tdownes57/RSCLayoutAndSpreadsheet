@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ciBadgeInterfaces;  //Added 6/30/2024  
 
 namespace RSCLibraryDLLOperations
 {

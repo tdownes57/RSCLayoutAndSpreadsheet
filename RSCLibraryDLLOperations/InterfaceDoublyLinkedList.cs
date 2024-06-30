@@ -1,4 +1,5 @@
 ﻿using System;
+using ciBadgeInterfaces;  // Added 6/30/2024 thomas downes
 
 namespace RSCLibraryDLLOperations
 {
