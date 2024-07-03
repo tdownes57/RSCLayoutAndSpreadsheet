@@ -574,6 +574,53 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        private void UndoOfPriorOperation_AnyType()
+        {
+            //
+            // Added 1/10/2024 thomas downes
+            //
+            int intCountFurtherUndoOps;
+            DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> operationToUndo;
+
+            if (mod_opRedoMarker.HasOperationPrior())
+            {
+                // Great, we will be able to do the "Undo" operation.
+            }
+            else
+            {
+                //MessageBoxTD.Show_Statement("No Undo operation is in queue."); // 1/15/24
+                throw new RSCEndpointException("No Undo operation is in queue.");
+                //return;
+            }
+
+            intCountFurtherUndoOps = 1 + mod_opRedoMarker.GetCurrentIndex_Undo();
+
+            if (intCountFurtherUndoOps == 0)
+            {
+                // Added 1/10/2024 
+                //MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.");
+                throw new RSCEndpointException("No operations exist to Undo.");
+            }
+            else
+            {
+                // Undo the operation which is the RedoMarker's currently-designated Undo operation.
+                operationToUndo = mod_opRedoMarker.GetCurrentOp_Undo();
+
+                // Major call!!
+                UndoOperation_ViaInverseOf(operationToUndo);
+
+                // Major call!! --1/10/2024
+                mod_opRedoMarker.ShiftMarker_AfterUndo_ToPrior();
+
+                // Refresh the Display. (Make the Insert visible to the user.)
+                // RefreshTheUI_DisplayList();
+
+                // Added 1/03/2024
+                // RefreshTheUI_OperationsCount();
+            }
+        }
+
+
 
 
 

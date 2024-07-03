@@ -129,6 +129,33 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public int GetCurrentIndex_Undo()
+        {
+
+            //''Added 1/13/2024
+            return mod_opPrior_ForUndo.DLL_GetIndex();
+
+        }
+
+        public int GetCurrentIndex_Redo()
+        {
+            //''Added 7/03/2024 and 1/13/2024
+            //
+            return mod_opNext_ForRedo.DLL_GetIndex();
+
+        }
+
+        public DLLOperation<TControl_H, TControl_V> GetCurrentOp_Undo()
+        {
+            // Added 7/03/2024 
+            return mod_opPrior_ForUndo;
+        }
+
+        public DLLOperation<TControl_H, TControl_V> GetCurrentOp_Redo()
+        {
+            // Added 7/03/2024 
+            return mod_opNext_ForRedo;
+        }
 
 
     }

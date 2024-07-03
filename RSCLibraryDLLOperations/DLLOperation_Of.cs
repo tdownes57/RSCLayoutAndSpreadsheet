@@ -16,7 +16,7 @@ namespace RSCLibraryDLLOperations
     public enum EnumHorizontalOrVertical { Undetermined, Horizontal,  Vertical };
 
 
-    internal class DLLOperation<TControl_H, TControl_V>
+    internal class DLLOperation<TControl_H, TControl_V> // :IDoublyLinkedItem
         where TControl_H : IDoublyLinkedItem<TControl_H>
         where TControl_V : IDoublyLinkedItem<TControl_V>
     {
@@ -880,6 +880,31 @@ namespace RSCLibraryDLLOperations
             if (_isVerti && _range_V != null) return _range_V._isSingleItem;
             return false;
 
+        }
+
+
+        public DLLOperation<TControl_H, TControl_V> DLL_GetPrior()
+        {
+            return mod_opPrior_ForUndo;
+
+        }
+
+        public DLLOperation<TControl_H, TControl_V> DLL_GetNext()
+        {
+            return mod_opNext_ForRedo;
+
+        }
+
+        public int DLL_GetIndex()
+        {
+            int result = 0; 
+            var temp = mod_opPrior_ForUndo;
+            while (temp != null)
+            {
+                result++;
+                temp = temp.DLL_GetPrior();
+            } //until temp == null;  
+            return result;
         }
 
 
