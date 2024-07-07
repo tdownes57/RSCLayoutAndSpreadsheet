@@ -621,6 +621,27 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        private void UndoOperation_ViaInverseOf(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> parOperation)
+        {
+            //
+            //''Added 7/06/2024 and 1/15/2024
+            //''
+            const bool RECORD_OPERATION = false; //''Added 1 / 28 / 2024
+            DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+            //opUndoVersion = parOperation.GetUndoVersionOfOperation();
+            opUndoVersion = parOperation.GetInverseForUndo();
+
+            //''Added 7/06/2024 and 1/31/2024
+            opUndoVersion.CheckEndpointsAreClean(true, true, false, true);
+
+            //''Major call!!
+            ProcessOperation_AnyType(opUndoVersion,
+                                     opUndoVersion.IsChangeOfEndpoint,
+                                     RECORD_OPERATION);
+
+
+        }
+
 
 
 
