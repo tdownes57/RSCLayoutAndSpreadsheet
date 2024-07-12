@@ -149,5 +149,20 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public Boolean CheckEndpointsAreClean_PriorToInsert()
+        {
+            //
+            // Added 7/11/2024  
+            //
+            bool bCleanStart = ! _StartingItem.DLL_HasPrior();
+            bool bCleanFinish = !_EndingItem.DLL_HasNext();
+
+            bool result_cleanBoth = (bCleanStart && bCleanFinish);
+            return result_cleanBoth;
+
+        }
+
+
+
     }
 }

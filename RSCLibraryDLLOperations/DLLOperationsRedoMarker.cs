@@ -65,8 +65,6 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/22/2024 td
             //
-            DLLOperation<TControl_H, TControl_V> temp_output = null;
-            DLLOperation<TControl_H, TControl_V> result_operation = null;
 
             if (mod_opNext_ForRedo == null)
             {
@@ -79,6 +77,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
+                DLLOperation<TControl_H, TControl_V> temp_output; // = null;
+                DLLOperation<TControl_H, TControl_V> result_operation; // = null;
                 temp_output = mod_opNext_ForRedo;
                 result_operation = mod_opNext_ForRedo;
 
@@ -103,8 +103,6 @@ namespace RSCLibraryDLLOperations
         public DLLOperation<TControl_H, TControl_V> GetMarkersPrior_ShiftPositionLeft()
         {
             // Added 1/15/2024  Thomas Downes
-            DLLOperation<TControl_H, TControl_V> temp_output = null;
-            DLLOperation<TControl_H, TControl_V> result_operation = null;
 
             if (mod_opPrior_ForUndo == null)
             {
@@ -117,6 +115,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
+                DLLOperation<TControl_H, TControl_V> temp_output; // = null;
+                DLLOperation<TControl_H, TControl_V> result_operation; // = null;
                 temp_output = mod_opPrior_ForUndo;
                 result_operation = mod_opPrior_ForUndo;
 
@@ -127,6 +127,31 @@ namespace RSCLibraryDLLOperations
             }
 
         }
+
+
+        public void ShiftMarker_AfterUndo_ToPrior()
+        {
+            //''
+            //''Just like a Tuple, a DLL_OperationMarker is immutable.Or, 
+            //''   it would be, if not for this procedure.So, I guess it 
+            //''   is mutable...unless I comment out this procedure!!!! 1/10/2024
+            //''
+            DLLOperation<TControl_H, TControl_V> temp_op;
+            temp_op = mod_opPrior_ForUndo;
+
+            mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior(); //''Shift to the Left...to Prior() item.
+
+            if(mod_opNext_ForRedo == null)  //Then ''Added 1 / 15 / 2024 td
+            {
+                //''Added 1 / 15 / 2024 td
+                mod_opNext_ForRedo = temp_op; //''January 18, 2024 td ''mod_opPrior_ForUndo
+            }
+            else
+            {
+                mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpPrior(); // ''Shift to the Left...to Prior() item.
+            } // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
+
+        }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
 
 
         public int GetCurrentIndex_Undo()

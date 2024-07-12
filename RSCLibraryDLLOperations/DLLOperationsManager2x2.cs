@@ -632,11 +632,20 @@ namespace RSCLibraryDLLOperations
             opUndoVersion = parOperation.GetInverseForUndo();
 
             //''Added 7/06/2024 and 1/31/2024
-            opUndoVersion.CheckEndpointsAreClean(true, true, false, true);
+            //
+            //  Are we undoing a DELETE operation, and so the UNDO OPERATION
+            //   is an INSERT?  
+            //
+            //---opUndoVersion.CheckEndpointsAreClean(true, true, false, true);
+            bool bUndoOfDelete = ('D' == parOperation.GetOperationType());
+            if (bUndoOfDelete)
+            {
+                bool bEndpointsAreClean = opUndoVersion.CheckEndPointsAreClean_PriorToInsert();
+            }
 
             //''Major call!!
             ProcessOperation_AnyType(opUndoVersion,
-                                     opUndoVersion.IsChangeOfEndpoint,
+                                     opUndoVersion.IsChangeOfEndpoint(),
                                      RECORD_OPERATION);
 
 

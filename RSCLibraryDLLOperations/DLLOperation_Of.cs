@@ -883,13 +883,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation<TControl_H, TControl_V> DLL_GetPrior()
+        public DLLOperation<TControl_H, TControl_V> DLL_GetOpPrior()
         {
             return mod_opPrior_ForUndo;
 
         }
 
-        public DLLOperation<TControl_H, TControl_V> DLL_GetNext()
+        public DLLOperation<TControl_H, TControl_V> DLL_GetOpNext()
         {
             return mod_opNext_ForRedo;
 
@@ -902,9 +902,28 @@ namespace RSCLibraryDLLOperations
             while (temp != null)
             {
                 result++;
-                temp = temp.DLL_GetPrior();
+                temp = temp.DLL_GetOpPrior();
             } //until temp == null;  
             return result;
+        }
+
+
+        public bool CheckEndPointsAreClean_PriorToInsert()
+        {
+            //
+            //  Added 7/07/2024  
+            //
+            DLLRange<TControl_H> rangeH = _range_H;
+            DLLRange<TControl_V> rangeV = _range_V;
+            bool result = false;
+
+            //if (_range_H != null) result = _range_H.CheckEndpointsAreClean_PriorToInsert();
+            //if (_range_V != null) result = _range_V.CheckEndpointsAreClean_PriorToInsert();
+            if (_range_H != null) result = _range_H.CheckEndpointsAreClean_PriorToInsert();
+            if (_range_V != null) result = _range_V.CheckEndpointsAreClean_PriorToInsert();
+
+            return result; 
+
         }
 
 
