@@ -42,11 +42,11 @@ Public Interface IDoublyLinkedItem(Of TControl)
     '-----------------------------------------------------------------------------
     '-----------------------------------------------------------------------------
 
-    Function DLL_GetItemNext() As IDoublyLinkedItem(Of TControl)
-    Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem(Of TControl)
+    Function DLL_GetItemNext_OfT() As IDoublyLinkedItem(Of TControl)
+    Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As IDoublyLinkedItem(Of TControl)
 
-    Function DLL_GetItemPrior() As IDoublyLinkedItem(Of TControl)
-    Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem(Of TControl)
+    Function DLL_GetItemPrior_OfT() As IDoublyLinkedItem(Of TControl)
+    Function DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As IDoublyLinkedItem(Of TControl)
 
     ''' <summary>
     ''' Gets the underlying control.
@@ -55,8 +55,8 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Function DLL_UnboxControl_OfT() As TControl
     'Having trouble here. See "using" above. 3/2024  Control DLL_UnboxControl();
 
-    Sub DLL_SetItemNext(param As IDoublyLinkedItem(Of TControl))
-    Sub DLL_SetItemPrior(param As IDoublyLinkedItem(Of TControl))
+    Sub DLL_SetItemNext_OfT(param As IDoublyLinkedItem(Of TControl))
+    Sub DLL_SetItemPrior_OfT(param As IDoublyLinkedItem(Of TControl))
 
     ' Added 12/30/2023 
     ' ---DIFFICULT AND CONFUSING---
@@ -69,7 +69,7 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''' </summary>
     ''' <param name="param_rangeSize">This is the item-count of the range, or size of the range.</param>
     ''' <returns>The first item which follows the range.</returns>
-    Function DLL_GetNextItemFollowingRange(param_rangeSize As Integer, param_mayBeNull As Boolean) As IDoublyLinkedItem(Of TControl)
+    Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As IDoublyLinkedItem(Of TControl)
 
 End Interface
 

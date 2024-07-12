@@ -2,9 +2,10 @@
 Imports System.CodeDom
 Imports System.Runtime.Intrinsics
 Imports ciBadgeInterfaces
+Imports Windows.Win32.UI
 
 Public Class TwoCharacterDLLItem
-    Implements IDoublyLinkedItem
+    Implements IDoublyLinkedItem(Of String)
 
     ''' <summary>
     ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
@@ -44,21 +45,45 @@ Public Class TwoCharacterDLLItem
     End Sub ''End of ""Public Sub New(...)"
 
 
-    Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemNext
-        ''Throw New NotImplementedException()
+    Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) _
+           Implements IDoublyLinkedItem.DLL_SetItemNext
 
+        ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
         mod_next = param
 
     End Sub ''End of ""Public Sub DLL_SetItemNext(...) ...""
 
 
-    Public Sub DLL_SetItemPrior(param As IDoublyLinkedItem) Implements IDoublyLinkedItem.DLL_SetItemPrior
+    Public Sub DLL_SetItemPrior(param As IDoublyLinkedItem) _
+           Implements IDoublyLinkedItem.DLL_SetItemPrior
+
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
         mod_prior = param
 
     End Sub ''End of ""Public Sub DLL_SetItemPrior(...)""
+
+
+
+    Public Sub DLL_SetItemNext_OfT(param As IDoublyLinkedItem(Of String)) _
+           Implements IDoublyLinkedItem(Of String).DLL_SetItemNext_OfT
+
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        mod_next = param
+
+    End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
+
+
+    Public Sub DLL_SetItemPrior_OfT(param As IDoublyLinkedItem(Of String)) _
+           Implements IDoublyLinkedItem(Of String).DLL_SetItemPrior_OfT
+
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        mod_prior = param
+
+    End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
 
 
     Public Sub DLL_ClearReferencePrior(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior
@@ -103,7 +128,30 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_HasPrior()""
 
 
-    Public Function DLL_GetItemNext() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
+    Public Function DLL_GetItemNext_OfT() As IDoublyLinkedItem(Of String) _
+           Implements IDoublyLinkedItem(Of String).DLL_GetItemNext_OfT
+        ''Throw New NotImplementedException()
+
+        If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
+
+        Return mod_next
+
+    End Function ''End of ""Public Function DLL_GetItemNext_OfT()""
+
+
+    ''Public Function DLL_GetItemNext() As IDoublyLinkedItem _
+    ''       Implements IDoublyLinkedItem.DLL_GetItemNext
+    ''    ''Throw New NotImplementedException()
+
+    ''    If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
+
+    ''    Return mod_next
+
+    ''End Function ''End of ""Public Function DLL_GetItemNext()""
+
+
+    Public Function DLL_GetItemNext() As IDoublyLinkedItem _
+           Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
         If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
@@ -113,7 +161,26 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetItemNext()""
 
 
-    Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemNext
+    Public Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As IDoublyLinkedItem(Of String) _
+           Implements IDoublyLinkedItem(Of String).DLL_GetItemNext_OfT
+        ''Throw New NotImplementedException()
+
+        Dim tempNext As TwoCharacterDLLItem = mod_next
+        If (param_iterationsOfNext > 1) Then
+            For index = 2 To param_iterationsOfNext
+                If (tempNext Is Nothing) Then Debugger.Break() ''12/31/2023
+                tempNext = tempNext.mod_next
+            Next index
+        End If ''End of ""If (param_iterationsOfNext > 1) Then""
+        If (param_iterationsOfNext = 0) Then Return Me
+        If (param_iterationsOfNext = 1) Then Return mod_next
+        Return tempNext
+
+    End Function ''Endof ""Public Function DLL_GetItemNext_OfT""
+
+
+    Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem _
+           Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
         Dim tempNext As TwoCharacterDLLItem = mod_next
@@ -159,7 +226,9 @@ Public Class TwoCharacterDLLItem
     End Function ''DLL_GetNextItemFollowingRange
 
 
-    Public Function DLL_GetItemPrior() As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+    Public Function DLL_GetItemPrior() As IDoublyLinkedItem _
+           Implements IDoublyLinkedItem.DLL_GetItemPrior
+
         ''Throw New NotImplementedException()
 
         If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
@@ -168,22 +237,47 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
 
-    Public Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem Implements IDoublyLinkedItem.DLL_GetItemPrior
+    Public Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem _
+           Implements IDoublyLinkedItem.DLL_GetItemPrior
+
         ''Throw New NotImplementedException()
-        ''Dim tempPrior As TwoCharacterItem = mod_prior
-        ''If (param_iterationsOfPrior > 1) Then
-        ''    For index = 2 To param_iterationsOfPrior
-        ''        tempPrior = tempPrior.mod_prior
-        ''    Next index
-        ''End If
-        ''If (param_iterationsOfPrior = 0) Then Return Me
-        ''Return tempPrior
-        Throw New NotImplementedException
 
         If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
         Return mod_prior
 
     End Function ''End of ""Public Function DLL_GetItemPrior()""
+
+
+    Public Function DLL_GetItemPrior_OfT() As IDoublyLinkedItem(Of String) _
+           Implements IDoublyLinkedItem(Of String).DLL_GetItemPrior_OfT
+
+        ''Throw New NotImplementedException()
+
+        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+        Return mod_prior
+
+    End Function ''End of ""Public Function DLL_GetItemPrior_OfT()""
+
+
+    Public Function DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As IDoublyLinkedItem(Of String) _
+          Implements IDoublyLinkedItem(Of String).DLL_GetItemPrior_OfT
+
+        ''Throw New NotImplementedException()
+        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+
+        Dim tempPrior As TwoCharacterDLLItem = mod_prior
+
+        If (param_iterationsOfPrior > 1) Then
+            For index = 2 To param_iterationsOfPrior
+                tempPrior = tempPrior.mod_prior
+            Next index
+        End If
+        If (param_iterationsOfPrior = 0) Then Return Me
+        Return tempPrior
+
+        Return mod_prior
+
+    End Function ''End of ""Public Function DLL_GetItemPrior_OfT()""
 
 
     Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
@@ -191,6 +285,15 @@ Public Class TwoCharacterDLLItem
         Throw New NotImplementedException()
 
     End Function ''End of ""Public Function DLL_UnboxControl()""
+
+
+    Public Function DLL_UnboxControl_OfT() As String _
+        Implements IDoublyLinkedItem(Of String).DLL_UnboxControl_OfT
+
+        Throw New NotImplementedException()
+
+    End Function ''End of ""Public Function DLL_UnboxControl_OfT()""
+
 
     Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
 
@@ -236,6 +339,16 @@ Public Class TwoCharacterDLLItem
         Return result_count
 
     End Function ''ENd of ""Public Function DLL_CountItemsPrior()""
+
+
+    Public Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As IDoublyLinkedItem(Of String) _
+           Implements IDoublyLinkedItem(Of String).DLL_GetNextItemFollowingRange_OfT
+        ''
+        ''Added 7/11/2024 
+        ''
+        Return DLL_GetItemNext_OfT(param_rangeSize) '', param_mayBeNull)
+
+    End Function ''Endof ""Public Function DLL_GetNextItemFollowingRange_OfT""
 
 
 End Class
