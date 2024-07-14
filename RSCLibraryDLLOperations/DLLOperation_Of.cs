@@ -483,7 +483,8 @@ namespace RSCLibraryDLLOperations
                     // Get the item AFTER the anchor; and also "unbox" it,
                     //   i.e. get the TControl object (vs. an interface).
                     itemOriginallyAfterAnchor = par_anchor._anchorItem
-                        .DLL_GetItemNext().DLL_UnboxControl_OfT();
+                        .DLL_GetItemNext_OfT()
+                        .DLL_UnboxControl_OfT();
 
                     if (Testing.AreWeTesting)
                     {
@@ -563,7 +564,8 @@ namespace RSCLibraryDLLOperations
                 // Insert the range PRIOR (PRECEDING) to the anchoring item.
                 //
                 IDoublyLinkedItem<TControl>
-                    itemOriginallyBeforeAnchor = par_anchor._anchorItem.DLL_GetItemPrior();
+                    itemOriginallyBeforeAnchor = par_anchor._anchorItem.DLL_GetItemPrior_OfT();
+                
                 bool bAnchorHasItemBefore;
                 bAnchorHasItemBefore = par_anchor._anchorItem.DLL_HasPrior();
 
@@ -637,7 +639,7 @@ namespace RSCLibraryDLLOperations
             // De-link the item BEFORE the deletion range.
             //
             IDoublyLinkedItem<TControl>
-                itemOriginallyBeforeRange = par_range._StartingItem.DLL_GetItemPrior();
+                itemOriginallyBeforeRange = par_range._StartingItem.DLL_GetItemPrior_OfT();
 
             if (itemOriginallyBeforeRange != null)
             {
@@ -652,7 +654,8 @@ namespace RSCLibraryDLLOperations
             // De-link the item AFTER the deletion range.
             //
             IDoublyLinkedItem<TControl>
-                itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext();
+                itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext_OfT();   
+
             if (itemOriginallyAfterRange != null)
             {
                 itemOriginallyAfterRange.DLL_ClearReferencePrior('D');

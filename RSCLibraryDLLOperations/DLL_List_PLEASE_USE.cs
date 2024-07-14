@@ -18,10 +18,10 @@ namespace RSCLibraryDLLOperations
     public class DLL_List_PLEASE_USE<TControl> // : IDoublyLinkedList<TControl>
     {
 
-        private IDoublyLinkedItem<TControl> mod_dllControlFirst; // Not necessarily needed, except for testing. DLL = Doubly-Linked List.
-        private readonly bool mod_bTesting;
-        private IDoublyLinkedItem<TControl> mod_dllControlLast; // May not be needed.  DLL = Doubly-Linked List.
-        private int mod_intCountOfItems; // Added 12/19/2023
+        private IDoublyLinkedItem<TControl>? mod_dllControlFirst; // Not necessarily needed, except for testing. DLL = Doubly-Linked List.
+        private readonly bool mod_bTesting = false;
+        private IDoublyLinkedItem<TControl>? mod_dllControlLast; // May not be needed.  DLL = Doubly-Linked List.
+        private int mod_intCountOfItems = 0; // Added 12/19/2023
 
         // Added 2/29/2024
         //
@@ -88,7 +88,7 @@ namespace RSCLibraryDLLOperations
             // Start:
             // Result: 1 2 3 4 5 6 7 A 8 9 10
             bool bTesting = Testing.AreWeTesting; //ciBadgeInterfaces.Testing.TestingByDefault;
-            IDoublyLinkedItem<TControl> itemFirst = null;
+            IDoublyLinkedItem<TControl> itemFirst; // = null;
 
             // Testing...
             if ((bTesting && WE_CHECK_RANGE_ENDPOINTS_TESTING) || WE_CHECK_RANGE_ENDPOINTS_ALWAYS)
@@ -112,10 +112,14 @@ namespace RSCLibraryDLLOperations
                 }
             }
 
-            itemFirst = (IDoublyLinkedItem<TControl>)p_toAddFirstItemToEmptyList;
-            mod_dllControlFirst = itemFirst; // toAddFirstItemToEmptyList
-            mod_dllControlLast = itemFirst.DLL_GetItemNext(-1 + p_intNumberOfItems);
-            mod_intCountOfItems = p_intNumberOfItems;
+            // Seem unnecessary, but double-check that the parameter is non-null.  
+            if (p_toAddFirstItemToEmptyList != null)
+            {
+                itemFirst = (IDoublyLinkedItem<TControl>)p_toAddFirstItemToEmptyList;
+                mod_dllControlFirst = itemFirst; // toAddFirstItemToEmptyList
+                mod_dllControlLast = itemFirst.DLL_GetItemNext_OfT(-1 + p_intNumberOfItems);
+                mod_intCountOfItems = p_intNumberOfItems;
+            }
         }
 
         public void DLL_AddFirstAndOnlyItem(object each_twoCharsItem)
@@ -241,7 +245,7 @@ namespace RSCLibraryDLLOperations
 
             while (each_index < p_Index && temp.DLL_GetItemNext() != null)
             {
-                temp = temp.DLL_GetItemNext();
+                temp = temp.DLL_GetItemNext_OfT();
                 each_index += 1;
             }
             if (each_index != p_Index)
@@ -320,7 +324,7 @@ namespace RSCLibraryDLLOperations
                 if (!p_isChangeOfEndpoint)
                     throw new RSCEndpointException("No endpoint specified.");
 
-                itemFollowingDelete = itemToDelete.DLL_GetItemNext();
+                itemFollowingDelete = itemToDelete.DLL_GetItemNext_OfT();
 
                 if (itemFollowingDelete == null)
                 {
@@ -336,13 +340,13 @@ namespace RSCLibraryDLLOperations
                 if (!p_isChangeOfEndpoint)
                     throw new RSCEndpointException("No endpoint specified.");
 
-                itemPriorToDelete = itemToDelete.DLL_GetItemPrior();
+                itemPriorToDelete = itemToDelete.DLL_GetItemPrior_OfT();
                 itemPriorToDelete.DLL_ClearReferenceNext('D');
             }
             else
             {
-                itemPriorToDelete = itemToDelete.DLL_GetItemPrior();
-                itemFollowingDelete = itemToDelete.DLL_GetItemNext();
+                itemPriorToDelete = itemToDelete.DLL_GetItemPrior_OfT();
+                itemFollowingDelete = itemToDelete.DLL_GetItemNext_OfT();
                 itemPriorToDelete.DLL_SetItemNext(itemFollowingDelete);
                 itemFollowingDelete.DLL_SetItemPrior(itemPriorToDelete);
             }
@@ -389,7 +393,7 @@ namespace RSCLibraryDLLOperations
                 IDoublyLinkedItem<TControl> itemTemp1;
                 IDoublyLinkedItem<TControl> itemTemp2;
                 itemTemp1 = p_itemLast_Nullable;
-                itemTemp2 = p_itemFirstInRange.DLL_GetItemNext(-1 + p_countOfItemsInRange);
+                itemTemp2 = p_itemFirstInRange.DLL_GetItemNext_OfT(-1 + p_countOfItemsInRange);
                 bool boolMatches = itemTemp1.Equals(itemTemp2);
                 if (!boolMatches) Debugger.Break();
                 result_itemLast = p_itemLast_Nullable;
@@ -427,11 +431,11 @@ namespace RSCLibraryDLLOperations
                 if (!p_isChangeOfEndpoint)
                     throw new RSCEndpointException("No endpoint specified.");
 
-                itemFollowingDeleteRange = itemToDeleteFirst.DLL_GetItemNext();
+                itemFollowingDeleteRange = itemToDeleteFirst.DLL_GetItemNext_OfT();
             }
             else
             {
-                itemPriorToDeleteRange = itemToDeleteFirst.DLL_GetItemPrior();
+                itemPriorToDeleteRange = itemToDeleteFirst.DLL_GetItemPrior_OfT();
             }
 
             if (bDeletingListEndingPoint)
@@ -441,7 +445,7 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                itemFollowingDeleteRange = itemToDeleteLast.DLL_GetItemNext();
+                itemFollowingDeleteRange = itemToDeleteLast.DLL_GetItemNext_OfT();
             }
 
             if (bDeletingListStartingPoint && bDeletingListEndingPoint)
@@ -491,10 +495,11 @@ namespace RSCLibraryDLLOperations
                         Debugger.Break();
                     }
 
-                    each_item = each_item.DLL_GetItemNext();
+                    each_item = each_item.DLL_GetItemNext_OfT();    
                 }
 
                 return (TControl)each_item;
+
             }
         }
 
@@ -521,7 +526,7 @@ namespace RSCLibraryDLLOperations
 
             while (linkedItem != mod_dllControlFirst)
             {
-                linkedItem = linkedItem.DLL_GetItemPrior();
+                linkedItem = linkedItem.DLL_GetItemPrior_OfT();    
                 index++;
             }
 

@@ -69,9 +69,10 @@ namespace RSCLibraryDLLOperations
             while (!boolMatches && itemLocal != null)
             {
                 if (par_item.Equals(itemLocal)) boolMatches = true;
-                else itemLocal = itemLocal.DLL_GetItemNext()
+                else itemLocal = itemLocal.DLL_GetItemNext_OfT()
                         .DLL_UnboxControl_OfT();
             }
+
             return boolMatches;
         
         }
@@ -86,7 +87,7 @@ namespace RSCLibraryDLLOperations
 
             if (_itemStart != null)
             {
-                result = _itemStart.DLL_GetItemNext(par_index)
+                result = _itemStart.DLL_GetItemNext_OfT(par_index)
                     .DLL_UnboxControl_OfT();
             }
 

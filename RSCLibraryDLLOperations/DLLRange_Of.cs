@@ -68,7 +68,9 @@ namespace RSCLibraryDLLOperations
                     bool bTestMatch; 
                     if (par_itemCount > 0)
                     {
-                        bTestMatch = (_EndingItem.Equals(_StartingItem.DLL_GetItemNext(par_itemCount - 1)));
+                        var nextIterativelyByCount = _StartingItem
+                            .DLL_GetItemNext_OfT(par_itemCount - 1);
+                        bTestMatch = (_EndingItem.Equals(nextIterativelyByCount));
                         if (!bTestMatch) System.Diagnostics.Debugger.Break();
                     }
                 }
@@ -81,22 +83,30 @@ namespace RSCLibraryDLLOperations
                 //   There is a distinct beginning and an end.
                 //
                 //--Jun30 2024-_EndingItem = _StartingItem.DLL_GetItemNext(itemCount - 1).DLL_UnboxControl();
-                _EndingItem = _StartingItem.DLL_GetItemNext(par_itemCount - 1).DLL_UnboxControl_OfT();
+                _EndingItem = _StartingItem
+                    .DLL_GetItemNext_OfT(par_itemCount - 1)
+                    .DLL_UnboxControl_OfT();
 
             }
 
             //
             // Administrative--Set the Inverse Anchors. 
             //
-            _InverseAnchor_Prior = par_itemStart.DLL_GetItemPrior().DLL_UnboxControl_OfT();
+            _InverseAnchor_Prior = par_itemStart
+                .DLL_GetItemPrior_OfT()
+                .DLL_UnboxControl_OfT();
 
             if (par_itemEnding != null)
             {
-                _InverseAnchor_After = par_itemEnding.DLL_GetItemNext().DLL_UnboxControl_OfT();
+                _InverseAnchor_After = par_itemEnding
+                    .DLL_GetItemNext_OfT()
+                    .DLL_UnboxControl_OfT();
             }
             else if (par_itemCount == 1)
             {
-                _InverseAnchor_After = par_itemStart.DLL_GetItemNext().DLL_UnboxControl_OfT();
+                _InverseAnchor_After = par_itemStart
+                    .DLL_GetItemNext_OfT()
+                    .DLL_UnboxControl_OfT();
             }
             else
             {
@@ -126,14 +136,14 @@ namespace RSCLibraryDLLOperations
                 throw new InvalidOperationException();
             }
 
-            TControl item = par_start.DLL_GetItemNext().DLL_UnboxControl_OfT();
+            TControl item = par_start.DLL_GetItemNext_OfT().DLL_UnboxControl_OfT();
             int intResult = 0;
 
             while (item != null) 
             {
                 intResult++;
                 if (item.Equals(par_ending)) break;
-                item = item.DLL_GetItemNext().DLL_UnboxControl_OfT();
+                item = item.DLL_GetItemNext_OfT().DLL_UnboxControl_OfT();
             }
 
             //
