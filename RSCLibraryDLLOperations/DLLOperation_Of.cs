@@ -16,7 +16,7 @@ namespace RSCLibraryDLLOperations
     public enum EnumHorizontalOrVertical { Undetermined, Horizontal,  Vertical };
 
 
-    internal class DLLOperation<TControl_H, TControl_V> // :IDoublyLinkedItem
+    public class DLLOperation<TControl_H, TControl_V> // :IDoublyLinkedItem
         where TControl_H : IDoublyLinkedItem<TControl_H>
         where TControl_V : IDoublyLinkedItem<TControl_V>
     {

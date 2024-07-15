@@ -7,7 +7,7 @@ using ciBadgeInterfaces; //Added 6/30/2024
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLList<TControl> where TControl : IDoublyLinkedItem<TControl>
+    public class DLLList<TControl> where TControl : IDoublyLinkedItem<TControl>
     {
         //
         // Added 4/17/2024  

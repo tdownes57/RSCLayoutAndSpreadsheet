@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLAnchor<TControl>
+    public class DLLAnchor<TControl>
     {
         /// <summary>
         /// This item will serve as an anchor (fixed point).

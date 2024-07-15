@@ -844,7 +844,8 @@ Public Class FormTestTwoLists2x2
     End Sub
 
 
-    Private Sub DLLOperationCreated_Delete(par_operation As ciBadgeInterfaces.DLL_OperationV1, par_inverseAnchor_PriorToRange As TwoCharacterDLLItem, par_inverseAnchor_NextToRange As TwoCharacterDLLItem) Handles userControlOperationBoth.DLLOperationCreated_Delete
+    Private Sub DLLOperationCreated_Delete(par_operation As DLLOperation(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+                                           par_inverseAnchor_PriorToRange As TwoCharacterDLLItem, par_inverseAnchor_NextToRange As TwoCharacterDLLItem) Handles userControlOperationBoth.DLLOperationCreated_Delete
         ''
         ''Added 2/27/2024 thomas downes
         ''
@@ -856,7 +857,9 @@ Public Class FormTestTwoLists2x2
             ''
             ''Deprecated 3/2024  If (Not par_operation.ModeColumnsNotRows) Then Debugger.Break()
 
-            mod_managerOfOps.ProcessOperation_Delete(par_operation,
+            ''July2024 mod_managerOfOps.ProcessOperation_Delete(par_operation,
+            ''           par_operation.IsChangeOfEndpoint, True)
+            mod_managerOfOps.ProcessOperation_AnyType(par_operation,
                       par_operation.IsChangeOfEndpoint, True)
 
             '' Make the Insert visible to the user.

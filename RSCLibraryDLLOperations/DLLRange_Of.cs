@@ -9,7 +9,7 @@ using ciBadgeInterfaces; //Added 6/20/2024
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLRange<TControl> where TControl : IDoublyLinkedItem<TControl>
+    public class DLLRange<TControl> where TControl : IDoublyLinkedItem<TControl>
     {
         //
         // Added 4/20/2024 Thomas Downes

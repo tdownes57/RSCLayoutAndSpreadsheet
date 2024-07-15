@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Diagnostics;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 using ciBadgeInterfaces;  //Added 6/20/2024  
 
 namespace RSCLibraryDLLOperations
@@ -70,7 +70,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        internal void ProcessOperation_AnyType(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> parOperation,
+        public void ProcessOperation_AnyType(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> parOperation,
                                      bool par_changeOfEndpoint,
                                      bool par_bRecordOperation)
         {
