@@ -95,14 +95,15 @@ Public Class FormTestTwoLists2x2
         ''We will use "(Of TwoCharacterDLLHorizontal)", etc.
         mod_list1Cols = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)(firstTwoCharH)
         mod_list2Rows = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)(firstTwoCharV)
+        opInitialLoad1Cols = Load_DLL_List_Horizontal(mod_list1Cols, firstTwoCharH)
+        opInitialLoad2Rows = Load_DLL_List_Vertical(mod_list2Rows, firstTwoCharV)
 #ElseIf USE_PARENT_CLASS Then ''We will use "(Of TwoCharacterDLLItem)"
         ''We will use "(Of TwoCharacterDLLItem)"
         mod_list1Cols = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)(firstTwoCharH)
         mod_list2Rows = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)(firstTwoCharV)
-#End If
-
         opInitialLoad1Cols = Load_DLL_List_Horizontal(mod_list1Cols, firstTwoCharH)
         opInitialLoad2Rows = Load_DLL_List_Vertical(mod_list2Rows, firstTwoCharV)
+#End If
 
         ''--userControlOperation1.DLL_List = mod_list
         userControlOperationBoth.DLL_ListHorizontal = mod_list1Cols
