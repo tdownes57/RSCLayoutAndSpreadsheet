@@ -872,7 +872,9 @@ Public Class FormTestTwoLists2x2
             ''
             ''Deprecated 3/2024  If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
 
-            mod_managerOfOps.ProcessOperation_Delete(par_operation,
+            ''July2024 mod_managerOfOps.ProcessOperation_Delete(par_operation,
+            ''               par_operation.IsChangeOfEndpoint, True)
+            mod_managerOfOps.ProcessOperation_AnyType(par_operation,
                       par_operation.IsChangeOfEndpoint, True)
 
             '' Make the Insert visible to the user.
@@ -914,7 +916,9 @@ Public Class FormTestTwoLists2x2
             ''Vertical Rows 
             ''
             ''Deprecated 3/2024  If (par_operation.ModeColumnsNotRows) Then Debugger.Break()
-            mod_managerOfOps.ProcessOperation_Insert(par_operation,
+            ''jULY 2024 mod_managerOfOps.ProcessOperation_Insert(par_operation,
+            ''     par_operation.IsChangeOfEndpoint, True)
+            mod_managerOfOps.ProcessOperation_AnyType(par_operation,
                       par_operation.IsChangeOfEndpoint, True)
 
             ''
@@ -950,7 +954,9 @@ Public Class FormTestTwoLists2x2
             ''
             If (Not par_operation.ModeColumns_notRows) Then Debugger.Break()
 
-            mod_managerOfOps.ProcessOperation_Insert(par_operation,
+            ''mod_managerOfOps.ProcessOperation_Insert(par_operation,
+            ''    par_operation.IsChangeOfEndpoint, True)
+            mod_managerOfOps.ProcessOperation_AnyType(par_operation,
                       par_operation.IsChangeOfEndpoint, True)
 
             ''

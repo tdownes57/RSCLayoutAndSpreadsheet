@@ -3,6 +3,7 @@ Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
+Imports RSCLibraryDLLOperations
 
 ''
 ''Compiler code. 
@@ -70,8 +71,7 @@ Friend Class UserControlOperation
     Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1)
     Public Event DLLOperationCreated_InsertRow(par_operation As DLL_OperationV1)
     Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1)
-
-    ''--Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV2)
+    Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1)
 
     ''' <summary>
     ''' This will communicate the details of an INSERT operation, 
@@ -80,9 +80,17 @@ Friend Class UserControlOperation
     ''' <param name="par_operation">Gives detail of operation.</param>
     ''' <param name="par_inverseAnchor_PriorToRange">Needed in case of a later UNDO-OF-DELETE.</param>
     ''' <param name="par_inverseAnchor_NextToRange">Needed in case of a later UNDO-OF-DELETE.</param>
-    Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1,
+    ''Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1,
+    ''                            par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
+    ''                            par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+    Public Event DLLOperationV1_Delete(par_operation As DLL_OperationV1,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+
+    Public Event DLLOperationV2_Delete(par_operation As DLLOperation(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+                                par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
+                                par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+
     ''' <summary>
     ''' This will communicate the details of an INSERT operation, 
     ''' which the user has requested, and which hasn't yet been performed.
