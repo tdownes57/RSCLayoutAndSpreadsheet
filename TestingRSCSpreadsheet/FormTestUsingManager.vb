@@ -381,37 +381,37 @@ Public Class FormTestUsingManager
     End Sub ''end of ""Private Sub RefreshTheUI_UndoRedoButtons()""
 
 
-    Private Sub DLL_OperationCreated_Delete(par_operationV1 As DLL_OperationV1,
-                                            par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
-                                            par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
-                                            Handles userControlOperation1.DLLOperationCreated_Delete
-        ''
-        ''Added 12/25/2023 
-        ''
-        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
-        ''
-        ''--------ProcessOperation_Delete(par_operationV1, False)
-        mod_opsManager.ProcessOperation_Delete(par_operationV1,
-                                               par_operationV1.IsChangeOfEndpoint, True)
+    ''Private Sub DLL_OperationCreated_Delete(par_operationV1 As DLL_OperationV1,
+    ''                                        par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
+    ''                                        par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
+    ''                                        Handles userControlOperation1.DLLOperationCreated_Delete
+    ''    ''
+    ''    ''Added 12/25/2023 
+    ''    ''
+    ''    ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
+    ''    ''
+    ''    ''--------ProcessOperation_Delete(par_operationV1, False)
+    ''    mod_opsManager.ProcessOperation_Delete(par_operationV1,
+    ''                                           par_operationV1.IsChangeOfEndpoint, True)
 
-        ''
-        '' Make the Delete visible to the user.
-        ''
-        RefreshTheUI_DisplayList()
+    ''    ''
+    ''    '' Make the Delete visible to the user.
+    ''    ''
+    ''    RefreshTheUI_DisplayList()
 
-        ''Added 1/01/2024
-        ''--------RecordNewestOperation(par_operationV1)
+    ''    ''Added 1/01/2024
+    ''    ''--------RecordNewestOperation(par_operationV1)
 
-        ''Added 1/03/2024
-        RefreshTheUI_OperationsCount()
+    ''    ''Added 1/03/2024
+    ''    RefreshTheUI_OperationsCount()
 
-        ''Added 1/015/2024
-        RefreshTheUI_UndoRedoButtons()
+    ''    ''Added 1/015/2024
+    ''    RefreshTheUI_UndoRedoButtons()
 
-        ''Added 1/18/2024 
-        userControlOperation1.UpdateTheItemCount()
+    ''    ''Added 1/18/2024 
+    ''    userControlOperation1.UpdateTheItemCount()
 
-    End Sub ''End of ""Private Sub DLL_OperationCreated_Delete""
+    ''End Sub ''End of ""Private Sub DLL_OperationCreated_Delete""
 
 
     Private Sub ProcessOperation_Delete(par_operationV1 As DLL_OperationV1,

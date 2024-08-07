@@ -71,6 +71,13 @@ Friend Class UserControlOperation
     Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1)
     Public Event DLLOperationCreated_InsertRow(par_operation As DLL_OperationV1)
     Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1)
+
+    ''Adde 8/4/2024 td
+    Public Event DLLOperationV2_Insert(par_operation As DLLOperation(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+                                par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
+                                par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+
+
     Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1)
 
     ''' <summary>
@@ -418,9 +425,9 @@ Friend Class UserControlOperation
             ''Publish the operation to the Parent Form.
             ''
             ''//RaiseEvent DLLOperationCreated_Insert(objDLLOperation)
-            RaiseEvent DLLOperationCreated_Delete(objDLLOperationV2.GetCopyV1(),
-                             firstRangeItem.DLL_GetItemPrior(),
-                             lastRangeItem.DLL_GetItemNext())
+            RaiseEvent DLLOperationCreated_Delete(objDLLOperationV2.GetCopyV1()) '',
+            ''  firstRangeItem.DLL_GetItemPrior(),
+            ''  lastRangeItem.DLL_GetItemNext())
 
             ''//inverse_anchorItem = objDLLOperation.
             ''Added 1/01/2024

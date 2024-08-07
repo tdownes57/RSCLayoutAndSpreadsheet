@@ -146,9 +146,10 @@ Public Class DLLOperationsManager2x2_clean(Of T_DoublyLinkedItemH As IDoublyLink
 
 
     Public Sub UndoMarkedOperation()
-        UndoOfPriorOperation_AnyType()
 
-    End Sub
+        UndoOfPriorOperation_AnyType(True, False)
+
+    End Sub ''ENd of ""Public Sub UndoMarkedOperation()""
 
 
 
@@ -602,7 +603,7 @@ Public Class DLLOperationsManager2x2_clean(Of T_DoublyLinkedItemH As IDoublyLink
     End Sub
 
 
-    Private Sub UndoOfPriorOperation_AnyType()
+    Private Sub UndoOfPriorOperation_AnyType(par_bHori As Boolean, par_bVerti As Boolean)
         ''
         Dim intCountFurtherUndos As Integer
         Dim operationToUndo As DLL_OperationV1
@@ -630,7 +631,7 @@ Public Class DLLOperationsManager2x2_clean(Of T_DoublyLinkedItemH As IDoublyLink
             operationToUndo = mod_opRedoMarker.GetCurrentOp_Undo()
 
             ''Major call!!
-            UndoOperation_ViaInverseOf(operationToUndo)
+            UndoOperation_ViaInverseOf(operationToUndo, par_bHori, par_bVerti)
 
             ''Major call!!  
             mod_opRedoMarker.ShiftMarker_AfterUndo_ToPrior()
@@ -680,7 +681,7 @@ Public Class DLLOperationsManager2x2_clean(Of T_DoublyLinkedItemH As IDoublyLink
                 ''Look for an operation of the specified type (par_typeOfOp).
                 ''
                 eachOperation = mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
-                UndoOperation_ViaInverseOf(eachOperation)
+                UndoOperation_ViaInverseOf(eachOperation, True, False)
                 eachOperationType = eachOperation.OperationType
                 each_boolIsOfSpecifiedType = (eachOperationType = par_typeOfOp)
                 If each_boolIsOfSpecifiedType Then ''If each_isDelete Then
@@ -697,7 +698,7 @@ Public Class DLLOperationsManager2x2_clean(Of T_DoublyLinkedItemH As IDoublyLink
             MessageBoxTD.Show_InsertWordFormat_Line1(par_wordForOperation,
                         "Sorry, no {0} operations are found on the Stack!!")
 
-        End If
+        End If ''End of ""If (bFoundDesiredOperationTypeOnStack) Then... Else..."
 
 
     End Sub

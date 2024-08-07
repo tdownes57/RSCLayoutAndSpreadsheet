@@ -99,13 +99,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core Libraries", "Core Libr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "__RSCSpreadsheet", "__RSCSpreadsheet\__RSCSpreadsheet.csproj", "{FF653C8B-81C1-4C1F-9F9D-E9EA1FF90A30}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TestingRSCSpreadsheet", "TestingRSCSpreadsheet\TestingRSCSpreadsheet.vbproj", "{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TestingRSCSpreadsheet1", "TestingRSCSpreadsheet\TestingRSCSpreadsheet1.vbproj", "{D1027F2A-3ACB-4CF3-9901-E87DA2B701E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSCSpreadsheetLibrary", "RSCSpreadsheetLibrary\RSCSpreadsheetLibrary.csproj", "{A9CF3075-0065-4229-888F-6CE7BBA3D186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSCLibraryDLLOperations", "RSCLibraryDLLOperations\RSCLibraryDLLOperations.csproj", "{7D38BAEF-5E7F-4970-9A9A-4003C21416FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSCLibraryDLLOperations", "RSCLibraryDLLOperations\RSCLibraryDLLOperations.csproj", "{7D38BAEF-5E7F-4970-9A9A-4003C21416FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp1__net6_windows", "WinFormsApp1\WinFormsApp1__net6_windows.csproj", "{E41635D4-DB3A-46AF-B266-82C1A758FA9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp1__net6_windows", "WinFormsApp1\WinFormsApp1__net6_windows.csproj", "{E41635D4-DB3A-46AF-B266-82C1A758FA9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingRSCSpreadsheet2", "TestingRSCSpreadsheet2\TestingRSCSpreadsheet2.csproj", "{3A88C001-B05B-46B7-9FA3-D209D05795E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -515,6 +517,14 @@ Global
 		{E41635D4-DB3A-46AF-B266-82C1A758FA9B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E41635D4-DB3A-46AF-B266-82C1A758FA9B}.Release|x86.ActiveCfg = Release|Any CPU
 		{E41635D4-DB3A-46AF-B266-82C1A758FA9B}.Release|x86.Build.0 = Release|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Debug|x86.Build.0 = Debug|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Release|x86.ActiveCfg = Release|Any CPU
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -533,6 +543,7 @@ Global
 		{A9CF3075-0065-4229-888F-6CE7BBA3D186} = {D6E59F32-CB7E-438D-93FD-560B154BEE65}
 		{7D38BAEF-5E7F-4970-9A9A-4003C21416FC} = {04696B69-E637-4D4E-921C-02C934DD2ED0}
 		{E41635D4-DB3A-46AF-B266-82C1A758FA9B} = {04696B69-E637-4D4E-921C-02C934DD2ED0}
+		{3A88C001-B05B-46B7-9FA3-D209D05795E3} = {04696B69-E637-4D4E-921C-02C934DD2ED0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1240457-262B-4419-B7CC-1F5E337B5336}

@@ -33,7 +33,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.TestingRSCSpreadsheet.FormWhichTesting
+            Me.MainForm = Global.TestingRSCSpreadsheet1.FormWhichTesting
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _

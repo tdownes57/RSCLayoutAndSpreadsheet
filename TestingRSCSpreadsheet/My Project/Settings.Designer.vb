@@ -73,9 +73,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.TestingRSCSpreadsheet.My.MySettings
+        Friend ReadOnly Property Settings() As Global.TestingRSCSpreadsheet1.My.MySettings
             Get
-                Return Global.TestingRSCSpreadsheet.My.MySettings.Default
+                Return Global.TestingRSCSpreadsheet1.My.MySettings.Default
             End Get
         End Property
     End Module
