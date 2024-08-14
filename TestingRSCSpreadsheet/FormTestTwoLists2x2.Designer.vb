@@ -28,7 +28,7 @@ Partial Class FormTestTwoLists2x2
         linkToEndpoint = New LinkLabel()
         linkEndpointHeading = New LinkLabel()
         linkSingleItemOnly = New LinkLabel()
-        userControlOperationBoth = New UserControlOperation()
+        userControlOperationBoth = New UserOperationOriginal()
         labelNumOperations = New Label()
         buttonUndo = New Button()
         buttonReDo = New Button()
@@ -274,7 +274,7 @@ Partial Class FormTestTwoLists2x2
     Friend WithEvents linkToEndpoint As LinkLabel
     Friend WithEvents linkEndpointHeading As LinkLabel
     Friend WithEvents linkSingleItemOnly As LinkLabel
-    Friend WithEvents userControlOperationBoth As UserControlOperation
+    Friend WithEvents userControlOperationBoth As UserOperationOriginal
     Friend WithEvents labelNumOperations As Label
     Friend WithEvents buttonUndo As Button
     Friend WithEvents buttonReDo As Button

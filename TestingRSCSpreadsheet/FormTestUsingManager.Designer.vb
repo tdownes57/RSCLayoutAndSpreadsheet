@@ -27,7 +27,7 @@ Partial Class FormTestUsingManager
         linkToEndpoint = New LinkLabel()
         linkEndpointHeading = New LinkLabel()
         linkSingleItemOnly = New LinkLabel()
-        userControlOperation1 = New UserControlOperation()
+        userControlOperation1 = New UserOperationOriginal()
         labelNumOperations = New Label()
         buttonUndo = New Button()
         buttonReDo = New Button()
@@ -232,7 +232,7 @@ Partial Class FormTestUsingManager
     Friend WithEvents linkToEndpoint As LinkLabel
     Friend WithEvents linkEndpointHeading As LinkLabel
     Friend WithEvents linkSingleItemOnly As LinkLabel
-    Friend WithEvents userControlOperation1 As UserControlOperation
+    Friend WithEvents userControlOperation1 As UserOperationOriginal
     Friend WithEvents labelNumOperations As Label
     Friend WithEvents buttonUndo As Button
     Friend WithEvents buttonReDo As Button

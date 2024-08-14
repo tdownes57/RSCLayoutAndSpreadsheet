@@ -21,7 +21,7 @@ Imports RSCLibraryDLLOperations
 ''' <summary>
 ''' This will allow the user to create DLLOperations.
 ''' </summary>
-Friend Class UserControlOperation
+Friend Class UserOperationOriginal
 
     ''Added 3/29/2024
     Public ModeColumns As Boolean ''Columns are arranged horizontally.

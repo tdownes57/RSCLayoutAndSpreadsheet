@@ -116,8 +116,8 @@ Public Class FormTestTwoLists2x2
 #End If
 
         ''--userControlOperation1.DLL_List = mod_list
-        userControlOperationBoth.DLL_ListHorizontal = mod_list1Cols
-        userControlOperationBoth.DLL_ListVertical = mod_list2Rows
+        userControlOperationBoth.DLL_ListHorizontal = mod_listCS_1Cols
+        userControlOperationBoth.DLL_ListVertical = mod_listCS_2Rows
 
         ''We have a manager.3/2024 mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)(opInitialLoad)
 

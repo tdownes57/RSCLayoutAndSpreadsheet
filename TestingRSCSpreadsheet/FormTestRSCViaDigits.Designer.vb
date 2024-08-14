@@ -31,7 +31,7 @@ Partial Class FormTestRSCViaDigits
         buttonReDo = New Button()
         buttonUndo = New Button()
         labelNumOperations = New Label()
-        userControlOperation1 = New UserControlOperation()
+        userControlOperation1 = New UserOperationOriginal()
         linkSingleItemOnly = New LinkLabel()
         linkEndpointHeading = New LinkLabel()
         linkToEndpoint = New LinkLabel()
@@ -246,7 +246,7 @@ Partial Class FormTestRSCViaDigits
     Friend WithEvents buttonReDo As Button
     Friend WithEvents buttonUndo As Button
     Friend WithEvents labelNumOperations As Label
-    Friend WithEvents userControlOperation1 As UserControlOperation
+    Friend WithEvents userControlOperation1 As UserOperationOriginal
     Friend WithEvents linkSingleItemOnly As LinkLabel
     Friend WithEvents linkEndpointHeading As LinkLabel
     Friend WithEvents linkToEndpoint As LinkLabel
