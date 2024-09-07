@@ -107,7 +107,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RSCLibraryDLLOperations", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinFormsApp1__net6_windows", "WinFormsApp1\WinFormsApp1__net6_windows.csproj", "{E41635D4-DB3A-46AF-B266-82C1A758FA9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingRSCSpreadsheet2", "TestingRSCSpreadsheet2\TestingRSCSpreadsheet2.csproj", "{3A88C001-B05B-46B7-9FA3-D209D05795E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingRSCSpreadsheetCS", "TestingRSCSpreadsheet2\TestingRSCSpreadsheetCS.csproj", "{3A88C001-B05B-46B7-9FA3-D209D05795E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

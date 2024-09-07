@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace TestingRSCSpreadsheet2
 {
-    public partial class MainGrid : UserControl
+    public partial class FormTestGrid2 : Form
     {
-        public MainGrid()
+        public FormTestGrid2()
         {
             InitializeComponent();
         }
 
-        private void MainGrid_Load(object sender, EventArgs e)
+        private void userOperationPartial1_Load(object sender, EventArgs e)
         {
 
         }

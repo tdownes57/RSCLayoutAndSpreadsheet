@@ -74,7 +74,7 @@ Public Class TwoCharacterDLLItem
 
 
 
-    Public Sub DLL_SetItemNext_OfT(param As IDoublyLinkedItem(Of TwoCharacterDLLItem)) _
+    Public Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem) _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_OfT
 
         ''Throw New NotImplementedException()
@@ -84,7 +84,7 @@ Public Class TwoCharacterDLLItem
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
 
-    Public Sub DLL_SetItemPrior_OfT(param As IDoublyLinkedItem(Of TwoCharacterDLLItem)) _
+    Public Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLItem) _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemPrior_OfT
 
         ''Throw New NotImplementedException()
@@ -136,7 +136,7 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_HasPrior()""
 
 
-    Public Function DLL_GetItemNext_OfT() As IDoublyLinkedItem(Of TwoCharacterDLLItem) _
+    Public Function DLL_GetItemNext_OfT() As TwoCharacterDLLItem _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
 
@@ -169,7 +169,7 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetItemNext()""
 
 
-    Public Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As IDoublyLinkedItem(Of TwoCharacterDLLItem) _
+    Public Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As TwoCharacterDLLItem _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
 
@@ -256,7 +256,7 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
 
-    Public Function DLL_GetItemPrior_OfT() As IDoublyLinkedItem(Of TwoCharacterDLLItem) _
+    Public Function DLL_GetItemPrior_OfT() As TwoCharacterDLLItem _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemPrior_OfT
 
         ''Throw New NotImplementedException()
@@ -267,7 +267,7 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetItemPrior_OfT()""
 
 
-    Public Function DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As IDoublyLinkedItem(Of TwoCharacterDLLItem) _
+    Public Function DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As TwoCharacterDLLItem _
           Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemPrior_OfT
 
         ''Throw New NotImplementedException()
@@ -351,7 +351,7 @@ Public Class TwoCharacterDLLItem
     End Function ''ENd of ""Public Function DLL_CountItemsPrior()""
 
 
-    Public Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As IDoublyLinkedItem(Of TwoCharacterDLLItem) _
+    Public Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLItem _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetNextItemFollowingRange_OfT
         ''
         ''Added 7/11/2024 

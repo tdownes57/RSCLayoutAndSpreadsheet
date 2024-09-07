@@ -32,6 +32,10 @@ Partial Class UserOperationRedux
         Label10 = New Label()
         numDeleteHowMany = New NumericUpDown()
         numDeleteRangeBenchmarkStart = New NumericUpDown()
+        buttonSortList = New Button()
+        listBoxAscendDescend = New ListBox()
+        Label1 = New Label()
+        Label2 = New Label()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
@@ -39,7 +43,7 @@ Partial Class UserOperationRedux
         ' LinkUndoDelete
         ' 
         LinkUndoDelete.AutoSize = True
-        LinkUndoDelete.Location = New Point(607, 343)
+        LinkUndoDelete.Location = New Point(589, 230)
         LinkUndoDelete.Name = "LinkUndoDelete"
         LinkUndoDelete.Size = New Size(72, 15)
         LinkUndoDelete.TabIndex = 80
@@ -49,7 +53,7 @@ Partial Class UserOperationRedux
         ' checkDeleteToEndpoint
         ' 
         checkDeleteToEndpoint.AutoSize = True
-        checkDeleteToEndpoint.Location = New Point(318, 346)
+        checkDeleteToEndpoint.Location = New Point(300, 233)
         checkDeleteToEndpoint.Name = "checkDeleteToEndpoint"
         checkDeleteToEndpoint.Size = New Size(283, 19)
         checkDeleteToEndpoint.TabIndex = 79
@@ -59,7 +63,7 @@ Partial Class UserOperationRedux
         ' LinkDeleteToEndpoint
         ' 
         LinkDeleteToEndpoint.AutoSize = True
-        LinkDeleteToEndpoint.Location = New Point(314, 346)
+        LinkDeleteToEndpoint.Location = New Point(296, 233)
         LinkDeleteToEndpoint.Name = "LinkDeleteToEndpoint"
         LinkDeleteToEndpoint.Size = New Size(201, 15)
         LinkDeleteToEndpoint.TabIndex = 78
@@ -70,7 +74,7 @@ Partial Class UserOperationRedux
         ' LinkDeleteRandomize
         ' 
         LinkDeleteRandomize.AutoSize = True
-        LinkDeleteRandomize.Location = New Point(409, 325)
+        LinkDeleteRandomize.Location = New Point(391, 212)
         LinkDeleteRandomize.Name = "LinkDeleteRandomize"
         LinkDeleteRandomize.Size = New Size(134, 15)
         LinkDeleteRandomize.TabIndex = 77
@@ -79,7 +83,7 @@ Partial Class UserOperationRedux
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(549, 301)
+        buttonDelete.Location = New Point(531, 188)
         buttonDelete.Name = "buttonDelete"
         buttonDelete.Size = New Size(133, 39)
         buttonDelete.TabIndex = 76
@@ -90,7 +94,7 @@ Partial Class UserOperationRedux
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(63, 280)
+        Label8.Location = New Point(45, 167)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 75
@@ -99,7 +103,7 @@ Partial Class UserOperationRedux
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(63, 340)
+        Label9.Location = New Point(45, 227)
         Label9.Name = "Label9"
         Label9.Size = New Size(164, 15)
         Label9.TabIndex = 74
@@ -108,7 +112,7 @@ Partial Class UserOperationRedux
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(63, 311)
+        Label10.Location = New Point(45, 198)
         Label10.Name = "Label10"
         Label10.Size = New Size(189, 15)
         Label10.TabIndex = 73
@@ -116,7 +120,7 @@ Partial Class UserOperationRedux
         ' 
         ' numDeleteHowMany
         ' 
-        numDeleteHowMany.Location = New Point(258, 338)
+        numDeleteHowMany.Location = New Point(240, 225)
         numDeleteHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numDeleteHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteHowMany.Name = "numDeleteHowMany"
@@ -126,17 +130,60 @@ Partial Class UserOperationRedux
         ' 
         ' numDeleteRangeBenchmarkStart
         ' 
-        numDeleteRangeBenchmarkStart.Location = New Point(258, 309)
+        numDeleteRangeBenchmarkStart.Location = New Point(240, 196)
         numDeleteRangeBenchmarkStart.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteRangeBenchmarkStart.Name = "numDeleteRangeBenchmarkStart"
         numDeleteRangeBenchmarkStart.Size = New Size(50, 23)
         numDeleteRangeBenchmarkStart.TabIndex = 71
         numDeleteRangeBenchmarkStart.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
-        ' UserControlRedux
+        ' buttonSortList
+        ' 
+        buttonSortList.Location = New Point(209, 282)
+        buttonSortList.Name = "buttonSortList"
+        buttonSortList.Size = New Size(133, 39)
+        buttonSortList.TabIndex = 83
+        buttonSortList.Text = "Sort Items in List"
+        buttonSortList.UseVisualStyleBackColor = True
+        ' 
+        ' listBoxAscendDescend
+        ' 
+        listBoxAscendDescend.FormattingEnabled = True
+        listBoxAscendDescend.ItemHeight = 15
+        listBoxAscendDescend.Items.AddRange(New Object() {"Ascending", "Descending"})
+        listBoxAscendDescend.Location = New Point(62, 287)
+        listBoxAscendDescend.Name = "listBoxAscendDescend"
+        listBoxAscendDescend.Size = New Size(141, 34)
+        listBoxAscendDescend.TabIndex = 82
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label1.Location = New Point(45, 263)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(87, 21)
+        Label1.TabIndex = 81
+        Label1.Text = "Sort Items"
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Font = New Font("Segoe UI", 20F)
+        Label2.Location = New Point(45, 77)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(461, 37)
+        Label2.TabIndex = 84
+        Label2.Text = "Let's start slowly.... we can insert later."
+        ' 
+        ' UserOperationRedux
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(Label2)
+        Controls.Add(buttonSortList)
+        Controls.Add(listBoxAscendDescend)
+        Controls.Add(Label1)
         Controls.Add(LinkUndoDelete)
         Controls.Add(checkDeleteToEndpoint)
         Controls.Add(LinkDeleteToEndpoint)
@@ -147,8 +194,8 @@ Partial Class UserOperationRedux
         Controls.Add(Label10)
         Controls.Add(numDeleteHowMany)
         Controls.Add(numDeleteRangeBenchmarkStart)
-        Name = "UserControlRedux"
-        Size = New Size(744, 394)
+        Name = "UserOperationRedux"
+        Size = New Size(744, 490)
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
@@ -165,5 +212,9 @@ Partial Class UserOperationRedux
     Friend WithEvents Label10 As Label
     Friend WithEvents numDeleteHowMany As NumericUpDown
     Friend WithEvents numDeleteRangeBenchmarkStart As NumericUpDown
+    Friend WithEvents buttonSortList As Button
+    Friend WithEvents listBoxAscendDescend As ListBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
 
 End Class

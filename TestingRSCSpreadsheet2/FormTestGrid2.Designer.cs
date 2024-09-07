@@ -1,6 +1,6 @@
 ﻿namespace TestingRSCSpreadsheet2
 {
-    partial class FormTestGrid
+    partial class FormTestGrid2
     {
         /// <summary>
         /// Required designer variable.
@@ -45,8 +45,8 @@
             labelItemsDisplay1Cols = new Label();
             labelBenchmark = new Label();
             Label1 = new Label();
-            mainGrid1 = new MainGrid();
             LabelHdrRowHeaders = new Label();
+            userOperationPartial1 = new UserOperationPartial();
             SuspendLayout();
             // 
             // Label2
@@ -226,14 +226,6 @@
             Label1.TabIndex = 101;
             Label1.Text = "List of column positions, as a benchmark:";
             // 
-            // mainGrid1
-            // 
-            mainGrid1.BackColor = Color.Peru;
-            mainGrid1.Location = new Point(130, 149);
-            mainGrid1.Name = "mainGrid1";
-            mainGrid1.Size = new Size(657, 446);
-            mainGrid1.TabIndex = 116;
-            // 
             // LabelHdrRowHeaders
             // 
             LabelHdrRowHeaders.BackColor = Color.Plum;
@@ -244,13 +236,22 @@
             LabelHdrRowHeaders.TabIndex = 117;
             LabelHdrRowHeaders.Tag = "Vertical";
             // 
-            // FormTestGrid
+            // userOperationPartial1
+            // 
+            userOperationPartial1.BackColor = Color.Tan;
+            userOperationPartial1.Location = new Point(130, 149);
+            userOperationPartial1.Name = "userOperationPartial1";
+            userOperationPartial1.Size = new Size(664, 419);
+            userOperationPartial1.TabIndex = 118;
+            userOperationPartial1.Load += userOperationPartial1_Load;
+            // 
+            // FormTestGrid2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(947, 622);
+            Controls.Add(userOperationPartial1);
             Controls.Add(LabelHdrRowHeaders);
-            Controls.Add(mainGrid1);
             Controls.Add(LabelHdrVerticalRows);
             Controls.Add(LabelHdrHorizontalCols);
             Controls.Add(labelItemsDisplay2Rows);
@@ -268,7 +269,7 @@
             Controls.Add(Label1);
             Controls.Add(Label2);
             Controls.Add(LabelHeader1);
-            Name = "FormTestGrid";
+            Name = "FormTestGrid2";
             Text = "FormTestGrid";
             ResumeLayout(false);
             PerformLayout();
@@ -293,7 +294,7 @@
         internal Label labelItemsDisplay1Cols;
         internal Label labelBenchmark;
         internal Label Label1;
-        private MainGrid mainGrid1;
         internal Label LabelHdrRowHeaders;
+        private UserOperationPartial userOperationPartial1;
     }
 }

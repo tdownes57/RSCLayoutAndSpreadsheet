@@ -1,6 +1,6 @@
 ﻿namespace TestingRSCSpreadsheet2
 {
-    partial class MainGrid
+    partial class UserMainGridFull
     {
         /// <summary> 
         /// Required designer variable.
