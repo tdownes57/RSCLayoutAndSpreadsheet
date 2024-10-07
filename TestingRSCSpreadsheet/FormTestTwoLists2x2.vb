@@ -16,9 +16,9 @@ Public Class FormTestTwoLists2x2
     ''==Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
 
 
-#Const USE_PARENT_CLASS = False ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
+#Const USE_PARENT_CLASS = True ''Sept6 2024 ''False ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
 #Const USE_SPECIFIC_CLASS = False ''Determines if we are able to fully leverage child classes. ''True ''Added 3/12/2024 
-#Const USE_CSHARP_CLASS = True ''From the C-Sharp library. ''Added 6/12/2024 
+#Const USE_CSHARP_CLASS = False ''Sept6 2024 ''True ''From the C-Sharp library. ''Added 6/12/2024 
 
 
 #If (USE_PARENT_CLASS) Then ''Added 3/12/2024 td
@@ -26,7 +26,7 @@ Public Class FormTestTwoLists2x2
     Private mod_list1Cols As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
     Private mod_list2Rows As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
     Private mod_managerOfOps As DLLOperationsManager2x2(Of TwoCharacterDLLItem,
-                                      TwoCharacterDLLItem)
+                                      TwoCharacterDLLItem, TwoCharacterDLLItem)
 
 #ElseIf (USE_SPECIFIC_CLASS) Then ''Added 3/12/2024 td
     ''Leverage the derived subclasses. Hence you see, "(Of TwoCharacterDLLHorizontal)", etc.
@@ -115,9 +115,9 @@ Public Class FormTestTwoLists2x2
 
 #End If
 
-        ''--userControlOperation1.DLL_List = mod_list
-        userControlOperationBoth.DLL_ListHorizontal = mod_listCS_1Cols
-        userControlOperationBoth.DLL_ListVertical = mod_listCS_2Rows
+        ''--userControlOperation1.DLL_List  = mod_list
+        userControlOperationBoth.DLL_ListHorizontal = mod_list1Cols ''Sept2024 ''mod_listCS_1Cols
+        userControlOperationBoth.DLL_ListVertical = mod_list2Rows '' mod_listCS_2Rows
 
         ''We have a manager.3/2024 mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)(opInitialLoad)
 

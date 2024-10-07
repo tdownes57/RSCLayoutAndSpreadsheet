@@ -64,14 +64,14 @@ namespace TestingRSCSpreadsheetCS
             mod_prior = (TwoCharacterDLLItem)param;
         }
 
-        public void DLL_SetItemNext_OfT(IDoublyLinkedItem<TwoCharacterDLLItem> param)
+        public void DLL_SetItemNext_OfT(TwoCharacterDLLItem param) // Sept2024  (IDoublyLinkedItem<TwoCharacterDLLItem> param)
         {
             // Throw New NotImplementedException()
             if (param == this) Debugger.Break();
             mod_next = (TwoCharacterDLLItem)param;
         }
 
-        public void DLL_SetItemPrior_OfT(IDoublyLinkedItem<TwoCharacterDLLItem> param)
+        public void DLL_SetItemPrior_OfT(TwoCharacterDLLItem param) // Sept2024  (IDoublyLinkedItem<TwoCharacterDLLItem> param)
         {
             // Throw New NotImplementedException()
             if (param == this) Debugger.Break();
@@ -114,8 +114,9 @@ namespace TestingRSCSpreadsheetCS
             return (mod_prior != null);
         }
 
-        public IDoublyLinkedItem<TwoCharacterDLLItem> DLL_GetItemNext_OfT()
+        public TwoCharacterDLLItem DLL_GetItemNext_OfT()
         {
+            // 06 october 2024 public IDoublyLinkedItem<TwoCharacterDLLItem> DLL_GetItemNext_OfT()
             // Throw New NotImplementedException()
             if (mod_next == this) Debugger.Break();
             return mod_next;
@@ -128,8 +129,10 @@ namespace TestingRSCSpreadsheetCS
             return mod_next;
         }
 
-        public IDoublyLinkedItem<TwoCharacterDLLItem> DLL_GetItemNext_OfT(int param_iterationsOfNext)
+        public TwoCharacterDLLItem DLL_GetItemNext_OfT(int param_iterationsOfNext)
         {
+            // Sept2024--public IDoublyLinkedItem<TwoCharacterDLLItem> DLL_GetItemNext_OfT(int param_iterationsOfNext)
+            //
             // Throw New NotImplementedException()
 
             TwoCharacterDLLItem tempNext = mod_next;
@@ -207,7 +210,7 @@ namespace TestingRSCSpreadsheetCS
             return mod_prior;
         }
 
-        public IDoublyLinkedItem<TwoCharacterDLLItem> DLL_GetItemPrior_OfT()
+        public TwoCharacterDLLItem DLL_GetItemPrior_OfT()
         {
             // Throw New NotImplementedException()
 
@@ -215,7 +218,7 @@ namespace TestingRSCSpreadsheetCS
             return mod_prior;
         }
 
-        public IDoublyLinkedItem<TwoCharacterDLLItem> DLL_GetItemPrior_OfT(int param_iterationsOfPrior)
+        public TwoCharacterDLLItem DLL_GetItemPrior_OfT(int param_iterationsOfPrior)
         {
             // Throw New NotImplementedException()
             if (mod_prior == this) Debugger.Break();
@@ -283,8 +286,12 @@ namespace TestingRSCSpreadsheetCS
             return result_count;
         }
 
-        public IDoublyLinkedItem<TwoCharacterDLLItem> DLL_GetNextItemFollowingRange_OfT(int param_rangeSize, bool param_mayBeNull)
+        public TwoCharacterDLLItem DLL_GetNextItemFollowingRange_OfT(int param_rangeSize, bool param_mayBeNull)
         {
+            //
+            //  This used to return IDoublyLinkedListItem<TwoCharacterDLLItem>, but 
+            //    then I realized that I could 
+            //
             // Added 7/11/2024 
             return DLL_GetItemNext_OfT(param_rangeSize);
         }

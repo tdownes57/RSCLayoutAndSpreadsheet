@@ -10,6 +10,12 @@
 
   <ItemGroup>
     <Compile Remove="DLL_OperationsManager.vb" />
+    <Compile Remove="FormTestTwoLists2x2.Designer.vb" />
+    <Compile Remove="FormTestTwoLists2x2.vb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="FormTestTwoLists2x2.resx" />
   </ItemGroup>
 
   <ItemGroup>
