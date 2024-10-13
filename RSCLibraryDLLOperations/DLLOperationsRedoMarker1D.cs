@@ -1,0 +1,192 @@
+﻿using ciBadgeInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RSCLibraryDLLOperations
+{
+    internal class DLLOperationsRedoMarker1D<TControl>
+       where TControl : IDoublyLinkedItem<TControl>
+    {
+        //
+        //    1D = 1 dimension, simply a list
+        //            (versus a 2-dimensional grid)
+        //
+
+        //
+        //''---DIFFICULT AND CONFUSING---
+        //''  This is a "placeholder" for a user who is hitting the 
+        //''  undo & redo buttons.This is NOT for recording
+        //''  new operations.
+        //''
+        //''The names below correspond to a "Redo" chain 
+        //''   from first to last.
+        //''
+        //''(We do NOT think of it as an "Undo" chain, because
+        //''   it's easier to derive an "Undo" operation from a 
+        //''   "Redo" operation (and there's a function for that).
+        //''   (Versus deriving a "Redo" operation from an "Undo" 
+        //''   operation.)
+        //''   It's easier if the default is "going forward in time". 
+        //''
+        //''---DIFFICULT AND CONFUSING---
+        //''  This is a "placeholder" for a user who is hitting the 
+        //''  undo & redo buttons.This is NOT for recording
+        //''  new operations.
+        //''
+        //''' <summary>
+        //''' If the user hits "Undo", this operation will be 
+        //''' inversed and the inverse will be performed. 
+        //''' </summary>
+        private DLLOperation1D<TControl> mod_opPrior_ForUndo;
+
+        //''' <summary>
+        //''' If the user hits "Redo", this operation will be 
+        //''' performed as it is.  (In contrast to "Undo", we
+        //''' do NOT need to get the inverse of the operation.) 
+        //''' </summary>
+        private DLLOperation1D<TControl> mod_opNext_ForRedo;
+
+
+        public bool HasOperationNext()
+        {
+            // Added 5/22/2024
+            return (mod_opNext_ForRedo != null);
+        }
+
+        public bool HasOperationPrior()
+        {
+            // Added 5/22/2024
+            return (mod_opPrior_ForUndo != null);
+
+        }
+
+
+        public DLLOperation1D<TControl>
+            GetMarkersNext_ShiftPositionRight()
+        {
+            //
+            // Added 5/22/2024 td
+            //
+
+            if (mod_opNext_ForRedo == null)
+            {
+                // We should NOT be calling this function. The calling procedure 
+                // should have called HasOperationNext() first, and omitted 
+                // a call to this procedure in the case that HasOperationNext()
+                // returns a False. ---1/18/2024 
+                System.Diagnostics.Debugger.Break();
+                return null;
+            }
+            else
+            {
+                DLLOperation1D<TControl> temp_output; // = null;
+                DLLOperation1D<TControl> result_operation; // = null;
+                temp_output = mod_opNext_ForRedo;
+                result_operation = mod_opNext_ForRedo;
+
+                // Prepare for future calls to this function, NOT for the present call....
+                mod_opNext_ForRedo = temp_output.GetNext(); //.DLL_GetItemNext();
+                mod_opPrior_ForUndo = temp_output;
+                return result_operation;
+            }
+
+            // End of "if (mod_opNext_ForRedo == null)... else..."
+
+        }
+
+
+        /// <summary>
+        /// This function provides the operation which was prior / earlier, in the recorded
+        /// sequence of operations (assuming the user did one or more list-order operations
+        /// prior to changing their mind and choosing to perform the Undo). Here, the "prior"
+        /// is relative to our location within this queue of recorded operations.
+        /// </summary>
+        /// <returns></returns>
+        public DLLOperation1D<TControl> GetMarkersPrior_ShiftPositionLeft()
+        {
+            // Added 1/15/2024  Thomas Downes
+
+            if (mod_opPrior_ForUndo == null)
+            {
+                // We should NOT be calling this function. The calling procedure 
+                // should have called HasOperationNext() first, and omitted 
+                // a call to this procedure in the case that HasOperationNext()
+                // returns a False. ---1/18/2024 
+                System.Diagnostics.Debugger.Break();
+                return null; // result_operation;
+            }
+            else
+            {
+                DLLOperation1D<TControl> temp_output; // = null;
+                DLLOperation1D<TControl> result_operation; // = null;
+                temp_output = mod_opPrior_ForUndo;
+                result_operation = mod_opPrior_ForUndo;
+
+                // Prepare for future calls to this function, NOT for the present call....
+                mod_opPrior_ForUndo = temp_output.GetPrior();
+                mod_opNext_ForRedo = temp_output;
+                return result_operation;
+            }
+
+        }
+
+
+        public void ShiftMarker_AfterUndo_ToPrior()
+        {
+            //''
+            //''Just like a Tuple, a DLL_OperationMarker is immutable.Or, 
+            //''   it would be, if not for this procedure.So, I guess it 
+            //''   is mutable...unless I comment out this procedure!!!! 1/10/2024
+            //''
+            DLLOperation1D<TControl> temp_op;
+            temp_op = mod_opPrior_ForUndo;
+
+            mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior(); //''Shift to the Left...to Prior() item.
+
+            if (mod_opNext_ForRedo == null)  //Then ''Added 1 / 15 / 2024 td
+            {
+                //''Added 1 / 15 / 2024 td
+                mod_opNext_ForRedo = temp_op; //''January 18, 2024 td ''mod_opPrior_ForUndo
+            }
+            else
+            {
+                mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpPrior(); // ''Shift to the Left...to Prior() item.
+            } // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
+
+        }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
+
+
+        public int GetCurrentIndex_Undo()
+        {
+
+            //''Added 1/13/2024
+            return mod_opPrior_ForUndo.DLL_GetIndex();
+
+        }
+
+        public int GetCurrentIndex_Redo()
+        {
+            //''Added 7/03/2024 and 1/13/2024
+            //
+            return mod_opNext_ForRedo.DLL_GetIndex();
+
+        }
+
+        public DLLOperation1D<TControl> GetCurrentOp_Undo()
+        {
+            // Added 7/03/2024 
+            return mod_opPrior_ForUndo;
+        }
+
+        public DLLOperation1D<TControl> GetCurrentOp_Redo()
+        {
+            // Added 7/03/2024 
+            return mod_opNext_ForRedo;
+        }
+
+
+    }
+}

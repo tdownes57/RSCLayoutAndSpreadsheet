@@ -16,7 +16,7 @@ namespace RSCLibraryDLLOperations
     public enum EnumHorizontalOrVertical { Undetermined, Horizontal,  Vertical };
 
 
-    public class DLLOperation<TControl_H, TControl_V> // :IDoublyLinkedItem
+    public class DLLOperation2D<TControl_H, TControl_V> // :IDoublyLinkedItem
         where TControl_H : IDoublyLinkedItem<TControl_H>
         where TControl_V : IDoublyLinkedItem<TControl_V>
     {
@@ -56,8 +56,8 @@ namespace RSCLibraryDLLOperations
         private readonly DLLRange<TControl_V>? _range_V;
 
         //Added 5/25/2024 td 
-        private readonly DLLOperation<TControl_H, TControl_V> mod_opPrior_ForUndo;
-        private readonly DLLOperation<TControl_H, TControl_V> mod_opNext_ForRedo;
+        private readonly DLLOperation2D<TControl_H, TControl_V> mod_opPrior_ForUndo;
+        private readonly DLLOperation2D<TControl_H, TControl_V> mod_opNext_ForRedo;
 
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace RSCLibraryDLLOperations
         public bool HasAnchor()
         {
             // Added 6/10/2024
-            return (_anchor_H != null || _anchor_H != null);
+            return (_anchor_H != null || _anchor_V != null);
         }
 
 
@@ -158,7 +158,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isSortAscending"></param>
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
-        public DLLOperation(EnumHorizontalOrVertical par_enum,
+        public DLLOperation2D(EnumHorizontalOrVertical par_enum,
                   DLLRange<TControl_H>? par_range,
                   bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove,
@@ -226,7 +226,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isSortAscending"></param>
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
-        public DLLOperation(bool pb_isOperationVertical,
+        public DLLOperation2D(bool pb_isOperationVertical,
             DLLRange<TControl_V>? par_range, bool par_forStartOfList, bool par_forEndOfList,
             bool par_isInsert, bool par_isDelete, bool par_isMove,
             DLLAnchor<TControl_V>? par_anchor,
@@ -734,11 +734,11 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation<TControl_H, TControl_V>
+        public DLLOperation2D<TControl_H, TControl_V>
             GetInverseForUndo()
         {
 
-            DLLOperation<TControl_H, TControl_V> result_UNDO;
+            DLLOperation2D<TControl_H, TControl_V> result_UNDO;
             //DLLRange<TControl_H> result_RangeOfItems_H = _range_H;
             //DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
             //TControl_H? result_anchor_H = _anchor_H;
@@ -768,7 +768,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Use the constructor overload for horizontal operations.
                 //
-                result_UNDO = new DLLOperation<TControl_H, TControl_V>(EnumHorizontalOrVertical.Horizontal,
+                result_UNDO = new DLLOperation2D<TControl_H, TControl_V>(EnumHorizontalOrVertical.Horizontal,
                     result_RangeOfItems_H,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -788,7 +788,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Use the constructor overload for vertical operations.
                 //
-                result_UNDO = new DLLOperation<TControl_H, TControl_V>(true,
+                result_UNDO = new DLLOperation2D<TControl_H, TControl_V>(true,
                     result_RangeOfItems_V,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -810,7 +810,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation<TControl_H, TControl_V>
+        public DLLOperation2D<TControl_H, TControl_V>
             GetPrior()
         {
             //
@@ -824,7 +824,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation<TControl_H, TControl_V>
+        public DLLOperation2D<TControl_H, TControl_V>
             GetNext()
         {
             //
@@ -886,13 +886,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation<TControl_H, TControl_V> DLL_GetOpPrior()
+        public DLLOperation2D<TControl_H, TControl_V> DLL_GetOpPrior()
         {
             return mod_opPrior_ForUndo;
 
         }
 
-        public DLLOperation<TControl_H, TControl_V> DLL_GetOpNext()
+        public DLLOperation2D<TControl_H, TControl_V> DLL_GetOpNext()
         {
             return mod_opNext_ForRedo;
 

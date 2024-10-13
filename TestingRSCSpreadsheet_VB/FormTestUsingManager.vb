@@ -23,7 +23,7 @@ Public Class FormTestUsingManager
     ''Private mod_operations As DLL_OperationsManager_Deprecated(Of TwoCharacterDLLItem)
     ''1/1024 Private mod_operations As ciBadgeInterfaces.DLL_OperationsManager(Of TwoCharacterDLLItem)
     ''1/1024 Private mod_opsManager As ciBadgeInterfaces.DLL_OperationsManager(Of TwoCharacterDLLItem)
-    Private mod_opsManager As DLLOperationsManager(Of TwoCharacterDLLItem) ''Added 1/19/2024 
+    Private mod_opsManager As DLLOperationsManager1D(Of TwoCharacterDLLItem) ''Added 1/19/2024 
 
     ''Added 1/01/2024 
     ''1/22/2024  Private mod_intCountOperations = 0
@@ -84,11 +84,11 @@ Public Class FormTestUsingManager
 
         If (INCLUDE_LOAD_IN_REDO_LIST) Then
             ''Do ---REPEAT, DO-- include the loading of the list.
-            mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list,
+            mod_opsManager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_list,
                                                          opInitialLoad.GetCopyV1())
         Else
             ''Do ---NOT-- include the loading of the list.
-            mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list)
+            mod_opsManager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_list)
         End If ''END OF ::If (INCLUDE_LOAD_IN_REDO_LIST) Then... Else... 
 
     End Sub ''End of ""Public Sub New()""

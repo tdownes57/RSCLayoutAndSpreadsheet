@@ -7,10 +7,16 @@ using ciBadgeInterfaces;  //Added 6/30/2024
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLOperationsRedoMarker<TControl_H, TControl_V>
+    //
+    //    2D = 2 dimensions, a 2-dimensional grid
+    //
+    internal class DLLOperationsRedoMarker2D<TControl_H, TControl_V>
         where TControl_H : IDoublyLinkedItem<TControl_H>
         where TControl_V : IDoublyLinkedItem<TControl_V>
     {
+        //
+        //    2D = 2 dimensions, a 2-dimensional grid
+        //
         //''---DIFFICULT AND CONFUSING---
         //''  This is a "placeholder" for a user who is hitting the 
         //''  undo & redo buttons.This is NOT for recording
@@ -35,14 +41,14 @@ namespace RSCLibraryDLLOperations
         //''' If the user hits "Undo", this operation will be 
         //''' inversed and the inverse will be performed. 
         //''' </summary>
-        private DLLOperation<TControl_H, TControl_V> mod_opPrior_ForUndo;
+        private DLLOperation2D<TControl_H, TControl_V> mod_opPrior_ForUndo;
 
         //''' <summary>
         //''' If the user hits "Redo", this operation will be 
         //''' performed as it is.  (In contrast to "Undo", we
         //''' do NOT need to get the inverse of the operation.) 
         //''' </summary>
-        private DLLOperation<TControl_H, TControl_V> mod_opNext_ForRedo;
+        private DLLOperation2D<TControl_H, TControl_V> mod_opNext_ForRedo;
 
 
         public bool HasOperationNext()
@@ -59,7 +65,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation<TControl_H, TControl_V> 
+        public DLLOperation2D<TControl_H, TControl_V> 
             GetMarkersNext_ShiftPositionRight()
         {
             //
@@ -77,8 +83,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                DLLOperation<TControl_H, TControl_V> temp_output; // = null;
-                DLLOperation<TControl_H, TControl_V> result_operation; // = null;
+                DLLOperation2D<TControl_H, TControl_V> temp_output; // = null;
+                DLLOperation2D<TControl_H, TControl_V> result_operation; // = null;
                 temp_output = mod_opNext_ForRedo;
                 result_operation = mod_opNext_ForRedo;
 
@@ -100,7 +106,7 @@ namespace RSCLibraryDLLOperations
         /// is relative to our location within this queue of recorded operations.
         /// </summary>
         /// <returns></returns>
-        public DLLOperation<TControl_H, TControl_V> GetMarkersPrior_ShiftPositionLeft()
+        public DLLOperation2D<TControl_H, TControl_V> GetMarkersPrior_ShiftPositionLeft()
         {
             // Added 1/15/2024  Thomas Downes
 
@@ -115,8 +121,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                DLLOperation<TControl_H, TControl_V> temp_output; // = null;
-                DLLOperation<TControl_H, TControl_V> result_operation; // = null;
+                DLLOperation2D<TControl_H, TControl_V> temp_output; // = null;
+                DLLOperation2D<TControl_H, TControl_V> result_operation; // = null;
                 temp_output = mod_opPrior_ForUndo;
                 result_operation = mod_opPrior_ForUndo;
 
@@ -136,7 +142,7 @@ namespace RSCLibraryDLLOperations
             //''   it would be, if not for this procedure.So, I guess it 
             //''   is mutable...unless I comment out this procedure!!!! 1/10/2024
             //''
-            DLLOperation<TControl_H, TControl_V> temp_op;
+            DLLOperation2D<TControl_H, TControl_V> temp_op;
             temp_op = mod_opPrior_ForUndo;
 
             mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior(); //''Shift to the Left...to Prior() item.
@@ -170,13 +176,13 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public DLLOperation<TControl_H, TControl_V> GetCurrentOp_Undo()
+        public DLLOperation2D<TControl_H, TControl_V> GetCurrentOp_Undo()
         {
             // Added 7/03/2024 
             return mod_opPrior_ForUndo;
         }
 
-        public DLLOperation<TControl_H, TControl_V> GetCurrentOp_Redo()
+        public DLLOperation2D<TControl_H, TControl_V> GetCurrentOp_Redo()
         {
             // Added 7/03/2024 
             return mod_opNext_ForRedo;

@@ -13,7 +13,11 @@ namespace RSCLibraryDLLOperations
               where T_LinkedCtlBase : IDoublyLinkedItem<T_LinkedCtlBase>
               where T_LinkedCtlHor : IDoublyLinkedItem<T_LinkedCtlHor>
               where T_LinkedCtlVer : IDoublyLinkedItem<T_LinkedCtlVer>
-    {
+    {   
+        //
+        //    2D = 2 dimensions, a 2-dimensional grid
+        //
+
         //''Added 1/18/2024 
         private T_LinkedCtlHor mod_firstItemHoriz;
         private T_LinkedCtlVer mod_firstItemVerti;
@@ -27,12 +31,12 @@ namespace RSCLibraryDLLOperations
         private DLLList<T_LinkedCtlHor> mod_listHoriz;
         private DLLList<T_LinkedCtlVer> mod_listVerti;
 
-        private DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> mod_firstPriorOperationV1;
-        private DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> mod_lastPriorOperationV1;
+        private DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> mod_firstPriorOperationV1;
+        private DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> mod_lastPriorOperationV1;
 
-        private DLLOperationsRedoMarker<T_LinkedCtlHor, T_LinkedCtlVer>
+        private DLLOperationsRedoMarker2D<T_LinkedCtlHor, T_LinkedCtlVer>
             mod_opRedoMarker =
-            new DLLOperationsRedoMarker<T_LinkedCtlHor, T_LinkedCtlVer>(); // As r ''Added 1/24/2024
+            new DLLOperationsRedoMarker2D<T_LinkedCtlHor, T_LinkedCtlVer>(); // As r ''Added 1/24/2024
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
@@ -70,7 +74,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ProcessOperation_AnyType(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> parOperation,
+        public void ProcessOperation_AnyType(DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> parOperation,
                                      bool par_changeOfEndpoint,
                                      bool par_bRecordOperation)
         {
@@ -556,7 +560,7 @@ namespace RSCLibraryDLLOperations
 
         public void RedoMarkedOperation(bool pbIsHoriz, bool pbIsVerti)
         {
-            DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer>
+            DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer>
                 opReDo = mod_opRedoMarker.GetMarkersNext_ShiftPositionRight();
 
             //Added 5.25.2024
@@ -580,7 +584,7 @@ namespace RSCLibraryDLLOperations
             // Added 1/10/2024 thomas downes
             //
             int intCountFurtherUndoOps;
-            DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> operationToUndo;
+            DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> operationToUndo;
 
             if (mod_opRedoMarker.HasOperationPrior())
             {
@@ -621,13 +625,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void UndoOperation_ViaInverseOf(DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> parOperation)
+        private void UndoOperation_ViaInverseOf(DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> parOperation)
         {
             //
             //''Added 7/06/2024 and 1/15/2024
             //''
             const bool RECORD_OPERATION = false; //''Added 1 / 28 / 2024
-            DLLOperation<T_LinkedCtlHor, T_LinkedCtlVer> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+            DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
             //opUndoVersion = parOperation.GetUndoVersionOfOperation();
             opUndoVersion = parOperation.GetInverseForUndo();
 
