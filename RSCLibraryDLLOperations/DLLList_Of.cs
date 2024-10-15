@@ -140,7 +140,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-            public void DLL_InsertRangeBefore(DLLRange<TControl> par_range, 
+        public void DLL_InsertRangeBefore(DLLRange<TControl> par_range, 
                                 DLLAnchor<TControl> par_anchor, 
                                 bool par_isChangeOfEndpoint)
         {
@@ -166,7 +166,55 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public int DLL_CountAllItems()
+        {
+            //
+            // Added 10/15/2024 thomas downes
+            //
+            return _itemCount; 
 
+
+        }
+
+
+        public IDoublyLinkedItem DLL_GetFirstItem()
+        {
+            //
+            // Added 10/15/2024 thomas downes
+            //
+            return _itemStart;
+
+        }
+
+        public TControl DLL_GetFirstItem_OfT()
+        {
+            //
+            // Added 10/15/2024 thomas downes
+            //
+            return _itemStart;
+
+        }
+
+
+
+
+        public IDoublyLinkedItem DLL_GetLastItem()
+        {
+            //
+            // Added 10/15/2024 thomas downes
+            //
+            return _itemEnding;
+
+        }
+
+        public TControl DLL_GetLastItem_OfT()
+        {
+            //
+            // Added 10/15/2024 thomas downes
+            //
+            return _itemEnding;
+
+        }
 
 
 

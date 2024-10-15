@@ -11,6 +11,7 @@ Public Class FormSimpleDemoOfCSharp1D
     Private mod_list As DLLList(Of TwoCharacterDLLItem)
     Private mod_firstItem As TwoCharacterDLLItem
     Private mod_lastItem As TwoCharacterDLLItem
+    Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -23,7 +24,7 @@ Public Class FormSimpleDemoOfCSharp1D
         mod_lastItem = mod_firstItem
         mod_list = New DLLList(Of TwoCharacterDLLItem)(mod_firstItem, mod_lastItem, 1)
 
-        For indexNewItem = 2 To 30
+        For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
 
             newItem = New TwoCharacterDLLItem(indexNewItem.ToString("00"))
             mod_list.DLL_AddItemAtEnd(newItem)
@@ -57,7 +58,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim last_item As TwoCharacterDLLItem = Nothing
         Dim prior_to_last As TwoCharacterDLLItem = Nothing
 
-        last_item = CType(mod_list.DLL_GetLastItem(), TwoCharacterDLLItem)
+        last_item = CType(mod_list.DLL_GetLastItem_OfT(), TwoCharacterDLLItem)
         If (last_item Is Nothing) Then
             ''
             ''The user has elected to delete the entire list. 
@@ -95,7 +96,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''LabelItemsDisplay.ResetText()
         ''Not needed here. ----labelItemsDisplay.Text = ""
 
-        If (mod_firstTwoChar Is Nothing) Then
+        If (mod_firstItem Is Nothing) Then
             ''
             ''All the items have been deleted (most likely).
             ''
@@ -103,7 +104,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         Else
 
-            each_twoChar = mod_firstTwoChar
+            each_twoChar = mod_firstItem
 
             ''For Each each_twoChar In mod_list
             Do Until bDone

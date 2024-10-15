@@ -37,6 +37,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         Label10 = New Label()
         numDeleteHowMany = New NumericUpDown()
         numDeleteRangeBenchmarkStart = New NumericUpDown()
+        labelItemsDisplay = New Label()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -47,14 +48,14 @@ Partial Class FormSimpleDemoOfCSharp1D
         listInsertAfterOr.FormattingEnabled = True
         listInsertAfterOr.ItemHeight = 15
         listInsertAfterOr.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listInsertAfterOr.Location = New Point(383, 164)
+        listInsertAfterOr.Location = New Point(380, 195)
         listInsertAfterOr.Name = "listInsertAfterOr"
         listInsertAfterOr.Size = New Size(115, 34)
         listInsertAfterOr.TabIndex = 63
         ' 
         ' buttonInsert
         ' 
-        buttonInsert.Location = New Point(504, 157)
+        buttonInsert.Location = New Point(501, 188)
         buttonInsert.Name = "buttonInsert"
         buttonInsert.Size = New Size(133, 39)
         buttonInsert.TabIndex = 62
@@ -65,7 +66,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         LabelInsertHeader.AutoSize = True
         LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelInsertHeader.Location = New Point(18, 130)
+        LabelInsertHeader.Location = New Point(15, 161)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
         LabelInsertHeader.TabIndex = 61
@@ -74,7 +75,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LabelInsertAnchorHeader
         ' 
         LabelInsertAnchorHeader.AutoSize = True
-        LabelInsertAnchorHeader.Location = New Point(18, 166)
+        LabelInsertAnchorHeader.Location = New Point(15, 197)
         LabelInsertAnchorHeader.Name = "LabelInsertAnchorHeader"
         LabelInsertAnchorHeader.Size = New Size(304, 15)
         LabelInsertAnchorHeader.TabIndex = 60
@@ -82,7 +83,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numInsertAnchorBenchmark
         ' 
-        numInsertAnchorBenchmark.Location = New Point(327, 164)
+        numInsertAnchorBenchmark.Location = New Point(324, 195)
         numInsertAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertAnchorBenchmark.Name = "numInsertAnchorBenchmark"
         numInsertAnchorBenchmark.Size = New Size(50, 23)
@@ -129,7 +130,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(282, 225)
+        buttonDelete.Location = New Point(279, 256)
         buttonDelete.Name = "buttonDelete"
         buttonDelete.Size = New Size(133, 39)
         buttonDelete.TabIndex = 73
@@ -140,7 +141,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(18, 206)
+        Label8.Location = New Point(15, 237)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 72
@@ -149,7 +150,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(18, 266)
+        Label9.Location = New Point(15, 297)
         Label9.Name = "Label9"
         Label9.Size = New Size(164, 15)
         Label9.TabIndex = 71
@@ -158,7 +159,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(18, 237)
+        Label10.Location = New Point(15, 268)
         Label10.Name = "Label10"
         Label10.Size = New Size(189, 15)
         Label10.TabIndex = 70
@@ -166,7 +167,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numDeleteHowMany
         ' 
-        numDeleteHowMany.Location = New Point(213, 264)
+        numDeleteHowMany.Location = New Point(210, 295)
         numDeleteHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numDeleteHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteHowMany.Name = "numDeleteHowMany"
@@ -176,18 +177,29 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numDeleteRangeBenchmarkStart
         ' 
-        numDeleteRangeBenchmarkStart.Location = New Point(213, 235)
+        numDeleteRangeBenchmarkStart.Location = New Point(210, 266)
         numDeleteRangeBenchmarkStart.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteRangeBenchmarkStart.Name = "numDeleteRangeBenchmarkStart"
         numDeleteRangeBenchmarkStart.Size = New Size(50, 23)
         numDeleteRangeBenchmarkStart.TabIndex = 68
         numDeleteRangeBenchmarkStart.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
+        ' labelItemsDisplay
+        ' 
+        labelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
+        labelItemsDisplay.Location = New Point(58, 110)
+        labelItemsDisplay.Name = "labelItemsDisplay"
+        labelItemsDisplay.Size = New Size(595, 24)
+        labelItemsDisplay.TabIndex = 74
+        labelItemsDisplay.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
+        labelItemsDisplay.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  "
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(labelItemsDisplay)
         Controls.Add(buttonDelete)
         Controls.Add(Label8)
         Controls.Add(Label9)
@@ -227,5 +239,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents Label10 As Label
     Friend WithEvents numDeleteHowMany As NumericUpDown
     Friend WithEvents numDeleteRangeBenchmarkStart As NumericUpDown
+    Friend WithEvents labelItemsDisplay As Label
 
 End Class
