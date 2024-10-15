@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FormSimple
+Partial Class FormSimpleDemoOfCSharp1D
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -64,7 +64,7 @@ Partial Class FormSimple
         ' LabelInsertHeader
         ' 
         LabelInsertHeader.AutoSize = True
-        LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        LabelInsertHeader.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         LabelInsertHeader.Location = New Point(18, 130)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
@@ -120,7 +120,7 @@ Partial Class FormSimple
         ' LabelHeader1
         ' 
         LabelHeader1.AutoSize = True
-        LabelHeader1.Font = New Font("Segoe UI", 12F)
+        LabelHeader1.Font = New Font("Segoe UI", 12.0F)
         LabelHeader1.Location = New Point(12, 30)
         LabelHeader1.Name = "LabelHeader1"
         LabelHeader1.Size = New Size(303, 21)
@@ -139,7 +139,7 @@ Partial Class FormSimple
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label8.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
         Label8.Location = New Point(18, 206)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
@@ -185,7 +185,7 @@ Partial Class FormSimple
         ' 
         ' FormSimple
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
         Controls.Add(buttonDelete)

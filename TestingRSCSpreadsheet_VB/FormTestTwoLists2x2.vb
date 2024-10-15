@@ -137,7 +137,7 @@ Public Class FormTestTwoLists2x2
             ''                              opInitialLoad.GetCopyV1())
 #If USE_PARENT_CLASS Then ''We will use "(Of TwoCharacterDLLItem, TwoCharacterDLLItem)"
             mod_managerOfOps = New DLLOperationsManager2x2(Of TwoCharacterDLLItem,
-                   TwoCharacterDLLItem)(mod_list1Cols, mod_list2Rows, 
+                   TwoCharacterDLLItem, TwoCharacterDLLItem)(mod_list1Cols, mod_list2Rows,
                                             INCLUDE_LOAD_IN_REDO_LIST,
                                             opInitialLoad1Cols.GetCopyV1(),
                                             opInitialLoad2Rows.GetCopyV1())
@@ -859,7 +859,7 @@ Public Class FormTestTwoLists2x2
     End Sub
 
 
-    Private Sub DLLOperationCreated_Delete(par_operation As DLLOperation(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+    Private Sub DLLOperationCreated_Delete(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
                      par_inverseAnchor_PriorToRange As TwoCharacterDLLItem, par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
                      Handles userControlOperationBoth.DLLOperationV2_Delete
         ''

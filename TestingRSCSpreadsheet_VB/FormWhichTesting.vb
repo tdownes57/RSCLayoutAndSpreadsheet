@@ -6,7 +6,8 @@ Public Class FormWhichTesting
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkOperationsManager.LinkClicked
 
         ''Added 1/22/2024 td
-        Dim objFormToShow As New FormTestUsingManager
+        ''---Dim objFormToShow As New FormTestUsingManager
+        Dim objFormToShow As New FormSimpleDemoOfCSharp1D ''---TestUsingManager
         objFormToShow.Show()
 
     End Sub
@@ -27,6 +28,15 @@ Public Class FormWhichTesting
         Dim objFormToShow As New FormTestTwoLists2x2
         objFormToShow.Show()
 #End If
+
+    End Sub
+
+    Private Sub LinkLabelCSharpSimple1D_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCSharpSimple1D.LinkClicked
+
+        ''Added 1/22/2024 td
+        ''---Dim objFormToShow As New FormTestUsingManager
+        Dim objFormToShow As New FormSimpleDemoOfCSharp1D ''---TestUsingManager
+        objFormToShow.Show()
 
     End Sub
 End Class

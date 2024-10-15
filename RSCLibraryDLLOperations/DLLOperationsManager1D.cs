@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,10 +39,160 @@ namespace RSCLibraryDLLOperations
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
 
+        public T_LinkedCtl GetFirstItem()
+        {
+            return mod_firstItem;
+        }
 
 
+        public int CountOfOperations()
+        {
+            //
+            //  Added 10/13/2024 
+            //
+            int intCountOps_method1 = mod_firstItem.DLL_CountItemsAllInList();
+            int intCountOps_method2 = mod_intCountOperations;
+            if (intCountOps_method1 != intCountOps_method2)
+            {
+                Debugger.Break();
+            }
+            return intCountOps_method1;
+        }
 
 
-    
+        public bool MarkerHasOperationPrior()
+        {
+            bool result_hasPrior = mod_opRedoMarker.HasOperationPrior();
+            return result_hasPrior;
+        }
+
+
+        public bool MarkerHasOperationNext()
+        {
+            //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opRedoMarker.HasOperationNext();
+            return result_hasNext;
+        }
+
+
+        public void ProcessOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
+                               bool par_changeOfEndpoint,
+                               bool par_bRecordOperation)
+        {
+            // Added 1/15/2024
+
+            //if (parOperation.IsHorizontal()) parOperation.OperateOnList(mod_listHoriz, par_changeOfEndpoint);
+            //if (parOperation.IsVertical()) parOperation.OperateOnList(mod_listVerti, par_changeOfEndpoint);
+
+            parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint);
+
+            //    //     // Added 1/01/2024
+            if (par_bRecordOperation)
+            {
+                //RecordNewestOperation(operation);
+
+            }
+
+
+        }
+
+        public void RedoMarkedOperation() // (bool pbIsHoriz, bool pbIsVerti)
+        {
+            DLLOperation1D<T_LinkedCtl>  // <T_LinkedCtlHor, T_LinkedCtlVer>
+                opReDo = mod_opRedoMarker.GetMarkersNext_ShiftPositionRight();
+
+            //Added 5.25.2024
+            bool bIsChangeOfEndpoint = opReDo.IsChangeOfEndpoint();
+
+            //opReDo.CreatedAsRedoOperation = true;
+            ProcessOperation_AnyType(opReDo, bIsChangeOfEndpoint,
+                false); // , pbIsHoriz, pbIsVerti);
+
+        }
+
+        public void UndoMarkedOperation()
+        {
+            UndoOfPriorOperation_AnyType();
+        }
+
+
+        private void UndoOfPriorOperation_AnyType()
+        {
+            //
+            // Added 1/10/2024 thomas downes
+            //
+            int intCountFurtherUndoOps;
+            DLLOperation1D<T_LinkedCtl> operationToUndo;
+
+            if (mod_opRedoMarker.HasOperationPrior())
+            {
+                // Great, we will be able to do the "Undo" operation.
+            }
+            else
+            {
+                //MessageBoxTD.Show_Statement("No Undo operation is in queue."); // 1/15/24
+                throw new RSCEndpointException("No Undo operation is in queue.");
+                //return;
+            }
+
+            intCountFurtherUndoOps = 1 + mod_opRedoMarker.GetCurrentIndex_Undo();
+
+            if (intCountFurtherUndoOps == 0)
+            {
+                // Added 1/10/2024 
+                //MessageBoxTD.Show_Statement("Sorry, no more (recorded) operations remain to Undo.");
+                throw new RSCEndpointException("No operations exist to Undo.");
+            }
+            else
+            {
+                // Undo the operation which is the RedoMarker's currently-designated Undo operation.
+                operationToUndo = mod_opRedoMarker.GetCurrentOp_Undo();
+
+                // Major call!!
+                UndoOperation_ViaInverseOf(operationToUndo);
+
+                // Major call!! --1/10/2024
+                mod_opRedoMarker.ShiftMarker_AfterUndo_ToPrior();
+
+                // Refresh the Display. (Make the Insert visible to the user.)
+                // RefreshTheUI_DisplayList();
+
+                // Added 1/03/2024
+                // RefreshTheUI_OperationsCount();
+            }
+        }
+
+
+        private void UndoOperation_ViaInverseOf(DLLOperation1D<T_LinkedCtl> parOperation)
+        {
+            //
+            //''Added 7/06/2024 and 1/15/2024
+            //''
+            const bool RECORD_OPERATION = false; //''Added 1 / 28 / 2024
+            DLLOperation1D<T_LinkedCtl> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+            //opUndoVersion = parOperation.GetUndoVersionOfOperation();
+            opUndoVersion = parOperation.GetInverseForUndo();
+
+            //''Added 7/06/2024 and 1/31/2024
+            //
+            //  Are we undoing a DELETE operation, and so the UNDO OPERATION
+            //   is an INSERT?  
+            //
+            //---opUndoVersion.CheckEndpointsAreClean(true, true, false, true);
+            bool bUndoOfDelete = ('D' == parOperation.GetOperationType());
+            if (bUndoOfDelete)
+            {
+                bool bEndpointsAreClean = opUndoVersion.CheckEndPointsAreClean_PriorToInsert();
+            }
+
+            //''Major call!!
+            ProcessOperation_AnyType(opUndoVersion,
+                                     opUndoVersion.IsChangeOfEndpoint(),
+                                     RECORD_OPERATION);
+
+
+        }
+
+
     }
 }

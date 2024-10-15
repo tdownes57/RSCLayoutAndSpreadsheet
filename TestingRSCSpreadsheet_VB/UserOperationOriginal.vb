@@ -73,7 +73,7 @@ Friend Class UserOperationOriginal
     Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1)
 
     ''Adde 8/4/2024 td
-    Public Event DLLOperationV2_Insert(par_operation As DLLOperation(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+    Public Event DLLOperationV2_Insert(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
@@ -94,7 +94,7 @@ Friend Class UserOperationOriginal
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
-    Public Event DLLOperationV2_Delete(par_operation As DLLOperation(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+    Public Event DLLOperationV2_Delete(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 

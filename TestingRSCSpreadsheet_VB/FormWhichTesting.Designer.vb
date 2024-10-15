@@ -25,22 +25,24 @@ Partial Class FormWhichTesting
         LinkOperationsManager = New LinkLabel()
         LinkFormManagesOps = New LinkLabel()
         LinkOpsManagerTwoLists = New LinkLabel()
+        LinkLabelCSharpSimple1D = New LinkLabel()
+        Label1ProbablyObselete = New Label()
         SuspendLayout()
         ' 
         ' LinkOperationsManager
         ' 
         LinkOperationsManager.AutoSize = True
-        LinkOperationsManager.Location = New Point(35, 112)
+        LinkOperationsManager.Location = New Point(218, 267)
         LinkOperationsManager.Name = "LinkOperationsManager"
-        LinkOperationsManager.Size = New Size(269, 15)
+        LinkOperationsManager.Size = New Size(469, 15)
         LinkOperationsManager.TabIndex = 0
         LinkOperationsManager.TabStop = True
-        LinkOperationsManager.Text = "Testing the MVC approach... Operations Manager."
+        LinkOperationsManager.Text = "Testing the MVC approach... Operations Manager --REMOVED FROM THE APPLICATION"
         ' 
         ' LinkFormManagesOps
         ' 
         LinkFormManagesOps.AutoSize = True
-        LinkFormManagesOps.Location = New Point(35, 74)
+        LinkFormManagesOps.Location = New Point(218, 241)
         LinkFormManagesOps.Name = "LinkFormManagesOps"
         LinkFormManagesOps.Size = New Size(231, 15)
         LinkFormManagesOps.TabIndex = 1
@@ -50,18 +52,40 @@ Partial Class FormWhichTesting
         ' LinkOpsManagerTwoLists
         ' 
         LinkOpsManagerTwoLists.AutoSize = True
-        LinkOpsManagerTwoLists.Location = New Point(35, 148)
+        LinkOpsManagerTwoLists.Location = New Point(218, 291)
         LinkOpsManagerTwoLists.Name = "LinkOpsManagerTwoLists"
         LinkOpsManagerTwoLists.Size = New Size(323, 15)
         LinkOpsManagerTwoLists.TabIndex = 2
         LinkOpsManagerTwoLists.TabStop = True
         LinkOpsManagerTwoLists.Text = "Testing the Two-List Operations Manager (Cyan && Magenta)"
         ' 
+        ' LinkLabelCSharpSimple1D
+        ' 
+        LinkLabelCSharpSimple1D.AutoSize = True
+        LinkLabelCSharpSimple1D.Location = New Point(32, 180)
+        LinkLabelCSharpSimple1D.Name = "LinkLabelCSharpSimple1D"
+        LinkLabelCSharpSimple1D.Size = New Size(306, 15)
+        LinkLabelCSharpSimple1D.TabIndex = 3
+        LinkLabelCSharpSimple1D.TabStop = True
+        LinkLabelCSharpSimple1D.Text = "Testing a simple 1-Dimensional version of the C# Library."
+        ' 
+        ' Label1ProbablyObselete
+        ' 
+        Label1ProbablyObselete.AutoSize = True
+        Label1ProbablyObselete.Font = New Font("Segoe UI", 9F, FontStyle.Underline)
+        Label1ProbablyObselete.Location = New Point(203, 209)
+        Label1ProbablyObselete.Name = "Label1ProbablyObselete"
+        Label1ProbablyObselete.Size = New Size(368, 15)
+        Label1ProbablyObselete.TabIndex = 4
+        Label1ProbablyObselete.Text = "The ones below are probably obselete and won't work, unfortunately"
+        ' 
         ' FormWhichTesting
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(Label1ProbablyObselete)
+        Controls.Add(LinkLabelCSharpSimple1D)
         Controls.Add(LinkOpsManagerTwoLists)
         Controls.Add(LinkFormManagesOps)
         Controls.Add(LinkOperationsManager)
@@ -74,4 +98,6 @@ Partial Class FormWhichTesting
     Friend WithEvents LinkOperationsManager As LinkLabel
     Friend WithEvents LinkFormManagesOps As LinkLabel
     Friend WithEvents LinkOpsManagerTwoLists As LinkLabel
+    Friend WithEvents LinkLabelCSharpSimple1D As LinkLabel
+    Friend WithEvents Label1ProbablyObselete As Label
 End Class

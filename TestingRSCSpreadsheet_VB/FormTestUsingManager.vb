@@ -8,6 +8,7 @@ Imports System.Text
 Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 ''---Imports ciBadgeRecipients
+Imports RSCLibraryDLLOperations ''Added 10/13/2024
 
 Public Class FormTestUsingManager
 
@@ -451,7 +452,8 @@ Public Class FormTestUsingManager
         ''Major call !!!
         ''
         ''Encapsulated 1/20/2024
-        mod_opsManager.ProcessOperation_Delete(par_operationV1, bChangeOfEndpoint, True)
+        ''----mod_opsManager.ProcessOperation_Delete(par_operationV1, bChangeOfEndpoint, True)
+        mod_opsManager.ProcessOperation_AnyType(par_operationV1, bChangeOfEndpoint, True)
 
         ''With par_operationV1
         ''
@@ -536,7 +538,9 @@ Public Class FormTestUsingManager
         ''
         ''Dim objItemToInsert_First As TwoCharacterDLLItem
 
-        mod_opsManager.ProcessOperation_Insert(par_operationV1,
+        ''//mod_opsManager.ProcessOperation_Insert(par_operationV1,
+        ''//                                      par_operationV1.IsChangeOfEndpoint, True)
+        mod_opsManager.ProcessOperation_AnyType(par_operationV1,
                                                par_operationV1.IsChangeOfEndpoint, True)
 
         ''
@@ -559,8 +563,10 @@ Public Class FormTestUsingManager
     End Sub ''ENd of ""Private Sub DLLOperationCreated_Insert""
 
 
-    Private Sub ProcessOperation_Insert(par_operationV1 As DLL_OperationV1,
+    Private Sub ProcessOperation_Insert(par_operationV3 As DLLOperation1D(Of TwoCharacterDLLItem),
                                         Optional par_bIncludePostOpAdmin As Boolean = False)
+        ''Private Sub ProcessOperation_Insert(par_operationV3 As DLL_OperationV1,
+        ''                                    Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''Encapsulation 1/1/2024 
         ''
@@ -595,7 +601,8 @@ Public Class FormTestUsingManager
         ''
         ''Major call !!!
         ''
-        mod_opsManager.ProcessOperation_Insert(par_operationV1, bChangeOfEndpoint, True)
+        ''//mod_opsManager.ProcessOperatio n_Insert(par_operationV1, bChangeOfEndpoint, True)
+        mod_opsManager.ProcessOperation_AnyType(par_operationV3, bChangeOfEndpoint, True)
 
         ''
         ''Admin, if requested.
