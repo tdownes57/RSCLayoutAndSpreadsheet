@@ -64,7 +64,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LabelInsertHeader
         ' 
         LabelInsertHeader.AutoSize = True
-        LabelInsertHeader.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         LabelInsertHeader.Location = New Point(18, 130)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
@@ -120,7 +120,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LabelHeader1
         ' 
         LabelHeader1.AutoSize = True
-        LabelHeader1.Font = New Font("Segoe UI", 12.0F)
+        LabelHeader1.Font = New Font("Segoe UI", 12F)
         LabelHeader1.Location = New Point(12, 30)
         LabelHeader1.Name = "LabelHeader1"
         LabelHeader1.Size = New Size(303, 21)
@@ -139,7 +139,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
+        Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
         Label8.Location = New Point(18, 206)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
@@ -183,9 +183,9 @@ Partial Class FormSimpleDemoOfCSharp1D
         numDeleteRangeBenchmarkStart.TabIndex = 68
         numDeleteRangeBenchmarkStart.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
-        ' FormSimple
+        ' FormSimpleDemoOfCSharp1D
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
         Controls.Add(buttonDelete)
@@ -203,7 +203,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         Controls.Add(LabelInsertHeader)
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertAnchorBenchmark)
-        Name = "FormSimple"
+        Name = "FormSimpleDemoOfCSharp1D"
         Text = "Form1"
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()

@@ -34,18 +34,26 @@ namespace RSCLibraryDLLOperations
         //    //_itemEnding = null;
         //}
 
-        public DLLList(TControl itemStart,
-                       TControl itemEnding, int itemCount)
+        public DLLList(TControl par_itemStart,
+                       TControl par_itemEnding, int par_itemCount)
         {
-            _itemStart = itemStart;
-            _itemEnding = itemEnding;
-            _itemCount = itemCount;
+            if (par_itemStart == null) System.Diagnostics.Debugger.Break();
+            if (par_itemEnding == null) System.Diagnostics.Debugger.Break();
+            if (par_itemStart == null) return; // System.Diagnostics.Debugger.Break();
+            if (par_itemEnding == null) return; // System.Diagnostics.Debugger.Break();
+
+            _itemStart = par_itemStart;
+            _itemEnding = par_itemEnding;
+            _itemCount = par_itemCount;
             _isEmpty_OrTreatAsEmpty = false;
 
             //Testing
             if (Testing.AreWeTesting)
             {
-                if ((_itemCount == 1) != (itemStart.Equals(itemEnding)))
+                if (par_itemStart == null) throw new RSCEndpointException();
+                if (par_itemEnding == null) throw new RSCEndpointException();
+
+                if ((_itemCount == 1) != (par_itemStart.Equals(par_itemEnding)))
                 {
                     System.Diagnostics.Debugger.Break();
                 }
@@ -100,7 +108,39 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_InsertRangeBefore(DLLRange<TControl> par_range, 
+        public void DLL_AddItemAtEnd(TControl par_itemToAdd)
+        {
+            //
+            // Added 10/14/2024 thomas downes   
+            //
+            if (0 == _itemCount || _isEmpty_OrTreatAsEmpty)
+            {
+                _itemStart = par_itemToAdd;
+                _itemEnding = par_itemToAdd; 
+                _itemCount = 1;
+                _isEmpty_OrTreatAsEmpty = false;
+            }
+            else
+            {
+                TControl temp_newPenultimate = _itemEnding;
+                _itemEnding.DLL_SetItemNext_OfT(par_itemToAdd);
+                par_itemToAdd.DLL_SetItemPrior_OfT(temp_newPenultimate);
+                _itemEnding = par_itemToAdd;
+                _itemCount += 1;
+                _isEmpty_OrTreatAsEmpty = false;  // Probably not needed.
+            }
+
+            //Testing
+            if (Testing.AreWeTesting)
+            {
+                //Test for equality.
+                if (!_itemEnding.Equals(par_itemToAdd)) throw new RSCEndpointException();
+            }
+
+        }
+
+
+            public void DLL_InsertRangeBefore(DLLRange<TControl> par_range, 
                                 DLLAnchor<TControl> par_anchor, 
                                 bool par_isChangeOfEndpoint)
         {
