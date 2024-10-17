@@ -58,6 +58,8 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Sub DLL_SetItemNext_OfT(param As TControl) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
     Sub DLL_SetItemPrior_OfT(param As TControl) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
 
+    Sub DLL_InsertItemToNext(param As TControl) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
+
     ' Added 12/30/2023 
     ' ---DIFFICULT AND CONFUSING---
     ' By CS-related rules of iteration, by moving ahead

@@ -23,7 +23,7 @@ Partial Class FormSimpleDemoOfCSharp1D
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         listInsertAfterOr = New ListBox()
-        buttonInsert = New Button()
+        buttonInsertMultiple = New Button()
         LabelInsertHeader = New Label()
         LabelInsertAnchorHeader = New Label()
         numInsertAnchorBenchmark = New NumericUpDown()
@@ -38,9 +38,15 @@ Partial Class FormSimpleDemoOfCSharp1D
         numDeleteHowMany = New NumericUpDown()
         numDeleteRangeBenchmarkStart = New NumericUpDown()
         labelItemsDisplay = New Label()
+        Label2 = New Label()
+        numInsertHowMany = New NumericUpDown()
+        Label6 = New Label()
+        textInsertListOfValuesCSV = New TextBox()
+        buttonInsertSingle = New Button()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
+        CType(numInsertHowMany, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' listInsertAfterOr
@@ -53,14 +59,14 @@ Partial Class FormSimpleDemoOfCSharp1D
         listInsertAfterOr.Size = New Size(115, 34)
         listInsertAfterOr.TabIndex = 63
         ' 
-        ' buttonInsert
+        ' buttonInsertMultiple
         ' 
-        buttonInsert.Location = New Point(501, 188)
-        buttonInsert.Name = "buttonInsert"
-        buttonInsert.Size = New Size(133, 39)
-        buttonInsert.TabIndex = 62
-        buttonInsert.Text = "Insert New Items"
-        buttonInsert.UseVisualStyleBackColor = True
+        buttonInsertMultiple.Location = New Point(501, 188)
+        buttonInsertMultiple.Name = "buttonInsertMultiple"
+        buttonInsertMultiple.Size = New Size(166, 39)
+        buttonInsertMultiple.TabIndex = 62
+        buttonInsertMultiple.Text = "Insert New Items (Multiple)"
+        buttonInsertMultiple.UseVisualStyleBackColor = True
         ' 
         ' LabelInsertHeader
         ' 
@@ -130,7 +136,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(279, 256)
+        buttonDelete.Location = New Point(279, 310)
         buttonDelete.Name = "buttonDelete"
         buttonDelete.Size = New Size(133, 39)
         buttonDelete.TabIndex = 73
@@ -141,7 +147,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(15, 237)
+        Label8.Location = New Point(15, 291)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 72
@@ -150,7 +156,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(15, 297)
+        Label9.Location = New Point(15, 351)
         Label9.Name = "Label9"
         Label9.Size = New Size(164, 15)
         Label9.TabIndex = 71
@@ -159,7 +165,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(15, 268)
+        Label10.Location = New Point(15, 322)
         Label10.Name = "Label10"
         Label10.Size = New Size(189, 15)
         Label10.TabIndex = 70
@@ -167,7 +173,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numDeleteHowMany
         ' 
-        numDeleteHowMany.Location = New Point(210, 295)
+        numDeleteHowMany.Location = New Point(210, 349)
         numDeleteHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numDeleteHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteHowMany.Name = "numDeleteHowMany"
@@ -177,7 +183,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numDeleteRangeBenchmarkStart
         ' 
-        numDeleteRangeBenchmarkStart.Location = New Point(210, 266)
+        numDeleteRangeBenchmarkStart.Location = New Point(210, 320)
         numDeleteRangeBenchmarkStart.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteRangeBenchmarkStart.Name = "numDeleteRangeBenchmarkStart"
         numDeleteRangeBenchmarkStart.Size = New Size(50, 23)
@@ -194,11 +200,64 @@ Partial Class FormSimpleDemoOfCSharp1D
         labelItemsDisplay.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
         labelItemsDisplay.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  "
         ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Location = New Point(15, 222)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(164, 15)
+        Label2.TabIndex = 76
+        Label2.Text = "How many list items? (Count)"
+        ' 
+        ' numInsertHowMany
+        ' 
+        numInsertHowMany.Location = New Point(210, 220)
+        numInsertHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
+        numInsertHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        numInsertHowMany.Name = "numInsertHowMany"
+        numInsertHowMany.Size = New Size(50, 23)
+        numInsertHowMany.TabIndex = 75
+        numInsertHowMany.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Location = New Point(15, 246)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(324, 15)
+        Label6.TabIndex = 78
+        Label6.Text = "List of two-character values, separated by spaces:  (optional)"
+        ' 
+        ' textInsertListOfValuesCSV
+        ' 
+        textInsertListOfValuesCSV.BorderStyle = BorderStyle.FixedSingle
+        textInsertListOfValuesCSV.Location = New Point(356, 243)
+        textInsertListOfValuesCSV.Name = "textInsertListOfValuesCSV"
+        textInsertListOfValuesCSV.Size = New Size(139, 23)
+        textInsertListOfValuesCSV.TabIndex = 77
+        textInsertListOfValuesCSV.Tag = "00"
+        textInsertListOfValuesCSV.Text = "++"
+        ' 
+        ' buttonInsertSingle
+        ' 
+        buttonInsertSingle.Location = New Point(501, 233)
+        buttonInsertSingle.Name = "buttonInsertSingle"
+        buttonInsertSingle.Size = New Size(166, 39)
+        buttonInsertSingle.TabIndex = 79
+        buttonInsertSingle.Text = "Insert New Item (Single)"
+        buttonInsertSingle.UseVisualStyleBackColor = True
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(buttonInsertSingle)
+        Controls.Add(Label6)
+        Controls.Add(textInsertListOfValuesCSV)
+        Controls.Add(Label2)
+        Controls.Add(numInsertHowMany)
+        Controls.Add(listInsertAfterOr)
         Controls.Add(labelItemsDisplay)
         Controls.Add(buttonDelete)
         Controls.Add(Label8)
@@ -210,8 +269,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         Controls.Add(labelBenchmark)
         Controls.Add(Label1)
         Controls.Add(LabelHeader1)
-        Controls.Add(listInsertAfterOr)
-        Controls.Add(buttonInsert)
+        Controls.Add(buttonInsertMultiple)
         Controls.Add(LabelInsertHeader)
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertAnchorBenchmark)
@@ -220,12 +278,13 @@ Partial Class FormSimpleDemoOfCSharp1D
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
+        CType(numInsertHowMany, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
 
     Friend WithEvents listInsertAfterOr As ListBox
-    Friend WithEvents buttonInsert As Button
+    Friend WithEvents buttonInsertMultiple As Button
     Friend WithEvents LabelInsertHeader As Label
     Friend WithEvents LabelInsertAnchorHeader As Label
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
@@ -240,5 +299,10 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents numDeleteHowMany As NumericUpDown
     Friend WithEvents numDeleteRangeBenchmarkStart As NumericUpDown
     Friend WithEvents labelItemsDisplay As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents numInsertHowMany As NumericUpDown
+    Friend WithEvents Label6 As Label
+    Friend WithEvents textInsertListOfValuesCSV As TextBox
+    Friend WithEvents buttonInsertSingle As Button
 
 End Class

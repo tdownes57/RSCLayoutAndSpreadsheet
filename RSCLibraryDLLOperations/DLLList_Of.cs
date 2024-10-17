@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,9 +23,19 @@ namespace RSCLibraryDLLOperations
         public TControl _itemEnding;
         public int _itemCount;
         public bool _isEmpty_OrTreatAsEmpty; // This means that some user-initiated operation
-           // has removed all remaining items from the list (likely, per user's intention).  
-           // (This will relieve us from the programmatic burden of trying to Nullify
-           //   the _itemStart object. The C# compiler might not like that.) 
+                                             // has removed all remaining items from the list (likely, per user's intention).  
+                                             // (This will relieve us from the programmatic burden of trying to Nullify
+                                             //   the _itemStart object. The C# compiler might not like that.) 
+
+        //
+        // The Anchor describes the location of the imminent Insert of a Range or Item (Singly). 
+        //    (or Paste, per a Cut-Paste ("Move") action. 
+        //
+        private DLLAnchor<TControl>? _temp_o_anchor;  // o is for object
+        //Temporary boolean variables
+        private bool _temp_b_anchor_CheckBooleans; // b is for Boolean 
+        private bool _temp_b_anchorWill_PrecedeRange;  // b is for Boolean
+        private bool _temp_b_anchorWill_FollowRange;  // b is for Boolean
 
         //public DLLList()
         //{
@@ -122,9 +133,10 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                TControl temp_newPenultimate = _itemEnding;
-                _itemEnding.DLL_SetItemNext_OfT(par_itemToAdd);
-                par_itemToAdd.DLL_SetItemPrior_OfT(temp_newPenultimate);
+                //TControl temp_newPenultimate = _itemEnding;
+                //_itemEnding.DLL_SetItemNext_OfT(par_itemToAdd);
+                //par_itemToAdd.DLL_SetItemPrior_OfT(temp_newPenultimate);
+                _itemEnding.DLL_InsertItemToNext(par_itemToAdd);
                 _itemEnding = par_itemToAdd;
                 _itemCount += 1;
                 _isEmpty_OrTreatAsEmpty = false;  // Probably not needed.
@@ -147,6 +159,74 @@ namespace RSCLibraryDLLOperations
 
 
 
+
+        }
+
+
+        public void DLL_SetAnchor(DLLAnchor<TControl> par_anchor, 
+                                    bool pbAnchorWill_FollowRange, 
+                                    bool pbAnchorWill_PrecedeRange)
+        {
+            //
+            // Added 10/16/2024 thomas d
+            //
+
+            _temp_o_anchor = par_anchor;
+
+            _temp_o_anchor._doInsertRangeAfterThis = pbAnchorWill_PrecedeRange;
+            _temp_o_anchor._doInsertRangeBeforeThis = pbAnchorWill_FollowRange;
+
+            _temp_b_anchorWill_FollowRange = pbAnchorWill_FollowRange;
+            _temp_b_anchorWill_PrecedeRange = pbAnchorWill_PrecedeRange;
+            _temp_b_anchor_CheckBooleans = true;
+
+        }
+
+
+        public void DLL_ClearAnchor()
+        {
+
+            _temp_o_anchor = null;
+            _temp_b_anchor_CheckBooleans = false;
+
+        }
+
+
+        public void DLL_InsertItemSingly(TControl par_item,
+                        DLLAnchor<TControl> par_anchor,
+                        bool par_isChangeOfEndpoint)
+        {
+            //
+            // Added 10/15/2024 
+            //
+            if (par_anchor._doInsertRangeBeforeThis)
+            {
+                par_anchor._anchorItem.DLL_GetItemPrior().DLL_SetItemNext(par_item);
+                par_anchor._anchorItem.DLL_SetItemPrior(par_item);
+            }
+            else
+            { 
+                par_anchor._anchorItem.DLL_GetItemNext().DLL_SetItemPrior(par_item);
+                par_anchor._anchorItem.DLL_SetItemNext(par_item);
+            }
+        
+            _itemCount++;
+
+        }
+
+
+        public void DLL_InsertItemSingly(TControl par_item)
+        {
+            //
+            // Added 10/15/2024 
+            //
+            if (_temp_o_anchor == null) System.Diagnostics.Debugger.Break();
+
+            if (_temp_b_anchor_CheckBooleans && _temp_b_anchorWill_PrecedeRange)
+            {
+                _temp_o_anchor._anchorItem.DLL_InsertItemToNext(par_item);
+            }
+            _itemCount++;
 
         }
 

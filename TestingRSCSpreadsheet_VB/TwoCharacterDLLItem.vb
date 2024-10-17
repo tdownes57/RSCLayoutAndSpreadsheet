@@ -361,6 +361,28 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetNextItemFollowingRange_OfT""
 
 
+    Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLItem) _
+          Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_InsertItemToNext
+        ''
+        '' This will take some weight off, from DLL_List(Of TControl). 
+        ''
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        If (mod_next IsNot Nothing) Then
+            mod_next.DLL_SetItemPrior(param)
+            param.DLL_SetItemNext(mod_next)
+        End If ''End of ""If (mod_next IsNot Nothing) Then""
+
+        ''
+        ''Exiting procedure. 
+        ''
+        mod_next = param
+        param.DLL_SetItemPrior(Me)
+
+    End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
+
 End Class
 
 

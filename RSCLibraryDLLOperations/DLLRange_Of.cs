@@ -26,6 +26,24 @@ namespace RSCLibraryDLLOperations
 
 
 
+        public DLLRange(TControl par_itemSingle, bool par_bMustBeCleanOfLinks)
+        {
+            //
+            // A singleton item.
+            // 
+            if (par_bMustBeCleanOfLinks && Testing.AreWeTesting)
+            {
+                if (par_itemSingle.DLL_HasNext()) System.Diagnostics.Debugger.Break();
+                if (par_itemSingle.DLL_HasPrior()) System.Diagnostics.Debugger.Break();
+            }
+
+            _isSingleItem = true;
+            _SingleItemInRange = par_itemSingle;
+            _StartingItem = par_itemSingle;
+            _ItemCount = 1;
+
+        }
+
         public DLLRange(bool par_isSingleItem, TControl par_itemStart,
                           TControl? par_itemEnding, 
                           TControl? par_itemSingle, int par_itemCount)
@@ -52,6 +70,7 @@ namespace RSCLibraryDLLOperations
                 // This is probably _NOT_ a single-item range.
                 //   There is a ending item.
                 //
+                _StartingItem = par_itemStart;
                 _EndingItem = par_itemEnding;
                 
                 //Administration.  Set _itemCount.
@@ -92,7 +111,7 @@ namespace RSCLibraryDLLOperations
             //
             // Administrative--Set the Inverse Anchors. 
             //
-            _InverseAnchor_Prior = par_itemStart
+            _InverseAnchor_Prior = _StartingItem // par_itemStart
                 .DLL_GetItemPrior_OfT()
                 .DLL_UnboxControl_OfT();
 

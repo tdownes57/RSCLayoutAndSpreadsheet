@@ -12,6 +12,8 @@ Public Class FormSimpleDemoOfCSharp1D
     Private mod_firstItem As TwoCharacterDLLItem
     Private mod_lastItem As TwoCharacterDLLItem
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
+    Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
+
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -132,6 +134,146 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Function ''End of "Private Function FillTheTextboxDisplayingList()""
 
+    Private Sub buttonInsert_Click(sender As Object, e As EventArgs) Handles buttonInsertMultiple.Click
+        ''
+        '' Added 10/15/2024  
+        ''
+        Dim intInsertCount As Integer
+        Dim intAnchorPosition As Integer
+        Dim indexNewItem As Integer
+        Dim objectRange As DLLRange(Of TwoCharacterDLLItem)
+        Dim prior_newItem As TwoCharacterDLLItem
+        Dim newItem As TwoCharacterDLLItem
+        Dim first_newItem As TwoCharacterDLLItem
+        Dim last_newItem As TwoCharacterDLLItem
+        Dim intHowManyInModuleList As Integer
+        Dim intNewIndexStart As Integer
+        Dim intNewIndexEnd As Integer
+        Dim array_sItemsToInsert As String()
+        Dim bUserSpecifiedValues
+        Dim strNewItem As String
+        Dim intModulo As Integer
+        Dim boolEndpoint As Boolean
+        Dim objAnchor As DLLAnchor(Of TwoCharacterDLLItem)
+
+        intInsertCount = numInsertHowMany.Value
+        intAnchorPosition = numInsertAnchorBenchmark.Value
+        intHowManyInModuleList = mod_list.DLL_CountAllItems
+        boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
+
+        intNewIndexStart = 1 + intHowManyInModuleList
+        intNewIndexEnd = intInsertCount + intHowManyInModuleList
+        array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(New Char() {","c, " "c})
+        bUserSpecifiedValues = array_sItemsToInsert.Count > 0
+
+        For indexNewItem = intNewIndexStart To intNewIndexEnd
+
+            intModulo = indexNewItem Mod intInsertCount
+            strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(intModulo),
+                             indexNewItem.ToString("00"))
+            newItem = New TwoCharacterDLLItem(strNewItem)
+
+            If first_newItem Is Nothing Then
+                first_newItem = newItem
+                objectRange = New DLLRange(Of TwoCharacterDLLItem)(True, Nothing, Nothing, first_newItem, 1)
+            Else
+                prior_newItem.DLL_SetItemNext(newItem)
+                newItem.DLL_SetItemPrior(prior_newItem)
+                objectRange = New DLLRange(Of TwoCharacterDLLItem)(True, Nothing, Nothing, first_newItem, 1)
+            End If
+
+            ''Prepare for next iteration.
+            prior_newItem = newItem
+
+        Next indexNewItem
+
+        ''
+        ''Save the last. 
+        ''
+        last_newItem = prior_newItem
+
+        ''
+        '' Set the range. 
+        ''
+        If intInsertCount = 1 Then
+            objectRange = New DLLRange(Of TwoCharacterDLLItem)(first_newItem, True)
+        Else
+            ''
+            '' There are at least two objects in the range. 
+            ''
+            objectRange = New DLLRange(Of TwoCharacterDLLItem)(False, first_newItem,
+                                                               last_newItem, Nothing, intInsertCount)
+
+        End If ''End of ""If (intInsertCount = 1) Then... Else..."
+
+        ''
+        ''Set the anchor. 
+        ''
+        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)
+        objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+        objAnchor._doInsertRangeAfterThis = (listInsertAfterOr.SelectedIndex < 1)
+        objAnchor._doInsertRangeBeforeThis = (False = objAnchor._doInsertRangeAfterThis)
+
+        ''
+        '' Insert range into the list.  
+        ''
+        mod_list.DLL_InsertRangeBefore(objectRange, objAnchor, boolEndpoint)
+
+        ''
+        '' Display the list. 
+        ''
+        RefreshTheUI_DisplayList()
+
+    End Sub
+
+    Private Sub buttonInsertSingle_Click(sender As Object, e As EventArgs) Handles buttonInsertSingle.Click
+
+        ''
+        '' Insert range into the list.  
+        ''
+        Dim objAnchor As DLLAnchor(Of TwoCharacterDLLItem)
+        Dim intAnchorPosition As Integer
+        Dim boolEndpoint As Boolean
+        Dim array_sItemsToInsert As String()
+        Dim bUserSpecifiedValues
+        Dim strNewItem As String
+        Dim intHowManyInModuleList As Integer
+        Dim newItem As TwoCharacterDLLItem
+        Const ZERO_INDEX As Integer = 0
+        Dim bInsertRangeAfterAnchor As Boolean
+        Dim bInsertRangeBeforeAnchor As Boolean
+
+        array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
+        intHowManyInModuleList = mod_list.DLL_CountAllItems
+        bUserSpecifiedValues = array_sItemsToInsert.Count > 0
+
+        ''
+        ''Set the anchor. 
+        ''
+        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)
+        objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+
+        bInsertRangeAfterAnchor = (listInsertAfterOr.SelectedIndex < 1)
+        objAnchor._doInsertRangeAfterThis = bInsertRangeAfterAnchor
+        objAnchor._doInsertRangeBeforeThis = (False = bInsertRangeAfterAnchor)
+
+        ''intInsertCount = numInsertHowMany.Value
+        intAnchorPosition = numInsertAnchorBenchmark.Value
+        boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
+
+        strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
+                             ZERO_INDEX.ToString("00"))
+        newItem = New TwoCharacterDLLItem(strNewItem)
+
+        ''---mod_list.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)
+        mod_list.DLL_SetAnchor(objAnchor, bInsertRangeBeforeAnchor, bInsertRangeAfterAnchor)
+
+        ''
+        ''Major work!! 
+        ''
+        mod_list.DLL_InsertItemSingly(newItem)
+
+    End Sub
 
 
 End Class

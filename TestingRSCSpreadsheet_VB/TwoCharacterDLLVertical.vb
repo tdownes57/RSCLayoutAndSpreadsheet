@@ -9,6 +9,8 @@ Public Class TwoCharacterDLLVertical
     ''
     ''Added 2/27/2024 thomas downes
     ''
+    Dim mod_next As TwoCharacterDLLVertical ''Added 10/16/2024 td
+
     Public Sub New(par_twoChars As String)
 
         MyBase.New(par_twoChars)
@@ -54,5 +56,27 @@ Public Class TwoCharacterDLLVertical
     Public Overloads Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetNextItemFollowingRange_OfT
         Throw New NotImplementedException()
     End Function
+
+    Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLVertical) _
+      Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_InsertItemToNext
+        ''
+        '' This will take some weight off, from DLL_List(Of TControl). 
+        ''
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        If (mod_next IsNot Nothing) Then
+            mod_next.DLL_SetItemPrior(param)
+            param.DLL_SetItemNext(mod_next)
+        End If ''End of ""If (mod_next IsNot Nothing) Then""
+
+        ''
+        ''Exiting procedure. 
+        ''
+        mod_next = param
+        param.DLL_SetItemPrior(Me)
+
+    End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
 
 End Class
