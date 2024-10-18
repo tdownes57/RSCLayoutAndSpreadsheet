@@ -361,7 +361,7 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetNextItemFollowingRange_OfT""
 
 
-    Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLItem) _
+    Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLItem, pbDoubleLink As Boolean) _
           Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_InsertItemToNext
         ''
         '' This will take some weight off, from DLL_List(Of TControl). 
@@ -369,19 +369,55 @@ Public Class TwoCharacterDLLItem
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
         If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
+        ''Test the level of awareness of the calling procedure. 
+        If (Not pbDoubleLink) Then System.Diagnostics.Debugger.Break()
 
         If (mod_next IsNot Nothing) Then
-            mod_next.DLL_SetItemPrior(param)
-            param.DLL_SetItemNext(mod_next)
+            mod_next.DLL_SetItemPrior_OfT(param)
+            param.DLL_SetItemNext_OfT(mod_next)
         End If ''End of ""If (mod_next IsNot Nothing) Then""
 
         ''
         ''Exiting procedure. 
         ''
         mod_next = param
-        param.DLL_SetItemPrior(Me)
+        param.DLL_SetItemPrior_OfT(Me)
 
-    End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
+    End Sub ''End of ""Public Sub DLL_InsertItemToNext(...)""
+
+
+    Public Sub DLL_InsertItemToPrior(param As TwoCharacterDLLItem,
+                                     pbSetDoubleLink As Boolean) _
+         Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_InsertItemToPrior
+        ''
+        '' This will take some weight off, from DLL_List(Of TControl). 
+        ''
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
+        If (pbSetDoubleLink) Then
+            ''
+            ''Yes, the programmer knows what he or she is doing. ---10/17/2025
+            ''
+        Else
+            ''This is a test of the calling procedure.  
+            ''  The calling procedure has failed the test. 
+            System.Diagnostics.Debugger.Break()
+        End If ''End of "If (pbSetDoubleLink) Then... Else..."
+
+        If (mod_prior IsNot Nothing) Then
+            mod_prior.DLL_SetItemNext_OfT(param)
+            param.DLL_SetItemPrior_OfT(mod_prior)
+        End If ''End of ""If (mod_prior IsNot Nothing) Then""
+
+        ''
+        ''Exiting procedure. 
+        ''
+        mod_prior = param
+        param.DLL_SetItemNext_OfT(Me)
+
+    End Sub ''End of ""Public Sub DLL_InsertItemToPrior(...)""
+
 
 End Class
 

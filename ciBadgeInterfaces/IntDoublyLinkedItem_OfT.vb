@@ -58,7 +58,9 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Sub DLL_SetItemNext_OfT(param As TControl) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
     Sub DLL_SetItemPrior_OfT(param As TControl) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
 
-    Sub DLL_InsertItemToNext(param As TControl) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
+    Sub DLL_InsertItemToNext(param As TControl, pbSetDoubleLinks As Boolean) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
+
+    Sub DLL_InsertItemToPrior(param As TControl, pbSetDoubleLinks As Boolean) ''Added 10/17/2024  
 
     ' Added 12/30/2023 
     ' ---DIFFICULT AND CONFUSING---

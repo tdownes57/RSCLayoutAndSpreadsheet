@@ -36,6 +36,7 @@ namespace RSCLibraryDLLOperations
         private bool _temp_b_anchor_CheckBooleans; // b is for Boolean 
         private bool _temp_b_anchorWill_PrecedeRange;  // b is for Boolean
         private bool _temp_b_anchorWill_FollowRange;  // b is for Boolean
+        private bool _temp_b_anchorWillBeMultiUse;  // b is for Boolean
 
         //public DLLList()
         //{
@@ -136,7 +137,7 @@ namespace RSCLibraryDLLOperations
                 //TControl temp_newPenultimate = _itemEnding;
                 //_itemEnding.DLL_SetItemNext_OfT(par_itemToAdd);
                 //par_itemToAdd.DLL_SetItemPrior_OfT(temp_newPenultimate);
-                _itemEnding.DLL_InsertItemToNext(par_itemToAdd);
+                _itemEnding.DLL_InsertItemToNext(par_itemToAdd, true);
                 _itemEnding = par_itemToAdd;
                 _itemCount += 1;
                 _isEmpty_OrTreatAsEmpty = false;  // Probably not needed.
@@ -152,20 +153,57 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_InsertRangeBefore(DLLRange<TControl> par_range, 
+        public void DLL_InsertRange(DLLRange<TControl> par_range, 
                                 DLLAnchor<TControl> par_anchor, 
                                 bool par_isChangeOfEndpoint)
         {
+            //
+            // Added 10/17/2027 td
+            //
+            TControl? itemAnchorLeftPrior = default(TControl);
+            TControl? itemAnchorRightAft = default(TControl);
 
+            if (par_anchor._doInsertRangeAfterThis)
+            {
+                itemAnchorLeftPrior = par_anchor._anchorItem;
+                itemAnchorRightAft = par_anchor._anchorItem.DLL_GetItemNext_OfT();
+            }
+            else if (par_anchor._doInsertRangeBeforeThis)
+            {
+                itemAnchorLeftPrior = par_anchor._anchorItem.DLL_GetItemPrior_OfT();
+                itemAnchorRightAft = par_anchor._anchorItem;
+            }
 
-
+            DLL_InsertRange(par_range._StartingItem, par_range._EndingItem,
+                           itemAnchorLeftPrior,
+                           itemAnchorRightAft);
 
         }
 
 
+        private void DLL_InsertRange(TControl par_rangeItemFirst,
+                        TControl par_rangeItemLast,
+                        TControl? par_itemAnchorLeftPrior,
+                        TControl? par_itemAnchorRightAft)
+        {
+            //
+            // This private procedure does not actually expect
+            //    a range object.  It expects the four(4) relevant
+            //    list items. ---10/17/2024
+            //
+            par_itemAnchorLeftPrior?.DLL_InsertItemToNext(par_rangeItemFirst, true);
+            par_itemAnchorRightAft?.DLL_InsertItemToPrior(par_rangeItemLast, true);
+
+        }
+
+
+
+
+
         public void DLL_SetAnchor(DLLAnchor<TControl> par_anchor, 
                                     bool pbAnchorWill_FollowRange, 
-                                    bool pbAnchorWill_PrecedeRange)
+                                    bool pbAnchorWill_PrecedeRange, 
+                                    bool pbAnchorWillBeMultiUse)
         {
             //
             // Added 10/16/2024 thomas d
@@ -179,6 +217,7 @@ namespace RSCLibraryDLLOperations
             _temp_b_anchorWill_FollowRange = pbAnchorWill_FollowRange;
             _temp_b_anchorWill_PrecedeRange = pbAnchorWill_PrecedeRange;
             _temp_b_anchor_CheckBooleans = true;
+            _temp_b_anchorWillBeMultiUse = pbAnchorWillBeMultiUse;
 
         }
 
@@ -221,11 +260,31 @@ namespace RSCLibraryDLLOperations
             // Added 10/15/2024 
             //
             if (_temp_o_anchor == null) System.Diagnostics.Debugger.Break();
+            if (_temp_o_anchor == null) throw new RSCEndpointException("InsertItemSingly");
 
             if (_temp_b_anchor_CheckBooleans && _temp_b_anchorWill_PrecedeRange)
             {
-                _temp_o_anchor._anchorItem.DLL_InsertItemToNext(par_item);
+                _temp_o_anchor._anchorItem.DLL_InsertItemToNext(par_item, true);
             }
+            else
+            {
+                //added 10/17/2024 
+                _temp_o_anchor._anchorItem.DLL_InsertItemToPrior(par_item, true);
+            }
+
+            // Added 10/2024 
+            if (_temp_b_anchorWillBeMultiUse)
+            {
+                // Leave temporary variables at current values. 
+            }
+            else
+            {
+                _temp_o_anchor = null;
+                _temp_b_anchorWill_FollowRange = false;
+                _temp_b_anchor_CheckBooleans = false;
+                _temp_b_anchorWill_PrecedeRange = false;
+            }
+         
             _itemCount++;
 
         }
