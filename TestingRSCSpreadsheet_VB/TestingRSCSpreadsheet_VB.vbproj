@@ -11,12 +11,6 @@
   <ItemGroup>
     <Compile Remove="FormTestTwoLists2x2.Designer.vb" />
     <Compile Remove="FormTestTwoLists2x2.vb" />
-    <Compile Remove="FormTestUsingManager.Designer.vb" />
-    <Compile Remove="FormTestUsingManager.vb" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="FormTestUsingManager.resx" />
   </ItemGroup>
 
   <ItemGroup>

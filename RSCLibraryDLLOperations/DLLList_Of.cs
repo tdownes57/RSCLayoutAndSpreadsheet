@@ -197,6 +197,23 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_InsertRangeBefore(DLLRange<TControl> par_range,
+                 TControl par_itemAnchorToFollow)
+        {
+            //
+            //Added 10/19/2024
+            //
+            if (par_itemAnchorToFollow.DLL_HasPrior())
+            {
+                TControl temp_prior = par_itemAnchorToFollow.DLL_GetItemPrior_OfT();
+                temp_prior.DLL_SetItemNext(par_range._StartingItem);
+                par_range._StartingItem.DLL_SetItemPrior(temp_prior);
+            }
+
+            par_itemAnchorToFollow.DLL_SetItemPrior_OfT(par_range._EndingItem);
+            par_range._EndingItem.DLL_SetItemNext_OfT(par_itemAnchorToFollow);
+
+        }
 
 
 
@@ -356,7 +373,46 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public TControl DLL_GetItemAtIndex(int par_index)
+        {
+            //
+            // Added 10/19/2024 thomas downes
+            //
+            if (par_index == 0)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
 
+            else if (par_index == 1)
+            {
+                return _itemStart;
+            }
+            else
+            {
+                TControl each_item = _itemStart;
+                TControl result_item;  // _itemStart;
+
+                if (par_index > _itemCount)
+                {
+                    System.Diagnostics.Debugger.Break();
+                    throw new Exception("the index exceeds the count of items");
+                }
+
+                for (int loopIndex = 1; loopIndex <= par_index; loopIndex++)
+                {
+
+                    each_item = each_item.DLL_GetItemNext_OfT();
+
+
+                }
+
+                result_item = each_item; 
+                return result_item;
+            }
+
+            return null;
+
+        }
 
 
 

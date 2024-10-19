@@ -28,7 +28,6 @@ Partial Class FormSimpleDemoOfCSharp1D
         LabelInsertAnchorHeader = New Label()
         numInsertAnchorBenchmark = New NumericUpDown()
         Label3 = New Label()
-        labelBenchmark = New Label()
         Label1 = New Label()
         LabelHeader1 = New Label()
         buttonDelete = New Button()
@@ -37,12 +36,13 @@ Partial Class FormSimpleDemoOfCSharp1D
         Label10 = New Label()
         numDeleteHowMany = New NumericUpDown()
         numDeleteRangeBenchmarkStart = New NumericUpDown()
-        labelItemsDisplay = New Label()
         Label2 = New Label()
         numInsertHowMany = New NumericUpDown()
         Label6 = New Label()
         textInsertListOfValuesCSV = New TextBox()
         buttonInsertSingle = New Button()
+        labelItemsDisplay = New Label()
+        labelBenchmark = New Label()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -104,16 +104,6 @@ Partial Class FormSimpleDemoOfCSharp1D
         Label3.Size = New Size(178, 15)
         Label3.TabIndex = 67
         Label3.Text = "List of current column positions:"
-        ' 
-        ' labelBenchmark
-        ' 
-        labelBenchmark.BorderStyle = BorderStyle.FixedSingle
-        labelBenchmark.Location = New Point(38, 86)
-        labelBenchmark.Name = "labelBenchmark"
-        labelBenchmark.Size = New Size(696, 24)
-        labelBenchmark.TabIndex = 66
-        labelBenchmark.Tag = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
-        labelBenchmark.Text = "         01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30 "
         ' 
         ' Label1
         ' 
@@ -190,16 +180,6 @@ Partial Class FormSimpleDemoOfCSharp1D
         numDeleteRangeBenchmarkStart.TabIndex = 68
         numDeleteRangeBenchmarkStart.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
-        ' labelItemsDisplay
-        ' 
-        labelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
-        labelItemsDisplay.Location = New Point(58, 110)
-        labelItemsDisplay.Name = "labelItemsDisplay"
-        labelItemsDisplay.Size = New Size(595, 24)
-        labelItemsDisplay.TabIndex = 74
-        labelItemsDisplay.Tag = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16 "
-        labelItemsDisplay.Text = "  01  02  03  04  05  06  07  08  09  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  "
-        ' 
         ' Label2
         ' 
         Label2.AutoSize = True
@@ -247,18 +227,43 @@ Partial Class FormSimpleDemoOfCSharp1D
         buttonInsertSingle.Text = "Insert New Item (Single)"
         buttonInsertSingle.UseVisualStyleBackColor = True
         ' 
+        ' labelItemsDisplay
+        ' 
+        labelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
+        labelItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        labelItemsDisplay.Location = New Point(38, 110)
+        labelItemsDisplay.Name = "labelItemsDisplay"
+        labelItemsDisplay.Size = New Size(648, 24)
+        labelItemsDisplay.TabIndex = 81
+        labelItemsDisplay.Tag = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelItemsDisplay.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelItemsDisplay.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' labelBenchmark
+        ' 
+        labelBenchmark.BorderStyle = BorderStyle.FixedSingle
+        labelBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        labelBenchmark.Location = New Point(38, 86)
+        labelBenchmark.Name = "labelBenchmark"
+        labelBenchmark.Size = New Size(648, 24)
+        labelBenchmark.TabIndex = 80
+        labelBenchmark.Tag = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelBenchmark.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        labelBenchmark.TextAlign = ContentAlignment.MiddleLeft
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(labelItemsDisplay)
+        Controls.Add(labelBenchmark)
         Controls.Add(buttonInsertSingle)
         Controls.Add(Label6)
         Controls.Add(textInsertListOfValuesCSV)
         Controls.Add(Label2)
         Controls.Add(numInsertHowMany)
         Controls.Add(listInsertAfterOr)
-        Controls.Add(labelItemsDisplay)
         Controls.Add(buttonDelete)
         Controls.Add(Label8)
         Controls.Add(Label9)
@@ -266,7 +271,6 @@ Partial Class FormSimpleDemoOfCSharp1D
         Controls.Add(numDeleteHowMany)
         Controls.Add(numDeleteRangeBenchmarkStart)
         Controls.Add(Label3)
-        Controls.Add(labelBenchmark)
         Controls.Add(Label1)
         Controls.Add(LabelHeader1)
         Controls.Add(buttonInsertMultiple)
@@ -289,7 +293,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents LabelInsertAnchorHeader As Label
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
     Friend WithEvents Label3 As Label
-    Friend WithEvents labelBenchmark As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents buttonDelete As Button
@@ -298,11 +301,12 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents Label10 As Label
     Friend WithEvents numDeleteHowMany As NumericUpDown
     Friend WithEvents numDeleteRangeBenchmarkStart As NumericUpDown
-    Friend WithEvents labelItemsDisplay As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents numInsertHowMany As NumericUpDown
     Friend WithEvents Label6 As Label
     Friend WithEvents textInsertListOfValuesCSV As TextBox
     Friend WithEvents buttonInsertSingle As Button
+    Friend WithEvents labelItemsDisplay As Label
+    Friend WithEvents labelBenchmark As Label
 
 End Class

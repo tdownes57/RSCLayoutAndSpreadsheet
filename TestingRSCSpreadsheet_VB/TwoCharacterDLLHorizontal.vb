@@ -10,6 +10,7 @@ Public Class TwoCharacterDLLHorizontal
     ''Added 2/27/2024 thomas downes
     ''
     Dim mod_next As TwoCharacterDLLHorizontal
+    Dim mod_prior As TwoCharacterDLLHorizontal
 
     Public Sub New(par_twoChars As String)
 
@@ -56,7 +57,7 @@ Public Class TwoCharacterDLLHorizontal
     End Function
 
 
-    Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLHorizontal) _
+    Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLHorizontal, pbSetBothDirections As Boolean) _
          Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_InsertItemToNext
         ''
         '' This will take some weight off, from DLL_List(Of TControl). 
@@ -77,6 +78,30 @@ Public Class TwoCharacterDLLHorizontal
         param.DLL_SetItemPrior(Me)
 
     End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
+
+
+    Public Sub DLL_InsertItemToPrior(param As TwoCharacterDLLHorizontal, pbSetBothDirections As Boolean) _
+         Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_InsertItemToPrior
+        ''
+        '' This will take some weight off, from DLL_List(Of TControl). 
+        ''
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
+
+        If (mod_prior IsNot Nothing) Then
+            mod_prior.DLL_SetItemNext(param)
+            param.DLL_SetItemNext(mod_prior)
+        End If ''End of ""If (mod_next IsNot Nothing) Then""
+
+        ''
+        ''Exiting procedure. 
+        ''
+        mod_prior = param
+        param.DLL_SetItemNext(Me)
+
+    End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
+
 
 
 End Class
