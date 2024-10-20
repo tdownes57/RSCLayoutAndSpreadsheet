@@ -113,7 +113,12 @@ Public Class FormSimpleDemoOfCSharp1D
 
                 ''LabelItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
                 ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
-                stringbuilderLinkedItems.Append("  " + each_twoChar.ToString())
+                If (each_twoChar.Selected) Then
+                    ''The item has been selected. 
+                    stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
+                Else
+                    stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                End If
 
                 each_twoChar = each_twoChar.DLL_GetItemNext
                 bDone = (each_twoChar Is Nothing)
@@ -210,14 +215,20 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Set the anchor. 
         ''
         objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)
-        objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        objAnchor._doInsertRangeAfterThis = (listInsertAfterOr.SelectedIndex < 1)
-        objAnchor._doInsertRangeBeforeThis = (False = objAnchor._doInsertRangeAfterThis)
+        With objAnchor
+            ._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            ._doInsertRangeAfterThis = (listInsertAfterOr.SelectedIndex < 1)
+            ._doInsertRangeBeforeThis = (False = objAnchor._doInsertRangeAfterThis)
+        End With
 
         ''
         '' Insert range into the list.  
         ''
-        mod_list.DLL_InsertRangeBefore(objectRange, objAnchor, boolEndpoint)
+        If (listInsertAfterOr.SelectedIndex < 1) Then
+            mod_list.DLL_InsertRangeAfter(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+        Else
+            mod_list.DLL_InsertRangeBefore(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+        End If
 
         ''
         '' Display the list. 
@@ -246,6 +257,8 @@ Public Class FormSimpleDemoOfCSharp1D
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
         intHowManyInModuleList = mod_list.DLL_CountAllItems
         bUserSpecifiedValues = array_sItemsToInsert.Count > 0
+        ''intInsertCount = numInsertHowMany.Value
+        intAnchorPosition = numInsertAnchorBenchmark.Value
 
         ''
         ''Set the anchor. 
@@ -257,8 +270,6 @@ Public Class FormSimpleDemoOfCSharp1D
         objAnchor._doInsertRangeAfterThis = bInsertRangeAfterAnchor
         objAnchor._doInsertRangeBeforeThis = (False = bInsertRangeAfterAnchor)
 
-        ''intInsertCount = numInsertHowMany.Value
-        intAnchorPosition = numInsertAnchorBenchmark.Value
         boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
@@ -274,6 +285,9 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Major work!! 
         ''
         mod_list.DLL_InsertItemSingly(newItem)
+
+        ''Added 10/20/2024
+        RefreshTheUI_DisplayList()
 
     End Sub
 

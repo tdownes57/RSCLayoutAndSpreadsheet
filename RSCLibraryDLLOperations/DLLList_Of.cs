@@ -212,9 +212,27 @@ namespace RSCLibraryDLLOperations
 
             par_itemAnchorToFollow.DLL_SetItemPrior_OfT(par_range._EndingItem);
             par_range._EndingItem.DLL_SetItemNext_OfT(par_itemAnchorToFollow);
-
+             
         }
 
+
+        public void DLL_InsertRangeAfter(DLLRange<TControl> par_range,
+                 TControl par_itemAnchorToPrecede)
+        {
+            //
+            //Added 10/19/2024
+            //
+            if (par_itemAnchorToPrecede.DLL_HasNext())
+            {
+                TControl temp_prior = par_itemAnchorToPrecede.DLL_GetItemPrior_OfT();
+                temp_prior.DLL_SetItemNext(par_range._StartingItem);
+                par_range._StartingItem.DLL_SetItemPrior(temp_prior);
+            }
+
+            par_itemAnchorToPrecede.DLL_SetItemNext_OfT(par_range._StartingItem);
+            par_range._StartingItem.DLL_SetItemPrior_OfT(par_itemAnchorToPrecede);
+
+        }
 
 
         public void DLL_SetAnchor(DLLAnchor<TControl> par_anchor, 
@@ -373,11 +391,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public TControl DLL_GetItemAtIndex(int par_index)
+        public TControl? DLL_GetItemAtIndex(int par_index)
         {
             //
             // Added 10/19/2024 thomas downes
             //
+            TControl result_item = default(TControl);  // _itemStart;
+
             if (par_index == 0)
             {
                 System.Diagnostics.Debugger.Break();
@@ -390,7 +410,6 @@ namespace RSCLibraryDLLOperations
             else
             {
                 TControl each_item = _itemStart;
-                TControl result_item;  // _itemStart;
 
                 if (par_index > _itemCount)
                 {
@@ -410,12 +429,121 @@ namespace RSCLibraryDLLOperations
                 return result_item;
             }
 
-            return null;
+            return result_item;  // default(TControl);  //null;
 
         }
 
 
+        //
+        //  Two methods for Selection Range: 
+        //
+        //      public Tuple<int, int> SelectionRange_ProcessList(
+        //         int par_indexClicked,
+        //         bool par_bShiftKeyPressed,
+        //         bool par_bDontProcessList = false,
+        //         bool par_bDontCleanPriors = false)
+        //    
+        private const int PLACEHOLDER = -1;
+        private Tuple<int, int> mod_tupSelect_NoShiftToShift;
+        private Tuple<int, int> mod_tupSelect_LowToUpper;
+        private IDoublyLinkedItem mod_dllControlFirst;
 
+        public Tuple<int, int> SelectionRange_ProcessList(
+            int par_indexClicked,
+            bool par_bShiftKeyPressed,
+            bool par_bDontProcessList = false,
+            bool par_bDontCleanPriors = false)
+        {
+            bool bShift = par_bShiftKeyPressed;
+            int priorShifted, priorUnshifted, lowerIndex, upperIndex;
+
+            if (mod_tupSelect_LowToUpper == null)
+            {
+                if (bShift)
+                {
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(PLACEHOLDER, par_indexClicked);
+                }
+                else
+                {
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(par_indexClicked, PLACEHOLDER);
+                }
+
+                mod_tupSelect_LowToUpper = new Tuple<int, int>(par_indexClicked, par_indexClicked);
+            }
+            else
+            {
+                priorUnshifted = mod_tupSelect_NoShiftToShift.Item1;
+                priorShifted = mod_tupSelect_NoShiftToShift.Item2;
+
+                if (bShift)
+                {
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(priorUnshifted, par_indexClicked);
+                }
+                else
+                {
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(par_indexClicked, PLACEHOLDER);
+                }
+
+                int index_unshifted = mod_tupSelect_NoShiftToShift.Item1;
+                int index_shifted = mod_tupSelect_NoShiftToShift.Item2;
+
+                lowerIndex = Math.Min(index_unshifted, index_shifted);
+                upperIndex = Math.Max(index_unshifted, index_shifted);
+
+                if (lowerIndex == PLACEHOLDER) lowerIndex = upperIndex;
+
+                mod_tupSelect_LowToUpper = new Tuple<int, int>(lowerIndex, upperIndex);
+            }
+
+            if (!par_bDontProcessList)
+            {
+                SelectionRange_ProcessList(mod_tupSelect_LowToUpper, par_bDontCleanPriors);
+            }
+
+            return mod_tupSelect_LowToUpper;
+        }
+
+
+        private void SelectionRange_ProcessList(Tuple<int, int> par_range, bool par_bDontCleanPriors = false)
+        {
+            IDoublyLinkedItem currentItem = mod_dllControlFirst;
+            int currIndex = 0;
+            bool bLoopIsDone = false;
+
+            while (!bLoopIsDone)
+            {
+                bool bPriorToRange = currIndex < par_range.Item1;
+                bool bInsideRange = !bPriorToRange && currIndex <= par_range.Item2;
+
+                if (par_bDontCleanPriors)
+                {
+                    currentItem.Selected = bInsideRange || currentItem.Selected;
+                }
+                else
+                {
+                    currentItem.Selected = bInsideRange;
+                }
+
+                bool bNoMoreSettingOrCleaningLeft = par_bDontCleanPriors && currIndex > par_range.Item2;
+                bLoopIsDone = currentItem.DLL_NotAnyNext() || bNoMoreSettingOrCleaningLeft;
+
+                if (bLoopIsDone) break;
+
+                currentItem = currentItem.DLL_GetItemNext();
+                currIndex++;
+            }
+
+            //
+            // End of function SelectionRange_ProcessList
+            //
+            //   private void SelectionRange_ProcessList
+            //
+        }
+
+        //
+        // End of class "public class DLLList<TControl> where TControl : IDoublyLinkedItem<TControl>"
+        //
 
     }
+
 }

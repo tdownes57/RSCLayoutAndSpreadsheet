@@ -278,7 +278,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertAnchorBenchmark)
         Name = "FormSimpleDemoOfCSharp1D"
-        Text = "Form1"
+        Text = "Simple Demo of One-Dimensional Manager"
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
