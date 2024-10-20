@@ -43,6 +43,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         buttonInsertSingle = New Button()
         labelItemsDisplay = New Label()
         labelBenchmark = New Label()
+        buttonUndoLastStep = New Button()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -251,11 +252,21 @@ Partial Class FormSimpleDemoOfCSharp1D
         labelBenchmark.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         labelBenchmark.TextAlign = ContentAlignment.MiddleLeft
         ' 
+        ' buttonUndoLastStep
+        ' 
+        buttonUndoLastStep.Location = New Point(593, 390)
+        buttonUndoLastStep.Name = "buttonUndoLastStep"
+        buttonUndoLastStep.Size = New Size(166, 39)
+        buttonUndoLastStep.TabIndex = 82
+        buttonUndoLastStep.Text = "Undo Last Step"
+        buttonUndoLastStep.UseVisualStyleBackColor = True
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(buttonUndoLastStep)
         Controls.Add(labelItemsDisplay)
         Controls.Add(labelBenchmark)
         Controls.Add(buttonInsertSingle)
@@ -308,5 +319,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents buttonInsertSingle As Button
     Friend WithEvents labelItemsDisplay As Label
     Friend WithEvents labelBenchmark As Label
+    Friend WithEvents buttonUndoLastStep As Button
 
 End Class
