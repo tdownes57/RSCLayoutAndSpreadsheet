@@ -8,9 +8,11 @@ Public Class FormSimpleDemoOfCSharp1D
     ''
     '' Added 10/14/2024 thomas c. downes 
     ''
+    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLItem)
     Private mod_list As DLLList(Of TwoCharacterDLLItem)
     Private mod_firstItem As TwoCharacterDLLItem
     Private mod_lastItem As TwoCharacterDLLItem
+
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
 
@@ -19,24 +21,54 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
+        Dim anchorForEmptyList As New DLLAnchor(Of TwoCharacterDLLItem)(True)
+        Dim rangeNew As DLLRange(Of TwoCharacterDLLItem)
         Dim indexNewItem As Integer
         Dim newItem As TwoCharacterDLLItem
+        ''Dim priorItem As TwoCharacterDLLItem
+        Dim PERFORM_INITIAL_INSERT_MANUALLY As Boolean = False ''---True
 
         mod_firstItem = New TwoCharacterDLLItem("01")
         mod_lastItem = mod_firstItem
         mod_list = New DLLList(Of TwoCharacterDLLItem)(mod_firstItem, mod_lastItem, 1)
 
+        rangeNew = New DLLRange(Of TwoCharacterDLLItem)(mod_firstItem, True)
         For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
-
             newItem = New TwoCharacterDLLItem(indexNewItem.ToString("00"))
-            mod_list.DLL_AddItemAtEnd(newItem)
-
+            rangeNew.DLL_InsertItemToTheEnd(newItem)
         Next indexNewItem
+
+        ''
+        '' Create the operation, or simply insert the range
+        ''   without an operation.
+        ''
+        If (PERFORM_INITIAL_INSERT_MANUALLY) Then
+            ''
+            ''No DLLOperation object will be created.
+            ''
+            mod_list.DLL_InsertRangeIntoEmptyList(rangeNew)
+
+        Else
+            ''
+            ''Added 10/20/2024  
+            ''
+            Dim operationInitial30 As DLLOperation1D(Of TwoCharacterDLLItem)
+            operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
+                                                                      True, False, False,
+                                          anchorForEmptyList, False, False, False)
+            operationInitial30.OperateOnList(mod_list)
+
+            ''Added 10/20/2024  
+            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
+                                                     mod_list, operationInitial30)
+
+        End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
         ''
         '' Display the list. 
         ''
         RefreshTheUI_DisplayList()
+
 
     End Sub
 
@@ -214,7 +246,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Set the anchor. 
         ''
-        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)
+        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
         With objAnchor
             ._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
             ._doInsertRangeAfterThis = (listInsertAfterOr.SelectedIndex < 1)
@@ -263,7 +295,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Set the anchor. 
         ''
-        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)
+        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
         objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
 
         bInsertRangeAfterAnchor = (listInsertAfterOr.SelectedIndex < 1)
@@ -336,6 +368,11 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
 
+    Private Sub buttonUndoLastStep_Click(sender As Object, e As EventArgs) Handles buttonUndoLastStep.Click
 
+        ''Added 10/16/2024
+        ''
+        mod_manager.UndoLastAction()
 
+    End Sub
 End Class

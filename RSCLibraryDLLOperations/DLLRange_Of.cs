@@ -17,8 +17,9 @@ namespace RSCLibraryDLLOperations
         public readonly bool _isSingleItem;
         public readonly TControl? _SingleItemInRange;
         public readonly TControl _StartingItem;
-        public readonly TControl _EndingItem;
-        public readonly int _ItemCount;
+        //public readonly TControl _EndingItem;
+        public TControl _EndingItem;
+        public int _ItemCount; // readonly
 
         // Added 4/20/2024 thomas downes
         public readonly TControl? _InverseAnchor_Prior;
@@ -43,6 +44,7 @@ namespace RSCLibraryDLLOperations
             _ItemCount = 1;
 
         }
+
 
         public DLLRange(bool par_isSingleItem, TControl par_itemStart,
                           TControl? par_itemEnding, 
@@ -138,6 +140,22 @@ namespace RSCLibraryDLLOperations
             if (_StartingItem == null) _StartingItem = par_itemSingle;
             if (_EndingItem == null) _EndingItem = par_itemStart;
             if (_EndingItem == null) _EndingItem = par_itemSingle;
+
+        }
+
+
+        public void DLL_InsertItemToTheEnd(TControl par_newItem)
+        {
+
+            if (_EndingItem != null)
+            {
+
+                _EndingItem.DLL_SetItemNext(par_newItem);
+                par_newItem.DLL_SetItemPrior(_EndingItem);
+                _EndingItem = par_newItem;
+                _ItemCount++;
+
+            }
 
         }
 

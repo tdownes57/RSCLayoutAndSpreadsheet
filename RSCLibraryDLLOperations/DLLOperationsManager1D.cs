@@ -29,8 +29,8 @@ namespace RSCLibraryDLLOperations
         private T_LinkedCtl mod_firstItem;
         private DLLList<T_LinkedCtl> mod_list;
             
-        private DLLOperation1D<T_LinkedCtl> mod_firstPriorOperationV1;
-        private DLLOperation1D<T_LinkedCtl> mod_lastPriorOperationV1;
+        private DLLOperation1D<T_LinkedCtl> mod_firstPriorOperation1D;
+        private DLLOperation1D<T_LinkedCtl> mod_lastPriorOperation1D;
 
         private DLLOperationsRedoMarker1D<T_LinkedCtl>
             mod_opRedoMarker =
@@ -38,6 +38,24 @@ namespace RSCLibraryDLLOperations
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
+
+        //
+        // Added 10/20/2024 
+        //
+        public DLLOperationsManager1D(T_LinkedCtl par_firstItem, 
+            DLLList<T_LinkedCtl> par_list, 
+            DLLOperation1D<T_LinkedCtl> par_firstPriorOperationV1)
+        {
+            this.mod_firstItem = par_firstItem;
+            this.mod_list = par_list;
+
+            this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
+            this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
+
+            // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
+            // this.mod_opRedoMarker = mod_opRedoMarker;
+            // this.mod_intCountOperations = mod_intCountOperations;
+        }
 
         public T_LinkedCtl GetFirstItem()
         {
