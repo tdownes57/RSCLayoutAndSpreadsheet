@@ -50,8 +50,8 @@ namespace RSCLibraryDLLOperations
 
         private readonly DLLRange<TControl>? _range;
 
-        private readonly DLLOperation1D<TControl> mod_opPrior_ForUndo;
-        private readonly DLLOperation1D<TControl> mod_opNext_ForRedo;
+        private DLLOperation1D<TControl> mod_opPrior_ForUndo;
+        private DLLOperation1D<TControl> mod_opNext_ForRedo;
 
 
         /// <summary>
@@ -808,11 +808,27 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
         public DLLOperation1D<TControl> DLL_GetOpNext()
         {
             return mod_opNext_ForRedo;
 
         }
+
+
+        public void DLL_SetOpPrior(DLLOperation1D<TControl> parOperation)
+        {
+            mod_opPrior_ForUndo = parOperation;
+
+        }
+
+
+        public void DLL_SetOpNext(DLLOperation1D<TControl> parOperation)
+        {
+            mod_opNext_ForRedo = parOperation;
+
+        }
+
 
         public int DLL_GetIndex()
         {

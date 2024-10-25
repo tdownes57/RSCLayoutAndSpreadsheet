@@ -111,23 +111,24 @@ namespace RSCLibraryDLLOperations
             }
 
             //
-            // Administrative--Set the Inverse Anchors. 
+            // Administrative--Set the Inverse Anchors.  
             //
             _InverseAnchor_Prior = _StartingItem // par_itemStart
-                .DLL_GetItemPrior_OfT()
-                .DLL_UnboxControl_OfT();
+                .DLL_GetItemPrior_OfT();
 
             if (par_itemEnding != null)
             {
-                _InverseAnchor_After = par_itemEnding
-                    .DLL_GetItemNext_OfT()
-                    .DLL_UnboxControl_OfT();
+                //_InverseAnchor_After = par_itemEnding
+                //    .DLL_GetItemNext_OfT();
+                _InverseAnchor_After = _EndingItem
+                    .DLL_GetItemNext_OfT();
             }
             else if (par_itemCount == 1)
             {
-                _InverseAnchor_After = par_itemStart
-                    .DLL_GetItemNext_OfT()
-                    .DLL_UnboxControl_OfT();
+                //_InverseAnchor_After = par_itemStart
+                //    .DLL_GetItemNext_OfT();
+                _InverseAnchor_After = _StartingItem
+                    .DLL_GetItemNext_OfT();
             }
             else
             {
@@ -146,6 +147,13 @@ namespace RSCLibraryDLLOperations
 
         public void DLL_InsertItemToTheEnd(TControl par_newItem)
         {
+            //
+            // First, a clean-up step!! 
+            //
+            if (_EndingItem == null)
+            {
+                if (_ItemCount == 1) _EndingItem = _StartingItem;
+            }
 
             if (_EndingItem != null)
             {

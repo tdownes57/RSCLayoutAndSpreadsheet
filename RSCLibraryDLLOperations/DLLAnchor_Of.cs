@@ -36,14 +36,34 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         public bool _isForEmptyList;
 
-        public DLLAnchor(bool pbIsForEmptyList)
+        /// <summary>
+        /// For for operations which are the (initial) load an empty list. 
+        /// </summary>
+        public bool _isForDeletionOperation;
+
+
+        public DLLAnchor(bool pbIsForEmptyList, bool pbIsForDeletionOp)
         {
             //
             // Added 10/20/2024 
             //
             _anchorItem = default(TControl);
             _isForEmptyList = pbIsForEmptyList;
+            _isForDeletionOperation = pbIsForDeletionOp;
         }
+
+
+        public DLLAnchor(TControl par_item)
+        {
+            //
+            // Added 10/20/2024 
+            //
+            if (par_item == null) System.Diagnostics.Debugger.Break();
+            _anchorItem = par_item;
+            _isForEmptyList = false; // pbIsForEmptyList;
+            _isForDeletionOperation = false; // pbIsForDeletionOp
+        }
+
 
 
     }

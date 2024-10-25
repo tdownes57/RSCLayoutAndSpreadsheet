@@ -107,7 +107,26 @@ namespace RSCLibraryDLLOperations
             //    //     // Added 1/01/2024
             if (par_bRecordOperation)
             {
-                //RecordNewestOperation(operation);
+                //
+                //  RecordNewestOperation(operation);
+                //
+                //mod_lastPriorOperation1D = parOperation;
+                if (mod_firstPriorOperation1D == null)
+                {
+                    mod_firstPriorOperation1D = parOperation;
+                    mod_lastPriorOperation1D = parOperation;
+                }
+                else
+                {
+                    // Connect the operations in a doubly-linked list. 
+                    parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
+                    mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
+                    var temp_priorOp = mod_lastPriorOperation1D;
+                    //mod_lastPriorOperation1D = parOperation;
+                    mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
+                    mod_lastPriorOperation1D = parOperation;
+
+                }
 
             }
 
@@ -149,7 +168,7 @@ namespace RSCLibraryDLLOperations
             else
             {
                 //MessageBoxTD.Show_Statement("No Undo operation is in queue."); // 1/15/24
-                throw new RSCEndpointException("No Undo operation is in queue.");
+                 throw new RSCEndpointException("No Undo operation is in queue.");
                 //return;
             }
 

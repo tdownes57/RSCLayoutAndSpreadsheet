@@ -21,16 +21,21 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
-        Dim anchorForEmptyList As New DLLAnchor(Of TwoCharacterDLLItem)(True)
+        Dim anchorForEmptyList As New DLLAnchor(Of TwoCharacterDLLItem)(True, False)
+        Dim anchorForListOfOneItem As DLLAnchor(Of TwoCharacterDLLItem) ''(True, False)
         Dim rangeNew As DLLRange(Of TwoCharacterDLLItem)
         Dim indexNewItem As Integer
         Dim newItem As TwoCharacterDLLItem
         ''Dim priorItem As TwoCharacterDLLItem
+
         Dim PERFORM_INITIAL_INSERT_MANUALLY As Boolean = False ''---True
 
         mod_firstItem = New TwoCharacterDLLItem("01")
         mod_lastItem = mod_firstItem
         mod_list = New DLLList(Of TwoCharacterDLLItem)(mod_firstItem, mod_lastItem, 1)
+
+        ''//Added 10/21/2024 td
+        anchorForListOfOneItem = New DLLAnchor(Of TwoCharacterDLLItem)(mod_firstItem)
 
         rangeNew = New DLLRange(Of TwoCharacterDLLItem)(mod_firstItem, True)
         For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
@@ -53,9 +58,12 @@ Public Class FormSimpleDemoOfCSharp1D
             ''Added 10/20/2024  
             ''
             Dim operationInitial30 As DLLOperation1D(Of TwoCharacterDLLItem)
+            ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
+            ''                                                          True, False, False,
+            ''                                                    anchorForEmptyList, False, False, False)
             operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
                                                                       True, False, False,
-                                          anchorForEmptyList, False, False, False)
+                                          anchorForListOfOneItem, False, False, False)
             operationInitial30.OperateOnList(mod_list)
 
             ''Added 10/20/2024  
@@ -246,9 +254,11 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Set the anchor. 
         ''
-        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
+        Dim tempAnchorItem As TwoCharacterDLLItem ''Added 10/21/2024 td
+        tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(tempAnchorItem)
         With objAnchor
-            ._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            ''._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
             ._doInsertRangeAfterThis = (listInsertAfterOr.SelectedIndex < 1)
             ._doInsertRangeBeforeThis = (False = objAnchor._doInsertRangeAfterThis)
         End With
@@ -295,8 +305,11 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Set the anchor. 
         ''
-        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
-        objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+        ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
+        ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+        Dim tempAnchorItem As TwoCharacterDLLItem '''Added 10/21/2024 thomas downes
+        tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(tempAnchorItem)
 
         bInsertRangeAfterAnchor = (listInsertAfterOr.SelectedIndex < 1)
         objAnchor._doInsertRangeAfterThis = bInsertRangeAfterAnchor
@@ -372,7 +385,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 10/16/2024
         ''
-        mod_manager.UndoLastAction()
+        mod_manager.UndoMarkedOperation()
 
     End Sub
 End Class

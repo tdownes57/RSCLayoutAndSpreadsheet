@@ -50,6 +50,18 @@ namespace RSCLibraryDLLOperations
         private DLLOperation1D<TControl> mod_opNext_ForRedo;
 
 
+        public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_2ndprior,
+                                                   DLLOperation1D<TControl> par_1stprior)
+        {
+            // Added 10/25/2024 
+            //
+            mod_opPrior_ForUndo = par_2ndprior;
+            mod_opPrior_ForRedo = par_1stprior;
+
+        }
+
+
+
         public bool HasOperationNext()
         {
             // Added 5/22/2024
@@ -119,7 +131,7 @@ namespace RSCLibraryDLLOperations
                 return null; // result_operation;
             }
             else
-            {
+            { 
                 DLLOperation1D<TControl> temp_output; // = null;
                 DLLOperation1D<TControl> result_operation; // = null;
                 temp_output = mod_opPrior_ForUndo;
