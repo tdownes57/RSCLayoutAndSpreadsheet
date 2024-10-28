@@ -218,6 +218,33 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public TControl ItemStart()
+        {
+            // Added 10/27/2024 
+            //
+            // Consistent with the theory of encapsulation, this Function is managing
+            //   the internal class members & so we will avoid return 
+            //   a Null value, as best we can. 
+            //
+            TControl result = (_StartingItem != null ? _StartingItem : _SingleItemInRange);
+            return result; 
+
+        }
+
+
+        public TControl Item__End()
+        {
+            // Added 10/27/2024 
+            //
+            // Consistent with the theory of encapsulation, this Function is managing
+            //   the internal class members & so we will avoid return 
+            //   a Null value, as best we can. 
+            //
+            TControl result = (_EndingItem != null ? _EndingItem : _SingleItemInRange);
+            return result;
+
+        }
+
 
     }
 }

@@ -295,6 +295,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Const ZERO_INDEX As Integer = 0
         Dim bInsertRangeAfterAnchor As Boolean
         Dim bInsertRangeBeforeAnchor As Boolean
+        Dim tempAnchorItem As TwoCharacterDLLItem '''Added 10/21/2024 thomas downes
+        Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLItem) ''Added 10/26/2024
+        Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLItem) ''Added 10/26/2024 td 
 
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
         intHowManyInModuleList = mod_list.DLL_CountAllItems
@@ -307,7 +310,6 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
         ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        Dim tempAnchorItem As TwoCharacterDLLItem '''Added 10/21/2024 thomas downes
         tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
         objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(tempAnchorItem)
 
@@ -329,9 +331,26 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Major work!! 
         ''
-        mod_list.DLL_InsertItemSingly(newItem)
+        Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
+        Const INSERT_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
 
+        If (DIRECT_TO_LIST) Then
+            ''Without using the DLLManager class, directly editing the list.  
+            mod_list.DLL_InsertItemSingly(newItem)
+        Else
+            ''
+            '' Added 10/26/2024 thomas d.
+            ''
+            rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
+            operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
+                                      INSERT_OPERATION, False, False, objAnchor, False, False, False)
+            mod_manager.ProcessOperation_AnyType(operationToInsert, False, True)
+
+        End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
+
+        ''
         ''Added 10/20/2024
+        ''
         RefreshTheUI_DisplayList()
 
     End Sub
@@ -386,6 +405,10 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 10/16/2024
         ''
         mod_manager.UndoMarkedOperation()
+
+        ''Added 10/27/2024 
+        RefreshTheUI_DisplayList()
+
 
     End Sub
 End Class

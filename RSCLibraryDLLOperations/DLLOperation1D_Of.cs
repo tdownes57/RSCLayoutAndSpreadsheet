@@ -411,8 +411,7 @@ namespace RSCLibraryDLLOperations
                     // Get the item AFTER the anchor; and also "unbox" it,
                     //   i.e. get the TControl object (vs. an interface).
                     itemOriginallyAfterAnchor = par_anchor._anchorItem
-                        .DLL_GetItemNext_OfT()
-                        .DLL_UnboxControl_OfT();
+                        .DLL_GetItemNext_OfT(); // .DLL_UnboxControl_OfT()
 
                     if (Testing.AreWeTesting)
                     {
@@ -450,8 +449,10 @@ namespace RSCLibraryDLLOperations
                     par_anchor._anchorItem.DLL_SetItemNext(par_range._StartingItem);
 
                     // Administration (i.e. easy to forget!!)
-                    par_range._StartingItem.DLL_SetItemPrior(par_anchor._anchorItem);
-                    par_range._EndingItem.DLL_SetItemNext(itemOriginallyAfterAnchor);
+                    // 10=2024  par_range._StartingItem.DLL_SetItemPrior(par_anchor._anchorItem);
+                    // 10-2024  par_range._EndingItem.DLL_SetItemNext(itemOriginallyAfterAnchor);
+                    par_range.ItemStart().DLL_SetItemPrior(par_anchor._anchorItem);
+                    par_range.Item__End().DLL_SetItemNext(itemOriginallyAfterAnchor);
                     itemOriginallyAfterAnchor.DLL_SetItemPrior(par_range._EndingItem);
                 }
                 else
@@ -566,8 +567,10 @@ namespace RSCLibraryDLLOperations
             //  
             // De-link the item BEFORE the deletion range.
             //
+            //IDoublyLinkedItem<TControl>
+            //    itemOriginallyBeforeRange = par_range._StartingItem.DLL_GetItemPrior_OfT();
             IDoublyLinkedItem<TControl>
-                itemOriginallyBeforeRange = par_range._StartingItem.DLL_GetItemPrior_OfT();
+                itemOriginallyBeforeRange = par_range.ItemStart().DLL_GetItemPrior_OfT();
 
             if (itemOriginallyBeforeRange != null)
             {
@@ -582,14 +585,16 @@ namespace RSCLibraryDLLOperations
             // De-link the item AFTER the deletion range.
             //
             IDoublyLinkedItem<TControl>
-                itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext_OfT();
+                itemOriginallyAfterRange = par_range.Item__End().DLL_GetItemNext_OfT();
+                // itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext_OfT();
 
             if (itemOriginallyAfterRange != null)
             {
                 itemOriginallyAfterRange.DLL_ClearReferencePrior('D');
                 if (ALWAYS_CLEAN_ENDPOINTS)
                 {
-                    par_range._EndingItem.DLL_ClearReferenceNext('D');
+                    // par_range._EndingItem.DLL_ClearReferenceNext('D');
+                    par_range.Item__End().DLL_ClearReferenceNext('D');
                 }
             }
 
@@ -599,7 +604,7 @@ namespace RSCLibraryDLLOperations
                 if (itemOriginallyBeforeRange != null)
                 {
                     itemOriginallyBeforeRange.DLL_SetItemNext(itemOriginallyAfterRange);
-                    itemOriginallyAfterRange.DLL_SetItemNext(itemOriginallyBeforeRange);
+                    itemOriginallyAfterRange.DLL_SetItemPrior(itemOriginallyBeforeRange);
                 }
             }
 

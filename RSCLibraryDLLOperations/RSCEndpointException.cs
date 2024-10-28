@@ -8,7 +8,7 @@ namespace RSCLibraryDLLOperations
 {
     public class RSCEndpointException : Exception
     {
-        public RSCEndpointException() 
+        public RSCEndpointException()
         {
 
 
@@ -21,4 +21,26 @@ namespace RSCLibraryDLLOperations
         }
 
     }
+
+    public class RSCNoPriorOperationException : Exception
+    {
+        public RSCNoPriorOperationException()
+        {
+
+
+        }
+
+        public RSCNoPriorOperationException(string par_description)
+        {
+
+
+        }
+
+
+
+
+    }
+
 }
+
+

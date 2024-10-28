@@ -234,7 +234,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         labelItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         labelItemsDisplay.Location = New Point(38, 110)
         labelItemsDisplay.Name = "labelItemsDisplay"
-        labelItemsDisplay.Size = New Size(648, 24)
+        labelItemsDisplay.Size = New Size(895, 24)
         labelItemsDisplay.TabIndex = 81
         labelItemsDisplay.Tag = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         labelItemsDisplay.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
@@ -265,7 +265,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1023, 450)
         Controls.Add(buttonUndoLastStep)
         Controls.Add(labelItemsDisplay)
         Controls.Add(labelBenchmark)

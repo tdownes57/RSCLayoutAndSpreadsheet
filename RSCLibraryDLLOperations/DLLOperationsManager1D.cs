@@ -33,8 +33,7 @@ namespace RSCLibraryDLLOperations
         private DLLOperation1D<T_LinkedCtl> mod_lastPriorOperation1D;
 
         private DLLOperationsRedoMarker1D<T_LinkedCtl>
-            mod_opRedoMarker =
-            new DLLOperationsRedoMarker1D<T_LinkedCtl>(); // As r ''Added 1/24/2024
+            mod_opRedoMarker;  // new DLLOperationsRedoMarker1D<T_LinkedCtl>(); // As r ''Added 1/24/2024
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
@@ -51,10 +50,13 @@ namespace RSCLibraryDLLOperations
 
             this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
             this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
+            mod_intCountOperations++; // Added 10/26/2024 td 
 
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
+            mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
+
         }
 
         public T_LinkedCtl GetFirstItem()
@@ -123,8 +125,9 @@ namespace RSCLibraryDLLOperations
                     mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
                     var temp_priorOp = mod_lastPriorOperation1D;
                     //mod_lastPriorOperation1D = parOperation;
-                    mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
+                    //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
                     mod_lastPriorOperation1D = parOperation;
+                    mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(parOperation);
 
                 }
 
@@ -160,10 +163,21 @@ namespace RSCLibraryDLLOperations
             //
             int intCountFurtherUndoOps;
             DLLOperation1D<T_LinkedCtl> operationToUndo;
+            bool bOperationPriorExists; 
 
-            if (mod_opRedoMarker.HasOperationPrior())
+            // Added 10/25/2024  
+            if (mod_opRedoMarker == null)
+            {
+                // Added 10/25/2024  
+                if (mod_lastPriorOperation1D == null) throw new RSCNoPriorOperationException();
+                mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(mod_lastPriorOperation1D);
+
+            }
+            else if (mod_opRedoMarker.HasOperationPrior())
             {
                 // Great, we will be able to do the "Undo" operation.
+                bOperationPriorExists = true;
+
             }
             else
             {

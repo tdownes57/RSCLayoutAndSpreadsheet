@@ -15,6 +15,16 @@ namespace RSCLibraryDLLOperations
         //            (versus a 2-dimensional grid)
         //
 
+        public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
+        {
+            // Added 10/25/2024 
+            //
+            //mod_opPrior_ForUndo = par_2ndprior;
+            //mod_opNext_ForRedo = par_1stprior;
+            mod_opPrior_ForUndo = par_1stPrior;
+            mod_opNext_ForRedo = null;  
+        }
+
         //
         //''---DIFFICULT AND CONFUSING---
         //''  This is a "placeholder" for a user who is hitting the 
@@ -40,25 +50,25 @@ namespace RSCLibraryDLLOperations
         //''' If the user hits "Undo", this operation will be 
         //''' inversed and the inverse will be performed. 
         //''' </summary>
-        private DLLOperation1D<TControl> mod_opPrior_ForUndo;
+        private DLLOperation1D<TControl>? mod_opPrior_ForUndo;
 
         //''' <summary>
         //''' If the user hits "Redo", this operation will be 
         //''' performed as it is.  (In contrast to "Undo", we
         //''' do NOT need to get the inverse of the operation.) 
         //''' </summary>
-        private DLLOperation1D<TControl> mod_opNext_ForRedo;
+        private DLLOperation1D<TControl>? mod_opNext_ForRedo;
 
 
-        public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_2ndprior,
-                                                   DLLOperation1D<TControl> par_1stprior)
-        {
-            // Added 10/25/2024 
-            //
-            mod_opPrior_ForUndo = par_2ndprior;
-            mod_opPrior_ForRedo = par_1stprior;
+        //public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_2ndprior,
+        //                                           DLLOperation1D<TControl> par_1stprior)
+        //{
+        //    // Added 10/25/2024 
+        //    //
+        //    mod_opPrior_ForUndo = par_2ndprior;
+        //    mod_opPrior_ForRedo = par_1stprior;
 
-        }
+        //}
 
 
 
