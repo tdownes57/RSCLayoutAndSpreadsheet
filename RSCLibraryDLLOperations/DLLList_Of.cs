@@ -331,27 +331,57 @@ namespace RSCLibraryDLLOperations
             //
             // Added 10/31/2024 td  
             //
-            TControl itemJustPrior;
-            TControl itemJustAfter;
-            itemJustPrior = par_rangeToDelete.Item_ImmediateltyPrior();
-            itemJustAfter = par_rangeToDelete.Item__FirstToFollowButNotIncluded();
+            //  Hypothetical list: 1 2 3 4 5.  Range is a subset of this list, 
+            //   hypothetically speaking.           
+            //
+            TControl itemJustPrior_Eg1;
+            TControl itemJustAfter_Eg5;
+            bool boolDontDelete1;
+            bool boolDontDelete5;
+            bool bDeleteRangeIncludes1;
+            bool bDeleteRangeIncludes5;
 
-            if (itemJustPrior != null && itemJustAfter != null)
+            itemJustPrior_Eg1 = par_rangeToDelete.Item_ImmediateltyPrior();
+            itemJustAfter_Eg5 = par_rangeToDelete.Item__FirstToFollowButNotIncluded();
+
+            bDeleteRangeIncludes1 = (itemJustPrior_Eg1 == null); // There is no "prior item".  Delete range includes item #1.
+            bDeleteRangeIncludes5 = (itemJustAfter_Eg5 == null); // There is no "following item".  Delete range includes item #5.
+
+            boolDontDelete1 = (itemJustPrior_Eg1 != null);  // There IS a prior item, which will REMAIN, & NOT in range. 
+            boolDontDelete5 = (itemJustAfter_Eg5 != null);  // There IS a following item, which is NOT in range, & which will REMAIN.
+
+            if (boolDontDelete1 && boolDontDelete5)
             {
-                itemJustPrior.DLL_SetItemNext_OfT(itemJustAfter);
-                itemJustAfter.DLL_SetItemPrior_OfT(itemJustPrior);
+                //
+                // E.g. delete '2 3 4 ' from '1 2 3 4 5' to leave '1 5'.
+                //
+                //   The range does NOT include ANY of the END POINTS of the list...
+                //     the range is fully WITHIN the list, NOT at the beginning
+                //     NOR the end of the list. 
+                //
+                itemJustPrior_Eg1.DLL_SetItemNext_OfT(itemJustAfter_Eg5);
+                itemJustAfter_Eg5.DLL_SetItemPrior_OfT(itemJustPrior_Eg1);
                 _itemCount -= par_rangeToDelete.GetItemCount();
             }
-            else if(itemJustAfter != null) 
+            else if (bDeleteRangeIncludes1 && boolDontDelete5) 
             {
-                _itemStart = itemJustAfter;
-                itemJustAfter.DLL_ClearReferencePrior('d');
+                //
+                // E.g. delete '1 2 3 4' from '1 2 3 4 5' to leave '5'.
+                //
+                //   The DELETE range includes the STARTING POINT of the list.
+                //    The DELETE range is at the extreme LEFT, or TOP, or BEGINNING, of the list. 
+                //
+                _itemStart = itemJustAfter_Eg5;  // Delete '1 2 3 4' from '1 2 3 4 5' to leave '5'.
+                itemJustAfter_Eg5.DLL_ClearReferencePrior('D');  // 'D' for "DELETE"
                 _itemCount -= par_rangeToDelete.GetItemCount();
             }
-            else if (itemJustPrior != null)
+            else if (boolDontDelete1 && bDeleteRangeIncludes5)
             {
-                _itemEnding = itemJustPrior;
-                itemJustPrior.DLL_ClearReferenceNext('d');
+                //
+                // E.g. delete '4 5' from '1 2 3 4 5' to leave '1 2 3'.
+                //
+                _itemEnding = itemJustPrior_Eg1;
+                itemJustPrior_Eg1.DLL_ClearReferenceNext('d');
                 _itemCount -= par_rangeToDelete.GetItemCount();
             }
 
