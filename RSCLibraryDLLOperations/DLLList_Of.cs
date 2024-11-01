@@ -54,6 +54,7 @@ namespace RSCLibraryDLLOperations
             if (par_itemStart == null) return; // System.Diagnostics.Debugger.Break();
             if (par_itemEnding == null) return; // System.Diagnostics.Debugger.Break();
 
+            mod_dllControlFirst = par_itemStart;  // Added 10/31/2024nn
             _itemStart = par_itemStart;
             _itemEnding = par_itemEnding;
             _itemCount = par_itemCount;
@@ -325,6 +326,38 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_DeleteRange(DLLRange<TControl> par_rangeToDelete)
+        {
+            //
+            // Added 10/31/2024 td  
+            //
+            TControl itemJustPrior;
+            TControl itemJustAfter;
+            itemJustPrior = par_rangeToDelete.Item_ImmediateltyPrior();
+            itemJustAfter = par_rangeToDelete.Item__FirstToFollowButNotIncluded();
+
+            if (itemJustPrior != null && itemJustAfter != null)
+            {
+                itemJustPrior.DLL_SetItemNext_OfT(itemJustAfter);
+                itemJustAfter.DLL_SetItemPrior_OfT(itemJustPrior);
+                _itemCount -= par_rangeToDelete.GetItemCount();
+            }
+            else if(itemJustAfter != null) 
+            {
+                _itemStart = itemJustAfter;
+                itemJustAfter.DLL_ClearReferencePrior('d');
+                _itemCount -= par_rangeToDelete.GetItemCount();
+            }
+            else if (itemJustPrior != null)
+            {
+                _itemEnding = itemJustPrior;
+                itemJustPrior.DLL_ClearReferenceNext('d');
+                _itemCount -= par_rangeToDelete.GetItemCount();
+            }
+
+        }
+
+
         public void DLL_InsertRangeIntoEmptyList(DLLRange<TControl> par_range)
         {
             //
@@ -506,7 +539,8 @@ namespace RSCLibraryDLLOperations
 
         private void SelectionRange_ProcessList(Tuple<int, int> par_range, bool par_bDontCleanPriors = false)
         {
-            IDoublyLinkedItem currentItem = mod_dllControlFirst;
+            //IDoublyLinkedItem currentItem = mod_dllControlFirst;
+            IDoublyLinkedItem currentItem = _itemStart;  // Added 10/31/2024 td 
             int currIndex = 0;
             bool bLoopIsDone = false;
 

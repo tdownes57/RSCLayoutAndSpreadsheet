@@ -356,7 +356,7 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub
 
 
-    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs)
+    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles labelItemsDisplay.MouseUp
         ''
         ''Added 2/27/2024 thomas downes  
         ''
@@ -411,4 +411,59 @@ Public Class FormSimpleDemoOfCSharp1D
 
 
     End Sub
+
+    Private Sub labelItemsDisplay_MouseUp(sender As Object, e As MouseEventArgs)
+
+    End Sub
+
+    Private Sub buttonDelete_Click(sender As Object, e As EventArgs) Handles buttonDelete.Click
+        ''
+        ''Added 10/31/2024 thomas downes
+        ''
+        Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
+        Const INSERT_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
+        Dim intItemPosition As Integer
+        Dim intHowManyToDelete As Integer
+        Dim itemFirstToDelete As TwoCharacterDLLItem
+        Dim itemLastToDelete As TwoCharacterDLLItem
+        Dim rangeToDelete As DLLRange(Of TwoCharacterDLLItem)
+
+        intItemPosition = numDeleteRangeBenchmarkStart.Value
+        intHowManyToDelete = numDeleteHowMany.Value
+
+        ''
+        ''Set the anchor. 
+        ''
+        ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
+        ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+        itemFirstToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition)
+        itemLastToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition + intHowManyToDelete - 1)
+
+        rangeToDelete = New DLLRange(Of TwoCharacterDLLItem)(False, itemFirstToDelete,
+                                             itemLastToDelete, Nothing, intHowManyToDelete)
+
+        If (DIRECT_TO_LIST) Then
+            ''Without using the DLLManager class, directly editing the list.  
+            mod_list.DLL_DeleteRange(rangeToDelete)
+        Else
+            ''
+            '' Added 10/26/2024 thomas d.
+            ''
+            rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
+            operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
+                                      INSERT_OPERATION, False, False, objAnchor, False, False, False)
+            mod_manager.ProcessOperation_AnyType(operationToInsert, False, True)
+
+        End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
+
+        ''
+        ''Added 10/20/2024
+        ''
+        RefreshTheUI_DisplayList()
+
+    End Sub
+
+
+
+
 End Class

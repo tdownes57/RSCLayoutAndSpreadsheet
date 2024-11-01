@@ -75,6 +75,11 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''' <returns>The first item which follows the range.</returns>
     Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TControl ''Sept 2024 'IDoublyLinkedItem(Of TControl)
 
+    ''
+    '' Added 10/31/2024 
+    ''
+    Function DLL_GetDistanceTo(paramItem As TControl) As Integer
+
 End Interface
 
 

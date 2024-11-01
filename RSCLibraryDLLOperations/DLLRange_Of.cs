@@ -246,5 +246,56 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public TControl Item__FirstToFollowButNotIncluded()
+        {
+            // Added 10/31/2024 
+            //
+            // Consistent with the theory of encapsulation, this Function is managing
+            //   the internal class members & so we will avoid return 
+            //   a Null value, as best we can. 
+            //
+            TControl result1 = (_EndingItem != null ? _EndingItem : _SingleItemInRange); //.DLL_GetItemNext_OfT();
+            TControl result_final = result1.DLL_GetItemNext_OfT();
+            return result_final;
+
+        }
+
+
+        public TControl Item_ImmediateltyPrior()
+        {
+            // Added 10/31/2024 
+            //
+            // Consistent with the theory of encapsulation, this Function is managing
+            //   the internal class members & so we will avoid return 
+            //   a Null value, as best we can. 
+            //
+            TControl result1 = _StartingItem; //.DLL_GetItemNext_OfT();
+            TControl result_final = result1.DLL_GetItemPrior_OfT();
+            return result_final;
+
+        }
+
+
+        public int GetItemCount()
+        {
+            //
+            // Added 10/31/2024 thomas downes
+            //
+            if (_ItemCount > 0)
+            {
+                return _ItemCount;
+            }
+            else
+            {
+                return (-1 + _StartingItem.DLL_GetDistanceTo(_EndingItem));
+
+            }
+
+
+        }
+
+
+
+
     }
 }
