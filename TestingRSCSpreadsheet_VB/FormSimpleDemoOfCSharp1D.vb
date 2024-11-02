@@ -421,12 +421,13 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 10/31/2024 thomas downes
         ''
         Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
-        Const INSERT_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
+        Const DELETE_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
         Dim intItemPosition As Integer
         Dim intHowManyToDelete As Integer
         Dim itemFirstToDelete As TwoCharacterDLLItem
         Dim itemLastToDelete As TwoCharacterDLLItem
         Dim rangeToDelete As DLLRange(Of TwoCharacterDLLItem)
+        Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLItem)
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
         intHowManyToDelete = numDeleteHowMany.Value
@@ -449,10 +450,9 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             '' Added 10/26/2024 thomas d.
             ''
-            rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
-            operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
-                                      INSERT_OPERATION, False, False, objAnchor, False, False, False)
-            mod_manager.ProcessOperation_AnyType(operationToInsert, False, True)
+            operationToDelete = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeToDelete, False, False,
+                                      False, DELETE_OPERATION, False, Nothing, False, False, False)
+            mod_manager.ProcessOperation_AnyType(operationToDelete, False, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 

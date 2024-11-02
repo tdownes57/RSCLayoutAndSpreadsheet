@@ -58,6 +58,15 @@ Public Class TwoCharacterDLLVertical
         Throw New NotImplementedException()
     End Function
 
+
+    Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLVertical) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetDistanceTo
+        ''
+        ''Added 11/2/2024 
+        ''
+        Return MyBase.DLL_GetDistanceTo(paramItem)
+
+    End Function ''End of Public Function DLL_GetDistanceTo
+
     Public Overloads Sub DLL_InsertItemToNext(param As TwoCharacterDLLVertical, pbDoublyLinked As Boolean) _
       Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_InsertItemToNext
         ''
