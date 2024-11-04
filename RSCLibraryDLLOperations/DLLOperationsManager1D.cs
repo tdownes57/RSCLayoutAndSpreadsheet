@@ -182,7 +182,8 @@ namespace RSCLibraryDLLOperations
             else
             {
                 //MessageBoxTD.Show_Statement("No Undo operation is in queue."); // 1/15/24
-                 throw new RSCEndpointException("No Undo operation is in queue.");
+                 //throw new RSCEndpointException("No Undo operation is in queue.");
+                System.Diagnostics.Debugger.Break();
                 //return;
             }
 

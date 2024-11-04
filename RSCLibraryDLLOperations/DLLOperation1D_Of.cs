@@ -43,15 +43,18 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
         // Added 4/21/2024 td
-        private readonly DLLAnchor<TControl>? _anchor;
+        private readonly DLLAnchor<TControl>? _anchorItem;
+
+        // Added 11/03/2024 td
+        private readonly DLLAnchorCouplet<TControl>? _anchorCouplet;
 
         //Added 4/18/2024 td 
         private readonly DLLAnchor<TControl>? _anchor_forUndo;
 
         private readonly DLLRange<TControl>? _range;
 
-        private DLLOperation1D<TControl> mod_opPrior_ForUndo;
-        private DLLOperation1D<TControl> mod_opNext_ForRedo;
+        private DLLOperation1D<TControl>? mod_opPrior_ForUndo;
+        private DLLOperation1D<TControl>? mod_opNext_ForRedo;
 
 
         /// <summary>
@@ -107,7 +110,7 @@ namespace RSCLibraryDLLOperations
         {
             // Added 6/10/2024
             //-----return (_anchor_H != null || _anchor_H != null);
-            return (_anchor != null);
+            return (_anchorItem != null);
         }
 
 
@@ -117,9 +120,9 @@ namespace RSCLibraryDLLOperations
             // Added 6/10/2024 thomas downes
             //
             //----BACKWARDS AND CONFUSING----------------------------
-            //if (_anchor_H != null && _isHoriz) return _anchor_H._doInsertRangeAfterThis;
-            //if (_anchor_V != null && _isVerti) return _anchor_V._doInsertRangeAfterThis;
-            if (_anchor != null) return _anchor._doInsertRangeAfterThis;
+            //if (_anchorItem_H != null && _isHoriz) return _anchorItem_H._doInsertRangeAfterThis;
+            //if (_anchorItem_V != null && _isVerti) return _anchorItem_V._doInsertRangeAfterThis;
+            if (_anchorItem != null) return _anchorItem._doInsertRangeAfterThis;
             throw new InvalidOperationException();
 
         }
@@ -131,9 +134,9 @@ namespace RSCLibraryDLLOperations
             // Added 6/10/2024 thomas downes
             //
             //----BACKWARDS AND CONFUSING----------------------------
-            //if (_anchor_H != null && _isHoriz) return _anchor_H._doInsertRangeBeforeThis;
-            //if (_anchor_V != null && _isVerti) return _anchor_V._doInsertRangeBeforeThis;
-            if (_anchor != null) return _anchor._doInsertRangeBeforeThis;
+            //if (_anchorItem_H != null && _isHoriz) return _anchorItem_H._doInsertRangeBeforeThis;
+            //if (_anchorItem_V != null && _isVerti) return _anchorItem_V._doInsertRangeBeforeThis;
+            if (_anchorItem != null) return _anchorItem._doInsertRangeBeforeThis;
             throw new InvalidOperationException();
 
         }
@@ -151,14 +154,14 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isInsert"></param>
         /// <param name="par_isDelete"></param>
         /// <param name="par_isMove"></param>
-        /// <param name="par_anchor"></param>
+        /// <param name="par_anchorItem"></param>
         /// <param name="par_isSortAscending"></param>
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
         public DLLOperation1D(DLLRange<TControl>? par_range,
                   bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove,
-                  DLLAnchor<TControl>? par_anchor,
+                  DLLAnchor<TControl>? par_anchorItem,
                   bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
             //
@@ -167,7 +170,7 @@ namespace RSCLibraryDLLOperations
 
             //---_isHoriz = true;
             _range = par_range;
-            _anchor = par_anchor;
+            _anchorItem = par_anchorItem;
             //---_isVerti = false; // NOT vertical.
 
             _isForStartOfList = par_forStartOfList;
@@ -200,6 +203,22 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLOperation1D(DLLRange<TControl> par_range,
+                              DLLAnchorCouplet<TControl> par_anchorCouplet, 
+                              bool par_isInsert, bool par_isMove)
+        {
+            //
+            // Added 11/3/2024 
+            //
+            _range = par_range;
+            _isDelete = false;
+            _isMove = par_isMove;
+            _isInsert = par_isInsert;
+            _anchorCouplet = par_anchorCouplet;
+
+        }
+
+
         public void OperateOnList(DLLList<TControl> par_list)
         {
             //
@@ -220,13 +239,13 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                OperateOnList<TControl>(par_list, _range, _anchor, false);
+                OperateOnList<TControl>(par_list, _range, _anchorItem, false);
             }
 
         }
 
 
-        /// <summary>
+         /// <summary>
         /// 
         /// </summary>
         /// <param name="par_list"></param>
@@ -249,8 +268,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                // OperateOnList<TControl_H>(par_list, _range_H, _anchor_H);
-                OperateOnList<TControl>(par_list, _range, _anchor,
+                // OperateOnList<TControl_H>(par_list, _range_H, _anchorItem_H);
+                OperateOnList<TControl>(par_list, _range, _anchorItem,
                     par_doProtectEndpoints, pbIsChangeOfEndpoint);
             }
 
@@ -280,7 +299,7 @@ namespace RSCLibraryDLLOperations
                 //   to obey the DRY principle inside a doubly-generic class 
                 //   (Of TControl_H, TControl_V). 
                 //  
-                OperateOnList<TControl>(par_list, _range, _anchor,
+                OperateOnList<TControl>(par_list, _range, _anchorItem,
                       par_doProtectEndpoints, pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
 
@@ -293,12 +312,12 @@ namespace RSCLibraryDLLOperations
         /// <typeparam name="TControl"></typeparam>
         /// <param name="par_list"></param>
         /// <param name="par_range"></param>
-        /// <param name="par_anchor"></param>
+        /// <param name="par_anchorItem"></param>
         /// <param name="pbEndpointProtection">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
         private void OperateOnList<TControl>(DLLList<TControl> par_list,
                                      DLLRange<TControl> par_range,
-                                     DLLAnchor<TControl>? par_anchor,
+                                     DLLAnchor<TControl>? par_anchorItem,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
@@ -313,7 +332,7 @@ namespace RSCLibraryDLLOperations
             //  
             if (_isInsert)
             {
-                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor,
+                OperateOnList_Insert<TControl>(par_list, par_range, par_anchorItem,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
@@ -328,7 +347,7 @@ namespace RSCLibraryDLLOperations
                 OperateOnList_Delete<TControl>(par_list, par_range,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint);
-                OperateOnList_Insert<TControl>(par_list, par_range, par_anchor,
+                OperateOnList_Insert<TControl>(par_list, par_range, par_anchorItem,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
@@ -343,10 +362,10 @@ namespace RSCLibraryDLLOperations
         /// <typeparam name="TControl"></typeparam>
         /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
         /// <param name="par_range">This is the range of items which are being placed into the list.</param>
-        /// <param name="par_anchor">This is a simple wrapper for the item which provides the location for the insert operation.</param>
+        /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
         private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list_NotReallyNeeded,
                                              DLLRange<TControl> par_range,
-                                             DLLAnchor<TControl>? par_anchor,
+                                             DLLAnchor<TControl>? par_anchorItem,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
@@ -361,7 +380,7 @@ namespace RSCLibraryDLLOperations
             //  
             // Insertion operation
             //
-            if (par_anchor == null)
+            if (par_anchorItem == null)
             {
                 //
                 // Option #1 of 3...  
@@ -391,8 +410,8 @@ namespace RSCLibraryDLLOperations
             }
 
 
-            //if (par_anchor != null && _willInsertRange_AfterAnchor)
-            else if (par_anchor != null && par_anchor._doInsertRangeAfterThis)
+            //if (par_anchorItem != null && _willInsertRange_AfterAnchor)
+            else if (par_anchorItem != null && par_anchorItem._doInsertRangeAfterThis)
             {
                 //
                 // Option #2 of 3...  
@@ -401,16 +420,16 @@ namespace RSCLibraryDLLOperations
                 //
                 TControl? itemOriginallyAfterAnchor = default(TControl);
                 bool bAnchorHasItemAfter;
-                bAnchorHasItemAfter = par_anchor._anchorItem.DLL_HasNext();
+                bAnchorHasItemAfter = par_anchorItem._anchorItem.DLL_HasNext();
 
-                if (par_anchor._anchorItem.DLL_HasNext())
+                if (par_anchorItem._anchorItem.DLL_HasNext())
                 {
                     //
                     // #2a of 3. 
                     //
                     // Get the item AFTER the anchor; and also "unbox" it,
                     //   i.e. get the TControl object (vs. an interface).
-                    itemOriginallyAfterAnchor = par_anchor._anchorItem
+                    itemOriginallyAfterAnchor = par_anchorItem._anchorItem
                         .DLL_GetItemNext_OfT(); // .DLL_UnboxControl_OfT()
 
                     if (Testing.AreWeTesting)
@@ -420,7 +439,7 @@ namespace RSCLibraryDLLOperations
                         //   1) The anchor is in the list. 
                         //   2) The operation has already taken place, or is superfluous (not needed).
                         //
-                        bool bListHasAnchor = par_list_NotReallyNeeded.Contains(par_anchor._anchorItem);
+                        bool bListHasAnchor = par_list_NotReallyNeeded.Contains(par_anchorItem._anchorItem);
                         if (false == bListHasAnchor)
                         {
                             // Surprising situation. Some debugging ought to be performed. 
@@ -438,7 +457,7 @@ namespace RSCLibraryDLLOperations
                         {
                             //Confirm that the anchor is at the end of the list. 
                             bool bAnchor_Is_EndOfList;
-                            bAnchor_Is_EndOfList = (par_anchor._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
+                            bAnchor_Is_EndOfList = (par_anchorItem._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
                             if (false == bAnchor_Is_EndOfList) Debugger.Break();
                         }
 
@@ -446,12 +465,12 @@ namespace RSCLibraryDLLOperations
 
                     //Perform the operation !!
                     //   ---par_anchor.DLL_SetItemNext(par_list._itemStart);
-                    par_anchor._anchorItem.DLL_SetItemNext(par_range._StartingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemNext(par_range._StartingItem);
 
                     // Administration (i.e. easy to forget!!)
                     // 10=2024  par_range._StartingItem.DLL_SetItemPrior(par_anchor._anchorItem);
                     // 10-2024  par_range._EndingItem.DLL_SetItemNext(itemOriginallyAfterAnchor);
-                    par_range.ItemStart().DLL_SetItemPrior(par_anchor._anchorItem);
+                    par_range.ItemStart().DLL_SetItemPrior(par_anchorItem._anchorItem);
                     par_range.Item__End().DLL_SetItemNext(itemOriginallyAfterAnchor);
                     itemOriginallyAfterAnchor.DLL_SetItemPrior(par_range._EndingItem);
                 }
@@ -465,27 +484,27 @@ namespace RSCLibraryDLLOperations
                     //
                     if (Testing.AreWeTesting)
                     {
-                        bool bListHasAnchor = par_list_NotReallyNeeded.Contains(par_anchor._anchorItem);
+                        bool bListHasAnchor = par_list_NotReallyNeeded.Contains(par_anchorItem._anchorItem);
                         if (false == bListHasAnchor) Debugger.Break();
                         bool bAnchorIsEndOfList;
-                        bAnchorIsEndOfList = (par_anchor._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
+                        bAnchorIsEndOfList = (par_anchorItem._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
                         if (false == bAnchorIsEndOfList) Debugger.Break();
 
                     }
 
                     //Perform the operation !!
-                    par_anchor._anchorItem.DLL_SetItemNext(par_range._StartingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemNext(par_range._StartingItem);
 
                     // Administration (i.e. easy to forget!!)
-                    par_range._StartingItem.DLL_SetItemPrior(par_anchor._anchorItem);
+                    par_range._StartingItem.DLL_SetItemPrior(par_anchorItem._anchorItem);
 
                 }
 
 
             }
 
-            //else if (par_anchor != null && _willInsertRange_PriorToAnchor)
-            else if (par_anchor != null && par_anchor._doInsertRangeBeforeThis)
+            //else if (par_anchorItem != null && _willInsertRange_PriorToAnchor)
+            else if (par_anchorItem != null && par_anchorItem._doInsertRangeBeforeThis)
             {
                 //
                 // Option #3 of 3...  
@@ -493,15 +512,15 @@ namespace RSCLibraryDLLOperations
                 // Insert the range PRIOR (PRECEDING) to the anchoring item.
                 //
                 IDoublyLinkedItem<TControl>
-                    itemOriginallyBeforeAnchor = par_anchor._anchorItem.DLL_GetItemPrior_OfT();
+                    itemOriginallyBeforeAnchor = par_anchorItem._anchorItem.DLL_GetItemPrior_OfT();
 
                 bool bAnchorHasItemBefore;
-                bAnchorHasItemBefore = par_anchor._anchorItem.DLL_HasPrior();
+                bAnchorHasItemBefore = par_anchorItem._anchorItem.DLL_HasPrior();
 
                 if (Testing.AreWeTesting)
                 {
                     bool bAnchorIsMissingFromList; //Added 4/23/2024 td
-                    bAnchorIsMissingFromList = (false == par_list_NotReallyNeeded.Contains(par_anchor._anchorItem));
+                    bAnchorIsMissingFromList = (false == par_list_NotReallyNeeded.Contains(par_anchorItem._anchorItem));
                     if (bAnchorIsMissingFromList) Debugger.Break();
 
                     if (bAnchorHasItemBefore)
@@ -514,7 +533,7 @@ namespace RSCLibraryDLLOperations
                     {
                         // Confirm that the anchor is the first item in the list.
                         bool bAnchorIs_StartOfList;
-                        bAnchorIs_StartOfList = (par_anchor._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
+                        bAnchorIs_StartOfList = (par_anchorItem._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
                         if (false == bAnchorIs_StartOfList) Debugger.Break();
                     }
 
@@ -526,10 +545,10 @@ namespace RSCLibraryDLLOperations
                     // #3a of 3. 
                     //
                     // Insert the range before the anchor. 
-                    par_anchor._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
 
                     // Administration (i.e. easy to forget!!)
-                    par_range._EndingItem.DLL_SetItemNext(par_anchor._anchorItem);
+                    par_range._EndingItem.DLL_SetItemNext(par_anchorItem._anchorItem);
                     par_range._StartingItem.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
                     itemOriginallyBeforeAnchor.DLL_SetItemNext(par_range._StartingItem);
                 }
@@ -539,9 +558,9 @@ namespace RSCLibraryDLLOperations
                     // #3b of 3.  Anchor is at the start of the list. 
                     //
                     // Insert the range before the anchor. 
-                    par_anchor._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
                     // Administration (i.e. easy to forget!!)
-                    par_range._EndingItem.DLL_SetItemNext(par_anchor._anchorItem);
+                    par_range._EndingItem.DLL_SetItemNext(par_anchorItem._anchorItem);
                 }
 
             }
@@ -569,8 +588,7 @@ namespace RSCLibraryDLLOperations
             //
             //IDoublyLinkedItem<TControl>
             //    itemOriginallyBeforeRange = par_range._StartingItem.DLL_GetItemPrior_OfT();
-            IDoublyLinkedItem<TControl>
-                itemOriginallyBeforeRange = par_range.ItemStart().DLL_GetItemPrior_OfT();
+            TControl itemOriginallyBeforeRange = par_range.ItemStart().DLL_GetItemPrior_OfT();
 
             if (itemOriginallyBeforeRange != null)
             {
@@ -584,8 +602,8 @@ namespace RSCLibraryDLLOperations
             //
             // De-link the item AFTER the deletion range.
             //
-            IDoublyLinkedItem<TControl>
-                itemOriginallyAfterRange = par_range.Item__End().DLL_GetItemNext_OfT();
+            //IDoublyLinkedItem<TControl>
+            TControl itemOriginallyAfterRange = par_range.Item__End().DLL_GetItemNext_OfT();
                 // itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext_OfT();
 
             if (itemOriginallyAfterRange != null)
@@ -606,6 +624,31 @@ namespace RSCLibraryDLLOperations
                     itemOriginallyBeforeRange.DLL_SetItemNext(itemOriginallyAfterRange);
                     itemOriginallyAfterRange.DLL_SetItemPrior(itemOriginallyBeforeRange);
                 }
+                else
+                {
+                    par_list._itemStart = itemOriginallyAfterRange;
+                    par_list._itemCount -= par_range.GetItemCount();
+                    par_list.NotifyOfModification();
+
+                }
+            }
+            else
+            {
+                if (itemOriginallyBeforeRange != null)
+                {
+                    itemOriginallyBeforeRange.DLL_ClearReferenceNext('D');
+                }
+                else
+                {
+                    //
+                    //  The range is the entire list.
+                    //
+                    //  Remove the entire list. 
+                    //
+                    par_list.DLL_RemoveAllItems();
+
+                }
+
             }
 
             //

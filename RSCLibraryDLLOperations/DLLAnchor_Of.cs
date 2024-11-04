@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ciBadgeInterfaces;
+using System;
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Text;
@@ -7,6 +8,7 @@
 namespace RSCLibraryDLLOperations
 {
     public class DLLAnchor<TControl>
+         where TControl : IDoublyLinkedItem<TControl>
     {
         /// <summary>
         /// This item will serve as an anchor (fixed point).

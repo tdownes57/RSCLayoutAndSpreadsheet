@@ -8,6 +8,9 @@ using ciBadgeInterfaces; //Added 6/30/2024
 
 namespace RSCLibraryDLLOperations
 {
+    //  https://www.tutorialsteacher.com/csharp/csharp-event
+    public delegate void Notify();  // Added 11/02/2024 thomas downes 
+
     public class DLLList<TControl> where TControl : IDoublyLinkedItem<TControl>
     {
         //
@@ -26,6 +29,9 @@ namespace RSCLibraryDLLOperations
                                              // has removed all remaining items from the list (likely, per user's intention).  
                                              // (This will relieve us from the programmatic burden of trying to Nullify
                                              //   the _itemStart object. The C# compiler might not like that.) 
+
+        //  https://www.tutorialsteacher.com/csharp/csharp-event
+        public event Notify EventListWasModified;  // Added 11/02/2024 thomas downes 
 
         //
         // The Anchor describes the location of the imminent Insert of a Range or Item (Singly). 
@@ -90,8 +96,8 @@ namespace RSCLibraryDLLOperations
             while (!boolMatches && itemLocal != null)
             {
                 if (par_item.Equals(itemLocal)) boolMatches = true;
-                else itemLocal = itemLocal.DLL_GetItemNext_OfT()
-                        .DLL_UnboxControl_OfT();
+                else itemLocal = itemLocal.DLL_GetItemNext_OfT();
+                //       .DLL_UnboxControl_OfT();
             }
 
             return boolMatches;
@@ -223,11 +229,30 @@ namespace RSCLibraryDLLOperations
             //
             //Added 10/19/2024
             //
+            //  Insert range A B C into 1 2 3 4 5 6 7 8 9, hypothetically.
+            //
             if (par_itemAnchorToPrecede.DLL_HasNext())
             {
-                TControl temp_prior = par_itemAnchorToPrecede.DLL_GetItemPrior_OfT();
-                temp_prior.DLL_SetItemNext(par_range._StartingItem);
-                par_range._StartingItem.DLL_SetItemPrior(temp_prior);
+                //
+                //  The couplet [3 4] contains the anchoring item... "3". 
+                //
+                //  Insert range A B C within the couplet [3 4] in list [1 2 3 4 5 6 7 8 9], hypothetically.
+                //
+                //  Result:   1 2 3 [A B C] 4 5 6 7 8 9.
+                //
+                //  Anchor:  "3" 
+                //
+                //---TControl temp_prior = par_itemAnchorToPrecede.DLL_GetItemPrior_OfT();
+                //---temp_prior.DLL_SetItemNext(par_range._StartingItem);
+                //---par_range._StartingItem.DLL_SetItemPrior(temp_prior);
+                //
+                //  1) Determine a reference for item "4", item4_AfterAnchor.
+                //  2) Then, specify that item "4" is preceded by "C".
+                //  3) Then, specify that item "C" follows "4".
+                //
+                TControl item4_AfterAnchor = par_itemAnchorToPrecede.DLL_GetItemNext_OfT(); //Item "4" follows anchor "3".
+                item4_AfterAnchor.DLL_SetItemPrior_OfT(par_range.Item__End());
+                par_range.Item__End().DLL_SetItemNext_OfT(item4_AfterAnchor);
             }
 
             par_itemAnchorToPrecede.DLL_SetItemNext_OfT(par_range._StartingItem);
@@ -331,36 +356,39 @@ namespace RSCLibraryDLLOperations
             //
             // Added 10/31/2024 td  
             //
-            //  Hypothetical list: 1 2 3 4 5.  Range is a subset of this list, 
-            //   hypothetically speaking.           
+            //  Hypothetical list: 1 2 3 4 5 6 7 8 9.  Range is a subset of this list, 
+            //   hypothetically speaking.
+            //   
+            //  We will delete [4 5 6] from [1 2 3  4 5 6  7 8 9], 
+            //   leaving [1 2 3  7 8 9].
             //
-            TControl itemJustPrior_Eg1;
-            TControl itemJustAfter_Eg5;
+            TControl itemJustPrior_Eg3;
+            TControl itemJustAfter_Eg7;
             bool boolDontDelete1;
             bool boolDontDelete5;
             bool bDeleteRangeIncludes1;
             bool bDeleteRangeIncludes5;
 
-            itemJustPrior_Eg1 = par_rangeToDelete.Item_ImmediateltyPrior();
-            itemJustAfter_Eg5 = par_rangeToDelete.Item__FirstToFollowButNotIncluded();
+            itemJustPrior_Eg3 = par_rangeToDelete.Item_ImmediateltyPrior();
+            itemJustAfter_Eg7 = par_rangeToDelete.Item__FirstToFollowButNotIncluded();
 
-            bDeleteRangeIncludes1 = (itemJustPrior_Eg1 == null); // There is no "prior item".  Delete range includes item #1.
-            bDeleteRangeIncludes5 = (itemJustAfter_Eg5 == null); // There is no "following item".  Delete range includes item #5.
+            bDeleteRangeIncludes1 = (itemJustPrior_Eg3 == null); // There is no "prior item".  Delete range includes item #1.
+            bDeleteRangeIncludes5 = (itemJustAfter_Eg7 == null); // There is no "following item".  Delete range includes item #5.
 
-            boolDontDelete1 = (itemJustPrior_Eg1 != null);  // There IS a prior item, which will REMAIN, & NOT in range. 
-            boolDontDelete5 = (itemJustAfter_Eg5 != null);  // There IS a following item, which is NOT in range, & which will REMAIN.
+            boolDontDelete1 = (itemJustPrior_Eg3 != null);  // There IS a prior item, which will REMAIN, & NOT in range. 
+            boolDontDelete5 = (itemJustAfter_Eg7 != null);  // There IS a following item, which is NOT in range, & which will REMAIN.
 
             if (boolDontDelete1 && boolDontDelete5)
             {
                 //
-                // E.g. delete '2 3 4 ' from '1 2 3 4 5' to leave '1 5'.
+                // E.g. delete '4 5 6 ' from '1 2 3  4 5 6  7 8 9' to leave '1 2 3  7 8 9'.
                 //
                 //   The range does NOT include ANY of the END POINTS of the list...
                 //     the range is fully WITHIN the list, NOT at the beginning
                 //     NOR the end of the list. 
                 //
-                itemJustPrior_Eg1.DLL_SetItemNext_OfT(itemJustAfter_Eg5);
-                itemJustAfter_Eg5.DLL_SetItemPrior_OfT(itemJustPrior_Eg1);
+                itemJustPrior_Eg3.DLL_SetItemNext_OfT(itemJustAfter_Eg7);
+                itemJustAfter_Eg7.DLL_SetItemPrior_OfT(itemJustPrior_Eg3);
                 _itemCount -= par_rangeToDelete.GetItemCount();
             }
             else if (bDeleteRangeIncludes1 && boolDontDelete5) 
@@ -371,6 +399,8 @@ namespace RSCLibraryDLLOperations
                 //   The DELETE range includes the STARTING POINT of the list.
                 //    The DELETE range is at the extreme LEFT, or TOP, or BEGINNING, of the list. 
                 //
+                TControl itemJustAfter_Eg5;
+                itemJustAfter_Eg5 = par_rangeToDelete.Item__FirstToFollowButNotIncluded();
                 _itemStart = itemJustAfter_Eg5;  // Delete '1 2 3 4' from '1 2 3 4 5' to leave '5'.
                 itemJustAfter_Eg5.DLL_ClearReferencePrior('D');  // 'D' for "DELETE"
                 _itemCount -= par_rangeToDelete.GetItemCount();
@@ -378,10 +408,12 @@ namespace RSCLibraryDLLOperations
             else if (boolDontDelete1 && bDeleteRangeIncludes5)
             {
                 //
-                // E.g. delete '4 5' from '1 2 3 4 5' to leave '1 2 3'.
+                // E.g. delete '[3 4 5]' from '1 2 3 4 5' to leave '[1 2]'.
                 //
-                _itemEnding = itemJustPrior_Eg1;
-                itemJustPrior_Eg1.DLL_ClearReferenceNext('d');
+                TControl itemJustPrior_Eg2;
+                itemJustPrior_Eg2 = par_rangeToDelete.Item_ImmediateltyPrior();
+                _itemEnding = itemJustPrior_Eg2;
+                itemJustPrior_Eg2.DLL_ClearReferenceNext('D');
                 _itemCount -= par_rangeToDelete.GetItemCount();
             }
 
@@ -602,6 +634,30 @@ namespace RSCLibraryDLLOperations
             //
             //   private void SelectionRange_ProcessList
             //
+        }
+
+
+
+        public void DLL_RemoveAllItems()
+        {
+            //
+            // Added 11/02/2024 thomas downes 
+            //
+            _itemCount = 0;
+            _itemStart = default(TControl);  // null;
+            _itemEnding = default(TControl);  // null;
+            _isEmpty_OrTreatAsEmpty = true;  
+
+        }
+
+
+        public void NotifyOfModification()
+        {
+            //
+            // Added 11/02/2024 thomas downes 
+            //
+            EventListWasModified?.Invoke();  
+
         }
 
         //

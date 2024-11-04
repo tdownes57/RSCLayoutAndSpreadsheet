@@ -1,6 +1,7 @@
 ﻿''
 '' Added 10/14/2024 T_homas C. D_ownes 
 ''
+Imports System.ComponentModel.Design
 Imports System.Text
 Imports RSCLibraryDLLOperations
 
@@ -9,7 +10,7 @@ Public Class FormSimpleDemoOfCSharp1D
     '' Added 10/14/2024 thomas c. downes 
     ''
     Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLItem)
-    Private mod_list As DLLList(Of TwoCharacterDLLItem)
+    Private WithEvents mod_list As DLLList(Of TwoCharacterDLLItem)
     Private mod_firstItem As TwoCharacterDLLItem
     Private mod_lastItem As TwoCharacterDLLItem
 
@@ -179,7 +180,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Function ''End of "Private Function FillTheTextboxDisplayingList()""
 
-    Private Sub buttonInsert_Click(sender As Object, e As EventArgs) Handles buttonInsertMultiple.Click
+    Private Sub buttonInsertMulti_Click(sender As Object, e As EventArgs) Handles buttonInsertMultiple.Click
         ''
         '' Added 10/15/2024  
         ''
@@ -213,9 +214,11 @@ Public Class FormSimpleDemoOfCSharp1D
 
         For indexNewItem = intNewIndexStart To intNewIndexEnd
 
-            intModulo = indexNewItem Mod intInsertCount
+            ''//intModulo = indexNewItem Mod intInsertCount
+            intModulo = (indexNewItem - intNewIndexStart) Mod array_sItemsToInsert.Length
             strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(intModulo),
                              indexNewItem.ToString("00"))
+            If (strNewItem.Length = 1) Then strNewItem = ("=" & strNewItem)
             newItem = New TwoCharacterDLLItem(strNewItem)
 
             If first_newItem Is Nothing Then
@@ -266,11 +269,26 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Insert range into the list.  
         ''
-        If (listInsertAfterOr.SelectedIndex < 1) Then
-            mod_list.DLL_InsertRangeAfter(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
-        Else
-            mod_list.DLL_InsertRangeBefore(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
-        End If
+        Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
+        Const INSERT_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
+        Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
+        Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
+
+        If (DIRECT_TO_LIST) Then
+            If (listInsertAfterOr.SelectedIndex < 1) Then
+                mod_list.DLL_InsertRangeAfter(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+            Else
+                mod_list.DLL_InsertRangeBefore(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+            End If
+
+        ElseIf (listInsertAfterOr.SelectedIndex < 1) Then
+
+            anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
+                                            tempAnchorItem.DLL_GetItemNext_OfT())
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(objectRange, anchor_couple, True, False)
+
+
+        End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
         ''
         '' Display the list. 
@@ -454,6 +472,11 @@ Public Class FormSimpleDemoOfCSharp1D
                                       False, DELETE_OPERATION, False, Nothing, False, False, False)
             mod_manager.ProcessOperation_AnyType(operationToDelete, False, True)
 
+            ''Administration....
+            mod_firstItem = mod_list._itemStart
+            mod_lastItem = mod_list._itemEnding
+
+
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
         ''
@@ -463,7 +486,12 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub
 
+    Private Sub mod_list_EventListWasModified() Handles mod_list.EventListWasModified
+        ''
+        '' Added 11/02/2024 thomas downes 
+        ''
+        mod_firstItem = mod_list._itemStart
+        mod_lastItem = mod_list._itemEnding
 
-
-
+    End Sub
 End Class

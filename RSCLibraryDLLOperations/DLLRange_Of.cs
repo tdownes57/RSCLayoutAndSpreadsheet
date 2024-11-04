@@ -295,6 +295,32 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DeleteFromList()
+        {
+            //
+            // Added 11/3/2024 td  
+            //
+            TControl? itemPrior = ItemStart().DLL_GetItemPrior_OfT();
+            TControl? itemAfter = Item__End().DLL_GetItemNext_OfT(); 
+
+            ItemStart().DLL_ClearReferencePrior('D');
+            Item__End().DLL_ClearReferenceAfter('D');
+
+            if (itemPrior != null) itemPrior.DLL_SetItemNext_OfT(itemAfter, true);
+            if (itemAfter != null) itemAfter.DLL_SetItemPrior_OfT(itemPrior, true);
+
+        }
+
+
+        public void Enclose(DLLAnchorCouplet<TControl> par_anchorPair)
+        {
+            //
+            // Added 11/03/2024 
+            //
+            par_anchorPair.EncloseRange(this);
+
+        }
+
 
 
     }
