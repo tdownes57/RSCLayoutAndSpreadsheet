@@ -50,6 +50,7 @@ namespace RSCLibraryDLLOperations
 
         //Added 4/18/2024 td 
         private readonly DLLAnchor<TControl>? _anchor_forUndo;
+        private readonly DLLAnchorCouplet<TControl>? _anchorPair_forUndo;
 
         private readonly DLLRange<TControl>? _range;
 
@@ -189,16 +190,24 @@ namespace RSCLibraryDLLOperations
             //
             //Think about undoing... an INSERT (hence, it's a DELETE)
             if (_isInsert) _anchor_forUndo = null; // par_range. // Deletes don't need an anchor! 
-            if (_isDelete && _isForStartOfList)
+            //if (_isDelete && _isForStartOfList)
+            //{
+            //    //TControl_H item_afterRange = _range_H._itemEnding.DLL_GetItemNext();
+            //    //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange); 
+            //}
+            //else if (_isDelete && _isForEndOfList)
+            //{
+            //    //TControl_H item_afterRange = _range_H._itemStart.DLL_GetItemPrior();
+            //    //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange);
+            //}
+
+            if (_isDelete)
             {
-                //TControl_H item_afterRange = _range_H._itemEnding.DLL_GetItemNext();
-                //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange); 
+                _anchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                _anchorCouplet.GetAnchorItem();
             }
-            else if (_isDelete && _isForEndOfList)
-            {
-                //TControl_H item_afterRange = _range_H._itemStart.DLL_GetItemPrior();
-                //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange);
-            }
+
+
 
         }
 

@@ -295,6 +295,23 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool ContainsEndpoint()
+        {
+            //
+            // Added 11/17/2024 thomas downes
+            //
+            bool bResult;
+            bool bNoPreceding;
+            bool bNoFollowing; 
+
+            bNoPreceding = (false == _StartingItem.DLL_HasPrior());
+            bNoFollowing = (false == _EndingItem.DLL_HasNext());
+            bResult = (bNoPreceding || bNoFollowing);
+            return bResult;
+
+        }
+
+
         public void DeleteFromList()
         {
             //
@@ -304,7 +321,7 @@ namespace RSCLibraryDLLOperations
             TControl? itemAfter = Item__End().DLL_GetItemNext_OfT(); 
 
             ItemStart().DLL_ClearReferencePrior('D');
-            Item__End().DLL_ClearReferenceAfter('D');
+            Item__End().DLL_ClearReferenceNext('D');
 
             if (itemPrior != null) itemPrior.DLL_SetItemNext_OfT(itemAfter, true);
             if (itemAfter != null) itemAfter.DLL_SetItemPrior_OfT(itemPrior, true);
@@ -312,13 +329,26 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void Enclose(DLLAnchorCouplet<TControl> par_anchorPair)
+        public void EncloseRangeInCouplet(DLLAnchorCouplet<TControl> par_anchorPair)
         {
             //
             // Added 11/03/2024 
             //
             par_anchorPair.EncloseRange(this);
 
+        }
+
+
+        public DLLAnchorCouplet<TControl> GetCoupletWhichEncloses_InverseAnchor()
+        {
+            //
+            // Added 11/-7/2024 T. Downes 
+            //
+            DLLAnchorCouplet<TControl> resultInverseAnchor;
+            TControl? itemPrior = ItemStart().DLL_GetItemPrior_OfT();
+            TControl? itemAfter = Item__End().DLL_GetItemNext_OfT();
+            resultInverseAnchor = new DLLAnchorCouplet<TControl>(itemPrior, itemAfter, ContainsEndpoint());
+            return resultInverseAnchor;
         }
 
 

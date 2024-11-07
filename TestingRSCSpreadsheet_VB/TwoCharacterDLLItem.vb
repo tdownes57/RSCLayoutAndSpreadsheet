@@ -12,6 +12,15 @@ Public Class TwoCharacterDLLItem
     ''' </summary>
     ''' <returns></returns>
     Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
+
+    ''' <summary>
+    ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property HighlightInBlue As Boolean Implements IDoublyLinkedItem.HighlightInBlue
+    Public Property HighlightInGreen As Boolean Implements IDoublyLinkedItem.HighlightInGreen
+    Public Property HighlightInRed As Boolean Implements IDoublyLinkedItem.HighlightInRed
+
     Public Property _Control As Control ''Added 5/3/2024 td
 
     Private mod_prior As TwoCharacterDLLItem
@@ -83,15 +92,46 @@ Public Class TwoCharacterDLLItem
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
-
     Public Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLItem) _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemPrior_OfT
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
-        mod_prior = param
+        mod_next = param
+
+    End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
+
+
+    Public Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLItem, pbAllowNulls As Boolean) _
+           Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemPrior_OfT
+
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+
+        ''11/4/2024 mod_next = param
+        If (param Is Nothing And pbAllowNulls) Then
+            mod_prior = Nothing
+        Else
+            mod_prior = param
+        End If
 
     End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
+
+
+    Public Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem, pbAllowNulls As Boolean) _
+           Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_OfT
+
+        ''Throw New NotImplementedException()
+        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+
+        ''11/4/2024 mod_next = param
+        If (param Is Nothing And pbAllowNulls) Then
+            mod_next = Nothing
+        Else
+            mod_next = param
+        End If
+
+    End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
 
     Public Sub DLL_ClearReferencePrior(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior

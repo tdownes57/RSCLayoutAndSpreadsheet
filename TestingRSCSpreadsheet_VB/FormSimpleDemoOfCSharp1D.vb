@@ -271,8 +271,10 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
         Const INSERT_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
+        Dim USE_OP_MANAGER As Boolean = (Not DIRECT_TO_LIST) ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
 
         If (DIRECT_TO_LIST) Then
             If (listInsertAfterOr.SelectedIndex < 1) Then
@@ -281,12 +283,31 @@ Public Class FormSimpleDemoOfCSharp1D
                 mod_list.DLL_InsertRangeBefore(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
             End If
 
-        ElseIf (listInsertAfterOr.SelectedIndex < 1) Then
-
+        ElseIf (USE_OP_MANAGER And listInsertAfterOr.SelectedIndex < 1) Then
+            ''
+            ''Added 11/06/2024 td  
+            ''
+            ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
+            ''anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
+            ''  tempAnchorItem.DLL_GetItemNext_OfT(), bChangeOfEndpoint)
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
-                                            tempAnchorItem.DLL_GetItemNext_OfT())
+                                            tempAnchorItem.DLL_GetItemNext_OfT(),
+                                            tempAnchorItem.DLL_IsEitherEndpoint())
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(objectRange, anchor_couple, True, False)
+            ''operation.OperateOnList(mod_list)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
+        ElseIf (USE_OP_MANAGER And listInsertAfterOr.SelectedIndex >= 1) Then
+            ''
+            ''Added 11/06/2024 td  
+            ''
+            ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
+            anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
+                                            tempAnchorItem.DLL_GetItemNext_OfT(),
+                                            tempAnchorItem.DLL_IsEitherEndpoint())
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(objectRange, anchor_couple, True, False)
+            ''operation.OperateOnList(mod_list)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 

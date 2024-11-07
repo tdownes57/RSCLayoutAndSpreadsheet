@@ -29,6 +29,7 @@ Public Class TwoCharacterDLLHorizontal
         MyBase.DLL_SetItemPrior_OfT(param)
     End Sub
 
+
     Public Overloads Function DLL_GetItemNext_OfT() As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
         Return MyBase.DLL_GetItemNext_OfT()
@@ -47,6 +48,34 @@ Public Class TwoCharacterDLLHorizontal
     Public Overloads Function IDoublyLinkedItem_DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemPrior_OfT
         Throw New NotImplementedException()
     End Function
+
+
+    Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLHorizontal, paramAllowNulls As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SetItemNext_OfT
+
+        ''Throw New NotImplementedException()
+
+        If (param Is Nothing And paramAllowNulls) Then
+            ''Added 11/4/2024 
+            MyBase.DLL_ClearReferenceNext("S"c)
+        Else
+            MyBase.DLL_SetItemNext_OfT(param)
+        End If
+
+    End Sub
+
+    Public Overloads Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLHorizontal, paramAllowNulls As Boolean) _
+        Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SetItemPrior_OfT
+
+        ''Throw New NotImplementedException()
+        If (param Is Nothing And paramAllowNulls) Then
+            ''Added 11/4/2024 
+            MyBase.DLL_ClearReferencePrior("S"c)
+        Else
+            MyBase.DLL_SetItemPrior_OfT(param)
+        End If
+
+    End Sub
+
 
     Public Overloads Function DLL_UnboxControl_OfT() As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_UnboxControl_OfT
         Throw New NotImplementedException()

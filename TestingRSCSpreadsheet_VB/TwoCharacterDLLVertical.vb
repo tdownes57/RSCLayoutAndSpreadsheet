@@ -46,6 +46,22 @@ Public Class TwoCharacterDLLVertical
         Return MyBase.DLL_GetItemNext_OfT()
     End Function
 
+
+    Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLVertical, pboolAllowNulls As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_OfT
+        ''Throw New NotImplementedException()
+
+        ''---MyBase.DLL_SetItemNext_OfT(param)
+        MyBase.DLL_SetItemNext_OfT(param, pboolAllowNulls)
+
+    End Sub
+
+    Public Overloads Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLVertical, pboolAllowNulls As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemPrior_OfT
+        ''Throw New NotImplementedException()
+        ''----MyBase.DLL_SetItemPrior_OfT(param)
+        MyBase.DLL_SetItemPrior_OfT(param, pboolAllowNulls)
+    End Sub
+
+
     Public Overloads Function IDoublyLinkedItem_DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemPrior_OfT
         Throw New NotImplementedException()
     End Function

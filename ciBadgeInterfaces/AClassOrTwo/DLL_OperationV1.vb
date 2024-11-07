@@ -158,6 +158,14 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' <returns></returns>
     Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
 
+    ''' <summary>
+    ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property HighlightInBlue As Boolean Implements IDoublyLinkedItem.HighlightInBlue
+    Public Property HighlightInGreen As Boolean Implements IDoublyLinkedItem.HighlightInGreen
+    Public Property HighlightInRed As Boolean Implements IDoublyLinkedItem.HighlightInRed
+
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
     ''

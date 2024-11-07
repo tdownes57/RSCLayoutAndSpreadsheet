@@ -28,6 +28,12 @@ Public Class DLL_OperationV2
     ''' <returns></returns>
     Public Property Selected As Boolean Implements IDoublyLinkedItem.Selected
 
+    ''Added 11/06/2024 Thomas Downes  
+    Public Property HighlightInBlue As Boolean Implements IDoublyLinkedItem.HighlightInBlue
+    Public Property HighlightInGreen As Boolean Implements IDoublyLinkedItem.HighlightInGreen
+    Public Property HighlightInRed As Boolean Implements IDoublyLinkedItem.HighlightInRed
+
+
     Private ReadOnly mod_operationType As Char
     Private ReadOnly mod_operationRangeFirstItem As IDoublyLinkedItem
     Private ReadOnly mod_countOfItems As Integer
