@@ -7,7 +7,7 @@ using System;
 
 namespace RSCLibraryDLLOperations
 {
-    public class DLLAnchor<TControl>
+    public class DLLAnchorItem<TControl>
          where TControl : IDoublyLinkedItem<TControl>
     {
         /// <summary>
@@ -34,17 +34,17 @@ namespace RSCLibraryDLLOperations
         public bool _doInsertRangeAfterThis;
 
         /// <summary>
-        /// For for operations which are the (initial) load an empty list. 
+        /// For operations which are the (initial) load an empty list. 
         /// </summary>
         public bool _isForEmptyList;
 
         /// <summary>
-        /// For for operations which are the (initial) load an empty list. 
+        /// For operations which will delete items from a list. 
         /// </summary>
         public bool _isForDeletionOperation;
 
 
-        public DLLAnchor(bool pbIsForEmptyList, bool pbIsForDeletionOp)
+        public DLLAnchorItem(bool pbIsForEmptyList, bool pbIsForDeletionOp)
         {
             //
             // Added 10/20/2024 
@@ -55,7 +55,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchor(TControl par_item)
+        public DLLAnchorItem(TControl par_item)
         {
             //
             // Added 10/20/2024 
@@ -65,6 +65,34 @@ namespace RSCLibraryDLLOperations
             _isForEmptyList = false; // pbIsForEmptyList;
             _isForDeletionOperation = false; // pbIsForDeletionOp
         }
+
+
+        public DLLAnchorCouplet<TControl> GetAnchorCouplet()
+        {
+            //
+            // Added 11/08/2024 
+            //
+            DLLAnchorCouplet<TControl> resultCouplet; // = default(TControl);
+
+            if (_doInsertRangeAfterThis)
+            {
+                resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem, _anchorItem.DLL_GetItemNext_OfT(), true);
+                return resultCouplet;
+            }
+            else if (_doInsertRangeBeforeThis)
+            {
+                resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem.DLL_GetItemPrior_OfT(), _anchorItem, true);
+                return resultCouplet;
+            }
+            else
+            {
+                System.Diagnostics.Debugger.Break();
+                return null;
+            }
+            //return resultCouplet;
+
+        }
+
 
 
 

@@ -43,14 +43,16 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
         // Added 4/21/2024 td
-        private readonly DLLAnchor<TControl>? _anchorItem;
+        private readonly DLLAnchorItem<TControl>? _anchorItem;
 
         // Added 11/03/2024 td
+        //   An Anchor Couplet is a pair of Anchoring Items, which bookend a range
+        //   (or more accurately WILL bookend a range). 
         private readonly DLLAnchorCouplet<TControl>? _anchorCouplet;
 
         //Added 4/18/2024 td 
-        private readonly DLLAnchor<TControl>? _anchor_forUndo;
-        private readonly DLLAnchorCouplet<TControl>? _anchorPair_forUndo;
+        private readonly DLLAnchorItem<TControl>? _inverseAnchorItem_ForUndo;
+        private readonly DLLAnchorCouplet<TControl>? _inverseAnchorPair_forUndo;
 
         private readonly DLLRange<TControl>? _range;
 
@@ -162,7 +164,8 @@ namespace RSCLibraryDLLOperations
         public DLLOperation1D(DLLRange<TControl>? par_range,
                   bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove,
-                  DLLAnchor<TControl>? par_anchorItem,
+                  DLLAnchorItem<TControl>? par_anchorItem,
+                  DLLAnchorCouplet<TControl>? par_anchorPair,
                   bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
             //
@@ -172,6 +175,7 @@ namespace RSCLibraryDLLOperations
             //---_isHoriz = true;
             _range = par_range;
             _anchorItem = par_anchorItem;
+            _anchorCouplet = par_anchorPair;  //Added 11/08/2024 
             //---_isVerti = false; // NOT vertical.
 
             _isForStartOfList = par_forStartOfList;
@@ -189,22 +193,22 @@ namespace RSCLibraryDLLOperations
             //  Preparing for UNDO... Determining an Anchor for a future UNDO operation.
             //
             //Think about undoing... an INSERT (hence, it's a DELETE)
-            if (_isInsert) _anchor_forUndo = null; // par_range. // Deletes don't need an anchor! 
+            if (_isInsert) _inverseAnchorItem_ForUndo = null; // par_range. // Deletes don't need an anchor! 
             //if (_isDelete && _isForStartOfList)
             //{
             //    //TControl_H item_afterRange = _range_H._itemEnding.DLL_GetItemNext();
-            //    //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange); 
+            //    //_inverseAnchorItem_ForUndo_H = new DLLAnchor<>(item_afterRange); 
             //}
             //else if (_isDelete && _isForEndOfList)
             //{
             //    //TControl_H item_afterRange = _range_H._itemStart.DLL_GetItemPrior();
-            //    //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange);
+            //    //_inverseAnchorItem_ForUndo_H = new DLLAnchor<>(item_afterRange);
             //}
 
             if (_isDelete)
             {
-                _anchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
-                _anchorCouplet.GetAnchorItem();
+                _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                //_anchorCouplet.GetAnchorItem();
             }
 
 
@@ -326,7 +330,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
         private void OperateOnList<TControl>(DLLList<TControl> par_list,
                                      DLLRange<TControl> par_range,
-                                     DLLAnchor<TControl>? par_anchorItem,
+                                     DLLAnchorItem<TControl>? par_anchorItem,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
@@ -374,7 +378,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
         private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list_NotReallyNeeded,
                                              DLLRange<TControl> par_range,
-                                             DLLAnchor<TControl>? par_anchorItem,
+                                             DLLAnchorItem<TControl>? par_anchorItem,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
@@ -749,7 +753,11 @@ namespace RSCLibraryDLLOperations
             //---{
 
             DLLRange<TControl>? result_RangeOfItems = _range;
-            DLLAnchor<TControl>? result_anchor = _anchor_forUndo;  // Use the "forUndo" anchor.
+            DLLAnchorItem<TControl>? result_anchorItem = _inverseAnchorItem_ForUndo;  // Use the "forUndo" anchor.
+
+            // Added 11/08/2024  
+            //   "Couplet" and "Pair" mean the same thing. 
+            DLLAnchorCouplet<TControl>? result_anchorCouplet = _inverseAnchorPair_forUndo;  // Use the "forUndo" anchor.
 
             //
             // Use the constructor overload for horizontal operations.
@@ -760,7 +768,8 @@ namespace RSCLibraryDLLOperations
                 result_isInsert,
                 result_isDelete,
                 result_isMove,
-                result_anchor,
+                result_anchorItem,
+                result_anchorCouplet,
                 result_isSortAscending,
                 result_isSortDescending,
                 result_isSortUndo);

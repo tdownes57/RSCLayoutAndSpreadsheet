@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
+    /// <summary>
+    /// An Anchor Couplet is a pair of Anchoring Items, which bookend a range
+    /// (or more accurately WILL bookend a range, after an operation takes place). 
+    /// </summary>
+    /// <typeparam name="TControl"></typeparam>
     public class DLLAnchorCouplet<TControl>
           where TControl : IDoublyLinkedItem<TControl>
     {
@@ -15,6 +20,16 @@ namespace RSCLibraryDLLOperations
         //
         private TControl? _itemAnchorPrior;
         private TControl? _itemAnchorAfter;
+
+        /// <summary>
+        /// For operations which are the (initial) load an empty list. 
+        /// </summary>
+        public bool _isForEmptyList;
+
+        /// <summary>
+        /// For operations which will delete items from a list. 
+        /// </summary>
+        public bool _isForDeletionOperation;
 
         public DLLAnchorCouplet(TControl par_itemAnchorPrior, TControl par_itemAnchorAfter)
         {
@@ -36,17 +51,30 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchor<TControl> GetAnchorItem()
+        public DLLAnchorCouplet(bool pbIsForEmptyList, bool pbIsForDeletionOp)
         {
-            DLLAnchor<TControl> result; 
+            //
+            // Added 10/20/2024 
+            //
+            _itemAnchorPrior = default(TControl);
+            _itemAnchorAfter = default(TControl);
+            _isForEmptyList = pbIsForEmptyList;
+            _isForDeletionOperation = pbIsForDeletionOp;
+        }
+
+
+
+        public DLLAnchorItem<TControl> GetAnchorItem()
+        {
+            DLLAnchorItem<TControl> result; 
             if (_itemAnchorPrior != null)
             {
-                result = new DLLAnchor<TControl>(_itemAnchorPrior);
+                result = new DLLAnchorItem<TControl>(_itemAnchorPrior);
                 result._doInsertRangeAfterThis = true;
             }
             else
             {
-                result = new DLLAnchor<TControl>(_itemAnchorAfter);
+                result = new DLLAnchorItem<TControl>(_itemAnchorAfter);
                 result._doInsertRangeBeforeThis = true;
             }
             return result;

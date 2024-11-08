@@ -22,8 +22,10 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
-        Dim anchorForEmptyList As New DLLAnchor(Of TwoCharacterDLLItem)(True, False)
-        Dim anchorForListOfOneItem As DLLAnchor(Of TwoCharacterDLLItem) ''(True, False)
+        Dim anchorItemForEmptyList As New DLLAnchorItem(Of TwoCharacterDLLItem)(True, False)
+        Dim anchorItemForListOfOneItem As DLLAnchorItem(Of TwoCharacterDLLItem) ''(True, False)
+        Dim anchorPairForEmptyList As New DLLAnchorCouplet(Of TwoCharacterDLLItem)(True, False)
+        Dim anchorPairForListOfOneItem As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''(True, False)
         Dim rangeNew As DLLRange(Of TwoCharacterDLLItem)
         Dim indexNewItem As Integer
         Dim newItem As TwoCharacterDLLItem
@@ -36,7 +38,10 @@ Public Class FormSimpleDemoOfCSharp1D
         mod_list = New DLLList(Of TwoCharacterDLLItem)(mod_firstItem, mod_lastItem, 1)
 
         ''//Added 10/21/2024 td
-        anchorForListOfOneItem = New DLLAnchor(Of TwoCharacterDLLItem)(mod_firstItem)
+        anchorItemForListOfOneItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(mod_firstItem)
+
+        ''//Added 11/08/2024 td
+        anchorPairForListOfOneItem = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(mod_firstItem, Nothing, True)
 
         rangeNew = New DLLRange(Of TwoCharacterDLLItem)(mod_firstItem, True)
         For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
@@ -64,7 +69,10 @@ Public Class FormSimpleDemoOfCSharp1D
             ''                                                    anchorForEmptyList, False, False, False)
             operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
                                                                       True, False, False,
-                                          anchorForListOfOneItem, False, False, False)
+                                          anchorItemForListOfOneItem,
+                                          anchorPairForListOfOneItem,
+                                          False, False, False)
+
             operationInitial30.OperateOnList(mod_list)
 
             ''Added 10/20/2024  
@@ -200,7 +208,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim strNewItem As String
         Dim intModulo As Integer
         Dim boolEndpoint As Boolean
-        Dim objAnchor As DLLAnchor(Of TwoCharacterDLLItem)
+        Dim objAnchor As DLLAnchorItem(Of TwoCharacterDLLItem)
 
         intInsertCount = numInsertHowMany.Value
         intAnchorPosition = numInsertAnchorBenchmark.Value
@@ -259,7 +267,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         Dim tempAnchorItem As TwoCharacterDLLItem ''Added 10/21/2024 td
         tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(tempAnchorItem)
+        objAnchor = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
         With objAnchor
             ''._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
             ._doInsertRangeAfterThis = (listInsertAfterOr.SelectedIndex < 1)
@@ -323,7 +331,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Insert range into the list.  
         ''
-        Dim objAnchor As DLLAnchor(Of TwoCharacterDLLItem)
+        Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLItem)
+        Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
         Dim boolEndpoint As Boolean
         Dim array_sItemsToInsert As String()
@@ -350,11 +359,14 @@ Public Class FormSimpleDemoOfCSharp1D
         ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
         ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
         tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(tempAnchorItem)
+        objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
 
         bInsertRangeAfterAnchor = (listInsertAfterOr.SelectedIndex < 1)
-        objAnchor._doInsertRangeAfterThis = bInsertRangeAfterAnchor
-        objAnchor._doInsertRangeBeforeThis = (False = bInsertRangeAfterAnchor)
+        objAnchorItem._doInsertRangeAfterThis = bInsertRangeAfterAnchor
+        objAnchorItem._doInsertRangeBeforeThis = (False = bInsertRangeAfterAnchor)
+
+        ''Added 11/8/2024 td
+        objAnchorPair = objAnchorItem.GetAnchorCouplet()
 
         boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
 
@@ -364,7 +376,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''---mod_list.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)
         Const KEEP_ANCHOR As Boolean = True
-        mod_list.DLL_SetAnchor(objAnchor, bInsertRangeBeforeAnchor, bInsertRangeAfterAnchor,
+        mod_list.DLL_SetAnchor(objAnchorItem, bInsertRangeBeforeAnchor, bInsertRangeAfterAnchor,
               KEEP_ANCHOR)
 
         ''
@@ -382,7 +394,10 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
-                                      INSERT_OPERATION, False, False, objAnchor, False, False, False)
+                                      INSERT_OPERATION, False, False,
+                                      objAnchorItem,
+                                      objAnchorPair,
+                                      False, False, False)
             mod_manager.ProcessOperation_AnyType(operationToInsert, False, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
@@ -490,7 +505,7 @@ Public Class FormSimpleDemoOfCSharp1D
             '' Added 10/26/2024 thomas d.
             ''
             operationToDelete = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeToDelete, False, False,
-                                      False, DELETE_OPERATION, False, Nothing, False, False, False)
+                                      False, DELETE_OPERATION, False, Nothing, Nothing, False, False, False)
             mod_manager.ProcessOperation_AnyType(operationToDelete, False, True)
 
             ''Administration....
