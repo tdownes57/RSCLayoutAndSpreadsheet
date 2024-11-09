@@ -82,6 +82,20 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool ItemPriorIsNull()
+        {
+            //Added 11/8/2024  
+
+            return _itemAnchorPrior == null;
+        }
+
+        public bool ItemAfterIsNull()
+        {
+            //Added 11/8/2024  
+            return _itemAnchorAfter == null;
+        }
+
+
         //public DLLAnchorCouplet(TControl par_itemAnchorPrior)
         //{
         //    _itemAnchorPrior = par_itemAnchorPrior;
@@ -94,6 +108,18 @@ namespace RSCLibraryDLLOperations
         {
             //
             // Added 11/03/2024 
+            //
+            //  Let's set it up as follows...
+            //
+            //     _itemAnchorPrior, range's first, ..., range's last item, _itemAnchorAfter 
+            //
+            //    Or, going downward...
+            //
+            //     _itemAnchorPrior,
+            //     range's first, ...,
+            //     ...
+            //     range's last item,
+            //     _itemAnchorAfter 
             //
             par_range.ItemStart().DLL_SetItemPrior_OfT(_itemAnchorPrior, true);
             par_range.Item__End().DLL_SetItemNext_OfT(_itemAnchorAfter, true);

@@ -2,6 +2,7 @@
 '' Added 10/14/2024 T_homas C. D_ownes 
 ''
 Imports System.ComponentModel.Design
+Imports System.Diagnostics.Metrics
 Imports System.Text
 Imports RSCLibraryDLLOperations
 
@@ -43,8 +44,12 @@ Public Class FormSimpleDemoOfCSharp1D
         ''//Added 11/08/2024 td
         anchorPairForListOfOneItem = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(mod_firstItem, Nothing, True)
 
-        rangeNew = New DLLRange(Of TwoCharacterDLLItem)(mod_firstItem, True)
-        For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
+        ''//rangeNew = New DLLRange(Of TwoCharacterDLLItem)(mod_firstItem, True)
+        ''//For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
+        rangeNew = New DLLRange(Of TwoCharacterDLLItem)(New TwoCharacterDLLItem("02"), True)
+
+        ''Modified "(2 + 1)" on 11/8/2024 td
+        For indexNewItem = (2 + 1) To INITIAL_ITEM_COUNT_30 ''---30
             newItem = New TwoCharacterDLLItem(indexNewItem.ToString("00"))
             rangeNew.DLL_InsertItemToTheEnd(newItem)
         Next indexNewItem
@@ -160,7 +165,7 @@ Public Class FormSimpleDemoOfCSharp1D
             ''For Each each_twoChar In mod_list
             Do Until bDone
 
-                ''LabelItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
+                ''La belItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
                 ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
                 If (each_twoChar.Selected) Then
                     ''The item has been selected. 
@@ -170,10 +175,10 @@ Public Class FormSimpleDemoOfCSharp1D
                 End If
 
                 each_twoChar = each_twoChar.DLL_GetItemNext
-                bDone = (each_twoChar Is Nothing)
+                bDone = bDone Or (each_twoChar Is Nothing)
                 intCountLoops += 1
-                ''If (intCountLoops > 2 * 30) Then Debugger.Break()
-                If (intCountLoops > 4 * INITIAL_ITEM_COUNT_30) Then Debugger.Break()
+                ''If (int CountLoops > 2 * 30) Then Debugger.Break()
+                If (intCountLoops > 6 + INITIAL_ITEM_COUNT_30) Then Debugger.Break()
 
             Loop ''End of ""Do Until bDone""
             ''Next each_twoChar
@@ -310,8 +315,8 @@ Public Class FormSimpleDemoOfCSharp1D
             ''Added 11/06/2024 td  
             ''
             ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
-            anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
-                                            tempAnchorItem.DLL_GetItemNext_OfT(),
+            anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(
+                                            tempAnchorItem.DLL_GetItemPrior_OfT(), tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint())
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(objectRange, anchor_couple, True, False)
             ''operation.OperateOnList(mod_list)
@@ -372,6 +377,10 @@ Public Class FormSimpleDemoOfCSharp1D
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
                              ZERO_INDEX.ToString("00"))
+
+        If (strNewItem Is Nothing) Then
+            strNewItem = "++"
+        End If ''End of ""If (strNewItem Is Nothing) Then""
         newItem = New TwoCharacterDLLItem(strNewItem)
 
         ''---mod_list.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)

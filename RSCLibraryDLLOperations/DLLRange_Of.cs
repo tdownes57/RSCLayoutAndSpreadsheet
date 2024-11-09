@@ -16,7 +16,8 @@ namespace RSCLibraryDLLOperations
         //
         public readonly bool _isSingleItem;
         public readonly TControl? _SingleItemInRange;
-        public readonly TControl _StartingItem;
+        //public readonly TControl _StartingItem;
+        public readonly TControl _StartingItem; // Modified 11/08/2024 thomas downes
         //public readonly TControl _EndingItem;
         public TControl _EndingItem;
         public int _ItemCount; // readonly
@@ -150,11 +151,19 @@ namespace RSCLibraryDLLOperations
             //
             // First, a clean-up step!! 
             //
+            //if (_StartingItem == null)
+            //{
+            //    //
+            //    // Added 11/8/2024 thomas downes
+            //    //
+            //    _StartingItem = par_newItem;
+            //    _EndingItem = par_newItem;
+            //}
             if (_EndingItem == null)
             {
                 if (_ItemCount == 1) _EndingItem = _StartingItem;
             }
-
+            
             if (_EndingItem != null)
             {
 
@@ -303,6 +312,13 @@ namespace RSCLibraryDLLOperations
             bool bResult;
             bool bNoPreceding;
             bool bNoFollowing; 
+
+            // Added 11/09/2024 t.downes
+            if (_EndingItem == null && _ItemCount > 0)
+            {
+                // Populate the _EndingItem.
+                _EndingItem = _StartingItem.DLL_GetItemNext_OfT(-1 + _ItemCount);
+            }
 
             bNoPreceding = (false == _StartingItem.DLL_HasPrior());
             bNoFollowing = (false == _EndingItem.DLL_HasNext());

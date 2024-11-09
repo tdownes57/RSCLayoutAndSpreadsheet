@@ -97,7 +97,8 @@ Public Class TwoCharacterDLLItem
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
-        mod_next = param
+        ''---mod_next = param
+        mod_prior = param
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 

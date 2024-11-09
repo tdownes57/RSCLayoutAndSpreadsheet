@@ -252,7 +252,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                OperateOnList<TControl>(par_list, _range, _anchorItem, false);
+                // Nov. 8, 2024 //OperateOnList<TControl>(par_list, _range, _anchorItem, false);
+                OperateOnList(par_list, _range, _anchorItem, _anchorCouplet, false);
             }
 
         }
@@ -282,7 +283,7 @@ namespace RSCLibraryDLLOperations
             else
             {
                 // OperateOnList<TControl_H>(par_list, _range_H, _anchorItem_H);
-                OperateOnList<TControl>(par_list, _range, _anchorItem,
+                OperateOnList(par_list, _range, _anchorItem, _anchorCouplet,
                     par_doProtectEndpoints, pbIsChangeOfEndpoint);
             }
 
@@ -312,7 +313,7 @@ namespace RSCLibraryDLLOperations
                 //   to obey the DRY principle inside a doubly-generic class 
                 //   (Of TControl_H, TControl_V). 
                 //  
-                OperateOnList<TControl>(par_list, _range, _anchorItem,
+                OperateOnList(par_list, _range, _anchorItem, _anchorCouplet,
                       par_doProtectEndpoints, pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
 
@@ -328,13 +329,14 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchorItem"></param>
         /// <param name="pbEndpointProtection">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
-        private void OperateOnList<TControl>(DLLList<TControl> par_list,
+        private void OperateOnList(DLLList<TControl> par_list,
                                      DLLRange<TControl> par_range,
                                      DLLAnchorItem<TControl>? par_anchorItem,
+                                     DLLAnchorCouplet<TControl>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-             where TControl : IDoublyLinkedItem<TControl>
+             // where TControl : IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024
@@ -345,7 +347,8 @@ namespace RSCLibraryDLLOperations
             //  
             if (_isInsert)
             {
-                OperateOnList_Insert<TControl>(par_list, par_range, par_anchorItem,
+                OperateOnList_Insert(par_list, par_range, 
+                                     par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
@@ -360,7 +363,8 @@ namespace RSCLibraryDLLOperations
                 OperateOnList_Delete<TControl>(par_list, par_range,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint);
-                OperateOnList_Insert<TControl>(par_list, par_range, par_anchorItem,
+                OperateOnList_Insert(par_list, par_range, 
+                                     par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
@@ -376,13 +380,14 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
         /// <param name="par_range">This is the range of items which are being placed into the list.</param>
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
-        private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list_NotReallyNeeded,
+        private void OperateOnList_Insert(DLLList<TControl> par_list_NotReallyNeeded,
                                              DLLRange<TControl> par_range,
                                              DLLAnchorItem<TControl>? par_anchorItem,
+                                             DLLAnchorCouplet<TControl>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-            where TControl : IDoublyLinkedItem<TControl>
+            // where TControl : IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024
@@ -393,7 +398,8 @@ namespace RSCLibraryDLLOperations
             //  
             // Insertion operation
             //
-            if (par_anchorItem == null)
+            // November 8, 2024 //if (par_anchorItem == null)
+            if (par_anchorItem == null && par_anchorPair == null)
             {
                 //
                 // Option #1 of 3...  
@@ -577,6 +583,32 @@ namespace RSCLibraryDLLOperations
                 }
 
             }
+
+            else if (par_anchorPair != null)
+            {
+                //
+                // Added 11/08/2024 thomas downes
+                //
+                par_anchorPair.EncloseRange(par_range);
+
+                //
+                // Endpoint work. DIFFICULT AND CONFUSING
+                //
+                if (par_anchorPair.ItemPriorIsNull())
+                {
+                    par_list_NotReallyNeeded._itemStart = par_range._StartingItem;
+
+                }
+                else if (par_anchorPair.ItemAfterIsNull())
+                {
+                    par_list_NotReallyNeeded._itemEnding = par_range._EndingItem;
+
+                }
+
+            }
+
+
+
             //
             // End of Insertion operation.  
             //
@@ -758,6 +790,21 @@ namespace RSCLibraryDLLOperations
             // Added 11/08/2024  
             //   "Couplet" and "Pair" mean the same thing. 
             DLLAnchorCouplet<TControl>? result_anchorCouplet = _inverseAnchorPair_forUndo;  // Use the "forUndo" anchor.
+
+            // Added 11/08/2024 
+            if (result_anchorItem == null && result_anchorCouplet != null)
+            {
+                // Create a AnchorItem from the AnchorCouplet. 
+                result_anchorItem = result_anchorCouplet.GetAnchorItem();
+            }
+
+
+            // Added 11/08/2024 
+            if (result_anchorCouplet == null && result_anchorItem != null)
+            {
+                // Create a AnchorCouplet from the AnchorItem. 
+                result_anchorCouplet = result_anchorItem.GetAnchorCouplet();
+            }
 
             //
             // Use the constructor overload for horizontal operations.
