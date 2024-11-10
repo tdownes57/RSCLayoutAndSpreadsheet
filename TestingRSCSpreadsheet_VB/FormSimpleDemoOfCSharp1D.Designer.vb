@@ -44,6 +44,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         labelItemsDisplay = New Label()
         labelBenchmark = New Label()
         buttonUndoLastStep = New Button()
+        buttonRedoOp = New Button()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -261,11 +262,22 @@ Partial Class FormSimpleDemoOfCSharp1D
         buttonUndoLastStep.Text = "Undo Last Step"
         buttonUndoLastStep.UseVisualStyleBackColor = True
         ' 
+        ' buttonRedoOp
+        ' 
+        buttonRedoOp.Enabled = False
+        buttonRedoOp.Location = New Point(765, 390)
+        buttonRedoOp.Name = "buttonRedoOp"
+        buttonRedoOp.Size = New Size(166, 39)
+        buttonRedoOp.TabIndex = 83
+        buttonRedoOp.Text = "Redo (if applicable)"
+        buttonRedoOp.UseVisualStyleBackColor = True
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 450)
+        Controls.Add(buttonRedoOp)
         Controls.Add(buttonUndoLastStep)
         Controls.Add(labelItemsDisplay)
         Controls.Add(labelBenchmark)
@@ -320,5 +332,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents labelItemsDisplay As Label
     Friend WithEvents labelBenchmark As Label
     Friend WithEvents buttonUndoLastStep As Button
+    Friend WithEvents buttonRedoOp As Button
 
 End Class

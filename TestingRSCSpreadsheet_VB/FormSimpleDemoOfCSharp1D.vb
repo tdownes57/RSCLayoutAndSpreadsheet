@@ -148,6 +148,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bDone As Boolean = False
         Dim stringbuilderLinkedItems As New StringBuilder(120)
         Dim intCountLoops As Integer = 0
+        Dim boolOpenHighlight As Boolean = True
+        Dim boolCloseHighlight As Boolean = False
+        Dim boolCloseHighlight_Next As Boolean = False
 
         ''LabelItemsDisplay.ResetText()
         ''Not needed here. ----labelItemsDisplay.Text = ""
@@ -170,9 +173,37 @@ Public Class FormSimpleDemoOfCSharp1D
                 If (each_twoChar.Selected) Then
                     ''The item has been selected. 
                     stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
+
+                ElseIf (each_twoChar.HighlightInGreen) Then
+                    ''
+                    ''The item has been highlighted.
+                    ''
+                    If (boolOpenHighlight) Then
+                        stringbuilderLinkedItems.Append("[" + each_twoChar.ToString())
+                        ''Prepare for future iterations. 
+                        boolOpenHighlight = False
+                        boolCloseHighlight = True
+                    ElseIf (boolCloseHighlight) Then
+                        ''
+                        ''Prepare for the next item(s).
+                        ''
+                        ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                        boolCloseHighlight_Next = True
+                        boolCloseHighlight = False
+                        boolOpenHighlight = True
+                    End If ''end of ""If (boolOpenHighlight) Then ... ElseIf..."
+
+                ElseIf (boolCloseHighlight_Next) Then
+                    ''Added 11/09/2024 thomas downes 
+                    stringbuilderLinkedItems.Append("]" + each_twoChar.ToString())
+                    ''Clear the boolean, so it only is used once.
+                    boolCloseHighlight_Next = False
+
                 Else
+                    ''Added 11/09/2024 thomas downes 
                     stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
-                End If
+
+                End If ''End of ""If (each_twoChar.Selected) Then... Else..."
 
                 each_twoChar = each_twoChar.DLL_GetItemNext
                 bDone = bDone Or (each_twoChar Is Nothing)
@@ -279,6 +310,9 @@ Public Class FormSimpleDemoOfCSharp1D
             ._doInsertRangeBeforeThis = (False = objAnchor._doInsertRangeAfterThis)
         End With
 
+        ''Highlight the range's endpoints.
+        objectRange.HighlightEndpoints_Green()
+
         ''
         '' Insert range into the list.  
         ''
@@ -328,6 +362,9 @@ Public Class FormSimpleDemoOfCSharp1D
         '' Display the list. 
         ''
         RefreshTheUI_DisplayList()
+
+        ''Remove the highlighting of the range's endpoints.
+        objectRange.HighlightEndpoints_Green(False)
 
     End Sub
 
@@ -416,6 +453,10 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         RefreshTheUI_DisplayList()
 
+        ''Remove the highlighting of the range's endpoints.
+        If (rangeSingleItem IsNot Nothing) Then _
+        rangeSingleItem.HighlightEndpoints_Green(False)
+
     End Sub
 
 
@@ -461,10 +502,13 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 2/27/2024 
         RefreshTheUI_DisplayList()
 
+        '''Highlight the range's endpoints.
+        ''--objectRange.HighlightEndpoints_Green()'
+
     End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
 
     Private Sub buttonUndoLastStep_Click(sender As Object, e As EventArgs) Handles buttonUndoLastStep.Click
-
+        ''
         ''Added 10/16/2024
         ''
         mod_manager.UndoMarkedOperation()
@@ -472,6 +516,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 10/27/2024 
         RefreshTheUI_DisplayList()
 
+        ''Added 11/09/2024
+        buttonRedoOp.Enabled = True
 
     End Sub
 
@@ -537,6 +583,20 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         mod_firstItem = mod_list._itemStart
         mod_lastItem = mod_list._itemEnding
+
+    End Sub
+
+    Private Sub buttonRedoOp_Click(sender As Object, e As EventArgs) Handles buttonRedoOp.Click
+        ''
+        ''Added 11/09/2024
+        ''
+        mod_manager.RedoMarkedOperation()
+
+        ''Added 11/09/2024 
+        RefreshTheUI_DisplayList()
+
+        ''Added 11/09/2024
+        buttonRedoOp.Enabled = False
 
     End Sub
 End Class

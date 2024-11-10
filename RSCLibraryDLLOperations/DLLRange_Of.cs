@@ -368,6 +368,28 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void HighlightEndpoints_Green(bool pbToggleStatusToOn = true)
+        {
+            //
+            // Added 11/09/2024 td
+            //
+            _StartingItem.HighlightInGreen = pbToggleStatusToOn;
+            if (_EndingItem != null)
+            _EndingItem.HighlightInGreen = pbToggleStatusToOn;
+
+        }
+
+        public void HighlightEndpoints_Blue(bool pbToggleStatusToOn = true)
+        {
+            //
+            // Added 11/09/2024 td
+            //
+            _StartingItem.HighlightInBlue = pbToggleStatusToOn;
+            _EndingItem.HighlightInBlue = pbToggleStatusToOn;
+
+        }
+
+
 
     }
 }
