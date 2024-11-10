@@ -552,7 +552,7 @@ namespace RSCLibraryDLLOperations
                     {
                         // Confirm that the anchor is the first item in the list.
                         bool bAnchorIs_StartOfList;
-                        bAnchorIs_StartOfList = (par_anchorItem._anchorItem.Equals(par_list_NotReallyNeeded._itemEnding));
+                        bAnchorIs_StartOfList = (par_anchorItem._anchorItem.Equals(par_list_NotReallyNeeded._itemStart));
                         if (false == bAnchorIs_StartOfList) Debugger.Break();
                     }
 

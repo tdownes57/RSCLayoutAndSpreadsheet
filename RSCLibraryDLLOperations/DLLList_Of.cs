@@ -37,7 +37,8 @@ namespace RSCLibraryDLLOperations
         // The Anchor describes the location of the imminent Insert of a Range or Item (Singly). 
         //    (or Paste, per a Cut-Paste ("Move") action. 
         //
-        private DLLAnchorItem<TControl>? _temp_o_anchor;  // o is for object
+        private DLLAnchorItem<TControl>? _temp_o_anchorItem;  // o is for object
+        private DLLAnchorCouplet<TControl>? _temp_o_anchorPair;  // o is for object
         //Temporary boolean variables
         private bool _temp_b_anchor_CheckBooleans; // b is for Boolean 
         private bool _temp_b_anchorWill_PrecedeRange;  // b is for Boolean
@@ -261,7 +262,15 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetAnchor(DLLAnchorItem<TControl> par_anchor, 
+        /// <summary>
+        /// This is a convenient way to "save"/specify an Anchor, so that INSERT & MOVE operations will "know" 
+        /// what/where the Anchor is, especially if multiple INSERT operations are intended or likely. 
+        /// </summary>
+        /// <param name="par_anchor"></param>
+        /// <param name="pbAnchorWill_FollowRange"></param>
+        /// <param name="pbAnchorWill_PrecedeRange"></param>
+        /// <param name="pbAnchorWillBeMultiUse"></param>
+        public void DLL_SetAnchor(DLLAnchorItem<TControl> par_anchorItem, 
                                     bool pbAnchorWill_FollowRange, 
                                     bool pbAnchorWill_PrecedeRange, 
                                     bool pbAnchorWillBeMultiUse)
@@ -270,10 +279,12 @@ namespace RSCLibraryDLLOperations
             // Added 10/16/2024 thomas d
             //
 
-            _temp_o_anchor = par_anchor;
+            _temp_o_anchorItem = par_anchorItem;
+            // Added 11/10/2024
+            _temp_o_anchorPair = new DLLAnchorCouplet<TControl>(par_anchorItem);
 
-            _temp_o_anchor._doInsertRangeAfterThis = pbAnchorWill_PrecedeRange;
-            _temp_o_anchor._doInsertRangeBeforeThis = pbAnchorWill_FollowRange;
+            _temp_o_anchorItem._doInsertRangeAfterThis = pbAnchorWill_PrecedeRange;
+            _temp_o_anchorItem._doInsertRangeBeforeThis = pbAnchorWill_FollowRange;
 
             _temp_b_anchorWill_FollowRange = pbAnchorWill_FollowRange;
             _temp_b_anchorWill_PrecedeRange = pbAnchorWill_PrecedeRange;

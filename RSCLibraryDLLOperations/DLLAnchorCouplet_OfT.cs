@@ -38,6 +38,30 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+        public DLLAnchorCouplet(DLLAnchorItem<TControl> par_itemAnchor)
+        {
+            //
+            // Added 11/10/2024  
+            //
+            bool bInsertRangeAfterAnchorItem;
+            bInsertRangeAfterAnchorItem = par_itemAnchor._doInsertRangeAfterThis;
+
+            if (bInsertRangeAfterAnchorItem)
+            {
+                _itemAnchorPrior = par_itemAnchor._anchorItem;  // May be null.
+                _itemAnchorAfter = par_itemAnchor._anchorItem.DLL_GetItemNext_OfT();  // May be null.
+
+            }
+            else
+            {
+                _itemAnchorPrior = par_itemAnchor._anchorItem.DLL_GetItemPrior_OfT();  // May be null.
+                _itemAnchorAfter = par_itemAnchor._anchorItem;  // May be null.
+            }
+
+        }
+
+
         public DLLAnchorCouplet(TControl? par_itemAnchorPrior, TControl? par_itemAnchorAfter, bool pbAllowNulls)
         {
 
@@ -126,6 +150,23 @@ namespace RSCLibraryDLLOperations
 
             _itemAnchorPrior?.DLL_SetItemNext_OfT(par_range.ItemStart());
             _itemAnchorAfter?.DLL_SetItemPrior_OfT(par_range.Item__End());
+
+        }
+
+
+        public string ToString()
+        {
+            //
+            //  Added 11/10/2024 thomas d. 
+            //
+            string result_pair;
+
+            result_pair = (_itemAnchorPrior == null ? "null" : 
+                _itemAnchorPrior.ToString()) + " "
+                + (_itemAnchorAfter == null ? "null" :
+                _itemAnchorAfter.ToString());
+
+            return result_pair; 
 
         }
 

@@ -404,11 +404,13 @@ Public Class FormSimpleDemoOfCSharp1D
         objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
 
         bInsertRangeAfterAnchor = (listInsertAfterOr.SelectedIndex < 1)
+        bInsertRangeBeforeAnchor = (Not bInsertRangeAfterAnchor) ''Added 11/10/2024 
         objAnchorItem._doInsertRangeAfterThis = bInsertRangeAfterAnchor
         objAnchorItem._doInsertRangeBeforeThis = (False = bInsertRangeAfterAnchor)
 
         ''Added 11/8/2024 td
-        objAnchorPair = objAnchorItem.GetAnchorCouplet()
+        ''---objAnchorPair = objAnchorItem.GetAnchorCouplet()
+        objAnchorPair = objAnchorItem.GetAnchorCouplet(bInsertRangeBeforeAnchor)
 
         boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
 
@@ -422,6 +424,9 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''---mod_list.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)
         Const KEEP_ANCHOR As Boolean = True
+        ''
+        ''What does DLL_SetAnchor() do?  
+        ''
         mod_list.DLL_SetAnchor(objAnchorItem, bInsertRangeBeforeAnchor, bInsertRangeAfterAnchor,
               KEEP_ANCHOR)
 

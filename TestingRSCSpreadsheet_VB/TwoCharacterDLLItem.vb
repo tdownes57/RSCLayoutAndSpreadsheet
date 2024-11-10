@@ -358,7 +358,8 @@ Public Class TwoCharacterDLLItem
         ''July2024 Return mod_twoChars
         Return (mod_char1 + mod_char2)
 
-    End Function
+    End Function ''Public Overrides Function ToString() As String
+
 
     Public Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue
 

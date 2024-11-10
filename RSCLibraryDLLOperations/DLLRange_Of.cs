@@ -5,7 +5,8 @@
 //using System.Text;
 //using System.Threading.Tasks;
 //using System.Windows.Forms;  
-using ciBadgeInterfaces; //Added 6/20/2024  
+using ciBadgeInterfaces;
+using System.Text; //Added 6/20/2024  
 
 namespace RSCLibraryDLLOperations
 {
@@ -43,6 +44,8 @@ namespace RSCLibraryDLLOperations
             _SingleItemInRange = par_itemSingle;
             _StartingItem = par_itemSingle;
             _ItemCount = 1;
+            // Added 11/10/2024 
+            _EndingItem = par_itemSingle;
 
         }
 
@@ -51,10 +54,12 @@ namespace RSCLibraryDLLOperations
                           TControl? par_itemEnding, 
                           TControl? par_itemSingle, int par_itemCount)
         {
-            _isSingleItem = par_isSingleItem;
+            //_isSingleItem = par_isSingleItem;
             _SingleItemInRange = par_itemSingle;
             _StartingItem = par_itemStart;
             _ItemCount = par_itemCount;
+            _EndingItem = par_itemStart;
+            _isSingleItem = par_isSingleItem;
 
             if (_isSingleItem && (par_itemSingle != null))
             {
@@ -304,6 +309,14 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool IsSingleItem()
+        {
+            // Added 11/10/2024 td
+            return (1 == _ItemCount);
+
+        }
+
+
         public bool ContainsEndpoint()
         {
             //
@@ -386,6 +399,24 @@ namespace RSCLibraryDLLOperations
             //
             _StartingItem.HighlightInBlue = pbToggleStatusToOn;
             _EndingItem.HighlightInBlue = pbToggleStatusToOn;
+
+        }
+
+
+        public override string ToString()
+        {
+            //
+            // Added 11/10/2024 thomas downes
+            //
+            StringBuilder result = new StringBuilder(200);
+            result.Append("DLLRange: ");
+            TControl temp = _StartingItem;
+            while (temp != null)
+            {
+                result.Append(temp.ToString() + " ");
+                temp = temp.DLL_GetItemNext_OfT();
+            }
+            return result.ToString();
 
         }
 

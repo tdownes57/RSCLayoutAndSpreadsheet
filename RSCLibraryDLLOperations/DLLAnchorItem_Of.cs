@@ -73,8 +73,42 @@ namespace RSCLibraryDLLOperations
             // Added 11/08/2024 
             //
             DLLAnchorCouplet<TControl> resultCouplet; // = default(TControl);
-
+ 
             if (_doInsertRangeAfterThis)
+            {
+                resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem, _anchorItem.DLL_GetItemNext_OfT(), true);
+                return resultCouplet;
+            }
+            else if (_doInsertRangeBeforeThis)
+            {
+                resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem.DLL_GetItemPrior_OfT(), _anchorItem, true);
+                return resultCouplet;
+            }
+            else
+            {
+                System.Diagnostics.Debugger.Break();
+                return null;
+            }
+            //return resultCouplet;
+
+        }
+
+
+        public DLLAnchorCouplet<TControl> GetAnchorCouplet(bool pbIncludePriorItem)
+        {
+            //
+            // Added 11/08/2024 
+            //
+            DLLAnchorCouplet<TControl> resultCouplet; // = default(TControl);
+
+            if (pbIncludePriorItem)
+            {
+                // Added 11/10/2024  
+                resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem.DLL_GetItemPrior_OfT(), _anchorItem, true);
+                return resultCouplet;
+            }
+
+            else if (_doInsertRangeAfterThis)
             {
                 resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem, _anchorItem.DLL_GetItemNext_OfT(), true);
                 return resultCouplet;
