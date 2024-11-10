@@ -297,7 +297,8 @@ namespace RSCLibraryDLLOperations
         public void DLL_ClearAnchor()
         {
 
-            _temp_o_anchor = null;
+            _temp_o_anchorItem = null;
+            _temp_o_anchorPair = null; //Added 11/10/2024 
             _temp_b_anchor_CheckBooleans = false;
 
         }
@@ -326,22 +327,22 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_InsertItemSingly(TControl par_item)
+        public void DLL_InsertItemSingly(TControl par_item, bool par_isChangeOfEndpoint)
         {
             //
             // Added 10/15/2024 
             //
-            if (_temp_o_anchor == null) System.Diagnostics.Debugger.Break();
-            if (_temp_o_anchor == null) throw new RSCEndpointException("InsertItemSingly");
+            if (_temp_o_anchorItem == null) System.Diagnostics.Debugger.Break();
+            if (_temp_o_anchorItem == null) throw new RSCEndpointException("InsertItemSingly");
 
             if (_temp_b_anchor_CheckBooleans && _temp_b_anchorWill_PrecedeRange)
             {
-                _temp_o_anchor._anchorItem.DLL_InsertItemToNext(par_item, true);
+                _temp_o_anchorItem._anchorItem.DLL_InsertItemToNext(par_item, true);
             }
             else
             {
                 //added 10/17/2024 
-                _temp_o_anchor._anchorItem.DLL_InsertItemToPrior(par_item, true);
+                _temp_o_anchorItem._anchorItem.DLL_InsertItemToPrior(par_item, true);
             }
 
             // Added 10/2024 
@@ -351,13 +352,22 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                _temp_o_anchor = null;
+                _temp_o_anchorItem = null;
                 _temp_b_anchorWill_FollowRange = false;
                 _temp_b_anchor_CheckBooleans = false;
                 _temp_b_anchorWill_PrecedeRange = false;
             }
          
             _itemCount++;
+
+            //
+            // Added 11/10/2024 td
+            //
+            if (par_isChangeOfEndpoint)
+            {
+                EventListWasModified?.Invoke();
+        
+            }
 
         }
 

@@ -99,6 +99,8 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Populate the UI. 
         Dim strListOfLinks As String
+
+        ''Major call!!
         strListOfLinks = FillTheTextboxDisplayingList()
         labelItemsDisplay.Text = strListOfLinks
 
@@ -136,6 +138,9 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 1/04/2024
         ''linkToPenultimate.Tag = prior_to_last ''.ToString()
+
+        ''Refresh the highlighting, in the rich TextBox. 
+        RefreshHighlightingRichText()
 
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
@@ -223,6 +228,44 @@ Public Class FormSimpleDemoOfCSharp1D
         End If ''End of ""If (mod_firstTwoChar Is Nothing) Then... Else..."
 
     End Function ''End of "Private Function FillTheTextboxDisplayingList()""
+
+
+    Private Sub RefreshHighlightingRichText()
+        ''
+        ''Added 11/10/2024 thomas d.
+        ''
+        ''//Dim index As Integer
+        Dim tempItem As TwoCharacterDLLItem
+        Dim boolHighlighting As Boolean
+        Dim indexChar As Integer = 0
+        Dim colorDefault As Color
+
+        tempItem = mod_list.DLL_GetFirstItem_OfT()
+        ''//boolHighlighting = tempItem.HighlightInGreen
+
+        ''Clear all of the highlighting / backcolor. 
+        richtextBenchmark.SelectAll()
+        colorDefault = richtextBenchmark.BackColor
+        richtextBenchmark.SelectionBackColor = colorDefault
+
+        Do While (tempItem IsNot Nothing)
+
+            ''//indexChar += 3
+            boolHighlighting = tempItem.HighlightInGreen()
+            If (boolHighlighting) Then
+                richtextBenchmark.Select(indexChar, 3)
+                richtextBenchmark.SelectionBackColor = Color.Green
+            End If ''ENd of ""If boolHighlighting..."
+            ''Prepare.
+            tempItem = tempItem.DLL_GetItemNext_OfT()
+            indexChar += 3
+
+        Loop ''End of ""Do While (tempItem IsNot Nothing)""
+
+
+    End Sub ''End of ""Private Sub RefreshHighlightingRichText()""
+
+
 
     Private Sub buttonInsertMulti_Click(sender As Object, e As EventArgs) Handles buttonInsertMultiple.Click
         ''
@@ -412,7 +455,9 @@ Public Class FormSimpleDemoOfCSharp1D
         ''---objAnchorPair = objAnchorItem.GetAnchorCouplet()
         objAnchorPair = objAnchorItem.GetAnchorCouplet(bInsertRangeBeforeAnchor)
 
-        boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
+        ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
+        boolEndpoint = ((intAnchorPosition = 1 And bInsertRangeBeforeAnchor) Or
+            (intAnchorPosition = intHowManyInModuleList) And bInsertRangeAfterAnchor)
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
                              ZERO_INDEX.ToString("00"))
@@ -438,7 +483,8 @@ Public Class FormSimpleDemoOfCSharp1D
 
         If (DIRECT_TO_LIST) Then
             ''Without using the DLLManager class, directly editing the list.  
-            mod_list.DLL_InsertItemSingly(newItem)
+            mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+
         Else
             ''
             '' Added 10/26/2024 thomas d.
@@ -449,9 +495,17 @@ Public Class FormSimpleDemoOfCSharp1D
                                       objAnchorItem,
                                       objAnchorPair,
                                       False, False, False)
-            mod_manager.ProcessOperation_AnyType(operationToInsert, False, True)
+            mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
+
+        ''Added 11/10/2024 td
+        My.Application.DoEvents()
+        ''Added 11/10/2024 td
+        If (boolEndpoint) Then
+            mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
+            mod_lastItem = mod_list.DLL_GetLastItem_OfT()
+        End If ''eND OF ""If (boolEndpoint) Then""
 
         ''
         ''Added 10/20/2024

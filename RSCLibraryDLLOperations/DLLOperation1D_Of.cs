@@ -398,6 +398,16 @@ namespace RSCLibraryDLLOperations
             //  
             // Insertion operation
             //
+            bool bAnchorIsFirstItem;
+            bool bAnchorIsLastItem;
+            if (par_anchorItem != null)
+            {
+                bAnchorIsFirstItem = (par_anchorItem._anchorItem.Equals(
+                                           par_list_NotReallyNeeded._itemStart));
+                bAnchorIsLastItem = (par_anchorItem._anchorItem.Equals(
+                                           par_list_NotReallyNeeded._itemEnding));
+            }
+
             // November 8, 2024 //if (par_anchorItem == null)
             if (par_anchorItem == null && par_anchorPair == null)
             {
@@ -519,6 +529,18 @@ namespace RSCLibraryDLLOperations
 
                 }
 
+                //
+                // Added 11/10/2024 td 
+                //
+                //if (bAnchorIsFirstItem)
+                //{
+                //
+                //}
+
+                //if (bAnchorIsLastItem)
+                //{
+                //
+                //}
 
             }
 
@@ -589,17 +611,20 @@ namespace RSCLibraryDLLOperations
                 //
                 // Added 11/08/2024 thomas downes
                 //
+                bool bListWillChange_ItemStart = par_anchorPair.ItemPriorIsNull(); // Added 11/10
+                bool bListWillChange_ItemFinal = par_anchorPair.ItemAfterIsNull(); // Added 11/10
+
                 par_anchorPair.EncloseRange(par_range);
 
                 //
                 // Endpoint work. DIFFICULT AND CONFUSING
                 //
-                if (par_anchorPair.ItemPriorIsNull())
+                if (bListWillChange_ItemStart) // (par_anchorPair.ItemPriorIsNull())
                 {
                     par_list_NotReallyNeeded._itemStart = par_range._StartingItem;
 
                 }
-                else if (par_anchorPair.ItemAfterIsNull())
+                else if (bListWillChange_ItemFinal) // (par_anchorPair.ItemAfterIsNull())
                 {
                     par_list_NotReallyNeeded._itemEnding = par_range._EndingItem;
 

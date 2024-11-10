@@ -45,6 +45,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         labelBenchmark = New Label()
         buttonUndoLastStep = New Button()
         buttonRedoOp = New Button()
+        richtextBenchmark = New RichTextBox()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -272,11 +273,23 @@ Partial Class FormSimpleDemoOfCSharp1D
         buttonRedoOp.Text = "Redo (if applicable)"
         buttonRedoOp.UseVisualStyleBackColor = True
         ' 
+        ' richtextBenchmark
+        ' 
+        richtextBenchmark.BorderStyle = BorderStyle.None
+        richtextBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        richtextBenchmark.Location = New Point(38, 87)
+        richtextBenchmark.Name = "richtextBenchmark"
+        richtextBenchmark.Size = New Size(893, 23)
+        richtextBenchmark.TabIndex = 84
+        richtextBenchmark.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        richtextBenchmark.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 450)
+        Controls.Add(richtextBenchmark)
         Controls.Add(buttonRedoOp)
         Controls.Add(buttonUndoLastStep)
         Controls.Add(labelItemsDisplay)
@@ -333,5 +346,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents labelBenchmark As Label
     Friend WithEvents buttonUndoLastStep As Button
     Friend WithEvents buttonRedoOp As Button
+    Friend WithEvents richtextBenchmark As RichTextBox
 
 End Class
