@@ -141,6 +141,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Refresh the highlighting, in the rich TextBox. 
         ''----Nov11 2024 ''RefreshHighlightingRichText()
+        RefreshHighlightingRichText(richtextBenchmark)
         RefreshHighlightingRichText(richtextItemsDisplay)
 
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
@@ -406,6 +407,16 @@ Public Class FormSimpleDemoOfCSharp1D
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
         ''
+        '' Added 11/11/2024 
+        ''
+        If (bChangeOfEndpoint) Then
+
+            mod_firstItem = mod_list._itemStart
+            mod_lastItem = mod_list._itemEnding
+
+        End If ''End of ""If (bChangeOfEndpoint) Then""
+
+        ''
         '' Display the list. 
         ''
         RefreshTheUI_DisplayList()
@@ -608,8 +619,18 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Added 10/31/2024 thomas downes
         ''
-        Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
-        Const DELETE_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
+        ''BOOLEANS -- TRUE  
+        Const RECORD_DEL_OPERATIONS As Boolean = True ''Added 11/11/2024 Thomas Downes
+        Const OPERATION_Delete As Boolean = True '' False ''Adde d 10/26/2024 thomas downes
+
+        ''BOOLEANS -- FALSE 
+        Const DIRECT_TO_LIST_Not As Boolean = False ''Added 10/26/2024 thom dow.nes
+        Const OPERATION_NotInsert As Boolean = False '' False ''Adde d 10/26/2024 thomas downes
+        Const OPERATION_NotMove As Boolean = False '' False ''Adde d 10/26/2024 thomas downes
+        Const SORT_123 As Boolean = False
+        Const SORT_321 As Boolean = False
+        Const SORT_UNDO As Boolean = False
+
         Dim intItemPosition As Integer
         Dim intHowManyToDelete As Integer
         Dim itemFirstToDelete As TwoCharacterDLLItem
@@ -618,6 +639,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLItem)
         Dim bIncludesListStart As Boolean ''Added 11/10/2024 
         Dim bIncludesList__End As Boolean ''Added 11/10/2024 
+        Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
+        Dim bAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
+        Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
         intHowManyToDelete = numDeleteHowMany.Value
@@ -630,10 +654,14 @@ Public Class FormSimpleDemoOfCSharp1D
         itemFirstToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition)
         itemLastToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition + intHowManyToDelete - 1)
 
+        bAnyEndpointAffected_start = (intItemPosition = 1)
+        bAnyEndpointAffected_end = ((intItemPosition + intHowManyToDelete - 1) >= mod_list._itemCount)
+        bAnyEndpointAffected = (bAnyEndpointAffected_start Or bAnyEndpointAffected_end)
+
         rangeToDelete = New DLLRange(Of TwoCharacterDLLItem)(False, itemFirstToDelete,
                                              itemLastToDelete, Nothing, intHowManyToDelete)
 
-        If (DIRECT_TO_LIST) Then
+        If (DIRECT_TO_LIST_Not) Then
             ''Without using the DLLManager class, directly editing the list.  
             mod_list.DLL_DeleteRange(rangeToDelete)
         Else
@@ -642,15 +670,19 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             operationToDelete = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeToDelete,
                                       bIncludesListStart, bIncludesList__End,
-                                      False, DELETE_OPERATION, False, Nothing, Nothing, False, False, False)
-            mod_manager.ProcessOperation_AnyType(operationToDelete, False, True)
+                                      OPERATION_NotInsert,
+                                      OPERATION_Delete,
+                                      OPERATION_NotMove, Nothing, Nothing,
+                                      SORT_123, SORT_321, SORT_UNDO)
+            mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
 
             ''Administration....
-            mod_firstItem = mod_list._itemStart
-            mod_lastItem = mod_list._itemEnding
+            If (bAnyEndpointAffected) Then
+                mod_firstItem = mod_list._itemStart
+                mod_lastItem = mod_list._itemEnding
+            End If ''End of ""If (bAnyEndpointAffected) Then""
 
-
-        End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
+        End If ''End of ""If (DIRECT_TO_LIST_Not) Then ... Else ..."
 
         ''
         ''Added 10/20/2024
@@ -660,7 +692,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
 
-    End Sub
+    End Sub ''buttonDelete_Click 
+
 
     Private Sub mod_list_EventListWasModified() Handles mod_list.EventListWasModified
         ''
@@ -669,7 +702,7 @@ Public Class FormSimpleDemoOfCSharp1D
         mod_firstItem = mod_list._itemStart
         mod_lastItem = mod_list._itemEnding
 
-    End Sub
+    End Sub ''end of ""Private Sub mod_list_EventListWasModified""
 
     Private Sub buttonRedoOp_Click(sender As Object, e As EventArgs) Handles buttonRedoOp.Click
         ''

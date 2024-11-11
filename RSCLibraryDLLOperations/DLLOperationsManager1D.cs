@@ -150,10 +150,10 @@ namespace RSCLibraryDLLOperations
 
             //Added 5.25.2024
             bool bIsChangeOfEndpoint = opReDo.IsChangeOfEndpoint();
+            const bool RECORD_OPERATION = false; // Not needed for REDO operations
 
             //opReDo.CreatedAsRedoOperation = true;
-            ProcessOperation_AnyType(opReDo, bIsChangeOfEndpoint,
-                false); // , pbIsHoriz, pbIsVerti);
+            ProcessOperation_AnyType(opReDo, bIsChangeOfEndpoint, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
 
         }
 
@@ -230,13 +230,15 @@ namespace RSCLibraryDLLOperations
             //
             //''Added 7/06/2024 and 1/15/2024
             //''
-            const bool RECORD_OPERATION = false; //''Added 1 / 28 / 2024
+            const bool RECORD_UNDO_OPERATION = false; //Not needed for UNDO operations. ''Added 1 / 28 / 2024
+            bool boolIsChangeOfEndpoint = false;
             DLLOperation1D<T_LinkedCtl> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
             //opUndoVersion = parOperation.GetUndoVersionOfOperation();
             opUndoVersion = parOperation.GetInverseForUndo();
 
             // Added 11/10/2024 
             pbEndpointAffected = opUndoVersion.IsChangeOfEndpoint();
+            boolIsChangeOfEndpoint = pbEndpointAffected;
 
             //''Added 7/06/2024 and 1/31/2024
             //
@@ -251,13 +253,19 @@ namespace RSCLibraryDLLOperations
             }
 
             //''Major call!!
+            //ProcessOperation_AnyType(opUndoVersion,
+            //                         opUndoVersion.IsChangeOfEndpoint(),
+            //                         RECORD_UNDO_OPERATION);
             ProcessOperation_AnyType(opUndoVersion,
-                                     opUndoVersion.IsChangeOfEndpoint(),
-                                     RECORD_OPERATION);
+                                     boolIsChangeOfEndpoint,
+                                     RECORD_UNDO_OPERATION);
 
             //Added 11/10/2024 
-            mod_firstItem = mod_list.DLL_GetFirstItem_OfT();
-            mod_endingItem = mod_list.DLL_GetLastItem_OfT();
+            if (boolIsChangeOfEndpoint) 
+            { 
+                mod_firstItem = mod_list.DLL_GetFirstItem_OfT();
+                mod_endingItem = mod_list.DLL_GetLastItem_OfT();
+            }
 
         }
 
