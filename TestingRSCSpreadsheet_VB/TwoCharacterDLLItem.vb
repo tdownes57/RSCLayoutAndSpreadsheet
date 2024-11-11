@@ -20,6 +20,7 @@ Public Class TwoCharacterDLLItem
     Public Property HighlightInBlue As Boolean Implements IDoublyLinkedItem.HighlightInBlue
     Public Property HighlightInGreen As Boolean Implements IDoublyLinkedItem.HighlightInGreen
     Public Property HighlightInRed As Boolean Implements IDoublyLinkedItem.HighlightInRed
+    Public Property HighlightInCyan As Boolean Implements IDoublyLinkedItem.HighlightInCyan
 
     Public Property _Control As Control ''Added 5/3/2024 td
 

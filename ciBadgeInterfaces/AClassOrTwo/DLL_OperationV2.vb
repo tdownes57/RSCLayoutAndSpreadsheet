@@ -32,7 +32,7 @@ Public Class DLL_OperationV2
     Public Property HighlightInBlue As Boolean Implements IDoublyLinkedItem.HighlightInBlue
     Public Property HighlightInGreen As Boolean Implements IDoublyLinkedItem.HighlightInGreen
     Public Property HighlightInRed As Boolean Implements IDoublyLinkedItem.HighlightInRed
-
+    Public Property HighlightInCyan As Boolean Implements IDoublyLinkedItem.HighlightInCyan
 
     Private ReadOnly mod_operationType As Char
     Private ReadOnly mod_operationRangeFirstItem As IDoublyLinkedItem

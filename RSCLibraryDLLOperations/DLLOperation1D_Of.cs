@@ -217,7 +217,7 @@ namespace RSCLibraryDLLOperations
 
 
         public DLLOperation1D(DLLRange<TControl> par_range,
-                              DLLAnchorCouplet<TControl> par_anchorCouplet, 
+                              DLLAnchorCouplet<TControl> par_anchorCouplet,
                               bool par_isInsert, bool par_isMove)
         {
             //
@@ -259,7 +259,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-         /// <summary>
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="par_list"></param>
@@ -336,7 +336,7 @@ namespace RSCLibraryDLLOperations
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-             // where TControl : IDoublyLinkedItem<TControl>
+        // where TControl : IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024
@@ -347,23 +347,23 @@ namespace RSCLibraryDLLOperations
             //  
             if (_isInsert)
             {
-                OperateOnList_Insert(par_list, par_range, 
+                OperateOnList_Insert(par_list, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
             else if (_isDelete)
             {
-                OperateOnList_Delete<TControl>(par_list, par_range,
+                OperateOnList_Delete(par_list, par_range,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
             else if (_isMove)
             {
-                OperateOnList_Delete<TControl>(par_list, par_range,
+                OperateOnList_Delete(par_list, par_range,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint);
-                OperateOnList_Insert(par_list, par_range, 
+                OperateOnList_Insert(par_list, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
@@ -380,14 +380,14 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
         /// <param name="par_range">This is the range of items which are being placed into the list.</param>
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
-        private void OperateOnList_Insert(DLLList<TControl> par_list_NotReallyNeeded,
+        private void OperateOnList_Insert(DLLList<TControl> par_list_MaybeNotNeeded,
                                              DLLRange<TControl> par_range,
                                              DLLAnchorItem<TControl>? par_anchorItem,
                                              DLLAnchorCouplet<TControl>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-            // where TControl : IDoublyLinkedItem<TControl>
+        // where TControl : IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024
@@ -398,18 +398,91 @@ namespace RSCLibraryDLLOperations
             //  
             // Insertion operation
             //
-            bool bAnchorIsFirstItem;
-            bool bAnchorIsLastItem;
-            if (par_anchorItem != null)
+            //        //bool bAnchorIsFirstItem;
+            //        //bool bAnchorIsLastItem;
+            //        //
+            //        //bAnchorIsFirstItem = (par_anchorItem._anchorItem.Equals(
+            //        //               par_list_MaybeNotNeeded._itemStart));
+            //        //bAnchorIsLastItem = (par_anchorItem._anchorItem.Equals(
+            //        //                           par_list_MaybeNotNeeded._itemEnding));
+
+            if (par_anchorPair != null)
             {
-                bAnchorIsFirstItem = (par_anchorItem._anchorItem.Equals(
-                                           par_list_NotReallyNeeded._itemStart));
-                bAnchorIsLastItem = (par_anchorItem._anchorItem.Equals(
-                                           par_list_NotReallyNeeded._itemEnding));
+                //
+                // Encapsulated 11/10/2024
+                //
+                //   We will use par_anchorPair (DLLAnchorCouplet) to determine
+                //   where to place the Range.
+                //
+                Operate_Insert_ByCouplet(par_list_MaybeNotNeeded,
+                                          par_range, par_anchorPair, 
+                                          pbIsChangeOfEndpoint);
+            }
+            
+            else if (par_anchorItem != null)
+            {
+                //
+                // Encapsulated 11/10/2024
+                //
+                //   We will use par_anchorItem (DLLAnchorItem) to determine
+                //   where to place the Range.
+                //
+                Operate_Insert_ByAnchorItem(par_list_MaybeNotNeeded,
+                                          par_range, par_anchorItem, 
+                                          pbIsChangeOfEndpoint);
+
+            }
+            //
+            // End of Insertion operation.  
+            //
+        }
+
+
+        private void Operate_Insert_ByCouplet(DLLList<TControl> par_list_NeededForAdmin,
+                             DLLRange<TControl> par_range,
+                             DLLAnchorCouplet<TControl>? par_anchorPair,
+                     bool pbIsChangeOfEndpoint)
+        {
+            //
+            // Added 11/08/2024 thomas downes
+            //
+            bool bListWillChange_ItemStart = par_anchorPair.ItemPriorIsNull(); // Added 11/10
+            bool bListWillChange_ItemFinal = par_anchorPair.ItemAfterIsNull(); // Added 11/10
+
+            //
+            // Major call!!  This is the main insertion work!!!
+            //
+            par_anchorPair.EncloseRange(par_range);
+
+            // Added 11/10/2024 td
+            par_list_NeededForAdmin._itemCount += par_range._ItemCount;
+
+            //
+            // Endpoint work. DIFFICULT AND CONFUSING
+            //
+            if (bListWillChange_ItemStart) // (par_anchorPair.ItemPriorIsNull())
+            {
+                par_list_NeededForAdmin._itemStart = par_range._StartingItem;
+
+            }
+            else if (bListWillChange_ItemFinal) // (par_anchorPair.ItemAfterIsNull())
+            {
+                par_list_NeededForAdmin._itemEnding = par_range._EndingItem;
+
             }
 
+        }
+
+
+
+        private void Operate_Insert_ByAnchorItem(DLLList<TControl> par_list_NotReallyNeeded,
+                                     DLLRange<TControl> par_range,
+                                     DLLAnchorItem<TControl>? par_anchorItem,
+                             bool pbIsChangeOfEndpoint)
+        {
+
             // November 8, 2024 //if (par_anchorItem == null)
-            if (par_anchorItem == null && par_anchorPair == null)
+            if (par_anchorItem == null) // && par_anchorPair == null)
             {
                 //
                 // Option #1 of 3...  
@@ -606,46 +679,16 @@ namespace RSCLibraryDLLOperations
 
             }
 
-            else if (par_anchorPair != null)
-            {
-                //
-                // Added 11/08/2024 thomas downes
-                //
-                bool bListWillChange_ItemStart = par_anchorPair.ItemPriorIsNull(); // Added 11/10
-                bool bListWillChange_ItemFinal = par_anchorPair.ItemAfterIsNull(); // Added 11/10
 
-                par_anchorPair.EncloseRange(par_range);
-
-                //
-                // Endpoint work. DIFFICULT AND CONFUSING
-                //
-                if (bListWillChange_ItemStart) // (par_anchorPair.ItemPriorIsNull())
-                {
-                    par_list_NotReallyNeeded._itemStart = par_range._StartingItem;
-
-                }
-                else if (bListWillChange_ItemFinal) // (par_anchorPair.ItemAfterIsNull())
-                {
-                    par_list_NotReallyNeeded._itemEnding = par_range._EndingItem;
-
-                }
-
-            }
-
-
-
-            //
-            // End of Insertion operation.  
-            //
         }
 
 
-        private void OperateOnList_Delete<TControl>(DLLList<TControl> par_list,
+        private void OperateOnList_Delete(DLLList<TControl> par_list,
                                                 DLLRange<TControl> par_range,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-            where TControl : IDoublyLinkedItem<TControl>
+            //  where TControl : IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024

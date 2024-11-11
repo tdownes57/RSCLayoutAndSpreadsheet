@@ -6,6 +6,7 @@
 //using System.Threading.Tasks;
 //using System.Windows.Forms;  
 using ciBadgeInterfaces;
+using System.Numerics;
 using System.Text; //Added 6/20/2024  
 
 namespace RSCLibraryDLLOperations
@@ -275,7 +276,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public TControl Item_ImmediateltyPrior()
+        public TControl Item_ImmediatelyPrior()
         {
             // Added 10/31/2024 
             //
@@ -388,9 +389,10 @@ namespace RSCLibraryDLLOperations
             //
             _StartingItem.HighlightInGreen = pbToggleStatusToOn;
             if (_EndingItem != null)
-            _EndingItem.HighlightInGreen = pbToggleStatusToOn;
+               _EndingItem.HighlightInGreen = pbToggleStatusToOn;
 
         }
+
 
         public void HighlightEndpoints_Blue(bool pbToggleStatusToOn = true)
         {
@@ -398,7 +400,20 @@ namespace RSCLibraryDLLOperations
             // Added 11/09/2024 td
             //
             _StartingItem.HighlightInBlue = pbToggleStatusToOn;
-            _EndingItem.HighlightInBlue = pbToggleStatusToOn;
+            if (_EndingItem != null)
+                _EndingItem.HighlightInBlue = pbToggleStatusToOn;
+
+        }
+
+
+        public void HighlightEndpoints_Cyan(bool pbToggleStatusToOn = true)
+        {
+            //
+            // Added 11/09/2024 td
+            //
+            _StartingItem.HighlightInCyan = pbToggleStatusToOn;
+            if (_EndingItem != null)
+                _EndingItem.HighlightInCyan = pbToggleStatusToOn;
 
         }
 
@@ -406,15 +421,21 @@ namespace RSCLibraryDLLOperations
         public override string ToString()
         {
             //
-            // Added 11/10/2024 thomas downes
+             // Added 11/10/2024 thomas downes
             //
+            int intNumberOfItems = _ItemCount;
+            int intCountItemsOutput = 0;
             StringBuilder result = new StringBuilder(200);
             result.Append("DLLRange: ");
             TControl temp = _StartingItem;
-            while (temp != null)
+            bool bNotAllItemsOutput = (intNumberOfItems > 0); 
+
+            while (temp != null && bNotAllItemsOutput)
             {
                 result.Append(temp.ToString() + " ");
                 temp = temp.DLL_GetItemNext_OfT();
+                intCountItemsOutput++;
+                bNotAllItemsOutput = (intCountItemsOutput < intNumberOfItems);
             }
             return result.ToString();
 

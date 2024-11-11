@@ -27,6 +27,7 @@ namespace RSCLibraryDLLOperations
         //            (versus a 2-dimensional grid)
         //
         private T_LinkedCtl mod_firstItem;
+        private T_LinkedCtl mod_endingItem;
         private DLLList<T_LinkedCtl> mod_list;
             
         private DLLOperation1D<T_LinkedCtl> mod_firstPriorOperation1D;
@@ -106,6 +107,12 @@ namespace RSCLibraryDLLOperations
 
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint);
 
+            //
+            // Administration needed!!
+            //
+            mod_firstItem = mod_list._itemStart;
+            mod_endingItem = mod_list._itemEnding;
+
             //    //     // Added 1/01/2024
             if (par_bRecordOperation)
             {
@@ -150,13 +157,15 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public void UndoMarkedOperation()
+
+        public void UndoMarkedOperation(ref bool pbEndpointAffected)
         {
-            UndoOfPriorOperation_AnyType();
+            //Nov10 2024 ''UndoOfPriorOperation_AnyType();
+            UndoOfPriorOperation_AnyType(ref pbEndpointAffected);
         }
 
 
-        private void UndoOfPriorOperation_AnyType()
+        private void UndoOfPriorOperation_AnyType(ref bool pbEndpointAffected)
         {
             //
             // Added 1/10/2024 thomas downes
@@ -201,7 +210,8 @@ namespace RSCLibraryDLLOperations
                 operationToUndo = mod_opRedoMarker.GetCurrentOp_Undo();
 
                 // Major call!!
-                UndoOperation_ViaInverseOf(operationToUndo);
+                //UndoOperation_ViaInverseOf(operationToUndo);
+                UndoOperation_ViaInverseOf(operationToUndo, ref pbEndpointAffected);
 
                 // Major call!! --1/10/2024
                 mod_opRedoMarker.ShiftMarker_AfterUndo_ToPrior();
@@ -215,7 +225,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void UndoOperation_ViaInverseOf(DLLOperation1D<T_LinkedCtl> parOperation)
+        private void UndoOperation_ViaInverseOf(DLLOperation1D<T_LinkedCtl> parOperation, ref bool pbEndpointAffected)
         {
             //
             //''Added 7/06/2024 and 1/15/2024
@@ -224,6 +234,9 @@ namespace RSCLibraryDLLOperations
             DLLOperation1D<T_LinkedCtl> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
             //opUndoVersion = parOperation.GetUndoVersionOfOperation();
             opUndoVersion = parOperation.GetInverseForUndo();
+
+            // Added 11/10/2024 
+            pbEndpointAffected = opUndoVersion.IsChangeOfEndpoint();
 
             //''Added 7/06/2024 and 1/31/2024
             //
@@ -242,6 +255,9 @@ namespace RSCLibraryDLLOperations
                                      opUndoVersion.IsChangeOfEndpoint(),
                                      RECORD_OPERATION);
 
+            //Added 11/10/2024 
+            mod_firstItem = mod_list.DLL_GetFirstItem_OfT();
+            mod_endingItem = mod_list.DLL_GetLastItem_OfT();
 
         }
 

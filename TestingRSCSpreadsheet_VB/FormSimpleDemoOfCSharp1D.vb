@@ -101,7 +101,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim strListOfLinks As String
 
         ''Major call!!
-        strListOfLinks = FillTheTextboxDisplayingList()
+        strListOfLinks = StringToFillTheTextboxDisplayingList()
         labelItemsDisplay.Text = strListOfLinks
 
         ''Added 12/28/2023 
@@ -145,7 +145,7 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
 
-    Private Function FillTheTextboxDisplayingList() As String
+    Private Function StringToFillTheTextboxDisplayingList() As String
         ''
         ''Added 12/26/2023  
         ''
@@ -179,7 +179,8 @@ Public Class FormSimpleDemoOfCSharp1D
                     ''The item has been selected. 
                     stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
 
-                ElseIf (each_twoChar.HighlightInGreen) Then
+                ElseIf (each_twoChar.HighlightInCyan Or
+                    each_twoChar.HighlightInGreen) Then
                     ''
                     ''The item has been highlighted.
                     ''
@@ -192,7 +193,8 @@ Public Class FormSimpleDemoOfCSharp1D
                         ''
                         ''Prepare for the next item(s).
                         ''
-                        ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                        ''---stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                        stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
                         boolCloseHighlight_Next = True
                         boolCloseHighlight = False
                         boolOpenHighlight = True
@@ -214,7 +216,7 @@ Public Class FormSimpleDemoOfCSharp1D
                 bDone = bDone Or (each_twoChar Is Nothing)
                 intCountLoops += 1
                 ''If (int CountLoops > 2 * 30) Then Debugger.Break()
-                If (intCountLoops > 6 + INITIAL_ITEM_COUNT_30) Then Debugger.Break()
+                If (intCountLoops > 2 * INITIAL_ITEM_COUNT_30) Then Debugger.Break()
 
             Loop ''End of ""Do Until bDone""
             ''Next each_twoChar
@@ -251,10 +253,10 @@ Public Class FormSimpleDemoOfCSharp1D
         Do While (tempItem IsNot Nothing)
 
             ''//indexChar += 3
-            boolHighlighting = tempItem.HighlightInGreen()
+            boolHighlighting = tempItem.HighlightInCyan()
             If (boolHighlighting) Then
                 richtextBenchmark.Select(indexChar, 3)
-                richtextBenchmark.SelectionBackColor = Color.Green
+                richtextBenchmark.SelectionBackColor = Color.Cyan
             End If ''ENd of ""If boolHighlighting..."
             ''Prepare.
             tempItem = tempItem.DLL_GetItemNext_OfT()
@@ -355,6 +357,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Highlight the range's endpoints.
         objectRange.HighlightEndpoints_Green()
+        objectRange.HighlightEndpoints_Cyan()
 
         ''
         '' Insert range into the list.  
@@ -408,6 +411,10 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Remove the highlighting of the range's endpoints.
         objectRange.HighlightEndpoints_Green(False)
+        objectRange.HighlightEndpoints_Cyan(False)
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = True
 
     End Sub
 
@@ -513,8 +520,13 @@ Public Class FormSimpleDemoOfCSharp1D
         RefreshTheUI_DisplayList()
 
         ''Remove the highlighting of the range's endpoints.
-        If (rangeSingleItem IsNot Nothing) Then _
-        rangeSingleItem.HighlightEndpoints_Green(False)
+        If (rangeSingleItem IsNot Nothing) Then
+            rangeSingleItem.HighlightEndpoints_Green(False)
+            rangeSingleItem.HighlightEndpoints_Cyan(False)
+        End If ''End of " If (rangeSingleItem IsNot Nothing) Then"
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = True
 
     End Sub
 
@@ -570,13 +582,23 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Added 10/16/2024
         ''
-        mod_manager.UndoMarkedOperation()
+        Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
+
+        ''Nov10 2024 ''mod_manager.UndoMarkedOperation()
+        mod_manager.UndoMarkedOperation(bEndpointAffected)
+
+        ''Added 11/10/2024 
+        mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
+        mod_lastItem = mod_list.DLL_GetLastItem_OfT()
 
         ''Added 10/27/2024 
         RefreshTheUI_DisplayList()
 
         ''Added 11/09/2024
         buttonRedoOp.Enabled = True
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
 
     End Sub
 
@@ -596,6 +618,8 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim itemLastToDelete As TwoCharacterDLLItem
         Dim rangeToDelete As DLLRange(Of TwoCharacterDLLItem)
         Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim bIncludesListStart As Boolean ''Added 11/10/2024 
+        Dim bIncludesList__End As Boolean ''Added 11/10/2024 
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
         intHowManyToDelete = numDeleteHowMany.Value
@@ -618,7 +642,8 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             '' Added 10/26/2024 thomas d.
             ''
-            operationToDelete = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeToDelete, False, False,
+            operationToDelete = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeToDelete,
+                                      bIncludesListStart, bIncludesList__End,
                                       False, DELETE_OPERATION, False, Nothing, Nothing, False, False, False)
             mod_manager.ProcessOperation_AnyType(operationToDelete, False, True)
 
@@ -633,6 +658,9 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 10/20/2024
         ''
         RefreshTheUI_DisplayList()
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = True
 
     End Sub
 

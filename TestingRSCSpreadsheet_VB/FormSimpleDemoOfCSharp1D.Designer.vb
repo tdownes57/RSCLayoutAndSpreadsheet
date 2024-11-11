@@ -64,12 +64,13 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' buttonInsertMultiple
         ' 
+        buttonInsertMultiple.BackColor = Color.Cyan
         buttonInsertMultiple.Location = New Point(501, 188)
         buttonInsertMultiple.Name = "buttonInsertMultiple"
         buttonInsertMultiple.Size = New Size(166, 39)
         buttonInsertMultiple.TabIndex = 62
         buttonInsertMultiple.Text = "Insert New Items (Multiple)"
-        buttonInsertMultiple.UseVisualStyleBackColor = True
+        buttonInsertMultiple.UseVisualStyleBackColor = False
         ' 
         ' LabelInsertHeader
         ' 
@@ -256,6 +257,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' buttonUndoLastStep
         ' 
+        buttonUndoLastStep.Enabled = False
         buttonUndoLastStep.Location = New Point(593, 390)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
         buttonUndoLastStep.Size = New Size(166, 39)

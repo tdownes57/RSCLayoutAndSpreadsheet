@@ -390,7 +390,7 @@ namespace RSCLibraryDLLOperations
             bool bDeleteRangeIncludes1;
             bool bDeleteRangeIncludes5;
 
-            itemJustPrior_Eg3 = par_rangeToDelete.Item_ImmediateltyPrior();
+            itemJustPrior_Eg3 = par_rangeToDelete.Item_ImmediatelyPrior();
             itemJustAfter_Eg7 = par_rangeToDelete.Item__FirstToFollowButNotIncluded();
 
             bDeleteRangeIncludes1 = (itemJustPrior_Eg3 == null); // There is no "prior item".  Delete range includes item #1.
@@ -432,7 +432,7 @@ namespace RSCLibraryDLLOperations
                 // E.g. delete '[3 4 5]' from '1 2 3 4 5' to leave '[1 2]'.
                 //
                 TControl itemJustPrior_Eg2;
-                itemJustPrior_Eg2 = par_rangeToDelete.Item_ImmediateltyPrior();
+                itemJustPrior_Eg2 = par_rangeToDelete.Item_ImmediatelyPrior();
                 _itemEnding = itemJustPrior_Eg2;
                 itemJustPrior_Eg2.DLL_ClearReferenceNext('D');
                 _itemCount -= par_rangeToDelete.GetItemCount();

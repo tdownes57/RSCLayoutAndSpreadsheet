@@ -9,6 +9,7 @@ Public Interface IDoublyLinkedItem
     Property HighlightInGreen As Boolean ''Added 11/06/2024 thomas downes
     Property HighlightInRed As Boolean ''Added 11/06/2024 thomas downes
     Property HighlightInBlue As Boolean ''Added 11/06/2024 thomas downes
+    Property HighlightInCyan As Boolean ''Added 11/10/2024 thomas downes
 
     Function DLL_NotAnyNext() As Boolean
     Function DLL_NotAnyPrior() As Boolean

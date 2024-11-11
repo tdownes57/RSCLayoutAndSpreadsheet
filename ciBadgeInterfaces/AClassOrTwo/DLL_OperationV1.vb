@@ -165,6 +165,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     Public Property HighlightInBlue As Boolean Implements IDoublyLinkedItem.HighlightInBlue
     Public Property HighlightInGreen As Boolean Implements IDoublyLinkedItem.HighlightInGreen
     Public Property HighlightInRed As Boolean Implements IDoublyLinkedItem.HighlightInRed
+    Public Property HighlightInCyan As Boolean Implements IDoublyLinkedItem.HighlightInCyan
 
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
