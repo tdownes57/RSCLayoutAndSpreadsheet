@@ -46,6 +46,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         buttonUndoLastStep = New Button()
         buttonRedoOp = New Button()
         richtextBenchmark = New RichTextBox()
+        richtextItemsDisplay = New RichTextBox()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -76,7 +77,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         LabelInsertHeader.AutoSize = True
         LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelInsertHeader.Location = New Point(15, 161)
+        LabelInsertHeader.Location = New Point(18, 161)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
         LabelInsertHeader.TabIndex = 61
@@ -85,7 +86,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LabelInsertAnchorHeader
         ' 
         LabelInsertAnchorHeader.AutoSize = True
-        LabelInsertAnchorHeader.Location = New Point(15, 197)
+        LabelInsertAnchorHeader.Location = New Point(18, 197)
         LabelInsertAnchorHeader.Name = "LabelInsertAnchorHeader"
         LabelInsertAnchorHeader.Size = New Size(304, 15)
         LabelInsertAnchorHeader.TabIndex = 60
@@ -103,7 +104,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(38, 71)
+        Label3.Location = New Point(41, 71)
         Label3.Name = "Label3"
         Label3.Size = New Size(178, 15)
         Label3.TabIndex = 67
@@ -112,7 +113,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(15, 56)
+        Label1.Location = New Point(18, 56)
         Label1.Name = "Label1"
         Label1.Size = New Size(226, 15)
         Label1.TabIndex = 65
@@ -122,7 +123,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         LabelHeader1.AutoSize = True
         LabelHeader1.Font = New Font("Segoe UI", 12F)
-        LabelHeader1.Location = New Point(12, 30)
+        LabelHeader1.Location = New Point(15, 30)
         LabelHeader1.Name = "LabelHeader1"
         LabelHeader1.Size = New Size(303, 21)
         LabelHeader1.TabIndex = 64
@@ -141,7 +142,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(15, 291)
+        Label8.Location = New Point(18, 291)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 72
@@ -150,7 +151,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(15, 351)
+        Label9.Location = New Point(18, 351)
         Label9.Name = "Label9"
         Label9.Size = New Size(164, 15)
         Label9.TabIndex = 71
@@ -159,7 +160,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(15, 322)
+        Label10.Location = New Point(18, 322)
         Label10.Name = "Label10"
         Label10.Size = New Size(189, 15)
         Label10.TabIndex = 70
@@ -187,7 +188,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(15, 222)
+        Label2.Location = New Point(18, 222)
         Label2.Name = "Label2"
         Label2.Size = New Size(164, 15)
         Label2.TabIndex = 76
@@ -206,7 +207,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(15, 246)
+        Label6.Location = New Point(18, 246)
         Label6.Name = "Label6"
         Label6.Size = New Size(324, 15)
         Label6.TabIndex = 78
@@ -235,9 +236,9 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         labelItemsDisplay.BorderStyle = BorderStyle.FixedSingle
         labelItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        labelItemsDisplay.Location = New Point(38, 110)
+        labelItemsDisplay.Location = New Point(356, 33)
         labelItemsDisplay.Name = "labelItemsDisplay"
-        labelItemsDisplay.Size = New Size(895, 24)
+        labelItemsDisplay.Size = New Size(657, 24)
         labelItemsDisplay.TabIndex = 81
         labelItemsDisplay.Tag = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         labelItemsDisplay.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
@@ -247,7 +248,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         labelBenchmark.BorderStyle = BorderStyle.FixedSingle
         labelBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        labelBenchmark.Location = New Point(38, 86)
+        labelBenchmark.Location = New Point(356, 9)
         labelBenchmark.Name = "labelBenchmark"
         labelBenchmark.Size = New Size(648, 24)
         labelBenchmark.TabIndex = 80
@@ -279,22 +280,34 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         richtextBenchmark.BorderStyle = BorderStyle.None
         richtextBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextBenchmark.Location = New Point(38, 87)
+        richtextBenchmark.Location = New Point(36, 98)
         richtextBenchmark.Name = "richtextBenchmark"
-        richtextBenchmark.Size = New Size(893, 23)
+        richtextBenchmark.Size = New Size(895, 23)
         richtextBenchmark.TabIndex = 84
         richtextBenchmark.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         richtextBenchmark.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        ' 
+        ' richtextItemsDisplay
+        ' 
+        richtextItemsDisplay.BorderStyle = BorderStyle.FixedSingle
+        richtextItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        richtextItemsDisplay.Location = New Point(36, 116)
+        richtextItemsDisplay.Name = "richtextItemsDisplay"
+        richtextItemsDisplay.Size = New Size(895, 23)
+        richtextItemsDisplay.TabIndex = 85
+        richtextItemsDisplay.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        richtextItemsDisplay.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 450)
+        Controls.Add(richtextItemsDisplay)
+        Controls.Add(labelItemsDisplay)
         Controls.Add(richtextBenchmark)
         Controls.Add(buttonRedoOp)
         Controls.Add(buttonUndoLastStep)
-        Controls.Add(labelItemsDisplay)
         Controls.Add(labelBenchmark)
         Controls.Add(buttonInsertSingle)
         Controls.Add(Label6)
@@ -316,6 +329,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertAnchorBenchmark)
         Name = "FormSimpleDemoOfCSharp1D"
+        Padding = New Padding(3, 0, 0, 0)
         Text = "Simple Demo of One-Dimensional Manager"
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
@@ -349,5 +363,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents buttonUndoLastStep As Button
     Friend WithEvents buttonRedoOp As Button
     Friend WithEvents richtextBenchmark As RichTextBox
+    Friend WithEvents richtextItemsDisplay As RichTextBox
 
 End Class

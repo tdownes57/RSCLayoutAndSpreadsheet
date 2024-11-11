@@ -102,7 +102,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Major call!!
         strListOfLinks = StringToFillTheTextboxDisplayingList()
-        labelItemsDisplay.Text = strListOfLinks
+        richtextItemsDisplay.Text = strListOfLinks
 
         ''Added 12/28/2023 
         Dim itemCount As Integer = mod_list.DLL_CountAllItems()
@@ -140,7 +140,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''linkToPenultimate.Tag = prior_to_last ''.ToString()
 
         ''Refresh the highlighting, in the rich TextBox. 
-        RefreshHighlightingRichText()
+        ''----Nov11 2024 ''RefreshHighlightingRichText()
+        RefreshHighlightingRichText(richtextItemsDisplay)
 
     End Sub ''End of ""Private Sub RefreshTheUI_DisplayList()""
 
@@ -157,8 +158,8 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim boolCloseHighlight As Boolean = False
         Dim boolCloseHighlight_Next As Boolean = False
 
-        ''LabelItemsDisplay.ResetText()
-        ''Not needed here. ----labelItemsDisplay.Text = ""
+        ''richtextItemsDisplay.ResetText()
+        ''Not needed here. ----richtextItemsDisplay.Text = ""
 
         If (mod_firstItem Is Nothing) Then
             ''
@@ -232,7 +233,7 @@ Public Class FormSimpleDemoOfCSharp1D
     End Function ''End of "Private Function FillTheTextboxDisplayingList()""
 
 
-    Private Sub RefreshHighlightingRichText()
+    Private Sub RefreshHighlightingRichText(par_control As RichTextBox)
         ''
         ''Added 11/10/2024 thomas d.
         ''
@@ -246,17 +247,17 @@ Public Class FormSimpleDemoOfCSharp1D
         ''//boolHighlighting = tempItem.HighlightInGreen
 
         ''Clear all of the highlighting / backcolor. 
-        richtextBenchmark.SelectAll()
-        colorDefault = richtextBenchmark.BackColor
-        richtextBenchmark.SelectionBackColor = colorDefault
+        par_control.SelectAll()
+        colorDefault = par_control.BackColor
+        par_control.SelectionBackColor = colorDefault
 
         Do While (tempItem IsNot Nothing)
 
             ''//indexChar += 3
             boolHighlighting = tempItem.HighlightInCyan()
             If (boolHighlighting) Then
-                richtextBenchmark.Select(indexChar, 3)
-                richtextBenchmark.SelectionBackColor = Color.Cyan
+                par_control.Select(indexChar, 3)
+                par_control.SelectionBackColor = Color.Cyan
             End If ''ENd of ""If boolHighlighting..."
             ''Prepare.
             tempItem = tempItem.DLL_GetItemNext_OfT()
@@ -531,7 +532,7 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub
 
 
-    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles labelItemsDisplay.MouseUp
+    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles richtextItemsDisplay.MouseUp
         ''
         ''Added 2/27/2024 thomas downes  
         ''
@@ -602,9 +603,6 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub
 
-    Private Sub labelItemsDisplay_MouseUp(sender As Object, e As MouseEventArgs)
-
-    End Sub
 
     Private Sub buttonDelete_Click(sender As Object, e As EventArgs) Handles buttonDelete.Click
         ''
