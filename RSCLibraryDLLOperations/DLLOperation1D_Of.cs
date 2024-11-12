@@ -446,6 +446,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/08/2024 thomas downes
             //
+            //   An AnchorCouplet is called "AnchorPair" for short. 
+            //
             bool bListWillChange_ItemStart = par_anchorPair.ItemPriorIsNull(); // Added 11/10
             bool bListWillChange_ItemFinal = par_anchorPair.ItemAfterIsNull(); // Added 11/10
 
