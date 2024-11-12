@@ -4,6 +4,7 @@
 Imports System.ComponentModel.Design
 Imports System.Diagnostics.Metrics
 Imports System.Text
+Imports ciBadgeSerialize
 Imports RSCLibraryDLLOperations
 
 Public Class FormSimpleDemoOfCSharp1D
@@ -243,6 +244,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim boolHighlighting As Boolean
         Dim indexChar As Integer = 0
         Dim colorDefault As Color
+        Dim intCountOfHighlightedItems As Integer = 0
 
         tempItem = mod_list.DLL_GetFirstItem_OfT()
         ''//boolHighlighting = tempItem.HighlightInGreen
@@ -251,12 +253,14 @@ Public Class FormSimpleDemoOfCSharp1D
         par_control.SelectAll()
         colorDefault = par_control.BackColor
         par_control.SelectionBackColor = colorDefault
+        par_control.SelectionLength = 0 ''Clear the selection.
 
         Do While (tempItem IsNot Nothing)
 
             ''//indexChar += 3
             boolHighlighting = tempItem.HighlightInCyan()
             If (boolHighlighting) Then
+                intCountOfHighlightedItems += 1
                 par_control.Select(indexChar, 3)
                 par_control.SelectionBackColor = Color.Cyan
             End If ''ENd of ""If boolHighlighting..."
@@ -266,6 +270,11 @@ Public Class FormSimpleDemoOfCSharp1D
 
         Loop ''End of ""Do While (tempItem IsNot Nothing)""
 
+        ''
+        ''Checking....
+        ''
+        Dim bAllAreHighlighted As Boolean
+        bAllAreHighlighted = (intCountOfHighlightedItems >= mod_list._itemCount - 1)
 
     End Sub ''End of ""Private Sub RefreshHighlightingRichText()""
 
@@ -626,7 +635,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''BOOLEANS -- FALSE 
         Const DIRECT_TO_LIST_Not As Boolean = False ''Added 10/26/2024 thom dow.nes
         Const OPERATION_NotInsert As Boolean = False '' False ''Adde d 10/26/2024 thomas downes
-        Const OPERATION_NotMove As Boolean = False '' False ''Adde d 10/26/2024 thomas downes
+        Const OPERATION_NotMove As Boolean = False '' False ''Added 10/26/2024 thomas downes
         Const SORT_123 As Boolean = False
         Const SORT_321 As Boolean = False
         Const SORT_UNDO As Boolean = False
@@ -642,9 +651,25 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
+        Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
         intHowManyToDelete = numDeleteHowMany.Value
+
+        ''Added 11/11/2024 thomas downes
+        bCannotDeleteThatMany = (-1 + intItemPosition + intHowManyToDelete > mod_list._itemCount)
+
+        ''Added 11/11/2024 td
+        If (mod_list._isEmpty_OrTreatAsEmpty) Then
+            MessageBoxTD.Show_Statement("The list is empty, so no deletions can logically take place.")
+            Exit Sub
+        ElseIf (bCannotDeleteThatMany) Then
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_InsertWordFormat_Line1(-1 + intItemPosition + intHowManyToDelete,
+                                                     "The list is not long enough (less than {0} items), " +
+                                        "the requested number of deleted consecutive items cannot take place.", )
+            Exit Sub
+        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then""
 
         ''
         ''Set the anchor. 

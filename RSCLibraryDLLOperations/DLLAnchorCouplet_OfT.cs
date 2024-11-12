@@ -96,10 +96,15 @@ namespace RSCLibraryDLLOperations
                 result = new DLLAnchorItem<TControl>(_itemAnchorPrior);
                 result._doInsertRangeAfterThis = true;
             }
-            else
+            else if (_itemAnchorAfter != null)
             {
                 result = new DLLAnchorItem<TControl>(_itemAnchorAfter);
                 result._doInsertRangeBeforeThis = true;
+            }
+            else
+            {
+                // Added 11/11/2024 
+                result = new DLLAnchorItem<TControl>(true, true);
             }
             return result;
 

@@ -460,7 +460,20 @@ namespace RSCLibraryDLLOperations
             //
             // Endpoint work. DIFFICULT AND CONFUSING
             //
-            if (bListWillChange_ItemStart) // (par_anchorPair.ItemPriorIsNull())
+            if (par_list_NeededForAdmin._isEmpty_OrTreatAsEmpty)
+            {
+                // Added 11/11/2024 td
+                if (par_range._ItemCount > 0)
+                {
+                    par_list_NeededForAdmin._itemStart = par_range.ItemStart();
+                    par_list_NeededForAdmin._itemEnding = par_range.Item__End();
+                    par_list_NeededForAdmin._itemCount = par_range._ItemCount;
+                    par_list_NeededForAdmin._isEmpty_OrTreatAsEmpty = false;
+                
+                }
+
+            }
+            else if (bListWillChange_ItemStart) // (par_anchorPair.ItemPriorIsNull())
             {
                 par_list_NeededForAdmin._itemStart = par_range._StartingItem;
 
