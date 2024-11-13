@@ -159,6 +159,8 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim boolOpenHighlight As Boolean = True
         Dim boolCloseHighlight As Boolean = False
         Dim boolCloseHighlight_Next As Boolean = False
+        Dim bOpenSelection As Boolean = False ''Added 11/12/2024 td
+        Dim intLoopIndex As Integer = 0 ''Added 11/12/2024 
 
         ''richtextItemsDisplay.ResetText()
         ''Not needed here. ----richtextItemsDisplay.Text = ""
@@ -176,11 +178,24 @@ Public Class FormSimpleDemoOfCSharp1D
             ''For Each each_twoChar In mod_list
             Do Until bDone
 
+                intLoopIndex += 1
+
                 ''La belItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
                 ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
-                If (each_twoChar.Selected) Then
+                If (each_twoChar.Selected Or bOpenSelection) Then
                     ''The item has been selected. 
                     stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
+
+                    ''
+                    ''Carefully determine the value of the "Continuation" boolean. 
+                    ''
+                    If (each_twoChar.Selected) Then
+                        bOpenSelection = True
+                    ElseIf (each_twoChar.SelectedAnyItemToFollow()) Then
+                        bOpenSelection = True
+                    Else
+                        bOpenSelection = False
+                    End If ''ENd of ""If (each_twoChar.Selected) Then""
 
                 ElseIf (each_twoChar.HighlightInCyan Or
                     each_twoChar.HighlightInGreen) Then
@@ -278,6 +293,22 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub ''End of ""Private Sub RefreshHighlightingRichText()""
 
+
+    Private Sub AutoPopulateRangeControls(par_range As DLLRange(Of TwoCharacterDLLItem))
+        ''
+        ''Added 11/12/2024 td
+        ''
+        Dim intRangeFirstIndex As Integer
+        intRangeFirstIndex = par_range.GetFirstItemIndex()
+        numInsertAnchorBenchmark.Value = intRangeFirstIndex
+        numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex
+
+        ''Count of items. 
+        numInsertHowMany.Value = par_range.GetItemCount()
+        numDeleteHowMany.Value = par_range.GetItemCount()
+
+
+    End Sub ''end of ""Private Sub AutoPopulateRangeControls()"
 
 
     Private Sub buttonInsertMulti_Click(sender As Object, e As EventArgs) Handles buttonInsertMultiple.Click
@@ -568,6 +599,8 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim objectListItem As TwoCharacterDLLItem
         Dim bShiftingKey As Boolean ''Added 2/29/2024
         Dim xfactor_a As Double ''Added 2/29/2024
+        Static s_range As DLLRange(Of TwoCharacterDLLItem)
+        Dim intDistance As Integer ''Added 11/12/2024 
 
         xfactor_a = xfactor_a4
         x_intPixelPosition = e.Location.X
@@ -596,6 +629,23 @@ Public Class FormSimpleDemoOfCSharp1D
 
         '''Highlight the range's endpoints.
         ''--objectRange.HighlightEndpoints_Green()'
+
+        If (objectListItem Is Nothing) Then
+            ''
+            ''Do nothing. 
+            ''
+        ElseIf (s_range Is Nothing And objectListItem.Selected = True) Then
+            ''
+            ''Start a range object. 
+            ''
+            s_range = New DLLRange(Of TwoCharacterDLLItem)(objectListItem, False)
+
+        ElseIf (s_range IsNot Nothing And objectListItem.Selected = True) Then
+
+            intDistance = s_range._StartingItem.DLL_GetDistanceTo(objectListItem)
+            s_range.ExtendRangeToIncludeListItem(objectListItem)
+
+        End If
 
     End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
 
@@ -661,6 +711,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/11/2024 td
         If (mod_list._isEmpty_OrTreatAsEmpty) Then
+            ''Added 11/11/2024 td
             MessageBoxTD.Show_Statement("The list is empty, so no deletions can logically take place.")
             Exit Sub
         ElseIf (bCannotDeleteThatMany) Then
@@ -729,6 +780,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub ''end of ""Private Sub mod_list_EventListWasModified""
 
+
     Private Sub buttonRedoOp_Click(sender As Object, e As EventArgs) Handles buttonRedoOp.Click
         ''
         ''Added 11/09/2024
@@ -742,4 +794,6 @@ Public Class FormSimpleDemoOfCSharp1D
         buttonRedoOp.Enabled = False
 
     End Sub
+
+
 End Class

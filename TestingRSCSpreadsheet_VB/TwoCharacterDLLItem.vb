@@ -474,6 +474,50 @@ Public Class TwoCharacterDLLItem
     End Function ''End of Public Function DLL_GetDistanceTo 
 
 
+    Public Function SelectedAnyItemToFollow() As Boolean
+        ''
+        ''Added 11/12/2024  
+        ''
+        ''Throw New NotImplementedException()
+        Dim result_anySelected As Boolean = False
+        Dim bDoneLooping As Boolean = False
+
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemNext_OfT()
+        While (Not bDoneLooping)
+
+            result_anySelected = (result_anySelected Or temp.Selected)
+            temp = temp.DLL_GetItemNext()
+            bDoneLooping = (temp Is Nothing Or result_anySelected)
+
+        End While ''End of ""While (Not bDoneLooping)""
+
+        Return result_anySelected
+
+    End Function ''ENd of ""Public Function SelectedAnyItemToFollow()""
+
+
+    Public Function GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex
+        ''
+        ''Added 11/12/2024  
+        ''
+        '' This index is 1-based, not 0-based. 
+        ''
+        Dim result_index As Integer = 0
+
+        Dim temp As IDoublyLinkedItem = Me
+        While (temp IsNot Nothing)
+
+            result_index += 1
+            temp = temp.DLL_GetItemPrior()
+
+        End While ''End of ""While (Not bDoneLooping)""
+
+        Return result_index
+
+    End Function ''end of Public Function GetItemIndex() As Integer
+
+
+
     Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLItem, pbDoubleLink As Boolean) _
           Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_InsertItemToNext
         ''

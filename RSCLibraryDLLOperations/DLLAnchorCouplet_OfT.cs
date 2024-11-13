@@ -164,6 +164,19 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public TControl GetItemPrior()
+        {
+            // Added 11/12/2024 td
+            return _itemAnchorPrior;
+        }
+
+        public TControl GetItemAfter()
+        {
+            // Added 11/12/2024 td
+            return _itemAnchorAfter;
+        }
+
+
         public string ToString()
         {
             //

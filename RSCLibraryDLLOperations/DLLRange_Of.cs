@@ -6,6 +6,7 @@
 //using System.Threading.Tasks;
 //using System.Windows.Forms;  
 using ciBadgeInterfaces;
+using System;
 using System.Numerics;
 using System.Text; //Added 6/20/2024  
 
@@ -310,6 +311,16 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public int GetFirstItemIndex()
+        {
+            //
+            // Added 11/12/2024 td
+            // 
+            return _StartingItem.DLL_GetItemIndex(); 
+
+        }
+
+
         public bool IsSingleItem()
         {
             // Added 11/10/2024 td
@@ -342,19 +353,57 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DeleteFromList()
+        public void DeleteFromList_noAdmin()
         {
             //
             // Added 11/3/2024 td  
             //
-            TControl? itemPrior = ItemStart().DLL_GetItemPrior_OfT();
-            TControl? itemAfter = Item__End().DLL_GetItemNext_OfT(); 
+            //   Top-tier DLL connection work will be done here. 
+            //
+            //   (Any second-tier administration will NOT be done here.) 
+            //
+            TControl? itemPriorToRange = ItemStart().DLL_GetItemPrior_OfT();
+            TControl? itemAfterRange = Item__End().DLL_GetItemNext_OfT(); 
 
             ItemStart().DLL_ClearReferencePrior('D');
             Item__End().DLL_ClearReferenceNext('D');
 
-            if (itemPrior != null) itemPrior.DLL_SetItemNext_OfT(itemAfter, true);
-            if (itemAfter != null) itemAfter.DLL_SetItemPrior_OfT(itemPrior, true);
+            if (itemPriorToRange != null) itemPriorToRange.DLL_SetItemNext_OfT(itemAfterRange, true);
+            if (itemAfterRange != null) itemAfterRange.DLL_SetItemPrior_OfT(itemPriorToRange, true);
+
+        }
+
+
+        public void DeleteFromList_wAdmin(DLLList<TControl> par_listForAdmin)
+        {
+            //
+            // Added 11/3/2024 td  
+            //
+            //  This will include "DIFFICULT & CONFUSING" 2nd-tier
+            //    administrative work. 
+            //
+            TControl? itemPriorToRange = ItemStart().DLL_GetItemPrior_OfT();
+            TControl? itemAfterRange = Item__End().DLL_GetItemNext_OfT();
+
+            bool bRangeIsAtStartOfList = (itemPriorToRange == null);
+            bool bRangeIsAtEndingOfList = (itemAfterRange == null);
+
+            //
+            // Major call!!   Do the top-tier DLL work. 
+            //
+            DeleteFromList_noAdmin();
+
+            //
+            // DIFFICULT & CONFUSING -- ADMINISTRATION OF LIST 
+            //
+            //   Set the new endpoints, and reduce the list's item count. 
+            //
+            if (bRangeIsAtStartOfList) par_listForAdmin._itemStart = this.ItemStart();
+            if (bRangeIsAtEndingOfList) par_listForAdmin._itemEnding = this.Item__End();
+            // Reduce the item count of the list, by the number of items in the range. 
+            //   (Notice we are using the subtraction -= operator.)
+            int numberOfRangeItems = this._ItemCount;
+            par_listForAdmin._itemCount -= numberOfRangeItems; // Notice the -= operator.
 
         }
 
@@ -414,8 +463,14 @@ namespace RSCLibraryDLLOperations
             _StartingItem.HighlightInCyan = pbToggleStatusToOn;
             if (_EndingItem != null)
                 _EndingItem.HighlightInCyan = pbToggleStatusToOn;
-
         }
+
+
+        public void intDistance = s_range._StartingItem.DLL_GetDistanceTo(objectListItem)
+            s_range.ExtendRangeToIncludeListItem(objectListItem)
+
+
+
 
 
         public override string ToString()

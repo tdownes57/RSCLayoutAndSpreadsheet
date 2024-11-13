@@ -81,7 +81,13 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''
     '' Added 10/31/2024 
     ''
+
     Function DLL_GetDistanceTo(paramItem As TControl) As Integer
+
+    ''
+    '' Added 11/12/2024 
+    ''
+    Function DLL_GetItemIndex() As Integer
 
 End Interface
 

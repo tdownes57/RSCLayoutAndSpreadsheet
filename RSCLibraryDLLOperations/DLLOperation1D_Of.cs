@@ -1,6 +1,8 @@
 ﻿//using System;
 //using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
+
 //using System.Reflection.Metadata.Ecma335;
 using ciBadgeInterfaces; //Added 6/20/2024
 //using System.Linq;
@@ -415,10 +417,10 @@ namespace RSCLibraryDLLOperations
                 //   where to place the Range.
                 //
                 Operate_Insert_ByCouplet(par_list_MaybeNotNeeded,
-                                          par_range, par_anchorPair, 
+                                          par_range, par_anchorPair,
                                           pbIsChangeOfEndpoint);
             }
-            
+
             else if (par_anchorItem != null)
             {
                 //
@@ -428,7 +430,7 @@ namespace RSCLibraryDLLOperations
                 //   where to place the Range.
                 //
                 Operate_Insert_ByAnchorItem(par_list_MaybeNotNeeded,
-                                          par_range, par_anchorItem, 
+                                          par_range, par_anchorItem,
                                           pbIsChangeOfEndpoint);
 
             }
@@ -471,7 +473,7 @@ namespace RSCLibraryDLLOperations
                     par_list_NeededForAdmin._itemEnding = par_range.Item__End();
                     par_list_NeededForAdmin._itemCount = par_range._ItemCount;
                     par_list_NeededForAdmin._isEmpty_OrTreatAsEmpty = false;
-                
+
                 }
 
             }
@@ -698,7 +700,71 @@ namespace RSCLibraryDLLOperations
         }
 
 
+
+
         private void OperateOnList_Delete(DLLList<TControl> par_list,
+                                            DLLRange<TControl> par_range,
+                                 bool pbEndpointProtection,
+                                 bool pbIsChangeOfEndpoint = false,
+                                 bool pbRunOtherChecks = false)
+        //  where TControl : IDoublyLinkedItem<TControl>
+        {
+            //
+            // Added 11/12/2024
+            //
+            const bool USE_OBSELETE_CODE = false;
+            if (USE_OBSELETE_CODE)
+            {
+                OperateOnList_Delete_OBSELETE(par_list, par_range,
+                    pbEndpointProtection, pbIsChangeOfEndpoint, pbRunOtherChecks);
+            }
+            else
+            {
+                //
+                // Added 11/12/2024
+                //
+                DLLAnchorCouplet<TControl> tempInverse = par_range.GetCoupletWhichEncloses_InverseAnchor();
+
+                //
+                // Major call!!!
+                //
+                const bool OUTSOURCE_ADMIN = true; // Added 11/12/2024 td
+
+                if (OUTSOURCE_ADMIN)
+                {
+                    //--par_range.DeleteFromList();
+                    par_range.DeleteFromList_wAdmin(par_list);
+                }
+                else
+                {
+                    par_range.DeleteFromList_noAdmin();
+
+                    // Added 11/12/2024 
+                    //  Reduce the item count, by using the -= operator. 
+                    //
+                    par_list._itemCount -= par_range.GetItemCount();
+
+                    if (pbIsChangeOfEndpoint)
+                    {
+                        if (tempInverse.ItemPriorIsNull())
+                        {
+                            if (tempInverse.ItemAfterIsNull() == false)
+                                par_list._itemStart = tempInverse.GetItemAfter();
+                        }
+                        else if (tempInverse.ItemAfterIsNull())
+                        {
+                            if (tempInverse.ItemPriorIsNull() == false)
+                                par_list._itemEnding = tempInverse.GetItemPrior();
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+
+        private void OperateOnList_Delete_OBSELETE(DLLList<TControl> par_list,
                                                 DLLRange<TControl> par_range,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
@@ -751,6 +817,8 @@ namespace RSCLibraryDLLOperations
                 {
                     itemOriginallyBeforeRange.DLL_SetItemNext(itemOriginallyAfterRange);
                     itemOriginallyAfterRange.DLL_SetItemPrior(itemOriginallyBeforeRange);
+                    // Added 11/12/2024 
+                    par_list._itemCount -= par_range.GetItemCount();
                 }
                 else
                 {
