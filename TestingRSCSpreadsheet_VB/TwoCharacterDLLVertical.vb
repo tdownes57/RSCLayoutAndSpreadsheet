@@ -75,13 +75,25 @@ Public Class TwoCharacterDLLVertical
     End Function
 
 
-    Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLVertical) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetDistanceTo
+    Public Overloads Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLVertical) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetDistanceTo
         ''
         ''Added 11/2/2024 
         ''
         Return MyBase.DLL_GetDistanceTo(paramItem)
 
     End Function ''End of Public Function DLL_GetDistanceTo
+
+
+    Public Function DLL_GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemIndex
+        ''
+        ''Added 11/12/2024 thomas downes
+        ''
+        Return MyBase.DLL_GetItemIndex()
+
+
+    End Function ''Public Function DLL_GetItemIndex() As Integer
+
+
 
     Public Overloads Sub DLL_InsertItemToNext(param As TwoCharacterDLLVertical, pbDoublyLinked As Boolean) _
       Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_InsertItemToNext

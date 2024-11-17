@@ -22,7 +22,7 @@ Partial Class FormSimpleDemoOfCSharp1D
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        listInsertAfterOr = New ListBox()
+        listInsertAfterOrBefore = New ListBox()
         buttonInsertMultiple = New Button()
         LabelInsertHeader = New Label()
         LabelInsertAnchorHeader = New Label()
@@ -47,21 +47,30 @@ Partial Class FormSimpleDemoOfCSharp1D
         buttonRedoOp = New Button()
         richtextBenchmark = New RichTextBox()
         richtextItemsDisplay = New RichTextBox()
+        Label4 = New Label()
+        textboxMoveRange = New TextBox()
+        listMoveAfterOrBefore = New ListBox()
+        buttonMoveItems = New Button()
+        Label7 = New Label()
+        Label11 = New Label()
+        numMoveAnchorBenchmark = New NumericUpDown()
+        Label5 = New Label()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertHowMany, ComponentModel.ISupportInitialize).BeginInit()
+        CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
-        ' listInsertAfterOr
+        ' listInsertAfterOrBefore
         ' 
-        listInsertAfterOr.FormattingEnabled = True
-        listInsertAfterOr.ItemHeight = 15
-        listInsertAfterOr.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listInsertAfterOr.Location = New Point(380, 195)
-        listInsertAfterOr.Name = "listInsertAfterOr"
-        listInsertAfterOr.Size = New Size(115, 34)
-        listInsertAfterOr.TabIndex = 63
+        listInsertAfterOrBefore.FormattingEnabled = True
+        listInsertAfterOrBefore.ItemHeight = 15
+        listInsertAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
+        listInsertAfterOrBefore.Location = New Point(380, 195)
+        listInsertAfterOrBefore.Name = "listInsertAfterOrBefore"
+        listInsertAfterOrBefore.Size = New Size(115, 34)
+        listInsertAfterOrBefore.TabIndex = 63
         ' 
         ' buttonInsertMultiple
         ' 
@@ -259,7 +268,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonUndoLastStep
         ' 
         buttonUndoLastStep.Enabled = False
-        buttonUndoLastStep.Location = New Point(593, 390)
+        buttonUndoLastStep.Location = New Point(749, 439)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
         buttonUndoLastStep.Size = New Size(166, 39)
         buttonUndoLastStep.TabIndex = 82
@@ -269,7 +278,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonRedoOp
         ' 
         buttonRedoOp.Enabled = False
-        buttonRedoOp.Location = New Point(765, 390)
+        buttonRedoOp.Location = New Point(820, 484)
         buttonRedoOp.Name = "buttonRedoOp"
         buttonRedoOp.Size = New Size(166, 39)
         buttonRedoOp.TabIndex = 83
@@ -298,11 +307,99 @@ Partial Class FormSimpleDemoOfCSharp1D
         richtextItemsDisplay.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         richtextItemsDisplay.Text = " 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Location = New Point(15, 475)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(245, 15)
+        Label4.TabIndex = 94
+        Label4.Text = "Range to move (Click the bottom row items.)"
+        ' 
+        ' textboxMoveRange
+        ' 
+        textboxMoveRange.BackColor = SystemColors.InactiveCaption
+        textboxMoveRange.BorderStyle = BorderStyle.None
+        textboxMoveRange.Font = New Font("Segoe UI", 12F)
+        textboxMoveRange.Location = New Point(263, 472)
+        textboxMoveRange.Name = "textboxMoveRange"
+        textboxMoveRange.Size = New Size(284, 22)
+        textboxMoveRange.TabIndex = 93
+        textboxMoveRange.Tag = "00"
+        textboxMoveRange.Text = "++"
+        ' 
+        ' listMoveAfterOrBefore
+        ' 
+        listMoveAfterOrBefore.FormattingEnabled = True
+        listMoveAfterOrBefore.ItemHeight = 15
+        listMoveAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
+        listMoveAfterOrBefore.Location = New Point(418, 424)
+        listMoveAfterOrBefore.Name = "listMoveAfterOrBefore"
+        listMoveAfterOrBefore.Size = New Size(115, 34)
+        listMoveAfterOrBefore.TabIndex = 90
+        ' 
+        ' buttonMoveItems
+        ' 
+        buttonMoveItems.BackColor = Color.Cyan
+        buttonMoveItems.Location = New Point(563, 456)
+        buttonMoveItems.Name = "buttonMoveItems"
+        buttonMoveItems.Size = New Size(166, 39)
+        buttonMoveItems.TabIndex = 89
+        buttonMoveItems.Text = "Move Range of Items"
+        buttonMoveItems.UseVisualStyleBackColor = False
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        Label7.Location = New Point(15, 390)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(99, 21)
+        Label7.TabIndex = 88
+        Label7.Text = "Move Items"
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(15, 426)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(319, 15)
+        Label11.TabIndex = 87
+        Label11.Text = "What benchmark position to anchor (attach moved items)?"
+        ' 
+        ' numMoveAnchorBenchmark
+        ' 
+        numMoveAnchorBenchmark.Font = New Font("Segoe UI", 12F)
+        numMoveAnchorBenchmark.Location = New Point(356, 424)
+        numMoveAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        numMoveAnchorBenchmark.Name = "numMoveAnchorBenchmark"
+        numMoveAnchorBenchmark.Size = New Size(56, 29)
+        numMoveAnchorBenchmark.TabIndex = 86
+        numMoveAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Location = New Point(263, 498)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(163, 15)
+        Label5.TabIndex = 95
+        Label5.Tag = "Number of items in range: {0)"
+        Label5.Text = "Number of items in range: {0)"
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1023, 450)
+        ClientSize = New Size(1023, 541)
+        Controls.Add(Label5)
+        Controls.Add(Label4)
+        Controls.Add(textboxMoveRange)
+        Controls.Add(listMoveAfterOrBefore)
+        Controls.Add(buttonMoveItems)
+        Controls.Add(Label7)
+        Controls.Add(Label11)
+        Controls.Add(numMoveAnchorBenchmark)
         Controls.Add(richtextItemsDisplay)
         Controls.Add(labelItemsDisplay)
         Controls.Add(richtextBenchmark)
@@ -314,7 +411,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         Controls.Add(textInsertListOfValuesCSV)
         Controls.Add(Label2)
         Controls.Add(numInsertHowMany)
-        Controls.Add(listInsertAfterOr)
+        Controls.Add(listInsertAfterOrBefore)
         Controls.Add(buttonDelete)
         Controls.Add(Label8)
         Controls.Add(Label9)
@@ -335,11 +432,12 @@ Partial Class FormSimpleDemoOfCSharp1D
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
         CType(numInsertHowMany, ComponentModel.ISupportInitialize).EndInit()
+        CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
 
-    Friend WithEvents listInsertAfterOr As ListBox
+    Friend WithEvents listInsertAfterOrBefore As ListBox
     Friend WithEvents buttonInsertMultiple As Button
     Friend WithEvents LabelInsertHeader As Label
     Friend WithEvents LabelInsertAnchorHeader As Label
@@ -364,5 +462,14 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents buttonRedoOp As Button
     Friend WithEvents richtextBenchmark As RichTextBox
     Friend WithEvents richtextItemsDisplay As RichTextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents textboxMoveRange As TextBox
+    Friend WithEvents listMoveAfterOrBefore As ListBox
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents numMoveAnchorBenchmark As NumericUpDown
+    Friend WithEvents Label5 As Label
+    Friend WithEvents buttonMoveItems As Button
 
 End Class

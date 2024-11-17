@@ -17,9 +17,12 @@ namespace RSCLibraryDLLOperations
         //
         // Added 4/20/2024 Thomas Downes
         //
-        public readonly bool _isSingleItem;
-        public readonly TControl? _SingleItemInRange;
+        //public readonly bool _isSingleItem;
+        public bool _isSingleItem;
+        //----public readonly TControl? _SingleItemInRange;
+        public TControl? _SingleItemInRange;
         //public readonly TControl _StartingItem;
+        //----public readonly TControl _StartingItem; // Modified 11/08/2024 thomas downes
         public readonly TControl _StartingItem; // Modified 11/08/2024 thomas downes
         //public readonly TControl _EndingItem;
         public TControl _EndingItem;
@@ -52,8 +55,35 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLRange(TControl par_itemStarting, TControl par_itemEnding)
+        {
+            //
+            // Added 11/13/2024 
+            //
+            //_SingleItemInRange = null;
+            _StartingItem = par_itemStarting;
+            _EndingItem = par_itemEnding;
+            _ItemCount = (1 + _StartingItem.DLL_GetDistanceTo(_EndingItem));
+
+        }
+
+
+        public DLLRange(DLLList<TControl> par_list, Tuple<int, int> par_tuple)
+        {
+            //
+            // Added 11/15/2024 thomas downes
+            //
+            _StartingItem = par_list.Get_ItemAtIndex(par_tuple.Item1);
+            _EndingItem = par_list.Get_ItemAtIndex(par_tuple.Item2);  // Added 11/17/2024   .Item1);
+            //return new DLLRange<TControl>(itemStart, item_Last);
+            _ItemCount = (1 + par_tuple.Item2 - par_tuple.Item1);
+            _isSingleItem = (par_tuple.Item1 == par_tuple.Item2);
+
+        }
+
+
         public DLLRange(bool par_isSingleItem, TControl par_itemStart,
-                          TControl? par_itemEnding, 
+                          TControl? par_itemEnding,
                           TControl? par_itemSingle, int par_itemCount)
         {
             //_isSingleItem = par_isSingleItem;
@@ -69,7 +99,7 @@ namespace RSCLibraryDLLOperations
                 // This is a single-item range.
                 //
                 _SingleItemInRange = par_itemSingle;
-                
+
                 _StartingItem = par_itemSingle;
                 _EndingItem = par_itemSingle;
 
@@ -82,7 +112,7 @@ namespace RSCLibraryDLLOperations
                 //
                 _StartingItem = par_itemStart;
                 _EndingItem = par_itemEnding;
-                
+
                 //Administration.  Set _itemCount.
                 if (_ItemCount <= 0)
                 {
@@ -94,7 +124,7 @@ namespace RSCLibraryDLLOperations
                 }
                 else if (Testing.AreWeTesting)
                 {
-                    bool bTestMatch; 
+                    bool bTestMatch;
                     if (par_itemCount > 0)
                     {
                         var nextIterativelyByCount = _StartingItem
@@ -170,16 +200,18 @@ namespace RSCLibraryDLLOperations
             {
                 if (_ItemCount == 1) _EndingItem = _StartingItem;
             }
-            
-            if (_EndingItem != null)
-            {
 
-                _EndingItem.DLL_SetItemNext(par_newItem);
-                par_newItem.DLL_SetItemPrior(_EndingItem);
-                _EndingItem = par_newItem;
-                _ItemCount++;
+            //if (_EndingItem != null)
+            //{
 
-            }
+            _EndingItem.DLL_SetItemNext(par_newItem);
+            par_newItem.DLL_SetItemPrior(_EndingItem);
+            _EndingItem = par_newItem;
+            _ItemCount++;
+            _isSingleItem = false; //Added 11/12/2024 
+            _SingleItemInRange = default(TControl); // null;  // Added 11/12/2024 
+
+            //}
 
         }
 
@@ -200,7 +232,7 @@ namespace RSCLibraryDLLOperations
             TControl item = par_start.DLL_GetItemNext_OfT().DLL_UnboxControl_OfT();
             int intResult = 0;
 
-            while (item != null) 
+            while (item != null)
             {
                 intResult++;
                 if (item.Equals(par_ending)) break;
@@ -225,7 +257,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 7/11/2024  
             //
-            bool bCleanStart = ! _StartingItem.DLL_HasPrior();
+            bool bCleanStart = !_StartingItem.DLL_HasPrior();
             bool bCleanFinish = !_EndingItem.DLL_HasNext();
 
             bool result_cleanBoth = (bCleanStart && bCleanFinish);
@@ -243,7 +275,7 @@ namespace RSCLibraryDLLOperations
             //   a Null value, as best we can. 
             //
             TControl result = (_StartingItem != null ? _StartingItem : _SingleItemInRange);
-            return result; 
+            return result;
 
         }
 
@@ -316,7 +348,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/12/2024 td
             // 
-            return _StartingItem.DLL_GetItemIndex(); 
+            return _StartingItem.DLL_GetItemIndex();
 
         }
 
@@ -336,7 +368,7 @@ namespace RSCLibraryDLLOperations
             //
             bool bResult;
             bool bNoPreceding;
-            bool bNoFollowing; 
+            bool bNoFollowing;
 
             // Added 11/09/2024 t.downes
             if (_EndingItem == null && _ItemCount > 0)
@@ -363,7 +395,7 @@ namespace RSCLibraryDLLOperations
             //   (Any second-tier administration will NOT be done here.) 
             //
             TControl? itemPriorToRange = ItemStart().DLL_GetItemPrior_OfT();
-            TControl? itemAfterRange = Item__End().DLL_GetItemNext_OfT(); 
+            TControl? itemAfterRange = Item__End().DLL_GetItemNext_OfT();
 
             ItemStart().DLL_ClearReferencePrior('D');
             Item__End().DLL_ClearReferenceNext('D');
@@ -438,7 +470,7 @@ namespace RSCLibraryDLLOperations
             //
             _StartingItem.HighlightInGreen = pbToggleStatusToOn;
             if (_EndingItem != null)
-               _EndingItem.HighlightInGreen = pbToggleStatusToOn;
+                _EndingItem.HighlightInGreen = pbToggleStatusToOn;
 
         }
 
@@ -466,11 +498,37 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void intDistance = s_range._StartingItem.DLL_GetDistanceTo(objectListItem)
-            s_range.ExtendRangeToIncludeListItem(objectListItem)
+        public void ExtendRangeToIncludeListItem(TControl par_item)
+        {
+            //
+            // Added 11/12/2024 thomas downes 
+            //
+            int intDistance = _StartingItem.DLL_GetDistanceTo(par_item);
+            
+            if (par_item.Equals( _StartingItem))
+            {
+                //
+                //  Surprisingly, they are the same item. Nothing needs to be done.
+                //
+            }
+            else if ((intDistance > 0) && (intDistance > -1 + _ItemCount))
+            {
+                _ItemCount = (intDistance + 1);
+                //_EndingItem = _StartingItem.DLL_GetItemNext_OfT(intDistance);
+                _EndingItem = par_item;
+                _isSingleItem = false;
+                _SingleItemInRange = default(TControl);  // null;
 
+            }
+            else if (intDistance < 0)
+            {
+                //TControl temp = _StartingItem;
+                //_StartingItem = par_item;
+                System.Diagnostics.Debugger.Break();
 
+            }
 
+        }
 
 
         public override string ToString()

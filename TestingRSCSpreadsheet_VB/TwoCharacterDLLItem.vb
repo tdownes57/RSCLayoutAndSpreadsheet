@@ -340,7 +340,8 @@ Public Class TwoCharacterDLLItem
     Public Function DLL_UnboxControl_OfT() As TwoCharacterDLLItem _
         Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_UnboxControl_OfT
 
-        Throw New NotImplementedException()
+        ''//Throw New NotImplementedException()
+        Return Me
 
     End Function ''End of ""Public Function DLL_UnboxControl_OfT()""
 
@@ -407,7 +408,7 @@ Public Class TwoCharacterDLLItem
     Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLItem) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetDistanceTo
 
         ''---Throw New NotImplementedException()
-        Dim tempItem As TwoCharacterDLLHorizontal = Me
+        Dim tempItem As TwoCharacterDLLItem = Me
         Dim int_resultDistance As Integer = 0
         Dim b_resultFoundItem As Boolean = False
         Const LOOP_LIMIT As Integer = 2000
@@ -496,7 +497,7 @@ Public Class TwoCharacterDLLItem
     End Function ''ENd of ""Public Function SelectedAnyItemToFollow()""
 
 
-    Public Function GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex
+    Public Function DLL_GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex
         ''
         ''Added 11/12/2024  
         ''

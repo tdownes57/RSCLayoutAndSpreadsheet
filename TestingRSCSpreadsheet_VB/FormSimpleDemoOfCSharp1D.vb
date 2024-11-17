@@ -4,6 +4,7 @@
 Imports System.ComponentModel.Design
 Imports System.Diagnostics.Metrics
 Imports System.Text
+Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 Imports RSCLibraryDLLOperations
 
@@ -15,6 +16,7 @@ Public Class FormSimpleDemoOfCSharp1D
     Private WithEvents mod_list As DLLList(Of TwoCharacterDLLItem)
     Private mod_firstItem As TwoCharacterDLLItem
     Private mod_lastItem As TwoCharacterDLLItem
+    Private mod_range As DLLRange(Of TwoCharacterDLLItem) ''Added 11/14/2024 t.homas d.ownes
 
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
@@ -28,7 +30,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim anchorItemForListOfOneItem As DLLAnchorItem(Of TwoCharacterDLLItem) ''(True, False)
         Dim anchorPairForEmptyList As New DLLAnchorCouplet(Of TwoCharacterDLLItem)(True, False)
         Dim anchorPairForListOfOneItem As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''(True, False)
-        Dim rangeNew As DLLRange(Of TwoCharacterDLLItem)
+        ''Nov2024 Dim rangeNew As DLLRange(Of TwoCharacterDLLItem)
         Dim indexNewItem As Integer
         Dim newItem As TwoCharacterDLLItem
         ''Dim priorItem As TwoCharacterDLLItem
@@ -47,12 +49,14 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''//rangeNew = New DLLRange(Of TwoCharacterDLLItem)(mod_firstItem, True)
         ''//For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
-        rangeNew = New DLLRange(Of TwoCharacterDLLItem)(New TwoCharacterDLLItem("02"), True)
+        ''Nov2024 rangeNew = New DLLRange(Of TwoCharacterDLLItem)(New TwoCharacterDLLItem("02"), True)
+        mod_range = New DLLRange(Of TwoCharacterDLLItem)(New TwoCharacterDLLItem("02"), True)
 
         ''Modified "(2 + 1)" on 11/8/2024 td
         For indexNewItem = (2 + 1) To INITIAL_ITEM_COUNT_30 ''---30
             newItem = New TwoCharacterDLLItem(indexNewItem.ToString("00"))
-            rangeNew.DLL_InsertItemToTheEnd(newItem)
+            ''Nov2024 rangeNew.DLL_InsertItemToTheEnd(newItem)
+            mod_range.DLL_InsertItemToTheEnd(newItem)
         Next indexNewItem
 
         ''
@@ -63,7 +67,7 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             ''No DLLOperation object will be created.
             ''
-            mod_list.DLL_InsertRangeIntoEmptyList(rangeNew)
+            mod_list.DLL_InsertRangeIntoEmptyList(mod_range) ''(rangeNew)
 
         Else
             ''
@@ -73,7 +77,7 @@ Public Class FormSimpleDemoOfCSharp1D
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
             ''                                                          True, False, False,
             ''                                                    anchorForEmptyList, False, False, False)
-            operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
+            operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, True, False,
                                                                       True, False, False,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem,
@@ -299,6 +303,13 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 11/12/2024 td
         ''
         Dim intRangeFirstIndex As Integer
+
+        If (par_range Is Nothing) Then
+            MessageBoxTD.Show_Statement("To autopopulate the range-related controls...",
+                                        "Please select a range of items, by clicking the numbers in the 2nd textbox.")
+            Exit Sub
+        End If ''End of ""If (par_range Is Nothing) Then""
+
         intRangeFirstIndex = par_range.GetFirstItemIndex()
         numInsertAnchorBenchmark.Value = intRangeFirstIndex
         numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex
@@ -306,6 +317,12 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Count of items. 
         numInsertHowMany.Value = par_range.GetItemCount()
         numDeleteHowMany.Value = par_range.GetItemCount()
+
+        ''
+        ''Added 11/14/2024
+        ''
+        textboxMoveRange.Text = par_range.ToString()
+
 
 
     End Sub ''end of ""Private Sub AutoPopulateRangeControls()"
@@ -318,7 +335,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim intInsertCount As Integer
         Dim intAnchorPosition As Integer
         Dim indexNewItem As Integer
-        Dim objectRange As DLLRange(Of TwoCharacterDLLItem)
+        ''Nov2024 Dim objectRange As DLLRange(Of TwoCharacterDLLItem)
         Dim prior_newItem As TwoCharacterDLLItem
         Dim newItem As TwoCharacterDLLItem
         Dim first_newItem As TwoCharacterDLLItem
@@ -349,16 +366,16 @@ Public Class FormSimpleDemoOfCSharp1D
             intModulo = (indexNewItem - intNewIndexStart) Mod array_sItemsToInsert.Length
             strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(intModulo),
                              indexNewItem.ToString("00"))
-            If (strNewItem.Length = 1) Then strNewItem = ("=" & strNewItem)
+            If strNewItem.Length = 1 Then strNewItem = "=" & strNewItem
             newItem = New TwoCharacterDLLItem(strNewItem)
 
             If first_newItem Is Nothing Then
                 first_newItem = newItem
-                objectRange = New DLLRange(Of TwoCharacterDLLItem)(True, Nothing, Nothing, first_newItem, 1)
+                mod_range = New DLLRange(Of TwoCharacterDLLItem)(True, Nothing, Nothing, first_newItem, 1)
             Else
                 prior_newItem.DLL_SetItemNext(newItem)
                 newItem.DLL_SetItemPrior(prior_newItem)
-                objectRange = New DLLRange(Of TwoCharacterDLLItem)(True, Nothing, Nothing, first_newItem, 1)
+                mod_range = New DLLRange(Of TwoCharacterDLLItem)(True, Nothing, Nothing, first_newItem, 1)
             End If
 
             ''Prepare for next iteration.
@@ -375,12 +392,12 @@ Public Class FormSimpleDemoOfCSharp1D
         '' Set the range. 
         ''
         If intInsertCount = 1 Then
-            objectRange = New DLLRange(Of TwoCharacterDLLItem)(first_newItem, True)
+            mod_range = New DLLRange(Of TwoCharacterDLLItem)(first_newItem, True)
         Else
             ''
             '' There are at least two objects in the range. 
             ''
-            objectRange = New DLLRange(Of TwoCharacterDLLItem)(False, first_newItem,
+            mod_range = New DLLRange(Of TwoCharacterDLLItem)(False, first_newItem,
                                                                last_newItem, Nothing, intInsertCount)
 
         End If ''End of ""If (intInsertCount = 1) Then... Else..."
@@ -393,32 +410,32 @@ Public Class FormSimpleDemoOfCSharp1D
         objAnchor = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
         With objAnchor
             ''._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-            ._doInsertRangeAfterThis = (listInsertAfterOr.SelectedIndex < 1)
-            ._doInsertRangeBeforeThis = (False = objAnchor._doInsertRangeAfterThis)
+            ._doInsertRangeAfterThis = listInsertAfterOrBefore.SelectedIndex < 1
+            ._doInsertRangeBeforeThis = False = objAnchor._doInsertRangeAfterThis
         End With
 
         ''Highlight the range's endpoints.
-        objectRange.HighlightEndpoints_Green()
-        objectRange.HighlightEndpoints_Cyan()
+        mod_range.HighlightEndpoints_Green()
+        mod_range.HighlightEndpoints_Cyan()
 
         ''
         '' Insert range into the list.  
         ''
-        Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
-        Const INSERT_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
-        Dim USE_OP_MANAGER As Boolean = (Not DIRECT_TO_LIST) ''Added 11/06/2024 thom dow.nes
+        Const DIRECT_TO_LIST = False ''Added 10/26/2024 thom dow.nes
+        Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
+        Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
         Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
 
-        If (DIRECT_TO_LIST) Then
-            If (listInsertAfterOr.SelectedIndex < 1) Then
-                mod_list.DLL_InsertRangeAfter(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+        If DIRECT_TO_LIST Then
+            If listInsertAfterOrBefore.SelectedIndex < 1 Then
+                mod_list.DLL_InsertRangeAfter(mod_range, objAnchor._anchorItem) ''; ''---, boolEndpoint)
             Else
-                mod_list.DLL_InsertRangeBefore(objectRange, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+                mod_list.DLL_InsertRangeBefore(mod_range, objAnchor._anchorItem) ''; ''---, boolEndpoint)
             End If
 
-        ElseIf (USE_OP_MANAGER And listInsertAfterOr.SelectedIndex < 1) Then
+        ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex < 1 Then
             ''
             ''Added 11/06/2024 td  
             ''
@@ -426,21 +443,21 @@ Public Class FormSimpleDemoOfCSharp1D
             ''anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
             ''  tempAnchorItem.DLL_GetItemNext_OfT(), bChangeOfEndpoint)
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
-                                            tempAnchorItem.DLL_GetItemNext_OfT(),
-                                            tempAnchorItem.DLL_IsEitherEndpoint())
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(objectRange, anchor_couple, True, False)
+                                            tempAnchorItem.DLL_GetItemNext_OfT,
+                                            tempAnchorItem.DLL_IsEitherEndpoint)
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
-        ElseIf (USE_OP_MANAGER And listInsertAfterOr.SelectedIndex >= 1) Then
+        ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
             ''Added 11/06/2024 td  
             ''
             ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(
-                                            tempAnchorItem.DLL_GetItemPrior_OfT(), tempAnchorItem,
-                                            tempAnchorItem.DLL_IsEitherEndpoint())
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(objectRange, anchor_couple, True, False)
+                                            tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
+                                            tempAnchorItem.DLL_IsEitherEndpoint)
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
@@ -449,7 +466,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 11/11/2024 
         ''
-        If (bChangeOfEndpoint) Then
+        If bChangeOfEndpoint Then
 
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
@@ -462,8 +479,8 @@ Public Class FormSimpleDemoOfCSharp1D
         RefreshTheUI_DisplayList()
 
         ''Remove the highlighting of the range's endpoints.
-        objectRange.HighlightEndpoints_Green(False)
-        objectRange.HighlightEndpoints_Cyan(False)
+        mod_range.HighlightEndpoints_Green(False)
+        mod_range.HighlightEndpoints_Cyan(False)
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
@@ -484,7 +501,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim strNewItem As String
         Dim intHowManyInModuleList As Integer
         Dim newItem As TwoCharacterDLLItem
-        Const ZERO_INDEX As Integer = 0
+        Const ZERO_INDEX = 0
         Dim bInsertRangeAfterAnchor As Boolean
         Dim bInsertRangeBeforeAnchor As Boolean
         Dim tempAnchorItem As TwoCharacterDLLItem '''Added 10/21/2024 thomas downes
@@ -505,29 +522,29 @@ Public Class FormSimpleDemoOfCSharp1D
         tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
         objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
 
-        bInsertRangeAfterAnchor = (listInsertAfterOr.SelectedIndex < 1)
-        bInsertRangeBeforeAnchor = (Not bInsertRangeAfterAnchor) ''Added 11/10/2024 
+        bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1
+        bInsertRangeBeforeAnchor = Not bInsertRangeAfterAnchor ''Added 11/10/2024 
         objAnchorItem._doInsertRangeAfterThis = bInsertRangeAfterAnchor
-        objAnchorItem._doInsertRangeBeforeThis = (False = bInsertRangeAfterAnchor)
+        objAnchorItem._doInsertRangeBeforeThis = False = bInsertRangeAfterAnchor
 
         ''Added 11/8/2024 td
         ''---objAnchorPair = objAnchorItem.GetAnchorCouplet()
         objAnchorPair = objAnchorItem.GetAnchorCouplet(bInsertRangeBeforeAnchor)
 
         ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
-        boolEndpoint = ((intAnchorPosition = 1 And bInsertRangeBeforeAnchor) Or
-            (intAnchorPosition = intHowManyInModuleList) And bInsertRangeAfterAnchor)
+        boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
+            intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
                              ZERO_INDEX.ToString("00"))
 
-        If (strNewItem Is Nothing) Then
+        If strNewItem Is Nothing Then
             strNewItem = "++"
         End If ''End of ""If (strNewItem Is Nothing) Then""
         newItem = New TwoCharacterDLLItem(strNewItem)
 
         ''---mod_list.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)
-        Const KEEP_ANCHOR As Boolean = True
+        Const KEEP_ANCHOR = True
         ''
         ''What does DLL_SetAnchor() do?  
         ''
@@ -537,10 +554,10 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Major work!! 
         ''
-        Const DIRECT_TO_LIST As Boolean = False ''Added 10/26/2024 thom dow.nes
-        Const INSERT_OPERATION As Boolean = True '' False ''Added 10/26/2024 thomas downes
+        Const DIRECT_TO_LIST = False ''Added 10/26/2024 thom dow.nes
+        Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
 
-        If (DIRECT_TO_LIST) Then
+        If DIRECT_TO_LIST Then
             ''Without using the DLLManager class, directly editing the list.  
             mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
 
@@ -561,7 +578,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 11/10/2024 td
         My.Application.DoEvents()
         ''Added 11/10/2024 td
-        If (boolEndpoint) Then
+        If boolEndpoint Then
             mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
             mod_lastItem = mod_list.DLL_GetLastItem_OfT()
         End If ''eND OF ""If (boolEndpoint) Then""
@@ -572,7 +589,7 @@ Public Class FormSimpleDemoOfCSharp1D
         RefreshTheUI_DisplayList()
 
         ''Remove the highlighting of the range's endpoints.
-        If (rangeSingleItem IsNot Nothing) Then
+        If rangeSingleItem IsNot Nothing Then
             rangeSingleItem.HighlightEndpoints_Green(False)
             rangeSingleItem.HighlightEndpoints_Cyan(False)
         End If ''End of " If (rangeSingleItem IsNot Nothing) Then"
@@ -583,7 +600,8 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub
 
 
-    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles richtextItemsDisplay.MouseUp
+    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles _
+                   labelItemsDisplay.MouseUp, richtextItemsDisplay.MouseUp
         ''
         ''Added 2/27/2024 thomas downes  
         ''
@@ -599,7 +617,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim objectListItem As TwoCharacterDLLItem
         Dim bShiftingKey As Boolean ''Added 2/29/2024
         Dim xfactor_a As Double ''Added 2/29/2024
-        Static s_range As DLLRange(Of TwoCharacterDLLItem)
+        ''Now modularized. ''Static s_range As DLLRange(Of TwoCharacterDLLItem)
         Dim intDistance As Integer ''Added 11/12/2024 
 
         xfactor_a = xfactor_a4
@@ -614,14 +632,23 @@ Public Class FormSimpleDemoOfCSharp1D
         If ENCAPSULATE Then ''Added 2/29/2024
 
             ''Added 2/29/2024
-            mod_list.SelectionRange_ProcessList(index_of_item, bShiftingKey)
+            ''//mod_list.SelectionRange_ProcessList_GetTuple(index_of_item, bShiftingKey)
+            mod_range = mod_list.GetSelectionRange(index_of_item, bShiftingKey)
+
+            ''Added 11/14/2024
+            ''---objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
+            objectListItem = mod_list.DLL_GetItemAtIndex_1based(1 + index_of_item)
+            ''Added 11/5/2024
+            ''See above called to mod_list.SelectionRange...  ''--objectListItem.Selected = True
 
         Else
             ''Added 2/27/2024
             If index_of_item > -1 + mod_list.DLL_CountAllItems Then Exit Sub
-            objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
+            ''---objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
+            objectListItem = mod_list.DLL_GetItemAtIndex_1based(index_of_item)
             ''--objectListItem.Selected = True
             objectListItem.Selected = Not objectListItem.Selected ''Toggle the value. ''True
+
         End If ''eND OF ""If (ENCAPSULATE) Then... Else..."
 
         ''Added 2/27/2024 
@@ -634,18 +661,42 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             ''Do nothing. 
             ''
-        ElseIf (s_range Is Nothing And objectListItem.Selected = True) Then
+        ElseIf (mod_range Is Nothing And objectListItem.Selected = True) Then
             ''
             ''Start a range object. 
             ''
-            s_range = New DLLRange(Of TwoCharacterDLLItem)(objectListItem, False)
+            mod_range = New DLLRange(Of TwoCharacterDLLItem)(objectListItem, False)
 
-        ElseIf (s_range IsNot Nothing And objectListItem.Selected = True) Then
+        ElseIf (mod_range IsNot Nothing And (objectListItem.Selected)) Then
 
-            intDistance = s_range._StartingItem.DLL_GetDistanceTo(objectListItem)
-            s_range.ExtendRangeToIncludeListItem(objectListItem)
+            intDistance = mod_range._StartingItem.DLL_GetDistanceTo(objectListItem)
 
-        End If
+            If (intDistance > 0) Then
+                ''The range should be broadened to reach the newly-selected object. 
+                mod_range.ExtendRangeToIncludeListItem(objectListItem)
+
+            ElseIf (intDistance < 0) Then
+                ''
+                '' Since the distance is negative, the range should be re-initiated,
+                ''   with newly-selected object being the "lefthand" (starting) item 
+                ''   of the range, and the previously-selected item should be the 
+                ''   "righthand" (following/ending) item. 
+                ''
+                Dim tempRangeItem As TwoCharacterDLLItem = mod_range.ItemStart()
+                mod_range = New DLLRange(Of TwoCharacterDLLItem)(objectListItem, tempRangeItem)
+
+            End If ''ENd of ""If (intDistance > 0) Then ... Else If (intDistance < 0) Then"
+
+        End If ''end of ""If (objectListItem Is Nothing) Then... ElseIf... ElseIf..."
+
+        ''
+        ''Major call!! 
+        ''
+        Const MOVE_CONTROLS_ENABLED As Boolean = True
+        If (MOVE_CONTROLS_ENABLED And mod_range IsNot Nothing) Then
+            ''Important for MOVE controls. 
+            AutoPopulateRangeControls(mod_range)
+        End If ''ENd of ""If (s_range IsNot Nothing) Then""
 
     End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
 
@@ -795,5 +846,42 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub
 
+    Private Sub ButtonMoveItems_Click(sender As Object, e As EventArgs) Handles buttonMoveItems.Click
+        ''
+        ''Added 11/16/2024 
+        ''
+        Dim tempAnchorItem As TwoCharacterDLLItem ''---DLLAnchorItem(Of TwoCharacterDLLItem)
+        Dim tempAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem)
+        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Const OPERATION_MOVE As Boolean = True
+        ''Const ALLOW_NULLS As Boolean = True
+        Dim bChangeOfEndpoint As Boolean = False
+        Dim intAnchorIndex As Integer = 0
+        Dim bAnchorMoveAfter As Boolean
+        Dim bAnchorMoveBefore As Boolean
 
+        intAnchorIndex = numMoveAnchorBenchmark.Value
+        tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
+        bAnchorMoveAfter = (listMoveAfterOrBefore.SelectedIndex < 1)
+        bAnchorMoveBefore = (listMoveAfterOrBefore.SelectedIndex >= 1)
+        bChangeOfEndpoint = mod_range.ContainsEndpoint()
+
+        tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem, bAnchorMoveAfter)
+        bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
+
+        ''
+        '' Added 11/17/2024 thomas downes
+        ''
+        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE)
+        ''operation.OperateOnList(mod_list)
+        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+
+        ''Added 11/17/2024 
+        RefreshTheUI_DisplayList()
+
+    End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
+
+    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listMoveAfterOrBefore.SelectedIndexChanged
+
+    End Sub
 End Class

@@ -92,6 +92,26 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLAnchorCouplet(TControl par_item, bool bRangeWillGoAfterItem)
+        {
+            //
+            // Added 11/17/2024  
+            //
+            if (bRangeWillGoAfterItem)
+            {
+                _itemAnchorPrior = par_item; 
+                _itemAnchorAfter = par_item.DLL_GetItemNext_OfT(); // May be null.
+
+            }
+            else
+            {
+                _itemAnchorAfter = par_item;
+                _itemAnchorPrior = par_item.DLL_GetItemPrior_OfT(); // May be null.
+
+            }
+        }
+
+
 
         public DLLAnchorItem<TControl> GetAnchorItem()
         {
@@ -112,6 +132,18 @@ namespace RSCLibraryDLLOperations
                 result = new DLLAnchorItem<TControl>(true, true);
             }
             return result;
+
+        }
+
+
+        public bool ContainsEndpoint()
+        {
+            //
+            //Added 11/17/2024  
+            //
+            return (ItemPriorIsNull() || ItemAfterIsNull() ||
+                      _itemAnchorPrior == null ||
+                      _itemAnchorAfter == null);
 
         }
 

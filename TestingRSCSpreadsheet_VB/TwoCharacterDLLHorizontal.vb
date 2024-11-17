@@ -140,6 +140,18 @@ Public Class TwoCharacterDLLHorizontal
 
     End Function ''End of Public Function DLL_GetDistanceTo
 
+
+    Public Function DLL_GetIndexOfItem() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex
+        ''
+        ''Added 11/12/2024 thomas downes
+        ''
+        Return MyBase.DLL_GetItemIndex()
+
+
+    End Function ''Public Function DLL_GetIndexOfItem() As Integer
+
+
+
     ''Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
     ''    ''---Throw New NotImplementedException()
     ''    Dim tempItem As TwoCharacterDLLHorizontal = Me

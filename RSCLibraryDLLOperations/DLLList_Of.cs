@@ -115,8 +115,8 @@ namespace RSCLibraryDLLOperations
 
             if (_itemStart != null)
             {
-                result = _itemStart.DLL_GetItemNext_OfT(par_index)
-                    .DLL_UnboxControl_OfT();
+                result = _itemStart.DLL_GetItemNext_OfT(par_index);
+                  //  .DLL_UnboxControl_OfT();
             }
 
             if (result == null)
@@ -507,7 +507,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public TControl? DLL_GetItemAtIndex(int par_index)
+        public TControl? DLL_GetItemAtIndex_1based(int par_index)
         {
             //
             // Added 10/19/2024 thomas downes
@@ -564,7 +564,23 @@ namespace RSCLibraryDLLOperations
         private Tuple<int, int> mod_tupSelect_LowToUpper;
         private IDoublyLinkedItem mod_dllControlFirst;
 
-        public Tuple<int, int> SelectionRange_ProcessList(
+
+        public DLLRange<TControl> GetSelectionRange(int par_indexClicked,
+                                                    bool par_bShiftKeyPressed)
+        {
+            //
+            // Added 11/15/2024 thomas downes
+            //
+            Tuple<int, int> tuple_xy = SelectionRange_ProcessList_GetTuple(par_indexClicked, 
+                par_bShiftKeyPressed);
+
+            DLLRange<TControl> result_range = new DLLRange<TControl>(this, tuple_xy);
+            return result_range;
+
+        }
+
+
+        public Tuple<int, int> SelectionRange_ProcessList_GetTuple(
             int par_indexClicked,
             bool par_bShiftKeyPressed,
             bool par_bDontProcessList = false,

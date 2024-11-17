@@ -14,6 +14,10 @@ namespace RSCLibraryDLLOperations
         //    1D = 1 dimension, simply a list
         //            (versus a 2-dimensional grid)
         //
+        //    This is similar to a DLLAnchorCouplet. 
+        //      Maybe this class should inherit from DLLAnchorCouplet??
+        //      --11/17/2024 th_omas dow_nes
+        //
 
         public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
         {
