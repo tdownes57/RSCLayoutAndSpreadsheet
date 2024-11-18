@@ -385,6 +385,94 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool ContainsItem(TControl par_item)
+        {
+            //
+            // This is an "alias" function, the original function being
+            //    Check_ContainsItem(). ----11/18/2024 
+            //
+            return Check_ContainsItem(par_item);
+        }
+
+
+        /// <summary>
+        /// Check for anomaly--the range containing one (or both) of the elements of the anchor.
+        /// </summary>
+        /// <param name="tempAnchorPair"></param>
+        /// <returns></returns>
+        public bool Check_ContainsAnchorPair(DLLAnchorCouplet<TControl> par_pair)
+        {
+            //
+            // Check for anomalies--specifically, the range containing one (or both) of the elements of the anchor. 
+            //
+            bool result_isAnomalous = false;
+            bool bLocatedLeft = false;  // Default value
+            bool bLocatedRight = false; // Default value
+            bool bLocatedNeither = false;  // Default value
+            bool bContainsAnchLeft = false;  // default value 
+            bool bContainsAnchRight = false;  // default value 
+
+            TControl itemAnchLeft = par_pair.GetItemLeftOrFirst();
+            TControl itemAnchRight = par_pair.GetItemRightOrSecond();
+            bContainsAnchLeft = ContainsItem(itemAnchLeft);
+            bContainsAnchRight = ContainsItem(itemAnchRight);
+
+            result_isAnomalous = (bContainsAnchLeft || bContainsAnchRight);
+            return result_isAnomalous;
+
+        }
+
+
+        public  bool Check_EnclosedByAnchorPair(DLLAnchorCouplet<TControl> par_pair)
+        {
+            //
+            // Added 11/18/2024 thomas downes
+            //
+            bool result_bothSides = false; 
+            bool bMatchesPriorToRange = true;  // default to true
+            bool bMatchesAfterRange = true;  // default to true 
+
+            if (par_pair.ItemFirstIsPresent())
+            {
+                bMatchesPriorToRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+            }
+
+            if (par_pair.ItemSecondIsPresent())
+            {
+                bMatchesAfterRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+            }
+
+            result_bothSides = (bMatchesPriorToRange && bMatchesAfterRange);
+            return result_bothSides;
+
+        }
+
+
+        public bool Check_ContainsItem(TControl par_item)
+        {
+            //
+            // Added 11/18/2024 
+            //
+            bool bLocatedItem = false;
+            bool result_inRange = false;
+
+            int intDistanceToItem = _StartingItem.DLL_GetDistanceTo(par_item, ref bLocatedItem);
+
+            if (bLocatedItem)
+            {
+                result_inRange = (0 < intDistanceToItem && intDistanceToItem < _ItemCount);
+            }
+            else
+            {
+                result_inRange = false;
+            }
+
+            return result_inRange;
+
+        }
+
+
+
         public void DeleteFromList_noAdmin()
         {
             //

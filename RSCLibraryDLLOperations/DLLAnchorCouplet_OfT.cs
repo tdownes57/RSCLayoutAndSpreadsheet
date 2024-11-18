@@ -23,8 +23,8 @@ namespace RSCLibraryDLLOperations
         //
         //  Anchor Couplet 
         //
-        private TControl? _itemAnchorPrior;
-        private TControl? _itemAnchorAfter;
+        private TControl? _itemLeft;
+        private TControl? _itemRight;
 
         /// <summary>
         /// For operations which are the (initial) load an empty list. 
@@ -36,10 +36,10 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         public bool _isForDeletionOperation;
 
-        public DLLAnchorCouplet(TControl par_itemAnchorPrior, TControl par_itemAnchorAfter)
+        public DLLAnchorCouplet(TControl par_itemLeft, TControl par_itemRight)
         {
-            _itemAnchorPrior = par_itemAnchorPrior;  // May be null.
-            _itemAnchorAfter = par_itemAnchorAfter; // May be null.
+            _itemLeft = par_itemLeft;  // May be null.
+            _itemRight = par_itemRight; // May be null.
 
         }
 
@@ -54,28 +54,28 @@ namespace RSCLibraryDLLOperations
 
             if (bInsertRangeAfterAnchorItem)
             {
-                _itemAnchorPrior = par_itemAnchor._anchorItem;  // May be null.
-                _itemAnchorAfter = par_itemAnchor._anchorItem.DLL_GetItemNext_OfT();  // May be null.
+                _itemLeft = par_itemAnchor._anchorItem;  // May be null.
+                _itemRight = par_itemAnchor._anchorItem.DLL_GetItemNext_OfT();  // May be null.
 
             }
             else
             {
-                _itemAnchorPrior = par_itemAnchor._anchorItem.DLL_GetItemPrior_OfT();  // May be null.
-                _itemAnchorAfter = par_itemAnchor._anchorItem;  // May be null.
+                _itemLeft = par_itemAnchor._anchorItem.DLL_GetItemPrior_OfT();  // May be null.
+                _itemRight = par_itemAnchor._anchorItem;  // May be null.
             }
 
         }
 
 
-        public DLLAnchorCouplet(TControl? par_itemAnchorPrior, TControl? par_itemAnchorAfter, bool pbAllowNulls)
+        public DLLAnchorCouplet(TControl? par_itemLeft, TControl? par_itemRight, bool pbAllowNulls)
         {
 
-            if (!pbAllowNulls && par_itemAnchorPrior == null) System.Diagnostics.Debugger.Break();
-            else if (!pbAllowNulls && par_itemAnchorAfter == null) System.Diagnostics.Debugger.Break();
+            if (!pbAllowNulls && par_itemLeft == null) System.Diagnostics.Debugger.Break();
+            else if (!pbAllowNulls && par_itemRight == null) System.Diagnostics.Debugger.Break();
             else
             {
-                _itemAnchorPrior = par_itemAnchorPrior;  // May be null.
-                _itemAnchorAfter = par_itemAnchorAfter; // May be null.
+                _itemLeft = par_itemLeft;  // May be null.
+                _itemRight = par_itemRight; // May be null.
             }
         }
 
@@ -85,8 +85,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 10/20/2024 
             //
-            _itemAnchorPrior = default(TControl);
-            _itemAnchorAfter = default(TControl);
+            _itemLeft = default(TControl);
+            _itemRight = default(TControl);
             _isForEmptyList = pbIsForEmptyList;
             _isForDeletionOperation = pbIsForDeletionOp;
         }
@@ -99,14 +99,14 @@ namespace RSCLibraryDLLOperations
             //
             if (bRangeWillGoAfterItem)
             {
-                _itemAnchorPrior = par_item; 
-                _itemAnchorAfter = par_item.DLL_GetItemNext_OfT(); // May be null.
+                _itemLeft = par_item; 
+                _itemRight = par_item.DLL_GetItemNext_OfT(); // May be null.
 
             }
             else
             {
-                _itemAnchorAfter = par_item;
-                _itemAnchorPrior = par_item.DLL_GetItemPrior_OfT(); // May be null.
+                _itemRight = par_item;
+                _itemLeft = par_item.DLL_GetItemPrior_OfT(); // May be null.
 
             }
         }
@@ -116,14 +116,14 @@ namespace RSCLibraryDLLOperations
         public DLLAnchorItem<TControl> GetAnchorItem()
         {
             DLLAnchorItem<TControl> result; 
-            if (_itemAnchorPrior != null)
+            if (_itemLeft != null)
             {
-                result = new DLLAnchorItem<TControl>(_itemAnchorPrior);
+                result = new DLLAnchorItem<TControl>(_itemLeft);
                 result._doInsertRangeAfterThis = true;
             }
-            else if (_itemAnchorAfter != null)
+            else if (_itemRight != null)
             {
-                result = new DLLAnchorItem<TControl>(_itemAnchorAfter);
+                result = new DLLAnchorItem<TControl>(_itemRight);
                 result._doInsertRangeBeforeThis = true;
             }
             else
@@ -141,32 +141,72 @@ namespace RSCLibraryDLLOperations
             //
             //Added 11/17/2024  
             //
-            return (ItemPriorIsNull() || ItemAfterIsNull() ||
-                      _itemAnchorPrior == null ||
-                      _itemAnchorAfter == null);
+            return (ItemLefthandIsNull() || ItemRighthandIsNull() ||
+                      _itemLeft == null ||
+                      _itemRight == null);
 
         }
 
 
-        public bool ItemPriorIsNull()
+        /// <summary>
+        /// This checks the null value of the "Left" (or prior) item.
+        /// After an operation upon a range, this item will hopefully 
+        /// be immediately prior (left) of the range. 
+        /// </summary>
+        /// <returns></returns>
+        public bool ItemLefthandIsNull()
         {
             //Added 11/8/2024  
 
-            return _itemAnchorPrior == null;
+            return _itemLeft == null;
         }
 
-        public bool ItemAfterIsNull()
+
+        /// <summary>
+        /// This checks the null value of the "Right" (or afterward) item.
+        /// After an operation upon a range, this item will hopefully 
+        /// be immediately after/following (right) of the range. 
+        /// </summary>
+        /// <returns></returns>
+        public bool ItemRighthandIsNull()
         {
             //Added 11/8/2024  
-            return _itemAnchorAfter == null;
+            return _itemRight == null;
         }
 
 
-        //public DLLAnchorCouplet(TControl par_itemAnchorPrior)
+        /// <summary>
+        /// This checks the non-null value of the "Left" (or prior) item.
+        /// After an operation upon a range, this item will hopefully 
+        /// be immediately prior (left) of the range. 
+        /// </summary>
+        /// <returns></returns>
+        public bool ItemFirstIsPresent()
+        {
+            //Added 11/8/2024  
+
+            return _itemLeft != null;
+        }
+
+        /// <summary>
+        /// This checks the non-null value of the "Righthand" (or following) item.
+        /// After an operation upon a range, this item will hopefully 
+        /// be immediately after (right) of the range. 
+        /// </summary>
+        /// <returns></returns>
+        public bool ItemSecondIsPresent()
+        {
+            //Added 11/8/2024  
+
+            return _itemRight != null;
+        }
+
+
+        //public DLLAnchorCouplet(TControl par_itemLeft)
         //{
-        //    _itemAnchorPrior = par_itemAnchorPrior;
-        //    //_itemAnchorAfter = par_itemAnchorAfter;
-        //    _itemAnchorAfter = null;
+        //    _itemLeft = par_itemLeft;
+        //    //_itemRight = par_itemRight;
+        //    _itemRight = null;
         //}
 
 
@@ -177,35 +217,47 @@ namespace RSCLibraryDLLOperations
             //
             //  Let's set it up as follows...
             //
-            //     _itemAnchorPrior, range's first, ..., range's last item, _itemAnchorAfter 
+            //     _itemLeft, range's first, ..., range's last item, _itemRight 
             //
             //    Or, going downward...
             //
-            //     _itemAnchorPrior,
+            //     _itemLeft,
             //     range's first, ...,
             //     ...
             //     range's last item,
-            //     _itemAnchorAfter 
+            //     _itemRight 
             //
-            par_range.ItemStart().DLL_SetItemPrior_OfT(_itemAnchorPrior, true);
-            par_range.Item__End().DLL_SetItemNext_OfT(_itemAnchorAfter, true);
+            par_range.ItemStart().DLL_SetItemPrior_OfT(_itemLeft, true);
+            par_range.Item__End().DLL_SetItemNext_OfT(_itemRight, true);
 
-            _itemAnchorPrior?.DLL_SetItemNext_OfT(par_range.ItemStart());
-            _itemAnchorAfter?.DLL_SetItemPrior_OfT(par_range.Item__End());
+            _itemLeft?.DLL_SetItemNext_OfT(par_range.ItemStart());
+            _itemRight?.DLL_SetItemPrior_OfT(par_range.Item__End());
 
         }
 
-
-        public TControl GetItemPrior()
+        
+        /// <summary>
+        /// Returns the first item of the couplet/par.  Technically speaking, the item whose 
+        /// function DLL_SetItemAfter() may be called in the course of implementing the relevant 
+        /// operation.  Previously named "GetItemPrior()", but confusing. 
+        /// </summary>
+        /// <returns>The first(1st) of two(2) TControl items.</returns>
+        public TControl? GetItemLeftOrFirst()
         {
             // Added 11/12/2024 td
-            return _itemAnchorPrior;
+            return _itemLeft;
         }
 
-        public TControl GetItemAfter()
+        /// <summary>
+        /// Returns the second item of the couplet/par.  Technically speaking, the item whose 
+        /// function DLL_SetItemAfter() may be called in the course of implementing the relevant 
+        /// operation.  Previously named "GetItemAfter()", but confusing. 
+        /// </summary>
+        /// <returns>The second(2nd) of two(2) TControl items.</returns>
+        public TControl? GetItemRightOrSecond()
         {
             // Added 11/12/2024 td
-            return _itemAnchorAfter;
+            return _itemRight;
         }
 
 
@@ -216,10 +268,10 @@ namespace RSCLibraryDLLOperations
             //
             string result_pair;
 
-            result_pair = (_itemAnchorPrior == null ? "null" : 
-                _itemAnchorPrior.ToString()) + " "
-                + (_itemAnchorAfter == null ? "null" :
-                _itemAnchorAfter.ToString());
+            result_pair = (_itemLeft == null ? "null" : 
+                _itemLeft.ToString()) + " "
+                + (_itemRight == null ? "null" :
+                _itemRight.ToString());
 
             return result_pair; 
 

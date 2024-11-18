@@ -406,12 +406,29 @@ Public Class TwoCharacterDLLItem
 
 
     Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLItem) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetDistanceTo
+        ''
+        ''Added 11/18/2024  
+        ''
+        Dim bLocated As Boolean
+        Dim result As Integer
 
+        result = DLL_GetDistanceTo(paramItem, bLocated)
+        If (Not bLocated) Then System.Diagnostics.Debugger.Break()
+        Return result
+
+    End Function ''ENd of ""Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLItem)""
+
+
+    Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLItem, ByRef pbLocatedItem As Boolean) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetDistanceTo
+        ''
+        '' Added "ByRef pbLocated As Boolean" on 11/18/2024
+        ''
         ''---Throw New NotImplementedException()
         Dim tempItem As TwoCharacterDLLItem = Me
         Dim int_resultDistance As Integer = 0
         Dim b_resultFoundItem As Boolean = False
         Const LOOP_LIMIT As Integer = 2000
+        pbLocatedItem = False ''Default value. 
 
         ''
         '' Part 1 of 2.  Go forward (NOT backward). 
@@ -421,6 +438,7 @@ Public Class TwoCharacterDLLItem
 
                 ''Return resultDistance
                 b_resultFoundItem = True
+                pbLocatedItem = True
                 Exit Do
 
             ElseIf (tempItem.DLL_HasNext()) Then
@@ -434,9 +452,13 @@ Public Class TwoCharacterDLLItem
                 ''Exit Do
                 ''Return -1
                 ''Throw New RSCEndpointException("We have searched to the end of the DLL list.")
-                If (int_resultDistance > LOOP_LIMIT) Then System.Diagnostics.Debugger.Break()
+                If (int_resultDistance > LOOP_LIMIT) Then
+                    System.Diagnostics.Debugger.Break()
+                End If
                 Exit Do
-            End If
+
+            End If ''ENd of ""If (tempItem Is paramItem) Then""
+
         Loop ''Look for "Exit Do" to break out of infinite loop. 
 
         ''
@@ -469,6 +491,9 @@ Public Class TwoCharacterDLLItem
                 End If ''ENd of ""If (tempItem Is paramItem) Then... ElseIf... Else..."
             Loop ''Look for "Exit Do" to break out of infinite loop. 
         End If
+
+        ''Added 11/18/2024 
+        pbLocatedItem = b_resultFoundItem ''Added 11/18/2024 
 
         Return int_resultDistance
 

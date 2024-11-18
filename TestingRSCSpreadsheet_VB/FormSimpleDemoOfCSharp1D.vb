@@ -859,6 +859,8 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim intAnchorIndex As Integer = 0
         Dim bAnchorMoveAfter As Boolean
         Dim bAnchorMoveBefore As Boolean
+        Dim bCheck_RangeContainsAnchor As Boolean ''Added 11/18/2024
+        Dim bCheck_AnchorEnclosesRange As Boolean ''Added 11/18/2024
 
         intAnchorIndex = numMoveAnchorBenchmark.Value
         tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
@@ -869,12 +871,37 @@ Public Class FormSimpleDemoOfCSharp1D
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem, bAnchorMoveAfter)
         bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
 
+        ''Added 11/18/2024
+        ''
+        ''  Run sanity-check (warning) functions. 
+        ''
+        bCheck_RangeContainsAnchor = mod_range.Check_ContainsAnchorPair(tempAnchorPair)
+        bCheck_AnchorEnclosesRange = mod_range.Check_EnclosedByAnchorPair(tempAnchorPair)
+
+        ''
+        ''  Display sanity-check (warning) messages. 
+        ''
+        If (bCheck_AnchorEnclosesRange) Then
+            MessageBoxTD.Show_Statement("Not permitted (or hopelessly confusing): Range includes Anchor.")
+            Exit Sub
+        ElseIf (bCheck_AnchorEnclosesRange) Then
+            MessageBoxTD.Show_Statement("Not permitted (or hopelessly confusing): Anchor already encloses Range.")
+            Exit Sub
+        End If
+
+
         ''
         '' Added 11/17/2024 thomas downes
         ''
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE)
         ''operation.OperateOnList(mod_list)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+
+        ''Added 11/18/2024 
+        If (bChangeOfEndpoint) Then
+            mod_firstItem = mod_list._itemStart
+            mod_lastItem = mod_list._itemEnding
+        End If ''End of ""If (bChangeOfEndpoint) Then""
 
         ''Added 11/17/2024 
         RefreshTheUI_DisplayList()

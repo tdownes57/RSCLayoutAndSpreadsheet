@@ -362,13 +362,23 @@ namespace RSCLibraryDLLOperations
             }
             else if (_isMove)
             {
-                OperateOnList_Delete(par_list, par_range,
-                                     pbEndpointProtection,
-                                     pbIsChangeOfEndpoint);
-                OperateOnList_Insert(par_list, par_range,
+                //
+                // Encapsulated 11/18/2024  
+                //
+                //OperateOnList_Delete(par_list, par_range,
+                //                     pbEndpointProtection,
+                //                     pbIsChangeOfEndpoint);
+                //OperateOnList_Insert(par_list, par_range,
+                //                     par_anchorItem, par_anchorPair,
+                //                     pbEndpointProtection,
+                //                     pbIsChangeOfEndpoint, pbRunOtherChecks);
+
+                // Encapsulated 11/18/2024  
+                OperateOnList_Move(par_list, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
+
             }
 
         }
@@ -450,14 +460,17 @@ namespace RSCLibraryDLLOperations
             //
             //   An AnchorCouplet is called "AnchorPair" for short. 
             //
-            bool bListWillChange_ItemStart = par_anchorPair.ItemPriorIsNull(); // Added 11/10
-            bool bListWillChange_ItemFinal = par_anchorPair.ItemAfterIsNull(); // Added 11/10
+            bool bListWillChange_ItemStart = par_anchorPair.ItemLefthandIsNull(); // Added 11/10
+            bool bListWillChange_ItemFinal = par_anchorPair.ItemRighthandIsNull(); // Added 11/10
 
             //
             // Major call!!  This is the main insertion work!!!
             //
             par_anchorPair.EncloseRange(par_range);
 
+            //
+            // Admin Work !!
+            //
             // Added 11/10/2024 td
             par_list_NeededForAdmin._itemCount += par_range._ItemCount;
 
@@ -746,15 +759,15 @@ namespace RSCLibraryDLLOperations
 
                     if (pbIsChangeOfEndpoint)
                     {
-                        if (tempInverse.ItemPriorIsNull())
+                        if (tempInverse.ItemLefthandIsNull())
                         {
-                            if (tempInverse.ItemAfterIsNull() == false)
-                                par_list._itemStart = tempInverse.GetItemAfter();
+                            if (tempInverse.ItemRighthandIsNull() == false)
+                                par_list._itemStart = tempInverse.GetItemLeftOrFirst();
                         }
-                        else if (tempInverse.ItemAfterIsNull())
+                        else if (tempInverse.ItemRighthandIsNull())
                         {
-                            if (tempInverse.ItemPriorIsNull() == false)
-                                par_list._itemEnding = tempInverse.GetItemPrior();
+                            if (tempInverse.ItemLefthandIsNull() == false)
+                                par_list._itemEnding = tempInverse.GetItemRightOrSecond();
                         }
                     }
                 }
@@ -769,7 +782,7 @@ namespace RSCLibraryDLLOperations
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-            //  where TControl : IDoublyLinkedItem<TControl>
+        //  where TControl : IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024
@@ -798,7 +811,7 @@ namespace RSCLibraryDLLOperations
             //
             //IDoublyLinkedItem<TControl>
             TControl itemOriginallyAfterRange = par_range.Item__End().DLL_GetItemNext_OfT();
-                // itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext_OfT();
+            // itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext_OfT();
 
             if (itemOriginallyAfterRange != null)
             {
@@ -854,6 +867,44 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        /// <summary>
+        /// Perform an insert operation, either for TControl_H or TControl_V.
+        /// If appropriate, we perform some sanity testing prior to the operation.
+        /// </summary>
+        /// <typeparam name="TControl"></typeparam>
+        /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
+        /// <param name="par_range">This is the range of items which are being placed into the list.</param>
+        /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
+        private void OperateOnList_Move(DLLList<TControl> par_list_forFinalAdmin,
+                                             DLLRange<TControl> par_range,
+                                             DLLAnchorItem<TControl>? par_anchorItem,
+                                             DLLAnchorCouplet<TControl>? par_anchorPair,
+                                     bool pbEndpointProtection,
+                                     bool pbIsChangeOfEndpoint = false,
+                                     bool pbRunOtherChecks = false)
+        {
+            //
+            // Encasulated/added 11/18/2024 Th.omas Do.wnes
+            //
+            // A Move is a Delete of a Range, and then an  Insert of the same range.
+            //
+            // Step 1 of 2. DELETE THE RANGE
+            OperateOnList_Delete(par_list_forFinalAdmin, par_range,
+                                 pbEndpointProtection,
+                                 pbIsChangeOfEndpoint);
+
+            // Step 2 of 2. INSERT THE RANGE 
+            OperateOnList_Insert(par_list_forFinalAdmin, par_range,
+                                 par_anchorItem, par_anchorPair,
+                                 pbEndpointProtection,
+                                 pbIsChangeOfEndpoint, pbRunOtherChecks);
+
+
+        }
+
+
+
+
         /****
          * 
          * 
@@ -897,6 +948,7 @@ namespace RSCLibraryDLLOperations
                 }
             }
         }
+
         *
         *
         **********/
