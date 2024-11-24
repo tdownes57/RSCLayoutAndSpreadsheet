@@ -150,6 +150,14 @@ Public Class TwoCharacterDLLHorizontal
 
     End Function ''Public Function DLL_GetIndexOfItem() As Integer
 
+    Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal, ByRef pbLocatedSuccessfully As Boolean) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
+        ''//--Throw New NotImplementedException()
+
+        ''--Throw New NotImplementedException()
+        Return MyBase.DLL_GetDistanceTo(paramItem, pbLocatedSuccessfully)
+
+    End Function
+
 
 
     ''Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo

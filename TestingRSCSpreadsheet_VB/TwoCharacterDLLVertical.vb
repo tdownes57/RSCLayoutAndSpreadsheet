@@ -142,4 +142,15 @@ Public Class TwoCharacterDLLVertical
 
     End Sub ''End of ""Public Sub DLL_SInsertItemToNext(...)""
 
+    Public Overloads Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLVertical,
+                                      ByRef pbLocatedSuccessfully As Boolean) As Integer _
+                                      Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetDistanceTo
+
+        ''--Throw New NotImplementedException()
+        Return MyBase.DLL_GetDistanceTo(paramItem, pbLocatedSuccessfully)
+
+    End Function ''End of "Public Function DLL_GetDistanceTo""
+
+
+
 End Class

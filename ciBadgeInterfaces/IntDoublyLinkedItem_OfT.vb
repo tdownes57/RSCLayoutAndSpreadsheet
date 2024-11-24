@@ -83,7 +83,7 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''
 
     Function DLL_GetDistanceTo(paramItem As TControl) As Integer
-    Function DLL_GetDistanceTo(paramItem As TControl, ByRef pboolLocated As Boolean) As Integer
+    Function DLL_GetDistanceTo(paramItem As TControl, ByRef pboolLocatedSuccessfully As Boolean) As Integer
 
     ''
     '' Added 11/12/2024 

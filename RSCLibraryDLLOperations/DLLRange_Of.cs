@@ -309,7 +309,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public TControl Item_ImmediatelyPrior()
+        public TControl? Item_ImmediatelyPrior()
         {
             // Added 10/31/2024 
             //
@@ -318,7 +318,22 @@ namespace RSCLibraryDLLOperations
             //   a Null value, as best we can. 
             //
             TControl result1 = _StartingItem; //.DLL_GetItemNext_OfT();
-            TControl result_final = result1.DLL_GetItemPrior_OfT();
+            TControl? result_final = result1.DLL_GetItemPrior_OfT();
+            return result_final;
+
+        }
+
+
+        public TControl? Item_ImmediatelyAfter()
+        {
+            // Added 11/22/2024 
+            //
+            // Consistent with the theory of encapsulation, this Function is managing
+            //   the internal class members & so we will avoid return 
+            //   a Null value, as best we can. 
+            //
+            TControl result1 = _EndingItem; //.DLL_GetItemNext_OfT();
+            TControl? result_final = result1.DLL_GetItemNext_OfT();
             return result_final;
 
         }
@@ -434,12 +449,19 @@ namespace RSCLibraryDLLOperations
 
             if (par_pair.ItemFirstIsPresent())
             {
-                bMatchesPriorToRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+                //---bMatchesPriorToRange = (Item_ImmeditelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+                TControl? itemPriorToRange = Item_ImmediatelyPrior();
+                TControl? itemAnchorLeft = par_pair.GetItemLeftOrFirst();
+                bMatchesPriorToRange = (bool)(itemPriorToRange?.Equals(itemAnchorLeft));
+
             }
 
             if (par_pair.ItemSecondIsPresent())
             {
-                bMatchesAfterRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+                //---bMatchesAfterRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+                TControl? itemAfterRange = Item_ImmediatelyAfter();
+                TControl? itemAnchorRight = par_pair.GetItemRightOrSecond();
+                bMatchesAfterRange = (bool)(itemAfterRange?.Equals(itemAnchorRight));
             }
 
             result_bothSides = (bMatchesPriorToRange && bMatchesAfterRange);
