@@ -19,7 +19,7 @@ namespace RSCLibraryDLLOperations
     //            (versus a 2-dimensional grid)
     //
 
-    public class DLLOperation1D<TControl> // :IDoublyLinkedItem
+    public class DLLOperation1D<TControl> : DLLOperationBase // :IDoublyLinkedItem
         where TControl : IDoublyLinkedItem<TControl>
     {
         //''
