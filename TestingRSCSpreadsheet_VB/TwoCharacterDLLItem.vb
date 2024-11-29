@@ -375,17 +375,23 @@ Public Class TwoCharacterDLLItem
     Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList
 
         ''---Throw New NotImplementedException()
-        Debugger.Break()
-        Return -1
+        ''Debugger.Break()
 
-    End Function
+        ''Return -1
+
+        ''Coded 11/29/2024 thoma.s downe.s
+        Dim intItemsPrior As Integer = DLL_CountItemsPrior()
+        Dim intItemsAfter As Integer = DLL_CountItemsAfter()
+        Return (1 + intItemsPrior + intItemsAfter)
+
+    End Function ''Public Function DLL_CountItemsAllInList() 
 
 
     Public Function DLL_CountItemsPrior() As Integer Implements IDoublyLinkedItem.DLL_CountItemsPrior
 
         ''Throw New NotImplementedException()
         Dim result_count As Integer = 0
-        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemPrior()
         While temp IsNot Nothing
             result_count += 1
             temp = temp.DLL_GetItemPrior()
@@ -393,6 +399,20 @@ Public Class TwoCharacterDLLItem
         Return result_count
 
     End Function ''ENd of ""Public Function DLL_CountItemsPrior()""
+
+
+    Public Function DLL_CountItemsAfter() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAfter
+
+        ''Throw New NotImplementedException()
+        Dim result_count As Integer = 0
+        Dim temp As IDoublyLinkedItem = Me.DLL_GetItemNext()
+        While temp IsNot Nothing
+            result_count += 1
+            temp = temp.DLL_GetItemNext()
+        End While ''End of ""While temp IsNot Nothing""
+        Return result_count
+
+    End Function ''ENd of ""Public Function DLL_CountItemsAfter()""
 
 
     Public Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLItem _

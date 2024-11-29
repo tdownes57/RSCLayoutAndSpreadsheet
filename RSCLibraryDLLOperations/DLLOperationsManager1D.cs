@@ -93,7 +93,22 @@ namespace RSCLibraryDLLOperations
             //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
             bool result_hasNext = mod_opRedoMarker.HasOperationNext();
             return result_hasNext;
+
         }
+
+        
+        public int HowManyOpsAreRecorded()
+        {
+            //
+            // Added 11/29/2024 Thomas Dwones, oops sorry it's a typo, Downes
+            //
+            mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());  
+            return mod_intCountOperations; 
+
+        }
+
+
+
 
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,

@@ -88,4 +88,7 @@ Public Interface IDoublyLinkedItem
     Function DLL_CountItemsPrior() As Integer
     ''1/13/2024 Function DLL_CountItemsNext() As Integer
 
+    ''--- Added 11/29/2024 tho.mas dow.nes
+    Function DLL_CountItemsAfter() As Integer
+
 End Interface

@@ -214,5 +214,81 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public int HowManyOpsExistForRedo()
+        {
+            //
+            // Added 11/29/2024 
+            //
+            int result_count;
+            
+            if (mod_opNext_ForRedo == null) 
+            { 
+                result_count = 0; 
+            }
+
+            else {
+                result_count = (1 + mod_opNext_ForRedo.DLL_CountOpsAfter());
+            }
+
+            return result_count;
+
+        }
+
+
+        public int HowManyOpsExistForUndo()
+        {
+            //
+            // Added 11/29/2024 
+            //
+            int result_count;
+
+            if (mod_opNext_ForUndo == null)
+            {
+                result_count = 0;
+            }
+
+            else
+            {
+                result_count = (1 + mod_opNext_ForUndo.DLL_CountOpsPrior());
+            }
+
+            return result_count;
+
+        }
+
+
+        public int HowManyOpsExist_Total()
+        {
+            //
+            // Added 11/29/2024 
+            //
+            int result_count;
+            result_count = HowManyOpsExistForRedo();
+            result_count += HowManyOpsExistForUndo();
+            return result_count;  
+
+        }
+
+
+        public string ToString()
+        {
+            //
+            // Added 11/29/2024 
+            //
+            string template = "" +
+                "Count of ops total: {0}/n" +
+                "Count of ops for redo: {1}/n" +
+                "Count of ops for undo: {2}/n";
+
+            int intCountOpsTotal = HowManyOpsExist_Total();
+            int intCountOpsForRedo = HowManyOpsExistForRedo();
+            int intCountOpsForUndo = HowManyOpsExistForUndo();
+
+
+
+        }
+
+
+
     }
 }

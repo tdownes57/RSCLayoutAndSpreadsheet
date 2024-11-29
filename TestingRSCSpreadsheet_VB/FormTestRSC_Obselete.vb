@@ -7,7 +7,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 ''---Imports ciBadgeRecipients
 
-Public Class FormTestRSCViaDigits
+Public Class FormTestRSC_Obselete
 
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30 ''Added 12/28/2023 td
     Private mod_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)

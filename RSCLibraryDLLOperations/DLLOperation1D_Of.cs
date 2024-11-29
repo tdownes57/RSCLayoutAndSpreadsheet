@@ -1,5 +1,6 @@
 ﻿//using System;
 //using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 
@@ -1156,6 +1157,40 @@ namespace RSCLibraryDLLOperations
                 temp = temp.DLL_GetOpPrior();
             } //until temp == null;  
             return result;
+        }
+
+
+        public int DLL_CountOpsAfter()
+        {
+            //
+            // Added 11/29/2024  
+            //
+            int result_count = 0;
+            TControl temp = DLL_GetOpNext();
+            while (temp != null)
+            {
+                result_count++;
+                temp = temp.DLL_GetOpNext();
+            }
+            return result_count;  
+
+        }
+
+
+        public int DLL_CountOpsBefore()
+        {
+            //
+            // Added 11/29/2024  
+            //
+            int result_count = 0;
+            TControl temp = DLL_GetOpNext();
+            while (temp != null)
+            {
+                result_count++;
+                temp = temp.DLL_GetOpNext();
+            }
+            return result_count;
+
         }
 
 

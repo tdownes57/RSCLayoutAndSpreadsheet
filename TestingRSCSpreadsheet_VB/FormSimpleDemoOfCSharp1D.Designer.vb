@@ -55,6 +55,10 @@ Partial Class FormSimpleDemoOfCSharp1D
         Label11 = New Label()
         numMoveAnchorBenchmark = New NumericUpDown()
         Label5 = New Label()
+        LinkClearRecordedOps = New LinkLabel()
+        labelNumOperations = New Label()
+        buttonUndo = New Button()
+        buttonReDo = New Button()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -268,7 +272,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonUndoLastStep
         ' 
         buttonUndoLastStep.Enabled = False
-        buttonUndoLastStep.Location = New Point(749, 439)
+        buttonUndoLastStep.Location = New Point(735, 439)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
         buttonUndoLastStep.Size = New Size(166, 39)
         buttonUndoLastStep.TabIndex = 82
@@ -387,11 +391,55 @@ Partial Class FormSimpleDemoOfCSharp1D
         Label5.Tag = "Number of items in range: {0)"
         Label5.Text = "Number of items in range: {0)"
         ' 
+        ' LinkClearRecordedOps
+        ' 
+        LinkClearRecordedOps.AutoSize = True
+        LinkClearRecordedOps.Location = New Point(846, 151)
+        LinkClearRecordedOps.Name = "LinkClearRecordedOps"
+        LinkClearRecordedOps.Size = New Size(143, 15)
+        LinkClearRecordedOps.TabIndex = 99
+        LinkClearRecordedOps.TabStop = True
+        LinkClearRecordedOps.Text = "Clear recorded operations"
+        ' 
+        ' labelNumOperations
+        ' 
+        labelNumOperations.BorderStyle = BorderStyle.FixedSingle
+        labelNumOperations.Location = New Point(780, 199)
+        labelNumOperations.Name = "labelNumOperations"
+        labelNumOperations.Size = New Size(182, 45)
+        labelNumOperations.TabIndex = 98
+        labelNumOperations.Tag = "Number of ops: {0}"
+        labelNumOperations.Text = "Number of ops recorded: 0"
+        ' 
+        ' buttonUndo
+        ' 
+        buttonUndo.Enabled = False
+        buttonUndo.Location = New Point(780, 168)
+        buttonUndo.Name = "buttonUndo"
+        buttonUndo.Size = New Size(114, 27)
+        buttonUndo.TabIndex = 97
+        buttonUndo.Text = "<<< Undo"
+        buttonUndo.UseVisualStyleBackColor = True
+        ' 
+        ' buttonReDo
+        ' 
+        buttonReDo.Enabled = False
+        buttonReDo.Location = New Point(900, 169)
+        buttonReDo.Name = "buttonReDo"
+        buttonReDo.Size = New Size(86, 27)
+        buttonReDo.TabIndex = 96
+        buttonReDo.Text = "Re-do >>>"
+        buttonReDo.UseVisualStyleBackColor = True
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 541)
+        Controls.Add(LinkClearRecordedOps)
+        Controls.Add(labelNumOperations)
+        Controls.Add(buttonUndo)
+        Controls.Add(buttonReDo)
         Controls.Add(Label5)
         Controls.Add(Label4)
         Controls.Add(textboxMoveRange)
@@ -471,5 +519,9 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents numMoveAnchorBenchmark As NumericUpDown
     Friend WithEvents Label5 As Label
     Friend WithEvents buttonMoveItems As Button
+    Friend WithEvents LinkClearRecordedOps As LinkLabel
+    Friend WithEvents labelNumOperations As Label
+    Friend WithEvents buttonUndo As Button
+    Friend WithEvents buttonReDo As Button
 
 End Class

@@ -484,6 +484,10 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
+        ''Added 11/29/2024 
+        buttonUndo.Enabled = True
+        ''Added 11/29/2024 
+        labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
 
     End Sub
 
