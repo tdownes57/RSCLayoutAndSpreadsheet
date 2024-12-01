@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,15 +20,15 @@ namespace RSCLibraryDLLOperations
         //      --11/17/2024 th_omas dow_nes
         //
 
-        public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
-        {
-            // Added 10/25/2024 
-            //
-            //mod_opPrior_ForUndo = par_2ndprior;
-            //mod_opNext_ForRedo = par_1stprior;
-            mod_opPrior_ForUndo = par_1stPrior;
-            mod_opNext_ForRedo = null;  
-        }
+        //public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
+        //{
+        //    // Added 10/25/2024 
+        //    //
+        //    //mod_opPrior_ForUndo = par_2ndprior;
+        //    //mod_opNext_ForRedo = par_1stprior;
+        //    mod_opPrior_ForUndo = par_1stPrior;
+        //    mod_opNext_ForRedo = null;  
+        //}
 
         //
         //''---DIFFICULT AND CONFUSING---
@@ -74,6 +75,15 @@ namespace RSCLibraryDLLOperations
 
         //}
 
+        public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
+        {
+            // Added 10/25/2024 
+            //
+            //mod_opPrior_ForUndo = par_2ndprior;
+            //mod_opNext_ForRedo = par_1stprior;
+            mod_opPrior_ForUndo = par_1stPrior;
+            mod_opNext_ForRedo = null;
+        }
 
 
         public bool HasOperationNext()
@@ -242,14 +252,14 @@ namespace RSCLibraryDLLOperations
             //
             int result_count;
 
-            if (mod_opNext_ForUndo == null)
+            if (mod_opPrior_ForUndo == null)
             {
                 result_count = 0;
             }
 
             else
             {
-                result_count = (1 + mod_opNext_ForUndo.DLL_CountOpsPrior());
+                result_count = (1 + mod_opPrior_ForUndo.DLL_CountOpsBefore());
             }
 
             return result_count;
@@ -270,21 +280,24 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public string ToString()
+        public override string ToString()
         {
             //
             // Added 11/29/2024 
             //
+            string result_describe; 
+
             string template = "" +
-                "Count of ops total: {0}/n" +
-                "Count of ops for redo: {1}/n" +
-                "Count of ops for undo: {2}/n";
+                "Count of ops total: {0}    " + Environment.NewLine +
+                "Count of ops for redo: {1} " + Environment.NewLine +
+                "Count of ops for undo: {2} ";
 
             int intCountOpsTotal = HowManyOpsExist_Total();
             int intCountOpsForRedo = HowManyOpsExistForRedo();
             int intCountOpsForUndo = HowManyOpsExistForUndo();
 
-
+            result_describe = string.Format(template, intCountOpsTotal, intCountOpsForRedo, intCountOpsForUndo);
+            return result_describe; 
 
         }
 

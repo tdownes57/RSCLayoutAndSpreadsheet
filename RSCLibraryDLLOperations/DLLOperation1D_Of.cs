@@ -1166,11 +1166,11 @@ namespace RSCLibraryDLLOperations
             // Added 11/29/2024  
             //
             int result_count = 0;
-            TControl temp = DLL_GetOpNext();
-            while (temp != null)
+            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext();
+            while (tempOperation != null)
             {
                 result_count++;
-                temp = temp.DLL_GetOpNext();
+                tempOperation = tempOperation.DLL_GetOpNext();
             }
             return result_count;  
 
@@ -1183,11 +1183,11 @@ namespace RSCLibraryDLLOperations
             // Added 11/29/2024  
             //
             int result_count = 0;
-            TControl temp = DLL_GetOpNext();
-            while (temp != null)
+            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext();
+            while (tempOperation != null)
             {
                 result_count++;
-                temp = temp.DLL_GetOpNext();
+                tempOperation = tempOperation.DLL_GetOpNext();
             }
             return result_count;
 

@@ -1318,10 +1318,10 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''Throw New NotImplementedException()
         Const COUNT_MYSELF As Integer = 1
         Dim countPriorItems As Integer ''= 0
-        Dim countNextItems As Integer ''= 0
+        Dim countAfterItems As Integer ''= 0
         countPriorItems = DLL_CountItemsPrior()
-        countNextItems = DLL_CountItemsNext()
-        Return (countPriorItems + COUNT_MYSELF + countNextItems)
+        countAfterItems = DLL_CountItemsAfter()
+        Return (countPriorItems + COUNT_MYSELF + countAfterItems)
 
     End Function ''End of ""Public Function DLL_CountItemsAllInList()""
 
@@ -1364,7 +1364,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' This is called by DLL_CountItemsAllInList, to assist in counting all linked items.
     ''' </summary>
     ''' <returns>How many times can we call DLL_HasItemNext() and get a result of True?</returns>
-    Private Function DLL_CountItemsNext() As Integer ''Implements IDoublyLinkedItem.DLL_CountItemsNext
+    Private Function DLL_CountItemsAfter() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAfter
         ''Throw New NotImplementedException()
         Dim result_count As Integer = 0
         Dim temp As IDoublyLinkedItem = Me.DLL_GetItemNext

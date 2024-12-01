@@ -285,5 +285,16 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public string ToString()
+        {
+            //
+            // Added 11/29/2024 
+            //
+            return mod_opRedoMarker.ToString();
+
+        }
+
+
+
     }
 }

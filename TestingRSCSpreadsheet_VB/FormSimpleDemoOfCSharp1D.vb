@@ -486,8 +486,11 @@ Public Class FormSimpleDemoOfCSharp1D
         buttonUndoLastStep.Enabled = True
         ''Added 11/29/2024 
         buttonUndo.Enabled = True
+
         ''Added 11/29/2024 
-        labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
 
@@ -600,6 +603,11 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
+
+        ''Added 11/29/2024 
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
 
@@ -823,6 +831,11 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
 
+        ''Added 11/29/2024 
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        labelNumOperations.Text = mod_manager.ToString()
+
     End Sub ''buttonDelete_Click 
 
 
@@ -910,9 +923,40 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 11/17/2024 
         RefreshTheUI_DisplayList()
 
+        ''Added 11/29/2024 
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        labelNumOperations.Text = mod_manager.ToString()
+
     End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listMoveAfterOrBefore.SelectedIndexChanged
 
     End Sub
+
+    Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
+
+        buttonRedoOp.PerformClick()
+
+        ''Added 11/29/2024 
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        labelNumOperations.Text = mod_manager.ToString()
+
+    End Sub
+
+    Private Sub buttonUndo_Click(sender As Object, e As EventArgs) Handles buttonUndo.Click
+
+        buttonUndoLastStep.PerformClick()
+
+        ''Added 11/29/2024 
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        labelNumOperations.Text = mod_manager.ToString()
+
+    End Sub
 End Class
+
+
+
+
