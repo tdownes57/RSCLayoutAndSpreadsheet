@@ -24,7 +24,7 @@ namespace RSCLibraryDLLOperations
         private TBase mod_firstOperation;
         private int mod_numberOfOperations;
 
-        private DLLOperationsRedoMarker1D<TBase> mod_opRedoMarker;
+        private DLLOperationsUndoRedoMarker1D<TBase> mod_opRedoMarker;
 
         public bool MarkerHasOperationNext()
         {

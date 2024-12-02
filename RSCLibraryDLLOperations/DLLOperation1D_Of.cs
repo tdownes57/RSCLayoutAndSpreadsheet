@@ -1213,6 +1213,26 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_ClearOpNext()
+        {
+            //
+            // Added 12/02/2024 by Th.omas Do.wnes 
+            //
+            //    This is needed if the user has pressed the "Undo" button, 
+            //    and now wants to move forward with a "brand new" operation. 
+            //    Rather than following "Undo" with a "Redo", user wants to 
+            //    permanently discard the his or her most recent operation. 
+            //    (The operation being discarded was definitely a mistake in
+            //    the user's perspective.)
+            //    12/02/2024 th.omas do.wnes 
+            //
+            mod_opNext_ForRedo = null;  
+
+        }
+
+
+
+
     }
 }
 

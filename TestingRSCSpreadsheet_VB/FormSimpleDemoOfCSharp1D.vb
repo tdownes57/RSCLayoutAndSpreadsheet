@@ -345,15 +345,36 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bManagerHasRedosQueuedUp As Boolean
         Dim boolUserCancels As Boolean
         Dim dialog_result As DialogResult
+        ''Added 12/02/2024
+        Dim intCountRedos As Integer
+        Dim strDialogMessage As String
+        intCountRedos = mod_manager.CountOfOperations_QueuedForRedo()
 
         bManagerHasRedosQueuedUp = mod_manager.AreOneOrMoreOpsToRedo_PerMarker()
 
         If (bManagerHasRedosQueuedUp) Then
 
-            dialog_result = MessageBoxTD.Show_QuestionYesNo("Cancel all pending Redo operations?")
+            ''//    This is needed if the user has pressed the "Undo" button, 
+            ''//    And now wants to move forward with a "brand new" operation. 
+            ''//    Rather than following "Undo" with a "Redo", user wants to 
+            ''//    permanently discard the his Or her most recent operation. 
+            ''//    (The operation being discarded was definitely a mistake in
+            ''//    the user's perspective.)
+            ''//    12/02/2024 th.omas do.wnes 
+            ''//
+            strDialogMessage = String.Format("Cancel all {0} pending Redo operations?", intCountRedos)
+            ''//dialog_result = MessageBoxTD.Show_QuestionYesNo("Cancel all pending Redo operations?")
+            dialog_result = MessageBoxTD.Show_QuestionYesNo(strDialogMessage)
             boolUserCancels = (dialog_result = DialogResult.OK)
 
         End If ''End of ""If (bManagerHasRedosQueuedUp) Then""
+
+        If (boolUserCancels) Then
+            ''Added 12/02/2024
+            MessageBoxTD.Show_InsertWordFormat_Line1(intCountRedos,
+                 "This many pending Redo operations will be cancelled: {0}")
+
+        End If ''End of ""If (boolUserCancels) Then""
 
         pbyrefUserCancelsOperation = boolUserCancels
 

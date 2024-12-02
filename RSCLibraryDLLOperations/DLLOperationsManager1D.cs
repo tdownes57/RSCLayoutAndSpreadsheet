@@ -33,8 +33,8 @@ namespace RSCLibraryDLLOperations
         private DLLOperation1D<T_LinkedCtl> mod_firstPriorOperation1D;
         private DLLOperation1D<T_LinkedCtl> mod_lastPriorOperation1D;
 
-        private DLLOperationsRedoMarker1D<T_LinkedCtl>
-            mod_opRedoMarker;  // new DLLOperationsRedoMarker1D<T_LinkedCtl>(); // As r ''Added 1/24/2024
+        private DLLOperationsUndoRedoMarker1D<T_LinkedCtl>
+            mod_opUndoRedoMarker;  // new DLLOperationsRedoMarker1D<T_LinkedCtl>(); // As r ''Added 1/24/2024
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
@@ -56,7 +56,7 @@ namespace RSCLibraryDLLOperations
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
 
         }
 
@@ -82,12 +82,23 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public int CountOfOperations_QueuedForRedo()
+        {
+            //
+            //  Added 10/13/2024 
+            //
+            int countOpsToRedo = mod_opUndoRedoMarker.CountsOpsToRedo();
+            return (countOpsToRedo);
+
+        }
+
+
         public bool AreOneOrMoreOpsToRedo_PerMarker()
         {
             //
             // Added 12/01/2024 thomas downes
             //
-            int countOpsToRedo = mod_opRedoMarker.CountsOpsToRedo();
+            int countOpsToRedo = mod_opUndoRedoMarker.CountsOpsToRedo();
             return (countOpsToRedo > 0);
 
         }
@@ -95,7 +106,7 @@ namespace RSCLibraryDLLOperations
 
         public bool MarkerHasOperationPrior()
         {
-            bool result_hasPrior = mod_opRedoMarker.HasOperationPrior();
+            bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior();
             return result_hasPrior;
         }
 
@@ -103,7 +114,7 @@ namespace RSCLibraryDLLOperations
         public bool MarkerHasOperationNext()
         {
             //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
-            bool result_hasNext = mod_opRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
             return result_hasNext;
 
         }
@@ -152,16 +163,16 @@ namespace RSCLibraryDLLOperations
                     mod_firstPriorOperation1D = parOperation;
                     mod_lastPriorOperation1D = parOperation;
                 }
-                else if (mod_opRedoMarker.HasOperationNext())
+                else if (mod_opUndoRedoMarker.HasOperationNext())
                 {
                     //
                     // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
                     //
                     //    Logically speaking, any pending Redo operations must be deleted/cleared.
                     //
-                    mod_lastPriorOperation1D = mod_opRedoMarker.GetCurrentOp_Undo();
+                    mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
                     mod_lastPriorOperation1D.DLL_ClearOpNext();
-                    mod_opRedoMarker.ClearOperationToRedo();  
+                    mod_opUndoRedoMarker.ClearPendingRedoOperation();  
 
                 }
                 else
@@ -173,7 +184,7 @@ namespace RSCLibraryDLLOperations
                     //mod_lastPriorOperation1D = parOperation;
                     //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
                     mod_lastPriorOperation1D = parOperation;
-                    mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(parOperation);
                     // Added 12/01/2028
                     mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
                     //
@@ -194,7 +205,7 @@ namespace RSCLibraryDLLOperations
         public void RedoMarkedOperation() // (bool pbIsHoriz, bool pbIsVerti)
         {
             DLLOperation1D<T_LinkedCtl>  // <T_LinkedCtlHor, T_LinkedCtlVer>
-                opReDo = mod_opRedoMarker.GetMarkersNext_ShiftPositionRight();
+                opReDo = mod_opUndoRedoMarker.GetMarkersNext_ShiftPositionRight();
 
             //Added 5.25.2024
             bool bIsChangeOfEndpoint = opReDo.IsChangeOfEndpoint();
@@ -223,14 +234,14 @@ namespace RSCLibraryDLLOperations
             bool bOperationPriorExists; 
 
             // Added 10/25/2024  
-            if (mod_opRedoMarker == null)
+            if (mod_opUndoRedoMarker == null)
             {
                 // Added 10/25/2024  
                 if (mod_lastPriorOperation1D == null) throw new RSCNoPriorOperationException();
-                mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(mod_lastPriorOperation1D);
+                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(mod_lastPriorOperation1D);
 
             }
-            else if (mod_opRedoMarker.HasOperationPrior())
+            else if (mod_opUndoRedoMarker.HasOperationPrior())
             {
                 // Great, we will be able to do the "Undo" operation.
                 bOperationPriorExists = true;
@@ -244,7 +255,7 @@ namespace RSCLibraryDLLOperations
                 //return;
             }
 
-            intCountFurtherUndoOps = 1 + mod_opRedoMarker.GetCurrentIndex_Undo();
+            intCountFurtherUndoOps = 1 + mod_opUndoRedoMarker.GetCurrentIndex_Undo();
 
             if (intCountFurtherUndoOps == 0)
             {
@@ -255,14 +266,14 @@ namespace RSCLibraryDLLOperations
             else
             {
                 // Undo the operation which is the RedoMarker's currently-designated Undo operation.
-                operationToUndo = mod_opRedoMarker.GetCurrentOp_Undo();
+                operationToUndo = mod_opUndoRedoMarker.GetCurrentOp_Undo();
 
                 // Major call!!
                 //UndoOperation_ViaInverseOf(operationToUndo);
                 UndoOperation_ViaInverseOf(operationToUndo, ref pbEndpointAffected);
 
                 // Major call!! --1/10/2024
-                mod_opRedoMarker.ShiftMarker_AfterUndo_ToPrior();
+                mod_opUndoRedoMarker.ShiftMarker_AfterUndo_ToPrior();
 
                 // Refresh the Display. (Make the Insert visible to the user.)
                 // RefreshTheUI_DisplayList();
@@ -318,12 +329,12 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public string ToString()
+        public override string ToString()
         {
             //
             // Added 11/29/2024 
             //
-            return mod_opRedoMarker.ToString();
+            return mod_opUndoRedoMarker.ToString();
 
         }
 

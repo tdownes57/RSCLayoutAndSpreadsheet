@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLOperationsRedoMarker1D<TControl>
+    internal class DLLOperationsUndoRedoMarker1D<TControl>
        where TControl : IDoublyLinkedItem<TControl>
     {
         //
@@ -75,7 +75,7 @@ namespace RSCLibraryDLLOperations
 
         //}
 
-        public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
+        public DLLOperationsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
         {
             // Added 10/25/2024 
             //
@@ -296,6 +296,24 @@ namespace RSCLibraryDLLOperations
             result_count = HowManyOpsExistForRedo();
             result_count += HowManyOpsExistForUndo();
             return result_count;  
+
+        }
+
+
+        public void ClearPendingRedoOperation()
+        {
+            //
+            // Added 12/02/2024
+            //
+            //    This is needed if the user has pressed the "Undo" button, 
+            //    and now wants to move forward with a "brand new" operation. 
+            //    Rather than following "Undo" with a "Redo", user wants to 
+            //    permanently discard the his or her most recent operation. 
+            //    (The operation being discarded was definitely a mistake in
+            //    the user's perspective.)
+            //    12/02/2024 th.omas do.wnes 
+            //
+            mod_opNext_ForRedo = null; 
 
         }
 
