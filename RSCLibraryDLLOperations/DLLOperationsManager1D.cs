@@ -78,6 +78,18 @@ namespace RSCLibraryDLLOperations
                 Debugger.Break();
             }
             return intCountOps_method1;
+
+        }
+
+
+        public bool AreOneOrMoreOpsToRedo_PerMarker()
+        {
+            //
+            // Added 12/01/2024 thomas downes
+            //
+            int countOpsToRedo = mod_opRedoMarker.CountsOpsToRedo();
+            return (countOpsToRedo > 0);
+
         }
 
 
@@ -140,8 +152,20 @@ namespace RSCLibraryDLLOperations
                     mod_firstPriorOperation1D = parOperation;
                     mod_lastPriorOperation1D = parOperation;
                 }
-                else
+                else if (mod_opRedoMarker.HasOperationNext())
                 {
+                    //
+                    // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
+                    //
+                    //    Logically speaking, any pending Redo operations must be deleted/cleared.
+                    //
+                    mod_lastPriorOperation1D = mod_opRedoMarker.GetCurrentOp_Undo();
+                    mod_lastPriorOperation1D.DLL_ClearOpNext();
+                    mod_opRedoMarker.ClearOperationToRedo();  
+
+                }
+                else
+                { 
                     // Connect the operations in a doubly-linked list. 
                     parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
                     mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
@@ -150,6 +174,15 @@ namespace RSCLibraryDLLOperations
                     //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
                     mod_lastPriorOperation1D = parOperation;
                     mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(parOperation);
+                    // Added 12/01/2028
+                    mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
+                    //
+                    // DIFFICULT & CONFUSING -- Connect the first operation to this one, if needed.
+                    //
+                    if (mod_firstPriorOperation1D.DLL_MissingOpNext())
+                    {
+                        mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
+                    }
 
                 }
 

@@ -224,6 +224,26 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public int CountsOpsToRedo()
+        {
+            //
+            // Added 12/01/2024 as an Alias function.
+            //
+            return HowManyOpsExistForRedo();
+
+        }
+
+        public int CountsOpsToUndo()
+        {
+            //
+            // Added 12/01/2024 as an Alias function.
+            //
+            return HowManyOpsExistForUndo();
+
+        }
+
+
+
         public int HowManyOpsExistForRedo()
         {
             //

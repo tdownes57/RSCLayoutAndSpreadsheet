@@ -328,6 +328,41 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub ''end of ""Private Sub AutoPopulateRangeControls()"
 
 
+
+    Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
+        ''
+        '' Added 12/01/2024 
+        ''
+        CheckManagerForRedoOperations_AskUser(pbyrefUserCancelsOperation)
+
+    End Sub ''Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
+
+
+    Private Sub CheckManagerForRedoOperations_AskUser(ByRef pbyrefUserCancelsOperation As Boolean)
+        ''
+        '' Added 12/01/2024 
+        ''
+        Dim bManagerHasRedosQueuedUp As Boolean
+        Dim boolUserCancels As Boolean
+        Dim dialog_result As DialogResult
+
+        bManagerHasRedosQueuedUp = mod_manager.AreOneOrMoreOpsToRedo_PerMarker()
+
+        If (bManagerHasRedosQueuedUp) Then
+
+            dialog_result = MessageBoxTD.Show_QuestionYesNo("Cancel all pending Redo operations?")
+            boolUserCancels = (dialog_result = DialogResult.OK)
+
+        End If ''End of ""If (bManagerHasRedosQueuedUp) Then""
+
+        pbyrefUserCancelsOperation = boolUserCancels
+
+    End Sub ''Private Sub CheckManagerForRedoOperations_AskUser
+
+
+
+
+
     Private Sub buttonInsertMulti_Click(sender As Object, e As EventArgs) Handles buttonInsertMultiple.Click
         ''
         '' Added 10/15/2024  
@@ -349,6 +384,12 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim intModulo As Integer
         Dim boolEndpoint As Boolean
         Dim objAnchor As DLLAnchorItem(Of TwoCharacterDLLItem)
+
+        ''Added 12/01/2024 
+        ''   Inform the user of any pending issues, prior to any operations. 
+        Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
+        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        If (boolUserHasCancelled) Then Exit Sub
 
         intInsertCount = numInsertHowMany.Value
         intAnchorPosition = numInsertAnchorBenchmark.Value
@@ -514,6 +555,12 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim tempAnchorItem As TwoCharacterDLLItem '''Added 10/21/2024 thomas downes
         Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLItem) ''Added 10/26/2024
         Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLItem) ''Added 10/26/2024 td 
+
+        ''Added 12/01/2024 
+        ''   Inform the user of any pending issues, prior to any operations. 
+        Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
+        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        If (boolUserHasCancelled) Then Exit Sub
 
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
         intHowManyInModuleList = mod_list.DLL_CountAllItems
@@ -766,6 +813,12 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
         Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
 
+        ''Added 12/01/2024 
+        ''   Inform the user of any pending issues, prior to any operations. 
+        Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
+        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        If (boolUserHasCancelled) Then Exit Sub
+
         intItemPosition = numDeleteRangeBenchmarkStart.Value
         intHowManyToDelete = numDeleteHowMany.Value
 
@@ -878,6 +931,12 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bAnchorMoveBefore As Boolean
         Dim bCheck_RangeContainsAnchor As Boolean ''Added 11/18/2024
         Dim bCheck_AnchorEnclosesRange As Boolean ''Added 11/18/2024
+
+        ''Added 12/01/2024 
+        ''   Inform the user of any pending issues, prior to any operations. 
+        Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
+        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        If (boolUserHasCancelled) Then Exit Sub
 
         intAnchorIndex = numMoveAnchorBenchmark.Value
         tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
