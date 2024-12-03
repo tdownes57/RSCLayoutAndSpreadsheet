@@ -1247,7 +1247,8 @@ namespace RSCLibraryDLLOperations
             while (operationPriorBefore != null)
             {
                 result_count++;
-                operationPriorBefore = operationPriorBefore.DLL_GetOpNext_OfT();
+                //---HARD TO FIND BUG--- = operationPriorBefore.DLL_GetOpNext_OfT();
+                operationPriorBefore = operationPriorBefore.DLL_GetOpPrior_OfT();
             }
 
             return result_count;

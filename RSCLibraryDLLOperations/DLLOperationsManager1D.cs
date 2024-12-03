@@ -143,8 +143,11 @@ namespace RSCLibraryDLLOperations
             //if (parOperation.IsHorizontal()) parOperation.OperateOnList(mod_listHoriz, par_changeOfEndpoint);
             //if (parOperation.IsVertical()) parOperation.OperateOnList(mod_listVerti, par_changeOfEndpoint);
 
+            //-------------------------------------------------------------------
             //
-            //Major call!! 
+            //------------------ Major call!! --------------------------------------
+            //
+            //-------------------------------------------------------------------
             //
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint);
 
@@ -231,6 +234,16 @@ namespace RSCLibraryDLLOperations
                         //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
                         mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
                     }
+
+                    //
+                    // Testing!!  
+                    //
+                    int intCountOfPriorOps;
+                    int intCountOfPriorOps_PlusItself;
+                    intCountOfPriorOps = (mod_lastPriorOperation1D.DLL_CountOpsBefore());
+                    intCountOfPriorOps_PlusItself = (intCountOfPriorOps + 1); // We must count the operation itself !!!!!
+
+
 
                 }
 
