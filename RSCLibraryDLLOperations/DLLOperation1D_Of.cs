@@ -1211,11 +1211,18 @@ namespace RSCLibraryDLLOperations
             // Added 11/29/2024  
             //
             int result_count = 0;
-            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
-            while (tempOperation != null)
+
+            //
+            // Please note, "After" and "Next" are synonyms.  
+            //    So, "2 comes after 1" and "2 is the next number after 1"
+            //    means the same thing. 
+            //
+            DLLOperation1D<TControl> operationNextAfter = DLL_GetOpNext_OfT();
+            
+            while (operationNextAfter != null)
             {
                 result_count++;
-                tempOperation = tempOperation.DLL_GetOpNext_OfT();
+                operationNextAfter = operationNextAfter.DLL_GetOpNext_OfT();
             }
             return result_count;  
 
@@ -1228,12 +1235,21 @@ namespace RSCLibraryDLLOperations
             // Added 11/29/2024  
             //
             int result_count = 0;
-            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
-            while (tempOperation != null)
+
+            //
+            // Please note, "Before" and "Prior" are synonyms.  
+            //    So, "3 comes before 4" and "3 is the number prior to 4"
+            //    means the same thing. 
+            //
+            //---12/03/2024---DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
+            DLLOperation1D<TControl> operationPriorBefore = DLL_GetOpPrior_OfT();
+
+            while (operationPriorBefore != null)
             {
                 result_count++;
-                tempOperation = tempOperation.DLL_GetOpNext_OfT();
+                operationPriorBefore = operationPriorBefore.DLL_GetOpNext_OfT();
             }
+
             return result_count;
 
         }

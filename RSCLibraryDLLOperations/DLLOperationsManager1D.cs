@@ -136,13 +136,16 @@ namespace RSCLibraryDLLOperations
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
                                bool par_changeOfEndpoint,
-                               bool par_bRecordOperation)
+                               bool pbOperationIsNewSoRecordIt)
         {
             // Added 1/15/2024
 
             //if (parOperation.IsHorizontal()) parOperation.OperateOnList(mod_listHoriz, par_changeOfEndpoint);
             //if (parOperation.IsVertical()) parOperation.OperateOnList(mod_listVerti, par_changeOfEndpoint);
 
+            //
+            //Major call!! 
+            //
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint);
 
             //
@@ -151,8 +154,25 @@ namespace RSCLibraryDLLOperations
             mod_firstItem = mod_list._itemStart;
             mod_endingItem = mod_list._itemEnding;
 
+            // Added 12/03/2024 thomas 
+            //    
+            bool bUserRequestedUndoOrRedo = (!pbOperationIsNewSoRecordIt); // (!par_bRecordOperation); 
+
             //    //     // Added 1/01/2024
-            if (par_bRecordOperation)
+            if (bUserRequestedUndoOrRedo)
+            {
+                //
+                // We've processed the "Undo" or "Redo" already.
+                //
+                // (See "parOperation.OperateOnList(...)" above.) 
+                //
+                // Other than moving the UndoRedo marker one way or another,
+                //   we don't need to play any woodland games with the 
+                //   "branching".
+                //
+
+            }
+            else if (pbOperationIsNewSoRecordIt)
             {
                 //
                 //  RecordNewestOperation(operation);
@@ -163,20 +183,25 @@ namespace RSCLibraryDLLOperations
                     mod_firstPriorOperation1D = parOperation;
                     mod_lastPriorOperation1D = parOperation;
                 }
-                else if (mod_opUndoRedoMarker.HasOperationNext())
-                {
-                    //
-                    // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
-                    //
-                    //    Logically speaking, any pending Redo operations must be deleted/cleared.
-                    //
-                    mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
-                    mod_lastPriorOperation1D.DLL_ClearOpNext();
-                    mod_opUndoRedoMarker.ClearPendingRedoOperation();  
-
-                }
+                
                 else
                 {
+                    //
+                    // First, we must clear any pending "Redo" operations. 
+                    //
+                    if (mod_opUndoRedoMarker.HasOperationNext())
+                    {
+                        //
+                        // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
+                        //
+                        //    Logically speaking, any pending Redo operations must be deleted/cleared.
+                        //
+                        mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
+                        mod_lastPriorOperation1D.DLL_ClearOpNext();
+                        mod_opUndoRedoMarker.ClearPendingRedoOperation();  
+
+                    }
+
                     // Connect the operations in a doubly-linked list. 
                     //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
                     parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
