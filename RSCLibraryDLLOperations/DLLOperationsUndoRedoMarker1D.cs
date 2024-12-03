@@ -1,6 +1,7 @@
 ﻿using ciBadgeInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -177,10 +178,13 @@ namespace RSCLibraryDLLOperations
             //''   it would be, if not for this procedure.So, I guess it 
             //''   is mutable...unless I comment out this procedure!!!! 1/10/2024
             //''
-            DLLOperation1D<TControl> temp_op;
+            if (mod_opPrior_ForUndo == null) System.Diagnostics.Debugger.Break();
+            if (mod_opPrior_ForUndo == null) throw new RSCEndpointException();
+
+            DLLOperation1D<TControl>? temp_op;
             temp_op = mod_opPrior_ForUndo;
 
-            mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior(); //''Shift to the Left...to Prior() item.
+            mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior_OfT(); //''Shift to the Left...to Prior() item.
 
             if (mod_opNext_ForRedo == null)  //Then ''Added 1 / 15 / 2024 td
             {
@@ -189,7 +193,7 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpPrior(); // ''Shift to the Left...to Prior() item.
+                mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpPrior_OfT(); // ''Shift to the Left...to Prior() item.
             } // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
 
         }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
@@ -316,6 +320,24 @@ namespace RSCLibraryDLLOperations
             mod_opNext_ForRedo = null; 
 
         }
+
+
+        public string ToString(DLLOperation1D<TControl> par_newOp)
+        {
+
+            //
+            //  Added 12/02/2027 t..homas d..ownes
+            //
+            int intCountOpsForUndo = HowManyOpsExistForUndo();
+            int intCountOpsPriorToParam = par_newOp.DLL_CountOpsBefore();
+            bool boolMatch;
+            boolMatch = (intCountOpsForUndo == (1 + intCountOpsPriorToParam));
+            if (!boolMatch) Debugger.Break();
+
+            return ToString();
+
+        }
+
 
 
         public override string ToString()

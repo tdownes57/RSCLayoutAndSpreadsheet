@@ -100,8 +100,10 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub
 
 
-    Private Sub RefreshTheUI_DisplayList()
-
+    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLItem) = Nothing)
+        ''
+        ''Added an optional parameter (par_operation) on 12/02/2024 
+        ''
         ''Populate the UI. 
         Dim strListOfLinks As String
 
@@ -538,7 +540,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Display the list. 
         ''
-        RefreshTheUI_DisplayList()
+        ''--RefreshTheUI_DisplayList()
+        RefreshTheUI_DisplayList() '' (operation)
 
         ''Remove the highlighting of the range's endpoints.
         mod_range.HighlightEndpoints_Green(False)
@@ -552,7 +555,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        ''Modified 12/02/2024  labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_manager.ToString(operation)
 
     End Sub
 

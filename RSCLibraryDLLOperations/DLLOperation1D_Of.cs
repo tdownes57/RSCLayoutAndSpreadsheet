@@ -59,12 +59,12 @@ namespace RSCLibraryDLLOperations
 
         private readonly DLLRange<TControl>? _range;
 
-        private DLLOperation1D<TControl>? mod_opPrior_ForUndo;
-        private DLLOperation1D<TControl>? mod_opNext_ForRedo;
+        private DLLOperation1D<TControl>? mod_opPrior_ForUndo_OfT;
+        private DLLOperation1D<TControl>? mod_opNext_ForRedo_OfT;
 
 
         /// <summary>
-        /// Indicate whether the ENDPOINTS (outward-facing item references 
+        /// Ind icate whether the ENDPOINTS (outward-facing item references 
         /// at either end of a range of items) should be always set to NULL
         /// after a DELETE is performed.
         /// </summary>
@@ -1041,7 +1041,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/25/2024 
             //
-            return mod_opPrior_ForUndo;
+            return mod_opPrior_ForUndo_OfT;
 
         }
 
@@ -1054,7 +1054,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/25/2024 
             //
-            return mod_opNext_ForRedo;
+            return mod_opNext_ForRedo_OfT;
 
         }
 
@@ -1064,7 +1064,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/25/2024 
             //
-            return (mod_opPrior_ForUndo != null);
+            return (mod_opPrior_ForUndo_OfT != null);
 
         }
 
@@ -1073,7 +1073,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/25/2024 
             //
-            return (mod_opNext_ForRedo != null);
+            return (mod_opNext_ForRedo_OfT != null);
 
         }
 
@@ -1119,30 +1119,75 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D<TControl> DLL_GetOpPrior()
+        public DLLOperationBase DLL_GetBase()
         {
-            return mod_opPrior_ForUndo;
+            //Added 12 /02/2024 td
+            //----return this;
+            return (this as DLLOperationBase);
 
         }
 
 
-        public DLLOperation1D<TControl> DLL_GetOpNext()
+        public DLLOperation1D<TControl> DLL_GetOpPrior_OfT()
         {
-            return mod_opNext_ForRedo;
+            // Added 12/02/2024 
+            //
+            //  Sanity check. 
+            //
+            if (base.mod_opPrior_ForUndo != mod_opPrior_ForUndo_OfT?.DLL_GetBase())
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            // Added 12/02/2024 
+            //
+            //  Sanity check.  (Equivalent to above.)  
+            //
+            if (base.mod_opPrior_ForUndo != (mod_opPrior_ForUndo_OfT as DLLOperationBase))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            return mod_opPrior_ForUndo_OfT;
 
         }
 
 
-        public void DLL_SetOpPrior(DLLOperation1D<TControl> parOperation)
+        public DLLOperation1D<TControl> DLL_GetOpNext_OfT()
         {
-            mod_opPrior_ForUndo = parOperation;
+            // Added 12/02/2024 
+            if (base.mod_opNext_ForRedo != mod_opNext_ForRedo_OfT?.DLL_GetBase())
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            // Added 12/02/2024 
+            if (base.mod_opNext_ForRedo != (mod_opNext_ForRedo_OfT as DLLOperationBase))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            return mod_opNext_ForRedo_OfT;
 
         }
 
 
-        public void DLL_SetOpNext(DLLOperation1D<TControl> parOperation)
+        public void DLL_SetOpPrior_OfT(DLLOperation1D<TControl> parOperation)
         {
-            mod_opNext_ForRedo = parOperation;
+            mod_opPrior_ForUndo_OfT = parOperation;
+
+            //Added 12/02/2024 td
+            base.mod_opPrior_ForUndo = parOperation;
+
+        }
+
+
+        public void DLL_SetOpNext_OfT(DLLOperation1D<TControl> parOperation)
+        {
+            mod_opNext_ForRedo_OfT = parOperation;
+
+            //Added 12/02/2024 td
+            base.mod_opNext_ForRedo = parOperation; 
 
         }
 
@@ -1150,11 +1195,11 @@ namespace RSCLibraryDLLOperations
         public int DLL_GetIndex()
         {
             int result = 0;
-            var temp = mod_opPrior_ForUndo;
+            var temp = mod_opPrior_ForUndo_OfT;
             while (temp != null)
             {
                 result++;
-                temp = temp.DLL_GetOpPrior();
+                temp = temp.DLL_GetOpPrior_OfT();
             } //until temp == null;  
             return result;
         }
@@ -1166,11 +1211,11 @@ namespace RSCLibraryDLLOperations
             // Added 11/29/2024  
             //
             int result_count = 0;
-            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext();
+            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
             while (tempOperation != null)
             {
                 result_count++;
-                tempOperation = tempOperation.DLL_GetOpNext();
+                tempOperation = tempOperation.DLL_GetOpNext_OfT();
             }
             return result_count;  
 
@@ -1183,11 +1228,11 @@ namespace RSCLibraryDLLOperations
             // Added 11/29/2024  
             //
             int result_count = 0;
-            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext();
+            DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
             while (tempOperation != null)
             {
                 result_count++;
-                tempOperation = tempOperation.DLL_GetOpNext();
+                tempOperation = tempOperation.DLL_GetOpNext_OfT();
             }
             return result_count;
 
@@ -1201,13 +1246,16 @@ namespace RSCLibraryDLLOperations
             //
             //DLLRange<TControl_H> rangeH = _range_H;
             //DLLRange<TControl_V> rangeV = _range_V;
-            bool result = false;
+            bool result = true;  // false;
 
             //if (_range_H != null) result = _range_H.CheckEndpointsAreClean_PriorToInsert();
             //if (_range_V != null) result = _range_V.CheckEndpointsAreClean_PriorToInsert();
             //return result;
 
-            result = _range.CheckEndpointsAreClean_PriorToInsert();
+            if (_range != null)
+                result = _range.CheckEndpointsAreClean_PriorToInsert();
+
+            else result = true;  // Added 12/02/2024 td
             return result;
 
         }
@@ -1226,7 +1274,10 @@ namespace RSCLibraryDLLOperations
             //    the user's perspective.)
             //    12/02/2024 th.omas do.wnes 
             //
-            mod_opNext_ForRedo = null;  
+            mod_opNext_ForRedo_OfT = null;
+
+            // Added 12/02/2024
+            base.mod_opNext_ForRedo = null;
 
         }
 

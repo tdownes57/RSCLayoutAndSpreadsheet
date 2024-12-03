@@ -176,23 +176,35 @@ namespace RSCLibraryDLLOperations
 
                 }
                 else
-                { 
+                {
                     // Connect the operations in a doubly-linked list. 
-                    parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
-                    mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
+                    //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
+                    parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
+                    
+                    //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
+                    mod_lastPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
+
                     var temp_priorOp = mod_lastPriorOperation1D;
                     //mod_lastPriorOperation1D = parOperation;
                     //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
                     mod_lastPriorOperation1D = parOperation;
+
+                    //
+                    //  Major call!!
+                    //
                     mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(parOperation);
+                    
                     // Added 12/01/2028
-                    mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
+                    //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
+                    mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
+
                     //
                     // DIFFICULT & CONFUSING -- Connect the first operation to this one, if needed.
                     //
                     if (mod_firstPriorOperation1D.DLL_MissingOpNext())
                     {
-                        mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
+                        //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
+                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
                     }
 
                 }
@@ -201,6 +213,7 @@ namespace RSCLibraryDLLOperations
 
 
         }
+
 
         public void RedoMarkedOperation() // (bool pbIsHoriz, bool pbIsVerti)
         {
@@ -335,6 +348,15 @@ namespace RSCLibraryDLLOperations
             // Added 11/29/2024 
             //
             return mod_opUndoRedoMarker.ToString();
+
+        }
+
+        public string ToString(DLLOperation1D<T_LinkedCtl> par_operation)
+        {
+            //
+            // Added 11/29/2024 
+            //
+            return mod_opUndoRedoMarker.ToString(par_operation);
 
         }
 
