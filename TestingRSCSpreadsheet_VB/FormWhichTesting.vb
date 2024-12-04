@@ -39,4 +39,19 @@ Public Class FormWhichTesting
         objFormToShow.Show()
 
     End Sub
+
+    ''Private Sub LinkLabel1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs)
+    ''    ''Added 1/22/2024 td
+    ''    ''---Dim objFormToShow As New FormTestUsingManager
+    ''    Dim objFormToShow As New FormSimpleDemoOfCSharp1D ''---TestUsingManager
+    ''    objFormToShow.Show()
+    ''End Sub
+
+    Private Sub LinkLabelSimpleBackup1D_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelSimpleBackup1D.LinkClicked
+
+        ''Added 12/04/2024 td
+        Dim objFormToShow As New FormSimpleDemo1D_Backup '' FormSimpleDemoOfCSharp1D ''---TestUsingManager
+        objFormToShow.Show()
+
+    End Sub
 End Class

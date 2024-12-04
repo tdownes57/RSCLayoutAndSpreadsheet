@@ -27,6 +27,7 @@ Partial Class FormWhichTesting
         LinkOpsManagerTwoLists = New LinkLabel()
         LinkLabelCSharpSimple1D = New LinkLabel()
         Label1ProbablyObselete = New Label()
+        LinkLabelSimpleBackup1D = New LinkLabel()
         SuspendLayout()
         ' 
         ' LinkOperationsManager
@@ -62,7 +63,7 @@ Partial Class FormWhichTesting
         ' LinkLabelCSharpSimple1D
         ' 
         LinkLabelCSharpSimple1D.AutoSize = True
-        LinkLabelCSharpSimple1D.Location = New Point(32, 180)
+        LinkLabelCSharpSimple1D.Location = New Point(31, 142)
         LinkLabelCSharpSimple1D.Name = "LinkLabelCSharpSimple1D"
         LinkLabelCSharpSimple1D.Size = New Size(306, 15)
         LinkLabelCSharpSimple1D.TabIndex = 3
@@ -79,11 +80,22 @@ Partial Class FormWhichTesting
         Label1ProbablyObselete.TabIndex = 4
         Label1ProbablyObselete.Text = "The ones below are probably obselete and won't work, unfortunately"
         ' 
+        ' LinkLabelSimpleBackup1D
+        ' 
+        LinkLabelSimpleBackup1D.AutoSize = True
+        LinkLabelSimpleBackup1D.Location = New Point(31, 167)
+        LinkLabelSimpleBackup1D.Name = "LinkLabelSimpleBackup1D"
+        LinkLabelSimpleBackup1D.Size = New Size(273, 15)
+        LinkLabelSimpleBackup1D.TabIndex = 5
+        LinkLabelSimpleBackup1D.TabStop = True
+        LinkLabelSimpleBackup1D.Text = "Testing a simple 1-Dimensional version -- BACKUP"
+        ' 
         ' FormWhichTesting
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
+        Controls.Add(LinkLabelSimpleBackup1D)
         Controls.Add(Label1ProbablyObselete)
         Controls.Add(LinkLabelCSharpSimple1D)
         Controls.Add(LinkOpsManagerTwoLists)
@@ -100,4 +112,5 @@ Partial Class FormWhichTesting
     Friend WithEvents LinkOpsManagerTwoLists As LinkLabel
     Friend WithEvents LinkLabelCSharpSimple1D As LinkLabel
     Friend WithEvents Label1ProbablyObselete As Label
+    Friend WithEvents LinkLabelSimpleBackup1D As LinkLabel
 End Class
