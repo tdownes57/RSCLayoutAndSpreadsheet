@@ -58,7 +58,7 @@ Public Class FormWhichTesting
     Private Sub LinkLabelCSharpSimple2D_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCSharpSimple2D.LinkClicked
 
         ''Added 12/04/2024 td
-        Dim objFormToShow As New FormSimpleDemo2D
+        Dim objFormToShow As New FormSimpleDemo1DHorizontal
         objFormToShow.Show()
 
     End Sub
