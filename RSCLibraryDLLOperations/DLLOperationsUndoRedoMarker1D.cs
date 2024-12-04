@@ -87,6 +87,27 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLOperationsUndoRedoMarker1D()
+        {
+            // Added 10/25/2024 
+            //
+            //mod_opPrior_ForUndo = par_2ndprior;
+            //mod_opNext_ForRedo = par_1stprior;
+            mod_opPrior_ForUndo = null;  // par_1stPrior;
+            mod_opNext_ForRedo = null;
+        }
+
+
+        public void SetFirstOperation(DLLOperation1D<TControl> par_1stPrior)
+        {
+            //
+            // Added 12/04/2024
+            //
+            mod_opPrior_ForUndo = par_1stPrior;
+
+        }
+
+
         public bool HasOperationNext()
         {
             // Added 5/22/2024
@@ -197,6 +218,15 @@ namespace RSCLibraryDLLOperations
             } // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
 
         }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
+
+
+        public void ClearAllOperations()
+        {
+            //Added 12/04/2024 
+            mod_opNext_ForRedo = null;
+            mod_opPrior_ForUndo = null; 
+
+        }
 
 
         public int GetCurrentIndex_Undo()

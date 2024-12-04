@@ -86,8 +86,9 @@ Public Class FormSimpleDemoOfCSharp1D
             operationInitial30.OperateOnList(mod_list)
 
             ''Added 10/20/2024  
-            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
-                                                     mod_list, operationInitial30)
+            ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
+            ''      mod_list, operationInitial30)
+            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem, mod_list)
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
@@ -96,6 +97,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         RefreshTheUI_DisplayList()
 
+        ''Added 12/04/2024 
+        labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
 
@@ -673,8 +676,14 @@ Public Class FormSimpleDemoOfCSharp1D
             rangeSingleItem.HighlightEndpoints_Cyan(False)
         End If ''End of " If (rangeSingleItem IsNot Nothing) Then"
 
+        ''Added 11/09/2024
+        ''  These two(2) lines are probably not needed. 
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = True
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -802,9 +811,14 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/09/2024
         buttonRedoOp.Enabled = True
+        buttonReDo.Enabled = True
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+
+        ''Added 12/04/2024 
+        labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
 
@@ -908,6 +922,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
+        buttonUndo.Enabled = True
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -937,7 +952,16 @@ Public Class FormSimpleDemoOfCSharp1D
         RefreshTheUI_DisplayList()
 
         ''Added 11/09/2024
-        buttonRedoOp.Enabled = False
+        ''buttonRedoOp.Enabled = False
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+
+        ''Added 12/04/2024
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+
+        ''Added 12/04/2024 
+        labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
 
@@ -1039,6 +1063,24 @@ Public Class FormSimpleDemoOfCSharp1D
         labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
+
+    Private Sub LinkClearRecordedOps_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkClearRecordedOps.LinkClicked
+        ''
+        ''Added 12/4./2024 t..homas d..ownes
+        ''
+        mod_manager.ClearAllRecordedOperations()
+
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+
+        labelNumOperations.Text = mod_manager.ToString()
+
+    End Sub
+
+
 End Class
 
 

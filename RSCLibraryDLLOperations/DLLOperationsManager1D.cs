@@ -60,6 +60,26 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+        public DLLOperationsManager1D(T_LinkedCtl par_firstItem,
+                                     DLLList<T_LinkedCtl> par_list)
+        {
+            this.mod_firstItem = par_firstItem;
+            this.mod_list = par_list;
+
+            //---this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
+            //---this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
+            //---mod_intCountOperations++; // Added 10/26/2024 td 
+
+            // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
+            // this.mod_opRedoMarker = mod_opRedoMarker;
+            // this.mod_intCountOperations = mod_intCountOperations;
+            //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>();
+
+        }
+
+
         public T_LinkedCtl GetFirstItem()
         {
             return mod_firstItem;
@@ -185,8 +205,11 @@ namespace RSCLibraryDLLOperations
                 {
                     mod_firstPriorOperation1D = parOperation;
                     mod_lastPriorOperation1D = parOperation;
+                    // Added 12/04/2024
+                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(parOperation);
+
                 }
-                
+
                 else
                 {
                     //
@@ -272,6 +295,19 @@ namespace RSCLibraryDLLOperations
         {
             //Nov10 2024 ''UndoOfPriorOperation_AnyType();
             UndoOfPriorOperation_AnyType(ref pbEndpointAffected);
+        }
+
+
+        public void ClearAllRecordedOperations()
+        {
+            //
+            // Added 12/04/2024 th..omas do..wnes  
+            //
+            mod_firstPriorOperation1D = null;
+            mod_lastPriorOperation1D = null; 
+            mod_opUndoRedoMarker.ClearAllOperations();
+            mod_intCountOperations = 0;
+
         }
 
 
