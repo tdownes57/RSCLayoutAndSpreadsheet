@@ -9,12 +9,22 @@ using ciBadgeInterfaces;  //Added 6/20/2024
 
 namespace RSCLibraryDLLOperations
 {
+    //---------------------------------------------------------------------------------------------------------------------
+    //  OBSELETE 
+    //---------------------------------------------------------------------------------------------------------------------
+    //  This class is suffixed _OBSELETE, because I want to avoid using DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> 
+    //---------------------------------------------------------------------------------------------------------------------
 
-    public class DLLOperationsManager2x2<T_LinkedCtlBase, T_LinkedCtlHor, T_LinkedCtlVer>
+    public class DLLOperationsManager2x2_Obselete<T_LinkedCtlBase, T_LinkedCtlHor, T_LinkedCtlVer>
               where T_LinkedCtlBase : IDoublyLinkedItem<T_LinkedCtlBase>
               where T_LinkedCtlHor : IDoublyLinkedItem<T_LinkedCtlHor>
               where T_LinkedCtlVer : IDoublyLinkedItem<T_LinkedCtlVer>
-    {   
+    {
+        //---------------------------------------------------------------------------------------------------------------------
+        //  OBSELETE 
+        //---------------------------------------------------------------------------------------------------------------------
+        //  This class is suffixed _OBSELETE, because I want to avoid using DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> 
+        //---------------------------------------------------------------------------------------------------------------------
         //
         //    2D = 2 dimensions, a 2-dimensional grid
         //
@@ -32,6 +42,11 @@ namespace RSCLibraryDLLOperations
         private DLLList<T_LinkedCtlHor> mod_listHoriz;
         private DLLList<T_LinkedCtlVer> mod_listVerti;
 
+        //---------------------------------------------------------------------------------------------------------------------
+        //  OBSELETE 
+        //---------------------------------------------------------------------------------------------------------------------
+        //  This class is suffixed _OBSELETE, because I want to avoid using DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> 
+        //---------------------------------------------------------------------------------------------------------------------
         private DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> mod_firstPriorOperationV1;
         private DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> mod_lastPriorOperationV1;
 
@@ -40,8 +55,6 @@ namespace RSCLibraryDLLOperations
             new DLLOperationsRedoMarker2D<T_LinkedCtlHor, T_LinkedCtlVer>(); // As r ''Added 1/24/2024
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
-
-
 
 
         public T_LinkedCtlHor GetFirstItemH()
