@@ -8,14 +8,17 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    public class DLLOperationsManager2x2_Redo<TBase, THorizontal, TVertical> 
-                          // :InterfaceDLLManager_OfT<TBase>
-            where TBase : IDoublyLinkedItem<TBase>
-            where THorizontal : IDoublyLinkedItem<THorizontal>
-            where TVertical : IDoublyLinkedItem<TVertical>
+    public class DLLOperationsManager2x2_Redo<T_Base, T_Hori, T_Vert> 
+                          // :InterfaceDLLManager_OfT<T_Base>
+            where T_Base : IDoublyLinkedItem<T_Base>
+            where T_Hori : IDoublyLinkedItem<T_Hori>
+            where T_Vert : IDoublyLinkedItem<T_Vert>
     {
         //
         //    2D = 2 dimensions, a 2-dimensional grid
+        //
+        //    "Hor" = Horizontal
+        //    "Ver" = Vertical 
         //
         // "_Redo" version started 11/25/2024 thom.a.s down.e.s
         //
@@ -24,22 +27,22 @@ namespace RSCLibraryDLLOperations
         //---------------------------------------------------------------------------------------------------------------------
         //  I have added these classes, and suffixed this class as _REDO, because I want to avoid using
         //      the following class:  
-        //       DLLOperation2D<T_LinkedCtlHor, T_LinkedCtlVer> 
+        //       DLLOperation2D<T_Hori, T_Vert> 
         //---------------------------------------------------------------------------------------------------------------------
-        private DLLOperationsManager1D<THorizontal> mod_managerHoriz;
-        private DLLOperationsManager1D<TVertical> mod_managerVerti;
+        private DLLOperationsManager1D<T_Hori> mod_managerHoriz;
+        private DLLOperationsManager1D<T_Vert> mod_managerVerti;
 
-        private TBase mod_firstOperation;
+        private T_Base mod_firstOperation;
         private int mod_numberOfOperations;
         private bool mod_horizontalOnlyMode = false;  //Added 12/04/2024 thomas downes
         private bool mod_bothDimensionsMode = false;  //Added 12/04/2024 thomas downes
 
-        private DLLOperationsUndoRedoMarker1D<TBase> mod_opRedoMarker;
+        private DLLOperationsUndoRedoMarker1D<T_Base> mod_opRedoMarker;
 
         public DLLOperationsManager2x2_Redo(bool par_horizontalOnly,
-                             T_LinkedCtlHor par_firstItemHorizontal,
-                             DLLList<T_LinkedCtlHor> par_listHoriz,
-                             DLLOperation1D<T_LinkedCtlHor> par_firstPriorOperationHor)
+                             T_Hori par_firstItemHorizontal,
+                             DLLList<T_Hori> par_listHoriz,
+                             DLLOperation1D<T_Hori> par_firstPriorOperationHor)
         {
             //
             // Constructor
@@ -62,14 +65,15 @@ namespace RSCLibraryDLLOperations
             mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
 
         }
-
+        
 
         public DLLOperationsManager2x2_Redo(bool par_BothDimensions,
-                                         T_LinkedCtlHor par_firstItemHorizontal, T_LinkedCtlHor par_firstItemVertical,
-                                         DLLList<T_LinkedCtlHor> par_listHoriz,
-                                         DLLList<T_LinkedCtlVer> par_listVerti,
-                                         DLLOperation1D<T_LinkedCtlHor> par_firstPriorOperationHor,
-                                         DLLOperation1D<T_LinkedCtlVer> par_firstPriorOperationVer)
+                                         T_Hori par_firstItemHorizontal, 
+                                         T_Vert par_firstItemVertical,
+                                         DLLList<T_Hori> par_listHoriz,
+                                         DLLList<T_Vert> par_listVerti,
+                                         DLLOperation1D<T_Hori> par_firstPriorOperationHor,
+                                         DLLOperation1D<T_Vert> par_firstPriorOperationVer)
         {
             //
             // Constructor
@@ -94,9 +98,9 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperationsManager2x2_Redo(T_LinkedCtlHor par_firstItemHorizontal, T_LinkedCtlHor par_firstItemVertical,
-                                         DLLList<T_LinkedCtlHor> par_listHoriz,
-                                         DLLList<T_LinkedCtlVer> par_listVerti)
+        public DLLOperationsManager2x2_Redo(T_Hori par_firstItemHorizontal, T_Hori par_firstItemVertical,
+                                         DLLList<T_Hori> par_listHoriz,
+                                         DLLList<T_Vert> par_listVerti)
         {
             //
             // Constructor  
