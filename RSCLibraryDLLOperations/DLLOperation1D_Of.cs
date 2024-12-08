@@ -1128,6 +1128,22 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLOperation1D<T_Base> GetConversionToBaseOfT<T_Base>() 
+            where T_Base : IDoublyLinkedItem<T_Base>
+        {
+            //Added 12 /02/2024 td
+             //----return this;
+            //return (this as DLLOperationBase);
+
+            DLLRange<T_Base> objRange = _range.GetConversionToBaseOfT<T_Base>()
+
+            DLLOperation1D<T_Base> result = 
+                new DLLOperation1D<T_Base>(objRange, objCouplet, false, false)
+
+
+
+        }
+
         public DLLOperation1D<TControl> DLL_GetOpPrior_OfT()
         {
             // Added 12/02/2024 

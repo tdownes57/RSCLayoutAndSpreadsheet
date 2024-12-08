@@ -12,7 +12,7 @@ using System.Text; //Added 6/20/2024
 
 namespace RSCLibraryDLLOperations
 {
-    public class DLLRange<TControl> where TControl : IDoublyLinkedItem<TControl>
+    public class DLLRange<TControl> where TControl : class, IDoublyLinkedItem<TControl>
     {
         //
         // Added 4/20/2024 Thomas Downes
@@ -179,6 +179,22 @@ namespace RSCLibraryDLLOperations
             if (_StartingItem == null) _StartingItem = par_itemSingle;
             if (_EndingItem == null) _EndingItem = par_itemStart;
             if (_EndingItem == null) _EndingItem = par_itemSingle;
+
+        }
+
+
+        public DLLRange<TBase56> GetConversionToBaseOfT<TBase56>() 
+            where TBase56 : class, IDoublyLinkedItem<TBase56>
+        {
+            //
+            // Added 12/07/2024 thoma.s downe.s 
+            //
+            TBase56 object56_s = _StartingItem as TBase56;
+            TBase56 object56_e = _EndingItem as TBase56;
+
+            DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e);
+
+            return result; 
 
         }
 

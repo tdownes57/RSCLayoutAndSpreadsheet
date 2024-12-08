@@ -28,13 +28,16 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public void DLL_SetOpNext(DLLOperationBase par_item)
+        public void DLL_SetOpNext(DLLOperationBase par_item, bool par_bidirectional)
         {
             //
             // Added 11/23/2024
             // 
             // 12/02/2024 mod_opNext = par_item;
             mod_opNext_ForRedo = par_item;
+
+            // Added 12/07/2024
+            if (par_bidirectional) par_item.mod_opPrior_ForUndo = this;
         
         }
 
