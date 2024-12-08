@@ -3,6 +3,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
+using System.Reflection.Metadata;
+
 
 //using System.Reflection.Metadata.Ecma335;
 using ciBadgeInterfaces; //Added 6/20/2024
@@ -21,7 +23,7 @@ namespace RSCLibraryDLLOperations
     //
 
     public class DLLOperation1D<TControl> : DLLOperationBase // :IDoublyLinkedItem
-        where TControl : IDoublyLinkedItem<TControl>
+        where TControl : class, IDoublyLinkedItem<TControl>
     {
         //''
         //''Added 4/17/2024 td
@@ -1119,8 +1121,9 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperationBase DLL_GetBase()
+        public DLLOperationBase GetConvertToBaseClass()
         {
+            //---public DLLOperationBase DLL_GetBase()
             //Added 12 /02/2024 td
             //----return this;
             return (this as DLLOperationBase);
@@ -1128,19 +1131,20 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D<T_Base> GetConversionToBaseOfT<T_Base>() 
-            where T_Base : IDoublyLinkedItem<T_Base>
+        public DLLOperation1D<T_Base> GetConvertToGenericOfT<T_Base>()
+            where T_Base : class, IDoublyLinkedItem<T_Base>
         {
             //Added 12 /02/2024 td
-             //----return this;
+            //----return this;
             //return (this as DLLOperationBase);
 
-            DLLRange<T_Base> objRange = _range.GetConversionToBaseOfT<T_Base>()
+            DLLRange<T_Base> objRange = _range.GetConvertToGenericOfT<T_Base>();
+            DLLAnchorCouplet<T_Base> objCouplet = _anchorCouplet.GetConvertToGeneric_OfT<T_Base>();
 
-            DLLOperation1D<T_Base> result = 
-                new DLLOperation1D<T_Base>(objRange, objCouplet, false, false)
+            DLLOperation1D<T_Base> result =
+                new DLLOperation1D<T_Base>(objRange, objCouplet, false, false);
 
-
+            return result;
 
         }
 
@@ -1150,7 +1154,7 @@ namespace RSCLibraryDLLOperations
             //
             //  Sanity check. 
             //
-            if (base.mod_opPrior_ForUndo != mod_opPrior_ForUndo_OfT?.DLL_GetBase())
+            if (base.mod_opPrior_ForUndo != mod_opPrior_ForUndo_OfT?.GetConvertToBaseClass())
             {
                 System.Diagnostics.Debugger.Break();
             }
@@ -1172,7 +1176,10 @@ namespace RSCLibraryDLLOperations
         public DLLOperation1D<TControl> DLL_GetOpNext_OfT()
         {
             // Added 12/02/2024 
-            if (base.mod_opNext_ForRedo != mod_opNext_ForRedo_OfT?.DLL_GetBase())
+
+            // Check to see that we haven't a bug on our hands.
+            //
+            if (base.mod_opNext_ForRedo != mod_opNext_ForRedo_OfT?.GetConvertToBaseClass())
             {
                 System.Diagnostics.Debugger.Break();
             }
@@ -1203,7 +1210,34 @@ namespace RSCLibraryDLLOperations
             mod_opNext_ForRedo_OfT = parOperation;
 
             //Added 12/02/2024 td
-            base.mod_opNext_ForRedo = parOperation; 
+            base.mod_opNext_ForRedo = parOperation;
+
+        }
+
+
+
+        public void DLL_SetOpNext_OfT(DLLOperation1D<TControl> parOperation, bool pbBirectional)
+        {
+            //
+            //Added 12/08/2024 td
+            //
+            DLL_SetOpNext_OfT(parOperation);
+
+            // Added 12/08/2024 
+            //''
+            //'' Adding bidirectionality.  ---12 / 08 / 2024 td
+            //''
+            if (pbBirectional)
+            {
+                //''
+                //''Set the "mod_prior" item for this parameter item,
+                //''  to be the present class (i.e.the procedure's implicit parameter).
+                //''
+                parOperation.mod_opPrior_ForUndo = this as DLLOperationBase;
+                parOperation.mod_opPrior_ForUndo_OfT = this; 
+
+             } // End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
+
 
         }
 

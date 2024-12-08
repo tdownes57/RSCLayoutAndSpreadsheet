@@ -24,9 +24,11 @@ Public Class TwoCharacterDLLItem
 
     Public Property _Control As Control ''Added 5/3/2024 td
 
+    Private Const ENFORCE_BIDIRECTIONAL As Boolean = True ''Added 12/08/2024 
+
     Private mod_prior As TwoCharacterDLLItem
     Private mod_next As TwoCharacterDLLItem
-    ''July2024 Private mod_twoChars As String
+    ''July2024 Private mod_twoChars As  
     Private mod_char1 As Char ''String
     Private mod_char2 As Char ''String
 
@@ -93,13 +95,26 @@ Public Class TwoCharacterDLLItem
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
-    Public Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLItem) _
+
+    Public Sub DLL_SetItemPrior_OfT(paramItem As TwoCharacterDLLItem) _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemPrior_OfT
 
         ''Throw New NotImplementedException()
-        If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        If (paramItem Is Me) Then System.Diagnostics.Debugger.Break()
         ''---mod_next = param
         mod_prior = param
+
+        ''
+        '' Adding bidirectionality.  ---12/08/2024 td
+        ''
+        If (ENFORCE_BIDIRECTIONAL) Then
+            ''
+            ''Set the "mod_prior" item for this parameter item,
+            ''  to be the present class (i.e. the procedure's implicit parameter).
+            ''
+            paramItem.mod_next = Me
+
+        End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
@@ -132,6 +147,19 @@ Public Class TwoCharacterDLLItem
         Else
             mod_next = param
         End If
+
+        ''
+        '' Adding bidirectionality.  ---12/08/2024 td
+        ''
+        If (ENFORCE_BIDIRECTIONAL) Then
+
+            ''Set the "mod_prior" item for this parameter item,
+            ''  to be the present class (i.e. the procedure's implicit parameter).
+            ''
+            param.mod_prior = Me
+
+        End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
+
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 

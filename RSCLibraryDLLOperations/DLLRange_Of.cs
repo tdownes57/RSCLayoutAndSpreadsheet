@@ -183,7 +183,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLRange<TBase56> GetConversionToBaseOfT<TBase56>() 
+        public DLLRange<TBase56> GetConvertToGenericOfT<TBase56>() 
             where TBase56 : class, IDoublyLinkedItem<TBase56>
         {
             //

@@ -36,6 +36,11 @@ namespace RSCLibraryDLLOperations
         private DLLOperationBase mod_firstOperation;
         private DLLOperationBase mod_lastOperation;
 
+        //  Let's not delegate (to our class components)
+        //   recording/saving references of operations.
+        private const bool RECORDING_BY_COMPONENTS = false;  // False. Let's not delegate recording/saving references to operations.  
+        private const bool RECORDING_BY_THISCLASS = true;   //This class will do the recording.
+        
         private int mod_numberOfOperationsH;
         private int mod_numberOfOperationsV;
 
@@ -48,7 +53,7 @@ namespace RSCLibraryDLLOperations
         
         private T_Vert mod_firstItemV;
         private T_Vert mod_endingItemV;
-        private DLLList<T_Hori> mod_listV;
+        private DLLList<T_Vert> mod_listV;
         
         // Use the Base-Type . 
         private DLLOperationsUndoRedoMarker1D<T_Base> mod_opUndoRedoMarker;
@@ -78,10 +83,15 @@ namespace RSCLibraryDLLOperations
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_ mopRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(par_firstOperationH.DLL_GetBase<T_Base>());
+            
+            DLLOperationBase operation_base = par_firstOperationH.GetConvertToBaseClass();   //.DLL_GetBase();
+            DLLOperation1D<T_Base> operation_base_ofT = par_firstOperationH.GetConvertToGenericOfT<T_Base>();   //.DLL_GetBase();
+
+            //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base);
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base_ofT);
 
         }
-        
+
 
         public DLLOperationsManager2x2_Redo(bool par_BothDimensions,
                                          T_Hori par_firstItemHorizontal, 
@@ -103,7 +113,7 @@ namespace RSCLibraryDLLOperations
             this.mod_firstItemV = par_firstItemVertical;
 
             this.mod_listH = par_listHoriz;
-            this.mod_listV = par_listHoriz;
+            this.mod_listV = par_listVerti;
 
             this.mod_firstOperation = par_firstPriorOperation_Hor;
             // Place the vertical(_V) operation after the horizontal(_H) operation.
@@ -116,20 +126,24 @@ namespace RSCLibraryDLLOperations
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(par_firstPriorOperationV1);
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(par_firstPriorOperation_Hor,
+                                                                               par_firstPriorOperation_Ver);
 
         }
 
 
-        public DLLOperationsManager2x2_Redo(T_Hori par_firstItemHorizontal, T_Hori par_firstItemVertical,
+        public DLLOperationsManager2x2_Redo(T_Hori par_firstItemHorizontal, T_Vert par_firstItemVertical,
                                          DLLList<T_Hori> par_listHoriz,
                                          DLLList<T_Vert> par_listVerti)
         {
             //
             // Constructor  
             //
-            this.mod_firstItem = par_firstItem;
-            this.mod_list = par_list;
+            this.mod_firstItemH = par_firstItemHorizontal;
+            this.mod_listH = par_listHoriz;
+
+            this.mod_firstItemV = par_firstItemVertical;
+            this.mod_listV = par_listVerti;
 
             //---this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
             //---this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
@@ -139,7 +153,7 @@ namespace RSCLibraryDLLOperations
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
             //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>();
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>();
 
         }
 
@@ -165,7 +179,7 @@ namespace RSCLibraryDLLOperations
             //  Added 11/25/2024 
             //
             //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
-            bool result_hasNext = mod_opRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
             return result_hasNext;
 
         }
@@ -175,24 +189,34 @@ namespace RSCLibraryDLLOperations
             //
             //  Added 11/25/2024 ca
             //
-            bool result_hasNext = mod_opRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
             return result_hasNext;
 
         }
 
-        public void ProcessOperation_AnyType(DLLOperation1D<THorizontal> parOperation, 
+        public void ProcessOperation_AnyType(DLLOperation1D<T_Hori> parOperation, 
                           bool par_changeOfEndpoint, bool par_bRecordOperation)
         {
             //
             //  Added 11/25/2024 
             //
-            mod_managerHoriz.ProcessOperation_AnyType(parOperation, par_changeOfEndpoint, par_bRecordOperation);
+            //See module level. --const bool RECORDING_BY_COMPONENTS = false;  // False. Let's not delegate.  
+            //See module level. --const bool RECORDING_BY_THISCLASS = true;   //This class will do the recording.
+   
+            mod_managerHoriz.ProcessOperation_AnyType(parOperation, par_changeOfEndpoint, 
+                RECORDING_BY_COMPONENTS);
+
+            if (par_bRecordOperation && RECORDING_BY_THISCLASS)
+            {
+                mod_lastOperation.DLL_SetOpNext(parOperation, true);
+
+            }
 
 
         }
 
 
-        public void ProcessOperation_AnyType(DLLOperation1D<TVertical> parOperation,
+        public void ProcessOperation_AnyType(DLLOperation1D<T_Vert> parOperation,
                           bool par_changeOfEndpoint, bool par_bRecordOperation)
         {
             //

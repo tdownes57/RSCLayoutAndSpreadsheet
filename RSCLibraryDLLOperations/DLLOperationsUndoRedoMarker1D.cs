@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace RSCLibraryDLLOperations
 {
     internal class DLLOperationsUndoRedoMarker1D<TControl>
-       where TControl : IDoublyLinkedItem<TControl>
+       where TControl : class, IDoublyLinkedItem<TControl>
     {
         //
         //    1D = 1 dimension, simply a list
@@ -85,6 +85,22 @@ namespace RSCLibraryDLLOperations
             mod_opPrior_ForUndo = par_1stPrior;
             mod_opNext_ForRedo = null;
         }
+
+
+
+        public DLLOperationsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior, 
+                                             DLLOperation1D<TControl> par_2ndPrior)
+        {
+            // Added 10/25/2024 
+            //
+            mod_opPrior_ForUndo = par_1stPrior;
+            mod_opNext_ForRedo = par_2ndPrior;
+
+            // Administrative
+            mod_opPrior_ForUndo.DLL_SetOpNext_OfT(par_2ndPrior, true); 
+
+        }
+
 
 
         public DLLOperationsUndoRedoMarker1D()
