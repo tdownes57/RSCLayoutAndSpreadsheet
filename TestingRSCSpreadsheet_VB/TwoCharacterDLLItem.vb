@@ -102,7 +102,7 @@ Public Class TwoCharacterDLLItem
         ''Throw New NotImplementedException()
         If (paramItem Is Me) Then System.Diagnostics.Debugger.Break()
         ''---mod_next = param
-        mod_prior = param
+        mod_prior = paramItem
 
         ''
         '' Adding bidirectionality.  ---12/08/2024 td
@@ -156,7 +156,9 @@ Public Class TwoCharacterDLLItem
             ''Set the "mod_prior" item for this parameter item,
             ''  to be the present class (i.e. the procedure's implicit parameter).
             ''
-            param.mod_prior = Me
+            If (param IsNot Nothing) Then
+                param.mod_prior = Me
+            End If ''ENd of ""If (param IsNot Nothing) Then""
 
         End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
 

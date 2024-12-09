@@ -590,6 +590,9 @@ Public Class FormSimpleDemoOfCSharp1D
         AdminToDoPriorToAnyOperation(boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
+        ''Added 12/08/2024
+        mod_manager.ClearAnyRedoOperations_IfQueued()
+
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
         intHowManyInModuleList = mod_list.DLL_CountAllItems
         bUserSpecifiedValues = array_sItemsToInsert.Count > 0

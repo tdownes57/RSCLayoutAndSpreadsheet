@@ -13,6 +13,17 @@ namespace RSCLibraryDLLOperations
        where TControl : class, IDoublyLinkedItem<TControl>
     {
         //
+        // As illustration of the moveable, user-controlled undo-redo marker:
+        //                                        <------------------------------->
+        //                                        <----- Undo-Redo Marker -------->
+        //  List of recorded operations:          <------------------------------->
+        //      OperationInsert,  OperationDelete, OperationMove,  OperationInsert, OperationDelete, OperationInsert
+        //                                        <---------------||-------------->
+        //                                        <--Undo-button--|| Redo button-->
+        //                                        <---------------||-------------->
+        //
+
+        //
         //    1D = 1 dimension, simply a list
         //            (versus a 2-dimensional grid)
         //

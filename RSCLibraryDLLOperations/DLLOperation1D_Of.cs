@@ -1009,6 +1009,8 @@ namespace RSCLibraryDLLOperations
             if (result_anchorCouplet == null && result_anchorItem != null)
             {
                 // Create a AnchorCouplet from the AnchorItem. 
+                //---result_anchorCouplet = result_anchorItem.GetAnchorCouplet();
+                //result_anchorCouplet = result_anchorItem.GetAnchorCouplet<TControl>();
                 result_anchorCouplet = result_anchorItem.GetAnchorCouplet();
             }
 

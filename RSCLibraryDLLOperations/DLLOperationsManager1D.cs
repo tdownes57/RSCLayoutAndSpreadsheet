@@ -21,7 +21,7 @@ namespace RSCLibraryDLLOperations
     //            (versus a 2-dimensional grid)
     //
     public class DLLOperationsManager1D<T_LinkedCtl>
-        where T_LinkedCtl : IDoublyLinkedItem<T_LinkedCtl>
+        where T_LinkedCtl : class, IDoublyLinkedItem<T_LinkedCtl>
     {
         //    1D = 1 dimension, simply a list
         //            (versus a 2-dimensional grid)
@@ -33,6 +33,16 @@ namespace RSCLibraryDLLOperations
         private DLLOperation1D<T_LinkedCtl> mod_firstPriorOperation1D;
         private DLLOperation1D<T_LinkedCtl> mod_lastPriorOperation1D;
 
+        //
+        // As illustration of the moveable, user-controlled undo-redo marker:
+        //                                        <------------------------------->
+        //                                        <----- Undo-Redo Marker -------->
+        //  List of recorded operations:          <------------------------------->
+        //      OperationInsert,  OperationDelete, OperationMove,  OperationInsert, OperationDelete, OperationInsert
+        //                                        <---------------||-------------->
+        //                                        <--Undo-button--|| Redo button-->
+        //                                        <---------------||-------------->
+        //
         private DLLOperationsUndoRedoMarker1D<T_LinkedCtl>
             mod_opUndoRedoMarker;  // new DLLOperationsRedoMarker1D<T_LinkedCtl>(); // As r ''Added 1/24/2024
 
@@ -307,6 +317,32 @@ namespace RSCLibraryDLLOperations
             mod_lastPriorOperation1D = null; 
             mod_opUndoRedoMarker.ClearAllOperations();
             mod_intCountOperations = 0;
+
+        }
+
+
+        public void ClearAnyRedoOperations_IfQueued()
+        {
+            //
+            // Added 12/8/2024 thomas downes
+            //
+            // As illustration of the moveable, user-controlled undo-redo marker:
+            //                                        <------------------------------->
+            //                                        <----- Undo-Redo Marker -------->
+            //  List of recorded operations:          <------------------------------->
+            //      OperationInsert,  OperationDelete, OperationMove,  OperationInsert, OperationDelete, OperationInsert
+            //                                        <---------------||-------------->
+            //                                        <--Undo-button--|| Redo button-->
+            //                                        <---------------||-------------->
+            //
+            //
+            DLLOperation1D<T_LinkedCtl> markersCurrentUndoOperation_willBeLast;
+            markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo();
+            mod_lastPriorOperation1D = markersCurrentUndoOperation_willBeLast;
+
+            mod_lastPriorOperation1D.DLL_ClearOpNext();
+            mod_opUndoRedoMarker.ClearPendingRedoOperation();
+            mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());
 
         }
 

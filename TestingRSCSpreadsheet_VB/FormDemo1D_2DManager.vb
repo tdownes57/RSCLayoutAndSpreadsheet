@@ -1097,7 +1097,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Radio2DManager.Checked = True
         mod_manager1D = Nothing
         mod_manager2D = New DLLOperationsManager2x2_Redo(Of TwoCharacterDLLItem,
-            TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)()
+            TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)(True, mod_firstItem, mod_list, Nothing)
 
 
 

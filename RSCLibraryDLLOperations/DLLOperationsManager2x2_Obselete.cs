@@ -16,9 +16,9 @@ namespace RSCLibraryDLLOperations
     //---------------------------------------------------------------------------------------------------------------------
 
     public class DLLOperationsManager2x2_Obselete<T_LinkedCtlBase, T_LinkedCtlHor, T_LinkedCtlVer>
-              where T_LinkedCtlBase : IDoublyLinkedItem<T_LinkedCtlBase>
-              where T_LinkedCtlHor : IDoublyLinkedItem<T_LinkedCtlHor>
-              where T_LinkedCtlVer : IDoublyLinkedItem<T_LinkedCtlVer>
+              where T_LinkedCtlBase : class, IDoublyLinkedItem<T_LinkedCtlBase>
+              where T_LinkedCtlHor : class, IDoublyLinkedItem<T_LinkedCtlHor>
+              where T_LinkedCtlVer : class, IDoublyLinkedItem<T_LinkedCtlVer>
     {
         //---------------------------------------------------------------------------------------------------------------------
         //  OBSELETE 

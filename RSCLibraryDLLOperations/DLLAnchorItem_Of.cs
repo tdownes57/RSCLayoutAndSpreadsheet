@@ -8,7 +8,7 @@ using System;
 namespace RSCLibraryDLLOperations
 {
     public class DLLAnchorItem<TControl>
-         where TControl : IDoublyLinkedItem<TControl>
+         where TControl : class, IDoublyLinkedItem<TControl>
     {
         /// <summary>
         /// This item will serve as an anchor (fixed point).
@@ -68,6 +68,7 @@ namespace RSCLibraryDLLOperations
 
 
         public DLLAnchorCouplet<TControl> GetAnchorCouplet()
+            // where TControlOut : class, IDoublyLinkedItem<TControlOut>
         {
             //
             // Added 11/08/2024 
@@ -79,11 +80,13 @@ namespace RSCLibraryDLLOperations
                 resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem, _anchorItem.DLL_GetItemNext_OfT(), true);
                 return resultCouplet;
             }
+
             else if (_doInsertRangeBeforeThis)
             {
                 resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem.DLL_GetItemPrior_OfT(), _anchorItem, true);
                 return resultCouplet;
             }
+
             else
             {
                 System.Diagnostics.Debugger.Break();
@@ -95,6 +98,7 @@ namespace RSCLibraryDLLOperations
 
 
         public DLLAnchorCouplet<TControl> GetAnchorCouplet(bool pbIncludePriorItem)
+           // where TControl : class, IDoublyLinkedItem<TControl>
         {
             //
             // Added 11/08/2024 

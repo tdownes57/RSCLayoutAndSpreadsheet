@@ -17,8 +17,8 @@ namespace RSCLibraryDLLOperations
 
 
     public class DLLOperation2D<TControl_H, TControl_V> // :IDoublyLinkedItem
-        where TControl_H : IDoublyLinkedItem<TControl_H>
-        where TControl_V : IDoublyLinkedItem<TControl_V>
+        where TControl_H : class, IDoublyLinkedItem<TControl_H>
+        where TControl_V : class, IDoublyLinkedItem<TControl_V>
     {
         //''
         //''Added 4/17/2024 td
@@ -387,7 +387,7 @@ namespace RSCLibraryDLLOperations
                                      bool pbEndpointProtection, 
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-             where TControl : IDoublyLinkedItem<TControl>
+             where TControl : class, IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024
@@ -435,7 +435,7 @@ namespace RSCLibraryDLLOperations
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-            where TControl : IDoublyLinkedItem<TControl>
+            where TControl : class, IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024
@@ -640,7 +640,7 @@ namespace RSCLibraryDLLOperations
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-            where TControl : IDoublyLinkedItem<TControl>
+            where TControl : class, IDoublyLinkedItem<TControl>
         {
             //
             // Added 4/17/2024

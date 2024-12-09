@@ -11,8 +11,8 @@ namespace RSCLibraryDLLOperations
     //    2D = 2 dimensions, a 2-dimensional grid
     //
     internal class DLLOperationsRedoMarker2D<TControl_H, TControl_V>
-        where TControl_H : IDoublyLinkedItem<TControl_H>
-        where TControl_V : IDoublyLinkedItem<TControl_V>
+        where TControl_H : class, IDoublyLinkedItem<TControl_H>
+        where TControl_V : class, IDoublyLinkedItem<TControl_V>
     {
         //
         //    2D = 2 dimensions, a 2-dimensional grid

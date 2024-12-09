@@ -62,7 +62,7 @@ namespace RSCLibraryDLLOperations
         public DLLOperationsManager2x2_Redo(bool par_horizontalOnly,
                              T_Hori par_firstItemHorizontal,
                              DLLList<T_Hori> par_listHoriz,
-                             DLLOperation1D<T_Hori> par_firstOperationH)
+                             DLLOperation1D<T_Hori>? par_firstOperationH = null)
         {
             //
             // Constructor
@@ -75,20 +75,26 @@ namespace RSCLibraryDLLOperations
             this.mod_firstItemH = par_firstItemHorizontal;
             this.mod_listH = par_listHoriz;
 
-            this.mod_firstOperation = par_firstOperationH;
-            this.mod_lastOperation = par_firstOperationH;
+            if (par_firstOperationH != null)
+            {
+                //
+                // A non-null Operation has been supplied to the constructor.
+                //
+                this.mod_firstOperation = par_firstOperationH;
+                this.mod_lastOperation = par_firstOperationH;
 
-            mod_numberOfOperationsH++; // Added 10/26/2024 td 
+                mod_numberOfOperationsH++; // Added 10/26/2024 td 
 
-            // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
-            // this.mod_ mopRedoMarker = mod_opRedoMarker;
-            // this.mod_intCountOperations = mod_intCountOperations;
-            
-            DLLOperationBase operation_base = par_firstOperationH.GetConvertToBaseClass();   //.DLL_GetBase();
-            DLLOperation1D<T_Base> operation_base_ofT = par_firstOperationH.GetConvertToGenericOfT<T_Base>();   //.DLL_GetBase();
+                // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
+                // this.mod_ mopRedoMarker = mod_opRedoMarker;
+                // this.mod_intCountOperations = mod_intCountOperations;
 
-            //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base);
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base_ofT);
+                DLLOperationBase operation_base = par_firstOperationH.GetConvertToBaseClass();   //.DLL_GetBase();
+                DLLOperation1D<T_Base> operation_base_ofT = par_firstOperationH.GetConvertToGenericOfT<T_Base>();   //.DLL_GetBase();
+
+                //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base);
+                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base_ofT);
+            }
 
         }
 
@@ -126,8 +132,15 @@ namespace RSCLibraryDLLOperations
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(par_firstPriorOperation_Hor,
-                                                                               par_firstPriorOperation_Ver);
+            // mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(par_firstPriorOperation_Hor,     
+            //                               par_firstPriorOperation_Ver);
+
+            // Added 12/08/2024 
+            DLLOperation1D<T_Base> oper_FirstHorizontal = par_firstPriorOperation_Hor.GetConvertToGenericOfT<T_Base>();
+            DLLOperation1D<T_Base> oper_FirstVertical = par_firstPriorOperation_Ver.GetConvertToGenericOfT<T_Base>();
+
+            // Added 12/08/2024 
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(oper_FirstHorizontal, oper_FirstVertical);
 
         }
 
