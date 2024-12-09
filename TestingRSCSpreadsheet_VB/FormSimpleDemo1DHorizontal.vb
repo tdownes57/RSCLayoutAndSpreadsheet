@@ -678,12 +678,12 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         ''Added 11/09/2024
         ''  These two(2) lines are probably not needed. 
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -813,8 +813,8 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         buttonReDo.Enabled = True
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
@@ -952,12 +952,12 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         ''Added 11/09/2024
         ''buttonRedoOp.Enabled = False
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         ''Added 12/04/2024
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
@@ -1069,11 +1069,11 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         mod_manager.ClearAllRecordedOperations()
 
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         labelNumOperations.Text = mod_manager.ToString()
 

@@ -23,6 +23,29 @@ Public Class MessageBoxTD
 
     End Sub ''End of ""Public Shared Sub Show_Statement""
 
+
+    Public Shared Function Show_Statement_OkayCancel(pstrWord_ForLine1 As String, pstrStatement_Line1 As String,
+                                     Optional pstrSecondLine As String = "") As DialogResult
+        ''
+        ''Added 12/08/2024 thomas downes
+        ''
+        Dim strLine1_WithWord As String
+        Dim result_OkayCancel As DialogResult
+
+        strLine1_WithWord = String.Format(pstrStatement_Line1, pstrWord_ForLine1)
+
+        result_OkayCancel =
+            MessageBox.Show(strLine1_WithWord & _vbCrLf_Deux &
+                        pstrSecondLine, "MessageBoxTD-Statement_OkayCancel",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Information)
+
+        Return result_OkayCancel
+
+    End Function ''End of ""Public Shared Sub Show_Statement_OkayCancel""
+
+
+
     Public Shared Function Show_QuestionYesNo(pstrQuestionYesNo As String) As DialogResult
         ''
         ''Added 12/28/2021 thomas downes

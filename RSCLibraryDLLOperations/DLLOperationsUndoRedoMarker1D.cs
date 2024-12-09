@@ -14,13 +14,15 @@ namespace RSCLibraryDLLOperations
     {
         //
         // As illustration of the moveable, user-controlled undo-redo marker:
-        //                                        <------------------------------->
-        //                                        <----- Undo-Redo Marker -------->
-        //  List of recorded operations:          <------------------------------->
-        //      OperationInsert,  OperationDelete, OperationMove,  OperationInsert, OperationDelete, OperationInsert
-        //                                        <---------------||-------------->
-        //                                        <--Undo-button--|| Redo button-->
-        //                                        <---------------||-------------->
+        //
+        //                                               <----------------------------------->
+        //                                               <----- Undo-Redo Marker ------------>
+        //  List of recorded operations:                 <----------------------------------->
+        //      o1_OperationInsert,  o2_OperationDelete, o3_OperationMove,  o4_OperationInsert, o5_OperationDelete, o6_OperationInsert
+        //                                               <----------------||----------------->
+        //                                               <---Undo-button--||-- Redo button--->
+        //                                               <----------------||----------------->
+
         //
 
         //

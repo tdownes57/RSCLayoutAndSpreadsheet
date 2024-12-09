@@ -334,32 +334,34 @@ Public Class FormSimpleDemoOfCSharp1D
 
 
 
-    Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
+    Private Sub AdminToDoPriorToAnyOperation(ByVal par_wordForOp As String, ByRef pbyrefUserCancelsOperation As Boolean)
         ''
         '' Added 12/01/2024 
         ''
-        CheckManagerForRedoOperations_AskUser(pbyrefUserCancelsOperation)
+        CheckManagerForRedoOperations_AskUser(par_wordForOp, pbyrefUserCancelsOperation)
 
     End Sub ''Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
 
 
-    Private Sub CheckManagerForRedoOperations_AskUser(ByRef pbyrefUserCancelsOperation As Boolean)
+    Private Sub CheckManagerForRedoOperations_AskUser(par_wordForOp As String, ByRef pbyrefUserCancelsOperation As Boolean)
         ''
         '' Added 12/01/2024 
         ''
         Dim bManagerHasRedosQueuedUp As Boolean
-        Dim boolUserCancels As Boolean
-        Dim dialog_result As DialogResult
+        Dim boolUserSaysToCancel As Boolean
+        Dim boolUserSaysToProceed As Boolean ''Added 12/08/2024
+        Dim dialog_1_Proceed As DialogResult
+        Dim dialog_2_Cancel As DialogResult
         ''Added 12/02/2024
         Dim intCountRedos As Integer
-        Dim strDialogMessage As String
+        Dim strDialogMessage_Proceed As String
         intCountRedos = mod_manager.CountOfOperations_QueuedForRedo()
 
         bManagerHasRedosQueuedUp = mod_manager.AreOneOrMoreOpsToRedo_PerMarker()
 
         If (bManagerHasRedosQueuedUp) Then
 
-            ''//    This is needed if the user has pressed the "Undo" button, 
+            ''//    This is needed if the user has pressed the "Undo" button, " 
             ''//    And now wants to move forward with a "brand new" operation. 
             ''//    Rather than following "Undo" with a "Redo", user wants to 
             ''//    permanently discard the his Or her most recent operation. 
@@ -367,21 +369,28 @@ Public Class FormSimpleDemoOfCSharp1D
             ''//    the user's perspective.)
             ''//    12/02/2024 th.omas do.wnes 
             ''//
-            strDialogMessage = String.Format("Cancel all {0} pending Redo operations?", intCountRedos)
+            strDialogMessage_Proceed = String.Format("Proceed with {0}?  " +
+                                    "This will cancel all {1} pending Redo operations.",
+                                    par_wordForOp, intCountRedos)
+
             ''//dialog_result = MessageBoxTD.Show_QuestionYesNo("Cancel all pending Redo operations?")
-            dialog_result = MessageBoxTD.Show_QuestionYesNo(strDialogMessage)
-            boolUserCancels = (dialog_result = DialogResult.OK)
+            dialog_1_Proceed = MessageBoxTD.Show_QuestionYesNo(strDialogMessage_Proceed)
+            boolUserSaysToProceed = (dialog_1_Proceed = DialogResult.OK Or
+                                     dialog_1_Proceed = DialogResult.Yes)
+            boolUserSaysToCancel = (Not boolUserSaysToProceed)
+
+            If (boolUserSaysToProceed) Then
+                ''Added 12/02/2024
+                dialog_2_Cancel = MessageBoxTD.Show_Statement_OkayCancel(intCountRedos,
+                     "This many pending Redo operations will be cancelled: {0}",
+                     "(Press Cancel if desired.)")
+                boolUserSaysToCancel = (dialog_2_Cancel = DialogResult.Cancel)
+
+            End If ''End of ""If (boolUserSaysToProceed) Then""
 
         End If ''End of ""If (bManagerHasRedosQueuedUp) Then""
 
-        If (boolUserCancels) Then
-            ''Added 12/02/2024
-            MessageBoxTD.Show_InsertWordFormat_Line1(intCountRedos,
-                 "This many pending Redo operations will be cancelled: {0}")
-
-        End If ''End of ""If (boolUserCancels) Then""
-
-        pbyrefUserCancelsOperation = boolUserCancels
+        pbyrefUserCancelsOperation = boolUserSaysToCancel ''boolUserCancels
 
     End Sub ''Private Sub CheckManagerForRedoOperations_AskUser
 
@@ -414,7 +423,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Insert-Multi", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
         intInsertCount = numInsertHowMany.Value
@@ -587,7 +596,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Insert-Single", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
         ''Added 12/08/2024
@@ -681,12 +690,12 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/09/2024
         ''  These two(2) lines are probably not needed. 
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -817,8 +826,8 @@ Public Class FormSimpleDemoOfCSharp1D
         buttonReDo.Enabled = True
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
@@ -858,7 +867,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Delete", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
@@ -956,12 +965,12 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/09/2024
         ''buttonRedoOp.Enabled = False
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         ''Added 12/04/2024
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
@@ -987,7 +996,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
         intAnchorIndex = numMoveAnchorBenchmark.Value
@@ -1073,11 +1082,11 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         mod_manager.ClearAllRecordedOperations()
 
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext()
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior()
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         labelNumOperations.Text = mod_manager.ToString()
 

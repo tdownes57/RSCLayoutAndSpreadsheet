@@ -35,13 +35,14 @@ namespace RSCLibraryDLLOperations
 
         //
         // As illustration of the moveable, user-controlled undo-redo marker:
-        //                                        <------------------------------->
-        //                                        <----- Undo-Redo Marker -------->
-        //  List of recorded operations:          <------------------------------->
-        //      OperationInsert,  OperationDelete, OperationMove,  OperationInsert, OperationDelete, OperationInsert
-        //                                        <---------------||-------------->
-        //                                        <--Undo-button--|| Redo button-->
-        //                                        <---------------||-------------->
+        //                                               <----------------------------------->
+        //                                               <----- Undo-Redo Marker ------------>
+        //  List of recorded operations:                 <----------------------------------->
+        //      o1_OperationInsert,  o2_OperationDelete, o3_OperationMove,  o4_OperationInsert, o5_OperationDelete, o6_OperationInsert
+        //                                               <----------------||----------------->
+        //                                               <---Undo-button--||-- Redo button--->
+        //                                               <----------------||----------------->
+        //
         //
         private DLLOperationsUndoRedoMarker1D<T_LinkedCtl>
             mod_opUndoRedoMarker;  // new DLLOperationsRedoMarker1D<T_LinkedCtl>(); // As r ''Added 1/24/2024
@@ -134,15 +135,21 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool MarkerHasOperationPrior()
+        public bool MarkerHasOperationPrior_Undo()
         {
+            //
+            // Suffixed with _Undo on 12/8/2024 td.
+            //
             bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior();
             return result_hasPrior;
         }
 
 
-        public bool MarkerHasOperationNext()
+        public bool MarkerHasOperationNext_Redo()
         {
+            //
+            // Suffixed with _Redo on 12/8/2024 td.
+            //
             //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
             bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
             return result_hasNext;
@@ -327,22 +334,28 @@ namespace RSCLibraryDLLOperations
             // Added 12/8/2024 thomas downes
             //
             // As illustration of the moveable, user-controlled undo-redo marker:
-            //                                        <------------------------------->
-            //                                        <----- Undo-Redo Marker -------->
-            //  List of recorded operations:          <------------------------------->
-            //      OperationInsert,  OperationDelete, OperationMove,  OperationInsert, OperationDelete, OperationInsert
-            //                                        <---------------||-------------->
-            //                                        <--Undo-button--|| Redo button-->
-            //                                        <---------------||-------------->
+            //                                               <----------------------------------->
+            //                                               <----- Undo-Redo Marker ------------>
+            //  List of recorded operations:                 <----------------------------------->
+            //      o1_OperationInsert,  o2_OperationDelete, o3_OperationMove,  o4_OperationInsert, o5_OperationDelete, o6_OperationInsert
+            //                                               <----------------||----------------->
+            //                                               <---Undo-button--||-- Redo button--->
+            //                                               <----------------||----------------->
             //
+            //  The operations which will be deleted, are as follows: 
             //
-            DLLOperation1D<T_LinkedCtl> markersCurrentUndoOperation_willBeLast;
-            markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo();
-            mod_lastPriorOperation1D = markersCurrentUndoOperation_willBeLast;
+            //       o3_OperationInsert, o4_OperationDelete, o5_OperationInsert
+            //
+            if (this.MarkerHasOperationNext_Redo())
+            {
+                DLLOperation1D<T_LinkedCtl> markersCurrentUndoOperation_willBeLast;
+                markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo();
+                mod_lastPriorOperation1D = markersCurrentUndoOperation_willBeLast;
 
-            mod_lastPriorOperation1D.DLL_ClearOpNext();
-            mod_opUndoRedoMarker.ClearPendingRedoOperation();
-            mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());
+                mod_lastPriorOperation1D.DLL_ClearOpNext();
+                mod_opUndoRedoMarker.ClearPendingRedoOperation();
+                mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());
+            }
 
         }
 
