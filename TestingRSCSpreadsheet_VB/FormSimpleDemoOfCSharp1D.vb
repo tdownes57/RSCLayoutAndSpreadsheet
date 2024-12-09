@@ -960,6 +960,10 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         mod_manager.RedoMarkedOperation()
 
+        ''Added 12/09/2024 & 11/10/2024 (but only on the buttonUndoLastStep_Click handler)
+        mod_firstItem = mod_list._itemStart
+        mod_lastItem = mod_list._itemEnding
+
         ''Added 11/09/2024 
         RefreshTheUI_DisplayList()
 

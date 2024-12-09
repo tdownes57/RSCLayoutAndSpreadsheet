@@ -352,6 +352,9 @@ namespace RSCLibraryDLLOperations
             //  
             if (_isInsert)
             {
+                //
+                // Insert 
+                //
                 OperateOnList_Insert(par_list, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
@@ -359,6 +362,9 @@ namespace RSCLibraryDLLOperations
             }
             else if (_isDelete)
             {
+                //
+                // Delete
+                //
                 OperateOnList_Delete(par_list, par_range,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
@@ -376,7 +382,10 @@ namespace RSCLibraryDLLOperations
                 //                     pbEndpointProtection,
                 //                     pbIsChangeOfEndpoint, pbRunOtherChecks);
 
-                // Encapsulated 11/18/2024  
+                // Encapsulated 11/18/2024
+                // 
+                // Move
+                //
                 OperateOnList_Move(par_list, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,

@@ -556,8 +556,11 @@ namespace RSCLibraryDLLOperations
             //
             //   Set the new endpoints, and reduce the list's item count. 
             //
-            if (bRangeIsAtStartOfList) par_listForAdmin._itemStart = this.ItemStart();
-            if (bRangeIsAtEndingOfList) par_listForAdmin._itemEnding = this.Item__End();
+            //oops!! 12/09/2024  if (bRangeIsAtStartOfList) par_listForAdmin._itemStart = this.ItemStart();
+            //oops!! 12/09/2024  if (bRangeIsAtEndingOfList) par_listForAdmin._itemEnding = this.Item__End();
+            if (bRangeIsAtStartOfList) par_listForAdmin._itemStart = itemAfterRange; // this.ItemStart();
+            if (bRangeIsAtEndingOfList) par_listForAdmin._itemEnding = itemPriorToRange; // this.Item__End();
+
             // Reduce the item count of the list, by the number of items in the range. 
             //   (Notice we are using the subtraction -= operator.)
             int numberOfRangeItems = this._ItemCount;
