@@ -216,6 +216,26 @@ namespace RSCLibraryDLLOperations
                 //_anchorCouplet.GetAnchorItem();
             }
 
+            //
+            // Added 12/09/2024  
+            //
+            if (_range?._ItemCount == 1)
+            {
+                if (_range._isSingleItem == false)
+                {
+                    //
+                    // Fix the _isSingleItem status, it is incorrect. 
+                    //
+                    _range._isSingleItem = true;
+                    _range._SingleItemInRange = _range._StartingItem;
+
+                    TControl tempEnding = _range._EndingItem;
+                    bool bMatchesStart = (tempEnding == _range._SingleItemInRange);
+                    if (bMatchesStart == false) System.Diagnostics.Debugger.Break();
+
+                }
+            }
+
 
 
         }

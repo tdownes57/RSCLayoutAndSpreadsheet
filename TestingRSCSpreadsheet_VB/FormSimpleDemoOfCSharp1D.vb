@@ -383,7 +383,7 @@ Public Class FormSimpleDemoOfCSharp1D
                 ''Added 12/02/2024
                 dialog_2_Cancel = MessageBoxTD.Show_Statement_OkayCancel(intCountRedos,
                      "This many pending Redo operations will be cancelled: {0}",
-                     "(Press Cancel if desired.)")
+                     "(Press Cancel if you desire to cancel the new " + par_wordForOp + " operation.)")
                 boolUserSaysToCancel = (dialog_2_Cancel = DialogResult.Cancel)
 
             End If ''End of ""If (boolUserSaysToProceed) Then""
@@ -957,6 +957,18 @@ Public Class FormSimpleDemoOfCSharp1D
     Private Sub buttonRedoOp_Click(sender As Object, e As EventArgs) Handles buttonRedoOp.Click
         ''
         ''Added 11/09/2024
+        ''
+        If (mod_manager.MarkerHasOperationNext_Redo()) Then
+            ''
+            ''Fine, this is expected. ---Thomas D.
+            ''
+        Else
+            MessageBoxTD.Show_Statement("Sorry, there are no Redo operations in the queue.")
+            Exit Sub
+        End If ''End of "If (mod_manager.MarkerHasOperationNext_Redo()) Then... Else ..."
+
+        ''
+        ''Major call!!
         ''
         mod_manager.RedoMarkedOperation()
 

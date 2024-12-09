@@ -236,11 +236,11 @@ namespace RSCLibraryDLLOperations
                     {
                         //
                         // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
-                        //
+
                         //    Logically speaking, any pending Redo operations must be deleted/cleared.
                         //
                         mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
-                        mod_lastPriorOperation1D.DLL_ClearOpNext();
+                        mod_lastPriorOperation1D?.DLL_ClearOpNext();
                         mod_opUndoRedoMarker.ClearPendingRedoOperation();  
 
                     }
@@ -250,7 +250,7 @@ namespace RSCLibraryDLLOperations
                     parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
                     
                     //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
-                    mod_lastPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
+                    mod_lastPriorOperation1D?.DLL_SetOpNext_OfT(parOperation);
 
                     var temp_priorOp = mod_lastPriorOperation1D;
                     //mod_lastPriorOperation1D = parOperation;
@@ -261,10 +261,13 @@ namespace RSCLibraryDLLOperations
                     //  Major call!!
                     //
                     mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(parOperation);
-                    
+
                     // Added 12/01/2028
                     //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
-                    mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
+                    if (temp_priorOp != null)
+                    {
+                        mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
+                    }
 
                     //
                     // DIFFICULT & CONFUSING -- Connect the first operation to this one, if needed.
