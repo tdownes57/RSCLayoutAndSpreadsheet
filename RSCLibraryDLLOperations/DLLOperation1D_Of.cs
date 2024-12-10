@@ -210,11 +210,12 @@ namespace RSCLibraryDLLOperations
             //    //_inverseAnchorItem_ForUndo_H = new DLLAnchor<>(item_afterRange);
             //}
 
-            if (_isDelete)
+            // 12/9/2024  if (_isDelete)
+            if (_isDelete || _isMove) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
             {
                 _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
                 //_anchorCouplet.GetAnchorItem();
-            }
+            } // end of ""if (_isDelete || _isMove)"" 
 
             //
             // Added 12/09/2024  
@@ -253,6 +254,14 @@ namespace RSCLibraryDLLOperations
             _isMove = par_isMove;
             _isInsert = par_isInsert;
             _anchorCouplet = par_anchorCouplet;
+
+            // Added 12/09/2024  
+            //
+            if (_isDelete || _isMove) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
+            {
+                _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                //_anchorCouplet.GetAnchorItem();
+            } // end of ""if (_isDelete || _isMove)"" 
 
         }
 
@@ -1031,6 +1040,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Create a AnchorItem from the AnchorCouplet. 
                 result_anchorItem = result_anchorCouplet.GetAnchorItem();
+
             }
 
 
@@ -1041,6 +1051,7 @@ namespace RSCLibraryDLLOperations
                 //---result_anchorCouplet = result_anchorItem.GetAnchorCouplet();
                 //result_anchorCouplet = result_anchorItem.GetAnchorCouplet<TControl>();
                 result_anchorCouplet = result_anchorItem.GetAnchorCouplet();
+
             }
 
             //

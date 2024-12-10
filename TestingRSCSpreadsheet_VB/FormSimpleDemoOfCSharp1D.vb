@@ -97,6 +97,10 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         RefreshTheUI_DisplayList()
 
+        ''Added 12/09/2024 
+        ''  Make sure that the two boxes match in the beginning.
+        richtextBenchmark.Text = richtextItemsDisplay.Text
+
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
 

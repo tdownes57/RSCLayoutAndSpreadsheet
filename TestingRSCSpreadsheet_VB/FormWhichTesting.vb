@@ -36,7 +36,9 @@ Public Class FormWhichTesting
         ''Added 1/22/2024 td
         ''---Dim objFormToShow As New FormTestUsingManager
         Dim objFormToShow As New FormSimpleDemoOfCSharp1D ''---TestUsingManager
-        objFormToShow.Show(Me)
+        ''---objFormToShow.Show()
+        ''------objFormToShow.Show(Me)
+        objFormToShow.ShowDialog(Me)
 
     End Sub
 

@@ -540,7 +540,8 @@ namespace RSCLibraryDLLOperations
 
             if (bLocatedItem)
             {
-                result_inRange = (0 < intDistanceToItem && intDistanceToItem < _ItemCount);
+                //result_inRange = (0 < intDistanceToItem && intDistanceToItem < _ItemCount);
+                result_inRange = (0 <= intDistanceToItem && intDistanceToItem < _ItemCount);
             }
             else
             {
