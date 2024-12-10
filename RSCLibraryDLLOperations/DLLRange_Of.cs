@@ -463,22 +463,58 @@ namespace RSCLibraryDLLOperations
             bool bMatchesPriorToRange = true;  // default to true
             bool bMatchesAfterRange = true;  // default to true 
 
-            if (par_pair.ItemFirstIsPresent())
-            {
+            //--if (par_pair.ItemFirstIsPresent())
+            //--{
                 //---bMatchesPriorToRange = (Item_ImmeditelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
                 TControl? itemPriorToRange = Item_ImmediatelyPrior();
                 TControl? itemAnchorLeft = par_pair.GetItemLeftOrFirst();
-                bMatchesPriorToRange = (bool)(itemPriorToRange?.Equals(itemAnchorLeft));
 
-            }
+                if (itemPriorToRange == null && itemAnchorLeft != null)
+                {
+                    bMatchesPriorToRange = false;
+                }
+                else if (itemPriorToRange != null && itemAnchorLeft == null)
+                {
+                    bMatchesPriorToRange = false;
+                }
+                else if (itemPriorToRange == null && itemAnchorLeft == null)
+                {
+                    bMatchesPriorToRange = true;
+                }
+                else if (itemPriorToRange != null && itemAnchorLeft != null)
+                { 
+                    //bMatchesPriorToRange = (bool)(itemPriorToRange.Equals(itemAnchorLeft));
+                    bMatchesPriorToRange = (itemPriorToRange == itemAnchorLeft);
+                }
 
-            if (par_pair.ItemSecondIsPresent())
-            {
+            //---}
+
+            //---if (par_pair.ItemSecondIsPresent())
+            //---{
                 //---bMatchesAfterRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
                 TControl? itemAfterRange = Item_ImmediatelyAfter();
                 TControl? itemAnchorRight = par_pair.GetItemRightOrSecond();
-                bMatchesAfterRange = (bool)(itemAfterRange?.Equals(itemAnchorRight));
-            }
+
+                //bMatchesAfterRange = (bool)(itemAfterRange?.Equals(itemAnchorRight));
+                if (itemAfterRange == null && itemAnchorRight != null)
+                {
+                    bMatchesAfterRange = false;
+                }
+                else if (itemAfterRange != null && itemAnchorRight == null)
+                {
+                    bMatchesAfterRange = false;
+                }
+                else if (itemAfterRange == null && itemAnchorRight == null)
+                {
+                    bMatchesAfterRange = true;
+                }
+                else if(itemAfterRange != null && itemAnchorRight != null)
+                {
+                    //bMatchesAfterRange = (bool)(itemAfterRange?.Equals(itemAnchorRight));
+                    bMatchesAfterRange = (itemAfterRange == itemAnchorRight);
+                }
+
+            //--}
 
             result_bothSides = (bMatchesPriorToRange && bMatchesAfterRange);
             return result_bothSides;
@@ -493,6 +529,12 @@ namespace RSCLibraryDLLOperations
             //
             bool bLocatedItem = false;
             bool result_inRange = false;
+
+            // Added 12/9/2024 thomas d.
+            if (par_item == null) 
+            { 
+                return false; 
+            }
 
             int intDistanceToItem = _StartingItem.DLL_GetDistanceTo(par_item, ref bLocatedItem);
 

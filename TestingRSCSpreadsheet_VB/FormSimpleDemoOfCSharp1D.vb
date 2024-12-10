@@ -18,7 +18,7 @@ Public Class FormSimpleDemoOfCSharp1D
     Private mod_lastItem As TwoCharacterDLLItem
     Private mod_range As DLLRange(Of TwoCharacterDLLItem) ''Added 11/14/2024 t.homas d.ownes
 
-    Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
+    Private Const INITIAL_ITEM_COUNT_30 As Integer = 5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
 
 
@@ -1022,7 +1022,8 @@ Public Class FormSimpleDemoOfCSharp1D
         bChangeOfEndpoint = mod_range.ContainsEndpoint()
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem, bAnchorMoveAfter)
-        bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
+        ''Added 12/09/2024  bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
+        bChangeOfEndpoint = (bChangeOfEndpoint Or tempAnchorPair.ContainsEndpoint())
 
         ''Added 11/18/2024
         ''
@@ -1062,7 +1063,13 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_manager.ToString(tempOperation)
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = True
+        ''Added 11/29/2024 
+        buttonUndo.Enabled = True
 
     End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
 

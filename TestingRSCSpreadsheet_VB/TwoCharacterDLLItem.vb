@@ -559,9 +559,13 @@ Public Class TwoCharacterDLLItem
         Dim bDoneLooping As Boolean = False
 
         Dim temp As IDoublyLinkedItem = Me.DLL_GetItemNext_OfT()
+
+        ''Added 12/09/2024 
+        bDoneLooping = (temp Is Nothing)
+
         While (Not bDoneLooping)
 
-            result_anySelected = (result_anySelected Or temp.Selected)
+            result_anySelected = (result_anySelected Or temp?.Selected)
             temp = temp.DLL_GetItemNext()
             bDoneLooping = (temp Is Nothing Or result_anySelected)
 
