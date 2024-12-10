@@ -1,5 +1,7 @@
-﻿''
-'' Added 12/04/2024 & 10/14/2024 T_homas C. D_ownes 
+﻿
+''Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
+''
+'' Added 10/14/2024 T_homas C. D_ownes 
 ''
 Imports System.ComponentModel.Design
 Imports System.Diagnostics.Metrics
@@ -8,7 +10,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 Imports RSCLibraryDLLOperations
 
-Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
+Public Class FormSimpleDemo1DHorizontal
     ''
     '' Added 10/14/2024 thomas c. downes 
     ''
@@ -18,7 +20,7 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
     Private mod_lastItem As TwoCharacterDLLHorizontal
     Private mod_range As DLLRange(Of TwoCharacterDLLHorizontal) ''Added 11/14/2024 t.homas d.ownes
 
-    Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
+    Private Const INITIAL_ITEM_COUNT_30 As Integer = 5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
 
 
@@ -97,6 +99,10 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         RefreshTheUI_DisplayList()
 
+        ''Added 12/09/2024 
+        ''  Make sure that the two boxes match in the beginning.
+        richtextBenchmark.Text = richtextItemsDisplayH.Text
+
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
 
@@ -170,6 +176,7 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim boolCloseHighlight_Next As Boolean = False
         Dim bOpenSelection As Boolean = False ''Added 11/12/2024 td
         Dim intLoopIndex As Integer = 0 ''Added 11/12/2024 
+        Dim charSpecial As Char = " "c ''---Added 12/9/2024 
 
         ''richtextItemsDisplay.ResetText()
         ''Not needed here. ----richtextItemsDisplay.Text = ""
@@ -188,11 +195,13 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
             Do Until bDone
 
                 intLoopIndex += 1
+                charSpecial = " "c ''Added 12/09/2024 
 
                 ''La belItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
                 ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
                 If (each_twoChar.Selected Or bOpenSelection) Then
                     ''The item has been selected. 
+                    charSpecial = "_"c ''Added 12/09/2024
                     stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
 
                     ''
@@ -212,6 +221,7 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
                     ''The item has been highlighted.
                     ''
                     If (boolOpenHighlight) Then
+                        charSpecial = "["c ''Added 12/09/2024 
                         stringbuilderLinkedItems.Append("[" + each_twoChar.ToString())
                         ''Prepare for future iterations. 
                         boolOpenHighlight = False
@@ -221,6 +231,7 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
                         ''Prepare for the next item(s).
                         ''
                         ''---stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                        charSpecial = " "c ''Added 12/09/2024 
                         stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
                         boolCloseHighlight_Next = True
                         boolCloseHighlight = False
@@ -229,12 +240,14 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
 
                 ElseIf (boolCloseHighlight_Next) Then
                     ''Added 11/09/2024 thomas downes 
+                    charSpecial = "]"c ''Added 12/09/2024 
                     stringbuilderLinkedItems.Append("]" + each_twoChar.ToString())
                     ''Clear the boolean, so it only is used once.
                     boolCloseHighlight_Next = False
 
                 Else
                     ''Added 11/09/2024 thomas downes 
+                    charSpecial = " "c ''Added 12/09/2024 
                     stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
 
                 End If ''End of ""If (each_twoChar.Selected) Then... Else..."
@@ -247,6 +260,16 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
 
             Loop ''End of ""Do Until bDone""
             ''Next each_twoChar
+
+            ''Added 12/09/2024 
+            Select Case True '' charSpecial
+                Case (charSpecial = "["c)
+                    stringbuilderLinkedItems.Append("]")
+
+                Case (bOpenSelection And charSpecial = "_"c)
+                    stringbuilderLinkedItems.Append("_")
+
+            End Select ''End of ""Select Case True""
 
             ''---MessageBoxTD.Show_Statement("Done loading!!")
             ''Return stringbuilderLinkedItems.ToString()
@@ -334,32 +357,34 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
 
 
 
-    Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
+    Private Sub AdminToDoPriorToAnyOperation(ByVal par_wordForOp As String, ByRef pbyrefUserCancelsOperation As Boolean)
         ''
         '' Added 12/01/2024 
         ''
-        CheckManagerForRedoOperations_AskUser(pbyrefUserCancelsOperation)
+        CheckManagerForRedoOperations_AskUser(par_wordForOp, pbyrefUserCancelsOperation)
 
     End Sub ''Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
 
 
-    Private Sub CheckManagerForRedoOperations_AskUser(ByRef pbyrefUserCancelsOperation As Boolean)
+    Private Sub CheckManagerForRedoOperations_AskUser(par_wordForOp As String, ByRef pbyrefUserCancelsOperation As Boolean)
         ''
         '' Added 12/01/2024 
         ''
         Dim bManagerHasRedosQueuedUp As Boolean
-        Dim boolUserCancels As Boolean
-        Dim dialog_result As DialogResult
+        Dim boolUserSaysToCancel As Boolean
+        Dim boolUserSaysToProceed As Boolean ''Added 12/08/2024
+        Dim dialog_1_Proceed As DialogResult
+        Dim dialog_2_Cancel As DialogResult
         ''Added 12/02/2024
         Dim intCountRedos As Integer
-        Dim strDialogMessage As String
+        Dim strDialogMessage_Proceed As String
         intCountRedos = mod_manager.CountOfOperations_QueuedForRedo()
 
         bManagerHasRedosQueuedUp = mod_manager.AreOneOrMoreOpsToRedo_PerMarker()
 
         If (bManagerHasRedosQueuedUp) Then
 
-            ''//    This is needed if the user has pressed the "Undo" button, 
+            ''//    This is needed if the user has pressed the "Undo" button, " 
             ''//    And now wants to move forward with a "brand new" operation. 
             ''//    Rather than following "Undo" with a "Redo", user wants to 
             ''//    permanently discard the his Or her most recent operation. 
@@ -367,21 +392,28 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''//    the user's perspective.)
             ''//    12/02/2024 th.omas do.wnes 
             ''//
-            strDialogMessage = String.Format("Cancel all {0} pending Redo operations?", intCountRedos)
+            strDialogMessage_Proceed = String.Format("Proceed with {0}?  " +
+                                    "This will cancel all {1} pending Redo operations.",
+                                    par_wordForOp, intCountRedos)
+
             ''//dialog_result = MessageBoxTD.Show_QuestionYesNo("Cancel all pending Redo operations?")
-            dialog_result = MessageBoxTD.Show_QuestionYesNo(strDialogMessage)
-            boolUserCancels = (dialog_result = DialogResult.OK)
+            dialog_1_Proceed = MessageBoxTD.Show_QuestionYesNo(strDialogMessage_Proceed)
+            boolUserSaysToProceed = (dialog_1_Proceed = DialogResult.OK Or
+                                     dialog_1_Proceed = DialogResult.Yes)
+            boolUserSaysToCancel = (Not boolUserSaysToProceed)
+
+            If (boolUserSaysToProceed) Then
+                ''Added 12/02/2024
+                dialog_2_Cancel = MessageBoxTD.Show_Statement_OkayCancel(intCountRedos,
+                     "This many pending Redo operations will be cancelled: {0}",
+                     "(Press Cancel if you desire to cancel the new " + par_wordForOp + " operation.)")
+                boolUserSaysToCancel = (dialog_2_Cancel = DialogResult.Cancel)
+
+            End If ''End of ""If (boolUserSaysToProceed) Then""
 
         End If ''End of ""If (bManagerHasRedosQueuedUp) Then""
 
-        If (boolUserCancels) Then
-            ''Added 12/02/2024
-            MessageBoxTD.Show_InsertWordFormat_Line1(intCountRedos,
-                 "This many pending Redo operations will be cancelled: {0}")
-
-        End If ''End of ""If (boolUserCancels) Then""
-
-        pbyrefUserCancelsOperation = boolUserCancels
+        pbyrefUserCancelsOperation = boolUserSaysToCancel ''boolUserCancels
 
     End Sub ''Private Sub CheckManagerForRedoOperations_AskUser
 
@@ -414,7 +446,7 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Insert-Multi", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
         intInsertCount = numInsertHowMany.Value
@@ -583,12 +615,16 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim tempAnchorItem As TwoCharacterDLLHorizontal '''Added 10/21/2024 thomas downes
         Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLHorizontal) ''Added 10/26/2024
         Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLHorizontal) ''Added 10/26/2024 td 
+        Dim boolIsForEmptyList As Boolean ''Added 12/09/2024 thomas d. 
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Insert-Single", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
+
+        ''Added 12/08/2024
+        mod_manager.ClearAnyRedoOperations_IfQueued()
 
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
         intHowManyInModuleList = mod_list.DLL_CountAllItems
@@ -601,8 +637,17 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLHorizontal)(False)
         ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(tempAnchorItem)
+        If (mod_firstItem Is Nothing) Then
+            ''The list is empty. 
+            ''   No items exist in the list.  ---12/09/2024 td  
+            boolIsForEmptyList = True ''Added 12/09/2024
+            If (mod_list.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
+            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(boolIsForEmptyList, False) '' (True, False)
+
+        Else
+            tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(tempAnchorItem)
+        End If ''End of ""If (mod_firstItem Is Nothing) Then ... Else ..."
 
         bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1
         bInsertRangeBeforeAnchor = Not bInsertRangeAfterAnchor ''Added 11/10/2024 
@@ -614,8 +659,11 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         objAnchorPair = objAnchorItem.GetAnchorCouplet(bInsertRangeBeforeAnchor)
 
         ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
-        boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
-            intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
+        ''--12/9/2024--boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
+        ''-------------                intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
+        boolEndpoint = (boolIsForEmptyList Or
+             ((intAnchorPosition = 1) And bInsertRangeBeforeAnchor) Or
+            ((intAnchorPosition = intHowManyInModuleList) And bInsertRangeAfterAnchor))
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
                              ZERO_INDEX.ToString("00"))
@@ -693,7 +741,8 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
     End Sub
 
 
-    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles labelItemsDisplay.MouseUp, richtextItemsDisplayH.MouseUp
+    Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) Handles _
+                   labelItemsDisplay.MouseUp, richtextItemsDisplayH.MouseUp
         ''
         ''Added 2/27/2024 thomas downes  
         ''
@@ -749,32 +798,32 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         '''Highlight the range's endpoints.
         ''--objectRange.HighlightEndpoints_Green()'
 
-        If objectListItem Is Nothing Then
+        If (objectListItem Is Nothing) Then
             ''
             ''Do nothing. 
             ''
-        ElseIf mod_range Is Nothing And objectListItem.Selected = True Then
+        ElseIf (mod_range Is Nothing And objectListItem.Selected = True) Then
             ''
             ''Start a range object. 
             ''
             mod_range = New DLLRange(Of TwoCharacterDLLHorizontal)(objectListItem, False)
 
-        ElseIf mod_range IsNot Nothing And objectListItem.Selected Then
+        ElseIf (mod_range IsNot Nothing And (objectListItem.Selected)) Then
 
             intDistance = mod_range._StartingItem.DLL_GetDistanceTo(objectListItem)
 
-            If intDistance > 0 Then
+            If (intDistance > 0) Then
                 ''The range should be broadened to reach the newly-selected object. 
                 mod_range.ExtendRangeToIncludeListItem(objectListItem)
 
-            ElseIf intDistance < 0 Then
+            ElseIf (intDistance < 0) Then
                 ''
                 '' Since the distance is negative, the range should be re-initiated,
                 ''   with newly-selected object being the "lefthand" (starting) item 
                 ''   of the range, and the previously-selected item should be the 
                 ''   "righthand" (following/ending) item. 
                 ''
-                Dim tempRangeItem = mod_range.ItemStart
+                Dim tempRangeItem As TwoCharacterDLLHorizontal = mod_range.ItemStart()
                 mod_range = New DLLRange(Of TwoCharacterDLLHorizontal)(objectListItem, tempRangeItem)
 
             End If ''ENd of ""If (intDistance > 0) Then ... Else If (intDistance < 0) Then"
@@ -784,8 +833,8 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''Major call!! 
         ''
-        Const MOVE_CONTROLS_ENABLED = True
-        If MOVE_CONTROLS_ENABLED And mod_range IsNot Nothing Then
+        Const MOVE_CONTROLS_ENABLED As Boolean = True
+        If (MOVE_CONTROLS_ENABLED And mod_range IsNot Nothing) Then
             ''Important for MOVE controls. 
             AutoPopulateRangeControls(mod_range)
         End If ''ENd of ""If (s_range IsNot Nothing) Then""
@@ -854,7 +903,7 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Delete", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
@@ -945,7 +994,23 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''Added 11/09/2024
         ''
+        If (mod_manager.MarkerHasOperationNext_Redo()) Then
+            ''
+            ''Fine, this is expected. ---Thomas D.
+            ''
+        Else
+            MessageBoxTD.Show_Statement("Sorry, there are no Redo operations in the queue.")
+            Exit Sub
+        End If ''End of "If (mod_manager.MarkerHasOperationNext_Redo()) Then... Else ..."
+
+        ''
+        ''Major call!!
+        ''
         mod_manager.RedoMarkedOperation()
+
+        ''Added 12/09/2024 & 11/10/2024 (but only on the buttonUndoLastStep_Click handler)
+        mod_firstItem = mod_list._itemStart
+        mod_lastItem = mod_list._itemEnding
 
         ''Added 11/09/2024 
         RefreshTheUI_DisplayList()
@@ -983,17 +1048,25 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation(boolUserHasCancelled)
+        AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
         intAnchorIndex = numMoveAnchorBenchmark.Value
         tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
+
+        ''Added 12/09/2024  
+        If (tempAnchorItem Is Nothing) Then
+            MessageBoxTD.Show_Statement("Cannot locate Anchor Item.  May be outside the range of the list.")
+            Exit Sub
+        End If ''ENd of ""If (tempAnchorItem Is Nothing) Then""
+
         bAnchorMoveAfter = (listMoveAfterOrBefore.SelectedIndex < 1)
         bAnchorMoveBefore = (listMoveAfterOrBefore.SelectedIndex >= 1)
         bChangeOfEndpoint = mod_range.ContainsEndpoint()
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)(tempAnchorItem, bAnchorMoveAfter)
-        bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
+        ''Added 12/09/2024  bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
+        bChangeOfEndpoint = (bChangeOfEndpoint Or tempAnchorPair.ContainsEndpoint())
 
         ''Added 11/18/2024
         ''
@@ -1005,7 +1078,8 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''  Display sanity-check (warning) messages. 
         ''
-        If (bCheck_AnchorEnclosesRange) Then
+        ''12/09/2024 If (bCheck_AnchorEnclosesRange) Then
+        If (bCheck_RangeContainsAnchor) Then ''12/09/2024 If (bCheck_AnchorEnclosesRange) Then
             MessageBoxTD.Show_Statement("Not permitted (or hopelessly confusing): Range includes Anchor.")
             Exit Sub
         ElseIf (bCheck_AnchorEnclosesRange) Then
@@ -1033,7 +1107,13 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_manager.ToString(tempOperation)
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = True
+        ''Added 11/29/2024 
+        buttonUndo.Enabled = True
 
     End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
 
@@ -1079,9 +1159,7 @@ Public Class FormSimpleDemo1DHorizontal ''12/04/2024  FormSimpleDemoOfCSharp1D
 
     End Sub
 
-    Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles richtextItemsDisplayV.TextChanged
 
-    End Sub
 End Class
 
 
