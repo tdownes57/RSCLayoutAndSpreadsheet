@@ -50,9 +50,20 @@ namespace RSCLibraryDLLOperations
             // Added 11/10/2024  
             //
             bool bInsertRangeAfterAnchorItem;
+            bool bIsForEmptyList;  // Added 12/09/2024
+
+            bIsForEmptyList = par_itemAnchor._isForEmptyList;  // Added 12/09/2024
+
             bInsertRangeAfterAnchorItem = par_itemAnchor._doInsertRangeAfterThis;
 
-            if (bInsertRangeAfterAnchorItem)
+            if (bIsForEmptyList) // Added 12/09/2024 
+            {
+                // Added 12/09/2024  
+                _isForEmptyList = true;
+
+            }
+
+            else if (bInsertRangeAfterAnchorItem)
             {
                 _itemLeft = par_itemAnchor._anchorItem;  // May be null.
                 _itemRight = par_itemAnchor._anchorItem.DLL_GetItemNext_OfT();  // May be null.

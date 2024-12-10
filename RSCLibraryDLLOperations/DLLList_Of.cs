@@ -61,7 +61,8 @@ namespace RSCLibraryDLLOperations
             if (par_itemStart == null) return; // System.Diagnostics.Debugger.Break();
             if (par_itemEnding == null) return; // System.Diagnostics.Debugger.Break();
 
-            mod_dllControlFirst = par_itemStart;  // Added 10/31/2024nn
+            mod_dllControlFirst_NotUsed = par_itemStart;  // Added 10/31/2024
+
             _itemStart = par_itemStart;
             _itemEnding = par_itemEnding;
             _itemCount = par_itemCount;
@@ -124,6 +125,16 @@ namespace RSCLibraryDLLOperations
                 return default(TControl);
             }
             else return result; 
+
+        }
+
+
+        public bool DLL_IsEmpty()
+        {
+            // Added 12/09/2024 td
+            //
+            //--return (mod_dllControlFirst == null);
+            return (_itemStart == null);
 
         }
 
@@ -562,8 +573,8 @@ namespace RSCLibraryDLLOperations
         private const int PLACEHOLDER = -1;
         private Tuple<int, int> mod_tupSelect_NoShiftToShift;
         private Tuple<int, int> mod_tupSelect_LowToUpper;
-        private IDoublyLinkedItem mod_dllControlFirst;
-
+        private IDoublyLinkedItem mod_dllControlFirst_NotUsed;  // Suffixed on 12/09/2024
+ 
 
         public DLLRange<TControl> GetSelectionRange(int par_indexClicked,
                                                     bool par_bShiftKeyPressed)

@@ -75,7 +75,21 @@ namespace RSCLibraryDLLOperations
             //
             DLLAnchorCouplet<TControl> resultCouplet; // = default(TControl);
  
-            if (_doInsertRangeAfterThis)
+            if (_isForEmptyList)  // Added 12/09/2024 t..d..
+            {
+                // Added 12/09/2024 t..d..
+                resultCouplet = new DLLAnchorCouplet<TControl>(_isForEmptyList, false);
+
+            }
+
+            else if (_isForDeletionOperation)  // Added 12/09/2024 t..d..
+            {
+                // Added 12/09/2024 t..d..
+                resultCouplet = new DLLAnchorCouplet<TControl>(false, _isForDeletionOperation);
+
+            }
+
+            else if (_doInsertRangeAfterThis)
             {
                 resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem, _anchorItem.DLL_GetItemNext_OfT(), true);
                 return resultCouplet;
@@ -92,7 +106,8 @@ namespace RSCLibraryDLLOperations
                 System.Diagnostics.Debugger.Break();
                 return null;
             }
-            //return resultCouplet;
+            
+            return resultCouplet;
 
         }
 
@@ -105,7 +120,21 @@ namespace RSCLibraryDLLOperations
             //
             DLLAnchorCouplet<TControl> resultCouplet; // = default(TControl);
 
-            if (pbIncludePriorItem)
+            if (_isForEmptyList)  // Added 12/09/2024 t..d..
+            {
+                // Added 12/09/2024 t..d..
+                resultCouplet = new DLLAnchorCouplet<TControl>(_isForEmptyList, false);
+
+            }
+
+            else if (_isForDeletionOperation)  // Added 12/09/2024 t..d..
+            {
+                // Added 12/09/2024 t..d..
+                resultCouplet = new DLLAnchorCouplet<TControl>(false, _isForDeletionOperation);
+
+            }
+
+            else if (pbIncludePriorItem)
             {
                 // Added 11/10/2024  
                 resultCouplet = new DLLAnchorCouplet<TControl>(_anchorItem.DLL_GetItemPrior_OfT(), _anchorItem, true);
@@ -127,7 +156,8 @@ namespace RSCLibraryDLLOperations
                 System.Diagnostics.Debugger.Break();
                 return null;
             }
-            //return resultCouplet;
+            
+            return resultCouplet;
 
         }
 

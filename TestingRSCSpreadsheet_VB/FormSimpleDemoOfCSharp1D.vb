@@ -174,6 +174,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim boolCloseHighlight_Next As Boolean = False
         Dim bOpenSelection As Boolean = False ''Added 11/12/2024 td
         Dim intLoopIndex As Integer = 0 ''Added 11/12/2024 
+        Dim charSpecial As Char = " "c ''---Added 12/9/2024 
 
         ''richtextItemsDisplay.ResetText()
         ''Not needed here. ----richtextItemsDisplay.Text = ""
@@ -192,11 +193,13 @@ Public Class FormSimpleDemoOfCSharp1D
             Do Until bDone
 
                 intLoopIndex += 1
+                charSpecial = " "c ''Added 12/09/2024 
 
                 ''La belItemsDisplay.Text.Append(" +++ " + each_twoChar.ToString())
                 ''stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
                 If (each_twoChar.Selected Or bOpenSelection) Then
                     ''The item has been selected. 
+                    charSpecial = "_"c ''Added 12/09/2024
                     stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
 
                     ''
@@ -216,6 +219,7 @@ Public Class FormSimpleDemoOfCSharp1D
                     ''The item has been highlighted.
                     ''
                     If (boolOpenHighlight) Then
+                        charSpecial = "["c ''Added 12/09/2024 
                         stringbuilderLinkedItems.Append("[" + each_twoChar.ToString())
                         ''Prepare for future iterations. 
                         boolOpenHighlight = False
@@ -225,6 +229,7 @@ Public Class FormSimpleDemoOfCSharp1D
                         ''Prepare for the next item(s).
                         ''
                         ''---stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                        charSpecial = " "c ''Added 12/09/2024 
                         stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
                         boolCloseHighlight_Next = True
                         boolCloseHighlight = False
@@ -233,12 +238,14 @@ Public Class FormSimpleDemoOfCSharp1D
 
                 ElseIf (boolCloseHighlight_Next) Then
                     ''Added 11/09/2024 thomas downes 
+                    charSpecial = "]"c ''Added 12/09/2024 
                     stringbuilderLinkedItems.Append("]" + each_twoChar.ToString())
                     ''Clear the boolean, so it only is used once.
                     boolCloseHighlight_Next = False
 
                 Else
                     ''Added 11/09/2024 thomas downes 
+                    charSpecial = " "c ''Added 12/09/2024 
                     stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
 
                 End If ''End of ""If (each_twoChar.Selected) Then... Else..."
@@ -251,6 +258,16 @@ Public Class FormSimpleDemoOfCSharp1D
 
             Loop ''End of ""Do Until bDone""
             ''Next each_twoChar
+
+            ''Added 12/09/2024 
+            Select Case True '' charSpecial
+                Case (charSpecial = "["c)
+                    stringbuilderLinkedItems.Append("]")
+
+                Case (bOpenSelection And charSpecial = "_"c)
+                    stringbuilderLinkedItems.Append("_")
+
+            End Select ''End of ""Select Case True""
 
             ''---MessageBoxTD.Show_Statement("Done loading!!")
             ''Return stringbuilderLinkedItems.ToString()
@@ -596,6 +613,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim tempAnchorItem As TwoCharacterDLLItem '''Added 10/21/2024 thomas downes
         Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLItem) ''Added 10/26/2024
         Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLItem) ''Added 10/26/2024 td 
+        Dim boolIsForEmptyList As Boolean ''Added 12/09/2024 thomas d. 
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -617,8 +635,17 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLItem)(False)
         ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
+        If (mod_firstItem Is Nothing) Then
+            ''The list is empty. 
+            ''   No items exist in the list.  ---12/09/2024 td  
+            boolIsForEmptyList = True ''Added 12/09/2024
+            If (mod_list.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
+            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(boolIsForEmptyList, False) '' (True, False)
+
+        Else
+            tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
+        End If ''End of ""If (mod_firstItem Is Nothing) Then ... Else ..."
 
         bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1
         bInsertRangeBeforeAnchor = Not bInsertRangeAfterAnchor ''Added 11/10/2024 
@@ -630,8 +657,11 @@ Public Class FormSimpleDemoOfCSharp1D
         objAnchorPair = objAnchorItem.GetAnchorCouplet(bInsertRangeBeforeAnchor)
 
         ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
-        boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
-            intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
+        ''--12/9/2024--boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
+        ''-------------                intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
+        boolEndpoint = (boolIsForEmptyList Or
+             ((intAnchorPosition = 1) And bInsertRangeBeforeAnchor) Or
+            ((intAnchorPosition = intHowManyInModuleList) And bInsertRangeAfterAnchor))
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
                              ZERO_INDEX.ToString("00"))
@@ -1021,6 +1051,13 @@ Public Class FormSimpleDemoOfCSharp1D
 
         intAnchorIndex = numMoveAnchorBenchmark.Value
         tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
+
+        ''Added 12/09/2024  
+        If (tempAnchorItem Is Nothing) Then
+            MessageBoxTD.Show_Statement("Cannot locate Anchor Item.  May be outside the range of the list.")
+            Exit Sub
+        End If ''ENd of ""If (tempAnchorItem Is Nothing) Then""
+
         bAnchorMoveAfter = (listMoveAfterOrBefore.SelectedIndex < 1)
         bAnchorMoveBefore = (listMoveAfterOrBefore.SelectedIndex >= 1)
         bChangeOfEndpoint = mod_range.ContainsEndpoint()
@@ -1039,7 +1076,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''  Display sanity-check (warning) messages. 
         ''
-        If (bCheck_AnchorEnclosesRange) Then
+        ''12/09/2024 If (bCheck_AnchorEnclosesRange) Then
+        If (bCheck_RangeContainsAnchor) Then ''12/09/2024 If (bCheck_AnchorEnclosesRange) Then
             MessageBoxTD.Show_Statement("Not permitted (or hopelessly confusing): Range includes Anchor.")
             Exit Sub
         ElseIf (bCheck_AnchorEnclosesRange) Then
