@@ -26,11 +26,11 @@ Public Class TwoCharacterDLLItem
 
     Private Const ENFORCE_BIDIRECTIONAL As Boolean = True ''Added 12/08/2024 
 
-    Private mod_prior As TwoCharacterDLLItem
-    Private mod_next As TwoCharacterDLLItem
+    Friend mod_prior As TwoCharacterDLLItem ''Using 'Friend' will allow subclassess to access it.  12/12/2024 Private mod_prior
+    Friend mod_next As TwoCharacterDLLItem ''Using 'Friend' will allow subclassess to access it.  ''12/12/2024 Private mod_next 
 
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
-    Private mod_next_priorSortOrder As TwoCharacterDLLItem ''Added 12/12/2024 TD
+    Friend mod_next_priorSortOrder As TwoCharacterDLLItem ''Added 12/12/2024 TD
 
     ''July2024 Private mod_twoChars As  
     Private mod_char1 As Char ''String
@@ -449,6 +449,22 @@ Public Class TwoCharacterDLLItem
     End Function ''ENd of ""Public Function DLL_CountItemsAfter()""
 
 
+    Public Function DLL_GetItemLast() As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemLast
+        ''
+        ''Added 12/12/2024
+        ''
+        Dim temp As IDoublyLinkedItem = Me ''.DLL_GetItemNext()
+        Dim temp_result As IDoublyLinkedItem = Me ''.DLL_GetItemNext()
+
+        While temp.DLL_HasNext()
+            temp = temp.DLL_GetItemNext()
+        End While ''End of ""While temp.DLL_HasNext()""
+        temp_result = temp
+        Return temp_result
+
+    End Function ''ENd of ""Public Function DLL_GetItemLast() As TwoCharacterDLLItem""
+
+
     Public Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLItem _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetNextItemFollowingRange_OfT
         ''
@@ -665,16 +681,15 @@ Public Class TwoCharacterDLLItem
     ''DIFFICULT AND CONFUSING -- PRIOR SORT ORDERS -- Added 12/12/2024
     ''
     ''
-    Public Function DLL_GetItemNext_PriorSortOrder() As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemNext_PriorSortOrder
-        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
-        Return mod_next_priorSortOrder
-    End Function
-
-
-    Public Sub DLL_SetItemNext_PriorSortOrder(param As TwoCharacterDLLItem) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_PriorSortOrder        ''Throw New NotImplementedException()
-        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
-        mod_next_priorSortOrder = param
-    End Sub
+    ''Public Function DLL_GetItemNext_PriorSortOrder() As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemNext_PriorSortOrder
+    ''    ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+    ''    Return mod_next_priorSortOrder
+    ''End Function
+    ''
+    ''Public Sub DLL_SetItemNext_PriorSortOrder(param As TwoCharacterDLLItem) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_PriorSortOrder        ''Throw New NotImplementedException()
+    ''    ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+    ''    mod_next_priorSortOrder = param
+    ''End Sub
 
     Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SaveCurrentSortOrder_ToPrior
 

@@ -9,11 +9,11 @@ Public Class TwoCharacterDLLVertical
     ''
     ''Added 2/27/2024 thomas downes
     ''
-    Dim mod_next As TwoCharacterDLLVertical ''Added 10/16/2024 td
-    Dim mod_prior As TwoCharacterDLLVertical ''Added 10/16/2024 td
+    ''Probably not needed. ---12/12/2024  Dim mod_next As TwoCharacterDLLVertical ''Added 10/16/2024 td
+    ''Probably not needed. ---12/12/2024  Dim mod_prior As TwoCharacterDLLVertical ''Added 10/16/2024 td
 
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
-    Dim mod_next_priorSortOrder As TwoCharacterDLLVertical ''Added 12/12/2024 td
+    ''Probably not needed. ---12/12/2024  Dim mod_next_priorSortOrder As TwoCharacterDLLVertical ''Added 12/12/2024 td
 
     Public Sub New(par_twoChars As String)
 
@@ -26,46 +26,55 @@ Public Class TwoCharacterDLLVertical
 
     Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLVertical) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_OfT
         ''Throw New NotImplementedException()
-        MyBase.DLL_SetItemNext_OfT(param)
+        ''Probably not needed. ---12/12/2024  MyBase.DLL_SetItemNext_OfT(param)
+        ''Probably not needed. ---12/12/2024  mod_next = param ''Added 12/12/2024 td
+        MyBase.mod_next = param ''Added 12/12/2024 td
+
     End Sub
 
     Public Overloads Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLVertical) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemPrior_OfT
         ''Throw New NotImplementedException()
-        MyBase.DLL_SetItemPrior_OfT(param)
+        ''Probably not needed. ---12/12/2024  MyBase.DLL_SetItemPrior_OfT(param)
+        ''Probably not needed. ---12/12/2024  mod_prior = param ''Added 12/12/2024 td
+        MyBase.mod_next = param ''Added 12/12/2024 td
+
     End Sub
 
     Public Function GetItemNext_OfT() As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
         Return MyBase.DLL_GetItemNext_OfT()
+
     End Function
 
     Public Overloads Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
         Return MyBase.DLL_GetItemNext_OfT(param_iterationsOfNext)
+
     End Function
 
     Public Overloads Function DLL_GetItemPrior_OfT() As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemPrior_OfT
         ''Throw New NotImplementedException()
         Return MyBase.DLL_GetItemNext_OfT()
+
     End Function
 
 
-    Public Overloads Function DLL_GetItemNext_PriorSortOrder() As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemNext_PriorSortOrder
-        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
-        Return MyBase.DLL_GetItemNext_PriorSortOrder()
-    End Function
-
-
-    Public Overloads Sub DLL_SetItemNext_PriorSortOrder(param As TwoCharacterDLLVertical) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_PriorSortOrder        ''Throw New NotImplementedException()
-        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
-        MyBase.DLL_SetItemNext_PriorSortOrder(param)
-    End Sub
+    ''Public Overloads Function DLL_GetItemNext_PriorSortOrder() As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemNext_PriorSortOrder
+    ''    ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+    ''    Return MyBase.DLL_GetItemNext_PriorSortOrder()
+    ''End Function
+    ''
+    ''Public Overloads Sub DLL_SetItemNext_PriorSortOrder(param As TwoCharacterDLLVertical) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_PriorSortOrder        ''Throw New NotImplementedException()
+    ''    ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+    ''    MyBase.DLL_SetItemNext_PriorSortOrder(param)
+    ''End Sub
 
 
     Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLVertical, pboolAllowNulls As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_OfT
         ''Throw New NotImplementedException()
 
         ''---MyBase.DLL_SetItemNext_OfT(param)
+        ''MyBase.mod_next = param
         MyBase.DLL_SetItemNext_OfT(param, pboolAllowNulls)
 
     End Sub
@@ -73,7 +82,9 @@ Public Class TwoCharacterDLLVertical
     Public Overloads Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLVertical, pboolAllowNulls As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemPrior_OfT
         ''Throw New NotImplementedException()
         ''----MyBase.DLL_SetItemPrior_OfT(param)
+        ''MyBase.mod_prior = param
         MyBase.DLL_SetItemPrior_OfT(param, pboolAllowNulls)
+
     End Sub
 
 
@@ -99,7 +110,7 @@ Public Class TwoCharacterDLLVertical
     End Function ''End of Public Function DLL_GetDistanceTo
 
 
-    Public Function DLL_GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemIndex
+    Public Overloads Function DLL_GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemIndex
         ''
         ''Added 11/12/2024 thomas downes
         ''
@@ -165,6 +176,48 @@ Public Class TwoCharacterDLLVertical
         Return MyBase.DLL_GetDistanceTo(paramItem, pbLocatedSuccessfully)
 
     End Function ''End of "Public Function DLL_GetDistanceTo""
+
+
+    Public Overloads Function DLL_GetItemLast() As TwoCharacterDLLVertical Implements ciBadgeInterfaces.IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemLast
+        ''
+        ''Added 12/12/2024 td
+        ''
+        Return MyBase.DLL_GetItemLast() ''---C#---As TwoCharacterDLLVertical
+
+    End Function
+
+
+    ''
+    ''
+    ''Restoring Sort-Order functions.  ---12/12/2024
+    ''
+    ''
+    Public Overloads Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SaveCurrentSortOrder_ToPrior
+
+
+        ''Added 12/12/2024 
+        MyBase.DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade)
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
+
+
+    Public Overloads Sub DLL_RestorePriorSortOrder() Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_RestorePriorSortOrder
+
+        ''Added 12/12/2024 
+        MyBase.DLL_RestorePriorSortOrder()
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
+
+
+    Public Overloads Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_ClearPriorSortOrder
+
+        ''Added 12/12/2024 
+        MyBase.DLL_ClearPriorSortOrder(pbExecuteInCascade)
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
+
+
+
 
 
 

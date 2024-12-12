@@ -711,6 +711,15 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void SaveCurrentSortOrder_ToPrior()
+        {
+            //
+            // Added 12/12/2024 thomas downes 
+            //
+            _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
+
+        }
+
         public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
         {
             //

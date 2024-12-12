@@ -22,11 +22,15 @@ Public Class TwoCharacterDLLHorizontal
     Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLHorizontal) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SetItemNext_OfT
         ''Throw New NotImplementedException()
         MyBase.DLL_SetItemNext_OfT(param)
+        mod_next = param ''Added 12/12/2024 td
+
     End Sub
 
     Public Overloads Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLHorizontal) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SetItemPrior_OfT
         ''Throw New NotImplementedException()
         MyBase.DLL_SetItemPrior_OfT(param)
+        mod_prior = param ''Added 12/12/2024 td
+
     End Sub
 
 
@@ -227,6 +231,36 @@ Public Class TwoCharacterDLLHorizontal
     ''    Return int_resultDistance
 
     ''End Function ''End of Public Function DLL_GetDistanceTo 
+
+
+    ''
+    ''
+    ''Restoring Sort-Order functions.  ---12/12/2024
+    ''
+    ''
+    Public Overloads Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SaveCurrentSortOrder_ToPrior
+
+
+        ''Added 12/12/2024 
+        MyBase.DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade)
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean)""
+
+
+    Public Overloads Sub DLL_RestorePriorSortOrder() Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_RestorePriorSortOrder
+
+        ''Added 12/12/2024 
+        MyBase.DLL_RestorePriorSortOrder()
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
+
+
+    Public Overloads Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_ClearPriorSortOrder
+
+        ''Added 12/12/2024 
+        MyBase.DLL_ClearPriorSortOrder(pbExecuteInCascade)
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean)""
 
 
 
