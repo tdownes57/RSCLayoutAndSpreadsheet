@@ -131,11 +131,17 @@ namespace RSCLibraryDLLOperations
             // Added 12/08/2024 
             //
             DLLAnchorCouplet<T_Base>? result;
-            T_Base? obj_item_Left = _itemLeft as T_Base;
 
-            if (obj_item_Left != null)
+            // 12/11/2024  T_Base? obj_item_Left = _itemLeft as T_Base;
+            //             if (obj_item_Left != null)
+            //
+            // Fancy!!  Suggested by MS Visual Studio...
+            //
+            if (_itemLeft is T_Base obj_item_Left)
             {
-                result = new DLLAnchorCouplet<T_Base>(obj_item_Left, true);
+                result = new DLLAnchorCouplet<T_Base>(obj_item_Left, _itemRight as T_Base, true);
+                result._isForEmptyList = _isForEmptyList;
+                result._isForDeletionOperation = _isForDeletionOperation;
             }
             else result = null;
 

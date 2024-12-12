@@ -90,6 +90,20 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''
     Function DLL_GetItemIndex() As Integer
 
+    ''
+    ''
+    ''DIFFICULT AND CONFUSING -- PRIOR SORT ORDERS -- Added 12/12/2024
+    ''
+    ''
+    Sub DLL_SetItemNext_PriorSortOrder(param As TControl) ''Added 12/12/2024 th.do.
+    Function DLL_GetItemNext_PriorSortOrder() As TControl ''Added 12/12/2024 th.do.
+
+    Sub DLL_RestorePriorSortOrder() ''Added 12/12/2024 th.do.
+    Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) ''Added 12/12/2024 th.do.
+    Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) ''Added 12/12/2024 th.do.
+
+    Function DLL_GetItemLast() As TControl
+
 End Interface
 
 

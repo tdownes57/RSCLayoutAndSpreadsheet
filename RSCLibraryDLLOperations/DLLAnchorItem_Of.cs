@@ -110,6 +110,35 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLAnchorItem<T_Base> GetConvertToGeneric_OfT<T_Base>()
+            where T_Base : class, IDoublyLinkedItem<T_Base>
+        {
+            //
+            // Added 12/11/2024 
+            //
+            DLLAnchorItem<T_Base>? result;
+
+            // 12/11/2024  T_Base? obj_item_Left = _itemLeft as T_Base;
+            //             if (obj_item_Left != null)
+            //
+            // Fancy!!  Suggested by MS Visual Studio...
+            //
+            if (_anchorItem is T_Base obj_item)
+            {
+                result = new DLLAnchorItem<T_Base>(obj_item);
+                result._isForEmptyList = _isForEmptyList;
+                result._isForDeletionOperation = _isForDeletionOperation;
+                result._doInsertRangeBeforeThis = _doInsertRangeBeforeThis;
+                result._doInsertRangeAfterThis = _doInsertRangeAfterThis;
+            }
+
+            else result = null;
+
+            return result;
+
+        }
+
+
         public DLLAnchorCouplet<TControl> GetAnchorCouplet()
             // where TControlOut : class, IDoublyLinkedItem<TControlOut>
         {

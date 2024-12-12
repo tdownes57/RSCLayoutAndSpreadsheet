@@ -45,6 +45,8 @@ namespace RSCLibraryDLLOperations
         private bool _temp_b_anchorWill_FollowRange;  // b is for Boolean
         private bool _temp_b_anchorWillBeMultiUse;  // b is for Boolean
 
+        public TControl _itemStart_PriorSortOrder;  //Added 12/12/2024 td
+
         //public DLLList()
         //{
         //    _itemCount = 0;
@@ -707,6 +709,32 @@ namespace RSCLibraryDLLOperations
             EventListWasModified?.Invoke();  
 
         }
+
+
+        public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
+        {
+            //
+            // Added 12/12/2024 thomas downes 
+            //
+            _itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
+            _itemStart = _itemStart_PriorSortOrder;
+            _itemEnding = _itemStart.DLL_GetItemLast();
+            _itemCount = _itemStart.DLL_CountItemsAllInList();
+
+            // Added 12/12/2024 thomas downes 
+            if (pbAlsoClearPriorSortOrder) _itemStart.DLL_ClearPriorSortOrder(true);
+
+        }
+
+        public void ClearPriorSortOrder()
+        {
+            //
+            // Added 12/12/2024 thomas downes 
+            //
+            _itemStart.DLL_ClearPriorSortOrder(true);
+
+        }
+
 
         //
         // End of class "public class DLLList<TControl> where TControl : IDoublyLinkedItem<TControl>"

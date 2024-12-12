@@ -66,6 +66,9 @@ namespace RSCLibraryDLLOperations
         /// <returns>The first item which follows the range.</returns>
         IDoublyLinkedItem<TypeOfItem> DLL_GetNextItemFollowingRange(int param_rangeSize, bool param_mayBeNull);
 
+        //Added 12/12/2024 
+        TypeOfItem DLL_GetItemNext_PriorSortOrder();
+
     }
 
 

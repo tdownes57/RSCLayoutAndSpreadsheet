@@ -28,6 +28,10 @@ Public Class TwoCharacterDLLItem
 
     Private mod_prior As TwoCharacterDLLItem
     Private mod_next As TwoCharacterDLLItem
+
+    ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
+    Private mod_next_priorSortOrder As TwoCharacterDLLItem ''Added 12/12/2024 TD
+
     ''July2024 Private mod_twoChars As  
     Private mod_char1 As Char ''String
     Private mod_char2 As Char ''String
@@ -656,7 +660,60 @@ Public Class TwoCharacterDLLItem
     End Sub ''End of ""Public Sub DLL_InsertItemToPrior(...)""
 
 
+    ''
+    ''
+    ''DIFFICULT AND CONFUSING -- PRIOR SORT ORDERS -- Added 12/12/2024
+    ''
+    ''
+    Public Function DLL_GetItemNext_PriorSortOrder() As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemNext_PriorSortOrder
+        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        Return mod_next_priorSortOrder
+    End Function
 
+
+    Public Sub DLL_SetItemNext_PriorSortOrder(param As TwoCharacterDLLItem) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_PriorSortOrder        ''Throw New NotImplementedException()
+        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        mod_next_priorSortOrder = param
+    End Sub
+
+    Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SaveCurrentSortOrder_ToPrior
+
+        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        mod_next_priorSortOrder = mod_next
+
+        ''Added 12/12/2024  
+        ''
+        ''   Execute in cascade (recursively), if requested.
+        ''   
+        If (pbExecuteInCascade) Then mod_next?.DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade)
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
+
+
+    Public Sub DLL_RestorePriorSortOrder() Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_RestorePriorSortOrder
+
+        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        mod_next = mod_next_priorSortOrder
+
+        ''Added 12/12/2024
+        ''   Execute in cascade. 
+        mod_next?.DLL_RestorePriorSortOrder()
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
+
+
+    Public Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_ClearPriorSortOrder
+
+        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        mod_next_priorSortOrder = Nothing
+
+        ''Added 12/12/2024
+        ''
+        ''   Execute in cascade (recursively), if requested.
+        ''   
+        If (pbExecuteInCascade) Then mod_next?.DLL_ClearPriorSortOrder(pbExecuteInCascade)
+
+    End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
 
 End Class

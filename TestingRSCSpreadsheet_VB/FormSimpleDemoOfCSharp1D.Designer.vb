@@ -65,6 +65,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         listMoveAfterOrBefore = New ListBox()
         LabelMoveBenchmark = New Label()
         numMoveAnchorBenchmark = New NumericUpDown()
+        ButtonSortForward = New Button()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -508,11 +509,22 @@ Partial Class FormSimpleDemoOfCSharp1D
         numMoveAnchorBenchmark.TabIndex = 91
         numMoveAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
+        ' ButtonSortForward
+        ' 
+        ButtonSortForward.BackColor = Color.Cyan
+        ButtonSortForward.Location = New Point(706, 60)
+        ButtonSortForward.Name = "ButtonSortForward"
+        ButtonSortForward.Size = New Size(137, 39)
+        ButtonSortForward.TabIndex = 104
+        ButtonSortForward.Text = "Sort Items Forward"
+        ButtonSortForward.UseVisualStyleBackColor = False
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 541)
+        Controls.Add(ButtonSortForward)
         Controls.Add(GroupMoveByAnchor)
         Controls.Add(GroupMoveByShifting)
         Controls.Add(LinkClearRecordedOps)
@@ -607,5 +619,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents listMoveAfterOrBefore As ListBox
     Friend WithEvents LabelMoveBenchmark As Label
     Friend WithEvents numMoveAnchorBenchmark As NumericUpDown
+    Friend WithEvents ButtonSortForward As Button
 
 End Class

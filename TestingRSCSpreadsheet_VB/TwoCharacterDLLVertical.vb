@@ -12,6 +12,9 @@ Public Class TwoCharacterDLLVertical
     Dim mod_next As TwoCharacterDLLVertical ''Added 10/16/2024 td
     Dim mod_prior As TwoCharacterDLLVertical ''Added 10/16/2024 td
 
+    ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
+    Dim mod_next_priorSortOrder As TwoCharacterDLLVertical ''Added 12/12/2024 td
+
     Public Sub New(par_twoChars As String)
 
         MyBase.New(par_twoChars)
@@ -45,6 +48,18 @@ Public Class TwoCharacterDLLVertical
         ''Throw New NotImplementedException()
         Return MyBase.DLL_GetItemNext_OfT()
     End Function
+
+
+    Public Overloads Function DLL_GetItemNext_PriorSortOrder() As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemNext_PriorSortOrder
+        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        Return MyBase.DLL_GetItemNext_PriorSortOrder()
+    End Function
+
+
+    Public Overloads Sub DLL_SetItemNext_PriorSortOrder(param As TwoCharacterDLLVertical) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_PriorSortOrder        ''Throw New NotImplementedException()
+        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        MyBase.DLL_SetItemNext_PriorSortOrder(param)
+    End Sub
 
 
     Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLVertical, pboolAllowNulls As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_OfT
