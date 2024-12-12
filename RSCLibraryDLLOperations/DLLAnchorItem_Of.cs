@@ -7,6 +7,49 @@ using System;
 
 namespace RSCLibraryDLLOperations
 {
+
+    //
+    // Added 12/11/2024 thomas c. downes
+    //
+    public struct StructureTypeOfMove // Added 12/11/2024 thomas c. downes
+    {
+        public bool IsMoveType;  // = false;
+        public bool IsMoveToAnchor;  // = true;
+        public bool IsMoveIncremental;  // "Swapping" positions with an adjacent item, especially if the range is a single item.
+        public bool IsIncrementalToLeft;  // "Swapping" positions with a preceding adjacent item, especially if the range is a single item.
+        public bool IsIncrementalToRight;  // "Swapping" positions with a succeeding adjacent item, especially if the range is a single item.
+        public int HowManyItemsIncremental;  // How many items are swapped out, either preceding or succeeding. 
+
+        public StructureTypeOfMove()
+        {
+            //
+            // It is likely that the Operations Manager will "know" that the Operation is a Move 
+            //   operation, so we have IsMoveType equal to True by default.  ----12/11/2024
+            //
+            // Added 12/11/2024 thomas c. downes
+            IsMoveType = true;
+            IsMoveToAnchor = true;
+            IsMoveIncremental = false;
+            HowManyItemsIncremental = 0;
+        }
+
+        public StructureTypeOfMove(bool par_IsForMove)
+        {
+            //
+            // It is likely that the Operations Manager will "know" that the Operation is a Move 
+            //   operation, so we have IsMoveType equal to True by default.  ----12/11/2024
+            //
+            // Added 12/11/2024 thomas c. downes
+            IsMoveType = par_IsForMove;
+            IsMoveToAnchor = par_IsForMove;
+            IsMoveIncremental = false;
+            HowManyItemsIncremental = 0;
+        }
+
+
+    }
+
+
     public class DLLAnchorItem<TControl>
          where TControl : class, IDoublyLinkedItem<TControl>
     {

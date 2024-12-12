@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
+
 
 
 //using System.Reflection.Metadata.Ecma335;
@@ -42,6 +44,8 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isInsert;
         private readonly bool _isDelete;
         private readonly bool _isMove;
+        private readonly StructureTypeOfMove _moveType;  // Added 12/11/2024 t_homas c. d_ownes
+
         private readonly bool _isSort_Ascending;
         private readonly bool _isSort_Descending;
         private readonly bool _isSort_UndoOfSort; //Added 4/18/2024 
@@ -169,6 +173,7 @@ namespace RSCLibraryDLLOperations
         public DLLOperation1D(DLLRange<TControl>? par_range,
                   bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove,
+                  StructureTypeOfMove par_structMoveType,
                   DLLAnchorItem<TControl>? par_anchorItem,
                   DLLAnchorCouplet<TControl>? par_anchorPair,
                   bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
@@ -244,7 +249,8 @@ namespace RSCLibraryDLLOperations
 
         public DLLOperation1D(DLLRange<TControl> par_range,
                               DLLAnchorCouplet<TControl> par_anchorCouplet,
-                              bool par_isInsert, bool par_isMove)
+                              bool par_isInsert, bool par_isMove, 
+                              StructureTypeOfMove par_typeOfMove)
         {
             //
             // Added 11/3/2024 
@@ -254,6 +260,9 @@ namespace RSCLibraryDLLOperations
             _isMove = par_isMove;
             _isInsert = par_isInsert;
             _anchorCouplet = par_anchorCouplet;
+
+            // Added 12/11/2024 td
+            _moveType = par_typeOfMove;
 
             // Added 12/09/2024  
             //
@@ -1004,6 +1013,7 @@ namespace RSCLibraryDLLOperations
         {
 
             DLLOperation1D<TControl> result_UNDO;
+
             //DLLRange<TControl_H> result_RangeOfItems_H = _range_H;
             //DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
             //TControl_H? result_anchor_H = _anchor_H;
@@ -1012,6 +1022,8 @@ namespace RSCLibraryDLLOperations
             bool result_isInsert = _isDelete; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isDelete = _isInsert; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isMove = _isMove;
+            StructureTypeOfMove result_MoveType = new StructureTypeOfMove(_isMove);  // Added 12/11/2024  
+
             bool result_isForStartOfList = _isForStartOfList;
             bool result_isForEndOfList = _isForEndOfList;
             bool result_isSortAscending = false; // _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
@@ -1054,6 +1066,20 @@ namespace RSCLibraryDLLOperations
 
             }
 
+            // Added 12/11/2024 thomas downes
+            if (_isMove) // Added 12/11/2024 thomas downes
+            {
+                result_MoveType = new StructureTypeOfMove(_isMove);
+                result_MoveType.IsMoveToAnchor = _moveType.IsMoveToAnchor;
+                result_MoveType.IsMoveIncremental = _moveType.IsMoveIncremental;
+                result_MoveType.HowManyItemsIncremental = _moveType.HowManyItemsIncremental;
+
+                // DIFFICULT AND CONFUSING.---12/11/2024
+                result_MoveType.IsIncrementalToLeft = _moveType.IsIncrementalToRight;
+                result_MoveType.IsIncrementalToRight = _moveType.IsIncrementalToLeft;
+
+            }
+
             //
             // Use the constructor overload for horizontal operations.
             //
@@ -1063,6 +1089,7 @@ namespace RSCLibraryDLLOperations
                 result_isInsert,
                 result_isDelete,
                 result_isMove,
+                result_MoveType, 
                 result_anchorItem,
                 result_anchorCouplet,
                 result_isSortAscending,
@@ -1180,11 +1207,23 @@ namespace RSCLibraryDLLOperations
             //----return this;
             //return (this as DLLOperationBase);
 
-            DLLRange<T_Base> objRange = _range.GetConvertToGenericOfT<T_Base>();
-            DLLAnchorCouplet<T_Base> objCouplet = _anchorCouplet.GetConvertToGeneric_OfT<T_Base>();
+            DLLRange<T_Base>? objRange = _range?.GetConvertToGenericOfT<T_Base>();
+            DLLAnchorCouplet<T_Base>? objAnchorCouplet = _anchorCouplet?.GetConvertToGeneric_OfT<T_Base>();
 
+            // Added 12/11/2024 td 
+            DLLAnchorItem<T_Base> objAnchorItem = _anchorItem.GetConvertToGeneric_OfT<T_Base>();
+
+            //DLLOperation1D<T_Base> result =
+            //    new DLLOperation1D<T_Base>(objRange, objCouplet, _isInsert, _isMove);
+            //DLLOperation1D<T_Base> result =      // Added& modified 12/11/2024  
+            //    new DLLOperation1D<T_Base>(objRange, objCouplet, _isInsert, _isMove, _moveType);
+
+            // Modified 12/11/2024 
             DLLOperation1D<T_Base> result =
-                new DLLOperation1D<T_Base>(objRange, objCouplet, false, false);
+                new DLLOperation1D<T_Base>(objRange, _isForStartOfList, _isForEndOfList,_isInsert, _isDelete, 
+                       _isMove, _moveType, objAnchorItem, objAnchorCouplet, 
+                       _isSort_Ascending, _isSort_Descending, _isSort_UndoOfSort);
+
 
             return result;
 

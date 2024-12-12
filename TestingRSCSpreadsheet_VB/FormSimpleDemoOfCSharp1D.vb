@@ -34,6 +34,8 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim indexNewItem As Integer
         Dim newItem As TwoCharacterDLLItem
         ''Dim priorItem As TwoCharacterDLLItem
+        Dim type_of_move As StructureTypeOfMove ''Added 12/11/2024
+        type_of_move = New StructureTypeOfMove(False) ''Added 12/11/2024
 
         Dim PERFORM_INITIAL_INSERT_MANUALLY As Boolean = False ''---True
 
@@ -75,10 +77,10 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             Dim operationInitial30 As DLLOperation1D(Of TwoCharacterDLLItem)
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
-            ''                                                          True, False, False,
-            ''                                                    anchorForEmptyList, False, False, False)
+            ''            True, False, False,
+            ''            anchorForEmptyList, False, False, False)
             operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, True, False,
-                                                                      True, False, False,
+                                                                      True, False, False, type_of_move,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem,
                                           False, False, False)
@@ -524,6 +526,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
         Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        Dim null_move As New StructureTypeOfMove(False) ''Added 12/11/2024 td
 
         If DIRECT_TO_LIST Then
             If listInsertAfterOrBefore.SelectedIndex < 1 Then
@@ -542,7 +545,9 @@ Public Class FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
+            ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
+
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
@@ -554,7 +559,7 @@ Public Class FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(
                                             tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
@@ -614,6 +619,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLItem) ''Added 10/26/2024
         Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLItem) ''Added 10/26/2024 td 
         Dim boolIsForEmptyList As Boolean ''Added 12/09/2024 thomas d. 
+        Dim not_a_moveType As StructureTypeOfMove = New StructureTypeOfMove(False) ''Added 12/11/2024
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -695,9 +701,8 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
-                                      INSERT_OPERATION, False, False,
-                                      objAnchorItem,
-                                      objAnchorPair,
+                                        INSERT_OPERATION, False, False, not_a_moveType,
+                                      objAnchorItem, objAnchorPair,
                                       False, False, False)
             mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
 
@@ -897,6 +902,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
         Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
+        Dim not_a_moveType As StructureTypeOfMove = New StructureTypeOfMove(False) ''Added 12/11/2024 
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -949,7 +955,7 @@ Public Class FormSimpleDemoOfCSharp1D
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
-                                      OPERATION_NotMove, Nothing, Nothing,
+                                      OPERATION_NotMove, not_a_moveType, Nothing, Nothing,
                                       SORT_123, SORT_321, SORT_UNDO)
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
 
@@ -1027,44 +1033,69 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub
 
-    Private Sub ButtonMoveItems_Click(sender As Object, e As EventArgs) Handles buttonMoveItems.Click
+
+    Private Sub ButtonMoveItemsByAnchor_Click(sender As Object, e As EventArgs) Handles buttonMoveItemsByAnchor.Click
         ''
         ''Added 11/16/2024 
         ''
         Dim tempAnchorItem As TwoCharacterDLLItem ''---DLLAnchorItem(Of TwoCharacterDLLItem)
         Dim tempAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
-        Const OPERATION_MOVE As Boolean = True
+        Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
-        Dim bChangeOfEndpoint As Boolean = False
-        Dim intAnchorIndex As Integer = 0
+        Dim bChangeOfEndpoint = False
+        Dim intAnchorIndex = 0
         Dim bAnchorMoveAfter As Boolean
         Dim bAnchorMoveBefore As Boolean
         Dim bCheck_RangeContainsAnchor As Boolean ''Added 11/18/2024
         Dim bCheck_AnchorEnclosesRange As Boolean ''Added 11/18/2024
+        Dim intHowManyToMove As Integer ''Added 12/10/2024 td
+        Dim bCannotMoveThatMany As Boolean ''Added 12/10/2024 td 
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
         AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
-        If (boolUserHasCancelled) Then Exit Sub
+        If boolUserHasCancelled Then Exit Sub
 
+        ''Added 12/10/2024 td 
+        intHowManyToMove = mod_range.GetItemCount
+
+        ''Added 11/11/2024 thomas downes
+        bCannotMoveThatMany = intHowManyToMove >= mod_list.DLL_CountAllItems
+
+        ''Added 11/11/2024 td
+        If mod_list._isEmpty_OrTreatAsEmpty Then
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
+            Exit Sub
+        ElseIf bCannotMoveThatMany Then
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+                                                     "The list is not long enough (less than {0} items), " +
+                                        "the requested number of items to move cannot take place.", )
+            Exit Sub
+        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then""
+
+        ''
+        '' Proceed 
+        ''
         intAnchorIndex = numMoveAnchorBenchmark.Value
         tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
 
         ''Added 12/09/2024  
-        If (tempAnchorItem Is Nothing) Then
+        If tempAnchorItem Is Nothing Then
             MessageBoxTD.Show_Statement("Cannot locate Anchor Item.  May be outside the range of the list.")
             Exit Sub
         End If ''ENd of ""If (tempAnchorItem Is Nothing) Then""
 
-        bAnchorMoveAfter = (listMoveAfterOrBefore.SelectedIndex < 1)
-        bAnchorMoveBefore = (listMoveAfterOrBefore.SelectedIndex >= 1)
-        bChangeOfEndpoint = mod_range.ContainsEndpoint()
+        bAnchorMoveAfter = listMoveAfterOrBefore.SelectedIndex < 1
+        bAnchorMoveBefore = listMoveAfterOrBefore.SelectedIndex >= 1
+        bChangeOfEndpoint = mod_range.ContainsEndpoint
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem, bAnchorMoveAfter)
         ''Added 12/09/2024  bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
-        bChangeOfEndpoint = (bChangeOfEndpoint Or tempAnchorPair.ContainsEndpoint())
+        bChangeOfEndpoint = bChangeOfEndpoint Or tempAnchorPair.ContainsEndpoint
 
         ''Added 11/18/2024
         ''
@@ -1077,24 +1108,27 @@ Public Class FormSimpleDemoOfCSharp1D
         ''  Display sanity-check (warning) messages. 
         ''
         ''12/09/2024 If (bCheck_AnchorEnclosesRange) Then
-        If (bCheck_RangeContainsAnchor) Then ''12/09/2024 If (bCheck_AnchorEnclosesRange) Then
+        If bCheck_RangeContainsAnchor Then ''12/09/2024 If (bCheck_AnchorEnclosesRange) Then
             MessageBoxTD.Show_Statement("Not permitted (or hopelessly confusing): Range includes Anchor.")
             Exit Sub
-        ElseIf (bCheck_AnchorEnclosesRange) Then
+        ElseIf bCheck_AnchorEnclosesRange Then
             MessageBoxTD.Show_Statement("Not permitted (or hopelessly confusing): Anchor already encloses Range.")
             Exit Sub
         End If
 
+        ''Added 12/11/2024 
+        Dim type_is_anchor = New StructureTypeOfMove(True) ''Added 12/11/2024 
+        type_is_anchor.IsMoveToAnchor = True ''Added 12/11/2024 
 
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE)
+        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
         ''operation.OperateOnList(mod_list)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
 
         ''Added 11/18/2024 
-        If (bChangeOfEndpoint) Then
+        If bChangeOfEndpoint Then
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
         End If ''End of ""If (bChangeOfEndpoint) Then""
@@ -1115,7 +1149,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
 
-    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listMoveAfterOrBefore.SelectedIndexChanged
+    Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -1156,6 +1190,107 @@ Public Class FormSimpleDemoOfCSharp1D
         labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
+
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupMoveByShifting.Enter
+
+    End Sub
+
+    Private Sub buttonMoveItems_Click_1(sender As Object, e As EventArgs) ''Handles buttonMoveItems.Click
+
+    End Sub
+
+    Private Sub buttonMoveLeft_Click(sender As Object, e As EventArgs) Handles buttonMoveShiftLeft.Click
+        ''
+        ''Added 12/11/2024 & 11/16/2024 
+        ''
+        Const SHIFT_LEFT As Boolean = True
+        MoveByShiftingRange(SHIFT_LEFT, False)
+
+
+    End Sub
+
+    Private Sub MoveByShiftingRange(par_goLeft As Boolean, par_goRight As Boolean)
+        ''
+        '' Encapsulated 12/11/2024 td  
+        ''
+        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Const OPERATION_MOVE = True
+        ''Const ALLOW_NULLS As Boolean = True
+        Dim bChangeOfEndpoint = False
+        Dim intHowManyToMove As Integer ''Added 12/10/2024 td
+        Dim bCannotMoveThatMany As Boolean ''Added 12/10/2024 td 
+
+        ''Added 12/01/2024 
+        ''   Inform the user of any pending issues, prior to any operations. 
+        Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
+        AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
+        If boolUserHasCancelled Then Exit Sub
+
+        ''Added 12/10/2024 td 
+        intHowManyToMove = mod_range.GetItemCount
+
+        ''Added 11/11/2024 thomas downes
+        bCannotMoveThatMany = (intHowManyToMove >= mod_list.DLL_CountAllItems)
+
+        ''Added 11/11/2024 td
+        If mod_list._isEmpty_OrTreatAsEmpty Then
+
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
+            Exit Sub
+
+        ElseIf bCannotMoveThatMany Then
+
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+                                                     "The list is not long enough (less than {0} items), " +
+                                        "the requested number of items to move cannot take place.", )
+            Exit Sub
+
+        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
+
+        ''
+        ''Build the correct Move Type.
+        ''
+        Dim intHowManyItemsToShift As Integer ''Added 12/11/2024 td 
+        Dim currentMoveType As New StructureTypeOfMove(True)
+
+        intHowManyItemsToShift = IIf(par_goLeft, numericShiftLeft.Value, numericShiftRight.Value)
+        currentMoveType.IsMoveIncremental = True
+        currentMoveType.IsIncrementalToLeft = par_goLeft
+        currentMoveType.IsIncrementalToRight = par_goRight
+        currentMoveType.HowManyItemsIncremental = intHowManyItemsToShift
+
+        ''
+        '' Added 11/17/2024 thomas downes
+        ''
+        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, Nothing,
+                                                                   False, OPERATION_MOVE, currentMoveType)
+        ''operation.OperateOnList(mod_list)
+        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+
+        ''Added 11/18/2024 
+        If bChangeOfEndpoint Then
+            mod_firstItem = mod_list._itemStart
+            mod_lastItem = mod_list._itemEnding
+        End If ''End of ""If (bChangeOfEndpoint) Then""
+
+        ''Added 11/17/2024 
+        RefreshTheUI_DisplayList()
+
+        ''Added 11/29/2024 
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_manager.ToString(tempOperation)
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = True
+        ''Added 11/29/2024 
+        buttonUndo.Enabled = True
+
+    End Sub
+
 
 
 End Class

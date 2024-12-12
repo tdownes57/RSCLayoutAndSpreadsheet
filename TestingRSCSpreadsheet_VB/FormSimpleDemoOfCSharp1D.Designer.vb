@@ -49,20 +49,30 @@ Partial Class FormSimpleDemoOfCSharp1D
         richtextItemsDisplay = New RichTextBox()
         Label4 = New Label()
         textboxMoveRange = New TextBox()
-        listMoveAfterOrBefore = New ListBox()
-        buttonMoveItems = New Button()
         Label7 = New Label()
-        Label11 = New Label()
-        numMoveAnchorBenchmark = New NumericUpDown()
         Label5 = New Label()
         LinkClearRecordedOps = New LinkLabel()
         labelNumOperations = New Label()
         buttonUndo = New Button()
         buttonReDo = New Button()
+        buttonMoveShiftLeft = New Button()
+        GroupMoveByShifting = New GroupBox()
+        numericShiftRight = New NumericUpDown()
+        buttonMoveShiftRight = New Button()
+        numericShiftLeft = New NumericUpDown()
+        GroupMoveByAnchor = New GroupBox()
+        buttonMoveItemsByAnchor = New Button()
+        listMoveAfterOrBefore = New ListBox()
+        LabelMoveBenchmark = New Label()
+        numMoveAnchorBenchmark = New NumericUpDown()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertHowMany, ComponentModel.ISupportInitialize).BeginInit()
+        GroupMoveByShifting.SuspendLayout()
+        CType(numericShiftRight, ComponentModel.ISupportInitialize).BeginInit()
+        CType(numericShiftLeft, ComponentModel.ISupportInitialize).BeginInit()
+        GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -272,7 +282,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonUndoLastStep
         ' 
         buttonUndoLastStep.Enabled = False
-        buttonUndoLastStep.Location = New Point(735, 439)
+        buttonUndoLastStep.Location = New Point(838, 427)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
         buttonUndoLastStep.Size = New Size(166, 39)
         buttonUndoLastStep.TabIndex = 82
@@ -282,9 +292,9 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonRedoOp
         ' 
         buttonRedoOp.Enabled = False
-        buttonRedoOp.Location = New Point(820, 484)
+        buttonRedoOp.Location = New Point(850, 472)
         buttonRedoOp.Name = "buttonRedoOp"
-        buttonRedoOp.Size = New Size(166, 39)
+        buttonRedoOp.Size = New Size(154, 39)
         buttonRedoOp.TabIndex = 83
         buttonRedoOp.Text = "Redo (if applicable)"
         buttonRedoOp.UseVisualStyleBackColor = True
@@ -314,7 +324,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(15, 475)
+        Label4.Location = New Point(129, 396)
         Label4.Name = "Label4"
         Label4.Size = New Size(245, 15)
         Label4.TabIndex = 94
@@ -325,32 +335,12 @@ Partial Class FormSimpleDemoOfCSharp1D
         textboxMoveRange.BackColor = SystemColors.InactiveCaption
         textboxMoveRange.BorderStyle = BorderStyle.None
         textboxMoveRange.Font = New Font("Segoe UI", 12F)
-        textboxMoveRange.Location = New Point(263, 472)
+        textboxMoveRange.Location = New Point(380, 389)
         textboxMoveRange.Name = "textboxMoveRange"
-        textboxMoveRange.Size = New Size(284, 22)
+        textboxMoveRange.Size = New Size(270, 22)
         textboxMoveRange.TabIndex = 93
         textboxMoveRange.Tag = "00"
         textboxMoveRange.Text = "++"
-        ' 
-        ' listMoveAfterOrBefore
-        ' 
-        listMoveAfterOrBefore.FormattingEnabled = True
-        listMoveAfterOrBefore.ItemHeight = 15
-        listMoveAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listMoveAfterOrBefore.Location = New Point(418, 424)
-        listMoveAfterOrBefore.Name = "listMoveAfterOrBefore"
-        listMoveAfterOrBefore.Size = New Size(115, 34)
-        listMoveAfterOrBefore.TabIndex = 90
-        ' 
-        ' buttonMoveItems
-        ' 
-        buttonMoveItems.BackColor = Color.Cyan
-        buttonMoveItems.Location = New Point(563, 456)
-        buttonMoveItems.Name = "buttonMoveItems"
-        buttonMoveItems.Size = New Size(166, 39)
-        buttonMoveItems.TabIndex = 89
-        buttonMoveItems.Text = "Move Range of Items"
-        buttonMoveItems.UseVisualStyleBackColor = False
         ' 
         ' Label7
         ' 
@@ -362,29 +352,10 @@ Partial Class FormSimpleDemoOfCSharp1D
         Label7.TabIndex = 88
         Label7.Text = "Move Items"
         ' 
-        ' Label11
-        ' 
-        Label11.AutoSize = True
-        Label11.Location = New Point(15, 426)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(319, 15)
-        Label11.TabIndex = 87
-        Label11.Text = "What benchmark position to anchor (attach moved items)?"
-        ' 
-        ' numMoveAnchorBenchmark
-        ' 
-        numMoveAnchorBenchmark.Font = New Font("Segoe UI", 12F)
-        numMoveAnchorBenchmark.Location = New Point(356, 424)
-        numMoveAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        numMoveAnchorBenchmark.Name = "numMoveAnchorBenchmark"
-        numMoveAnchorBenchmark.Size = New Size(56, 29)
-        numMoveAnchorBenchmark.TabIndex = 86
-        numMoveAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(263, 498)
+        Label5.Location = New Point(656, 395)
         Label5.Name = "Label5"
         Label5.Size = New Size(163, 15)
         Label5.TabIndex = 95
@@ -431,11 +402,119 @@ Partial Class FormSimpleDemoOfCSharp1D
         buttonReDo.Text = "Re-do >>>"
         buttonReDo.UseVisualStyleBackColor = True
         ' 
+        ' buttonMoveShiftLeft
+        ' 
+        buttonMoveShiftLeft.BackColor = Color.Cyan
+        buttonMoveShiftLeft.Location = New Point(22, 22)
+        buttonMoveShiftLeft.Name = "buttonMoveShiftLeft"
+        buttonMoveShiftLeft.Size = New Size(87, 28)
+        buttonMoveShiftLeft.TabIndex = 100
+        buttonMoveShiftLeft.Text = "Move Left"
+        buttonMoveShiftLeft.UseVisualStyleBackColor = False
+        ' 
+        ' GroupMoveByShifting
+        ' 
+        GroupMoveByShifting.BackColor = Color.RosyBrown
+        GroupMoveByShifting.Controls.Add(numericShiftRight)
+        GroupMoveByShifting.Controls.Add(buttonMoveShiftRight)
+        GroupMoveByShifting.Controls.Add(numericShiftLeft)
+        GroupMoveByShifting.Controls.Add(buttonMoveShiftLeft)
+        GroupMoveByShifting.Location = New Point(552, 417)
+        GroupMoveByShifting.Name = "GroupMoveByShifting"
+        GroupMoveByShifting.Size = New Size(236, 101)
+        GroupMoveByShifting.TabIndex = 102
+        GroupMoveByShifting.TabStop = False
+        GroupMoveByShifting.Text = "Move Range by Shifting / Swapping"
+        ' 
+        ' numericShiftRight
+        ' 
+        numericShiftRight.Font = New Font("Segoe UI", 12F)
+        numericShiftRight.Location = New Point(115, 58)
+        numericShiftRight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        numericShiftRight.Name = "numericShiftRight"
+        numericShiftRight.Size = New Size(56, 29)
+        numericShiftRight.TabIndex = 104
+        numericShiftRight.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        ' 
+        ' buttonMoveShiftRight
+        ' 
+        buttonMoveShiftRight.BackColor = Color.Cyan
+        buttonMoveShiftRight.Location = New Point(22, 56)
+        buttonMoveShiftRight.Name = "buttonMoveShiftRight"
+        buttonMoveShiftRight.Size = New Size(87, 28)
+        buttonMoveShiftRight.TabIndex = 103
+        buttonMoveShiftRight.Text = "Move Right"
+        buttonMoveShiftRight.UseVisualStyleBackColor = False
+        ' 
+        ' numericShiftLeft
+        ' 
+        numericShiftLeft.Font = New Font("Segoe UI", 12F)
+        numericShiftLeft.Location = New Point(115, 24)
+        numericShiftLeft.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        numericShiftLeft.Name = "numericShiftLeft"
+        numericShiftLeft.Size = New Size(56, 29)
+        numericShiftLeft.TabIndex = 102
+        numericShiftLeft.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        ' 
+        ' GroupMoveByAnchor
+        ' 
+        GroupMoveByAnchor.BackColor = Color.RosyBrown
+        GroupMoveByAnchor.Controls.Add(buttonMoveItemsByAnchor)
+        GroupMoveByAnchor.Controls.Add(listMoveAfterOrBefore)
+        GroupMoveByAnchor.Controls.Add(LabelMoveBenchmark)
+        GroupMoveByAnchor.Controls.Add(numMoveAnchorBenchmark)
+        GroupMoveByAnchor.Location = New Point(53, 417)
+        GroupMoveByAnchor.Name = "GroupMoveByAnchor"
+        GroupMoveByAnchor.Size = New Size(457, 101)
+        GroupMoveByAnchor.TabIndex = 103
+        GroupMoveByAnchor.TabStop = False
+        GroupMoveByAnchor.Text = "Move Range by Destination Anchor"
+        ' 
+        ' buttonMoveItemsByAnchor
+        ' 
+        buttonMoveItemsByAnchor.BackColor = Color.Cyan
+        buttonMoveItemsByAnchor.Location = New Point(355, 30)
+        buttonMoveItemsByAnchor.Name = "buttonMoveItemsByAnchor"
+        buttonMoveItemsByAnchor.Size = New Size(87, 61)
+        buttonMoveItemsByAnchor.TabIndex = 94
+        buttonMoveItemsByAnchor.Text = "Move Range of Items"
+        buttonMoveItemsByAnchor.UseVisualStyleBackColor = False
+        ' 
+        ' listMoveAfterOrBefore
+        ' 
+        listMoveAfterOrBefore.FormattingEnabled = True
+        listMoveAfterOrBefore.ItemHeight = 15
+        listMoveAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
+        listMoveAfterOrBefore.Location = New Point(219, 36)
+        listMoveAfterOrBefore.Name = "listMoveAfterOrBefore"
+        listMoveAfterOrBefore.Size = New Size(115, 34)
+        listMoveAfterOrBefore.TabIndex = 93
+        ' 
+        ' LabelMoveBenchmark
+        ' 
+        LabelMoveBenchmark.Location = New Point(-3, 30)
+        LabelMoveBenchmark.Name = "LabelMoveBenchmark"
+        LabelMoveBenchmark.Size = New Size(157, 57)
+        LabelMoveBenchmark.TabIndex = 92
+        LabelMoveBenchmark.Text = "What benchmark position to anchor (attach moved items)?"
+        ' 
+        ' numMoveAnchorBenchmark
+        ' 
+        numMoveAnchorBenchmark.Font = New Font("Segoe UI", 12F)
+        numMoveAnchorBenchmark.Location = New Point(157, 36)
+        numMoveAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        numMoveAnchorBenchmark.Name = "numMoveAnchorBenchmark"
+        numMoveAnchorBenchmark.Size = New Size(56, 29)
+        numMoveAnchorBenchmark.TabIndex = 91
+        numMoveAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 541)
+        Controls.Add(GroupMoveByAnchor)
+        Controls.Add(GroupMoveByShifting)
         Controls.Add(LinkClearRecordedOps)
         Controls.Add(labelNumOperations)
         Controls.Add(buttonUndo)
@@ -443,11 +522,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         Controls.Add(Label5)
         Controls.Add(Label4)
         Controls.Add(textboxMoveRange)
-        Controls.Add(listMoveAfterOrBefore)
-        Controls.Add(buttonMoveItems)
         Controls.Add(Label7)
-        Controls.Add(Label11)
-        Controls.Add(numMoveAnchorBenchmark)
         Controls.Add(richtextItemsDisplay)
         Controls.Add(labelItemsDisplay)
         Controls.Add(richtextBenchmark)
@@ -480,6 +555,10 @@ Partial Class FormSimpleDemoOfCSharp1D
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
         CType(numInsertHowMany, ComponentModel.ISupportInitialize).EndInit()
+        GroupMoveByShifting.ResumeLayout(False)
+        CType(numericShiftRight, ComponentModel.ISupportInitialize).EndInit()
+        CType(numericShiftLeft, ComponentModel.ISupportInitialize).EndInit()
+        GroupMoveByAnchor.ResumeLayout(False)
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
@@ -512,16 +591,21 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents richtextItemsDisplay As RichTextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents textboxMoveRange As TextBox
-    Friend WithEvents listMoveAfterOrBefore As ListBox
-    Friend WithEvents Button2 As Button
+    Friend WithEvents buttonMoveShiftRight As Button
     Friend WithEvents Label7 As Label
-    Friend WithEvents Label11 As Label
-    Friend WithEvents numMoveAnchorBenchmark As NumericUpDown
     Friend WithEvents Label5 As Label
-    Friend WithEvents buttonMoveItems As Button
     Friend WithEvents LinkClearRecordedOps As LinkLabel
     Friend WithEvents labelNumOperations As Label
     Friend WithEvents buttonUndo As Button
     Friend WithEvents buttonReDo As Button
+    Friend WithEvents buttonMoveShiftLeft As Button
+    Friend WithEvents GroupMoveByShifting As GroupBox
+    Friend WithEvents numericShiftRight As NumericUpDown
+    Friend WithEvents numericShiftLeft As NumericUpDown
+    Friend WithEvents GroupMoveByAnchor As GroupBox
+    Friend WithEvents buttonMoveItemsByAnchor As Button
+    Friend WithEvents listMoveAfterOrBefore As ListBox
+    Friend WithEvents LabelMoveBenchmark As Label
+    Friend WithEvents numMoveAnchorBenchmark As NumericUpDown
 
 End Class
