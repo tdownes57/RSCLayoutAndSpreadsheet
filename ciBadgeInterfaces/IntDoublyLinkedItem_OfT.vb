@@ -102,7 +102,8 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) ''Added 12/12/2024 th.do.
     Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) ''Added 12/12/2024 th.do.
 
-    Function DLL_GetItemLast() As TControl
+    Function DLL_GetItemLast() As TControl ''Added 12/12/2024 th.do.
+    Function DLL_GetValue() As String ''Added 12/12/2024 th.do.
 
 End Interface
 

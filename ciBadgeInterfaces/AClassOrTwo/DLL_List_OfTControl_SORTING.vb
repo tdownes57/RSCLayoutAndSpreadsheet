@@ -143,7 +143,7 @@ Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl As IDoublyLinked
     ''' <summary>
     ''' Sorting a sub-list of the overall list. We will break the sub-list into two halves,
     ''' call this same function (recursion) twice (each of the two(2) halves), then finally
-    ''' merge the two sorted halves.
+    ''' merge the two sorted halves.  I think this is called the Merge Sort.
     ''' </summary>
     ''' <param name="par_startingItem">First item of the sublist being sorted.</param>
     ''' <param name="par_countOfItems">The count of items in the sublist.</param>
