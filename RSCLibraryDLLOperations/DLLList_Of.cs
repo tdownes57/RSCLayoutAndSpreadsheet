@@ -11,7 +11,7 @@ namespace RSCLibraryDLLOperations
     //  https://www.tutorialsteacher.com/csharp/csharp-event
     public delegate void Notify();  // Added 11/02/2024 thomas downes 
 
-    public class DLLList<TControl> where TControl : class, IDoublyLinkedItem<TControl>
+    public partial class DLLList<TControl> where TControl : class, IDoublyLinkedItem<TControl>
     {
         //
         // Added 4/17/2024  

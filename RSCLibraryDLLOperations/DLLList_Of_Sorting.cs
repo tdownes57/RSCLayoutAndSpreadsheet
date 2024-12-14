@@ -1,6 +1,7 @@
 ﻿using ciBadgeInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,22 +65,23 @@ namespace RSCLibraryDLLOperations
 
         }   //End Sub ''eND OF ""public voide DLL_SortItems(bool par_descending)""
 
-        //            ''' <summary>
-        //''' Sorting a sub-list of the overall list. We will break the sub-list into two halves,
-        //''' call this same function (recursion) twice (each of the two(2) halves), then finally
-        //''' merge the two sorted halves.  I think this is called the Merge Sort.
-        //''' </summary>
-        //''' <param name="par_startingItem">First item of the sublist being sorted.</param>
-        //''' <param name="par_countOfItems">The count of items in the sublist.</param>
-        //''' <param name="par_indexOfStart">Index (location) of starting item of sublist.</param>
-        //''' <param name="byref_firstOfSort">The starting item of final (merged) sublist.</param>
-        //''' <param name="byref_lastOfSort">The last item of final (merged) sublist.</param>
-        //''' <param name="par_depthRecursion">How far down the recursion tree, are we?</param>
-        private void SortItemsOfSublist_Recursive(IDoublyLinkedItem par_startingItem,
+
+        /// <summary>
+        /// Sorting a sub-list of the overall list. We will break the sub-list into two halves,
+        /// call this same function (recursion) twice (each of the two(2) halves), then finally
+        /// merge the two sorted halves.  I think this is called the Merge Sort.
+        /// </summary>
+        /// <param name="par_startingItem">First item of the sublist being sorted.</param>
+        /// <param name="par_countOfItems">The count of items in the sublist.</param>
+        /// <param name="par_indexOfStart">Index (location) of starting item of sublist.</param>
+        /// <param name="byref_firstOfSort">The starting item of final (merged) sublist.</param>
+        /// <param name="byref_lastOfSort">The last item of final (merged) sublist.</param>
+        /// <param name="par_depthRecursion">How far down the recursion tree, are we?</param>
+        private void SortItemsOfSublist_Recursive(TControl par_startingItem,
                                                    int par_countOfItems,
                                                    int par_indexOfStart,
-                                                   ref IDoublyLinkedItem byref_firstOfSort,
-                                                   ref IDoublyLinkedItem byref_lastOfSort,
+                                                   ref TControl? byref_firstOfSort,
+                                                   ref TControl? byref_lastOfSort,
                                                    int par_depthRecursion,
                                                    bool par_descending)
         {
@@ -96,43 +98,77 @@ namespace RSCLibraryDLLOperations
             //    Dim currentDepthOfRecursion As Integer
             //    currentDepthOfRecursion = (+1 + par_depthRecursion)
 
-            int currentDepthRecursion;
-            currentDepthRecursion = (+1 + par_depthRecursion);
+            int currentDepthOfRecursion;
+            currentDepthOfRecursion = (+1 + par_depthRecursion);
 
-            //    If(par_countOfItems <= 1) Then
-            //        ''
-            //        ''Base Case
-            //        ''
-            //        byref_firstOfSort = par_startingItem
-            //        ''The first and last item of sort is the same item!!
-            //        byref_lastOfSort = par_startingItem
-            //        Exit Sub
-            //    End If ''End of ""If(par_countOfItems <= 1) Then""
+            if (par_countOfItems <= 1)
+            {
+                //    If(par_countOfItems <= 1) Then
+                //        ''
+                //        ''Base Case
+                //        ''
+                //        byref_firstOfSort = par_startingItem
+                //        ''The first and last item of sort is the same item!!
+                //        byref_lastOfSort = par_startingItem
+                //        Exit Sub
+                byref_firstOfSort = par_startingItem;
+                //''The first and last item of sort is the same item!!
+                byref_lastOfSort = par_startingItem;
+                return;
+
+                //    End If ''End of ""If(par_countOfItems <= 1) Then""
+            }
 
             //    Dim itemPrecedingFirstHalf As IDoublyLinkedItem = Nothing
             //    Dim hasItemPrecedingFirstHalf As Boolean = False
-            //    If(par_startingItem.DLL_HasPrior()) Then
-            //        ''This preceding item will be used to "Anchor" the first merged item.
-            //        itemPrecedingFirstHalf = par_startingItem.DLL_GetItemPrior()
-            //        hasItemPrecedingFirstHalf = True
-            //    End If ''End of ""If (par_startingItem.DLL_HasPrior()) Then""
+            TControl itemPrecedingFirstHalf = null;
+            //Not used.--bool hasItemPrecedingFirstHalf = false;
+
+            if (par_startingItem.DLL_HasPrior())
+            {
+                //    If(par_startingItem.DLL_HasPrior()) Then
+                //        ''This preceding item will be used to "Anchor" the first merged item.
+                //        itemPrecedingFirstHalf = par_startingItem.DLL_GetItemPrior()
+                //        hasItemPrecedingFirstHalf = True
+                itemPrecedingFirstHalf = par_startingItem.DLL_GetItemPrior_OfT();
+                //Not used.--hasItemPrecedingFirstHalf = true;
+
+                //    End If ''End of ""If (par_startingItem.DLL_HasPrior()) Then""
+            }
 
             //    Dim itemFirstOf_2nd_Half As IDoublyLinkedItem
             //    Dim countOfFirstHalf As Integer
             //    Dim countOf_2nd_Half As Integer
             //    Dim indexOf_2nd_Half As Integer
+            TControl itemFirstOf_2ndHalf;  // IDoublyLinkedItem
+            int countOfFirstHalf;
+            int countOf_2nd_Half;
+            int indexOf_2nd_Half;
 
             //    countOfFirstHalf = par_countOfItems / 2
+            countOfFirstHalf = (int)(Math.Floor(par_countOfItems / 2.0));
+
             //    ''The following will get the first item of the second half, 
             //    ''  _NOT_ the last item of the first half.
+            //
             //    itemFirstOf_2nd_Half = par_startingItem.DLL_GetItemNext(countOfFirstHalf)
+            itemFirstOf_2ndHalf = par_startingItem.DLL_GetItemNext_OfT(countOfFirstHalf);
+
             //    indexOf_2nd_Half = (par_indexOfStart + countOfFirstHalf)
             //    countOf_2nd_Half = (par_countOfItems - countOfFirstHalf)
+
+            indexOf_2nd_Half = (par_indexOfStart + countOfFirstHalf);
+            countOf_2nd_Half = (par_countOfItems - countOfFirstHalf);
 
             //    Dim itemFirstOfSort_1stHalf As IDoublyLinkedItem = Nothing
             //    Dim itemFirstOfSort_2ndHalf As IDoublyLinkedItem = Nothing
             //    Dim itemLastOfSort_1stHalf As IDoublyLinkedItem = Nothing
             //    Dim itemLastOfSort_2ndHalf As IDoublyLinkedItem = Nothing
+
+            TControl? itemFirstOfSort_1stHalf = null;
+            TControl? itemFirstOfSort_2ndHalf = null;
+            TControl? itemLastOfSort_1stHalf = null;
+            TControl? itemLastOfSort_2ndHalf = null;
 
             //    ''
             //    ''
@@ -143,20 +179,48 @@ namespace RSCLibraryDLLOperations
             //    ''
 
             //    ''First half.
+            //
             //    SortItemsOfSublist_Recursive(par_startingItem, countOfFirstHalf, par_indexOfStart,
             //                                 itemFirstOfSort_1stHalf,
             //                                 itemLastOfSort_1stHalf,
             //                                    currentDepthOfRecursion, par_descending)
+            SortItemsOfSublist_Recursive(par_startingItem, countOfFirstHalf, par_indexOfStart,
+                                             ref itemFirstOfSort_1stHalf,
+                                             ref itemLastOfSort_1stHalf,
+                                                currentDepthOfRecursion, par_descending);
+
+
             //    ''Second half.
+            //
             //    SortItemsOfSublist_Recursive(itemFirstOf_2nd_Half, countOf_2nd_Half, indexOf_2nd_Half,
             //                                 itemFirstOfSort_2ndHalf,
             //                                 itemLastOfSort_2ndHalf,
             //                                    currentDepthOfRecursion, par_descending)
+            if (itemFirstOf_2ndHalf == null)
+            {
+                // Programmer, please check this unexpected situation.
+                //    Should hopefully not be occurring.
+                System.Diagnostics.Debugger.Break(); // Added 12/14/2024 
+            }
+            else
+            {
+                SortItemsOfSublist_Recursive(itemFirstOf_2ndHalf, countOf_2nd_Half, indexOf_2nd_Half,
+                                                 ref itemFirstOfSort_2ndHalf,
+                                                 ref itemLastOfSort_2ndHalf,
+                                                    currentDepthOfRecursion, par_descending);
+            }
 
             //    ''Testing--1/08/2024
             //    If (currentDepthOfRecursion <= 1) Then
             //        ''Debugger.Break()
             //    End If ''End of ""If(currentDepthOfRecursion <= 1) Then""
+
+            if (currentDepthOfRecursion <= 1)
+            {
+                // Programmer, please check this unexpected situation.
+                //    Should hopefully not be occurring.
+                System.Diagnostics.Debugger.Break(); // Added 12/14/2024 
+            }
 
             //    ''
             //    ''
@@ -167,25 +231,47 @@ namespace RSCLibraryDLLOperations
             //    ''
             //    Dim itemFirstOfMerge As IDoublyLinkedItem = Nothing ''Added 1/8/2024
             //    Dim itemLastOfMerge As IDoublyLinkedItem = Nothing ''Added 1/8/2024
+            TControl? itemFirstOfMerge = null;
+            TControl? itemLastOfMerge = null;
 
             //    ''Encapsulated 1/8/2024
             //    MergeSublists(itemFirstOfSort_1stHalf, countOfFirstHalf,
             //                 itemFirstOfSort_2ndHalf, countOf_2nd_Half,
             //                 itemFirstOfMerge, itemLastOfMerge,
             //                 currentDepthOfRecursion, par_descending)
+            if (itemFirstOfSort_1stHalf == null || itemFirstOfSort_2ndHalf == null)
+            {
+                // Programmer, please check this unexpected situation.
+                //    Should hopefully not be occurring.
+                System.Diagnostics.Debugger.Break(); // Added 12/14/2024 
+
+            }
+            else
+            {
+                //
+                // Major Call!!
+                //
+                MergeSublists(itemFirstOfSort_1stHalf, countOfFirstHalf,
+                                 itemFirstOfSort_2ndHalf, countOf_2nd_Half,
+                                 ref itemFirstOfMerge,
+                                 ref itemLastOfMerge,
+                                 currentDepthOfRecursion, par_descending);
+            }
 
             //    ''
             //    ''Done, so we'll pass back the first of the merged items. 
             //    ''
             //    byref_firstOfSort = itemFirstOfMerge
             //    byref_lastOfSort = itemLastOfMerge ''itemForMerge_Final
+            byref_firstOfSort = itemFirstOfMerge;
+            byref_lastOfSort = itemLastOfMerge; // ''itemForMerge_Final
 
             //    ''Clean dangling references, shall we?
             //    byref_firstOfSort.DLL_ClearReferencePrior("S"c)
             //    byref_lastOfSort.DLL_ClearReferenceNext("S"c)
 
-            byref_firstOfSort.DLL_ClearReferencePrior('S');
-            byref_firstOfSort.DLL_ClearReferenceNext('S');
+            byref_firstOfSort?.DLL_ClearReferencePrior('S');
+            byref_firstOfSort?.DLL_ClearReferenceNext('S');
 
             //End Sub ''eND OF ""Public Sub SortItems_Recursive()""
 
@@ -204,12 +290,12 @@ namespace RSCLibraryDLLOperations
         //''' <param name="byref_firstOfMerge">The starting item of final (merged) sublist.</param>
         //''' <param name="byref_lastOfMerge">The last item of final (merged) sublist.</param>
         //''' <param name="par_depthRecursion">How far down the recursion tree, are we?</param>
-        private void MergeSubLists(IDoublyLinkedItem par_startingItem1stSub,
+        private void MergeSublists(TControl par_startingItem1stSub,
                                                    int par_countOfItems1stSub,
-                                                   IDoublyLinkedItem par_startingItem2ndSub,
+                                                   TControl par_startingItem2ndSub,
                                                    int par_countOfItems2ndSub,
-                                                   ref IDoublyLinkedItem byref_firstOfMerge,
-                                                   ref IDoublyLinkedItem byref_lastOfMerge,
+                                                   ref TControl? byref_firstOfMerge,
+                                                   ref TControl? byref_lastOfMerge,
                                                    int par_depthRecursion,
                                                    bool par_descending)
         {
@@ -422,8 +508,8 @@ namespace RSCLibraryDLLOperations
         }  //End Sub ''end of ""private void MergeSublists(...)
 
 
-        private IDoublyLinkedItem DLL_ItemOfGreaterValue(IDoublyLinkedItem par_sort_item1,
-                                        IDoublyLinkedItem par_sort_item2,
+        private TControl DLL_ItemOfGreaterValue(TControl par_sort_item1,
+                                        TControl par_sort_item2,
                                         ref bool byref_bFirstArgumentIsMore)
         {
             //Private Function DLL_ItemOfGreaterValue(ByVal par_sort_item1 As IDoublyLinkedItem,
@@ -471,8 +557,8 @@ namespace RSCLibraryDLLOperations
         }   //End Function ''end of ""private IDoublyLinkedItem DLL_ItemOfGreaterValue""
 
 
-        private IDoublyLinkedItem DLL_ItemOfLesserValue(IDoublyLinkedItem par_sort_item1,
-                                               IDoublyLinkedItem par_sort_item2,
+        private IDoublyLinkedItem DLL_ItemOfLesserValue(TControl par_sort_item1,
+                                               TControl par_sort_item2,
                                                ref bool byref_bFirstArgumentIsLess)
         {
 
@@ -522,9 +608,9 @@ namespace RSCLibraryDLLOperations
             //    Public Count As Integer
             //    Private mod_firstItem As IDoublyLinkedItem
             public int Count;
-            private IDoublyLinkedItem mod_firstItem;
+            private TControl mod_firstItem; // IDoublyLinkedItem mod_firstItem;
 
-            public DLL_RangeQueue(IDoublyLinkedItem par_first, int par_count)
+            public DLL_RangeQueue(TControl par_first, int par_count) // (IDoublyLinkedItem par_first, int par_count)
             {
                 //    Public Sub New(par_first As IDoublyLinkedItem, par_count As Integer)
                 //        mod_firstItem = par_first
@@ -536,7 +622,7 @@ namespace RSCLibraryDLLOperations
 
             }
 
-            public IDoublyLinkedItem Peek()
+            public TControl Peek() //''IDoublyLinkedItem Peek()
             {
                 //    Public Function Peek() As IDoublyLinkedItem
                 //        Return mod_firstItem
@@ -545,16 +631,20 @@ namespace RSCLibraryDLLOperations
             }
 
             public void Dequeue() 
-            { 
+            {
                 //    Public Sub Dequeue()
                 //
                 //        If(Count = 0) Then
                 //            ''This function should NOT have been called at all.
                 //            Debugger.Break()
                 //        End If ''ENd of ""If(Count = 0) Then""
-                //
+
+                if (this.Count == 0) System.Diagnostics.Debugger.Break();
+
                 //        ''mod_firstItem = mod_firstItem.DLL_GetItemNext
                 //        Count -= 1 ''Decrease the count
+                this.Count -= 1; // Decrease the count. 
+
                 //
                 //        ''Added 1/08/2024 thomas downes
                 //        If(Count = 0) Then
@@ -562,6 +652,15 @@ namespace RSCLibraryDLLOperations
                 //        Else
                 //            mod_firstItem = mod_firstItem.DLL_GetItemNext
                 //        End If ''End of ""If(Count = 0) Then...Else..."
+                if (Count == 0)
+                {
+                    mod_firstItem = null; // Nothing;
+                }
+                else
+                {
+                    mod_firstItem = mod_firstItem.DLL_GetItemNext_OfT();
+                }
+
                 //
                 //    End Sub ''End of ""Public Sub Dequeue()""
             }
