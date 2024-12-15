@@ -163,6 +163,22 @@ Public Class TwoCharacterDLLHorizontal
     End Function
 
 
+    Public Overloads Function DLL_GetItemLast() As TwoCharacterDLLHorizontal Implements ciBadgeInterfaces.IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemLast
+        ''
+        ''Added 12/12/2024 td
+        ''
+        Return MyBase.DLL_GetItemLast() ''---C#---As TwoCharacterDLLVertical
+
+    End Function ''end of ""Public Overloads Function DLL_GetItemLast()""
+
+
+    Public Overloads Function DLL_GetValue() As String Implements ciBadgeInterfaces.IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetValue
+
+        ''Added 12/15/2024 
+        Return MyBase.DLL_GetValue()
+
+    End Function ''End of ""Public Overloads Function DLL_GetValue() As String""
+
 
     ''Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
     ''    ''---Throw New NotImplementedException()

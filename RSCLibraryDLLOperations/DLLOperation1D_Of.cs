@@ -424,8 +424,8 @@ namespace RSCLibraryDLLOperations
                 // 
                 // Move
                 //
-                OperateOnList_Move(par_list, par_range,
-                                     par_anchorItem, par_anchorPair,
+                OperateOnList_Move(par_list, par_range, 
+                                     this._moveType, par_anchorItem, par_anchorPair, 
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint, pbRunOtherChecks);
 
@@ -927,6 +927,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
         private void OperateOnList_Move(DLLList<TControl> par_list_forFinalAdmin,
                                              DLLRange<TControl> par_range,
+                                             StructureTypeOfMove par_typeOfMove,
                                              DLLAnchorItem<TControl>? par_anchorItem,
                                              DLLAnchorCouplet<TControl>? par_anchorPair,
                                      bool pbEndpointProtection,
@@ -935,19 +936,48 @@ namespace RSCLibraryDLLOperations
         {
             //
             // Encasulated/added 11/18/2024 Th.omas Do.wnes
-            //
-            // A Move is a Delete of a Range, and then an  Insert of the same range.
-            //
-            // Step 1 of 2. DELETE THE RANGE
-            OperateOnList_Delete(par_list_forFinalAdmin, par_range,
-                                 pbEndpointProtection,
-                                 pbIsChangeOfEndpoint);
+            //;
+            bool boolIsByAnchor = par_typeOfMove.IsMoveToAnchor; // true; // false;
+            bool boolIsByShifts = par_typeOfMove.IsMoveIncremental; // true; // false;
 
-            // Step 2 of 2. INSERT THE RANGE 
-            OperateOnList_Insert(par_list_forFinalAdmin, par_range,
-                                 par_anchorItem, par_anchorPair,
-                                 pbEndpointProtection,
-                                 pbIsChangeOfEndpoint, pbRunOtherChecks);
+            if (boolIsByAnchor)
+            {
+                // A Move is a Delete of a Range, and then an  Insert of the same range.
+                //
+                // Step 1 of 2. DELETE THE RANGE
+                OperateOnList_Delete(par_list_forFinalAdmin, par_range,
+                                     pbEndpointProtection,
+                                     pbIsChangeOfEndpoint);
+
+                // Step 2 of 2. INSERT THE RANGE 
+                OperateOnList_Insert(par_list_forFinalAdmin, par_range,
+                                     par_anchorItem, par_anchorPair,
+                                     pbEndpointProtection,
+                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
+            
+            }
+           
+            else if (boolIsByShifts)
+            {
+                //
+                // Shift the range left or right, one item at a time. 
+                //    (The range itself will not directly mutate, only the items which 
+                //    are adjacent to the range.)
+                //
+                int howManyShifts = par_typeOfMove.HowManyItemsIncremental;
+                bool ref_not_possible = false;
+
+                for (int index = 1; index <= howManyShifts; index++)
+                {
+                    // par_range.Shift_ByOneItem(par_typeOfMove.IsIncrementalToRight);
+                    par_range.Shift_ByOneItem(par_typeOfMove.IsIncrementalToRight, 
+                        ref ref_not_possible, par_list_forFinalAdmin);
+
+                    if (ref_not_possible) break;
+
+                }
+
+            }
 
 
         }

@@ -403,7 +403,7 @@ Public Class TwoCharacterDLLItem
         ''July2024 Return mod_twoChars
         Return (mod_char1 + mod_char2)
 
-    End Function
+    End Function ''end of ""Public Function DLL_GetValue() As String""
 
 
     Public Function DLL_CountItemsAllInList() As Integer Implements IDoublyLinkedItem.DLL_CountItemsAllInList

@@ -103,7 +103,9 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) ''Added 12/12/2024 th.do.
 
     Function DLL_GetItemLast() As TControl ''Added 12/12/2024 th.do.
-    Function DLL_GetValue() As String ''Added 12/12/2024 th.do.
+
+    ''//Not neded here.  See base interface. 12/15/2024
+    ''//  Function DLL_GetValue() As String ''Added 12/12/2024 th.do.
 
 End Interface
 

@@ -670,6 +670,12 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        /// <summary>
+        /// If the parent list is 1, 2, 3, 4, 5, 6 (six items) and this range (the current object)
+        /// is 2, 3, 4 (3 items) then this method can be called with "5" (or "6") as the 
+        /// parameter.  The resulting mutated range is 2, 3, 4, 5 (or 2, 3, 4, 5, 6).
+        /// </summary>
+        /// <param name="par_item">The item in the list which follows (is greater in position) than </param>
         public void ExtendRangeToIncludeListItem(TControl par_item)
         {
             //
@@ -697,6 +703,65 @@ namespace RSCLibraryDLLOperations
                 //TControl temp = _StartingItem;
                 //_StartingItem = par_item;
                 System.Diagnostics.Debugger.Break();
+
+            }
+
+        }
+
+
+        /// <summary>
+        /// If Boolean parameter is False, then we will move an item from the range's immediate prior position (Left)
+        /// to the range's immediate posterior position. (The range doesn't mutate,
+        /// but the parent list does.  This will not change the count of items in the list.) 
+        /// If Boolean parameter is True, then we will move an item from the range's immediate 
+        /// following position (Right) to the range's immediate prior position.
+        /// </summary>
+        /// <param name="par_shiftRightOrDown"></param>
+        public void Shift_ByOneItem(bool par_shiftRightOrDown, ref bool ref_bNotPossible, 
+                              DLLList<TControl> par_listForAdmin)
+        {
+            //
+            // Added 12/15/2024  
+            //
+            bool bChangeOfListEndpoint = false;
+
+            if (par_shiftRightOrDown)
+            {
+                //
+                // Shift Right (or Up, if the list is vertical, starting from top of sheet).  
+                //
+                ref_bNotPossible = (!_EndingItem.DLL_HasNext());
+                if (ref_bNotPossible) return;
+                TControl? following_item = _EndingItem.DLL_GetItemNext_OfT();
+                bChangeOfListEndpoint = (! following_item.DLL_HasNext());
+                DLLRange<TControl> following_item_as_range = new DLLRange<TControl>(following_item, false);
+                following_item_as_range.DeleteFromList_noAdmin();
+                following_item.DLL_ClearReferencePrior('M');  // Temporarily deleted, so clean up the Next & Prior references. M = Move
+                following_item.DLL_ClearReferenceNext('M');  // Clean up the Next & Prior references.  M = Move
+                _EndingItem.DLL_InsertItemToNext(following_item, true);
+
+                // List Administration 
+                if (bChangeOfListEndpoint) par_listForAdmin._itemEnding = this._EndingItem;
+
+            }
+            else
+            {
+                //
+                // Shift Left (or Up, if the list is vertical, starting from top of sheet). 
+                //
+                ref_bNotPossible = (!_EndingItem.DLL_HasNext());
+                if (ref_bNotPossible) return;
+                TControl? prior_item = _StartingItem.DLL_GetItemPrior_OfT();
+                bChangeOfListEndpoint = (!prior_item.DLL_HasPrior());
+                DLLRange<TControl> prior_item_as_range = new DLLRange<TControl>(prior_item, false);
+                prior_item_as_range.DeleteFromList_noAdmin();
+                prior_item.DLL_ClearReferencePrior('M');  // M = Move
+                prior_item.DLL_ClearReferenceNext('M');  // M = Move
+                _StartingItem.DLL_InsertItemToPrior(prior_item, true);
+
+                // List Administration 
+                if (bChangeOfListEndpoint) par_listForAdmin._itemStart = this._StartingItem;
+
 
             }
 

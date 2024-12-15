@@ -418,6 +418,92 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub ''Private Sub CheckManagerForRedoOperations_AskUser
 
 
+    Private Sub MoveByShiftingRange(par_goLeft As Boolean, par_goRight As Boolean,
+                                    Optional par_iShiftDistance As Integer = 1)
+        ''
+        '' Encapsulated 12/11/2024 td  
+        ''
+        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Const OPERATION_MOVE = True
+        ''Const ALLOW_NULLS As Boolean = True
+        Dim bChangeOfEndpoint = False
+        Dim intHowManyToMove As Integer ''Added 12/10/2024 td
+        Dim bCannotMoveThatMany As Boolean ''Added 12/10/2024 td 
+
+        ''Added 12/01/2024 
+        ''   Inform the user of any pending issues, prior to any operations. 
+        Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
+        AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
+        If boolUserHasCancelled Then Exit Sub
+
+        ''Added 12/10/2024 td 
+        intHowManyToMove = mod_range.GetItemCount
+
+        ''Added 11/11/2024 thomas downes
+        bCannotMoveThatMany = (intHowManyToMove >= mod_list.DLL_CountAllItems)
+
+        ''Added 11/11/2024 td
+        If mod_list._isEmpty_OrTreatAsEmpty Then
+
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
+            Exit Sub
+
+        ElseIf bCannotMoveThatMany Then
+
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+                                                     "The list is not long enough (less than {0} items), " +
+                                        "the requested number of items to move cannot take place.", )
+            Exit Sub
+
+        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
+
+        ''
+        ''Build the correct Move Type.
+        ''
+        Dim intHowManyItemsToShift As Integer ''Added 12/11/2024 td 
+        Dim currentMoveType As New StructureTypeOfMove(True)
+
+        ''intHowManyItemsToShift = IIf(par_goLeft, numericShiftLeft.Value, numericShiftRight.Value)
+        intHowManyItemsToShift = par_iShiftDistance
+
+        currentMoveType.IsMoveIncremental = True
+        currentMoveType.IsIncrementalToLeft = par_goLeft
+        currentMoveType.IsIncrementalToRight = par_goRight
+        currentMoveType.HowManyItemsIncremental = intHowManyItemsToShift
+
+        ''
+        '' Added 11/17/2024 thomas downes
+        ''
+        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, Nothing,
+                                                                   False, OPERATION_MOVE, currentMoveType)
+        ''operation.OperateOnList(mod_list)
+        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+
+        ''Added 11/18/2024 
+        If bChangeOfEndpoint Then
+            mod_firstItem = mod_list._itemStart
+            mod_lastItem = mod_list._itemEnding
+        End If ''End of ""If (bChangeOfEndpoint) Then""
+
+        ''Added 11/17/2024 
+        RefreshTheUI_DisplayList()
+
+        ''Added 11/29/2024 
+        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_manager.ToString(tempOperation)
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = True
+        ''Added 11/29/2024 
+        buttonUndo.Enabled = True
+
+
+    End Sub ''eND OF ""Private Sub MoveByShiftingRange""
+
 
 
 
@@ -1204,90 +1290,104 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/11/2024 & 11/16/2024 
         ''
         Const SHIFT_LEFT As Boolean = True
-        MoveByShiftingRange(SHIFT_LEFT, False)
+        MoveByShiftingRange(SHIFT_LEFT, False, numericShiftLeft.Value)
 
 
     End Sub
 
-    Private Sub MoveByShiftingRange(par_goLeft As Boolean, par_goRight As Boolean)
+
+    ''Private Sub MoveByShiftingRange(par_goLeft As Boolean, par_goRight As Boolean,
+    ''                                Optional par_iShiftDistance As Integer = 1)
+    ''    ''
+    ''    '' Encapsulated 12/11/2024 td  
+    ''    ''
+    ''    Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
+    ''    Const OPERATION_MOVE = True
+    ''    ''Const ALLOW_NULLS As Boolean = True
+    ''    Dim bChangeOfEndpoint = False
+    ''    Dim intHowManyToMove As Integer ''Added 12/10/2024 td
+    ''    Dim bCannotMoveThatMany As Boolean ''Added 12/10/2024 td 
+
+    ''    ''Added 12/01/2024 
+    ''    ''   Inform the user of any pending issues, prior to any operations. 
+    ''    Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
+    ''    AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
+    ''    If boolUserHasCancelled Then Exit Sub
+
+    ''    ''Added 12/10/2024 td 
+    ''    intHowManyToMove = mod_range.GetItemCount
+
+    ''    ''Added 11/11/2024 thomas downes
+    ''    bCannotMoveThatMany = (intHowManyToMove >= mod_list.DLL_CountAllItems)
+
+    ''    ''Added 11/11/2024 td
+    ''    If mod_list._isEmpty_OrTreatAsEmpty Then
+
+    ''        ''Added 11/11/2024 td
+    ''        MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
+    ''        Exit Sub
+
+    ''    ElseIf bCannotMoveThatMany Then
+
+    ''        ''Added 11/11/2024 td
+    ''        MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+    ''                                                 "The list is not long enough (less than {0} items), " +
+    ''                                    "the requested number of items to move cannot take place.", )
+    ''        Exit Sub
+
+    ''    End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
+
+    ''    ''
+    ''    ''Build the correct Move Type.
+    ''    ''
+    ''    Dim intHowManyItemsToShift As Integer ''Added 12/11/2024 td 
+    ''    Dim currentMoveType As New StructureTypeOfMove(True)
+    ''
+    ''    ''intHowManyItemsToShift = IIf(par_goLeft, numericShiftLeft.Value, numericShiftRight.Value)
+    ''    intHowManyItemsToShift = par_iShiftDistance
+    ''
+    ''    currentMoveType.IsMoveIncremental = True
+    ''    currentMoveType.IsIncrementalToLeft = par_goLeft
+    ''    currentMoveType.IsIncrementalToRight = par_goRight
+    ''    currentMoveType.HowManyItemsIncremental = intHowManyItemsToShift
+    ''
+    ''    ''
+    ''    '' Added 11/17/2024 thomas downes
+    ''    ''
+    ''    tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, Nothing,
+    ''                                                               False, OPERATION_MOVE, currentMoveType)
+    ''    ''operation.OperateOnList(mod_list)
+    ''    mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+    ''
+    ''    ''Added 11/18/2024 
+    ''    If bChangeOfEndpoint Then
+    ''        mod_firstItem = mod_list._itemStart
+    ''        mod_lastItem = mod_list._itemEnding
+    ''    End If ''End of ""If (bChangeOfEndpoint) Then""
+    ''
+    ''    ''Added 11/17/2024 
+    ''    RefreshTheUI_DisplayList()
+    ''
+    ''    ''Added 11/29/2024 
+    ''    ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+    ''    ''Modified 12/01/2024
+    ''    ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
+    ''    labelNumOperations.Text = mod_manager.ToString(tempOperation)
+    ''
+    ''    ''Added 11/10/2024 
+    ''    buttonUndoLastStep.Enabled = True
+    ''    ''Added 11/29/2024 
+    ''    buttonUndo.Enabled = True
+    ''
+    ''End Sub ''eND OF ""Private Sub MoveByShiftingRange""
+
+
+    Private Sub buttonMoveShiftRight_Click(sender As Object, e As EventArgs) Handles buttonMoveShiftRight.Click
         ''
-        '' Encapsulated 12/11/2024 td  
+        ''Added 12/11/2024 & 11/16/2024 
         ''
-        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
-        Const OPERATION_MOVE = True
-        ''Const ALLOW_NULLS As Boolean = True
-        Dim bChangeOfEndpoint = False
-        Dim intHowManyToMove As Integer ''Added 12/10/2024 td
-        Dim bCannotMoveThatMany As Boolean ''Added 12/10/2024 td 
-
-        ''Added 12/01/2024 
-        ''   Inform the user of any pending issues, prior to any operations. 
-        Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
-        AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
-        If boolUserHasCancelled Then Exit Sub
-
-        ''Added 12/10/2024 td 
-        intHowManyToMove = mod_range.GetItemCount
-
-        ''Added 11/11/2024 thomas downes
-        bCannotMoveThatMany = (intHowManyToMove >= mod_list.DLL_CountAllItems)
-
-        ''Added 11/11/2024 td
-        If mod_list._isEmpty_OrTreatAsEmpty Then
-
-            ''Added 11/11/2024 td
-            MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
-            Exit Sub
-
-        ElseIf bCannotMoveThatMany Then
-
-            ''Added 11/11/2024 td
-            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
-                                                     "The list is not long enough (less than {0} items), " +
-                                        "the requested number of items to move cannot take place.", )
-            Exit Sub
-
-        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
-
-        ''
-        ''Build the correct Move Type.
-        ''
-        Dim intHowManyItemsToShift As Integer ''Added 12/11/2024 td 
-        Dim currentMoveType As New StructureTypeOfMove(True)
-
-        intHowManyItemsToShift = IIf(par_goLeft, numericShiftLeft.Value, numericShiftRight.Value)
-        currentMoveType.IsMoveIncremental = True
-        currentMoveType.IsIncrementalToLeft = par_goLeft
-        currentMoveType.IsIncrementalToRight = par_goRight
-        currentMoveType.HowManyItemsIncremental = intHowManyItemsToShift
-
-        ''
-        '' Added 11/17/2024 thomas downes
-        ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, Nothing,
-                                                                   False, OPERATION_MOVE, currentMoveType)
-        ''operation.OperateOnList(mod_list)
-        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
-
-        ''Added 11/18/2024 
-        If bChangeOfEndpoint Then
-            mod_firstItem = mod_list._itemStart
-            mod_lastItem = mod_list._itemEnding
-        End If ''End of ""If (bChangeOfEndpoint) Then""
-
-        ''Added 11/17/2024 
-        RefreshTheUI_DisplayList()
-
-        ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
-        ''Modified 12/01/2024
-        ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
-        labelNumOperations.Text = mod_manager.ToString(tempOperation)
-
-        ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = True
-        ''Added 11/29/2024 
-        buttonUndo.Enabled = True
+        Const SHIFT_RIGHT As Boolean = True
+        MoveByShiftingRange(False, SHIFT_RIGHT, numericShiftRight.Value)
 
     End Sub
 
