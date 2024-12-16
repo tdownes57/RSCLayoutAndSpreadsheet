@@ -275,7 +275,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnList(DLLList<TControl> par_list)
+        public void OperateOnList(DLLList<TControl> par_list, out bool par_bChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -285,18 +285,29 @@ namespace RSCLibraryDLLOperations
             //   operation is given the list & operates upon the 
             //   given list. 
             //
+            const bool ENDPOINT_PROTECTION = true; // Added 12/16/2024  
+            bool bChangeOfEndpoint_Expected = true;   // Added 12/16/2024 
+
             if (_isSort_Ascending)
             {
+                par_bChangeOfEndpoint_Occurred = false; // true;
 
             }
             if (_isSort_Descending)
             {
 
+                par_bChangeOfEndpoint_Occurred = false; // true; 
+
             }
             else
             {
                 // Nov. 8, 2024 //OperateOnList<TControl>(par_list, _range, _anchorItem, false);
-                OperateOnList(par_list, _range, _anchorItem, _anchorCouplet, false);
+                // Dec. 16, 2024 //OperateOnList(par_list, _range, _anchorItem, _anchorCouplet, false, false);
+
+                OperateOnList_Private(par_list, _range, _anchorItem, _anchorCouplet, 
+                    ENDPOINT_PROTECTION, bChangeOfEndpoint_Expected, 
+                    out par_bChangeOfEndpoint_Occurred);
+
             }
 
         }
@@ -310,24 +321,36 @@ namespace RSCLibraryDLLOperations
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
         public void OperateOnList(DLLList<TControl> par_list,
                              bool par_doProtectEndpoints,
-                             bool pbIsChangeOfEndpoint = false)
+                             bool pbIsChangeOfEndpoint,
+                             out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 6/10/2024
             //
+            //----bool bChangeOfEndpointOccurred = false;
+
             if (_isSort_Ascending)
             {
-
+                // Ascending Sort
+                par_list.DLL_SortItems(false);
+                pbChangeOfEndpoint_Occurred = true;
             }
             if (_isSort_Descending)
             {
-
+                // Descending Sort  
+                const bool DESCENDING = true;
+                par_list.DLL_SortItems(DESCENDING);
+                pbChangeOfEndpoint_Occurred = true;
             }
             else
             {
                 // OperateOnList<TControl_H>(par_list, _range_H, _anchorItem_H);
-                OperateOnList(par_list, _range, _anchorItem, _anchorCouplet,
-                    par_doProtectEndpoints, pbIsChangeOfEndpoint);
+                OperateOnList_Private(par_list, _range, _anchorItem,
+                    _anchorCouplet,
+                    par_doProtectEndpoints, 
+                    pbIsChangeOfEndpoint, 
+                    out pbChangeOfEndpoint_Occurred, 
+                    Testing.AreWeTesting);
             }
 
         }
@@ -344,11 +367,16 @@ namespace RSCLibraryDLLOperations
             //
             if (_isSort_Ascending)
             {
-
+                // Ascending Sort
+                par_list.DLL_SortItems(false);
+                pbChangeOfEndpoint_Occurred = true;
             }
             if (_isSort_Descending)
             {
-
+                // Descending Sort  
+                const bool DESCENDING = true;
+                par_list.DLL_SortItems(DESCENDING);
+                pbChangeOfEndpoint_Occurred = true;
             }
             else
             {
