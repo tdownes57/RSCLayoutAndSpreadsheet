@@ -7,6 +7,7 @@
 //using System.Windows.Forms;  
 using ciBadgeInterfaces;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using System.Text; //Added 6/20/2024  
 
@@ -718,7 +719,7 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         /// <param name="par_shiftRightOrDown"></param>
         public void Shift_ByOneItem(bool par_shiftRightOrDown, ref bool ref_bNotPossible, 
-                              DLLList<TControl> par_listForAdmin)
+                              DLLList<TControl> par_listForAdmin, bool pbLikelyChangeOfEndpoint)
         {
             //
             // Added 12/15/2024  
@@ -738,10 +739,16 @@ namespace RSCLibraryDLLOperations
                 following_item_as_range.DeleteFromList_noAdmin();
                 following_item.DLL_ClearReferencePrior('M');  // Temporarily deleted, so clean up the Next & Prior references. M = Move
                 following_item.DLL_ClearReferenceNext('M');  // Clean up the Next & Prior references.  M = Move
-                _EndingItem.DLL_InsertItemToNext(following_item, true);
+                //-----_EndingItem.DLL_InsertItemToNext(following_item, true);
+                // DIFFICULT & CONFUSING -- Perform a switcheroo!! --12/15/2024
+                _EndingItem.DLL_InsertItemToPrior(following_item, true);
 
                 // List Administration 
-                if (bChangeOfListEndpoint) par_listForAdmin._itemEnding = this._EndingItem;
+                if (bChangeOfListEndpoint)
+                {
+                    par_listForAdmin._itemEnding = this._EndingItem;
+                    if (!pbLikelyChangeOfEndpoint) Debugger.Break();
+                }
 
             }
             else
@@ -749,7 +756,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Shift Left (or Up, if the list is vertical, starting from top of sheet). 
                 //
-                ref_bNotPossible = (!_EndingItem.DLL_HasNext());
+                ref_bNotPossible = (!_StartingItem.DLL_HasPrior());
                 if (ref_bNotPossible) return;
                 TControl? prior_item = _StartingItem.DLL_GetItemPrior_OfT();
                 bChangeOfListEndpoint = (!prior_item.DLL_HasPrior());
@@ -757,11 +764,17 @@ namespace RSCLibraryDLLOperations
                 prior_item_as_range.DeleteFromList_noAdmin();
                 prior_item.DLL_ClearReferencePrior('M');  // M = Move
                 prior_item.DLL_ClearReferenceNext('M');  // M = Move
-                _StartingItem.DLL_InsertItemToPrior(prior_item, true);
+                //-----_StartingItem.DLL_InsertItemToPrior(prior_item, true);
+                // DIFFICULT & CONFUSING -- Perform a switcheroo!!
+                _StartingItem.DLL_InsertItemToNext(prior_item, true);
 
                 // List Administration 
-                if (bChangeOfListEndpoint) par_listForAdmin._itemStart = this._StartingItem;
-
+                //if (bChangeOfListEndpoint) par_listForAdmin._itemStart = this._StartingItem;
+                if (bChangeOfListEndpoint)
+                {
+                    par_listForAdmin._itemStart = this._StartingItem;
+                    if (!pbLikelyChangeOfEndpoint) Debugger.Break();
+                }
 
             }
 

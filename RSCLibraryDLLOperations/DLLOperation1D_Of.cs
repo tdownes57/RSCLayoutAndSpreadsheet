@@ -335,7 +335,8 @@ namespace RSCLibraryDLLOperations
 
         public void OperateOnList(DLLList<TControl> par_list,
                              bool par_doProtectEndpoints,
-                             bool pbIsChangeOfEndpoint = false,
+                             bool pbIsChangeOfEndpoint_Expected,
+                             out bool pbChangeOfEndpoint_Occurred,
                              bool pbRunOtherChecks = false)
         {
             //
@@ -356,8 +357,11 @@ namespace RSCLibraryDLLOperations
                 //   to obey the DRY principle inside a doubly-generic class 
                 //   (Of TControl_H, TControl_V). 
                 //  
-                OperateOnList(par_list, _range, _anchorItem, _anchorCouplet,
-                      par_doProtectEndpoints, pbIsChangeOfEndpoint, pbRunOtherChecks);
+                OperateOnList_Private(par_list, _range, _anchorItem, _anchorCouplet,
+                      par_doProtectEndpoints, 
+                      pbIsChangeOfEndpoint_Expected, 
+                      out pbChangeOfEndpoint_Occurred,
+                      pbRunOtherChecks);
             }
 
         }
@@ -372,12 +376,13 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchorItem"></param>
         /// <param name="pbEndpointProtection">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
-        private void OperateOnList(DLLList<TControl> par_list,
+        private void OperateOnList_Private(DLLList<TControl> par_list,
                                      DLLRange<TControl> par_range,
                                      DLLAnchorItem<TControl>? par_anchorItem,
                                      DLLAnchorCouplet<TControl>? par_anchorPair,
                                      bool pbEndpointProtection,
-                                     bool pbIsChangeOfEndpoint = false,
+                                     bool pbIsChangeOfEndpoint_Expected,
+                                     out bool pbChangeOfEndpoint_Occurred,
                                      bool pbRunOtherChecks = false)
         // where TControl : IDoublyLinkedItem<TControl>
         {
@@ -388,6 +393,8 @@ namespace RSCLibraryDLLOperations
             //   to obey the DRY principle inside a doubly-generic class 
             //   (Of TControl_H, TControl_V). 
             //  
+            pbChangeOfEndpoint_Occurred = false; //Default.  12/15/2024
+
             if (_isInsert)
             {
                 //
@@ -396,7 +403,12 @@ namespace RSCLibraryDLLOperations
                 OperateOnList_Insert(par_list, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
-                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
+                                     pbIsChangeOfEndpoint_Expected, 
+                                     pbRunOtherChecks);
+
+                // Tempoarary, as of 12/15/2024 
+                pbChangeOfEndpoint_Occurred = pbIsChangeOfEndpoint_Expected;
+
             }
             else if (_isDelete)
             {
@@ -405,7 +417,12 @@ namespace RSCLibraryDLLOperations
                 //
                 OperateOnList_Delete(par_list, par_range,
                                      pbEndpointProtection,
-                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
+                                     pbIsChangeOfEndpoint_Expected, 
+                                     pbRunOtherChecks);
+
+                // Tempoarary, as of 12/15/2024 
+                pbChangeOfEndpoint_Occurred = pbIsChangeOfEndpoint_Expected;
+
             }
             else if (_isMove)
             {
@@ -427,7 +444,9 @@ namespace RSCLibraryDLLOperations
                 OperateOnList_Move(par_list, par_range, 
                                      this._moveType, par_anchorItem, par_anchorPair, 
                                      pbEndpointProtection,
-                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
+                                     pbIsChangeOfEndpoint_Expected,
+                                     out pbChangeOfEndpoint_Occurred,
+                                     pbRunOtherChecks);
 
             }
 
@@ -931,14 +950,16 @@ namespace RSCLibraryDLLOperations
                                              DLLAnchorItem<TControl>? par_anchorItem,
                                              DLLAnchorCouplet<TControl>? par_anchorPair,
                                      bool pbEndpointProtection,
-                                     bool pbIsChangeOfEndpoint = false,
+                                     bool pbIsChangeOfEndpoint_Expected,
+                                     out bool pbChangeOfEndpoint_Occurred,
                                      bool pbRunOtherChecks = false)
         {
             //
             // Encasulated/added 11/18/2024 Th.omas Do.wnes
             //;
             bool boolIsByAnchor = par_typeOfMove.IsMoveToAnchor; // true; // false;
-            bool boolIsByShifts = par_typeOfMove.IsMoveIncremental; // true; // false;
+            bool boolIsByShifts = par_typeOfMove.IsMoveIncrementalShift; // true; // false;
+            pbChangeOfEndpoint_Occurred = false; // Default.  Added 12/15/2024 
 
             if (boolIsByAnchor)
             {
@@ -947,13 +968,13 @@ namespace RSCLibraryDLLOperations
                 // Step 1 of 2. DELETE THE RANGE
                 OperateOnList_Delete(par_list_forFinalAdmin, par_range,
                                      pbEndpointProtection,
-                                     pbIsChangeOfEndpoint);
+                                     pbIsChangeOfEndpoint_Expected);
 
                 // Step 2 of 2. INSERT THE RANGE 
                 OperateOnList_Insert(par_list_forFinalAdmin, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
-                                     pbIsChangeOfEndpoint, pbRunOtherChecks);
+                                     pbIsChangeOfEndpoint_Expected, pbRunOtherChecks);
             
             }
            
@@ -966,12 +987,24 @@ namespace RSCLibraryDLLOperations
                 //
                 int howManyShifts = par_typeOfMove.HowManyItemsIncremental;
                 bool ref_not_possible = false;
+                bool changeOfEndpoint_Expected = false; // (1 == par_range._StartingItem.DLL_GetItemIndex());
+                bool changeOfEndpoint_Any = false; 
 
                 for (int index = 1; index <= howManyShifts; index++)
                 {
+                    // Added 12/15/2024 thomas downes
+                    int indexOfRange = par_range._StartingItem.DLL_GetItemIndex();
+
+                    // Change of endpoint likely? --12/15/2024 td
+                    //changeOfEndpoint = (indexOfRange <= 2);
+                    changeOfEndpoint_Expected = (indexOfRange <= 2 ||
+                        indexOfRange >= -1 + par_list_forFinalAdmin._itemCount);
+
+                    changeOfEndpoint_Any = (changeOfEndpoint_Any || changeOfEndpoint_Expected); //Added 12/15/2024
+
                     // par_range.Shift_ByOneItem(par_typeOfMove.IsIncrementalToRight);
-                    par_range.Shift_ByOneItem(par_typeOfMove.IsIncrementalToRight, 
-                        ref ref_not_possible, par_list_forFinalAdmin);
+                    par_range.Shift_ByOneItem(par_typeOfMove.IsShiftingToRight, 
+                        ref ref_not_possible, par_list_forFinalAdmin, changeOfEndpoint_Expected);
 
                     if (ref_not_possible) break;
 
@@ -1101,12 +1134,12 @@ namespace RSCLibraryDLLOperations
             {
                 result_MoveType = new StructureTypeOfMove(_isMove);
                 result_MoveType.IsMoveToAnchor = _moveType.IsMoveToAnchor;
-                result_MoveType.IsMoveIncremental = _moveType.IsMoveIncremental;
+                result_MoveType.IsMoveIncrementalShift = _moveType.IsMoveIncrementalShift;
                 result_MoveType.HowManyItemsIncremental = _moveType.HowManyItemsIncremental;
 
                 // DIFFICULT AND CONFUSING.---12/11/2024
-                result_MoveType.IsIncrementalToLeft = _moveType.IsIncrementalToRight;
-                result_MoveType.IsIncrementalToRight = _moveType.IsIncrementalToLeft;
+                result_MoveType.IsShiftingToLeft = _moveType.IsShiftingToRight;
+                result_MoveType.IsShiftingToRight = _moveType.IsShiftingToLeft;
 
             }
 

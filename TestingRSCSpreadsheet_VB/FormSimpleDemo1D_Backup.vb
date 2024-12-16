@@ -74,11 +74,14 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''Added 10/20/2024  
             ''
             Dim operationInitial30 As DLLOperation1D(Of TwoCharacterDLLItem)
+            Const LOAD_INSERT As Boolean = True
+            Dim type_notAMove As New StructureTypeOfMove(False) ''Added 12/15/2024 
+
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
             ''                                                          True, False, False,
             ''                                                    anchorForEmptyList, False, False, False)
             operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, True, False,
-                                                                      True, False, False,
+                                                                      LOAD_INSERT, False, False, type_notAMove,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem,
                                           False, False, False)
@@ -494,6 +497,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
         Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        Dim type_notMove As New StructureTypeOfMove(False)
 
         If DIRECT_TO_LIST Then
             If listInsertAfterOrBefore.SelectedIndex < 1 Then
@@ -512,7 +516,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
@@ -524,7 +528,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(
                                             tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
+            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
 
@@ -638,6 +642,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         Const DIRECT_TO_LIST = False ''Added 10/26/2024 thom dow.nes
         Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
+        Dim type_notMove As New StructureTypeOfMove(False)
 
         If DIRECT_TO_LIST Then
             ''Without using the DLLManager class, directly editing the list.  
@@ -649,7 +654,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
-                                      INSERT_OPERATION, False, False,
+                                      INSERT_OPERATION, False, False, type_notMove,
                                       objAnchorItem,
                                       objAnchorPair,
                                       False, False, False)
@@ -891,6 +896,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         rangeToDelete = New DLLRange(Of TwoCharacterDLLItem)(False, itemFirstToDelete,
                                              itemLastToDelete, Nothing, intHowManyToDelete)
+        Dim type_notMove = New StructureTypeOfMove(False) ''Added 12/15/2024
 
         If (DIRECT_TO_LIST_Not) Then
             ''Without using the DLLManager class, directly editing the list.  
@@ -903,7 +909,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
-                                      OPERATION_NotMove, Nothing, Nothing,
+                                      OPERATION_NotMove, type_notMove, Nothing, Nothing,
                                       SORT_123, SORT_321, SORT_UNDO)
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
 
@@ -980,6 +986,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim bAnchorMoveBefore As Boolean
         Dim bCheck_RangeContainsAnchor As Boolean ''Added 11/18/2024
         Dim bCheck_AnchorEnclosesRange As Boolean ''Added 11/18/2024
+        Dim type_move As New StructureTypeOfMove(True) ''Added 12/15/2024
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -1018,7 +1025,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE)
+        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_move)
         ''operation.OperateOnList(mod_list)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
 

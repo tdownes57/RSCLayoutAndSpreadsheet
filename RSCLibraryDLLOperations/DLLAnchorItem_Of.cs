@@ -15,9 +15,9 @@ namespace RSCLibraryDLLOperations
     {
         public bool IsMoveType;  // = false;
         public bool IsMoveToAnchor;  // = true;
-        public bool IsMoveIncremental;  // "Swapping" positions with an adjacent item, especially if the range is a single item.
-        public bool IsIncrementalToLeft;  // "Swapping" positions with a preceding adjacent item, especially if the range is a single item.
-        public bool IsIncrementalToRight;  // "Swapping" positions with a succeeding adjacent item, especially if the range is a single item.
+        public bool IsMoveIncrementalShift;  // "Swapping" positions with an adjacent item, especially if the range is a single item.
+        public bool IsShiftingToLeft;  // "Swapping" positions with a preceding adjacent item, especially if the range is a single item.
+        public bool IsShiftingToRight;  // "Swapping" positions with a succeeding adjacent item, especially if the range is a single item.
         public int HowManyItemsIncremental;  // How many items are swapped out, either preceding or succeeding. 
 
         public StructureTypeOfMove()
@@ -29,7 +29,7 @@ namespace RSCLibraryDLLOperations
             // Added 12/11/2024 thomas c. downes
             IsMoveType = true;
             IsMoveToAnchor = true;
-            IsMoveIncremental = false;
+            IsMoveIncrementalShift = false;
             HowManyItemsIncremental = 0;
         }
 
@@ -42,7 +42,7 @@ namespace RSCLibraryDLLOperations
             // Added 12/11/2024 thomas c. downes
             IsMoveType = par_IsForMove;
             IsMoveToAnchor = par_IsForMove;
-            IsMoveIncremental = false;
+            IsMoveIncrementalShift = false;
             HowManyItemsIncremental = 0;
         }
 

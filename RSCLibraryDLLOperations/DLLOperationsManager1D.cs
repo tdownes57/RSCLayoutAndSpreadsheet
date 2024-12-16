@@ -172,7 +172,8 @@ namespace RSCLibraryDLLOperations
 
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
-                               bool par_changeOfEndpoint,
+                               bool par_changeOfEndpoint_Expected,
+                               out bool par_changeOfEndpoint_Occurred, 
                                bool pbOperationIsNewSoRecordIt)
         {
             // Added 1/15/2024
@@ -186,7 +187,8 @@ namespace RSCLibraryDLLOperations
             //
             //-------------------------------------------------------------------
             //
-            parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint);
+            parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint_Expected, 
+                  par_changeOfEndpoint_Occurred);
 
             //
             // Administration needed!!
@@ -302,11 +304,15 @@ namespace RSCLibraryDLLOperations
                 opReDo = mod_opUndoRedoMarker.GetMarkersNext_ShiftPositionRight();
 
             //Added 5.25.2024
-            bool bIsChangeOfEndpoint = opReDo.IsChangeOfEndpoint();
+            //bool bIsChangeOfEndpoint = opReDo.IsChangeOfEndpoint();
+            bool bChangeOfEndpoint_Expected = opReDo.IsChangeOfEndpoint();
+            bool bChangeOfEndpoint_Occurred = false; // Added 12/15/2024 td
+
             const bool RECORD_OPERATION = false; // Not needed for REDO operations
 
             //opReDo.CreatedAsRedoOperation = true;
-            ProcessOperation_AnyType(opReDo, bIsChangeOfEndpoint, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
+            ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected, 
+                ref bChangeOfEndpoint_Occurred, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
 
         }
 
@@ -429,14 +435,15 @@ namespace RSCLibraryDLLOperations
             //''Added 7/06/2024 and 1/15/2024
             //''
             const bool RECORD_UNDO_OPERATION = false; //Not needed for UNDO operations. ''Added 1 / 28 / 2024
-            bool boolIsChangeOfEndpoint = false;
+            bool bIsChangeOfEndpoint_Expected = false;
+            bool bChangeOfEndpoint_Occurred = false;
             DLLOperation1D<T_LinkedCtl> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
             //opUndoVersion = parOperation.GetUndoVersionOfOperation();
             opUndoVersion = parOperation.GetInverseForUndo();
 
             // Added 11/10/2024 
             pbEndpointAffected = opUndoVersion.IsChangeOfEndpoint();
-            boolIsChangeOfEndpoint = pbEndpointAffected;
+            bIsChangeOfEndpoint_Expected = pbEndpointAffected;
 
             //''Added 7/06/2024 and 1/31/2024
             //
@@ -455,11 +462,13 @@ namespace RSCLibraryDLLOperations
             //                         opUndoVersion.IsChangeOfEndpoint(),
             //                         RECORD_UNDO_OPERATION);
             ProcessOperation_AnyType(opUndoVersion,
-                                     boolIsChangeOfEndpoint,
+                                     bIsChangeOfEndpoint_Expected,
+                                     ref bChangeOfEndpoint_Occurred,
                                      RECORD_UNDO_OPERATION);
 
             //Added 11/10/2024 
-            if (boolIsChangeOfEndpoint) 
+            //---if (bIsChangeOfEndpoint)
+            if (bIsChangeOfEndpoint_Expected || bChangeOfEndpoint_Occurred) 
             { 
                 mod_firstItem = mod_list.DLL_GetFirstItem_OfT();
                 mod_endingItem = mod_list.DLL_GetLastItem_OfT();

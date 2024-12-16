@@ -426,8 +426,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
-        Dim bChangeOfEndpoint = False
-        Dim intHowManyToMove As Integer ''Added 12/10/2024 td
+        Dim bChangeOfEndpoint_Expected = False
+        Dim bChangeOfEndpoint_Occurred = False ''Added 12/15/2024 td 
+        Dim intHowManyToMove_RangeCount As Integer ''Added 12/10/2024 td
         Dim bCannotMoveThatMany As Boolean ''Added 12/10/2024 td 
 
         ''Added 12/01/2024 
@@ -437,10 +438,10 @@ Public Class FormSimpleDemoOfCSharp1D
         If boolUserHasCancelled Then Exit Sub
 
         ''Added 12/10/2024 td 
-        intHowManyToMove = mod_range.GetItemCount
+        intHowManyToMove_RangeCount = mod_range.GetItemCount
 
         ''Added 11/11/2024 thomas downes
-        bCannotMoveThatMany = (intHowManyToMove >= mod_list.DLL_CountAllItems)
+        bCannotMoveThatMany = (intHowManyToMove_RangeCount >= mod_list.DLL_CountAllItems)
 
         ''Added 11/11/2024 td
         If mod_list._isEmpty_OrTreatAsEmpty Then
@@ -462,27 +463,30 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Build the correct Move Type.
         ''
-        Dim intHowManyItemsToShift As Integer ''Added 12/11/2024 td 
+        Dim intHowManyItemsToShift_Iterations As Integer ''Added 12/11/2024 td 
         Dim currentMoveType As New StructureTypeOfMove(True)
 
         ''intHowManyItemsToShift = IIf(par_goLeft, numericShiftLeft.Value, numericShiftRight.Value)
-        intHowManyItemsToShift = par_iShiftDistance
+        intHowManyItemsToShift_Iterations = par_iShiftDistance
 
-        currentMoveType.IsMoveIncremental = True
-        currentMoveType.IsIncrementalToLeft = par_goLeft
-        currentMoveType.IsIncrementalToRight = par_goRight
-        currentMoveType.HowManyItemsIncremental = intHowManyItemsToShift
+        currentMoveType.IsMoveIncrementalShift = True
+        currentMoveType.IsShiftingToLeft = par_goLeft
+        currentMoveType.IsShiftingToRight = par_goRight
+        currentMoveType.HowManyItemsIncremental = intHowManyItemsToShift_Iterations
+        currentMoveType.IsMoveToAnchor = False ''Added 12/15/2024 
 
         ''
         '' Added 11/17/2024 thomas downes
         ''
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, Nothing,
-                                                                   False, OPERATION_MOVE, currentMoveType)
+                                   False, OPERATION_MOVE, currentMoveType)
         ''operation.OperateOnList(mod_list)
-        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+             bChangeOfEndpoint_Occurred, True)
 
         ''Added 11/18/2024 
-        If bChangeOfEndpoint Then
+        ''---If bChangeOfEndpoint Then ''Modified 12/15/2024
+        If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Then
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
         End If ''End of ""If (bChangeOfEndpoint) Then""
@@ -855,6 +859,11 @@ Public Class FormSimpleDemoOfCSharp1D
         ax_double = xfactor_a * x_intPixelPosition
         index_of_item_double = ax_double + constant_b
         index_of_item = Math.Floor(index_of_item_double)
+        ''Added 12/15/2024 
+        ''   Prevent the selector from going beyond the item count.
+        index_of_item = IIf(index_of_item <= -1 + mod_list._itemCount,
+                            index_of_item, -1 + mod_list._itemCount)
+
         ''Added 2/29/2024
         bShiftingKey = Control.ModifierKeys = Keys.Shift
 
