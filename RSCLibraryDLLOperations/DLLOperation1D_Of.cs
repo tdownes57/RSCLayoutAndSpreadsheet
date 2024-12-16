@@ -275,7 +275,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnList(DLLList<TControl> par_list, out bool par_bChangeOfEndpoint_Occurred)
+        public void OperateOnList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -287,16 +287,20 @@ namespace RSCLibraryDLLOperations
             //
             const bool ENDPOINT_PROTECTION = true; // Added 12/16/2024  
             bool bChangeOfEndpoint_Expected = true;   // Added 12/16/2024 
+            TControl tempStart = par_list._itemStart;
+            TControl temp__End = par_list._itemEnding;
 
             if (_isSort_Ascending)
             {
-                par_bChangeOfEndpoint_Occurred = false; // true;
+                //pbChangeOfEndpoint_Occurred = false; // true;
+                pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
             }
             if (_isSort_Descending)
             {
 
-                par_bChangeOfEndpoint_Occurred = false; // true; 
+                //pbChangeOfEndpoint_Occurred = false; // true; 
+                pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
             }
             else
@@ -304,11 +308,19 @@ namespace RSCLibraryDLLOperations
                 // Nov. 8, 2024 //OperateOnList<TControl>(par_list, _range, _anchorItem, false);
                 // Dec. 16, 2024 //OperateOnList(par_list, _range, _anchorItem, _anchorCouplet, false, false);
 
+                //
+                // Major call!!
+                //
                 OperateOnList_Private(par_list, _range, _anchorItem, _anchorCouplet, 
                     ENDPOINT_PROTECTION, bChangeOfEndpoint_Expected, 
-                    out par_bChangeOfEndpoint_Occurred);
+                    out pbChangeOfEndpoint_Occurred);
 
             }
+
+            //
+            // Added 12/16/2024 
+            //
+            pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
         }
 

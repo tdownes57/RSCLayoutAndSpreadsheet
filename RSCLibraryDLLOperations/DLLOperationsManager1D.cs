@@ -188,7 +188,7 @@ namespace RSCLibraryDLLOperations
             //-------------------------------------------------------------------
             //
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint_Expected, 
-                  par_changeOfEndpoint_Occurred);
+                  out par_changeOfEndpoint_Occurred);
 
             //
             // Administration needed!!
@@ -312,7 +312,7 @@ namespace RSCLibraryDLLOperations
 
             //opReDo.CreatedAsRedoOperation = true;
             ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected, 
-                ref bChangeOfEndpoint_Occurred, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
+                out bChangeOfEndpoint_Occurred, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
 
         }
 
@@ -463,7 +463,7 @@ namespace RSCLibraryDLLOperations
             //                         RECORD_UNDO_OPERATION);
             ProcessOperation_AnyType(opUndoVersion,
                                      bIsChangeOfEndpoint_Expected,
-                                     ref bChangeOfEndpoint_Occurred,
+                                     out bChangeOfEndpoint_Occurred,
                                      RECORD_UNDO_OPERATION);
 
             //Added 11/10/2024 

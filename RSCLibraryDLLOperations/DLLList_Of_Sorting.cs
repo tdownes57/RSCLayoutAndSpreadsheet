@@ -681,6 +681,20 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------------------
         //
 
+        public bool HasChangeOfEndPoint(TControl par_itemOriginalStart, TControl par_itemOriginalEnd)
+        {
+            //
+            // Added 12/16/2024 td 
+            //
+            bool bChangeOfStart = (_itemStart == par_itemOriginalStart);
+            bool bChangeOfEnding = (_itemEnding == par_itemOriginalEnd);
+            bool result_change;
+            result_change = (bChangeOfStart || bChangeOfEnding);
+            return result_change;
+
+        }
+
+
 
     } // End of ""public partial class DLLList<TControl>""
 

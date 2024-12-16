@@ -208,15 +208,19 @@ namespace RSCLibraryDLLOperations
         }
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_Hori> parOperation, 
-                          bool par_changeOfEndpoint, bool par_bRecordOperation)
+                          bool par_changeOfEndpoint_Expected, 
+                          out bool pbChangeOfEndpointOccurred,
+                          bool par_bRecordOperation)
         {
             //
             //  Added 11/25/2024 
             //
             //See module level. --const bool RECORDING_BY_COMPONENTS = false;  // False. Let's not delegate.  
             //See module level. --const bool RECORDING_BY_THISCLASS = true;   //This class will do the recording.
-   
-            mod_managerHoriz.ProcessOperation_AnyType(parOperation, par_changeOfEndpoint, 
+    
+            mod_managerHoriz.ProcessOperation_AnyType(parOperation, 
+                par_changeOfEndpoint_Expected, 
+                out pbChangeOfEndpointOccurred,
                 RECORDING_BY_COMPONENTS);
 
             if (par_bRecordOperation && RECORDING_BY_THISCLASS)
@@ -230,12 +234,14 @@ namespace RSCLibraryDLLOperations
 
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_Vert> parOperation,
-                          bool par_changeOfEndpoint, bool par_bRecordOperation)
+                          bool par_changeOfEndpoint_Expected, out bool pbChangeOfEndpointOccurred,  bool par_bRecordOperation)
         {
             //
             //  Added 11/25/2024 
             //
-            mod_managerVerti.ProcessOperation_AnyType(parOperation, par_changeOfEndpoint, par_bRecordOperation);
+            mod_managerVerti.ProcessOperation_AnyType(parOperation, par_changeOfEndpoint_Expected,
+                out pbChangeOfEndpointOccurred,
+                par_bRecordOperation);
 
 
 
