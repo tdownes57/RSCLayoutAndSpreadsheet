@@ -86,7 +86,12 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                           anchorPairForListOfOneItem,
                                           False, False, False)
 
-            operationInitial30.OperateOnList(mod_list)
+            ''12/16/2024 operationInitial30.OperateOnList(mod_list)
+            Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
+            ''
+            ''Major call!!
+            ''
+            operationInitial30.OperateOnList(mod_list, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
@@ -496,7 +501,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
-        Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_Expected As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/16/2024 
         Dim type_notMove As New StructureTypeOfMove(False)
 
         If DIRECT_TO_LIST Then
@@ -518,7 +524,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operation,
+                                                 bChangeOfEndpoint_Expected,
+                                                 bChangeOfEndpoint_Occurred, True)
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -530,7 +538,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''12/16/2024 mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+                                                 bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
@@ -575,7 +585,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLItem)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
-        Dim boolEndpoint As Boolean
+        ''Dim boolEndpoint As Boolean ''Obselete as of 12/16/2024 
+        Dim bChangeOfEndpoint_Expected As Boolean ''Added 12/16/2024
+        Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/16/2024 
         Dim array_sItemsToInsert As String()
         Dim bUserSpecifiedValues
         Dim strNewItem As String
@@ -618,7 +630,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         objAnchorPair = objAnchorItem.GetAnchorCouplet(bInsertRangeBeforeAnchor)
 
         ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
-        boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
+        bChangeOfEndpoint_Expected = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
             intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
@@ -646,7 +658,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         If DIRECT_TO_LIST Then
             ''Without using the DLLManager class, directly editing the list.  
-            mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+            ''//mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+            mod_list.DLL_InsertItemSingly(newItem, bChangeOfEndpoint_Expected)
 
         Else
             ''
@@ -658,16 +671,22 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       objAnchorItem,
                                       objAnchorPair,
                                       False, False, False)
-            mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+
+            ''12/16/2024 mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+                                                 bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
         ''Added 11/10/2024 td
         My.Application.DoEvents()
         ''Added 11/10/2024 td
-        If boolEndpoint Then
+        ''//If boolEndpoint Then
+        If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Then
+
             mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
             mod_lastItem = mod_list.DLL_GetLastItem_OfT()
+
         End If ''eND OF ""If (boolEndpoint) Then""
 
         ''
@@ -852,10 +871,11 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLItem)
         Dim bIncludesListStart As Boolean ''Added 11/10/2024 
         Dim bIncludesList__End As Boolean ''Added 11/10/2024 
-        Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
-        Dim bAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
-        Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
+        Dim bEstimateIfAnyEndpointAffected As Boolean ''Added 11/11/2024 td
+        Dim bEstimateIfAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
+        Dim bEstimateIfAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
         Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
+        Dim bAnyEndpointAffected_ByRef As Boolean ''Added 12/16/2024 td
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -890,9 +910,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         itemFirstToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition)
         itemLastToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition + intHowManyToDelete - 1)
 
-        bAnyEndpointAffected_start = (intItemPosition = 1)
-        bAnyEndpointAffected_end = ((intItemPosition + intHowManyToDelete - 1) >= mod_list._itemCount)
-        bAnyEndpointAffected = (bAnyEndpointAffected_start Or bAnyEndpointAffected_end)
+        bEstimateIfAnyEndpointAffected_start = (intItemPosition = 1)
+        bEstimateIfAnyEndpointAffected_end = ((intItemPosition + intHowManyToDelete - 1) >= mod_list._itemCount)
+        bEstimateIfAnyEndpointAffected = (bEstimateIfAnyEndpointAffected_start Or bEstimateIfAnyEndpointAffected_end)
 
         rangeToDelete = New DLLRange(Of TwoCharacterDLLItem)(False, itemFirstToDelete,
                                              itemLastToDelete, Nothing, intHowManyToDelete)
@@ -911,13 +931,18 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       OPERATION_Delete,
                                       OPERATION_NotMove, type_notMove, Nothing, Nothing,
                                       SORT_123, SORT_321, SORT_UNDO)
-            mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+
+            ''Dec156 2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+            mod_manager.ProcessOperation_AnyType(operationToDelete,
+                                                 bEstimateIfAnyEndpointAffected,
+                                                 bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
 
             ''Administration....
-            If (bAnyEndpointAffected) Then
+            ''12/16/2024  If (bAnyEndpointAffected) Then
+            If (bEstimateIfAnyEndpointAffected Or bAnyEndpointAffected_ByRef) Then
                 mod_firstItem = mod_list._itemStart
                 mod_lastItem = mod_list._itemEnding
-            End If ''End of ""If (bAnyEndpointAffected) Then""
+            End If ''End of ""If (bEstimateIfAnyEndpointAffected Or bAnyEndpointAffected_ByRef) Then""
 
         End If ''End of ""If (DIRECT_TO_LIST_Not) Then ... Else ..."
 
@@ -980,7 +1005,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
         Const OPERATION_MOVE As Boolean = True
         ''Const ALLOW_NULLS As Boolean = True
-        Dim bChangeOfEndpoint As Boolean = False
+        Dim bChangeOfEndpoint_Expected As Boolean = False
+        Dim bChangeOfEndpoint_Occurred As Boolean = False ''Added 12/16/2024
         Dim intAnchorIndex As Integer = 0
         Dim bAnchorMoveAfter As Boolean
         Dim bAnchorMoveBefore As Boolean
@@ -998,10 +1024,11 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
         bAnchorMoveAfter = (listMoveAfterOrBefore.SelectedIndex < 1)
         bAnchorMoveBefore = (listMoveAfterOrBefore.SelectedIndex >= 1)
-        bChangeOfEndpoint = mod_range.ContainsEndpoint()
+        bChangeOfEndpoint_Expected = mod_range.ContainsEndpoint()
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem, bAnchorMoveAfter)
-        bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
+        ''---bChangeOfEndpoint_Expected = tempAnchorPair.ContainsEndpoint()
+        bChangeOfEndpoint_Expected = (bChangeOfEndpoint_Expected Or tempAnchorPair.ContainsEndpoint())
 
         ''Added 11/18/2024
         ''
@@ -1027,15 +1054,18 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_move)
         ''operation.OperateOnList(mod_list)
-        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        ''12/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+                                             bChangeOfEndpoint_Occurred, True)
 
         ''Added 11/18/2024 
-        If (bChangeOfEndpoint) Then
+        ''12/16/2024  If (bChangeOfEndpoint) Then
+        If (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred) Then
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
-        End If ''End of ""If (bChangeOfEndpoint) Then""
+        End If ''End of ""If (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred) Then""
 
-        ''Added 11/17/2024 
+        ''Added 11/17/202 v4 
         RefreshTheUI_DisplayList()
 
         ''Added 11/29/2024 

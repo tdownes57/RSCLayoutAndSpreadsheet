@@ -85,7 +85,11 @@ Public Class FormSimpleDemoOfCSharp1D
                                           anchorPairForListOfOneItem,
                                           False, False, False)
 
-            operationInitial30.OperateOnList(mod_list)
+            ''12/16/2024 operationInitial30.OperateOnList(mod_list)
+            Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
+
+            ''Major call!!
+            operationInitial30.OperateOnList(mod_list, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
@@ -615,7 +619,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
-        Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        ''Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_Expected As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_PostHoc As Boolean ''Added 11/06/2024 
         Dim null_move As New StructureTypeOfMove(False) ''Added 12/11/2024 td
 
         If DIRECT_TO_LIST Then
@@ -639,7 +645,9 @@ Public Class FormSimpleDemoOfCSharp1D
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
 
             ''operation.OperateOnList(mod_list)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+                                                 bChangeOfEndpoint_PostHoc, True)
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -651,14 +659,17 @@ Public Class FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
             ''operation.OperateOnList(mod_list)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+                                                 bChangeOfEndpoint_PostHoc, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
         ''
         '' Added 11/11/2024 
         ''
-        If bChangeOfEndpoint Then
+        ''//If bChangeOfEndpoint Then
+        If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_PostHoc Then
 
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
@@ -1138,7 +1149,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
-        Dim bChangeOfEndpoint = False
+        ''12/16/2024 Dim bChangeOfEndpoint = False
+        Dim bChangeOfEndpoint_Expected = False
+        Dim bChangeOfEndpoint_Occurred = False ''Added 12/16/2024 td
         Dim intAnchorIndex = 0
         Dim bAnchorMoveAfter As Boolean
         Dim bAnchorMoveBefore As Boolean
@@ -1186,11 +1199,11 @@ Public Class FormSimpleDemoOfCSharp1D
 
         bAnchorMoveAfter = listMoveAfterOrBefore.SelectedIndex < 1
         bAnchorMoveBefore = listMoveAfterOrBefore.SelectedIndex >= 1
-        bChangeOfEndpoint = mod_range.ContainsEndpoint
+        bChangeOfEndpoint_Expected = mod_range.ContainsEndpoint
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem, bAnchorMoveAfter)
         ''Added 12/09/2024  bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
-        bChangeOfEndpoint = bChangeOfEndpoint Or tempAnchorPair.ContainsEndpoint
+        bChangeOfEndpoint_Expected = (bChangeOfEndpoint_Expected Or tempAnchorPair.ContainsEndpoint)
 
         ''Added 11/18/2024
         ''
@@ -1220,13 +1233,15 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
         ''operation.OperateOnList(mod_list)
-        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+                                             bChangeOfEndpoint_Occurred, True)
 
         ''Added 11/18/2024 
-        If bChangeOfEndpoint Then
+        If bChangeOfEndpoint_Expected Then
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
-        End If ''End of ""If (bChangeOfEndpoint) Then""
+        End If ''End of ""If (bChangeOfEndpoint_Expected) Then""
 
         ''Added 11/17/2024 
         RefreshTheUI_DisplayList()

@@ -88,7 +88,9 @@ Public Class FormSimpleDemo1DHorizontal
                                           anchorPairForListOfOneItem,
                                           False, False, False)
 
-            operationInitial30.OperateOnList(mod_list)
+            ''12/16/2024 operationInitial30.OperateOnList(mod_list)
+            Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
+            operationInitial30.OperateOnList(mod_list, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem,
@@ -528,7 +530,9 @@ Public Class FormSimpleDemo1DHorizontal
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLHorizontal)
-        Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        ''//Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_ByVal As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_ByRef As Boolean ''Added 12/16/2024 
         Dim type_notMove As New StructureTypeOfMove(False)
 
         If DIRECT_TO_LIST Then
@@ -550,7 +554,8 @@ Public Class FormSimpleDemo1DHorizontal
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal,
+                                                 bChangeOfEndpoint_ByRef, True)
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -562,14 +567,15 @@ Public Class FormSimpleDemo1DHorizontal
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal, bChangeOfEndpoint_ByRef, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
         ''
         '' Added 11/11/2024 
         ''
-        If bChangeOfEndpoint Then
+        ''//If bChangeOfEndpoint Then
+        If bChangeOfEndpoint_ByVal Or bChangeOfEndpoint_ByRef Then
 
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding

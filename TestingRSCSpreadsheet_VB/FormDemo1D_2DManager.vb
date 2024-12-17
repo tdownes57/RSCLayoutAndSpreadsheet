@@ -94,7 +94,9 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                                                       anchorPairForListOfOneItem,
                                                                       False, False, False)
 
-            operationInitial30.OperateOnList(mod_list)
+            ''---operationInitial30.OperateOnList(mod_list)
+            Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
+            operationInitial30.OperateOnList(mod_list, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem,
@@ -504,7 +506,9 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLHorizontal)
-        Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        ''//Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_Expected As Boolean ''Added 11/06/2024 
+        Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/16/2024 
         Dim typeMove_isNull As New StructureTypeOfMove(False)
         ''Const INSERT_MULTI As Boolean = True ''Added 12/15/2024 
 
@@ -531,7 +535,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                         INSERT_OPERATION, False, typeMove_isNull)
 
             ''operation.OperateOnList(mod_list)
-            mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+                            bChangeOfEndpoint_Occurred, True)
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -545,14 +550,17 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                         INSERT_OPERATION, False, typeMove_isNull)
 
             ''operation.OperateOnList(mod_list)
-            mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''//mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+                                                   bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
         ''
         '' Added 11/11/2024 
         ''
-        If bChangeOfEndpoint Then
+        ''//If bChangeOfEndpoint Then
+        If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Then
 
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
@@ -590,7 +598,9 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLHorizontal)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
-        Dim boolEndpoint As Boolean
+        ''12/16/2024 Dim boolEndpoint As Boolean
+        Dim bChangeOfEndpoint_Expected As Boolean
+        Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/16/2024
         Dim array_sItemsToInsert As String()
         Dim bUserSpecifiedValues
         Dim strNewItem As String
@@ -633,7 +643,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         objAnchorPair = objAnchorItem.GetAnchorCouplet(bInsertRangeBeforeAnchor)
 
         ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
-        boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
+        bChangeOfEndpoint_Expected = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
             intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
 
         strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(0),
@@ -661,7 +671,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         If DIRECT_TO_LIST Then
             ''Without using the DLLManager class, directly editing the list.  
-            mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+            mod_list.DLL_InsertItemSingly(newItem, bChangeOfEndpoint_Expected)
 
         Else
             ''
@@ -673,14 +683,19 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       objAnchorItem,
                                       objAnchorPair,
                                       False, False, False)
-            mod_manager1D.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+
+            ''//mod_manager1D.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+            mod_manager1D.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+                                                   bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
         ''Added 11/10/2024 td
         My.Application.DoEvents()
         ''Added 11/10/2024 td
-        If boolEndpoint Then
+        ''//If boolEndpoint Then
+        If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Then
+            ''Update the reference variables which maintain the first & last items in the list.
             mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
             mod_lastItem = mod_list.DLL_GetLastItem_OfT()
         End If ''eND OF ""If (boolEndpoint) Then""
@@ -866,9 +881,10 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLHorizontal)
         Dim bIncludesListStart As Boolean ''Added 11/10/2024 
         Dim bIncludesList__End As Boolean ''Added 11/10/2024 
-        Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
+        Dim bAnyEndpointAffected_ByVal As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
+        Dim bAnyEndpointAffected_ByRef As Boolean ''Added 12/16/2024 td
         Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
         Dim type_notMove As New StructureTypeOfMove(False) ''Added 12/15/2024
 
@@ -907,7 +923,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         bAnyEndpointAffected_start = (intItemPosition = 1)
         bAnyEndpointAffected_end = ((intItemPosition + intHowManyToDelete - 1) >= mod_list._itemCount)
-        bAnyEndpointAffected = (bAnyEndpointAffected_start Or bAnyEndpointAffected_end)
+        bAnyEndpointAffected_ByVal = (bAnyEndpointAffected_start Or bAnyEndpointAffected_end)
 
         rangeToDelete = New DLLRange(Of TwoCharacterDLLHorizontal)(False, itemFirstToDelete,
                                              itemLastToDelete, Nothing, intHowManyToDelete)
@@ -925,10 +941,14 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       OPERATION_Delete,
                                       OPERATION_NotMove, type_notMove, Nothing, Nothing,
                                       SORT_123, SORT_321, SORT_UNDO)
-            mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+
+            ''//mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+            mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected_ByVal,
+                                                   bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
 
             ''Administration....
-            If (bAnyEndpointAffected) Then
+            ''//If (bAnyEndpointAffected) Then
+            If (bAnyEndpointAffected_ByVal Or bAnyEndpointAffected_ByRef) Then
                 mod_firstItem = mod_list._itemStart
                 mod_lastItem = mod_list._itemEnding
             End If ''End of ""If (bAnyEndpointAffected) Then""
