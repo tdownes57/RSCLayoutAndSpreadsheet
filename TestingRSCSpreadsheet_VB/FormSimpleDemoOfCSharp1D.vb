@@ -20,6 +20,8 @@ Public Class FormSimpleDemoOfCSharp1D
 
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
+    Private APPLICATION_DOEVENTS As Boolean = False ''---True ''Added 12/18/2024 td
+    Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
 
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -114,13 +116,38 @@ Public Class FormSimpleDemoOfCSharp1D
 
 
     Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLItem) = Nothing)
+
+        ''Added 12/18/2024  
+        ''
+        ''  This method is overloaded.  
+        ''
+        ''  Check for needed but missing updates to the variable mod_firstItem.
+        ''
+        Dim bMismatch As Boolean
+        bMismatch = (mod_list._itemStart IsNot mod_firstItem)
+        If (bMismatch) Then System.Diagnostics.Debugger.Break()
+
+        ''Added 12/18/2024  
+        ''
+        ''Major call!!
+        ''
+        RefreshTheUI_DisplayList(mod_list, mod_firstItem, par_operation)
+
+    End Sub ''end of ""Private Sub RefreshTheUI_DisplayList""
+
+    Private Sub RefreshTheUI_DisplayList(par_list As DLLList(Of TwoCharacterDLLItem),
+                                         par_firstItem As TwoCharacterDLLItem,
+                                         Optional par_operation As DLLOperation1D(Of TwoCharacterDLLItem) = Nothing)
+        ''
+        ''  This method is overloaded.  
         ''
         ''Added an optional parameter (par_operation) on 12/02/2024 
         ''
         ''Populate the UI. 
         Dim strListOfLinks As String
 
-        Application.DoEvents() ''Seems to be needed.
+        ''Added 12/18/2024 td
+        If (APPLICATION_DOEVENTS) Then Application.DoEvents() ''Seems to be needed.
 
         ''Major call!!
         strListOfLinks = StringToFillTheTextboxDisplayingList()
@@ -1437,10 +1464,36 @@ Public Class FormSimpleDemoOfCSharp1D
     Private Sub LinkRefreshList_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshList.LinkClicked
 
         ''Added 12/17/2024
-        RefreshTheUI_DisplayList()
+        RefreshTheUI_DisplayList
         MessageBox.Show("Refreshed")
 
     End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkApplicationDoevents.LinkClicked
+
+        ''Added 12/18/2024 td
+        APPLICATION_DOEVENTS = Not APPLICATION_DOEVENTS
+        If (APPLICATION_DOEVENTS) Then LinkApplicationDoevents.Text = "DoEvents--ON"
+        If (Not APPLICATION_DOEVENTS) Then LinkApplicationDoevents.Text = "DoEvents--Off"
+
+
+    End Sub
+
+    Private Sub LinkRefreshFirstItem_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshFirstItem.LinkClicked
+
+        ''Added 12/18/2024 td
+        REFRESH_FIRST_ITEM = Not REFRESH_FIRST_ITEM
+        ''
+        ''This setting is checked in the method called RefreshTheUI_DisplayList.
+        ''
+        If (REFRESH_FIRST_ITEM) Then LinkApplicationDoevents.Text = "REFRESH_FIRST_ITEM--ON"
+        If (Not REFRESH_FIRST_ITEM) Then LinkApplicationDoevents.Text = "REFRESH_FIRST_ITEM--Off"
+
+
+    End Sub
+
+
+
 End Class
 
 

@@ -67,6 +67,8 @@ Partial Class FormSimpleDemoOfCSharp1D
         numMoveAnchorBenchmark = New NumericUpDown()
         ButtonSortForward = New Button()
         LinkRefreshList = New LinkLabel()
+        LinkApplicationDoevents = New LinkLabel()
+        LinkRefreshFirstItem = New LinkLabel()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -525,16 +527,38 @@ Partial Class FormSimpleDemoOfCSharp1D
         LinkRefreshList.AutoSize = True
         LinkRefreshList.Location = New Point(39, 142)
         LinkRefreshList.Name = "LinkRefreshList"
-        LinkRefreshList.Size = New Size(143, 15)
+        LinkRefreshList.Size = New Size(67, 15)
         LinkRefreshList.TabIndex = 105
         LinkRefreshList.TabStop = True
-        LinkRefreshList.Text = "Clear recorded operations"
+        LinkRefreshList.Text = "Refresh List"
+        ' 
+        ' LinkApplicationDoevents
+        ' 
+        LinkApplicationDoevents.AutoSize = True
+        LinkApplicationDoevents.Location = New Point(129, 142)
+        LinkApplicationDoevents.Name = "LinkApplicationDoevents"
+        LinkApplicationDoevents.Size = New Size(87, 15)
+        LinkApplicationDoevents.TabIndex = 106
+        LinkApplicationDoevents.TabStop = True
+        LinkApplicationDoevents.Text = "DoEvents--OFF"
+        ' 
+        ' LinkRefreshFirstItem
+        ' 
+        LinkRefreshFirstItem.AutoSize = True
+        LinkRefreshFirstItem.Location = New Point(232, 142)
+        LinkRefreshFirstItem.Name = "LinkRefreshFirstItem"
+        LinkRefreshFirstItem.Size = New Size(244, 15)
+        LinkRefreshFirstItem.TabIndex = 107
+        LinkRefreshFirstItem.TabStop = True
+        LinkRefreshFirstItem.Text = "Displaying List should refresh First Item--OFF"
         ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 541)
+        Controls.Add(LinkRefreshFirstItem)
+        Controls.Add(LinkApplicationDoevents)
         Controls.Add(LinkRefreshList)
         Controls.Add(ButtonSortForward)
         Controls.Add(GroupMoveByAnchor)
@@ -633,5 +657,7 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents numMoveAnchorBenchmark As NumericUpDown
     Friend WithEvents ButtonSortForward As Button
     Friend WithEvents LinkRefreshList As LinkLabel
+    Friend WithEvents LinkApplicationDoevents As LinkLabel
+    Friend WithEvents LinkRefreshFirstItem As LinkLabel
 
 End Class
