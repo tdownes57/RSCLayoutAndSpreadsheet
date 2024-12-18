@@ -24,10 +24,10 @@ namespace RSCLibraryDLLOperations
         public TControl? _SingleItemInRange;
         //public readonly TControl _StartingItem;
         //----public readonly TControl _StartingItem; // Modified 11/08/2024 thomas downes
-        public readonly TControl _StartingItem; // Modified 11/08/2024 thomas downes
+        public readonly TControl _StartingItemOfRange; // Modified 11/08/2024 thomas downes
         //public readonly TControl _EndingItem;
-        public TControl _EndingItem;
-        public int _ItemCount; // readonly
+        public TControl _EndingItemOfRange;
+        public int _ItemCountOfRange; // readonly
 
         // Added 4/20/2024 thomas downes
         public readonly TControl? _InverseAnchor_Prior;
@@ -48,10 +48,10 @@ namespace RSCLibraryDLLOperations
 
             _isSingleItem = true;
             _SingleItemInRange = par_itemSingle;
-            _StartingItem = par_itemSingle;
-            _ItemCount = 1;
+            _StartingItemOfRange = par_itemSingle;
+            _ItemCountOfRange = 1;
             // Added 11/10/2024 
-            _EndingItem = par_itemSingle;
+            _EndingItemOfRange = par_itemSingle;
 
         }
 
@@ -62,9 +62,9 @@ namespace RSCLibraryDLLOperations
             // Added 11/13/2024 
             //
             //_SingleItemInRange = null;
-            _StartingItem = par_itemStarting;
-            _EndingItem = par_itemEnding;
-            _ItemCount = (1 + _StartingItem.DLL_GetDistanceTo(_EndingItem));
+            _StartingItemOfRange = par_itemStarting;
+            _EndingItemOfRange = par_itemEnding;
+            _ItemCountOfRange = (1 + _StartingItemOfRange.DLL_GetDistanceTo(_EndingItemOfRange));
 
         }
 
@@ -74,10 +74,10 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/15/2024 thomas downes
             //
-            _StartingItem = par_list.Get_ItemAtIndex(par_tuple.Item1);
-            _EndingItem = par_list.Get_ItemAtIndex(par_tuple.Item2);  // Added 11/17/2024   .Item1);
+            _StartingItemOfRange = par_list.Get_ItemAtIndex(par_tuple.Item1);
+            _EndingItemOfRange = par_list.Get_ItemAtIndex(par_tuple.Item2);  // Added 11/17/2024   .Item1);
             //return new DLLRange<TControl>(itemStart, item_Last);
-            _ItemCount = (1 + par_tuple.Item2 - par_tuple.Item1);
+            _ItemCountOfRange = (1 + par_tuple.Item2 - par_tuple.Item1);
             _isSingleItem = (par_tuple.Item1 == par_tuple.Item2);
 
         }
@@ -89,9 +89,9 @@ namespace RSCLibraryDLLOperations
         {
             //_isSingleItem = par_isSingleItem;
             _SingleItemInRange = par_itemSingle;
-            _StartingItem = par_itemStart;
-            _ItemCount = par_itemCount;
-            _EndingItem = par_itemStart;
+            _StartingItemOfRange = par_itemStart;
+            _ItemCountOfRange = par_itemCount;
+            _EndingItemOfRange = par_itemStart;
             _isSingleItem = par_isSingleItem;
 
             if (_isSingleItem && (par_itemSingle != null))
@@ -101,8 +101,8 @@ namespace RSCLibraryDLLOperations
                 //
                 _SingleItemInRange = par_itemSingle;
 
-                _StartingItem = par_itemSingle;
-                _EndingItem = par_itemSingle;
+                _StartingItemOfRange = par_itemSingle;
+                _EndingItemOfRange = par_itemSingle;
 
             }
             else if (par_itemEnding != null)
@@ -111,16 +111,16 @@ namespace RSCLibraryDLLOperations
                 // This is probably _NOT_ a single-item range.
                 //   There is a ending item.
                 //
-                _StartingItem = par_itemStart;
-                _EndingItem = par_itemEnding;
+                _StartingItemOfRange = par_itemStart;
+                _EndingItemOfRange = par_itemEnding;
 
                 //Administration.  Set _itemCount.
-                if (_ItemCount <= 0)
+                if (_ItemCountOfRange <= 0)
                 {
                     //_itemCount = _itemStart.DLL_CountItemsAllInList(); // Won't work.  This
                     //     is a range, i.e. a subset of a list, not an entire list. 
                     //_itemCount = (1 + _itemEnding.DLL_Subtract(_itemStart));
-                    _ItemCount = (1 + DLL_Distance(_StartingItem, _EndingItem));
+                    _ItemCountOfRange = (1 + DLL_Distance(_StartingItemOfRange, _EndingItemOfRange));
 
                 }
                 else if (Testing.AreWeTesting)
@@ -128,22 +128,22 @@ namespace RSCLibraryDLLOperations
                     bool bTestMatch;
                     if (par_itemCount > 0)
                     {
-                        var nextIterativelyByCount = _StartingItem
+                        var nextIterativelyByCount = _StartingItemOfRange
                             .DLL_GetItemNext_OfT(par_itemCount - 1);
-                        bTestMatch = (_EndingItem.Equals(nextIterativelyByCount));
+                        bTestMatch = (_EndingItemOfRange.Equals(nextIterativelyByCount));
                         if (!bTestMatch) System.Diagnostics.Debugger.Break();
                     }
                 }
 
             }
-            else if (_StartingItem != null)
+            else if (_StartingItemOfRange != null)
             {
                 //
                 // This is probably _NOT_ a single-item range.
                 //   There is a distinct beginning and an end.
                 //
                 //--Jun30 2024-_EndingItem = _StartingItem.DLL_GetItemNext(itemCount - 1).DLL_UnboxControl();
-                _EndingItem = _StartingItem
+                _EndingItemOfRange = _StartingItemOfRange
                     .DLL_GetItemNext_OfT(par_itemCount - 1)
                     .DLL_UnboxControl_OfT();
 
@@ -152,21 +152,21 @@ namespace RSCLibraryDLLOperations
             //
             // Administrative--Set the Inverse Anchors.  
             //
-            _InverseAnchor_Prior = _StartingItem // par_itemStart
+            _InverseAnchor_Prior = _StartingItemOfRange // par_itemStart
                 .DLL_GetItemPrior_OfT();
 
             if (par_itemEnding != null)
             {
                 //_InverseAnchor_After = par_itemEnding
                 //    .DLL_GetItemNext_OfT();
-                _InverseAnchor_After = _EndingItem
+                _InverseAnchor_After = _EndingItemOfRange
                     .DLL_GetItemNext_OfT();
             }
             else if (par_itemCount == 1)
             {
                 //_InverseAnchor_After = par_itemStart
                 //    .DLL_GetItemNext_OfT();
-                _InverseAnchor_After = _StartingItem
+                _InverseAnchor_After = _StartingItemOfRange
                     .DLL_GetItemNext_OfT();
             }
             else
@@ -176,10 +176,10 @@ namespace RSCLibraryDLLOperations
             }
 
             //Added 6/30/2024
-            if (_StartingItem == null) _StartingItem = par_itemStart;
-            if (_StartingItem == null) _StartingItem = par_itemSingle;
-            if (_EndingItem == null) _EndingItem = par_itemStart;
-            if (_EndingItem == null) _EndingItem = par_itemSingle;
+            if (_StartingItemOfRange == null) _StartingItemOfRange = par_itemStart;
+            if (_StartingItemOfRange == null) _StartingItemOfRange = par_itemSingle;
+            if (_EndingItemOfRange == null) _EndingItemOfRange = par_itemStart;
+            if (_EndingItemOfRange == null) _EndingItemOfRange = par_itemSingle;
 
         }
 
@@ -190,8 +190,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/07/2024 thoma.s downe.s 
             //
-            TBase56 object56_s = _StartingItem as TBase56;
-            TBase56 object56_e = _EndingItem as TBase56;
+            TBase56 object56_s = _StartingItemOfRange as TBase56;
+            TBase56 object56_e = _EndingItemOfRange as TBase56;
 
             DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e);
 
@@ -213,18 +213,18 @@ namespace RSCLibraryDLLOperations
             //    _StartingItem = par_newItem;
             //    _EndingItem = par_newItem;
             //}
-            if (_EndingItem == null)
+            if (_EndingItemOfRange == null)
             {
-                if (_ItemCount == 1) _EndingItem = _StartingItem;
+                if (_ItemCountOfRange == 1) _EndingItemOfRange = _StartingItemOfRange;
             }
 
             //if (_EndingItem != null)
             //{
 
-            _EndingItem.DLL_SetItemNext(par_newItem);
-            par_newItem.DLL_SetItemPrior(_EndingItem);
-            _EndingItem = par_newItem;
-            _ItemCount++;
+            _EndingItemOfRange.DLL_SetItemNext(par_newItem);
+            par_newItem.DLL_SetItemPrior(_EndingItemOfRange);
+            _EndingItemOfRange = par_newItem;
+            _ItemCountOfRange++;
             _isSingleItem = false; //Added 11/12/2024 
             _SingleItemInRange = default(TControl); // null;  // Added 11/12/2024 
 
@@ -274,8 +274,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 7/11/2024  
             //
-            bool bCleanStart = !_StartingItem.DLL_HasPrior();
-            bool bCleanFinish = !_EndingItem.DLL_HasNext();
+            bool bCleanStart = !_StartingItemOfRange.DLL_HasPrior();
+            bool bCleanFinish = !_EndingItemOfRange.DLL_HasNext();
 
             bool result_cleanBoth = (bCleanStart && bCleanFinish);
             return result_cleanBoth;
@@ -291,7 +291,7 @@ namespace RSCLibraryDLLOperations
             //   the internal class members & so we will avoid return 
             //   a Null value, as best we can. 
             //
-            TControl result = (_StartingItem != null ? _StartingItem : _SingleItemInRange);
+            TControl result = (_StartingItemOfRange != null ? _StartingItemOfRange : _SingleItemInRange);
             return result;
 
         }
@@ -305,7 +305,7 @@ namespace RSCLibraryDLLOperations
             //   the internal class members & so we will avoid return 
             //   a Null value, as best we can. 
             //
-            TControl result = (_EndingItem != null ? _EndingItem : _SingleItemInRange);
+            TControl result = (_EndingItemOfRange != null ? _EndingItemOfRange : _SingleItemInRange);
             return result;
 
         }
@@ -319,7 +319,7 @@ namespace RSCLibraryDLLOperations
             //   the internal class members & so we will avoid return 
             //   a Null value, as best we can. 
             //
-            TControl result1 = (_EndingItem != null ? _EndingItem : _SingleItemInRange); //.DLL_GetItemNext_OfT();
+            TControl result1 = (_EndingItemOfRange != null ? _EndingItemOfRange : _SingleItemInRange); //.DLL_GetItemNext_OfT();
             TControl result_final = result1.DLL_GetItemNext_OfT();
             return result_final;
 
@@ -334,7 +334,7 @@ namespace RSCLibraryDLLOperations
             //   the internal class members & so we will avoid return 
             //   a Null value, as best we can. 
             //
-            TControl result1 = _StartingItem; //.DLL_GetItemNext_OfT();
+            TControl result1 = _StartingItemOfRange; //.DLL_GetItemNext_OfT();
             TControl? result_final = result1.DLL_GetItemPrior_OfT();
             return result_final;
 
@@ -349,7 +349,7 @@ namespace RSCLibraryDLLOperations
             //   the internal class members & so we will avoid return 
             //   a Null value, as best we can. 
             //
-            TControl result1 = _EndingItem; //.DLL_GetItemNext_OfT();
+            TControl result1 = _EndingItemOfRange; //.DLL_GetItemNext_OfT();
             TControl? result_final = result1.DLL_GetItemNext_OfT();
             return result_final;
 
@@ -361,13 +361,13 @@ namespace RSCLibraryDLLOperations
             //
             // Added 10/31/2024 thomas downes
             //
-            if (_ItemCount > 0)
+            if (_ItemCountOfRange > 0)
             {
-                return _ItemCount;
+                return _ItemCountOfRange;
             }
             else
             {
-                return (-1 + _StartingItem.DLL_GetDistanceTo(_EndingItem));
+                return (-1 + _StartingItemOfRange.DLL_GetDistanceTo(_EndingItemOfRange));
 
             }
 
@@ -380,7 +380,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/12/2024 td
             // 
-            return _StartingItem.DLL_GetItemIndex();
+            return _StartingItemOfRange.DLL_GetItemIndex();
 
         }
 
@@ -388,7 +388,7 @@ namespace RSCLibraryDLLOperations
         public bool IsSingleItem()
         {
             // Added 11/10/2024 td
-            return (1 == _ItemCount);
+            return (1 == _ItemCountOfRange);
 
         }
 
@@ -403,14 +403,14 @@ namespace RSCLibraryDLLOperations
             bool bNoFollowing;
 
             // Added 11/09/2024 t.downes
-            if (_EndingItem == null && _ItemCount > 0)
+            if (_EndingItemOfRange == null && _ItemCountOfRange > 0)
             {
                 // Populate the _EndingItem.
-                _EndingItem = _StartingItem.DLL_GetItemNext_OfT(-1 + _ItemCount);
+                _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
             }
 
-            bNoPreceding = (false == _StartingItem.DLL_HasPrior());
-            bNoFollowing = (false == _EndingItem.DLL_HasNext());
+            bNoPreceding = (false == _StartingItemOfRange.DLL_HasPrior());
+            bNoFollowing = (false == _EndingItemOfRange.DLL_HasNext());
             bResult = (bNoPreceding || bNoFollowing);
             return bResult;
 
@@ -537,12 +537,12 @@ namespace RSCLibraryDLLOperations
                 return false; 
             }
 
-            int intDistanceToItem = _StartingItem.DLL_GetDistanceTo(par_item, ref bLocatedItem);
+            int intDistanceToItem = _StartingItemOfRange.DLL_GetDistanceTo(par_item, ref bLocatedItem);
 
             if (bLocatedItem)
             {
                 //result_inRange = (0 < intDistanceToItem && intDistanceToItem < _ItemCount);
-                result_inRange = (0 <= intDistanceToItem && intDistanceToItem < _ItemCount);
+                result_inRange = (0 <= intDistanceToItem && intDistanceToItem < _ItemCountOfRange);
             }
             else
             {
@@ -607,7 +607,7 @@ namespace RSCLibraryDLLOperations
 
             // Reduce the item count of the list, by the number of items in the range. 
             //   (Notice we are using the subtraction -= operator.)
-            int numberOfRangeItems = this._ItemCount;
+            int numberOfRangeItems = this._ItemCountOfRange;
             par_listForAdmin._itemCount -= numberOfRangeItems; // Notice the -= operator.
 
         }
@@ -641,9 +641,9 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/09/2024 td
             //
-            _StartingItem.HighlightInGreen = pbToggleStatusToOn;
-            if (_EndingItem != null)
-                _EndingItem.HighlightInGreen = pbToggleStatusToOn;
+            _StartingItemOfRange.HighlightInGreen = pbToggleStatusToOn;
+            if (_EndingItemOfRange != null)
+                _EndingItemOfRange.HighlightInGreen = pbToggleStatusToOn;
 
         }
 
@@ -653,9 +653,9 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/09/2024 td
             //
-            _StartingItem.HighlightInBlue = pbToggleStatusToOn;
-            if (_EndingItem != null)
-                _EndingItem.HighlightInBlue = pbToggleStatusToOn;
+            _StartingItemOfRange.HighlightInBlue = pbToggleStatusToOn;
+            if (_EndingItemOfRange != null)
+                _EndingItemOfRange.HighlightInBlue = pbToggleStatusToOn;
 
         }
 
@@ -665,9 +665,9 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/09/2024 td
             //
-            _StartingItem.HighlightInCyan = pbToggleStatusToOn;
-            if (_EndingItem != null)
-                _EndingItem.HighlightInCyan = pbToggleStatusToOn;
+            _StartingItemOfRange.HighlightInCyan = pbToggleStatusToOn;
+            if (_EndingItemOfRange != null)
+                _EndingItemOfRange.HighlightInCyan = pbToggleStatusToOn;
         }
 
 
@@ -682,19 +682,19 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/12/2024 thomas downes 
             //
-            int intDistance = _StartingItem.DLL_GetDistanceTo(par_item);
+            int intDistance = _StartingItemOfRange.DLL_GetDistanceTo(par_item);
             
-            if (par_item.Equals( _StartingItem))
+            if (par_item.Equals( _StartingItemOfRange))
             {
                 //
                 //  Surprisingly, they are the same item. Nothing needs to be done.
                 //
             }
-            else if ((intDistance > 0) && (intDistance > -1 + _ItemCount))
+            else if ((intDistance > 0) && (intDistance > -1 + _ItemCountOfRange))
             {
-                _ItemCount = (intDistance + 1);
+                _ItemCountOfRange = (intDistance + 1);
                 //_EndingItem = _StartingItem.DLL_GetItemNext_OfT(intDistance);
-                _EndingItem = par_item;
+                _EndingItemOfRange = par_item;
                 _isSingleItem = false;
                 _SingleItemInRange = default(TControl);  // null;
 
@@ -724,56 +724,125 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/15/2024  
             //
-            bool bChangeOfListEndpoint = false;
+            bool bChangeOfListEndpoint_ListStart = false;
+            bool bChangeOfListEndpoint_ListEnd = false;
 
             if (par_shiftRightOrDown)
             {
                 //
+                //---------------------------------------------------------------------------------
+                //  ----------------------        RIGHT        ------------------------------
+                //  ---------------------- SHIFTING RIGHT-WARD ------------------------------
                 // Shift Right (or Up, if the list is vertical, starting from top of sheet).  
+                //---------------------------------------------------------------------------------
                 //
-                ref_bNotPossible = (!_EndingItem.DLL_HasNext());
+                TControl afterSwap_precedingItem; // Added 12/18/2024 td
+                ref_bNotPossible = (!_EndingItemOfRange.DLL_HasNext());
                 if (ref_bNotPossible) return;
-                TControl? following_item = _EndingItem.DLL_GetItemNext_OfT();
-                bChangeOfListEndpoint = (! following_item.DLL_HasNext());
+                TControl? following_item = _EndingItemOfRange.DLL_GetItemNext_OfT();
+                
+                bChangeOfListEndpoint_ListStart = (! _StartingItemOfRange.DLL_HasPrior());
+                bChangeOfListEndpoint_ListEnd = (! following_item.DLL_HasNext());
+
                 DLLRange<TControl> following_item_as_range = new DLLRange<TControl>(following_item, false);
                 following_item_as_range.DeleteFromList_noAdmin();
                 following_item.DLL_ClearReferencePrior('M');  // Temporarily deleted, so clean up the Next & Prior references. M = Move
                 following_item.DLL_ClearReferenceNext('M');  // Clean up the Next & Prior references.  M = Move
                 //-----_EndingItem.DLL_InsertItemToNext(following_item, true);
                 // DIFFICULT & CONFUSING -- Perform a switcheroo!! --12/15/2024
-                _EndingItem.DLL_InsertItemToPrior(following_item, true);
+                _StartingItemOfRange.DLL_InsertItemToPrior(following_item, true);
+                afterSwap_precedingItem = following_item;  // Added 12/18/2024 td
 
-                // List Administration 
-                if (bChangeOfListEndpoint)
+                //
+                // List Administration!!
+                // 
+
+                if (bChangeOfListEndpoint_ListEnd)
                 {
-                    par_listForAdmin._itemEnding = this._EndingItem;
+                    // The range was (pre-shift) within one item of the end of the parent list.
+                    //   Post-shift, the range is now at the very end of the parent list.
+                    //     ---12/18/2024
+                    par_listForAdmin._itemEnding = this._EndingItemOfRange;
                     if (!pbLikelyChangeOfEndpoint) Debugger.Break();
+                }
+
+                // Added 12/18/2024 td 
+                //
+                //   Let's address the situation in which the range was (pre-shift) at the very beginning
+                //   of the list.  In other words, before the Range's shift, there were not any items
+                //   to the Left (or Above) the Range.
+                //
+                if (bChangeOfListEndpoint_ListStart)
+                {
+                    if (afterSwap_precedingItem.DLL_NotAnyPrior())
+                    {
+                        par_listForAdmin._itemStart = afterSwap_precedingItem;
+                        if (!pbLikelyChangeOfEndpoint) Debugger.Break();
+                    }
+                    else
+                    {
+                        // Programmer must investigate this case.
+                        Debugger.Break();
+                    }
                 }
 
             }
             else
             {
+                //---------------------------------------------------------------------------------
+                //  ----------------------        LEFT        ------------------------------
+                //  ---------------------- SHIFTING LEFT-WARD ------------------------------
+                //  Shift Left (or Up, if the list is vertical, starting from top of sheet). 
+                //---------------------------------------------------------------------------------
                 //
-                // Shift Left (or Up, if the list is vertical, starting from top of sheet). 
-                //
-                ref_bNotPossible = (!_StartingItem.DLL_HasPrior());
+                TControl afterSwap_followingItem; // Added 12/18/2024 td
+                ref_bNotPossible = (!_StartingItemOfRange.DLL_HasPrior());
                 if (ref_bNotPossible) return;
-                TControl? prior_item = _StartingItem.DLL_GetItemPrior_OfT();
-                bChangeOfListEndpoint = (!prior_item.DLL_HasPrior());
+                TControl? prior_item = _StartingItemOfRange.DLL_GetItemPrior_OfT();
+                
+                bChangeOfListEndpoint_ListStart = (! prior_item.DLL_HasPrior());
+                bChangeOfListEndpoint_ListEnd = (! _EndingItemOfRange.DLL_HasNext());
+
                 DLLRange<TControl> prior_item_as_range = new DLLRange<TControl>(prior_item, false);
                 prior_item_as_range.DeleteFromList_noAdmin();
                 prior_item.DLL_ClearReferencePrior('M');  // M = Move
                 prior_item.DLL_ClearReferenceNext('M');  // M = Move
                 //-----_StartingItem.DLL_InsertItemToPrior(prior_item, true);
                 // DIFFICULT & CONFUSING -- Perform a switcheroo!!
-                _StartingItem.DLL_InsertItemToNext(prior_item, true);
+                //------_StartingItemOfRange.DLL_InsertItemToNext(prior_item, true);
+                _EndingItemOfRange.DLL_InsertItemToNext(prior_item, true);
+                afterSwap_followingItem = prior_item;
 
                 // List Administration 
                 //if (bChangeOfListEndpoint) par_listForAdmin._itemStart = this._StartingItem;
-                if (bChangeOfListEndpoint)
+
+                if (bChangeOfListEndpoint_ListStart)
                 {
-                    par_listForAdmin._itemStart = this._StartingItem;
+                    // The range was (pre-shift) within one item of the start of the parent list.
+                    //   Post-shift, the range is now at the very start of the parent list.
+                    //     ---12/18/2024
+                    par_listForAdmin._itemStart = this._StartingItemOfRange;
                     if (!pbLikelyChangeOfEndpoint) Debugger.Break();
+                }
+
+                // Added 12/18/2024 td 
+                //
+                //   Let's address the situation in which the range was (pre-shift) at the very end
+                //   of the list.  In other words, before the Range's shift, there were not any items
+                //   to the Right (or Below) the Range.
+                //
+                if (bChangeOfListEndpoint_ListEnd)
+                {
+                    if (afterSwap_followingItem.DLL_NotAnyNext())
+                    {
+                        par_listForAdmin._itemEnding = afterSwap_followingItem;
+                        if (!pbLikelyChangeOfEndpoint) Debugger.Break();
+                    }
+                    else
+                    {
+                        // Programmer must investigate this case.
+                        System.Diagnostics.Debugger.Break();
+                    }
                 }
 
             }
@@ -786,11 +855,11 @@ namespace RSCLibraryDLLOperations
             //
              // Added 11/10/2024 thomas downes
             //
-            int intNumberOfItems = _ItemCount;
+            int intNumberOfItems = _ItemCountOfRange;
             int intCountItemsOutput = 0;
             StringBuilder result = new StringBuilder(200);
             result.Append("DLLRange: ");
-            TControl temp = _StartingItem;
+            TControl temp = _StartingItemOfRange;
             bool bNotAllItemsOutput = (intNumberOfItems > 0); 
 
             while (temp != null && bNotAllItemsOutput)

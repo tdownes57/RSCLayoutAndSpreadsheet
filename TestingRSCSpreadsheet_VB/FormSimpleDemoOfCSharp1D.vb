@@ -519,13 +519,14 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 11/18/2024 
         ''---If bChangeOfEndpoint Then ''Modified 12/15/2024
-        If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Then
+        If (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred) Then
             mod_firstItem = mod_list._itemStart
             mod_lastItem = mod_list._itemEnding
         End If ''End of ""If (bChangeOfEndpoint) Then""
 
         ''Added 11/17/2024 
-        RefreshTheUI_DisplayList()
+        ''---RefreshTheUI_DisplayList()
+        RefreshTheUI_DisplayList(mod_list, mod_firstItem)
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -959,7 +960,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ElseIf (mod_range IsNot Nothing And (objectListItem.Selected)) Then
 
-            intDistance = mod_range._StartingItem.DLL_GetDistanceTo(objectListItem)
+            intDistance = mod_range._StartingItemOfRange.DLL_GetDistanceTo(objectListItem)
 
             If (intDistance > 0) Then
                 ''The range should be broadened to reach the newly-selected object. 
@@ -1360,7 +1361,8 @@ Public Class FormSimpleDemoOfCSharp1D
         MoveByShiftingRange(SHIFT_LEFT, False, numericShiftLeft.Value)
 
         ''Added 12/17/2024
-        Application.DoEvents() ''Added 12/17/2024 
+        If (APPLICATION_DOEVENTS) Then Application.DoEvents() ''Added 12/17/2024 
+
         RefreshTheUI_DisplayList()
 
     End Sub

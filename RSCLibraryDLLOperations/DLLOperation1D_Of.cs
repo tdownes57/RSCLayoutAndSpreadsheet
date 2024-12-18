@@ -225,7 +225,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/09/2024  
             //
-            if (_range?._ItemCount == 1)
+            if (_range?._ItemCountOfRange == 1)
             {
                 if (_range._isSingleItem == false)
                 {
@@ -233,9 +233,9 @@ namespace RSCLibraryDLLOperations
                     // Fix the _isSingleItem status, it is incorrect. 
                     //
                     _range._isSingleItem = true;
-                    _range._SingleItemInRange = _range._StartingItem;
+                    _range._SingleItemInRange = _range._StartingItemOfRange;
 
-                    TControl tempEnding = _range._EndingItem;
+                    TControl tempEnding = _range._EndingItemOfRange;
                     bool bMatchesStart = (tempEnding == _range._SingleItemInRange);
                     if (bMatchesStart == false) System.Diagnostics.Debugger.Break();
 
@@ -601,7 +601,7 @@ namespace RSCLibraryDLLOperations
             // Admin Work !!
             //
             // Added 11/10/2024 td
-            par_list_NeededForAdmin._itemCount += par_range._ItemCount;
+            par_list_NeededForAdmin._itemCount += par_range._ItemCountOfRange;
 
             //
             // Endpoint work. DIFFICULT AND CONFUSING
@@ -609,11 +609,11 @@ namespace RSCLibraryDLLOperations
             if (par_list_NeededForAdmin._isEmpty_OrTreatAsEmpty)
             {
                 // Added 11/11/2024 td
-                if (par_range._ItemCount > 0)
+                if (par_range._ItemCountOfRange > 0)
                 {
                     par_list_NeededForAdmin._itemStart = par_range.ItemStart();
                     par_list_NeededForAdmin._itemEnding = par_range.Item__End();
-                    par_list_NeededForAdmin._itemCount = par_range._ItemCount;
+                    par_list_NeededForAdmin._itemCount = par_range._ItemCountOfRange;
                     par_list_NeededForAdmin._isEmpty_OrTreatAsEmpty = false;
 
                 }
@@ -621,12 +621,12 @@ namespace RSCLibraryDLLOperations
             }
             else if (bListWillChange_ItemStart) // (par_anchorPair.ItemPriorIsNull())
             {
-                par_list_NeededForAdmin._itemStart = par_range._StartingItem;
+                par_list_NeededForAdmin._itemStart = par_range._StartingItemOfRange;
 
             }
             else if (bListWillChange_ItemFinal) // (par_anchorPair.ItemAfterIsNull())
             {
-                par_list_NeededForAdmin._itemEnding = par_range._EndingItem;
+                par_list_NeededForAdmin._itemEnding = par_range._EndingItemOfRange;
 
             }
 
@@ -656,10 +656,10 @@ namespace RSCLibraryDLLOperations
                     //   because user has chosen to delete all of the items.
                     //Set the list to contain ALL & ONLY items in the range.
                     //   ---4/30/2024 td
-                    par_list_NotReallyNeeded._itemStart = par_range._StartingItem;
-                    par_list_NotReallyNeeded._itemEnding = par_range._EndingItem;
+                    par_list_NotReallyNeeded._itemStart = par_range._StartingItemOfRange;
+                    par_list_NotReallyNeeded._itemEnding = par_range._EndingItemOfRange;
                     par_list_NotReallyNeeded._isEmpty_OrTreatAsEmpty = false;
-                    par_list_NotReallyNeeded._itemCount = par_range._ItemCount;
+                    par_list_NotReallyNeeded._itemCount = par_range._ItemCountOfRange;
 
                 }
                 else
@@ -710,7 +710,7 @@ namespace RSCLibraryDLLOperations
                         //    (If so, some debugging should be performed.)
                         if (bAnchorHasItemAfter)
                         {
-                            bool bInsertIsAlreadyDone = itemOriginallyAfterAnchor.Equals(par_range._StartingItem);
+                            bool bInsertIsAlreadyDone = itemOriginallyAfterAnchor.Equals(par_range._StartingItemOfRange);
                             if (bInsertIsAlreadyDone) System.Diagnostics.Debugger.Break();
                             if (bInsertIsAlreadyDone) return; // Don't repeat an unneeded operation.
                         }
@@ -726,14 +726,14 @@ namespace RSCLibraryDLLOperations
 
                     //Perform the operation !!
                     //   ---par_anchor.DLL_SetItemNext(par_list._itemStart);
-                    par_anchorItem._anchorItem.DLL_SetItemNext(par_range._StartingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemNext(par_range._StartingItemOfRange);
 
                     // Administration (i.e. easy to forget!!)
                     // 10=2024  par_range._StartingItem.DLL_SetItemPrior(par_anchor._anchorItem);
                     // 10-2024  par_range._EndingItem.DLL_SetItemNext(itemOriginallyAfterAnchor);
                     par_range.ItemStart().DLL_SetItemPrior(par_anchorItem._anchorItem);
                     par_range.Item__End().DLL_SetItemNext(itemOriginallyAfterAnchor);
-                    itemOriginallyAfterAnchor.DLL_SetItemPrior(par_range._EndingItem);
+                    itemOriginallyAfterAnchor.DLL_SetItemPrior(par_range._EndingItemOfRange);
                 }
                 else
                 {
@@ -754,10 +754,10 @@ namespace RSCLibraryDLLOperations
                     }
 
                     //Perform the operation !!
-                    par_anchorItem._anchorItem.DLL_SetItemNext(par_range._StartingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemNext(par_range._StartingItemOfRange);
 
                     // Administration (i.e. easy to forget!!)
-                    par_range._StartingItem.DLL_SetItemPrior(par_anchorItem._anchorItem);
+                    par_range._StartingItemOfRange.DLL_SetItemPrior(par_anchorItem._anchorItem);
 
                 }
 
@@ -798,7 +798,7 @@ namespace RSCLibraryDLLOperations
 
                     if (bAnchorHasItemBefore)
                     {
-                        bool bInsertIs_AlreadyDone = itemOriginallyBeforeAnchor.Equals(par_range._EndingItem);
+                        bool bInsertIs_AlreadyDone = itemOriginallyBeforeAnchor.Equals(par_range._EndingItemOfRange);
                         if (bInsertIs_AlreadyDone) System.Diagnostics.Debugger.Break();
                         if (bInsertIs_AlreadyDone) return; // Don't repeat an unneeded operation.
                     }
@@ -818,12 +818,12 @@ namespace RSCLibraryDLLOperations
                     // #3a of 3. 
                     //
                     // Insert the range before the anchor. 
-                    par_anchorItem._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemPrior(par_range._EndingItemOfRange);
 
                     // Administration (i.e. easy to forget!!)
-                    par_range._EndingItem.DLL_SetItemNext(par_anchorItem._anchorItem);
-                    par_range._StartingItem.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
-                    itemOriginallyBeforeAnchor.DLL_SetItemNext(par_range._StartingItem);
+                    par_range._EndingItemOfRange.DLL_SetItemNext(par_anchorItem._anchorItem);
+                    par_range._StartingItemOfRange.DLL_SetItemPrior(itemOriginallyBeforeAnchor);
+                    itemOriginallyBeforeAnchor.DLL_SetItemNext(par_range._StartingItemOfRange);
                 }
                 else
                 {
@@ -831,9 +831,9 @@ namespace RSCLibraryDLLOperations
                     // #3b of 3.  Anchor is at the start of the list. 
                     //
                     // Insert the range before the anchor. 
-                    par_anchorItem._anchorItem.DLL_SetItemPrior(par_range._EndingItem);
+                    par_anchorItem._anchorItem.DLL_SetItemPrior(par_range._EndingItemOfRange);
                     // Administration (i.e. easy to forget!!)
-                    par_range._EndingItem.DLL_SetItemNext(par_anchorItem._anchorItem);
+                    par_range._EndingItemOfRange.DLL_SetItemNext(par_anchorItem._anchorItem);
                 }
 
             }
@@ -931,7 +931,7 @@ namespace RSCLibraryDLLOperations
                 itemOriginallyBeforeRange.DLL_ClearReferenceNext('D');
                 if (ALWAYS_CLEAN_ENDPOINTS)
                 {
-                    par_range._StartingItem.DLL_ClearReferencePrior('D');
+                    par_range._StartingItemOfRange.DLL_ClearReferencePrior('D');
                 }
             }
 
@@ -1053,7 +1053,7 @@ namespace RSCLibraryDLLOperations
                 for (int index = 1; index <= howManyShifts; index++)
                 {
                     // Added 12/15/2024 thomas downes
-                    int indexOfRange = par_range._StartingItem.DLL_GetItemIndex();
+                    int indexOfRange = par_range._StartingItemOfRange.DLL_GetItemIndex();
 
                     // Change of endpoint likely? --12/15/2024 td
                     //changeOfEndpoint = (indexOfRange <= 2);
@@ -1278,7 +1278,7 @@ namespace RSCLibraryDLLOperations
             //if (_isHoriz && _range_H != null) return (IDoublyLinkedItem)(_range_H._StartingItem);
             //if (_isVerti && _range_V != null) return (IDoublyLinkedItem)(_range_V._StartingItem);
 
-            return (IDoublyLinkedItem)(_range._StartingItem);
+            return (IDoublyLinkedItem)(_range._StartingItemOfRange);
             //return null;
         }
 

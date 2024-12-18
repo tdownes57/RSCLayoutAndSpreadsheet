@@ -195,7 +195,7 @@ namespace RSCLibraryDLLOperations
                 itemAnchorRightAft = par_anchor._anchorItem;
             }
 
-            DLL_InsertRange(par_range._StartingItem, par_range._EndingItem,
+            DLL_InsertRange(par_range._StartingItemOfRange, par_range._EndingItemOfRange,
                            itemAnchorLeftPrior,
                            itemAnchorRightAft);
 
@@ -227,12 +227,12 @@ namespace RSCLibraryDLLOperations
             if (par_itemAnchorToFollow.DLL_HasPrior())
             {
                 TControl temp_prior = par_itemAnchorToFollow.DLL_GetItemPrior_OfT();
-                temp_prior.DLL_SetItemNext(par_range._StartingItem);
-                par_range._StartingItem.DLL_SetItemPrior(temp_prior);
+                temp_prior.DLL_SetItemNext(par_range._StartingItemOfRange);
+                par_range._StartingItemOfRange.DLL_SetItemPrior(temp_prior);
             }
 
-            par_itemAnchorToFollow.DLL_SetItemPrior_OfT(par_range._EndingItem);
-            par_range._EndingItem.DLL_SetItemNext_OfT(par_itemAnchorToFollow);
+            par_itemAnchorToFollow.DLL_SetItemPrior_OfT(par_range._EndingItemOfRange);
+            par_range._EndingItemOfRange.DLL_SetItemNext_OfT(par_itemAnchorToFollow);
              
         }
 
@@ -269,8 +269,8 @@ namespace RSCLibraryDLLOperations
                 par_range.Item__End().DLL_SetItemNext_OfT(item4_AfterAnchor);
             }
 
-            par_itemAnchorToPrecede.DLL_SetItemNext_OfT(par_range._StartingItem);
-            par_range._StartingItem.DLL_SetItemPrior_OfT(par_itemAnchorToPrecede);
+            par_itemAnchorToPrecede.DLL_SetItemNext_OfT(par_range._StartingItemOfRange);
+            par_range._StartingItemOfRange.DLL_SetItemPrior_OfT(par_itemAnchorToPrecede);
 
         }
 
@@ -459,12 +459,12 @@ namespace RSCLibraryDLLOperations
             //
             // Added 6/7/2024 thomas downes
             //
-            _itemCount = par_range._ItemCount;
+            _itemCount = par_range._ItemCountOfRange;
             if (0 == _itemCount) return; 
 
-            _itemStart = par_range._StartingItem;
+            _itemStart = par_range._StartingItemOfRange;
             //_itemEnding = _itemStart.DLL_GetItemNext(-1 + _itemCount).DLL_UnboxControl();
-            _itemEnding = par_range._EndingItem;
+            _itemEnding = par_range._EndingItemOfRange;
 
         }
 

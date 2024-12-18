@@ -833,7 +833,7 @@ Public Class FormSimpleDemo1DHorizontal
 
         ElseIf (mod_range IsNot Nothing And (objectListItem.Selected)) Then
 
-            intDistance = mod_range._StartingItem.DLL_GetDistanceTo(objectListItem)
+            intDistance = mod_range._StartingItemOfRange.DLL_GetDistanceTo(objectListItem)
 
             If (intDistance > 0) Then
                 ''The range should be broadened to reach the newly-selected object. 
