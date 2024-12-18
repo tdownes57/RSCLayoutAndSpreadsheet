@@ -613,7 +613,10 @@ Public Class FormSimpleDemo1DHorizontal
         Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLHorizontal)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
-        Dim boolEndpoint As Boolean
+        ''++Dim boolEndpoint As Boolean
+        Dim bChangeOfEndpoint As Boolean ''Added 12/17/2024 
+        Dim bChangeOfEndpoint_Expected As Boolean ''Added 12/17/2024 
+        Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/17/2024 
         Dim array_sItemsToInsert As String()
         Dim bUserSpecifiedValues
         Dim strNewItem As String
@@ -672,7 +675,8 @@ Public Class FormSimpleDemo1DHorizontal
         ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
         ''--12/9/2024--boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
         ''-------------                intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
-        boolEndpoint = (boolIsForEmptyList Or
+        ''12/17/2024 boolEndpoint = (boolIsForEmptyList Or
+        bChangeOfEndpoint_Expected = (boolIsForEmptyList Or
              ((intAnchorPosition = 1) And bInsertRangeBeforeAnchor) Or
             ((intAnchorPosition = intHowManyInModuleList) And bInsertRangeAfterAnchor))
 
@@ -700,7 +704,8 @@ Public Class FormSimpleDemo1DHorizontal
 
         If DIRECT_TO_LIST Then
             ''Without using the DLLManager class, directly editing the list.  
-            mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+            ''12/17/2024 mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+            mod_list.DLL_InsertItemSingly(newItem, bChangeOfEndpoint_Expected)
 
         Else
             ''
@@ -712,14 +717,21 @@ Public Class FormSimpleDemo1DHorizontal
                                       objAnchorItem,
                                       objAnchorPair,
                                       False, False, False)
-            mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+
+            ''12/17/2024  mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+                                                 bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
         ''Added 11/10/2024 td
         My.Application.DoEvents()
+
+        ''Added 12/17/2024 td
+        bChangeOfEndpoint = (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Or bChangeOfEndpoint)
+
         ''Added 11/10/2024 td
-        If boolEndpoint Then
+        If bChangeOfEndpoint Then
             mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
             mod_lastItem = mod_list.DLL_GetLastItem_OfT()
         End If ''eND OF ""If (boolEndpoint) Then""
@@ -909,6 +921,7 @@ Public Class FormSimpleDemo1DHorizontal
         Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
+        Dim bChangeOfEndpoint_ByRef As Boolean ''Added 12/17/2024 
         Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
         Dim type_notMove As New StructureTypeOfMove(False) ''Added 12/15/2024
 
@@ -965,7 +978,13 @@ Public Class FormSimpleDemo1DHorizontal
                                       OPERATION_Delete,
                                       OPERATION_NotMove, type_notMove, Nothing, Nothing,
                                       SORT_123, SORT_321, SORT_UNDO)
-            mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+
+            ''12/17/2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+            mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
+                                                 bChangeOfEndpoint_ByRef, RECORD_DEL_OPERATIONS)
+
+            ''Added 12/17/2024 
+            bAnyEndpointAffected = (bAnyEndpointAffected Or bChangeOfEndpoint_ByRef)
 
             ''Administration....
             If (bAnyEndpointAffected) Then
@@ -1051,6 +1070,8 @@ Public Class FormSimpleDemo1DHorizontal
         Const OPERATION_MOVE As Boolean = True
         ''Const ALLOW_NULLS As Boolean = True
         Dim bChangeOfEndpoint As Boolean = False
+        Dim bChangeOfEndpoint_Expected As Boolean = False ''Added 12/17/2024
+        Dim bChangeOfEndpoint_Occurred As Boolean = False ''Added 12/17/2024
         Dim intAnchorIndex As Integer = 0
         Dim bAnchorMoveAfter As Boolean
         Dim bAnchorMoveBefore As Boolean
@@ -1075,11 +1096,11 @@ Public Class FormSimpleDemo1DHorizontal
 
         bAnchorMoveAfter = (listMoveAfterOrBefore.SelectedIndex < 1)
         bAnchorMoveBefore = (listMoveAfterOrBefore.SelectedIndex >= 1)
-        bChangeOfEndpoint = mod_range.ContainsEndpoint()
+        bChangeOfEndpoint_Expected = mod_range.ContainsEndpoint()
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)(tempAnchorItem, bAnchorMoveAfter)
         ''Added 12/09/2024  bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
-        bChangeOfEndpoint = (bChangeOfEndpoint Or tempAnchorPair.ContainsEndpoint())
+        bChangeOfEndpoint_Expected = (bChangeOfEndpoint_Expected Or tempAnchorPair.ContainsEndpoint())
 
         ''Added 11/18/2024
         ''
@@ -1107,7 +1128,12 @@ Public Class FormSimpleDemo1DHorizontal
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, tempAnchorPair,
                                                           False, OPERATION_MOVE, type_move)
         ''operation.OperateOnList(mod_list)
-        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        ''12/17/2024 td  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+                                             bChangeOfEndpoint_Occurred, True)
+
+        ''Added 12/17/2024 
+        bChangeOfEndpoint = (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Or bChangeOfEndpoint)
 
         ''Added 11/18/2024 
         If (bChangeOfEndpoint) Then

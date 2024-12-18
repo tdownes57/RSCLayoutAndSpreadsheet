@@ -66,6 +66,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         LabelMoveBenchmark = New Label()
         numMoveAnchorBenchmark = New NumericUpDown()
         ButtonSortForward = New Button()
+        LinkRefreshList = New LinkLabel()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -519,11 +520,22 @@ Partial Class FormSimpleDemoOfCSharp1D
         ButtonSortForward.Text = "Sort Items Forward"
         ButtonSortForward.UseVisualStyleBackColor = False
         ' 
+        ' LinkRefreshList
+        ' 
+        LinkRefreshList.AutoSize = True
+        LinkRefreshList.Location = New Point(39, 142)
+        LinkRefreshList.Name = "LinkRefreshList"
+        LinkRefreshList.Size = New Size(143, 15)
+        LinkRefreshList.TabIndex = 105
+        LinkRefreshList.TabStop = True
+        LinkRefreshList.Text = "Clear recorded operations"
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 541)
+        Controls.Add(LinkRefreshList)
         Controls.Add(ButtonSortForward)
         Controls.Add(GroupMoveByAnchor)
         Controls.Add(GroupMoveByShifting)
@@ -620,5 +632,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents LabelMoveBenchmark As Label
     Friend WithEvents numMoveAnchorBenchmark As NumericUpDown
     Friend WithEvents ButtonSortForward As Button
+    Friend WithEvents LinkRefreshList As LinkLabel
 
 End Class

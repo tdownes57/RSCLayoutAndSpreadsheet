@@ -416,7 +416,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchorItem"></param>
         /// <param name="pbEndpointProtection">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
-        private void OperateOnList_Private(DLLList<TControl> par_list,
+        private void OperateOnList_Private(DLLList<TControl> par_list_administrative,
                                      DLLRange<TControl> par_range,
                                      DLLAnchorItem<TControl>? par_anchorItem,
                                      DLLAnchorCouplet<TControl>? par_anchorPair,
@@ -434,13 +434,15 @@ namespace RSCLibraryDLLOperations
             //   (Of TControl_H, TControl_V). 
             //  
             pbChangeOfEndpoint_Occurred = false; //Default.  12/15/2024
+            TControl tempListStart = par_list_administrative._itemStart;   // Added 12/17/2024 
+            TControl tempListEnding = par_list_administrative._itemEnding;  // Added 12/17/2024 
 
             if (_isInsert)
             {
                 //
                 // Insert 
                 //
-                OperateOnList_Insert(par_list, par_range,
+                OperateOnList_Insert(par_list_administrative, par_range,
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint_Expected, 
@@ -455,7 +457,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Delete
                 //
-                OperateOnList_Delete(par_list, par_range,
+                OperateOnList_Delete(par_list_administrative, par_range,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint_Expected, 
                                      pbRunOtherChecks);
@@ -481,7 +483,7 @@ namespace RSCLibraryDLLOperations
                 // 
                 // Move
                 //
-                OperateOnList_Move(par_list, par_range, 
+                OperateOnList_Move(par_list_administrative, par_range, 
                                      this._moveType, par_anchorItem, par_anchorPair, 
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint_Expected,
@@ -489,6 +491,13 @@ namespace RSCLibraryDLLOperations
                                      pbRunOtherChecks);
 
             }
+
+            //
+            // Added 12/17/2024 td
+            //
+            pbChangeOfEndpoint_Occurred = par_list_administrative
+                .HasChangeOfEndPoint(tempListStart, tempListEnding);
+
 
         }
 
@@ -501,7 +510,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
         /// <param name="par_range">This is the range of items which are being placed into the list.</param>
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
-        private void OperateOnList_Insert(DLLList<TControl> par_list_MaybeNotNeeded,
+        private void OperateOnList_Insert(DLLList<TControl> par_list_administrative,
                                              DLLRange<TControl> par_range,
                                              DLLAnchorItem<TControl>? par_anchorItem,
                                              DLLAnchorCouplet<TControl>? par_anchorPair,
@@ -510,6 +519,12 @@ namespace RSCLibraryDLLOperations
                                      bool pbRunOtherChecks = false)
         // where TControl : IDoublyLinkedItem<TControl>
         {
+            //
+            // Added 12/17/2024 
+            //
+            //TControl tempListStart = par_list_administrative._itemStart;   // Added 12/17/2024 
+            //TControl tempListEnding = par_list_administrative._itemEnding;  // Added 12/17/2024 
+
             //
             // Added 4/17/2024
             //
@@ -535,7 +550,7 @@ namespace RSCLibraryDLLOperations
                 //   We will use par_anchorPair (DLLAnchorCouplet) to determine
                 //   where to place the Range.
                 //
-                Operate_Insert_ByCouplet(par_list_MaybeNotNeeded,
+                Operate_Insert_ByCouplet(par_list_administrative,
                                           par_range, par_anchorPair,
                                           pbIsChangeOfEndpoint);
             }
@@ -548,11 +563,16 @@ namespace RSCLibraryDLLOperations
                 //   We will use par_anchorItem (DLLAnchorItem) to determine
                 //   where to place the Range.
                 //
-                Operate_Insert_ByAnchorItem(par_list_MaybeNotNeeded,
+                Operate_Insert_ByAnchorItem(par_list_administrative,
                                           par_range, par_anchorItem,
                                           pbIsChangeOfEndpoint);
 
             }
+
+            // Added 12/17/2024 td
+            //pbIsChangeOfEndpoint = par_list_administrative
+            //    .HasChangeOfEndPoint(tempListStart, tempListEnding);
+
             //
             // End of Insertion operation.  
             //

@@ -501,6 +501,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim bChangeOfEndpoint As Boolean ''Added 12/17/2024  
         Dim bChangeOfEndpoint_Expected As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/16/2024 
         Dim type_notMove As New StructureTypeOfMove(False)
@@ -585,9 +586,10 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLItem)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
-        ''Dim boolEndpoint As Boolean ''Obselete as of 12/16/2024 
+        ''//Dim boolEndpoint As Boolean ''Obselete as of 12/16/2024 
         Dim bChangeOfEndpoint_Expected As Boolean ''Added 12/16/2024
-        Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/16/2024 
+        Dim bChangeOfEndpoint_Occurred As Boolean ''Added 12/16/2024
+        Dim bChangeOfEndpoint As Boolean ''Added 12/16/2024
         Dim array_sItemsToInsert As String()
         Dim bUserSpecifiedValues
         Dim strNewItem As String
@@ -681,13 +683,17 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 11/10/2024 td
         My.Application.DoEvents()
         ''Added 11/10/2024 td
+
         ''//If boolEndpoint Then
-        If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Then
+        ''===If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Then
+
+        bChangeOfEndpoint = (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Or bChangeOfEndpoint)
+        If (bChangeOfEndpoint) Then
 
             mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
             mod_lastItem = mod_list.DLL_GetLastItem_OfT()
 
-        End If ''eND OF ""If (boolEndpoint) Then""
+        End If ''End of ""If (bChangeOfEndpoint) Then""
 
         ''
         ''Added 10/20/2024

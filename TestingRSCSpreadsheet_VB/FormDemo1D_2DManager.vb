@@ -1015,6 +1015,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Const OPERATION_MOVE As Boolean = True
         ''Const ALLOW_NULLS As Boolean = True
         Dim bChangeOfEndpoint As Boolean = False
+        Dim bChangeOfEndpoint_Expected As Boolean = False ''Added 12/17/2024
+        Dim bChangeOfEndpoint_Occurred As Boolean = False ''Added 12/17/2024
         Dim intAnchorIndex As Integer = 0
         Dim bAnchorMoveAfter As Boolean
         Dim bAnchorMoveBefore As Boolean
@@ -1032,10 +1034,10 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
         bAnchorMoveAfter = (listMoveAfterOrBefore.SelectedIndex < 1)
         bAnchorMoveBefore = (listMoveAfterOrBefore.SelectedIndex >= 1)
-        bChangeOfEndpoint = mod_range.ContainsEndpoint()
+        bChangeOfEndpoint_Expected = mod_range.ContainsEndpoint()
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)(tempAnchorItem, bAnchorMoveAfter)
-        bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
+        bChangeOfEndpoint_Expected = bChangeOfEndpoint_Expected Or tempAnchorPair.ContainsEndpoint()
 
         ''Added 11/18/2024
         ''
@@ -1061,7 +1063,11 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_move)
         ''operation.OperateOnList(mod_list)
-        mod_manager1D.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        mod_manager1D.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+                                               bChangeOfEndpoint_Occurred, True)
+
+        ''Added 12/17/2024 td
+        bChangeOfEndpoint = (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Or bChangeOfEndpoint)
 
         ''Added 11/18/2024 
         If (bChangeOfEndpoint) Then

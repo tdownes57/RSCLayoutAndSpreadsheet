@@ -120,6 +120,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Populate the UI. 
         Dim strListOfLinks As String
 
+        Application.DoEvents() ''Seems to be needed.
+
         ''Major call!!
         strListOfLinks = StringToFillTheTextboxDisplayingList()
         richtextItemsDisplay.Text = strListOfLinks
@@ -707,7 +709,10 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLItem)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
-        Dim boolEndpoint As Boolean
+        ''Dim boolEndpoint As Boolean
+        Dim bChangeOfEndpoint As Boolean
+        Dim bChangeOfEndpoint_Expected As Boolean
+        Dim bChangeOfEndpoint_Occurred As Boolean
         Dim array_sItemsToInsert As String()
         Dim bUserSpecifiedValues
         Dim strNewItem As String
@@ -766,7 +771,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''//boolEndpoint = (intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList)
         ''--12/9/2024--boolEndpoint = intAnchorPosition = 1 And bInsertRangeBeforeAnchor Or
         ''-------------                intAnchorPosition = intHowManyInModuleList And bInsertRangeAfterAnchor
-        boolEndpoint = (boolIsForEmptyList Or
+        ''12/17/2024 boolEndpoint = (boolIsForEmptyList Or
+        bChangeOfEndpoint_Expected = (boolIsForEmptyList Or
              ((intAnchorPosition = 1) And bInsertRangeBeforeAnchor) Or
             ((intAnchorPosition = intHowManyInModuleList) And bInsertRangeAfterAnchor))
 
@@ -794,7 +800,8 @@ Public Class FormSimpleDemoOfCSharp1D
 
         If DIRECT_TO_LIST Then
             ''Without using the DLLManager class, directly editing the list.  
-            mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+            ''12/17 mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
+            mod_list.DLL_InsertItemSingly(newItem, bChangeOfEndpoint_Expected)
 
         Else
             ''
@@ -805,14 +812,20 @@ Public Class FormSimpleDemoOfCSharp1D
                                         INSERT_OPERATION, False, False, not_a_moveType,
                                       objAnchorItem, objAnchorPair,
                                       False, False, False)
-            mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+            ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+            mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+                                                 bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
         ''Added 11/10/2024 td
         My.Application.DoEvents()
+
+        ''Added 12/17/2024 
+        bChangeOfEndpoint = (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Or bChangeOfEndpoint)
+
         ''Added 11/10/2024 td
-        If boolEndpoint Then
+        If (bChangeOfEndpoint) Then ''If boolEndpoint Then
             mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
             mod_lastItem = mod_list.DLL_GetLastItem_OfT()
         End If ''eND OF ""If (boolEndpoint) Then""
@@ -1007,6 +1020,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_start As Boolean ''Added 11/11/2024 td
         Dim bAnyEndpointAffected_end As Boolean ''Added 11/11/2024 td
+        Dim bAnyEndpointAffected_ByRef As Boolean ''Added 11/11/2024 td
         Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
         Dim not_a_moveType As StructureTypeOfMove = New StructureTypeOfMove(False) ''Added 12/11/2024 
 
@@ -1063,10 +1077,12 @@ Public Class FormSimpleDemoOfCSharp1D
                                       OPERATION_Delete,
                                       OPERATION_NotMove, not_a_moveType, Nothing, Nothing,
                                       SORT_123, SORT_321, SORT_UNDO)
-            mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+
+            mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
+                                                 bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
 
             ''Administration....
-            If (bAnyEndpointAffected) Then
+            If (bAnyEndpointAffected Or bAnyEndpointAffected_ByRef) Then
                 mod_firstItem = mod_list._itemStart
                 mod_lastItem = mod_list._itemEnding
             End If ''End of ""If (bAnyEndpointAffected) Then""
@@ -1316,6 +1332,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Const SHIFT_LEFT As Boolean = True
         MoveByShiftingRange(SHIFT_LEFT, False, numericShiftLeft.Value)
 
+        ''Added 12/17/2024
+        Application.DoEvents() ''Added 12/17/2024 
+        RefreshTheUI_DisplayList()
 
     End Sub
 
@@ -1415,8 +1434,13 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub
 
+    Private Sub LinkRefreshList_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshList.LinkClicked
 
+        ''Added 12/17/2024
+        RefreshTheUI_DisplayList()
+        MessageBox.Show("Refreshed")
 
+    End Sub
 End Class
 
 
