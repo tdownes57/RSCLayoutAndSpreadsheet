@@ -242,6 +242,10 @@ namespace RSCLibraryDLLOperations
                 }
             }
 
+            //
+            // Added 12/19/2024 Thomas Downes 
+            //
+            _moveType = par_structMoveType;
 
 
         }
@@ -1046,19 +1050,38 @@ namespace RSCLibraryDLLOperations
                 //    are adjacent to the range.)
                 //
                 int howManyShifts = par_typeOfMove.HowManyItemsIncremental;
+                bool bShiftingLeft = par_typeOfMove.IsShiftingToLeft;  //Added 12/19/2024
+                bool bShiftingRight = par_typeOfMove.IsShiftingToRight;  //Added 12/19/2024
                 bool ref_not_possible = false;
                 bool changeOfEndpoint_Expected = false; // (1 == par_range._StartingItem.DLL_GetItemIndex());
-                bool changeOfEndpoint_Any = false; 
+                bool changeOfEndpoint_Any = false;
+                int intListItemCount = par_list_forFinalAdmin._itemCount; //Added 12/19/2024
 
                 for (int index = 1; index <= howManyShifts; index++)
                 {
                     // Added 12/15/2024 thomas downes
-                    int indexOfRange = par_range._StartingItemOfRange.DLL_GetItemIndex();
+                    int indexOfRange; // = par_range._StartingItemOfRange.DLL_GetItemIndex();
 
                     // Change of endpoint likely? --12/15/2024 td
                     //changeOfEndpoint = (indexOfRange <= 2);
-                    changeOfEndpoint_Expected = (indexOfRange <= 2 ||
-                        indexOfRange >= -1 + par_list_forFinalAdmin._itemCount);
+                    //--- changeOfEndpoint_Expected = (indexOfRange <= 2 ||
+                    //---   indexOfRange >= -1 + par_list_forFinalAdmin._itemCount);
+
+                    if (bShiftingLeft)
+                    {
+                        indexOfRange = par_range._StartingItemOfRange.DLL_GetItemIndex();
+                        changeOfEndpoint_Expected = (indexOfRange <= 2) || 
+                            par_range.ContainsEndpoint();
+
+                    }
+                    else if (bShiftingRight)
+                    {
+                        indexOfRange = par_range._EndingItemOfRange.DLL_GetItemIndex();
+                        intListItemCount = par_list_forFinalAdmin._itemCount;
+                        changeOfEndpoint_Expected = (indexOfRange >= -1 + intListItemCount) || 
+                            par_range.ContainsEndpoint();
+
+                    }
 
                     changeOfEndpoint_Any = (changeOfEndpoint_Any || changeOfEndpoint_Expected); //Added 12/15/2024
 
@@ -1192,6 +1215,8 @@ namespace RSCLibraryDLLOperations
             // Added 12/11/2024 thomas downes
             if (_isMove) // Added 12/11/2024 thomas downes
             {
+                result_isMove = true; // Added 12/19/2024 
+
                 result_MoveType = new StructureTypeOfMove(_isMove);
                 result_MoveType.IsMoveToAnchor = _moveType.IsMoveToAnchor;
                 result_MoveType.IsMoveIncrementalShift = _moveType.IsMoveIncrementalShift;

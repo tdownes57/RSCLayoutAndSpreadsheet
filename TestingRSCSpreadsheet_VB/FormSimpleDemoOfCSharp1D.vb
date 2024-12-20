@@ -483,10 +483,16 @@ Public Class FormSimpleDemoOfCSharp1D
             MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
             Exit Sub
 
-        ElseIf bCannotMoveThatMany Then
+        ElseIf mod_range.ContainsEndpoint(par_goLeft, par_goRight) Then
 
             ''Added 11/11/2024 td
-            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+            MessageBoxTD.Show_Statement("The range is at the edge, so no moves can logically take place.")
+            Exit Sub
+
+        ElseIf bCannotMoveThatMany Then
+
+                ''Added 11/11/2024 td
+                MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
                                                      "The list is not long enough (less than {0} items), " +
                                         "the requested number of items to move cannot take place.", )
             Exit Sub

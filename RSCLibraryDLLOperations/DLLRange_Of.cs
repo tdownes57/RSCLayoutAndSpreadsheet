@@ -417,6 +417,32 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool ContainsEndpoint(bool par_checkPrior, bool par_checkNext)
+        {
+            //
+            // Added 12/19/2024 thomas downes
+            //
+            bool bResult_missingAdjacentItem;
+            bool bNoPreceding;
+            bool bNoFollowing;
+
+            // Added 11/09/2024 t.downes
+            if (_EndingItemOfRange == null && _ItemCountOfRange > 0)
+            {
+                // Populate the _EndingItem.
+                _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
+            }
+
+            bNoPreceding = (false == _StartingItemOfRange.DLL_HasPrior());
+            bNoFollowing = (false == _EndingItemOfRange.DLL_HasNext());
+            bResult_missingAdjacentItem = (bNoPreceding && par_checkPrior ||
+                       bNoFollowing && par_checkNext);
+
+            return bResult_missingAdjacentItem;
+
+        }
+
+
         public bool ContainsItem(TControl par_item)
         {
             //
@@ -727,6 +753,11 @@ namespace RSCLibraryDLLOperations
             bool bChangeOfListEndpoint_ListStart = false;
             bool bChangeOfListEndpoint_ListEnd = false;
 
+            //
+            // Right  -  Shift Right (by one item)
+            //
+            #region RegionOfCode__ShiftRight
+
             if (par_shiftRightOrDown)
             {
                 //
@@ -787,6 +818,14 @@ namespace RSCLibraryDLLOperations
                 }
 
             }
+
+            #endregion
+
+            //
+            // Left   -   Shift Left (by one item)
+            //
+            #region RegionOfCode__ShiftLeft
+
             else
             {
                 //---------------------------------------------------------------------------------
@@ -846,6 +885,8 @@ namespace RSCLibraryDLLOperations
                 }
 
             }
+
+            #endregion
 
         }
 
