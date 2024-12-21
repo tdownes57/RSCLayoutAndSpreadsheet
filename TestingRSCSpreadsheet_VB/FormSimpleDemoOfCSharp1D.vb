@@ -491,10 +491,10 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ElseIf bCannotMoveThatMany Then
 
-                ''Added 11/11/2024 td
-                MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
-                                                     "The list is not long enough (less than {0} items), " +
-                                        "the requested number of items to move cannot take place.", )
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+                                                 "The list is not long enough (less than {0} items), " +
+                                    "the requested number of items to move cannot take place.", )
             Exit Sub
 
         End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
@@ -1472,7 +1472,7 @@ Public Class FormSimpleDemoOfCSharp1D
     Private Sub LinkRefreshList_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkRefreshList.LinkClicked
 
         ''Added 12/17/2024
-        RefreshTheUI_DisplayList
+        RefreshTheUI_DisplayList()
         MessageBox.Show("Refreshed")
 
     End Sub
@@ -1500,8 +1500,18 @@ Public Class FormSimpleDemoOfCSharp1D
 
     End Sub
 
+    Private Sub ButtonSortForward_Click(sender As Object, e As EventArgs) Handles ButtonSortForward.Click
+        ''
+        ''Added 12/20/2024 
+        ''
+        Dim operationSortForward As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim bChangeOfEndpoint_Occurred As Boolean
+
+        operationSortForward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Forward)
+        operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
 
 
+    End Sub
 End Class
 
 

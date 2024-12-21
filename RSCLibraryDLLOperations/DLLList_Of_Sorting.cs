@@ -25,7 +25,7 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------------------
         //
         //
-        public void DLL_SortItems(bool par_descending = false)
+        public void DLL_SortItems(bool par_ascending, bool par_descending)
         {
             //
             //    Public Sub DLL_SortItems(Optional par_descending As Boolean = False)
@@ -40,10 +40,18 @@ namespace RSCLibraryDLLOperations
             //    Dim lastItem_AfterSorting As IDoublyLinkedItem = Nothing
             //    Dim intHowManyItems As Integer
             //    Const INITIAL_CALL As Integer = 0 ''1 ''0
-            //
+
+            TControl firstItem;
+            TControl? firstItem_AfterSorting = null;
+            TControl? lastItem_AfterSorting = null;
+            int intHowManyItems;
+            const int INITIAL_CALL = 0; // 1
+
             //    firstItem = mod_dllControlFirst
             //    intHowManyItems = mod_intCountOfItems
-            //
+            firstItem = _itemStart;
+            intHowManyItems = _itemCount;
+
             //    ''
             //    '' Sorting Algorithm:  "Merge Sort"
             //    ''
@@ -51,19 +59,25 @@ namespace RSCLibraryDLLOperations
             //                                 firstItem_AfterSorting,
             //                                 lastItem_AfterSorting, INITIAL_CALL,
             //                                  par_descending)
-            //
+            SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
+                                             ref firstItem_AfterSorting,
+                                             ref lastItem_AfterSorting, INITIAL_CALL,
+                                              par_descending);
+
             //    ''Clean the dangling references!!
             //    ''  S = Sorting
             //    firstItem_AfterSorting.DLL_ClearReferencePrior("S"c)
             //    lastItem_AfterSorting.DLL_ClearReferenceNext("S"c)
-            //
+            firstItem_AfterSorting?.DLL_ClearReferencePrior('S');
+            lastItem_AfterSorting?.DLL_ClearReferenceNext('S');
+            
             //    ''Added 1/8/2024 
             //    mod_dllControlFirst = firstItem_AfterSorting
             //    mod_dllControlLast = lastItem_AfterSorting
             //
             //End Sub ''eND OF ""Public Sub DLL_SortItems()""
 
-        }   //End Sub ''eND OF ""public voide DLL_SortItems(bool par_descending)""
+        }   //End Sub ''eND OF ""public void DLL_SortItems(bool par_descending)""
 
 
         /// <summary>

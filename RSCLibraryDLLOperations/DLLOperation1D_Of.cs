@@ -253,7 +253,7 @@ namespace RSCLibraryDLLOperations
 
         public DLLOperation1D(DLLRange<TControl> par_range,
                               DLLAnchorCouplet<TControl> par_anchorCouplet,
-                              bool par_isInsert, bool par_isMove, 
+                              bool par_isInsert, bool par_isMove,
                               StructureTypeOfMove par_typeOfMove)
         {
             //
@@ -279,6 +279,29 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLOperation1D(EnumSortTypes par_enum)
+        {
+            //
+            // Added 12/20/2024 
+            //
+            if (par_enum == EnumSortTypes.Forward) _isSort_Ascending = true;
+            if (par_enum == EnumSortTypes.Backward) _isSort_Descending = true;
+
+        }
+
+
+        public void ExecuteOnList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
+        {
+            //
+            // Added 4/17/2024
+            //
+            // This is an "alias" method, added in case the programmer gets forgetful 
+            //  about the name. 
+            //
+            OperateOnList(par_list, out pbChangeOfEndpoint_Occurred);
+
+        }
+
         public void OperateOnList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //
@@ -296,13 +319,20 @@ namespace RSCLibraryDLLOperations
 
             if (_isSort_Ascending)
             {
+                //
+                // Sort - Ascending
+                //
+                par_list.DLL_SortItems(_isSort_Ascending, false);
                 //pbChangeOfEndpoint_Occurred = false; // true;
                 pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
             }
             if (_isSort_Descending)
             {
-
+                //
+                // Sort - Ascending
+                //
+                par_list.DLL_SortItems(false, _isSort_Descending);
                 //pbChangeOfEndpoint_Occurred = false; // true; 
                 pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
@@ -348,14 +378,14 @@ namespace RSCLibraryDLLOperations
             if (_isSort_Ascending)
             {
                 // Ascending Sort
-                par_list.DLL_SortItems(false);
+                par_list.DLL_SortItems(_isSort_Ascending, false);
                 pbChangeOfEndpoint_Occurred = true;
             }
             if (_isSort_Descending)
             {
                 // Descending Sort  
                 const bool DESCENDING = true;
-                par_list.DLL_SortItems(DESCENDING);
+                par_list.DLL_SortItems(false, DESCENDING);
                 pbChangeOfEndpoint_Occurred = true;
             }
             else
@@ -384,14 +414,14 @@ namespace RSCLibraryDLLOperations
             if (_isSort_Ascending)
             {
                 // Ascending Sort
-                par_list.DLL_SortItems(false);
+                par_list.DLL_SortItems(_isSort_Ascending,false);
                 pbChangeOfEndpoint_Occurred = true;
             }
             if (_isSort_Descending)
             {
                 // Descending Sort  
                 const bool DESCENDING = true;
-                par_list.DLL_SortItems(DESCENDING);
+                par_list.DLL_SortItems(false, DESCENDING);
                 pbChangeOfEndpoint_Occurred = true;
             }
             else
