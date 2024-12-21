@@ -60,8 +60,8 @@ namespace RSCLibraryDLLOperations
             //                                 lastItem_AfterSorting, INITIAL_CALL,
             //                                  par_descending)
             SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
-                                             ref firstItem_AfterSorting,
-                                             ref lastItem_AfterSorting, INITIAL_CALL,
+                                             out firstItem_AfterSorting,
+                                             out lastItem_AfterSorting, INITIAL_CALL,
                                               par_descending);
 
             //    ''Clean the dangling references!!
@@ -94,8 +94,8 @@ namespace RSCLibraryDLLOperations
         private void SortItemsOfSublist_Recursive(TControl par_startingItem,
                                                    int par_countOfItems,
                                                    int par_indexOfStart,
-                                                   ref TControl? byref_firstOfSort,
-                                                   ref TControl? byref_lastOfSort,
+                                                   out TControl byref_firstOfSort,
+                                                   out TControl byref_lastOfSort,
                                                    int par_depthRecursion,
                                                    bool par_descending)
         {
@@ -199,8 +199,8 @@ namespace RSCLibraryDLLOperations
             //                                 itemLastOfSort_1stHalf,
             //                                    currentDepthOfRecursion, par_descending)
             SortItemsOfSublist_Recursive(par_startingItem, countOfFirstHalf, par_indexOfStart,
-                                             ref itemFirstOfSort_1stHalf,
-                                             ref itemLastOfSort_1stHalf,
+                                             out itemFirstOfSort_1stHalf,
+                                             out itemLastOfSort_1stHalf,
                                                 currentDepthOfRecursion, par_descending);
 
 
@@ -219,8 +219,8 @@ namespace RSCLibraryDLLOperations
             else
             {
                 SortItemsOfSublist_Recursive(itemFirstOf_2ndHalf, countOf_2nd_Half, indexOf_2nd_Half,
-                                                 ref itemFirstOfSort_2ndHalf,
-                                                 ref itemLastOfSort_2ndHalf,
+                                                 out itemFirstOfSort_2ndHalf,
+                                                 out itemLastOfSort_2ndHalf,
                                                     currentDepthOfRecursion, par_descending);
             }
 
@@ -267,8 +267,8 @@ namespace RSCLibraryDLLOperations
                 //
                 MergeSublists(itemFirstOfSort_1stHalf, countOfFirstHalf,
                                  itemFirstOfSort_2ndHalf, countOf_2nd_Half,
-                                 ref itemFirstOfMerge,
-                                 ref itemLastOfMerge,
+                                 out itemFirstOfMerge,
+                                 out itemLastOfMerge,
                                  currentDepthOfRecursion, par_descending);
             }
 
@@ -285,7 +285,7 @@ namespace RSCLibraryDLLOperations
             //    byref_lastOfSort.DLL_ClearReferenceNext("S"c)
 
             byref_firstOfSort?.DLL_ClearReferencePrior('S');
-            byref_firstOfSort?.DLL_ClearReferenceNext('S');
+            byref_lastOfSort?.DLL_ClearReferenceNext('S');
 
             //End Sub ''eND OF ""Public Sub SortItems_Recursive()""
 
@@ -308,8 +308,8 @@ namespace RSCLibraryDLLOperations
                                                    int par_countOfItems1stSub,
                                                    TControl par_startingItem2ndSub,
                                                    int par_countOfItems2ndSub,
-                                                   ref TControl? byref_firstOfMerge,
-                                                   ref TControl? byref_lastOfMerge,
+                                                   out TControl byref_firstOfMerge,
+                                                   out TControl byref_lastOfMerge,
                                                    int par_depthRecursion,
                                                    bool par_descending)
         {
@@ -326,37 +326,63 @@ namespace RSCLibraryDLLOperations
             //    ''
             //    Dim postSort_itemFirstOfFirstHalf As IDoublyLinkedItem
             //    Dim postSort_itemFirstOf_2nd_Half As IDoublyLinkedItem
+            TControl postSort_itemFirstOfFirstHalf;
+            TControl postSort_itemFirstOf_2nd_Half;
 
             //    postSort_itemFirstOfFirstHalf = par_startingItem1stSub ''itemFirstOfSort_1stHalf
             //    postSort_itemFirstOf_2nd_Half = par_startingItem2ndSub ''itemFirstOfSort_2ndHalf
+            postSort_itemFirstOfFirstHalf = par_startingItem1stSub; // ''itemFirstOfSort_1stHalf
+            postSort_itemFirstOf_2nd_Half = par_startingItem2ndSub; // ''itemFirstOfSort_2ndHalf
+
             //    Dim postSort_queue1stHalf = New DLL_RangeQueue(postSort_itemFirstOfFirstHalf, par_countOfItems1stSub) ''countOfFirstHalf)
             //    Dim postSort_queue2ndHalf = New DLL_RangeQueue(postSort_itemFirstOf_2nd_Half, par_countOfItems2ndSub) ''countOf_2nd_Half)
+            var postSort_queue1stHalf = new DLL_RangeQueue(postSort_itemFirstOfFirstHalf, par_countOfItems1stSub);
+            var postSort_queue2ndHalf = new DLL_RangeQueue(postSort_itemFirstOf_2nd_Half, par_countOfItems2ndSub);
 
             //    ''
             //    ''Merging the two halves!!
             //    ''
             //    Dim itemFirstOfMerge As IDoublyLinkedItem
             //    ''Not usedd Dim itemLastOfMerge As IDoublyLinkedItem = Nothing
+            TControl itemFirstOfMerge;
 
             //    ''Dim bFirstArgumentIsLess As Boolean = False ''This is an output parameter.
             //    Dim bFirstArgumentIsChosen As Boolean = False ''This is an output parameter.
+            bool bFirstArgumentIsChosen = false;  //''This is an output parameter. 
 
             //    If(par_descending) Then
-            //        ''Added 1/08/2024
-            //        itemFirstOfMerge = DLL_ItemOfGreaterValue(postSort_itemFirstOfFirstHalf,
-            //                                             postSort_itemFirstOf_2nd_Half,
-            //                                             bFirstArgumentIsChosen)
+            if (par_descending)
+            {
+                //  'Added 1/08/2024
+                //  itemFirstOfMerge = DLL_ItemOfGreaterValue(postSort_itemFirstOfFirstHalf,
+                //                                             postSort_itemFirstOf_2nd_Half,
+                //                                             bFirstArgumentIsChosen
+                itemFirstOfMerge = DLL_ItemOfGreaterValue(postSort_itemFirstOfFirstHalf,
+                                                             postSort_itemFirstOf_2nd_Half,
+                                                             ref bFirstArgumentIsChosen);
+            }
             //    Else
-            //        itemFirstOfMerge = DLL_ItemOfLesserValue(postSort_itemFirstOfFirstHalf,
-            //                                             postSort_itemFirstOf_2nd_Half,
-            //                                             bFirstArgumentIsChosen)
-            //    End If ''End of "If (par_descending) Then...Else..."
+            else
+            {
+                //        itemFirstOfMerge = DLL_ItemOfLesserValue(postSort_itemFirstOfFirstHalf,
+                //                                             postSort_itemFirstOf_2nd_Half,
+                //                                             bFirstArgumentIsChosen)
+                itemFirstOfMerge = DLL_ItemOfLesserValue(postSort_itemFirstOfFirstHalf,
+                                                             postSort_itemFirstOf_2nd_Half,
+                                                             ref bFirstArgumentIsChosen);
+                //    End If ''End of "If (par_descending) Then...Else..."
+            }
 
             //    ''Important for output!!!
             //    byref_firstOfMerge = itemFirstOfMerge
+            byref_firstOfMerge = itemFirstOfMerge;
 
             //    Dim bFirstHalfItemIsSelected As Boolean
+            bool bFirstHalfItemIsSelected;
+
             //    bFirstHalfItemIsSelected = bFirstArgumentIsChosen ''bFirstArgumentIsLess
+            bFirstHalfItemIsSelected = bFirstArgumentIsChosen; 
+
             //    If(bFirstHalfItemIsSelected) Then
             //        ''Remove the selected item from the queue.
             //        postSort_queue1stHalf.Dequeue()
@@ -571,7 +597,7 @@ namespace RSCLibraryDLLOperations
         }   //End Function ''end of ""private IDoublyLinkedItem DLL_ItemOfGreaterValue""
 
 
-        private IDoublyLinkedItem DLL_ItemOfLesserValue(TControl par_sort_item1,
+        private TControl DLL_ItemOfLesserValue(TControl par_sort_item1,
                                                TControl par_sort_item2,
                                                ref bool byref_bFirstArgumentIsLess)
         {
@@ -584,15 +610,21 @@ namespace RSCLibraryDLLOperations
             //    ''
             //    Dim strValue_item1 As String
             //    Dim strValue_item2 As String
+            string strValue_item1;
+            string strValue_item2;
+
             //
             //    ''We can't naively use the .ToString() here.
             //    ''  Let's add .DLL_GetValue() to the interface. 
             //    strValue_item1 = par_sort_item1.DLL_GetValue()
             //    strValue_item2 = par_sort_item2.DLL_GetValue()
+            strValue_item1 = par_sort_item1.DLL_GetValue();
+            strValue_item2 = par_sort_item2.DLL_GetValue();
             //
             //    ''Now we can compare the strings.
             //    byref_bFirstArgumentIsLess = (0 >= strValue_item1.CompareTo(strValue_item2))
-            //
+            byref_bFirstArgumentIsLess = (0 >= strValue_item1.CompareTo(strValue_item2));
+
             //    If byref_bFirstArgumentIsLess Then
             //        ''The first item is less than, or equal to, the 2nd item.
             //        ''---bFirstArgumentIsLess = True
@@ -601,13 +633,12 @@ namespace RSCLibraryDLLOperations
             //        ''---bFirstArgumentIsLess = False
             //        Return par_sort_item2
             //    End If
-            //
-            //End Function ''Private Function DLL_ItemOfLesserValue
 
             if (byref_bFirstArgumentIsLess) return par_sort_item1;
             else return par_sort_item2;
 
-        }
+            //End Function ''Private Function DLL_ItemOfLesserValue
+        }  //End Function ''private bool DLL_ItemOfLesserValue
 
 
         //----------------------------------------------------------------------------------------------------
