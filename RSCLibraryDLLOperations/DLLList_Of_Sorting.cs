@@ -336,14 +336,14 @@ namespace RSCLibraryDLLOperations
 
             //    Dim postSort_queue1stHalf = New DLL_RangeQueue(postSort_itemFirstOfFirstHalf, par_countOfItems1stSub) ''countOfFirstHalf)
             //    Dim postSort_queue2ndHalf = New DLL_RangeQueue(postSort_itemFirstOf_2nd_Half, par_countOfItems2ndSub) ''countOf_2nd_Half)
-            var postSort_queue1stHalf = new DLL_RangeQueue(postSort_itemFirstOfFirstHalf, par_countOfItems1stSub);
-            var postSort_queue2ndHalf = new DLL_RangeQueue(postSort_itemFirstOf_2nd_Half, par_countOfItems2ndSub);
+            var postSort_queue1stHalf = new DLLRangeQueue<TControl>(postSort_itemFirstOfFirstHalf, par_countOfItems1stSub);
+            var postSort_queue2ndHalf = new DLLRangeQueue<TControl>(postSort_itemFirstOf_2nd_Half, par_countOfItems2ndSub);
 
             //    ''
             //    ''Merging the two halves!!
             //    ''
             //    Dim itemFirstOfMerge As IDoublyLinkedItem
-            //    ''Not usedd Dim itemLastOfMerge As IDoublyLinkedItem = Nothing
+            //    ''Not used Dim itemLastOfMerge As IDoublyLinkedItem = Nothing
             TControl itemFirstOfMerge;
 
             //    ''Dim bFirstArgumentIsLess As Boolean = False ''This is an output parameter.
@@ -381,7 +381,7 @@ namespace RSCLibraryDLLOperations
             bool bFirstHalfItemIsSelected;
 
             //    bFirstHalfItemIsSelected = bFirstArgumentIsChosen ''bFirstArgumentIsLess
-            bFirstHalfItemIsSelected = bFirstArgumentIsChosen; 
+            bFirstHalfItemIsSelected = bFirstArgumentIsChosen;
 
             //    If(bFirstHalfItemIsSelected) Then
             //        ''Remove the selected item from the queue.
@@ -389,20 +389,50 @@ namespace RSCLibraryDLLOperations
             //    Else
             //        ''Remove the selected item from the queue.
             //        postSort_queue2ndHalf.Dequeue()
-            //    End If ''Ednof "If (bFirstHalfItemIsSelected) Then... Else..."
+            //    End If ''End of "If (bFirstHalfItemIsSelected) Then... Else..."
+
+            //''If it is selected, then remove the selected item from the queue.
+            if (bFirstHalfItemIsSelected)
+            {
+                //''Remove the selected item from the queue.
+                postSort_queue1stHalf.Dequeue();
+            }
+            else
+            {
+                //''Remove the selected item from the queue.
+                postSort_queue2ndHalf.Dequeue();
+                 
+            }  //''End of "If (bFirstHalfItemIsSelected) Then... Else..."
 
             //    ''The following indices start from zero, regardless of the 
-            //    ''  location of the sublist.
+            //    ''  location of the sub-list.
             //    Dim intRelativeIndex_1stHalf As Integer = 0
             //    Dim intRelativeIndex_2ndHalf As Integer = 0
             //    Dim bCompleted As Boolean = False
             //    Dim item_toCompare1stHalf As IDoublyLinkedItem
             //    Dim item_toCompare2ndHalf As IDoublyLinkedItem
+
+            // The following indices start from zero, regardless of the 
+            //    location of the sub-list.
+            int intRelativeIndex_1stHalf = 0; // As Integer = 0
+            int intRelativeIndex_2ndHalf = 0; // As Integer = 0
+            bool bCompleted = false; // As Boolean = false
+            TControl item_toCompare1stHalf;  // As IDoublyLinkedItem
+            TControl item_toCompare2ndHalf;  // As IDoublyLinkedItem
+
             //    Dim itemLesser As IDoublyLinkedItem = Nothing
             //    Dim itemForMerge_Next As IDoublyLinkedItem = Nothing
             //    Dim itemForMerge_Prior As IDoublyLinkedItem = itemFirstOfMerge
             //    Dim mergedList_LastItem As IDoublyLinkedItem = itemFirstOfMerge
             //    Dim itemForMerge_Final As IDoublyLinkedItem = itemFirstOfMerge
+
+            //The following indices start from zero, regardless of the 
+            //   location of the sub-list.   WAIT--AREN'T THE LISTS ONE-BASED?
+            //TControl? itemLesser = null;
+            //TControl? itemForMerge_Next = null;
+            TControl itemForMerge_Prior = itemFirstOfMerge;
+            TControl mergedList_LastItem = itemFirstOfMerge;
+            TControl itemForMerge_Final = itemFirstOfMerge;
 
             //    ''
             //    ''Loop to accomplish a sorted merge. 
@@ -412,6 +442,16 @@ namespace RSCLibraryDLLOperations
             //    Dim hasNoItems_queue2ndHalf As Boolean = False
             //    Dim hasOneItem_queue1stHalf As Boolean = False
             //    Dim hasOneItem_queue2ndHalf As Boolean = False
+
+            //   
+            // Loop to accomplish a sorted merge. 
+            //   
+            bCompleted = false;
+            //bool hasNoItems_queue1stHalf = false;
+            //bool hasNoItems_queue2ndHalf = false;
+            //bool hasOneItem_queue1stHalf = false;
+            //bool hasOneItem_queue2ndHalf = false;
+
             //    Dim bLastItem_queue1stHalf As Boolean = False
             //    Dim bLastItem_queue2ndHalf As Boolean = False
             //    Dim bUseOnly_queue1stHalf As Boolean = False
@@ -419,32 +459,237 @@ namespace RSCLibraryDLLOperations
             //    Dim countLoopsCompleted As Integer = 0
             //    Dim bBothQueuesAreEmpty As Boolean = False
 
+            //bool bLastItem_queue1stHalf = false;
+            //bool bLastItem_queue2ndHalf = false;
+            //bool bUseOnly_queue1stHalf = false;
+            //bool bUseOnly_queue2ndHalf = false;
+            int countLoopsCompleted = 0;
+            //bool bBothQueuesAreEmpty = false;
+
             //    ''Added 1/08/2024 thomas downes
             //    ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
             //    hasNoItems_queue1stHalf = (0 = postSort_queue1stHalf.Count)
             //    hasNoItems_queue2ndHalf = (0 = postSort_queue2ndHalf.Count)
             //    bBothQueuesAreEmpty = (hasNoItems_queue1stHalf And hasNoItems_queue2ndHalf)
 
-            //    While(Not bCompleted)
+            // P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+            //hasNoItems_queue1stHalf = (0 == postSort_queue1stHalf.Count());
+            //hasNoItems_queue2ndHalf = (0 == postSort_queue2ndHalf.Count());
+            //bBothQueuesAreEmpty = (hasNoItems_queue1stHalf && hasNoItems_queue2ndHalf);
 
-            //        ''Dummy code.
-            //        If(countLoopsCompleted = 0) Then
-            //        End If
+            while (!bCompleted)
+            {
+                //    While(Not bCompleted)
+                //
+                //        ''Dummy code.
+                //        If(countLoopsCompleted = 0) Then
+                //        End If
 
-            //        ''item_toCompare1stHalf = postSort_itemFirstOfFirstHalf.DLL_GetItemNext(intRelativeIndex_1stHalf)
-            //        ''item_toCompare2ndHalf = postSort_itemFirstOf_2nd_Half.DLL_GetItemNext(intRelativeIndex_2ndHalf)
+                // Dummy code.
+                if (countLoopsCompleted == 0) 
+                { 
+                }
 
-            //        ''Added 1/8/2024 td
+                MergeSublists_Helper(par_descending, 
+                                     postSort_queue1stHalf,
+                                     postSort_queue2ndHalf,
+                                     ref itemForMerge_Prior,
+                                     ref countLoopsCompleted,
+                                     ref bCompleted);
+
+                //        ''item_toCompare1stHalf = postSort_itemFirstOfFirstHalf.DLL_GetItemNext(intRelativeIndex_1stHalf)
+                //        ''item_toCompare2ndHalf = postSort_itemFirstOf_2nd_Half.DLL_GetItemNext(intRelativeIndex_2ndHalf)
+
+                //        ''Added 1/8/2024 td
+                //        ''  Determine if we should focus exclusively on one of the halves.
+                //        ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                //        ''
+                //        bUseOnly_queue1stHalf = (postSort_queue1stHalf.Count > 0 And hasNoItems_queue2ndHalf)
+                //        bUseOnly_queue2ndHalf = (postSort_queue2ndHalf.Count > 0 And hasNoItems_queue1stHalf)
+                //        bBothQueuesAreEmpty = (hasNoItems_queue1stHalf And hasNoItems_queue2ndHalf)
+
+                //        If(bBothQueuesAreEmpty) Then
+                //            ''Added 1/08/2024 td
+                //            bCompleted = True
+
+                //        ElseIf(bUseOnly_queue1stHalf) Then
+                //            ''
+                //            ''Use __1st__ half's (custom-built) queue, and ignore the 2nd half since it's empty.
+                //            ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                //            ''
+                //            itemLesser = postSort_queue1stHalf.Peek()
+                //            ''We must dequeue prior to "Linkage step!!" below.
+                //            postSort_queue1stHalf.Dequeue()
+
+                //        ElseIf (bUseOnly_queue2ndHalf) Then
+                //            ''
+                //            ''Use __2nd__ half's (custom-built) queue, and ignore the 1st half since it's empty.
+                //            ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                //            ''
+                //            itemLesser = postSort_queue2ndHalf.Peek()
+                //            ''We must dequeue prior to "Linkage step!!" below.
+                //            postSort_queue2ndHalf.Dequeue()
+
+                //        Else
+                //            item_toCompare1stHalf = postSort_queue1stHalf.Peek()
+                //            item_toCompare2ndHalf = postSort_queue2ndHalf.Peek()
+                //            bFirstArgumentIsChosen = False ''Re-initialize.
+
+                //            If (par_descending) Then
+                //                ''Major call.
+                //                ''Added 1/08/2024
+                //                itemLesser = DLL_ItemOfGreaterValue(item_toCompare1stHalf,
+                //                                               item_toCompare2ndHalf,
+                //                                               bFirstArgumentIsChosen)
+                //            Else
+                //                ''Major call.
+                //                itemLesser = DLL_ItemOfLesserValue(item_toCompare1stHalf,
+                //                                               item_toCompare2ndHalf,
+                //                                               bFirstArgumentIsChosen)
+                //            End If ''Edn of ""If (par_descending) Then... Else..."
+
+                //            ''
+                //            ''We must dequeue prior to "Linkage step!!" below.
+                //            ''
+                //            If (bFirstArgumentIsChosen) Then
+                //                ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                //                postSort_queue1stHalf.Dequeue()
+                //            Else
+                //                ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                //                postSort_queue2ndHalf.Dequeue()
+                //            End If
+
+                //        End If ''End of ""If (hasNoItems_queue1stHalf) Then... ElseIf...Else..."
+
+                //-------------------------------------------------------------------------
+                //  Linkage step!!  This is what you're looking for!!  LOL 
+                //        
+                //  Link the newly-selected item for the next in the merged sub-list.
+                //        
+                //        ''itemLesser_Prior.DLL_SetItemNext(itemLesser)
+                //        ''itemLesser.DLL_SetItemPrior(itemLesser_Prior)
+
+                //        itemForMerge_Next = itemLesser ''The least item is the next selected for the merge.
+                //        mergedList_LastItem = itemForMerge_Prior ''We need the previously-merged item, as
+                //        '' it is the last item in the merged list.
+
+                //        ''Set up the two-way connection.
+                //        If (itemForMerge_Next IsNot Nothing) Then
+                //            If(mergedList_LastItem IsNot Nothing) Then
+                //                mergedList_LastItem.DLL_SetItemNext(itemForMerge_Next)
+                //            End If
+                //            itemForMerge_Next.DLL_SetItemPrior(mergedList_LastItem)
+                //        End If ''ENd of ""If(itemForMerge_Next IsNot Nothing) Then""
+                //-------------------------------------------------------------------------
+
+                //        ''
+                //        ''Prepare for next iteration of the While loop.
+                //        ''
+                //        ''---itemLesser_Prior = itemLesser
+                //        itemForMerge_Prior = itemForMerge_Next
+
+                //        ''If (bFirstArgumentIsLess) Then
+                //        ''    intRelativeIndex_1stHalf += 1
+                //        ''Else
+                //        ''    intRelativeIndex_2ndHalf += 1
+                //        ''End If
+                //        hasNoItems_queue1stHalf = (0 = postSort_queue1stHalf.Count)
+                //        hasNoItems_queue2ndHalf = (0 = postSort_queue2ndHalf.Count)
+                //        bCompleted = (hasNoItems_queue1stHalf And hasNoItems_queue2ndHalf)
+
+                //        ''It's okay if we repeatedly assign this. 
+                //        itemForMerge_Final = itemForMerge_Prior
+                //        countLoopsCompleted += 1
+
+                //    End While ''End of ""While(Not bCompleted)""
+            } //   End of ""while (! bCompleted)""
+
+            //    ''
+            //    ''Done, so we'll pass back the first of the merged items. 
+            //    ''
+            //    byref_firstOfMerge = itemFirstOfMerge
+            //    byref_lastOfMerge = itemForMerge_Final
+
+            // Done, so we'll pass back the first of the merged items.
+            byref_firstOfMerge = itemFirstOfMerge;
+            byref_lastOfMerge = itemForMerge_Final;
+
+            //End Sub ''end of ""Private S ub MergeSublists
+
+        }  //End Sub ''end of ""private void MergeSublists(...)
+
+
+        private void MergeSublists_Helper(bool par_descending, 
+                                          DLLRangeQueue<TControl> par_postSort_queue1stHalf,
+                                          DLLRangeQueue<TControl> par_postSort_queue2ndHalf,
+                                          ref int ref_countTimesCalled,
+                                          ref bool ref_bCompleted,
+                                          ref TControl ref_itemForMerge_Prior)
+        {
+            //
+            // Added 12/22/2024 td 
+            //
+            //The following indices start from zero, regardless of the 
+            //   location of the sub-list.   WAIT--AREN'T THE LISTS ONE-BASED?
+            TControl? itemPriority = null;
+            TControl? itemForMerge_Next = null;
+            //TControl itemForMerge_Prior = itemFirstOfMerge;
+            TControl mergedList_LastItem; // = itemFirstOfMerge;
+            TControl itemForMerge_Final; // = itemFirstOfMerge;
+
+            //    ''
+            //    ''Loop to accomplish a sorted merge. 
+            //    ''
+            //    bCompleted = False
+            //    Dim hasNoItems_queue1stHalf As Boolean = False
+            //    Dim hasNoItems_queue2ndHalf As Boolean = False
+            //    Dim hasOneItem_queue1stHalf As Boolean = False
+            //    Dim hasOneItem_queue2ndHalf As Boolean = False
+
+            //   
+            // Loop to accomplish a sorted merge. 
+            //   
+            ref_bCompleted = false;
+            bool hasNoItems_queue1stHalf = false;
+            bool hasNoItems_queue2ndHalf = false;
+            bool hasOneItem_queue1stHalf = false;
+            bool hasOneItem_queue2ndHalf = false;
+
+            //    Dim bLastItem_queue1stHalf As Boolean = False
+            //    Dim bLastItem_queue2ndHalf As Boolean = False
+            //    Dim bUseOnly_queue1stHalf As Boolean = False
+            //    Dim bUseOnly_queue2ndHalf As Boolean = False
+            //    Dim countLoopsCompleted As Integer = 0
+            //    Dim bBothQueuesAreEmpty As Boolean = False
+
+            bool bLastItem_queue1stHalf = false;
+            bool bLastItem_queue2ndHalf = false;
+            bool bUseOnly_queue1stHalf = false;
+            bool bUseOnly_queue2ndHalf = false;
+            int countLoopsCompleted = 0;
+            bool bBothQueuesAreEmpty = false;
+
+            hasNoItems_queue1stHalf = (0 == par_postSort_queue1stHalf.Count);
+            hasNoItems_queue2ndHalf = (0 == par_postSort_queue2ndHalf.Count);
+            bBothQueuesAreEmpty = (hasNoItems_queue1stHalf && hasNoItems_queue2ndHalf);
+
             //        ''  Determine if we should focus exclusively on one of the halves.
             //        ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
             //        ''
             //        bUseOnly_queue1stHalf = (postSort_queue1stHalf.Count > 0 And hasNoItems_queue2ndHalf)
             //        bUseOnly_queue2ndHalf = (postSort_queue2ndHalf.Count > 0 And hasNoItems_queue1stHalf)
             //        bBothQueuesAreEmpty = (hasNoItems_queue1stHalf And hasNoItems_queue2ndHalf)
+            bUseOnly_queue1stHalf = (par_postSort_queue1stHalf.Count > 0 && hasNoItems_queue2ndHalf);
+            bUseOnly_queue2ndHalf = (par_postSort_queue2ndHalf.Count > 0 && hasNoItems_queue1stHalf);
+            bBothQueuesAreEmpty = (hasNoItems_queue1stHalf && hasNoItems_queue2ndHalf);
 
             //        If(bBothQueuesAreEmpty) Then
             //            ''Added 1/08/2024 td
             //            bCompleted = True
+            if (bBothQueuesAreEmpty)
+            {
+                ref_bCompleted = true;
+            }
 
             //        ElseIf(bUseOnly_queue1stHalf) Then
             //            ''
@@ -455,6 +700,18 @@ namespace RSCLibraryDLLOperations
             //            ''We must dequeue prior to "Linkage step!!" below.
             //            postSort_queue1stHalf.Dequeue()
 
+            else if (bUseOnly_queue1stHalf)
+            {
+                //            
+                // Use __1st__ half's (custom-built) queue, and ignore the 2nd half since it's empty.
+                //    P.S.Keep in mind, our "que ue" is custom-built and may function a bit uniquely.
+                //            
+                itemPriority = par_postSort_queue1stHalf.Peek();
+                //''We must dequeue prior to "Linkage step!!" below.
+                par_postSort_queue1stHalf.Dequeue();
+
+            }
+
             //        ElseIf (bUseOnly_queue2ndHalf) Then
             //            ''
             //            ''Use __2nd__ half's (custom-built) queue, and ignore the 1st half since it's empty.
@@ -464,41 +721,96 @@ namespace RSCLibraryDLLOperations
             //            ''We must dequeue prior to "Linkage step!!" below.
             //            postSort_queue2ndHalf.Dequeue()
 
+            else if (bUseOnly_queue2ndHalf)
+            {
+                // Use __2nd__ half's (custom-built) queue, and ignore the 1st half since it's empty.
+                //   P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                itemPriority = par_postSort_queue2ndHalf.Peek();
+                //We must dequeue prior to "Linkage step!!" below.
+                par_postSort_queue2ndHalf.Dequeue();
+
+            }
+
+
             //        Else
             //            item_toCompare1stHalf = postSort_queue1stHalf.Peek()
             //            item_toCompare2ndHalf = postSort_queue2ndHalf.Peek()
             //            bFirstArgumentIsChosen = False ''Re-initialize.
 
-            //            If (par_descending) Then
-            //                ''Major call.
-            //                ''Added 1/08/2024
-            //                itemLesser = DLL_ItemOfGreaterValue(item_toCompare1stHalf,
-            //                                               item_toCompare2ndHalf,
-            //                                               bFirstArgumentIsChosen)
-            //            Else
-            //                ''Major call.
-            //                itemLesser = DLL_ItemOfLesserValue(item_toCompare1stHalf,
-            //                                               item_toCompare2ndHalf,
-            //                                               bFirstArgumentIsChosen)
-            //            End If ''Edn of ""If (par_descending) Then... Else..."
+            else
+            {
+                TControl item_toCompare1stHalf = par_postSort_queue1stHalf.Peek();
+                TControl item_toCompare2ndHalf = par_postSort_queue2ndHalf.Peek();
+                bool bFirstArgumentIsChosen_1stHalf = false; //''Re - initialize.
 
-            //            ''
-            //            ''We must dequeue prior to "Linkage step!!" below.
-            //            ''
-            //            If (bFirstArgumentIsChosen) Then
-            //                ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
-            //                postSort_queue1stHalf.Dequeue()
-            //            Else
-            //                ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
-            //                postSort_queue2ndHalf.Dequeue()
-            //            End If
+                //If (par_descending) Then
+                //                ''Major call.
+                //                ''Added 1/08/2024
+                //                itemLesser = DLL_ItemOfGreaterValue(item_toCompare1stHalf,
+                //                                               item_toCompare2ndHalf,
+                //                                               bFirstArgumentIsChosen)
+                if (par_descending)
+                {
+                    //
+                    // DESCENDING -- We are sorting from greatest to least.
+                    //
+                    TControl itemGreater = DLL_ItemOfGreaterValue(item_toCompare1stHalf,
+                         item_toCompare2ndHalf, ref bFirstArgumentIsChosen_1stHalf);
+                    itemPriority = itemGreater;
 
-            //        End If ''End of ""If (hasNoItems_queue1stHalf) Then... ElseIf...Else..."
+                }
+                else // else if (par_ascending)
+                {
+                    //
+                    // ASCENDING -- We are sorting from least to greatest.
+                    //
+                    //            Else
+                    //                ''Major call.
+                    //                itemLesser = DLL_ItemOfLesserValue(item_toCompare1stHalf,
+                    //                                               item_toCompare2ndHalf,
+                    //                                               bFirstArgumentIsChosen)
+                    //            End If ''Edn of ""If (par_descending) Then... Else..."
+                    TControl itemLesser = DLL_ItemOfLesserValue(item_toCompare1stHalf,
+                       item_toCompare2ndHalf, ref bFirstArgumentIsChosen_1stHalf);
+                    itemPriority = itemLesser;
+
+                }
+
+                //            ''
+                //            ''We must dequeue prior to "Linkage step!!" below.
+                //            ''
+                //            If (bFirstArgumentIsChosen) Then
+                //                ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                //                postSort_queue1stHalf.Dequeue()
+                //            Else
+                //                ''  P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                //                postSort_queue2ndHalf.Dequeue()
+                //            End If
+
+                // We must dequeue prior to "Linkage step!!" below.
+                if (bFirstArgumentIsChosen_1stHalf)
+                {
+                    // P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                    par_postSort_queue1stHalf.Dequeue();
+
+                }
+                else
+                {
+                    // P.S.Keep in mind, our "queue" is custom-built and may function a bit uniquely.
+                    par_postSort_queue2ndHalf.Dequeue();
+
+                }
+
+                //        End If ''End of ""If (hasNoItems_queue1stHalf) Then... ElseIf...Else..."
+
+            } // End of "if (bBothQueuesAreEmpty) ... else if (...) ... else if (...) ... else..."
+
 
             //-------------------------------------------------------------------------
             //  Linkage step!!  This is what you're looking for!!  LOL 
+            //-------------------------------------------------------------------------
             //        
-            //  Link the newly-selected item for the next in the merged sublist.
+            //  Link the newly-selected item for the next in the merged sub-list.
             //        
             //        ''itemLesser_Prior.DLL_SetItemNext(itemLesser)
             //        ''itemLesser.DLL_SetItemPrior(itemLesser_Prior)
@@ -507,6 +819,9 @@ namespace RSCLibraryDLLOperations
             //        mergedList_LastItem = itemForMerge_Prior ''We need the previously-merged item, as
             //        '' it is the last item in the merged list.
 
+            itemForMerge_Next = itemPriority; // intLesser;  
+            mergedList_LastItem = ref_itemForMerge_Prior;
+
             //        ''Set up the two-way connection.
             //        If (itemForMerge_Next IsNot Nothing) Then
             //            If(mergedList_LastItem IsNot Nothing) Then
@@ -514,6 +829,17 @@ namespace RSCLibraryDLLOperations
             //            End If
             //            itemForMerge_Next.DLL_SetItemPrior(mergedList_LastItem)
             //        End If ''ENd of ""If(itemForMerge_Next IsNot Nothing) Then""
+
+            if (itemForMerge_Next != null)
+            {
+                if (mergedList_LastItem != null)
+                {
+                    mergedList_LastItem.DLL_SetItemNext(itemForMerge_Next);
+                }
+            }
+
+            //-------------------------------------------------------------------------
+            //  End of Linkage Step
             //-------------------------------------------------------------------------
 
             //        ''
@@ -521,6 +847,9 @@ namespace RSCLibraryDLLOperations
             //        ''
             //        ''---itemLesser_Prior = itemLesser
             //        itemForMerge_Prior = itemForMerge_Next
+
+            //Prepare for next iteration of the While loop.
+            ref_itemForMerge_Prior = itemForMerge_Next;
 
             //        ''If (bFirstArgumentIsLess) Then
             //        ''    intRelativeIndex_1stHalf += 1
@@ -535,17 +864,17 @@ namespace RSCLibraryDLLOperations
             //        itemForMerge_Final = itemForMerge_Prior
             //        countLoopsCompleted += 1
 
-            //    End While ''End of ""While(Not bCompleted)""
+            hasNoItems_queue1stHalf = (0 == par_postSort_queue1stHalf.Count);
+            hasNoItems_queue2ndHalf = (0 == par_postSort_queue2ndHalf.Count);
+            ref_bCompleted = (hasNoItems_queue1stHalf && hasNoItems_queue2ndHalf);
 
-            //    ''
-            //    ''Done, so we'll pass back the first of the merged items. 
-            //    ''
-            //    byref_firstOfMerge = itemFirstOfMerge
-            //    byref_lastOfMerge = itemForMerge_Final
+            // ''It's okay if we repeatedly assign this.
+            itemForMerge_Final = itemForMerge_Prior;
+            countLoopsCompleted += 1;
 
-            //End Sub ''end of ""Private Sub MergeSublists
+            //End of "private void MergeSublists_Helper"
+        } //End of "private void MergeSublists_Helper"
 
-        }  //End Sub ''end of ""private void MergeSublists(...)
 
 
         private TControl DLL_ItemOfGreaterValue(TControl par_sort_item1,
@@ -644,74 +973,74 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------
         //  Nested class. 
         //----------------------------------------------------------------------------------------------------
-        private class DLL_RangeQueue
-        {
-            //Private Class DLL_RangeQueue
-            //    ''
-            //    ''Added 1/4/2024 thomas downes
-            //    ''
-            //    Public Count As Integer
-            //    Private mod_firstItem As IDoublyLinkedItem
-            public int Count;
-            private TControl mod_firstItem; // IDoublyLinkedItem mod_firstItem;
+        //private class DLL_RangeQueue
+        //{
+        //    //Private Class DLL_RangeQueue
+        //    //    ''
+        //    //    ''Added 1/4/2024 thomas downes
+        //    //    ''
+        //    //    Public Count As Integer
+        //    //    Private mod_firstItem As IDoublyLinkedItem
+        //    public int Count;
+        //    private TControl mod_firstItem; // IDoublyLinkedItem mod_firstItem;
 
-            public DLL_RangeQueue(TControl par_first, int par_count) // (IDoublyLinkedItem par_first, int par_count)
-            {
-                //    Public Sub New(par_first As IDoublyLinkedItem, par_count As Integer)
-                //        mod_firstItem = par_first
-                //        Count = par_count
-                //    End Sub
+        //    public DLL_RangeQueue(TControl par_first, int par_count) // (IDoublyLinkedItem par_first, int par_count)
+        //    {
+        //        //    Public Sub New(par_first As IDoublyLinkedItem, par_count As Integer)
+        //        //        mod_firstItem = par_first
+        //        //        Count = par_count
+        //        //    End Sub
 
-                mod_firstItem = par_first;
-                this.Count = par_count;
+        //        mod_firstItem = par_first;
+        //        this.Count = par_count;
 
-            }
+        //    }
 
-            public TControl Peek() //''IDoublyLinkedItem Peek()
-            {
-                //    Public Function Peek() As IDoublyLinkedItem
-                //        Return mod_firstItem
-                //    End Function
-                return mod_firstItem;
-            }
+        //    public TControl Peek() //''IDoublyLinkedItem Peek()
+        //    {
+        //        //    Public Function Peek() As IDoublyLinkedItem
+        //        //        Return mod_firstItem
+        //        //    End Function
+        //        return mod_firstItem;
+        //    }
 
-            public void Dequeue() 
-            {
-                //    Public Sub Dequeue()
-                //
-                //        If(Count = 0) Then
-                //            ''This function should NOT have been called at all.
-                //            Debugger.Break()
-                //        End If ''ENd of ""If(Count = 0) Then""
+        //    public void Dequeue() 
+        //    {
+        //        //    Public Sub Dequeue()
+        //        //
+        //        //        If(Count = 0) Then
+        //        //            ''This function should NOT have been called at all.
+        //        //            Debugger.Break()
+        //        //        End If ''ENd of ""If(Count = 0) Then""
 
-                if (this.Count == 0) System.Diagnostics.Debugger.Break();
+        //        if (this.Count == 0) System.Diagnostics.Debugger.Break();
 
-                //        ''mod_firstItem = mod_firstItem.DLL_GetItemNext
-                //        Count -= 1 ''Decrease the count
-                this.Count -= 1; // Decrease the count. 
+        //        //        ''mod_firstItem = mod_firstItem.DLL_GetItemNext
+        //        //        Count -= 1 ''Decrease the count
+        //        this.Count -= 1; // Decrease the count. 
 
-                //
-                //        ''Added 1/08/2024 thomas downes
-                //        If(Count = 0) Then
-                //            mod_firstItem = Nothing
-                //        Else
-                //            mod_firstItem = mod_firstItem.DLL_GetItemNext
-                //        End If ''End of ""If(Count = 0) Then...Else..."
-                if (Count == 0)
-                {
-                    mod_firstItem = null; // Nothing;
-                }
-                else
-                {
-                    mod_firstItem = mod_firstItem.DLL_GetItemNext_OfT();
-                }
+        //        //
+        //        //        ''Added 1/08/2024 thomas downes
+        //        //        If(Count = 0) Then
+        //        //            mod_firstItem = Nothing
+        //        //        Else
+        //        //            mod_firstItem = mod_firstItem.DLL_GetItemNext
+        //        //        End If ''End of ""If(Count = 0) Then...Else..."
+        //        if (Count == 0)
+        //        {
+        //            mod_firstItem = null; // Nothing;
+        //        }
+        //        else
+        //        {
+        //            mod_firstItem = mod_firstItem.DLL_GetItemNext_OfT();
+        //        }
 
-                //
-                //    End Sub ''End of ""Public Sub Dequeue()""
-            }
+        //        //
+        //        //    End Sub ''End of ""Public Sub Dequeue()""
+        //    }
 
-            // End Class ''End of ""Private Class DLL_RangeQueue""
-        }  // End Class ''End of ""private class DLL_RangeQueue""
+        //    // End Class ''End of ""Private Class DLL_RangeQueue""
+        //}  // End Class ''End of ""private class DLL_RangeQueue""
 
         //
         //----------------------------------------------------------------------------------------------------------------
