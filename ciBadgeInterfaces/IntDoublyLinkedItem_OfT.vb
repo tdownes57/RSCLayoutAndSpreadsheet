@@ -61,6 +61,10 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Sub DLL_SetItemNext_OfT(param As TControl, pbAllowNulls As Boolean) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
     Sub DLL_SetItemPrior_OfT(param As TControl, pbAllowNulls As Boolean) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
 
+    ''Added 12/22/2024 thomas downes
+    Sub DLL_SetItemNext_OfT(param As TControl, pbAllowNulls As Boolean, pboolDoublyLink As Boolean) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
+
+
     Sub DLL_InsertItemToNext(param As TControl, pbSetDoubleLinks As Boolean) ''Sept 2024 'IDoublyLinkedItem(Of TControl))
 
     Sub DLL_InsertItemToPrior(param As TControl, pbSetDoubleLinks As Boolean) ''Added 10/17/2024  

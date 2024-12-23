@@ -79,6 +79,28 @@ Public Class TwoCharacterDLLItem
     End Sub ''End of ""Public Sub DLL_SetItemNext(...) ...""
 
 
+    Public Sub DLL_SetItemNext(param As IDoublyLinkedItem, pboolAllowNulls As Boolean, pboolDoublyLink As Boolean) Implements IDoublyLinkedItem.DLL_SetItemNext
+        ''
+        ''Added 12/22/2024 
+        ''
+        If (Not pboolAllowNulls) Then
+            If (param Is Nothing) Then
+                Throw New Exception("Primary parameter cannot be nothing.")
+            End If
+        End If ''End of ""If (Not pboolAllowNulls) Then""
+
+        ''Added 12/22/2024 td
+        mod_next = param
+
+        ''Added 12/22/2024 
+        If (pboolDoublyLink) Then param.DLL_SetItemPrior(Me)
+
+    End Sub ''End of ""Public Sub DLL_SetItemNext(param As IDoublyLinkedItem, ...)
+
+
+
+
+
     Public Sub DLL_SetItemPrior(param As IDoublyLinkedItem) _
            Implements IDoublyLinkedItem.DLL_SetItemPrior
 
@@ -90,7 +112,7 @@ Public Class TwoCharacterDLLItem
 
 
 
-    Public Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem) _
+    Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem) _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_OfT
 
         ''Throw New NotImplementedException()
@@ -139,7 +161,7 @@ Public Class TwoCharacterDLLItem
     End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
 
 
-    Public Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem, pbAllowNulls As Boolean) _
+    Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem, pbAllowNulls As Boolean) _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_OfT
 
         ''Throw New NotImplementedException()
@@ -148,6 +170,10 @@ Public Class TwoCharacterDLLItem
         ''11/4/2024 mod_next = param
         If (param Is Nothing And pbAllowNulls) Then
             mod_next = Nothing
+        ElseIf (param Is Nothing And (Not pbAllowNulls)) Then ''Added 12/22/2024 
+            ''Added 12/22/2024 td
+            Throw New Exception("A null value for Next is not allowed.")
+
         Else
             mod_next = param
         End If
@@ -729,6 +755,39 @@ Public Class TwoCharacterDLLItem
         If (pbExecuteInCascade) Then mod_next?.DLL_ClearPriorSortOrder(pbExecuteInCascade)
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
+
+
+    Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem, paramAllowNulls As Boolean, paramDoublyLinkIt As Boolean) _
+        Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_OfT
+
+        ''Added 12/22/2024 
+
+        If (param Is Nothing And paramAllowNulls) Then
+            ''Added 11/4/2024 
+            DLL_ClearReferenceNext("S"c)
+
+        ElseIf (param Is Nothing And (Not paramAllowNulls)) Then ''Added 12/22/2024 
+
+            ''Added 12/22/2024 td
+            Throw New Exception("A null value for Next is not allowed.")
+
+        Else
+            DLL_SetItemNext_OfT(param)
+
+        End If
+
+        ''
+        ''Added 12/22/2024 
+        ''
+        If (paramDoublyLinkIt) Then
+
+            ''Added 12/22/2024 
+            param.DLL_SetItemPrior_OfT(Me)
+
+        End If ''End of ""If (paramDoublyLinkIt) Then""
+
+
+    End Sub ''ENd of '"Public Overloads Sub DLL_SetItemNext_OfT""
 
 
 End Class

@@ -68,14 +68,18 @@ namespace RSCLibraryDLLOperations
             //    ''  S = Sorting
             //    firstItem_AfterSorting.DLL_ClearReferencePrior("S"c)
             //    lastItem_AfterSorting.DLL_ClearReferenceNext("S"c)
-            firstItem_AfterSorting?.DLL_ClearReferencePrior('S');
-            lastItem_AfterSorting?.DLL_ClearReferenceNext('S');
-            
+            firstItem_AfterSorting.DLL_ClearReferencePrior('S');
+            lastItem_AfterSorting.DLL_ClearReferenceNext('S');
+
             //    ''Added 1/8/2024 
             //    mod_dllControlFirst = firstItem_AfterSorting
             //    mod_dllControlLast = lastItem_AfterSorting
             //
             //End Sub ''eND OF ""Public Sub DLL_SortItems()""
+
+            // Added 12/22/2024 Thomas D. 
+            _itemStart = firstItem_AfterSorting;
+            _itemEnding = lastItem_AfterSorting;
 
         }   //End Sub ''eND OF ""public void DLL_SortItems(bool par_descending)""
 
@@ -414,11 +418,11 @@ namespace RSCLibraryDLLOperations
 
             // The following indices start from zero, regardless of the 
             //    location of the sub-list.
-            int intRelativeIndex_1stHalf = 0; // As Integer = 0
-            int intRelativeIndex_2ndHalf = 0; // As Integer = 0
+            //int intRelativeIndex_1stHalf = 0; // As Integer = 0
+            //int intRelativeIndex_2ndHalf = 0; // As Integer = 0
             bool bCompleted = false; // As Boolean = false
-            TControl item_toCompare1stHalf;  // As IDoublyLinkedItem
-            TControl item_toCompare2ndHalf;  // As IDoublyLinkedItem
+            //TControl item_toCompare1stHalf;  // As IDoublyLinkedItem
+            //TControl item_toCompare2ndHalf;  // As IDoublyLinkedItem
 
             //    Dim itemLesser As IDoublyLinkedItem = Nothing
             //    Dim itemForMerge_Next As IDoublyLinkedItem = Nothing
@@ -431,8 +435,8 @@ namespace RSCLibraryDLLOperations
             //TControl? itemLesser = null;
             //TControl? itemForMerge_Next = null;
             TControl itemForMerge_Prior = itemFirstOfMerge;
-            TControl mergedList_LastItem = itemFirstOfMerge;
-            TControl itemForMerge_Final = itemFirstOfMerge;
+            //TControl mergedList_LastItem = itemFirstOfMerge;
+            //TControl itemForMerge_Final = itemFirstOfMerge;
 
             //    ''
             //    ''Loop to accomplish a sorted merge. 
@@ -490,12 +494,17 @@ namespace RSCLibraryDLLOperations
                 { 
                 }
 
+                //
+                // Encapsulated 12/22/2024 td
+                //
                 MergeSublists_Helper(par_descending, 
                                      postSort_queue1stHalf,
                                      postSort_queue2ndHalf,
-                                     ref itemForMerge_Prior,
                                      ref countLoopsCompleted,
-                                     ref bCompleted);
+                                     ref bCompleted,
+                                     ref itemForMerge_Prior);
+
+                //countLoopsCompleted++;
 
                 //        ''item_toCompare1stHalf = postSort_itemFirstOfFirstHalf.DLL_GetItemNext(intRelativeIndex_1stHalf)
                 //        ''item_toCompare2ndHalf = postSort_itemFirstOf_2nd_Half.DLL_GetItemNext(intRelativeIndex_2ndHalf)
@@ -612,7 +621,8 @@ namespace RSCLibraryDLLOperations
 
             // Done, so we'll pass back the first of the merged items.
             byref_firstOfMerge = itemFirstOfMerge;
-            byref_lastOfMerge = itemForMerge_Final;
+            // 12/22/2024 byref_lastOfMerge = itemForMerge_Final;
+            byref_lastOfMerge = itemForMerge_Prior;
 
             //End Sub ''end of ""Private S ub MergeSublists
 
@@ -626,6 +636,11 @@ namespace RSCLibraryDLLOperations
                                           ref bool ref_bCompleted,
                                           ref TControl ref_itemForMerge_Prior)
         {
+            //
+            // Select the next high-priority item from the two DLLRangeQueue objects. 
+            //    Process that high-priority item appropriately.
+            //    Remove that high-priority item from the applicable DLLRangeQueue 
+            //    object. ---12/22/2024 td
             //
             // Added 12/22/2024 td 
             //
@@ -652,8 +667,8 @@ namespace RSCLibraryDLLOperations
             ref_bCompleted = false;
             bool hasNoItems_queue1stHalf = false;
             bool hasNoItems_queue2ndHalf = false;
-            bool hasOneItem_queue1stHalf = false;
-            bool hasOneItem_queue2ndHalf = false;
+            //--bool hasOneItem_queue1stHalf = false;
+            //--bool hasOneItem_queue2ndHalf = false;
 
             //    Dim bLastItem_queue1stHalf As Boolean = False
             //    Dim bLastItem_queue2ndHalf As Boolean = False
@@ -662,11 +677,11 @@ namespace RSCLibraryDLLOperations
             //    Dim countLoopsCompleted As Integer = 0
             //    Dim bBothQueuesAreEmpty As Boolean = False
 
-            bool bLastItem_queue1stHalf = false;
-            bool bLastItem_queue2ndHalf = false;
+            //--bool bLastItem_queue1stHalf = false;
+            //--bool bLastItem_queue2ndHalf = false;
             bool bUseOnly_queue1stHalf = false;
             bool bUseOnly_queue2ndHalf = false;
-            int countLoopsCompleted = 0;
+            //--int countLoopsCompleted = 0;
             bool bBothQueuesAreEmpty = false;
 
             hasNoItems_queue1stHalf = (0 == par_postSort_queue1stHalf.Count);
@@ -834,7 +849,8 @@ namespace RSCLibraryDLLOperations
             {
                 if (mergedList_LastItem != null)
                 {
-                    mergedList_LastItem.DLL_SetItemNext(itemForMerge_Next);
+                    //mergedList_LastItem.DLL_SetItemNext(itemForMerge_Next);
+                    mergedList_LastItem.DLL_SetItemNext_OfT(itemForMerge_Next, true, false);
                 }
             }
 
@@ -869,8 +885,8 @@ namespace RSCLibraryDLLOperations
             ref_bCompleted = (hasNoItems_queue1stHalf && hasNoItems_queue2ndHalf);
 
             // ''It's okay if we repeatedly assign this.
-            itemForMerge_Final = itemForMerge_Prior;
-            countLoopsCompleted += 1;
+            itemForMerge_Final = ref_itemForMerge_Prior;
+            ref_countTimesCalled += 1;
 
             //End of "private void MergeSublists_Helper"
         } //End of "private void MergeSublists_Helper"

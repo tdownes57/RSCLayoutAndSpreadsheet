@@ -1510,8 +1510,31 @@ Public Class FormSimpleDemoOfCSharp1D
         operationSortForward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Forward)
         operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
 
+        ''Administrative.
+        mod_firstItem = mod_list._itemStart
+        mod_lastItem = mod_list._itemEnding
+        RefreshTheUI_DisplayList()
 
     End Sub
+
+    Private Sub ButtonSortBackward_Click(sender As Object, e As EventArgs) Handles ButtonSortBackward.Click
+        ''
+        ''Added 12/22/2024 
+        ''
+        Dim operationSortBackward As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim bChangeOfEndpoint_Occurred As Boolean
+
+        operationSortBackward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Backward)
+        operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+
+        ''Administrative.
+        mod_firstItem = mod_list._itemStart
+        mod_lastItem = mod_list._itemEnding
+        RefreshTheUI_DisplayList()
+
+
+    End Sub
+
 End Class
 
 

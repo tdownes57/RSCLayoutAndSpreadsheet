@@ -844,6 +844,26 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         mod_operationPrior = param
     End Sub
 
+
+    Public Sub DLL_SetItemNext(param As IDoublyLinkedItem, pboolAllowNulls As Boolean, pboolDoublyLink As Boolean) Implements IDoublyLinkedItem.DLL_SetItemNext
+        ''
+        ''Added 12/22/2024 
+        ''
+        If (Not pboolAllowNulls) Then
+            If (param Is Nothing) Then
+                Throw New Exception("Primary parameter cannot be nothing.")
+            End If
+        End If ''End of ""If (Not pboolAllowNulls) Then""
+
+        ''Added 12/22/2024 td
+        mod_operationNext = param
+
+        ''Added 12/22/2024 
+        If (pboolDoublyLink) Then param.DLL_SetItemPrior(Me)
+
+    End Sub ''End of ""Public Sub DLL_SetItemNext(param As IDoublyLinkedItem, ...)
+
+
     Public Sub DLL_ClearReferencePrior(par_opType As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior
         ''Throw New NotImplementedException()
         Debugger.Break() ''Shouldn't be needed. 

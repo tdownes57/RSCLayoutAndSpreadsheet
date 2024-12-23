@@ -79,6 +79,17 @@ Public Class TwoCharacterDLLVertical
 
     End Sub
 
+
+    Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLVertical, pboolAllowNulls As Boolean, pboolDoublyLinkIt As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemNext_OfT
+        ''Added 12/22/2024 
+
+        ''---MyBase.DLL_SetItemNext_OfT(param)
+        ''MyBase.mod_next = param
+        MyBase.DLL_SetItemNext_OfT(param, pboolAllowNulls, pboolDoublyLinkIt)
+
+    End Sub
+
+
     Public Overloads Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLVertical, pboolAllowNulls As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_SetItemPrior_OfT
         ''Throw New NotImplementedException()
         ''----MyBase.DLL_SetItemPrior_OfT(param)

@@ -61,11 +61,81 @@ Public Class TwoCharacterDLLHorizontal
         If (param Is Nothing And paramAllowNulls) Then
             ''Added 11/4/2024 
             MyBase.DLL_ClearReferenceNext("S"c)
+
+        ElseIf (param Is Nothing And (Not paramAllowNulls)) Then ''Added 12/22/2024 
+            ''Added 12/22/2024 td
+            Throw New Exception("A null value for Next is not allowed.")
+
         Else
             MyBase.DLL_SetItemNext_OfT(param)
         End If
 
-    End Sub
+    End Sub ''ENd of '"Public Overloads Sub DLL_SetItemNext_OfT""
+
+
+    ''Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLHorizontal, paramAllowNulls As Boolean, paramDoublyLinkIt As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SetItemNext_OfT
+
+    ''    ''Added 12/22/2024 
+
+    ''    If (param Is Nothing And paramAllowNulls) Then
+    ''        ''Added 11/4/2024 
+    ''        MyBase.DLL_ClearReferenceNext("S"c)
+
+    ''    ElseIf (param Is Nothing And (Not paramAllowNulls)) Then ''Added 12/22/2024 
+
+    ''        ''Added 12/22/2024 td
+    ''        Throw New Exception("A null value for Next is not allowed.")
+
+    ''    Else
+    ''        MyBase.DLL_SetItemNext_OfT(param)
+
+    ''    End If
+
+    ''    ''
+    ''    ''Added 12/22/2024 
+    ''    ''
+    ''    If (paramDoublyLinkIt) Then
+
+    ''        ''Added 12/22/2024 
+    ''        param.DLL_SetItemPrior_OfT(Me)
+
+    ''    End If ''End of ""If (paramDoublyLinkIt) Then""
+
+
+    ''End Sub ''ENd of '"Public Overloads Sub DLL_SetItemNext_OfT""
+
+
+    Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLHorizontal, paramAllowNulls As Boolean, paramDoublyLinkIt As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SetItemNext_OfT
+
+        ''Added 12/22/2024 
+
+        If (param Is Nothing And paramAllowNulls) Then
+            ''Added 11/4/2024 
+            MyBase.DLL_ClearReferenceNext("S"c)
+
+        ElseIf (param Is Nothing And (Not paramAllowNulls)) Then ''Added 12/22/2024 
+
+            ''Added 12/22/2024 td
+            Throw New Exception("A null value for Next is not allowed.")
+
+        Else
+            MyBase.DLL_SetItemNext_OfT(param)
+
+        End If
+
+        ''
+        ''Added 12/22/2024 
+        ''
+        If (paramDoublyLinkIt) Then
+
+            ''Added 12/22/2024 
+            param.DLL_SetItemPrior_OfT(Me)
+
+        End If ''End of ""If (paramDoublyLinkIt) Then""
+
+
+    End Sub ''ENd of '"Public Overloads Sub DLL_SetItemNext_OfT""
+
 
     Public Overloads Sub DLL_SetItemPrior_OfT(param As TwoCharacterDLLHorizontal, paramAllowNulls As Boolean) _
         Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_SetItemPrior_OfT

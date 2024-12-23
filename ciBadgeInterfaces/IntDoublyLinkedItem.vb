@@ -46,6 +46,9 @@ Public Interface IDoublyLinkedItem
     Sub DLL_SetItemNext(param As IDoublyLinkedItem)
     Sub DLL_SetItemPrior(param As IDoublyLinkedItem)
 
+    ''Added 12/22/2024 thomas 
+    Sub DLL_SetItemNext(param As IDoublyLinkedItem, pboolAllowNulls As Boolean, pboolDoublyLinkIt As Boolean)
+
     ''
     '' Whenever a Row or Column is deleted, and saved into a DLL Operation,
     ''   the outer edges ---MUST BE CLEANED--- of obselete references.

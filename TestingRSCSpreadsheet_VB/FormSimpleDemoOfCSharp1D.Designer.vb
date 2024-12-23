@@ -69,6 +69,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         LinkRefreshList = New LinkLabel()
         LinkApplicationDoevents = New LinkLabel()
         LinkRefreshFirstItem = New LinkLabel()
+        ButtonSortBackward = New Button()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -515,7 +516,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' ButtonSortForward
         ' 
         ButtonSortForward.BackColor = Color.Cyan
-        ButtonSortForward.Location = New Point(706, 60)
+        ButtonSortForward.Location = New Point(703, 59)
         ButtonSortForward.Name = "ButtonSortForward"
         ButtonSortForward.Size = New Size(137, 39)
         ButtonSortForward.TabIndex = 104
@@ -552,11 +553,22 @@ Partial Class FormSimpleDemoOfCSharp1D
         LinkRefreshFirstItem.TabStop = True
         LinkRefreshFirstItem.Text = "Displaying List should refresh First Item--OFF"
         ' 
+        ' ButtonSortBackward
+        ' 
+        ButtonSortBackward.BackColor = Color.Cyan
+        ButtonSortBackward.Location = New Point(846, 59)
+        ButtonSortBackward.Name = "ButtonSortBackward"
+        ButtonSortBackward.Size = New Size(102, 39)
+        ButtonSortBackward.TabIndex = 108
+        ButtonSortBackward.Text = "Backward"
+        ButtonSortBackward.UseVisualStyleBackColor = False
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 541)
+        Controls.Add(ButtonSortBackward)
         Controls.Add(LinkRefreshFirstItem)
         Controls.Add(LinkApplicationDoevents)
         Controls.Add(LinkRefreshList)
@@ -659,5 +671,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents LinkRefreshList As LinkLabel
     Friend WithEvents LinkApplicationDoevents As LinkLabel
     Friend WithEvents LinkRefreshFirstItem As LinkLabel
+    Friend WithEvents ButtonSortBackward As Button
 
 End Class
