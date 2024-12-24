@@ -451,6 +451,11 @@ namespace RSCLibraryDLLOperations
                 _itemCount -= par_rangeToDelete.GetItemCount();
             }
 
+            //
+            // Added 12/23/2024  
+            //
+            _isEmpty_OrTreatAsEmpty = (0 >= _itemCount);
+
         }
 
 

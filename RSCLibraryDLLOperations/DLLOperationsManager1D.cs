@@ -29,7 +29,7 @@ namespace RSCLibraryDLLOperations
         private T_LinkedCtl mod_firstItem;
         private T_LinkedCtl mod_endingItem;
         private DLLList<T_LinkedCtl> mod_list;
-            
+
         private DLLOperation1D<T_LinkedCtl> mod_firstPriorOperation1D;
         private DLLOperation1D<T_LinkedCtl> mod_lastPriorOperation1D;
 
@@ -53,8 +53,8 @@ namespace RSCLibraryDLLOperations
         //
         // Added 10/20/2024 
         //
-        public DLLOperationsManager1D(T_LinkedCtl par_firstItem, 
-            DLLList<T_LinkedCtl> par_list, 
+        public DLLOperationsManager1D(T_LinkedCtl par_firstItem,
+            DLLList<T_LinkedCtl> par_list,
             DLLOperation1D<T_LinkedCtl> par_firstPriorOperationV1)
         {
             this.mod_firstItem = par_firstItem;
@@ -156,19 +156,34 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        
+
         public int HowManyOpsAreRecorded()
         {
             //
             // Added 11/29/2024 Thomas Dwones, oops sorry it's a typo, Downes
             //
-            mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());  
-            return mod_intCountOperations; 
+            mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());
+            return mod_intCountOperations;
 
         }
 
 
+        public void ExecuteOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
+                           bool par_changeOfEndpoint_Expected,
+                           out bool par_changeOfEndpoint_Occurred,
+                           bool pbOperationIsNewSoRecordIt)
+        {
+            // Added 1/15/2024
+            //
+            //   This is an "alias" method.  It exists in case the programmer(s) 
+            //   forget the name of the function. 
+            //
+            ProcessOperation_AnyType(parOperation, 
+                par_changeOfEndpoint_Expected, 
+                out par_changeOfEndpoint_Occurred, 
+                pbOperationIsNewSoRecordIt);
 
+        }
 
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,

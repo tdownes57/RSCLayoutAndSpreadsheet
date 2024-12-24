@@ -396,6 +396,13 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         CheckManagerForRedoOperations_AskUser(par_wordForOp, pbyrefUserCancelsOperation)
 
+        '' Added 12/023/2024 
+        If (mod_firstItem Is Nothing) Then
+
+
+        End If ''End of ""If (mod_firstItem Is Nothing) Then""
+
+
     End Sub ''Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
 
 
@@ -635,8 +642,19 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Set the anchor. 
         ''
         Dim tempAnchorItem As TwoCharacterDLLItem ''Added 10/21/2024 td
-        tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        objAnchor = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
+
+        If (mod_firstItem Is Nothing) Then
+
+            ''Added 12/23/2024
+            Const EMPTY As Boolean = True
+            objAnchor = New DLLAnchorItem(Of TwoCharacterDLLItem)(EMPTY, False)
+
+        Else
+            tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            objAnchor = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
+
+        End If ''End of ""If (mod_firstItem Is Nothing) Then... Else..."
+
         With objAnchor
             ''._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
             ._doInsertRangeAfterThis = listInsertAfterOrBefore.SelectedIndex < 1
@@ -1063,6 +1081,9 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
         AdminToDoPriorToAnyOperation("Delete", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
+
+        ''Added 12/08/2024
+        mod_manager.ClearAnyRedoOperations_IfQueued()
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
         intHowManyToDelete = numDeleteHowMany.Value
@@ -1506,13 +1527,38 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         Dim operationSortForward As DLLOperation1D(Of TwoCharacterDLLItem)
         Dim bChangeOfEndpoint_Occurred As Boolean
+        Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
+        Const USE_MANAGER As Boolean = True ''Added 12/23/2024
 
-        operationSortForward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Forward)
-        operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+        ''Added 12/08/2024
+        mod_manager.ClearAnyRedoOperations_IfQueued()
+
+        If (mod_list._isEmpty_OrTreatAsEmpty) Then
+            ''
+            '' The list cannot be sorted, as it is empty. 
+            ''
+        Else
+            operationSortForward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Forward)
+
+            ''12/23/2024 operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+            If (USE_MANAGER) Then
+                ''Added 12/23/2024 t))d))
+                mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
+                                                     bChangeOfEndpoint_Occurred, True)
+            Else
+                operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+
+            End If ''End of ""If (USE_MANAGER) Then... Else..."
+
+        End If ''ENd of ""'If (mod_list._isEmpty_OrTreatAsEmpty) Then ... Else ..."
 
         ''Administrative.
-        mod_firstItem = mod_list._itemStart
-        mod_lastItem = mod_list._itemEnding
+        If (True Or bChangeOfEndpoint_Occurred) Then
+            mod_firstItem = mod_list._itemStart
+            mod_lastItem = mod_list._itemEnding
+        End If ''End of ""If (True or bChangeOfEndpoint_Occurred) Then""
+
+        ''Display the mutated list. 
         RefreshTheUI_DisplayList()
 
     End Sub
@@ -1523,17 +1569,47 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         Dim operationSortBackward As DLLOperation1D(Of TwoCharacterDLLItem)
         Dim bChangeOfEndpoint_Occurred As Boolean
+        Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
+        Const USE_MANAGER As Boolean = True
+
+        ''Added 12/08/2024
+        mod_manager.ClearAnyRedoOperations_IfQueued()
 
         operationSortBackward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Backward)
-        operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+
+        ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+        If (USE_MANAGER) Then
+            ''Added 12/23/2024 t))d))
+            mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
+                                                     bChangeOfEndpoint_Occurred, True)
+        Else
+            operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+
+        End If ''End of ""If (USE_MANAGER) Then... Else..."
 
         ''Administrative.
         mod_firstItem = mod_list._itemStart
         mod_lastItem = mod_list._itemEnding
         RefreshTheUI_DisplayList()
 
+        ''
+        ''Added 11/09/2024
+        ''  These two(2) lines are probably not needed. 
+        ''
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+
+        ''Added 11/29/2024 
+        ''    ---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''Modified 12/01/2024
+        labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
+
 
 End Class
 

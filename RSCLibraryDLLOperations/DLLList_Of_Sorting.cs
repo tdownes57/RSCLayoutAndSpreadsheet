@@ -52,34 +52,46 @@ namespace RSCLibraryDLLOperations
             firstItem = _itemStart;
             intHowManyItems = _itemCount;
 
-            //    ''
-            //    '' Sorting Algorithm:  "Merge Sort"
-            //    ''
-            //    SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
-            //                                 firstItem_AfterSorting,
-            //                                 lastItem_AfterSorting, INITIAL_CALL,
-            //                                  par_descending)
-            SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
-                                             out firstItem_AfterSorting,
-                                             out lastItem_AfterSorting, INITIAL_CALL,
-                                              par_descending);
+            // Added 12/23/2024  
+            if (_itemCount <= 0)
+            {
+                //
+                // The list is empty, it cannot be sorted. ---12/23/2024 t__d__
+                //
+            }
+            else
+            {
+                //    ''
+                //    '' Sorting Algorithm:  "Merge Sort"
+                //    ''
+                //    SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
+                //                                 firstItem_AfterSorting,
+                //                                 lastItem_AfterSorting, INITIAL_CALL,
+                //                                  par_descending)
+                SortItemsOfSublist_Recursive(firstItem, intHowManyItems, 0,
+                                                 out firstItem_AfterSorting,
+                                                 out lastItem_AfterSorting, INITIAL_CALL,
+                                                  par_descending);
 
-            //    ''Clean the dangling references!!
-            //    ''  S = Sorting
-            //    firstItem_AfterSorting.DLL_ClearReferencePrior("S"c)
-            //    lastItem_AfterSorting.DLL_ClearReferenceNext("S"c)
-            firstItem_AfterSorting.DLL_ClearReferencePrior('S');
-            lastItem_AfterSorting.DLL_ClearReferenceNext('S');
+                //    ''Clean the dangling references!!
+                //    ''  S = Sorting
+                //    firstItem_AfterSorting.DLL_ClearReferencePrior("S"c)
+                //    lastItem_AfterSorting.DLL_ClearReferenceNext("S"c)
+                firstItem_AfterSorting.DLL_ClearReferencePrior('S');
+                lastItem_AfterSorting.DLL_ClearReferenceNext('S');
 
-            //    ''Added 1/8/2024 
-            //    mod_dllControlFirst = firstItem_AfterSorting
-            //    mod_dllControlLast = lastItem_AfterSorting
-            //
-            //End Sub ''eND OF ""Public Sub DLL_SortItems()""
+                //    ''Added 1/8/2024 
+                //    mod_dllControlFirst = firstItem_AfterSorting
+                //    mod_dllControlLast = lastItem_AfterSorting
+                //
+                //End Sub ''eND OF ""Public Sub DLL_SortItems()""
 
-            // Added 12/22/2024 Thomas D. 
-            _itemStart = firstItem_AfterSorting;
-            _itemEnding = lastItem_AfterSorting;
+                // Added 12/22/2024 Thomas D. 
+                _itemStart = firstItem_AfterSorting;
+                _itemEnding = lastItem_AfterSorting;
+
+            }
+
 
         }   //End Sub ''eND OF ""public void DLL_SortItems(bool par_descending)""
 
@@ -229,11 +241,11 @@ namespace RSCLibraryDLLOperations
             }
 
             //    ''Testing--1/08/2024
-            //    If (currentDepthOfRecursion <= 1) Then
+            //     If (currentDepthOfRecursion <= 1) Then
             //        ''Debugger.Break()
             //    End If ''End of ""If(currentDepthOfRecursion <= 1) Then""
 
-            if (currentDepthOfRecursion <= 1)
+            if (currentDepthOfRecursion <= 1 && Testing.AreWeTesting)
             {
                 // Programmer, please check this unexpected situation.
                 //    Should hopefully not be occurring.

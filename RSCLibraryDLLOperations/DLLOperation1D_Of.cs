@@ -295,7 +295,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            // This is an "alias" method, added in case the programmer gets forgetful 
+            // This is an "alias" method, added in case the programmer(s) gets forgetful 
             //  about the name. 
             //
             OperateOnList(par_list, out pbChangeOfEndpoint_Occurred);
@@ -436,6 +436,16 @@ namespace RSCLibraryDLLOperations
                       pbIsChangeOfEndpoint_Expected, 
                       out pbChangeOfEndpoint_Occurred,
                       pbRunOtherChecks);
+
+                // Added 12/23/2024
+                // 
+                //    Is the list now newly empty?  
+                //    Or, having just been empty, is the list now filled with at 
+                //     least one(1) new item?   ---Thom. Dow.
+                //
+                bool bNoItemsInList = (0 >= par_list._itemCount);
+                par_list._isEmpty_OrTreatAsEmpty = bNoItemsInList;
+
             }
 
         }
