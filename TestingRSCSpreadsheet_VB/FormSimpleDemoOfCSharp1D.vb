@@ -85,7 +85,7 @@ Public Class FormSimpleDemoOfCSharp1D
                                                                       True, False, False, type_of_move,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem,
-                                          False, False, False)
+                                          False, False, False, False)
 
             ''12/16/2024 operationInitial30.OperateOnList(mod_list)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
@@ -863,7 +863,8 @@ Public Class FormSimpleDemoOfCSharp1D
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
                                         INSERT_OPERATION, False, False, not_a_moveType,
                                       objAnchorItem, objAnchorPair,
-                                      False, False, False)
+                                      False, False, False, False)
+
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                                  bChangeOfEndpoint_Occurred, True)
@@ -1131,7 +1132,7 @@ Public Class FormSimpleDemoOfCSharp1D
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
                                       OPERATION_NotMove, not_a_moveType, Nothing, Nothing,
-                                      SORT_123, SORT_321, SORT_UNDO)
+                                      SORT_123, SORT_321, SORT_UNDO, SORT_UNDO)
 
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
                                                  bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)

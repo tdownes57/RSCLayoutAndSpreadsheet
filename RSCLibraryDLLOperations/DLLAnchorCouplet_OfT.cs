@@ -315,5 +315,23 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool TestForEquivalence(DLLAnchorCouplet<TControl> par_anchor)
+        {
+            //
+            // Added 12/24/2024 td  
+            //
+            bool bLeft = (_itemLeft == par_anchor._itemLeft);
+            bool bRight = (_itemRight == par_anchor._itemRight);
+            bool bBoolean1 = (_isForEmptyList == par_anchor._isForEmptyList);
+            bool bBoolean2 = (_isForDeletionOperation == par_anchor._isForDeletionOperation);
+
+            bool bResult_All = (bLeft && bRight && bBoolean1 && bBoolean2);
+            return bResult_All;
+
+        }
+
+
+
+
     }
 }

@@ -232,6 +232,17 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool TestForEquivalence(DLLAnchorItem<TControl> par_anchor)
+        {
+            //
+            // Added 12/24/2024 td  
+            //
+
+
+
+            return (_isDelete == par_op._isDelete);
+
+        }
 
 
     }

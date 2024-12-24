@@ -84,7 +84,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                                                       LOAD_INSERT, False, False, type_notAMove,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem,
-                                          False, False, False)
+                                          False, False, False, False)
 
             ''12/16/2024 operationInitial30.OperateOnList(mod_list)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
@@ -672,7 +672,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       INSERT_OPERATION, False, False, type_notMove,
                                       objAnchorItem,
                                       objAnchorPair,
-                                      False, False, False)
+                                      False, False, False, False)
 
             ''12/16/2024 mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
@@ -867,7 +867,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Const OPERATION_NotMove As Boolean = False '' False ''Added 10/26/2024 thomas downes
         Const SORT_123 As Boolean = False
         Const SORT_321 As Boolean = False
-        Const SORT_UNDO As Boolean = False
+        Const SORT_UNDO_ASCEND As Boolean = False ''Modified 12/24
+        Const SORT_UNDO_DESC As Boolean = False ''Modified 12/24
 
         Dim intItemPosition As Integer
         Dim intHowManyToDelete As Integer
@@ -936,7 +937,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
                                       OPERATION_NotMove, type_notMove, Nothing, Nothing,
-                                      SORT_123, SORT_321, SORT_UNDO)
+                                      SORT_123, SORT_321, SORT_UNDO_ASCEND, SORT_UNDO_DESC)
 
             ''Dec156 2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
             mod_manager.ProcessOperation_AnyType(operationToDelete,
