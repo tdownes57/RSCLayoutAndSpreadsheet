@@ -871,8 +871,24 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/24/2024 td  
             //
-
-
+            bool b_01 = _isDelete == par_op._isDelete;                  
+            bool b_02 = _isForAnchor == par_op._isForAnchor;
+            bool b_03 = _isForEndOfList == par_op._isForEndOfList;
+            bool b_04 = _isForStartOfList == par_op._isForStartOfList;
+            bool b_05 = _isForUndoOperation == par_op._isForUndoOperation;
+            bool b_06 = _isHoriz == par_op._isHoriz;
+            bool b_07 = _isInsert == par_op._isInsert;
+            bool b_08 = _isMove == par_op._isMove;
+            bool b_09 = _isSort_Ascending == par_op._isSort_Ascending;
+            bool b_10 = _isSort_Descending == par_op._isSort_Descending;
+            bool b_11 = _isSort_UndoOfSortAscending == par_op._isSort_UndoOfSortAscending;
+            bool b_12 = _isSort_UndoOfSortDescending == par_op._isSort_UndoOfSortDescending;
+            bool b_13 = _isSort_UndoOfSortEither == par_op._isSort_UndoOfSortEither;
+            bool b_14 = _isVerti == par_op._isVerti;
+            bool b_15 = _moveType.HowManyItemsIncremental == par_op._moveType.HowManyItemsIncremental;
+            bool b_16 = _moveType.IsMoveIncrementalShift == par_op._moveType.IsMoveIncrementalShift;
+            bool b_17 = (_moveType.Equals(par_op._moveType));
+            bool b_16 = _range == par_op._range.IsEquivalent(this);
 
             return (_isDelete == par_op._isDelete);
 
