@@ -9,6 +9,7 @@ using ciBadgeInterfaces;
 using System;
 using System.Diagnostics;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text; //Added 6/20/2024  
 
 namespace RSCLibraryDLLOperations
@@ -911,6 +912,40 @@ namespace RSCLibraryDLLOperations
                 bNotAllItemsOutput = (intCountItemsOutput < intNumberOfItems);
             }
             return result.ToString();
+
+        }
+
+
+        public bool IsEquivalent(DLLRange<TControl> par_otherRange)
+        {
+            //
+            // Added 12/29/2024 thomas downes
+            //
+            bool bResult = false;
+            bool bMatchingStart = (_StartingItemOfRange.Equals(par_otherRange._StartingItemOfRange));
+            bool bMatchingEnd = (_EndingItemOfRange.Equals(par_otherRange._EndingItemOfRange));
+            bool bMatchingCount = (_ItemCountOfRange == par_otherRange._ItemCountOfRange);
+            bool bMatchingSingle = (_isSingleItem == par_otherRange._isSingleItem);
+
+            //bool bMatchingSingle = (bool)(_SingleItemInRange?.Equals(par_otherRange._SingleItemInRange));
+            bResult = (bMatchingStart && bMatchingEnd && 
+                bMatchingCount && bMatchingSingle);
+
+            if (bResult && _isSingleItem && _SingleItemInRange != null)
+            {
+                bResult = (bResult && _SingleItemInRange.Equals(par_otherRange._SingleItemInRange));
+            }
+
+            return bResult;
+
+        }
+
+
+        public bool Equals(DLLRange<TControl> par_otherRange)
+        {
+            // Added 12/29/2024 thomas downes
+            return IsEquivalent(par_otherRange);
+
 
         }
 

@@ -315,7 +315,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool TestForEquivalence(DLLAnchorCouplet<TControl> par_anchor)
+        public bool IsEquivalent(DLLAnchorCouplet<TControl> par_anchor)
         {
             //
             // Added 12/24/2024 td  
@@ -330,6 +330,15 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+        public bool Equals(DLLAnchorCouplet<TControl> par_anchor)
+        {
+            //
+            // Added 12/24/2024 td  
+            //
+            return IsEquivalent(par_anchor);
+
+        }
 
 
 

@@ -232,15 +232,24 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool TestForEquivalence(DLLAnchorItem<TControl> par_anchor)
+        public bool IsEquivalent(DLLAnchorItem<TControl> par_anchor)
         {
             //
             // Added 12/24/2024 td  
             //
+            bool bItemMatch = (_anchorItem == par_anchor._anchorItem);
+            bool bInsertBeforeMatch = (_doInsertRangeBeforeThis == par_anchor._doInsertRangeBeforeThis);
+            bool bInsertAfterMatch = (_doInsertRangeAfterThis == par_anchor._doInsertRangeAfterThis);
+            return (bItemMatch && bInsertBeforeMatch && bInsertAfterMatch);
 
+        }
 
-
-            return (_isDelete == par_op._isDelete);
+        public bool Equals(DLLAnchorItem<TControl> par_anchor)
+        {
+            //
+            // Added 12/24/2024 td  
+            //
+            return IsEquivalent(par_anchor);
 
         }
 

@@ -888,9 +888,80 @@ namespace RSCLibraryDLLOperations
             bool b_15 = _moveType.HowManyItemsIncremental == par_op._moveType.HowManyItemsIncremental;
             bool b_16 = _moveType.IsMoveIncrementalShift == par_op._moveType.IsMoveIncrementalShift;
             bool b_17 = (_moveType.Equals(par_op._moveType));
-            bool b_16 = _range == par_op._range.IsEquivalent(this);
 
-            return (_isDelete == par_op._isDelete);
+            //
+            // Check the _range property. 
+            //
+            bool b_18 = true;
+            if (par_op._range != null && this._range != null)
+            {
+                b_18 = par_op._range.IsEquivalent(this._range);
+            }
+            else if (par_op._range != null && this._range == null)
+            {
+                b_18 = false;
+            }
+            else if (par_op._range == null && this._range != null)
+            {
+                b_18 = false;
+            }
+            else
+            {
+                b_18 = true;
+            }
+
+            //
+            // Check the _anchorItem property. 
+            //
+            bool b_19 = true;
+            if (par_op._anchorItem != null && this._anchorItem != null)
+            {
+                b_19 = par_op._anchorItem.IsEquivalent(this._anchorItem);
+            }
+            else if (par_op._anchorItem != null && this._anchorItem == null)
+            {
+                b_19 = false;
+            }
+            else if (par_op._range == null && this._range != null)
+            {
+                b_19 = false;
+            }
+            else
+            {
+                b_19 = true;
+            }
+
+            //
+            // Check the _anchorCouplet property. 
+            //
+            bool b_20 = true;
+            if (par_op._anchorCouplet != null && this._anchorCouplet != null)
+            {
+                b_20 = par_op._anchorCouplet.IsEquivalent(this._anchorCouplet);
+            }
+            else if (par_op._anchorCouplet != null && this._anchorCouplet == null)
+            {
+                b_20 = false;
+            }
+            else if (par_op._anchorCouplet == null && this._anchorCouplet != null)
+            {
+                b_20 = false;
+            }
+            else
+            {
+                b_20 = true;
+            }
+
+            //return (_isDelete == par_op._isDelete);
+            bool b_01020304 = (b_01 && b_02 && b_03 && b_04);
+            bool b_05060708 = (b_05 && b_06 && b_07 && b_08);
+            bool b_09101112 = (b_09 && b_10 && b_11 && b_12);
+            bool b_13141516 = (b_13 && b_14 && b_15 && b_16);
+            bool b_17181920 = (b_17 && b_18 && b_19 && b_20);
+
+            bool result1 = (b_01020304 && b_05060708 && b_09101112);
+            bool result2 = (result1 && b_13141516 && b_17181920);
+            return (result2);
 
         }
 
