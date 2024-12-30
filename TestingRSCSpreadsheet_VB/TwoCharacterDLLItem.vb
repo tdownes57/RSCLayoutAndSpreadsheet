@@ -773,18 +773,29 @@ Public Class TwoCharacterDLLItem
 
         ''DIFFICULT AND CONFUSING -- Added 12/29/2024
         ''  Make the connection bidirectional (doubly-linked).--12/29/2024 thom.down.
-        mod_next.mod_prior = Me ''Added 12/29/2024
+        ''See below. --12/29/2024  mod_next.mod_prior = Me ''Added 12/29/2024
 
         ''Added 12/12/2024
         ''   Execute in cascade. 
         ''====Modified 12/29/2024
         ''===mod_next?.DLL_RestorePriorSortOrder()
-        If (preRestoration_next IsNot Nothing) Then
-            ''Added 12/29/2024 thomas d.
-            preRestoration_next.DLL_RestorePriorSortOrder(par_countdownItems)
-        Else
-            ''Do nothing.
-        End If ''End of ""If (preRestoration_next IsNot Nothing) Then ... Else""
+
+        Try
+            If (mod_next IsNot Nothing) Then
+                ''Added 12/29/2024 thomas d.
+                ''DIFFICULT AND CONFUSING -- Added 12/29/2024
+                ''  Make the connection bidirectional (doubly-linked).--12/29/2024 thom.down.
+                mod_next.mod_prior = Me ''Added 12/29/2024
+                preRestoration_next.DLL_RestorePriorSortOrder(par_countdownItems)
+
+            Else
+                ''Do nothing.
+            End If ''End of ""If (preRestoration_next IsNot Nothing) Then ... Else""
+
+        Catch par_ex As System.NullReferenceException
+            ''Do nothing. 
+            ''       ---12/29/2024 td
+        End Try
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 

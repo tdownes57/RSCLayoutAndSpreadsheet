@@ -4,7 +4,7 @@
     {
 
         public ClassFieldAny() { }
-,
+
         public ClassFieldAny(bool pIsStandard,
                         bool pIsCustomizable,
                         bool pIsDateField,

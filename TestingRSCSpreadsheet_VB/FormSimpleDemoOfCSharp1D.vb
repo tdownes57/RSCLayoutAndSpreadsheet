@@ -18,7 +18,7 @@ Public Class FormSimpleDemoOfCSharp1D
     Private mod_lastItem As TwoCharacterDLLItem
     Private mod_range As DLLRange(Of TwoCharacterDLLItem) ''Added 11/14/2024 t.homas d.ownes
 
-    Private Const INITIAL_ITEM_COUNT_30 As Integer = 5 ''---Added 12/9/2024--- 30
+    Private Const INITIAL_ITEM_COUNT_30 As Integer = 99 ''5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
     Private APPLICATION_DOEVENTS As Boolean = False ''---True ''Added 12/18/2024 td
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td

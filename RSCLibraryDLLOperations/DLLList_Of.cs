@@ -46,6 +46,7 @@ namespace RSCLibraryDLLOperations
         private bool _temp_b_anchorWillBeMultiUse;  // b is for Boolean
 
         public TControl _itemStart_PriorSortOrder;  //Added 12/12/2024 td
+        public TControl _itemEnding_PriorSortOrder;  //Added 12/29/2024 td
 
         //public DLLList()
         //{
@@ -723,6 +724,10 @@ namespace RSCLibraryDLLOperations
             //
             _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
 
+            // Added 12/29/2024 thomas downes
+            _itemStart_PriorSortOrder = _itemStart;
+            _itemEnding_PriorSortOrder = _itemEnding;
+
         }
 
         public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
@@ -731,9 +736,12 @@ namespace RSCLibraryDLLOperations
             // Added 12/12/2024 thomas downes 
             //
             // 12-29-2024 td //_itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
-            _itemStart_PriorSortOrder.DLL_RestorePriorSortOrder(_itemCount);
+            // 12-29-2024 td //__itemStart_PriorSortOrder.DLL_RestorePriorSortOrder(_itemCount);
+            _itemStart.DLL_RestorePriorSortOrder(_itemCount);
+
             _itemStart = _itemStart_PriorSortOrder;
-            _itemEnding = _itemStart.DLL_GetItemLast();
+            // 12-29-2024 td //_itemEnding = _itemStart.DLL_GetItemLast();
+            _itemEnding = _itemEnding_PriorSortOrder;
             _itemCount = _itemStart.DLL_CountItemsAllInList();
 
             // Added 12/12/2024 thomas downes 

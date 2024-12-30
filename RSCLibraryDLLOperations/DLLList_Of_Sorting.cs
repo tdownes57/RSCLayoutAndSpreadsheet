@@ -1097,10 +1097,16 @@ namespace RSCLibraryDLLOperations
             // Added 12/29/2024  
             //
             // 12-29-2024 _itemStart.DLL_RestorePriorSortOrder();
-            _itemStart.DLL_RestorePriorSortOrder(_itemCount);
-            _itemStart = _itemStart.DLL_GetItemFirst();
-            _itemEnding = _itemStart.DLL_GetItemLast();
-      
+            // 12-29-2024 _itemStart.DLL_RestorePriorSortOrder(_itemCount);
+            RestorePriorSortOrder(false);
+
+            // ---- DIFFICULT & CONFUSING -------------------
+            //   REFRESH THE START & ENDING ITEMS.
+            //
+            // //_itemStart = _itemStart.DLL_GetItemFirst();
+            // //_itemEnding = _itemStart.DLL_GetItemLast();
+            // //_itemStart = _itemStart_PriorSortOrder;
+            // //_itemEnding = _itemEnding_PriorSortOrder;
 
         }
 
