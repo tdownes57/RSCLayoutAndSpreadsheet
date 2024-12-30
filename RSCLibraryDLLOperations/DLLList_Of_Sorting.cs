@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,117 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------------------
         //
         //
+        public TControl _itemStart_PriorSortOrder;  //Moved to this module from DLLList_Of.cs, on 12/30/2024 --Added 12/12/2024 td
+        public TControl _itemEnding_PriorSortOrder;  //Moved to this module from DLLList_Of.cs, on 12/30/2024 --Added 12/29/2024 td
+
+        //Go to DLLOperation_Of.cs  public TControl[] _array_SortOrderIfUndo;  //Added 12/29/2024 td  
+        //Go to DLLOperation_Of.cs  public TControl[] _array_SortOrderThisOp;  //Added 12/29/2024 td  
+
+
+        public void SaveCurrentSortOrder_ToPrior(DLLOperation1D<TControl> par_op)
+        {
+            //
+            // Added 12/12/2024 thomas downes 
+            //
+            _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
+
+            // Added 12/29/2024 thomas downes
+            _itemStart_PriorSortOrder = _itemStart;
+            _itemEnding_PriorSortOrder = _itemEnding;
+
+            //
+            // Added 12/30/2024 thomas downes
+            //
+            // Place the sort order into the operation, for possible undo.
+            //   (As opposed to, inside the list itself.)
+            //
+            par_op._itemStart_SortOrderIfUndo = _itemStart;
+            par_op._itemEnding_SortOrderIfUndo = _itemEnding;
+            TControl currentItem = _itemStart;
+            // Save all of the items, in their current order. 
+            for (int index = 0; index < _itemCount; index++)
+            {
+                par_op._array_SortOrderIfUndo[index] = currentItem;
+                currentItem = currentItem.DLL_GetItemNext_OfT();
+            }
+
+
+        }
+
+
+        public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
+        {
+            //
+            // Added 12/12/2024 thomas downes 
+            //
+            // 12-29-2024 td //_itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
+            // 12-29-2024 td //__itemStart_PriorSortOrder.DLL_RestorePriorSortOrder(_itemCount);
+            _itemStart.DLL_RestorePriorSortOrder(_itemCount);
+
+            _itemStart = _itemStart_PriorSortOrder;
+            // 12-29-2024 td //_itemEnding = _itemStart.DLL_GetItemLast();
+            _itemEnding = _itemEnding_PriorSortOrder;
+            _itemCount = _itemStart.DLL_CountItemsAllInList();
+
+            // Added 12/12/2024 thomas downes 
+            if (pbAlsoClearPriorSortOrder) _itemStart.DLL_ClearPriorSortOrder(true);
+
+        }
+
+
+        public void RestorePriorSortOrder_ByOp(DLLOperation1D<TControl> par_op,
+                                          bool pbAlsoClearPriorSortOrder)
+        {
+            //
+            // Added 12/30/2024 thomas downes 
+            //
+            if (par_op._array_SortOrderThisOp == null)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+            if (par_op._itemStart_SortOrderThisOp == null)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+            if (_isEmpty_OrTreatAsEmpty)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+            if (0 == _itemCount)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            _itemStart = par_op._itemStart_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
+            TControl? currentItem = null; // _itemStart;
+            TControl priorItem = _itemStart;
+            const bool DOUBLY_LINK = true;  
+
+            // Restore all of the items, into their correct order
+            //    (per the specified operation). 
+            //
+            for (int index = 0 + 1; index < _itemCount; index++)
+            {
+                // Read the current item from the array which saves all of the items, in order.
+                currentItem = par_op._array_SortOrderThisOp[index];  // Use the sort order suffixed "ThisOp".
+                priorItem.DLL_SetItemNext_OfT(currentItem, false, DOUBLY_LINK);
+            }
+
+            currentItem.DLL_ClearReferenceNext('S');
+            _itemEnding = par_op._itemEnding_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
+
+        }
+
+        public void ClearPriorSortOrder()
+        {
+            //
+            // Added 12/12/2024 thomas downes 
+            //
+            _itemStart.DLL_ClearPriorSortOrder(true);
+
+        }
+
+
         public void DLL_SortItems(bool par_ascending, bool par_descending)
         {
             //
@@ -1091,14 +1203,23 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------------------
         //
 
-        public void DLL_UndoSort()
+        public void DLL_UndoSort(DLLOperation1D<TControl> par_op)
         {
             //
             // Added 12/29/2024  
             //
             // 12-29-2024 _itemStart.DLL_RestorePriorSortOrder();
             // 12-29-2024 _itemStart.DLL_RestorePriorSortOrder(_itemCount);
-            RestorePriorSortOrder(false);
+            // 12-30-2024 RestorePriorSortOrder(false);
+            const bool SORT_ORDER_BY_OPERATION = true;
+            if (SORT_ORDER_BY_OPERATION)
+            {
+                RestorePriorSortOrder_ByOp(par_op, false);
+            }
+            else
+            {
+                RestorePriorSortOrder(false);
+            }
 
             // ---- DIFFICULT & CONFUSING -------------------
             //   REFRESH THE START & ENDING ITEMS.
@@ -1107,6 +1228,8 @@ namespace RSCLibraryDLLOperations
             // //_itemEnding = _itemStart.DLL_GetItemLast();
             // //_itemStart = _itemStart_PriorSortOrder;
             // //_itemEnding = _itemEnding_PriorSortOrder;
+
+            //Moved up, to conditional statement. 12/30 ---RestorePriorSortOrder_ByOp(par_op, false);
 
         }
 

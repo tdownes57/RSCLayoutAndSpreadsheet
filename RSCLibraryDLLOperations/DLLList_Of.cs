@@ -45,8 +45,8 @@ namespace RSCLibraryDLLOperations
         private bool _temp_b_anchorWill_FollowRange;  // b is for Boolean
         private bool _temp_b_anchorWillBeMultiUse;  // b is for Boolean
 
-        public TControl _itemStart_PriorSortOrder;  //Added 12/12/2024 td
-        public TControl _itemEnding_PriorSortOrder;  //Added 12/29/2024 td
+        //Go to module DLLList_Of_Sorting.cs  public TControl _itemStart_PriorSortOrder;  //Added 12/12/2024 td
+        //Go to module DLLList_Of_Sorting.cs  public TControl _itemEnding_PriorSortOrder;  //Added 12/29/2024 td
 
         //public DLLList()
         //{
@@ -717,46 +717,46 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void SaveCurrentSortOrder_ToPrior()
-        {
-            //
-            // Added 12/12/2024 thomas downes 
-            //
-            _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
+        //public void SaveCurrentSortOrder_ToPrior()
+        //{
+        //    //
+        //    // Added 12/12/2024 thomas downes 
+        //    //
+        //    _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
+        //
+        //    // Added 12/29/2024 thomas downes
+        //    _itemStart_PriorSortOrder = _itemStart;
+        //    _itemEnding_PriorSortOrder = _itemEnding;
+        //
+        //}
 
-            // Added 12/29/2024 thomas downes
-            _itemStart_PriorSortOrder = _itemStart;
-            _itemEnding_PriorSortOrder = _itemEnding;
+        //public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
+        //{
+        //    //
+        //    // Added 12/12/2024 thomas downes 
+        //    //
+        //    // 12-29-2024 td //_itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
+        //    // 12-29-2024 td //__itemStart_PriorSortOrder.DLL_RestorePriorSortOrder(_itemCount);
+        //    _itemStart.DLL_RestorePriorSortOrder(_itemCount);
+        //
+        //    _itemStart = _itemStart_PriorSortOrder;
+        //    // 12-29-2024 td //_itemEnding = _itemStart.DLL_GetItemLast();
+        //    _itemEnding = _itemEnding_PriorSortOrder;
+        //    _itemCount = _itemStart.DLL_CountItemsAllInList();
+        //
+        //    // Added 12/12/2024 thomas downes 
+        //    if (pbAlsoClearPriorSortOrder) _itemStart.DLL_ClearPriorSortOrder(true);
+        //
+        //}
 
-        }
-
-        public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
-        {
-            //
-            // Added 12/12/2024 thomas downes 
-            //
-            // 12-29-2024 td //_itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
-            // 12-29-2024 td //__itemStart_PriorSortOrder.DLL_RestorePriorSortOrder(_itemCount);
-            _itemStart.DLL_RestorePriorSortOrder(_itemCount);
-
-            _itemStart = _itemStart_PriorSortOrder;
-            // 12-29-2024 td //_itemEnding = _itemStart.DLL_GetItemLast();
-            _itemEnding = _itemEnding_PriorSortOrder;
-            _itemCount = _itemStart.DLL_CountItemsAllInList();
-
-            // Added 12/12/2024 thomas downes 
-            if (pbAlsoClearPriorSortOrder) _itemStart.DLL_ClearPriorSortOrder(true);
-
-        }
-
-        public void ClearPriorSortOrder()
-        {
-            //
-            // Added 12/12/2024 thomas downes 
-            //
-            _itemStart.DLL_ClearPriorSortOrder(true);
-
-        }
+        //public void ClearPriorSortOrder()
+        //{
+        //    //
+        //    // Added 12/12/2024 thomas downes 
+        //    //
+        //    _itemStart.DLL_ClearPriorSortOrder(true);
+        //
+        //}
 
 
         //

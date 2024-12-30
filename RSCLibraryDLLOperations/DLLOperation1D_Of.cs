@@ -71,6 +71,20 @@ namespace RSCLibraryDLLOperations
         private DLLOperation1D<TControl>? mod_opPrior_ForUndo_OfT;
         private DLLOperation1D<TControl>? mod_opNext_ForRedo_OfT;
 
+        //
+        // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
+        //
+        public TControl _itemStart_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public TControl _itemEnding_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+
+        public TControl _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public TControl _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+
+        public TControl[] _array_SortOrderIfUndo;  //Added 12/30/2024 td  
+        public TControl[] _array_SortOrderThisOp;  //Added 12/30/2024 td  
+        //
+        // ---------------------END OF SORTING ORDER--------------------12/30/2024--------------
+        //
 
         /// <summary>
         /// Ind icate whether the ENDPOINTS (outward-facing item references 
@@ -389,7 +403,7 @@ namespace RSCLibraryDLLOperations
             if (_isSort_Ascending)
             {
                 // Ascending Sort
-                par_list.SaveCurrentSortOrder_ToPrior(); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
+                par_list.SaveCurrentSortOrder_ToPrior(this); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
                 par_list.DLL_SortItems(_isSort_Ascending, false);
                 pbChangeOfEndpoint_Occurred = true;
             }
@@ -397,7 +411,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Descending Sort  
                 const bool DESCENDING = true;
-                par_list.SaveCurrentSortOrder_ToPrior(); //  This will enable Undo-Sort operations.  --Added 12/29/2024 td
+                par_list.SaveCurrentSortOrder_ToPrior(this); //  This will enable Undo-Sort operations.  --Added 12/29/2024 td
                 par_list.DLL_SortItems(false, DESCENDING);
                 pbChangeOfEndpoint_Occurred = true;
             }
