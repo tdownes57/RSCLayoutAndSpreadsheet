@@ -77,18 +77,26 @@ namespace RSCLibraryDLLOperations
                 //    ''  S = Sorting
                 //    firstItem_AfterSorting.DLL_ClearReferencePrior("S"c)
                 //    lastItem_AfterSorting.DLL_ClearReferenceNext("S"c)
-                firstItem_AfterSorting.DLL_ClearReferencePrior('S');
-                lastItem_AfterSorting.DLL_ClearReferenceNext('S');
+                if (firstItem_AfterSorting == null)
+                {
+                    // Programmer, please check this unexpected situation.---12/29/2024
+                    System.Diagnostics.Debugger.Break(); // Added 12/29/2024
+                }
+                else
+                {
+                    firstItem_AfterSorting.DLL_ClearReferencePrior('S');
+                    lastItem_AfterSorting.DLL_ClearReferenceNext('S');
 
-                //    ''Added 1/8/2024 
-                //    mod_dllControlFirst = firstItem_AfterSorting
-                //    mod_dllControlLast = lastItem_AfterSorting
-                //
-                //End Sub ''eND OF ""Public Sub DLL_SortItems()""
+                    //    ''Added 1/8/2024 
+                    //    mod_dllControlFirst = firstItem_AfterSorting
+                    //    mod_dllControlLast = lastItem_AfterSorting
+                    //
+                    //End Sub ''eND OF ""Public Sub DLL_SortItems()""
 
-                // Added 12/22/2024 Thomas D. 
-                _itemStart = firstItem_AfterSorting;
-                _itemEnding = lastItem_AfterSorting;
+                    // Added 12/22/2024 Thomas D. 
+                    _itemStart = firstItem_AfterSorting;
+                    _itemEnding = lastItem_AfterSorting;
+                }
 
             }
 
@@ -249,7 +257,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Programmer, please check this unexpected situation.
                 //    Should hopefully not be occurring.
-                System.Diagnostics.Debugger.Break(); // Added 12/14/2024 
+                //System.Diagnostics.Debugger.Break(); // Added 12/14/2024 
             }
 
             //    ''
@@ -1082,6 +1090,19 @@ namespace RSCLibraryDLLOperations
         //             C:\Users\tomdo\source\repos\ciLayout\ciBadgeInterfaces\AClassOrTwo\DLL_List_OfTControl_SORTING.vb
         //----------------------------------------------------------------------------------------------------------------
         //
+
+        public void DLL_UndoSort()
+        {
+            //
+            // Added 12/29/2024  
+            //
+            _itemStart.DLL_RestorePriorSortOrder();
+            _itemStart = _itemStart.DLL_GetItemFirst();
+            _itemEnding = _itemStart.DLL_GetItemLast();
+      
+
+        }
+
 
         public bool HasChangeOfEndPoint(TControl par_itemOriginalStart, TControl par_itemOriginalEnd)
         {

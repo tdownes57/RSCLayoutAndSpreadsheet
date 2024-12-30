@@ -189,6 +189,15 @@ Public Class TwoCharacterDLLVertical
     End Function ''End of "Public Function DLL_GetDistanceTo""
 
 
+    Public Overloads Function DLL_GetItemFirst() As TwoCharacterDLLVertical Implements ciBadgeInterfaces.IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemFirst
+        ''
+        ''Added 12/29/2024 td
+        ''
+        Return MyBase.DLL_GetItemFirst() ''---C#---As TwoCharacterDLLVertical
+
+    End Function ''end of ""Public Overloads Function DLL_GetItemFirst()""
+
+
     Public Overloads Function DLL_GetItemLast() As TwoCharacterDLLVertical Implements ciBadgeInterfaces.IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemLast
         ''
         ''Added 12/12/2024 td

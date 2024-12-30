@@ -475,6 +475,22 @@ Public Class TwoCharacterDLLItem
     End Function ''ENd of ""Public Function DLL_CountItemsAfter()""
 
 
+    Public Function DLL_GetItemFirst() As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemFirst
+        ''
+        ''Added 12/29/2024
+        ''
+        Dim temp As IDoublyLinkedItem = Me ''.DLL_GetItemNext()
+        Dim temp_result As IDoublyLinkedItem = Me ''.DLL_GetItemNext()
+
+        While temp.DLL_HasPrior()
+            temp = temp.DLL_GetItemPrior()
+        End While ''End of ""While temp.DLL_HasNext()""
+        temp_result = temp
+        Return temp_result
+
+    End Function ''ENd of ""Public Function DLL_GetItemFirst() As TwoCharacterDLLItem""
+
+
     Public Function DLL_GetItemLast() As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemLast
         ''
         ''Added 12/12/2024

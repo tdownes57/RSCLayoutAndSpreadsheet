@@ -1562,6 +1562,9 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Display the mutated list. 
         RefreshTheUI_DisplayList()
 
+        ''Added 12/29/2024 
+        labelNumOperations.Text = mod_manager.ToString()
+
     End Sub
 
     Private Sub ButtonSortBackward_Click(sender As Object, e As EventArgs) Handles ButtonSortBackward.Click

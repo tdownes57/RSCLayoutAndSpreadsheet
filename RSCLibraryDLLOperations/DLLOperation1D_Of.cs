@@ -392,11 +392,18 @@ namespace RSCLibraryDLLOperations
                 par_list.DLL_SortItems(_isSort_Ascending, false);
                 pbChangeOfEndpoint_Occurred = true;
             }
-            if (_isSort_Descending)
+            else if (_isSort_Descending)
             {
                 // Descending Sort  
                 const bool DESCENDING = true;
                 par_list.DLL_SortItems(false, DESCENDING);
+                pbChangeOfEndpoint_Occurred = true;
+            }
+            else if (_isSort_UndoOfSortEither || _isSort_UndoOfSortAscending || _isSort_UndoOfSortDescending)
+            {
+                // Added 12/29/2024 td 
+                //
+                par_list.DLL_UndoSort();
                 pbChangeOfEndpoint_Occurred = true;
             }
             else

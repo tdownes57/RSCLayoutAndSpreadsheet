@@ -206,7 +206,7 @@ Public Class TwoCharacterDLLHorizontal
     End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
 
 
-    Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
+    Public Overloads Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
         ''
         ''Added 11/2/2024 
         ''
@@ -224,7 +224,8 @@ Public Class TwoCharacterDLLHorizontal
 
     End Function ''Public Function DLL_GetIndexOfItem() As Integer
 
-    Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal, ByRef pbLocatedSuccessfully As Boolean) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
+
+    Public Overloads Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal, ByRef pbLocatedSuccessfully As Boolean) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
         ''//--Throw New NotImplementedException()
 
         ''--Throw New NotImplementedException()
@@ -242,6 +243,15 @@ Public Class TwoCharacterDLLHorizontal
     End Function ''end of ""Public Overloads Function DLL_GetItemLast()""
 
 
+    Public Overloads Function DLL_GetItemFirst() As TwoCharacterDLLHorizontal Implements ciBadgeInterfaces.IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemFirst
+        ''
+        ''Added 12/12/2024 td
+        ''
+        Return MyBase.DLL_GetItemFirst() ''---C#---As TwoCharacterDLLVertical
+
+    End Function ''end of ""Public Overloads Function DLL_GetItemFirst()""
+
+
     Public Overloads Function DLL_GetValue() As String Implements ciBadgeInterfaces.IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetValue
 
         ''Added 12/15/2024 
@@ -251,70 +261,6 @@ Public Class TwoCharacterDLLHorizontal
 
 
     ''Public Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
-    ''    ''---Throw New NotImplementedException()
-    ''    Dim tempItem As TwoCharacterDLLHorizontal = Me
-    ''    Dim int_resultDistance As Integer = 0
-    ''    Dim b_resultFoundItem As Boolean = False
-    ''    Const LOOP_LIMIT As Integer = 2000
-
-    ''    ''
-    ''    '' Part 1 of 2.  Go forward (NOT backward). 
-    ''    '' 
-    ''    Do
-    ''        If (tempItem Is paramItem) Then
-
-    ''            ''Return resultDistance
-    ''            b_resultFoundItem = True
-    ''            Exit Do
-
-    ''        ElseIf (tempItem.DLL_HasNext()) Then
-    ''            tempItem = tempItem.DLL_GetItemNext_OfT()
-    ''            int_resultDistance += 1
-    ''        Else
-    ''            ''
-    ''            ''The function DLL_HasNext() has returned a False, 
-    ''            ''   indicating the end of the list is here. 
-    ''            ''
-    ''            ''Exit Do
-    ''            ''Return -1
-    ''            ''Throw New RSCEndpointException("We have searched to the end of the DLL list.")
-    ''            If (int_resultDistance > LOOP_LIMIT) Then System.Diagnostics.Debugger.Break()
-    ''            Exit Do
-    ''        End If
-    ''    Loop ''Look for "Exit Do" to break out of infinite loop. 
-
-    ''    ''
-    ''    '' Part 2 of 2.  Go backward (NOT forward). 
-    ''    '' 
-    ''    If (b_resultFoundItem) Then
-    ''        ''
-    ''        ''We don't have to do Part 2 of 2 - Going backward.
-    ''        ''
-    ''    Else
-    ''        ''
-    ''        ''Go backward. 
-    ''        ''
-    ''        int_resultDistance = 0 ''Restore default value 
-    ''        Do
-    ''            If (tempItem Is paramItem) Then
-    ''                Return int_resultDistance
-    ''            ElseIf (tempItem.DLL_HasPrior()) Then
-    ''                tempItem = tempItem.DLL_GetItemPrior_OfT()
-    ''                int_resultDistance -= 1
-    ''            Else
-    ''                ''
-    ''                ''The function DLL_HasPrior() has returned a False, 
-    ''                ''   indicating the very start of the list is here. 
-    ''                ''
-    ''                ''---Exit Do
-    ''                ''---Return -1
-    ''                ''---Throw New RSCEndpointException("We have searched to the end of the DLL list.")
-    ''                Exit Do
-    ''            End If ''ENd of ""If (tempItem Is paramItem) Then... ElseIf... Else..."
-    ''        Loop ''Look for "Exit Do" to break out of infinite loop. 
-    ''    End If
-
-    ''    Return int_resultDistance
 
     ''End Function ''End of Public Function DLL_GetDistanceTo 
 
