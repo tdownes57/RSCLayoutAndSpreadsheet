@@ -730,7 +730,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/12/2024 thomas downes 
             //
-            _itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
+            // 12-29-2024 td //_itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
+            _itemStart_PriorSortOrder.DLL_RestorePriorSortOrder(_itemCount);
             _itemStart = _itemStart_PriorSortOrder;
             _itemEnding = _itemStart.DLL_GetItemLast();
             _itemCount = _itemStart.DLL_CountItemsAllInList();

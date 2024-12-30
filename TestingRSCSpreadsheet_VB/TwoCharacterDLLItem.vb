@@ -735,6 +735,9 @@ Public Class TwoCharacterDLLItem
 
     Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SaveCurrentSortOrder_ToPrior
 
+        ''Added 12/ 29/2024 
+        Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
+
         ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
         mod_next_priorSortOrder = mod_next
 
@@ -747,14 +750,41 @@ Public Class TwoCharacterDLLItem
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
 
-    Public Sub DLL_RestorePriorSortOrder() Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_RestorePriorSortOrder
+    Public Sub DLL_RestorePriorSortOrder(par_countdownItems As Integer) Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_RestorePriorSortOrder
+
+        ''Added 12/29/2024 
+        Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
+        Dim preRestoration_next As TwoCharacterDLLItem = mod_next ''Added 12/29/2024 thomas d.
+        Dim bNotDoneYet As Boolean ''Added 12/29/2024 thomas d.
+
+        ''Added 12/29/2024 thomas d.
+        preRestoration_next = mod_next ''Added 12/29/2024 thomas d.
+        par_countdownItems -= 1 ''Added 12/29/2024 thomas d.
+        If (mod_next_priorSortOrder Is Nothing) Then
+            bNotDoneYet = (par_countdownItems > 0)
+            If (bNotDoneYet) Then
+                ''The programmer should check why this is happening.
+                System.Diagnostics.Debugger.Break()
+            End If ''End of ""If (bNotDoneYet) Then""
+        End If ''End of ""If (mod_next_priorSortOrder Is Nothing) Then""
 
         ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
         mod_next = mod_next_priorSortOrder
 
+        ''DIFFICULT AND CONFUSING -- Added 12/29/2024
+        ''  Make the connection bidirectional (doubly-linked).--12/29/2024 thom.down.
+        mod_next.mod_prior = Me ''Added 12/29/2024
+
         ''Added 12/12/2024
         ''   Execute in cascade. 
-        mod_next?.DLL_RestorePriorSortOrder()
+        ''====Modified 12/29/2024
+        ''===mod_next?.DLL_RestorePriorSortOrder()
+        If (preRestoration_next IsNot Nothing) Then
+            ''Added 12/29/2024 thomas d.
+            preRestoration_next.DLL_RestorePriorSortOrder(par_countdownItems)
+        Else
+            ''Do nothing.
+        End If ''End of ""If (preRestoration_next IsNot Nothing) Then ... Else""
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 

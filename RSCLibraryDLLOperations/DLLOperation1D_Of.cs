@@ -389,6 +389,7 @@ namespace RSCLibraryDLLOperations
             if (_isSort_Ascending)
             {
                 // Ascending Sort
+                par_list.SaveCurrentSortOrder_ToPrior(); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
                 par_list.DLL_SortItems(_isSort_Ascending, false);
                 pbChangeOfEndpoint_Occurred = true;
             }
@@ -396,6 +397,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Descending Sort  
                 const bool DESCENDING = true;
+                par_list.SaveCurrentSortOrder_ToPrior(); //  This will enable Undo-Sort operations.  --Added 12/29/2024 td
                 par_list.DLL_SortItems(false, DESCENDING);
                 pbChangeOfEndpoint_Occurred = true;
             }

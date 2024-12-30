@@ -289,7 +289,7 @@ Public Class FormSimpleDemoOfCSharp1D
                 bDone = bDone Or (each_twoChar Is Nothing)
                 intCountLoops += 1
                 ''If (int CountLoops > 2 * 30) Then Debugger.Break()
-                If (intCountLoops > 2 * INITIAL_ITEM_COUNT_30) Then Debugger.Break()
+                If (intCountLoops > 5 * INITIAL_ITEM_COUNT_30) Then Debugger.Break()
 
             Loop ''End of ""Do Until bDone""
             ''Next each_twoChar

@@ -279,10 +279,11 @@ Public Class TwoCharacterDLLHorizontal
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean)""
 
 
-    Public Overloads Sub DLL_RestorePriorSortOrder() Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_RestorePriorSortOrder
+    Public Overloads Sub DLL_RestorePriorSortOrder(par_countdownItems As Integer) Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_RestorePriorSortOrder
 
         ''Added 12/12/2024 
-        MyBase.DLL_RestorePriorSortOrder()
+        ''12/29/2024 td''MyBase.DLL_RestorePriorSortOrder()
+        MyBase.DLL_RestorePriorSortOrder(par_countdownItems)
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 

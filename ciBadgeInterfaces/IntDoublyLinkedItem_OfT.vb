@@ -102,7 +102,9 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''---------Sub DLL_SetItemNext_PriorSortOrder(param As TControl) ''Added 12/12/2024 th.do.
     ''---------Function DLL_GetItemNext_PriorSortOrder() As TControl ''Added 12/12/2024 th.do.
 
-    Sub DLL_RestorePriorSortOrder() ''Added 12/12/2024 th.do.
+    ''12/29/2024 td''Sub DLL_RestorePriorSortOrder() ''Added 12/12/2024 th.do.
+    Sub DLL_RestorePriorSortOrder(par_countdownItems As Integer) ''Added 12/12/2024 th.do.
+
     Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) ''Added 12/12/2024 th.do.
     Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) ''Added 12/12/2024 th.do.
 
