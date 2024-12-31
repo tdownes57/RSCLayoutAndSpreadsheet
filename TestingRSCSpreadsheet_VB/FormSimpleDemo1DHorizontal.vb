@@ -85,8 +85,8 @@ Public Class FormSimpleDemo1DHorizontal
             operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, True, False,
                                                                       LOAD_INSERT, False, False, type_notAMove,
                                           anchorItemForListOfOneItem,
-                                          anchorPairForListOfOneItem,
-                                          False, False, False, False)
+                                          anchorPairForListOfOneItem)
+            ''12/30/2024                    False, False, False, False)
 
             ''12/16/2024 operationInitial30.OperateOnList(mod_list)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
@@ -715,8 +715,8 @@ Public Class FormSimpleDemo1DHorizontal
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(rangeSingleItem, False, False,
                                       INSERT_OPERATION, False, False, type_notMove,
                                       objAnchorItem,
-                                      objAnchorPair,
-                                      False, False, False, False)
+                                      objAnchorPair)
+            ''12/30/2024                  False, False, False, False)
 
             ''12/17/2024  mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
@@ -978,8 +978,8 @@ Public Class FormSimpleDemo1DHorizontal
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
-                                      OPERATION_NotMove, type_notMove, Nothing, Nothing,
-                                      SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
+                                      OPERATION_NotMove, type_notMove, Nothing, Nothing)
+            ''12/30/2024              SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
 
             ''12/17/2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,

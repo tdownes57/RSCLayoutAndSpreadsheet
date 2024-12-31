@@ -84,8 +84,9 @@ Public Class FormSimpleDemoOfCSharp1D
             operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, True, False,
                                                                       True, False, False, type_of_move,
                                           anchorItemForListOfOneItem,
-                                          anchorPairForListOfOneItem,
-                                          False, False, False, False)
+                                          anchorPairForListOfOneItem)
+            ''12/30/2024                     False, False, False, False,
+            ''12/30/2024                     Nothing, Nothing, Nothing)
 
             ''12/16/2024 operationInitial30.OperateOnList(mod_list)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
@@ -862,8 +863,9 @@ Public Class FormSimpleDemoOfCSharp1D
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
                                         INSERT_OPERATION, False, False, not_a_moveType,
-                                      objAnchorItem, objAnchorPair,
-                                      False, False, False, False)
+                                      objAnchorItem, objAnchorPair)
+            ''12/30/2024                          False, False, False, False,
+            ''12/30/2024                           Nothing, Nothing, Nothing)
 
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
@@ -1131,8 +1133,9 @@ Public Class FormSimpleDemoOfCSharp1D
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
-                                      OPERATION_NotMove, not_a_moveType, Nothing, Nothing,
-                                      SORT_123, SORT_321, SORT_UNDO, SORT_UNDO)
+                                      OPERATION_NotMove, not_a_moveType, Nothing, Nothing)
+            ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
+            ''12/20/2024                  Nothing, Nothing, Nothing)
 
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
                                                  bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
@@ -1564,6 +1567,10 @@ Public Class FormSimpleDemoOfCSharp1D
 
         ''Added 12/29/2024 
         labelNumOperations.Text = mod_manager.ToString()
+
+        ''Added 11/10/2024 
+        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
     End Sub
 

@@ -91,8 +91,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                                                       DO_INSERT, False, False,
                                                                       type_moveIsNull,
                                                                       anchorItemForListOfOneItem,
-                                                                      anchorPairForListOfOneItem,
-                                                                      False, False, False, False)
+                                                                      anchorPairForListOfOneItem)
+            '' 12/30/2024                                             False, False, False, False)
 
             ''---operationInitial30.OperateOnList(mod_list)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
@@ -681,8 +681,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(rangeSingleItem, False, False,
                                       INSERT_OPERATION, False, False, type_MoveFalse,
                                       objAnchorItem,
-                                      objAnchorPair,
-                                      False, False, False, False)
+                                      objAnchorPair)
+            ''12/30/2024 False, False, False, False)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager1D.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
@@ -941,8 +941,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
-                                      OPERATION_NotMove, type_notMove, Nothing, Nothing,
-                                      SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
+                                      OPERATION_NotMove, type_notMove, Nothing, Nothing)
+            ''12/30/2024                  SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
             mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected_ByVal,

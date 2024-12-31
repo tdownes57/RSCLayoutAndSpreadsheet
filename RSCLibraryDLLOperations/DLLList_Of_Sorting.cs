@@ -53,6 +53,7 @@ namespace RSCLibraryDLLOperations
             par_op._itemStart_SortOrderIfUndo = _itemStart;
             par_op._itemEnding_SortOrderIfUndo = _itemEnding;
             TControl currentItem = _itemStart;
+            par_op._array_SortOrderIfUndo = new TControl[_itemCount];
             // Save all of the items, in their current order. 
             for (int index = 0; index < _itemCount; index++)
             {

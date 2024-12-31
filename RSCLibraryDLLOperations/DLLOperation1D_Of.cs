@@ -187,16 +187,47 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isSortAscending"></param>
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
-        public DLLOperation1D(DLLRange<TControl>? par_range,
-                  bool par_forStartOfList, bool par_forEndOfList,
-                  bool par_isInsert, bool par_isDelete, bool par_isMove,
-                  StructureTypeOfMove par_structMoveType,
-                  DLLAnchorItem<TControl>? par_anchorItem,
-                  DLLAnchorCouplet<TControl>? par_anchorPair,
-                  bool par_isSortAscending,
+        //public DLLOperation1D(DLLRange<TControl>? par_range,
+        //          bool par_forStartOfList, bool par_forEndOfList,
+        //          bool par_isInsert, bool par_isDelete, bool par_isMove,
+        //          StructureTypeOfMove par_structMoveType,
+        //          DLLAnchorItem<TControl>? par_anchorItem,
+        //          DLLAnchorCouplet<TControl>? par_anchorPair,
+        public DLLOperation1D(bool par_isSortAscending,
                   bool par_isSortDescending,
                   bool par_isUndoOfSortAscending,
-                  bool par_isUndoOfSortDescending)
+                  bool par_isUndoOfSortDescending,
+                  TControl par_itemStart_Sorting, 
+                  TControl par_itemEnding_ForSorting, 
+                  TControl[] par_array_Sorting)
+        {
+            //
+            // Added 10/12/2024 thomas downes
+            //
+            _isSort_Ascending = par_isSortAscending;
+            _isSort_Descending = par_isSortDescending;
+
+            //Added 4/18/2024 
+            //_isSort_UndoOfSort = par_isSortReversal; // Undoing a sorting operation.
+            _isSort_UndoOfSortEither = (par_isUndoOfSortAscending ||
+                                   par_isUndoOfSortDescending); // Undoing a sorting operation.
+            //Added 12/24/2024 
+            _isSort_UndoOfSortAscending = par_isUndoOfSortAscending;
+            _isSort_UndoOfSortDescending = par_isUndoOfSortDescending;
+            _itemStart_SortOrderThisOp = par_itemStart_Sorting;
+            _itemEnding_SortOrderThisOp = par_itemEnding_ForSorting;
+            _array_SortOrderThisOp = par_array_Sorting;
+
+
+        }
+
+
+        public DLLOperation1D(DLLRange<TControl>? par_range,
+              bool par_forStartOfList, bool par_forEndOfList,
+              bool par_isInsert, bool par_isDelete, bool par_isMove,
+              StructureTypeOfMove par_structMoveType,
+              DLLAnchorItem<TControl>? par_anchorItem,
+              DLLAnchorCouplet<TControl>? par_anchorPair)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -213,43 +244,20 @@ namespace RSCLibraryDLLOperations
             _isInsert = par_isInsert;
             _isDelete = par_isDelete;
             _isMove = par_isMove;
-            _isSort_Ascending = par_isSortAscending;
-            _isSort_Descending = par_isSortDescending;
-
-            //Added 4/18/2024 
-            //_isSort_UndoOfSort = par_isSortReversal; // Undoing a sorting operation.
-            _isSort_UndoOfSortEither = (par_isUndoOfSortAscending ||
-                                   par_isUndoOfSortDescending); // Undoing a sorting operation.
-            //Added 12/24/2024 
-            _isSort_UndoOfSortAscending = par_isUndoOfSortAscending;
-            _isSort_UndoOfSortDescending = par_isUndoOfSortDescending;
+            _moveType = par_structMoveType;
 
             //
             //  Preparing for UNDO... Determining an Anchor for a future UNDO operation.
             //
             //Think about undoing... an INSERT (hence, it's a DELETE)
             if (_isInsert) _inverseAnchorItem_ForUndo = null; // par_range. // Deletes don't need an anchor! 
-            //if (_isDelete && _isForStartOfList)
-            //{
-            //    //TControl_H item_afterRange = _range_H._itemEnding.DLL_GetItemNext();
-            //    //_inverseAnchorItem_ForUndo_H = new DLLAnchor<>(item_afterRange); 
-            //}
-            //else if (_isDelete && _isForEndOfList)
-            //{
-            //    //TControl_H item_afterRange = _range_H._itemStart.DLL_GetItemPrior();
-            //    //_inverseAnchorItem_ForUndo_H = new DLLAnchor<>(item_afterRange);
-            //}
 
-            // 12/9/2024  if (_isDelete)
             if (_isDelete || _isMove) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
             {
                 _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
                 //_anchorCouplet.GetAnchorItem();
             } // end of ""if (_isDelete || _isMove)"" 
 
-            //
-            // Added 12/09/2024  
-            //
             if (_range?._ItemCountOfRange == 1)
             {
                 if (_range._isSingleItem == false)
@@ -266,11 +274,6 @@ namespace RSCLibraryDLLOperations
 
                 }
             }
-
-            //
-            // Added 12/19/2024 Thomas Downes 
-            //
-            _moveType = par_structMoveType;
 
 
         }
@@ -311,6 +314,10 @@ namespace RSCLibraryDLLOperations
             //
             if (par_enum == EnumSortTypes.Forward) _isSort_Ascending = true;
             if (par_enum == EnumSortTypes.Backward) _isSort_Descending = true;
+
+            // Added 12/30/2024 
+            if (par_enum == EnumSortTypes.UndoOfSortForward) _isSort_UndoOfSortAscending = true;
+            if (par_enum == EnumSortTypes.UndoOfSortBackward) _isSort_UndoOfSortDescending = true;
 
         }
 
@@ -419,7 +426,8 @@ namespace RSCLibraryDLLOperations
             {
                 // Added 12/29/2024 td 
                 //
-                par_list.DLL_UndoSort();
+                // 12/30/2024 par_list.DLL_UndoSort();
+                par_list.DLL_UndoSort(this);
                 pbChangeOfEndpoint_Occurred = true;
             }
             else

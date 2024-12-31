@@ -755,6 +755,11 @@ namespace RSCLibraryDLLOperations
             bool result_isUndoOfSortAscending = _isSort_Ascending; //  _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isUndoOfSortDescending = _isSort_Descending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
 
+            // Added 12/30/2024 td
+            TControl result_itemStart_SortOrderThisOp = _itemStart_SortOrderIfUndo;
+            TControl result_itemEnding_SortOrderThisOp = _itemEnding_SortOrderIfUndo;
+            TControl[] result_array_SortOrderThisOp = _array_SortOrderIfUndo;
+
             //--- DIFFICULT & CONFUSING ---
             if (_isMove && _isForStartOfList) result_isForStartOfList = false;
             if (_isMove && _isForEndOfList) result_isForEndOfList = false;
@@ -810,19 +815,30 @@ namespace RSCLibraryDLLOperations
             //
             // Use the constructor overload for horizontal operations.
             //
-            result_UNDO = new DLLOperation1D<TControl>(result_RangeOfItems,
-                result_isForStartOfList,
-                result_isForEndOfList,
-                result_isInsert,
-                result_isDelete,
-                result_isMove,
-                result_MoveType,
-                result_anchorItem,
-                result_anchorCouplet,
-                result_isSortAscending,
-                result_isSortDescending,
-                result_isUndoOfSortAscending,
-                result_isUndoOfSortDescending);
+            if (_isInsert || _isDelete || _isMove)
+            {
+                result_UNDO = new DLLOperation1D<TControl>(
+                    result_RangeOfItems,
+                    result_isForStartOfList,
+                    result_isForEndOfList,
+                    result_isInsert,
+                    result_isDelete,
+                    result_isMove,
+                    result_MoveType,
+                    result_anchorItem,
+                    result_anchorCouplet);
+            }
+            else
+            {
+                result_UNDO = new DLLOperation1D<TControl>(
+                    result_isSortAscending,
+                    result_isSortDescending,
+                    result_isUndoOfSortAscending,
+                    result_isUndoOfSortDescending,
+                    result_itemStart_SortOrderThisOp,
+                    result_itemEnding_SortOrderThisOp,
+                    result_array_SortOrderThisOp);
+            }
 
             //----}
 
@@ -851,14 +867,32 @@ namespace RSCLibraryDLLOperations
             //DLLOperation1D<T_Base> result =      // Added& modified 12/11/2024  
             //    new DLLOperation1D<T_Base>(objRange, objCouplet, _isInsert, _isMove, _moveType);
 
-            // Modified 12/11/2024 
-            DLLOperation1D<T_Base> result =
-                new DLLOperation1D<T_Base>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
-                       _isMove, _moveType, objAnchorItem, objAnchorCouplet,
-                       _isSort_Ascending, _isSort_Descending, 
-                       _isSort_UndoOfSortAscending, 
-                       _isSort_UndoOfSortDescending);
+            DLLOperation1D<T_Base> result; // = null;
 
+            // Modified 12/11/2024 
+            if (_isInsert || _isDelete || _isMove)
+            {
+                //
+                // Insert, Delete, or Move
+                //
+                result =
+                    new DLLOperation1D<T_Base>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
+                           _isMove, _moveType, objAnchorItem, objAnchorCouplet);
+            }
+            else
+            {
+                //
+                // Sorting 
+                // 
+                result =
+                    new DLLOperation1D<T_Base>(
+                           _isSort_Ascending, _isSort_Descending,
+                           _isSort_UndoOfSortAscending,
+                           _isSort_UndoOfSortDescending,
+                           _itemStart_SortOrderIfUndo as T_Base,
+                           _itemEnding_SortOrderIfUndo as T_Base,
+                           _array_SortOrderIfUndo as T_Base[]);
+            }
 
             return result;
 
