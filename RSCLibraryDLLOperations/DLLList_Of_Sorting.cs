@@ -109,6 +109,7 @@ namespace RSCLibraryDLLOperations
             }
 
             _itemStart = par_op._itemStart_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
+            _itemStart.DLL_ClearReferencePrior('S'); // Added 12/30/2024 
             TControl? currentItem = null; // _itemStart;
             TControl priorItem = _itemStart;
             const bool DOUBLY_LINK = true;  
@@ -121,6 +122,9 @@ namespace RSCLibraryDLLOperations
                 // Read the current item from the array which saves all of the items, in order.
                 currentItem = par_op._array_SortOrderThisOp[index];  // Use the sort order suffixed "ThisOp".
                 priorItem.DLL_SetItemNext_OfT(currentItem, false, DOUBLY_LINK);
+
+                // Prepare for the next iteration of the loop. --12/30/2024
+                priorItem = currentItem;
             }
 
             currentItem.DLL_ClearReferenceNext('S');

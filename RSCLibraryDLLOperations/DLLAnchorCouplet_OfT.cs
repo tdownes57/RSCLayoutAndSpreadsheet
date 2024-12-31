@@ -152,6 +152,9 @@ namespace RSCLibraryDLLOperations
 
         public DLLAnchorItem<TControl> GetAnchorItem()
         {
+            //
+            // Create the Anchor Item which is equivalent to this Anchor Couplet.
+            //
             DLLAnchorItem<TControl> result; 
             if (_itemLeft != null)
             {

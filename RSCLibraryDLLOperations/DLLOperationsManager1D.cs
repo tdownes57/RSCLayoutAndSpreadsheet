@@ -376,7 +376,7 @@ namespace RSCLibraryDLLOperations
                 markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo();
                 mod_lastPriorOperation1D = markersCurrentUndoOperation_willBeLast;
 
-                mod_lastPriorOperation1D.DLL_ClearOpNext();
+                mod_lastPriorOperation1D?.DLL_ClearOpNext();
                 mod_opUndoRedoMarker.ClearPendingRedoOperation();
                 mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());
             }
@@ -454,7 +454,7 @@ namespace RSCLibraryDLLOperations
             bool bChangeOfEndpoint_Occurred = false;
             DLLOperation1D<T_LinkedCtl> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
             //opUndoVersion = parOperation.GetUndoVersionOfOperation();
-            opUndoVersion = parOperation.GetInverseForUndo();
+            opUndoVersion = parOperation.GetInverseForUndo(Testing.AreWeTesting);
 
             // Added 11/10/2024 
             pbEndpointAffected = opUndoVersion.IsChangeOfEndpoint();

@@ -18,7 +18,7 @@ Public Class FormSimpleDemoOfCSharp1D
     Private mod_lastItem As TwoCharacterDLLItem
     Private mod_range As DLLRange(Of TwoCharacterDLLItem) ''Added 11/14/2024 t.homas d.ownes
 
-    Private Const INITIAL_ITEM_COUNT_30 As Integer = 99 ''5 ''---Added 12/9/2024--- 30
+    Private Const INITIAL_ITEM_COUNT_30 As Integer = 10 ''99 ''5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
     Private APPLICATION_DOEVENTS As Boolean = False ''---True ''Added 12/18/2024 td
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
@@ -62,6 +62,12 @@ Public Class FormSimpleDemoOfCSharp1D
             ''Nov2024 rangeNew.DLL_InsertItemToTheEnd(newItem)
             mod_range.DLL_InsertItemToTheEnd(newItem)
         Next indexNewItem
+
+        ''
+        '' added 12/30/2024 
+        ''
+        numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
+        numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
 
         ''
         '' Create the operation, or simply insert the range
@@ -367,7 +373,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim intRangeFirstIndex As Integer
 
         If (par_range Is Nothing) Then
-            MessageBoxTD.Show_Statement("To autopopulate the range-related controls...",
+            MessageBoxTD.Show_Statement("To auto-populate the range-related controls...",
                                         "Please select a range of items, by clicking the numbers in the 2nd textbox.")
             Exit Sub
         End If ''End of ""If (par_range Is Nothing) Then""

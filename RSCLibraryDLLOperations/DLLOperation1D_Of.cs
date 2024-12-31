@@ -255,9 +255,16 @@ namespace RSCLibraryDLLOperations
             if (_isDelete || _isMove) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
             {
                 _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+
+                // Added 12/30/2024 thomas downes
+                _inverseAnchorItem_ForUndo = _inverseAnchorPair_forUndo.GetAnchorItem();
+
                 //_anchorCouplet.GetAnchorItem();
             } // end of ""if (_isDelete || _isMove)"" 
 
+            //
+            // Range 
+            //
             if (_range?._ItemCountOfRange == 1)
             {
                 if (_range._isSingleItem == false)
@@ -292,6 +299,9 @@ namespace RSCLibraryDLLOperations
             _isMove = par_isMove;
             _isInsert = par_isInsert;
             _anchorCouplet = par_anchorCouplet;
+
+            // Added 12/30/2024 thomas downes
+            _anchorItem = par_anchorCouplet.GetAnchorItem();
 
             // Added 12/11/2024 td
             _moveType = par_typeOfMove;

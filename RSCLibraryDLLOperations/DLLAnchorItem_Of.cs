@@ -254,5 +254,25 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public string ToString()
+        {
+            //
+            //  Added 12/30/2024 thomas d. 
+            //
+            string result_string = "null";
+
+            //  Modified 12/30/2024 thomas d. 
+            if (_anchorItem != null)
+            {
+                result_string = (_doInsertRangeBeforeThis ?
+                    ("__" + _anchorItem.ToString() + " ") :
+                    (_anchorItem.ToString() + "__ "));
+            }
+
+            return result_string;
+
+        }
+
+
     }
 }

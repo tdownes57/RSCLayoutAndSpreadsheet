@@ -728,7 +728,7 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
         public DLLOperation1D<TControl> // <TControl_H, TControl_V>
-            GetInverseForUndo()
+            GetInverseForUndo(bool pbTestForIdempotency)
         {
 
             DLLOperation1D<TControl> result_UNDO;
@@ -840,9 +840,23 @@ namespace RSCLibraryDLLOperations
                     result_array_SortOrderThisOp);
             }
 
-            //----}
+            //
+            // Testing the inverse.   ---Added 12/30/2024 td
+            //
+            if (Testing.AreWeTesting && pbTestForIdempotency)
+            {
+                //
+                // Is the inverse of the inverse, the equivalent of the original?
+                //
+                var test_idempotent = result_UNDO.GetInverseForUndo(false);
+                bool bEquivalent = this.TestForEquivalence(test_idempotent);
+                if (! bEquivalent) System.Diagnostics.Debugger.Break();
+
+            }
+
 
             return result_UNDO;
+
 
         }
 
@@ -1008,8 +1022,8 @@ namespace RSCLibraryDLLOperations
             DLLOperation1D<TControl> opInverse1st;
             DLLOperation1D<TControl> opInverse2nd;
 
-            opInverse1st = GetInverseForUndo();
-            opInverse2nd = opInverse1st.GetInverseForUndo();
+            opInverse1st = GetInverseForUndo(false);
+            opInverse2nd = opInverse1st.GetInverseForUndo(false);
 
             bool result_equivalent;
             result_equivalent = TestForEquivalence(opInverse2nd);

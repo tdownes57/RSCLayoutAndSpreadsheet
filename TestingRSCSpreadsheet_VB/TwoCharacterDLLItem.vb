@@ -133,14 +133,14 @@ Public Class TwoCharacterDLLItem
         ''
         '' Adding bidirectionality.  ---12/08/2024 td
         ''
-        If (ENFORCE_BIDIRECTIONAL) Then
-            ''
-            ''Set the "mod_prior" item for this parameter item,
-            ''  to be the present class (i.e. the procedure's implicit parameter).
-            ''
-            paramItem.mod_next = Me
+        ''If (ENFORCE_BIDIRECTIONAL) Then
+        ''    ''
+        ''    ''Set the "mod_prior" item for this parameter item,
+        ''    ''  to be the present class (i.e. the procedure's implicit parameter).
+        ''    ''
+        ''    paramItem.mod_next = Me
 
-        End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
+        ''End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
