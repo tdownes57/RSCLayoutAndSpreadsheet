@@ -17,8 +17,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
     ''
     '' Added 10/14/2024 thomas c. downes 
     ''
-    Private mod_manager1D As DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)
-    Private mod_manager2D As DLLOperationsManager2x2_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)
+    ''---Private mod_manager1D As DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)
+    Private mod_manager2D As DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)
 
     Private WithEvents mod_list As DLLList(Of TwoCharacterDLLHorizontal)
     Private mod_firstItem As TwoCharacterDLLHorizontal
@@ -101,7 +101,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem,
             ''      mod_list, operationInitial30)
-            mod_manager1D = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
+            ''12/31/2024 td mod_manager1D = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
+            mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)(True, mod_firstItem, mod_list)
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
@@ -111,7 +112,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         RefreshTheUI_DisplayList()
 
         ''Added 12/04/2024 
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub
 
@@ -356,7 +357,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
     End Sub ''Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
 
 
-    Private Sub CheckManagerForRedoOperations_AskUser(ByRef pbyrefUserCancelsOperation As Boolean)
+    Private Sub CheckManagerForRedoOperations_AskUser(ByRef byref_UserCancelsOperation As Boolean)
         ''
         '' Added 12/01/2024 
         ''
@@ -366,9 +367,9 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 12/02/2024
         Dim intCountRedos As Integer
         Dim strDialogMessage As String
-        intCountRedos = mod_manager1D.CountOfOperations_QueuedForRedo()
+        intCountRedos = mod_manager2D.CountOfOperations_QueuedForRedo()
 
-        bManagerHasRedosQueuedUp = mod_manager1D.AreOneOrMoreOpsToRedo_PerMarker()
+        bManagerHasRedosQueuedUp = mod_manager2D.AreOneOrMoreOpsToRedo_PerMarker()
 
         If (bManagerHasRedosQueuedUp) Then
 
@@ -394,7 +395,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         End If ''End of ""If (boolUserCancels) Then""
 
-        pbyrefUserCancelsOperation = boolUserCancels
+        byref_UserCancelsOperation = boolUserCancels
 
     End Sub ''Private Sub CheckManagerForRedoOperations_AskUser
 
@@ -532,11 +533,12 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple,
-                                        INSERT_OPERATION, False, typeMove_isNull)
+                                       INSERT_OPERATION, False, typeMove_isNull)
 
             ''operation.OperateOnList(mod_list)
-            mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            mod_manager2D.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                             bChangeOfEndpoint_Occurred, True)
+
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -551,7 +553,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
 
             ''operation.OperateOnList(mod_list)
             ''//mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
-            mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            mod_manager2D.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                                                    bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
@@ -586,7 +588,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
         ''Modified 12/02/2024  labelNumOperations.Text = mod_manager.ToString()
-        labelNumOperations.Text = mod_manager1D.ToString(operation)
+        labelNumOperations.Text = mod_manager2D.ToString(operation.GetConvertToBaseClass()) ''1/1/2025 .ToString(operation)
 
     End Sub
 
@@ -685,7 +687,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''12/30/2024 False, False, False, False)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
-            mod_manager1D.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+            mod_manager2D.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                                    bChangeOfEndpoint_Occurred, True)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
@@ -713,17 +715,17 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
 
         ''Added 11/09/2024
         ''  These two(2) lines are probably not needed. 
-        buttonRedoOp.Enabled = mod_manager1D.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager1D.MarkerHasOperationNext_Redo()
+        buttonRedoOp.Enabled = mod_manager2D.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager2D.MarkerHasOperationNext_Redo()
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub
 
@@ -834,7 +836,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
 
         ''Nov10 2024 ''mod_manager.UndoMarkedOperation()
-        mod_manager1D.UndoMarkedOperation(bEndpointAffected)
+        mod_manager2D.UndoMarkedOperation(bEndpointAffected)
 
         ''Added 11/10/2024 
         mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
@@ -848,11 +850,11 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         buttonReDo.Enabled = True
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub
 
@@ -945,7 +947,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''12/30/2024                  SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
-            mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected_ByVal,
+            mod_manager2D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected_ByVal,
                                                    bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
 
             ''Administration....
@@ -969,7 +971,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub ''buttonDelete_Click 
 
@@ -988,22 +990,22 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''Added 11/09/2024
         ''
-        mod_manager1D.RedoMarkedOperation()
+        mod_manager2D.RedoMarkedOperation()
 
         ''Added 11/09/2024 
         RefreshTheUI_DisplayList()
 
         ''Added 11/09/2024
         ''buttonRedoOp.Enabled = False
-        buttonRedoOp.Enabled = mod_manager1D.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager1D.MarkerHasOperationNext_Redo()
+        buttonRedoOp.Enabled = mod_manager2D.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager2D.MarkerHasOperationNext_Redo()
 
         ''Added 12/04/2024
-        buttonUndoLastStep.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub
 
@@ -1065,7 +1067,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_move)
         ''operation.OperateOnList(mod_list)
-        mod_manager1D.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        mod_manager2D.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
                                                bChangeOfEndpoint_Occurred, True)
 
         ''Added 12/17/2024 td
@@ -1083,13 +1085,15 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
+
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listMoveAfterOrBefore.SelectedIndexChanged
 
     End Sub
+
 
     Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
 
@@ -1098,7 +1102,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub
 
@@ -1109,7 +1113,7 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub
 
@@ -1117,15 +1121,15 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''Added 12/4./2024 t..homas d..ownes
         ''
-        mod_manager1D.ClearAllRecordedOperations()
+        mod_manager2D.ClearAllRecordedOperations()
 
-        buttonRedoOp.Enabled = mod_manager1D.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager1D.MarkerHasOperationNext_Redo()
+        buttonRedoOp.Enabled = mod_manager2D.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager2D.MarkerHasOperationNext_Redo()
 
-        buttonUndoLastStep.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager1D.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
+        buttonUndo.Enabled = mod_manager2D.MarkerHasOperationPrior_Undo()
 
-        labelNumOperations.Text = mod_manager1D.ToString()
+        labelNumOperations.Text = mod_manager2D.ToString()
 
     End Sub
 
@@ -1138,8 +1142,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''Added 12/4/2024 
         MessageBoxTD.Show_Statement("To switch to the 2D manager (in 1D mode), all stored operations must be cleared before switching.")
         Radio2DManager.Checked = True
-        mod_manager1D = Nothing
-        mod_manager2D = New DLLOperationsManager2x2_Redo(Of TwoCharacterDLLItem,
+        mod_manager2D = Nothing
+        mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem,
             TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)(True, mod_firstItem, mod_list, Nothing)
 
 
@@ -1153,9 +1157,11 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         MessageBoxTD.Show_Statement("All stored operations must be cleared before switching.")
         Radio1DManager.Checked = True
         mod_manager2D = Nothing
-        mod_manager1D = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
+        mod_manager2D = New DLLOperationsManager2x2_Redo(Of TwoCharacterDLLItem,
+            TwoCharacterDLLHorizontal, TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
 
     End Sub
+
 End Class
 
 

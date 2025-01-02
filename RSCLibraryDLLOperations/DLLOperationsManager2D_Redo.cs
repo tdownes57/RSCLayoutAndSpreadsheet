@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    public class DLLOperationsManager2x2_Redo<T_Base, T_Hori, T_Vert> 
+    public class DLLOperationsManager2D_Redo<T_Base, T_Hori, T_Vert> 
                           // :InterfaceDLLManager_OfT<T_Base>
             where T_Base : class, IDoublyLinkedItem<T_Base> // IDoublyLinkedItem<T_Base>
             where T_Hori : class, IDoublyLinkedItem<T_Hori> // IDoublyLinkedItem<T_Hori>
@@ -33,8 +33,8 @@ namespace RSCLibraryDLLOperations
         private DLLOperationsManager1D<T_Hori> mod_managerHoriz;
         private DLLOperationsManager1D<T_Vert> mod_managerVerti;
 
-        private DLLOperationBase mod_firstOperation;
-        private DLLOperationBase mod_lastOperation;
+        private DLLOperationBase? mod_firstOperation;
+        private DLLOperationBase? mod_lastOperation;
 
         //  Let's not delegate (to our class components)
         //   recording/saving references of operations.
@@ -58,8 +58,10 @@ namespace RSCLibraryDLLOperations
         // Use the Base-Type . 
         private DLLOperationsUndoRedoMarker1D<T_Base> mod_opUndoRedoMarker;
 
+        private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
-        public DLLOperationsManager2x2_Redo(bool par_horizontalOnly,
+
+        public DLLOperationsManager2D_Redo(bool par_horizontalOnly,
                              T_Hori par_firstItemHorizontal,
                              DLLList<T_Hori> par_listHoriz,
                              DLLOperation1D<T_Hori>? par_firstOperationH = null)
@@ -99,7 +101,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperationsManager2x2_Redo(bool par_BothDimensions,
+        public DLLOperationsManager2D_Redo(bool par_BothDimensions,
                                          T_Hori par_firstItemHorizontal, 
                                          T_Vert par_firstItemVertical,
                                          DLLList<T_Hori> par_listHoriz,
@@ -145,7 +147,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperationsManager2x2_Redo(T_Hori par_firstItemHorizontal, T_Vert par_firstItemVertical,
+        public DLLOperationsManager2D_Redo(T_Hori par_firstItemHorizontal, T_Vert par_firstItemVertical,
                                          DLLList<T_Hori> par_listHoriz,
                                          DLLList<T_Vert> par_listVerti)
         {
@@ -263,6 +265,87 @@ namespace RSCLibraryDLLOperations
             //
 
         }
+
+
+        public int CountOfOperations_QueuedForRedo()
+        {
+            //
+            //  Added 1/01/2025 & 10/13/2024 
+            //
+            int countOpsToRedo = mod_opUndoRedoMarker.CountsOpsToRedo();
+            return (countOpsToRedo);
+
+        }
+
+        public bool AreOneOrMoreOpsToRedo_PerMarker()
+        {
+            //
+            // Added 12/01/2024 thomas downes
+            //
+            int countOpsToRedo = mod_opUndoRedoMarker.CountsOpsToRedo();
+            return (countOpsToRedo > 0);
+
+        }
+
+
+        public override string ToString()
+        {
+            //
+            //  Added 01/01/2025 
+            //
+
+            //
+            // Added 11/29/2024 
+            //
+            return mod_opUndoRedoMarker.ToString();
+
+
+        }
+
+
+        public string ToString(DLLOperation1D<T_Base> par_operation)
+        {
+            //
+            // Added 11/29/2024 
+            //
+            return mod_opUndoRedoMarker.ToString(par_operation);
+
+        }
+
+
+        public bool MarkerHasOperationPrior_Undo()
+        {
+            //
+            // Suffixed with _Undo on 12/8/2024 td.
+            //
+            bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior();
+            return result_hasPrior;
+        }
+
+
+        public bool MarkerHasOperationNext_Redo()
+        {
+            //
+            // Suffixed with _Redo on 12/8/2024 td.
+            //
+            //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
+            return result_hasNext;
+
+        }
+
+        public void ClearAllRecordedOperations()
+        {
+            //
+            // Added 12/04/2024 th..omas do..wnes  
+            //
+            mod_firstOperation = null;
+            mod_lastOperation = null;
+            mod_opUndoRedoMarker.ClearAllOperations();
+            mod_intCountOperations = 0;
+
+        }
+
 
     }
 }
