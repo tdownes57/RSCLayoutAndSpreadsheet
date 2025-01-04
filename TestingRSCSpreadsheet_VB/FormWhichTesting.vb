@@ -31,7 +31,7 @@ Public Class FormWhichTesting
 
     End Sub
 
-    Private Sub LinkLabelCSharpSimple1D_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCSharpSimple1D.LinkClicked
+    Private Sub LinkSimpleDemoOfCSharp1D_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCSharpSimple1D.LinkClicked
 
         ''Added 1/22/2024 td
         ''---Dim objFormToShow As New FormTestUsingManager
@@ -53,15 +53,31 @@ Public Class FormWhichTesting
 
         ''Added 12/04/2024 td
         Dim objFormToShow As New FormSimpleDemo1D_Backup '' FormSimpleDemoOfCSharp1D ''---TestUsingManager
-        objFormToShow.Show()
+        ''    objFormToShow.Show()
+        objFormToShow.ShowDialog(Me)
 
     End Sub
 
-    Private Sub LinkLabelCSharpSimple2D_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelCSharpSimple2D.LinkClicked
+    Private Sub LinkSimpleDemo1DHorizontal_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkSimpleDemo1DHorizontal.LinkClicked
 
         ''Added 12/04/2024 td
         Dim objFormToShow As New FormSimpleDemo1DHorizontal
-        objFormToShow.Show()
+        ''    objFormToShow.Show()
+        objFormToShow.ShowDialog(Me)
+
+    End Sub
+
+    Private Sub FormWhichTesting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Link1Dmode2Dmanager.LinkClicked
+
+        ''Added 12/04/2024 td
+        Dim objFormToShow As New Form1Dmode2Dmanager
+        ''    objFormToShow.Show()
+        objFormToShow.ShowDialog(Me)
+
 
     End Sub
 End Class

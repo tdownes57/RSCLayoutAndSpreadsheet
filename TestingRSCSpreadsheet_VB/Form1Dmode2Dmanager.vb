@@ -13,7 +13,7 @@ Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 Imports RSCLibraryDLLOperations
 
-Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
+Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
     ''
     '' Added 10/14/2024 thomas c. downes 
     ''
@@ -1157,8 +1157,8 @@ Public Class FormDemo1D_2DManager ''12/04/2024  FormSimpleDemoOfCSharp1D
         MessageBoxTD.Show_Statement("All stored operations must be cleared before switching.")
         Radio1DManager.Checked = True
         mod_manager2D = Nothing
-        mod_manager2D = New DLLOperationsManager2x2_Redo(Of TwoCharacterDLLItem,
-            TwoCharacterDLLHorizontal, TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
+        mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem,
+            TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)(True, mod_firstItem, mod_list, Nothing)
 
     End Sub
 
