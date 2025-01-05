@@ -399,8 +399,9 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public override string ToString()
+        public string ToString(int par_expectedOpCount = -1) // Added optional parameter Jan4 2025
         {
+            //public overrides string ToString() // Added optional parameter Jan4 2025
             //
             // Added 11/29/2024 
             //
@@ -411,13 +412,29 @@ namespace RSCLibraryDLLOperations
                 "Count of ops for redo: {1} " + Environment.NewLine +
                 "Count of ops for undo: {2} ";
 
-            int intCountOpsTotal = HowManyOpsExist_Total();
-            int intCountOpsForRedo = HowManyOpsExistForRedo();
-            int intCountOpsForUndo = HowManyOpsExistForUndo();
+            try
+            {
+                //int intCountOpsTotal = HowManyOpsExist_Total();
+                int intCountOpsForRedo = HowManyOpsExistForRedo();
+                int intCountOpsForUndo = HowManyOpsExistForUndo();
+                int intCountOpsTotal = (intCountOpsForUndo + intCountOpsForRedo); // Added Jan4 2025 td
 
-            result_describe = string.Format(template, intCountOpsTotal, intCountOpsForRedo, intCountOpsForUndo);
-            return result_describe; 
+                // Added 1/04/2024  thomas d.
+                //
+                if (par_expectedOpCount > -1)
+                {
+                    if (intCountOpsTotal != par_expectedOpCount) Debugger.Break();
+                }
 
+                result_describe = string.Format(template, intCountOpsTotal, intCountOpsForRedo, intCountOpsForUndo);
+                return result_describe;
+            }
+            catch (Exception ex_any)
+            {
+                // Added 1/04/2024  thomas d.
+                return ex_any.Message;
+            }
+            
         }
 
 

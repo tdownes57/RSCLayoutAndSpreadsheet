@@ -218,6 +218,8 @@ namespace RSCLibraryDLLOperations
             _itemEnding_SortOrderThisOp = par_itemEnding_ForSorting;
             _array_SortOrderThisOp = par_array_Sorting;
 
+      
+
 
         }
 
@@ -227,7 +229,9 @@ namespace RSCLibraryDLLOperations
               bool par_isInsert, bool par_isDelete, bool par_isMove,
               StructureTypeOfMove par_structMoveType,
               DLLAnchorItem<TControl>? par_anchorItem,
-              DLLAnchorCouplet<TControl>? par_anchorPair)
+              DLLAnchorCouplet<TControl>? par_anchorPair,
+                  DLLOperation1D<TControl>? par_operationPrior = null,
+                  DLLOperation1D<TControl>? par_operationNext = null)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -282,6 +286,13 @@ namespace RSCLibraryDLLOperations
                 }
             }
 
+            // Added Jan4 2025 td
+            mod_opPrior_ForUndo_OfT = par_operationPrior;
+            mod_opNext_ForRedo_OfT = par_operationNext;
+
+            // Added Jan4 2025 
+            mod_opPrior_ForUndo = par_operationPrior;
+            mod_opNext_ForRedo = par_operationNext;
 
         }
 
@@ -1368,6 +1379,9 @@ namespace RSCLibraryDLLOperations
             //Added 12/02/2024 td
             base.mod_opPrior_ForUndo = parOperation;
 
+            //Added 1/04/2024 
+            mod_opPrior_ForUndo_OfT = parOperation;
+
         }
 
 
@@ -1377,6 +1391,9 @@ namespace RSCLibraryDLLOperations
 
             //Added 12/02/2024 td
             base.mod_opNext_ForRedo = parOperation;
+
+            //Added 1/04/2024 
+            mod_opNext_ForRedo_OfT = parOperation;
 
         }
 
@@ -1445,7 +1462,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public int DLL_CountOpsBefore()
+        public new int DLL_CountOpsBefore()
         {
             //
             // Added 11/29/2024  

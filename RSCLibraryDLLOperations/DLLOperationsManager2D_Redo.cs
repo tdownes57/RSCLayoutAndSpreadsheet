@@ -33,8 +33,8 @@ namespace RSCLibraryDLLOperations
         private DLLOperationsManager1D<T_Hori> mod_managerHoriz;
         private DLLOperationsManager1D<T_Vert> mod_managerVerti;
 
-        private DLLOperationBase? mod_firstOperation;
-        private DLLOperationBase? mod_lastOperation;
+        private DLLOperationBase? mod_firstPriorOperationBase;
+        private DLLOperationBase? mod_lastPriorOperationBase;
 
         //  Let's not delegate (to our class components)
         //   recording/saving references of operations.
@@ -82,8 +82,8 @@ namespace RSCLibraryDLLOperations
                 //
                 // A non-null Operation has been supplied to the constructor.
                 //
-                this.mod_firstOperation = par_firstOperationH;
-                this.mod_lastOperation = par_firstOperationH;
+                this.mod_firstPriorOperationBase = par_firstOperationH;
+                this.mod_lastPriorOperationBase = par_firstOperationH;
 
                 mod_numberOfOperationsH++; // Added 10/26/2024 td 
 
@@ -94,8 +94,23 @@ namespace RSCLibraryDLLOperations
                 DLLOperationBase operation_base = par_firstOperationH.GetConvertToBaseClass();   //.DLL_GetBase();
                 DLLOperation1D<T_Base> operation_base_ofT = par_firstOperationH.GetConvertToGenericOfT<T_Base>();   //.DLL_GetBase();
 
+                //Added 1/4/2025 td
+                mod_managerHoriz = new DLLOperationsManager1D<T_Hori>(par_firstItemHorizontal, par_listHoriz, par_firstOperationH);
+
                 //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base);
                 mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base_ofT);
+            }
+            else
+            {
+                //
+                // No first operation has been specified. (par_firstOperationH == null)
+                //
+                // Added 1/04/2025 
+                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>();
+
+                //Added 1/4/2025 td
+                mod_managerHoriz = new DLLOperationsManager1D<T_Hori>(par_firstItemHorizontal, par_listHoriz, par_firstOperationH);
+
             }
 
         }
@@ -123,10 +138,10 @@ namespace RSCLibraryDLLOperations
             this.mod_listH = par_listHoriz;
             this.mod_listV = par_listVerti;
 
-            this.mod_firstOperation = par_firstPriorOperation_Hor;
+            this.mod_firstPriorOperationBase = par_firstPriorOperation_Hor;
             // Place the vertical(_V) operation after the horizontal(_H) operation.
-            this.mod_firstOperation.DLL_SetOpNext(par_firstPriorOperation_Ver, true);
-            this.mod_lastOperation = par_firstPriorOperation_Ver;
+            this.mod_firstPriorOperationBase.DLL_SetOpNext(par_firstPriorOperation_Ver, true);
+            this.mod_lastPriorOperationBase = par_firstPriorOperation_Ver;
             
             mod_numberOfOperationsH++; // Added 12/07/2024 td 
             mod_numberOfOperationsV++; // Added 12/07/2024 td 
@@ -220,6 +235,9 @@ namespace RSCLibraryDLLOperations
             //See module level. --const bool RECORDING_BY_COMPONENTS = false;  // False. Let's not delegate.  
             //See module level. --const bool RECORDING_BY_THISCLASS = true;   //This class will do the recording.
     
+            //
+            //  Major call!!
+            //
             mod_managerHoriz.ProcessOperation_AnyType(parOperation, 
                 par_changeOfEndpoint_Expected, 
                 out pbChangeOfEndpointOccurred,
@@ -227,7 +245,96 @@ namespace RSCLibraryDLLOperations
 
             if (par_bRecordOperation && RECORDING_BY_THISCLASS)
             {
-                mod_lastOperation.DLL_SetOpNext(parOperation, true);
+                //if (mod_lastOperation != null)
+                //{
+                //    // 1-04-2025 mod_lastOperation.DLL_SetOpNext(parOperation, true);
+                //    mod_lastOperation?.DLL_SetOpNext(parOperation, true);
+                //}
+                //else
+                //{
+                //    // Added 1/4/2025 td
+                //    mod_firstOperation = parOperation;
+                //    mod_lastOperation = parOperation;
+                //}
+
+                if (mod_firstPriorOperationBase == null)
+                {
+                    mod_firstPriorOperationBase = parOperation;
+                    mod_lastPriorOperationBase = parOperation;
+                    //
+                    // Added 12/04/2024
+                    //
+                    DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>();
+                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operationBase);
+
+                }
+
+                else
+                {
+                    //
+                    // First, we must clear any pending "Redo" operations. 
+                    //
+                    if (mod_opUndoRedoMarker.HasOperationNext())
+                    {
+                        //
+                        // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
+
+                        //    Logically speaking, any pending Redo operations must be deleted/cleared.
+                        //
+                        mod_lastPriorOperationBase = mod_opUndoRedoMarker.GetCurrentOp_Undo();
+                        mod_lastPriorOperationBase?.DLL_ClearOpNext();
+                        mod_opUndoRedoMarker.ClearPendingRedoOperation();
+
+                    }
+
+                    // Connect the operations in a doubly-linked list. 
+                    //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
+                    //+++parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperationBase);
+                    parOperation.DLL_SetOpPrior(mod_lastPriorOperationBase);
+
+                    //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
+                    mod_lastPriorOperationBase?.DLL_SetOpNext(parOperation, true);
+
+                    var temp_priorOp = mod_lastPriorOperationBase;
+                    //mod_lastPriorOperation1D = parOperation;
+                    //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
+                    mod_lastPriorOperationBase = parOperation;
+
+                    //
+                    //  Major call!! 
+                    //
+                    DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>();
+                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operationBase);
+
+                    // Added 12/01/2028
+                    //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
+                    if (temp_priorOp != null)
+                    {
+                        mod_lastPriorOperationBase.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
+                    }
+
+                    //
+                    // DIFFICULT & CONFUSING -- Connect the first operation to this one, if needed.
+                    //
+                    if (mod_firstPriorOperationBase.DLL_MissingOpNext())
+                    {
+                        //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
+                        mod_firstPriorOperationBase.DLL_SetOpNext(parOperation, true);
+                    }
+
+                    //
+                    // Testing!!  
+                    //
+                    int intCountOfPriorOps;
+                    int intCountOfPriorOps_PlusItself;
+                    intCountOfPriorOps = (mod_lastPriorOperationBase.DLL_CountOpsBefore());
+                    intCountOfPriorOps_PlusItself = (intCountOfPriorOps + 1); // We must count the operation itself !!!!!
+
+                }
+
+
+
+
 
             }
 
@@ -293,11 +400,20 @@ namespace RSCLibraryDLLOperations
             //
             //  Added 01/01/2025 
             //
+            int intCountOperations = 0; // Added 1/04/2025 td 
+
+            // Added 1/04/2025 td
+            if (mod_firstPriorOperationBase != null)
+            {
+                // Added 1/04/2025 td
+                intCountOperations = 1 + mod_firstPriorOperationBase.DLL_CountOpsAfter();
+            }
 
             //
             // Added 11/29/2024 
             //
-            return mod_opUndoRedoMarker.ToString();
+            // Jan4 2025 return mod_opUndoRedoMarker.ToString();
+            return mod_opUndoRedoMarker.ToString(intCountOperations);
 
 
         }
@@ -339,8 +455,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/04/2024 th..omas do..wnes  
             //
-            mod_firstOperation = null;
-            mod_lastOperation = null;
+            mod_firstPriorOperationBase = null;
+            mod_lastPriorOperationBase = null;
             mod_opUndoRedoMarker.ClearAllOperations();
             mod_intCountOperations = 0;
 

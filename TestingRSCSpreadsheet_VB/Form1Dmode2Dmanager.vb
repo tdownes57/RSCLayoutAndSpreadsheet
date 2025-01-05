@@ -102,7 +102,8 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem,
             ''      mod_list, operationInitial30)
             ''12/31/2024 td mod_manager1D = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
-            mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)(True, mod_firstItem, mod_list)
+            mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal,
+                TwoCharacterDLLVertical)(True, mod_firstItem, mod_list)
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 

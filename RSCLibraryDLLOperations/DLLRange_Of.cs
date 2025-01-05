@@ -70,6 +70,18 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLRange(TControl par_itemStarting, TControl par_itemEnding, int par_countItemsOfRange)
+        {
+            //
+            // Added 1/04/2025 Thomas D. 
+            //
+            _StartingItemOfRange = par_itemStarting;
+            _EndingItemOfRange = par_itemEnding;
+            _ItemCountOfRange = par_countItemsOfRange;
+
+        }
+
+
         public DLLRange(DLLList<TControl> par_list, Tuple<int, int> par_tuple)
         {
             //
@@ -194,7 +206,8 @@ namespace RSCLibraryDLLOperations
             TBase56 object56_s = _StartingItemOfRange as TBase56;
             TBase56 object56_e = _EndingItemOfRange as TBase56;
 
-            DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e);
+            //+++1/04/2025  DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e);
+            DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e, _ItemCountOfRange);
 
             return result; 
 

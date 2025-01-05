@@ -889,9 +889,34 @@ namespace RSCLibraryDLLOperations
                 //
                 // Insert, Delete, or Move
                 //
+                //Jan4 2025 result =
+                //    new DLLOperation1D<T_Base>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
+                //           _isMove, _moveType, objAnchorItem, objAnchorCouplet);
+
+                // Added 1/04/2025
+                //if (mod_opPrior_ForUndo == null) 
+                //    if (mod_opPrior_ForUndo_OfT != null)
+                //        mod_opPrior_ForUndo = mod_opPrior_ForUndo_OfT.GetConvertToBaseClass();
+
+                // Added 1/04/2025
+                //if (mod_opNext_ForRedo == null)
+                //    if (mod_opNext_ForRedo_OfT != null)
+                //        mod_opNext_ForRedo = mod_opNext_ForRedo_OfT.GetConvertToBaseClass();
+
+                // Added 1/04/2025
+                if (mod_opPrior_ForUndo_OfT == null)
+                    if (mod_opPrior_ForUndo != null)
+                    {
+                        //System.Diagnostics.Debugger.Break();
+                        mod_opPrior_ForUndo_OfT = mod_opPrior_ForUndo as DLLOperation1D<TControl>;
+                    }
+
                 result =
                     new DLLOperation1D<T_Base>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
-                           _isMove, _moveType, objAnchorItem, objAnchorCouplet);
+                           _isMove, _moveType, objAnchorItem, objAnchorCouplet,
+                           mod_opPrior_ForUndo_OfT?.GetConvertToGenericOfT<T_Base>(), 
+                           mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_Base>());
+
             }
             else
             {

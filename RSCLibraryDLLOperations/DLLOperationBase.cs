@@ -84,6 +84,25 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_ClearOpPrior()
+        {
+            //
+            // Added 01/04/2025  
+            //
+            mod_opPrior_ForUndo = null; // = par_item;
+
+        }
+
+
+        public void DLL_ClearOpNext()
+        {
+            //
+            // Added 01/04/2025  
+            //
+            mod_opNext_ForRedo = null;
+
+        }
+
 
         public bool DLL_MissingOpPrior()
         {
@@ -105,6 +124,61 @@ namespace RSCLibraryDLLOperations
             return mod_opNext_ForRedo == null;
 
         }
+
+
+        public int DLL_CountOpsAfter()
+        {
+            //
+            // Added 11/29/2024  
+            //
+            int result_count = 0;
+
+            //
+            // Please note, "After" and "Next" are synonyms.  
+            //    So, "2 comes after 1" and "2 is the next number after 1"
+            //    means the same thing. 
+            //
+            DLLOperationBase? operationNextAfter = DLL_GetOpNext();
+
+            while (operationNextAfter != null)
+            {
+                result_count++;
+                operationNextAfter = operationNextAfter.DLL_GetOpNext();
+            }
+            return result_count;
+
+        }
+
+
+        public int DLL_CountOpsBefore()
+        {
+            //
+            // Added 11/29/2024  
+            //
+            int result_count = 0;
+
+            //
+            // Please note, "Before" and "Prior" are synonyms.  
+            //    So, "3 comes before 4" and "3 is the number prior to 4"
+            //    means the same thing. 
+            //
+            //---12/03/2024---DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
+            //---01/04/2025---DLLOperation1D<TControl> operationPriorBefore = DLL_GetOpPrior_OfT();
+            DLLOperationBase? operationPriorBefore = DLL_GetOpPrior();
+
+            while (operationPriorBefore != null)
+            {
+                result_count++;
+                //---HARD TO FIND BUG--- = operationPriorBefore.DLL_GetOpNext_OfT();
+                // jan4 2025  operationPriorBefore = operationPriorBefore.DLL_GetOpPrior_OfT();
+                operationPriorBefore = operationPriorBefore.DLL_GetOpPrior();
+            }
+
+            return result_count;
+
+        }
+
+
 
 
     }
