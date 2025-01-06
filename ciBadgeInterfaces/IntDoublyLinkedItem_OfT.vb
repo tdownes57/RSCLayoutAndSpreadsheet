@@ -92,7 +92,12 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''
     '' Added 11/12/2024 
     ''
-    Function DLL_GetItemIndex() As Integer
+    Function DLL_GetItemIndex_0based() As Integer
+    Function DLL_GetItemIndex_1based() As Integer
+
+    '' Added 01/06/2025 
+    Function DLL_GetItemAtIndex_0based(paramIndex As Integer) As TControl
+    Function DLL_GetItemAtIndex_1based(paramIndex As Integer) As TControl
 
     ''
     ''
@@ -111,7 +116,7 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Function DLL_GetItemFirst() As TControl ''Added 12/29/2024 th.do.
     Function DLL_GetItemLast() As TControl ''Added 12/12/2024 th.do.
 
-    ''//Not neded here.  See base interface. 12/15/2024
+    ''//Not needed here.  See base interface. 12/15/2024
     ''//  Function DLL_GetValue() As String ''Added 12/12/2024 th.do.
 
     ''
@@ -129,6 +134,13 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''' <param name="firstItem"></param>
     ''' <returns></returns>
     Function GetConvertToGeneric_OfT(Of T_BaseOrParallel)(firstItem As T_BaseOrParallel) As T_BaseOrParallel
+
+    ''' <summary>
+    ''' Returns an array of the items of type TControl.
+    ''' </summary>
+    ''' <returns></returns>
+    Function GetConvertToArray() As TControl()
+
 
 End Interface
 

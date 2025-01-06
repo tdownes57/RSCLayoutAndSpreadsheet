@@ -863,18 +863,18 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperation1D<T_Base> GetConvertToGenericOfT<T_Base>()
+        public DLLOperation1D<T_Base> GetConvertToGenericOfT<T_Base>(T_Base par_firstItem, bool pbListIsParallel)
     where T_Base : class, IDoublyLinkedItem<T_Base>
         {
             //Added 12 /02/2024 td
             //----return this;
             //return (this as DLLOperationBase);
 
-            DLLRange<T_Base>? objRange = _range?.GetConvertToGenericOfT<T_Base>();
+            DLLRange<T_Base>? objRange = _range?.GetConvertToGenericOfT<T_Base>(par_firstItem, pbListIsParallel);
             DLLAnchorCouplet<T_Base>? objAnchorCouplet = _anchorCouplet?.GetConvertToGeneric_OfT<T_Base>();
 
             // Added 12/11/2024 td 
-            DLLAnchorItem<T_Base>? objAnchorItem = _anchorItem?.GetConvertToGeneric_OfT<T_Base>();
+            DLLAnchorItem<T_Base>? objAnchorItem = _anchorItem?.GetConvertToGeneric_OfT<T_Base>(par_firstItem);
 
             //DLLOperation1D<T_Base> result =
             //    new DLLOperation1D<T_Base>(objRange, objCouplet, _isInsert, _isMove);

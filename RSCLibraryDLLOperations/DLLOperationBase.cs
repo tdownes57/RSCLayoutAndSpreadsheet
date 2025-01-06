@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ciBadgeInterfaces; //Added 01/05/2025
 
 namespace RSCLibraryDLLOperations
 {
@@ -16,6 +17,23 @@ namespace RSCLibraryDLLOperations
 
         internal DLLOperationBase? mod_opPrior_ForUndo = null;
         internal DLLOperationBase? mod_opNext_ForRedo = null;
+
+
+        public void OperateOnList<TSpecific>(DLLList<TSpecific> par_list) 
+            where TSpecific : class, IDoublyLinkedItem<TSpecific>
+        {
+            //
+            // Added 1/05/2025  
+            //
+            
+
+
+
+
+        }   
+
+
+
 
 
         public void DLL_SetOpPrior(DLLOperationBase par_item)
