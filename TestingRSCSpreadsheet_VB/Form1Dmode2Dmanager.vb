@@ -96,7 +96,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
 
             ''---operationInitial30.OperateOnList(mod_list)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
-            operationInitial30.OperateOnList(mod_list, byrefChangeOfEndpoint)
+            operationInitial30.OperateOnParentList(mod_list, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem,

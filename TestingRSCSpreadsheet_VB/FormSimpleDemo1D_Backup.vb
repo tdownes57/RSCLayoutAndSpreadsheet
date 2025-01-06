@@ -91,7 +91,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''
             ''Major call!!
             ''
-            operationInitial30.OperateOnList(mod_list, byrefChangeOfEndpoint)
+            operationInitial30.OperateOnParentList(mod_list, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,

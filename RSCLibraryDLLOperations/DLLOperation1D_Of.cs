@@ -343,7 +343,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ExecuteOnList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
+        public void ExecuteOnThisList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -351,11 +351,26 @@ namespace RSCLibraryDLLOperations
             // This is an "alias" method, added in case the programmer(s) gets forgetful 
             //  about the name. 
             //
-            OperateOnList(par_list, out pbChangeOfEndpoint_Occurred);
+            OperateOnParentList(par_list, out pbChangeOfEndpoint_Occurred);
 
         }
 
-        public void OperateOnList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
+
+
+        public void ExecuteOnDifferentList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
+        {
+            //
+            // Added 4/17/2024
+            //
+            // This is an "alias" method, added in case the programmer(s) gets forgetful 
+            //  about the name. 
+            //
+            OperateOnUnrelatedListOfObjects(par_list, out pbChangeOfEndpoint_Occurred);
+
+        }
+
+
+        public void OperateOnParentList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -408,6 +423,47 @@ namespace RSCLibraryDLLOperations
             // Added 12/16/2024 
             //
             pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
+
+        }
+
+
+        /// <summary>
+        /// Operate on the parallel lists (e.g. RSCDataCells) FIRST, then operate on the primary list.  Otherwise,
+        ///   if you operate on the primary type first (e.g. RSCRowHeader), then the objects of the operation 
+        ///   (e.g. the Range) will be in their final position. 
+        /// </summary>
+        /// <typeparam name="T2Parallel">The type of objects which constitute the parallel list.</typeparam>
+        /// <param name="par_listOfUnrelatedObjects"></param>
+        /// <param name="pbChangeOfEndpoint_Occurred"></param>
+        public void OperateOnParallelListOfObjects<T2Parallel>(DLLList<T2Parallel> par_listParallel,
+                             T2Parallel par_itemFirst,
+                             bool pbChangeOfEndpoint_Expected,
+                             out bool pbChangeOfEndpoint_Occurred) 
+            where T2Parallel : class, IDoublyLinkedItem<T2Parallel>
+        {
+            //
+            // Added 1/05/2025 thomas downes  
+            //
+
+            //DLLRange<T2Parallel>? range_Unrelated = null;
+            //DLLAnchorItem<T2Parallel>? anchorItem_Unrelated = null;
+            //DLLAnchorCouplet<T2Parallel>? anchorCouplet_Unrelated = null;
+
+            //range_Unrelated = _range.GetConvertToGenericOfT<TUnrelated>();
+
+            //==throw new NotImplementedException("Instead of the primary operation operating on the parallel list, " +
+            //==    " create the parallel operation(s) first, prior to execution of the primary " + 
+            //==    " operation. Then, execute the operations in any order.");
+
+            DLLRange<T2Parallel>? range_parallel = _range?.GetConvertToGenericOfT<T2Parallel>(par_itemFirst, true);
+            DLLAnchorItem<T2Parallel>? anchorItem_parallel = _anchorItem?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, true);
+            DLLAnchorCouplet<T2Parallel>? anchorPair_parallel = _anchorCouplet?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, true);
+
+            var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
+                _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
+
+            operationParallel.OperateOnList(par_listParallel, true, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);
+
 
         }
 

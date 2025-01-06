@@ -98,7 +98,7 @@ Public Class FormSimpleDemoOfCSharp1D
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
 
             ''Major call!!
-            operationInitial30.OperateOnList(mod_list, byrefChangeOfEndpoint)
+            operationInitial30.OperateOnParentList(mod_list, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
@@ -1556,7 +1556,7 @@ Public Class FormSimpleDemoOfCSharp1D
                 mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
                                                      bChangeOfEndpoint_Occurred, True)
             Else
-                operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+                operationSortForward.OperateOnParentList(mod_list, bChangeOfEndpoint_Occurred)
 
             End If ''End of ""If (USE_MANAGER) Then... Else..."
 
@@ -1600,7 +1600,7 @@ Public Class FormSimpleDemoOfCSharp1D
             mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
                                                      bChangeOfEndpoint_Occurred, True)
         Else
-            operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+            operationSortBackward.OperateOnParentList(mod_list, bChangeOfEndpoint_Occurred)
 
         End If ''End of ""If (USE_MANAGER) Then... Else..."
 

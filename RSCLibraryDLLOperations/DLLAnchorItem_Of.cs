@@ -108,29 +108,52 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchorItem<T_Base> GetConvertToGeneric_OfT<T_Base>()
-            where T_Base : class, IDoublyLinkedItem<T_Base>
+        public DLLAnchorItem<T_BaseOrParallel> GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem)
+            where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //
             // Added 12/11/2024 
             //
-            DLLAnchorItem<T_Base>? result;
+            DLLAnchorItem<T_BaseOrParallel>? result;
 
             // 12/11/2024  T_Base? obj_item_Left = _itemLeft as T_Base;
             //             if (obj_item_Left != null)
             //
             // Fancy!!  Suggested by MS Visual Studio...
             //
-            if (_anchorItem is T_Base obj_item)
+            if (_anchorItem is T_BaseOrParallel itemAnchorTBase) // We are declaring a new variable, itemAnchorTBase.
             {
-                result = new DLLAnchorItem<T_Base>(obj_item);
+                //
+                //  The type (TBaseOrParallel) is a base type (relative to TControl). 
+                //
+                //  For example, TwoCharacterDLLItem is a base type relative to TwoCharacterDLLHorizontal.
+                //  For example, Control is a base type relative to RSCDataColumn.
+                //
+                result = new DLLAnchorItem<T_BaseOrParallel>(itemAnchorTBase);
                 result._isForEmptyList = _isForEmptyList;
                 result._isForDeletionOperation = _isForDeletionOperation;
                 result._doInsertRangeBeforeThis = _doInsertRangeBeforeThis;
                 result._doInsertRangeAfterThis = _doInsertRangeAfterThis;
             }
 
-            else result = null;
+            //else result = null;
+            else
+            {
+                //
+                // The type is NOT a base type.  Instead, the list is parallel to the primary list.
+                //
+                //  For example, a list of RSCDataCells is parallel to the list of RSCRowHeaders.
+                //<>
+                var itemAnchorTParallel = _anchorItem.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
+                result = new DLLAnchorItem<T_BaseOrParallel>(itemAnchorTParallel);
+                result._isForEmptyList = _isForEmptyList;
+                result._isForDeletionOperation = _isForDeletionOperation;
+                result._doInsertRangeBeforeThis = _doInsertRangeBeforeThis;
+                result._doInsertRangeAfterThis = _doInsertRangeAfterThis;
+            }
+
+
+
 
             return result;
 

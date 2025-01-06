@@ -114,6 +114,22 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''//Not neded here.  See base interface. 12/15/2024
     ''//  Function DLL_GetValue() As String ''Added 12/12/2024 th.do.
 
+    ''
+    ''Convert to the same-index item in a list of another type.
+    ''
+    ''
+    ''' <summary>
+    ''' Convert to the same-index item in a (parallel) list of a different, specified type.  
+    ''' The first item of the parallel list must be provided.
+    ''' For example, if the current item is the 3rd item in a list of type T, 
+    ''' then the 3rd item of the parallel list is returned.
+    ''' Example: RSCRowHeader items will return (using this function) the same-indexed RSCDataCell.
+    ''' </summary>
+    ''' <typeparam name="T_BaseOrParallel"></typeparam>
+    ''' <param name="firstItem"></param>
+    ''' <returns></returns>
+    Function GetConvertToGeneric_OfT(Of T_BaseOrParallel)(firstItem As T_BaseOrParallel) As T_BaseOrParallel
+
 End Interface
 
 

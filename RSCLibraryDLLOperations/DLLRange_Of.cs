@@ -197,19 +197,64 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLRange<TBase56> GetConvertToGenericOfT<TBase56>() 
-            where TBase56 : class, IDoublyLinkedItem<TBase56>
+        public DLLRange<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>(T_BaseOrParallel par_startOfList, bool par_listIsParallel) 
+            where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //
-            // Added 12/07/2024 thoma.s downe.s 
+            // Added 12/07/2024 thoma.s downe.s  
             //
-            TBase56 object56_s = _StartingItemOfRange as TBase56;
-            TBase56 object56_e = _EndingItemOfRange as TBase56;
+            DLLRange<T_BaseOrParallel> result_range = null;
+            // T_BaseOrParallel? object56_s = _StartingItemOfRange as T_BaseOrParallel;
+            // T_BaseOrParallel? object56_e = _EndingItemOfRange as T_BaseOrParallel;
 
-            //+++1/04/2025  DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e);
-            DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e, _ItemCountOfRange);
+            //
+            // Added for parallel lists, in which the items are parallel but non-overlapping. ---1/05/2025 td
+            //
+            //if (object56_s == null)
+            if (_StartingItemOfRange is T_BaseOrParallel startingItemBase)
+            {
+                //
+                //  Example types:  T_BaseOrParallel = TwoCharacterDLLItem, TControl = TwoCharacterDLLItemHorizontal.
+                //
+                //if (! par_listIsParallel) System.Diagnostics.Debugger.Break();
+                if (par_listIsParallel) System.Diagnostics.Debugger.Break();
+                //object56_s = par_startOfList.DLL_GetItemNext_OfT(-1 + _StartingItemOfRange.DLL_GetItemIndex());
+                //object56_e = par_startOfList.DLL_GetItemNext_OfT(-1 + _EndingItemOfRange.DLL_GetItemIndex());
+                //result_range = new DLLRange<T_BaseOrParallel>(object56_s, object56_e, _ItemCountOfRange);
+                T_BaseOrParallel? endingItemBase = _EndingItemOfRange as T_BaseOrParallel;
+                if (endingItemBase == null) System.Diagnostics.Debugger.Break();
+                if (endingItemBase == null) throw new Exception("Not likely to occur, since starting & ending items are the same type.");
+                result_range = new DLLRange<T_BaseOrParallel>(startingItemBase, endingItemBase, _ItemCountOfRange);
 
-            return result; 
+            }
+            else if (par_listIsParallel)
+            {
+                //
+                // The list is a parallel list, *NOT* the same list (as, or converted to, the base type). 
+                //
+                //  Example types:  T_BaseOrParallel = RSCDataCell, TControl = RSCRowHeader.
+                //
+                //----var parallel_start = par_startOfList.DLL_GetItemNext_OfT(-1 + _StartingItemOfRange.DLL_GetItemIndex());
+                //----var parallel_ending = par_startOfList.DLL_GetItemNext_OfT(-1 + _EndingItemOfRange.DLL_GetItemIndex());
+
+                var parallel_start = _StartingItemOfRange.GetConvertToGeneric_OfT(par_startOfList);
+                var parallel_ending = _EndingItemOfRange.GetConvertToGeneric_OfT(par_startOfList);
+
+
+            }
+
+            //if (object56_s == null || object56_e == null)
+            //{
+            //    // Programmer must investigate this case.
+            //    System.Diagnostics.Debugger.Break();
+            //}
+            //else
+            //{
+            //    //+++1/04/2025  DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e);
+            //    result_range = new DLLRange<T_BaseOrParallel>(object56_s, object56_e, _ItemCountOfRange);
+            //}
+
+            return result_range; 
 
         }
 
