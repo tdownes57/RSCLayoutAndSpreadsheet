@@ -434,12 +434,12 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public int GetFirstItemIndex()
+        public int GetFirstItemIndex_b1()
         {
             //
             // Added 11/12/2024 td
             // 
-            return _StartingItemOfRange.DLL_GetItemIndex();
+            return _StartingItemOfRange.DLL_GetItemIndex_b1();
 
         }
 

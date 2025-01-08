@@ -153,8 +153,8 @@ namespace RSCLibraryDLLOperations
             //                               par_firstPriorOperation_Ver);
 
             // Added 12/08/2024 
-            DLLOperation1D<T_Base> oper_FirstHorizontal = par_firstPriorOperation_Hor.GetConvertToGenericOfT<T_Base>();
-            DLLOperation1D<T_Base> oper_FirstVertical = par_firstPriorOperation_Ver.GetConvertToGenericOfT<T_Base>();
+            DLLOperation1D<T_Base> oper_FirstHorizontal = par_firstPriorOperation_Hor.GetConvertToGenericOfT<T_Base>(par_firstPriorOperation_Hor, false);
+            DLLOperation1D<T_Base> oper_FirstVertical = par_firstPriorOperation_Ver.GetConvertToGenericOfT<T_Base>(par_firstPriorOperation_Ver, false);
 
             // Added 12/08/2024 
             mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(oper_FirstHorizontal, oper_FirstVertical);
@@ -261,10 +261,12 @@ namespace RSCLibraryDLLOperations
                 {
                     mod_firstPriorOperationBase = parOperation;
                     mod_lastPriorOperationBase = parOperation;
+
                     //
                     // Added 12/04/2024
                     //
-                    DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>();
+                    // DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstPriorOperationBase, false);
+                    DLLOperationBase operationBase = parOperation.GetConvertToGenericOfT<DLLOperationBase>(mod_firstPriorOperationBase, false);
                     mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operationBase);
 
                 }
