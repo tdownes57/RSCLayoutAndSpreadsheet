@@ -92,12 +92,30 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''
     '' Added 11/12/2024 
     ''
-    Function DLL_GetItemIndex_0based() As Integer
-    Function DLL_GetItemIndex_1based() As Integer
+    ''' <summary>
+    ''' Get the 0-based (_b0) index of the current item.
+    ''' </summary>
+    ''' <returns></returns>
+    Function DLL_GetItemIndex_b0() As Integer
+
+    ''' <summary>
+    ''' Get the 1-based (_b1) index of the current item.
+    ''' </summary>
+    ''' <returns></returns>
+    Function DLL_GetItemIndex_b1() As Integer
 
     '' Added 01/06/2025 
-    Function DLL_GetItemAtIndex_0based(paramIndex As Integer) As TControl
-    Function DLL_GetItemAtIndex_1based(paramIndex As Integer) As TControl
+    ''' <summary>
+    ''' Get the list item at the  0-based (_b0) index specified by parameter.  Return the item.
+    ''' </summary>
+    ''' <returns></returns>
+    Function DLL_GetItemAtIndex_b0(paramIndex As Integer) As TControl
+
+    ''' <summary>
+    ''' Get the list item at the 1-based (_b1) index specified by parameter.  Return the item. 
+    ''' </summary>
+    ''' <returns></returns>
+    Function DLL_GetItemAtIndex_b1(paramIndex As Integer) As TControl
 
     ''
     ''
@@ -133,7 +151,7 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''' <typeparam name="T_BaseOrParallel"></typeparam>
     ''' <param name="firstItem"></param>
     ''' <returns></returns>
-    Function GetConvertToGeneric_OfT(Of T_BaseOrParallel)(firstItem As T_BaseOrParallel) As T_BaseOrParallel
+    Function GetConvertToGeneric_OfT(Of T_BaseOrParallel As IDoublyLinkedItem(Of T_BaseOrParallel))(firstItem As T_BaseOrParallel) As T_BaseOrParallel
 
     ''' <summary>
     ''' Returns an array of the items of type TControl.

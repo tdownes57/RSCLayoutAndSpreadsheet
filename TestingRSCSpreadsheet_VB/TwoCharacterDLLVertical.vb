@@ -47,14 +47,20 @@ Public Class TwoCharacterDLLVertical
     End Function
 
     Public Overloads Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemNext_OfT
+        ''
+        ''Added 1/07/2025 td
+        ''
         ''Throw New NotImplementedException()
-        Return MyBase.DLL_GetItemNext_OfT(param_iterationsOfNext)
+        Return CType(MyBase.DLL_GetItemNext_OfT(param_iterationsOfNext), TwoCharacterDLLVertical)
 
     End Function
 
     Public Overloads Function DLL_GetItemPrior_OfT() As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemPrior_OfT
+        ''
+        ''Added 1/07/2025 td
+        ''
         ''Throw New NotImplementedException()
-        Return MyBase.DLL_GetItemNext_OfT()
+        Return CType(MyBase.DLL_GetItemPrior_OfT(), TwoCharacterDLLVertical)
 
     End Function
 
@@ -121,15 +127,30 @@ Public Class TwoCharacterDLLVertical
     End Function ''End of Public Function DLL_GetDistanceTo
 
 
-    Public Overloads Function DLL_GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemIndex
+    ''' <summary>
+    ''' This gives the 1-based index of the current item.
+    ''' </summary>
+    ''' <returns>This gives the 1-based index of the current item.</returns>
+    Public Overloads Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemIndex_b1
         ''
         ''Added 11/12/2024 thomas downes
         ''
-        Return MyBase.DLL_GetItemIndex()
+        Return MyBase.DLL_GetItemIndex_b1()
 
 
-    End Function ''Public Function DLL_GetItemIndex() As Integer
+    End Function ''Public Function DLL_GetItemIndex_b1() As Integer
 
+    ''' <summary>
+    ''' This gives the 0-based index of the current item.
+    ''' </summary>
+    ''' <returns>This gives the 0-based index of the current item.</returns>
+    Public Overloads Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemIndex_b0
+        ''
+        ''Added 11/12/2024 thomas downes
+        ''
+        Return MyBase.DLL_GetItemIndex_b0()
+
+    End Function ''Public Function DLL_GetItemIndex_b0() As Integer
 
 
     Public Overloads Sub DLL_InsertItemToNext(param As TwoCharacterDLLVertical, pbDoublyLinked As Boolean) _
@@ -245,6 +266,36 @@ Public Class TwoCharacterDLLVertical
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
+
+    Public Overloads Function GetConvertToGeneric_OfT(Of T_BaseOrParallel As IDoublyLinkedItem(Of T_BaseOrParallel))(firstItem As T_BaseOrParallel) _
+              As T_BaseOrParallel Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).GetConvertToGeneric_OfT
+        ''
+        ''Added 1/07/2025 
+        ''
+        Dim intIndex_b0 As Integer
+        intIndex_b0 = DLL_GetItemIndex_b0()
+        firstItem = firstItem.DLL_GetItemFirst()
+        Return firstItem.DLL_GetItemAtIndex_b0(intIndex_b0)
+
+    End Function ''Public Function GetConvertToGeneric_OfT
+
+
+    Public Function GetConvertToArray() As TwoCharacterDLLVertical() Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).GetConvertToArray
+
+        ''Throw New NotImplementedException()
+
+        Dim intCount As Integer = DLL_CountItemsAllInList()
+        Dim arrResult(intCount - 1) As TwoCharacterDLLVertical
+        Dim temp As TwoCharacterDLLVertical ''= Me.DLL_GetItemFirst()
+
+        temp = Me.DLL_GetItemFirst()
+        For index = 0 To intCount - 1
+            arrResult(index) = temp
+            temp = temp.DLL_GetItemNext_OfT()
+        Next index
+        Return arrResult
+
+    End Function ''End of Public Function GetConvertToArray() As TwoCharacterDLLVertical()
 
 
 

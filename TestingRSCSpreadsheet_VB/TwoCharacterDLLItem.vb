@@ -390,6 +390,41 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetItemPrior_OfT()""
 
 
+    ''' <summary>
+    ''' Returns the item at the specified index in the parent list. 
+    ''' </summary>
+    ''' <param name="par_index_b0">This is a 0-based index.</param>
+    ''' <returns>Returns the item at the specified index.</returns>
+    Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemAtIndex_b0
+        ''
+        ''added 1/07/2024
+        ''
+        Dim objFirst As TwoCharacterDLLItem ''= DLL_GetItemFirst()
+        Dim objResult As TwoCharacterDLLItem
+
+        objFirst = DLL_GetItemFirst()
+        objResult = objFirst.DLL_GetItemNext_OfT(par_index_b0)
+        Return objFirst
+
+    End Function ''End of ""Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As TwoCharacterDLLItem""
+
+
+    ''' <summary>
+    ''' Returns the item at the specified index in the parent list. 
+    ''' </summary>
+    ''' <param name="par_index_b1">This is a 1-based index.</param>
+    ''' <returns>Returns the item at the specified index.</returns>
+    Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemAtIndex_b1
+        ''
+        ''added 1/07/2024
+        ''
+        Dim objResult As TwoCharacterDLLItem
+        objResult = DLL_GetItemAtIndex_b0(-1 + par_index_b1)
+        Return objResult
+
+    End Function ''End of ""Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As TwoCharacterDLLItem""
+
+
     Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
 
         Throw New NotImplementedException()
@@ -638,7 +673,11 @@ Public Class TwoCharacterDLLItem
     End Function ''ENd of ""Public Function SelectedAnyItemToFollow()""
 
 
-    Public Function DLL_GetItemIndex() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex
+    ''' <summary>
+    ''' This index is 1-based, not 0-based. 
+    ''' </summary>
+    ''' <returns>Returns a positive integer, starting with 1 (1-based).</returns>
+    Public Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex_b1
         ''
         ''Added 11/12/2024  
         ''
@@ -652,12 +691,28 @@ Public Class TwoCharacterDLLItem
             result_index += 1
             temp = temp.DLL_GetItemPrior()
 
-        End While ''End of ""While (Not bDoneLooping)""
+        End While ''End of ""While (temp IsNot Nothing)""
 
         Return result_index
 
-    End Function ''end of Public Function GetItemIndex() As Integer
+    End Function ''end of Public Function GetItemIndex_b1() As Integer
 
+
+    ''' <summary>
+    ''' This index is 0-based, not 1-based. 
+    ''' </summary>
+    ''' <returns>Returns a non-negative integer, starting with 0 (0-based).</returns>
+    Public Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex_b0
+        ''
+        ''Added 11/12/2024  
+        ''
+        '' This index is 1-based, not 0-based. 
+        ''
+        Dim result_index As Integer = 0
+        result_index = (-1 + DLL_GetItemIndex_b1())
+        Return result_index
+
+    End Function ''end of Public Function GetItemIndex_b1() As Integer
 
 
     Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLItem, pbDoubleLink As Boolean) _
@@ -845,6 +900,38 @@ Public Class TwoCharacterDLLItem
 
 
     End Sub ''ENd of '"Public Overloads Sub DLL_SetItemNext_OfT""
+
+
+    Public Function GetConvertToGeneric_OfT(Of T_BaseOrParallel As IDoublyLinkedItem(Of T_BaseOrParallel))(firstItem As T_BaseOrParallel) _
+              As T_BaseOrParallel Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).GetConvertToGeneric_OfT
+        ''
+        ''Added 1/07/2025 
+        ''
+        Dim intIndex_b0 As Integer
+        intIndex_b0 = DLL_GetItemIndex_b0()
+        firstItem = firstItem.DLL_GetItemFirst()
+        Return firstItem.DLL_GetItemAtIndex_b0(intIndex_b0)
+
+    End Function ''Public Function GetConvertToGeneric_OfT
+
+
+    Public Function GetConvertToArray() As TwoCharacterDLLItem() Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).GetConvertToArray
+
+        ''Throw New NotImplementedException()
+
+        Dim intCount As Integer = DLL_CountItemsAllInList()
+        Dim arrResult(intCount - 1) As TwoCharacterDLLItem
+        Dim temp As TwoCharacterDLLItem ''= Me.DLL_GetItemFirst()
+
+        temp = Me.DLL_GetItemFirst()
+        For index = 0 To intCount - 1
+            arrResult(index) = temp
+            temp = temp.DLL_GetItemNext_OfT()
+        Next index
+        Return arrResult
+
+    End Function ''End of Public Function GetConvertToArray() As TwoCharacterDLLItem()
+
 
 
 End Class

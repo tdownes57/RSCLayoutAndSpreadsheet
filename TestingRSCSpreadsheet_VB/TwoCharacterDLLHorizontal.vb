@@ -215,14 +215,41 @@ Public Class TwoCharacterDLLHorizontal
     End Function ''End of Public Function DLL_GetDistanceTo
 
 
-    Public Function DLL_GetIndexOfItem() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex
+    ''Public Function DLL_GetIndexOfItem() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex
+    ''    ''
+    ''    ''Added 11/12/2024 thomas downes
+    ''    ''
+    ''    Return MyBase.DLL_GetItemIndex()
+
+    ''End Function ''Public Function DLL_GetIndexOfItem() As Integer
+
+    ''' <summary>
+    ''' Get the 0-based (_b0) index of the current item.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function DLL_GetIndexOfItem_b0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex_b0
+        ''
+        '' Get the 0-based (_b0) index of the current item.
         ''
         ''Added 11/12/2024 thomas downes
         ''
-        Return MyBase.DLL_GetItemIndex()
+        Return MyBase.DLL_GetItemIndex_b0()
 
+    End Function ''Public Function DLL_GetIndexOfItem_b0() As Integer
 
-    End Function ''Public Function DLL_GetIndexOfItem() As Integer
+    ''' <summary>
+    ''' Get the 1-based (_b1) index of the current item.
+    ''' </summary>
+    ''' <returns></returns>
+    Public Function DLL_GetIndexOfItem_b1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex_b1
+        ''
+        ''Added 11/12/2024 thomas downes
+        ''
+        '' Get the 1-based (_b1) index of the current item.
+        ''
+        Return MyBase.DLL_GetItemIndex_b1()
+
+    End Function ''Public Function DLL_GetIndexOfItem_b1() As Integer
 
 
     Public Overloads Function DLL_GetDistanceTo(paramItem As TwoCharacterDLLHorizontal, ByRef pbLocatedSuccessfully As Boolean) As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetDistanceTo
@@ -294,6 +321,51 @@ Public Class TwoCharacterDLLHorizontal
         MyBase.DLL_ClearPriorSortOrder(pbExecuteInCascade)
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean)""
+
+    Private Function DLL_GetItemAtIndex_b0(paramIndex_b0 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemAtIndex_b0
+
+        ''Added 1/07/2025 td
+        Return MyBase.DLL_GetItemAtIndex_b0(paramIndex_b0)
+
+    End Function
+
+    Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1(paramIndex_b1 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemAtIndex_b1
+
+        ''Added 1/07/2025 td
+        Return MyBase.DLL_GetItemAtIndex_b1(paramIndex_b1)
+
+    End Function ''End of Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1
+
+
+    Public Overloads Function GetConvertToGeneric_OfT(Of T_BaseOrParallel As IDoublyLinkedItem(Of T_BaseOrParallel))(firstItem As T_BaseOrParallel) _
+              As T_BaseOrParallel Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).GetConvertToGeneric_OfT
+        ''
+        ''Added 1/07/2025 
+        ''
+        Dim intIndex_b0 As Integer
+        intIndex_b0 = DLL_GetItemIndex_b0()
+        firstItem = firstItem.DLL_GetItemFirst()
+        Return firstItem.DLL_GetItemAtIndex_b0(intIndex_b0)
+
+    End Function ''Public Function GetConvertToGeneric_OfT
+
+
+    Public Overloads Function GetConvertToArray() As TwoCharacterDLLHorizontal() Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).GetConvertToArray
+        ''
+        ''Added 1/07/2025 
+        ''
+        Dim intCount As Integer = DLL_CountItemsAllInList()
+        Dim arrResult(intCount - 1) As TwoCharacterDLLHorizontal
+        Dim temp As TwoCharacterDLLHorizontal ''= Me.DLL_GetItemFirst()
+
+        temp = Me.DLL_GetItemFirst()
+        For index = 0 To intCount - 1
+            arrResult(index) = temp
+            temp = temp.DLL_GetItemNext_OfT()
+        Next index
+        Return arrResult
+
+    End Function ''End of Public Function GetConvertToArray() As TwoCharacterDLLHorizontal()
 
 
 
