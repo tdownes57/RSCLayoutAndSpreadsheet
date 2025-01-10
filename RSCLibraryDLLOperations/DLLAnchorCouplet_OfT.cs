@@ -124,28 +124,52 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLAnchorCouplet<T_Base> GetConvertToGeneric_OfT<T_Base>(
+        public DLLAnchorCouplet<T_BaseOrParallel> GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem,
                    bool pbTargetListIsOfBaseClass,
                    bool pbTargetListIsParallel)
-              where T_Base : class, IDoublyLinkedItem<T_Base>
+              where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //
             // Added 12/08/2024 
             //
-            DLLAnchorCouplet<T_Base>? result;
+            DLLAnchorCouplet<T_BaseOrParallel>? result;
 
             // 12/11/2024  T_Base? obj_item_Left = _itemLeft as T_Base;
             //             if (obj_item_Left != null)
             //
             // Fancy!!  Suggested by MS Visual Studio...
             //
-            if (_itemLeft is T_Base obj_item_Left)
+            if (_itemLeft is T_BaseOrParallel obj_item_Left)
             {
-                result = new DLLAnchorCouplet<T_Base>(obj_item_Left, _itemRight as T_Base, true);
+                result = new DLLAnchorCouplet<T_BaseOrParallel>(obj_item_Left, _itemRight as T_Base, true);
                 result._isForEmptyList = _isForEmptyList;
                 result._isForDeletionOperation = _isForDeletionOperation;
             }
-            else result = null;
+
+            else if (pbTargetListIsParallel)
+            {
+                //
+                // The type is NOT a base type.  Instead, the list is parallel to the primary list.
+                //
+                //  For example, a list of RSCDataCells is parallel to the list of RSCRowHeaders.
+                //
+                const bool ALLOW_NULLS = true;
+                T_BaseOrParallel? itemLeft = _itemLeft?.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
+                T_BaseOrParallel? itemRight = _itemRight?.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
+
+                result = new DLLAnchorCouplet<T_BaseOrParallel>(itemLeft, itemRight, ALLOW_NULLS); // , false, pbTargetListIsParallel);
+                result._isForEmptyList = _isForEmptyList;
+                result._isForDeletionOperation = _isForDeletionOperation;
+
+            }
+
+            // Added 1/10/2025 thomas downes
+            else
+            {
+                // Programmer needs to investigate this situation. ---01/10/2025 td
+                System.Diagnostics.Debugger.Break();
+                throw new Exception("One of the parameter Booleans must be True.");
+            }
 
             return result;
 

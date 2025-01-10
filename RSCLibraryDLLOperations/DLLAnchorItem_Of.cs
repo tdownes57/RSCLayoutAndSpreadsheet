@@ -143,7 +143,7 @@ namespace RSCLibraryDLLOperations
             }
 
             //else result = null;
-            else if (pbTargetListIsOfBaseClass)
+            else if (pbTargetListIsParallel)
             {
                 //
                 // The type is NOT a base type.  Instead, the list is parallel to the primary list.
@@ -158,8 +158,13 @@ namespace RSCLibraryDLLOperations
                 result._doInsertRangeAfterThis = _doInsertRangeAfterThis;
             }
 
-
-
+            // Added 1/10/2025 thomas downes
+            else
+            {
+                // Programmer needs to investigate this situation. ---01/10/2025 td
+                System.Diagnostics.Debugger.Break(); 
+                throw new Exception("One of the parameter Booleans must be True.");
+            }
 
             return result;
 

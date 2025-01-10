@@ -357,7 +357,9 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public void ExecuteOnDifferentList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
+        public void ExecuteOnDifferentList<TDifferent>(DLLList<TDifferent> par_list,
+                        TDifferent par_itemFirst,  bool pbChangeOfEndpoint_Expected, out bool pbChangeOfEndpoint_Occurred)
+                        where TDifferent : class, IDoublyLinkedItem<TDifferent>
         {
             //
             // Added 4/17/2024
@@ -365,7 +367,9 @@ namespace RSCLibraryDLLOperations
             // This is an "alias" method, added in case the programmer(s) gets forgetful 
             //  about the name. 
             //
-            OperateOnUnrelatedListOfObjects(par_list, out pbChangeOfEndpoint_Occurred);
+            //---OperateOnUnrelatedListOfObjects(par_list, out pbChangeOfEndpoint_Occurred);
+            OperateOnParallelListOfObjects<TDifferent>(par_list, 
+                   par_itemFirst, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);
 
         }
 
