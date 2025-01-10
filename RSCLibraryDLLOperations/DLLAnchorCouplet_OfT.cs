@@ -141,7 +141,7 @@ namespace RSCLibraryDLLOperations
             //
             if (_itemLeft is T_BaseOrParallel obj_item_Left)
             {
-                result = new DLLAnchorCouplet<T_BaseOrParallel>(obj_item_Left, _itemRight as T_Base, true);
+                result = new DLLAnchorCouplet<T_BaseOrParallel>(obj_item_Left, _itemRight as T_BaseOrParallel, true);
                 result._isForEmptyList = _isForEmptyList;
                 result._isForDeletionOperation = _isForDeletionOperation;
             }

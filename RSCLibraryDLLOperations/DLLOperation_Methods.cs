@@ -887,10 +887,12 @@ namespace RSCLibraryDLLOperations
                 pbTargetListIsOfBaseClass,
                 pbTargetListIsParallel);
 
-            DLLAnchorCouplet<T_BaseOrParallel>? objAnchorCouplet = _anchorCouplet?.GetConvertToGeneric_OfT<T_BaseOrParallel>();
+            DLLAnchorCouplet<T_BaseOrParallel>? objAnchorCouplet = _anchorCouplet?.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem, 
+                    pbTargetListIsOfBaseClass, pbTargetListIsParallel);
 
             // Added 12/11/2024 td 
-            DLLAnchorItem<T_BaseOrParallel>? objAnchorItem = _anchorItem?.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
+            DLLAnchorItem<T_BaseOrParallel>? objAnchorItem = _anchorItem?.GetConvertToGeneric_OfT<T_BaseOrParallel>(
+                par_firstItem, pbTargetListIsOfBaseClass, pbTargetListIsParallel);
 
             //DLLOperation1D<T_Base> result =
             //    new DLLOperation1D<T_Base>(objRange, objCouplet, _isInsert, _isMove);
@@ -931,8 +933,11 @@ namespace RSCLibraryDLLOperations
                 DLLOperation1D<T_BaseOrParallel>? operationBaseNext;  // Added 1/07/2025 td
 
                 // Added 1/07/2025 td
-                operationBasePrior = mod_opPrior_ForUndo_OfT?.GetConvertToGenericOfT<T_BaseOrParallel>(par_firstItem, pbListIsParallel);
-                operationBaseNext = mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_BaseOrParallel>(par_firstItem, pbListIsParallel);
+                operationBasePrior = mod_opPrior_ForUndo_OfT?.GetConvertToGenericOfT<T_BaseOrParallel>(
+                    par_firstItem, pbTargetListIsOfBaseClass, pbTargetListIsParallel);
+
+                operationBaseNext = mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_BaseOrParallel>(
+                    par_firstItem, pbTargetListIsOfBaseClass, pbTargetListIsParallel);
 
                 // Modified 1/07/2025 td
                 result =
