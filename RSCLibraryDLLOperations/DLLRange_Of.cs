@@ -197,7 +197,21 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLRange<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>(T_BaseOrParallel par_startOfList, bool par_listIsParallel) 
+        /// <summary>
+        /// This creates a new range, which is same-indexed (item by item) version of the current range.
+        /// </summary>
+        /// <typeparam name="T_BaseOrParallel">This is the item-by-item Type of the range to be output.</typeparam>
+        /// <param name="par_startOfList">This is the first item in the target list.</param>
+        /// <param name="par_bTargetListIsBaseClass">Should be True if we are attempting to create a base-class 
+        ///     version, e.g. DLLList<T_Base> instead of DLLList<THoriz>.  Every item in the new list is the 
+        ///     piecewise base item of the items in the current list (the list which this current range (this) is derived).</param>
+        /// <param name="par_bTargetListIsParallel">Should be True if we are attempting to create an operation 
+        ///     on a parallel but (OOP-wise) independent list.  The objects are NOT piecewise parents.</param>
+        /// <returns>A range of the desired, specified Type (T_BaseOrParallel).</returns>
+        /// <exception cref="Exception"></exception>
+        public DLLRange<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>(T_BaseOrParallel par_startOfList,
+                   bool pbTargetListIsOfBaseClass,
+                   bool pbTargetListIsParallel) 
             where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //
@@ -206,6 +220,10 @@ namespace RSCLibraryDLLOperations
             DLLRange<T_BaseOrParallel> result_range = null;
             // T_BaseOrParallel? object56_s = _StartingItemOfRange as T_BaseOrParallel;
             // T_BaseOrParallel? object56_e = _EndingItemOfRange as T_BaseOrParallel;
+
+            //Added 1/09/2025 thomas d.
+            bool bAsExpected = (pbTargetListIsOfBaseClass == (_StartingItemOfRange is T_BaseOrParallel));
+            if (!bAsExpected) System.Diagnostics.Debugger.Break();
 
             //
             // Added for parallel lists, in which the items are parallel but non-overlapping. ---1/05/2025 td
@@ -217,7 +235,7 @@ namespace RSCLibraryDLLOperations
                 //  Example types:  T_BaseOrParallel = TwoCharacterDLLItem, TControl = TwoCharacterDLLItemHorizontal.
                 //
                 //if (! par_listIsParallel) System.Diagnostics.Debugger.Break();
-                if (par_listIsParallel) System.Diagnostics.Debugger.Break();
+                if (pbTargetListIsParallel) System.Diagnostics.Debugger.Break();
                 //object56_s = par_startOfList.DLL_GetItemNext_OfT(-1 + _StartingItemOfRange.DLL_GetItemIndex());
                 //object56_e = par_startOfList.DLL_GetItemNext_OfT(-1 + _EndingItemOfRange.DLL_GetItemIndex());
                 //result_range = new DLLRange<T_BaseOrParallel>(object56_s, object56_e, _ItemCountOfRange);
@@ -227,7 +245,7 @@ namespace RSCLibraryDLLOperations
                 result_range = new DLLRange<T_BaseOrParallel>(startingItemBase, endingItemBase, _ItemCountOfRange);
 
             }
-            else if (par_listIsParallel)
+            else if (pbTargetListIsParallel)
             {
                 //
                 // The list is a parallel list, *NOT* the same list (as, or converted to, the base type). 

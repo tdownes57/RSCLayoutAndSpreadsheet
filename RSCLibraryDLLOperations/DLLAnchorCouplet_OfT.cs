@@ -124,7 +124,9 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLAnchorCouplet<T_Base> GetConvertToGeneric_OfT<T_Base>()
+        public DLLAnchorCouplet<T_Base> GetConvertToGeneric_OfT<T_Base>(
+                   bool pbTargetListIsOfBaseClass,
+                   bool pbTargetListIsParallel)
               where T_Base : class, IDoublyLinkedItem<T_Base>
         {
             //

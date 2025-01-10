@@ -12,7 +12,8 @@ namespace RSCLibraryDLLOperations
     {
 
         /// <summary>
-        /// 
+        /// This provides a protected, "encapsulated", non-public (private) method, to perform the operation on a list.
+        /// A class should have at least a few private methods, to better enforce the encapsulation principle.
         /// </summary>
         /// <typeparam name="TControl"></typeparam>
         /// <param name="par_list"></param>
@@ -863,14 +864,29 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperation1D<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem, bool pbListIsParallel)
+        public DLLOperation1D<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>
+                   (T_BaseOrParallel par_firstItem, 
+                        bool pbTargetListIsOfBaseClass,
+                        bool pbTargetListIsParallel)
                    where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //Added 12 /02/2024 td
             //----return this;
             //return (this as DLLOperationBase);
 
-            DLLRange<T_BaseOrParallel>? objRange = _range?.GetConvertToGenericOfT<T_BaseOrParallel>(par_firstItem, pbListIsParallel);
+            //Added 1/09/2025 thomas d.
+            if (_range != null)
+            {
+                //Added 1/09/2025 thomas d.
+                TControl firstRangeItem = _range._StartingItemOfRange;
+                bool bAsExpected = (pbTargetListIsOfBaseClass == (firstRangeItem is T_BaseOrParallel));
+                if (!bAsExpected) System.Diagnostics.Debugger.Break();
+            }
+
+            DLLRange<T_BaseOrParallel>? objRange = _range?.GetConvertToGenericOfT<T_BaseOrParallel>(par_firstItem, 
+                pbTargetListIsOfBaseClass,
+                pbTargetListIsParallel);
+
             DLLAnchorCouplet<T_BaseOrParallel>? objAnchorCouplet = _anchorCouplet?.GetConvertToGeneric_OfT<T_BaseOrParallel>();
 
             // Added 12/11/2024 td 

@@ -108,13 +108,19 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchorItem<T_BaseOrParallel> GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem)
+        public DLLAnchorItem<T_BaseOrParallel> GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem,
+                        bool pbTargetListIsOfBaseClass,
+                        bool pbTargetListIsParallel)
             where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //
             // Added 12/11/2024 
             //
             DLLAnchorItem<T_BaseOrParallel>? result;
+
+            //Added 1/09/2025 thomas d.
+            bool bAsExpected = (pbTargetListIsOfBaseClass == (_anchorItem is T_BaseOrParallel));
+            if (!bAsExpected) System.Diagnostics.Debugger.Break();
 
             // 12/11/2024  T_Base? obj_item_Left = _itemLeft as T_Base;
             //             if (obj_item_Left != null)
@@ -137,7 +143,7 @@ namespace RSCLibraryDLLOperations
             }
 
             //else result = null;
-            else
+            else if (pbTargetListIsOfBaseClass)
             {
                 //
                 // The type is NOT a base type.  Instead, the list is parallel to the primary list.

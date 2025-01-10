@@ -428,9 +428,12 @@ namespace RSCLibraryDLLOperations
 
 
         /// <summary>
-        /// Operate on the parallel lists (e.g. RSCDataCells) FIRST, then operate on the primary list.  Otherwise,
-        ///   if you operate on the primary type first (e.g. RSCRowHeader), then the objects of the operation 
-        ///   (e.g. the Range) will be in their final position. 
+        /// We are implementing the current operation, but we mutating a parallel, OOP-wise independent list
+        ///   (specified by parameter).  The objects in the list par_listParallel are NOT item-wise parents of
+        ///   the "main" list which is primary target of this operation.
+        /// Note to programmer, please operate on the parallel list (e.g. RSCDataCells) FIRST, then operate 
+        ///   on the primary list.  Otherwise, if you operate on the primary type first (e.g. RSCRowHeader), 
+        ///   then the objects of the operation (e.g. the Range) will be in their final position. 
         /// </summary>
         /// <typeparam name="T2Parallel">The type of objects which constitute the parallel list.</typeparam>
         /// <param name="par_listOfUnrelatedObjects"></param>
@@ -444,6 +447,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 1/05/2025 thomas downes  
             //
+            //const bool TARGET_LIST_IS_PARALLEL = true;  // Parallel list.  Not a base-class list.  --Added 1/05/2025 thomas downes
+            const bool PARALLEL = true;  // Parallel list.  Not a base-class list.  --Added 1/05/2025 thomas downes
 
             //DLLRange<T2Parallel>? range_Unrelated = null;
             //DLLAnchorItem<T2Parallel>? anchorItem_Unrelated = null;
@@ -455,9 +460,9 @@ namespace RSCLibraryDLLOperations
             //==    " create the parallel operation(s) first, prior to execution of the primary " + 
             //==    " operation. Then, execute the operations in any order.");
 
-            DLLRange<T2Parallel>? range_parallel = _range?.GetConvertToGenericOfT<T2Parallel>(par_itemFirst, true);
-            DLLAnchorItem<T2Parallel>? anchorItem_parallel = _anchorItem?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, true);
-            DLLAnchorCouplet<T2Parallel>? anchorPair_parallel = _anchorCouplet?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, true);
+            DLLRange<T2Parallel>? range_parallel = _range?.GetConvertToGenericOfT<T2Parallel>(par_itemFirst, false, PARALLEL);
+            DLLAnchorItem<T2Parallel>? anchorItem_parallel = _anchorItem?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
+            DLLAnchorCouplet<T2Parallel>? anchorPair_parallel = _anchorCouplet?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
 
             var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
                 _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
