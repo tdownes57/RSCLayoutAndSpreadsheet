@@ -141,14 +141,14 @@ Public Class TwoCharacterDLLVertical
     End Function ''Public Function DLL_GetItemIndex_b1() As Integer
 
 
-    Private Function DLL_GetItemAtIndex_b0(paramIndex_b0 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemAtIndex_b0
+    Private Overloads Function DLL_GetItemAtIndex_b0(paramIndex_b0 As Integer) As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemAtIndex_b0
 
         ''Added 1/10/2025 & 1/07/2025 td
         Return MyBase.DLL_GetItemAtIndex_b0(paramIndex_b0)
 
     End Function
 
-    Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1(paramIndex_b1 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemAtIndex_b1
+    Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1(paramIndex_b1 As Integer) As TwoCharacterDLLVertical Implements IDoublyLinkedItem(Of TwoCharacterDLLVertical).DLL_GetItemAtIndex_b1
 
         ''Added 1/10/2025 & 1/07/2025 td
         Return MyBase.DLL_GetItemAtIndex_b1(paramIndex_b1)

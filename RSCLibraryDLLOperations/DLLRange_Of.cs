@@ -452,6 +452,10 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        /// <summary>
+        /// This method is used to determine the index-location of the first item in the range, relative to the parent list.  It is 1-based.
+        /// </summary>
+        /// <returns></returns>
         public int GetFirstItemIndex_b1()
         {
             //
@@ -1024,6 +1028,33 @@ namespace RSCLibraryDLLOperations
 
 
         }
+
+
+        /// <summary>
+        /// This gives the 0-based index of the first item in the range.
+        /// </summary>
+        /// <returns>The 0-based integer index of the first item in the range, in the context of the parent list.</returns>
+        public int GetFirstItemIndex_b0()
+        {
+
+            // Added 1/10/2025 thomas d.
+            return _StartingItemOfRange.DLL_GetItemIndex_b0();
+
+        }
+
+
+        /// <summary>
+        /// This gives the 1-based index of the first item in the range.
+        /// </summary>
+        /// <returns>The 1-based integer index of the first item in the range, in the context of the parent list.</returns>
+        public int GetFirstItemIndex()
+        {
+
+            // Added 1/10/2025 thomas d.
+            return _StartingItemOfRange.DLL_GetItemIndex_b1();
+
+        }
+
 
 
 

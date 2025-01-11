@@ -315,7 +315,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''Added 11/12/2024 td
         ''
-        Dim intRangeFirstIndex As Integer
+        Dim intRangeFirstIndex_b1 As Integer ''This is a 1-based index.
 
         If (par_range Is Nothing) Then
             MessageBoxTD.Show_Statement("To autopopulate the range-related controls...",
@@ -323,9 +323,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             Exit Sub
         End If ''End of ""If (par_range Is Nothing) Then""
 
-        intRangeFirstIndex = par_range.GetFirstItemIndex()
-        numInsertAnchorBenchmark.Value = intRangeFirstIndex
-        numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex
+        intRangeFirstIndex_b1 = par_range.GetFirstItemIndex_b1()
+        numInsertAnchorBenchmark.Value = intRangeFirstIndex_b1
+        numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex_b1
 
         ''Count of items. 
         numInsertHowMany.Value = par_range.GetItemCount()

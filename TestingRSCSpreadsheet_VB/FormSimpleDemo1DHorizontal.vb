@@ -335,17 +335,17 @@ Public Class FormSimpleDemo1DHorizontal
         ''
         ''Added 11/12/2024 td
         ''
-        Dim intRangeFirstIndex As Integer
+        Dim intRangeFirstIndex_b1 As Integer ''This index is 1-based.
 
         If (par_range Is Nothing) Then
-            MessageBoxTD.Show_Statement("To autopopulate the range-related controls...",
+            MessageBoxTD.Show_Statement("To auto-populate the range-related controls...",
                                         "Please select a range of items, by clicking the numbers in the 2nd textbox.")
             Exit Sub
         End If ''End of ""If (par_range Is Nothing) Then""
 
-        intRangeFirstIndex = par_range.GetFirstItemIndex()
-        numInsertAnchorBenchmark.Value = intRangeFirstIndex
-        numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex
+        intRangeFirstIndex_b1 = par_range.GetFirstItemIndex_b1()
+        numInsertAnchorBenchmark.Value = intRangeFirstIndex_b1
+        numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex_b1
 
         ''Count of items. 
         numInsertHowMany.Value = par_range.GetItemCount()
