@@ -343,6 +343,45 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLOperation1D(TControl par_firstItemOfList, DLLOperationStructure par_structure)
+        {
+            //
+            // Added 1/12/2025 thomas downes
+            //
+            _isInsert = par_structure.IsInsert; // = _isInsert;
+            _isDelete = par_structure.IsDelete; // = _isDelete;
+            _isMove = par_structure.IsMove; // = _isMove;
+            _isSort_UndoOfSortEither = par_structure.IsUndoOfSort; // = _isSort_UndoOfSortEither;
+            _isSort_Ascending = par_structure.SortingAscending; // = _isSort_Ascending;
+            _isSort_Descending = par_structure.SortingDescending; // = _isSort_Descending;
+            // par_structure.Sorting; // = _isSort_Ascending || _isSort_Descending;
+            _moveType = par_structure.TypeOfMove; // = _moveType;
+
+            _itemEnding_SortOrderThisOp = null;
+            _itemStart_SortOrderIfUndo = null; 
+
+
+            if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
+            {
+                TControl itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeStartingIndex_b1);
+                TControl itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeEndingIndex_b1);
+                _range = new DLLRange<TControl>(itemOfRangeFirst, itemOfRange_Last, 
+                    par_structure.RangeSize);
+            }
+
+            if (par_structure.AnchorIsSpecified || 0 < par_structure.AnchorIndexLeft_b1)
+            {
+                TControl? itemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexLeft_b1);
+                TControl? itemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexRight_b1);
+
+                _anchorCouplet = new DLLAnchorCouplet<TControl>(itemOfAnchorLeft, itemOfAnchorRight);
+                _anchorItem = _anchorCouplet.GetAnchorItem();
+
+            }
+
+        }
+
+
         public void ExecuteOnThisList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //

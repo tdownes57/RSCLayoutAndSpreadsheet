@@ -1132,6 +1132,7 @@ namespace RSCLibraryDLLOperations
             
             if (_range != null)
             {
+                result_struct.RangeIsSpecified = true;
                 result_struct.RangeStartingIndex_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
                 result_struct.RangeEndingIndex_b1 = _range.Item__End().DLL_GetItemIndex_b1();
                 result_struct.RangeSize = _range.GetItemCount();

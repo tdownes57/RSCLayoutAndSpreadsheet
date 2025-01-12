@@ -25,9 +25,10 @@ namespace RSCLibraryDLLOperations
             IsInsert = false;
             IsDelete = false;
             IsMove = false;
+            RangeIsSpecified = false;  // Added 1/12/2025 thom.as down.es
             AnchorIsSpecified = false; 
-            AnchorIndexLeft = -1;
-            AnchorIndexRight = -1;
+            AnchorIndexLeft_b1 = -1;
+            AnchorIndexRight_b1 = -1;
             TypeOfMove = new StructureTypeOfMove();
             TypeOfMove.IsMoveType = false;
             Sorting = false;
@@ -52,6 +53,7 @@ namespace RSCLibraryDLLOperations
         public int RangeEndingIndex_b1;
         public int RangeSize;
 
+        public bool RangeIsSpecified;  // Added 1/12/2025 thomas downes
         public bool AnchorIsSpecified;
 
         /// <summary>
