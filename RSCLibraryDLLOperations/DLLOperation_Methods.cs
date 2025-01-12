@@ -1108,6 +1108,45 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLOperationStructure GetOperationStructure()
+        {
+            //
+            // Added 1/11/2025 td
+            //
+            //  This outputs is a Boolean-and-Integer description of the operation.
+            //    It does not rely on object references.  
+            //
+            // This may be useful for propagating an operation to a set of parallel lists, 
+            //    for example, from RSCRowHeaders to RSColumns. 
+            //
+            DLLOperationStructure result_struct = new DLLOperationStructure();
+
+            result_struct.IsInsert = _isInsert; 
+            result_struct.IsDelete = _isDelete; 
+            result_struct.IsMove = _isMove; 
+            result_struct.IsUndoOfSort = _isSort_UndoOfSortEither; 
+            result_struct.SortingAscending = _isSort_Ascending;  
+            result_struct.SortingDescending = _isSort_Descending;    
+            result_struct.Sorting = _isSort_Ascending || _isSort_Descending;
+            result_struct.TypeOfMove = _moveType;
+            
+            if (_range != null)
+            {
+                result_struct.RangeStartingIndex_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
+                result_struct.RangeEndingIndex_b1 = _range.Item__End().DLL_GetItemIndex_b1();
+                result_struct.RangeSize = _range.GetItemCount();
+            }
+
+            if (_anchorCouplet != null)
+            {
+                result_struct.AnchorIsSpecified = true; 
+                result_struct.AnchorIndexLeft_b1 = _anchorCouplet.GetItemLeftOrFirst().DLL_GetItemIndex_b1();
+                result_struct.AnchorIndexRight_b1 = _anchorCouplet.GetItemRightOrSecond().DLL_GetItemIndex_b1();
+            }
+
+            return result_struct; 
+
+        }
 
 
 
