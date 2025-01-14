@@ -1121,7 +1121,7 @@ namespace RSCLibraryDLLOperations
         /// (Object references are avoided.)
         /// </summary>
         /// <returns>An index-only description of the operation.</returns>
-        public DLLOperationStructure GetOperationIndexStructure()
+        public DLLOperationIndexStructure GetOperationIndexStructure()
         {
             //
             // Added 1/11/2025 td
@@ -1132,7 +1132,7 @@ namespace RSCLibraryDLLOperations
             // This may be useful for propagating an operation to a set of parallel lists, 
             //    for example, from RSCRowHeaders to RSColumns. 
             //
-            DLLOperationStructure result_struct = new DLLOperationStructure();
+            DLLOperationIndexStructure result_struct = new DLLOperationIndexStructure();
 
             result_struct.IsInsert = _isInsert; 
             result_struct.IsDelete = _isDelete; 

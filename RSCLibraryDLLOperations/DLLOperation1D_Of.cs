@@ -361,7 +361,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_structure"></param>
         /// <param name="par_firstItemOfList"></param>
         /// <param name=""></param>
-        public DLLOperation1D(DLLOperationStructure par_structure, TControl par_firstItemOfList)
+        public DLLOperation1D(DLLOperationIndexStructure par_structure, TControl par_firstItemOfList)
         {
             //
             // Added 1/12/2025 thomas downes

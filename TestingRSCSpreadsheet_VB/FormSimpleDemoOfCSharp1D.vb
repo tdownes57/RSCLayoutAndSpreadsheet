@@ -715,7 +715,7 @@ Public Class FormSimpleDemoOfCSharp1D
                 ''   we need to create a DLLOperationStructure object, and then pass it to the constructor.
                 ''   ---1/13/2025 td
                 ''
-                Dim op_structure As DLLOperationStructure ''DLLOperation1D(Of TwoCharacterDLLItem)
+                Dim op_structure As DLLOperationIndexStructure ''DLLOperation1D(Of TwoCharacterDLLItem)
                 op_structure = operation.GetOperationIndexStructure()
                 operation = New DLLOperation1D(Of TwoCharacterDLLItem)(op_structure, mod_list.DLL_GetFirstItem_OfT())
 
@@ -1045,9 +1045,13 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 10/16/2024
         ''
         Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
+        Dim bTestingIndexStructure As Boolean ''Added 1/14/2025 td
+
+        ''Added 1/14/2025 td
+        bTestingIndexStructure = checkTestNumericConstructor.Checked
 
         ''Nov10 2024 ''mod_manager.UndoMarkedOperation()
-        mod_manager.UndoMarkedOperation(bEndpointAffected)
+        mod_manager.UndoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
 
         ''Added 11/10/2024 
         mod_firstItem = mod_list.DLL_GetFirstItem_OfT()

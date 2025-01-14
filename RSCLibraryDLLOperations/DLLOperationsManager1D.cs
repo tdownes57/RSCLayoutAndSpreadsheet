@@ -332,10 +332,11 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void UndoMarkedOperation(ref bool pbEndpointAffected)
+        public void UndoMarkedOperation(ref bool pbEndpointAffected, bool pbTestingIndexStructure)
         {
             //Nov10 2024 ''UndoOfPriorOperation_AnyType();
-            UndoOfPriorOperation_AnyType(ref pbEndpointAffected);
+            UndoOfPriorOperation_AnyType(ref pbEndpointAffected, pbTestingIndexStructure);
+
         }
 
 
@@ -384,14 +385,15 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void UndoOfPriorOperation_AnyType(ref bool pbEndpointAffected)
+        private void UndoOfPriorOperation_AnyType(ref bool pbEndpointAffected, 
+            bool pbTestingIndexStructure)
         {
             //
             // Added 1/10/2024 thomas downes
             //
             int intCountFurtherUndoOps;
             DLLOperation1D<T_LinkedCtl> operationToUndo;
-            bool bOperationPriorExists; 
+            bool bOperationPriorExists = false; 
 
             // Added 10/25/2024  
             if (mod_opUndoRedoMarker == null)
@@ -427,6 +429,15 @@ namespace RSCLibraryDLLOperations
             {
                 // Undo the operation which is the RedoMarker's currently-designated Undo operation.
                 operationToUndo = mod_opUndoRedoMarker.GetCurrentOp_Undo();
+
+                // Testing the DLLOperationStructure class.  Added 1/14/2025 tfd
+                if (pbTestingIndexStructure)
+                {
+                    // Use the operation structure, to create a new, equivalent  operation.
+                    DLLOperationIndexStructure opIndexStructure = operationToUndo.GetOperationIndexStructure();
+                    operationToUndo = new DLLOperation1D<T_LinkedCtl>(opIndexStructure, mod_firstItem);
+
+                }
 
                 // Major call!!
                 //UndoOperation_ViaInverseOf(operationToUndo);

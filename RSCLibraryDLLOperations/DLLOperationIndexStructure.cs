@@ -16,12 +16,12 @@ namespace RSCLibraryDLLOperations
     ///    propagation of the operation description to parallel lists of controls.
     ///    (Object references are avoided.)
     /// </summary>
-    public struct DLLOperationStructure
+    public struct DLLOperationIndexStructure
     {
         //
         // Added 1/11/2025 thomas downes
         //
-        public DLLOperationStructure()
+        public DLLOperationIndexStructure()
         {
             IsInsert = false;
             IsDelete = false;
@@ -69,6 +69,33 @@ namespace RSCLibraryDLLOperations
 
         public bool IsUndoOfSort;
         public int[] ArrayToUndoSort; 
+
+
+        public override string ToString()
+        {
+            //
+            // Added 1/14/2025 thomas downes
+            //
+            string return_string = ""; 
+            if (IsInsert) return_string += "Insert \n";
+            if (IsDelete) return_string += "Delete \n";
+            if (IsMove) return_string += "Move \n";
+
+            if (IsUndoOfSort) return_string += "Undo of Sort \n";
+            if (SortingAscending) return_string += "Sort Ascending \n";
+            if (SortingDescending) return_string += "Sort Descending \n";
+
+            if (RangeIsSpecified) return_string += "Range: " + 
+                    RangeStartingIndex_b1.ToString() + " to " + 
+                    RangeEndingIndex_b1.ToString() + "\n";
+
+            if (RangeIsSpecified) return_string += "Range Size: " + RangeSize.ToString() + "\n";
+
+            return return_string;
+
+        }
+
+
 
     }
 }
