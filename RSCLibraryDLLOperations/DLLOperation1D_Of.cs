@@ -80,8 +80,12 @@ namespace RSCLibraryDLLOperations
         public TControl _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
         public TControl _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
-        public TControl[] _array_SortOrderIfUndo;  //Added 12/30/2024 td  
-        public TControl[] _array_SortOrderThisOp;  //Added 12/30/2024 td  
+        public TControl[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
+        public TControl[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
+ 
+        public int[] _arrayIndices_SortOrderIfUndo;  //Added 1/13/2025 td  
+        public int[] _arrayIndices_SortOrderThisOp;  //Added 1/13/2025 td  
+
         //
         // ---------------------END OF SORTING ORDER--------------------12/30/2024--------------
         //
@@ -199,7 +203,10 @@ namespace RSCLibraryDLLOperations
                   bool par_isUndoOfSortDescending,
                   TControl par_itemStart_Sorting, 
                   TControl par_itemEnding_ForSorting, 
-                  TControl[] par_array_Sorting)
+                  bool pbSortByArrayOfControls,
+                  TControl[] par_arrayControls_Sorting,
+                  bool pbSortByArrayOfIndices,
+                  int[]? par_arrayIndices_Sorting)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -216,9 +223,13 @@ namespace RSCLibraryDLLOperations
             _isSort_UndoOfSortDescending = par_isUndoOfSortDescending;
             _itemStart_SortOrderThisOp = par_itemStart_Sorting;
             _itemEnding_SortOrderThisOp = par_itemEnding_ForSorting;
-            _array_SortOrderThisOp = par_array_Sorting;
 
-      
+            if (pbSortByArrayOfControls)
+            _arrayControls_SortOrderThisOp = par_arrayControls_Sorting;
+
+            else if (pbSortByArrayOfIndices)
+                _arrayIndices_SortOrderThisOp = par_arrayIndices_Sorting;
+
 
 
         }
@@ -343,7 +354,14 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D(TControl par_firstItemOfList, DLLOperationStructure par_structure)
+        /// <summary>
+        /// This constructor uses a numeric-indexing approach to creating an operation, via DLLOperationStructure.
+        /// (Other constructors use a more object-oriented, item-referencing approach.)
+        /// </summary>
+        /// <param name="par_structure"></param>
+        /// <param name="par_firstItemOfList"></param>
+        /// <param name=""></param>
+        public DLLOperation1D(DLLOperationStructure par_structure, TControl par_firstItemOfList)
         {
             //
             // Added 1/12/2025 thomas downes
@@ -532,21 +550,45 @@ namespace RSCLibraryDLLOperations
             //
             //----bool bChangeOfEndpointOccurred = false;
 
-            if (_isSort_Ascending)
+            // Modified 1/13/2025 if (_isSort_Ascending)
+            if (_isSort_Ascending || _isSort_Descending)
             {
                 // Ascending Sort
-                par_list.SaveCurrentSortOrder_ToPrior(this); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
-                par_list.DLL_SortItems(_isSort_Ascending, false);
+                //----par_list.SaveCurrentSortOrder_ToPrior(this); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
+                TControl[] arrayControls_priorToSort;  // Added 1/13/2025 
+                //int[] arrayIndices_priorToSort;  //Added 1/13/2025
+                const bool OUTPUT_ARRAY = true;  // Added 1/13/2025 
+
+                // Administrative (2nd-tier) work...
+                par_list.SaveCurrentSortOrder_ToPrior(this, 
+                    OUTPUT_ARRAY, 
+                    out arrayControls_priorToSort); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
+                
+                //
+                // Major work!!
+                //
+                //----par_list.DLL_SortItems(_isSort_Ascending, false);
+                par_list.DLL_SortItems(_isSort_Ascending, _isSort_Descending);
+
+                // Save the prior order as an array of indices.
+                this._arrayControls_SortOrderIfUndo = arrayControls_priorToSort;
+
+                _arrayIndices_SortOrderIfUndo = 
+                    par_list.GetPriorSortOrderForUndo_ByIndex(arrayControls_priorToSort);  // Added 1/13/2025
+                
+
+                // Indicate that the endpoints (start & ending) very probably changed. 
                 pbChangeOfEndpoint_Occurred = true;
+
             }
-            else if (_isSort_Descending)
-            {
-                // Descending Sort  
-                const bool DESCENDING = true;
-                par_list.SaveCurrentSortOrder_ToPrior(this); //  This will enable Undo-Sort operations.  --Added 12/29/2024 td
-                par_list.DLL_SortItems(false, DESCENDING);
-                pbChangeOfEndpoint_Occurred = true;
-            }
+            //else if (_isSort_Descending)
+            //{
+            //    // Descending Sort  
+            //    const bool DESCENDING = true;
+            //    par_list.SaveCurrentSortOrder_ToPrior(this); //  This will enable Undo-Sort operations.  --Added 12/29/2024 td
+            //    par_list.DLL_SortItems(false, DESCENDING);
+            //    pbChangeOfEndpoint_Occurred = true;
+            //}
             else if (_isSort_UndoOfSortEither || _isSort_UndoOfSortAscending || _isSort_UndoOfSortDescending)
             {
                 // Added 12/29/2024 td 

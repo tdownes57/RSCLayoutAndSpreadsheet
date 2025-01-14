@@ -676,7 +676,7 @@ Public Class FormSimpleDemoOfCSharp1D
         '' Insert range into the list.  
         ''
         Const DIRECT_TO_LIST = False ''Added 10/26/2024 thom dow.nes
-        Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
+        ''--Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
@@ -704,6 +704,22 @@ Public Class FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
+
+            ''Added 1/13/2025 td
+            ''
+            ''   Should we test the new Struct, DLLOperationStructure?
+            ''
+            If (checkTestNumericConstructor.Checked) Then
+                ''
+                ''To test DLLOperationStructure, and the corresponding DLLOperation1D (Of T) constructor,
+                ''   we need to create a DLLOperationStructure object, and then pass it to the constructor.
+                ''   ---1/13/2025 td
+                ''
+                Dim op_structure As DLLOperationStructure ''DLLOperation1D(Of TwoCharacterDLLItem)
+                op_structure = operation.GetOperationIndexStructure()
+                operation = New DLLOperation1D(Of TwoCharacterDLLItem)(op_structure, mod_list.DLL_GetFirstItem_OfT())
+
+            End If ''End of ""If (checkTestNumericConstructor.Checked) Then""
 
             ''operation.OperateOnList(mod_list)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)

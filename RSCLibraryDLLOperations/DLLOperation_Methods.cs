@@ -759,7 +759,10 @@ namespace RSCLibraryDLLOperations
             // Added 12/30/2024 td
             TControl result_itemStart_SortOrderThisOp = _itemStart_SortOrderIfUndo;
             TControl result_itemEnding_SortOrderThisOp = _itemEnding_SortOrderIfUndo;
-            TControl[] result_array_SortOrderThisOp = _array_SortOrderIfUndo;
+            TControl[] result_arrayControls_SortOrderThisOp = _arrayControls_SortOrderIfUndo;
+
+            // Added 1/13/2025 thomas d.
+            int[] result_arrayIndices_SortOrderThisOp = _arrayIndices_SortOrderIfUndo;
 
             //--- DIFFICULT & CONFUSING ---
             if (_isMove && _isForStartOfList) result_isForStartOfList = false;
@@ -838,7 +841,10 @@ namespace RSCLibraryDLLOperations
                     result_isUndoOfSortDescending,
                     result_itemStart_SortOrderThisOp,
                     result_itemEnding_SortOrderThisOp,
-                    result_array_SortOrderThisOp);
+                    true,
+                    result_arrayControls_SortOrderThisOp, 
+                    true, 
+                    result_arrayIndices_SortOrderThisOp);
             }
 
             //
@@ -954,7 +960,8 @@ namespace RSCLibraryDLLOperations
                 // 
                 var itemBaseStart = _itemStart_SortOrderIfUndo.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
                 var itemBaseEnding = _itemEnding_SortOrderIfUndo.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
-                T_BaseOrParallel[] arrayBase_SortOrderIfUndo = GetConvertedArray<T_BaseOrParallel>(_array_SortOrderIfUndo, par_firstItem);
+                T_BaseOrParallel[] arrayBase_SortOrderIfUndo = GetConvertedArray<T_BaseOrParallel>(
+                        _arrayControls_SortOrderIfUndo, par_firstItem);
 
                 result =
                     new DLLOperation1D<T_BaseOrParallel>(
@@ -963,8 +970,9 @@ namespace RSCLibraryDLLOperations
                            _isSort_UndoOfSortDescending,
                            //_itemStart_SortOrderIfUndo as T_BaseOrParallel,
                            //_itemEnding_SortOrderIfUndo as T_BaseOrParallel,
-                           itemBaseStart, itemBaseEnding,
-                           arrayBase_SortOrderIfUndo);
+                           itemBaseStart, itemBaseEnding, 
+                           true,
+                           arrayBase_SortOrderIfUndo, false, null);
 
             }
 
@@ -1108,7 +1116,12 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperationStructure GetOperationStructure()
+        /// <summary>
+        /// This outputs a Boolean-and-Integer Index-oriented description of the operation.
+        /// (Object references are avoided.)
+        /// </summary>
+        /// <returns>An index-only description of the operation.</returns>
+        public DLLOperationStructure GetOperationIndexStructure()
         {
             //
             // Added 1/11/2025 td

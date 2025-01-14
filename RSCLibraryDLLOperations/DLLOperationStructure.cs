@@ -14,6 +14,7 @@ namespace RSCLibraryDLLOperations
     ///    It does not rely on object references.  The purpose is to provide a simple,
     ///    value-type description of the operation.  This will enable the easy
     ///    propagation of the operation description to parallel lists of controls.
+    ///    (Object references are avoided.)
     /// </summary>
     public struct DLLOperationStructure
     {

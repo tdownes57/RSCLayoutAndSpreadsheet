@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RSCLibraryDLLOperations
 {
@@ -33,7 +34,9 @@ namespace RSCLibraryDLLOperations
         //Go to DLLOperation_Of.cs  public TControl[] _array_SortOrderThisOp;  //Added 12/29/2024 td  
 
 
-        public void SaveCurrentSortOrder_ToPrior(DLLOperation1D<TControl> par_op)
+        public void SaveCurrentSortOrder_ToPrior(DLLOperation1D<TControl> par_op, 
+                 bool pbOutputArrayOfControls, 
+                 out TControl[] par_arrayControls)
         {
             //
             // Added 12/12/2024 thomas downes 
@@ -53,16 +56,74 @@ namespace RSCLibraryDLLOperations
             par_op._itemStart_SortOrderIfUndo = _itemStart;
             par_op._itemEnding_SortOrderIfUndo = _itemEnding;
             TControl currentItem = _itemStart;
-            par_op._array_SortOrderIfUndo = new TControl[_itemCount];
+            par_op._arrayControls_SortOrderIfUndo = new TControl[_itemCount];
             // Save all of the items, in their current order. 
             for (int index = 0; index < _itemCount; index++)
             {
-                par_op._array_SortOrderIfUndo[index] = currentItem;
+                par_op._arrayControls_SortOrderIfUndo[index] = currentItem;
                 currentItem = currentItem.DLL_GetItemNext_OfT();
             }
 
+            // Added 1/13/2025 thomas downes
+            par_arrayControls = par_op._arrayControls_SortOrderIfUndo;
 
         }
+
+
+        /// <summary>
+        /// Returns a list of indices, which can be used to undo-sort the items by index.
+        /// For the RSCColumn controls, each control contains a list of controls (RSCDataCells),
+        ///  and the RSCDataCells are not directly linked to the RSCRowHeaders.  So, we need
+        ///  Control-independent indices, to easily sort the RSCDataCell controls (by index alone).
+        /// </summary>
+        /// <param name="arrayControls_priorToSort"></param>
+        /// <returns></returns>
+        public int[] GetPriorSortOrderForUndo_ByIndex(TControl[] par_arrayControls_priorToSort)
+        {
+            //
+            // Added 1/13/2025 thomas downes
+            //
+            int[] return_arrayIndicesForUndo = new int[_itemCount];
+            TControl tempItem = _itemStart;
+
+            //
+            // Create an array of indices, which will be used to sort the items by index.
+            //
+            //+++for (int index = 0; index < _itemCount; index++)
+            //+++while (tempItem != null)
+            for (int index = 0; index < _itemCount; index++)
+            {
+                //-----This may NOT be what we are looking for.
+                //-----  We may be looking for the index of the items in the Prior-To-Sorting 
+                //-----  list, instead of index relative to the current sort order.
+                //-----   ---1/13/2025 td
+                //---return_arrayIndices[index] = par_arrayControls_priorToSort[index].DLL_GetItemIndex_b1();
+                
+                const bool STORE_INDICES_FOR_SORT_REDO = false; // Jan. 13 2025 td
+                const bool STORE_INDICES_FOR_SORT_UNDO = true;  // Jan. 13 2025 td
+
+                if (STORE_INDICES_FOR_SORT_UNDO)
+                {
+                    return_arrayIndicesForUndo[index] = par_arrayControls_priorToSort[index].DLL_GetItemIndex_b1();
+                }
+                if (STORE_INDICES_FOR_SORT_REDO)
+                {
+                    // NOT THE CORRECT WAY TO DO IT.  ---1/13/2025 td
+                    return_arrayIndicesForUndo[index] = Array.FindIndex(par_arrayControls_priorToSort, item => item == tempItem);
+                }
+
+                //Prepare for next iteration. 
+                tempItem = tempItem.DLL_GetItemNext_OfT();
+
+            }
+
+            //
+            // Output.
+            //
+            return return_arrayIndicesForUndo;
+
+        }
+
 
 
         public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
@@ -91,7 +152,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/30/2024 thomas downes 
             //
-            if (par_op._array_SortOrderThisOp == null)
+            if (par_op._arrayControls_SortOrderThisOp == null)
             {
                 System.Diagnostics.Debugger.Break();
             }
@@ -120,7 +181,7 @@ namespace RSCLibraryDLLOperations
             for (int index = 0 + 1; index < _itemCount; index++)
             {
                 // Read the current item from the array which saves all of the items, in order.
-                currentItem = par_op._array_SortOrderThisOp[index];  // Use the sort order suffixed "ThisOp".
+                currentItem = par_op._arrayControls_SortOrderThisOp[index];  // Use the sort order suffixed "ThisOp".
                 priorItem.DLL_SetItemNext_OfT(currentItem, false, DOUBLY_LINK);
 
                 // Prepare for the next iteration of the loop. --12/30/2024
@@ -138,6 +199,43 @@ namespace RSCLibraryDLLOperations
             // Added 12/12/2024 thomas downes 
             //
             _itemStart.DLL_ClearPriorSortOrder(true);
+
+        }
+
+
+
+        public void DLL_SortItemsByIndexArray(int[] par_arrayOfIndices)
+        {
+            //
+            // Added 1/13/2025  by thomas downes
+            //
+            TControl[] arrayItemsInput; // = new TControl[_itemCount];
+            TControl[] arrayItemsOutput; // = new TControl[_itemCount];
+            // arrayItems = _itemStart.DLL_GetConvertToArray_AllItemsInList(_itemCount);
+            arrayItemsInput = _itemStart.GetConvertToArray();
+            arrayItemsOutput = new TControl[_itemCount];
+
+            // Copy the items, in the order specified by the array of indices.
+            for (int index = 0; index < _itemCount; index++)
+            {
+                arrayItemsOutput[index] = arrayItemsInput[par_arrayOfIndices[index]];
+            }
+
+            _itemStart = arrayItemsOutput[0];
+            TControl tempItem = _itemStart;
+
+            // foreach (TControl item in arrayItemsOutput.Skip(1))
+            for (int index = 1; index < _itemCount; index++)
+            {
+                TControl each_item = arrayItemsOutput[index];
+                tempItem.DLL_SetItemNext_OfT(each_item, false, true);
+                tempItem = each_item;
+            }
+
+            //
+            // Exit handler.
+            //
+            _itemEnding = tempItem; 
 
         }
 

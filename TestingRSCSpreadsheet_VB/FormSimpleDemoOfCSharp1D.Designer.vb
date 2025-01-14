@@ -70,6 +70,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         LinkApplicationDoevents = New LinkLabel()
         LinkRefreshFirstItem = New LinkLabel()
         ButtonSortBackward = New Button()
+        checkTestNumericConstructor = New CheckBox()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
@@ -86,7 +87,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         listInsertAfterOrBefore.FormattingEnabled = True
         listInsertAfterOrBefore.ItemHeight = 15
         listInsertAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listInsertAfterOrBefore.Location = New Point(380, 195)
+        listInsertAfterOrBefore.Location = New Point(376, 225)
         listInsertAfterOrBefore.Name = "listInsertAfterOrBefore"
         listInsertAfterOrBefore.Size = New Size(115, 34)
         listInsertAfterOrBefore.TabIndex = 63
@@ -94,7 +95,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonInsertMultiple
         ' 
         buttonInsertMultiple.BackColor = Color.Cyan
-        buttonInsertMultiple.Location = New Point(501, 188)
+        buttonInsertMultiple.Location = New Point(497, 218)
         buttonInsertMultiple.Name = "buttonInsertMultiple"
         buttonInsertMultiple.Size = New Size(166, 39)
         buttonInsertMultiple.TabIndex = 62
@@ -105,7 +106,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         LabelInsertHeader.AutoSize = True
         LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelInsertHeader.Location = New Point(18, 161)
+        LabelInsertHeader.Location = New Point(14, 191)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
         LabelInsertHeader.TabIndex = 61
@@ -114,7 +115,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LabelInsertAnchorHeader
         ' 
         LabelInsertAnchorHeader.AutoSize = True
-        LabelInsertAnchorHeader.Location = New Point(18, 197)
+        LabelInsertAnchorHeader.Location = New Point(14, 227)
         LabelInsertAnchorHeader.Name = "LabelInsertAnchorHeader"
         LabelInsertAnchorHeader.Size = New Size(304, 15)
         LabelInsertAnchorHeader.TabIndex = 60
@@ -122,7 +123,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numInsertAnchorBenchmark
         ' 
-        numInsertAnchorBenchmark.Location = New Point(324, 195)
+        numInsertAnchorBenchmark.Location = New Point(320, 225)
         numInsertAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertAnchorBenchmark.Name = "numInsertAnchorBenchmark"
         numInsertAnchorBenchmark.Size = New Size(50, 23)
@@ -159,7 +160,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(279, 310)
+        buttonDelete.Location = New Point(275, 340)
         buttonDelete.Name = "buttonDelete"
         buttonDelete.Size = New Size(133, 39)
         buttonDelete.TabIndex = 73
@@ -170,7 +171,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(18, 291)
+        Label8.Location = New Point(14, 321)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 72
@@ -179,7 +180,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(18, 351)
+        Label9.Location = New Point(14, 381)
         Label9.Name = "Label9"
         Label9.Size = New Size(164, 15)
         Label9.TabIndex = 71
@@ -188,7 +189,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(18, 322)
+        Label10.Location = New Point(14, 352)
         Label10.Name = "Label10"
         Label10.Size = New Size(189, 15)
         Label10.TabIndex = 70
@@ -196,7 +197,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numDeleteHowMany
         ' 
-        numDeleteHowMany.Location = New Point(210, 349)
+        numDeleteHowMany.Location = New Point(206, 379)
         numDeleteHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numDeleteHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteHowMany.Name = "numDeleteHowMany"
@@ -206,7 +207,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numDeleteRangeBenchmarkStart
         ' 
-        numDeleteRangeBenchmarkStart.Location = New Point(210, 320)
+        numDeleteRangeBenchmarkStart.Location = New Point(206, 350)
         numDeleteRangeBenchmarkStart.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteRangeBenchmarkStart.Name = "numDeleteRangeBenchmarkStart"
         numDeleteRangeBenchmarkStart.Size = New Size(50, 23)
@@ -216,7 +217,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(18, 222)
+        Label2.Location = New Point(14, 252)
         Label2.Name = "Label2"
         Label2.Size = New Size(164, 15)
         Label2.TabIndex = 76
@@ -224,7 +225,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' numInsertHowMany
         ' 
-        numInsertHowMany.Location = New Point(210, 220)
+        numInsertHowMany.Location = New Point(206, 250)
         numInsertHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numInsertHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertHowMany.Name = "numInsertHowMany"
@@ -235,7 +236,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(18, 246)
+        Label6.Location = New Point(14, 276)
         Label6.Name = "Label6"
         Label6.Size = New Size(324, 15)
         Label6.TabIndex = 78
@@ -244,7 +245,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' textInsertListOfValuesCSV
         ' 
         textInsertListOfValuesCSV.BorderStyle = BorderStyle.FixedSingle
-        textInsertListOfValuesCSV.Location = New Point(356, 243)
+        textInsertListOfValuesCSV.Location = New Point(352, 273)
         textInsertListOfValuesCSV.Name = "textInsertListOfValuesCSV"
         textInsertListOfValuesCSV.Size = New Size(139, 23)
         textInsertListOfValuesCSV.TabIndex = 77
@@ -253,7 +254,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         ' buttonInsertSingle
         ' 
-        buttonInsertSingle.Location = New Point(501, 233)
+        buttonInsertSingle.Location = New Point(497, 263)
         buttonInsertSingle.Name = "buttonInsertSingle"
         buttonInsertSingle.Size = New Size(166, 39)
         buttonInsertSingle.TabIndex = 79
@@ -287,7 +288,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonUndoLastStep
         ' 
         buttonUndoLastStep.Enabled = False
-        buttonUndoLastStep.Location = New Point(838, 427)
+        buttonUndoLastStep.Location = New Point(834, 457)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
         buttonUndoLastStep.Size = New Size(166, 39)
         buttonUndoLastStep.TabIndex = 82
@@ -297,7 +298,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonRedoOp
         ' 
         buttonRedoOp.Enabled = False
-        buttonRedoOp.Location = New Point(850, 472)
+        buttonRedoOp.Location = New Point(846, 502)
         buttonRedoOp.Name = "buttonRedoOp"
         buttonRedoOp.Size = New Size(154, 39)
         buttonRedoOp.TabIndex = 83
@@ -308,7 +309,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         richtextBenchmark.BorderStyle = BorderStyle.None
         richtextBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextBenchmark.Location = New Point(36, 98)
+        richtextBenchmark.Location = New Point(32, 128)
         richtextBenchmark.Name = "richtextBenchmark"
         richtextBenchmark.Size = New Size(895, 23)
         richtextBenchmark.TabIndex = 84
@@ -319,7 +320,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         richtextItemsDisplay.BorderStyle = BorderStyle.FixedSingle
         richtextItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextItemsDisplay.Location = New Point(36, 116)
+        richtextItemsDisplay.Location = New Point(32, 146)
         richtextItemsDisplay.Name = "richtextItemsDisplay"
         richtextItemsDisplay.Size = New Size(895, 23)
         richtextItemsDisplay.TabIndex = 85
@@ -329,7 +330,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(129, 396)
+        Label4.Location = New Point(125, 426)
         Label4.Name = "Label4"
         Label4.Size = New Size(245, 15)
         Label4.TabIndex = 94
@@ -340,7 +341,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         textboxMoveRange.BackColor = SystemColors.InactiveCaption
         textboxMoveRange.BorderStyle = BorderStyle.None
         textboxMoveRange.Font = New Font("Segoe UI", 12F)
-        textboxMoveRange.Location = New Point(380, 389)
+        textboxMoveRange.Location = New Point(376, 419)
         textboxMoveRange.Name = "textboxMoveRange"
         textboxMoveRange.Size = New Size(270, 22)
         textboxMoveRange.TabIndex = 93
@@ -351,7 +352,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label7.Location = New Point(15, 390)
+        Label7.Location = New Point(11, 420)
         Label7.Name = "Label7"
         Label7.Size = New Size(99, 21)
         Label7.TabIndex = 88
@@ -360,7 +361,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(656, 395)
+        Label5.Location = New Point(652, 425)
         Label5.Name = "Label5"
         Label5.Size = New Size(163, 15)
         Label5.TabIndex = 95
@@ -370,7 +371,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LinkClearRecordedOps
         ' 
         LinkClearRecordedOps.AutoSize = True
-        LinkClearRecordedOps.Location = New Point(846, 151)
+        LinkClearRecordedOps.Location = New Point(842, 181)
         LinkClearRecordedOps.Name = "LinkClearRecordedOps"
         LinkClearRecordedOps.Size = New Size(143, 15)
         LinkClearRecordedOps.TabIndex = 99
@@ -380,7 +381,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' labelNumOperations
         ' 
         labelNumOperations.BorderStyle = BorderStyle.FixedSingle
-        labelNumOperations.Location = New Point(780, 199)
+        labelNumOperations.Location = New Point(776, 229)
         labelNumOperations.Name = "labelNumOperations"
         labelNumOperations.Size = New Size(182, 45)
         labelNumOperations.TabIndex = 98
@@ -390,7 +391,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonUndo
         ' 
         buttonUndo.Enabled = False
-        buttonUndo.Location = New Point(780, 168)
+        buttonUndo.Location = New Point(776, 198)
         buttonUndo.Name = "buttonUndo"
         buttonUndo.Size = New Size(114, 27)
         buttonUndo.TabIndex = 97
@@ -400,7 +401,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' buttonReDo
         ' 
         buttonReDo.Enabled = False
-        buttonReDo.Location = New Point(900, 169)
+        buttonReDo.Location = New Point(896, 199)
         buttonReDo.Name = "buttonReDo"
         buttonReDo.Size = New Size(86, 27)
         buttonReDo.TabIndex = 96
@@ -424,7 +425,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         GroupMoveByShifting.Controls.Add(buttonMoveShiftRight)
         GroupMoveByShifting.Controls.Add(numericShiftLeft)
         GroupMoveByShifting.Controls.Add(buttonMoveShiftLeft)
-        GroupMoveByShifting.Location = New Point(552, 417)
+        GroupMoveByShifting.Location = New Point(548, 447)
         GroupMoveByShifting.Name = "GroupMoveByShifting"
         GroupMoveByShifting.Size = New Size(236, 101)
         GroupMoveByShifting.TabIndex = 102
@@ -468,7 +469,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         GroupMoveByAnchor.Controls.Add(listMoveAfterOrBefore)
         GroupMoveByAnchor.Controls.Add(LabelMoveBenchmark)
         GroupMoveByAnchor.Controls.Add(numMoveAnchorBenchmark)
-        GroupMoveByAnchor.Location = New Point(53, 417)
+        GroupMoveByAnchor.Location = New Point(49, 447)
         GroupMoveByAnchor.Name = "GroupMoveByAnchor"
         GroupMoveByAnchor.Size = New Size(457, 101)
         GroupMoveByAnchor.TabIndex = 103
@@ -526,7 +527,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LinkRefreshList
         ' 
         LinkRefreshList.AutoSize = True
-        LinkRefreshList.Location = New Point(39, 142)
+        LinkRefreshList.Location = New Point(35, 172)
         LinkRefreshList.Name = "LinkRefreshList"
         LinkRefreshList.Size = New Size(67, 15)
         LinkRefreshList.TabIndex = 105
@@ -536,7 +537,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LinkApplicationDoevents
         ' 
         LinkApplicationDoevents.AutoSize = True
-        LinkApplicationDoevents.Location = New Point(129, 142)
+        LinkApplicationDoevents.Location = New Point(125, 172)
         LinkApplicationDoevents.Name = "LinkApplicationDoevents"
         LinkApplicationDoevents.Size = New Size(87, 15)
         LinkApplicationDoevents.TabIndex = 106
@@ -546,7 +547,7 @@ Partial Class FormSimpleDemoOfCSharp1D
         ' LinkRefreshFirstItem
         ' 
         LinkRefreshFirstItem.AutoSize = True
-        LinkRefreshFirstItem.Location = New Point(232, 142)
+        LinkRefreshFirstItem.Location = New Point(228, 172)
         LinkRefreshFirstItem.Name = "LinkRefreshFirstItem"
         LinkRefreshFirstItem.Size = New Size(244, 15)
         LinkRefreshFirstItem.TabIndex = 107
@@ -563,11 +564,22 @@ Partial Class FormSimpleDemoOfCSharp1D
         ButtonSortBackward.Text = "Backward"
         ButtonSortBackward.UseVisualStyleBackColor = False
         ' 
+        ' checkTestNumericConstructor
+        ' 
+        checkTestNumericConstructor.AutoSize = True
+        checkTestNumericConstructor.Location = New Point(32, 103)
+        checkTestNumericConstructor.Name = "checkTestNumericConstructor"
+        checkTestNumericConstructor.Size = New Size(501, 19)
+        checkTestNumericConstructor.TabIndex = 109
+        checkTestNumericConstructor.Text = "Let's test the numeric-index DLLOperationStructure, as a basis for constructing operations."
+        checkTestNumericConstructor.UseVisualStyleBackColor = True
+        ' 
         ' FormSimpleDemoOfCSharp1D
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1023, 541)
+        ClientSize = New Size(1018, 571)
+        Controls.Add(checkTestNumericConstructor)
         Controls.Add(ButtonSortBackward)
         Controls.Add(LinkRefreshFirstItem)
         Controls.Add(LinkApplicationDoevents)
@@ -672,5 +684,6 @@ Partial Class FormSimpleDemoOfCSharp1D
     Friend WithEvents LinkApplicationDoevents As LinkLabel
     Friend WithEvents LinkRefreshFirstItem As LinkLabel
     Friend WithEvents ButtonSortBackward As Button
+    Friend WithEvents checkTestNumericConstructor As CheckBox
 
 End Class
