@@ -64,6 +64,7 @@ Partial Class FormSimpleDemo1DHorizontal
         richtextItemsDisplayV = New RichTextBox()
         LabelHeaderHorizontalOnly = New Label()
         Label12 = New Label()
+        checkTestNumericConstructor = New CheckBox()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
@@ -74,7 +75,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' LinkClearRecordedOps
         ' 
         LinkClearRecordedOps.AutoSize = True
-        LinkClearRecordedOps.Location = New Point(843, 185)
+        LinkClearRecordedOps.Location = New Point(843, 201)
         LinkClearRecordedOps.Name = "LinkClearRecordedOps"
         LinkClearRecordedOps.Size = New Size(143, 15)
         LinkClearRecordedOps.TabIndex = 136
@@ -84,7 +85,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' labelNumOperations
         ' 
         labelNumOperations.BorderStyle = BorderStyle.FixedSingle
-        labelNumOperations.Location = New Point(777, 233)
+        labelNumOperations.Location = New Point(777, 249)
         labelNumOperations.Name = "labelNumOperations"
         labelNumOperations.Size = New Size(182, 45)
         labelNumOperations.TabIndex = 135
@@ -94,7 +95,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' buttonUndo
         ' 
         buttonUndo.Enabled = False
-        buttonUndo.Location = New Point(777, 202)
+        buttonUndo.Location = New Point(777, 218)
         buttonUndo.Name = "buttonUndo"
         buttonUndo.Size = New Size(114, 27)
         buttonUndo.TabIndex = 134
@@ -104,7 +105,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' buttonReDo
         ' 
         buttonReDo.Enabled = False
-        buttonReDo.Location = New Point(897, 203)
+        buttonReDo.Location = New Point(897, 219)
         buttonReDo.Name = "buttonReDo"
         buttonReDo.Size = New Size(86, 27)
         buttonReDo.TabIndex = 133
@@ -114,7 +115,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(260, 532)
+        Label5.Location = New Point(266, 547)
         Label5.Name = "Label5"
         Label5.Size = New Size(163, 15)
         Label5.TabIndex = 132
@@ -124,7 +125,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(12, 509)
+        Label4.Location = New Point(18, 524)
         Label4.Name = "Label4"
         Label4.Size = New Size(245, 15)
         Label4.TabIndex = 131
@@ -135,7 +136,7 @@ Partial Class FormSimpleDemo1DHorizontal
         textboxMoveRange.BackColor = SystemColors.InactiveCaption
         textboxMoveRange.BorderStyle = BorderStyle.None
         textboxMoveRange.Font = New Font("Segoe UI", 12F)
-        textboxMoveRange.Location = New Point(260, 506)
+        textboxMoveRange.Location = New Point(266, 521)
         textboxMoveRange.Name = "textboxMoveRange"
         textboxMoveRange.Size = New Size(284, 22)
         textboxMoveRange.TabIndex = 130
@@ -147,7 +148,7 @@ Partial Class FormSimpleDemo1DHorizontal
         listMoveAfterOrBefore.FormattingEnabled = True
         listMoveAfterOrBefore.ItemHeight = 15
         listMoveAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listMoveAfterOrBefore.Location = New Point(415, 458)
+        listMoveAfterOrBefore.Location = New Point(421, 473)
         listMoveAfterOrBefore.Name = "listMoveAfterOrBefore"
         listMoveAfterOrBefore.Size = New Size(115, 34)
         listMoveAfterOrBefore.TabIndex = 129
@@ -155,7 +156,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' buttonMoveItems
         ' 
         buttonMoveItems.BackColor = Color.Cyan
-        buttonMoveItems.Location = New Point(560, 490)
+        buttonMoveItems.Location = New Point(566, 505)
         buttonMoveItems.Name = "buttonMoveItems"
         buttonMoveItems.Size = New Size(166, 39)
         buttonMoveItems.TabIndex = 128
@@ -166,7 +167,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label7.Location = New Point(12, 424)
+        Label7.Location = New Point(18, 439)
         Label7.Name = "Label7"
         Label7.Size = New Size(99, 21)
         Label7.TabIndex = 127
@@ -175,7 +176,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Location = New Point(12, 460)
+        Label11.Location = New Point(18, 475)
         Label11.Name = "Label11"
         Label11.Size = New Size(319, 15)
         Label11.TabIndex = 126
@@ -184,7 +185,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' numMoveAnchorBenchmark
         ' 
         numMoveAnchorBenchmark.Font = New Font("Segoe UI", 12F)
-        numMoveAnchorBenchmark.Location = New Point(353, 458)
+        numMoveAnchorBenchmark.Location = New Point(359, 473)
         numMoveAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numMoveAnchorBenchmark.Name = "numMoveAnchorBenchmark"
         numMoveAnchorBenchmark.Size = New Size(56, 29)
@@ -195,7 +196,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         richtextItemsDisplayH.BorderStyle = BorderStyle.FixedSingle
         richtextItemsDisplayH.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextItemsDisplayH.Location = New Point(132, 125)
+        richtextItemsDisplayH.Location = New Point(132, 141)
         richtextItemsDisplayH.Name = "richtextItemsDisplayH"
         richtextItemsDisplayH.Size = New Size(796, 23)
         richtextItemsDisplayH.TabIndex = 124
@@ -218,7 +219,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         richtextBenchmark.BorderStyle = BorderStyle.None
         richtextBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextBenchmark.Location = New Point(132, 107)
+        richtextBenchmark.Location = New Point(132, 123)
         richtextBenchmark.Name = "richtextBenchmark"
         richtextBenchmark.Size = New Size(796, 23)
         richtextBenchmark.TabIndex = 123
@@ -228,7 +229,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' buttonRedoOp
         ' 
         buttonRedoOp.Enabled = False
-        buttonRedoOp.Location = New Point(817, 518)
+        buttonRedoOp.Location = New Point(823, 533)
         buttonRedoOp.Name = "buttonRedoOp"
         buttonRedoOp.Size = New Size(166, 39)
         buttonRedoOp.TabIndex = 122
@@ -238,7 +239,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' buttonUndoLastStep
         ' 
         buttonUndoLastStep.Enabled = False
-        buttonUndoLastStep.Location = New Point(732, 473)
+        buttonUndoLastStep.Location = New Point(738, 488)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
         buttonUndoLastStep.Size = New Size(166, 39)
         buttonUndoLastStep.TabIndex = 121
@@ -259,7 +260,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         ' buttonInsertSingle
         ' 
-        buttonInsertSingle.Location = New Point(498, 267)
+        buttonInsertSingle.Location = New Point(498, 283)
         buttonInsertSingle.Name = "buttonInsertSingle"
         buttonInsertSingle.Size = New Size(166, 39)
         buttonInsertSingle.TabIndex = 118
@@ -269,7 +270,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(15, 280)
+        Label6.Location = New Point(15, 296)
         Label6.Name = "Label6"
         Label6.Size = New Size(324, 15)
         Label6.TabIndex = 117
@@ -278,7 +279,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' textInsertListOfValuesCSV
         ' 
         textInsertListOfValuesCSV.BorderStyle = BorderStyle.FixedSingle
-        textInsertListOfValuesCSV.Location = New Point(353, 277)
+        textInsertListOfValuesCSV.Location = New Point(353, 293)
         textInsertListOfValuesCSV.Name = "textInsertListOfValuesCSV"
         textInsertListOfValuesCSV.Size = New Size(139, 23)
         textInsertListOfValuesCSV.TabIndex = 116
@@ -288,7 +289,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(15, 256)
+        Label2.Location = New Point(15, 272)
         Label2.Name = "Label2"
         Label2.Size = New Size(164, 15)
         Label2.TabIndex = 115
@@ -296,7 +297,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         ' numInsertHowMany
         ' 
-        numInsertHowMany.Location = New Point(207, 254)
+        numInsertHowMany.Location = New Point(207, 270)
         numInsertHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numInsertHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertHowMany.Name = "numInsertHowMany"
@@ -309,14 +310,14 @@ Partial Class FormSimpleDemo1DHorizontal
         listInsertAfterOrBefore.FormattingEnabled = True
         listInsertAfterOrBefore.ItemHeight = 15
         listInsertAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listInsertAfterOrBefore.Location = New Point(377, 229)
+        listInsertAfterOrBefore.Location = New Point(377, 245)
         listInsertAfterOrBefore.Name = "listInsertAfterOrBefore"
         listInsertAfterOrBefore.Size = New Size(115, 34)
         listInsertAfterOrBefore.TabIndex = 104
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(276, 344)
+        buttonDelete.Location = New Point(276, 360)
         buttonDelete.Name = "buttonDelete"
         buttonDelete.Size = New Size(133, 39)
         buttonDelete.TabIndex = 113
@@ -327,7 +328,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(15, 325)
+        Label8.Location = New Point(15, 341)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 112
@@ -336,7 +337,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(15, 385)
+        Label9.Location = New Point(15, 401)
         Label9.Name = "Label9"
         Label9.Size = New Size(164, 15)
         Label9.TabIndex = 111
@@ -345,7 +346,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(15, 356)
+        Label10.Location = New Point(15, 372)
         Label10.Name = "Label10"
         Label10.Size = New Size(189, 15)
         Label10.TabIndex = 110
@@ -353,7 +354,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         ' numDeleteHowMany
         ' 
-        numDeleteHowMany.Location = New Point(207, 383)
+        numDeleteHowMany.Location = New Point(207, 399)
         numDeleteHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numDeleteHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteHowMany.Name = "numDeleteHowMany"
@@ -363,7 +364,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         ' numDeleteRangeBenchmarkStart
         ' 
-        numDeleteRangeBenchmarkStart.Location = New Point(207, 354)
+        numDeleteRangeBenchmarkStart.Location = New Point(207, 370)
         numDeleteRangeBenchmarkStart.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteRangeBenchmarkStart.Name = "numDeleteRangeBenchmarkStart"
         numDeleteRangeBenchmarkStart.Size = New Size(50, 23)
@@ -401,7 +402,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' buttonInsertMultiple
         ' 
         buttonInsertMultiple.BackColor = Color.Cyan
-        buttonInsertMultiple.Location = New Point(498, 222)
+        buttonInsertMultiple.Location = New Point(498, 238)
         buttonInsertMultiple.Name = "buttonInsertMultiple"
         buttonInsertMultiple.Size = New Size(166, 39)
         buttonInsertMultiple.TabIndex = 103
@@ -412,7 +413,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         LabelInsertHeader.AutoSize = True
         LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelInsertHeader.Location = New Point(15, 195)
+        LabelInsertHeader.Location = New Point(15, 211)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
         LabelInsertHeader.TabIndex = 102
@@ -421,7 +422,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' LabelInsertAnchorHeader
         ' 
         LabelInsertAnchorHeader.AutoSize = True
-        LabelInsertAnchorHeader.Location = New Point(15, 231)
+        LabelInsertAnchorHeader.Location = New Point(15, 247)
         LabelInsertAnchorHeader.Name = "LabelInsertAnchorHeader"
         LabelInsertAnchorHeader.Size = New Size(304, 15)
         LabelInsertAnchorHeader.TabIndex = 101
@@ -429,7 +430,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         ' numInsertAnchorBenchmark
         ' 
-        numInsertAnchorBenchmark.Location = New Point(321, 229)
+        numInsertAnchorBenchmark.Location = New Point(321, 245)
         numInsertAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertAnchorBenchmark.Name = "numInsertAnchorBenchmark"
         numInsertAnchorBenchmark.Size = New Size(50, 23)
@@ -440,7 +441,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         LabelHdrHoriz.AutoSize = True
         LabelHdrHoriz.Font = New Font("Segoe UI", 9F, FontStyle.Bold Or FontStyle.Underline)
-        LabelHdrHoriz.Location = New Point(0, 127)
+        LabelHdrHoriz.Location = New Point(0, 143)
         LabelHdrHoriz.Name = "LabelHdrHoriz"
         LabelHdrHoriz.Size = New Size(120, 15)
         LabelHdrHoriz.TabIndex = 137
@@ -449,9 +450,9 @@ Partial Class FormSimpleDemo1DHorizontal
         ' LabelHdrVerti
         ' 
         LabelHdrVerti.AutoSize = True
-        LabelHdrVerti.Location = New Point(68, 166)
+        LabelHdrVerti.Location = New Point(68, 182)
         LabelHdrVerti.Name = "LabelHdrVerti"
-        LabelHdrVerti.Size = New Size(529, 15)
+        LabelHdrVerti.Size = New Size(528, 15)
         LabelHdrVerti.TabIndex = 138
         LabelHdrVerti.Text = "Vertical-- a non-vertically-oriented box will be coming soon!   However, it'll be for a different form!!"
         ' 
@@ -459,7 +460,7 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         richtextItemsDisplayV.BorderStyle = BorderStyle.FixedSingle
         richtextItemsDisplayV.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextItemsDisplayV.Location = New Point(603, 158)
+        richtextItemsDisplayV.Location = New Point(603, 174)
         richtextItemsDisplayV.Name = "richtextItemsDisplayV"
         richtextItemsDisplayV.Size = New Size(207, 23)
         richtextItemsDisplayV.TabIndex = 139
@@ -480,17 +481,28 @@ Partial Class FormSimpleDemo1DHorizontal
         ' 
         Label12.AutoSize = True
         Label12.Font = New Font("Segoe UI", 9F, FontStyle.Bold Or FontStyle.Underline)
-        Label12.Location = New Point(12, 151)
+        Label12.Location = New Point(12, 167)
         Label12.Name = "Label12"
         Label12.Size = New Size(307, 15)
         Label12.TabIndex = 141
         Label12.Text = "Only subclassed Horizontal Items tested on this form!!"
+        ' 
+        ' checkTestNumericConstructor
+        ' 
+        checkTestNumericConstructor.AutoSize = True
+        checkTestNumericConstructor.Location = New Point(436, 98)
+        checkTestNumericConstructor.Name = "checkTestNumericConstructor"
+        checkTestNumericConstructor.Size = New Size(501, 19)
+        checkTestNumericConstructor.TabIndex = 142
+        checkTestNumericConstructor.Text = "Let's test the numeric-index DLLOperationStructure, as a basis for constructing operations."
+        checkTestNumericConstructor.UseVisualStyleBackColor = True
         ' 
         ' FormSimpleDemo1DHorizontal
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1023, 606)
+        Controls.Add(checkTestNumericConstructor)
         Controls.Add(Label12)
         Controls.Add(LabelHeaderHorizontalOnly)
         Controls.Add(richtextItemsDisplayV)
@@ -586,4 +598,5 @@ Partial Class FormSimpleDemo1DHorizontal
     Friend WithEvents richtextItemsDisplayV As RichTextBox
     Friend WithEvents LabelHeaderHorizontalOnly As Label
     Friend WithEvents Label12 As Label
+    Friend WithEvents checkTestNumericConstructor As CheckBox
 End Class

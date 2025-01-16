@@ -122,6 +122,14 @@ Public Class FormSimpleDemoOfCSharp1D
     End Sub
 
 
+    Private Function TestingIndexStructure() As Boolean
+
+        ''Added 1/15/2025 
+        Return checkTestNumericConstructor.Checked
+
+    End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
+
+
     Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLItem) = Nothing)
 
         ''Added 12/18/2024  
@@ -1039,6 +1047,7 @@ Public Class FormSimpleDemoOfCSharp1D
         End If ''ENd of ""If (s_range IsNot Nothing) Then""
 
     End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
+
 
     Private Sub buttonUndoLastStep_Click(sender As Object, e As EventArgs) Handles buttonUndoLastStep.Click
         ''

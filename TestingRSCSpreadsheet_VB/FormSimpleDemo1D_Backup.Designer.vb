@@ -59,6 +59,7 @@ Partial Class FormSimpleDemo1D_Backup
         LabelInsertHeader = New Label()
         LabelInsertAnchorHeader = New Label()
         numInsertAnchorBenchmark = New NumericUpDown()
+        checkTestNumericConstructor = New CheckBox()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
@@ -190,7 +191,7 @@ Partial Class FormSimpleDemo1D_Backup
         ' 
         richtextItemsDisplay.BorderStyle = BorderStyle.FixedSingle
         richtextItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextItemsDisplay.Location = New Point(33, 113)
+        richtextItemsDisplay.Location = New Point(15, 122)
         richtextItemsDisplay.Name = "richtextItemsDisplay"
         richtextItemsDisplay.Size = New Size(895, 23)
         richtextItemsDisplay.TabIndex = 124
@@ -213,7 +214,7 @@ Partial Class FormSimpleDemo1D_Backup
         ' 
         richtextBenchmark.BorderStyle = BorderStyle.None
         richtextBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextBenchmark.Location = New Point(33, 95)
+        richtextBenchmark.Location = New Point(15, 104)
         richtextBenchmark.Name = "richtextBenchmark"
         richtextBenchmark.Size = New Size(895, 23)
         richtextBenchmark.TabIndex = 123
@@ -431,11 +432,22 @@ Partial Class FormSimpleDemo1D_Backup
         numInsertAnchorBenchmark.TabIndex = 100
         numInsertAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
+        ' checkTestNumericConstructor
+        ' 
+        checkTestNumericConstructor.AutoSize = True
+        checkTestNumericConstructor.Location = New Point(458, 79)
+        checkTestNumericConstructor.Name = "checkTestNumericConstructor"
+        checkTestNumericConstructor.Size = New Size(501, 19)
+        checkTestNumericConstructor.TabIndex = 137
+        checkTestNumericConstructor.Text = "Let's test the numeric-index DLLOperationStructure, as a basis for constructing operations."
+        checkTestNumericConstructor.UseVisualStyleBackColor = True
+        ' 
         ' FormSimpleDemo1D_Backup
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1025, 552)
+        Controls.Add(checkTestNumericConstructor)
         Controls.Add(LinkClearRecordedOps)
         Controls.Add(labelNumOperations)
         Controls.Add(buttonUndo)
@@ -521,4 +533,5 @@ Partial Class FormSimpleDemo1D_Backup
     Friend WithEvents LabelInsertHeader As Label
     Friend WithEvents LabelInsertAnchorHeader As Label
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
+    Friend WithEvents checkTestNumericConstructor As CheckBox
 End Class

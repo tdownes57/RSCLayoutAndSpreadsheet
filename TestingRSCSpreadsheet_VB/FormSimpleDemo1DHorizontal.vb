@@ -114,6 +114,14 @@ Public Class FormSimpleDemo1DHorizontal
     End Sub
 
 
+    Private Function TestingIndexStructure() As Boolean
+
+        ''Added 1/15/2025 
+        Return checkTestNumericConstructor.Checked
+
+    End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
+
+
     Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLHorizontal) = Nothing)
         ''
         ''Added an optional parameter (par_operation) on 12/02/2024 
@@ -871,7 +879,7 @@ Public Class FormSimpleDemo1DHorizontal
         Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
 
         ''Nov10 2024 ''mod_manager.UndoMarkedOperation()
-        mod_manager.UndoMarkedOperation(bEndpointAffected)
+        mod_manager.UndoMarkedOperation(bEndpointAffected, TestingIndexStructure())
 
         ''Added 11/10/2024 
         mod_firstItem = mod_list.DLL_GetFirstItem_OfT()

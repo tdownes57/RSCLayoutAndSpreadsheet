@@ -111,6 +111,15 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
     End Sub
 
 
+    Private Function TestingIndexStructure() As Boolean
+
+        ''Added 1/15/2025 
+        Return checkTestNumericConstructor.Checked
+
+    End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
+
+
+
     Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLItem) = Nothing)
         ''
         ''Added an optional parameter (par_operation) on 12/02/2024 
@@ -830,7 +839,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
 
         ''Nov10 2024 ''mod_manager.UndoMarkedOperation()
-        mod_manager.UndoMarkedOperation(bEndpointAffected)
+        ''Jan15 2025 ''mod_manager.UndoMarkedOperation(bEndpointAffected, TestingIndexStructure())
+        mod_manager.UndoMarkedOperation(bEndpointAffected, TestingIndexStructure())
 
         ''Added 11/10/2024 
         mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
@@ -1123,7 +1133,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
 
     End Sub
 
+    Private Sub checkTestNumericConstructor_CheckedChanged(sender As Object, e As EventArgs) Handles checkTestNumericConstructor.CheckedChanged
 
+    End Sub
 End Class
 
 
