@@ -261,13 +261,25 @@ namespace RSCLibraryDLLOperations
             _isMove = par_isMove;
             _moveType = par_structMoveType;
 
+            // Added 1/16/2025 td
+            bool bMoveByShifting = (_moveType.IsMoveIncrementalShift ||
+                _moveType.IsShiftingToRight || _moveType.IsShiftingToLeft);
+            bool bMove_ButNotByShift = (_isMove && !bMoveByShifting);
+
             //
             //  Preparing for UNDO... Determining an Anchor for a future UNDO operation.
             //
             //Think about undoing... an INSERT (hence, it's a DELETE)
             if (_isInsert) _inverseAnchorItem_ForUndo = null; // par_range. // Deletes don't need an anchor! 
 
-            if (_isDelete || _isMove) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
+            //___if (_isDelete || _isMove) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
+            if (bMove_ButNotByShift)
+            {
+                // Anchors are not needed for shifting operations. --1/16/2025 td
+                _inverseAnchorPair_forUndo = null;
+                _inverseAnchorItem_ForUndo = null;
+            }
+            else if (_isDelete || bMove_ButNotByShift) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
             {
                 _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
 
@@ -309,7 +321,7 @@ namespace RSCLibraryDLLOperations
 
 
         public DLLOperation1D(DLLRange<TControl> par_range,
-                              DLLAnchorCouplet<TControl> par_anchorCouplet,
+                              DLLAnchorCouplet<TControl>? par_anchorCouplet,
                               bool par_isInsert, bool par_isMove,
                               StructureTypeOfMove par_typeOfMove)
         {
@@ -323,7 +335,7 @@ namespace RSCLibraryDLLOperations
             _anchorCouplet = par_anchorCouplet;
 
             // Added 12/30/2024 thomas downes
-            _anchorItem = par_anchorCouplet.GetAnchorItem();
+            _anchorItem = par_anchorCouplet?.GetAnchorItem();
 
             // Added 12/11/2024 td
             _moveType = par_typeOfMove;
@@ -332,7 +344,20 @@ namespace RSCLibraryDLLOperations
             //
             if (_isDelete || _isMove) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
             {
-                _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                // Added 1/16/2025 td 
+                bool bShifting = (_moveType.IsShiftingToLeft || _moveType.IsShiftingToRight);
+
+                if (bShifting)
+                {
+                    //_inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                    _inverseAnchorPair_forUndo = null;  //Anchors are not needed for shifting operations. --1/16/2025 
+                }
+                else
+                {
+                    _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                }
+
+
                 //_anchorCouplet.GetAnchorItem();
             } // end of ""if (_isDelete || _isMove)"" 
 

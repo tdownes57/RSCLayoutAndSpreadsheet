@@ -917,7 +917,15 @@ namespace RSCLibraryDLLOperations
                 //
                 TControl afterSwap_followingItem; // Added 12/18/2024 td
                 ref_bNotPossible = (!_StartingItemOfRange.DLL_HasPrior());
-                if (ref_bNotPossible) return;
+                
+                if (ref_bNotPossible)
+                { 
+                    // The starting item of the range has NOT ANY prior (lefthand) items,
+                    //   so logically, we will be unable to shift the range 
+                    //   to the left. ---1/16/2025 
+                    return; 
+                }
+
                 TControl? prior_item = _StartingItemOfRange.DLL_GetItemPrior_OfT();
                 
                 bChangeOfListEndpoint_ListStart = (! prior_item.DLL_HasPrior());

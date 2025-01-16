@@ -403,8 +403,12 @@ Public Class TwoCharacterDLLItem
         Dim objResult As TwoCharacterDLLItem
 
         objFirst = DLL_GetItemFirst()
-        objResult = objFirst.DLL_GetItemNext_OfT(par_index_b0)
-        Return objFirst
+        ''----objResult = objFirst.DLL_GetItemNext_OfT(par_index_b0)
+        Dim intIterationsOfNext As Integer = par_index_b0 ''Added 1/16/2025
+        objResult = objFirst.DLL_GetItemNext_OfT(intIterationsOfNext)
+
+        ''1/16/2025 Return objFirst
+        Return objResult ''Fixed 1/16/2025
 
     End Function ''End of ""Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As TwoCharacterDLLItem""
 

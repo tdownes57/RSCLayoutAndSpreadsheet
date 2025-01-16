@@ -690,7 +690,11 @@ namespace RSCLibraryDLLOperations
                     par_range.Shift_ByOneItem(par_typeOfMove.IsShiftingToRight,
                         ref ref_not_possible, par_list_forFinalAdmin, changeOfEndpoint_Expected);
 
-                    if (ref_not_possible) break;
+                    if (ref_not_possible)
+                    {
+                        System.Diagnostics.Debugger.Break();  // Added 1/16/2025 thomas downes
+                        break;
+                    }
 
                 }
 
