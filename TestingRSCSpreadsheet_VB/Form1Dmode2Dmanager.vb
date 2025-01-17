@@ -18,7 +18,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
     '' Added 10/14/2024 thomas c. downes 
     ''
     ''---Private mod_manager1D As DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)
-    Private mod_manager2D As DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)
+    Private mod_manager2D As DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA)
 
     Private WithEvents mod_list As DLLList(Of TwoCharacterDLLHorizontal)
     Private mod_firstItem As TwoCharacterDLLHorizontal
@@ -103,7 +103,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''      mod_list, operationInitial30)
             ''12/31/2024 td mod_manager1D = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
             mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem, TwoCharacterDLLHorizontal,
-                TwoCharacterDLLVertical)(True, mod_firstItem, mod_list)
+                TwoCharacterDLLVerticalA)(True, mod_firstItem, mod_list)
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
@@ -1145,7 +1145,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Radio2DManager.Checked = True
         mod_manager2D = Nothing
         mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem,
-            TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)(True, mod_firstItem, mod_list, Nothing)
+            TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA)(True, mod_firstItem, mod_list, Nothing)
 
 
 
@@ -1159,7 +1159,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Radio1DManager.Checked = True
         mod_manager2D = Nothing
         mod_manager2D = New DLLOperationsManager2D_Redo(Of TwoCharacterDLLItem,
-            TwoCharacterDLLHorizontal, TwoCharacterDLLVertical)(True, mod_firstItem, mod_list, Nothing)
+            TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA)(True, mod_firstItem, mod_list, Nothing)
 
     End Sub
 

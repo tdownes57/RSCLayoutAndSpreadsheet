@@ -42,7 +42,7 @@ Friend Class UserOperationOriginal
 #ElseIf (USE_SPECIFIC_CLASS) Then ''Added 3/12/2024 td
     ''Leverage the derived subclasses. Hence you see, "(Of TwoCharacterDLLHorizontal)", etc.
     Public DLL_ListHorizontal As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLHorizontal)
-    Public DLL_ListVertical As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVertical)
+    Public DLL_ListVertical As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLVerticalA)
 #End If
 
     ''Added 1/4/2024
@@ -73,7 +73,7 @@ Friend Class UserOperationOriginal
     Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1)
 
     ''Adde 8/4/2024 td
-    Public Event DLLOperationV2_Insert(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+    Public Event DLLOperationV2_Insert(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA),
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
@@ -94,7 +94,7 @@ Friend Class UserOperationOriginal
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
-    Public Event DLLOperationV2_Delete(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVertical),
+    Public Event DLLOperationV2_Delete(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA),
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
