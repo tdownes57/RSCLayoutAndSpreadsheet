@@ -63,13 +63,28 @@ Partial Class FormDemo1DVertical
         LabelInsertHeader = New Label()
         LabelInsertAnchorHeader = New Label()
         numInsertAnchorBenchmark = New NumericUpDown()
-        richtextItemsDisplay = New RichTextBox()
-        richtextBenchmark = New RichTextBox()
         Label1 = New Label()
-        RichTextBox1 = New RichTextBox()
-        RichTextBox2 = New RichTextBox()
-        RichTextBox3 = New RichTextBox()
         LabelHeader1 = New Label()
+        FlowLayoutPanel1 = New FlowLayoutPanel()
+        FlowLayoutPanel2 = New FlowLayoutPanel()
+        FlowLayoutPanel3 = New FlowLayoutPanel()
+        FlowLayoutPanel4 = New FlowLayoutPanel()
+        FlowLayoutPanel5 = New FlowLayoutPanel()
+        TextBox13 = New TextBox()
+        TextBox14 = New TextBox()
+        TextBox15 = New TextBox()
+        UserControlTextbox2 = New UserControlTextbox()
+        UserControlRichbox1 = New UserControlRichbox()
+        UserControlRichbox2 = New UserControlRichbox()
+        UserControlRichbox3 = New UserControlRichbox()
+        UserControlRichbox4 = New UserControlRichbox()
+        UserControlRichbox5 = New UserControlRichbox()
+        UserControlRichbox6 = New UserControlRichbox()
+        UserControlTextbox1 = New UserControlTextbox()
+        UserControlTextbox3 = New UserControlTextbox()
+        UserControlRichbox7 = New UserControlRichbox()
+        UserControlRichbox8 = New UserControlRichbox()
+        UserControlRichbox9 = New UserControlRichbox()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -79,6 +94,11 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
+        FlowLayoutPanel1.SuspendLayout()
+        FlowLayoutPanel2.SuspendLayout()
+        FlowLayoutPanel3.SuspendLayout()
+        FlowLayoutPanel4.SuspendLayout()
+        FlowLayoutPanel5.SuspendLayout()
         SuspendLayout()
         ' 
         ' ButtonSortBackward
@@ -489,30 +509,6 @@ Partial Class FormDemo1DVertical
         numInsertAnchorBenchmark.TabIndex = 109
         numInsertAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
-        ' richtextItemsDisplay
-        ' 
-        richtextItemsDisplay.BackColor = SystemColors.InactiveCaption
-        richtextItemsDisplay.BorderStyle = BorderStyle.FixedSingle
-        richtextItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextItemsDisplay.Location = New Point(28, 27)
-        richtextItemsDisplay.Name = "richtextItemsDisplay"
-        richtextItemsDisplay.Size = New Size(27, 469)
-        richtextItemsDisplay.TabIndex = 143
-        richtextItemsDisplay.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        richtextItemsDisplay.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        ' 
-        ' richtextBenchmark
-        ' 
-        richtextBenchmark.BackColor = SystemColors.Control
-        richtextBenchmark.BorderStyle = BorderStyle.None
-        richtextBenchmark.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextBenchmark.Location = New Point(8, 29)
-        richtextBenchmark.Name = "richtextBenchmark"
-        richtextBenchmark.Size = New Size(24, 480)
-        richtextBenchmark.TabIndex = 142
-        richtextBenchmark.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        richtextBenchmark.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        ' 
         ' Label1
         ' 
         Label1.AutoSize = True
@@ -522,39 +518,6 @@ Partial Class FormDemo1DVertical
         Label1.Size = New Size(122, 21)
         Label1.TabIndex = 144
         Label1.Text = "A     B1    B2  B3"
-        ' 
-        ' RichTextBox1
-        ' 
-        RichTextBox1.BorderStyle = BorderStyle.FixedSingle
-        RichTextBox1.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        RichTextBox1.Location = New Point(61, 27)
-        RichTextBox1.Name = "RichTextBox1"
-        RichTextBox1.Size = New Size(27, 469)
-        RichTextBox1.TabIndex = 145
-        RichTextBox1.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        RichTextBox1.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        ' 
-        ' RichTextBox2
-        ' 
-        RichTextBox2.BorderStyle = BorderStyle.FixedSingle
-        RichTextBox2.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        RichTextBox2.Location = New Point(96, 27)
-        RichTextBox2.Name = "RichTextBox2"
-        RichTextBox2.Size = New Size(27, 469)
-        RichTextBox2.TabIndex = 146
-        RichTextBox2.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        RichTextBox2.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        ' 
-        ' RichTextBox3
-        ' 
-        RichTextBox3.BorderStyle = BorderStyle.FixedSingle
-        RichTextBox3.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        RichTextBox3.Location = New Point(127, 27)
-        RichTextBox3.Name = "RichTextBox3"
-        RichTextBox3.Size = New Size(27, 469)
-        RichTextBox3.TabIndex = 147
-        RichTextBox3.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
-        RichTextBox3.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
         ' LabelHeader1
         ' 
@@ -566,18 +529,189 @@ Partial Class FormDemo1DVertical
         LabelHeader1.TabIndex = 148
         LabelHeader1.Text = "Vertical Header Column (A) with Parallel Lists (B1, B2, B3)"
         ' 
+        ' FlowLayoutPanel1
+        ' 
+        FlowLayoutPanel1.BackColor = SystemColors.ActiveCaption
+        FlowLayoutPanel1.BorderStyle = BorderStyle.FixedSingle
+        FlowLayoutPanel1.Controls.Add(UserControlTextbox2)
+        FlowLayoutPanel1.Controls.Add(UserControlTextbox1)
+        FlowLayoutPanel1.Controls.Add(UserControlTextbox3)
+        FlowLayoutPanel1.Location = New Point(28, 29)
+        FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        FlowLayoutPanel1.Size = New Size(29, 322)
+        FlowLayoutPanel1.TabIndex = 149
+        ' 
+        ' FlowLayoutPanel2
+        ' 
+        FlowLayoutPanel2.BackColor = SystemColors.ButtonFace
+        FlowLayoutPanel2.BorderStyle = BorderStyle.FixedSingle
+        FlowLayoutPanel2.Controls.Add(UserControlRichbox1)
+        FlowLayoutPanel2.Controls.Add(UserControlRichbox4)
+        FlowLayoutPanel2.Controls.Add(UserControlRichbox7)
+        FlowLayoutPanel2.Location = New Point(60, 29)
+        FlowLayoutPanel2.Name = "FlowLayoutPanel2"
+        FlowLayoutPanel2.Size = New Size(29, 322)
+        FlowLayoutPanel2.TabIndex = 150
+        ' 
+        ' FlowLayoutPanel3
+        ' 
+        FlowLayoutPanel3.BackColor = SystemColors.ButtonFace
+        FlowLayoutPanel3.BorderStyle = BorderStyle.FixedSingle
+        FlowLayoutPanel3.Controls.Add(UserControlRichbox2)
+        FlowLayoutPanel3.Controls.Add(UserControlRichbox5)
+        FlowLayoutPanel3.Controls.Add(UserControlRichbox8)
+        FlowLayoutPanel3.Location = New Point(93, 29)
+        FlowLayoutPanel3.Name = "FlowLayoutPanel3"
+        FlowLayoutPanel3.Size = New Size(29, 322)
+        FlowLayoutPanel3.TabIndex = 151
+        ' 
+        ' FlowLayoutPanel4
+        ' 
+        FlowLayoutPanel4.BackColor = SystemColors.ButtonFace
+        FlowLayoutPanel4.BorderStyle = BorderStyle.FixedSingle
+        FlowLayoutPanel4.Controls.Add(UserControlRichbox3)
+        FlowLayoutPanel4.Controls.Add(UserControlRichbox6)
+        FlowLayoutPanel4.Controls.Add(UserControlRichbox9)
+        FlowLayoutPanel4.Location = New Point(128, 29)
+        FlowLayoutPanel4.Name = "FlowLayoutPanel4"
+        FlowLayoutPanel4.Size = New Size(29, 322)
+        FlowLayoutPanel4.TabIndex = 151
+        ' 
+        ' FlowLayoutPanel5
+        ' 
+        FlowLayoutPanel5.BackColor = SystemColors.ButtonFace
+        FlowLayoutPanel5.BorderStyle = BorderStyle.FixedSingle
+        FlowLayoutPanel5.Controls.Add(TextBox13)
+        FlowLayoutPanel5.Controls.Add(TextBox14)
+        FlowLayoutPanel5.Controls.Add(TextBox15)
+        FlowLayoutPanel5.Location = New Point(-3, 29)
+        FlowLayoutPanel5.Name = "FlowLayoutPanel5"
+        FlowLayoutPanel5.Size = New Size(29, 322)
+        FlowLayoutPanel5.TabIndex = 152
+        ' 
+        ' TextBox13
+        ' 
+        TextBox13.Location = New Point(3, 3)
+        TextBox13.Name = "TextBox13"
+        TextBox13.ReadOnly = True
+        TextBox13.Size = New Size(22, 23)
+        TextBox13.TabIndex = 0
+        TextBox13.Text = "01"
+        ' 
+        ' TextBox14
+        ' 
+        TextBox14.Location = New Point(3, 32)
+        TextBox14.Name = "TextBox14"
+        TextBox14.ReadOnly = True
+        TextBox14.Size = New Size(22, 23)
+        TextBox14.TabIndex = 1
+        TextBox14.Text = "02"
+        ' 
+        ' TextBox15
+        ' 
+        TextBox15.Location = New Point(3, 61)
+        TextBox15.Name = "TextBox15"
+        TextBox15.ReadOnly = True
+        TextBox15.Size = New Size(22, 23)
+        TextBox15.TabIndex = 2
+        TextBox15.Text = "03"
+        ' 
+        ' UserControlTextbox2
+        ' 
+        UserControlTextbox2.Location = New Point(3, 3)
+        UserControlTextbox2.Name = "UserControlTextbox2"
+        UserControlTextbox2.Size = New Size(22, 23)
+        UserControlTextbox2.TabIndex = 154
+        ' 
+        ' UserControlRichbox1
+        ' 
+        UserControlRichbox1.Location = New Point(3, 3)
+        UserControlRichbox1.Name = "UserControlRichbox1"
+        UserControlRichbox1.Size = New Size(22, 23)
+        UserControlRichbox1.TabIndex = 155
+        ' 
+        ' UserControlRichbox2
+        ' 
+        UserControlRichbox2.Location = New Point(3, 3)
+        UserControlRichbox2.Name = "UserControlRichbox2"
+        UserControlRichbox2.Size = New Size(22, 23)
+        UserControlRichbox2.TabIndex = 156
+        ' 
+        ' UserControlRichbox3
+        ' 
+        UserControlRichbox3.Location = New Point(3, 3)
+        UserControlRichbox3.Name = "UserControlRichbox3"
+        UserControlRichbox3.Size = New Size(22, 23)
+        UserControlRichbox3.TabIndex = 156
+        ' 
+        ' UserControlRichbox4
+        ' 
+        UserControlRichbox4.Location = New Point(3, 32)
+        UserControlRichbox4.Name = "UserControlRichbox4"
+        UserControlRichbox4.Size = New Size(22, 23)
+        UserControlRichbox4.TabIndex = 156
+        ' 
+        ' UserControlRichbox5
+        ' 
+        UserControlRichbox5.Location = New Point(3, 32)
+        UserControlRichbox5.Name = "UserControlRichbox5"
+        UserControlRichbox5.Size = New Size(22, 23)
+        UserControlRichbox5.TabIndex = 157
+        ' 
+        ' UserControlRichbox6
+        ' 
+        UserControlRichbox6.Location = New Point(3, 32)
+        UserControlRichbox6.Name = "UserControlRichbox6"
+        UserControlRichbox6.Size = New Size(22, 23)
+        UserControlRichbox6.TabIndex = 157
+        ' 
+        ' UserControlTextbox1
+        ' 
+        UserControlTextbox1.Location = New Point(3, 32)
+        UserControlTextbox1.Name = "UserControlTextbox1"
+        UserControlTextbox1.Size = New Size(22, 23)
+        UserControlTextbox1.TabIndex = 155
+        ' 
+        ' UserControlTextbox3
+        ' 
+        UserControlTextbox3.Location = New Point(3, 61)
+        UserControlTextbox3.Name = "UserControlTextbox3"
+        UserControlTextbox3.Size = New Size(22, 23)
+        UserControlTextbox3.TabIndex = 156
+        ' 
+        ' UserControlRichbox7
+        ' 
+        UserControlRichbox7.Location = New Point(3, 61)
+        UserControlRichbox7.Name = "UserControlRichbox7"
+        UserControlRichbox7.Size = New Size(22, 23)
+        UserControlRichbox7.TabIndex = 157
+        ' 
+        ' UserControlRichbox8
+        ' 
+        UserControlRichbox8.Location = New Point(3, 61)
+        UserControlRichbox8.Name = "UserControlRichbox8"
+        UserControlRichbox8.Size = New Size(22, 23)
+        UserControlRichbox8.TabIndex = 158
+        ' 
+        ' UserControlRichbox9
+        ' 
+        UserControlRichbox9.Location = New Point(3, 61)
+        UserControlRichbox9.Name = "UserControlRichbox9"
+        UserControlRichbox9.Size = New Size(22, 23)
+        UserControlRichbox9.TabIndex = 158
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1162, 504)
+        Controls.Add(FlowLayoutPanel5)
+        Controls.Add(FlowLayoutPanel3)
+        Controls.Add(FlowLayoutPanel2)
+        Controls.Add(FlowLayoutPanel1)
+        Controls.Add(FlowLayoutPanel4)
         Controls.Add(LabelHeader1)
-        Controls.Add(RichTextBox3)
-        Controls.Add(RichTextBox2)
-        Controls.Add(RichTextBox1)
         Controls.Add(Label1)
-        Controls.Add(richtextItemsDisplay)
-        Controls.Add(richtextBenchmark)
         Controls.Add(ButtonSortBackward)
         Controls.Add(LinkRefreshFirstItem)
         Controls.Add(LinkApplicationDoevents)
@@ -612,7 +746,7 @@ Partial Class FormDemo1DVertical
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertAnchorBenchmark)
         Name = "FormDemo1DVertical"
-        Text = "FormDemo1DVertical"
+        Text = "  "
         GroupMoveByAnchor.ResumeLayout(False)
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
         GroupMoveByShifting.ResumeLayout(False)
@@ -622,6 +756,12 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
+        FlowLayoutPanel1.ResumeLayout(False)
+        FlowLayoutPanel2.ResumeLayout(False)
+        FlowLayoutPanel3.ResumeLayout(False)
+        FlowLayoutPanel4.ResumeLayout(False)
+        FlowLayoutPanel5.ResumeLayout(False)
+        FlowLayoutPanel5.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -667,11 +807,26 @@ Partial Class FormDemo1DVertical
     Friend WithEvents LabelInsertHeader As Label
     Friend WithEvents LabelInsertAnchorHeader As Label
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
-    Friend WithEvents richtextItemsDisplay As RichTextBox
-    Friend WithEvents richtextBenchmark As RichTextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents RichTextBox1 As RichTextBox
-    Friend WithEvents RichTextBox2 As RichTextBox
-    Friend WithEvents RichTextBox3 As RichTextBox
     Friend WithEvents LabelHeader1 As Label
+    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
+    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
+    Friend WithEvents FlowLayoutPanel3 As FlowLayoutPanel
+    Friend WithEvents FlowLayoutPanel4 As FlowLayoutPanel
+    Friend WithEvents FlowLayoutPanel5 As FlowLayoutPanel
+    Friend WithEvents TextBox13 As TextBox
+    Friend WithEvents TextBox14 As TextBox
+    Friend WithEvents TextBox15 As TextBox
+    Friend WithEvents UserControlTextbox2 As UserControlTextbox
+    Friend WithEvents UserControlRichbox1 As UserControlRichbox
+    Friend WithEvents UserControlRichbox2 As UserControlRichbox
+    Friend WithEvents UserControlRichbox3 As UserControlRichbox
+    Friend WithEvents UserControlTextbox1 As UserControlTextbox
+    Friend WithEvents UserControlTextbox3 As UserControlTextbox
+    Friend WithEvents UserControlRichbox4 As UserControlRichbox
+    Friend WithEvents UserControlRichbox7 As UserControlRichbox
+    Friend WithEvents UserControlRichbox5 As UserControlRichbox
+    Friend WithEvents UserControlRichbox8 As UserControlRichbox
+    Friend WithEvents UserControlRichbox6 As UserControlRichbox
+    Friend WithEvents UserControlRichbox9 As UserControlRichbox
 End Class

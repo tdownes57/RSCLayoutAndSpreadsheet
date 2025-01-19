@@ -37,7 +37,7 @@ Partial Class FormWhichTesting
         LabelTestingCSharpHeader = New Label()
         Label1 = New Label()
         Label2 = New Label()
-        LinkLabel1 = New LinkLabel()
+        LinkDemo1DVertical = New LinkLabel()
         SuspendLayout()
         ' 
         ' LinkOperationsManager
@@ -196,16 +196,16 @@ Partial Class FormWhichTesting
         Label2.Tag = "FormDemo1DVertical"
         Label2.Text = "FormDemo1DVertical"
         ' 
-        ' LinkLabel1
+        ' LinkDemo1DVertical
         ' 
-        LinkLabel1.AutoSize = True
-        LinkLabel1.Location = New Point(23, 135)
-        LinkLabel1.Name = "LinkLabel1"
-        LinkLabel1.Size = New Size(344, 15)
-        LinkLabel1.TabIndex = 14
-        LinkLabel1.TabStop = True
-        LinkLabel1.Tag = "FormSimpleDemo1DHorizontal"
-        LinkLabel1.Text = "1-Dimensional version -- Subclassed (Vertical) -- Form1DVertical"
+        LinkDemo1DVertical.AutoSize = True
+        LinkDemo1DVertical.Location = New Point(23, 135)
+        LinkDemo1DVertical.Name = "LinkDemo1DVertical"
+        LinkDemo1DVertical.Size = New Size(344, 15)
+        LinkDemo1DVertical.TabIndex = 14
+        LinkDemo1DVertical.TabStop = True
+        LinkDemo1DVertical.Tag = "FormSimpleDemo1DHorizontal"
+        LinkDemo1DVertical.Text = "1-Dimensional version -- Subclassed (Vertical) -- Form1DVertical"
         ' 
         ' FormWhichTesting
         ' 
@@ -213,7 +213,7 @@ Partial Class FormWhichTesting
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
         Controls.Add(Label2)
-        Controls.Add(LinkLabel1)
+        Controls.Add(LinkDemo1DVertical)
         Controls.Add(Label1)
         Controls.Add(LabelTestingCSharpHeader)
         Controls.Add(LabelForm1Dmode2Dmanager)
@@ -249,5 +249,5 @@ Partial Class FormWhichTesting
     Friend WithEvents LabelTestingCSharpHeader As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkDemo1DVertical As LinkLabel
 End Class

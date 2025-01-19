@@ -80,4 +80,14 @@ Public Class FormWhichTesting
 
 
     End Sub
+
+    Private Sub LinkDemo1DVertical_LinkClicked_2(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkDemo1DVertical.LinkClicked
+        ''
+        ''Added 1/18/2025 
+        ''
+        Dim objFormToShow As New FormDemo1DVertical
+        ''    objFormToShow.Show()
+        objFormToShow.ShowDialog(Me)
+
+    End Sub
 End Class
