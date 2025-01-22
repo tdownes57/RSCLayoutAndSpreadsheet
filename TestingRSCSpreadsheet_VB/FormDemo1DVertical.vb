@@ -15,10 +15,24 @@ Public Class FormDemo1DVertical
     '' Added 1/18/2025 & 10/14/2024 thomas c. downes 
     ''
     Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
-    Private WithEvents mod_list As DLLList(Of TwoCharacterDLLVerticalA)
-    Private mod_firstItem As TwoCharacterDLLVerticalA
-    Private mod_lastItem As TwoCharacterDLLVerticalA
-    Private mod_range As DLLRange(Of TwoCharacterDLLVerticalA) ''Added 11/14/2024 t.homas d.ownes
+
+    ''The textbox (versus any of the containers!)
+    Private WithEvents mod_listA As DLLList(Of TwoCharacterDLLVerticalA)
+    Private mod_firstItemA As TwoCharacterDLLVerticalA
+    Private mod_lastItemA As TwoCharacterDLLVerticalA
+    Private mod_rangeA As DLLRange(Of TwoCharacterDLLVerticalA) ''Added 11/14/2024 t.homas d.ownes
+
+    ''The first (leftmost) container (blue-gray background).
+    Private WithEvents mod_listB1 As DLLList(Of DLLUserControlTextbox)
+    Private WithEvents mod_firstItemB1 As DLLUserControlTextbox
+    Private WithEvents mod_lastItemB1 As DLLUserControlTextbox
+    Private mod_rangeB1 As DLLRange(Of DLLUserControlTextbox) ''Added 11/14/2024 t.homas d.ownes
+
+    ''The second (2nd leftmost) container (off-white background).
+    Private WithEvents mod_listB2 As DLLList(Of DLLUserControlRichbox)
+    Private WithEvents mod_firstItemB2 As DLLUserControlRichbox
+    Private WithEvents mod_lastItemB2 As DLLUserControlRichbox
+    Private mod_rangeB2 As DLLRange(Of DLLUserControlRichbox) ''Added 11/14/2024 t.homas d.ownes
 
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 10 ''99 ''5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
@@ -30,39 +44,90 @@ Public Class FormDemo1DVertical
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
-        Dim anchorItemForEmptyList As New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(True, False)
-        Dim anchorItemForListOfOneItem As DLLAnchorItem(Of TwoCharacterDLLVerticalA) ''(True, False)
-        Dim anchorPairForEmptyList As New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(True, False)
-        Dim anchorPairForListOfOneItem As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA) ''(True, False)
+        Dim newItemA As TwoCharacterDLLVerticalA
+        Dim anchorItemForEmptyListA As New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(True, False)
+        Dim anchorItemForListOfOneItemA As DLLAnchorItem(Of TwoCharacterDLLVerticalA) ''(True, False)
+        Dim anchorPairForEmptyListA As New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(True, False)
+        Dim anchorPairForListOfOneItemA As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA) ''(True, False)
         ''Nov2024 Dim rangeNew As DLLRange(Of TwoCharacterDLLVerticalA)
         Dim indexNewItem As Integer
-        Dim newItem As TwoCharacterDLLVerticalA
         ''Dim priorItem As TwoCharacterDLLVerticalA
         Dim type_of_move As StructureTypeOfMove ''Added 12/11/2024
         type_of_move = New StructureTypeOfMove(False) ''Added 12/11/2024
 
+        ''Added 1/21/2025 td
+        Dim newItemB1 As DLLUserControlTextbox
+        Dim anchorItemForEmptyListB1 As New DLLAnchorItem(Of DLLUserControlTextbox)(True, False)
+        Dim anchorItemForListOfOneItemB1 As DLLAnchorItem(Of DLLUserControlTextbox) ''(True, False)
+        Dim anchorPairForEmptyListB1 As New DLLAnchorCouplet(Of DLLUserControlTextbox)(True, False)
+        Dim anchorPairForListOfOneItemB1 As DLLAnchorCouplet(Of DLLUserControlTextbox) ''(True, False)
+
+        ''Added 1/21/2025 td
+        Dim newItemB2 As DLLUserControlRichbox
+        Dim anchorItemForEmptyListB2 As New DLLAnchorItem(Of DLLUserControlRichbox)(True, False)
+        Dim anchorItemForListOfOneItemB2 As DLLAnchorItem(Of DLLUserControlRichbox) ''(True, False)
+        Dim anchorPairForEmptyListB2 As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
+        Dim anchorPairForListOfOneItemB2 As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
+
         Dim PERFORM_INITIAL_INSERT_MANUALLY As Boolean = False ''---True
 
-        mod_firstItem = New TwoCharacterDLLVerticalA("01")
-        mod_lastItem = mod_firstItem
-        mod_list = New DLLList(Of TwoCharacterDLLVerticalA)(mod_firstItem, mod_lastItem, 1)
+        mod_firstItemA = New TwoCharacterDLLVerticalA("01")
+        mod_lastItemA = mod_firstItemA
+        mod_listA = New DLLList(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_lastItemA, 1)
+
+        ''Added 1/21/2025 td
+        ''
+        ''  Flow Container "Flow Column B1"
+        ''
+        FlowColumnB1.Controls.Clear()
+        mod_firstItemB1 = New DLLUserControlTextbox
+        mod_lastItemB1 = mod_firstItemB1
+        mod_listB1 = New DLLList(Of DLLUserControlTextbox)(mod_firstItemB1, mod_lastItemB1, 1)
+
+        ''Added 1/21/2025 td
+        ''
+        ''  Flow Container "Flow Column B2"
+        ''
+        FlowColumnB2.Controls.Clear()
+        mod_firstItemB2 = New DLLUserControlRichbox
+        mod_lastItemB2 = mod_firstItemB2
+        mod_listB2 = New DLLList(Of DLLUserControlRichbox)(mod_firstItemB2, mod_lastItemB2, 1)
 
         ''//Added 10/21/2024 td
-        anchorItemForListOfOneItem = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(mod_firstItem)
+        anchorItemForListOfOneItemA = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(mod_firstItemA)
+        ''Added 1/21/2025 td
+        anchorItemForListOfOneItemB1 = New DLLAnchorItem(Of DLLUserControlTextbox)(mod_firstItemB1)
+        anchorItemForListOfOneItemB2 = New DLLAnchorItem(Of DLLUserControlRichbox)(mod_firstItemB2)
 
         ''//Added 11/08/2024 td
-        anchorPairForListOfOneItem = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(mod_firstItem, Nothing, True)
+        anchorPairForListOfOneItemA = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(mod_firstItemA, Nothing, True)
+        ''Added 1/21/2025 td
+        anchorPairForListOfOneItemB1 = New DLLAnchorCouplet(Of DLLUserControlTextbox)(mod_firstItemB1, Nothing, True)
+        anchorPairForListOfOneItemB2 = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemB2, Nothing, True)
 
-        ''//rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_firstItem, True)
+        ''//rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_firstItemA, True)
         ''//For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
         ''Nov2024 rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
-        mod_range = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
+        mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
+        ''Added 1/21/2025 td
+        mod_rangeB1 = New DLLRange(Of DLLUserControlTextbox)(New DLLUserControlTextbox("02"), True)
+        mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
 
         ''Modified "(2 + 1)" on 11/8/2024 td
         For indexNewItem = (2 + 1) To INITIAL_ITEM_COUNT_30 ''---30
-            newItem = New TwoCharacterDLLVerticalA(indexNewItem.ToString("00"))
+            ''TwoCharacterDLLVertical
+            newItemA = New TwoCharacterDLLVerticalA(indexNewItem.ToString("00"))
             ''Nov2024 rangeNew.DLL_InsertItemToTheEnd(newItem)
-            mod_range.DLL_InsertItemToTheEnd(newItem)
+            mod_rangeA.DLL_InsertItemToTheEnd(newItemA)
+
+            ''DLLUserControlTextbox 
+            newItemB1 = New DLLUserControlTextbox(indexNewItem.ToString("00"))
+            mod_rangeB1.DLL_InsertItemToTheEnd(newItemB1)
+
+            ''DLLUserControlRichbox 
+            newItemB2 = New DLLUserControlRichbox(indexNewItem.ToString("00"))
+            mod_rangeB2.DLL_InsertItemToTheEnd(newItemB2)
+
         Next indexNewItem
 
         ''
@@ -70,6 +135,11 @@ Public Class FormDemo1DVertical
         ''
         numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
         numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
+
+        Dim operationInitialInsertA As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        ''Added 1/21/2025  
+        Dim operationInitialInsertB1 As DLLOperation1D(Of DLLUserControlTextbox)
+        Dim operationInitialInsertB2 As DLLOperation1D(Of DLLUserControlRichbox)
 
         ''
         '' Create the operation, or simply insert the range
@@ -79,33 +149,52 @@ Public Class FormDemo1DVertical
             ''
             ''No DLLOperation object will be created.
             ''
-            mod_list.DLL_InsertRangeIntoEmptyList(mod_range) ''(rangeNew)
+            mod_listA.DLL_InsertRangeIntoEmptyList(mod_rangeA) ''(rangeNew)
+            ''Added 1/21/2025 td
+            mod_listB1.DLL_InsertRangeIntoEmptyList(mod_rangeB1) ''Added 1/21/2025 td
+            mod_listB2.DLL_InsertRangeIntoEmptyList(mod_rangeB2) ''Added 1/21/2025 td
 
         Else
             ''
             ''Added 10/20/2024  
             ''
-            Dim operationInitial30 As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+            ''See above. Dim operationInitialInsertA As DLLOperation1D(Of TwoCharacterDLLVerticalA)
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(rangeNew, True, False,
             ''            True, False, False,
             ''            anchorForEmptyList, False, False, False)
-            operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, True, False,
+            operationInitialInsertA = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, True, False,
                                                                   True, False, False, type_of_move,
-                                      anchorItemForListOfOneItem,
-                                      anchorPairForListOfOneItem)
+                                      anchorItemForListOfOneItemA,
+                                      anchorPairForListOfOneItemA)
             ''12/30/2024                     False, False, False, False,
             ''12/30/2024                     Nothing, Nothing, Nothing)
 
-            ''12/16/2024 operationInitial30.OperateOnList(mod_list)
+            ''12/16/2024 operationInitial30.OperateOnList(mod_listA)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
 
             ''Major call!!
-            operationInitial30.OperateOnParentList(mod_list, byrefChangeOfEndpoint)
+            operationInitialInsertA.OperateOnParentList(mod_listA, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
-            ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItem,
-            ''      mod_list, operationInitial30)
-            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItem, mod_list)
+            ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA,
+            ''      mod_listA, operationInitial30)
+            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
+
+
+            ''Added 1/21/2025  
+            Dim opInitialInsertIndexStruct As DLLOperationIndexStructure
+
+            ''Added 1/21/2025  
+            opInitialInsertIndexStruct = operationInitialInsertA.GetOperationIndexStructure()
+            operationInitialInsertB1 = New DLLOperation1D(Of DLLUserControlTextbox) _
+                    (opInitialInsertIndexStruct, mod_firstItemB1)
+            operationInitialInsertB2 = New DLLOperation1D(Of DLLUserControlRichbox) _
+                    (opInitialInsertIndexStruct, mod_firstItemB2)
+
+            ''Added 1/21/2025  
+            operationInitialInsertB1.OperateOnParentList(mod_listB1, byrefChangeOfEndpoint)
+            operationInitialInsertB2.OperateOnParentList(mod_listB2, byrefChangeOfEndpoint)
+
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
@@ -113,6 +202,8 @@ Public Class FormDemo1DVertical
         '' Display the list. 
         ''
         RefreshTheUI_DisplayList()
+        RefreshTheUI_DisplayList(operationInitialInsertB1)
+        RefreshTheUI_DisplayList(operationInitialInsertB2)
 
         ''Added 12/09/2024 
         ''  Make sure that the two boxes match in the beginning.
@@ -139,17 +230,18 @@ Public Class FormDemo1DVertical
         ''
         ''  This method is overloaded.  
         ''
-        ''  Check for needed but missing updates to the variable mod_firstItem.
+        ''  Check for needed but missing updates to the variable mod_firstItemA.
         ''
         Dim bMismatch As Boolean
-        bMismatch = (mod_list._itemStart IsNot mod_firstItem)
+        bMismatch = (mod_listA._itemStart IsNot mod_firstItemA)
         If (bMismatch) Then System.Diagnostics.Debugger.Break()
 
         ''Added 12/18/2024  
         ''
         ''Major call!!
         ''
-        RefreshTheUI_DisplayList(mod_list, mod_firstItem, par_operation)
+        RefreshTheUI_DisplayList(mod_listA, mod_firstItemA, par_operation)
+
 
     End Sub ''end of ""Private Sub RefreshTheUI_DisplayList""
 
@@ -172,7 +264,7 @@ Public Class FormDemo1DVertical
         ''----2025 richtextItemsDisplay.Text = strListOfLinks
 
         ''Added 12/28/2023 
-        Dim itemCount As Integer = mod_list.DLL_CountAllItems()
+        Dim itemCount As Integer = mod_listA.DLL_CountAllItems()
         ''userControlOperation1.UpdateTheItemCount(itemCount)
 
         ''Added 1/04/202
@@ -183,7 +275,7 @@ Public Class FormDemo1DVertical
         Dim last_item As TwoCharacterDLLVerticalA = Nothing
         Dim prior_to_last As TwoCharacterDLLVerticalA = Nothing
 
-        last_item = CType(mod_list.DLL_GetLastItem_OfT(), TwoCharacterDLLVerticalA)
+        last_item = CType(mod_listA.DLL_GetLastItem_OfT(), TwoCharacterDLLVerticalA)
         If (last_item Is Nothing) Then
             ''
             ''The user has elected to delete the entire list. 
@@ -232,7 +324,7 @@ Public Class FormDemo1DVertical
         ''richtextItemsDisplay.ResetText()
         ''Not needed here. ----richtextItemsDisplay.Text = ""
 
-        If (mod_firstItem Is Nothing) Then
+        If (mod_firstItemA Is Nothing) Then
             ''
             ''All the items have been deleted (most likely).
             ''
@@ -240,9 +332,9 @@ Public Class FormDemo1DVertical
 
         Else
 
-            each_twoChar = mod_firstItem
+            each_twoChar = mod_firstItemA
 
-            ''For Each each_twoChar In mod_list
+            ''For Each each_twoChar In mod_listA
             Do Until bDone
 
                 intLoopIndex += 1
@@ -333,6 +425,51 @@ Public Class FormDemo1DVertical
     End Function ''End of "Private Function FillTheTextboxDisplayingList()""
 
 
+    Private Sub RefreshTheUI_DisplayList(par_operation As DLLOperation1D(Of DLLUserControlTextbox)) '' = Nothing)
+
+        ''Added 1/21/2025 
+        RefreshTheUI_DisplayList(mod_listB1, mod_firstItemB1, par_operation)
+
+    End Sub
+
+    Private Sub RefreshTheUI_DisplayList(par_operation As DLLOperation1D(Of DLLUserControlRichbox)) '' = Nothing)
+
+        ''Added 1/21/2025 
+        RefreshTheUI_DisplayList(mod_listB2, mod_firstItemB2, par_operation)
+
+    End Sub
+
+    Private Sub RefreshTheUI_DisplayList(par_list As DLLList(Of DLLUserControlTextbox),
+                                     par_firstItem As DLLUserControlTextbox,
+                                     Optional par_operation As DLLOperation1D(Of DLLUserControlTextbox) = Nothing)
+        ''
+        ''  This method is overloaded.  
+        ''
+        Dim temp As DLLUserControlTextbox = par_firstItem
+        FlowColumnB1.Controls.Clear()
+        Do Until (temp Is Nothing)
+            FlowColumnB1.Controls.Add(temp)
+            temp = temp.DLL_GetItemNext_OfT()
+        Loop
+
+    End Sub
+
+    Private Sub RefreshTheUI_DisplayList(par_list As DLLList(Of DLLUserControlRichbox),
+                                     par_firstItem As DLLUserControlRichbox,
+                                     Optional par_operation As DLLOperation1D(Of DLLUserControlRichbox) = Nothing)
+        ''
+        ''  This method is overloaded.  
+        ''
+        Dim temp As DLLUserControlRichbox = par_firstItem
+        FlowColumnB2.Controls.Clear()
+        Do Until (temp Is Nothing)
+            FlowColumnB2.Controls.Add(temp)
+            temp = temp.DLL_GetItemNext_OfT()
+        Loop
+
+    End Sub
+
+
     Private Sub RefreshHighlightingRichText(par_control As RichTextBox)
         ''
         ''Added 11/10/2024 thomas d.
@@ -344,7 +481,7 @@ Public Class FormDemo1DVertical
         Dim colorDefault As Color
         Dim intCountOfHighlightedItems As Integer = 0
 
-        tempItem = mod_list.DLL_GetFirstItem_OfT()
+        tempItem = mod_listA.DLL_GetFirstItem_OfT()
         ''//boolHighlighting = tempItem.HighlightInGreen
 
         ''Clear all of the highlighting / backcolor. 
@@ -372,7 +509,7 @@ Public Class FormDemo1DVertical
         ''Checking....
         ''
         Dim bAllAreHighlighted As Boolean
-        bAllAreHighlighted = (intCountOfHighlightedItems >= mod_list._itemCount - 1)
+        bAllAreHighlighted = (intCountOfHighlightedItems >= mod_listA._itemCount - 1)
 
     End Sub ''End of ""Private Sub RefreshHighlightingRichText()""
 
@@ -415,10 +552,10 @@ Public Class FormDemo1DVertical
         CheckManagerForRedoOperations_AskUser(par_wordForOp, pbyrefUserCancelsOperation)
 
         '' Added 12/023/2024 
-        If (mod_firstItem Is Nothing) Then
+        If (mod_firstItemA Is Nothing) Then
 
 
-        End If ''End of ""If (mod_firstItem Is Nothing) Then""
+        End If ''End of ""If (mod_firstItemA Is Nothing) Then""
 
 
     End Sub ''Private Sub AdminToDoPriorToAnyOperation(ByRef pbyrefUserCancelsOperation As Boolean)
@@ -496,19 +633,19 @@ Public Class FormDemo1DVertical
         If boolUserHasCancelled Then Exit Sub
 
         ''Added 12/10/2024 td 
-        intHowManyToMove_RangeCount = mod_range.GetItemCount
+        intHowManyToMove_RangeCount = mod_rangeA.GetItemCount
 
         ''Added 11/11/2024 thomas downes
-        bCannotMoveThatMany = (intHowManyToMove_RangeCount >= mod_list.DLL_CountAllItems)
+        bCannotMoveThatMany = (intHowManyToMove_RangeCount >= mod_listA.DLL_CountAllItems)
 
         ''Added 11/11/2024 td
-        If mod_list._isEmpty_OrTreatAsEmpty Then
+        If mod_listA._isEmpty_OrTreatAsEmpty Then
 
             ''Added 11/11/2024 td
             MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
             Exit Sub
 
-        ElseIf mod_range.ContainsEndpoint(par_goLeft, par_goRight) Then
+        ElseIf mod_rangeA.ContainsEndpoint(par_goLeft, par_goRight) Then
 
             ''Added 11/11/2024 td
             MessageBoxTD.Show_Statement("The range is at the edge, so no moves can logically take place.")
@@ -517,12 +654,12 @@ Public Class FormDemo1DVertical
         ElseIf bCannotMoveThatMany Then
 
             ''Added 11/11/2024 td
-            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+            MessageBoxTD.Show_InsertWordFormat_Line1(mod_listA.DLL_CountAllItems,
                                              "The list is not long enough (less than {0} items), " +
                                 "the requested number of items to move cannot take place.", )
             Exit Sub
 
-        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
+        End If ''eNd of ""If (mod_listA._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
 
         ''
         ''Build the correct Move Type.
@@ -542,22 +679,22 @@ Public Class FormDemo1DVertical
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, Nothing,
+        tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, Nothing,
                                False, OPERATION_MOVE, currentMoveType)
-        ''operation.OperateOnList(mod_list)
+        ''operation.OperateOnList(mod_listA)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
          bChangeOfEndpoint_Occurred, True)
 
         ''Added 11/18/2024 
         ''---If bChangeOfEndpoint Then ''Modified 12/15/2024
         If (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred) Then
-            mod_firstItem = mod_list._itemStart
-            mod_lastItem = mod_list._itemEnding
+            mod_firstItemA = mod_listA._itemStart
+            mod_lastItemA = mod_listA._itemEnding
         End If ''End of ""If (bChangeOfEndpoint) Then""
 
         ''Added 11/17/2024 
         ''---RefreshTheUI_DisplayList()
-        RefreshTheUI_DisplayList(mod_list, mod_firstItem)
+        RefreshTheUI_DisplayList(mod_listA, mod_firstItemA)
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -606,7 +743,7 @@ Public Class FormDemo1DVertical
 
         intInsertCount = numInsertHowMany.Value
         intAnchorPosition = numInsertAnchorBenchmark.Value
-        intHowManyInModuleList = mod_list.DLL_CountAllItems
+        intHowManyInModuleList = mod_listA.DLL_CountAllItems
         boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
 
         intNewIndexStart = 1 + intHowManyInModuleList
@@ -625,11 +762,11 @@ Public Class FormDemo1DVertical
 
             If first_newItem Is Nothing Then
                 first_newItem = newItem
-                mod_range = New DLLRange(Of TwoCharacterDLLVerticalA)(True, Nothing, Nothing, first_newItem, 1)
+                mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(True, Nothing, Nothing, first_newItem, 1)
             Else
                 prior_newItem.DLL_SetItemNext(newItem)
                 newItem.DLL_SetItemPrior(prior_newItem)
-                mod_range = New DLLRange(Of TwoCharacterDLLVerticalA)(True, Nothing, Nothing, first_newItem, 1)
+                mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(True, Nothing, Nothing, first_newItem, 1)
             End If
 
             ''Prepare for next iteration.
@@ -646,12 +783,12 @@ Public Class FormDemo1DVertical
         '' Set the range. 
         ''
         If intInsertCount = 1 Then
-            mod_range = New DLLRange(Of TwoCharacterDLLVerticalA)(first_newItem, True)
+            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(first_newItem, True)
         Else
             ''
             '' There are at least two objects in the range. 
             ''
-            mod_range = New DLLRange(Of TwoCharacterDLLVerticalA)(False, first_newItem,
+            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(False, first_newItem,
                                                            last_newItem, Nothing, intInsertCount)
 
         End If ''End of ""If (intInsertCount = 1) Then... Else..."
@@ -661,27 +798,27 @@ Public Class FormDemo1DVertical
         ''
         Dim tempAnchorItem As TwoCharacterDLLVerticalA ''Added 10/21/2024 td
 
-        If (mod_firstItem Is Nothing) Then
+        If (mod_firstItemA Is Nothing) Then
 
             ''Added 12/23/2024
             Const EMPTY As Boolean = True
             objAnchor = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(EMPTY, False)
 
         Else
-            tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            tempAnchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
             objAnchor = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
 
-        End If ''End of ""If (mod_firstItem Is Nothing) Then... Else..."
+        End If ''End of ""If (mod_firstItemA Is Nothing) Then... Else..."
 
         With objAnchor
-            ''._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            ''._anchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
             ._doInsertRangeAfterThis = listInsertAfterOrBefore.SelectedIndex < 1
             ._doInsertRangeBeforeThis = False = objAnchor._doInsertRangeAfterThis
         End With
 
         ''Highlight the range's endpoints.
-        mod_range.HighlightEndpoints_Green()
-        mod_range.HighlightEndpoints_Cyan()
+        mod_rangeA.HighlightEndpoints_Green()
+        mod_rangeA.HighlightEndpoints_Cyan()
 
         ''
         '' Insert range into the list.  
@@ -698,9 +835,9 @@ Public Class FormDemo1DVertical
 
         If DIRECT_TO_LIST Then
             If listInsertAfterOrBefore.SelectedIndex < 1 Then
-                mod_list.DLL_InsertRangeAfter(mod_range, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+                mod_listA.DLL_InsertRangeAfter(mod_rangeA, objAnchor._anchorItem) ''; ''---, boolEndpoint)
             Else
-                mod_list.DLL_InsertRangeBefore(mod_range, objAnchor._anchorItem) ''; ''---, boolEndpoint)
+                mod_listA.DLL_InsertRangeBefore(mod_rangeA, objAnchor._anchorItem) ''; ''---, boolEndpoint)
             End If
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex < 1 Then
@@ -714,7 +851,7 @@ Public Class FormDemo1DVertical
                                         tempAnchorItem.DLL_GetItemNext_OfT,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
             ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, anchor_couple, True, False)
-            operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, anchor_couple, True, False, null_move)
+            operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
 
             ''Added 1/13/2025 td
             ''
@@ -728,11 +865,11 @@ Public Class FormDemo1DVertical
                 ''
                 Dim op_structure As DLLOperationIndexStructure ''DLLOperation1D(Of TwoCharacterDLLVerticalA)
                 op_structure = operation.GetOperationIndexStructure()
-                operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure, mod_list.DLL_GetFirstItem_OfT())
+                operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure, mod_listA.DLL_GetFirstItem_OfT())
 
             End If ''End of ""If (TestingIndexStructure()) Then""
 
-            ''operation.OperateOnList(mod_list)
+            ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_PostHoc, True)
@@ -745,8 +882,8 @@ Public Class FormDemo1DVertical
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(
                                         tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, anchor_couple, True, False, null_move)
-            ''operation.OperateOnList(mod_list)
+            operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
+            ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_PostHoc, True)
@@ -759,8 +896,8 @@ Public Class FormDemo1DVertical
         ''//If bChangeOfEndpoint Then
         If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_PostHoc Then
 
-            mod_firstItem = mod_list._itemStart
-            mod_lastItem = mod_list._itemEnding
+            mod_firstItemA = mod_listA._itemStart
+            mod_lastItemA = mod_listA._itemEnding
 
         End If ''End of ""If (bChangeOfEndpoint) Then""
 
@@ -771,8 +908,8 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList() '' (operation)
 
         ''Remove the highlighting of the range's endpoints.
-        mod_range.HighlightEndpoints_Green(False)
-        mod_range.HighlightEndpoints_Cyan(False)
+        mod_rangeA.HighlightEndpoints_Green(False)
+        mod_rangeA.HighlightEndpoints_Cyan(False)
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
@@ -823,7 +960,7 @@ Public Class FormDemo1DVertical
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
-        intHowManyInModuleList = mod_list.DLL_CountAllItems
+        intHowManyInModuleList = mod_listA.DLL_CountAllItems
         bUserSpecifiedValues = array_sItemsToInsert.Count > 0
         ''intInsertCount = numInsertHowMany.Value
         intAnchorPosition = numInsertAnchorBenchmark.Value
@@ -832,18 +969,18 @@ Public Class FormDemo1DVertical
         ''Set the anchor. 
         ''
         ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLVerticalA)(False)
-        ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        If (mod_firstItem Is Nothing) Then
+        ''----objAnchor._anchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
+        If (mod_firstItemA Is Nothing) Then
             ''The list is empty. 
             ''   No items exist in the list.  ---12/09/2024 td  
             boolIsForEmptyList = True ''Added 12/09/2024
-            If (mod_list.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
+            If (mod_listA.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
             objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(boolIsForEmptyList, False) '' (True, False)
 
         Else
-            tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
+            tempAnchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
             objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
-        End If ''End of ""If (mod_firstItem Is Nothing) Then ... Else ..."
+        End If ''End of ""If (mod_firstItemA Is Nothing) Then ... Else ..."
 
         bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1
         bInsertRangeBeforeAnchor = Not bInsertRangeAfterAnchor ''Added 11/10/2024 
@@ -870,12 +1007,12 @@ Public Class FormDemo1DVertical
         End If ''End of ""If (strNewItem Is Nothing) Then""
         newItem = New TwoCharacterDLLVerticalA(strNewItem)
 
-        ''---mod_list.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)
+        ''---mod_listA.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)
         Const KEEP_ANCHOR = True
         ''
         ''What does DLL_SetAnchor() do?  
         ''
-        mod_list.DLL_SetAnchor(objAnchorItem, bInsertRangeBeforeAnchor, bInsertRangeAfterAnchor,
+        mod_listA.DLL_SetAnchor(objAnchorItem, bInsertRangeBeforeAnchor, bInsertRangeAfterAnchor,
           KEEP_ANCHOR)
 
         ''
@@ -886,8 +1023,8 @@ Public Class FormDemo1DVertical
 
         If DIRECT_TO_LIST Then
             ''Without using the DLLManager class, directly editing the list.  
-            ''12/17 mod_list.DLL_InsertItemSingly(newItem, boolEndpoint)
-            mod_list.DLL_InsertItemSingly(newItem, bChangeOfEndpoint_Expected)
+            ''12/17 mod_listA.DLL_InsertItemSingly(newItem, boolEndpoint)
+            mod_listA.DLL_InsertItemSingly(newItem, bChangeOfEndpoint_Expected)
 
         Else
             ''
@@ -914,8 +1051,8 @@ Public Class FormDemo1DVertical
 
         ''Added 11/10/2024 td
         If (bChangeOfEndpoint) Then ''If boolEndpoint Then
-            mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
-            mod_lastItem = mod_list.DLL_GetLastItem_OfT()
+            mod_firstItemA = mod_listA.DLL_GetFirstItem_OfT()
+            mod_lastItemA = mod_listA.DLL_GetLastItem_OfT()
         End If ''eND OF ""If (boolEndpoint) Then""
 
         ''
@@ -972,8 +1109,8 @@ Public Class FormDemo1DVertical
         index_of_item = Math.Floor(index_of_item_double)
         ''Added 12/15/2024 
         ''   Prevent the selector from going beyond the item count.
-        index_of_item = IIf(index_of_item <= -1 + mod_list._itemCount,
-                        index_of_item, -1 + mod_list._itemCount)
+        index_of_item = IIf(index_of_item <= -1 + mod_listA._itemCount,
+                        index_of_item, -1 + mod_listA._itemCount)
 
         ''Added 2/29/2024
         bShiftingKey = Control.ModifierKeys = Keys.Shift
@@ -982,20 +1119,20 @@ Public Class FormDemo1DVertical
         If ENCAPSULATE Then ''Added 2/29/2024
 
             ''Added 2/29/2024
-            ''//mod_list.SelectionRange_ProcessList_GetTuple(index_of_item, bShiftingKey)
-            mod_range = mod_list.GetSelectionRange(index_of_item, bShiftingKey)
+            ''//mod_listA.SelectionRange_ProcessList_GetTuple(index_of_item, bShiftingKey)
+            mod_rangeA = mod_listA.GetSelectionRange(index_of_item, bShiftingKey)
 
             ''Added 11/14/2024
-            ''---objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
-            objectListItem = mod_list.DLL_GetItemAtIndex_1based(1 + index_of_item)
+            ''---objectListItem = mod_listA.DLL_GetItemAtIndex(index_of_item)
+            objectListItem = mod_listA.DLL_GetItemAtIndex_1based(1 + index_of_item)
             ''Added 11/5/2024
-            ''See above called to mod_list.SelectionRange...  ''--objectListItem.Selected = True
+            ''See above called to mod_listA.SelectionRange...  ''--objectListItem.Selected = True
 
         Else
             ''Added 2/27/2024
-            If index_of_item > -1 + mod_list.DLL_CountAllItems Then Exit Sub
-            ''---objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)
-            objectListItem = mod_list.DLL_GetItemAtIndex_1based(index_of_item)
+            If index_of_item > -1 + mod_listA.DLL_CountAllItems Then Exit Sub
+            ''---objectListItem = mod_listA.DLL_GetItemAtIndex(index_of_item)
+            objectListItem = mod_listA.DLL_GetItemAtIndex_1based(index_of_item)
             ''--objectListItem.Selected = True
             objectListItem.Selected = Not objectListItem.Selected ''Toggle the value. ''True
 
@@ -1011,19 +1148,19 @@ Public Class FormDemo1DVertical
             ''
             ''Do nothing. 
             ''
-        ElseIf mod_range Is Nothing And objectListItem.Selected = True Then
+        ElseIf mod_rangeA Is Nothing And objectListItem.Selected = True Then
             ''
             ''Start a range object. 
             ''
-            mod_range = New DLLRange(Of TwoCharacterDLLVerticalA)(objectListItem, False)
+            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(objectListItem, False)
 
-        ElseIf mod_range IsNot Nothing And objectListItem.Selected Then
+        ElseIf mod_rangeA IsNot Nothing And objectListItem.Selected Then
 
-            intDistance = mod_range._StartingItemOfRange.DLL_GetDistanceTo(objectListItem)
+            intDistance = mod_rangeA._StartingItemOfRange.DLL_GetDistanceTo(objectListItem)
 
             If intDistance > 0 Then
                 ''The range should be broadened to reach the newly-selected object. 
-                mod_range.ExtendRangeToIncludeListItem(objectListItem)
+                mod_rangeA.ExtendRangeToIncludeListItem(objectListItem)
 
             ElseIf intDistance < 0 Then
                 ''
@@ -1032,8 +1169,8 @@ Public Class FormDemo1DVertical
                 ''   of the range, and the previously-selected item should be the 
                 ''   "righthand" (following/ending) item. 
                 ''
-                Dim tempRangeItem = mod_range.ItemStart
-                mod_range = New DLLRange(Of TwoCharacterDLLVerticalA)(objectListItem, tempRangeItem)
+                Dim tempRangeItem = mod_rangeA.ItemStart
+                mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(objectListItem, tempRangeItem)
 
             End If ''ENd of ""If (intDistance > 0) Then ... Else If (intDistance < 0) Then"
 
@@ -1043,9 +1180,9 @@ Public Class FormDemo1DVertical
         ''Major call!! 
         ''
         Const MOVE_CONTROLS_ENABLED = True
-        If MOVE_CONTROLS_ENABLED And mod_range IsNot Nothing Then
+        If MOVE_CONTROLS_ENABLED And mod_rangeA IsNot Nothing Then
             ''Important for MOVE controls. 
-            AutoPopulateRangeControls(mod_range)
+            AutoPopulateRangeControls(mod_rangeA)
         End If ''ENd of ""If (s_range IsNot Nothing) Then""
 
     End Sub ''End of ""Private Sub labelBenchmark_MouseUp""
@@ -1065,8 +1202,8 @@ Public Class FormDemo1DVertical
         mod_manager.UndoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
 
         ''Added 11/10/2024 
-        mod_firstItem = mod_list.DLL_GetFirstItem_OfT()
-        mod_lastItem = mod_list.DLL_GetLastItem_OfT()
+        mod_firstItemA = mod_listA.DLL_GetFirstItem_OfT()
+        mod_lastItemA = mod_listA.DLL_GetLastItem_OfT()
 
         ''Added 10/27/2024 
         RefreshTheUI_DisplayList()
@@ -1129,10 +1266,10 @@ Public Class FormDemo1DVertical
         intHowManyToDelete = numDeleteHowMany.Value
 
         ''Added 11/11/2024 thomas downes
-        bCannotDeleteThatMany = (-1 + intItemPosition + intHowManyToDelete > mod_list._itemCount)
+        bCannotDeleteThatMany = (-1 + intItemPosition + intHowManyToDelete > mod_listA._itemCount)
 
         ''Added 11/11/2024 td
-        If (mod_list._isEmpty_OrTreatAsEmpty) Then
+        If (mod_listA._isEmpty_OrTreatAsEmpty) Then
             ''Added 11/11/2024 td
             MessageBoxTD.Show_Statement("The list is empty, so no deletions can logically take place.")
             Exit Sub
@@ -1142,18 +1279,18 @@ Public Class FormDemo1DVertical
                                                  "The list is not long enough (less than {0} items), " +
                                     "the requested number of deleted consecutive items cannot take place.", )
             Exit Sub
-        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then""
+        End If ''eNd of ""If (mod_listA._isEmpty_OrTreatAsEmpty) Then""
 
         ''
         ''Set the anchor. 
         ''
         ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLVerticalA)(False)
-        ''----objAnchor._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        itemFirstToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition)
-        itemLastToDelete = mod_firstItem.DLL_GetItemNext(-1 + intItemPosition + intHowManyToDelete - 1)
+        ''----objAnchor._anchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
+        itemFirstToDelete = mod_firstItemA.DLL_GetItemNext(-1 + intItemPosition)
+        itemLastToDelete = mod_firstItemA.DLL_GetItemNext(-1 + intItemPosition + intHowManyToDelete - 1)
 
         bAnyEndpointAffected_start = (intItemPosition = 1)
-        bAnyEndpointAffected_end = ((intItemPosition + intHowManyToDelete - 1) >= mod_list._itemCount)
+        bAnyEndpointAffected_end = ((intItemPosition + intHowManyToDelete - 1) >= mod_listA._itemCount)
         bAnyEndpointAffected = (bAnyEndpointAffected_start Or bAnyEndpointAffected_end)
 
         rangeToDelete = New DLLRange(Of TwoCharacterDLLVerticalA)(False, itemFirstToDelete,
@@ -1161,7 +1298,7 @@ Public Class FormDemo1DVertical
 
         If (DIRECT_TO_LIST_Not) Then
             ''Without using the DLLManager class, directly editing the list.  
-            mod_list.DLL_DeleteRange(rangeToDelete)
+            mod_listA.DLL_DeleteRange(rangeToDelete)
         Else
             ''
             '' Added 10/26/2024 thomas d.
@@ -1179,8 +1316,8 @@ Public Class FormDemo1DVertical
 
             ''Administration....
             If (bAnyEndpointAffected Or bAnyEndpointAffected_ByRef) Then
-                mod_firstItem = mod_list._itemStart
-                mod_lastItem = mod_list._itemEnding
+                mod_firstItemA = mod_listA._itemStart
+                mod_lastItemA = mod_listA._itemEnding
             End If ''End of ""If (bAnyEndpointAffected) Then""
 
         End If ''End of ""If (DIRECT_TO_LIST_Not) Then ... Else ..."
@@ -1202,14 +1339,14 @@ Public Class FormDemo1DVertical
     End Sub ''buttonDelete_Click 
 
 
-    Private Sub mod_list_EventListWasModified() Handles mod_list.EventListWasModified
+    Private Sub mod_listA_EventListWasModified() Handles mod_listA.EventListWasModified
         ''
         '' Added 11/02/2024 thomas downes 
         ''
-        mod_firstItem = mod_list._itemStart
-        mod_lastItem = mod_list._itemEnding
+        mod_firstItemA = mod_listA._itemStart
+        mod_lastItemA = mod_listA._itemEnding
 
-    End Sub ''end of ""Private Sub mod_list_EventListWasModified""
+    End Sub ''end of ""Private Sub mod_listA_EventListWasModified""
 
 
     Private Sub buttonRedoOp_Click(sender As Object, e As EventArgs) Handles buttonRedoOp.Click
@@ -1231,8 +1368,8 @@ Public Class FormDemo1DVertical
         mod_manager.RedoMarkedOperation()
 
         ''Added 12/09/2024 & 11/10/2024 (but only on the buttonUndoLastStep_Click handler)
-        mod_firstItem = mod_list._itemStart
-        mod_lastItem = mod_list._itemEnding
+        mod_firstItemA = mod_listA._itemStart
+        mod_lastItemA = mod_listA._itemEnding
 
         ''Added 11/09/2024 
         RefreshTheUI_DisplayList()
@@ -1279,29 +1416,29 @@ Public Class FormDemo1DVertical
         If boolUserHasCancelled Then Exit Sub
 
         ''Added 12/10/2024 td 
-        intHowManyToMove = mod_range.GetItemCount
+        intHowManyToMove = mod_rangeA.GetItemCount
 
         ''Added 11/11/2024 thomas downes
-        bCannotMoveThatMany = intHowManyToMove >= mod_list.DLL_CountAllItems
+        bCannotMoveThatMany = intHowManyToMove >= mod_listA.DLL_CountAllItems
 
         ''Added 11/11/2024 td
-        If mod_list._isEmpty_OrTreatAsEmpty Then
+        If mod_listA._isEmpty_OrTreatAsEmpty Then
             ''Added 11/11/2024 td
             MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
             Exit Sub
         ElseIf bCannotMoveThatMany Then
             ''Added 11/11/2024 td
-            MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+            MessageBoxTD.Show_InsertWordFormat_Line1(mod_listA.DLL_CountAllItems,
                                                  "The list is not long enough (less than {0} items), " +
                                     "the requested number of items to move cannot take place.", )
             Exit Sub
-        End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then""
+        End If ''eNd of ""If (mod_listA._isEmpty_OrTreatAsEmpty) Then""
 
         ''
         '' Proceed 
         ''
         intAnchorIndex = numMoveAnchorBenchmark.Value
-        tempAnchorItem = mod_firstItem.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
+        tempAnchorItem = mod_firstItemA.DLL_GetItemNext_OfT(-1 + intAnchorIndex)
 
         ''Added 12/09/2024  
         If tempAnchorItem Is Nothing Then
@@ -1311,7 +1448,7 @@ Public Class FormDemo1DVertical
 
         bAnchorMoveAfter = listMoveAfterOrBefore.SelectedIndex < 1
         bAnchorMoveBefore = listMoveAfterOrBefore.SelectedIndex >= 1
-        bChangeOfEndpoint_Expected = mod_range.ContainsEndpoint
+        bChangeOfEndpoint_Expected = mod_rangeA.ContainsEndpoint
 
         tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(tempAnchorItem, bAnchorMoveAfter)
         ''Added 12/09/2024  bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
@@ -1321,8 +1458,8 @@ Public Class FormDemo1DVertical
         ''
         ''  Run sanity-check (warning) functions. 
         ''
-        bCheck_RangeContainsAnchor = mod_range.Check_ContainsAnchorPair(tempAnchorPair)
-        bCheck_AnchorEnclosesRange = mod_range.Check_EnclosedByAnchorPair(tempAnchorPair)
+        bCheck_RangeContainsAnchor = mod_rangeA.Check_ContainsAnchorPair(tempAnchorPair)
+        bCheck_AnchorEnclosesRange = mod_rangeA.Check_EnclosedByAnchorPair(tempAnchorPair)
 
         ''
         ''  Display sanity-check (warning) messages. 
@@ -1343,16 +1480,16 @@ Public Class FormDemo1DVertical
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
-        ''operation.OperateOnList(mod_list)
+        tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
+        ''operation.OperateOnList(mod_listA)
         ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
                                          bChangeOfEndpoint_Occurred, True)
 
         ''Added 11/18/2024 
         If bChangeOfEndpoint_Expected Then
-            mod_firstItem = mod_list._itemStart
-            mod_lastItem = mod_list._itemEnding
+            mod_firstItemA = mod_listA._itemStart
+            mod_lastItemA = mod_listA._itemEnding
         End If ''End of ""If (bChangeOfEndpoint_Expected) Then""
 
         ''Added 11/17/2024 
@@ -1458,10 +1595,10 @@ Public Class FormDemo1DVertical
     ''    intHowManyToMove = mod_range.GetItemCount
 
     ''    ''Added 11/11/2024 thomas downes
-    ''    bCannotMoveThatMany = (intHowManyToMove >= mod_list.DLL_CountAllItems)
+    ''    bCannotMoveThatMany = (intHowManyToMove >= mod_listA.DLL_CountAllItems)
 
     ''    ''Added 11/11/2024 td
-    ''    If mod_list._isEmpty_OrTreatAsEmpty Then
+    ''    If mod_listA._isEmpty_OrTreatAsEmpty Then
 
     ''        ''Added 11/11/2024 td
     ''        MessageBoxTD.Show_Statement("The list is empty, so no moves can logically take place.")
@@ -1470,12 +1607,12 @@ Public Class FormDemo1DVertical
     ''    ElseIf bCannotMoveThatMany Then
 
     ''        ''Added 11/11/2024 td
-    ''        MessageBoxTD.Show_InsertWordFormat_Line1(mod_list.DLL_CountAllItems,
+    ''        MessageBoxTD.Show_InsertWordFormat_Line1(mod_listA.DLL_CountAllItems,
     ''                                                 "The list is not long enough (less than {0} items), " +
     ''                                    "the requested number of items to move cannot take place.", )
     ''        Exit Sub
 
-    ''    End If ''eNd of ""If (mod_list._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
+    ''    End If ''eNd of ""If (mod_listA._isEmpty_OrTreatAsEmpty) Then ... ElseIf... ""
 
     ''    ''
     ''    ''Build the correct Move Type.
@@ -1496,13 +1633,13 @@ Public Class FormDemo1DVertical
     ''    ''
     ''    tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, Nothing,
     ''                                                               False, OPERATION_MOVE, currentMoveType)
-    ''    ''operation.OperateOnList(mod_list)
+    ''    ''operation.OperateOnList(mod_listA)
     ''    mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
     ''
     ''    ''Added 11/18/2024 
     ''    If bChangeOfEndpoint Then
-    ''        mod_firstItem = mod_list._itemStart
-    ''        mod_lastItem = mod_list._itemEnding
+    ''        mod_firstItemA = mod_listA._itemStart
+    ''        mod_lastItemA = mod_listA._itemEnding
     ''    End If ''End of ""If (bChangeOfEndpoint) Then""
     ''
     ''    ''Added 11/17/2024 
@@ -1574,29 +1711,29 @@ Public Class FormDemo1DVertical
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
-        If (mod_list._isEmpty_OrTreatAsEmpty) Then
+        If (mod_listA._isEmpty_OrTreatAsEmpty) Then
             ''
             '' The list cannot be sorted, as it is empty. 
             ''
         Else
             operationSortForward = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Forward)
 
-            ''12/23/2024 operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+            ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
                 ''Added 12/23/2024 t))d))
                 mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
                                                  bChangeOfEndpoint_Occurred, True)
             Else
-                operationSortForward.OperateOnParentList(mod_list, bChangeOfEndpoint_Occurred)
+                operationSortForward.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
 
             End If ''End of ""If (USE_MANAGER) Then... Else..."
 
-        End If ''ENd of ""'If (mod_list._isEmpty_OrTreatAsEmpty) Then ... Else ..."
+        End If ''ENd of ""'If (mod_listA._isEmpty_OrTreatAsEmpty) Then ... Else ..."
 
         ''Administrative.
         If (True Or bChangeOfEndpoint_Occurred) Then
-            mod_firstItem = mod_list._itemStart
-            mod_lastItem = mod_list._itemEnding
+            mod_firstItemA = mod_listA._itemStart
+            mod_lastItemA = mod_listA._itemEnding
         End If ''End of ""If (True or bChangeOfEndpoint_Occurred) Then""
 
         ''Display the mutated list. 
@@ -1625,19 +1762,19 @@ Public Class FormDemo1DVertical
 
         operationSortBackward = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Backward)
 
-        ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
+        ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
         If (USE_MANAGER) Then
             ''Added 12/23/2024 t))d))
             mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
                                                  bChangeOfEndpoint_Occurred, True)
         Else
-            operationSortBackward.OperateOnParentList(mod_list, bChangeOfEndpoint_Occurred)
+            operationSortBackward.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
 
         End If ''End of ""If (USE_MANAGER) Then... Else..."
 
         ''Administrative.
-        mod_firstItem = mod_list._itemStart
-        mod_lastItem = mod_list._itemEnding
+        mod_firstItemA = mod_listA._itemStart
+        mod_lastItemA = mod_listA._itemEnding
         RefreshTheUI_DisplayList()
 
         ''
@@ -1661,6 +1798,16 @@ Public Class FormDemo1DVertical
     Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs)
 
     End Sub
+
+    Private Sub richtextItemsDisplay_TextChanged(sender As Object, e As EventArgs) Handles richtextItemsDisplay.TextChanged
+
+    End Sub
+
+    Private Sub FlowRowHeaders_Paint(sender As Object, e As PaintEventArgs) Handles FlowRowHeaders.Paint
+
+    End Sub
+
+
 End Class
 
 

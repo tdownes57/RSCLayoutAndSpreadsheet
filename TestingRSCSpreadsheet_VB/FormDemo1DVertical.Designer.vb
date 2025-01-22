@@ -63,28 +63,29 @@ Partial Class FormDemo1DVertical
         LabelInsertHeader = New Label()
         LabelInsertAnchorHeader = New Label()
         numInsertAnchorBenchmark = New NumericUpDown()
-        Label1 = New Label()
+        LabelA_B1_B2 = New Label()
         LabelHeader1 = New Label()
         FlowRowHeaders = New FlowLayoutPanel()
-        UserControlTextbox2 = New UserControlTextbox()
-        UserControlTextbox02 = New UserControlTextbox()
-        UserControlTextbox3 = New UserControlTextbox()
+        UserControlTextbox2 = New DLLUserControlTextbox()
+        UserControlTextbox02 = New DLLUserControlTextbox()
+        UserControlTextbox3 = New DLLUserControlTextbox()
         FlowColumnB1 = New FlowLayoutPanel()
-        UserControlRichbox1 = New UserControlRichbox()
-        UserControlRichbox4 = New UserControlRichbox()
-        UserControlRichbox7 = New UserControlRichbox()
+        UserControlRichbox1 = New DLLUserControlRichbox()
+        UserControlRichbox4 = New DLLUserControlRichbox()
+        UserControlRichbox7 = New DLLUserControlRichbox()
         FlowColumnB2 = New FlowLayoutPanel()
-        UserControlRichbox2 = New UserControlRichbox()
-        UserControlRichbox5 = New UserControlRichbox()
-        UserControlRichbox8 = New UserControlRichbox()
+        UserControlRichbox2 = New DLLUserControlRichbox()
+        UserControlRichbox5 = New DLLUserControlRichbox()
+        UserControlRichbox8 = New DLLUserControlRichbox()
         FlowColumnB3 = New FlowLayoutPanel()
-        UserControlRichbox3 = New UserControlRichbox()
-        UserControlRichbox6 = New UserControlRichbox()
-        UserControlRichbox9 = New UserControlRichbox()
+        UserControlRichbox3 = New DLLUserControlRichbox()
+        UserControlRichbox6 = New DLLUserControlRichbox()
+        UserControlRichbox9 = New DLLUserControlRichbox()
         FlowRowNumbersOnly = New FlowLayoutPanel()
         TextBox13 = New TextBox()
         TextBox14 = New TextBox()
         TextBox15 = New TextBox()
+        richtextItemsDisplay = New RichTextBox()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -104,9 +105,9 @@ Partial Class FormDemo1DVertical
         ' ButtonSortBackward
         ' 
         ButtonSortBackward.BackColor = Color.Cyan
-        ButtonSortBackward.Location = New Point(1005, 272)
+        ButtonSortBackward.Location = New Point(995, 301)
         ButtonSortBackward.Name = "ButtonSortBackward"
-        ButtonSortBackward.Size = New Size(102, 39)
+        ButtonSortBackward.Size = New Size(112, 39)
         ButtonSortBackward.TabIndex = 141
         ButtonSortBackward.Text = "Backward"
         ButtonSortBackward.UseVisualStyleBackColor = False
@@ -144,7 +145,7 @@ Partial Class FormDemo1DVertical
         ' ButtonSortForward
         ' 
         ButtonSortForward.BackColor = Color.Cyan
-        ButtonSortForward.Location = New Point(862, 272)
+        ButtonSortForward.Location = New Point(925, 266)
         ButtonSortForward.Name = "ButtonSortForward"
         ButtonSortForward.Size = New Size(137, 39)
         ButtonSortForward.TabIndex = 137
@@ -509,21 +510,21 @@ Partial Class FormDemo1DVertical
         numInsertAnchorBenchmark.TabIndex = 109
         numInsertAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
-        ' Label1
+        ' LabelA_B1_B2
         ' 
-        Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label1.Location = New Point(28, 3)
-        Label1.Name = "Label1"
-        Label1.Size = New Size(122, 21)
-        Label1.TabIndex = 144
-        Label1.Text = "A     B1    B2  B3"
+        LabelA_B1_B2.AutoSize = True
+        LabelA_B1_B2.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        LabelA_B1_B2.Location = New Point(28, 3)
+        LabelA_B1_B2.Name = "LabelA_B1_B2"
+        LabelA_B1_B2.Size = New Size(103, 21)
+        LabelA_B1_B2.TabIndex = 144
+        LabelA_B1_B2.Text = " A      B1    B2"
         ' 
         ' LabelHeader1
         ' 
         LabelHeader1.AutoSize = True
         LabelHeader1.Font = New Font("Segoe UI", 17F, FontStyle.Bold)
-        LabelHeader1.Location = New Point(163, 29)
+        LabelHeader1.Location = New Point(195, 14)
         LabelHeader1.Name = "LabelHeader1"
         LabelHeader1.Size = New Size(630, 31)
         LabelHeader1.TabIndex = 148
@@ -536,29 +537,44 @@ Partial Class FormDemo1DVertical
         FlowRowHeaders.Controls.Add(UserControlTextbox2)
         FlowRowHeaders.Controls.Add(UserControlTextbox02)
         FlowRowHeaders.Controls.Add(UserControlTextbox3)
-        FlowRowHeaders.Location = New Point(28, 29)
+        FlowRowHeaders.Location = New Point(67, 29)
         FlowRowHeaders.Name = "FlowRowHeaders"
         FlowRowHeaders.Size = New Size(29, 322)
         FlowRowHeaders.TabIndex = 149
         ' 
         ' UserControlTextbox2
         ' 
+        UserControlTextbox2.HighlightInBlue = False
+        UserControlTextbox2.HighlightInCyan = False
+        UserControlTextbox2.HighlightInGreen = False
+        UserControlTextbox2.HighlightInRed = False
         UserControlTextbox2.Location = New Point(3, 3)
         UserControlTextbox2.Name = "UserControlTextbox2"
+        UserControlTextbox2.Selected = False
         UserControlTextbox2.Size = New Size(22, 23)
         UserControlTextbox2.TabIndex = 154
         ' 
         ' UserControlTextbox02
         ' 
+        UserControlTextbox02.HighlightInBlue = False
+        UserControlTextbox02.HighlightInCyan = False
+        UserControlTextbox02.HighlightInGreen = False
+        UserControlTextbox02.HighlightInRed = False
         UserControlTextbox02.Location = New Point(3, 32)
         UserControlTextbox02.Name = "UserControlTextbox02"
+        UserControlTextbox02.Selected = False
         UserControlTextbox02.Size = New Size(22, 23)
         UserControlTextbox02.TabIndex = 155
         ' 
         ' UserControlTextbox3
         ' 
+        UserControlTextbox3.HighlightInBlue = False
+        UserControlTextbox3.HighlightInCyan = False
+        UserControlTextbox3.HighlightInGreen = False
+        UserControlTextbox3.HighlightInRed = False
         UserControlTextbox3.Location = New Point(3, 61)
         UserControlTextbox3.Name = "UserControlTextbox3"
+        UserControlTextbox3.Selected = False
         UserControlTextbox3.Size = New Size(22, 23)
         UserControlTextbox3.TabIndex = 156
         ' 
@@ -569,29 +585,44 @@ Partial Class FormDemo1DVertical
         FlowColumnB1.Controls.Add(UserControlRichbox1)
         FlowColumnB1.Controls.Add(UserControlRichbox4)
         FlowColumnB1.Controls.Add(UserControlRichbox7)
-        FlowColumnB1.Location = New Point(60, 29)
+        FlowColumnB1.Location = New Point(102, 27)
         FlowColumnB1.Name = "FlowColumnB1"
         FlowColumnB1.Size = New Size(29, 322)
         FlowColumnB1.TabIndex = 150
         ' 
         ' UserControlRichbox1
         ' 
+        UserControlRichbox1.HighlightInBlue = False
+        UserControlRichbox1.HighlightInCyan = False
+        UserControlRichbox1.HighlightInGreen = False
+        UserControlRichbox1.HighlightInRed = False
         UserControlRichbox1.Location = New Point(3, 3)
         UserControlRichbox1.Name = "UserControlRichbox1"
+        UserControlRichbox1.Selected = False
         UserControlRichbox1.Size = New Size(22, 23)
         UserControlRichbox1.TabIndex = 155
         ' 
         ' UserControlRichbox4
         ' 
+        UserControlRichbox4.HighlightInBlue = False
+        UserControlRichbox4.HighlightInCyan = False
+        UserControlRichbox4.HighlightInGreen = False
+        UserControlRichbox4.HighlightInRed = False
         UserControlRichbox4.Location = New Point(3, 32)
         UserControlRichbox4.Name = "UserControlRichbox4"
+        UserControlRichbox4.Selected = False
         UserControlRichbox4.Size = New Size(22, 23)
         UserControlRichbox4.TabIndex = 156
         ' 
         ' UserControlRichbox7
         ' 
+        UserControlRichbox7.HighlightInBlue = False
+        UserControlRichbox7.HighlightInCyan = False
+        UserControlRichbox7.HighlightInGreen = False
+        UserControlRichbox7.HighlightInRed = False
         UserControlRichbox7.Location = New Point(3, 61)
         UserControlRichbox7.Name = "UserControlRichbox7"
+        UserControlRichbox7.Selected = False
         UserControlRichbox7.Size = New Size(22, 23)
         UserControlRichbox7.TabIndex = 157
         ' 
@@ -602,29 +633,44 @@ Partial Class FormDemo1DVertical
         FlowColumnB2.Controls.Add(UserControlRichbox2)
         FlowColumnB2.Controls.Add(UserControlRichbox5)
         FlowColumnB2.Controls.Add(UserControlRichbox8)
-        FlowColumnB2.Location = New Point(93, 29)
+        FlowColumnB2.Location = New Point(827, 18)
         FlowColumnB2.Name = "FlowColumnB2"
         FlowColumnB2.Size = New Size(29, 322)
         FlowColumnB2.TabIndex = 151
         ' 
         ' UserControlRichbox2
         ' 
+        UserControlRichbox2.HighlightInBlue = False
+        UserControlRichbox2.HighlightInCyan = False
+        UserControlRichbox2.HighlightInGreen = False
+        UserControlRichbox2.HighlightInRed = False
         UserControlRichbox2.Location = New Point(3, 3)
         UserControlRichbox2.Name = "UserControlRichbox2"
+        UserControlRichbox2.Selected = False
         UserControlRichbox2.Size = New Size(22, 23)
         UserControlRichbox2.TabIndex = 156
         ' 
         ' UserControlRichbox5
         ' 
+        UserControlRichbox5.HighlightInBlue = False
+        UserControlRichbox5.HighlightInCyan = False
+        UserControlRichbox5.HighlightInGreen = False
+        UserControlRichbox5.HighlightInRed = False
         UserControlRichbox5.Location = New Point(3, 32)
         UserControlRichbox5.Name = "UserControlRichbox5"
+        UserControlRichbox5.Selected = False
         UserControlRichbox5.Size = New Size(22, 23)
         UserControlRichbox5.TabIndex = 157
         ' 
         ' UserControlRichbox8
         ' 
+        UserControlRichbox8.HighlightInBlue = False
+        UserControlRichbox8.HighlightInCyan = False
+        UserControlRichbox8.HighlightInGreen = False
+        UserControlRichbox8.HighlightInRed = False
         UserControlRichbox8.Location = New Point(3, 61)
         UserControlRichbox8.Name = "UserControlRichbox8"
+        UserControlRichbox8.Selected = False
         UserControlRichbox8.Size = New Size(22, 23)
         UserControlRichbox8.TabIndex = 158
         ' 
@@ -635,29 +681,44 @@ Partial Class FormDemo1DVertical
         FlowColumnB3.Controls.Add(UserControlRichbox3)
         FlowColumnB3.Controls.Add(UserControlRichbox6)
         FlowColumnB3.Controls.Add(UserControlRichbox9)
-        FlowColumnB3.Location = New Point(128, 29)
+        FlowColumnB3.Location = New Point(862, 18)
         FlowColumnB3.Name = "FlowColumnB3"
         FlowColumnB3.Size = New Size(29, 322)
         FlowColumnB3.TabIndex = 151
         ' 
         ' UserControlRichbox3
         ' 
+        UserControlRichbox3.HighlightInBlue = False
+        UserControlRichbox3.HighlightInCyan = False
+        UserControlRichbox3.HighlightInGreen = False
+        UserControlRichbox3.HighlightInRed = False
         UserControlRichbox3.Location = New Point(3, 3)
         UserControlRichbox3.Name = "UserControlRichbox3"
+        UserControlRichbox3.Selected = False
         UserControlRichbox3.Size = New Size(22, 23)
         UserControlRichbox3.TabIndex = 156
         ' 
         ' UserControlRichbox6
         ' 
+        UserControlRichbox6.HighlightInBlue = False
+        UserControlRichbox6.HighlightInCyan = False
+        UserControlRichbox6.HighlightInGreen = False
+        UserControlRichbox6.HighlightInRed = False
         UserControlRichbox6.Location = New Point(3, 32)
         UserControlRichbox6.Name = "UserControlRichbox6"
+        UserControlRichbox6.Selected = False
         UserControlRichbox6.Size = New Size(22, 23)
         UserControlRichbox6.TabIndex = 157
         ' 
         ' UserControlRichbox9
         ' 
+        UserControlRichbox9.HighlightInBlue = False
+        UserControlRichbox9.HighlightInCyan = False
+        UserControlRichbox9.HighlightInGreen = False
+        UserControlRichbox9.HighlightInRed = False
         UserControlRichbox9.Location = New Point(3, 61)
         UserControlRichbox9.Name = "UserControlRichbox9"
+        UserControlRichbox9.Selected = False
         UserControlRichbox9.Size = New Size(22, 23)
         UserControlRichbox9.TabIndex = 158
         ' 
@@ -700,18 +761,31 @@ Partial Class FormDemo1DVertical
         TextBox15.TabIndex = 2
         TextBox15.Text = "03"
         ' 
+        ' richtextItemsDisplay
+        ' 
+        richtextItemsDisplay.BorderStyle = BorderStyle.FixedSingle
+        richtextItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        richtextItemsDisplay.Location = New Point(32, 27)
+        richtextItemsDisplay.Name = "richtextItemsDisplay"
+        richtextItemsDisplay.ScrollBars = RichTextBoxScrollBars.None
+        richtextItemsDisplay.Size = New Size(31, 457)
+        richtextItemsDisplay.TabIndex = 153
+        richtextItemsDisplay.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        richtextItemsDisplay.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1162, 504)
+        Controls.Add(richtextItemsDisplay)
         Controls.Add(FlowRowNumbersOnly)
         Controls.Add(FlowColumnB2)
         Controls.Add(FlowColumnB1)
         Controls.Add(FlowRowHeaders)
         Controls.Add(FlowColumnB3)
         Controls.Add(LabelHeader1)
-        Controls.Add(Label1)
+        Controls.Add(LabelA_B1_B2)
         Controls.Add(ButtonSortBackward)
         Controls.Add(LinkRefreshFirstItem)
         Controls.Add(LinkApplicationDoevents)
@@ -807,7 +881,7 @@ Partial Class FormDemo1DVertical
     Friend WithEvents LabelInsertHeader As Label
     Friend WithEvents LabelInsertAnchorHeader As Label
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
-    Friend WithEvents Label1 As Label
+    Friend WithEvents LabelA_B1_B2 As Label
     Friend WithEvents LabelHeader1 As Label
     Friend WithEvents FlowRowHeaders As FlowLayoutPanel
     Friend WithEvents FlowColumnB1 As FlowLayoutPanel
@@ -817,16 +891,17 @@ Partial Class FormDemo1DVertical
     Friend WithEvents TextBox13 As TextBox
     Friend WithEvents TextBox14 As TextBox
     Friend WithEvents TextBox15 As TextBox
-    Friend WithEvents UserControlTextbox2 As UserControlTextbox
-    Friend WithEvents UserControlRichbox1 As UserControlRichbox
-    Friend WithEvents UserControlRichbox2 As UserControlRichbox
-    Friend WithEvents UserControlRichbox3 As UserControlRichbox
-    Friend WithEvents UserControlTextbox02 As UserControlTextbox
-    Friend WithEvents UserControlTextbox3 As UserControlTextbox
-    Friend WithEvents UserControlRichbox4 As UserControlRichbox
-    Friend WithEvents UserControlRichbox7 As UserControlRichbox
-    Friend WithEvents UserControlRichbox5 As UserControlRichbox
-    Friend WithEvents UserControlRichbox8 As UserControlRichbox
-    Friend WithEvents UserControlRichbox6 As UserControlRichbox
-    Friend WithEvents UserControlRichbox9 As UserControlRichbox
+    Friend WithEvents UserControlTextbox2 As DLLUserControlTextbox
+    Friend WithEvents UserControlRichbox1 As DLLUserControlRichbox
+    Friend WithEvents UserControlRichbox2 As DLLUserControlRichbox
+    Friend WithEvents UserControlRichbox3 As DLLUserControlRichbox
+    Friend WithEvents UserControlTextbox02 As DLLUserControlTextbox
+    Friend WithEvents UserControlTextbox3 As DLLUserControlTextbox
+    Friend WithEvents UserControlRichbox4 As DLLUserControlRichbox
+    Friend WithEvents UserControlRichbox7 As DLLUserControlRichbox
+    Friend WithEvents UserControlRichbox5 As DLLUserControlRichbox
+    Friend WithEvents UserControlRichbox8 As DLLUserControlRichbox
+    Friend WithEvents UserControlRichbox6 As DLLUserControlRichbox
+    Friend WithEvents UserControlRichbox9 As DLLUserControlRichbox
+    Friend WithEvents richtextItemsDisplay As RichTextBox
 End Class

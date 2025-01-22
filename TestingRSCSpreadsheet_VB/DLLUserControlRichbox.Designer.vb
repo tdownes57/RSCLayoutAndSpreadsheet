@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class UserControlTextbox
+Partial Class DLLUserControlRichbox
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -22,28 +22,28 @@ Partial Class UserControlTextbox
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        TextBox4 = New TextBox()
+        TextBox1 = New RichTextBox()
         SuspendLayout()
         ' 
-        ' TextBox4
+        ' RichTextBox3
         ' 
-        TextBox4.Location = New Point(0, 0)
-        TextBox4.Name = "TextBox4"
-        TextBox4.Size = New Size(22, 23)
-        TextBox4.TabIndex = 1
-        TextBox4.Text = "01"
+        TextBox1.BorderStyle = BorderStyle.FixedSingle
+        TextBox1.Location = New Point(0, 0)
+        TextBox1.Name = "RichTextBox3"
+        TextBox1.Size = New Size(22, 23)
+        TextBox1.TabIndex = 156
+        TextBox1.Text = "01"
         ' 
-        ' UserControlTextbox
+        ' UserControlRichbox
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
-        Controls.Add(TextBox4)
-        Name = "UserControlTextbox"
+        Controls.Add(TextBox1)
+        Name = "UserControlRichbox"
         Size = New Size(22, 23)
         ResumeLayout(False)
-        PerformLayout()
     End Sub
 
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents TextBox1 As RichTextBox
 
 End Class

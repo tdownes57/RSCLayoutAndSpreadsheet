@@ -3,8 +3,8 @@
 ''
 Imports ciBadgeInterfaces
 
-Public Class UserControlTextbox
-    Implements IDoublyLinkedItem(Of UserControlTextbox)
+Public Class DLLUserControlTextbox
+    Implements IDoublyLinkedItem(Of DLLUserControlTextbox)
     ''
     ''Added 1/19/2025 
     ''
@@ -25,23 +25,38 @@ Public Class UserControlTextbox
 
     Private Const ENFORCE_BIDIRECTIONAL As Boolean = True ''Added 12/08/2024 
 
-    Friend mod_prior As UserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  12/12/2024 Private mod_prior
-    Friend mod_next As UserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  ''12/12/2024 Private mod_next 
+    Friend mod_prior As DLLUserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  12/12/2024 Private mod_prior
+    Friend mod_next As DLLUserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  ''12/12/2024 Private mod_next 
 
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
-    Friend mod_next_priorSortOrder As UserControlTextbox ''Added 12/12/2024 TD
+    Friend mod_next_priorSortOrder As DLLUserControlTextbox ''Added 12/12/2024 TD
 
 
     Public Overrides Property Text() As String
         Get
             ''Added 1/19/2025 td
-            Return TextBox4.Text
+            Return TextBox1.Text
         End Get
         Set(par_value As String)
             ''Added 1/19/2025 td
-            TextBox4.Text = par_value
+            TextBox1.Text = par_value
         End Set
     End Property
+
+
+    Public Sub New() ''// , par_prior As TwoCharacterDLLItem)
+
+        ''Added 1/21/2025 thomas downes 
+        TextBox1.Text = "01" ''---par_twoChars
+
+    End Sub
+
+    Public Sub New(par_twoChars As String) ''// , par_prior As TwoCharacterDLLItem)
+
+        ''Added 1/21/2025 thomas downes 
+        TextBox1.Text = par_twoChars
+
+    End Sub
 
 
     Public Sub DLL_SetItemNext(param As IDoublyLinkedItem) _
@@ -84,8 +99,8 @@ Public Class UserControlTextbox
 
 
 
-    Public Overloads Sub DLL_SetItemNext_OfT(param As UserControlTextbox) _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_SetItemNext_OfT
+    Public Overloads Sub DLL_SetItemNext_OfT(param As DLLUserControlTextbox) _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_SetItemNext_OfT
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
@@ -94,8 +109,8 @@ Public Class UserControlTextbox
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
 
-    Public Sub DLL_SetItemPrior_OfT(paramItem As UserControlTextbox) _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_SetItemPrior_OfT
+    Public Sub DLL_SetItemPrior_OfT(paramItem As DLLUserControlTextbox) _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_SetItemPrior_OfT
 
         ''Throw New NotImplementedException()
         If (paramItem Is Me) Then System.Diagnostics.Debugger.Break()
@@ -117,8 +132,8 @@ Public Class UserControlTextbox
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
 
-    Public Sub DLL_SetItemPrior_OfT(param As UserControlTextbox, pbAllowNulls As Boolean) _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_SetItemPrior_OfT
+    Public Sub DLL_SetItemPrior_OfT(param As DLLUserControlTextbox, pbAllowNulls As Boolean) _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_SetItemPrior_OfT
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
@@ -133,8 +148,8 @@ Public Class UserControlTextbox
     End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
 
 
-    Public Overloads Sub DLL_SetItemNext_OfT(param As UserControlTextbox, pbAllowNulls As Boolean) _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_SetItemNext_OfT
+    Public Overloads Sub DLL_SetItemNext_OfT(param As DLLUserControlTextbox, pbAllowNulls As Boolean) _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_SetItemNext_OfT
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
@@ -210,8 +225,8 @@ Public Class UserControlTextbox
     End Function ''End of ""Public Function DLL_HasPrior()""
 
 
-    Public Function DLL_GetItemNext_OfT() As UserControlTextbox _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemNext_OfT
+    Public Function DLL_GetItemNext_OfT() As DLLUserControlTextbox _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
 
         If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
@@ -243,11 +258,11 @@ Public Class UserControlTextbox
     End Function ''End of ""Public Function DLL_GetItemNext()""
 
 
-    Public Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As UserControlTextbox _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemNext_OfT
+    Public Function DLL_GetItemNext_OfT(param_iterationsOfNext As Integer) As DLLUserControlTextbox _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
 
-        Dim tempNext As UserControlTextbox = mod_next
+        Dim tempNext As DLLUserControlTextbox = mod_next
         If (param_iterationsOfNext > 1) Then
             For index = 2 To param_iterationsOfNext
                 If (tempNext Is Nothing) Then Exit For ''12/9/2024 Debugger.Break() ''12/31/2023
@@ -265,7 +280,7 @@ Public Class UserControlTextbox
            Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
-        Dim tempNext As UserControlTextbox = mod_next
+        Dim tempNext As DLLUserControlTextbox = mod_next
         If (param_iterationsOfNext > 1) Then
             For index = 2 To param_iterationsOfNext
                 If (tempNext Is Nothing) Then Debugger.Break() ''12/31/2023
@@ -330,8 +345,8 @@ Public Class UserControlTextbox
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
 
-    Public Function DLL_GetItemPrior_OfT() As UserControlTextbox _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemPrior_OfT
+    Public Function DLL_GetItemPrior_OfT() As DLLUserControlTextbox _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemPrior_OfT
 
         ''Throw New NotImplementedException()
 
@@ -341,13 +356,13 @@ Public Class UserControlTextbox
     End Function ''End of ""Public Function DLL_GetItemPrior_OfT()""
 
 
-    Public Function DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As UserControlTextbox _
-          Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemPrior_OfT
+    Public Function DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As DLLUserControlTextbox _
+          Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemPrior_OfT
 
         ''Throw New NotImplementedException()
         If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
 
-        Dim tempPrior As UserControlTextbox = mod_prior
+        Dim tempPrior As DLLUserControlTextbox = mod_prior
 
         If (param_iterationsOfPrior > 1) Then
             For index = 2 To param_iterationsOfPrior
@@ -367,12 +382,12 @@ Public Class UserControlTextbox
     ''' </summary>
     ''' <param name="par_index_b0">This is a 0-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As UserControlTextbox Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemAtIndex_b0
+    Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemAtIndex_b0
         ''
         ''added 1/07/2024
         ''
-        Dim objFirst As UserControlTextbox ''= DLL_GetItemFirst()
-        Dim objResult As UserControlTextbox
+        Dim objFirst As DLLUserControlTextbox ''= DLL_GetItemFirst()
+        Dim objResult As DLLUserControlTextbox
 
         objFirst = DLL_GetItemFirst()
         ''----objResult = objFirst.DLL_GetItemNext_OfT(par_index_b0)
@@ -390,11 +405,11 @@ Public Class UserControlTextbox
     ''' </summary>
     ''' <param name="par_index_b1">This is a 1-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As UserControlTextbox Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemAtIndex_b1
+    Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemAtIndex_b1
         ''
         ''added 1/07/2024
         ''
-        Dim objResult As UserControlTextbox
+        Dim objResult As DLLUserControlTextbox
         objResult = DLL_GetItemAtIndex_b0(-1 + par_index_b1)
         Return objResult
 
@@ -408,8 +423,8 @@ Public Class UserControlTextbox
     End Function ''End of ""Public Function DLL_UnboxControl()""
 
 
-    Public Function DLL_UnboxControl_OfT() As UserControlTextbox _
-        Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_UnboxControl_OfT
+    Public Function DLL_UnboxControl_OfT() As DLLUserControlTextbox _
+        Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_UnboxControl_OfT
 
         ''//Throw New NotImplementedException()
         Return Me
@@ -429,7 +444,7 @@ Public Class UserControlTextbox
 
         ''Added 12/26/2023
         ''July2024 Return mod_twoChars
-        Return (TextBox4.Text) ''(mod_char1 + mod_char2)
+        Return (TextBox1.Text) ''(mod_char1 + mod_char2)
 
     End Function ''Public Overrides Function ToString() As String
 
@@ -438,7 +453,7 @@ Public Class UserControlTextbox
 
         ''Throw New NotImplementedException()
         ''July2024 Return mod_twoChars
-        Return (TextBox4.Text) ''(mod_char1 + mod_char2)
+        Return (TextBox1.Text) ''(mod_char1 + mod_char2)
 
     End Function ''end of ""Public Function DLL_GetValue() As String""
 
@@ -486,7 +501,7 @@ Public Class UserControlTextbox
     End Function ''ENd of ""Public Function DLL_CountItemsAfter()""
 
 
-    Public Function DLL_GetItemFirst() As UserControlTextbox Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemFirst
+    Public Function DLL_GetItemFirst() As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemFirst
         ''
         ''Added 12/29/2024
         ''
@@ -502,7 +517,7 @@ Public Class UserControlTextbox
     End Function ''ENd of ""Public Function DLL_GetItemFirst() As UserControlTextbox""
 
 
-    Public Function DLL_GetItemLast() As UserControlTextbox Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemLast
+    Public Function DLL_GetItemLast() As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemLast
         ''
         ''Added 12/12/2024
         ''
@@ -518,8 +533,8 @@ Public Class UserControlTextbox
     End Function ''ENd of ""Public Function DLL_GetItemLast() As UserControlTextbox""
 
 
-    Public Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As UserControlTextbox _
-           Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetNextItemFollowingRange_OfT
+    Public Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As DLLUserControlTextbox _
+           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetNextItemFollowingRange_OfT
         ''
         ''Added 7/11/2024 
         ''
@@ -528,7 +543,7 @@ Public Class UserControlTextbox
     End Function ''End of ""Public Function DLL_GetNextItemFollowingRange_OfT""
 
 
-    Public Function DLL_GetDistanceTo(paramItem As UserControlTextbox) As Integer Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetDistanceTo
+    Public Function DLL_GetDistanceTo(paramItem As DLLUserControlTextbox) As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetDistanceTo
         ''
         ''Added 11/18/2024  
         ''
@@ -542,12 +557,12 @@ Public Class UserControlTextbox
     End Function ''ENd of ""Public Function DLL_GetDistanceTo(paramItem As UserControlTextbox)""
 
 
-    Public Function DLL_GetDistanceTo(paramItem As UserControlTextbox, ByRef pbLocatedItem As Boolean) As Integer Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetDistanceTo
+    Public Function DLL_GetDistanceTo(paramItem As DLLUserControlTextbox, ByRef pbLocatedItem As Boolean) As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetDistanceTo
         ''
         '' Added "ByRef pbLocated As Boolean" on 11/18/2024
         ''
         ''---Throw New NotImplementedException()
-        Dim tempItem As UserControlTextbox = Me
+        Dim tempItem As DLLUserControlTextbox = Me
         Dim int_resultDistance As Integer = 0
         Dim b_resultFoundItem As Boolean = False
         Const LOOP_LIMIT As Integer = 2000
@@ -653,7 +668,7 @@ Public Class UserControlTextbox
     ''' This index is 1-based, not 0-based. 
     ''' </summary>
     ''' <returns>Returns a positive integer, starting with 1 (1-based).</returns>
-    Public Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemIndex_b1
+    Public Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemIndex_b1
         ''
         ''Added 11/12/2024  
         ''
@@ -678,7 +693,7 @@ Public Class UserControlTextbox
     ''' This index is 0-based, not 1-based. 
     ''' </summary>
     ''' <returns>Returns a non-negative integer, starting with 0 (0-based).</returns>
-    Public Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_GetItemIndex_b0
+    Public Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemIndex_b0
         ''
         ''Added 11/12/2024  
         ''
@@ -691,8 +706,8 @@ Public Class UserControlTextbox
     End Function ''end of Public Function GetItemIndex_b1() As Integer
 
 
-    Public Sub DLL_InsertItemToNext(param As UserControlTextbox, pbDoubleLink As Boolean) _
-          Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_InsertItemToNext
+    Public Sub DLL_InsertItemToNext(param As DLLUserControlTextbox, pbDoubleLink As Boolean) _
+          Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_InsertItemToNext
         ''
         '' This will take some weight off, from DLL_List(Of TControl). 
         ''
@@ -716,9 +731,9 @@ Public Class UserControlTextbox
     End Sub ''End of ""Public Sub DLL_InsertItemToNext(...)""
 
 
-    Public Sub DLL_InsertItemToPrior(param As UserControlTextbox,
+    Public Sub DLL_InsertItemToPrior(param As DLLUserControlTextbox,
                                      pbSetDoubleLink As Boolean) _
-         Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_InsertItemToPrior
+         Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_InsertItemToPrior
         ''
         '' This will take some weight off, from DLL_List(Of TControl). 
         ''
@@ -764,7 +779,7 @@ Public Class UserControlTextbox
     ''    mod_next_priorSortOrder = param
     ''End Sub
 
-    Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_SaveCurrentSortOrder_ToPrior
+    Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_SaveCurrentSortOrder_ToPrior
 
         ''Added 12/ 29/2024 
         Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
@@ -781,11 +796,11 @@ Public Class UserControlTextbox
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
 
-    Public Sub DLL_RestorePriorSortOrder(par_countdownItems As Integer) Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_RestorePriorSortOrder
+    Public Sub DLL_RestorePriorSortOrder(par_countdownItems As Integer) Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_RestorePriorSortOrder
 
         ''Added 12/29/2024 
         Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
-        Dim preRestoration_next As UserControlTextbox = mod_next ''Added 12/29/2024 thomas d.
+        Dim preRestoration_next As DLLUserControlTextbox = mod_next ''Added 12/29/2024 thomas d.
         Dim bNotDoneYet As Boolean ''Added 12/29/2024 thomas d.
 
         ''Added 12/29/2024 thomas d.
@@ -831,7 +846,7 @@ Public Class UserControlTextbox
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
 
-    Public Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_ClearPriorSortOrder
+    Public Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_ClearPriorSortOrder
 
         ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
         mod_next_priorSortOrder = Nothing
@@ -845,8 +860,8 @@ Public Class UserControlTextbox
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
 
-    Public Overloads Sub DLL_SetItemNext_OfT(param As UserControlTextbox, paramAllowNulls As Boolean, paramDoublyLinkIt As Boolean) _
-        Implements IDoublyLinkedItem(Of UserControlTextbox).DLL_SetItemNext_OfT
+    Public Overloads Sub DLL_SetItemNext_OfT(param As DLLUserControlTextbox, paramAllowNulls As Boolean, paramDoublyLinkIt As Boolean) _
+        Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_SetItemNext_OfT
 
         ''Added 12/22/2024 
 
@@ -879,7 +894,7 @@ Public Class UserControlTextbox
 
 
     Public Function GetConvertToGeneric_OfT(Of T_BaseOrParallel As IDoublyLinkedItem(Of T_BaseOrParallel))(firstItem As T_BaseOrParallel) _
-              As T_BaseOrParallel Implements IDoublyLinkedItem(Of UserControlTextbox).GetConvertToGeneric_OfT
+              As T_BaseOrParallel Implements IDoublyLinkedItem(Of DLLUserControlTextbox).GetConvertToGeneric_OfT
         ''
         ''Added 1/07/2025 
         ''
@@ -891,13 +906,13 @@ Public Class UserControlTextbox
     End Function ''Public Function GetConvertToGeneric_OfT
 
 
-    Public Function GetConvertToArray() As UserControlTextbox() Implements IDoublyLinkedItem(Of UserControlTextbox).GetConvertToArray
+    Public Function GetConvertToArray() As DLLUserControlTextbox() Implements IDoublyLinkedItem(Of DLLUserControlTextbox).GetConvertToArray
 
         ''Throw New NotImplementedException()
 
         Dim intCount As Integer = DLL_CountItemsAllInList()
-        Dim arrResult(intCount - 1) As UserControlTextbox
-        Dim temp As UserControlTextbox ''= Me.DLL_GetItemFirst()
+        Dim arrResult(intCount - 1) As DLLUserControlTextbox
+        Dim temp As DLLUserControlTextbox ''= Me.DLL_GetItemFirst()
 
         temp = Me.DLL_GetItemFirst()
         For index = 0 To intCount - 1
