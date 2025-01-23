@@ -37,11 +37,11 @@ Public Interface IDoublyLinkedItem
     Function DLL_GetItemPrior() As IDoublyLinkedItem
     Function DLL_GetItemPrior(param_iterationsOfPrior As Integer) As IDoublyLinkedItem
 
-    ''' <summary>
-    ''' Gets the underlying control.
-    ''' </summary>
-    ''' <returns></returns>
-    Function DLL_UnboxControl() As Windows.Forms.Control
+    '' <summary>
+    '' Gets the underlying control.
+    '' </summary>
+    '' <returns></returns>
+    ''Not needed anymore. 1/23/2025 td''Function DLL_UnboxControl() As Windows.Forms.Control
 
     Sub DLL_SetItemNext(param As IDoublyLinkedItem)
     Sub DLL_SetItemPrior(param As IDoublyLinkedItem)
