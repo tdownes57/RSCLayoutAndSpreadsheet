@@ -17,9 +17,10 @@ namespace RSCLibraryDLLOperations
         //
         // Added `1/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
         //
-        private IDoublyLinkedItem mod_next;
-        private IDoublyLinkedItem mod_prior;
-        private IDoublyLinkedItem mod_next_priorSortOrder;
+        private TControl mod_current; // Replace "this" with "mod_current".
+        private TControl mod_next;
+        private TControl mod_prior;
+        private TControl mod_next_priorSortOrder;
         private char mod_char1;
         private char mod_char2;
 
@@ -196,6 +197,199 @@ namespace RSCLibraryDLLOperations
             return (TControl)temp;
         }
 
+
+
+        public TControl DLL_GetNextItemFollowingRange_OfT(int paramRangeSize, bool paramMayBeNull)
+        {
+            return DLL_GetItemNext_OfT(paramRangeSize);
+        }
+
+        public int DLL_GetDistanceTo(TControl paramItem)
+        {
+            bool located;
+            int result = DLL_GetDistanceTo(paramItem, out located);
+            if (!located) System.Diagnostics.Debugger.Break();
+            return result;
+        }
+
+        public int DLL_GetDistanceTo(TControl paramItem, out bool locatedItem)
+        {
+            var tempItem = this;
+            int resultDistance = 0;
+            bool foundItem = false;
+            const int LoopLimit = 2000;
+            locatedItem = false;
+
+            do
+            {
+                if (tempItem == paramItem)
+                {
+                    foundItem = true;
+                    locatedItem = true;
+                    break;
+                }
+                else if (tempItem.DLL_HasNext())
+                {
+                    tempItem = tempItem.DLL_GetItemNext_OfT();
+                    resultDistance++;
+                }
+                else
+                {
+                    if (resultDistance > LoopLimit) System.Diagnostics.Debugger.Break();
+                    break;
+                }
+            } while (true);
+
+            if (!foundItem)
+            {
+                resultDistance = 0;
+                do
+                {
+                    if (tempItem == paramItem)
+                    {
+                        return resultDistance;
+                    }
+                    else if (tempItem.DLL_HasPrior())
+                    {
+                        tempItem = tempItem.DLL_GetItemPrior_OfT();
+                        resultDistance--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                } while (true);
+            }
+
+            locatedItem = foundItem;
+            return resultDistance;
+        }
+
+        public bool SelectedAnyItemToFollow()
+        {
+            bool resultAnySelected = false;
+            bool doneLooping = false;
+
+            var temp = DLL_GetItemNext_OfT();
+            doneLooping = temp == null;
+
+            while (!doneLooping)
+            {
+                resultAnySelected = resultAnySelected || temp?.Selected == true;
+                temp = temp.DLL_GetItemNext();
+                doneLooping = temp == null || resultAnySelected;
+            }
+
+            return resultAnySelected;
+        }
+
+        public int DLL_GetItemIndex_b1()
+        {
+            int resultIndex = 0;
+            var temp = this;
+            while (temp != null)
+            {
+                resultIndex++;
+                temp = temp.DLL_GetItemPrior();
+            }
+            return resultIndex;
+        }
+
+        public int DLL_GetItemIndex_b0()
+        {
+            return DLL_GetItemIndex_b1() - 1;
+        }
+
+        public void DLL_InsertItemToNext(TControl param, bool doubleLink)
+        {
+            if (param == this || param == null || !doubleLink) System.Diagnostics.Debugger.Break();
+
+            if (mod_next != null)
+            {
+                mod_next.DLL_SetItemPrior_OfT(param);
+                param.DLL_SetItemNext_OfT(mod_next);
+            }
+
+            mod_next = param;
+            param.DLL_SetItemPrior_OfT(this);
+        }
+
+        public void DLL_InsertItemToPrior(TControl param, bool setDoubleLink)
+        {
+            if (param == this || param == null || !setDoubleLink) System.Diagnostics.Debugger.Break();
+
+            if (mod_prior != null)
+            {
+                mod_prior.DLL_SetItemNext_OfT(param);
+                param.DLL_SetItemPrior_OfT(mod_prior);
+            }
+
+            mod_prior = param;
+            param.DLL_SetItemNext_OfT(this);
+        }
+
+        public void DLL_SaveCurrentSortOrder_ToPrior(bool executeInCascade)
+        {
+            string thisItem = DLL_GetValue();
+            mod_next_priorSortOrder = mod_next;
+
+            if (executeInCascade)
+            {
+                mod_next?.DLL_SaveCurrentSortOrder_ToPrior(executeInCascade);
+            }
+        }
+
+        public void DLL_RestorePriorSortOrder(int countdownItems)
+        {
+            string thisItem = DLL_GetValue();
+            var preRestorationNext = mod_next;
+            bool notDoneYet;
+
+            preRestorationNext = mod_next;
+            countdownItems--;
+
+            if (mod_next_priorSortOrder == null)
+            {
+                notDoneYet = countdownItems > 0;
+                if (notDoneYet)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
+            }
+
+            mod_next = mod_next_priorSortOrder;
+
+            try
+            {
+                if (mod_next != null)
+                {
+                    mod_next.mod_prior = this;
+                    preRestorationNext.DLL_RestorePriorSortOrder(countdownItems);
+                }
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+
+        public void DLL_ClearPriorSortOrder(bool executeInCascade)
+        {
+            mod_next_priorSortOrder = null;
+
+            if (executeInCascade)
+            {
+                mod_next?.DLL_ClearPriorSortOrder(executeInCascade);
+            }
+        }
+
+        public TControl GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel firstItem) where T_BaseOrParallel : IDoublyLinkedItem<T_BaseOrParallel>
+        {
+            int indexB0 = DLL_GetItemIndex_b0();
+            firstItem = firstItem.DLL_GetItemFirst();
+            return firstItem.DLL_GetItemAtIndex_b0(indexB0);
+        }
+
+
         public TControl[] GetConvertToArray()
         {
             int count = DLL_CountItemsAllInList();
@@ -212,7 +406,4 @@ namespace RSCLibraryDLLOperations
     }
 
 
-
-
-}
 }
