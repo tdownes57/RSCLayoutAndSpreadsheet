@@ -2,6 +2,7 @@
 ''Added 1/19/2025 
 ''
 Imports ciBadgeInterfaces
+Imports RSCLibraryDLLOperations
 
 Public Class DLLUserControlTextbox
     Implements IDoublyLinkedItem(Of DLLUserControlTextbox)
@@ -25,8 +26,13 @@ Public Class DLLUserControlTextbox
 
     Private Const ENFORCE_BIDIRECTIONAL As Boolean = True ''Added 12/08/2024 
 
-    Friend mod_prior As DLLUserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  12/12/2024 Private mod_prior
-    Friend mod_next As DLLUserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  ''12/12/2024 Private mod_next 
+    ''Jan24 2025 Friend mod_prior As DLLUserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  12/12/2024 Private mod_prior
+    ''Jan24 2025 Friend mod_next As DLLUserControlTextbox ''Using 'Friend' will allow sub-classes to access it.  ''12/12/2024 Private mod_next 
+
+    ''
+    ''Added 1/24/2025 td
+    ''
+    Public DLL As DLLItem_Of(Of DLLUserControlTextbox)
 
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
     Friend mod_next_priorSortOrder As DLLUserControlTextbox ''Added 12/12/2024 TD
@@ -49,6 +55,9 @@ Public Class DLLUserControlTextbox
         ''Added 1/21/2025 thomas downes 
         TextBox1.Text = "01" ''---par_twoChars
 
+        ''Added 1/24/2025 td
+        DLL = New DLLItem_Of(Of DLLUserControlTextbox)(Me)
+
     End Sub
 
     Public Sub New(par_twoChars As String) ''// , par_prior As TwoCharacterDLLItem)
@@ -64,7 +73,9 @@ Public Class DLLUserControlTextbox
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
-        mod_next = param
+
+        ''Jan24 2025 mod_next = param
+        DLL.DLL_SetItemNext(param)
 
     End Sub ''End of ""Public Sub DLL_SetItemNext(...) ...""
 
@@ -73,17 +84,19 @@ Public Class DLLUserControlTextbox
         ''
         ''Added 12/22/2024 
         ''
-        If (Not pboolAllowNulls) Then
-            If (param Is Nothing) Then
-                Throw New Exception("Primary parameter cannot be nothing.")
-            End If
-        End If ''End of ""If (Not pboolAllowNulls) Then""
+        ''If (Not pboolAllowNulls) Then
+        ''    If (param Is Nothing) Then
+        ''        Throw New Exception("Primary parameter cannot be nothing.")
+        ''    End If
+        ''End If ''End of ""If (Not pboolAllowNulls) Then""
 
-        ''Added 12/22/2024 td
-        mod_next = param
+        ''''Added 12/22/2024 td
+        ''mod_next = param
 
-        ''Added 12/22/2024 
-        If (pboolDoublyLink) Then param.DLL_SetItemPrior(Me)
+        ''''Added 12/22/2024 
+        ''If (pboolDoublyLink) Then param.DLL_SetItemPrior(Me)
+
+        DLL.DLL_SetItemNext(param, pboolAllowNulls, pboolDoublyLink)
 
     End Sub ''End of ""Public Sub DLL_SetItemNext(param As IDoublyLinkedItem, ...)
 
@@ -93,7 +106,8 @@ Public Class DLLUserControlTextbox
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
-        mod_prior = param
+        ''Jan24 2025  mod_prior = param
+        DLL.DLL_SetItemPrior(param)
 
     End Sub ''End of ""Public Sub DLL_SetItemPrior(...)""
 
@@ -104,7 +118,8 @@ Public Class DLLUserControlTextbox
 
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
-        mod_next = param
+        ''Jan24 2025 mod_next = param
+        DLL.DLL_SetItemNext_OfT(param)
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 
@@ -115,7 +130,8 @@ Public Class DLLUserControlTextbox
         ''Throw New NotImplementedException()
         If (paramItem Is Me) Then System.Diagnostics.Debugger.Break()
         ''---mod_next = param
-        mod_prior = paramItem
+        ''Jan24 2025 mod_prior = paramItem
+        DLL.DLL_SetItemNext_OfT(paramItem)
 
         ''
         '' Adding bidirectionality.  ---12/08/2024 td
@@ -139,11 +155,13 @@ Public Class DLLUserControlTextbox
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
 
         ''11/4/2024 mod_next = param
-        If (param Is Nothing And pbAllowNulls) Then
-            mod_prior = Nothing
-        Else
-            mod_prior = param
-        End If
+        ''Jan24 2025 If (param Is Nothing And pbAllowNulls) Then
+        ''    mod_prior = Nothing
+        ''Else
+        ''    mod_prior = param
+        ''End If
+
+        DLL.DLL_SetItemPrior_OfT(param, pbAllowNulls)
 
     End Sub ''End of ""Public Sub DLL_SetItemPrior_OfT(...)""
 
@@ -155,29 +173,31 @@ Public Class DLLUserControlTextbox
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
 
         ''11/4/2024 mod_next = param
-        If (param Is Nothing And pbAllowNulls) Then
-            mod_next = Nothing
-        ElseIf (param Is Nothing And (Not pbAllowNulls)) Then ''Added 12/22/2024 
-            ''Added 12/22/2024 td
-            Throw New Exception("A null value for Next is not allowed.")
-
-        Else
-            mod_next = param
-        End If
-
+        ''If (param Is Nothing And pbAllowNulls) Then
+        ''    mod_next = Nothing
+        ''ElseIf (param Is Nothing And (Not pbAllowNulls)) Then ''Added 12/22/2024 
+        ''    ''Added 12/22/2024 td
+        ''    Throw New Exception("A null value for Next is not allowed.")
         ''
-        '' Adding bidirectionality.  ---12/08/2024 td
+        ''Else
+        ''    mod_next = param
+        ''End If
         ''
-        If (ENFORCE_BIDIRECTIONAL) Then
+        ''''
+        '''' Adding bidirectionality.  ---12/08/2024 td
+        ''''
+        ''If (ENFORCE_BIDIRECTIONAL) Then
+        ''
+        ''    ''Set the "mod_prior" item for this parameter item,
+        ''    ''  to be the present class (i.e. the procedure's implicit parameter).
+        ''    ''
+        ''    If (param IsNot Nothing) Then
+        ''        param.mod_prior = Me
+        ''    End If ''ENd of ""If (param IsNot Nothing) Then""
+        ''
+        ''End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
 
-            ''Set the "mod_prior" item for this parameter item,
-            ''  to be the present class (i.e. the procedure's implicit parameter).
-            ''
-            If (param IsNot Nothing) Then
-                param.mod_prior = Me
-            End If ''ENd of ""If (param IsNot Nothing) Then""
-
-        End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
+        DLL.DLL_SetItemNext_OfT(param, pbAllowNulls)
 
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
@@ -185,7 +205,8 @@ Public Class DLLUserControlTextbox
 
     Public Sub DLL_ClearReferencePrior(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior
         ''Throw New NotImplementedException()
-        mod_prior = Nothing
+        ''Jan24 2025 mod_prior = Nothing
+        DLL.DLL_ClearReferencePrior(par_typeOp)
 
     End Sub ''End of ""Public Sub DLL_ClearReferencePrior(...)""
 
