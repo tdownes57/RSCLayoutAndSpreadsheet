@@ -48,11 +48,11 @@ Public Interface IDoublyLinkedItem(Of TControl)
     Function DLL_GetItemPrior_OfT() As TControl ''Sept 2024 'IDoublyLinkedItem(Of TControl)
     Function DLL_GetItemPrior_OfT(param_iterationsOfPrior As Integer) As TControl ''Sept 2024 'IDoublyLinkedItem(Of TControl)
 
-    ''' <summary>
-    ''' Gets the underlying control.
-    ''' </summary>
-    ''' <returns></returns>
-    Function DLL_UnboxControl_OfT() As TControl
+    '' <summary>
+    '' Gets the underlying control.
+    '' </summary>
+    '' <returns></returns>
+    ''Not needed.  1/24/2025 td''Function DLL_UnboxControl_OfT() As TControl
     'Having trouble here. See "using" above. 3/2024  Control DLL_UnboxControl();
 
     Sub DLL_SetItemNext_OfT(param As TControl) ''Sept 2024 'IDoublyLinkedItem(Of TControl))

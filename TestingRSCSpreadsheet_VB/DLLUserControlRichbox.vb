@@ -415,15 +415,15 @@ Public Class DLLUserControlRichbox
     End Function ''End of ""Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As UserControlRichBox""
 
 
-    Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
+    Public Function DLL_UnboxControl() As Control ''Jan24 2025 Implements IDoublyLinkedItem.DLL_UnboxControl
 
         Throw New NotImplementedException()
 
     End Function ''End of ""Public Function DLL_UnboxControl()""
 
 
-    Public Function DLL_UnboxControl_OfT() As DLLUserControlRichbox _
-        Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_UnboxControl_OfT
+    Public Function DLL_UnboxControl_OfT() As DLLUserControlRichbox
+        ''Jan24 2025  Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_UnboxControl_OfT
 
         ''//Throw New NotImplementedException()
         Return Me

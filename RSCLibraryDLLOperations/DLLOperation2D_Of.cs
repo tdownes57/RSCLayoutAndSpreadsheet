@@ -496,8 +496,8 @@ namespace RSCLibraryDLLOperations
                     // Get the item AFTER the anchor; and also "unbox" it,
                     //   i.e. get the TControl object (vs. an interface).
                     itemOriginallyAfterAnchor = par_anchor._anchorItem
-                        .DLL_GetItemNext_OfT()
-                        .DLL_UnboxControl_OfT();
+                        .DLL_GetItemNext_OfT(); 
+                    //Jan24 2025    .DLL_UnboxControl_OfT();
 
                     if (Testing.AreWeTesting)
                     {

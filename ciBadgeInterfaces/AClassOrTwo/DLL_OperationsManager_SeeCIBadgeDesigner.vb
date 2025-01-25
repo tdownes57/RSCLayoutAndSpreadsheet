@@ -74,8 +74,8 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     ''12/2023  Private mod_listRowHeaders As IDoublyLinkedList ''RSCDoublyLinkedList
     ''12/2023  Private mod_listColumns As IDoublyLinkedList ''RSCDoublyLinkedList
 
-    Private mod_listRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''(Of RSCRowHeader) ''RSCDoublyLinkedList
-    Private mod_listColumns As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) '' RSCFieldColumnV3) ''RSCDoublyLinkedList
+    Private mod_listRowHeaders As DLL_List_OfTControl_OBSELETE(Of IDoublyLinkedItem) ''(Of RSCRowHeader) ''RSCDoublyLinkedList
+    Private mod_listColumns As DLL_List_OfTControl_OBSELETE(Of IDoublyLinkedItem) '' RSCFieldColumnV3) ''RSCDoublyLinkedList
 
 
     Public Sub SetModeToColumnOperations()

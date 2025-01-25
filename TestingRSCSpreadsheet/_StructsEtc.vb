@@ -15,7 +15,7 @@ Module _StructsEtc
         Public EndpointIndex As Integer
         Public EndpointIsInclusive As Boolean ''= True
 
-        Public Sub New(par_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem),
+        Public Sub New(par_list As DLL_List_OfTControl_OBSELETE(Of TwoCharacterDLLItem),
                        Optional par_bUseFinalItem As Boolean = True,
                        Optional par_bUseSecondToLast As Boolean = False)
             ''

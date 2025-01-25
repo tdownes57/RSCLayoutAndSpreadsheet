@@ -151,13 +151,13 @@ Public Class TwoCharacterDLLHorizontal
     End Sub
 
 
-    Public Overloads Function DLL_UnboxControl_OfT() As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_UnboxControl_OfT
-        Throw New NotImplementedException()
-    End Function
-
-    Public Overloads Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetNextItemFollowingRange_OfT
-        Throw New NotImplementedException()
-    End Function
+    ''Public Overloads Function DLL_UnboxControl_OfT() As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_UnboxControl_OfT
+    ''    Throw New NotImplementedException()
+    ''End Function
+    ''  
+    ''Public Overloads Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetNextItemFollowingRange_OfT
+    ''    Throw New NotImplementedException()
+    ''End Function
 
 
     Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLHorizontal, pbSetBothDirections As Boolean) _
@@ -367,6 +367,20 @@ Public Class TwoCharacterDLLHorizontal
 
     End Function ''End of Public Function GetConvertToArray() As TwoCharacterDLLHorizontal()
 
+    Private Function IDoublyLinkedItem_DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetNextItemFollowingRange_OfT
+        ''Throw New NotImplementedException()
+        Dim result As TwoCharacterDLLHorizontal
+
+        result = DLL_GetItemNext_OfT(param_rangeSize) '', param_mayBeNull)
+
+        ''Added 1/24/2025 thomas d.
+        If (result Is Nothing And Not param_mayBeNull) Then
+            System.Diagnostics.Debugger.Break()
+        End If ''End of ""If (result Is Nothing And Not param_mayBeNull) Then""
+
+        Return result ''Added 1/24/2025 td
+
+    End Function
 
 
 End Class

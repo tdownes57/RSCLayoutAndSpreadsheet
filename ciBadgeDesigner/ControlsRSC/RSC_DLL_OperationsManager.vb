@@ -27,19 +27,19 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
     ''' <summary>
     ''' This controls the DLL (doubly-linked list) manipulation of the rows.  
     ''' </summary>
-    Private mod_listDLLRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
+    Private mod_listDLLRowHeaders As DLL_List_OfTControl_OBSELETE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
     ''----Private mod_listDLLRowHeaders As DLL_List_OfTControl_PLEASE_USE(Of RSCRowHeader) ''RSCDoublyLinkedList
 
     ''' <summary>
     ''' This controls the DLL  (doubly-linked list) manipulation of the columns.  
     ''' </summary>
-    Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
+    Private mod_listDLLColumns As DLL_List_OfTControl_OBSELETE(Of IDoublyLinkedItem) ''RSCDoublyLinkedList
     ''----Private mod_listDLLColumns As DLL_List_OfTControl_PLEASE_USE(Of RSCFieldColumnV2) ''RSCDoublyLinkedList
 
     ''' <summary>
     ''' For testing purposes. 12/7/2023
     ''' </summary>
-    Private mod_listDLLIntegersForTest As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem)
+    Private mod_listDLLIntegersForTest As DLL_List_OfTControl_OBSELETE(Of IDoublyLinkedItem)
 
     ''12/2023 Private mod_operation1stRecord As DLL_OperationV1
     ''' <summary>
@@ -178,7 +178,7 @@ Public Class RSC_DLL_OperationsManager ''11/2/2023 (Of TControl)
     End Sub
 
 
-    Private Sub ProcessOperation_ViaInterface(param_operation As DLL_OperationV1, par_listDLLItems As DLL_List_OfTControl_PLEASE_USE(Of IDoublyLinkedItem))
+    Private Sub ProcessOperation_ViaInterface(param_operation As DLL_OperationV1, par_listDLLItems As DLL_List_OfTControl_OBSELETE(Of IDoublyLinkedItem))
         ''
         ''Let's process Inserts, Moves, and Deletes separately. 
         ''

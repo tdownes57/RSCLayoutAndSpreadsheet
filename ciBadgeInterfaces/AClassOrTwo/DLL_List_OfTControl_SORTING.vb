@@ -3,7 +3,7 @@
 ''
 Imports System.Threading
 
-Partial Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl As IDoublyLinkedItem)
+Partial Public Class DLL_List_OfTControl_OBSELETE(Of TControl As IDoublyLinkedItem)
     ''
     ''We will use Merge Sort
     ''

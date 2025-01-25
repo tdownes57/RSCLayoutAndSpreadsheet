@@ -157,8 +157,8 @@ namespace RSCLibraryDLLOperations
                 //
                 //--Jun30 2024-_EndingItem = _StartingItem.DLL_GetItemNext(itemCount - 1).DLL_UnboxControl();
                 _EndingItemOfRange = _StartingItemOfRange
-                    .DLL_GetItemNext_OfT(par_itemCount - 1)
-                    .DLL_UnboxControl_OfT();
+                    .DLL_GetItemNext_OfT(par_itemCount - 1);
+                //Jan24 2025    .DLL_UnboxControl_OfT();
 
             }
 
@@ -323,14 +323,14 @@ namespace RSCLibraryDLLOperations
                 throw new InvalidOperationException();
             }
 
-            TControl item = par_start.DLL_GetItemNext_OfT().DLL_UnboxControl_OfT();
+            TControl item = par_start.DLL_GetItemNext_OfT(); //Jan24 2025  .DLL_UnboxControl_OfT();
             int intResult = 0;
 
             while (item != null)
             {
                 intResult++;
                 if (item.Equals(par_ending)) break;
-                item = item.DLL_GetItemNext_OfT().DLL_UnboxControl_OfT();
+                item = item.DLL_GetItemNext_OfT(); //Jan24 2025  .DLL_UnboxControl_OfT();
             }
 
             //

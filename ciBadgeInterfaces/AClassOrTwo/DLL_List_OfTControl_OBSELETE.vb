@@ -21,7 +21,7 @@
 ''' TControl is RSCFieldColumn, RSCDataHeader, or RSCDataCell.
 ''' </summary>
 ''' <typeparam name="TControl"></typeparam>
-Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl As IDoublyLinkedItem)
+Public Class DLL_List_OfTControl_OBSELETE(Of TControl As IDoublyLinkedItem)
     Implements IDoublyLinkedList(Of TControl)
 
     Private mod_dllControlFirst As IDoublyLinkedItem ''Not necessarily needed, except for testing. DLL = Doubly-Linked List. 
@@ -1061,8 +1061,9 @@ Public Class DLL_List_OfTControl_PLEASE_USE(Of TControl As IDoublyLinkedItem)
 
         Dim resultControl As Windows.Forms.Control ''IDoublyLinkedItem
         ''12/2023 resultControl = CType(DLL_GetItemAtIndex(par_index), TControl) ''Windows.Forms.Control)
-        resultControl = CType(DLL_GetItemAtIndex(par_index),
-                                IDoublyLinkedItem).DLL_UnboxControl()
+        ''01/2024 resultControl = CType(DLL_GetItemAtIndex(par_index),
+        ''                        IDoublyLinkedItem).DLL_UnboxControl()
+        resultControl = Nothing
 
         If (mod_bTesting) Then
             ''

@@ -333,6 +333,7 @@ Public Class TwoCharacterDLLItem
 
         Return result
 
+
     End Function ''DLL_GetNextItemFollowingRange
 
 
@@ -429,15 +430,15 @@ Public Class TwoCharacterDLLItem
     End Function ''End of ""Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As TwoCharacterDLLItem""
 
 
-    Public Function DLL_UnboxControl() As Control Implements IDoublyLinkedItem.DLL_UnboxControl
+    Public Function DLL_UnboxControl() As Control ''Jan24 2025 Implements IDoublyLinkedItem.DLL_UnboxControl
 
         Throw New NotImplementedException()
 
     End Function ''End of ""Public Function DLL_UnboxControl()""
 
 
-    Public Function DLL_UnboxControl_OfT() As TwoCharacterDLLItem _
-        Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_UnboxControl_OfT
+    Public Function DLL_UnboxControl_OfT() As TwoCharacterDLLItem
+        ''Jan24 2025        Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_UnboxControl_OfT
 
         ''//Throw New NotImplementedException()
         Return Me
@@ -551,7 +552,16 @@ Public Class TwoCharacterDLLItem
         ''
         ''Added 7/11/2024 
         ''
-        Return DLL_GetItemNext_OfT(param_rangeSize) '', param_mayBeNull)
+        ''---Return DLL_GetItemNext_OfT(param_rangeSize) '', param_mayBeNull)
+        Dim result As TwoCharacterDLLItem
+        result = DLL_GetItemNext_OfT(param_rangeSize)
+
+        ''Added 1/24/2025 thomas d.
+        If (result Is Nothing And Not param_mayBeNull) Then
+            System.Diagnostics.Debugger.Break()
+        End If ''End of ""If (result Is Nothing And Not param_mayBeNull) Then""
+
+        Return result ''Added 1/24/2025 
 
     End Function ''End of ""Public Function DLL_GetNextItemFollowingRange_OfT""
 

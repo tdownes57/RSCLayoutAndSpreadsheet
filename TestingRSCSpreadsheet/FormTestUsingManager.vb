@@ -12,13 +12,13 @@ Imports ciBadgeSerialize
 Public Class FormTestUsingManager
 
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30 ''Added 12/28/2023 td
-    Private mod_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)
+    Private mod_list As DLL_List_OfTControl_OBSELETE(Of TwoCharacterDLLItem)
 
     ''1/22/2024  Private mod_firstTwoChar As TwoCharacterDLLItem
 
     ''Added 12/28/2023 Thomas Downes 
     ''12/28 Private mod_opsList As DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TwoCharacterDLLItem))
-    Private mod_opsList As DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)
+    Private mod_opsList As DLL_List_OfTControl_OBSELETE(Of DLL_OperationV2)
 
     ''Private mod_operations As DLL_OperationsManager_Deprecated(Of TwoCharacterDLLItem)
     ''1/1024 Private mod_operations As ciBadgeInterfaces.DLL_OperationsManager(Of TwoCharacterDLLItem)
@@ -42,7 +42,7 @@ Public Class FormTestUsingManager
         Dim firstTwoChar As New TwoCharacterDLLItem("01") ''Added 1/22/2024 td
 
         ''Initialize the DLL list. (DLL = Doubly-Linked List)
-        mod_list = New DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem)(firstTwoChar)
+        mod_list = New DLL_List_OfTControl_OBSELETE(Of TwoCharacterDLLItem)(firstTwoChar)
 
         ' Add any initialization after the InitializeComponent() call.
         ''Encapsulated 12/25/2023 thomas downes
@@ -60,7 +60,7 @@ Public Class FormTestUsingManager
 
         ''Added 12/28/2023 td
         ''12/28/2023 mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_Operation(Of TwoCharacterDLLItem))(opInitialLoad)
-        mod_opsList = New DLL_List_OfTControl_PLEASE_USE(Of DLL_OperationV2)(opInitialLoad)
+        mod_opsList = New DLL_List_OfTControl_OBSELETE(Of DLL_OperationV2)(opInitialLoad)
 
         ''1/2024 mod_opsManager = New DLL_OperationsManager(Of TwoCharacterDLLItem)(mod_opsList)
         ''2/2024 mod_opsManager = New DLLOperationsManager(Of TwoCharacterDLLItem)(mod_list,
@@ -196,7 +196,7 @@ Public Class FormTestUsingManager
     ''
     ''Encapsulated 12/28/2023 and 12/25/2023 thomas downes
     ''
-    Private Sub Load_DLL_List(par_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem),
+    Private Sub Load_DLL_List(par_list As DLL_List_OfTControl_OBSELETE(Of TwoCharacterDLLItem),
                               Optional par_firstItem As TwoCharacterDLLItem = Nothing)
 
         ''Encapsulated 12/28/2023 
@@ -205,7 +205,7 @@ Public Class FormTestUsingManager
     End Sub ''End of ""Private Sub Load_DLL_List()""
 
 
-    Private Function Load_DLL_List_AsFunction(par_list As DLL_List_OfTControl_PLEASE_USE(Of TwoCharacterDLLItem),
+    Private Function Load_DLL_List_AsFunction(par_list As DLL_List_OfTControl_OBSELETE(Of TwoCharacterDLLItem),
            Optional par_firstItem As TwoCharacterDLLItem = Nothing) As DLL_OperationV2
         ''                     As DLL_Operation(Of TwoCharacterDLLItem)
         ''

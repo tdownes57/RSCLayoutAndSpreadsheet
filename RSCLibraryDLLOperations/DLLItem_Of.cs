@@ -11,26 +11,67 @@ using ciBadgeInterfaces;
 namespace RSCLibraryDLLOperations
 {
     // Added 1/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
-    public class DLLItem_Of<TControl> : ciBadgeInterfaces.IDoublyLinkedItem<TControl>
+    public class DLLItem_Of<TControl> // : ciBadgeInterfaces.IDoublyLinkedItem<TControl>
         where TControl : class, ciBadgeInterfaces.IDoublyLinkedItem<TControl>
     {
-        //
+        // 
         // Added `1/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
         //
-        private TControl mod_current; // Replace "this" with "mod_current".
-        private TControl mod_next;
-        private TControl mod_prior;
-        private TControl mod_next_priorSortOrder;
-        private char mod_char1;
-        private char mod_char2;
+        /// <summary>
+        /// This won't be in use, as this is an operation vs. a list item. --2/27/2024
+        /// </summary>
+        public bool Selected { get; set; } // Implements IDoublyLinkedItem.Selected
 
-        public void DLL_SetItemNext(IDoublyLinkedItem param)
+        /// <summary>
+        /// This won't be in use, as this is an operation vs. a list item. --2/27/2024
+        /// </summary>
+        public bool HighlightInBlue { get; set; } // Implements IDoublyLinkedItem.HighlightInBlue
+
+        public bool HighlightInGreen { get; set; } // Implements IDoublyLinkedItem.HighlightInGreen
+        public bool HighlightInRed { get; set; } // Implements IDoublyLinkedItem.HighlightInRed
+        public bool HighlightInCyan { get; set; } // Implements IDoublyLinkedItem.HighlightInCyan
+
+        //public Control _Control { get; set; } // Added 5/3/2024 td
+
+        private const bool ENFORCE_BIDIRECTIONAL = true; // Added 12/08/2024
+
+
+        private TControl mod_current; // Replace "mod_current" with "mod_current".
+        private TControl? mod_next;
+        private TControl? mod_prior;
+        private TControl? mod_next_priorSortOrder;
+        //private char mod_char1;
+        //private char mod_char2;
+
+
+        public DLLItem_Of(TControl par_currentmod_current)
         {
-            if (param == this) System.Diagnostics.Debugger.Break();
+            //
+            // Added 1/24/2025
+            //
+            mod_current = par_currentmod_current;
+        }
+
+
+        public void DLL_SetItemNext(TControl param)
+        {
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
             mod_next = param;
         }
 
-        public void DLL_SetItemNext(IDoublyLinkedItem param, bool allowNulls, bool doublyLink)
+
+        public void DLL_SetItemNext(IDoublyLinkedItem param)
+        {
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
+            //mod_next = param;
+            mod_next = param as TControl;
+
+            // Added 1/24/2025 td
+            if (mod_next == null) System.Diagnostics.Debugger.Break();
+        }
+
+
+        public void DLL_SetItemNext(TControl param, bool allowNulls, bool doublyLink)
         {
             if (!allowNulls && param == null)
             {
@@ -39,25 +80,79 @@ namespace RSCLibraryDLLOperations
             mod_next = param;
             if (doublyLink && param != null)
             {
-                param.DLL_SetItemPrior(this);
+                param.DLL_SetItemPrior(mod_current);
             }
         }
 
-        public void DLL_SetItemPrior(IDoublyLinkedItem param)
+
+        public void DLL_SetItemPrior(TControl param) // (IDoublyLinkedItem param)
         {
-            if (param == this) System.Diagnostics.Debugger.Break();
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
             mod_prior = param;
         }
 
+        
+        public void DLL_SetItemPrior(IDoublyLinkedItem param)
+        {
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
+            //mod_next = param;
+            mod_prior = param as TControl;
+
+            // Added 1/24/2025 td
+            if (mod_prior == null) System.Diagnostics.Debugger.Break();
+
+        }
+
+
         public void DLL_SetItemNext_OfT(TControl param)
         {
-            if (param == this) System.Diagnostics.Debugger.Break();
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
             mod_next = param;
         }
 
+
+        public void DLL_SetItemNext_OfT(TControl param, bool pbAllowNulls)
+        {
+            // If the parameter is the same as the current instance, trigger a breakpoint
+            if (param == mod_current)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            // Handle the setting of the "mod_next" field
+            if (param == null && pbAllowNulls)
+            {
+                mod_next = null;
+            }
+            else if (param == null && !pbAllowNulls) // Added 12/22/2024
+            {
+                // Throw an exception if null values are not allowed
+                throw new Exception("A null value for Next is not allowed.");
+            }
+            else
+            {
+                mod_next = param;
+            }
+
+            // Adding bidirectionality --- 12/08/2024
+            if (ENFORCE_BIDIRECTIONAL)
+            {
+                // If param is not null, set its "mod_prior" field to the current instance
+                if (param != null)
+                {
+                    //param.mod_prior = this;
+                    param.DLL_SetItemPrior_OfT(mod_current);
+                }
+            }
+        }
+
+
         public void DLL_SetItemNext_OfT(TControl param, bool allowNulls, bool doublyLink)
         {
-            if (param == this) System.Diagnostics.Debugger.Break();
+            //
+            // Modified 1/24/2025 td
+            //
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
 
             if (param == null && allowNulls)
             {
@@ -74,15 +169,86 @@ namespace RSCLibraryDLLOperations
 
             if (doublyLink && param != null)
             {
-                param.DLL_SetItemPrior_OfT(this);
+                //param.DLL_SetItemPrior_OfT(mod_current);
+                param.DLL_SetItemPrior_OfT(mod_current);
             }
         }
 
+
+        public void DLL_SetItemNext(IDoublyLinkedItem param, bool allowNulls, bool doublyLink)
+        {
+            //
+            // Modified 1/24/2025 td
+            //
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
+
+            if (param == null && allowNulls)
+            {
+                mod_next = null;
+            }
+            else if (param == null && !allowNulls)
+            {
+                throw new Exception("A null value for Next is not allowed.");
+            }
+            else
+            {
+                mod_next = param as TControl;
+
+                // Added 1/24/2025 
+                if (param != null && mod_next == null) System.Diagnostics.Debugger.Break();
+
+            }
+
+            if (doublyLink && param != null)
+            {
+                //param.DLL_SetItemPrior_OfT(mod_current);
+                param.DLL_SetItemPrior(mod_current);
+            }
+        }
+
+
         public void DLL_SetItemPrior_OfT(TControl param)
         {
-            if (param == this) System.Diagnostics.Debugger.Break();
+            if (param == mod_current) System.Diagnostics.Debugger.Break();
             mod_prior = param;
         }
+
+
+        public void DLL_SetItemPrior_OfT(TControl param, bool pbAllowNulls)
+        {
+            // If the parameter is the same as the current instance, trigger a breakpoint
+            if (param == mod_current)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            // Handle the setting of the "mod_next" field
+            if (param == null && pbAllowNulls)
+            {
+                mod_next = null;
+            }
+            else if (param == null && !pbAllowNulls) // Added 12/22/2024
+            {
+                // Throw an exception if null values are not allowed
+                throw new Exception("A null value for Next is not allowed.");
+            }
+            else
+            {
+                mod_prior = param;
+            }
+
+            // Adding bidirectionality --- 12/08/2024
+            if (ENFORCE_BIDIRECTIONAL)
+            {
+                // If param is not null, set its "mod_prior" field to the current instance
+                if (param != null)
+                {
+                    //param.mod_prior = this;
+                    param.DLL_SetItemNext_OfT(mod_current);
+                }
+            }
+        }
+
 
         public void DLL_ClearReferencePrior(char operation)
         {
@@ -116,36 +282,147 @@ namespace RSCLibraryDLLOperations
 
         public IDoublyLinkedItem DLL_GetItemNext()
         {
-            if (mod_next == this) System.Diagnostics.Debugger.Break();
+            if (mod_next == mod_current) System.Diagnostics.Debugger.Break();
             return mod_next;
         }
 
+
+        public IDoublyLinkedItem DLL_GetItemNext(int param_iterationsOfNext)
+        {
+            // Throw new NotImplementedException();
+
+            TControl? tempNext = mod_next;
+
+            if (param_iterationsOfNext > 1)
+            {
+                for (int index = 2; index <= param_iterationsOfNext; index++)
+                {
+                    if (tempNext == null)
+                    {
+                        System.Diagnostics.Debugger.Break(); // 12/31/2023
+                    }
+                    //tempNext = tempNext.mod_next;
+                    tempNext = tempNext.DLL_GetItemNext_OfT();
+                }
+            }
+
+            if (param_iterationsOfNext == 0)
+                //return this;
+                return mod_current;
+
+            if (param_iterationsOfNext == 1)
+                return mod_next;
+
+            return tempNext;
+
+        }
+
+
+
         public TControl DLL_GetItemNext_OfT()
         {
-            if (mod_next == this) System.Diagnostics.Debugger.Break();
+            if (mod_next == mod_current) System.Diagnostics.Debugger.Break();
             return (TControl)mod_next;
         }
 
+
+        public TControl DLL_GetItemNext_OfT(int par_intHowManyIterations)
+        {
+            //
+            // Added 1/24/2025 
+            //
+            if (0 == par_intHowManyIterations) return mod_current;
+            TControl temp = DLL_GetItemNext_OfT();
+            if (1 == par_intHowManyIterations) return temp;
+            int count = 1;
+            while (temp != null && count < par_intHowManyIterations)
+            {
+                //count++;
+                temp = temp.DLL_GetItemNext_OfT();
+                count++;
+            }
+            return temp;
+
+
+        }
+
+
         public IDoublyLinkedItem DLL_GetItemPrior()
         {
-            if (mod_prior == this) System.Diagnostics.Debugger.Break();
+            if (mod_prior == mod_current) System.Diagnostics.Debugger.Break();
             return mod_prior;
         }
 
+
+        public IDoublyLinkedItem DLL_GetItemPrior(int param_iterationsOfNext)
+        {
+            // Throw new NotImplementedException();
+
+            TControl? tempPrior = mod_next;
+
+            if (param_iterationsOfNext > 1)
+            {
+                for (int index = 2; index <= param_iterationsOfNext; index++)
+                {
+                    if (tempPrior == null)
+                    {
+                        System.Diagnostics.Debugger.Break(); // 12/31/2023
+                    }
+                    //tempPrior = tempPrior.mod_prior;
+                    tempPrior = tempPrior.DLL_GetItemPrior_OfT();
+                }
+            }
+
+            if (param_iterationsOfNext == 0)
+                //return this;
+                return mod_current;
+
+            if (param_iterationsOfNext == 1)
+                return mod_prior;
+
+            return tempPrior;
+
+        }
+
+
         public TControl DLL_GetItemPrior_OfT()
         {
-            if (mod_prior == this) System.Diagnostics.Debugger.Break();
+            if (mod_prior == mod_current) System.Diagnostics.Debugger.Break();
             return (TControl)mod_prior;
         }
 
+
+        public TControl DLL_GetItemPrior_OfT(int par_intHowManyIterations)
+        {
+            //
+            // Added 1/24/2025 
+            //
+            if (0 == par_intHowManyIterations) return mod_current;
+            TControl temp = DLL_GetItemPrior_OfT();
+            if (1 == par_intHowManyIterations) return temp;
+            int count = 1;
+            while (temp != null && count < par_intHowManyIterations)
+            {
+                //count++;
+                temp = temp.DLL_GetItemPrior_OfT();
+                count++;
+            }
+            return temp;
+
+
+        }
+
+
         public override string ToString()
         {
-            return mod_char1.ToString() + mod_char2.ToString();
+            //return mod_char1.ToString() + mod_char2.ToString();
+            return mod_current.ToString();
         }
 
         public string DLL_GetValue()
         {
-            return mod_char1.ToString() + mod_char2.ToString();
+            //return mod_char1.ToString() + mod_char2.ToString();
+            return mod_current.ToString();
         }
 
         public int DLL_CountItemsAllInList()
@@ -179,22 +456,30 @@ namespace RSCLibraryDLLOperations
 
         public TControl DLL_GetItemFirst()
         {
-            var temp = this;
+            //var temp = mod_current;
+            TControl temp = mod_current; 
             while (temp.DLL_HasPrior())
             {
-                temp = (TControl)temp.DLL_GetItemPrior();
+                //temp = (TControl)temp.DLL_GetItemPrior();
+                temp = temp.DLL_GetItemPrior_OfT();
             }
-            return (TControl)temp;
+            //return (TControl)temp;
+            return temp;
         }
 
         public TControl DLL_GetItemLast()
         {
-            var temp = this;
+            //var temp = mod_current;
+            TControl temp = mod_current;
+            
             while (temp.DLL_HasNext())
             {
-                temp = (TControl)temp.DLL_GetItemNext();
+                //temp = (TControl)temp.DLL_GetItemNext();
+                temp = temp.DLL_GetItemNext_OfT();
             }
-            return (TControl)temp;
+            //return (TControl)temp;
+            return temp;
+
         }
 
 
@@ -204,17 +489,22 @@ namespace RSCLibraryDLLOperations
             return DLL_GetItemNext_OfT(paramRangeSize);
         }
 
+
         public int DLL_GetDistanceTo(TControl paramItem)
         {
-            bool located;
-            int result = DLL_GetDistanceTo(paramItem, out located);
+            bool located = false;
+            //int result = DLL_GetDistanceTo(paramItem, out located);
+            int result = DLL_GetDistanceTo(paramItem, ref located);
             if (!located) System.Diagnostics.Debugger.Break();
             return result;
         }
 
-        public int DLL_GetDistanceTo(TControl paramItem, out bool locatedItem)
+
+        public int DLL_GetDistanceTo(TControl paramItem, ref bool locatedItem)
         {
-            var tempItem = this;
+            //public int DLL_GetDistanceTo(TControl paramItem, out bool locatedItem)
+            //var tempItem = mod_current;
+            TControl tempItem = mod_current;
             int resultDistance = 0;
             bool foundItem = false;
             const int LoopLimit = 2000;
@@ -265,34 +555,65 @@ namespace RSCLibraryDLLOperations
             return resultDistance;
         }
 
+
         public bool SelectedAnyItemToFollow()
         {
             bool resultAnySelected = false;
             bool doneLooping = false;
 
-            var temp = DLL_GetItemNext_OfT();
-            doneLooping = temp == null;
+            TControl temp = DLL_GetItemNext_OfT();
+            doneLooping = (temp == null);
 
-            while (!doneLooping)
+            while (!doneLooping && temp != null)
             {
-                resultAnySelected = resultAnySelected || temp?.Selected == true;
-                temp = temp.DLL_GetItemNext();
+                resultAnySelected = resultAnySelected || temp.Selected == true;
+                if (temp != null) temp = temp.DLL_GetItemNext_OfT();
                 doneLooping = temp == null || resultAnySelected;
             }
 
             return resultAnySelected;
         }
 
+
+
+        /// <summary>
+        /// mod_current gets the items which is (par_index_b0) iterations from the very first item.  The index is 0-based.
+        /// </summary>
+        /// <param name="par_index"></param>
+        /// <returns></returns>
+        public TControl DLL_GetItemAtIndex_b0(int par_index_b0)
+        {
+            TControl itemFirst = DLL_GetItemFirst();
+            int iterationsOfNext = par_index_b0;
+            return itemFirst.DLL_GetItemNext_OfT(iterationsOfNext);
+        }
+
+
+        /// <summary>
+        /// mod_current gets the items which is (par_index_b1 minus 1) iterations from the very first item.  The index is 1-based.
+        /// </summary>
+        /// <param name="par_index"></param>
+        /// <returns></returns>
+        public TControl DLL_GetItemAtIndex_b1(int par_index_b1)
+        {
+            TControl itemFirst = DLL_GetItemFirst();
+            int iterationsOfNext = -1 + par_index_b1;
+            return itemFirst.DLL_GetItemNext_OfT(iterationsOfNext);
+        }
+
+
         public int DLL_GetItemIndex_b1()
         {
             int resultIndex = 0;
-            var temp = this;
+            //var temp = mod_current;
+            TControl temp = mod_current;
             while (temp != null)
             {
                 resultIndex++;
-                temp = temp.DLL_GetItemPrior();
+                temp = temp.DLL_GetItemPrior_OfT();
             }
             return resultIndex;
+
         }
 
         public int DLL_GetItemIndex_b0()
@@ -300,9 +621,17 @@ namespace RSCLibraryDLLOperations
             return DLL_GetItemIndex_b1() - 1;
         }
 
+
+        public bool DLL_IsEitherEndpoint()
+        {
+            // Throw new NotImplementedException();
+            return (mod_next == null || mod_prior == null);
+        }
+
+
         public void DLL_InsertItemToNext(TControl param, bool doubleLink)
         {
-            if (param == this || param == null || !doubleLink) System.Diagnostics.Debugger.Break();
+            if (param == mod_current || param == null || !doubleLink) System.Diagnostics.Debugger.Break();
 
             if (mod_next != null)
             {
@@ -311,12 +640,14 @@ namespace RSCLibraryDLLOperations
             }
 
             mod_next = param;
-            param.DLL_SetItemPrior_OfT(this);
+            param.DLL_SetItemPrior_OfT(mod_current);
+
         }
+
 
         public void DLL_InsertItemToPrior(TControl param, bool setDoubleLink)
         {
-            if (param == this || param == null || !setDoubleLink) System.Diagnostics.Debugger.Break();
+            if (param == mod_current || param == null || !setDoubleLink) System.Diagnostics.Debugger.Break();
 
             if (mod_prior != null)
             {
@@ -325,12 +656,12 @@ namespace RSCLibraryDLLOperations
             }
 
             mod_prior = param;
-            param.DLL_SetItemNext_OfT(this);
+            param.DLL_SetItemNext_OfT(mod_current);
         }
 
         public void DLL_SaveCurrentSortOrder_ToPrior(bool executeInCascade)
         {
-            string thisItem = DLL_GetValue();
+            string mod_currentItem = DLL_GetValue();
             mod_next_priorSortOrder = mod_next;
 
             if (executeInCascade)
@@ -341,7 +672,7 @@ namespace RSCLibraryDLLOperations
 
         public void DLL_RestorePriorSortOrder(int countdownItems)
         {
-            string thisItem = DLL_GetValue();
+            string mod_currentItem = DLL_GetValue();
             var preRestorationNext = mod_next;
             bool notDoneYet;
 
@@ -363,12 +694,15 @@ namespace RSCLibraryDLLOperations
             {
                 if (mod_next != null)
                 {
-                    mod_next.mod_prior = this;
+                    //mod_next.mod_prior = mod_current;
+                    mod_next.DLL_SetItemPrior_OfT(mod_current);
                     preRestorationNext.DLL_RestorePriorSortOrder(countdownItems);
                 }
             }
             catch (NullReferenceException)
             {
+                //''Do nothing. 
+                //''-- - 12 / 29 / 2024 td
             }
         }
 
@@ -382,11 +716,15 @@ namespace RSCLibraryDLLOperations
             }
         }
 
-        public TControl GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel firstItem) where T_BaseOrParallel : IDoublyLinkedItem<T_BaseOrParallel>
+
+        public T_BaseOrParallel GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem) 
+            where T_BaseOrParallel : IDoublyLinkedItem<T_BaseOrParallel>
         {
             int indexB0 = DLL_GetItemIndex_b0();
-            firstItem = firstItem.DLL_GetItemFirst();
-            return firstItem.DLL_GetItemAtIndex_b0(indexB0);
+            // Let's make sure we have the first item in the list.
+            T_BaseOrParallel firstItem = par_firstItem.DLL_GetItemFirst();
+            T_BaseOrParallel result = firstItem.DLL_GetItemAtIndex_b0(indexB0);
+            return result;
         }
 
 

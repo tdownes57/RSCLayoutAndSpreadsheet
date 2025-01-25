@@ -169,7 +169,7 @@ Public Class DLLOperationsManager(Of T_DoublyLinkedItem As IDoublyLinkedItem)
         ''
         ''Added 2/5/2024 thomas d.
         ''
-        Dim list As DLL_List_OfTControl_PLEASE_USE(Of T_DoublyLinkedItem)
+        Dim list As DLL_List_OfTControl_OBSELETE(Of T_DoublyLinkedItem)
         list = mod_list
 
         Select Case True
