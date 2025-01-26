@@ -32,7 +32,7 @@ Public Class DLLUserControlTextbox
     ''
     ''Added 1/24/2025 td
     ''
-    Public DLL As DLLItem_Of(Of DLLUserControlTextbox)
+    Public DLL As DLLItemManager(Of DLLUserControlTextbox)
 
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
     Friend mod_next_priorSortOrder As DLLUserControlTextbox ''Added 12/12/2024 TD
@@ -56,7 +56,7 @@ Public Class DLLUserControlTextbox
         TextBox1.Text = "01" ''---par_twoChars
 
         ''Added 1/24/2025 td
-        DLL = New DLLItem_Of(Of DLLUserControlTextbox)(Me)
+        DLL = New DLLItemManager(Of DLLUserControlTextbox)(Me)
 
     End Sub
 
@@ -213,35 +213,40 @@ Public Class DLLUserControlTextbox
 
     Public Sub DLL_ClearReferenceNext(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferenceNext
         ''Throw New NotImplementedException()
-        mod_next = Nothing
+        ''mod_next = Nothing
+        DLL.DLL_ClearReferencePrior(par_typeOp)
 
     End Sub ''End of ""Public Sub DLL_ClearReferenceNext(...)""
 
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''Throw New NotImplementedException()
-        Return (mod_next Is Nothing)
+        ''Return (mod_next Is Nothing)
+        Return DLL_NotAnyNext()
 
     End Function ''End of ""Public Function DLL_NotAnyNext()""
 
 
     Public Function DLL_NotAnyPrior() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyPrior
         ''Throw New NotImplementedException()
-        Return (mod_prior Is Nothing)
+        ''Return (mod_prior Is Nothing)
+        Return DLL.DLL_NotAnyPrior()
 
     End Function ''End of ""Public Function DLL_NotAnyPrior()""
 
 
     Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext
         ''Throw New NotImplementedException()
-        Return (mod_next IsNot Nothing)
+        ''Return (mod_next IsNot Nothing)
+        Return DLL.DLL_HasNext()
 
     End Function ''End of ""Public Function DLL_HasNext()""
 
 
     Public Function DLL_HasPrior() As Boolean Implements IDoublyLinkedItem.DLL_HasPrior
         ''Throw New NotImplementedException()
-        Return (mod_prior IsNot Nothing)
+        ''Return (mod_prior IsNot Nothing)
+        Return DLL.DLL_HasPrior()
 
     End Function ''End of ""Public Function DLL_HasPrior()""
 
@@ -250,9 +255,9 @@ Public Class DLLUserControlTextbox
            Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
 
-        If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
-
-        Return mod_next
+        ''If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
+        ''Return mod_next
+        Return DLL.DLL_GetItemNext_OfT()
 
     End Function ''End of ""Public Function DLL_GetItemNext_OfT()""
 
@@ -260,11 +265,11 @@ Public Class DLLUserControlTextbox
     ''Public Function DLL_GetItemNext() As IDoublyLinkedItem _
     ''       Implements IDoublyLinkedItem.DLL_GetItemNext
     ''    ''Throw New NotImplementedException()
-
+    ''
     ''    If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
-
+    ''
     ''    Return mod_next
-
+    ''
     ''End Function ''End of ""Public Function DLL_GetItemNext()""
 
 
@@ -272,9 +277,9 @@ Public Class DLLUserControlTextbox
            Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
-        If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
-
-        Return mod_next
+        ''If (mod_next Is Me) Then System.Diagnostics.Debugger.Break()
+        ''Return mod_next
+        Return DLL.DLL_GetItemNext()
 
     End Function ''End of ""Public Function DLL_GetItemNext()""
 
@@ -283,16 +288,18 @@ Public Class DLLUserControlTextbox
            Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemNext_OfT
         ''Throw New NotImplementedException()
 
-        Dim tempNext As DLLUserControlTextbox = mod_next
-        If (param_iterationsOfNext > 1) Then
-            For index = 2 To param_iterationsOfNext
-                If (tempNext Is Nothing) Then Exit For ''12/9/2024 Debugger.Break() ''12/31/2023
-                tempNext = tempNext.mod_next
-            Next index
-        End If ''End of ""If (param_iterationsOfNext > 1) Then""
-        If (param_iterationsOfNext = 0) Then Return Me
-        If (param_iterationsOfNext = 1) Then Return mod_next
-        Return tempNext
+        ''Dim tempNext As DLLUserControlTextbox = mod_next
+        ''If (param_iterationsOfNext > 1) Then
+        ''    For index = 2 To param_iterationsOfNext
+        ''        If (tempNext Is Nothing) Then Exit For ''12/9/2024 Debugger.Break() ''12/31/2023
+        ''        tempNext = tempNext.mod_next
+        ''    Next index
+        ''End If ''End of ""If (param_iterationsOfNext > 1) Then""
+        ''If (param_iterationsOfNext = 0) Then Return Me
+        ''If (param_iterationsOfNext = 1) Then Return mod_next
+        ''Return tempNext
+
+        DLL.DLL_GetItemNext_OfT(param_iterationsOfNext)
 
     End Function ''Endof ""Public Function DLL_GetItemNext_OfT""
 
@@ -301,18 +308,20 @@ Public Class DLLUserControlTextbox
            Implements IDoublyLinkedItem.DLL_GetItemNext
         ''Throw New NotImplementedException()
 
-        Dim tempNext As DLLUserControlTextbox = mod_next
-        If (param_iterationsOfNext > 1) Then
-            For index = 2 To param_iterationsOfNext
-                If (tempNext Is Nothing) Then Debugger.Break() ''12/31/2023
-                tempNext = tempNext.mod_next
-            Next index
-        End If ''End of ""If (param_iterationsOfNext > 1) Then""
-        If (param_iterationsOfNext = 0) Then Return Me
-        If (param_iterationsOfNext = 1) Then Return mod_next
-        Return tempNext
+        ''Dim tempNext As DLLUserControlTextbox = mod_next
+        ''If (param_iterationsOfNext > 1) Then
+        ''    For index = 2 To param_iterationsOfNext
+        ''        If (tempNext Is Nothing) Then Debugger.Break() ''12/31/2023
+        ''        tempNext = tempNext.mod_next
+        ''    Next index
+        ''End If ''End of ""If (param_iterationsOfNext > 1) Then""
+        ''If (param_iterationsOfNext = 0) Then Return Me
+        ''If (param_iterationsOfNext = 1) Then Return mod_next
+        ''Return tempNext
 
-    End Function ''Endof ""Public Function DLL_GetItemNext""
+        Return DLL.DLL_GetItemNext(param_iterationsOfNext)
+
+    End Function ''End of ""Public Function DLL_GetItemNext""
 
 
     ''' <summary>
@@ -331,15 +340,17 @@ Public Class DLLUserControlTextbox
         ''  we get the first post-range item.
         ''                  ---12/30/2023 tdownes
         ''12/2023 Return DLL_GetItemNext(param_rangeSize)
-        Dim result As IDoublyLinkedItem
-        result = DLL_GetItemNext(param_rangeSize)
+        ''Dim result As IDoublyLinkedItem
+        ''result = DLL_GetItemNext(param_rangeSize)
+        ''
+        ''''Check for Nulls!
+        ''If ((Not param_mayBeNull) AndAlso result Is Nothing) Then
+        ''    Debugger.Break()
+        ''End If
+        ''
+        ''Return result
 
-        ''Check for Nulls!
-        If ((Not param_mayBeNull) AndAlso result Is Nothing) Then
-            Debugger.Break()
-        End If
-
-        Return result
+        Return DLL.DLL_GetNextItemFollowingRange_OfT(param_rangeSize, param_mayBeNull)
 
     End Function ''DLL_GetNextItemFollowingRange
 
@@ -349,8 +360,9 @@ Public Class DLLUserControlTextbox
 
         ''Throw New NotImplementedException()
 
-        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
-        Return mod_prior
+        ''If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+        ''Return mod_prior
+        DLL.DLL_GetItemPrior()
 
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
@@ -360,8 +372,9 @@ Public Class DLLUserControlTextbox
 
         ''Throw New NotImplementedException()
 
-        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
-        Return mod_prior
+        ''If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+        ''Return mod_prior
+        DLL.DLL_GetItemPrior(param_iterationsOfPrior)
 
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
@@ -371,8 +384,10 @@ Public Class DLLUserControlTextbox
 
         ''Throw New NotImplementedException()
 
-        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
-        Return mod_prior
+        ''If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+        ''Return mod_prior
+
+        Return DLL.DLL_GetItemPrior_OfT()
 
     End Function ''End of ""Public Function DLL_GetItemPrior_OfT()""
 
@@ -381,19 +396,21 @@ Public Class DLLUserControlTextbox
           Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemPrior_OfT
 
         ''Throw New NotImplementedException()
-        If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+        ''If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
+        ''
+        ''Dim tempPrior As DLLUserControlTextbox = mod_prior
+        ''
+        ''If (param_iterationsOfPrior > 1) Then
+        ''    For index = 2 To param_iterationsOfPrior
+        ''        tempPrior = tempPrior.mod_prior
+        ''    Next index
+        ''End If
+        ''If (param_iterationsOfPrior = 0) Then Return Me
+        ''Return tempPrior
+        ''
+        ''Return mod_prior
 
-        Dim tempPrior As DLLUserControlTextbox = mod_prior
-
-        If (param_iterationsOfPrior > 1) Then
-            For index = 2 To param_iterationsOfPrior
-                tempPrior = tempPrior.mod_prior
-            Next index
-        End If
-        If (param_iterationsOfPrior = 0) Then Return Me
-        Return tempPrior
-
-        Return mod_prior
+        Return DLL.DLL_GetItemPrior_OfT(param_iterationsOfPrior)
 
     End Function ''End of ""Public Function DLL_GetItemPrior_OfT()""
 
@@ -456,7 +473,8 @@ Public Class DLLUserControlTextbox
     Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
 
         ''Throw New NotImplementedException()
-        Return ((mod_next Is Nothing) Or (mod_prior Is Nothing))
+        ''Return ((mod_next Is Nothing) Or (mod_prior Is Nothing))
+        Return DLL.DLL_IsEitherEndpoint()
 
     End Function
 
@@ -568,12 +586,12 @@ Public Class DLLUserControlTextbox
         ''
         ''Added 11/18/2024  
         ''
-        Dim bLocated As Boolean
-        Dim result As Integer
-
-        result = DLL_GetDistanceTo(paramItem, bLocated)
-        If (Not bLocated) Then System.Diagnostics.Debugger.Break()
-        Return result
+        ''Jan24 2025 Dim bLocated As Boolean
+        ''Jan24 2025 Dim result As Integer
+        ''Jan24 2025         ''result = DLL_GetDistanceTo(paramItem, bLocated)
+        ''Jan24 2025 If (Not bLocated) Then System.Diagnostics.Debugger.Break()
+        ''Jan24 2025 Return result
+        Return DLL.DLL_GetDistanceTo(paramItem)
 
     End Function ''ENd of ""Public Function DLL_GetDistanceTo(paramItem As UserControlTextbox)""
 
@@ -582,79 +600,81 @@ Public Class DLLUserControlTextbox
         ''
         '' Added "ByRef pbLocated As Boolean" on 11/18/2024
         ''
+        Return DLL.DLL_GetDistanceTo(paramItem, pbLocatedItem)
+
         ''---Throw New NotImplementedException()
-        Dim tempItem As DLLUserControlTextbox = Me
-        Dim int_resultDistance As Integer = 0
-        Dim b_resultFoundItem As Boolean = False
-        Const LOOP_LIMIT As Integer = 2000
-        pbLocatedItem = False ''Default value. 
+        ''Dim tempItem As DLLUserControlTextbox = Me
+        ''Dim int_resultDistance As Integer = 0
+        ''Dim b_resultFoundItem As Boolean = False
+        ''Const LOOP_LIMIT As Integer = 2000
+        ''pbLocatedItem = False ''Default value. 
 
-        ''
-        '' Part 1 of 2.  Go forward (NOT backward). 
-        '' 
-        Do
-            If (tempItem Is paramItem) Then
+        ''''
+        '''' Part 1 of 2.  Go forward (NOT backward). 
+        '''' 
+        ''Do
+        ''    If (tempItem Is paramItem) Then
 
-                ''Return resultDistance
-                b_resultFoundItem = True
-                pbLocatedItem = True
-                Exit Do
+        ''        ''Return resultDistance
+        ''        b_resultFoundItem = True
+        ''        pbLocatedItem = True
+        ''        Exit Do
 
-            ElseIf (tempItem.DLL_HasNext()) Then
-                tempItem = tempItem.DLL_GetItemNext_OfT()
-                int_resultDistance += 1
-            Else
-                ''
-                ''The function DLL_HasNext() has returned a False, 
-                ''   indicating the end of the list is here. 
-                ''
-                ''Exit Do
-                ''Return -1
-                ''Throw New RSCEndpointException("We have searched to the end of the DLL list.")
-                If (int_resultDistance > LOOP_LIMIT) Then
-                    System.Diagnostics.Debugger.Break()
-                End If
-                Exit Do
+        ''    ElseIf (tempItem.DLL_HasNext()) Then
+        ''        tempItem = tempItem.DLL_GetItemNext_OfT()
+        ''        int_resultDistance += 1
+        ''    Else
+        ''        ''
+        ''        ''The function DLL_HasNext() has returned a False, 
+        ''        ''   indicating the end of the list is here. 
+        ''        ''
+        ''        ''Exit Do
+        ''        ''Return -1
+        ''        ''Throw New RSCEndpointException("We have searched to the end of the DLL list.")
+        ''        If (int_resultDistance > LOOP_LIMIT) Then
+        ''            System.Diagnostics.Debugger.Break()
+        ''        End If
+        ''        Exit Do
 
-            End If ''ENd of ""If (tempItem Is paramItem) Then""
+        ''    End If ''ENd of ""If (tempItem Is paramItem) Then""
 
-        Loop ''Look for "Exit Do" to break out of infinite loop. 
+        ''Loop ''Look for "Exit Do" to break out of infinite loop. 
 
-        ''
-        '' Part 2 of 2.  Go backward (NOT forward). 
-        '' 
-        If (b_resultFoundItem) Then
-            ''
-            ''We don't have to do Part 2 of 2 - Going backward.
-            ''
-        Else
-            ''
-            ''Go backward. 
-            ''
-            int_resultDistance = 0 ''Restore default value 
-            Do
-                If (tempItem Is paramItem) Then
-                    Return int_resultDistance
-                ElseIf (tempItem.DLL_HasPrior()) Then
-                    tempItem = tempItem.DLL_GetItemPrior_OfT()
-                    int_resultDistance -= 1
-                Else
-                    ''
-                    ''The function DLL_HasPrior() has returned a False, 
-                    ''   indicating the very start of the list is here. 
-                    ''
-                    ''---Exit Do
-                    ''---Return -1
-                    ''---Throw New RSCEndpointException("We have searched to the end of the DLL list.")
-                    Exit Do
-                End If ''ENd of ""If (tempItem Is paramItem) Then... ElseIf... Else..."
-            Loop ''Look for "Exit Do" to break out of infinite loop. 
-        End If
+        ''''
+        '''' Part 2 of 2.  Go backward (NOT forward). 
+        '''' 
+        ''If (b_resultFoundItem) Then
+        ''    ''
+        ''    ''We don't have to do Part 2 of 2 - Going backward.
+        ''    ''
+        ''Else
+        ''    ''
+        ''    ''Go backward. 
+        ''    ''
+        ''    int_resultDistance = 0 ''Restore default value 
+        ''    Do
+        ''        If (tempItem Is paramItem) Then
+        ''            Return int_resultDistance
+        ''        ElseIf (tempItem.DLL_HasPrior()) Then
+        ''            tempItem = tempItem.DLL_GetItemPrior_OfT()
+        ''            int_resultDistance -= 1
+        ''        Else
+        ''            ''
+        ''            ''The function DLL_HasPrior() has returned a False, 
+        ''            ''   indicating the very start of the list is here. 
+        ''            ''
+        ''            ''---Exit Do
+        ''            ''---Return -1
+        ''            ''---Throw New RSCEndpointException("We have searched to the end of the DLL list.")
+        ''            Exit Do
+        ''        End If ''ENd of ""If (tempItem Is paramItem) Then... ElseIf... Else..."
+        ''    Loop ''Look for "Exit Do" to break out of infinite loop. 
+        ''End If
 
-        ''Added 11/18/2024 
-        pbLocatedItem = b_resultFoundItem ''Added 11/18/2024 
+        ''''Added 11/18/2024 
+        ''pbLocatedItem = b_resultFoundItem ''Added 11/18/2024 
 
-        Return int_resultDistance
+        ''Return int_resultDistance
 
     End Function ''End of Public Function DLL_GetDistanceTo 
 
@@ -733,21 +753,21 @@ Public Class DLLUserControlTextbox
         '' This will take some weight off, from DLL_List(Of TControl). 
         ''
         ''Throw New NotImplementedException()
-        If (param Is Me) Then System.Diagnostics.Debugger.Break()
-        If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
-        ''Test the level of awareness of the calling procedure. 
-        If (Not pbDoubleLink) Then System.Diagnostics.Debugger.Break()
+        ''If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        ''If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
+        ''''Test the level of awareness of the calling procedure. 
+        ''If (Not pbDoubleLink) Then System.Diagnostics.Debugger.Break()
+        ''If (mod_next IsNot Nothing) Then
+        ''    mod_next.DLL_SetItemPrior_OfT(param)
+        ''    param.DLL_SetItemNext_OfT(mod_next)
+        ''End If ''End of ""If (mod_next IsNot Nothing) Then""
+        ''''
+        ''''Exiting procedure. 
+        ''''
+        ''mod_next = param
+        ''param.DLL_SetItemPrior_OfT(Me)
 
-        If (mod_next IsNot Nothing) Then
-            mod_next.DLL_SetItemPrior_OfT(param)
-            param.DLL_SetItemNext_OfT(mod_next)
-        End If ''End of ""If (mod_next IsNot Nothing) Then""
-
-        ''
-        ''Exiting procedure. 
-        ''
-        mod_next = param
-        param.DLL_SetItemPrior_OfT(Me)
+        DLL.DLL_InsertItemToNext(param, pbDoubleLink)
 
     End Sub ''End of ""Public Sub DLL_InsertItemToNext(...)""
 
@@ -758,29 +778,31 @@ Public Class DLLUserControlTextbox
         ''
         '' This will take some weight off, from DLL_List(Of TControl). 
         ''
-        ''Throw New NotImplementedException()
-        If (param Is Me) Then System.Diagnostics.Debugger.Break()
-        If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
-        If (pbSetDoubleLink) Then
-            ''
-            ''Yes, the programmer knows what he or she is doing. ---10/17/2025
-            ''
-        Else
-            ''This is a test of the calling procedure.  
-            ''  The calling procedure has failed the test. 
-            System.Diagnostics.Debugger.Break()
-        End If ''End of "If (pbSetDoubleLink) Then... Else..."
+        ''''Throw New NotImplementedException()
+        ''If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        ''If (param Is Nothing) Then System.Diagnostics.Debugger.Break()
+        ''If (pbSetDoubleLink) Then
+        ''    ''
+        ''    ''Yes, the programmer knows what he or she is doing. ---10/17/2025
+        ''    ''
+        ''Else
+        ''    ''This is a test of the calling procedure.  
+        ''    ''  The calling procedure has failed the test. 
+        ''    System.Diagnostics.Debugger.Break()
+        ''End If ''End of "If (pbSetDoubleLink) Then... Else..."
 
-        If (mod_prior IsNot Nothing) Then
-            mod_prior.DLL_SetItemNext_OfT(param)
-            param.DLL_SetItemPrior_OfT(mod_prior)
-        End If ''End of ""If (mod_prior IsNot Nothing) Then""
+        ''If (mod_prior IsNot Nothing) Then
+        ''    mod_prior.DLL_SetItemNext_OfT(param)
+        ''    param.DLL_SetItemPrior_OfT(mod_prior)
+        ''End If ''End of ""If (mod_prior IsNot Nothing) Then""
 
-        ''
-        ''Exiting procedure. 
-        ''
-        mod_prior = param
-        param.DLL_SetItemNext_OfT(Me)
+        ''''
+        ''''Exiting procedure. 
+        ''''
+        ''mod_prior = param
+        ''param.DLL_SetItemNext_OfT(Me)
+
+        DLL.DLL_InsertItemToPrior(param, pbSetDoubleLink)
 
     End Sub ''End of ""Public Sub DLL_InsertItemToPrior(...)""
 
@@ -803,66 +825,70 @@ Public Class DLLUserControlTextbox
     Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_SaveCurrentSortOrder_ToPrior
 
         ''Added 12/ 29/2024 
-        Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
+        'Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
 
-        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
-        mod_next_priorSortOrder = mod_next
+        '''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        ''mod_next_priorSortOrder = mod_next
 
         ''Added 12/12/2024  
         ''
         ''   Execute in cascade (recursively), if requested.
         ''   
-        If (pbExecuteInCascade) Then mod_next?.DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade)
+        ''If (pbExecuteInCascade) Then mod_next?.DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade)
+
+        DLL.DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade)
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
 
     Public Sub DLL_RestorePriorSortOrder(par_countdownItems As Integer) Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_RestorePriorSortOrder
 
-        ''Added 12/29/2024 
-        Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
-        Dim preRestoration_next As DLLUserControlTextbox = mod_next ''Added 12/29/2024 thomas d.
-        Dim bNotDoneYet As Boolean ''Added 12/29/2024 thomas d.
+        ''''Added 12/29/2024 
+        ''Dim strThisItem As String = Me.DLL_GetValue() ''This may help in the debugging process.
+        ''Dim preRestoration_next As DLLUserControlTextbox = mod_next ''Added 12/29/2024 thomas d.
+        ''Dim bNotDoneYet As Boolean ''Added 12/29/2024 thomas d.
 
-        ''Added 12/29/2024 thomas d.
-        preRestoration_next = mod_next ''Added 12/29/2024 thomas d.
-        par_countdownItems -= 1 ''Added 12/29/2024 thomas d.
-        If (mod_next_priorSortOrder Is Nothing) Then
-            bNotDoneYet = (par_countdownItems > 0)
-            If (bNotDoneYet) Then
-                ''The programmer should check why this is happening.
-                System.Diagnostics.Debugger.Break()
-            End If ''End of ""If (bNotDoneYet) Then""
-        End If ''End of ""If (mod_next_priorSortOrder Is Nothing) Then""
+        DLL.DLL_RestorePriorSortOrder(par_countdownItems)
 
-        ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
-        mod_next = mod_next_priorSortOrder
-
-        ''DIFFICULT AND CONFUSING -- Added 12/29/2024
-        ''  Make the connection bidirectional (doubly-linked).--12/29/2024 thom.down.
-        ''See below. --12/29/2024  mod_next.mod_prior = Me ''Added 12/29/2024
-
-        ''Added 12/12/2024
-        ''   Execute in cascade. 
-        ''====Modified 12/29/2024
-        ''===mod_next?.DLL_RestorePriorSortOrder()
-
-        Try
-            If (mod_next IsNot Nothing) Then
-                ''Added 12/29/2024 thomas d.
-                ''DIFFICULT AND CONFUSING -- Added 12/29/2024
-                ''  Make the connection bidirectional (doubly-linked).--12/29/2024 thom.down.
-                mod_next.mod_prior = Me ''Added 12/29/2024
-                preRestoration_next.DLL_RestorePriorSortOrder(par_countdownItems)
-
-            Else
-                ''Do nothing.
-            End If ''End of ""If (preRestoration_next IsNot Nothing) Then ... Else""
-
-        Catch par_ex As System.NullReferenceException
-            ''Do nothing. 
-            ''       ---12/29/2024 td
-        End Try
+        ''''Added 12/29/2024 thomas d.
+        ''preRestoration_next = mod_next ''Added 12/29/2024 thomas d.
+        ''par_countdownItems -= 1 ''Added 12/29/2024 thomas d.
+        ''If (mod_next_priorSortOrder Is Nothing) Then
+        ''    bNotDoneYet = (par_countdownItems > 0)
+        ''    If (bNotDoneYet) Then
+        ''        ''The programmer should check why this is happening.
+        ''        System.Diagnostics.Debugger.Break()
+        ''    End If ''End of ""If (bNotDoneYet) Then""
+        ''End If ''End of ""If (mod_next_priorSortOrder Is Nothing) Then""
+        ''
+        ''''DIFFICULT AND CONFUSING -- Added 12/12/2024 
+        ''mod_next = mod_next_priorSortOrder
+        ''
+        ''''DIFFICULT AND CONFUSING -- Added 12/29/2024
+        ''''  Make the connection bidirectional (doubly-linked).--12/29/2024 thom.down.
+        ''''See below. --12/29/2024  mod_next.mod_prior = Me ''Added 12/29/2024
+        ''
+        ''''Added 12/12/2024
+        ''''   Execute in cascade. 
+        ''''====Modified 12/29/2024
+        ''''===mod_next?.DLL_RestorePriorSortOrder()
+        ''
+        ''Try
+        ''    If (mod_next IsNot Nothing) Then
+        ''        ''Added 12/29/2024 thomas d.
+        ''        ''DIFFICULT AND CONFUSING -- Added 12/29/2024
+        ''        ''  Make the connection bidirectional (doubly-linked).--12/29/2024 thom.down.
+        ''        mod_next.mod_prior = Me ''Added 12/29/2024
+        ''        preRestoration_next.DLL_RestorePriorSortOrder(par_countdownItems)
+        ''
+        ''    Else
+        ''        ''Do nothing.
+        ''    End If ''End of ""If (preRestoration_next IsNot Nothing) Then ... Else""
+        ''
+        ''Catch par_ex As System.NullReferenceException
+        ''    ''Do nothing. 
+        ''    ''       ---12/29/2024 td
+        ''End Try
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 
@@ -870,13 +896,15 @@ Public Class DLLUserControlTextbox
     Public Sub DLL_ClearPriorSortOrder(pbExecuteInCascade As Boolean) Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_ClearPriorSortOrder
 
         ''DIFFICULT AND CONFUSING -- Added 12/12/2024 
-        mod_next_priorSortOrder = Nothing
+        ''mod_next_priorSortOrder = Nothing
 
-        ''Added 12/12/2024
-        ''
-        ''   Execute in cascade (recursively), if requested.
-        ''   
-        If (pbExecuteInCascade) Then mod_next?.DLL_ClearPriorSortOrder(pbExecuteInCascade)
+        ''''Added 12/12/2024
+        ''''
+        ''''   Execute in cascade (recursively), if requested.
+        ''''   
+        ''If (pbExecuteInCascade) Then mod_next?.DLL_ClearPriorSortOrder(pbExecuteInCascade)
+
+        DLL.DLL_ClearPriorSortOrder(pbExecuteInCascade)
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior()""
 

@@ -11,11 +11,11 @@ using ciBadgeInterfaces;
 namespace RSCLibraryDLLOperations
 {
     // Added 1/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
-    public class DLLItem_Of<TControl> // : ciBadgeInterfaces.IDoublyLinkedItem<TControl>
+    public class DLLItemManager<TControl> // : ciBadgeInterfaces.IDoublyLinkedItem<TControl>
         where TControl : class, ciBadgeInterfaces.IDoublyLinkedItem<TControl>
     {
         // 
-        // Added `1/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
+        // Added 01/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
         //
         /// <summary>
         /// This won't be in use, as this is an operation vs. a list item. --2/27/2024
@@ -44,12 +44,12 @@ namespace RSCLibraryDLLOperations
         //private char mod_char2;
 
 
-        public DLLItem_Of(TControl par_currentmod_current)
+        public DLLItemManager(TControl par_currentMod_current)
         {
             //
             // Added 1/24/2025
             //
-            mod_current = par_currentmod_current;
+            mod_current = par_currentMod_current;
         }
 
 
