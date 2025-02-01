@@ -36,25 +36,40 @@ namespace RSCLibraryDLLOperations
             SortingAscending = false;
             SortingDescending = false;
             IsUndoOfSort = false;
+            // Added 2/01/2025 
+            IsInsert_IgnoreRange = false; 
+            IsMoveOrDelete_UseRangeIndices = false;
         }
 
         public bool IsInsert;
         public bool IsDelete;
         public bool IsMove;
 
+        //---------------------------------------------------------
+        //---------------- DIFFICULT AND CONFUSING ----------------
+        // Added 2/01/2025 
+        public bool IsInsert_IgnoreRangeIndices;  // Are NOT range indices applicable? 
+        public int IsInsert_InsertionCount; // How many items to insert?
+        public bool IsMoveOrDelete_UseRangeIndices;  // Is the range indices applicable?
+        //---------------------------------------------------------
+
         public StructureTypeOfMove TypeOfMove;
 
         /// <summary>
-        /// This index is 1-based.  (Not zero-based.)
+        /// Index is relevant to Moves & Deletes only!! This index is 1-based.  (Not zero-based.)
         /// </summary>
         public int RangeStartingIndex_b1;
         /// <summary>
-        /// This index is 1-based.  (Not zero-based.)
+        /// Index is relevant to Moves & Deletes only!! This index is 1-based.  (Not zero-based.)
         /// </summary>
         public int RangeEndingIndex_b1;
-        public int RangeSize;
 
-        public bool RangeIsSpecified;  // Added 1/12/2025 thomas downes
+        // public int RangeSize; // This is not used for Inserts. 
+        public int RangeSize_MoveOrDelete; // This is used for Deletes Or Moves. 
+        public int RangeSize_Inserts; // This is not used for Inserts.
+
+        // public bool RangeIsSpecified;  // Added 1/12/2025 thomas downes
+        public bool RangeIsSpecified_MoveOrDelete;  // Added 1/12/2025 thomas downes
         public bool AnchorIsSpecified;
 
         /// <summary>

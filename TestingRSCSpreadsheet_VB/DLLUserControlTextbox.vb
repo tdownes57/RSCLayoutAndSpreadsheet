@@ -52,18 +52,27 @@ Public Class DLLUserControlTextbox
 
     Public Sub New() ''// , par_prior As TwoCharacterDLLItem)
 
+        ''Added 2/01/2025 thomas downes 
+        InitializeComponent()
+
         ''Added 1/21/2025 thomas downes 
         TextBox1.Text = "01" ''---par_twoChars
 
         ''Added 1/24/2025 td
-        DLL = New DLLItemManager(Of DLLUserControlTextbox)(Me)
+        Me.DLL = New DLLItemManager(Of DLLUserControlTextbox)(Me)
 
     End Sub
 
     Public Sub New(par_twoChars As String) ''// , par_prior As TwoCharacterDLLItem)
 
+        ''Added 2/01/2025 thomas downes 
+        InitializeComponent()
+
         ''Added 1/21/2025 thomas downes 
         TextBox1.Text = par_twoChars
+
+        ''Added 1/24/2025 td
+        Me.DLL = New DLLItemManager(Of DLLUserControlTextbox)(Me)
 
     End Sub
 

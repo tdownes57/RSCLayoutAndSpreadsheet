@@ -114,7 +114,9 @@ Public Class TwoCharacterDLLVerticalA
     End Function
 
     Public Overloads Function DLL_GetNextItemFollowingRange_OfT(param_rangeSize As Integer, param_mayBeNull As Boolean) As TwoCharacterDLLVerticalA Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetNextItemFollowingRange_OfT
-        Throw New NotImplementedException()
+        ''Throw New NotImplementedException()
+        Return MyBase.DLL_GetNextItemFollowingRange_OfT(param_rangeSize, param_mayBeNull)
+
     End Function
 
 

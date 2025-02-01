@@ -2,6 +2,7 @@
 ''Added 1/19/2025 
 ''
 Imports ciBadgeInterfaces
+Imports RSCLibraryDLLOperations
 
 Public Class DLLUserControlRichbox
     Implements IDoublyLinkedItem(Of DLLUserControlRichbox)
@@ -31,6 +32,11 @@ Public Class DLLUserControlRichbox
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
     Friend mod_next_priorSortOrder As DLLUserControlRichbox ''Added 12/12/2024 TD
 
+    ''
+    ''Added 1/24/2025 td
+    ''
+    ''Not in use yet. 2/01/2025  Public DLL As DLLItemManager(Of DLLUserControlTextbox)
+
 
     Public Overrides Property Text() As String
         Get
@@ -45,15 +51,27 @@ Public Class DLLUserControlRichbox
 
     Public Sub New() ''// , par_prior As TwoCharacterDLLItem)
 
+        ''Added 2/01/2025 td
+        InitializeComponent()
+
         ''Added 1/21/2025 thomas downes 
         TextBox1.Text = "01" ''---par_twoChars
+
+        ''Added 1/24/2025 td
+        ''Not in use yet. 2/01/2025 DLL = New DLLItemManager(Of DLLUserControlTextbox)(Me)
 
     End Sub
 
     Public Sub New(par_twoChars As String) ''// , par_prior As TwoCharacterDLLItem)
 
+        ''Added 2/01/2025 thomas downes 
+        InitializeComponent()
+
         ''Added 1/21/2025 thomas downes 
         TextBox1.Text = par_twoChars
+
+        ''Added 1/24/2025 td
+        ''Not in use yet. 2/01/2025 DLL = New DLLItemManager(Of DLLUserControlTextbox)(Me)
 
     End Sub
 

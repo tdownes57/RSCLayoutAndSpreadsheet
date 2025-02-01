@@ -1147,19 +1147,55 @@ namespace RSCLibraryDLLOperations
             result_struct.Sorting = _isSort_Ascending || _isSort_Descending;
             result_struct.TypeOfMove = _moveType;
             
-            if (_range != null)
+            //
+            // Be careful of Null values!!
+            //
+            if (_isInsert) //Added 2/01/2025 thomas downes
             {
-                result_struct.RangeIsSpecified = true;
-                result_struct.RangeStartingIndex_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
-                result_struct.RangeEndingIndex_b1 = _range.Item__End().DLL_GetItemIndex_b1();
-                result_struct.RangeSize = _range.GetItemCount();
+                // Added 2/01/2025 td
+                result_struct.Range_IgnoreIndices = true;
+                result_struct.RangeSize_IsInsert = true; 
+                result_struct.RangeSize_ToInsert =  
             }
 
+            //
+            // Be careful of Null values!!
+            //
+            else if (_range != null)
+            {
+                result_struct.Range_IsSpecified = true;
+                result_struct.RangeIndex_Starting_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
+                result_struct.RangeIndex_Ending___b1 = _range.Item__End().DLL_GetItemIndex_b1();
+                result_struct.RangeSize_ToMoveOrDelete = _range.GetItemCount();
+
+            }
+
+            //
+            // Be careful of Null values!!
+            //
             if (_anchorCouplet != null)
             {
                 result_struct.AnchorIsSpecified = true; 
-                result_struct.AnchorIndexLeft_b1 = _anchorCouplet.GetItemLeftOrFirst().DLL_GetItemIndex_b1();
-                result_struct.AnchorIndexRight_b1 = _anchorCouplet.GetItemRightOrSecond().DLL_GetItemIndex_b1();
+                //result_struct.AnchorIndexLeft_b1 = _anchorCouplet.GetItemLeftOrFirst().DLL_GetItemIndex_b1();
+                //result_struct.AnchorIndexRight_b1 = _anchorCouplet.GetItemRightOrSecond().DLL_GetItemIndex_b1();
+
+                TControl? itemAnchorCouplet_Left = _anchorCouplet.GetItemLeftOrFirst();
+                TControl? itemAnchorCouplet_Right = _anchorCouplet.GetItemRightOrSecond();
+
+                // if (_anchorCouplet.ItemFirstIsPresent())
+                if (itemAnchorCouplet_Left != null)
+                {
+                    int indexOfLeftOrFirst = itemAnchorCouplet_Left.DLL_GetItemIndex_b1();
+                    result_struct.AnchorIndexLeft_b1 = indexOfLeftOrFirst; 
+                }
+
+                //if (_anchorCouplet.ItemSecondIsPresent())
+                if (itemAnchorCouplet_Right != null)
+                {
+                    int indexOfRightOrSecond = itemAnchorCouplet_Right.DLL_GetItemIndex_b1();
+                    result_struct.AnchorIndexRight_b1 = indexOfRightOrSecond;
+                }
+
             }
 
             return result_struct; 
