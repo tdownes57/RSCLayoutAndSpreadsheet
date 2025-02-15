@@ -462,21 +462,36 @@ Public Class DLLUserControlRichbox
         ''Added 12/26/2023
         ''July2024 Return mod_twoChars
         If (Me.DLL_HasNext()) Then
-            Return (Me.TextBox1.Text & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+
+            ''Feb15 2025 td''Return (Me.TextBox1.Text & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+            Dim strDescribeNext As String ''Added 2/2025 td
+            strDescribeNext = Me.DLL_GetItemNext_OfT().ToString(False)
+            Return (Me.TextBox1.Text & " followed by " & strDescribeNext)
+
         Else
             Return (Me.TextBox1.Text & " - No next item.")
-        End If
+
+        End If ''End of ""If (Me.DLL_HasNext()) Then... Else..."
 
     End Function ''Public Overrides Function ToString() As String
 
 
     Public Overloads Function ToString(pboolDescribeNext As Boolean) As String Implements IDoublyLinkedItem(Of DLLUserControlRichbox).ToString
-
+        ''
         ''Added 2/15/2025 
+        ''
         If (pboolDescribeNext) Then
+            ''
             ''Check to see if there's another item following.
+            ''
             If (Me.DLL_HasNext()) Then
-                Return (Me.TextBox1.Text & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+
+                ''2024 Return (mod_char1 + mod_char2)
+                ''Feb15 2025 td''Return (Me.TextBox1.Text & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+                Dim strDescribeNext As String ''Added 2/2025 td
+                strDescribeNext = Me.DLL_GetItemNext_OfT().ToString(False)
+                Return (Me.TextBox1.Text & " followed by " & strDescribeNext)
+
             Else
                 Return (Me.TextBox1.Text & " - No next item.")
             End If

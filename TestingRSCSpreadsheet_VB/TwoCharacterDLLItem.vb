@@ -458,7 +458,7 @@ Public Class TwoCharacterDLLItem
 
         ''Added 12/26/2023
         ''July2024 Return mod_twoChars
-        Return (mod_char1 + mod_char2)
+        ''Feb2025 td Return (mod_char1 + mod_char2)
 
         ''Added 2/15/2025 thomas
         If (Me.DLL_HasNext()) Then
