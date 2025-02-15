@@ -26,7 +26,10 @@ namespace RSCLibraryDLLOperations
             IsInsert = false;
             IsDelete = false;
             IsMove = false;
-            RangeIsSpecified = false;  // Added 1/12/2025 thom.as down.es
+
+            //2025 RangeIsSpecified = false;  // Added 1/12/2025 thom.as down.es
+            RangeIsSpecified_MoveOrDelete = false;  // Added 1/12/2025 thom.as down.es
+            
             AnchorIsSpecified = false; 
             AnchorIndexLeft_b1 = -1;
             AnchorIndexRight_b1 = -1;
@@ -37,8 +40,12 @@ namespace RSCLibraryDLLOperations
             SortingDescending = false;
             IsUndoOfSort = false;
             // Added 2/01/2025 
-            IsInsert_IgnoreRange = false; 
+            IsInsert_SoIgnoreRangeIndex = false;
             IsMoveOrDelete_UseRangeIndices = false;
+            // Added 2/14/2025 td
+            ArrayToUndoSort = [];  // Added 2/14/2025
+            IsInsert_SoMustCreateNewItems = false; //Added 2/14/2025 td
+
         }
 
         public bool IsInsert;
@@ -48,9 +55,12 @@ namespace RSCLibraryDLLOperations
         //---------------------------------------------------------
         //---------------- DIFFICULT AND CONFUSING ----------------
         // Added 2/01/2025 
-        public bool IsInsert_IgnoreRangeIndices;  // Are NOT range indices applicable? 
-        public int IsInsert_InsertionCount; // How many items to insert?
         public bool IsMoveOrDelete_UseRangeIndices;  // Is the range indices applicable?
+
+        public bool IsInsert_SoIgnoreRangeIndex;  // Are NOT range indices applicable? 
+        public int IsInsert_InsertionCount; // How many items to insert?
+        // Added 2/14/2025 
+        public bool IsInsert_SoMustCreateNewItems;  // Must new items be created from scratch? 
         //---------------------------------------------------------
 
         public StructureTypeOfMove TypeOfMove;
@@ -100,11 +110,33 @@ namespace RSCLibraryDLLOperations
             if (SortingAscending) return_string += "Sort Ascending \n";
             if (SortingDescending) return_string += "Sort Descending \n";
 
-            if (RangeIsSpecified) return_string += "Range: " + 
-                    RangeStartingIndex_b1.ToString() + " to " + 
+            //if (RangeIsSpecified) return_string += "Range: " +
+            if (RangeIsSpecified_MoveOrDelete)
+            {
+                return_string += "Range: " +
+                    RangeStartingIndex_b1.ToString() + " to " +
                     RangeEndingIndex_b1.ToString() + "\n";
 
-            if (RangeIsSpecified) return_string += "Range Size: " + RangeSize.ToString() + "\n";
+                //return_string += "Range Size: " + RangeSize.ToString() + "\n";
+                if (IsDelete)
+                {
+                    //return_string += "Range Size: " + RangeSize_MoveOrDelete.ToString() + "\n";
+                    return_string += "Range Size (for Del): " + RangeSize_MoveOrDelete.ToString() + "\n";
+                    return_string += "Range Index (for Del): " + RangeStartingIndex_b1.ToString() + "\n";
+                }
+                else if (IsMove)
+                {
+                    // Added 2/14/2025 
+                    return_string += "Range Size (for Move): " + RangeSize_MoveOrDelete.ToString() + "\n";
+                    return_string += "Range Index (for Move): " + RangeStartingIndex_b1.ToString() + "\n";
+                }
+
+            }
+            else if (IsInsert)
+            {
+                // Added 2/14/2025 
+                return_string += "Range Size (Insert): " + RangeSize_MoveOrDelete.ToString() + "\n";
+            }
 
             return return_string;
 

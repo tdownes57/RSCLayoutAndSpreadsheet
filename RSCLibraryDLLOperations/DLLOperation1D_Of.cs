@@ -386,7 +386,8 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_structure"></param>
         /// <param name="par_firstItemOfList"></param>
         /// <param name=""></param>
-        public DLLOperation1D(DLLOperationIndexStructure par_structure, TControl par_firstItemOfList)
+        public DLLOperation1D(DLLOperationIndexStructure par_structure, TControl par_firstItemOfList,
+                         DLLRange<TControl>? par_range = null)
         {
             //
             // Added 1/12/2025 thomas downes
@@ -404,12 +405,29 @@ namespace RSCLibraryDLLOperations
             _itemStart_SortOrderIfUndo = null; 
 
 
-            if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
+            //---if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
+            if (par_structure.RangeIsSpecified_MoveOrDelete) // || 0 < par_structure.RangeSize)
             {
                 TControl itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeStartingIndex_b1);
                 TControl itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeEndingIndex_b1);
                 _range = new DLLRange<TControl>(itemOfRangeFirst, itemOfRange_Last, 
-                    par_structure.RangeSize);
+                    par_structure.RangeSize_MoveOrDelete);
+            }
+
+            else if (par_structure.IsInsert)
+            {
+                //
+                // The application provide the newly-generated items,
+                //    arranged in sequential order to form a range. ---2/14/2025 td
+                //
+                if (par_structure.IsInsert_SoMustCreateNewItems)
+                {
+                    // The application provide the new items. ---2/14/2025 td
+                    //_range = new DLLRange<TControl>
+                    _range = par_range;
+                    if (par_range == null) System.Diagnostics.Debugger.Break();
+                }
+
             }
 
             if (par_structure.AnchorIsSpecified || 0 < par_structure.AnchorIndexLeft_b1)

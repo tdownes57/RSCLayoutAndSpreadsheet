@@ -1153,20 +1153,29 @@ namespace RSCLibraryDLLOperations
             if (_isInsert) //Added 2/01/2025 thomas downes
             {
                 // Added 2/01/2025 td
-                result_struct.Range_IgnoreIndices = true;
-                result_struct.RangeSize_IsInsert = true; 
-                result_struct.RangeSize_ToInsert =  
+                //---result_struct.Range_IgnoreIndices = true;
+                result_struct.IsInsert_SoIgnoreRangeIndex = true;
+                //---result_struct.RangeSize_IsInsert = true; 
+                result_struct.RangeSize_Inserts = _range.GetItemCount();
+                // Added  2/14/20225 
+                result_struct.IsInsert_SoMustCreateNewItems = true;
+
             }
 
             //
             // Be careful of Null values!!
             //
-            else if (_range != null)
+            //---else if (_range != null)
+            else if (_range != null && (_isMove || _isDelete))
             {
-                result_struct.Range_IsSpecified = true;
-                result_struct.RangeIndex_Starting_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
-                result_struct.RangeIndex_Ending___b1 = _range.Item__End().DLL_GetItemIndex_b1();
-                result_struct.RangeSize_ToMoveOrDelete = _range.GetItemCount();
+                //result_struct.Range_IsSpecified = true;
+                //result_struct.RangeIndex_Starting_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
+                //result_struct.RangeIndex_Ending___b1 = _range.Item__End().DLL_GetItemIndex_b1();
+                //result_struct.RangeSize_ToMoveOrDelete = _range.GetItemCount();
+                result_struct.RangeIsSpecified_MoveOrDelete = true;
+                result_struct.RangeStartingIndex_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
+                result_struct.RangeEndingIndex_b1 = _range.Item__End().DLL_GetItemIndex_b1();
+                result_struct.RangeSize_MoveOrDelete = _range.GetItemCount();
 
             }
 

@@ -65,19 +65,19 @@ Partial Class FormDemo1DVertical
         numInsertAnchorBenchmark = New NumericUpDown()
         LabelA_B1_B2 = New Label()
         LabelHeader1 = New Label()
-        FlowRowHeaders = New FlowLayoutPanel()
+        FlowColumnB1 = New FlowLayoutPanel()
         UserControlTextbox2 = New DLLUserControlTextbox()
         UserControlTextbox02 = New DLLUserControlTextbox()
         UserControlTextbox3 = New DLLUserControlTextbox()
-        FlowColumnB1 = New FlowLayoutPanel()
+        FlowColumnB2 = New FlowLayoutPanel()
         UserControlRichbox1 = New DLLUserControlRichbox()
         UserControlRichbox4 = New DLLUserControlRichbox()
         UserControlRichbox7 = New DLLUserControlRichbox()
-        FlowColumnB2 = New FlowLayoutPanel()
+        FlowColumnB98 = New FlowLayoutPanel()
         UserControlRichbox2 = New DLLUserControlRichbox()
         UserControlRichbox5 = New DLLUserControlRichbox()
         UserControlRichbox8 = New DLLUserControlRichbox()
-        FlowColumnB3 = New FlowLayoutPanel()
+        FlowColumnB99 = New FlowLayoutPanel()
         UserControlRichbox3 = New DLLUserControlRichbox()
         UserControlRichbox6 = New DLLUserControlRichbox()
         UserControlRichbox9 = New DLLUserControlRichbox()
@@ -95,10 +95,10 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
-        FlowRowHeaders.SuspendLayout()
         FlowColumnB1.SuspendLayout()
         FlowColumnB2.SuspendLayout()
-        FlowColumnB3.SuspendLayout()
+        FlowColumnB98.SuspendLayout()
+        FlowColumnB99.SuspendLayout()
         FlowRowNumbersOnly.SuspendLayout()
         SuspendLayout()
         ' 
@@ -530,17 +530,17 @@ Partial Class FormDemo1DVertical
         LabelHeader1.TabIndex = 148
         LabelHeader1.Text = "Vertical Header Column (A) with Parallel Lists (B1, B2, B3)"
         ' 
-        ' FlowRowHeaders
+        ' FlowColumnB1
         ' 
-        FlowRowHeaders.BackColor = SystemColors.ActiveCaption
-        FlowRowHeaders.BorderStyle = BorderStyle.FixedSingle
-        FlowRowHeaders.Controls.Add(UserControlTextbox2)
-        FlowRowHeaders.Controls.Add(UserControlTextbox02)
-        FlowRowHeaders.Controls.Add(UserControlTextbox3)
-        FlowRowHeaders.Location = New Point(67, 29)
-        FlowRowHeaders.Name = "FlowRowHeaders"
-        FlowRowHeaders.Size = New Size(29, 322)
-        FlowRowHeaders.TabIndex = 149
+        FlowColumnB1.BackColor = SystemColors.ActiveCaption
+        FlowColumnB1.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB1.Controls.Add(UserControlTextbox2)
+        FlowColumnB1.Controls.Add(UserControlTextbox02)
+        FlowColumnB1.Controls.Add(UserControlTextbox3)
+        FlowColumnB1.Location = New Point(67, 29)
+        FlowColumnB1.Name = "FlowColumnB1"
+        FlowColumnB1.Size = New Size(29, 322)
+        FlowColumnB1.TabIndex = 149
         ' 
         ' UserControlTextbox2
         ' 
@@ -578,17 +578,17 @@ Partial Class FormDemo1DVertical
         UserControlTextbox3.Size = New Size(22, 23)
         UserControlTextbox3.TabIndex = 156
         ' 
-        ' FlowColumnB1
+        ' FlowColumnB2
         ' 
-        FlowColumnB1.BackColor = SystemColors.ButtonFace
-        FlowColumnB1.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB1.Controls.Add(UserControlRichbox1)
-        FlowColumnB1.Controls.Add(UserControlRichbox4)
-        FlowColumnB1.Controls.Add(UserControlRichbox7)
-        FlowColumnB1.Location = New Point(102, 27)
-        FlowColumnB1.Name = "FlowColumnB1"
-        FlowColumnB1.Size = New Size(29, 322)
-        FlowColumnB1.TabIndex = 150
+        FlowColumnB2.BackColor = SystemColors.ButtonFace
+        FlowColumnB2.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB2.Controls.Add(UserControlRichbox1)
+        FlowColumnB2.Controls.Add(UserControlRichbox4)
+        FlowColumnB2.Controls.Add(UserControlRichbox7)
+        FlowColumnB2.Location = New Point(102, 27)
+        FlowColumnB2.Name = "FlowColumnB2"
+        FlowColumnB2.Size = New Size(29, 322)
+        FlowColumnB2.TabIndex = 150
         ' 
         ' UserControlRichbox1
         ' 
@@ -626,17 +626,17 @@ Partial Class FormDemo1DVertical
         UserControlRichbox7.Size = New Size(22, 23)
         UserControlRichbox7.TabIndex = 157
         ' 
-        ' FlowColumnB2
+        ' FlowColumnB98
         ' 
-        FlowColumnB2.BackColor = SystemColors.ButtonFace
-        FlowColumnB2.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB2.Controls.Add(UserControlRichbox2)
-        FlowColumnB2.Controls.Add(UserControlRichbox5)
-        FlowColumnB2.Controls.Add(UserControlRichbox8)
-        FlowColumnB2.Location = New Point(827, 18)
-        FlowColumnB2.Name = "FlowColumnB2"
-        FlowColumnB2.Size = New Size(29, 322)
-        FlowColumnB2.TabIndex = 151
+        FlowColumnB98.BackColor = SystemColors.ButtonFace
+        FlowColumnB98.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB98.Controls.Add(UserControlRichbox2)
+        FlowColumnB98.Controls.Add(UserControlRichbox5)
+        FlowColumnB98.Controls.Add(UserControlRichbox8)
+        FlowColumnB98.Location = New Point(827, 18)
+        FlowColumnB98.Name = "FlowColumnB98"
+        FlowColumnB98.Size = New Size(29, 322)
+        FlowColumnB98.TabIndex = 151
         ' 
         ' UserControlRichbox2
         ' 
@@ -674,17 +674,17 @@ Partial Class FormDemo1DVertical
         UserControlRichbox8.Size = New Size(22, 23)
         UserControlRichbox8.TabIndex = 158
         ' 
-        ' FlowColumnB3
+        ' FlowColumnB99
         ' 
-        FlowColumnB3.BackColor = SystemColors.ButtonFace
-        FlowColumnB3.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB3.Controls.Add(UserControlRichbox3)
-        FlowColumnB3.Controls.Add(UserControlRichbox6)
-        FlowColumnB3.Controls.Add(UserControlRichbox9)
-        FlowColumnB3.Location = New Point(862, 18)
-        FlowColumnB3.Name = "FlowColumnB3"
-        FlowColumnB3.Size = New Size(29, 322)
-        FlowColumnB3.TabIndex = 151
+        FlowColumnB99.BackColor = SystemColors.ButtonFace
+        FlowColumnB99.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB99.Controls.Add(UserControlRichbox3)
+        FlowColumnB99.Controls.Add(UserControlRichbox6)
+        FlowColumnB99.Controls.Add(UserControlRichbox9)
+        FlowColumnB99.Location = New Point(862, 18)
+        FlowColumnB99.Name = "FlowColumnB99"
+        FlowColumnB99.Size = New Size(29, 322)
+        FlowColumnB99.TabIndex = 151
         ' 
         ' UserControlRichbox3
         ' 
@@ -780,10 +780,10 @@ Partial Class FormDemo1DVertical
         ClientSize = New Size(1162, 504)
         Controls.Add(richtextItemsDisplay)
         Controls.Add(FlowRowNumbersOnly)
+        Controls.Add(FlowColumnB98)
         Controls.Add(FlowColumnB2)
         Controls.Add(FlowColumnB1)
-        Controls.Add(FlowRowHeaders)
-        Controls.Add(FlowColumnB3)
+        Controls.Add(FlowColumnB99)
         Controls.Add(LabelHeader1)
         Controls.Add(LabelA_B1_B2)
         Controls.Add(ButtonSortBackward)
@@ -830,10 +830,10 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
-        FlowRowHeaders.ResumeLayout(False)
         FlowColumnB1.ResumeLayout(False)
         FlowColumnB2.ResumeLayout(False)
-        FlowColumnB3.ResumeLayout(False)
+        FlowColumnB98.ResumeLayout(False)
+        FlowColumnB99.ResumeLayout(False)
         FlowRowNumbersOnly.ResumeLayout(False)
         FlowRowNumbersOnly.PerformLayout()
         ResumeLayout(False)
@@ -883,10 +883,10 @@ Partial Class FormDemo1DVertical
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
     Friend WithEvents LabelA_B1_B2 As Label
     Friend WithEvents LabelHeader1 As Label
-    Friend WithEvents FlowRowHeaders As FlowLayoutPanel
     Friend WithEvents FlowColumnB1 As FlowLayoutPanel
     Friend WithEvents FlowColumnB2 As FlowLayoutPanel
-    Friend WithEvents FlowColumnB3 As FlowLayoutPanel
+    Friend WithEvents FlowColumnB98 As FlowLayoutPanel
+    Friend WithEvents FlowColumnB99 As FlowLayoutPanel
     Friend WithEvents FlowRowNumbersOnly As FlowLayoutPanel
     Friend WithEvents TextBox13 As TextBox
     Friend WithEvents TextBox14 As TextBox
