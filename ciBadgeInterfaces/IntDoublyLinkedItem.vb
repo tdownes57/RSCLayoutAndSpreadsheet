@@ -94,4 +94,7 @@ Public Interface IDoublyLinkedItem
     ''--- Added 11/29/2024 tho.mas dow.nes
     Function DLL_CountItemsAfter() As Integer
 
+    ''Added Feb2025 thomas downes
+    Function ToString(par_appendNextToString As Boolean) As String ''Boolean
+
 End Interface

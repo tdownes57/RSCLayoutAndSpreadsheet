@@ -1496,5 +1496,17 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Sub ''End of ""Public Sub CheckEndpointsAreClean()"
 
 
+    Public Overloads Function ToString(par_appendNextToString As Boolean) As String Implements IDoublyLinkedItem.ToString
+        ''
+        ''Added 2/15/2025  
+        ''
+        If (Me.InsertCount > 0) Then Return ("Operation Insert of count " & Me.InsertCount)
+        If (Me.MovedCount > 0) Then Return ("Operation Move of count " & Me.MovedCount)
+        If (Me.DeleteCount > 0) Then Return ("Operation Delete of count" & Me.MovedCount)
+        Return "Operation of [unknown]."
+
+    End Function ''ENd of Public Overloads Function ToString(par_appendNextToString) As String
+
+
 
 End Class

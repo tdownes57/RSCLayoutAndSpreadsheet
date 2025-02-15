@@ -989,13 +989,15 @@ namespace RSCLibraryDLLOperations
             int intCountItemsOutput = 0;
             StringBuilder result = new StringBuilder(200);
             result.Append("DLLRange: ");
-            TControl temp = _StartingItemOfRange;
+            TControl each_item = _StartingItemOfRange;
             bool bNotAllItemsOutput = (intNumberOfItems > 0); 
 
-            while (temp != null && bNotAllItemsOutput)
+            while (each_item != null && bNotAllItemsOutput)
             {
-                result.Append(temp.ToString() + " ");
-                temp = temp.DLL_GetItemNext_OfT();
+                //Feb2025 result.Append(each_item.ToString() + " ");
+                result.Append(each_item.ToString(false) + " ");
+
+                each_item = each_item.DLL_GetItemNext_OfT();
                 intCountItemsOutput++;
                 bNotAllItemsOutput = (intCountItemsOutput < intNumberOfItems);
             }

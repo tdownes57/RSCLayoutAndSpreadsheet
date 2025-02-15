@@ -794,6 +794,18 @@ Public Class DLL_OperationV2
         ''End While ''End of ""While temp IsNot Nothing""
         ''Return result_count
         Throw New NotImplementedException()
-    End Function
+    End Function ''End of ""Private Function DLL_CountItemsAfter() As Integer""
+
+
+    Public Overloads Function ToString(par_appendNextToString As Boolean) As String Implements IDoublyLinkedItem.ToString
+        ''
+        ''Added 2/15/2025  
+        ''
+        If (Me.mod_operationType = "I"c) Then Return ("Operation Insert of count " & Me.mod_countOfItems)
+        If (Me.mod_operationType = "M"c) Then Return ("Operation Move of count " & Me.mod_countOfItems)
+        If (Me.mod_operationType = "D"c) Then Return ("Operation Delete of count" & Me.mod_countOfItems)
+        Return "Operation of [unknown]."
+
+    End Function ''ENd of Public Overloads Function ToString(par_appendNextToString) As String
 
 End Class

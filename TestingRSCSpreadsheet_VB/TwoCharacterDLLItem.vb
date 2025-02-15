@@ -460,7 +460,31 @@ Public Class TwoCharacterDLLItem
         ''July2024 Return mod_twoChars
         Return (mod_char1 + mod_char2)
 
+        ''Added 2/15/2025 thomas
+        If (Me.DLL_HasNext()) Then
+            Return (mod_char1 + mod_char2 & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+        Else
+            Return (mod_char1 + mod_char2 & " - No next item.")
+        End If
+
     End Function ''Public Overrides Function ToString() As String
+
+
+    Public Overloads Function ToString(par_doAppendNext As Boolean) As String Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).ToString
+        ''---Feb2025---Public Overrides Function ToString() As String
+
+        ''Added 12/26/2023
+        ''July2024 Return mod_twoChars
+        ''Feb2025 Return (mod_char1 + mod_char2)
+
+        ''Feb2025 td
+        If (par_doAppendNext) Then
+            Return mod_char1 + mod_char2 & " followed by " & Me.DLL_GetItemNext_OfT().ToString(False)
+        Else
+            Return (mod_char1 + mod_char2)
+        End If
+
+    End Function ''Public Overrides Function ToString(par_doAppendNext As Boolean) As String
 
 
     Public Function DLL_GetValue() As String Implements IDoublyLinkedItem.DLL_GetValue

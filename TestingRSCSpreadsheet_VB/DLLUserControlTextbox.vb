@@ -308,9 +308,10 @@ Public Class DLLUserControlTextbox
         ''If (param_iterationsOfNext = 1) Then Return mod_next
         ''Return tempNext
 
-        DLL.DLL_GetItemNext_OfT(param_iterationsOfNext)
+        ''Feb2025 td''DLL.DLL_GetItemNext_OfT(param_iterationsOfNext)
+        Return DLL.DLL_GetItemNext_OfT(param_iterationsOfNext)
 
-    End Function ''Endof ""Public Function DLL_GetItemNext_OfT""
+    End Function ''End of ""Public Function DLL_GetItemNext_OfT""
 
 
     Public Function DLL_GetItemNext(param_iterationsOfNext As Integer) As IDoublyLinkedItem _
@@ -371,7 +372,8 @@ Public Class DLLUserControlTextbox
 
         ''If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
         ''Return mod_prior
-        DLL.DLL_GetItemPrior()
+        ''Feb2025 DLL.DLL_GetItemPrior()
+        Return DLL.DLL_GetItemPrior()
 
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
@@ -383,7 +385,8 @@ Public Class DLLUserControlTextbox
 
         ''If (mod_prior Is Me) Then System.Diagnostics.Debugger.Break()
         ''Return mod_prior
-        DLL.DLL_GetItemPrior(param_iterationsOfPrior)
+        ''Feb2025 td DLL.DLL_GetItemPrior(param_iterationsOfPrior)
+        Return DLL.DLL_GetItemPrior(param_iterationsOfPrior)
 
     End Function ''End of ""Public Function DLL_GetItemPrior()""
 
@@ -439,6 +442,7 @@ Public Class DLLUserControlTextbox
         objFirst = DLL_GetItemFirst()
         ''----objResult = objFirst.DLL_GetItemNext_OfT(par_index_b0)
         Dim intIterationsOfNext As Integer = par_index_b0 ''Added 1/16/2025
+
         objResult = objFirst.DLL_GetItemNext_OfT(intIterationsOfNext)
 
         ''1/16/2025 Return objFirst
@@ -485,14 +489,41 @@ Public Class DLLUserControlTextbox
         ''Return ((mod_next Is Nothing) Or (mod_prior Is Nothing))
         Return DLL.DLL_IsEitherEndpoint()
 
-    End Function
+    End Function ''ENd of ""Public Function DLL_IsEitherEndpoint() ""
 
 
     Public Overrides Function ToString() As String
 
         ''Added 12/26/2023
         ''July2024 Return mod_twoChars
-        Return (TextBox1.Text) ''(mod_char1 + mod_char2)
+        ''Feb2025  Return (TextBox1.Text) ''(mod_char1 + mod_char2)
+
+        ''Added 2/15/2025 thomas
+        If (Me.DLL_HasNext()) Then
+            Return (Me.TextBox1.Text & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+        Else
+            Return (Me.TextBox1.Text & " - No next item.")
+        End If
+
+    End Function ''Public Overrides Function ToString() As String
+
+
+    Public Overloads Function ToString(pboolDescribeNext As Boolean) As String Implements IDoublyLinkedItem(Of DLLUserControlTextbox).ToString
+        ''---Feb2025---Public Overrides Function ToString() As String
+
+        ''Added 2/15/2025 
+        If (pboolDescribeNext) Then
+            ''Check to see if there's another item following.
+            If (Me.DLL_HasNext()) Then
+                Return (Me.TextBox1.Text & " followed by " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+            Else
+                Return (Me.TextBox1.Text & " - No next item.")
+            End If
+
+        Else
+            Return (Me.TextBox1.Text) ''--- & " - No next item.")
+
+        End If ''ENd of ""If (pboolDescribeNext) Then ... Else..."
 
     End Function ''Public Overrides Function ToString() As String
 

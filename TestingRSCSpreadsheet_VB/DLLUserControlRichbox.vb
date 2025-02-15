@@ -470,7 +470,7 @@ Public Class DLLUserControlRichbox
     End Function ''Public Overrides Function ToString() As String
 
 
-    Public Overloads Function ToString(pboolDescribeNext As Boolean) As String
+    Public Overloads Function ToString(pboolDescribeNext As Boolean) As String Implements IDoublyLinkedItem(Of DLLUserControlRichbox).ToString
 
         ''Added 2/15/2025 
         If (pboolDescribeNext) Then
