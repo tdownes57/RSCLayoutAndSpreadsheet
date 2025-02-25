@@ -286,6 +286,7 @@ Public Class FormDemo1DVertical
         ''Major call!!
         strListOfLinks = StringToFillTheTextboxDisplayingList()
         ''----2025 richtextItemsDisplay.Text = strListOfLinks
+        richtextItemsDisplay.Text = strListOfLinks
 
         ''Added 12/28/2023 
         Dim itemCount As Integer = mod_listA.DLL_CountAllItems()
@@ -369,7 +370,7 @@ Public Class FormDemo1DVertical
                 If (each_twoChar.Selected Or bOpenSelection) Then
                     ''The item has been selected. 
                     charSpecial = "_"c ''Added 12/09/2024
-                    stringbuilderLinkedItems.Append("_" + each_twoChar.ToString())
+                    stringbuilderLinkedItems.Append("_" + each_twoChar.ToString(False))
 
                     ''
                     ''Carefully determine the value of the "Continuation" boolean. 
@@ -389,7 +390,7 @@ Public Class FormDemo1DVertical
                     ''
                     If (boolOpenHighlight) Then
                         charSpecial = "["c ''Added 12/09/2024 
-                        stringbuilderLinkedItems.Append("[" + each_twoChar.ToString())
+                        stringbuilderLinkedItems.Append("[" + each_twoChar.ToString(False))
                         ''Prepare for future iterations. 
                         boolOpenHighlight = False
                         boolCloseHighlight = True
@@ -399,7 +400,7 @@ Public Class FormDemo1DVertical
                         ''
                         ''---stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
                         charSpecial = " "c ''Added 12/09/2024 
-                        stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                        stringbuilderLinkedItems.Append(" " + each_twoChar.ToString(False))
                         boolCloseHighlight_Next = True
                         boolCloseHighlight = False
                         boolOpenHighlight = True
@@ -408,14 +409,14 @@ Public Class FormDemo1DVertical
                 ElseIf (boolCloseHighlight_Next) Then
                     ''Added 11/09/2024 thomas downes 
                     charSpecial = "]"c ''Added 12/09/2024 
-                    stringbuilderLinkedItems.Append("]" + each_twoChar.ToString())
+                    stringbuilderLinkedItems.Append("]" + each_twoChar.ToString(False))
                     ''Clear the boolean, so it only is used once.
                     boolCloseHighlight_Next = False
 
                 Else
                     ''Added 11/09/2024 thomas downes 
                     charSpecial = " "c ''Added 12/09/2024 
-                    stringbuilderLinkedItems.Append(" " + each_twoChar.ToString())
+                    stringbuilderLinkedItems.Append(" " + each_twoChar.ToString(False))
 
                 End If ''End of ""If (each_twoChar.Selected) Then... Else..."
 

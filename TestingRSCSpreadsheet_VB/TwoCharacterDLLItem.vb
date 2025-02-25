@@ -462,7 +462,8 @@ Public Class TwoCharacterDLLItem
 
         ''Added 2/15/2025 thomas
         If (Me.DLL_HasNext()) Then
-            Return (mod_char1 + mod_char2 & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+            ''Return (mod_char1 + mod_char2 & " " & Me.DLL_GetItemNext_OfT().ToString(False)) ''(mod_char1 + mod_char2)
+            Return (mod_char1 + mod_char2 & " (next is " & Me.DLL_GetItemNext_OfT().ToString(False) & ")") ''(mod_char1 + mod_char2)
         Else
             Return (mod_char1 + mod_char2 & " - No next item.")
         End If
