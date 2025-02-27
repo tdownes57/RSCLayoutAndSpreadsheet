@@ -115,8 +115,22 @@ Public Class TwoCharacterDLLItem
     Public Overloads Sub DLL_SetItemNext_OfT(param As TwoCharacterDLLItem) _
            Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_SetItemNext_OfT
 
+        Dim bNextIsSameAsPrior As Boolean ''Added 2/25/2025 
+
         ''Throw New NotImplementedException()
         If (param Is Me) Then System.Diagnostics.Debugger.Break()
+        If (param Is Me) Then Throw New ArgumentException("Can't link the item to itself.")
+
+        If (Testing.TestingByDefault) Then
+            If (Me.DLL_HasPrior()) Then ''2/25/2025 thomas 
+                ''Added 2/25/2025 
+                bNextIsSameAsPrior = Me.DLL_GetItemPrior_OfT() Is param ''Added 2/25/2025 
+                If (bNextIsSameAsPrior) Then
+                    System.Diagnostics.Debugger.Break()
+                End If ''End of ""If (bNextIsSameAsPrior) Then""
+            End If ''End of ""If (Me.DLL_HasPrior()) Then"
+        End If ''End of ""If (Testing.TestingByDefault) Then""
+
         mod_next = param
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
@@ -192,6 +206,17 @@ Public Class TwoCharacterDLLItem
 
         End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
 
+        ''Added 2/25/2025 thomas d.
+        If (Testing.TestingByDefault) Then
+            Dim bNextIsSameAsPrior As Boolean ''Added 2/25/2025 thomas
+            If (Me.DLL_HasPrior()) Then ''2/25/2025 thomas 
+                ''Added 2/25/2025 
+                bNextIsSameAsPrior = Me.DLL_GetItemPrior_OfT() Is param ''Added 2/25/2025 
+                If (bNextIsSameAsPrior) Then
+                    System.Diagnostics.Debugger.Break()
+                End If ''End of ""If (bNextIsSameAsPrior) Then""
+            End If ''End of ""If (Me.DLL_HasPrior()) Then"
+        End If ''End of ""If (Testing.TestingByDefault) Then""
 
     End Sub ''End of ""Public Sub DLL_SetItemNext_OfT(...) ...""
 

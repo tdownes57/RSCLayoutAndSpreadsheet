@@ -900,7 +900,10 @@ Public Class FormDemo1DVertical
                 ''
                 Dim op_structure As DLLOperationIndexStructure ''DLLOperation1D(Of TwoCharacterDLLVerticalA)
                 op_structure = operation.GetOperationIndexStructure()
-                operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure, mod_listA.DLL_GetFirstItem_OfT())
+                ''Feb2025 operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure, mod_listA.DLL_GetFirstItem_OfT())
+                operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure,
+                                                                            mod_listA.DLL_GetFirstItem_OfT(),
+                                                                            mod_rangeA)
 
             End If ''End of ""If (TestingIndexStructure()) Then""
 

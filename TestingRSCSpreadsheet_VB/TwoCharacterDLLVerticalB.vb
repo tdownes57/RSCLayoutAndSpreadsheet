@@ -36,7 +36,8 @@ Public Class TwoCharacterDLLVerticalB
         ''Throw New NotImplementedException()
         ''Probably not needed. ---12/12/2024  MyBase.DLL_SetItemPrior_OfT(param)
         ''Probably not needed. ---12/12/2024  mod_prior = param ''Added 12/12/2024 td
-        MyBase.mod_next = param ''Added 12/12/2024 td
+        ''Feb2025 MyBase.mod_next = param ''Added 12/12/2024 td
+        MyBase.mod_prior = param ''Added 12/12/2024 td
 
     End Sub
 

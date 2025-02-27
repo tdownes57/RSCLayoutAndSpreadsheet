@@ -288,7 +288,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public string ToString()
+        public override string ToString() // Feb2025 public string ToString()
         {
             //
             //  Added 12/30/2024 thomas d. 
@@ -298,9 +298,12 @@ namespace RSCLibraryDLLOperations
             //  Modified 12/30/2024 thomas d. 
             if (_anchorItem != null)
             {
+                //result_string = (_doInsertRangeBeforeThis ?
+                //    ("__" + _anchorItem.ToString() + " ") :
+                //    (_anchorItem.ToString() + "__ "));
                 result_string = (_doInsertRangeBeforeThis ?
-                    ("__" + _anchorItem.ToString() + " ") :
-                    (_anchorItem.ToString() + "__ "));
+                    ("__" + _anchorItem.ToString(false) + " ") :
+                    (_anchorItem.ToString(false) + "__ "));
             }
 
             return result_string;
@@ -310,3 +313,6 @@ namespace RSCLibraryDLLOperations
 
     }
 }
+
+
+

@@ -430,7 +430,8 @@ namespace RSCLibraryDLLOperations
 
             }
 
-            if (par_structure.AnchorIsSpecified || 0 < par_structure.AnchorIndexLeft_b1)
+            if (par_structure.AnchorIsSpecified || 0 < par_structure.AnchorIndexLeft_b1
+                   || 0 < par_structure.AnchorIndexRight_b1)
             {
                 TControl? itemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexLeft_b1);
                 TControl? itemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexRight_b1);

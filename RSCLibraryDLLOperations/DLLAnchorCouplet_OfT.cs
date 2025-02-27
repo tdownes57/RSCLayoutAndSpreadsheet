@@ -52,6 +52,8 @@ namespace RSCLibraryDLLOperations
             bool bInsertRangeAfterAnchorItem;
             bool bIsForEmptyList;  // Added 12/09/2024
 
+            if (par_itemAnchor == null) throw new ArgumentException("Argument is null");
+
             bIsForEmptyList = par_itemAnchor._isForEmptyList;  // Added 12/09/2024
 
             bInsertRangeAfterAnchorItem = par_itemAnchor._doInsertRangeAfterThis;
@@ -63,7 +65,7 @@ namespace RSCLibraryDLLOperations
 
             }
 
-            else if (bInsertRangeAfterAnchorItem)
+            else if (bInsertRangeAfterAnchorItem && par_itemAnchor != null)
             {
                 _itemLeft = par_itemAnchor._anchorItem;  // May be null.
                 _itemRight = par_itemAnchor._anchorItem.DLL_GetItemNext_OfT();  // May be null.
@@ -293,11 +295,21 @@ namespace RSCLibraryDLLOperations
             //     range's last item,
             //     _itemRight 
             //
-            par_range.ItemStart().DLL_SetItemPrior_OfT(_itemLeft, true);
-            par_range.Item__End().DLL_SetItemNext_OfT(_itemRight, true);
+            // Feb2025  par_range.ItemStart().DLL_SetItemPrior_OfT(_itemLeft, true);
+            // Feb2025  par_range.Item__End().DLL_SetItemNext_OfT(_itemRight, true);
+            // Feb2025  _itemLeft?.DLL_SetItemNext_OfT(par_range.ItemStart());
+            // Feb2025  _itemRight?.DLL_SetItemPrior_OfT(par_range.Item__End());
 
-            _itemLeft?.DLL_SetItemNext_OfT(par_range.ItemStart());
-            _itemRight?.DLL_SetItemPrior_OfT(par_range.Item__End());
+            // Feb2025  
+            var temp_range_start = par_range.ItemStart();  //.DLL_SetItemPrior_OfT(_itemLeft, true);
+            var temp_range___end = par_range.Item__End();  //.DLL_SetItemNext_OfT(_itemRight, true);
+
+            // Feb2025  
+            temp_range_start.DLL_SetItemPrior_OfT(_itemLeft, true);
+            temp_range___end.DLL_SetItemNext_OfT(_itemRight, true);
+
+            _itemLeft?.DLL_SetItemNext_OfT(temp_range_start);
+            _itemRight?.DLL_SetItemPrior_OfT(temp_range___end);
 
         }
 
@@ -334,10 +346,14 @@ namespace RSCLibraryDLLOperations
             //
             string result_pair;
 
-            result_pair = (_itemLeft == null ? "null" : 
-                _itemLeft.ToString()) + " "
+            //Feb2025  result_pair = (_itemLeft == null ? "null" : 
+            //    _itemLeft.ToString()) + " "
+            //    + (_itemRight == null ? "null" :
+            //    _itemRight.ToString());
+            result_pair = (_itemLeft == null ? "null" :
+                _itemLeft.ToString(false)) + " "
                 + (_itemRight == null ? "null" :
-                _itemRight.ToString());
+                _itemRight.ToString(false));
 
             return result_pair; 
 
