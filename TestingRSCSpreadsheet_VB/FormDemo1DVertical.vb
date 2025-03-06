@@ -123,6 +123,13 @@ Public Class FormDemo1DVertical
         FlowColumnB2.Controls.Clear()
         FlowColumnB2.Controls.Add(mod_rangeB2.ItemStart)
 
+        ''Added 3/05/2025 td
+        Dim arrayTwoCharStrings As String()
+        ''Added 3/05/2025 td
+        ReDim arrayTwoCharStrings(10)
+        Dim strTwoChars As String
+        Dim index_0based As Integer = 0
+
         ''
         '' Generate the three (3) ranges of newly-generated  items.
         ''
@@ -131,18 +138,24 @@ Public Class FormDemo1DVertical
             ''
             '' Iteratively expand the three (3) ranges of newly-generated  items.
             ''
+            strTwoChars = indexNewItem.ToString("00")
+            arrayTwoCharStrings(index_0based) = strTwoChars
+
             ''TwoCharacterDLLVertical
-            newItemA = New TwoCharacterDLLVerticalA(indexNewItem.ToString("00"))
+            newItemA = New TwoCharacterDLLVerticalA(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
             ''Nov2024 rangeNew.DLL_InsertItemToTheEnd(newItem)
             mod_rangeA.DLL_InsertItemToTheEnd(newItemA)
 
             ''DLLUserControlTextbox 
-            newItemB1 = New DLLUserControlTextbox(indexNewItem.ToString("00"))
+            newItemB1 = New DLLUserControlTextbox(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
             mod_rangeB1.DLL_InsertItemToTheEnd(newItemB1)
 
             ''DLLUserControlRichbox 
-            newItemB2 = New DLLUserControlRichbox(indexNewItem.ToString("00"))
+            newItemB2 = New DLLUserControlRichbox(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
             mod_rangeB2.DLL_InsertItemToTheEnd(newItemB2)
+
+            ''Added 3/5/2025 
+            index_0based += 1
 
         Next indexNewItem
 
@@ -153,9 +166,9 @@ Public Class FormDemo1DVertical
         numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
 
         Dim operationInitialInsertA As DLLOperation1D(Of TwoCharacterDLLVerticalA)
-        ''Added 1/21/2025  
-        Dim operationInitialInsertB1 As DLLOperation1D(Of DLLUserControlTextbox)
-        Dim operationInitialInsertB2 As DLLOperation1D(Of DLLUserControlRichbox)
+        ''''Added 1/21/2025  
+        ''Dim operationInitialInsertB1 As DLLOperation1D(Of DLLUserControlTextbox)
+        ''Dim operationInitialInsertB2 As DLLOperation1D(Of DLLUserControlRichbox)
 
         ''
         '' Create the operation, or simply insert the range
@@ -196,28 +209,37 @@ Public Class FormDemo1DVertical
             ''      mod_listA, operationInitial30)
             mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
 
-
-            ''Added 1/21/2025  
-            ''  This will hold the numeric skeleton of the initial insert operation. 
-            Dim opInitialInsertIndexStruct As DLLOperationIndexStructure
-
-            ''Added 1/21/2025  
-            opInitialInsertIndexStruct = operationInitialInsertA.GetOperationIndexStructure()
-
-            ''Added 2/14/2025  
-            opInitialInsertIndexStruct.IsInsert_SoMustCreateNewItems = True
-
-            ''Modified to include the applicable insert ranges. 
-            ''    ---2/14/2025 td
             ''
-            operationInitialInsertB1 = New DLLOperation1D(Of DLLUserControlTextbox) _
-                    (opInitialInsertIndexStruct, mod_firstItemB1, mod_rangeB1)
-            operationInitialInsertB2 = New DLLOperation1D(Of DLLUserControlRichbox) _
-                    (opInitialInsertIndexStruct, mod_firstItemB2, mod_rangeB2)
+            ''Encapsulated 2/27/2025 td
+            ''
+            ''Feb2025  PropagateOperation_ToParallelLists(operationInitialInsertA)
+            PropagateOperation_ToParallelLists(operationInitialInsertA, True, arrayTwoCharStrings)
 
-            ''Added 1/21/2025  
-            operationInitialInsertB1.OperateOnParentList(mod_listB1, byrefChangeOfEndpoint)
-            operationInitialInsertB2.OperateOnParentList(mod_listB2, byrefChangeOfEndpoint)
+            ''''Added 1/21/2025  
+            ''Dim operationInitialInsertB1 As DLLOperation1D(Of DLLUserControlTextbox)
+            ''Dim operationInitialInsertB2 As DLLOperation1D(Of DLLUserControlRichbox)
+
+            ''''Added 1/21/2025  
+            ''''  This will hold the numeric skeleton of the initial insert operation. 
+            ''Dim opInitialInsertIndexStruct As DLLOperationIndexStructure
+
+            ''''Added 1/21/2025  
+            ''opInitialInsertIndexStruct = operationInitialInsertA.GetOperationIndexStructure()
+
+            ''''Added 2/14/2025  
+            ''opInitialInsertIndexStruct.IsInsert_SoMustCreateNewItems = True
+
+            ''''Modified to include the applicable insert ranges. 
+            ''''    ---2/14/2025 td
+            ''''
+            ''operationInitialInsertB1 = New DLLOperation1D(Of DLLUserControlTextbox) _
+            ''        (opInitialInsertIndexStruct, mod_firstItemB1, mod_rangeB1)
+            ''operationInitialInsertB2 = New DLLOperation1D(Of DLLUserControlRichbox) _
+            ''        (opInitialInsertIndexStruct, mod_firstItemB2, mod_rangeB2)
+
+            ''''Added 1/21/2025  
+            ''operationInitialInsertB1.OperateOnParentList(mod_listB1, byrefChangeOfEndpoint)
+            ''operationInitialInsertB2.OperateOnParentList(mod_listB2, byrefChangeOfEndpoint)
 
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
@@ -226,8 +248,8 @@ Public Class FormDemo1DVertical
         '' Display the list. 
         ''
         RefreshTheUI_DisplayList()
-        RefreshTheUI_DisplayList(operationInitialInsertB1)
-        RefreshTheUI_DisplayList(operationInitialInsertB2)
+        ''---Encapsulated 2/26/25---RefreshTheUI_DisplayList(operationInitialInsertB1)
+        ''---Encapsulated 2/26/25---RefreshTheUI_DisplayList(operationInitialInsertB2)
 
         ''Added 12/09/2024 
         ''  Make sure that the two boxes match in the beginning.
@@ -237,6 +259,63 @@ Public Class FormDemo1DVertical
         labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
+
+
+    Private Sub PropagateOperation_ToParallelLists(par_operation As DLLOperation1D(Of TwoCharacterDLLVerticalA),
+                      par_isInsert As Boolean, par_arrayOfTwoCharStrings() As String)
+        ''
+        ''Encapsulated 2/27/2025 td
+        ''
+        ''Added 1/21/2025  
+        Dim operationB1 As DLLOperation1D(Of DLLUserControlTextbox)
+        Dim operationB2 As DLLOperation1D(Of DLLUserControlRichbox)
+        Dim byrefChangeOfEndpointB1 As Boolean ''Added 2/27/2025 td
+        Dim byrefChangeOfEndpointB2 As Boolean ''Added 2/27/2025 td
+
+        ''Added 1/21/2025  
+        ''  This will hold the numeric skeleton of the initial insert operation. 
+        ''
+        Dim opInitialInsertIndexStruct As DLLOperationIndexStructure
+
+        ''Added 1/21/2025  
+        opInitialInsertIndexStruct = par_operation.GetOperationIndexStructure()
+
+        ''Added 2/14/2025  
+        opInitialInsertIndexStruct.IsInsert_SoMustCreateNewItems = True
+
+        ''Added 3/5/2025 td
+        Dim intHowManyInRange As Integer
+        intHowManyInRange = opInitialInsertIndexStruct.IsInsert_InsertionCount
+        mod_rangeB1 = New DLLRange(Of TwoCharacterDLLVerticalB)()
+        mod_rangeB2 = New DLLRange(Of TwoCharacterDLLVerticalB)()
+
+        ''Added 3/5/2025 
+        For index As Integer = 1 To intHowManyInRange
+
+
+
+        Next index
+
+        ''Modified to include the applicable insert ranges. 
+        ''    ---2/14/2025 td
+        ''
+        operationB1 = New DLLOperation1D(Of DLLUserControlTextbox) _
+                    (opInitialInsertIndexStruct, mod_firstItemB1, mod_rangeB1)
+        operationB2 = New DLLOperation1D(Of DLLUserControlRichbox) _
+                    (opInitialInsertIndexStruct, mod_firstItemB2, mod_rangeB2)
+
+        ''Added 1/21/2025  
+        operationB1.OperateOnParentList(mod_listB1, byrefChangeOfEndpointB1)
+        operationB2.OperateOnParentList(mod_listB2, byrefChangeOfEndpointB2)
+
+        ''
+        ''Propagate the change to the UI. 
+        ''
+        RefreshTheUI_DisplayList(operationB1)
+        RefreshTheUI_DisplayList(operationB2)
+
+
+    End Sub ''End of ""Private Sub PropagateOperation_ToParallelLists()""
 
 
     Private Function TestingIndexStructure() As Boolean
@@ -1078,6 +1157,12 @@ Public Class FormDemo1DVertical
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_Occurred, True)
+
+            ''
+            ''Added 2/27/2025 td
+            ''
+            ''Feb2025  PropagateOperation_ToParallelLists(operationToInsert)
+            PropagateOperation_ToParallelLists(operationToInsert, True, array_sItemsToInsert)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 

@@ -34,6 +34,16 @@ namespace RSCLibraryDLLOperations
         public readonly TControl? _InverseAnchor_Prior;
         public readonly TControl? _InverseAnchor_After;
 
+        //Added 3/05/2025
+        public bool _isTemporarilyEmpty;
+
+        public DLLRange()
+        {
+            // Added 3/05/2025 thomas d
+            _isTemporarilyEmpty = true;
+            _ItemCountOfRange = 0;
+
+        }
 
 
         public DLLRange(TControl par_itemSingle, bool par_bMustBeCleanOfLinks)
