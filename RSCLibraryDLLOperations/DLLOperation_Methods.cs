@@ -1159,6 +1159,8 @@ namespace RSCLibraryDLLOperations
                 result_struct.RangeSize_Inserts = _range.GetItemCount();
                 // Added  2/14/20225 
                 result_struct.IsInsert_SoMustCreateNewItems = true;
+                // Added 3/14/2025
+                result_struct.IsInsert_InsertionCount = _range.GetItemCount();
 
             }
 

@@ -271,6 +271,7 @@ Public Class FormDemo1DVertical
         Dim operationB2 As DLLOperation1D(Of DLLUserControlRichbox)
         Dim byrefChangeOfEndpointB1 As Boolean ''Added 2/27/2025 td
         Dim byrefChangeOfEndpointB2 As Boolean ''Added 2/27/2025 td
+        Dim strCurrentItem As String ''Added 3/14/2025 thomas d
 
         ''Added 1/21/2025  
         ''  This will hold the numeric skeleton of the initial insert operation. 
@@ -285,14 +286,22 @@ Public Class FormDemo1DVertical
 
         ''Added 3/5/2025 td
         Dim intHowManyInRange As Integer
+        Const START_EMPTY As Boolean = True ''Added 3/14/2025
         intHowManyInRange = opInitialInsertIndexStruct.IsInsert_InsertionCount
-        mod_rangeB1 = New DLLRange(Of TwoCharacterDLLVerticalB)()
-        mod_rangeB2 = New DLLRange(Of TwoCharacterDLLVerticalB)()
+        Dim dummyTextbox As New DLLUserControlTextbox("du") '' "du" = "dummy"
+        mod_rangeB1 = New DLLRange(Of DLLUserControlTextbox)(START_EMPTY, dummyTextbox) '' //TwoCharacterDLLVerticalB)()
+        Dim dummyRichbox As New DLLUserControlRichbox("du") '' "du" = "dummy"
+        mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(START_EMPTY, dummyRichbox) '' //TwoCharacterDLLVerticalB)()
 
         ''Added 3/5/2025 
         For index As Integer = 1 To intHowManyInRange
-
-
+            ''
+            ''Added 3/14/2025 td
+            ''
+            strCurrentItem = par_arrayOfTwoCharStrings(index Mod intHowManyInRange)
+            ''---mod_rangeB1.ExtendRangeToIncludeListItem(New DLLUserControlTextbox(strCurrentItem))
+            mod_rangeB1.AddItemToTheEndOfRange(New DLLUserControlTextbox(strCurrentItem))
+            mod_rangeB2.AddItemToTheEndOfRange(New DLLUserControlRichbox(strCurrentItem))
 
         Next index
 

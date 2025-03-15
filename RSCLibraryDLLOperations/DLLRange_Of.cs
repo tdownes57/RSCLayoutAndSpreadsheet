@@ -25,7 +25,9 @@ namespace RSCLibraryDLLOperations
         public TControl? _SingleItemInRange;
         //public readonly TControl _StartingItem;
         //----public readonly TControl _StartingItem; // Modified 11/08/2024 thomas downes
-        public readonly TControl _StartingItemOfRange; // Modified 11/08/2024 thomas downes
+        //---March 14, 2025---public readonly TControl _StartingItemOfRange; // Modified 11/08/2024 thomas downes
+        public TControl _StartingItemOfRange; // Modified 11/08/2024 thomas downes
+
         //public readonly TControl _EndingItem;
         public TControl _EndingItemOfRange;
         public int _ItemCountOfRange; // readonly
@@ -36,12 +38,38 @@ namespace RSCLibraryDLLOperations
 
         //Added 3/05/2025
         public bool _isTemporarilyEmpty;
+        private bool _pleaseIgnoreDummyEndItems; // Added 3/14/2025  v
 
         public DLLRange()
         {
+            //
+            // Deprecated.  Used the following instead:
+            //
+            //     public DLLRange(bool par_temporarilyEmpty, TControl par_dummy)
+            //
             // Added 3/05/2025 thomas d
             _isTemporarilyEmpty = true;
             _ItemCountOfRange = 0;
+
+            _StartingItemOfRange = null;
+            _EndingItemOfRange = null;
+
+        }
+
+
+        public DLLRange(bool par_temporarilyEmpty, TControl par_dummy)
+        {
+            //
+            // Added 3/14/2025 thomas d
+            //
+            if (! par_temporarilyEmpty) throw new ArgumentException("Boolean parameter must be true");
+
+            _isTemporarilyEmpty = par_temporarilyEmpty; // true;
+            _pleaseIgnoreDummyEndItems = par_temporarilyEmpty; // true;
+            _ItemCountOfRange = 0;
+
+            _StartingItemOfRange = par_dummy;
+            _EndingItemOfRange = par_dummy;
 
         }
 
@@ -221,7 +249,7 @@ namespace RSCLibraryDLLOperations
         /// <exception cref="Exception"></exception>
         public DLLRange<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>(T_BaseOrParallel par_startOfList,
                    bool pbTargetListIsOfBaseClass,
-                   bool pbTargetListIsParallel) 
+                   bool pbTargetListIsParallel)
             where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //
@@ -282,7 +310,7 @@ namespace RSCLibraryDLLOperations
             //    result_range = new DLLRange<T_BaseOrParallel>(object56_s, object56_e, _ItemCountOfRange);
             //}
 
-            return result_range; 
+            return result_range;
 
         }
 
@@ -572,65 +600,65 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public  bool Check_EnclosedByAnchorPair(DLLAnchorCouplet<TControl> par_pair)
+        public bool Check_EnclosedByAnchorPair(DLLAnchorCouplet<TControl> par_pair)
         {
             //
             // Added 11/18/2024 thomas downes
             //
-            bool result_bothSides = false; 
+            bool result_bothSides = false;
             bool bMatchesPriorToRange = true;  // default to true
             bool bMatchesAfterRange = true;  // default to true 
 
             //--if (par_pair.ItemFirstIsPresent())
             //--{
-                //---bMatchesPriorToRange = (Item_ImmeditelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
-                TControl? itemPriorToRange = Item_ImmediatelyPrior();
-                TControl? itemAnchorLeft = par_pair.GetItemLeftOrFirst();
+            //---bMatchesPriorToRange = (Item_ImmeditelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+            TControl? itemPriorToRange = Item_ImmediatelyPrior();
+            TControl? itemAnchorLeft = par_pair.GetItemLeftOrFirst();
 
-                if (itemPriorToRange == null && itemAnchorLeft != null)
-                {
-                    bMatchesPriorToRange = false;
-                }
-                else if (itemPriorToRange != null && itemAnchorLeft == null)
-                {
-                    bMatchesPriorToRange = false;
-                }
-                else if (itemPriorToRange == null && itemAnchorLeft == null)
-                {
-                    bMatchesPriorToRange = true;
-                }
-                else if (itemPriorToRange != null && itemAnchorLeft != null)
-                { 
-                    //bMatchesPriorToRange = (bool)(itemPriorToRange.Equals(itemAnchorLeft));
-                    bMatchesPriorToRange = (itemPriorToRange == itemAnchorLeft);
-                }
+            if (itemPriorToRange == null && itemAnchorLeft != null)
+            {
+                bMatchesPriorToRange = false;
+            }
+            else if (itemPriorToRange != null && itemAnchorLeft == null)
+            {
+                bMatchesPriorToRange = false;
+            }
+            else if (itemPriorToRange == null && itemAnchorLeft == null)
+            {
+                bMatchesPriorToRange = true;
+            }
+            else if (itemPriorToRange != null && itemAnchorLeft != null)
+            {
+                //bMatchesPriorToRange = (bool)(itemPriorToRange.Equals(itemAnchorLeft));
+                bMatchesPriorToRange = (itemPriorToRange == itemAnchorLeft);
+            }
 
             //---}
 
             //---if (par_pair.ItemSecondIsPresent())
             //---{
-                //---bMatchesAfterRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
-                TControl? itemAfterRange = Item_ImmediatelyAfter();
-                TControl? itemAnchorRight = par_pair.GetItemRightOrSecond();
+            //---bMatchesAfterRange = (Item_ImmediatelyPrior().Equals(par_pair.GetItemLeftOrFirst()));
+            TControl? itemAfterRange = Item_ImmediatelyAfter();
+            TControl? itemAnchorRight = par_pair.GetItemRightOrSecond();
 
+            //bMatchesAfterRange = (bool)(itemAfterRange?.Equals(itemAnchorRight));
+            if (itemAfterRange == null && itemAnchorRight != null)
+            {
+                bMatchesAfterRange = false;
+            }
+            else if (itemAfterRange != null && itemAnchorRight == null)
+            {
+                bMatchesAfterRange = false;
+            }
+            else if (itemAfterRange == null && itemAnchorRight == null)
+            {
+                bMatchesAfterRange = true;
+            }
+            else if (itemAfterRange != null && itemAnchorRight != null)
+            {
                 //bMatchesAfterRange = (bool)(itemAfterRange?.Equals(itemAnchorRight));
-                if (itemAfterRange == null && itemAnchorRight != null)
-                {
-                    bMatchesAfterRange = false;
-                }
-                else if (itemAfterRange != null && itemAnchorRight == null)
-                {
-                    bMatchesAfterRange = false;
-                }
-                else if (itemAfterRange == null && itemAnchorRight == null)
-                {
-                    bMatchesAfterRange = true;
-                }
-                else if(itemAfterRange != null && itemAnchorRight != null)
-                {
-                    //bMatchesAfterRange = (bool)(itemAfterRange?.Equals(itemAnchorRight));
-                    bMatchesAfterRange = (itemAfterRange == itemAnchorRight);
-                }
+                bMatchesAfterRange = (itemAfterRange == itemAnchorRight);
+            }
 
             //--}
 
@@ -649,9 +677,9 @@ namespace RSCLibraryDLLOperations
             bool result_inRange = false;
 
             // Added 12/9/2024 thomas d.
-            if (par_item == null) 
-            { 
-                return false; 
+            if (par_item == null)
+            {
+                return false;
             }
 
             int intDistanceToItem = _StartingItemOfRange.DLL_GetDistanceTo(par_item, ref bLocatedItem);
@@ -788,6 +816,24 @@ namespace RSCLibraryDLLOperations
         }
 
 
+
+        /// <summary>
+        /// If the parent list is 1, 2, 3, 4, 5, 6 (six items) and this range (the current object)
+        /// is 2, 3, 4 (3  items) then this method can be called with "5" (or "6") as the 
+        /// parameter.  The resulting mutated range is 2, 3, 4, 5 (or 2, 3, 4, 5, 6).
+        /// </summary>
+        /// <param name="par_item">The item in the list which follows (is greater in position) than </param>
+        public void AddItemToTheEndOfRange(TControl par_item)
+        {
+            //
+            // This is an "alias" function, which allows the programmer to have more than one
+            // memorable name to a function.----3/14/2025 td
+            // Added 3/14/2025 td
+            //
+            ExtendRangeToIncludeListItem(par_item);
+
+        }
+
         /// <summary>
         /// If the parent list is 1, 2, 3, 4, 5, 6 (six items) and this range (the current object)
         /// is 2, 3, 4 (3 items) then this method can be called with "5" (or "6") as the 
@@ -799,15 +845,31 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/12/2024 thomas downes 
             //
-            int intDistance = _StartingItemOfRange.DLL_GetDistanceTo(par_item);
-            
+            if (_isTemporarilyEmpty || _pleaseIgnoreDummyEndItems)
+            {
+                _StartingItemOfRange = par_item;
+                _EndingItemOfRange = par_item;
+                _ItemCountOfRange = 1; 
+                // Re-initialized Booleans.
+                _isTemporarilyEmpty = false; // re-initialize
+                _pleaseIgnoreDummyEndItems = false; // re-initialize
+                return; // Exit the procedure.
+
+            }
+
+            //--March 2025---int intDistance = _StartingItemOfRange.DLL_GetDistanceTo(par_item);
+            bool bWasLocated = false; 
+            int intDistance = _StartingItemOfRange.DLL_GetDistanceTo(par_item, ref bWasLocated);
+
             if (par_item.Equals( _StartingItemOfRange))
             {
                 //
                 //  Surprisingly, they are the same item. Nothing needs to be done.
                 //
             }
-            else if ((intDistance > 0) && (intDistance > -1 + _ItemCountOfRange))
+
+            //---else if ((intDistance > 0) && (intDistance > -1 + _ItemCountOfRange))
+            else if (bWasLocated && (intDistance > 0) && (intDistance > -1 + _ItemCountOfRange))
             {
                 _ItemCountOfRange = (intDistance + 1);
                 //_EndingItem = _StartingItem.DLL_GetItemNext_OfT(intDistance);
