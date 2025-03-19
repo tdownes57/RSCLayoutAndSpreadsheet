@@ -833,9 +833,26 @@ namespace RSCLibraryDLLOperations
             //----ExtendRangeToIncludeListItem(par_item);
             //----ExtendRangeToIncludeListItem_FromList(par_item);
             const bool DOUBLY_LINK = true;
-            _EndingItemOfRange.DLL_SetItemNext_OfT(par_item, false, DOUBLY_LINK);
-            _EndingItemOfRange = par_item;
-            _ItemCountOfRange++;
+
+            if (_isTemporarilyEmpty || _pleaseIgnoreDummyEndItems)
+            {
+                //
+                // Add the initial item!! 
+                //
+                _StartingItemOfRange = par_item;
+                _EndingItemOfRange = par_item;
+                _ItemCountOfRange = 1;
+                // Make sure that this code block 
+                //  only runs once.
+                _pleaseIgnoreDummyEndItems = false; // re-initialize
+                _isTemporarilyEmpty = false;
+            }
+            else
+            {
+                _EndingItemOfRange.DLL_SetItemNext_OfT(par_item, false, DOUBLY_LINK);
+                _EndingItemOfRange = par_item;
+                _ItemCountOfRange++;
+            }
 
         }
 
