@@ -823,7 +823,30 @@ namespace RSCLibraryDLLOperations
         /// parameter.  The resulting mutated range is 2, 3, 4, 5 (or 2, 3, 4, 5, 6).
         /// </summary>
         /// <param name="par_item">The item in the list which follows (is greater in position) than </param>
-        public void AddItemToTheEndOfRange(TControl par_item)
+        public void AddItemToTheEndOfRange_NewItem(TControl par_item)
+        {
+            //
+            // This is an "alias" function, which allows the programmer to have more than one
+            // memorable name to a function.----3/14/2025 td
+            // Added 3/14/2025 td
+            //
+            //----ExtendRangeToIncludeListItem(par_item);
+            //----ExtendRangeToIncludeListItem_FromList(par_item);
+            const bool DOUBLY_LINK = true;
+            _EndingItemOfRange.DLL_SetItemNext_OfT(par_item, false, DOUBLY_LINK);
+            _EndingItemOfRange = par_item;
+            _ItemCountOfRange++;
+
+        }
+
+
+        /// <summary>
+        /// If the parent list is 1, 2, 3, 4, 5, 6 (six items) and this range (the current object)
+        /// is 2, 3, 4 (3  items) then this method can be called with "5" (or "6") as the 
+        /// parameter.  The resulting mutated range is 2, 3, 4, 5 (or 2, 3, 4, 5, 6).
+        /// </summary>
+        /// <param name="par_item">The item in the list which follows (is greater in position) than </param>
+        public void AddItemToTheEndOfRange_FromList(TControl par_item)
         {
             //
             // This is an "alias" function, which allows the programmer to have more than one
@@ -833,6 +856,7 @@ namespace RSCLibraryDLLOperations
             ExtendRangeToIncludeListItem(par_item);
 
         }
+
 
         /// <summary>
         /// If the parent list is 1, 2, 3, 4, 5, 6 (six items) and this range (the current object)

@@ -300,8 +300,8 @@ Public Class FormDemo1DVertical
             ''
             strCurrentItem = par_arrayOfTwoCharStrings(index Mod intHowManyInRange)
             ''---mod_rangeB1.ExtendRangeToIncludeListItem(New DLLUserControlTextbox(strCurrentItem))
-            mod_rangeB1.AddItemToTheEndOfRange(New DLLUserControlTextbox(strCurrentItem))
-            mod_rangeB2.AddItemToTheEndOfRange(New DLLUserControlRichbox(strCurrentItem))
+            ''---mod_rangeB1.AddItemToTheEndOfRange(New DLLUserControlTextbox(strCurrentItem))
+            mod_rangeB2.AddItemToTheEndOfRange_NewItem(New DLLUserControlRichbox(strCurrentItem))
 
         Next index
 
