@@ -40,7 +40,80 @@ Public Class FormDemo1DVertical
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
 
 
+
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ''
+        '' Added 03/22/2025 and 10/14/2024 thomas c. downes 
+        ''
+        Dim newItemA As TwoCharacterDLLVerticalA
+        Dim indexNewItem As Integer
+        Dim newItemB1 As DLLUserControlTextbox
+        Dim newItemB2 As DLLUserControlRichbox
+
+        ''mod_firstItemA = New TwoCharacterDLLVerticalA("01")
+        ''mod_lastItemA = mod_firstItemA
+        mod_listA = New DLLList(Of TwoCharacterDLLVerticalA)()
+        mod_listB1 = New DLLList(Of DLLUserControlTextbox)()
+        mod_listB2 = New DLLList(Of DLLUserControlRichbox)()
+
+        ''Added 3/05/2025 td
+        Dim arrayTwoCharStrings As String()
+        ''Added 3/05/2025 td
+        ReDim arrayTwoCharStrings(10)
+        Dim strTwoChars As String
+        Dim index_0based As Integer = 0
+
+        ''
+        '' Generate the three (3) ranges of newly-generated  items.
+        ''
+        For indexNewItem = 1 To INITIAL_ITEM_COUNT_30 ''---30
+            ''
+            '' Iteratively expand the three (3) ranges of newly-generated  items.
+            ''
+            strTwoChars = indexNewItem.ToString("00")
+            arrayTwoCharStrings(index_0based) = strTwoChars
+
+            ''TwoCharacterDLLVertical
+            newItemA = New TwoCharacterDLLVerticalA(strTwoChars)
+            mod_listA.DLL_InsertItemAtEnd(newItemA)
+
+            ''DLLUserControlTextbox 
+            newItemB1 = New DLLUserControlTextbox(strTwoChars)
+            mod_listB1.DLL_InsertItemAtEnd(newItemB1)
+
+            ''DLLUserControlRichbox 
+            newItemB2 = New DLLUserControlRichbox(strTwoChars)
+            mod_listB2.DLL_InsertItemAtEnd(newItemB2)
+
+            ''Prepare for next iteration.
+            index_0based += 1
+            If (mod_firstItemA Is Nothing) Then mod_firstItemA = newItemA
+            If (mod_firstItemB1 Is Nothing) Then mod_firstItemB1 = newItemB1
+            If (mod_firstItemB2 Is Nothing) Then mod_firstItemB2 = newItemB2
+
+        Next indexNewItem
+
+        ''
+        '' added 12/30/2024 
+        ''
+        numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
+        numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
+
+        mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
+
+        ''
+        '' Display the list. 
+        ''
+        RefreshTheUI_DisplayList()
+        RefreshTheUI_DisplayListB1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayListB2(mod_listB2, mod_firstItemB2)
+        labelNumOperations.Text = mod_manager.ToString()
+
+    End Sub
+
+
+
+    Private Sub FormSimpleDemoOfCSharp1D_Load_NotUsed(sender As Object, e As EventArgs) ''3/22/2025 Handles MyBase.Load
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
@@ -301,6 +374,7 @@ Public Class FormDemo1DVertical
             strCurrentItem = par_arrayOfTwoCharStrings(index Mod intHowManyInRange)
             ''---mod_rangeB1.ExtendRangeToIncludeListItem(New DLLUserControlTextbox(strCurrentItem))
             ''---mod_rangeB1.AddItemToTheEndOfRange(New DLLUserControlTextbox(strCurrentItem))
+            mod_rangeB1.AddItemToTheEndOfRange_NewItem(New DLLUserControlTextbox(strCurrentItem))
             mod_rangeB2.AddItemToTheEndOfRange_NewItem(New DLLUserControlRichbox(strCurrentItem))
 
         Next index

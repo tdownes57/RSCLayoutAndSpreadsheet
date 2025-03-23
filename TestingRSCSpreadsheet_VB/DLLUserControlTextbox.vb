@@ -140,7 +140,8 @@ Public Class DLLUserControlTextbox
         If (paramItem Is Me) Then System.Diagnostics.Debugger.Break()
         ''---mod_next = param
         ''Jan24 2025 mod_prior = paramItem
-        DLL.DLL_SetItemNext_OfT(paramItem)
+        ''Mar22 2025 DLL.DLL_SetItemNext_OfT(paramItem)
+        DLL.DLL_SetItemPrior_OfT(paramItem)
 
         ''
         '' Adding bidirectionality.  ---12/08/2024 td

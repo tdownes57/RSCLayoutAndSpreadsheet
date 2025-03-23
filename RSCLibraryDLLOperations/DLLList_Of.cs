@@ -22,8 +22,8 @@ namespace RSCLibraryDLLOperations
         //
         //     This is an "inhouse" linked-list collection. 
         //
-        public TControl _itemStart;
-        public TControl _itemEnding;
+        public TControl? _itemStart;
+        public TControl? _itemEnding;
         public int _itemCount;
         public bool _isEmpty_OrTreatAsEmpty; // This means that some user-initiated operation
                                              // has removed all remaining items from the list (likely, per user's intention).  
@@ -31,7 +31,7 @@ namespace RSCLibraryDLLOperations
                                              //   the _itemStart object. The C# compiler might not like that.) 
 
         //  https://www.tutorialsteacher.com/csharp/csharp-event
-        public event Notify EventListWasModified;  // Added 11/02/2024 thomas downes 
+        public event Notify? EventListWasModified;  // Added 11/02/2024 thomas downes 
 
         //
         // The Anchor describes the location of the imminent Insert of a Range or Item (Singly). 
@@ -48,13 +48,18 @@ namespace RSCLibraryDLLOperations
         //Go to module DLLList_Of_Sorting.cs  public TControl _itemStart_PriorSortOrder;  //Added 12/12/2024 td
         //Go to module DLLList_Of_Sorting.cs  public TControl _itemEnding_PriorSortOrder;  //Added 12/29/2024 td
 
-        //public DLLList()
-        //{
-        //    _itemCount = 0;
-        //    _isEmpty_OrTreatAsEmpty = true;
-        //    //_itemStart = null;
-        //    //_itemEnding = null;
-        //}
+        public DLLList()
+        {
+            _itemCount = 0;
+            _isEmpty_OrTreatAsEmpty = true;
+            _itemStart = null;
+            _itemEnding = null;
+
+            // Added 3/22/2025 thomas d.
+            _itemStart_PriorSortOrder = null;
+            _itemEnding_PriorSortOrder = null;
+        }
+
 
         public DLLList(TControl par_itemStart,
                        TControl par_itemEnding, int par_itemCount)
@@ -92,7 +97,7 @@ namespace RSCLibraryDLLOperations
             // Check to see if the list contains the item.
             //
             if (_isEmpty_OrTreatAsEmpty) return false;
-            
+
             if (par_item.Equals(_itemStart)) return true;
             if (par_item.Equals(_itemEnding)) return true;
 
@@ -106,7 +111,7 @@ namespace RSCLibraryDLLOperations
             }
 
             return boolMatches;
-        
+
         }
 
 
@@ -120,14 +125,14 @@ namespace RSCLibraryDLLOperations
             if (_itemStart != null)
             {
                 result = _itemStart.DLL_GetItemNext_OfT(par_index);
-                  //  .DLL_UnboxControl_OfT();
+                //  .DLL_UnboxControl_OfT();
             }
 
             if (result == null)
             {
                 return default(TControl);
             }
-            else return result; 
+            else return result;
 
         }
 
@@ -141,6 +146,25 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+        public void DLL_InsertItemAtEnd(TControl par_itemToAdd)
+        {
+            //
+            // Alias function.  ---Added 03/22/2025 thomas downes   
+            //
+            DLL_AddItemAtEnd(par_itemToAdd);
+
+        }
+
+
+        public void DLL_AppendItemToEnd(TControl par_itemToAdd)
+        {
+            //
+            // Alias function.  ---Added 03/22/2025 thomas downes   
+            //
+            DLL_AddItemAtEnd(par_itemToAdd);
+
+        }
 
         public void DLL_AddItemAtEnd(TControl par_itemToAdd)
         {
@@ -579,9 +603,20 @@ namespace RSCLibraryDLLOperations
         //         bool par_bDontCleanPriors = false)
         //    
         private const int PLACEHOLDER = -1;
-        private Tuple<int, int> mod_tupSelect_NoShiftToShift;
-        private Tuple<int, int> mod_tupSelect_LowToUpper;
-        private IDoublyLinkedItem mod_dllControlFirst_NotUsed;  // Suffixed on 12/09/2024
+
+        /// <summary>
+        /// First integer item: Index of item clicked WITHOUT using the Shift key.
+        /// Second integer item: Index of item clicked WHILE using the Shift key.
+        /// </summary>
+        private Tuple<int, int>? mod_tupSelect_NoShiftToShift;
+
+        /// <summary>
+        /// First integer item: Index of item which begins the range of Selected items (the least index within the range).
+        /// Second integer item: Index of item which ends the range of Selected items (the maximal index within the range).
+        /// </summary>
+        private Tuple<int, int>? mod_tupSelect_LowToUpper;
+
+        private IDoublyLinkedItem? mod_dllControlFirst_NotUsed;  // Suffixed on 12/09/2024
  
 
         public DLLRange<TControl> GetSelectionRange(int par_indexClicked,

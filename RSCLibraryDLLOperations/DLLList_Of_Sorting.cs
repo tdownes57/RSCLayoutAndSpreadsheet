@@ -27,8 +27,8 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------------------
         //
         //
-        public TControl _itemStart_PriorSortOrder;  //Moved to this module from DLLList_Of.cs, on 12/30/2024 --Added 12/12/2024 td
-        public TControl _itemEnding_PriorSortOrder;  //Moved to this module from DLLList_Of.cs, on 12/30/2024 --Added 12/29/2024 td
+        public TControl? _itemStart_PriorSortOrder;  //Moved to this module from DLLList_Of.cs, on 12/30/2024 --Added 12/12/2024 td
+        public TControl? _itemEnding_PriorSortOrder;  //Moved to this module from DLLList_Of.cs, on 12/30/2024 --Added 12/29/2024 td
 
         //Go to DLLOperation_Of.cs  public TControl[] _array_SortOrderIfUndo;  //Added 12/29/2024 td  
         //Go to DLLOperation_Of.cs  public TControl[] _array_SortOrderThisOp;  //Added 12/29/2024 td  
