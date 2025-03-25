@@ -171,17 +171,22 @@ namespace RSCLibraryDLLOperations
         public void ExecuteOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
                            bool par_changeOfEndpoint_Expected,
                            out bool par_changeOfEndpoint_Occurred,
-                           bool pbOperationIsNewSoRecordIt)
+                           bool pbOperationIsNewSoRecordIt,
+                           DLLOperationIndexStructure parOperationIndicized)
         {
             // Added 1/15/2024
             //
             //   This is an "alias" method.  It exists in case the programmer(s) 
             //   forget the name of the function. 
             //
-            ProcessOperation_AnyType(parOperation, 
-                par_changeOfEndpoint_Expected, 
-                out par_changeOfEndpoint_Occurred, 
-                pbOperationIsNewSoRecordIt);
+            //Mar2025 ProcessOperation_AnyType(parOperation, 
+            //    par_changeOfEndpoint_Expected, 
+            //    out par_changeOfEndpoint_Occurred, 
+            //    pbOperationIsNewSoRecordIt);
+            ProcessOperation_AnyType(parOperation,
+                par_changeOfEndpoint_Expected,
+                out par_changeOfEndpoint_Occurred,
+                pbOperationIsNewSoRecordIt, parOperationIndicized);
 
         }
 
@@ -189,7 +194,8 @@ namespace RSCLibraryDLLOperations
         public void ProcessOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
                                bool par_changeOfEndpoint_Expected,
                                out bool par_changeOfEndpoint_Occurred, 
-                               bool pbOperationIsNewSoRecordIt)
+                               bool pbOperationIsNewSoRecordIt,
+                               DLLOperationIndexStructure parOperationIndicized)
         {
             // Added 1/15/2024
 
@@ -204,6 +210,9 @@ namespace RSCLibraryDLLOperations
             //
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint_Expected, 
                   out par_changeOfEndpoint_Occurred);
+
+            // Added 3/25/2025 td
+            parOperation.ExecutionDate = DateTime.Now;
 
             //
             // Administration needed!!
@@ -326,8 +335,11 @@ namespace RSCLibraryDLLOperations
             const bool RECORD_OPERATION = false; // Not needed for REDO operations
 
             //opReDo.CreatedAsRedoOperation = true;
-            ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected, 
-                out bChangeOfEndpoint_Occurred, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
+            //Mar2025 ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected, 
+            //    out bChangeOfEndpoint_Occurred, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
+            ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected,
+                out bChangeOfEndpoint_Occurred, RECORD_OPERATION,
+                opReDo.GetOperationIndexStructure()); // , pbIsHoriz, pbIsVerti);
 
         }
 
@@ -490,7 +502,8 @@ namespace RSCLibraryDLLOperations
             ProcessOperation_AnyType(opUndoVersion,
                                      bIsChangeOfEndpoint_Expected,
                                      out bChangeOfEndpoint_Occurred,
-                                     RECORD_UNDO_OPERATION);
+                                     RECORD_UNDO_OPERATION,
+                                     opUndoVersion.GetOperationIndexStructure());
 
             //Added 11/10/2024 
             //---if (bIsChangeOfEndpoint)

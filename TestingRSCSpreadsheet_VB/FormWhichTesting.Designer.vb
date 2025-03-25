@@ -199,9 +199,10 @@ Partial Class FormWhichTesting
         ' LinkDemo1DVertical
         ' 
         LinkDemo1DVertical.AutoSize = True
+        LinkDemo1DVertical.Font = New Font("Segoe UI", 13F)
         LinkDemo1DVertical.Location = New Point(23, 135)
         LinkDemo1DVertical.Name = "LinkDemo1DVertical"
-        LinkDemo1DVertical.Size = New Size(344, 15)
+        LinkDemo1DVertical.Size = New Size(517, 25)
         LinkDemo1DVertical.TabIndex = 14
         LinkDemo1DVertical.TabStop = True
         LinkDemo1DVertical.Tag = "FormSimpleDemo1DHorizontal"

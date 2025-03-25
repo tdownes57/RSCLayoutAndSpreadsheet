@@ -894,8 +894,10 @@ Public Class FormDemo1DVertical
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, Nothing,
                                False, OPERATION_MOVE, currentMoveType)
         ''operation.OperateOnList(mod_listA)
+        ''Mar2025 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        ''   bChangeOfEndpoint_Occurred, True)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
-         bChangeOfEndpoint_Occurred, True)
+         bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
 
         ''Added 11/18/2024 
         ''---If bChangeOfEndpoint Then ''Modified 12/15/2024
@@ -1086,8 +1088,10 @@ Public Class FormDemo1DVertical
 
             ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''Mar2025  mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            ''   bChangeOfEndpoint_PostHoc, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
-                                             bChangeOfEndpoint_PostHoc, True)
+                   bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -1477,6 +1481,7 @@ Public Class FormDemo1DVertical
         Dim bAnyEndpointAffected_ByRef As Boolean ''Added 11/11/2024 td
         Dim bCannotDeleteThatMany As Boolean ''Added 11/11/2024 td
         Dim not_a_moveType As StructureTypeOfMove = New StructureTypeOfMove(False) ''Added 12/11/2024 
+        Dim operationIndicized As DLLOperationIndexStructure ''Added 3/26/2025
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -1536,8 +1541,13 @@ Public Class FormDemo1DVertical
             ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
             ''12/20/2024                  Nothing, Nothing, Nothing)
 
+            ''Added 3/26/2025 t/d/
+            operationIndicized = operationToDelete.GetOperationIndexStructure()
+
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
                                              bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
+
+            operationToDelete.ExecutionDate = DateTime.Now ''Added 3/26/2025
 
             ''Administration....
             If (bAnyEndpointAffected Or bAnyEndpointAffected_ByRef) Then
