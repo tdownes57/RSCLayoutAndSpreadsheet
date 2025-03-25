@@ -271,6 +271,13 @@ Public Class FormDemo1DVertical
             ''12/30/2024                     False, False, False, False,
             ''12/30/2024                     Nothing, Nothing, Nothing)
 
+            ''Added March 24, 2025
+            ''
+            '' It's important to get the index structure PRIOR to execution of the operation. 
+            ''
+            Dim operationInitialInsertA_Indices As DLLOperationIndexStructure
+            operationInitialInsertA_Indices = operationInitialInsertA.GetOperationIndexStructure()
+
             ''12/16/2024 operationInitial30.OperateOnList(mod_listA)
             Dim byrefChangeOfEndpoint As Boolean ''Added 12/16/2024
 
@@ -286,7 +293,10 @@ Public Class FormDemo1DVertical
             ''Encapsulated 2/27/2025 td
             ''
             ''Feb2025  PropagateOperation_ToParallelLists(operationInitialInsertA)
-            PropagateOperation_ToParallelLists(operationInitialInsertA, True, arrayTwoCharStrings)
+            ''March25 2025  PropagateOperation_ToParallelLists(operationInitialInsertA, True, arrayTwoCharStrings)
+
+            ''Added 3/25/2025 thomas downes
+            PropagateOperation_ToParallelLists(operationInitialInsertA_Indices, True, arrayTwoCharStrings)
 
             ''''Added 1/21/2025  
             ''Dim operationInitialInsertB1 As DLLOperation1D(Of DLLUserControlTextbox)
@@ -334,8 +344,10 @@ Public Class FormDemo1DVertical
     End Sub
 
 
-    Private Sub PropagateOperation_ToParallelLists(par_operation As DLLOperation1D(Of TwoCharacterDLLVerticalA),
+    Private Sub PropagateOperation_ToParallelLists(par_operation As DLLOperationIndexStructure,
                       par_isInsert As Boolean, par_arrayOfTwoCharStrings() As String)
+        ''Mar24 2025 Private Sub PropagateOperation_ToParallelLists(par_operation As DLLOperation1D(Of TwoCharacterDLLVerticalA),
+        ''Mar24 2025     par_isInsert As Boolean, par_arrayOfTwoCharStrings() As String)
         ''
         ''Encapsulated 2/27/2025 td
         ''
@@ -349,18 +361,21 @@ Public Class FormDemo1DVertical
         ''Added 1/21/2025  
         ''  This will hold the numeric skeleton of the initial insert operation. 
         ''
-        Dim opInitialInsertIndexStruct As DLLOperationIndexStructure
+        'Mar24 2025     Dim opInitialInsertIndexStruct As DLLOperationIndexStructure
+        Dim operationIndexStruct As DLLOperationIndexStructure
 
         ''Added 1/21/2025  
-        opInitialInsertIndexStruct = par_operation.GetOperationIndexStructure()
+        ''Mar24 2025  opInitialInsertIndexStruct = par_operation.GetOperationIndexStructure()
+        operationIndexStruct = par_operation
 
         ''Added 2/14/2025  
-        opInitialInsertIndexStruct.IsInsert_SoMustCreateNewItems = True
+        ''Mar24 2025  opInitialInsertIndexStruct.IsInsert_SoMustCreateNewItems = True
 
         ''Added 3/5/2025 td
         Dim intHowManyInRange As Integer
         Const START_EMPTY As Boolean = True ''Added 3/14/2025
-        intHowManyInRange = opInitialInsertIndexStruct.IsInsert_InsertionCount
+        ''March 2025  intHowManyInRange = opInitialInsertIndexStruct.IsInsert_InsertionCount
+        intHowManyInRange = operationIndexStruct.IsInsert_InsertionCount
         Dim dummyTextbox As New DLLUserControlTextbox("du") '' "du" = "dummy"
         mod_rangeB1 = New DLLRange(Of DLLUserControlTextbox)(START_EMPTY, dummyTextbox) '' //TwoCharacterDLLVerticalB)()
         Dim dummyRichbox As New DLLUserControlRichbox("du") '' "du" = "dummy"
@@ -383,9 +398,9 @@ Public Class FormDemo1DVertical
         ''    ---2/14/2025 td
         ''
         operationB1 = New DLLOperation1D(Of DLLUserControlTextbox) _
-                    (opInitialInsertIndexStruct, mod_firstItemB1, mod_rangeB1)
+                    (operationIndexStruct, mod_firstItemB1, mod_rangeB1)
         operationB2 = New DLLOperation1D(Of DLLUserControlRichbox) _
-                    (opInitialInsertIndexStruct, mod_firstItemB2, mod_rangeB2)
+                    (operationIndexStruct, mod_firstItemB2, mod_rangeB2)
 
         ''Added 1/21/2025  
         operationB1.OperateOnParentList(mod_listB1, byrefChangeOfEndpointB1)
@@ -1237,6 +1252,9 @@ Public Class FormDemo1DVertical
             ''12/30/2024                          False, False, False, False,
             ''12/30/2024                           Nothing, Nothing, Nothing)
 
+            ''Added 3/25/2025
+            Dim operationToInsert_Indices = operationToInsert.GetOperationIndexStructure()
+
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_Occurred, True)
@@ -1245,7 +1263,8 @@ Public Class FormDemo1DVertical
             ''Added 2/27/2025 td
             ''
             ''Feb2025  PropagateOperation_ToParallelLists(operationToInsert)
-            PropagateOperation_ToParallelLists(operationToInsert, True, array_sItemsToInsert)
+            ''Mar2025  PropagateOperation_ToParallelLists(operationToInsert, True, array_sItemsToInsert)
+            PropagateOperation_ToParallelLists(operationToInsert_Indices, True, array_sItemsToInsert)
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 

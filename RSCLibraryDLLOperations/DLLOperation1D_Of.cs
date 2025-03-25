@@ -34,6 +34,8 @@ namespace RSCLibraryDLLOperations
         //            (versus a 2-dimensional grid)
         //
         //''
+        public DateTime ExecutionDate = DateTime.MinValue;  // Added 3/25/2025 
+
         private readonly bool _isHoriz;
         private readonly bool _isVerti;
 
@@ -529,6 +531,9 @@ namespace RSCLibraryDLLOperations
             //
             pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
+            // Added 3/24/2025 thomas downes
+            ExecutionDate = DateTime.Now;
+
         }
 
 
@@ -574,6 +579,8 @@ namespace RSCLibraryDLLOperations
 
             operationParallel.OperateOnList(par_listParallel, true, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);
 
+            // Added 3/24/2025 thomas downes
+            ExecutionDate = DateTime.Now;
 
         }
 
@@ -652,6 +659,10 @@ namespace RSCLibraryDLLOperations
                     Testing.AreWeTesting);
             }
 
+            // Added 3/24/2025 thomas downes
+            ExecutionDate = DateTime.Now;
+
+
         }
 
 
@@ -700,6 +711,10 @@ namespace RSCLibraryDLLOperations
                 par_list._isEmpty_OrTreatAsEmpty = bNoItemsInList;
 
             }
+
+            // Added 3/24/2025 thomas downes
+            ExecutionDate = DateTime.Now;
+
 
         }
 
@@ -1332,9 +1347,9 @@ namespace RSCLibraryDLLOperations
         //                             par_anchorItem, par_anchorPair,
         //                             pbEndpointProtection,
         //                             pbIsChangeOfEndpoint_Expected, pbRunOtherChecks);
-            
+
         //    }
-           
+
         //    else if (boolIsByShifts)
         //    {
         //        //
@@ -1404,7 +1419,7 @@ namespace RSCLibraryDLLOperations
         //    // Added 4/17/2024
         //    //
         //    //if (_anchor_H != null && _willInsertRange_AfterAnchor)
-          
+
 
         //        }
         //    }
@@ -1415,7 +1430,7 @@ namespace RSCLibraryDLLOperations
         //**********/
 
 
-  
+
 
         /// <summary>
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.

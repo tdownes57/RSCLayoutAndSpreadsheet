@@ -1136,6 +1136,26 @@ namespace RSCLibraryDLLOperations
             // This may be useful for propagating an operation to a set of parallel lists, 
             //    for example, from RSCRowHeaders to RSColumns. 
             //
+
+            // Added 3/25/2025 td
+            if (ExecutionDate > DateTime.MinValue)
+            {
+                //
+                //  If this operation has already been executed, then it's too late to 
+                //  convert the operation to a pure-index version. --3/25/2025 td
+                //
+                System.Diagnostics.Debugger.Break();
+            }
+
+            if (ExecutionDate > DateTime.MinValue)
+            {
+                //
+                //  If this operation has already been executed, then it's too late to 
+                //  convert the operation to a pure-index version. --3/25/2025 td
+                //
+                throw new Exception("Exec Date must be zero!");
+            }
+
             DLLOperationIndexStructure result_struct = new DLLOperationIndexStructure();
 
             result_struct.IsInsert = _isInsert; 
