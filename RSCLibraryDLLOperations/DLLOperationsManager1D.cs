@@ -20,18 +20,27 @@ namespace RSCLibraryDLLOperations
     //    1D = 1 dimension, simply a list
     //            (versus a 2-dimensional grid)
     //
-    public class DLLOperationsManager1D<T_LinkedCtl>
-        where T_LinkedCtl : class, IDoublyLinkedItem<T_LinkedCtl>
+    //    Example...
+    //       T_DLL : RSCDataRowHeader  
+    //       T_DLLParallel: RSCDataColumn
+    //           (parallel to the RowHeaders)
+    //
+    // March 2025 public class DLLOperationsManager1D<T_DLL>
+    //                where T_DLL : class, IDoublyLinkedItem<T_DLL>
+    //
+    public class DLLOperationsManager1D<T_DLL, T_DLLParallel>
+        where T_DLL : class, IDoublyLinkedItem<T_DLL>
+        where T_DLLParallel : class, IDoublyLinkedItem<T_DLLParallel>
     {
         //    1D = 1 dimension, simply a list
         //            (versus a 2-dimensional grid)
         //
-        private T_LinkedCtl mod_firstItem;
-        private T_LinkedCtl mod_endingItem;
-        private DLLList<T_LinkedCtl> mod_list;
+        private T_DLL mod_firstItem;
+        private T_DLL mod_endingItem;
+        private DLLList<T_DLL> mod_list;
 
-        private DLLOperation1D<T_LinkedCtl> mod_firstPriorOperation1D;
-        private DLLOperation1D<T_LinkedCtl> mod_lastPriorOperation1D;
+        private DLLOperation1D<T_DLL> mod_firstPriorOperation1D;
+        private DLLOperation1D<T_DLL> mod_lastPriorOperation1D;
 
         //
         // As illustration of the moveable, user-controlled undo-redo marker:
@@ -44,8 +53,8 @@ namespace RSCLibraryDLLOperations
         //                                               <----------------||----------------->
         //
         //
-        private DLLOperationsUndoRedoMarker1D<T_LinkedCtl>
-            mod_opUndoRedoMarker;  // new DLLOperationsRedoMarker1D<T_LinkedCtl>(); // As r ''Added 1/24/2024
+        private DLLOperationsUndoRedoMarker1D<T_DLL>
+            mod_opUndoRedoMarker;  // new DLLOperationsRedoMarker1D<T_DLL>(); // As r ''Added 1/24/2024
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
@@ -53,9 +62,9 @@ namespace RSCLibraryDLLOperations
         //
         // Added 10/20/2024 
         //
-        public DLLOperationsManager1D(T_LinkedCtl par_firstItem,
-            DLLList<T_LinkedCtl> par_list,
-            DLLOperation1D<T_LinkedCtl> par_firstPriorOperationV1)
+        public DLLOperationsManager1D(T_DLL par_firstItem,
+            DLLList<T_DLL> par_list,
+            DLLOperation1D<T_DLL> par_firstPriorOperationV1)
         {
             this.mod_firstItem = par_firstItem;
             this.mod_list = par_list;
@@ -67,13 +76,13 @@ namespace RSCLibraryDLLOperations
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
 
         }
 
 
-        public DLLOperationsManager1D(T_LinkedCtl par_firstItem,
-                                     DLLList<T_LinkedCtl> par_list)
+        public DLLOperationsManager1D(T_DLL par_firstItem,
+                                     DLLList<T_DLL> par_list)
         {
             this.mod_firstItem = par_firstItem;
             this.mod_list = par_list;
@@ -85,13 +94,13 @@ namespace RSCLibraryDLLOperations
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>();
+            //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
+            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>();
 
         }
 
 
-        public T_LinkedCtl GetFirstItem()
+        public T_DLL GetFirstItem()
         {
             return mod_firstItem;
         }
@@ -168,7 +177,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ExecuteOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
+        public void ExecuteOperation_AnyType(DLLOperation1D<T_DLL> parOperation,
                            bool par_changeOfEndpoint_Expected,
                            out bool par_changeOfEndpoint_Occurred,
                            bool pbOperationIsNewSoRecordIt,
@@ -191,11 +200,11 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ProcessOperation_AnyType(DLLOperation1D<T_LinkedCtl> parOperation,
+        public void ProcessOperation_AnyType(DLLOperation1D<T_DLL> parOperation,
                                bool par_changeOfEndpoint_Expected,
                                out bool par_changeOfEndpoint_Occurred, 
                                bool pbOperationIsNewSoRecordIt,
-                               DLLOperationIndexStructure parOperationIndicized)
+                               DLLOperationIndexStructure? parOperationIndicized = null)
         {
             // Added 1/15/2024
 
@@ -249,7 +258,7 @@ namespace RSCLibraryDLLOperations
                     mod_firstPriorOperation1D = parOperation;
                     mod_lastPriorOperation1D = parOperation;
                     // Added 12/04/2024
-                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(parOperation);
 
                 }
 
@@ -280,13 +289,13 @@ namespace RSCLibraryDLLOperations
 
                     var temp_priorOp = mod_lastPriorOperation1D;
                     //mod_lastPriorOperation1D = parOperation;
-                    //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_LinkedCtl>(temp_priorOp, parOperation);
+                    //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_DLL>(temp_priorOp, parOperation);
                     mod_lastPriorOperation1D = parOperation;
 
                     //
                     //  Major call!!
                     //
-                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(parOperation);
 
                     // Added 12/01/2028
                     //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
@@ -324,7 +333,7 @@ namespace RSCLibraryDLLOperations
 
         public void RedoMarkedOperation() // (bool pbIsHoriz, bool pbIsVerti)
         {
-            DLLOperation1D<T_LinkedCtl>  // <T_LinkedCtlHor, T_LinkedCtlVer>
+            DLLOperation1D<T_DLL>  // <T_DLLHor, T_DLLVer>
                 opReDo = mod_opUndoRedoMarker.GetMarkersNext_ShiftPositionRight();
 
             //Added 5.25.2024
@@ -385,7 +394,7 @@ namespace RSCLibraryDLLOperations
             //
             if (this.MarkerHasOperationNext_Redo())
             {
-                DLLOperation1D<T_LinkedCtl> markersCurrentUndoOperation_willBeLast;
+                DLLOperation1D<T_DLL> markersCurrentUndoOperation_willBeLast;
                 markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo();
                 mod_lastPriorOperation1D = markersCurrentUndoOperation_willBeLast;
 
@@ -404,7 +413,7 @@ namespace RSCLibraryDLLOperations
             // Added 1/10/2024 thomas downes
             //
             int intCountFurtherUndoOps;
-            DLLOperation1D<T_LinkedCtl> operationToUndo;
+            DLLOperation1D<T_DLL> operationToUndo;
             bool bOperationPriorExists = false; 
 
             // Added 10/25/2024  
@@ -412,7 +421,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Added 10/25/2024  
                 if (mod_lastPriorOperation1D == null) throw new RSCNoPriorOperationException();
-                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(mod_lastPriorOperation1D);
+                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(mod_lastPriorOperation1D);
 
             }
             else if (mod_opUndoRedoMarker.HasOperationPrior())
@@ -447,7 +456,7 @@ namespace RSCLibraryDLLOperations
                 {
                     // Use the operation structure, to create a new, equivalent  operation.
                     DLLOperationIndexStructure opIndexStructure = operationToUndo.GetOperationIndexStructure();
-                    operationToUndo = new DLLOperation1D<T_LinkedCtl>(opIndexStructure, mod_firstItem);
+                    operationToUndo = new DLLOperation1D<T_DLL>(opIndexStructure, mod_firstItem);
 
                 }
 
@@ -467,7 +476,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void UndoOperation_ViaInverseOf(DLLOperation1D<T_LinkedCtl> parOperation, ref bool pbEndpointAffected)
+        private void UndoOperation_ViaInverseOf(DLLOperation1D<T_DLL> parOperation, ref bool pbEndpointAffected)
         {
             //
             //''Added 7/06/2024 and 1/15/2024
@@ -475,7 +484,7 @@ namespace RSCLibraryDLLOperations
             const bool RECORD_UNDO_OPERATION = false; //Not needed for UNDO operations. ''Added 1 / 28 / 2024
             bool bIsChangeOfEndpoint_Expected = false;
             bool bChangeOfEndpoint_Occurred = false;
-            DLLOperation1D<T_LinkedCtl> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+            DLLOperation1D<T_DLL> opUndoVersion; // As DLL_OperationV1 ''Added 11 / 5 / 2024
             //opUndoVersion = parOperation.GetUndoVersionOfOperation();
             opUndoVersion = parOperation.GetInverseForUndo(Testing.AreWeTesting);
 
@@ -525,7 +534,7 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public string ToString(DLLOperation1D<T_LinkedCtl> par_operation)
+        public string ToString(DLLOperation1D<T_DLL> par_operation)
         {
             //
             // Added 11/29/2024 

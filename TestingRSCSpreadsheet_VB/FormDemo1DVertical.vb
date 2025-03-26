@@ -1104,8 +1104,10 @@ Public Class FormDemo1DVertical
             operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
             ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''Mar2025  mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            ''           bChangeOfEndpoint_PostHoc, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
-                                             bChangeOfEndpoint_PostHoc, True)
+                  bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
@@ -1261,7 +1263,8 @@ Public Class FormDemo1DVertical
 
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
-                                             bChangeOfEndpoint_Occurred, True)
+                                             bChangeOfEndpoint_Occurred, True,
+                                             operationToInsert_Indices)
 
             ''
             ''Added 2/27/2025 td
@@ -1545,7 +1548,8 @@ Public Class FormDemo1DVertical
             operationIndicized = operationToDelete.GetOperationIndexStructure()
 
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
-                                             bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
+                                             bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
+                                             operationIndicized)
 
             operationToDelete.ExecutionDate = DateTime.Now ''Added 3/26/2025
 
@@ -1718,8 +1722,11 @@ Public Class FormDemo1DVertical
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
         ''operation.OperateOnList(mod_listA)
         ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        ''03/25/2025 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        ''    bChangeOfEndpoint_Occurred, True)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
-                                         bChangeOfEndpoint_Occurred, True)
+                                         bChangeOfEndpoint_Occurred, True,
+                                         tempOperation.GetOperationIndexStructure())
 
         ''Added 11/18/2024 
         If bChangeOfEndpoint_Expected Then
@@ -1956,8 +1963,12 @@ Public Class FormDemo1DVertical
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
                 ''Added 12/23/2024 t))d))
+                ''March 2025  mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
+                ''              bChangeOfEndpoint_Occurred, True)
                 mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
-                                                 bChangeOfEndpoint_Occurred, True)
+                       bChangeOfEndpoint_Occurred, True,
+                       operationSortForward.GetOperationIndexStructure())
+
             Else
                 operationSortForward.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
 
@@ -2000,8 +2011,13 @@ Public Class FormDemo1DVertical
         ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
         If (USE_MANAGER) Then
             ''Added 12/23/2024 t))d))
+            ''Mar2025 mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
+            ''           bChangeOfEndpoint_Occurred, True)
+            ''
             mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
-                                                 bChangeOfEndpoint_Occurred, True)
+                                       bChangeOfEndpoint_Occurred, True,
+                                       operationSortBackward.GetOperationIndexStructure())
+
         Else
             operationSortBackward.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
 

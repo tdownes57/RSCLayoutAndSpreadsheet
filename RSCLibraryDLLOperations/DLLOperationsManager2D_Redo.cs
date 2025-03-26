@@ -32,8 +32,8 @@ namespace RSCLibraryDLLOperations
         //      the following class:  
         //       DLLOperation2D<T_Hori, T_Vert> 
         //---------------------------------------------------------------------------------------------------------------------
-        private DLLOperationsManager1D<T_Hori> mod_managerHoriz;
-        private DLLOperationsManager1D<T_Vert> mod_managerVerti;
+        private DLLOperationsManager1D<T_Hori, T_Hori> mod_managerHoriz;
+        private DLLOperationsManager1D<T_Vert, T_Vert> mod_managerVerti;
 
         private DLLOperationBase? mod_firstPriorOperationBase;
         private DLLOperationBase? mod_lastPriorOperationBase;
@@ -104,7 +104,7 @@ namespace RSCLibraryDLLOperations
                     par_firstOperationHoriz.GetConvertToGenericOfT<T_Base>(firstItem_Horiz_base, BASE_CLASS, false);   //.DLL_GetBase();
 
                 //Added 1/4/2025 td
-                mod_managerHoriz = new DLLOperationsManager1D<T_Hori>(par_firstItemHorizontal, 
+                mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal, 
                     par_listHoriz, par_firstOperationHoriz);
 
                 //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base);
@@ -255,10 +255,15 @@ namespace RSCLibraryDLLOperations
             //
             //  Major call!!
             //
-            mod_managerHoriz.ProcessOperation_AnyType(parOperation, 
-                par_changeOfEndpoint_Expected, 
+            //Mar2025  mod_managerHoriz.ProcessOperation_AnyType(parOperation, 
+            //    par_changeOfEndpoint_Expected, 
+            //    out pbChangeOfEndpointOccurred,
+            //    RECORDING_BY_COMPONENTS);
+            mod_managerHoriz.ProcessOperation_AnyType(parOperation,
+                par_changeOfEndpoint_Expected,
                 out pbChangeOfEndpointOccurred,
-                RECORDING_BY_COMPONENTS);
+                RECORDING_BY_COMPONENTS, 
+                parOperation.GetOperationIndexStructure());
 
             if (par_bRecordOperation && RECORDING_BY_THISCLASS)
             {
@@ -365,14 +370,20 @@ namespace RSCLibraryDLLOperations
 
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_Vert> parOperation,
-                          bool par_changeOfEndpoint_Expected, out bool pbChangeOfEndpointOccurred,  bool par_bRecordOperation)
+                          bool par_changeOfEndpoint_Expected, out bool pbChangeOfEndpointOccurred,  
+                          bool par_bRecordOperation)
         {
             //
             //  Added 11/25/2024 
             //
+            // March2025  mod_managerVerti.ProcessOperation_AnyType(parOperation, par_changeOfEndpoint_Expected,
+            //    out pbChangeOfEndpointOccurred,
+            //    par_bRecordOperation)
+
             mod_managerVerti.ProcessOperation_AnyType(parOperation, par_changeOfEndpoint_Expected,
                 out pbChangeOfEndpointOccurred,
-                par_bRecordOperation);
+                par_bRecordOperation, 
+                parOperation.GetOperationIndexStructure());
 
 
 
