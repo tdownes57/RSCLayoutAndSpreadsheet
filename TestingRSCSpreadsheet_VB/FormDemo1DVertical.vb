@@ -14,7 +14,8 @@ Public Class FormDemo1DVertical
     ''
     '' Added 1/18/2025 & 10/14/2024 thomas c. downes 
     ''
-    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
+    ''March 2025 Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
+    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
 
     ''The textbox (versus any of the containers!)
     Private WithEvents mod_listA As DLLList(Of TwoCharacterDLLVerticalA)
@@ -23,16 +24,30 @@ Public Class FormDemo1DVertical
     Private mod_rangeA As DLLRange(Of TwoCharacterDLLVerticalA) ''Added 11/14/2024 t.homas d.ownes
 
     ''The first (leftmost) container (blue-gray background).
-    Private mod_listB1 As DLLList(Of DLLUserControlTextbox)
-    Private WithEvents mod_firstItemB1 As DLLUserControlTextbox
-    Private WithEvents mod_lastItemB1 As DLLUserControlTextbox
-    Private mod_rangeB1 As DLLRange(Of DLLUserControlTextbox) ''Added 11/14/2024 t.homas d.ownes
+    ''Mar2025 Private mod_listB1 As DLLList(Of DLLUserControlTextbox)
+
+    ''Mar2025 Private WithEvents mod_firstItemB1 As DLLUserControlTextbox
+    ''Mar2025 Private WithEvents mod_lastItemB1 As DLLUserControlTextbox
+    ''Mar2025 Private mod_rangeB1 As DLLRange(Of DLLUserControlTextbox) ''Added 11/14/2024 t.homas d.ownes
 
     ''The second (2nd leftmost) container (off-white background).
+    ''Mar2025 Private mod_listB2 As DLLList(Of DLLUserControlRichbox)
+    Private mod_listB1 As DLLList(Of DLLUserControlRichbox)
     Private mod_listB2 As DLLList(Of DLLUserControlRichbox)
+    Private mod_listB3 As DLLList(Of DLLUserControlRichbox)
+
+    Private WithEvents mod_firstItemB1 As DLLUserControlRichbox
+    Private WithEvents mod_lastItemB1 As DLLUserControlRichbox
+
     Private WithEvents mod_firstItemB2 As DLLUserControlRichbox
     Private WithEvents mod_lastItemB2 As DLLUserControlRichbox
+
+    Private WithEvents mod_firstItemB3 As DLLUserControlRichbox
+    Private WithEvents mod_lastItemB3 As DLLUserControlRichbox
+
+    Private mod_rangeB1 As DLLRange(Of DLLUserControlRichbox) ''Added 03/28/2025 t.homas d.ownes
     Private mod_rangeB2 As DLLRange(Of DLLUserControlRichbox) ''Added 11/14/2024 t.homas d.ownes
+    Private mod_rangeB3 As DLLRange(Of DLLUserControlRichbox) ''Added 03/28/2025 t.homas d.ownes
 
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 10 ''99 ''5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
@@ -47,14 +62,18 @@ Public Class FormDemo1DVertical
         ''
         Dim newItemA As TwoCharacterDLLVerticalA
         Dim indexNewItem As Integer
-        Dim newItemB1 As DLLUserControlTextbox
+        ''Mar2025 Dim newItemB1 As DLLUserControlTextbox
+        Dim newItemB1 As DLLUserControlRichbox
         Dim newItemB2 As DLLUserControlRichbox
+        Dim newItemB3 As DLLUserControlRichbox
 
         ''mod_firstItemA = New TwoCharacterDLLVerticalA("01")
         ''mod_lastItemA = mod_firstItemA
         mod_listA = New DLLList(Of TwoCharacterDLLVerticalA)()
-        mod_listB1 = New DLLList(Of DLLUserControlTextbox)()
+        ''Mar2025 mod_listB1 = New DLLList(Of DLLUserControlTextbox)()
+        mod_listB1 = New DLLList(Of DLLUserControlRichbox)()
         mod_listB2 = New DLLList(Of DLLUserControlRichbox)()
+        mod_listB3 = New DLLList(Of DLLUserControlRichbox)()
 
         ''Added 3/05/2025 td
         Dim arrayTwoCharStrings As String()
@@ -78,18 +97,25 @@ Public Class FormDemo1DVertical
             mod_listA.DLL_InsertItemAtEnd(newItemA)
 
             ''DLLUserControlTextbox 
-            newItemB1 = New DLLUserControlTextbox(strTwoChars)
-            mod_listB1.DLL_InsertItemAtEnd(newItemB1)
+            ''Mar2025 newItemB1 = New DLLUserControlTextbox(strTwoChars)
+            ''Mar2025 mod_listB1.DLL_InsertItemAtEnd(newItemB1)
 
             ''DLLUserControlRichbox 
+            newItemB1 = New DLLUserControlRichbox(strTwoChars)
+            mod_listB1.DLL_InsertItemAtEnd(newItemB1)
+
             newItemB2 = New DLLUserControlRichbox(strTwoChars)
             mod_listB2.DLL_InsertItemAtEnd(newItemB2)
+
+            newItemB3 = New DLLUserControlRichbox(strTwoChars)
+            mod_listB3.DLL_InsertItemAtEnd(newItemB3)
 
             ''Prepare for next iteration.
             index_0based += 1
             If (mod_firstItemA Is Nothing) Then mod_firstItemA = newItemA
             If (mod_firstItemB1 Is Nothing) Then mod_firstItemB1 = newItemB1
             If (mod_firstItemB2 Is Nothing) Then mod_firstItemB2 = newItemB2
+            If (mod_firstItemB3 Is Nothing) Then mod_firstItemB3 = newItemB3
 
         Next indexNewItem
 
@@ -99,14 +125,17 @@ Public Class FormDemo1DVertical
         numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
         numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
 
-        mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
+        mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
+                DLLUserControlRichbox)(mod_firstItemA, mod_listA)
 
         ''
         '' Display the list. 
         ''
         RefreshTheUI_DisplayList()
-        RefreshTheUI_DisplayListB1(mod_listB1, mod_firstItemB1)
+        ''Mar2025 RefreshTheUI_DisplayListB1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayListB2(mod_listB1, mod_firstItemB1)
         RefreshTheUI_DisplayListB2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayListB2(mod_listB3, mod_firstItemB3)
         labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
@@ -154,16 +183,18 @@ Public Class FormDemo1DVertical
         ''
         ''  Flow Container "Flow Column B1"
         ''
-        FlowColumnB2.Controls.Clear()
-        mod_firstItemB1 = New DLLUserControlTextbox
+        FlowColumnB1.Controls.Clear()
+        ''March 2025 mod_firstItemB1 = New DLLUserControlTextbox
+        mod_firstItemB1 = New DLLUserControlRichbox
         mod_lastItemB1 = mod_firstItemB1
-        mod_listB1 = New DLLList(Of DLLUserControlTextbox)(mod_firstItemB1, mod_lastItemB1, 1)
+        ''March2025 mod_listB1 = New DLLList(Of DLLUserControlTextbox)(mod_firstItemB1, mod_lastItemB1, 1)
+        mod_listB1 = New DLLList(Of DLLUserControlRichbox)(mod_firstItemB1, mod_lastItemB1, 1)
 
         ''Added 1/21/2025 td
         ''
         ''  Flow Container "Flow Column B2"
         ''
-        FlowColumnB98.Controls.Clear()
+        FlowColumnB2.Controls.Clear()
         mod_firstItemB2 = New DLLUserControlRichbox
         mod_lastItemB2 = mod_firstItemB2
         mod_listB2 = New DLLList(Of DLLUserControlRichbox)(mod_firstItemB2, mod_lastItemB2, 1)
@@ -189,12 +220,12 @@ Public Class FormDemo1DVertical
         mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
 
         ''Added 2/15/2025 thomas downes 
-        FlowColumnB1.Controls.Clear()
-        FlowColumnB1.Controls.Add(mod_rangeB1.ItemStart)
+        FlowColumnB9.Controls.Clear()
+        FlowColumnB9.Controls.Add(mod_rangeB1.ItemStart)
 
         ''Added 2/15/2025 thomas downes 
-        FlowColumnB2.Controls.Clear()
-        FlowColumnB2.Controls.Add(mod_rangeB2.ItemStart)
+        FlowColumnB1.Controls.Clear()
+        FlowColumnB1.Controls.Add(mod_rangeB2.ItemStart)
 
         ''Added 3/05/2025 td
         Dim arrayTwoCharStrings As String()
@@ -287,7 +318,9 @@ Public Class FormDemo1DVertical
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA,
             ''      mod_listA, operationInitial30)
-            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
+            ''March 2025  mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
+            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
+                DLLUserControlRichbox)(mod_firstItemA, mod_listA)
 
             ''
             ''Encapsulated 2/27/2025 td
@@ -652,9 +685,9 @@ Public Class FormDemo1DVertical
         Dim temp As DLLUserControlTextbox = par_firstItem
         Dim intCountNew As Integer = 0 ''Added 2/15/2025 thomas downes 
 
-        FlowColumnB1.Controls.Clear()
+        FlowColumnB9.Controls.Clear()
         Do Until (temp Is Nothing)
-            FlowColumnB1.Controls.Add(temp)
+            FlowColumnB9.Controls.Add(temp)
             temp.Visible = True ''Added 2/15/2025 thomas downes 
             intCountNew += 1 ''Added 2/15/2025 thomas downes
             temp = temp.DLL_GetItemNext_OfT()
@@ -671,9 +704,9 @@ Public Class FormDemo1DVertical
         Dim temp As DLLUserControlRichbox = par_firstItem
         Dim intCountNew As Integer = 0 ''Added 2/15/2025 thomas downes 
 
-        FlowColumnB2.Controls.Clear()
+        FlowColumnB1.Controls.Clear()
         Do Until (temp Is Nothing)
-            FlowColumnB2.Controls.Add(temp)
+            FlowColumnB1.Controls.Add(temp)
             temp.Visible = True ''Added 2/15/2025 thomas downes 
             intCountNew += 1 ''Added 2/15/2025 thomas downes
             temp = temp.DLL_GetItemNext_OfT()
@@ -2054,7 +2087,7 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub FlowRowHeaders_Paint(sender As Object, e As PaintEventArgs) Handles FlowColumnB1.Paint
+    Private Sub FlowRowHeaders_Paint(sender As Object, e As PaintEventArgs) Handles FlowColumnB9.Paint
 
     End Sub
 

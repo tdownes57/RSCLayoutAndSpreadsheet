@@ -96,15 +96,11 @@
     <Compile Include="Component\ComponentClickableDesktop.Designer.vb">
       <DependentUpon>ComponentClickableDesktop.vb</DependentUpon>
     </Compile>
-    <Compile Include="Component\ComponentClickableDesktop.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Component\ComponentClickableDesktop.vb" />
     <Compile Include="Component\ComponentClickBackground.Designer.vb">
       <DependentUpon>ComponentClickBackground.vb</DependentUpon>
     </Compile>
-    <Compile Include="Component\ComponentClickBackground.vb">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Component\ComponentClickBackground.vb" />
     <Compile Include="ControlsCtl\CtlAddCustomField.designer.vb">
       <DependentUpon>CtlAddCustomField.vb</DependentUpon>
     </Compile>
@@ -150,63 +146,43 @@
     <Compile Include="ControlsCtl\CtlGraphic.Designer.vb">
       <DependentUpon>CtlGraphic.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphic.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphic.vb" />
     <Compile Include="ControlsCtl\CtlGraphic__Factory.Designer.vb">
       <DependentUpon>CtlGraphic__Factory.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphic__Factory.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphic__Factory.vb" />
     <Compile Include="ControlsCtl\CtlGraphicBackground.Designer.vb">
       <DependentUpon>CtlGraphicBackground.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicBackground.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicBackground.vb" />
     <Compile Include="ControlsCtl\CtlGraphicFieldOrTextV4.Designer.vb">
       <DependentUpon>CtlGraphicFieldOrTextV4.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicFieldOrTextV4.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicFieldOrTextV4.vb" />
     <Compile Include="ControlsCtl\CtlGraphicFieldV4.Designer.vb">
       <DependentUpon>CtlGraphicFieldV4.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicFieldV4.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicFieldV4.vb" />
     <Compile Include="ControlsCtl\CtlGraphicFieldV3.designer.vb">
       <DependentUpon>CtlGraphicFieldV3.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicFieldV3.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicFieldV3.vb" />
     <Compile Include="ControlsCtl\CtlGraphicPortrait.designer.vb">
       <DependentUpon>CtlGraphicPortrait.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicPortrait.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicPortrait.vb" />
     <Compile Include="ControlsCtl\CtlGraphicQRCode.Designer.vb">
       <DependentUpon>CtlGraphicQRCode.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicQRCode.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicQRCode.vb" />
     <Compile Include="ControlsCtl\CtlGraphicSignature.Designer.vb">
       <DependentUpon>CtlGraphicSignature.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicSignature.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicSignature.vb" />
     <Compile Include="ControlsCtl\CtlGraphicStaticGraphic.Designer.vb">
       <DependentUpon>CtlGraphicStaticGraphic.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicStaticGraphic.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicStaticGraphic.vb" />
     <Compile Include="ControlsCtl\CtlGraphicStaticGraphic_Notes.Designer.vb">
       <DependentUpon>CtlGraphicStaticGraphic_Notes.vb</DependentUpon>
     </Compile>
@@ -216,21 +192,15 @@
     <Compile Include="ControlsCtl\CtlGraphicStaticQR.Designer.vb">
       <DependentUpon>CtlGraphicStaticQR.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicStaticQR.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicStaticQR.vb" />
     <Compile Include="ControlsCtl\CtlGraphicStaticTextV3.designer.vb">
       <DependentUpon>CtlGraphicStaticTextV3.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicStaticTextV3.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicStaticTextV3.vb" />
     <Compile Include="ControlsCtl\CtlGraphicStaticTextV4.Designer.vb">
       <DependentUpon>CtlGraphicStaticTextV4.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlGraphicStaticTextV4.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlGraphicStaticTextV4.vb" />
     <Compile Include="ControlsCtl\CtlGraphPopMenuEditSingle.designer.vb">
       <DependentUpon>CtlGraphPopMenuEditSingle.vb</DependentUpon>
     </Compile>
@@ -264,9 +234,7 @@
     <Compile Include="ControlsCtl\CtlPartial_HardText.designer.vb">
       <DependentUpon>CtlPartial_HardText.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsCtl\CtlPartial_HardText.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsCtl\CtlPartial_HardText.vb" />
     <Compile Include="ControlsCtl\CtlPropertyLeftRight.designer.vb">
       <DependentUpon>CtlPropertyLeftRight.vb</DependentUpon>
     </Compile>
@@ -317,18 +285,12 @@
     <Compile Include="ControlsRSC\RSCFieldColumnV1.designer.vb">
       <DependentUpon>RSCFieldColumnV1.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsRSC\RSCFieldColumnV1.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsRSC\RSCFieldColumnV1.vb" />
     <Compile Include="ControlsRSC\RSCFieldColumnV2.Designer.vb">
       <DependentUpon>RSCFieldColumnV2.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsRSC\RSCFieldColumnV2.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ControlsRSC\RSCFieldSpreadsheet_CommentedCode.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsRSC\RSCFieldColumnV2.vb" />
+    <Compile Include="ControlsRSC\RSCFieldSpreadsheet_CommentedCode.vb" />
     <Compile Include="ControlsRSC\RSCInterfaceMouseEvents.vb" />
     <Compile Include="ControlsRSC\RSCLinearGradientBrush.Designer.vb">
       <DependentUpon>RSCLinearGradientBrush.vb</DependentUpon>
@@ -348,9 +310,7 @@
     <Compile Include="ControlsRSC\RSCRowHeaders.Designer.vb">
       <DependentUpon>RSCRowHeaders.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsRSC\RSCRowHeaders.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsRSC\RSCRowHeaders.vb" />
     <Compile Include="ControlsRSC\RSCRowHeaders_Test.Designer.vb">
       <DependentUpon>RSCRowHeaders_Test.vb</DependentUpon>
     </Compile>
@@ -570,9 +530,7 @@
     <Compile Include="ControlsRSC\RSCFieldSpreadsheet.designer.vb">
       <DependentUpon>RSCFieldSpreadsheet.vb</DependentUpon>
     </Compile>
-    <Compile Include="ControlsRSC\RSCFieldSpreadsheet.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ControlsRSC\RSCFieldSpreadsheet.vb" />
     <Compile Include="ControlsRSC\RSCSelectCIBField.designer.vb">
       <DependentUpon>RSCSelectCIBField.vb</DependentUpon>
     </Compile>

@@ -63,21 +63,21 @@ Partial Class FormDemo1DVertical
         LabelInsertHeader = New Label()
         LabelInsertAnchorHeader = New Label()
         numInsertAnchorBenchmark = New NumericUpDown()
-        LabelA_B1_B2 = New Label()
+        LabelA_B1_B2_B3 = New Label()
         LabelHeader1 = New Label()
-        FlowColumnB1 = New FlowLayoutPanel()
+        FlowColumnB9 = New FlowLayoutPanel()
         UserControlTextbox2 = New DLLUserControlTextbox()
         UserControlTextbox02 = New DLLUserControlTextbox()
         UserControlTextbox3 = New DLLUserControlTextbox()
-        FlowColumnB2 = New FlowLayoutPanel()
+        FlowColumnB1 = New FlowLayoutPanel()
         UserControlRichbox1 = New DLLUserControlRichbox()
         UserControlRichbox4 = New DLLUserControlRichbox()
         UserControlRichbox7 = New DLLUserControlRichbox()
-        FlowColumnB98 = New FlowLayoutPanel()
+        FlowColumnB2 = New FlowLayoutPanel()
         UserControlRichbox2 = New DLLUserControlRichbox()
         UserControlRichbox5 = New DLLUserControlRichbox()
         UserControlRichbox8 = New DLLUserControlRichbox()
-        FlowColumnB99 = New FlowLayoutPanel()
+        FlowColumnB3 = New FlowLayoutPanel()
         UserControlRichbox3 = New DLLUserControlRichbox()
         UserControlRichbox6 = New DLLUserControlRichbox()
         UserControlRichbox9 = New DLLUserControlRichbox()
@@ -95,17 +95,17 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
+        FlowColumnB9.SuspendLayout()
         FlowColumnB1.SuspendLayout()
         FlowColumnB2.SuspendLayout()
-        FlowColumnB98.SuspendLayout()
-        FlowColumnB99.SuspendLayout()
+        FlowColumnB3.SuspendLayout()
         FlowRowNumbersOnly.SuspendLayout()
         SuspendLayout()
         ' 
         ' ButtonSortBackward
         ' 
         ButtonSortBackward.BackColor = Color.Cyan
-        ButtonSortBackward.Location = New Point(995, 301)
+        ButtonSortBackward.Location = New Point(1061, 295)
         ButtonSortBackward.Name = "ButtonSortBackward"
         ButtonSortBackward.Size = New Size(112, 39)
         ButtonSortBackward.TabIndex = 141
@@ -115,7 +115,7 @@ Partial Class FormDemo1DVertical
         ' LinkRefreshFirstItem
         ' 
         LinkRefreshFirstItem.AutoSize = True
-        LinkRefreshFirstItem.Location = New Point(377, 110)
+        LinkRefreshFirstItem.Location = New Point(443, 104)
         LinkRefreshFirstItem.Name = "LinkRefreshFirstItem"
         LinkRefreshFirstItem.Size = New Size(244, 15)
         LinkRefreshFirstItem.TabIndex = 140
@@ -125,7 +125,7 @@ Partial Class FormDemo1DVertical
         ' LinkApplicationDoevents
         ' 
         LinkApplicationDoevents.AutoSize = True
-        LinkApplicationDoevents.Location = New Point(274, 110)
+        LinkApplicationDoevents.Location = New Point(340, 104)
         LinkApplicationDoevents.Name = "LinkApplicationDoevents"
         LinkApplicationDoevents.Size = New Size(87, 15)
         LinkApplicationDoevents.TabIndex = 139
@@ -135,7 +135,7 @@ Partial Class FormDemo1DVertical
         ' LinkRefreshList
         ' 
         LinkRefreshList.AutoSize = True
-        LinkRefreshList.Location = New Point(184, 110)
+        LinkRefreshList.Location = New Point(250, 104)
         LinkRefreshList.Name = "LinkRefreshList"
         LinkRefreshList.Size = New Size(67, 15)
         LinkRefreshList.TabIndex = 138
@@ -145,7 +145,7 @@ Partial Class FormDemo1DVertical
         ' ButtonSortForward
         ' 
         ButtonSortForward.BackColor = Color.Cyan
-        ButtonSortForward.Location = New Point(925, 266)
+        ButtonSortForward.Location = New Point(991, 260)
         ButtonSortForward.Name = "ButtonSortForward"
         ButtonSortForward.Size = New Size(137, 39)
         ButtonSortForward.TabIndex = 137
@@ -159,7 +159,7 @@ Partial Class FormDemo1DVertical
         GroupMoveByAnchor.Controls.Add(listMoveAfterOrBefore)
         GroupMoveByAnchor.Controls.Add(LabelMoveBenchmark)
         GroupMoveByAnchor.Controls.Add(numMoveAnchorBenchmark)
-        GroupMoveByAnchor.Location = New Point(164, 385)
+        GroupMoveByAnchor.Location = New Point(230, 379)
         GroupMoveByAnchor.Name = "GroupMoveByAnchor"
         GroupMoveByAnchor.Size = New Size(457, 101)
         GroupMoveByAnchor.TabIndex = 136
@@ -211,7 +211,7 @@ Partial Class FormDemo1DVertical
         GroupMoveByShifting.Controls.Add(buttonMoveShiftRight)
         GroupMoveByShifting.Controls.Add(numericShiftLeft)
         GroupMoveByShifting.Controls.Add(buttonMoveShiftLeft)
-        GroupMoveByShifting.Location = New Point(663, 385)
+        GroupMoveByShifting.Location = New Point(729, 379)
         GroupMoveByShifting.Name = "GroupMoveByShifting"
         GroupMoveByShifting.Size = New Size(236, 101)
         GroupMoveByShifting.TabIndex = 135
@@ -261,7 +261,7 @@ Partial Class FormDemo1DVertical
         ' LinkClearRecordedOps
         ' 
         LinkClearRecordedOps.AutoSize = True
-        LinkClearRecordedOps.Location = New Point(991, 119)
+        LinkClearRecordedOps.Location = New Point(1057, 113)
         LinkClearRecordedOps.Name = "LinkClearRecordedOps"
         LinkClearRecordedOps.Size = New Size(143, 15)
         LinkClearRecordedOps.TabIndex = 134
@@ -271,7 +271,7 @@ Partial Class FormDemo1DVertical
         ' labelNumOperations
         ' 
         labelNumOperations.BorderStyle = BorderStyle.FixedSingle
-        labelNumOperations.Location = New Point(925, 167)
+        labelNumOperations.Location = New Point(991, 161)
         labelNumOperations.Name = "labelNumOperations"
         labelNumOperations.Size = New Size(182, 45)
         labelNumOperations.TabIndex = 133
@@ -281,7 +281,7 @@ Partial Class FormDemo1DVertical
         ' buttonUndo
         ' 
         buttonUndo.Enabled = False
-        buttonUndo.Location = New Point(925, 136)
+        buttonUndo.Location = New Point(991, 130)
         buttonUndo.Name = "buttonUndo"
         buttonUndo.Size = New Size(114, 27)
         buttonUndo.TabIndex = 132
@@ -291,7 +291,7 @@ Partial Class FormDemo1DVertical
         ' buttonReDo
         ' 
         buttonReDo.Enabled = False
-        buttonReDo.Location = New Point(1045, 137)
+        buttonReDo.Location = New Point(1111, 131)
         buttonReDo.Name = "buttonReDo"
         buttonReDo.Size = New Size(86, 27)
         buttonReDo.TabIndex = 131
@@ -301,7 +301,7 @@ Partial Class FormDemo1DVertical
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(801, 363)
+        Label5.Location = New Point(867, 357)
         Label5.Name = "Label5"
         Label5.Size = New Size(163, 15)
         Label5.TabIndex = 130
@@ -311,7 +311,7 @@ Partial Class FormDemo1DVertical
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(274, 364)
+        Label4.Location = New Point(340, 358)
         Label4.Name = "Label4"
         Label4.Size = New Size(245, 15)
         Label4.TabIndex = 129
@@ -322,7 +322,7 @@ Partial Class FormDemo1DVertical
         textboxMoveRange.BackColor = SystemColors.InactiveCaption
         textboxMoveRange.BorderStyle = BorderStyle.None
         textboxMoveRange.Font = New Font("Segoe UI", 12F)
-        textboxMoveRange.Location = New Point(525, 357)
+        textboxMoveRange.Location = New Point(591, 351)
         textboxMoveRange.Name = "textboxMoveRange"
         textboxMoveRange.Size = New Size(270, 22)
         textboxMoveRange.TabIndex = 128
@@ -333,7 +333,7 @@ Partial Class FormDemo1DVertical
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label7.Location = New Point(160, 358)
+        Label7.Location = New Point(226, 352)
         Label7.Name = "Label7"
         Label7.Size = New Size(99, 21)
         Label7.TabIndex = 127
@@ -342,7 +342,7 @@ Partial Class FormDemo1DVertical
         ' buttonRedoOp
         ' 
         buttonRedoOp.Enabled = False
-        buttonRedoOp.Location = New Point(995, 440)
+        buttonRedoOp.Location = New Point(1061, 434)
         buttonRedoOp.Name = "buttonRedoOp"
         buttonRedoOp.Size = New Size(154, 39)
         buttonRedoOp.TabIndex = 126
@@ -352,7 +352,7 @@ Partial Class FormDemo1DVertical
         ' buttonUndoLastStep
         ' 
         buttonUndoLastStep.Enabled = False
-        buttonUndoLastStep.Location = New Point(983, 395)
+        buttonUndoLastStep.Location = New Point(1049, 389)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
         buttonUndoLastStep.Size = New Size(166, 39)
         buttonUndoLastStep.TabIndex = 125
@@ -361,7 +361,7 @@ Partial Class FormDemo1DVertical
         ' 
         ' buttonInsertSingle
         ' 
-        buttonInsertSingle.Location = New Point(646, 201)
+        buttonInsertSingle.Location = New Point(712, 195)
         buttonInsertSingle.Name = "buttonInsertSingle"
         buttonInsertSingle.Size = New Size(166, 39)
         buttonInsertSingle.TabIndex = 124
@@ -371,7 +371,7 @@ Partial Class FormDemo1DVertical
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(163, 214)
+        Label6.Location = New Point(229, 208)
         Label6.Name = "Label6"
         Label6.Size = New Size(324, 15)
         Label6.TabIndex = 123
@@ -380,7 +380,7 @@ Partial Class FormDemo1DVertical
         ' textInsertListOfValuesCSV
         ' 
         textInsertListOfValuesCSV.BorderStyle = BorderStyle.FixedSingle
-        textInsertListOfValuesCSV.Location = New Point(501, 211)
+        textInsertListOfValuesCSV.Location = New Point(567, 205)
         textInsertListOfValuesCSV.Name = "textInsertListOfValuesCSV"
         textInsertListOfValuesCSV.Size = New Size(139, 23)
         textInsertListOfValuesCSV.TabIndex = 122
@@ -390,7 +390,7 @@ Partial Class FormDemo1DVertical
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(163, 190)
+        Label2.Location = New Point(229, 184)
         Label2.Name = "Label2"
         Label2.Size = New Size(164, 15)
         Label2.TabIndex = 121
@@ -398,7 +398,7 @@ Partial Class FormDemo1DVertical
         ' 
         ' numInsertHowMany
         ' 
-        numInsertHowMany.Location = New Point(355, 188)
+        numInsertHowMany.Location = New Point(421, 182)
         numInsertHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numInsertHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertHowMany.Name = "numInsertHowMany"
@@ -411,14 +411,14 @@ Partial Class FormDemo1DVertical
         listInsertAfterOrBefore.FormattingEnabled = True
         listInsertAfterOrBefore.ItemHeight = 15
         listInsertAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listInsertAfterOrBefore.Location = New Point(525, 163)
+        listInsertAfterOrBefore.Location = New Point(591, 157)
         listInsertAfterOrBefore.Name = "listInsertAfterOrBefore"
         listInsertAfterOrBefore.Size = New Size(115, 34)
         listInsertAfterOrBefore.TabIndex = 113
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(424, 278)
+        buttonDelete.Location = New Point(490, 272)
         buttonDelete.Name = "buttonDelete"
         buttonDelete.Size = New Size(133, 39)
         buttonDelete.TabIndex = 119
@@ -429,7 +429,7 @@ Partial Class FormDemo1DVertical
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(163, 259)
+        Label8.Location = New Point(229, 253)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 118
@@ -438,7 +438,7 @@ Partial Class FormDemo1DVertical
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(163, 319)
+        Label9.Location = New Point(229, 313)
         Label9.Name = "Label9"
         Label9.Size = New Size(164, 15)
         Label9.TabIndex = 117
@@ -447,7 +447,7 @@ Partial Class FormDemo1DVertical
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(163, 290)
+        Label10.Location = New Point(229, 284)
         Label10.Name = "Label10"
         Label10.Size = New Size(189, 15)
         Label10.TabIndex = 116
@@ -455,7 +455,7 @@ Partial Class FormDemo1DVertical
         ' 
         ' numDeleteHowMany
         ' 
-        numDeleteHowMany.Location = New Point(355, 317)
+        numDeleteHowMany.Location = New Point(421, 311)
         numDeleteHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numDeleteHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteHowMany.Name = "numDeleteHowMany"
@@ -465,7 +465,7 @@ Partial Class FormDemo1DVertical
         ' 
         ' numDeleteRangeBenchmarkStart
         ' 
-        numDeleteRangeBenchmarkStart.Location = New Point(355, 288)
+        numDeleteRangeBenchmarkStart.Location = New Point(421, 282)
         numDeleteRangeBenchmarkStart.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteRangeBenchmarkStart.Name = "numDeleteRangeBenchmarkStart"
         numDeleteRangeBenchmarkStart.Size = New Size(50, 23)
@@ -475,7 +475,7 @@ Partial Class FormDemo1DVertical
         ' buttonInsertMultiple
         ' 
         buttonInsertMultiple.BackColor = Color.Cyan
-        buttonInsertMultiple.Location = New Point(646, 156)
+        buttonInsertMultiple.Location = New Point(712, 150)
         buttonInsertMultiple.Name = "buttonInsertMultiple"
         buttonInsertMultiple.Size = New Size(166, 39)
         buttonInsertMultiple.TabIndex = 112
@@ -486,7 +486,7 @@ Partial Class FormDemo1DVertical
         ' 
         LabelInsertHeader.AutoSize = True
         LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelInsertHeader.Location = New Point(163, 129)
+        LabelInsertHeader.Location = New Point(229, 123)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
         LabelInsertHeader.TabIndex = 111
@@ -495,7 +495,7 @@ Partial Class FormDemo1DVertical
         ' LabelInsertAnchorHeader
         ' 
         LabelInsertAnchorHeader.AutoSize = True
-        LabelInsertAnchorHeader.Location = New Point(163, 165)
+        LabelInsertAnchorHeader.Location = New Point(229, 159)
         LabelInsertAnchorHeader.Name = "LabelInsertAnchorHeader"
         LabelInsertAnchorHeader.Size = New Size(304, 15)
         LabelInsertAnchorHeader.TabIndex = 110
@@ -503,44 +503,44 @@ Partial Class FormDemo1DVertical
         ' 
         ' numInsertAnchorBenchmark
         ' 
-        numInsertAnchorBenchmark.Location = New Point(469, 163)
+        numInsertAnchorBenchmark.Location = New Point(535, 157)
         numInsertAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertAnchorBenchmark.Name = "numInsertAnchorBenchmark"
         numInsertAnchorBenchmark.Size = New Size(50, 23)
         numInsertAnchorBenchmark.TabIndex = 109
         numInsertAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
-        ' LabelA_B1_B2
+        ' LabelA_B1_B2_B3
         ' 
-        LabelA_B1_B2.AutoSize = True
-        LabelA_B1_B2.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelA_B1_B2.Location = New Point(28, 3)
-        LabelA_B1_B2.Name = "LabelA_B1_B2"
-        LabelA_B1_B2.Size = New Size(103, 21)
-        LabelA_B1_B2.TabIndex = 144
-        LabelA_B1_B2.Text = " A      B1    B2"
+        LabelA_B1_B2_B3.AutoSize = True
+        LabelA_B1_B2_B3.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        LabelA_B1_B2_B3.Location = New Point(28, 3)
+        LabelA_B1_B2_B3.Name = "LabelA_B1_B2_B3"
+        LabelA_B1_B2_B3.Size = New Size(138, 21)
+        LabelA_B1_B2_B3.TabIndex = 144
+        LabelA_B1_B2_B3.Text = " A      B1    B2    B3"
         ' 
         ' LabelHeader1
         ' 
         LabelHeader1.AutoSize = True
         LabelHeader1.Font = New Font("Segoe UI", 17F, FontStyle.Bold)
-        LabelHeader1.Location = New Point(195, 14)
+        LabelHeader1.Location = New Point(261, 8)
         LabelHeader1.Name = "LabelHeader1"
         LabelHeader1.Size = New Size(630, 31)
         LabelHeader1.TabIndex = 148
         LabelHeader1.Text = "Vertical Header Column (A) with Parallel Lists (B1, B2, B3)"
         ' 
-        ' FlowColumnB1
+        ' FlowColumnB9
         ' 
-        FlowColumnB1.BackColor = SystemColors.ActiveCaption
-        FlowColumnB1.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB1.Controls.Add(UserControlTextbox2)
-        FlowColumnB1.Controls.Add(UserControlTextbox02)
-        FlowColumnB1.Controls.Add(UserControlTextbox3)
-        FlowColumnB1.Location = New Point(67, 29)
-        FlowColumnB1.Name = "FlowColumnB1"
-        FlowColumnB1.Size = New Size(29, 322)
-        FlowColumnB1.TabIndex = 149
+        FlowColumnB9.BackColor = SystemColors.ActiveCaption
+        FlowColumnB9.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB9.Controls.Add(UserControlTextbox2)
+        FlowColumnB9.Controls.Add(UserControlTextbox02)
+        FlowColumnB9.Controls.Add(UserControlTextbox3)
+        FlowColumnB9.Location = New Point(963, 12)
+        FlowColumnB9.Name = "FlowColumnB9"
+        FlowColumnB9.Size = New Size(29, 322)
+        FlowColumnB9.TabIndex = 149
         ' 
         ' UserControlTextbox2
         ' 
@@ -578,17 +578,17 @@ Partial Class FormDemo1DVertical
         UserControlTextbox3.Size = New Size(22, 23)
         UserControlTextbox3.TabIndex = 156
         ' 
-        ' FlowColumnB2
+        ' FlowColumnB1
         ' 
-        FlowColumnB2.BackColor = SystemColors.ButtonFace
-        FlowColumnB2.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB2.Controls.Add(UserControlRichbox1)
-        FlowColumnB2.Controls.Add(UserControlRichbox4)
-        FlowColumnB2.Controls.Add(UserControlRichbox7)
-        FlowColumnB2.Location = New Point(102, 27)
-        FlowColumnB2.Name = "FlowColumnB2"
-        FlowColumnB2.Size = New Size(29, 322)
-        FlowColumnB2.TabIndex = 150
+        FlowColumnB1.BackColor = SystemColors.ActiveCaption
+        FlowColumnB1.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB1.Controls.Add(UserControlRichbox1)
+        FlowColumnB1.Controls.Add(UserControlRichbox4)
+        FlowColumnB1.Controls.Add(UserControlRichbox7)
+        FlowColumnB1.Location = New Point(69, 27)
+        FlowColumnB1.Name = "FlowColumnB1"
+        FlowColumnB1.Size = New Size(29, 322)
+        FlowColumnB1.TabIndex = 150
         ' 
         ' UserControlRichbox1
         ' 
@@ -626,17 +626,17 @@ Partial Class FormDemo1DVertical
         UserControlRichbox7.Size = New Size(22, 23)
         UserControlRichbox7.TabIndex = 157
         ' 
-        ' FlowColumnB98
+        ' FlowColumnB2
         ' 
-        FlowColumnB98.BackColor = SystemColors.ButtonFace
-        FlowColumnB98.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB98.Controls.Add(UserControlRichbox2)
-        FlowColumnB98.Controls.Add(UserControlRichbox5)
-        FlowColumnB98.Controls.Add(UserControlRichbox8)
-        FlowColumnB98.Location = New Point(827, 18)
-        FlowColumnB98.Name = "FlowColumnB98"
-        FlowColumnB98.Size = New Size(29, 322)
-        FlowColumnB98.TabIndex = 151
+        FlowColumnB2.BackColor = SystemColors.ActiveCaption
+        FlowColumnB2.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB2.Controls.Add(UserControlRichbox2)
+        FlowColumnB2.Controls.Add(UserControlRichbox5)
+        FlowColumnB2.Controls.Add(UserControlRichbox8)
+        FlowColumnB2.Location = New Point(104, 27)
+        FlowColumnB2.Name = "FlowColumnB2"
+        FlowColumnB2.Size = New Size(29, 322)
+        FlowColumnB2.TabIndex = 151
         ' 
         ' UserControlRichbox2
         ' 
@@ -674,17 +674,17 @@ Partial Class FormDemo1DVertical
         UserControlRichbox8.Size = New Size(22, 23)
         UserControlRichbox8.TabIndex = 158
         ' 
-        ' FlowColumnB99
+        ' FlowColumnB3
         ' 
-        FlowColumnB99.BackColor = SystemColors.ButtonFace
-        FlowColumnB99.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB99.Controls.Add(UserControlRichbox3)
-        FlowColumnB99.Controls.Add(UserControlRichbox6)
-        FlowColumnB99.Controls.Add(UserControlRichbox9)
-        FlowColumnB99.Location = New Point(862, 18)
-        FlowColumnB99.Name = "FlowColumnB99"
-        FlowColumnB99.Size = New Size(29, 322)
-        FlowColumnB99.TabIndex = 151
+        FlowColumnB3.BackColor = SystemColors.ActiveCaption
+        FlowColumnB3.BorderStyle = BorderStyle.FixedSingle
+        FlowColumnB3.Controls.Add(UserControlRichbox3)
+        FlowColumnB3.Controls.Add(UserControlRichbox6)
+        FlowColumnB3.Controls.Add(UserControlRichbox9)
+        FlowColumnB3.Location = New Point(139, 27)
+        FlowColumnB3.Name = "FlowColumnB3"
+        FlowColumnB3.Size = New Size(29, 322)
+        FlowColumnB3.TabIndex = 151
         ' 
         ' UserControlRichbox3
         ' 
@@ -777,15 +777,15 @@ Partial Class FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1162, 504)
+        ClientSize = New Size(1227, 504)
         Controls.Add(richtextItemsDisplay)
         Controls.Add(FlowRowNumbersOnly)
-        Controls.Add(FlowColumnB98)
         Controls.Add(FlowColumnB2)
         Controls.Add(FlowColumnB1)
-        Controls.Add(FlowColumnB99)
+        Controls.Add(FlowColumnB9)
+        Controls.Add(FlowColumnB3)
         Controls.Add(LabelHeader1)
-        Controls.Add(LabelA_B1_B2)
+        Controls.Add(LabelA_B1_B2_B3)
         Controls.Add(ButtonSortBackward)
         Controls.Add(LinkRefreshFirstItem)
         Controls.Add(LinkApplicationDoevents)
@@ -830,10 +830,10 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
+        FlowColumnB9.ResumeLayout(False)
         FlowColumnB1.ResumeLayout(False)
         FlowColumnB2.ResumeLayout(False)
-        FlowColumnB98.ResumeLayout(False)
-        FlowColumnB99.ResumeLayout(False)
+        FlowColumnB3.ResumeLayout(False)
         FlowRowNumbersOnly.ResumeLayout(False)
         FlowRowNumbersOnly.PerformLayout()
         ResumeLayout(False)
@@ -881,12 +881,12 @@ Partial Class FormDemo1DVertical
     Friend WithEvents LabelInsertHeader As Label
     Friend WithEvents LabelInsertAnchorHeader As Label
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
-    Friend WithEvents LabelA_B1_B2 As Label
+    Friend WithEvents LabelA_B1_B2_B3 As Label
     Friend WithEvents LabelHeader1 As Label
+    Friend WithEvents FlowColumnB9 As FlowLayoutPanel
     Friend WithEvents FlowColumnB1 As FlowLayoutPanel
     Friend WithEvents FlowColumnB2 As FlowLayoutPanel
-    Friend WithEvents FlowColumnB98 As FlowLayoutPanel
-    Friend WithEvents FlowColumnB99 As FlowLayoutPanel
+    Friend WithEvents FlowColumnB3 As FlowLayoutPanel
     Friend WithEvents FlowRowNumbersOnly As FlowLayoutPanel
     Friend WithEvents TextBox13 As TextBox
     Friend WithEvents TextBox14 As TextBox

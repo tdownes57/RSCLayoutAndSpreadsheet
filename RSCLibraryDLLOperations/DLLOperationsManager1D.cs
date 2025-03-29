@@ -204,7 +204,8 @@ namespace RSCLibraryDLLOperations
                                bool par_changeOfEndpoint_Expected,
                                out bool par_changeOfEndpoint_Occurred, 
                                bool pbOperationIsNewSoRecordIt,
-                               DLLOperationIndexStructure? parOperationIndicized = null)
+                               DLLOperationIndexStructure parOperationIndicized,
+                               DLLCollectionOfLists<T_DLLParallel> parCollectionOfParallelLists = null)
         {
             // Added 1/15/2024
 

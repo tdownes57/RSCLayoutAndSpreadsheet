@@ -143,21 +143,15 @@
     <Compile Include="UserControls\ProportionalRSCControl.Designer.vb">
       <DependentUpon>ProportionalRSCControl.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ProportionalRSCControl.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="UserControls\ProportionalRSCControl.vb" />
     <Compile Include="UserControls\SimpleChildOfRSCControl1.Designer.vb">
       <DependentUpon>SimpleChildOfRSCControl1.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SimpleChildOfRSCControl1.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="UserControls\SimpleChildOfRSCControl1.vb" />
     <Compile Include="UserControls\SimpleChildOfRSCControl2.Designer.vb">
       <DependentUpon>SimpleChildOfRSCControl2.vb</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SimpleChildOfRSCControl2.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="UserControls\SimpleChildOfRSCControl2.vb" />
     <Compile Include="Utilities\DiskFilesVB.vb" />
     <Compile Include="Utilities\DiskFolders.vb" />
     <Compile Include="Utilities\Module1Enumerationsvb.vb" />
