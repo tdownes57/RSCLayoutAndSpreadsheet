@@ -158,11 +158,11 @@ Public Class FormDemo1DVertical
         type_of_move = New StructureTypeOfMove(False) ''Added 12/11/2024
 
         ''Added 1/21/2025 td
-        Dim newItemB1 As DLLUserControlTextbox
-        Dim anchorItemForEmptyListB1 As New DLLAnchorItem(Of DLLUserControlTextbox)(True, False)
-        Dim anchorItemForListOfOneItemB1 As DLLAnchorItem(Of DLLUserControlTextbox) ''(True, False)
-        Dim anchorPairForEmptyListB1 As New DLLAnchorCouplet(Of DLLUserControlTextbox)(True, False)
-        Dim anchorPairForListOfOneItemB1 As DLLAnchorCouplet(Of DLLUserControlTextbox) ''(True, False)
+        Dim newItemB1 As DLLUserControlRichbox
+        Dim anchorItemForEmptyListB1 As New DLLAnchorItem(Of DLLUserControlRichbox)(True, False)
+        Dim anchorItemForListOfOneItemB1 As DLLAnchorItem(Of DLLUserControlRichbox) ''(True, False)
+        Dim anchorPairForEmptyListB1 As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
+        Dim anchorPairForListOfOneItemB1 As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
 
         ''Added 1/21/2025 td
         Dim newItemB2 As DLLUserControlRichbox
@@ -170,6 +170,13 @@ Public Class FormDemo1DVertical
         Dim anchorItemForListOfOneItemB2 As DLLAnchorItem(Of DLLUserControlRichbox) ''(True, False)
         Dim anchorPairForEmptyListB2 As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
         Dim anchorPairForListOfOneItemB2 As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
+
+        ''Added 3/29/2025 td
+        Dim newItemB3 As DLLUserControlRichbox
+        Dim anchorItemForEmptyListB3 As New DLLAnchorItem(Of DLLUserControlRichbox)(True, False)
+        Dim anchorItemForListOfOneItemB3 As DLLAnchorItem(Of DLLUserControlRichbox) ''(True, False)
+        Dim anchorPairForEmptyListB3 As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
+        Dim anchorPairForListOfOneItemB3 As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
 
         Dim PERFORM_INITIAL_INSERT_MANUALLY As Boolean = False ''---True
 
@@ -202,22 +209,26 @@ Public Class FormDemo1DVertical
         ''//Added 10/21/2024 td
         anchorItemForListOfOneItemA = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(mod_firstItemA)
         ''Added 1/21/2025 td
-        anchorItemForListOfOneItemB1 = New DLLAnchorItem(Of DLLUserControlTextbox)(mod_firstItemB1)
+        ''March 2025 anchorItemForListOfOneItemB1 = New DLLAnchorItem(Of DLLUserControlTextbox)(mod_firstItemB1)
+        anchorItemForListOfOneItemB1 = New DLLAnchorItem(Of DLLUserControlRichbox)(mod_firstItemB1)
         anchorItemForListOfOneItemB2 = New DLLAnchorItem(Of DLLUserControlRichbox)(mod_firstItemB2)
+        anchorItemForListOfOneItemB3 = New DLLAnchorItem(Of DLLUserControlRichbox)(mod_firstItemB3)
 
         ''//Added 11/08/2024 td
         anchorPairForListOfOneItemA = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(mod_firstItemA, Nothing, True)
         ''Added 1/21/2025 td
-        anchorPairForListOfOneItemB1 = New DLLAnchorCouplet(Of DLLUserControlTextbox)(mod_firstItemB1, Nothing, True)
+        anchorPairForListOfOneItemB1 = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemB1, Nothing, True)
         anchorPairForListOfOneItemB2 = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemB2, Nothing, True)
+        anchorPairForListOfOneItemB3 = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemB3, Nothing, True)
 
         ''//rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_firstItemA, True)
         ''//For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
         ''Nov2024 rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
         mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
         ''Added 1/21/2025 td
-        mod_rangeB1 = New DLLRange(Of DLLUserControlTextbox)(New DLLUserControlTextbox("02"), True)
+        mod_rangeB1 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
         mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
+        mod_rangeB3 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
 
         ''Added 2/15/2025 thomas downes 
         FlowColumnB9.Controls.Clear()
@@ -251,12 +262,16 @@ Public Class FormDemo1DVertical
             mod_rangeA.DLL_InsertItemToTheEnd(newItemA)
 
             ''DLLUserControlTextbox 
-            newItemB1 = New DLLUserControlTextbox(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
+            newItemB1 = New DLLUserControlRichbox(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
             mod_rangeB1.DLL_InsertItemToTheEnd(newItemB1)
 
             ''DLLUserControlRichbox 
             newItemB2 = New DLLUserControlRichbox(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
             mod_rangeB2.DLL_InsertItemToTheEnd(newItemB2)
+
+            ''DLLUserControlRichbox 
+            newItemB3 = New DLLUserControlRichbox(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
+            mod_rangeB3.DLL_InsertItemToTheEnd(newItemB3)
 
             ''Added 3/5/2025 
             index_0based += 1
@@ -385,10 +400,14 @@ Public Class FormDemo1DVertical
         ''Encapsulated 2/27/2025 td
         ''
         ''Added 1/21/2025  
-        Dim operationB1 As DLLOperation1D(Of DLLUserControlTextbox)
+        ''March 2025 Dim operationB1 As DLLOperation1D(Of DLLUserControlTextbox)
+        Dim operationB1 As DLLOperation1D(Of DLLUserControlRichbox)
         Dim operationB2 As DLLOperation1D(Of DLLUserControlRichbox)
+        Dim operationB3 As DLLOperation1D(Of DLLUserControlRichbox)
+
         Dim byrefChangeOfEndpointB1 As Boolean ''Added 2/27/2025 td
         Dim byrefChangeOfEndpointB2 As Boolean ''Added 2/27/2025 td
+        Dim byrefChangeOfEndpointB3 As Boolean ''Added 2/27/2025 td
         Dim strCurrentItem As String ''Added 3/14/2025 thomas d
 
         ''Added 1/21/2025  
@@ -409,10 +428,12 @@ Public Class FormDemo1DVertical
         Const START_EMPTY As Boolean = True ''Added 3/14/2025
         ''March 2025  intHowManyInRange = opInitialInsertIndexStruct.IsInsert_InsertionCount
         intHowManyInRange = operationIndexStruct.IsInsert_InsertionCount
-        Dim dummyTextbox As New DLLUserControlTextbox("du") '' "du" = "dummy"
-        mod_rangeB1 = New DLLRange(Of DLLUserControlTextbox)(START_EMPTY, dummyTextbox) '' //TwoCharacterDLLVerticalB)()
+        ''March 2025  Dim dummyTextbox As New DLLUserControlTextbox("du") '' "du" = "dummy"
         Dim dummyRichbox As New DLLUserControlRichbox("du") '' "du" = "dummy"
+
+        mod_rangeB1 = New DLLRange(Of DLLUserControlRichbox)(START_EMPTY, dummyRichbox) '' //TwoCharacterDLLVerticalB)()
         mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(START_EMPTY, dummyRichbox) '' //TwoCharacterDLLVerticalB)()
+        mod_rangeB3 = New DLLRange(Of DLLUserControlRichbox)(START_EMPTY, dummyRichbox) '' //TwoCharacterDLLVerticalB)()
 
         ''Added 3/5/2025 
         For index As Integer = 1 To intHowManyInRange
@@ -422,28 +443,33 @@ Public Class FormDemo1DVertical
             strCurrentItem = par_arrayOfTwoCharStrings(index Mod intHowManyInRange)
             ''---mod_rangeB1.ExtendRangeToIncludeListItem(New DLLUserControlTextbox(strCurrentItem))
             ''---mod_rangeB1.AddItemToTheEndOfRange(New DLLUserControlTextbox(strCurrentItem))
-            mod_rangeB1.AddItemToTheEndOfRange_NewItem(New DLLUserControlTextbox(strCurrentItem))
+            mod_rangeB1.AddItemToTheEndOfRange_NewItem(New DLLUserControlRichbox(strCurrentItem))
             mod_rangeB2.AddItemToTheEndOfRange_NewItem(New DLLUserControlRichbox(strCurrentItem))
+            mod_rangeB3.AddItemToTheEndOfRange_NewItem(New DLLUserControlRichbox(strCurrentItem))
 
         Next index
 
         ''Modified to include the applicable insert ranges. 
         ''    ---2/14/2025 td
         ''
-        operationB1 = New DLLOperation1D(Of DLLUserControlTextbox) _
+        operationB1 = New DLLOperation1D(Of DLLUserControlRichbox) _
                     (operationIndexStruct, mod_firstItemB1, mod_rangeB1)
         operationB2 = New DLLOperation1D(Of DLLUserControlRichbox) _
                     (operationIndexStruct, mod_firstItemB2, mod_rangeB2)
+        operationB3 = New DLLOperation1D(Of DLLUserControlRichbox) _
+                    (operationIndexStruct, mod_firstItemB3, mod_rangeB3)
 
         ''Added 1/21/2025  
         operationB1.OperateOnParentList(mod_listB1, byrefChangeOfEndpointB1)
         operationB2.OperateOnParentList(mod_listB2, byrefChangeOfEndpointB2)
+        operationB3.OperateOnParentList(mod_listB3, byrefChangeOfEndpointB3)
 
         ''
         ''Propagate the change to the UI. 
         ''
         RefreshTheUI_DisplayList(operationB1)
         RefreshTheUI_DisplayList(operationB2)
+        RefreshTheUI_DisplayList(operationB3)
 
 
     End Sub ''End of ""Private Sub PropagateOperation_ToParallelLists()""
@@ -660,13 +686,14 @@ Public Class FormDemo1DVertical
     End Function ''End of "Private Function FillTheTextboxDisplayingList()""
 
 
-    Private Sub RefreshTheUI_DisplayList(par_operation As DLLOperation1D(Of DLLUserControlTextbox)) '' = Nothing)
+    ''Private Sub RefreshTheUI_DisplayList(par_operation As DLLOperation1D(Of DLLUserControlTextbox)) '' = Nothing)
+    ''
+    ''    ''Added 1/21/2025 
+    ''    ''---RefreshTheUI_DisplayList(mod_listB1, mod_firstItemB1, par_operation)
+    ''    RefreshTheUI_DisplayListB1(mod_listB1, mod_firstItemB1, par_operation)
+    ''
+    ''End Sub
 
-        ''Added 1/21/2025 
-        ''---RefreshTheUI_DisplayList(mod_listB1, mod_firstItemB1, par_operation)
-        RefreshTheUI_DisplayListB1(mod_listB1, mod_firstItemB1, par_operation)
-
-    End Sub
 
     Private Sub RefreshTheUI_DisplayList(par_operation As DLLOperation1D(Of DLLUserControlRichbox)) '' = Nothing)
 
@@ -675,6 +702,7 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayListB2(mod_listB2, mod_firstItemB2, par_operation)
 
     End Sub
+
 
     Private Sub RefreshTheUI_DisplayListB1(par_list As DLLList(Of DLLUserControlTextbox),
                                      par_firstItem As DLLUserControlTextbox,
