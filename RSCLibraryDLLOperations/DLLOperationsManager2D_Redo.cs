@@ -120,7 +120,7 @@ namespace RSCLibraryDLLOperations
                 mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>();
 
                 //Added 1/4/2025 td
-                mod_managerHoriz = new DLLOperationsManager1D<T_Hori>(par_firstItemHorizontal, 
+                mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal, 
                     par_listHoriz, par_firstOperationHoriz);
 
             }

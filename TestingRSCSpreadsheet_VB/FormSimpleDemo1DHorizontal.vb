@@ -14,7 +14,9 @@ Public Class FormSimpleDemo1DHorizontal
     ''
     '' Added 10/14/2024 thomas c. downes 
     ''
-    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)
+    ''Mar2025 Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)
+    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLHorizontal)
+
     Private WithEvents mod_list As DLLList(Of TwoCharacterDLLHorizontal)
     Private mod_firstItem As TwoCharacterDLLHorizontal
     Private mod_lastItem As TwoCharacterDLLHorizontal
@@ -95,7 +97,10 @@ Public Class FormSimpleDemo1DHorizontal
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem,
             ''      mod_list, operationInitial30)
-            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
+            ''
+            ''March2025 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
+            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLHorizontal,
+                TwoCharacterDLLHorizontal)(mod_firstItem, mod_list)
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
@@ -563,7 +568,8 @@ Public Class FormSimpleDemo1DHorizontal
             operation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal,
-                                                 bChangeOfEndpoint_ByRef, True)
+                                                 bChangeOfEndpoint_ByRef, True,
+                                                  operation.GetOperationIndexStructure())
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -575,7 +581,10 @@ Public Class FormSimpleDemo1DHorizontal
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal, bChangeOfEndpoint_ByRef, True)
+            ''March2025 mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal, bChangeOfEndpoint_ByRef, True)
+            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal,
+                                                 bChangeOfEndpoint_ByRef, True,
+                                                 operation.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
@@ -727,8 +736,10 @@ Public Class FormSimpleDemo1DHorizontal
             ''12/30/2024                  False, False, False, False)
 
             ''12/17/2024  mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+            ''March2025 mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+            ''    bChangeOfEndpoint_Occurred, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
-                                                 bChangeOfEndpoint_Occurred, True)
+                     bChangeOfEndpoint_Occurred, True, operationToInsert.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
@@ -990,8 +1001,11 @@ Public Class FormSimpleDemo1DHorizontal
             ''12/30/2024              SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
 
             ''12/17/2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
+            ''March2025  mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
+            ''                 bChangeOfEndpoint_ByRef, RECORD_DEL_OPERATIONS)
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
-                                                 bChangeOfEndpoint_ByRef, RECORD_DEL_OPERATIONS)
+                   bChangeOfEndpoint_ByRef, RECORD_DEL_OPERATIONS,
+                   operationToDelete.GetOperationIndexStructure())
 
             ''Added 12/17/2024 
             bAnyEndpointAffected = (bAnyEndpointAffected Or bChangeOfEndpoint_ByRef)
@@ -1139,8 +1153,10 @@ Public Class FormSimpleDemo1DHorizontal
                                                           False, OPERATION_MOVE, type_move)
         ''operation.OperateOnList(mod_list)
         ''12/17/2024 td  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        ''March2025  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        ''   bChangeOfEndpoint_Occurred, True)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
-                                             bChangeOfEndpoint_Occurred, True)
+                bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
 
         ''Added 12/17/2024 
         bChangeOfEndpoint = (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred Or bChangeOfEndpoint)

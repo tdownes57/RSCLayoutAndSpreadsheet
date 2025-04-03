@@ -64,13 +64,17 @@ namespace RSCLibraryDLLOperations
         //
         public DLLOperationsManager1D(T_DLL par_firstItem,
             DLLList<T_DLL> par_list,
-            DLLOperation1D<T_DLL> par_firstPriorOperationV1)
+            DLLOperation1D<T_DLL>? par_firstPriorOperationV1 = null)
         {
             this.mod_firstItem = par_firstItem;
             this.mod_list = par_list;
 
-            this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
-            this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
+            if (par_firstPriorOperationV1 != null)
+            {
+                this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
+                this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
+            }
+
             mod_intCountOperations++; // Added 10/26/2024 td 
 
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;

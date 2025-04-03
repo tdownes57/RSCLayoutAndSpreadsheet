@@ -12,7 +12,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
     ''
     '' Added 10/14/2024 thomas c. downes 
     ''
-    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLItem)
+    ''March2025  Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLItem)
+    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLItem, TwoCharacterDLLItem)
     Private WithEvents mod_list As DLLList(Of TwoCharacterDLLItem)
     Private mod_firstItem As TwoCharacterDLLItem
     Private mod_lastItem As TwoCharacterDLLItem
@@ -96,7 +97,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
             ''      mod_list, operationInitial30)
-            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem, mod_list)
+            ''March2025  mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem, mod_list)
+            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
+                     mod_list, )
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
@@ -536,7 +539,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation,
                                                  bChangeOfEndpoint_Expected,
-                                                 bChangeOfEndpoint_Occurred, True)
+                                                 bChangeOfEndpoint_Occurred, True,
+                                                 operation.GetOperationIndexStructure())
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -550,7 +554,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''operation.OperateOnList(mod_list)
             ''12/16/2024 mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
-                                                 bChangeOfEndpoint_Occurred, True)
+                                                 bChangeOfEndpoint_Occurred, True,
+                                           operation.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
@@ -681,11 +686,11 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       INSERT_OPERATION, False, False, type_notMove,
                                       objAnchorItem,
                                       objAnchorPair)
-            ''12/30/2024            False, False, False, False)
+            ''12/30/2024  False, False, False, False)
 
             ''12/16/2024 mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
-                                                 bChangeOfEndpoint_Occurred, True)
+               bChangeOfEndpoint_Occurred, True, operationToInsert.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
@@ -950,8 +955,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
 
             ''Dec156 2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
             mod_manager.ProcessOperation_AnyType(operationToDelete,
-                                                 bEstimateIfAnyEndpointAffected,
-                                                 bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
+                      bEstimateIfAnyEndpointAffected,
+                      bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
+                      operationToDelete.GetOperationIndexStructure())
 
             ''Administration....
             ''12/16/2024  If (bAnyEndpointAffected) Then
@@ -1072,7 +1078,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''operation.OperateOnList(mod_list)
         ''12/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
-                                             bChangeOfEndpoint_Occurred, True)
+                bChangeOfEndpoint_Occurred, True,
+                tempOperation.GetOperationIndexStructure())
 
         ''Added 11/18/2024 
         ''12/16/2024  If (bChangeOfEndpoint) Then
