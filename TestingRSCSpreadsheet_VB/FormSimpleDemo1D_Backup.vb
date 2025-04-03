@@ -96,10 +96,10 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
 
             ''Added 10/20/2024  
             ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
-            ''      mod_list, operationInitial30)
+            ''      mod_list, operation Initial30)
             ''March2025  mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem, mod_list)
-            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem)(mod_firstItem,
-                     mod_list, )
+            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLItem, TwoCharacterDLLItem)(mod_firstItem,
+                     mod_list)
 
         End If ''End of ""If (PERFORM_INITIAL_INSERT_MANUALLY) Then""  
 
