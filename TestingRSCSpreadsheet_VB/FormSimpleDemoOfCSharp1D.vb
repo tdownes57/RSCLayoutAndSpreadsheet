@@ -734,8 +734,10 @@ Public Class FormSimpleDemoOfCSharp1D
 
             ''operation.OperateOnList(mod_list)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''---April 2025---mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            ''---          ---    bChangeOfEndpoint_PostHoc, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
-                                                 bChangeOfEndpoint_PostHoc, True)
+                     bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -748,8 +750,10 @@ Public Class FormSimpleDemoOfCSharp1D
             operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
             ''operation.OperateOnList(mod_list)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
+            ''---April 2025---mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            ''---          ---    bChangeOfEndpoint_PostHoc, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
-                                                 bChangeOfEndpoint_PostHoc, True)
+                     bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
@@ -897,12 +901,14 @@ Public Class FormSimpleDemoOfCSharp1D
             operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
                                         INSERT_OPERATION, False, False, not_a_moveType,
                                       objAnchorItem, objAnchorPair)
-            ''12/30/2024                          False, False, False, False,
-            ''12/30/2024                           Nothing, Nothing, Nothing)
+            ''12/30/2024          False, False, False, False,
+            ''12/30/2024           Nothing, Nothing, Nothing)
 
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
+            ''April 2025  mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+            ''    bChangeOfEndpoint_Occurred, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
-                                                 bChangeOfEndpoint_Occurred, True)
+                 bChangeOfEndpoint_Occurred, True, operationToInsert.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then ... Else ..."
 
@@ -1175,8 +1181,11 @@ Public Class FormSimpleDemoOfCSharp1D
             ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
             ''12/20/2024                  Nothing, Nothing, Nothing)
 
+            ''April2025  mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
+            ''               bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
-                                                 bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS)
+                bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
+                operationToDelete.GetOperationIndexStructure())
 
             ''Administration....
             If (bAnyEndpointAffected Or bAnyEndpointAffected_ByRef) Then
@@ -1347,8 +1356,10 @@ Public Class FormSimpleDemoOfCSharp1D
         tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
         ''operation.OperateOnList(mod_list)
         ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        ''April2025  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        ''                bChangeOfEndpoint_Occurred, True)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
-                                             bChangeOfEndpoint_Occurred, True)
+                bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
 
         ''Added 11/18/2024 
         If bChangeOfEndpoint_Expected Then
@@ -1585,8 +1596,12 @@ Public Class FormSimpleDemoOfCSharp1D
             ''12/23/2024 operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
                 ''Added 12/23/2024 t))d))
+                ''April 2025 ''mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
+                ''                  bChangeOfEndpoint_Occurred, True)
                 mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
-                                                     bChangeOfEndpoint_Occurred, True)
+                       bChangeOfEndpoint_Occurred, True,
+                       operationSortForward.GetOperationIndexStructure())
+
             Else
                 operationSortForward.OperateOnParentList(mod_list, bChangeOfEndpoint_Occurred)
 
@@ -1629,8 +1644,11 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
         If (USE_MANAGER) Then
             ''Added 12/23/2024 t))d))
+            ''April2025  mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
+            ''    bChangeOfEndpoint_Occurred, True)
             mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
-                                                     bChangeOfEndpoint_Occurred, True)
+                  bChangeOfEndpoint_Occurred, True,
+                  operationSortBackward.GetOperationIndexStructure())
         Else
             operationSortBackward.OperateOnParentList(mod_list, bChangeOfEndpoint_Occurred)
 
