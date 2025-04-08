@@ -133,9 +133,9 @@ Public Class FormDemo1DVertical
         ''
         RefreshTheUI_DisplayList()
         ''Mar2025 RefreshTheUI_DisplayListB1(mod_listB1, mod_firstItemB1)
-        RefreshTheUI_DisplayListB2(mod_listB1, mod_firstItemB1)
-        RefreshTheUI_DisplayListB2(mod_listB2, mod_firstItemB2)
-        RefreshTheUI_DisplayListB2(mod_listB3, mod_firstItemB3)
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
         labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
@@ -231,12 +231,16 @@ Public Class FormDemo1DVertical
         mod_rangeB3 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
 
         ''Added 2/15/2025 thomas downes 
-        FlowColumnB9.Controls.Clear()
-        FlowColumnB9.Controls.Add(mod_rangeB1.ItemStart)
+        FlowColumnB1.Controls.Clear()
+        FlowColumnB1.Controls.Add(mod_rangeB1.ItemStart)
 
         ''Added 2/15/2025 thomas downes 
-        FlowColumnB1.Controls.Clear()
-        FlowColumnB1.Controls.Add(mod_rangeB2.ItemStart)
+        FlowColumnB2.Controls.Clear()
+        FlowColumnB2.Controls.Add(mod_rangeB2.ItemStart)
+
+        ''Added 2/15/2025 thomas downes 
+        FlowColumnB3.Controls.Clear()
+        FlowColumnB3.Controls.Add(mod_rangeB3.ItemStart)
 
         ''Added 3/05/2025 td
         Dim arrayTwoCharStrings As String()
@@ -467,9 +471,13 @@ Public Class FormDemo1DVertical
         ''
         ''Propagate the change to the UI. 
         ''
-        RefreshTheUI_DisplayList(operationB1)
-        RefreshTheUI_DisplayList(operationB2)
-        RefreshTheUI_DisplayList(operationB3)
+        ''Apr20256  RefreshTheUI_DisplayList(operationB1)
+        ''Apr20256  RefreshTheUI_DisplayList(operationB2)
+        ''Apr20256  RefreshTheUI_DisplayList(operationB3)
+
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
 
     End Sub ''End of ""Private Sub PropagateOperation_ToParallelLists()""
@@ -695,35 +703,16 @@ Public Class FormDemo1DVertical
     ''End Sub
 
 
-    Private Sub RefreshTheUI_DisplayList(par_operation As DLLOperation1D(Of DLLUserControlRichbox)) '' = Nothing)
+    ''Private Sub RefreshTheUI_DisplayList(par_operation As DLLOperation1D(Of DLLUserControlRichbox)) '' = Nothing)
+    ''
+    ''    ''Added 1/21/2025 
+    ''    ''---RefreshTheUI_DisplayList(mod_listB2, mod_firstItemB2, par_operation)
+    ''    RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2, par_operation)
+    ''
+    ''End Sub
 
-        ''Added 1/21/2025 
-        ''---RefreshTheUI_DisplayList(mod_listB2, mod_firstItemB2, par_operation)
-        RefreshTheUI_DisplayListB2(mod_listB2, mod_firstItemB2, par_operation)
 
-    End Sub
-
-
-    Private Sub RefreshTheUI_DisplayListB1(par_list As DLLList(Of DLLUserControlTextbox),
-                                     par_firstItem As DLLUserControlTextbox,
-                                     Optional par_operation As DLLOperation1D(Of DLLUserControlTextbox) = Nothing)
-        ''
-        ''  This method is overloaded.  
-        ''
-        Dim temp As DLLUserControlTextbox = par_firstItem
-        Dim intCountNew As Integer = 0 ''Added 2/15/2025 thomas downes 
-
-        FlowColumnB9.Controls.Clear()
-        Do Until (temp Is Nothing)
-            FlowColumnB9.Controls.Add(temp)
-            temp.Visible = True ''Added 2/15/2025 thomas downes 
-            intCountNew += 1 ''Added 2/15/2025 thomas downes
-            temp = temp.DLL_GetItemNext_OfT()
-        Loop
-
-    End Sub ''---Private Sub RefreshTheUI_DisplayListB1
-
-    Private Sub RefreshTheUI_DisplayListB2(par_list As DLLList(Of DLLUserControlRichbox),
+    Private Sub RefreshTheUI_DisplayList_B1(par_list As DLLList(Of DLLUserControlRichbox),
                                      par_firstItem As DLLUserControlRichbox,
                                      Optional par_operation As DLLOperation1D(Of DLLUserControlRichbox) = Nothing)
         ''
@@ -740,7 +729,48 @@ Public Class FormDemo1DVertical
             temp = temp.DLL_GetItemNext_OfT()
         Loop
 
-    End Sub ''---Private Sub RefreshTheUI_DisplayListB2
+    End Sub ''---Private Sub RefreshTheUI_DisplayList_B1
+
+
+    Private Sub RefreshTheUI_DisplayList_B2(par_list As DLLList(Of DLLUserControlRichbox),
+                                     par_firstItem As DLLUserControlRichbox,
+                                     Optional par_operation As DLLOperation1D(Of DLLUserControlRichbox) = Nothing)
+        ''
+        ''  This method is overloaded.  
+        ''
+        Dim temp As DLLUserControlRichbox = par_firstItem
+        Dim intCountNew As Integer = 0 ''Added 2/15/2025 thomas downes 
+
+        FlowColumnB2.Controls.Clear()
+        Do Until (temp Is Nothing)
+            FlowColumnB2.Controls.Add(temp)
+            temp.Visible = True ''Added 2/15/2025 thomas downes 
+            intCountNew += 1 ''Added 2/15/2025 thomas downes
+            temp = temp.DLL_GetItemNext_OfT()
+        Loop
+
+    End Sub ''---Private Sub RefreshTheUI_DisplayList_B3
+
+
+    Private Sub RefreshTheUI_DisplayList_B3(par_list As DLLList(Of DLLUserControlRichbox),
+                                     par_firstItem As DLLUserControlRichbox,
+                                     Optional par_operation As DLLOperation1D(Of DLLUserControlRichbox) = Nothing)
+        ''
+        ''  This method is overloaded.  
+        ''
+        Dim temp As DLLUserControlRichbox = par_firstItem
+        Dim intCountNew As Integer = 0 ''Added 2/15/2025 thomas downes 
+
+        FlowColumnB3.Controls.Clear()
+        Do Until (temp Is Nothing)
+            FlowColumnB3.Controls.Add(temp)
+            temp.Visible = True ''Added 2/15/2025 thomas downes 
+            intCountNew += 1 ''Added 2/15/2025 thomas downes
+            temp = temp.DLL_GetItemNext_OfT()
+        Loop
+
+    End Sub ''---Private Sub RefreshTheUI_DisplayList_B3
+
 
 
     Private Sub RefreshHighlightingRichText(par_control As RichTextBox)
@@ -2115,7 +2145,7 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub FlowRowHeaders_Paint(sender As Object, e As PaintEventArgs) Handles FlowColumnB9.Paint
+    Private Sub FlowRowHeaders_Paint(sender As Object, e As PaintEventArgs)
 
     End Sub
 

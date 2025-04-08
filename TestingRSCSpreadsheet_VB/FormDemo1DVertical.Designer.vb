@@ -65,10 +65,6 @@ Partial Class FormDemo1DVertical
         numInsertAnchorBenchmark = New NumericUpDown()
         LabelA_B1_B2_B3 = New Label()
         LabelHeader1 = New Label()
-        FlowColumnB9 = New FlowLayoutPanel()
-        UserControlTextbox2 = New DLLUserControlTextbox()
-        UserControlTextbox02 = New DLLUserControlTextbox()
-        UserControlTextbox3 = New DLLUserControlTextbox()
         FlowColumnB1 = New FlowLayoutPanel()
         UserControlRichbox1 = New DLLUserControlRichbox()
         UserControlRichbox4 = New DLLUserControlRichbox()
@@ -95,7 +91,6 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).BeginInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).BeginInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
-        FlowColumnB9.SuspendLayout()
         FlowColumnB1.SuspendLayout()
         FlowColumnB2.SuspendLayout()
         FlowColumnB3.SuspendLayout()
@@ -530,54 +525,6 @@ Partial Class FormDemo1DVertical
         LabelHeader1.TabIndex = 148
         LabelHeader1.Text = "Vertical Header Column (A) with Parallel Lists (B1, B2, B3)"
         ' 
-        ' FlowColumnB9
-        ' 
-        FlowColumnB9.BackColor = SystemColors.ActiveCaption
-        FlowColumnB9.BorderStyle = BorderStyle.FixedSingle
-        FlowColumnB9.Controls.Add(UserControlTextbox2)
-        FlowColumnB9.Controls.Add(UserControlTextbox02)
-        FlowColumnB9.Controls.Add(UserControlTextbox3)
-        FlowColumnB9.Location = New Point(963, 12)
-        FlowColumnB9.Name = "FlowColumnB9"
-        FlowColumnB9.Size = New Size(29, 322)
-        FlowColumnB9.TabIndex = 149
-        ' 
-        ' UserControlTextbox2
-        ' 
-        UserControlTextbox2.HighlightInBlue = False
-        UserControlTextbox2.HighlightInCyan = False
-        UserControlTextbox2.HighlightInGreen = False
-        UserControlTextbox2.HighlightInRed = False
-        UserControlTextbox2.Location = New Point(3, 3)
-        UserControlTextbox2.Name = "UserControlTextbox2"
-        UserControlTextbox2.Selected = False
-        UserControlTextbox2.Size = New Size(22, 23)
-        UserControlTextbox2.TabIndex = 154
-        ' 
-        ' UserControlTextbox02
-        ' 
-        UserControlTextbox02.HighlightInBlue = False
-        UserControlTextbox02.HighlightInCyan = False
-        UserControlTextbox02.HighlightInGreen = False
-        UserControlTextbox02.HighlightInRed = False
-        UserControlTextbox02.Location = New Point(3, 32)
-        UserControlTextbox02.Name = "UserControlTextbox02"
-        UserControlTextbox02.Selected = False
-        UserControlTextbox02.Size = New Size(22, 23)
-        UserControlTextbox02.TabIndex = 155
-        ' 
-        ' UserControlTextbox3
-        ' 
-        UserControlTextbox3.HighlightInBlue = False
-        UserControlTextbox3.HighlightInCyan = False
-        UserControlTextbox3.HighlightInGreen = False
-        UserControlTextbox3.HighlightInRed = False
-        UserControlTextbox3.Location = New Point(3, 61)
-        UserControlTextbox3.Name = "UserControlTextbox3"
-        UserControlTextbox3.Selected = False
-        UserControlTextbox3.Size = New Size(22, 23)
-        UserControlTextbox3.TabIndex = 156
-        ' 
         ' FlowColumnB1
         ' 
         FlowColumnB1.BackColor = SystemColors.ActiveCaption
@@ -782,7 +729,6 @@ Partial Class FormDemo1DVertical
         Controls.Add(FlowRowNumbersOnly)
         Controls.Add(FlowColumnB2)
         Controls.Add(FlowColumnB1)
-        Controls.Add(FlowColumnB9)
         Controls.Add(FlowColumnB3)
         Controls.Add(LabelHeader1)
         Controls.Add(LabelA_B1_B2_B3)
@@ -830,7 +776,6 @@ Partial Class FormDemo1DVertical
         CType(numDeleteHowMany, ComponentModel.ISupportInitialize).EndInit()
         CType(numDeleteRangeBenchmarkStart, ComponentModel.ISupportInitialize).EndInit()
         CType(numInsertAnchorBenchmark, ComponentModel.ISupportInitialize).EndInit()
-        FlowColumnB9.ResumeLayout(False)
         FlowColumnB1.ResumeLayout(False)
         FlowColumnB2.ResumeLayout(False)
         FlowColumnB3.ResumeLayout(False)
@@ -883,7 +828,6 @@ Partial Class FormDemo1DVertical
     Friend WithEvents numInsertAnchorBenchmark As NumericUpDown
     Friend WithEvents LabelA_B1_B2_B3 As Label
     Friend WithEvents LabelHeader1 As Label
-    Friend WithEvents FlowColumnB9 As FlowLayoutPanel
     Friend WithEvents FlowColumnB1 As FlowLayoutPanel
     Friend WithEvents FlowColumnB2 As FlowLayoutPanel
     Friend WithEvents FlowColumnB3 As FlowLayoutPanel
@@ -891,12 +835,9 @@ Partial Class FormDemo1DVertical
     Friend WithEvents TextBox13 As TextBox
     Friend WithEvents TextBox14 As TextBox
     Friend WithEvents TextBox15 As TextBox
-    Friend WithEvents UserControlTextbox2 As DLLUserControlTextbox
     Friend WithEvents UserControlRichbox1 As DLLUserControlRichbox
     Friend WithEvents UserControlRichbox2 As DLLUserControlRichbox
     Friend WithEvents UserControlRichbox3 As DLLUserControlRichbox
-    Friend WithEvents UserControlTextbox02 As DLLUserControlTextbox
-    Friend WithEvents UserControlTextbox3 As DLLUserControlTextbox
     Friend WithEvents UserControlRichbox4 As DLLUserControlRichbox
     Friend WithEvents UserControlRichbox7 As DLLUserControlRichbox
     Friend WithEvents UserControlRichbox5 As DLLUserControlRichbox
