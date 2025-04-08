@@ -42,6 +42,22 @@ namespace RSCLibraryDLLOperations
         private DLLOperation1D<T_DLL> mod_firstPriorOperation1D;
         private DLLOperation1D<T_DLL> mod_lastPriorOperation1D;
 
+        /// <summary>
+        /// Allows an operation to be propagated to an array of parallel lists. For example, if the 
+        /// operation delete the first item in the main list, the first item in each list of an array of 
+        /// similar lists can be deleted.  This would allow a user to delete the first row in a 
+        /// spreadsheet, for example. 
+        /// </summary>
+        private DLLList<T_DLLParallel>[] mod_arrayOfParallelLists;
+
+        /// <summary>
+        /// Allows an INSERT operation to be propagated to an array of parallel lists. For example, if 
+        /// the operation is an INSERT of 5 new items in the first item in the main list, we need to 
+        /// insert five(5) new items in each list of an array of similar lists.  This would allow 
+        /// a user to insert 5 new rows at any row-index location in a spreadsheet. 
+        /// </summary>
+        private DLLRange<T_DLLParallel>[] mod_arrayOfParallelRanges;
+
         //
         // As illustration of the moveable, user-controlled undo-redo marker:
         //                                               <----------------------------------->
@@ -208,8 +224,7 @@ namespace RSCLibraryDLLOperations
                                bool par_changeOfEndpoint_Expected,
                                out bool par_changeOfEndpoint_Occurred, 
                                bool pbOperationIsNewSoRecordIt,
-                               DLLOperationIndexStructure parOperationIndicized,
-                               DLLCollectionOfLists<T_DLLParallel> parCollectionOfParallelLists = null)
+                               DLLOperationIndexStructure parOperationIndicized)
         {
             // Added 1/15/2024
 
@@ -224,6 +239,30 @@ namespace RSCLibraryDLLOperations
             //
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint_Expected, 
                   out par_changeOfEndpoint_Occurred);
+
+            //
+            //  Propagate operation to parallel lists, if any exist. 
+            //
+            ProcessOperation_ToParallelLists(parOperationIndicized, 
+                  par_changeOfEndpoint_Expected,
+                  ref par_changeOfEndpoint_Occurred);
+
+            //// Added 4/08/2025 td
+            //foreach (var each_list in mod_arrayOfParallelLists)
+            //{;
+            //    T_DLLParallel each_1stParallelItem = each_list.DLL_GetFirstItem_OfT();
+
+            //    DLLOperation1D<T_DLLParallel> each_operation = new DLLOperation1D<T_DLLParallel>
+            //        (parOperationIndicized, each_1stParallelItem);
+
+            //    bool bChangeOfEndpointInFact = false;
+
+            //    each_operation.OperateOnList(each_list, true, par_changeOfEndpoint_Expected,
+            //        out bChangeOfEndpointInFact);
+
+            //    par_changeOfEndpoint_Occurred |= bChangeOfEndpointInFact;
+
+            //}
 
             // Added 3/25/2025 td
             parOperation.ExecutionDate = DateTime.Now;
@@ -411,6 +450,81 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        /// <summary>
+        /// This will propagate an operation to the local array of DLLLists,
+        ///   each list being of the parallel type (T_DLLParallel, e.g. RSCDataColumn).
+        /// </summary>
+        /// <param name="par_operationByIndex"></param>
+        /// <param name="par_changeOfEndpoint_Expected"></param>
+        /// <param name="par_changeOfEndpoint_InFact"></param>
+        private void ProcessOperation_ToParallelLists(DLLOperationIndexStructure par_operationByIndex, 
+            bool par_changeOfEndpoint_Expected, ref bool par_changeOfEndpoint_InFact)
+        {
+            //
+            //This will propagate an operation to the local array of DLLLists,
+            //   of the parallel type (e.g. RSCDataColumn).
+            //
+            //Called by the following:
+            //    public void ProcessOperation_AnyType
+            //
+            if (mod_arrayOfParallelLists == null) return;
+            int arrayIndex = 0;
+            DLLRange<T_DLLParallel> each_range;
+
+            // Added 4/08/2025 td
+            foreach (var each_list in mod_arrayOfParallelLists)
+            {
+                     
+                T_DLLParallel each_1stParallelItem = each_list.DLL_GetFirstItem_OfT();
+
+                DLLOperation1D<T_DLLParallel> each_operation; // = new DLLOperation1D<T_DLLParallel>
+                //    (par_operationByIndex, each_1stParallelItem);
+
+                bool bChangeOfEndpointInFact = false;
+
+                //
+                //For INSERT operations (& possibly MOVEs).  Added 04/08/2025 td
+                //
+                if (par_operationByIndex.IsInsert)
+                {
+                    //
+                    // For Inserts. (Eventually, we might include MOVE operations.)
+                    //
+                    each_range = mod_arrayOfParallelRanges[arrayIndex];
+
+                    //Added 04/08/2025 td
+                    //Apr2025 each_operation.SetRange_ForInserts(each_range);
+
+                    each_operation = new DLLOperation1D<T_DLLParallel>
+                        (par_operationByIndex, each_1stParallelItem, each_range);
+
+                }
+
+                else
+                {
+                    //
+                    // Non-Insert operations.
+                    //
+                    each_operation = new DLLOperation1D<T_DLLParallel>
+                         (par_operationByIndex, each_1stParallelItem);
+                }
+
+                //
+                // Major call!!
+                //
+                each_operation.OperateOnList(each_list, true, par_changeOfEndpoint_Expected,
+                    out bChangeOfEndpointInFact); 
+                //  mod_arrayOfParallelRanges[arrayIndex]);
+
+                par_changeOfEndpoint_InFact |= bChangeOfEndpointInFact;
+
+                arrayIndex++;
+
+            }
+
+        }
+
+
         private void UndoOfPriorOperation_AnyType(ref bool pbEndpointAffected, 
             bool pbTestingIndexStructure)
         {
@@ -528,6 +642,44 @@ namespace RSCLibraryDLLOperations
             }
 
         }
+
+
+        ///<summary>
+        /// Allows a UI class to load an array of parallel lists.
+        ///</summary>
+        ///<returns>An array of DLLLists (Of DLLUserControlRichbox)</returns>
+        public void LoadParallelLists(DLLList<T_DLLParallel>[] param_arrayOfParallelLists,
+            DLLRange<T_DLLParallel>[]? par_arrayOfParallelRanges = null)
+        {
+            //
+            // Added 4/08/2025 thomas downes
+            //
+            //  Part 1 of 2.  Add the parallel lists. 
+            //
+            mod_arrayOfParallelLists = param_arrayOfParallelLists;
+
+            //
+            // Added 4/08/2025 
+            //
+            //  Part 2 of 2. For INSERTS--Add the parallel ranges, if needed, in cases of INSERTs. 
+            //
+            if (par_arrayOfParallelRanges != null)
+            {
+                //
+                // Double-check the expected counts.
+                // 
+                int countOfRanges = par_arrayOfParallelRanges.Count();
+                int countOfLists = param_arrayOfParallelLists.Count();
+                bool bMatches = (countOfLists == countOfRanges);
+                if (!bMatches) { 
+                    System.Diagnostics.Debugger.Break();
+                }
+
+                //  For INSERTS--Add the parallel ranges, if needed, in cases of INSERTs. 
+                mod_arrayOfParallelRanges = par_arrayOfParallelRanges;
+            }
+
+        } // End Function ''End of ""Public Function GetParallelLists()
 
 
         public override string ToString()

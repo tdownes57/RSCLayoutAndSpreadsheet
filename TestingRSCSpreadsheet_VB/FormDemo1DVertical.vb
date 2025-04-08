@@ -55,6 +55,64 @@ Public Class FormDemo1DVertical
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
 
 
+    ''' <summary>
+    ''' Puts {mod_listB1, mod_listB2, mod_listB3} into an array of lists.
+    ''' </summary>
+    ''' <returns>An array of DLLLists (Of DLLUserControlRichbox)</returns>
+    Public Function GetParallelLists() As DLLList(Of DLLUserControlRichbox)()
+
+        Return New DLLList(Of DLLUserControlRichbox)() _
+            {mod_listB1, mod_listB2, mod_listB3}
+
+    End Function ''End of ""Public Function GetParallelLists()""
+
+
+    Public Function GetParallelLists_Count() As Integer
+        ''
+        ''Added 4/08/2025
+        ''
+        Return GetParallelLists().Count()
+
+    End Function ''End of ""Public Function GetParallelLists()""
+
+
+    ''' <summary>
+    ''' Create an array of DLL Ranges, consisting of new items..
+    ''' </summary>
+    ''' <returns>An array of DLLRanges (Of DLLUserControlRichbox)</returns>
+    Public Function GetParallelRangesOfNewItems(par_countNeededRanges As Integer,
+                         par_countNewItemsInRange As Integer,
+                         par_stringTwoChars As String) As DLLRange(Of DLLUserControlRichbox)()
+        ''
+        ''Added 4/08/2025  
+        ''
+        Dim output_array As DLLRange(Of DLLUserControlRichbox)()
+        ReDim output_array(0 To par_countNeededRanges - 1)
+        Dim each_range As DLLRange(Of DLLUserControlRichbox)
+        Dim each_newBox As DLLUserControlRichbox
+
+        For indexOuter As Integer = 0 To (par_countNeededRanges - 1)
+
+            each_range = New DLLRange(Of DLLUserControlRichbox)(True,
+                New DLLUserControlRichbox())
+
+            For indexInner As Integer = 0 To (par_countNewItemsInRange - 1)
+
+                each_newBox = New DLLUserControlRichbox(par_stringTwoChars)
+                each_range.AddItemToTheEndOfRange_NewItem(each_newBox)
+
+            Next indexInner
+
+            ''Added 4/08/2025 td
+            output_array(indexOuter) = each_range
+
+        Next indexOuter
+
+        Return output_array
+
+    End Function ''End of ""Public Function GetParallelLists()""
+
+
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -138,7 +196,7 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
         labelNumOperations.Text = mod_manager.ToString()
 
-    End Sub
+    End Sub ''End of ""Private Sub FormSimpleDemoOfCSharp1D_Load""
 
 
 
@@ -224,11 +282,11 @@ Public Class FormDemo1DVertical
         ''//rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_firstItemA, True)
         ''//For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
         ''Nov2024 rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
-        mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
+        mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("01"), True)
         ''Added 1/21/2025 td
-        mod_rangeB1 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
-        mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
-        mod_rangeB3 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
+        mod_rangeB1 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("01"), True)
+        mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("01"), True)
+        mod_rangeB3 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("01"), True)
 
         ''Added 2/15/2025 thomas downes 
         FlowColumnB1.Controls.Clear()
@@ -1022,7 +1080,7 @@ Public Class FormDemo1DVertical
         ''
         '' Added 10/15/2024  
         ''
-        Dim intInsertCount As Integer
+        Dim intInsertCountOfNewItems As Integer
         Dim intAnchorPosition As Integer
         Dim indexNewItem As Integer
         ''Nov2024 Dim objectRange As DLLRange(Of TwoCharacterDLLVerticalA)
@@ -1046,13 +1104,13 @@ Public Class FormDemo1DVertical
         AdminToDoPriorToAnyOperation("Insert-Multi", boolUserHasCancelled)
         If (boolUserHasCancelled) Then Exit Sub
 
-        intInsertCount = numInsertHowMany.Value
+        intInsertCountOfNewItems = numInsertHowMany.Value
         intAnchorPosition = numInsertAnchorBenchmark.Value
         intHowManyInModuleList = mod_listA.DLL_CountAllItems
         boolEndpoint = intAnchorPosition = 1 Or intAnchorPosition = intHowManyInModuleList
 
         intNewIndexStart = 1 + intHowManyInModuleList
-        intNewIndexEnd = intInsertCount + intHowManyInModuleList
+        intNewIndexEnd = intInsertCountOfNewItems + intHowManyInModuleList
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(New Char() {","c, " "c})
         bUserSpecifiedValues = array_sItemsToInsert.Count > 0
 
@@ -1087,16 +1145,17 @@ Public Class FormDemo1DVertical
         ''
         '' Set the range. 
         ''
-        If intInsertCount = 1 Then
+        If intInsertCountOfNewItems = 1 Then
             mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(first_newItem, True)
         Else
             ''
             '' There are at least two objects in the range. 
             ''
             mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(False, first_newItem,
-                                                           last_newItem, Nothing, intInsertCount)
+                                                           last_newItem, Nothing,
+                                                           intInsertCountOfNewItems)
 
-        End If ''End of ""If (intInsertCount = 1) Then... Else..."
+        End If ''End of ""If (intInsertCountOfNewItems = 1) Then... Else..."
 
         ''
         ''Set the anchor. 
@@ -1181,6 +1240,22 @@ Public Class FormDemo1DVertical
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             ''Mar2025  mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
             ''   bChangeOfEndpoint_PostHoc, True)
+
+            Dim stringTwoChars As String = textInsertListOfValuesCSV.Text.Substring(0, 2)
+
+            ''Added 4/08/2025 thomas d.
+            Dim arrayOfParallelRanges As DLLRange(Of DLLUserControlRichbox)() ''Added 4/08/2025 thomas d.
+            Dim intCountOfParallelLists As Integer = GetParallelLists_Count()
+            arrayOfParallelRanges = GetParallelRangesOfNewItems(intCountOfParallelLists,
+                                                intInsertCountOfNewItems,
+                                                stringTwoChars)
+
+            ''Added 4/08/2025 thomas d.
+            mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+
+            ''
+            '' Major call!!
+            ''
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                    bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
 
@@ -1638,6 +1713,9 @@ Public Class FormDemo1DVertical
             ''Added 3/26/2025 t/d/
             operationIndicized = operationToDelete.GetOperationIndexStructure()
 
+            ''Added 4/08/2025 thomas d.
+            mod_manager.LoadParallelLists(GetParallelLists())
+
             mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
                                              bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
                                              operationIndicized)
@@ -1656,6 +1734,17 @@ Public Class FormDemo1DVertical
         ''Added 10/20/2024
         ''
         RefreshTheUI_DisplayList()
+
+        ''Added 04/08/2025
+        ''
+        ''  Refresh the parallel lists.
+        ''
+        mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
+        mod_firstItemB2 = mod_listB2.DLL_GetFirstItem_OfT()
+        mod_firstItemB3 = mod_listB3.DLL_GetFirstItem_OfT()
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True

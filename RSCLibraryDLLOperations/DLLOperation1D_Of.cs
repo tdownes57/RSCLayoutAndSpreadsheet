@@ -68,7 +68,8 @@ namespace RSCLibraryDLLOperations
         private readonly DLLAnchorItem<TControl>? _inverseAnchorItem_ForUndo;
         private readonly DLLAnchorCouplet<TControl>? _inverseAnchorPair_forUndo;
 
-        private readonly DLLRange<TControl>? _range;
+        //March 2025 private readonly DLLRange<TControl>? _range;
+        private DLLRange<TControl>? _range;
 
         private DLLOperation1D<TControl>? mod_opPrior_ForUndo_OfT;
         private DLLOperation1D<TControl>? mod_opNext_ForRedo_OfT;
@@ -1504,6 +1505,13 @@ namespace RSCLibraryDLLOperations
         {
             // Added 6/06/2024 td
             return _range;
+        }
+
+
+        public void SetRange_ForInserts(DLLRange<TControl> par_range)
+        {
+            // Added 4/08/2025 td
+            _range = par_range;
         }
 
 
