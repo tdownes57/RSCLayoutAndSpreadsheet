@@ -24,8 +24,9 @@ namespace RSCLibraryDLLOperations
     //            (versus a 2-dimensional grid)
     //
 
-    public partial class DLLOperation1D<TControl> : DLLOperationBase // :IDoublyLinkedItem
-        where TControl : class, IDoublyLinkedItem<TControl>
+    public partial class DLLOperation1D<T_DLLItem, T_DLLParallel> : DLLOperationBase // :IDoublyLinkedItem
+        where T_DLLItem : class, IDoublyLinkedItem<T_DLLItem>
+        where T_DLLParallel : class, IDoublyLinkedItem<T_DLLParallel>
     {
         //''
         //''Added 4/17/2024 td
@@ -57,34 +58,34 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
         // Added 4/21/2024 td
-        private readonly DLLAnchorItem<TControl>? _anchorItem;
+        private readonly DLLAnchorItem<T_DLLItem>? _anchorItem;
 
         // Added 11/03/2024 td
         //   An Anchor Couplet is a pair of Anchoring Items, which bookend a range
         //   (or more accurately WILL bookend a range). 
-        private readonly DLLAnchorCouplet<TControl>? _anchorCouplet;
+        private readonly DLLAnchorCouplet<T_DLLItem>? _anchorCouplet;
 
         //Added 4/18/2024 td 
-        private readonly DLLAnchorItem<TControl>? _inverseAnchorItem_ForUndo;
-        private readonly DLLAnchorCouplet<TControl>? _inverseAnchorPair_forUndo;
+        private readonly DLLAnchorItem<T_DLLItem>? _inverseAnchorItem_ForUndo;
+        private readonly DLLAnchorCouplet<T_DLLItem>? _inverseAnchorPair_forUndo;
 
         //March 2025 private readonly DLLRange<TControl>? _range;
-        private DLLRange<TControl>? _range;
+        private DLLRange<T_DLLItem>? _range;
 
-        private DLLOperation1D<TControl>? mod_opPrior_ForUndo_OfT;
-        private DLLOperation1D<TControl>? mod_opNext_ForRedo_OfT;
+        private DLLOperation1D<T_DLLItem, T_DLLParallel>? mod_opPrior_ForUndo_OfT;
+        private DLLOperation1D<T_DLLItem, T_DLLParallel>? mod_opNext_ForRedo_OfT;
 
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
         //
-        public TControl _itemStart_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
-        public TControl _itemEnding_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+        public T_DLLItem _itemStart_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public T_DLLItem _itemEnding_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
-        public TControl _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
-        public TControl _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+        public T_DLLItem _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public T_DLLItem _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
-        public TControl[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
-        public TControl[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
+        public T_DLLItem[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
+        public T_DLLItem[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
  
         public int[] _arrayIndices_SortOrderIfUndo;  //Added 1/13/2025 td  
         public int[] _arrayIndices_SortOrderThisOp;  //Added 1/13/2025 td  
@@ -92,9 +93,10 @@ namespace RSCLibraryDLLOperations
         //
         // ---------------------END OF SORTING ORDER--------------------12/30/2024--------------
         //
+        public DLLRange<T_DLLParallel>[] _array_DLLRangesIfUndo; //Added 4-08-2025
 
         /// <summary>
-        /// Ind icate whether the ENDPOINTS (outward-facing item references 
+        /// Indicate whether the ENDPOINTS (outward-facing item references 
         /// at either end of a range of items) should be always set to NULL
         /// after a DELETE is performed.
         /// </summary>
@@ -204,10 +206,10 @@ namespace RSCLibraryDLLOperations
                   bool par_isSortDescending,
                   bool par_isUndoOfSortAscending,
                   bool par_isUndoOfSortDescending,
-                  TControl par_itemStart_Sorting, 
-                  TControl par_itemEnding_ForSorting, 
+                  T_DLLItem par_itemStart_Sorting, 
+                  T_DLLItem par_itemEnding_ForSorting, 
                   bool pbSortByArrayOfControls,
-                  TControl[] par_arrayControls_Sorting,
+                  T_DLLItem[] par_arrayControls_Sorting,
                   bool pbSortByArrayOfIndices,
                   int[]? par_arrayIndices_Sorting)
         {
@@ -238,14 +240,14 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D(DLLRange<TControl>? par_range,
+        public DLLOperation1D(DLLRange<T_DLLItem>? par_range,
               bool par_forStartOfList, bool par_forEndOfList,
               bool par_isInsert, bool par_isDelete, bool par_isMove,
               StructureTypeOfMove par_structMoveType,
-              DLLAnchorItem<TControl>? par_anchorItem,
-              DLLAnchorCouplet<TControl>? par_anchorPair,
-                  DLLOperation1D<TControl>? par_operationPrior = null,
-                  DLLOperation1D<TControl>? par_operationNext = null)
+              DLLAnchorItem<T_DLLItem>? par_anchorItem,
+              DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
+                  DLLOperation1D<T_DLLItem, T_DLLParallel>? par_operationPrior = null,
+                  DLLOperation1D<T_DLLItem, T_DLLParallel>? par_operationNext = null)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -305,7 +307,7 @@ namespace RSCLibraryDLLOperations
                     _range._isSingleItem = true;
                     _range._SingleItemInRange = _range._StartingItemOfRange;
 
-                    TControl tempEnding = _range._EndingItemOfRange;
+                    T_DLLItem tempEnding = _range._EndingItemOfRange;
                     bool bMatchesStart = (tempEnding == _range._SingleItemInRange);
                     if (bMatchesStart == false) System.Diagnostics.Debugger.Break();
 
@@ -323,8 +325,8 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D(DLLRange<TControl> par_range,
-                              DLLAnchorCouplet<TControl>? par_anchorCouplet,
+        public DLLOperation1D(DLLRange<T_DLLItem> par_range,
+                              DLLAnchorCouplet<T_DLLItem>? par_anchorCouplet,
                               bool par_isInsert, bool par_isMove,
                               StructureTypeOfMove par_typeOfMove)
         {
@@ -389,8 +391,8 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_structure"></param>
         /// <param name="par_firstItemOfList"></param>
         /// <param name=""></param>
-        public DLLOperation1D(DLLOperationIndexStructure par_structure, TControl par_firstItemOfList,
-                         DLLRange<TControl>? par_range = null)
+        public DLLOperation1D(DLLOperationIndexStructure par_structure, T_DLLItem par_firstItemOfList,
+                         DLLRange<T_DLLItem>? par_range = null)
         {
             //
             // Added 1/12/2025 thomas downes
@@ -411,9 +413,9 @@ namespace RSCLibraryDLLOperations
             //---if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
             if (par_structure.RangeIsSpecified_MoveOrDelete) // || 0 < par_structure.RangeSize)
             {
-                TControl itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeStartingIndex_b1);
-                TControl itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeEndingIndex_b1);
-                _range = new DLLRange<TControl>(itemOfRangeFirst, itemOfRange_Last, 
+                T_DLLItem itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeStartingIndex_b1);
+                T_DLLItem itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeEndingIndex_b1);
+                _range = new DLLRange<T_DLLItem>(itemOfRangeFirst, itemOfRange_Last, 
                     par_structure.RangeSize_MoveOrDelete);
             }
 
@@ -436,8 +438,8 @@ namespace RSCLibraryDLLOperations
             if (par_structure.AnchorIsSpecified || 0 < par_structure.AnchorIndexLeft_b1
                    || 0 < par_structure.AnchorIndexRight_b1)
             {
-                TControl? itemOfAnchorLeft = null;
-                TControl? itemOfAnchorRight = null;
+                T_DLLItem? itemOfAnchorLeft = null;
+                T_DLLItem? itemOfAnchorRight = null;
 
                 if (0 < par_structure.AnchorIndexLeft_b1) // Added 4/08/2025 td
                 {
@@ -449,7 +451,7 @@ namespace RSCLibraryDLLOperations
                     itemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexRight_b1);
                 }
 
-                _anchorCouplet = new DLLAnchorCouplet<TControl>(itemOfAnchorLeft, itemOfAnchorRight);
+                _anchorCouplet = new DLLAnchorCouplet<T_DLLItem>(itemOfAnchorLeft, itemOfAnchorRight);
                 _anchorItem = _anchorCouplet.GetAnchorItem();
 
             }
@@ -457,7 +459,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ExecuteOnThisList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
+        public void ExecuteOnThisList(DLLList<T_DLLItem> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -488,7 +490,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnParentList(DLLList<TControl> par_list, out bool pbChangeOfEndpoint_Occurred)
+        public void OperateOnParentList(DLLList<T_DLLItem> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -500,8 +502,8 @@ namespace RSCLibraryDLLOperations
             //
             const bool ENDPOINT_PROTECTION = true; // Added 12/16/2024  
             bool bChangeOfEndpoint_Expected = true;   // Added 12/16/2024 
-            TControl tempStart = par_list._itemStart;
-            TControl temp__End = par_list._itemEnding;
+            T_DLLItem tempStart = par_list._itemStart;
+            T_DLLItem temp__End = par_list._itemEnding;
 
             if (_isSort_Ascending)
             {
@@ -585,7 +587,9 @@ namespace RSCLibraryDLLOperations
             DLLAnchorItem<T2Parallel>? anchorItem_parallel = _anchorItem?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
             DLLAnchorCouplet<T2Parallel>? anchorPair_parallel = _anchorCouplet?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
 
-            var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
+            //Apr2025  var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
+            //    _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
+            var operationParallel = new DLLOperation1D<T2Parallel, T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
                 _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
 
             operationParallel.OperateOnList(par_listParallel, true, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);
@@ -602,7 +606,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_list"></param>
         /// <param name="par_doProtectEndpoints">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
-        public void OperateOnList(DLLList<TControl> par_list,
+        public void OperateOnList(DLLList<T_DLLItem> par_list,
                              bool par_doProtectEndpoints,
                              bool pbIsChangeOfEndpoint,
                              out bool pbChangeOfEndpoint_Occurred)
@@ -617,7 +621,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Ascending Sort
                 //----par_list.SaveCurrentSortOrder_ToPrior(this); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
-                TControl[] arrayControls_priorToSort;  // Added 1/13/2025 
+                T_DLLItem[] arrayControls_priorToSort;  // Added 1/13/2025 
                 //int[] arrayIndices_priorToSort;  //Added 1/13/2025
                 const bool OUTPUT_ARRAY = true;  // Added 1/13/2025 
 
@@ -677,7 +681,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnList(DLLList<TControl> par_list,
+        public void OperateOnList(DLLList<T_DLLItem> par_list,
                              bool par_doProtectEndpoints,
                              bool pbIsChangeOfEndpoint_Expected,
                              out bool pbChangeOfEndpoint_Occurred,
@@ -1447,7 +1451,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D<TControl> GetPrior()
+        public DLLOperation1D<T_DLLItem> GetPrior()
         {
             //
             // Added 5/25/2024 
@@ -1460,7 +1464,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D<TControl> GetNext()
+        public DLLOperation1D<T_DLLItem> GetNext()
         {
             //
             // Added 5/25/2024 
@@ -1511,14 +1515,14 @@ namespace RSCLibraryDLLOperations
         //    return _range_V;
         //}
 
-        public DLLRange<TControl> GetRange()
+        public DLLRange<T_DLLItem> GetRange()
         {
             // Added 6/06/2024 td
             return _range;
         }
 
 
-        public void SetRange_ForInserts(DLLRange<TControl> par_range)
+        public void SetRange_ForInserts(DLLRange<T_DLLItem> par_range)
         {
             // Added 4/08/2025 td
             _range = par_range;
@@ -1548,7 +1552,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperation1D<TControl> DLL_GetOpPrior_OfT()
+        public DLLOperation1D<T_DLLItem> DLL_GetOpPrior_OfT()
         {
             // Added 12/02/2024 
             //
@@ -1573,7 +1577,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D<TControl> DLL_GetOpNext_OfT()
+        public DLLOperation1D<T_DLLItem> DLL_GetOpNext_OfT()
         {
             // Added 12/02/2024 
 
@@ -1595,7 +1599,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpPrior_OfT(DLLOperation1D<TControl> parOperation)
+        public void DLL_SetOpPrior_OfT(DLLOperation1D<T_DLLItem> parOperation)
         {
             mod_opPrior_ForUndo_OfT = parOperation;
 
@@ -1608,7 +1612,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D<TControl> parOperation)
+        public void DLL_SetOpNext_OfT(DLLOperation1D<T_DLLItem> parOperation)
         {
             mod_opNext_ForRedo_OfT = parOperation;
 
@@ -1622,7 +1626,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D<TControl> parOperation, bool pbBirectional)
+        public void DLL_SetOpNext_OfT(DLLOperation1D<T_DLLItem> parOperation, bool pbBirectional)
         {
             //
             //Added 12/08/2024 td
@@ -1673,7 +1677,7 @@ namespace RSCLibraryDLLOperations
             //    So, "2 comes after 1" and "2 is the next number after 1"
             //    means the same thing. 
             //
-            DLLOperation1D<TControl> operationNextAfter = DLL_GetOpNext_OfT();
+            DLLOperation1D<T_DLLItem> operationNextAfter = DLL_GetOpNext_OfT();
             
             while (operationNextAfter != null)
             {
@@ -1698,7 +1702,7 @@ namespace RSCLibraryDLLOperations
             //    means the same thing. 
             //
             //---12/03/2024---DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
-            DLLOperation1D<TControl> operationPriorBefore = DLL_GetOpPrior_OfT();
+            DLLOperation1D<T_DLLItem> operationPriorBefore = DLL_GetOpPrior_OfT();
 
             while (operationPriorBefore != null)
             {

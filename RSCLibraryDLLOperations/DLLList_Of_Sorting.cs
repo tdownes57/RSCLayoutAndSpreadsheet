@@ -34,7 +34,7 @@ namespace RSCLibraryDLLOperations
         //Go to DLLOperation_Of.cs  public TControl[] _array_SortOrderThisOp;  //Added 12/29/2024 td  
 
 
-        public void SaveCurrentSortOrder_ToPrior(DLLOperation1D<TControl> par_op, 
+        public void SaveCurrentSortOrder_ToPrior(DLLOperation1D<TControl, TControl> par_op, 
                  bool pbOutputArrayOfControls, 
                  out TControl[] par_arrayControls)
         {
@@ -1306,7 +1306,7 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------------------
         //
 
-        public void DLL_UndoSort(DLLOperation1D<TControl> par_op)
+        public void DLL_UndoSort(DLLOperation1D<TControl, TControl> par_op)
         {
             //
             // Added 12/29/2024  
