@@ -534,7 +534,7 @@ Partial Class FormDemo1DVertical
         FlowColumnB1.Controls.Add(UserControlRichbox7)
         FlowColumnB1.Location = New Point(69, 27)
         FlowColumnB1.Name = "FlowColumnB1"
-        FlowColumnB1.Size = New Size(29, 322)
+        FlowColumnB1.Size = New Size(29, 453)
         FlowColumnB1.TabIndex = 150
         ' 
         ' UserControlRichbox1
@@ -582,7 +582,7 @@ Partial Class FormDemo1DVertical
         FlowColumnB2.Controls.Add(UserControlRichbox8)
         FlowColumnB2.Location = New Point(104, 27)
         FlowColumnB2.Name = "FlowColumnB2"
-        FlowColumnB2.Size = New Size(29, 322)
+        FlowColumnB2.Size = New Size(29, 453)
         FlowColumnB2.TabIndex = 151
         ' 
         ' UserControlRichbox2
@@ -630,7 +630,7 @@ Partial Class FormDemo1DVertical
         FlowColumnB3.Controls.Add(UserControlRichbox9)
         FlowColumnB3.Location = New Point(139, 27)
         FlowColumnB3.Name = "FlowColumnB3"
-        FlowColumnB3.Size = New Size(29, 322)
+        FlowColumnB3.Size = New Size(29, 453)
         FlowColumnB3.TabIndex = 151
         ' 
         ' UserControlRichbox3

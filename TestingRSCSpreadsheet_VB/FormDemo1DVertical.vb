@@ -1197,6 +1197,16 @@ Public Class FormDemo1DVertical
         Dim bChangeOfEndpoint_PostHoc As Boolean ''Added 11/06/2024 
         Dim null_move As New StructureTypeOfMove(False) ''Added 12/11/2024 td
 
+        ''Added 4/08/2025 thomas d.
+        Dim stringTwoChars As String = textInsertListOfValuesCSV.Text.Substring(0, 2)
+        Dim arrayOfParallelRanges As DLLRange(Of DLLUserControlRichbox)() ''Added 4/08/2025 thomas d.
+        Dim intCountOfParallelLists As Integer = GetParallelLists_Count()
+
+        ''Added 4/08/2025 thomas d.
+        arrayOfParallelRanges = GetParallelRangesOfNewItems(intCountOfParallelLists,
+                                                intInsertCountOfNewItems,
+                                                stringTwoChars)
+
         If DIRECT_TO_LIST Then
             If listInsertAfterOrBefore.SelectedIndex < 1 Then
                 mod_listA.DLL_InsertRangeAfter(mod_rangeA, objAnchor._anchorItem) ''; ''---, boolEndpoint)
@@ -1241,15 +1251,6 @@ Public Class FormDemo1DVertical
             ''Mar2025  mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
             ''   bChangeOfEndpoint_PostHoc, True)
 
-            Dim stringTwoChars As String = textInsertListOfValuesCSV.Text.Substring(0, 2)
-
-            ''Added 4/08/2025 thomas d.
-            Dim arrayOfParallelRanges As DLLRange(Of DLLUserControlRichbox)() ''Added 4/08/2025 thomas d.
-            Dim intCountOfParallelLists As Integer = GetParallelLists_Count()
-            arrayOfParallelRanges = GetParallelRangesOfNewItems(intCountOfParallelLists,
-                                                intInsertCountOfNewItems,
-                                                stringTwoChars)
-
             ''Added 4/08/2025 thomas d.
             mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
 
@@ -1268,6 +1269,10 @@ Public Class FormDemo1DVertical
                                         tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
+
+            ''Added 4/08/2025 thomas d.
+            mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+
             ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             ''Mar2025  mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
@@ -1286,6 +1291,14 @@ Public Class FormDemo1DVertical
             mod_firstItemA = mod_listA._itemStart
             mod_lastItemA = mod_listA._itemEnding
 
+            mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
+            mod_firstItemB2 = mod_listB2.DLL_GetFirstItem_OfT()
+            mod_firstItemB3 = mod_listB3.DLL_GetFirstItem_OfT()
+
+            mod_lastItemB1 = mod_listB1.DLL_GetLastItem_OfT()
+            mod_lastItemB2 = mod_listB2.DLL_GetLastItem_OfT()
+            mod_lastItemB3 = mod_listB3.DLL_GetLastItem_OfT()
+
         End If ''End of ""If (bChangeOfEndpoint) Then""
 
         ''
@@ -1293,6 +1306,11 @@ Public Class FormDemo1DVertical
         ''
         ''--RefreshTheUI_DisplayList()
         RefreshTheUI_DisplayList() '' (operation)
+
+        ''Added 4/08/2025 td
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Remove the highlighting of the range's endpoints.
         mod_rangeA.HighlightEndpoints_Green(False)
@@ -1427,6 +1445,20 @@ Public Class FormDemo1DVertical
             ''Added 3/25/2025
             Dim operationToInsert_Indices = operationToInsert.GetOperationIndexStructure()
 
+            ''Added 4/08/2025 thomas d.
+            Dim stringTwoChars As String = textInsertListOfValuesCSV.Text.Substring(0, 2)
+            Dim arrayOfParallelRanges As DLLRange(Of DLLUserControlRichbox)() ''Added 4/08/2025 thomas d.
+            Dim intCountOfParallelLists As Integer = GetParallelLists_Count()
+            Dim intInsertCountOfNewItems As Integer = 1
+
+            ''Added 4/08/2025 thomas d.
+            arrayOfParallelRanges = GetParallelRangesOfNewItems(intCountOfParallelLists,
+                                                intInsertCountOfNewItems,
+                                                stringTwoChars)
+
+            ''Added 4/08/2025 thomas d.
+            mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_Occurred, True,
@@ -1451,12 +1483,28 @@ Public Class FormDemo1DVertical
         If (bChangeOfEndpoint) Then ''If boolEndpoint Then
             mod_firstItemA = mod_listA.DLL_GetFirstItem_OfT()
             mod_lastItemA = mod_listA.DLL_GetLastItem_OfT()
+
+            ''Added 4/08/2025
+            mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
+            mod_firstItemB2 = mod_listB2.DLL_GetFirstItem_OfT()
+            mod_firstItemB3 = mod_listB3.DLL_GetFirstItem_OfT()
+
+            ''Added 4/08/2025
+            mod_lastItemB1 = mod_listB1.DLL_GetLastItem_OfT()
+            mod_lastItemB2 = mod_listB2.DLL_GetLastItem_OfT()
+            mod_lastItemB3 = mod_listB3.DLL_GetLastItem_OfT()
+
         End If ''eND OF ""If (boolEndpoint) Then""
 
         ''
         ''Added 10/20/2024
         ''
         RefreshTheUI_DisplayList()
+
+        ''Added 4/08/2025 
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Remove the highlighting of the range's endpoints.
         If rangeSingleItem IsNot Nothing Then
@@ -1478,7 +1526,7 @@ Public Class FormDemo1DVertical
         ''Modified 12/01/2024
         labelNumOperations.Text = mod_manager.ToString()
 
-    End Sub
+    End Sub ''End of Private Sub buttonInsertSingle_Click() 
 
 
     Private Sub labelItems_MouseUp(sender As Object, e As MouseEventArgs) ''---2025 Handles labelItemsDisplay.MouseUp

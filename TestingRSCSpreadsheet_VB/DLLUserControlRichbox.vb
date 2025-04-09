@@ -409,7 +409,19 @@ Public Class DLLUserControlRichbox
         objFirst = DLL_GetItemFirst()
         ''----objResult = objFirst.DLL_GetItemNext_OfT(par_index_b0)
         Dim intIterationsOfNext As Integer = par_index_b0 ''Added 1/16/2025
-        objResult = objFirst.DLL_GetItemNext_OfT(intIterationsOfNext)
+
+        If (intIterationsOfNext >= 0) Then
+
+            objResult = objFirst.DLL_GetItemNext_OfT(intIterationsOfNext)
+
+        Else
+            ''
+            ''Return nothing. 
+            ''
+            System.Diagnostics.Debugger.Break()
+            objResult = Nothing
+
+        End If ''End of ""If (intIterationsOfNext >= 0) Then ... Else ..."
 
         ''1/16/2025 Return objFirst
         Return objResult ''Fixed 1/16/2025
