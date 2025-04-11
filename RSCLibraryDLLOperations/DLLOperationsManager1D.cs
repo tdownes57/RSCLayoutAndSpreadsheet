@@ -39,8 +39,10 @@ namespace RSCLibraryDLLOperations
         private T_DLL mod_endingItem;
         private DLLList<T_DLL> mod_list;
 
-        private DLLOperation1D<T_DLL> mod_firstPriorOperation1D;
-        private DLLOperation1D<T_DLL> mod_lastPriorOperation1D;
+        //private DLLOperation1D<T_DLL> mod_firstPriorOperation1D;
+        //private DLLOperation1D<T_DLL> mod_lastPriorOperation1D;
+        private DLLOperation1D_OfOf<T_DLL, T_DLLParallel> mod_firstPriorOperation1D;
+        private DLLOperation1D_OfOf<T_DLL, T_DLLParallel> mod_lastPriorOperation1D;
 
         /// <summary>
         /// Allows an operation to be propagated to an array of parallel lists. For example, if the 
@@ -69,7 +71,9 @@ namespace RSCLibraryDLLOperations
         //                                               <----------------||----------------->
         //
         //
-        private DLLOperationsUndoRedoMarker1D<T_DLL>
+        //April 2025 private DLLOpsUndoRedoMarker1D<T_DLL>
+        //    mod_opUndoRedoMarker;  // new DLLOperationsRedoMarker1D<T_DLL>(); // As r ''Added 1/24/2024
+        private DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>
             mod_opUndoRedoMarker;  // new DLLOperationsRedoMarker1D<T_DLL>(); // As r ''Added 1/24/2024
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
@@ -96,7 +100,7 @@ namespace RSCLibraryDLLOperations
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
+            mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
 
         }
 
@@ -115,7 +119,7 @@ namespace RSCLibraryDLLOperations
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
             //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>();
+            mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>();
 
         }
 
@@ -302,7 +306,7 @@ namespace RSCLibraryDLLOperations
                     mod_firstPriorOperation1D = parOperation;
                     mod_lastPriorOperation1D = parOperation;
                     // Added 12/04/2024
-                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
 
                 }
 
@@ -339,7 +343,7 @@ namespace RSCLibraryDLLOperations
                     //
                     //  Major call!!
                     //
-                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
 
                     // Added 12/01/2028
                     //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
@@ -540,7 +544,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Added 10/25/2024  
                 if (mod_lastPriorOperation1D == null) throw new RSCNoPriorOperationException();
-                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(mod_lastPriorOperation1D);
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(mod_lastPriorOperation1D);
 
             }
             else if (mod_opUndoRedoMarker.HasOperationPrior())
@@ -574,7 +578,7 @@ namespace RSCLibraryDLLOperations
                 if (pbTestingIndexStructure)
                 {
                     // Use the operation structure, to create a new, equivalent  operation.
-                    DLLOperationIndexStructure opIndexStructure = operationToUndo.GetOperationIndexStructure();
+                    DLLOperationIndexStructure opIndexStructure = operationToUndo.GetOperationIndexStructure(true);
                     operationToUndo = new DLLOperation1D<T_DLL>(opIndexStructure, mod_firstItem);
 
                 }

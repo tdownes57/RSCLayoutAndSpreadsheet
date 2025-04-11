@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLOperationsUndoRedoMarker1D<TControl>
+    internal class DLLOpsUndoRedoMarker1D<TControl>
        where TControl : class, IDoublyLinkedItem<TControl>
     {
         //
@@ -89,7 +89,7 @@ namespace RSCLibraryDLLOperations
 
         //}
 
-        public DLLOperationsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
+        public DLLOpsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
         {
             // Added 10/25/2024 
             //
@@ -101,7 +101,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperationsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior, 
+        public DLLOpsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior, 
                                              DLLOperation1D<TControl> par_2ndPrior)
         {
             // Added 10/25/2024 
@@ -116,7 +116,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperationsUndoRedoMarker1D()
+        public DLLOpsUndoRedoMarker1D()
         {
             // Added 10/25/2024 
             //

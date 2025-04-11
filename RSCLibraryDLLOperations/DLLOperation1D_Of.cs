@@ -24,9 +24,8 @@ namespace RSCLibraryDLLOperations
     //            (versus a 2-dimensional grid)
     //
 
-    public partial class DLLOperation1D<T_DLLItem, T_DLLParallel> : DLLOperationBase // :IDoublyLinkedItem
+    public partial class DLLOperation1D<T_DLLItem> : DLLOperationBase // :IDoublyLinkedItem
         where T_DLLItem : class, IDoublyLinkedItem<T_DLLItem>
-        where T_DLLParallel : class, IDoublyLinkedItem<T_DLLParallel>
     {
         //''
         //''Added 4/17/2024 td
@@ -70,10 +69,11 @@ namespace RSCLibraryDLLOperations
         private readonly DLLAnchorCouplet<T_DLLItem>? _inverseAnchorPair_forUndo;
 
         //March 2025 private readonly DLLRange<TControl>? _range;
+        //April 2025 private DLLRange<T_DLLItem>? _range;
         private DLLRange<T_DLLItem>? _range;
 
-        private DLLOperation1D<T_DLLItem, T_DLLParallel>? mod_opPrior_ForUndo_OfT;
-        private DLLOperation1D<T_DLLItem, T_DLLParallel>? mod_opNext_ForRedo_OfT;
+        private DLLOperation1D<T_DLLItem>? mod_opPrior_ForUndo_OfT;
+        private DLLOperation1D<T_DLLItem>? mod_opNext_ForRedo_OfT;
 
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
@@ -93,7 +93,7 @@ namespace RSCLibraryDLLOperations
         //
         // ---------------------END OF SORTING ORDER--------------------12/30/2024--------------
         //
-        public DLLRange<T_DLLParallel>[] _array_DLLRangesIfUndo; //Added 4-08-2025
+        public  DLLRange<T_DLLItem>[] _array_DLLRangesIfUndo; //Added 4-08-2025
 
         /// <summary>
         /// Indicate whether the ENDPOINTS (outward-facing item references 
@@ -246,8 +246,8 @@ namespace RSCLibraryDLLOperations
               StructureTypeOfMove par_structMoveType,
               DLLAnchorItem<T_DLLItem>? par_anchorItem,
               DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
-                  DLLOperation1D<T_DLLItem, T_DLLParallel>? par_operationPrior = null,
-                  DLLOperation1D<T_DLLItem, T_DLLParallel>? par_operationNext = null)
+                  DLLOperation1D<T_DLLItem>? par_operationPrior = null,
+                  DLLOperation1D<T_DLLItem>? par_operationNext = null)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -415,6 +415,7 @@ namespace RSCLibraryDLLOperations
             {
                 T_DLLItem itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeStartingIndex_b1);
                 T_DLLItem itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeEndingIndex_b1);
+
                 _range = new DLLRange<T_DLLItem>(itemOfRangeFirst, itemOfRange_Last, 
                     par_structure.RangeSize_MoveOrDelete);
             }
@@ -459,7 +460,8 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ExecuteOnThisList(DLLList<T_DLLItem> par_list, out bool pbChangeOfEndpoint_Occurred)
+        public void ExecuteOnThisList(DLLList<T_DLLItem> par_list, 
+                        out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -589,7 +591,7 @@ namespace RSCLibraryDLLOperations
 
             //Apr2025  var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
             //    _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
-            var operationParallel = new DLLOperation1D<T2Parallel, T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
+            var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
                 _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
 
             operationParallel.OperateOnList(par_listParallel, true, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);

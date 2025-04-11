@@ -11,7 +11,9 @@ namespace RSCLibraryDLLOperations
     //  https://www.tutorialsteacher.com/csharp/csharp-event
     public delegate void Notify();  // Added 11/02/2024 thomas downes 
 
-    public partial class DLLList<TControl> where TControl : class, IDoublyLinkedItem<TControl>
+    public partial class DLLList<TControl> 
+        where TControl : class, IDoublyLinkedItem<TControl>
+        // where TControlParallel : class, IDoublyLinkedItem<TControlParallel>
     {
         //
         // Added 4/17/2024  
@@ -628,7 +630,9 @@ namespace RSCLibraryDLLOperations
             Tuple<int, int> tuple_xy = SelectionRange_ProcessList_GetTuple(par_indexClicked, 
                 par_bShiftKeyPressed);
 
-            DLLRange<TControl> result_range = new DLLRange<TControl>(this, tuple_xy);
+            DLLRange<TControl> result_range = 
+                new DLLRange<TControl>(this, tuple_xy);
+
             return result_range;
 
         }

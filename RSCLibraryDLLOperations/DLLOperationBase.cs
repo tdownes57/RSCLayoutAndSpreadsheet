@@ -33,6 +33,9 @@ namespace RSCLibraryDLLOperations
         }   
 
 
+        //public void SetArrayOfRanges<TRange>(DLLRange<TRange, TRange>[] par_arrayOfRanges)
+        //{
+        //}
 
 
 

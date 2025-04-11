@@ -545,7 +545,9 @@ Public Class FormDemo1DVertical
 
         ''Added 1/15/2025 
         ''Return checkTestNumericConstructor.Checked
-        Return True
+
+        ''April 2025  Return True
+        Return False
 
     End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
 

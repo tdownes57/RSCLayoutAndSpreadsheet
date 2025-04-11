@@ -14,7 +14,9 @@ using System.Text; //Added 6/20/2024
 
 namespace RSCLibraryDLLOperations
 {
-    public class DLLRange<TControl> where TControl : class, IDoublyLinkedItem<TControl>
+    public class DLLRange<TControl> 
+        where TControl : class, IDoublyLinkedItem<TControl>
+        // where TControlParallel : class, IDoublyLinkedItem<TControlParallel>
     {
         //
         // Added 4/20/2024 Thomas Downes

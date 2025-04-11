@@ -58,7 +58,7 @@ namespace RSCLibraryDLLOperations
         private DLLList<T_Vert> mod_listV;
         
         // Use the Base-Type . 
-        private DLLOperationsUndoRedoMarker1D<T_Base> mod_opUndoRedoMarker;
+        private DLLOpsUndoRedoMarker1D<T_Base> mod_opUndoRedoMarker;
 
         private int mod_intCountOperations = 0; // As Integer = 0 ''Added 1/24/2024 td
 
@@ -108,7 +108,7 @@ namespace RSCLibraryDLLOperations
                     par_listHoriz, par_firstOperationHoriz);
 
                 //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base);
-                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base_ofT);
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>(operation_base_ofT);
 
             }
             else
@@ -117,7 +117,7 @@ namespace RSCLibraryDLLOperations
                 // No first operation has been specified. (par_firstOperationH == null)
                 //
                 // Added 1/04/2025 
-                mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>();
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>();
 
                 //Added 1/4/2025 td
                 mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal, 
@@ -174,7 +174,7 @@ namespace RSCLibraryDLLOperations
                 par_firstPriorOperation_Ver.GetConvertToGenericOfT<T_Base>(par_firstItemVertical, BASE_CLASS, false);
 
             // Added 12/08/2024 
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(oper_FirstHorizontal, oper_FirstVertical);
+            mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>(oper_FirstHorizontal, oper_FirstVertical);
 
         }
 
@@ -200,7 +200,7 @@ namespace RSCLibraryDLLOperations
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
             //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_LinkedCtl>(par_firstPriorOperationV1);
-            mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>();
+            mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>();
 
         }
 
@@ -292,7 +292,7 @@ namespace RSCLibraryDLLOperations
                     // DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstPriorOperationBase, false);
                     //DLLOperationBase operationBase = parOperation.GetConvertToGenericOfT<DLLOperationBase>(mod_firstPriorOperationBase, false);
                     DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstItemH, BASE_CLASS, false);
-                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operationBase);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>(operationBase);
 
                 }
 
@@ -331,7 +331,7 @@ namespace RSCLibraryDLLOperations
                     //  Major call!! 
                     //
                     DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstItemH, BASE_CLASS, false);
-                    mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operationBase);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>(operationBase);
 
                     // Added 12/01/2028
                     //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
