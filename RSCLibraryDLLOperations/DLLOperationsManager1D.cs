@@ -35,8 +35,8 @@ namespace RSCLibraryDLLOperations
         //    1D = 1 dimension, simply a list
         //            (versus a 2-dimensional grid)
         //
-        private T_DLL mod_firstItem;
-        private T_DLL mod_endingItem;
+        private T_DLL? mod_firstItem;
+        private T_DLL? mod_endingItem;
         private DLLList<T_DLL> mod_list;
 
         //private DLLOperation1D<T_DLL> mod_firstPriorOperation1D;
@@ -84,23 +84,35 @@ namespace RSCLibraryDLLOperations
         //
         public DLLOperationsManager1D(T_DLL par_firstItem,
             DLLList<T_DLL> par_list,
-            DLLOperation1D<T_DLL>? par_firstPriorOperationV1 = null)
+            DLLOperation1D_OfOf<T_DLL, T_DLLParallel>? par_firstPriorOperationV1 = null)
         {
             this.mod_firstItem = par_firstItem;
             this.mod_list = par_list;
 
-            if (par_firstPriorOperationV1 != null)
+            if (par_firstPriorOperationV1 == null) // Added 4/11/2025 
+            {
+
+                // Added 4/11/2025 
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>();
+
+            }
+
+            else
             {
                 this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
                 this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>
+                    (par_firstPriorOperationV1);
+                mod_intCountOperations++; // Added 10/26/2024 td 
+
             }
 
-            mod_intCountOperations++; // Added 10/26/2024 td 
-
+            //mod_intCountOperations++; // Added 10/26/2024 td 
             // this.mod_lastPriorOperationV1 = mod_lastPriorOperationV1;
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
-            mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
+            // April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
+
 
         }
 
@@ -119,7 +131,8 @@ namespace RSCLibraryDLLOperations
             // this.mod_opRedoMarker = mod_opRedoMarker;
             // this.mod_intCountOperations = mod_intCountOperations;
             //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_DLL>(par_firstPriorOperationV1);
-            mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>();
+            //April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>();
+            mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>();
 
         }
 
@@ -223,6 +236,126 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+        public void ProcessOperation_PrimaryAndParallel(DLLOperation1D_OfOf<T_DLL, T_DLLParallel> parOperation,
+                       bool par_changeOfEndpoint_Expected,
+                       out bool par_changeOfEndpoint_Occurred,
+                       bool pbOperationIsNewSoRecordIt,
+                       DLLOperationIndexStructure parOperationIndicized)
+        {
+            // Added 1/15/2024
+
+            DLLRange<T_DLLParallel>[] array_of_insertRangesParallel;
+            array_of_insertRangesParallel = parOperation.ArrayOfParallelRanges_ToInsert;
+
+            //
+            // Major call!! 
+            //
+            ProcessOperation_AnyType(parOperation, par_changeOfEndpoint_Expected,
+                out par_changeOfEndpoint_Occurred, pbOperationIsNewSoRecordIt,
+                parOperationIndicized);
+
+            // Added 12/03/2024 thomas 
+            //    
+            bool bUserRequestedUndoOrRedo = (!pbOperationIsNewSoRecordIt); // (!par_bRecordOperation); 
+
+            //    //     // Added 1/01/2024
+            if (bUserRequestedUndoOrRedo)
+            {
+                //
+                // We've processed the "Undo" or "Redo" already.
+                //
+                // (See "parOperation.OperateOnList(...)" above.) 
+                //
+                // Other than moving the UndoRedo marker one way or another,
+                //   we don't need to play any woodland games with the 
+                //   "branching".
+                //
+
+            }
+            else if (pbOperationIsNewSoRecordIt)
+            {
+                //
+                //  RecordNewestOperation(operation);
+                //
+                //mod_lastPriorOperation1D = parOperation;
+                if (mod_firstPriorOperation1D == null)
+                {
+                    mod_firstPriorOperation1D = parOperation;
+                    mod_lastPriorOperation1D = parOperation;
+                    // Added 12/04/2024
+                    // April2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(parOperation);
+
+                }
+
+                else
+                {
+                    //
+                    // First, we must clear any pending "Redo" operations. 
+                    //
+                    if (mod_opUndoRedoMarker.HasOperationNext())
+                    {
+                        //
+                        // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
+
+                        //    Logically speaking, any pending Redo operations must be deleted/cleared.
+                        //
+                        mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
+                        mod_lastPriorOperation1D?.DLL_ClearOpNext();
+                        mod_opUndoRedoMarker.ClearPendingRedoOperation();
+
+                    }
+
+                    // Connect the operations in a doubly-linked list. 
+                    //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
+                    parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
+
+                    //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
+                    mod_lastPriorOperation1D?.DLL_SetOpNext_OfT(parOperation);
+
+                    var temp_priorOp = mod_lastPriorOperation1D;
+                    //mod_lastPriorOperation1D = parOperation;
+                    //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_DLL>(temp_priorOp, parOperation);
+                    mod_lastPriorOperation1D = parOperation;
+
+                    //
+                    //  Major call!!
+                    //
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
+
+                    // Added 12/01/2028
+                    //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
+                    if (temp_priorOp != null)
+                    {
+                        mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
+                    }
+
+                    //
+                    // DIFFICULT & CONFUSING -- Connect the first operation to this one, if needed.
+                    //
+                    if (mod_firstPriorOperation1D.DLL_MissingOpNext())
+                    {
+                        //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
+                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
+                    }
+
+                    //
+                    // Testing!!  
+                    //
+                    int intCountOfPriorOps;
+                    int intCountOfPriorOps_PlusItself;
+                    intCountOfPriorOps = (mod_lastPriorOperation1D.DLL_CountOpsBefore());
+                    intCountOfPriorOps_PlusItself = (intCountOfPriorOps + 1); // We must count the operation itself !!!!!
+
+
+
+                }
+
+
+            }
+
+        }
 
         public void ProcessOperation_AnyType(DLLOperation1D<T_DLL> parOperation,
                                bool par_changeOfEndpoint_Expected,

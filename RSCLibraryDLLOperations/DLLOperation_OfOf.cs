@@ -27,7 +27,8 @@ namespace RSCLibraryDLLOperations
         // --------------------- Array of Parallel Ranges ---------------------------------  
         // -------------- This is why I created this derived class!! ----------------------
         // --------------------------------------------------------------------------------
-        private DLLRange<TParallel>[]? mod_arrayOfParallelRanges;
+        public DLLRange<TParallel>[]? ArrayOfParallelRanges_ToInsert;
+        public DLLRange<TParallel>[]? ArrayOfParallelRanges_Deleted;
         // --------------------- End of IMPORTANT!! ---------------------------------------  
         // --------------------------------------------------------------------------------
 
