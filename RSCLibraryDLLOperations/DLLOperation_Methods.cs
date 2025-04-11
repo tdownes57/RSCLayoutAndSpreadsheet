@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    public partial class DLLOperation1D<T_DLLItem>  // April 2025  <T_DLLItem>
+    public partial class DLLOperation1D_Of<T_DLLItem>  // April 2025  <T_DLLItem>
     {
 
         /// <summary>
@@ -732,11 +732,11 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D<T_DLLItem> // <T_DLLItem_H, T_DLLItem_V>
+        public DLLOperation1D_Of<T_DLLItem> // <T_DLLItem_H, T_DLLItem_V>
             GetInverseForUndo(bool pbTestForIdempotency)
         {
 
-            DLLOperation1D<T_DLLItem> result_UNDO;
+            DLLOperation1D_Of<T_DLLItem> result_UNDO;
 
             //DLLRange<T_DLLItem_H> result_RangeOfItems_H = _range_H;
             //DLLRange<T_DLLItem_V> result_RangeOfItems_V = _range_V;
@@ -825,7 +825,7 @@ namespace RSCLibraryDLLOperations
             //
             if (_isInsert || _isDelete || _isMove)
             {
-                result_UNDO = new DLLOperation1D<T_DLLItem>(
+                result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
                     result_RangeOfItems,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -838,7 +838,7 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                result_UNDO = new DLLOperation1D<T_DLLItem>(
+                result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
                     result_isSortAscending,
                     result_isSortDescending,
                     result_isUndoOfSortAscending,
@@ -874,7 +874,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperation1D<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>
+        public DLLOperation1D_Of<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>
                    (T_BaseOrParallel par_firstItem, 
                         bool pbTargetListIsOfBaseClass,
                         bool pbTargetListIsParallel)
@@ -909,7 +909,7 @@ namespace RSCLibraryDLLOperations
             //DLLOperation1D<T_Base> result =      // Added& modified 12/11/2024  
             //    new DLLOperation1D<T_Base>(objRange, objCouplet, _isInsert, _isMove, _moveType);
 
-            DLLOperation1D<T_BaseOrParallel> result; // = null;
+            DLLOperation1D_Of<T_BaseOrParallel> result; // = null;
 
             // Modified 12/11/2024 
             if (_isInsert || _isDelete || _isMove)
@@ -936,11 +936,11 @@ namespace RSCLibraryDLLOperations
                     if (mod_opPrior_ForUndo != null)
                     {
                         //System.Diagnostics.Debugger.Break();
-                        mod_opPrior_ForUndo_OfT = mod_opPrior_ForUndo as DLLOperation1D<T_DLLItem>;
+                        mod_opPrior_ForUndo_OfT = mod_opPrior_ForUndo as DLLOperation1D_Of<T_DLLItem>;
                     }
 
-                DLLOperation1D<T_BaseOrParallel>? operationBasePrior; // Added 1/07/2025 td
-                DLLOperation1D<T_BaseOrParallel>? operationBaseNext;  // Added 1/07/2025 td
+                DLLOperation1D_Of<T_BaseOrParallel>? operationBasePrior; // Added 1/07/2025 td
+                DLLOperation1D_Of<T_BaseOrParallel>? operationBaseNext;  // Added 1/07/2025 td
 
                 // Added 1/07/2025 td
                 operationBasePrior = mod_opPrior_ForUndo_OfT?.GetConvertToGenericOfT<T_BaseOrParallel>(
@@ -951,7 +951,7 @@ namespace RSCLibraryDLLOperations
 
                 // Modified 1/07/2025 td
                 result =
-                    new DLLOperation1D<T_BaseOrParallel>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
+                    new DLLOperation1D_Of<T_BaseOrParallel>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
                            _isMove, _moveType, objAnchorItem, objAnchorCouplet,
                            operationBasePrior, operationBaseNext);
                            // mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_Base>());
@@ -968,7 +968,7 @@ namespace RSCLibraryDLLOperations
                         _arrayControls_SortOrderIfUndo, par_firstItem);
 
                 result =
-                    new DLLOperation1D<T_BaseOrParallel>(
+                    new DLLOperation1D_Of<T_BaseOrParallel>(
                            _isSort_Ascending, _isSort_Descending,
                            _isSort_UndoOfSortAscending,
                            _isSort_UndoOfSortDescending,
@@ -1002,7 +1002,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool TestForEquivalence(DLLOperation1D<T_DLLItem> par_op)
+        public bool TestForEquivalence(DLLOperation1D_Of<T_DLLItem> par_op)
         {
             //
             // Added 12/24/2024 td  
@@ -1107,8 +1107,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/24/2024 td  
             //
-            DLLOperation1D<T_DLLItem> opInverse1st;
-            DLLOperation1D<T_DLLItem> opInverse2nd;
+            DLLOperation1D_Of<T_DLLItem> opInverse1st;
+            DLLOperation1D_Of<T_DLLItem> opInverse2nd;
 
             opInverse1st = GetInverseForUndo(false);
             opInverse2nd = opInverse1st.GetInverseForUndo(false);

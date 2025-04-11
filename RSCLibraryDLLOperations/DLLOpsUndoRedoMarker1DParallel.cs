@@ -278,17 +278,50 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public DLLOperation1D<TControl> GetCurrentOp_Undo()
+        /// <summary>
+        /// Returns the <typeparamref name="TControl"/> version of the Current Undo.
+        /// </summary>
+        /// <returns>The <typeparamref name="TControl"/> version of the Current Undo.</returns>
+        public DLLOperation1D<TControl> GetCurrentOp_Undo_Of()
         {
             // Added 7/03/2024 
             return mod_opPrior_ForUndo;
         }
 
-        public DLLOperation1D<TControl> GetCurrentOp_Redo()
+
+        /// <summary>
+        /// Returns the <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.
+        /// </summary>
+        /// <returns>The <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.</returns>
+        public DLLOperation1D_OfOf<TControl, TParallel> GetCurrentOp_Undo_OfOf()
         {
             // Added 7/03/2024 
+            return mod_opPrior_ForUndo;
+
+        }
+
+
+        /// <summary>
+        /// Returns the <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.
+        /// </summary>
+        /// <returns>The <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.</returns>
+        public DLLOperation1D<TControl> GetCurrentOp_Redo_Of()
+        {
+            // Added 4/08/2025 
             return mod_opNext_ForRedo;
         }
+
+
+        /// <summary>
+        /// Returns the <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.
+        /// </summary>
+        /// <returns>The <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.</returns>
+        public DLLOperation1D_OfOf<TControl, TParallel> GetCurrentOp_Redo_OfOf()
+        {
+            // Added 4/08/2025 
+            return mod_opNext_ForRedo;
+        }
+
 
 
         public int CountsOpsToRedo()

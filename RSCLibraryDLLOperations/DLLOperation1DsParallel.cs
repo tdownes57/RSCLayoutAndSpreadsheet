@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    internal class DLLOperation1DsParallel<T1Primary, T2Parallel>
+    internal class DLLOperation1DsParallel_NotUsed<T1Primary, T2Parallel>
         where T1Primary : class, IDoublyLinkedItem<T1Primary>
         where T2Parallel : class, IDoublyLinkedItem<T2Parallel>
     {
@@ -45,13 +45,13 @@ namespace RSCLibraryDLLOperations
         //     (Possibly set to Control, as a placeholder.)
         //     (Property HasParallelOps will be False.)) 
         //
-        public DLLOperation1D<T1Primary> mod_primaryOp;
+        public DLLOperation1D_Of<T1Primary> mod_primaryOp;
 
         public bool HasParallelOps = false;  
 
-        public DLLOperation1D<T2Parallel>[] _array_secondaryOps;
+        public DLLOperation1D_Of<T2Parallel>[] _array_secondaryOps;
 
-        public DLLOperation1DsParallel(DLLOperation1D<T1Primary> primaryOp, DLLOperation1D<T2Parallel>[] secondaryOps)
+        public DLLOperation1DsParallel_NotUsed(DLLOperation1D_Of<T1Primary> primaryOp, DLLOperation1D_Of<T2Parallel>[] secondaryOps)
         {
             mod_primaryOp = primaryOp;
             _array_secondaryOps = secondaryOps;
@@ -60,7 +60,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1DsParallel(DLLOperation1D<T1Primary> primaryOp)
+        public DLLOperation1DsParallel_NotUsed(DLLOperation1D_Of<T1Primary> primaryOp)
         {
             //
             // No secondary, parallel operations. 

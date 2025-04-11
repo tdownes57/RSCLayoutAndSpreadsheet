@@ -24,7 +24,7 @@ namespace RSCLibraryDLLOperations
     //            (versus a 2-dimensional grid)
     //
 
-    public partial class DLLOperation1D<T_DLLItem> : DLLOperationBase // :IDoublyLinkedItem
+    public partial class DLLOperation1D_Of<T_DLLItem> : DLLOperationBase // :IDoublyLinkedItem
         where T_DLLItem : class, IDoublyLinkedItem<T_DLLItem>
     {
         //''
@@ -72,8 +72,8 @@ namespace RSCLibraryDLLOperations
         //April 2025 private DLLRange<T_DLLItem>? _range;
         private DLLRange<T_DLLItem>? _range;
 
-        private DLLOperation1D<T_DLLItem>? mod_opPrior_ForUndo_OfT;
-        private DLLOperation1D<T_DLLItem>? mod_opNext_ForRedo_OfT;
+        private DLLOperation1D_Of<T_DLLItem>? mod_opPrior_ForUndo_OfT;
+        private DLLOperation1D_Of<T_DLLItem>? mod_opNext_ForRedo_OfT;
 
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
@@ -202,7 +202,7 @@ namespace RSCLibraryDLLOperations
         //          StructureTypeOfMove par_structMoveType,
         //          DLLAnchorItem<TControl>? par_anchorItem,
         //          DLLAnchorCouplet<TControl>? par_anchorPair,
-        public DLLOperation1D(bool par_isSortAscending,
+        public DLLOperation1D_Of(bool par_isSortAscending,
                   bool par_isSortDescending,
                   bool par_isUndoOfSortAscending,
                   bool par_isUndoOfSortDescending,
@@ -240,14 +240,14 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D(DLLRange<T_DLLItem>? par_range,
+        public DLLOperation1D_Of(DLLRange<T_DLLItem>? par_range,
               bool par_forStartOfList, bool par_forEndOfList,
               bool par_isInsert, bool par_isDelete, bool par_isMove,
               StructureTypeOfMove par_structMoveType,
               DLLAnchorItem<T_DLLItem>? par_anchorItem,
               DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
-                  DLLOperation1D<T_DLLItem>? par_operationPrior = null,
-                  DLLOperation1D<T_DLLItem>? par_operationNext = null)
+                  DLLOperation1D_Of<T_DLLItem>? par_operationPrior = null,
+                  DLLOperation1D_Of<T_DLLItem>? par_operationNext = null)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -325,7 +325,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D(DLLRange<T_DLLItem> par_range,
+        public DLLOperation1D_Of(DLLRange<T_DLLItem> par_range,
                               DLLAnchorCouplet<T_DLLItem>? par_anchorCouplet,
                               bool par_isInsert, bool par_isMove,
                               StructureTypeOfMove par_typeOfMove)
@@ -369,7 +369,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D(EnumSortTypes par_enum)
+        public DLLOperation1D_Of(EnumSortTypes par_enum)
         {
             //
             // Added 12/20/2024 
@@ -391,7 +391,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_structure"></param>
         /// <param name="par_firstItemOfList"></param>
         /// <param name=""></param>
-        public DLLOperation1D(DLLOperationIndexStructure par_structure, T_DLLItem par_firstItemOfList,
+        public DLLOperation1D_Of(DLLOperationIndexStructure par_structure, T_DLLItem par_firstItemOfList,
                          DLLRange<T_DLLItem>? par_range = null)
         {
             //
@@ -591,7 +591,7 @@ namespace RSCLibraryDLLOperations
 
             //Apr2025  var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
             //    _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
-            var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
+            var operationParallel = new DLLOperation1D_Of<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
                 _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
 
             operationParallel.OperateOnList(par_listParallel, true, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);
