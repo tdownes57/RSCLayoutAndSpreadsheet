@@ -1453,7 +1453,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D<T_DLLItem> GetPrior()
+        public DLLOperation1D_Of<T_DLLItem> GetPrior()
         {
             //
             // Added 5/25/2024 
@@ -1466,7 +1466,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D<T_DLLItem> GetNext()
+        public DLLOperation1D_Of<T_DLLItem> GetNext()
         {
             //
             // Added 5/25/2024 
@@ -1552,9 +1552,9 @@ namespace RSCLibraryDLLOperations
 
         }
 
+        
 
-
-        public DLLOperation1D<T_DLLItem> DLL_GetOpPrior_OfT()
+        public DLLOperation1D_Of<T_DLLItem> DLL_GetOpPrior_OfT()
         {
             // Added 12/02/2024 
             //
@@ -1579,7 +1579,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D<T_DLLItem> DLL_GetOpNext_OfT()
+        public DLLOperation1D_Of<T_DLLItem> DLL_GetOpNext_OfT()
         {
             // Added 12/02/2024 
 
@@ -1601,7 +1601,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpPrior_OfT(DLLOperation1D<T_DLLItem> parOperation)
+        public void DLL_SetOpPrior_OfT(DLLOperation1D_Of<T_DLLItem> parOperation)
         {
             mod_opPrior_ForUndo_OfT = parOperation;
 
@@ -1614,7 +1614,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D<T_DLLItem> parOperation)
+        public void DLL_SetOpNext_OfT(DLLOperation1D_Of<T_DLLItem> parOperation)
         {
             mod_opNext_ForRedo_OfT = parOperation;
 
@@ -1628,7 +1628,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D<T_DLLItem> parOperation, bool pbBirectional)
+        public void DLL_SetOpNext_OfT(DLLOperation1D_Of<T_DLLItem> parOperation, bool pbBirectional)
         {
             //
             //Added 12/08/2024 td
@@ -1679,7 +1679,7 @@ namespace RSCLibraryDLLOperations
             //    So, "2 comes after 1" and "2 is the next number after 1"
             //    means the same thing. 
             //
-            DLLOperation1D<T_DLLItem> operationNextAfter = DLL_GetOpNext_OfT();
+            DLLOperation1D_Of<T_DLLItem> operationNextAfter = DLL_GetOpNext_OfT();
             
             while (operationNextAfter != null)
             {
@@ -1704,7 +1704,7 @@ namespace RSCLibraryDLLOperations
             //    means the same thing. 
             //
             //---12/03/2024---DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
-            DLLOperation1D<T_DLLItem> operationPriorBefore = DLL_GetOpPrior_OfT();
+            DLLOperation1D_Of<T_DLLItem> operationPriorBefore = DLL_GetOpPrior_OfT();
 
             while (operationPriorBefore != null)
             {
