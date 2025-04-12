@@ -133,8 +133,8 @@ namespace RSCLibraryDLLOperations
                                          T_Vert par_firstItemVertical,
                                          DLLList<T_Hori> par_listHoriz,
                                          DLLList<T_Vert> par_listVerti,
-                                         DLLOperation1D<T_Hori> par_firstPriorOperation_Hor,
-                                         DLLOperation1D<T_Vert> par_firstPriorOperation_Ver)
+                                         DLLOperation1D_Of<T_Hori> par_firstPriorOperation_Hor,
+                                         DLLOperation1D_Of<T_Vert> par_firstPriorOperation_Ver)
         {
             //
             // Constructor
@@ -167,10 +167,10 @@ namespace RSCLibraryDLLOperations
             const bool BASE_CLASS = true; // Added 1/09/2025
 
             // Added 12/08/2024 
-            DLLOperation1D<T_Base> oper_FirstHorizontal = 
+            DLLOperation1D_Of<T_Base> oper_FirstHorizontal = 
                 par_firstPriorOperation_Hor.GetConvertToGenericOfT<T_Base>(par_firstItemHorizontal, BASE_CLASS, false);
 
-            DLLOperation1D<T_Base> oper_FirstVertical = 
+            DLLOperation1D_Of<T_Base> oper_FirstVertical = 
                 par_firstPriorOperation_Ver.GetConvertToGenericOfT<T_Base>(par_firstItemVertical, BASE_CLASS, false);
 
             // Added 12/08/2024 
@@ -241,7 +241,7 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public void ProcessOperation_AnyType(DLLOperation1D<T_Hori> parOperation, 
+        public void ProcessOperation_AnyType(DLLOperation1D_Of<T_Hori> parOperation, 
                           bool par_changeOfEndpoint_Expected, 
                           out bool pbChangeOfEndpointOccurred,
                           bool par_bRecordOperation)
@@ -291,7 +291,7 @@ namespace RSCLibraryDLLOperations
                     //
                     // DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstPriorOperationBase, false);
                     //DLLOperationBase operationBase = parOperation.GetConvertToGenericOfT<DLLOperationBase>(mod_firstPriorOperationBase, false);
-                    DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstItemH, BASE_CLASS, false);
+                    DLLOperation1D_Of<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstItemH, BASE_CLASS, false);
                     mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>(operationBase);
 
                 }
@@ -330,7 +330,7 @@ namespace RSCLibraryDLLOperations
                     //
                     //  Major call!! 
                     //
-                    DLLOperation1D<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstItemH, BASE_CLASS, false);
+                    DLLOperation1D_Of<T_Base> operationBase = parOperation.GetConvertToGenericOfT<T_Base>(mod_firstItemH, BASE_CLASS, false);
                     mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>(operationBase);
 
                     // Added 12/01/2028
@@ -369,7 +369,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ProcessOperation_AnyType(DLLOperation1D<T_Vert> parOperation,
+        public void ProcessOperation_AnyType(DLLOperation1D_Of<T_Vert> parOperation,
                           bool par_changeOfEndpoint_Expected, out bool pbChangeOfEndpointOccurred,  
                           bool par_bRecordOperation)
         {
@@ -452,7 +452,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public string ToString(DLLOperation1D<T_Base> par_operation)
+        public string ToString(DLLOperation1D_Of<T_Base> par_operation)
         {
             //
             // Added 11/29/2024 

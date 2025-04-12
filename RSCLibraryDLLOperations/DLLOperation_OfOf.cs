@@ -13,7 +13,7 @@ namespace RSCLibraryDLLOperations
     //
     // Added 4/09/2025 thomas downes
     //
-    public class DLLOperation1D_OfOf<TBase, TParallel> : DLLOperation1D<TBase> // :IDoublyLinkedItem
+    public class DLLOperation1D_OfOf<TBase, TParallel> : DLLOperation1D_Of<TBase> // :IDoublyLinkedItem
         where TBase : class, IDoublyLinkedItem<TBase>
         where TParallel : class, IDoublyLinkedItem<TParallel>
     {
@@ -87,8 +87,8 @@ namespace RSCLibraryDLLOperations
                       StructureTypeOfMove par_structMoveType,
                       DLLAnchorItem<TBase>? par_anchorItem,
                       DLLAnchorCouplet<TBase>? par_anchorPair,
-                      DLLOperation1D<TBase>? par_operationPrior = null,
-                      DLLOperation1D<TBase>? par_operationNext = null)
+                      DLLOperation1D_Of<TBase>? par_operationPrior = null,
+                      DLLOperation1D_Of<TBase>? par_operationNext = null)
                                         : base(par_range, par_forStartOfList,
                                             par_forEndOfList, par_isInsert,
                                             par_isDelete, par_isMove,
@@ -161,7 +161,7 @@ namespace RSCLibraryDLLOperations
 
         public DLLOperation1D_OfOf<TBase, TParallel> DLL_GetOpPrior_OfOf()
         {
-            // Added 12/02/2024 
+            // Added 4/10/2025 & 12/02/2024 
             //
             //  Sanity check. 
             //
@@ -182,6 +182,55 @@ namespace RSCLibraryDLLOperations
             return mod_opPrior_ForUndo_OfT;
 
         }
+
+
+
+        public void DLL_SetOpNext_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation)
+        {
+            //
+            // Added 4/11/2025 td (from DLLOperation_Of.cs)
+            //
+            mod_opNext_ForRedo_OfT = parOperation;
+
+            //Added 12/02/2024 td
+            base.mod_opNext_ForRedo = parOperation;
+
+            //Added 1/04/2024 
+            mod_opNext_ForRedo_OfT = parOperation;
+
+        }
+
+
+
+        public void DLL_SetOpNext_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation, bool pbBirectional)
+        {
+            //
+            // Added 4/11/2025 & 12/08/2024 td
+            //
+            DLL_SetOpNext_OfT(parOperation);
+
+            // Added 12/08/2024 
+            //''
+            //'' Adding bidirectionality.  ---12 / 08 / 2024 td
+            //''
+            if (pbBirectional)
+            {
+                //''
+                //''Set the "mod_prior" item for this parameter item,
+                //''  to be the present class (i.e.the procedure's implicit parameter).
+                //''
+                //-----April 2025----parOperation.mod_opPrior_ForUndo = this as DLLOperationBase;
+                parOperation.mod_opPrior_ForUndo_OfT = this;
+
+            } // End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
+
+
+        }
+
+
+
+
+
 
 
     }

@@ -69,14 +69,14 @@ namespace RSCLibraryDLLOperations
         //''' If the user hits "Undo", this operation will be 
         //''' inversed and the inverse will be performed. 
         //''' </summary>
-        private DLLOperation1D<TControl>? mod_opPrior_ForUndo;
+        private DLLOperation1D_Of<TControl>? mod_opPrior_ForUndo;
 
         //''' <summary>
         //''' If the user hits "Redo", this operation will be 
         //''' performed as it is.  (In contrast to "Undo", we
         //''' do NOT need to get the inverse of the operation.) 
         //''' </summary>
-        private DLLOperation1D<TControl>? mod_opNext_ForRedo;
+        private DLLOperation1D_Of<TControl>? mod_opNext_ForRedo;
 
 
         //public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_2ndprior,
@@ -89,7 +89,7 @@ namespace RSCLibraryDLLOperations
 
         //}
 
-        public DLLOpsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior)
+        public DLLOpsUndoRedoMarker1D(DLLOperation1D_Of<TControl> par_1stPrior)
         {
             // Added 10/25/2024 
             //
@@ -101,8 +101,8 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOpsUndoRedoMarker1D(DLLOperation1D<TControl> par_1stPrior, 
-                                             DLLOperation1D<TControl> par_2ndPrior)
+        public DLLOpsUndoRedoMarker1D(DLLOperation1D_Of<TControl> par_1stPrior, 
+                                             DLLOperation1D_Of<TControl> par_2ndPrior)
         {
             // Added 10/25/2024 
             //
@@ -127,7 +127,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void SetFirstOperation(DLLOperation1D<TControl> par_1stPrior)
+        public void SetFirstOperation(DLLOperation1D_Of<TControl> par_1stPrior)
         {
             //
             // Added 12/04/2024
@@ -151,7 +151,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D<TControl>
+        public DLLOperation1D_Of<TControl>
             GetMarkersNext_ShiftPositionRight()
         {
             //
@@ -169,8 +169,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                DLLOperation1D<TControl> temp_output; // = null;
-                DLLOperation1D<TControl> result_operation; // = null;
+                DLLOperation1D_Of<TControl> temp_output; // = null;
+                DLLOperation1D_Of<TControl> result_operation; // = null;
                 temp_output = mod_opNext_ForRedo;
                 result_operation = mod_opNext_ForRedo;
 
@@ -192,7 +192,7 @@ namespace RSCLibraryDLLOperations
         /// is relative to our location within this queue of recorded operations.
         /// </summary>
         /// <returns></returns>
-        public DLLOperation1D<TControl> GetMarkersPrior_ShiftPositionLeft()
+        public DLLOperation1D_Of<TControl> GetMarkersPrior_ShiftPositionLeft()
         {
             // Added 1/15/2024  Thomas Downes
 
@@ -207,8 +207,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             { 
-                DLLOperation1D<TControl> temp_output; // = null;
-                DLLOperation1D<TControl> result_operation; // = null;
+                DLLOperation1D_Of<TControl> temp_output; // = null;
+                DLLOperation1D_Of<TControl> result_operation; // = null;
                 temp_output = mod_opPrior_ForUndo;
                 result_operation = mod_opPrior_ForUndo;
 
@@ -231,7 +231,7 @@ namespace RSCLibraryDLLOperations
             if (mod_opPrior_ForUndo == null) System.Diagnostics.Debugger.Break();
             if (mod_opPrior_ForUndo == null) throw new RSCEndpointException();
 
-            DLLOperation1D<TControl>? temp_op;
+            DLLOperation1D_Of<TControl>? temp_op;
             temp_op = mod_opPrior_ForUndo;
 
             mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior_OfT(); //''Shift to the Left...to Prior() item.
@@ -274,13 +274,15 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public DLLOperation1D<TControl> GetCurrentOp_Undo()
+
+        public DLLOperation1D_Of<TControl> GetCurrentOp_Undo()
         {
             // Added 7/03/2024 
             return mod_opPrior_ForUndo;
         }
 
-        public DLLOperation1D<TControl> GetCurrentOp_Redo()
+
+        public DLLOperation1D_Of<TControl> GetCurrentOp_Redo()
         {
             // Added 7/03/2024 
             return mod_opNext_ForRedo;
@@ -381,7 +383,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public string ToString(DLLOperation1D<TControl> par_newOp)
+        public string ToString(DLLOperation1D_Of<TControl> par_newOp)
         {
 
             //
