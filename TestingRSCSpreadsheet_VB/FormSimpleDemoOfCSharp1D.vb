@@ -83,11 +83,11 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             ''Added 10/20/2024  
             ''
-            Dim operationInitial30 As DLLOperation1D(Of TwoCharacterDLLItem)
+            Dim operationInitial30 As DLLOperation1D_Of(Of TwoCharacterDLLItem)
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
             ''            True, False, False,
             ''            anchorForEmptyList, False, False, False)
-            operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, True, False,
+            operationInitial30 = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, True, False,
                                                                       True, False, False, type_of_move,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem)
@@ -152,7 +152,7 @@ Public Class FormSimpleDemoOfCSharp1D
 
     Private Sub RefreshTheUI_DisplayList(par_list As DLLList(Of TwoCharacterDLLItem),
                                          par_firstItem As TwoCharacterDLLItem,
-                                         Optional par_operation As DLLOperation1D(Of TwoCharacterDLLItem) = Nothing)
+                                         Optional par_operation As DLLOperation1D_Of(Of TwoCharacterDLLItem) = Nothing)
         ''
         ''  This method is overloaded.  
         ''
@@ -478,7 +478,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Encapsulated 12/11/2024 td  
         ''
-        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLItem)
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
         Dim bChangeOfEndpoint_Expected = False
@@ -539,7 +539,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, Nothing,
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, Nothing,
                                    False, OPERATION_MOVE, currentMoveType)
         ''operation.OperateOnList(mod_list)
         ''March 2025  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
@@ -690,7 +690,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''--Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
-        Dim operation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim operation As DLLOperation1D_Of(Of TwoCharacterDLLItem)
         ''Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_Expected As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_PostHoc As Boolean ''Added 11/06/2024 
@@ -714,7 +714,7 @@ Public Class FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
 
             ''Added 1/13/2025 td
             ''
@@ -728,7 +728,7 @@ Public Class FormSimpleDemoOfCSharp1D
                 ''
                 Dim op_structure As DLLOperationIndexStructure ''DLLOperation1D(Of TwoCharacterDLLItem)
                 op_structure = operation.GetOperationIndexStructure()
-                operation = New DLLOperation1D(Of TwoCharacterDLLItem)(op_structure, mod_list.DLL_GetFirstItem_OfT())
+                operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(op_structure, mod_list.DLL_GetFirstItem_OfT())
 
             End If ''End of ""If (checkTestNumericConstructor.Checked) Then""
 
@@ -747,7 +747,7 @@ Public Class FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(
                                             tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
             ''operation.OperateOnList(mod_list)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             ''---April 2025---mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
@@ -812,7 +812,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim bInsertRangeAfterAnchor As Boolean
         Dim bInsertRangeBeforeAnchor As Boolean
         Dim tempAnchorItem As TwoCharacterDLLItem '''Added 10/21/2024 thomas downes
-        Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLItem) ''Added 10/26/2024
+        Dim operationToInsert As DLLOperation1D_Of(Of TwoCharacterDLLItem) ''Added 10/26/2024
         Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLItem) ''Added 10/26/2024 td 
         Dim boolIsForEmptyList As Boolean ''Added 12/09/2024 thomas d. 
         Dim not_a_moveType As StructureTypeOfMove = New StructureTypeOfMove(False) ''Added 12/11/2024
@@ -898,7 +898,7 @@ Public Class FormSimpleDemoOfCSharp1D
             '' Added 10/26/2024 thomas d.
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
-            operationToInsert = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
+            operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
                                         INSERT_OPERATION, False, False, not_a_moveType,
                                       objAnchorItem, objAnchorPair)
             ''12/30/2024          False, False, False, False,
@@ -1113,7 +1113,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim itemFirstToDelete As TwoCharacterDLLItem
         Dim itemLastToDelete As TwoCharacterDLLItem
         Dim rangeToDelete As DLLRange(Of TwoCharacterDLLItem)
-        Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim operationToDelete As DLLOperation1D_Of(Of TwoCharacterDLLItem)
         Dim bIncludesListStart As Boolean ''Added 11/10/2024 
         Dim bIncludesList__End As Boolean ''Added 11/10/2024 
         Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
@@ -1173,7 +1173,7 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             '' Added 10/26/2024 thomas d.
             ''
-            operationToDelete = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeToDelete,
+            operationToDelete = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(rangeToDelete,
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
@@ -1268,7 +1268,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         Dim tempAnchorItem As TwoCharacterDLLItem ''---DLLAnchorItem(Of TwoCharacterDLLItem)
         Dim tempAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem)
-        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLItem)
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
         ''12/16/2024 Dim bChangeOfEndpoint = False
@@ -1353,7 +1353,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
         ''operation.OperateOnList(mod_list)
         ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         ''April2025  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
@@ -1578,7 +1578,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Added 12/20/2024 
         ''
-        Dim operationSortForward As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim operationSortForward As DLLOperation1D_Of(Of TwoCharacterDLLItem)
         Dim bChangeOfEndpoint_Occurred As Boolean
         Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
         Const USE_MANAGER As Boolean = True ''Added 12/23/2024
@@ -1591,7 +1591,7 @@ Public Class FormSimpleDemoOfCSharp1D
             '' The list cannot be sorted, as it is empty. 
             ''
         Else
-            operationSortForward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Forward)
+            operationSortForward = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(EnumSortTypes.Forward)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
@@ -1631,7 +1631,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Added 12/22/2024 
         ''
-        Dim operationSortBackward As DLLOperation1D(Of TwoCharacterDLLItem)
+        Dim operationSortBackward As DLLOperation1D_Of(Of TwoCharacterDLLItem)
         Dim bChangeOfEndpoint_Occurred As Boolean
         Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
         Const USE_MANAGER As Boolean = True
@@ -1639,7 +1639,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
-        operationSortBackward = New DLLOperation1D(Of TwoCharacterDLLItem)(EnumSortTypes.Backward)
+        operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(EnumSortTypes.Backward)
 
         ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
         If (USE_MANAGER) Then
