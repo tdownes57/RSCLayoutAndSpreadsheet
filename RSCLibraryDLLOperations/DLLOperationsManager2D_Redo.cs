@@ -66,7 +66,7 @@ namespace RSCLibraryDLLOperations
         public DLLOperationsManager2D_Redo(bool par_horizontalOnly,
                              T_Hori par_firstItemHorizontal,
                              DLLList<T_Hori> par_listHoriz,
-                             DLLOperation1D<T_Hori>? par_firstOperationHoriz = null)
+                             DLLOperation1D_Of<T_Hori>? par_firstOperationHoriz = null)
         {
             //
             // Constructor
@@ -79,6 +79,10 @@ namespace RSCLibraryDLLOperations
             this.mod_firstItemH = par_firstItemHorizontal;
             this.mod_listH = par_listHoriz;
             const bool BASE_CLASS = true; // Added 1/09/2025 td
+
+            //Added 4/12/2025 
+            DLLOperation1D_OfOf<T_Hori, T_Hori> firstOperationHoriz_OfOf =
+                new DLLOperation1D_OfOf<T_Hori, T_Hori>(par_firstOperationHoriz);
 
             if (par_firstOperationHoriz != null)
             {
@@ -100,12 +104,12 @@ namespace RSCLibraryDLLOperations
 
                 T_Base firstItem_Horiz_base = par_listHoriz.DLL_GetFirstItem_OfT();
 
-                DLLOperation1D<T_Base> operation_base_ofT = 
+                DLLOperation1D_Of<T_Base> operation_base_ofT = 
                     par_firstOperationHoriz.GetConvertToGenericOfT<T_Base>(firstItem_Horiz_base, BASE_CLASS, false);   //.DLL_GetBase();
 
                 //Added 1/4/2025 td
                 mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal, 
-                    par_listHoriz, par_firstOperationHoriz);
+                    par_listHoriz, firstOperationHoriz_OfOf);
 
                 //---mod_opUndoRedoMarker = new DLLOperationsUndoRedoMarker1D<T_Base>(operation_base);
                 mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>(operation_base_ofT);
@@ -120,8 +124,10 @@ namespace RSCLibraryDLLOperations
                 mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_Base>();
 
                 //Added 1/4/2025 td
-                mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal, 
-                    par_listHoriz, par_firstOperationHoriz);
+                //Apr2025  mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal, 
+                //    par_listHoriz, par_firstOperationHoriz);
+                mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal,
+                    par_listHoriz, firstOperationHoriz_OfOf);
 
             }
 

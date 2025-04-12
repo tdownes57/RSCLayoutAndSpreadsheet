@@ -73,7 +73,7 @@ namespace RSCLibraryDLLOperations
             //  This is a bit of a hack.  We need to have a non-null array of secondary operations, even if there are none.
             //
             //_array_secondaryOps = new DLLOperation1D<TSecondary>[0];
-            _array_secondaryOps = Array.Empty<DLLOperation1D<T2Parallel>>();
+            _array_secondaryOps = Array.Empty<DLLOperation1D_Of<T2Parallel>>();
 
         }
 

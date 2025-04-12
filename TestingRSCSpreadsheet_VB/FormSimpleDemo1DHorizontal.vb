@@ -77,14 +77,14 @@ Public Class FormSimpleDemo1DHorizontal
             ''
             ''Added 10/20/2024  
             ''
-            Dim operationInitial30 As DLLOperation1D(Of TwoCharacterDLLHorizontal)
+            Dim operationInitial30 As DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)
             Const LOAD_INSERT As Boolean = True ''Added 12/15/2024 
             Dim type_notAMove As New StructureTypeOfMove(False) ''Added 12/15/2024
 
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(rangeNew, True, False,
             ''                                                          True, False, False,
             ''                                                    anchorForEmptyList, False, False, False)
-            operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, True, False,
+            operationInitial30 = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, True, False,
                                                                       LOAD_INSERT, False, False, type_notAMove,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem)
@@ -127,7 +127,7 @@ Public Class FormSimpleDemo1DHorizontal
     End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
 
 
-    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLHorizontal) = Nothing)
+    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D_Of(Of TwoCharacterDLLHorizontal) = Nothing)
         ''
         ''Added an optional parameter (par_operation) on 12/02/2024 
         ''
@@ -542,7 +542,7 @@ Public Class FormSimpleDemo1DHorizontal
         Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)
-        Dim operation As DLLOperation1D(Of TwoCharacterDLLHorizontal)
+        Dim operation As DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)
         ''//Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_ByVal As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_ByRef As Boolean ''Added 12/16/2024 
@@ -565,7 +565,7 @@ Public Class FormSimpleDemo1DHorizontal
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)(tempAnchorItem,
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal,
                                                  bChangeOfEndpoint_ByRef, True,
@@ -579,7 +579,7 @@ Public Class FormSimpleDemo1DHorizontal
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)(
                                             tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple, True, False, type_notMove)
             ''operation.OperateOnList(mod_list)
             ''March2025 mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal, bChangeOfEndpoint_ByRef, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_ByVal,
@@ -643,7 +643,7 @@ Public Class FormSimpleDemo1DHorizontal
         Dim bInsertRangeAfterAnchor As Boolean
         Dim bInsertRangeBeforeAnchor As Boolean
         Dim tempAnchorItem As TwoCharacterDLLHorizontal '''Added 10/21/2024 thomas downes
-        Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLHorizontal) ''Added 10/26/2024
+        Dim operationToInsert As DLLOperation1D_Of(Of TwoCharacterDLLHorizontal) ''Added 10/26/2024
         Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLHorizontal) ''Added 10/26/2024 td 
         Dim boolIsForEmptyList As Boolean ''Added 12/09/2024 thomas d. 
         Dim type_notMove As New StructureTypeOfMove(False) ''Added 12/15/2024
@@ -729,7 +729,7 @@ Public Class FormSimpleDemo1DHorizontal
             '' Added 10/26/2024 thomas d.
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLHorizontal)(newItem, True)
-            operationToInsert = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(rangeSingleItem, False, False,
+            operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(rangeSingleItem, False, False,
                                       INSERT_OPERATION, False, False, type_notMove,
                                       objAnchorItem,
                                       objAnchorPair)
@@ -936,7 +936,7 @@ Public Class FormSimpleDemo1DHorizontal
         Dim itemFirstToDelete As TwoCharacterDLLHorizontal
         Dim itemLastToDelete As TwoCharacterDLLHorizontal
         Dim rangeToDelete As DLLRange(Of TwoCharacterDLLHorizontal)
-        Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLHorizontal)
+        Dim operationToDelete As DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)
         Dim bIncludesListStart As Boolean ''Added 11/10/2024 
         Dim bIncludesList__End As Boolean ''Added 11/10/2024 
         Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
@@ -993,7 +993,7 @@ Public Class FormSimpleDemo1DHorizontal
             ''
             '' Added 10/26/2024 thomas d.
             ''
-            operationToDelete = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(rangeToDelete,
+            operationToDelete = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(rangeToDelete,
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
@@ -1090,7 +1090,7 @@ Public Class FormSimpleDemo1DHorizontal
         ''
         Dim tempAnchorItem As TwoCharacterDLLHorizontal ''---DLLAnchorItem(Of TwoCharacterDLLHorizontal)
         Dim tempAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)
-        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLHorizontal)
+        Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)
         Const OPERATION_MOVE As Boolean = True
         ''Const ALLOW_NULLS As Boolean = True
         Dim bChangeOfEndpoint As Boolean = False
@@ -1149,7 +1149,7 @@ Public Class FormSimpleDemo1DHorizontal
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLHorizontal)(mod_range, tempAnchorPair,
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, tempAnchorPair,
                                                           False, OPERATION_MOVE, type_move)
         ''operation.OperateOnList(mod_list)
         ''12/17/2024 td  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)

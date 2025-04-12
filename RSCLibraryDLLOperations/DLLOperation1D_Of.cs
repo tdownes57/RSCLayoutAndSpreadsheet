@@ -39,14 +39,14 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isHoriz;
         private readonly bool _isVerti;
 
-        private readonly bool _isForStartOfList;
-        private readonly bool _isForEndOfList;
+        internal readonly bool _isForStartOfList;
+        internal readonly bool _isForEndOfList;
         private readonly bool _isForAnchor;
 
-        private readonly bool _isInsert;
-        private readonly bool _isDelete;
-        private readonly bool _isMove;
-        private readonly StructureTypeOfMove _moveType;  // Added 12/11/2024 t_homas c. d_ownes
+        internal readonly bool _isInsert;
+        internal readonly bool _isDelete;
+        internal readonly bool _isMove;
+        internal readonly StructureTypeOfMove _moveType;  // Added 12/11/2024 t_homas c. d_ownes
 
         private readonly bool _isSort_Ascending;
         private readonly bool _isSort_Descending;
@@ -57,12 +57,12 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
         // Added 4/21/2024 td
-        private readonly DLLAnchorItem<T_DLLItem>? _anchorItem;
+        internal readonly DLLAnchorItem<T_DLLItem>? _anchorItem;
 
         // Added 11/03/2024 td
         //   An Anchor Couplet is a pair of Anchoring Items, which bookend a range
         //   (or more accurately WILL bookend a range). 
-        private readonly DLLAnchorCouplet<T_DLLItem>? _anchorCouplet;
+        internal readonly DLLAnchorCouplet<T_DLLItem>? _anchorCouplet;
 
         //Added 4/18/2024 td 
         private readonly DLLAnchorItem<T_DLLItem>? _inverseAnchorItem_ForUndo;
@@ -70,10 +70,10 @@ namespace RSCLibraryDLLOperations
 
         //March 2025 private readonly DLLRange<TControl>? _range;
         //April 2025 private DLLRange<T_DLLItem>? _range;
-        private DLLRange<T_DLLItem>? _range;
+        internal DLLRange<T_DLLItem>? _range;
 
-        private DLLOperation1D_Of<T_DLLItem>? mod_opPrior_ForUndo_OfT;
-        private DLLOperation1D_Of<T_DLLItem>? mod_opNext_ForRedo_OfT;
+        internal DLLOperation1D_Of<T_DLLItem>? mod_opPrior_ForUndo_OfT;
+        internal DLLOperation1D_Of<T_DLLItem>? mod_opNext_ForRedo_OfT;
 
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------

@@ -105,6 +105,29 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public DLLOperation1D_OfOf(DLLOperation1D_Of<TBase> par_operation1D_Of)
+                                        : base(par_operation1D_Of._range, 
+                                            par_operation1D_Of._isForStartOfList,
+                                            par_operation1D_Of._isForEndOfList,
+                                            par_operation1D_Of._isInsert,
+                                            par_operation1D_Of._isDelete, 
+                                            par_operation1D_Of._isMove,
+                                            par_operation1D_Of._moveType, 
+                                            par_operation1D_Of._anchorItem,
+                                            par_operation1D_Of._anchorCouplet,
+                                            par_operation1D_Of.mod_opPrior_ForUndo_OfT,
+                                            par_operation1D_Of.mod_opNext_ForRedo_OfT)
+        {
+            //
+            // We simply pass the arguments to the base class.
+            //
+            // Added 4/12/2025 thomas downes
+            //
+
+
+        }
+
+
         public DLLOperation1D_OfOf(DLLRange<TBase> par_range,
                        DLLAnchorCouplet<TBase>? par_anchorCouplet,
                        bool par_isInsert, bool par_isMove,
@@ -120,6 +143,22 @@ namespace RSCLibraryDLLOperations
 
 
         }
+
+
+        public DLLOperation1D_OfOf(DLLOperationIndexStructure par_structure, 
+                          TBase par_firstItem, DLLRange<TBase>? par_range = null)
+                : base(par_structure, par_firstItem, par_range)
+        {
+            //
+            // We simply pass the arguments to the base class.
+            //
+            // Added 4/12/2025 thomas downes
+            //
+
+
+
+        }
+
 
         public DLLOperation1D_OfOf(EnumSortTypes par_enum) : base(par_enum)
         {

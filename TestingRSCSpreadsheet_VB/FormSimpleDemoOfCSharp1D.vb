@@ -130,7 +130,7 @@ Public Class FormSimpleDemoOfCSharp1D
     End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
 
 
-    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLItem) = Nothing)
+    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D_Of(Of TwoCharacterDLLItem) = Nothing)
 
         ''Added 12/18/2024  
         ''

@@ -346,7 +346,7 @@ Public Class FormDemo1DVertical
         numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
         numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
 
-        Dim operationInitialInsertA As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        Dim operationInitialInsertA As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
         ''''Added 1/21/2025  
         ''Dim operationInitialInsertB1 As DLLOperation1D(Of DLLUserControlTextbox)
         ''Dim operationInitialInsertB2 As DLLOperation1D(Of DLLUserControlRichbox)
@@ -372,7 +372,7 @@ Public Class FormDemo1DVertical
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(rangeNew, True, False,
             ''            True, False, False,
             ''            anchorForEmptyList, False, False, False)
-            operationInitialInsertA = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, True, False,
+            operationInitialInsertA = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, True, False,
                                                                   True, False, False, type_of_move,
                                       anchorItemForListOfOneItemA,
                                       anchorPairForListOfOneItemA)
@@ -463,9 +463,9 @@ Public Class FormDemo1DVertical
         ''
         ''Added 1/21/2025  
         ''March 2025 Dim operationB1 As DLLOperation1D(Of DLLUserControlTextbox)
-        Dim operationB1 As DLLOperation1D(Of DLLUserControlRichbox)
-        Dim operationB2 As DLLOperation1D(Of DLLUserControlRichbox)
-        Dim operationB3 As DLLOperation1D(Of DLLUserControlRichbox)
+        Dim operationB1 As DLLOperation1D_Of(Of DLLUserControlRichbox)
+        Dim operationB2 As DLLOperation1D_Of(Of DLLUserControlRichbox)
+        Dim operationB3 As DLLOperation1D_Of(Of DLLUserControlRichbox)
 
         Dim byrefChangeOfEndpointB1 As Boolean ''Added 2/27/2025 td
         Dim byrefChangeOfEndpointB2 As Boolean ''Added 2/27/2025 td
@@ -514,11 +514,11 @@ Public Class FormDemo1DVertical
         ''Modified to include the applicable insert ranges. 
         ''    ---2/14/2025 td
         ''
-        operationB1 = New DLLOperation1D(Of DLLUserControlRichbox) _
+        operationB1 = New DLLOperation1D_Of(Of DLLUserControlRichbox) _
                     (operationIndexStruct, mod_firstItemB1, mod_rangeB1)
-        operationB2 = New DLLOperation1D(Of DLLUserControlRichbox) _
+        operationB2 = New DLLOperation1D_Of(Of DLLUserControlRichbox) _
                     (operationIndexStruct, mod_firstItemB2, mod_rangeB2)
-        operationB3 = New DLLOperation1D(Of DLLUserControlRichbox) _
+        operationB3 = New DLLOperation1D_Of(Of DLLUserControlRichbox) _
                     (operationIndexStruct, mod_firstItemB3, mod_rangeB3)
 
         ''Added 1/21/2025  
@@ -552,7 +552,7 @@ Public Class FormDemo1DVertical
     End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
 
 
-    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D(Of TwoCharacterDLLVerticalA) = Nothing)
+    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA) = Nothing)
 
         ''Added 12/18/2024  
         ''
@@ -575,7 +575,7 @@ Public Class FormDemo1DVertical
 
     Private Sub RefreshTheUI_DisplayList(par_list As DLLList(Of TwoCharacterDLLVerticalA),
                                      par_firstItem As TwoCharacterDLLVerticalA,
-                                     Optional par_operation As DLLOperation1D(Of TwoCharacterDLLVerticalA) = Nothing)
+                                     Optional par_operation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA) = Nothing)
         ''
         ''  This method is overloaded.  
         ''
@@ -774,7 +774,7 @@ Public Class FormDemo1DVertical
 
     Private Sub RefreshTheUI_DisplayList_B1(par_list As DLLList(Of DLLUserControlRichbox),
                                      par_firstItem As DLLUserControlRichbox,
-                                     Optional par_operation As DLLOperation1D(Of DLLUserControlRichbox) = Nothing)
+                                     Optional par_operation As DLLOperation1D_Of(Of DLLUserControlRichbox) = Nothing)
         ''
         ''  This method is overloaded.  
         ''
@@ -794,7 +794,7 @@ Public Class FormDemo1DVertical
 
     Private Sub RefreshTheUI_DisplayList_B2(par_list As DLLList(Of DLLUserControlRichbox),
                                      par_firstItem As DLLUserControlRichbox,
-                                     Optional par_operation As DLLOperation1D(Of DLLUserControlRichbox) = Nothing)
+                                     Optional par_operation As DLLOperation1D_Of(Of DLLUserControlRichbox) = Nothing)
         ''
         ''  This method is overloaded.  
         ''
@@ -814,7 +814,7 @@ Public Class FormDemo1DVertical
 
     Private Sub RefreshTheUI_DisplayList_B3(par_list As DLLList(Of DLLUserControlRichbox),
                                      par_firstItem As DLLUserControlRichbox,
-                                     Optional par_operation As DLLOperation1D(Of DLLUserControlRichbox) = Nothing)
+                                     Optional par_operation As DLLOperation1D_Of(Of DLLUserControlRichbox) = Nothing)
         ''
         ''  This method is overloaded.  
         ''
@@ -981,7 +981,7 @@ Public Class FormDemo1DVertical
         ''
         '' Encapsulated 12/11/2024 td  
         ''
-        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
         Dim bChangeOfEndpoint_Expected = False
@@ -1042,7 +1042,7 @@ Public Class FormDemo1DVertical
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, Nothing,
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, Nothing,
                                False, OPERATION_MOVE, currentMoveType)
         ''operation.OperateOnList(mod_listA)
         ''Mar2025 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
@@ -1193,7 +1193,7 @@ Public Class FormDemo1DVertical
         ''--Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)
-        Dim operation As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        Dim operation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
         ''Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_Expected As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_PostHoc As Boolean ''Added 11/06/2024 
@@ -1227,7 +1227,7 @@ Public Class FormDemo1DVertical
                                         tempAnchorItem.DLL_GetItemNext_OfT,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
             ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, anchor_couple, True, False)
-            operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
 
             ''Added 1/13/2025 td
             ''
@@ -1242,7 +1242,7 @@ Public Class FormDemo1DVertical
                 Dim op_structure As DLLOperationIndexStructure ''DLLOperation1D(Of TwoCharacterDLLVerticalA)
                 op_structure = operation.GetOperationIndexStructure()
                 ''Feb2025 operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure, mod_listA.DLL_GetFirstItem_OfT())
-                operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure,
+                operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(op_structure,
                                                                             mod_listA.DLL_GetFirstItem_OfT(),
                                                                             mod_rangeA)
 
@@ -1270,7 +1270,8 @@ Public Class FormDemo1DVertical
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(
                                         tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple,
+                                   True, False, null_move)
 
             ''Added 4/08/2025 thomas d.
             mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
@@ -1352,7 +1353,7 @@ Public Class FormDemo1DVertical
         Dim bInsertRangeAfterAnchor As Boolean
         Dim bInsertRangeBeforeAnchor As Boolean
         Dim tempAnchorItem As TwoCharacterDLLVerticalA '''Added 10/21/2024 thomas downes
-        Dim operationToInsert As DLLOperation1D(Of TwoCharacterDLLVerticalA) ''Added 10/26/2024
+        Dim operationToInsert As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA) ''Added 10/26/2024
         Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLVerticalA) ''Added 10/26/2024 td 
         Dim boolIsForEmptyList As Boolean ''Added 12/09/2024 thomas d. 
         Dim not_a_moveType As StructureTypeOfMove = New StructureTypeOfMove(False) ''Added 12/11/2024
@@ -1438,7 +1439,7 @@ Public Class FormDemo1DVertical
             '' Added 10/26/2024 thomas d.
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLVerticalA)(newItem, True)
-            operationToInsert = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(rangeSingleItem, False, False,
+            operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(rangeSingleItem, False, False,
                                     INSERT_OPERATION, False, False, not_a_moveType,
                                   objAnchorItem, objAnchorPair)
             ''12/30/2024                          False, False, False, False,
@@ -1691,7 +1692,7 @@ Public Class FormDemo1DVertical
         Dim itemFirstToDelete As TwoCharacterDLLVerticalA
         Dim itemLastToDelete As TwoCharacterDLLVerticalA
         Dim rangeToDelete As DLLRange(Of TwoCharacterDLLVerticalA)
-        Dim operationToDelete As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        Dim operationToDelete As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
         Dim bIncludesListStart As Boolean ''Added 11/10/2024 
         Dim bIncludesList__End As Boolean ''Added 11/10/2024 
         Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
@@ -1752,7 +1753,7 @@ Public Class FormDemo1DVertical
             ''
             '' Added 10/26/2024 thomas d.
             ''
-            operationToDelete = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(rangeToDelete,
+            operationToDelete = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(rangeToDelete,
                                   bIncludesListStart, bIncludesList__End,
                                   OPERATION_NotInsert,
                                   OPERATION_Delete,
@@ -1864,7 +1865,7 @@ Public Class FormDemo1DVertical
         ''
         Dim tempAnchorItem As TwoCharacterDLLVerticalA ''---DLLAnchorItem(Of TwoCharacterDLLVerticalA)
         Dim tempAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)
-        Dim tempOperation As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
         ''12/16/2024 Dim bChangeOfEndpoint = False
@@ -1949,7 +1950,7 @@ Public Class FormDemo1DVertical
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
         ''operation.OperateOnList(mod_listA)
         ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         ''03/25/2025 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
@@ -2175,7 +2176,7 @@ Public Class FormDemo1DVertical
         ''
         ''Added 12/20/2024 
         ''
-        Dim operationSortForward As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        Dim operationSortForward As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
         Dim bChangeOfEndpoint_Occurred As Boolean
         Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
         Const USE_MANAGER As Boolean = True ''Added 12/23/2024
@@ -2188,7 +2189,7 @@ Public Class FormDemo1DVertical
             '' The list cannot be sorted, as it is empty. 
             ''
         Else
-            operationSortForward = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Forward)
+            operationSortForward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Forward)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
@@ -2228,7 +2229,7 @@ Public Class FormDemo1DVertical
         ''
         ''Added 12/22/2024 
         ''
-        Dim operationSortBackward As DLLOperation1D(Of TwoCharacterDLLVerticalA)
+        Dim operationSortBackward As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
         Dim bChangeOfEndpoint_Occurred As Boolean
         Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
         Const USE_MANAGER As Boolean = True
@@ -2236,7 +2237,7 @@ Public Class FormDemo1DVertical
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
-        operationSortBackward = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Backward)
+        operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Backward)
 
         ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
         If (USE_MANAGER) Then
