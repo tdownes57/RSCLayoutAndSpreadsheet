@@ -81,8 +81,13 @@ namespace RSCLibraryDLLOperations
             const bool BASE_CLASS = true; // Added 1/09/2025 td
 
             //Added 4/12/2025 
-            DLLOperation1D_OfOf<T_Hori, T_Hori> firstOperationHoriz_OfOf =
-                new DLLOperation1D_OfOf<T_Hori, T_Hori>(par_firstOperationHoriz);
+            DLLOperation1D_OfOf<T_Hori, T_Hori>? firstOperationHoriz_OfOf = null;
+
+            //Apr 2025 firstOperationHoriz_OfOf = new DLLOperation1D_OfOf<T_Hori, T_Hori>(par_firstOperationHoriz);
+            //if (par_firstOperationHoriz != null) //Added 4/14/2025 
+            //{
+            //    firstOperationHoriz_OfOf = new DLLOperation1D_OfOf<T_Hori, T_Hori>(par_firstOperationHoriz);
+            //}
 
             if (par_firstOperationHoriz != null)
             {
@@ -91,6 +96,9 @@ namespace RSCLibraryDLLOperations
                 //
                 this.mod_firstPriorOperationBase = par_firstOperationHoriz;
                 this.mod_lastPriorOperationBase = par_firstOperationHoriz;
+
+                // Added 4/14/2025 
+                firstOperationHoriz_OfOf = new DLLOperation1D_OfOf<T_Hori, T_Hori>(par_firstOperationHoriz);
 
                 mod_numberOfOperationsH++; // Added 10/26/2024 td 
 

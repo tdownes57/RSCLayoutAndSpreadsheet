@@ -1654,8 +1654,18 @@ Public Class FormDemo1DVertical
         mod_firstItemA = mod_listA.DLL_GetFirstItem_OfT()
         mod_lastItemA = mod_listA.DLL_GetLastItem_OfT()
 
+        ''Added 4/14/2025 td
+        mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
+        mod_firstItemB2 = mod_listB2.DLL_GetFirstItem_OfT()
+        mod_firstItemB3 = mod_listB3.DLL_GetFirstItem_OfT()
+
         ''Added 10/27/2024 
         RefreshTheUI_DisplayList()
+
+        ''Added 4/14/2025 td
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 11/09/2024
         buttonRedoOp.Enabled = True

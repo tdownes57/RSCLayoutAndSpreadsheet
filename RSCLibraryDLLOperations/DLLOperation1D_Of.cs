@@ -1579,7 +1579,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_Of<T_DLLItem> DLL_GetOpNext_OfT()
+        public DLLOperation1D_Of<T_DLLItem>? DLL_GetOpNext_OfT()
         {
             // Added 12/02/2024 
 

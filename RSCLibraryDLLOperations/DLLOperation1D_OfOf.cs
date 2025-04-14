@@ -27,13 +27,20 @@ namespace RSCLibraryDLLOperations
         // --------------------- Array of Parallel Ranges ---------------------------------  
         // -------------- This is why I created this derived class!! ----------------------
         // --------------------------------------------------------------------------------
+        /// <summary>
+        /// A Parallel range is the range which has the same index structure (begin, end)
+        /// 
+        /// </summary>
         public DLLRange<TParallel>[]? ArrayOfParallelRanges_ToInsert;
+        /// <summary>
+        /// 
+        /// </summary>
         public DLLRange<TParallel>[]? ArrayOfParallelRanges_Deleted;
         // --------------------- End of IMPORTANT!! ---------------------------------------  
         // --------------------------------------------------------------------------------
 
-        private DLLOperation1D_OfOf<TBase, TParallel>? mod_opPrior_ForUndo_OfT;
-        private DLLOperation1D_OfOf<TBase, TParallel>? mod_opNext_ForRedo_OfT;
+        private DLLOperation1D_OfOf<TBase, TParallel>? mod_opPrior_ForUndo_OfT_OfT;
+        private DLLOperation1D_OfOf<TBase, TParallel>? mod_opNext_ForRedo_OfT_OfT;
 
 
         /// <summary>
@@ -66,10 +73,10 @@ namespace RSCLibraryDLLOperations
                   bool pbSortByArrayOfControls,
                   TBase[] par_arrayControls_Sorting,
                   bool pbSortByArrayOfIndices,
-                  int[]? par_arrayIndices_Sorting) : base(par_isSortAscending, par_isSortDescending, 
-                                                          par_isUndoOfSortAscending, par_isUndoOfSortDescending, 
-                                                          par_itemStart_Sorting, par_itemEnding_ForSorting, 
-                                                          pbSortByArrayOfControls, par_arrayControls_Sorting, 
+                  int[]? par_arrayIndices_Sorting) : base(par_isSortAscending, par_isSortDescending,
+                                                          par_isUndoOfSortAscending, par_isUndoOfSortDescending,
+                                                          par_itemStart_Sorting, par_itemEnding_ForSorting,
+                                                          pbSortByArrayOfControls, par_arrayControls_Sorting,
                                                           pbSortByArrayOfIndices, par_arrayIndices_Sorting)
         {
             //
@@ -106,13 +113,13 @@ namespace RSCLibraryDLLOperations
 
 
         public DLLOperation1D_OfOf(DLLOperation1D_Of<TBase> par_operation1D_Of)
-                                        : base(par_operation1D_Of._range, 
+                                        : base(par_operation1D_Of._range,
                                             par_operation1D_Of._isForStartOfList,
                                             par_operation1D_Of._isForEndOfList,
                                             par_operation1D_Of._isInsert,
-                                            par_operation1D_Of._isDelete, 
+                                            par_operation1D_Of._isDelete,
                                             par_operation1D_Of._isMove,
-                                            par_operation1D_Of._moveType, 
+                                            par_operation1D_Of._moveType,
                                             par_operation1D_Of._anchorItem,
                                             par_operation1D_Of._anchorCouplet,
                                             par_operation1D_Of.mod_opPrior_ForUndo_OfT,
@@ -122,6 +129,20 @@ namespace RSCLibraryDLLOperations
             // We simply pass the arguments to the base class.
             //
             // Added 4/12/2025 thomas downes
+            //
+            // See the base-constructor call...
+            //
+            //                            : base(par_operation1D_Of._range,
+            //                                par_operation1D_Of._isForStartOfList,
+            //                                par_operation1D_Of._isForEndOfList,
+            //                                par_operation1D_Of._isInsert,
+            //                                par_operation1D_Of._isDelete,
+            //                                par_operation1D_Of._isMove,
+            //                                par_operation1D_Of._moveType,
+            //                                par_operation1D_Of._anchorItem,
+            //                                par_operation1D_Of._anchorCouplet,
+            //                                par_operation1D_Of.mod_opPrior_ForUndo_OfT,
+            //                                par_operation1D_Of.mod_opNext_ForRedo_OfT)
             //
 
 
@@ -139,13 +160,16 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/10/2025 thomas downes
             //
-
-
+            // See the base-constructor call...
+            //
+            //      : base(par_range, par_anchorCouplet,
+            //           par_isInsert, par_isMove, par_typeOfMove)
+            //   
 
         }
 
 
-        public DLLOperation1D_OfOf(DLLOperationIndexStructure par_structure, 
+        public DLLOperation1D_OfOf(DLLOperationIndexStructure par_structure,
                           TBase par_firstItem, DLLRange<TBase>? par_range = null)
                 : base(par_structure, par_firstItem, par_range)
         {
@@ -154,8 +178,10 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/12/2025 thomas downes
             //
-
-
+            // See the base-constructor call... 
+            //
+            //        : base(par_structure, par_firstItem, par_range)
+            //
 
         }
 
@@ -167,6 +193,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/09/2025 thomas downes
             //
+            // See the base-constructor call... ": base(par_structure, par_firstItem, par_range)"
 
         }
 
@@ -180,7 +207,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/25/2024 
             //
-            return mod_opPrior_ForUndo_OfT;
+            return mod_opPrior_ForUndo_OfT_OfT;
 
         }
 
@@ -193,12 +220,12 @@ namespace RSCLibraryDLLOperations
             //
             // Added 5/25/2024 
             //
-            return mod_opNext_ForRedo_OfT;
+            return mod_opNext_ForRedo_OfT_OfT;
 
         }
 
 
-        public DLLOperation1D_OfOf<TBase, TParallel> DLL_GetOpPrior_OfOf()
+        public DLLOperation1D_OfOf<TBase, TParallel>? DLL_GetOpPrior_OfOf()
         {
             // Added 4/10/2025 & 12/02/2024 
             //
@@ -218,35 +245,41 @@ namespace RSCLibraryDLLOperations
                 System.Diagnostics.Debugger.Break();
             }
 
-            return mod_opPrior_ForUndo_OfT;
+            return mod_opPrior_ForUndo_OfT_OfT;
 
         }
 
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation)
+        public void DLL_SetOpNext_OfT_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation)
         {
             //
             // Added 4/11/2025 td (from DLLOperation_Of.cs)
             //
-            mod_opNext_ForRedo_OfT = parOperation;
+            this.mod_opNext_ForRedo_OfT_OfT = parOperation;
+            this.mod_opPrior_ForUndo_OfT_OfT = parOperation;
+
+            //
+            //  Address the base members.
+            //
+            base.mod_opNext_ForRedo_OfT = parOperation;
 
             //Added 12/02/2024 td
             base.mod_opNext_ForRedo = parOperation;
 
             //Added 1/04/2024 
-            mod_opNext_ForRedo_OfT = parOperation;
+            base.mod_opNext_ForRedo_OfT = parOperation;
 
         }
 
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation, bool pbBirectional)
+        public void DLL_SetOpNext_OfT_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation, bool pbBirectional)
         {
             //
             // Added 4/11/2025 & 12/08/2024 td
             //
-            DLL_SetOpNext_OfT(parOperation);
+            DLL_SetOpNext_OfT_OfT(parOperation);
 
             // Added 12/08/2024 
             //''
@@ -259,7 +292,9 @@ namespace RSCLibraryDLLOperations
                 //''  to be the present class (i.e.the procedure's implicit parameter).
                 //''
                 //-----April 2025----parOperation.mod_opPrior_ForUndo = this as DLLOperationBase;
+                parOperation.mod_opPrior_ForUndo = this;
                 parOperation.mod_opPrior_ForUndo_OfT = this;
+                parOperation.mod_opPrior_ForUndo_OfT_OfT = this;
 
             } // End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
 
@@ -267,7 +302,84 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_SetOpPrior_OfT_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation)
+        {
+            //
+            // Added 4/14/2025 thomas downes
+            //
+            this.mod_opPrior_ForUndo_OfT_OfT = parOperation;
 
+            //Added 12/02/2024 td
+            base.mod_opPrior_ForUndo = parOperation;
+
+            //Added 1/04/2024 
+            base.mod_opPrior_ForUndo_OfT = parOperation;
+
+        }
+
+
+
+        /// <summary>
+        /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
+        /// </summary>
+        /// <returns>Inverse of the present operation</returns>
+        public DLLOperation1D_OfOf<TBase, TParallel> // <T_DLLItem_H, T_DLLItem_V>
+            GetInverseForUndo_OfOf(bool pbTestForIdempotency)
+        {
+            //
+            // Added 4/12/2025 
+            //
+
+            //if (ArrayOfParallelRanges_Deleted != null)
+            //{
+            //    ArrayOfParallelRanges_ToInsert = ArrayOfParallelRanges_Deleted;
+            //}
+
+            //else if (ArrayOfParallelRanges_ToInsert  != null)
+            //{
+            //    ArrayOfParallelRanges_Deleted = ArrayOfParallelRanges_ToInsert;
+            //}
+
+            //par_operation1D_Of._range,
+            //par_operation1D_Of._isForEndOfList,
+            //par_operation1D_Of._isInsert,
+            //par_operation1D_Of._isDelete,
+            //par_operation1D_Of._isMove,
+            //par_operation1D_Of._moveType,
+            //par_operation1D_Of._anchorItem,
+            //par_operation1D_Of._anchorCouplet,
+            //par_operation1D_Of.mod_opPrior_ForUndo_OfT,
+            //par_operation1D_Of.mod_opNext_ForRedo_OfT
+
+            DLLOperation1D_Of<TBase> inverseOp_Of = base.GetInverseForUndo_Of(false);
+
+            //base._range = inverseOp._range;
+            //base._isForStartOfList = inverseOp._isForStartOfList;
+            //base._isForEndOfList = inverseOp._isForEndOfList;
+            //base._isInsert = inverseOp
+            //      par_operation1D_Of._isDelete,
+            //      par_operation1D_Of._isMove,
+            //      par_operation1D_Of._moveType,
+            //      par_operation1D_Of._anchorItem,
+            //      par_operation1D_Of._anchorCouplet,
+            //      par_operation1D_Of.mod_opPrior_ForUndo_OfT,
+            //      par_operation1D_Of.mod_opNext_ForRedo_OfT
+            //
+
+            var inverseOp_OfOf = new DLLOperation1D_OfOf<TBase, TParallel>(inverseOp_Of);
+
+            //-------------------------------------------------------
+            //-----  DIFFICULT & CONFUSING  -------------------------
+            //-----   Let's play switcheroo! ------------------------
+            //-----   We are creating the inverse operation.  -------
+            //-----   (ToInsert --> Delete, Delete --> ToInsert) ----
+            //-------------------------------------------------------
+            inverseOp_OfOf.ArrayOfParallelRanges_Deleted = ArrayOfParallelRanges_ToInsert; // Switching ToInsert --> Delete.
+            inverseOp_OfOf.ArrayOfParallelRanges_ToInsert = ArrayOfParallelRanges_Deleted; // Switching Delete --> ToInsert. 
+
+            return inverseOp_OfOf;
+
+        }
 
 
 
