@@ -65,8 +65,8 @@ namespace RSCLibraryDLLOperations
         internal readonly DLLAnchorCouplet<T_DLLItem>? _anchorCouplet;
 
         //Added 4/18/2024 td 
-        private readonly DLLAnchorItem<T_DLLItem>? _inverseAnchorItem_ForUndo;
-        private readonly DLLAnchorCouplet<T_DLLItem>? _inverseAnchorPair_forUndo;
+        internal readonly DLLAnchorItem<T_DLLItem>? _inverseAnchorItem_ForUndo;
+        internal readonly DLLAnchorCouplet<T_DLLItem>? _inverseAnchorPair_forUndo;
 
         //March 2025 private readonly DLLRange<TControl>? _range;
         //April 2025 private DLLRange<T_DLLItem>? _range;
@@ -247,7 +247,9 @@ namespace RSCLibraryDLLOperations
               DLLAnchorItem<T_DLLItem>? par_anchorItem,
               DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
                   DLLOperation1D_Of<T_DLLItem>? par_operationPrior = null,
-                  DLLOperation1D_Of<T_DLLItem>? par_operationNext = null)
+                  DLLOperation1D_Of<T_DLLItem>? par_operationNext = null,
+                  DLLAnchorItem<T_DLLItem>? par_inverseAnchorItem = null,
+                  DLLAnchorCouplet<T_DLLItem>? par_inverseAnchorPair = null)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -256,7 +258,7 @@ namespace RSCLibraryDLLOperations
             //---_isHoriz = true;
             _range = par_range;
             _anchorItem = par_anchorItem;
-            _anchorCouplet = par_anchorPair;  //Added 11/08/2024 
+            _anchorCouplet = par_anchorPair;  //Added 11/08/2024
             //---_isVerti = false; // NOT vertical.
 
             _isForStartOfList = par_forStartOfList;
@@ -284,12 +286,26 @@ namespace RSCLibraryDLLOperations
                 _inverseAnchorPair_forUndo = null;
                 _inverseAnchorItem_ForUndo = null;
             }
+
             else if (_isDelete || bMove_ButNotByShift) // Both Deletions & Moves need the Inverse Anchor.--12/9/2024  // 12/9/2024  if (_isDelete)
             {
-                _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                //
+                // Has the inverse Anchor been supplied by parameter?  Or not?
+                //   (First, we will address the "Or not" case.) ---4/2025 td
+                //
+                if (par_inverseAnchorPair == null) // Added 4/15/2025 td
+                {
+                    _inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
 
-                // Added 12/30/2024 thomas downes
-                _inverseAnchorItem_ForUndo = _inverseAnchorPair_forUndo.GetAnchorItem();
+                    // Added 12/30/2024 thomas downes
+                    _inverseAnchorItem_ForUndo = _inverseAnchorPair_forUndo.GetAnchorItem();
+                }
+                else // Added 4/15/2025 td
+                {
+                    // Added 4/15/2025 td
+                    _inverseAnchorPair_forUndo = par_inverseAnchorPair;
+                    _inverseAnchorItem_ForUndo = par_inverseAnchorItem;
+                }
 
                 //_anchorCouplet.GetAnchorItem();
             } // end of ""if (_isDelete || _isMove)"" 

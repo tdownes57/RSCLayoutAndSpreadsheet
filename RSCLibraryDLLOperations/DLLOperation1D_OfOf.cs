@@ -123,7 +123,9 @@ namespace RSCLibraryDLLOperations
                                             par_operation1D_Of._anchorItem,
                                             par_operation1D_Of._anchorCouplet,
                                             par_operation1D_Of.mod_opPrior_ForUndo_OfT,
-                                            par_operation1D_Of.mod_opNext_ForRedo_OfT)
+                                            par_operation1D_Of.mod_opNext_ForRedo_OfT,
+                                            par_operation1D_Of._inverseAnchorItem_ForUndo,
+                                            par_operation1D_Of._inverseAnchorPair_forUndo)
         {
             //
             // We simply pass the arguments to the base class.
