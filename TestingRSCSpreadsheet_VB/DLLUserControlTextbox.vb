@@ -9,7 +9,7 @@ Public Class DLLUserControlTextbox
     ''
     ''Added 1/19/2025 
     ''
-    Public DLLItem As DLLItemManager(Of DLLUserControlTextbox)
+    Public DLLItem As DLLItemAndManager(Of DLLUserControlTextbox)
 
     ''' <summary>
     ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
@@ -99,7 +99,7 @@ Public Class DLLUserControlTextbox
         TextBox1.Text = "01" ''---par_twoChars
 
         ''Added 1/24/2025 td
-        Me.DLLItem = New DLLItemManager(Of DLLUserControlTextbox)(Me)
+        Me.DLLItem = New DLLItemAndManager(Of DLLUserControlTextbox)(Me)
 
     End Sub
 
@@ -112,7 +112,7 @@ Public Class DLLUserControlTextbox
         TextBox1.Text = par_twoChars
 
         ''Added 1/24/2025 td
-        Me.DLLItem = New DLLItemManager(Of DLLUserControlTextbox)(Me)
+        Me.DLLItem = New DLLItemAndManager(Of DLLUserControlTextbox)(Me)
 
     End Sub
 

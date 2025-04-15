@@ -448,6 +448,15 @@ namespace RSCLibraryDLLOperations
                 }
                 else if (! par_structure.AnchorLeft_isNull)
                 {
+                    //
+                    // Two possibilities:
+                    //
+                    //    1. The user did expect & intend an end-point (Start of list) operation, and the Programmer forgot
+                    //        to write a line of code to set AnchorLeft_isNull to Boolean value of True.
+                    //        
+                    //    2. The user did NOT intend this to be a start-of-list operation, and the programmer
+                    //         did not correctly populate the .AnchorIndexLeft_b1 property. 
+                    //
                     System.Diagnostics.Debugger.Break(); // Added 4/14/2025
                 }
 

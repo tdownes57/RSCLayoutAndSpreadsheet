@@ -1,6 +1,7 @@
 ﻿using ciBadgeInterfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -1223,17 +1224,28 @@ namespace RSCLibraryDLLOperations
                 T_DLLItem? itemAnchorCouplet_Right = _anchorCouplet.GetItemRightOrSecond();
 
                 // if (_anchorCouplet.ItemFirstIsPresent())
-                if (itemAnchorCouplet_Left != null)
+                if (itemAnchorCouplet_Left == null)
+                {
+                    // Added 4/15/2025
+                    result_struct.AnchorLeft_isNull = true;
+                }
+                //if (itemAnchorCouplet_Left != null)
+                else
                 {
                     int indexOfLeftOrFirst = itemAnchorCouplet_Left.DLL_GetItemIndex_b1();
-                    result_struct.AnchorIndexLeft_b1 = indexOfLeftOrFirst; 
+                    result_struct.AnchorIndexLeft_b1 = indexOfLeftOrFirst;
                     // Added 4/14/2025
-                    result_struct.AnchorLeft_isNull = _anchorCouplet.ItemLefthandIsNull(); 
+                    result_struct.AnchorLeft_isNull = _anchorCouplet.ItemLefthandIsNull();
 
                 }
 
                 //if (_anchorCouplet.ItemSecondIsPresent())
-                if (itemAnchorCouplet_Right != null)
+                if (itemAnchorCouplet_Right == null)
+                {
+                    // Added 4/15/2025
+                    result_struct.AnchorRight_isNull = true;
+                }
+                else //if (itemAnchorCouplet_Right != null)
                 {
                     int indexOfRightOrSecond = itemAnchorCouplet_Right.DLL_GetItemIndex_b1();
                     result_struct.AnchorIndexRight_b1 = indexOfRightOrSecond;
@@ -1255,7 +1267,13 @@ namespace RSCLibraryDLLOperations
                 T_DLLItem? inverseAnchorCouplet_Left = _inverseAnchorPair_forUndo.GetItemLeftOrFirst();
                 T_DLLItem? inverseAnchorCouplet_Right = _inverseAnchorPair_forUndo.GetItemRightOrSecond();
 
-                if (inverseAnchorCouplet_Left != null)
+                if (inverseAnchorCouplet_Left == null)
+                {
+                    // Added 4/15/2025 td
+                    result_struct.InverseAnchorLeft_isNull = true; 
+                }
+
+                else // if (inverseAnchorCouplet_Left != null)
                 {
                     int indexOfLeftOrFirst = inverseAnchorCouplet_Left.DLL_GetItemIndex_b1();
                     result_struct.InverseAnchorIndexLeft_b1 = indexOfLeftOrFirst;
@@ -1264,7 +1282,13 @@ namespace RSCLibraryDLLOperations
 
                 }
 
-                if (inverseAnchorCouplet_Right != null)
+                if (inverseAnchorCouplet_Right == null)
+                {
+                    // Added 4/15/2025 td
+                    result_struct.InverseAnchorRight_isNull = true;
+
+                }
+                else // if (inverseAnchorCouplet_Right != null)
                 {
                     int indexOfRightOrSecond = inverseAnchorCouplet_Right.DLL_GetItemIndex_b1();
                     result_struct.InverseAnchorIndexRight_b1 = indexOfRightOrSecond;

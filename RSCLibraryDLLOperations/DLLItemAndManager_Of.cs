@@ -11,7 +11,7 @@ using ciBadgeInterfaces;
 namespace RSCLibraryDLLOperations
 {
     // Added 1/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
-    public class DLLItemManager<TControl> // : ciBadgeInterfaces.IDoublyLinkedItem<TControl>
+    public class DLLItemAndManager<TControl> // : ciBadgeInterfaces.IDoublyLinkedItem<TControl>
         where TControl : class, ciBadgeInterfaces.IDoublyLinkedItem<TControl>
     {
         // 
@@ -42,9 +42,10 @@ namespace RSCLibraryDLLOperations
         private TControl? mod_next_priorSortOrder;
         //private char mod_char1;
         //private char mod_char2;
+        private bool mod_nextIsNull = false;  // Added 4/15/2025 thomas downes
 
 
-        public DLLItemManager(TControl par_currentMod_current)
+        public DLLItemAndManager(TControl par_currentMod_current)
         {
             //
             // Added 1/24/2025
@@ -165,6 +166,18 @@ namespace RSCLibraryDLLOperations
             else
             {
                 mod_next = param;
+
+                // Added 4/15/2025 td
+                //   Let's re-initialized the Boolean value.
+                //  Relevant:  DLL_HasNext(), DLL_NotAnyNext(), DLL_ClearReferenceNext(),
+                //     DLL_MarkAsEndOfList(), and DLL_SetItemNext_OfT().
+                //
+                if (mod_nextIsNull && mod_next != null)
+                { 
+                    mod_nextIsNull = false;
+                }
+                
+
             }
 
             if (doublyLink && param != null)
@@ -263,14 +276,77 @@ namespace RSCLibraryDLLOperations
             mod_prior = null;
         }
 
-        public void DLL_ClearReferenceNext(char operation)
+
+        /// <summary>
+        /// This procedure indicates a terminating endpoint to the list.
+        /// </summary>
+        /// <param name="operation"></param>
+        public void DLL_MarkAsEndOfList()
         {
             mod_next = null;
+
+            // The endpoint will be properly marked. 
+            //
+            //  The function DLL_HasNext() will check the following Boolean.
+            //
+            //  Relevant:  DLL_HasNext(), DLL_NotAnyNext(), DLL_ClearReferenceNext(),
+            //     DLL_MarkAsEndOfList(), and DLL_SetItemNext_OfT().
+            //
+            //    ---Added 4/15/2025 td
+            //
+            mod_nextIsNull = true;
+
+        }
+
+
+        /// <summary>
+        /// This procedure indicates a terminating endpoint to the list.
+        /// </summary>
+        /// <param name="par_operation">This may help the programmer to know why the reference is being cleared.</param>
+        public void DLL_ClearReferenceNext(char par_operation)
+        {
+            mod_next = null;
+
+            // The endpoint will be properly cleared. 
+            //
+            //  The function DLL_HasNext() will check the following Boolean.
+            //
+            //  Relevant:  DLL_HasNext(), DLL_NotAnyNext(), DLL_ClearReferenceNext(),
+            //     DLL_MarkAsEndOfList(), and DLL_SetItemNext_OfT().
+            //
+            //    ---Added 4/15/2025 td
+            //
+            mod_nextIsNull = true;  
+
         }
 
         public bool DLL_NotAnyNext()
         {
-            return mod_next == null;
+            //Apr2025  return mod_next == null;
+
+            // Modified 4/15/2025 td
+            if (mod_next == null && (! mod_nextIsNull))
+            {
+                // The endpoint is not properly cleared. 
+                //
+                //  Programmer must use DLL_ClearReferenceNext() for endpoints.
+                //
+                //  Find "mod_nextIsNull = true;" in Sub DLL_ClearReferenceNext().
+                //
+                //  Relevant:  DLL_HasNext(), DLL_NotAnyNext(), DLL_ClearReferenceNext(),
+                //     DLL_MarkAsEndOfList(), and DLL_SetItemNext_OfT().
+                //
+                //    ---Added 4/15/2025 td
+                //
+                System.Diagnostics.Debugger.Break();
+                return true;  // false ;
+            }
+            else
+            {
+                //return (mod_next != null);
+                return (mod_next == null);
+            }
+
         }
 
         public bool DLL_NotAnyPrior()
@@ -280,7 +356,30 @@ namespace RSCLibraryDLLOperations
 
         public bool DLL_HasNext()
         {
-            return mod_next != null;
+            //return mod_next != null;
+
+            // Modified 4/15/2025 td
+            if (mod_next == null && (! mod_nextIsNull))
+            {
+                // The endpoint is not properly cleared. 
+                //
+                //  Programmer must use DLL_ClearReferenceNext() for endpoints.
+                //
+                //  Find "mod_nextIsNull = true;" in Sub DLL_ClearReferenceNext().
+                //
+                //  Relevant:  DLL_HasNext(), DLL_NotAnyNext(), DLL_ClearReferenceNext(),
+                //     and DLL_MarkAsEndOfList().
+                //
+                //    ---Added 4/15/2025 td
+                //
+                System.Diagnostics.Debugger.Break();
+                return false;
+            }
+            else
+            {
+                return (mod_next != null);
+            }
+
         }
 
         public bool DLL_HasPrior()

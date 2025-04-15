@@ -12,7 +12,7 @@ Public Class DLLUserControlRichbox
     ''
     ''Added 1/24/2025 td
     ''
-    Public DLLItem As DLLItemManager(Of DLLUserControlRichbox)
+    Public DLLItem As DLLItemAndManager(Of DLLUserControlRichbox)
 
     ''
     ''Added 1/19/2025 
@@ -105,7 +105,7 @@ Public Class DLLUserControlRichbox
         TextBox1.Text = "01" ''---par_twoChars
 
         ''Added 1/24/2025 td
-        Me.DLLItem = New DLLItemManager(Of DLLUserControlRichbox)(Me)
+        Me.DLLItem = New DLLItemAndManager(Of DLLUserControlRichbox)(Me)
 
     End Sub
 
@@ -118,7 +118,7 @@ Public Class DLLUserControlRichbox
         TextBox1.Text = par_twoChars
 
         ''Added 1/24/2025 td
-        Me.DLLItem = New DLLItemManager(Of DLLUserControlRichbox)(Me)
+        Me.DLLItem = New DLLItemAndManager(Of DLLUserControlRichbox)(Me)
 
     End Sub
 

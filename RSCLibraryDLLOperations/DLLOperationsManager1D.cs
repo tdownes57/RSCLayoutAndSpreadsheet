@@ -856,12 +856,15 @@ namespace RSCLibraryDLLOperations
                 bool bEndpointsAreClean = opUndoVersion_OfOf.CheckEndPointsAreClean_PriorToInsert();
             }
 
+            // Added 4/15/2025 td
+            var operationIndexStructure = opUndoVersion_OfOf.GetOperationIndexStructure();
+
             //''Major call!!
             ProcessOperation_AnyType(opUndoVersion_OfOf,
                                      bIsChangeOfEndpoint_Expected,
                                      out bChangeOfEndpoint_Occurred,
                                      RECORD_UNDO_OPERATION,
-                                     opUndoVersion_OfOf.GetOperationIndexStructure());
+                                     operationIndexStructure);
 
             if (bIsChangeOfEndpoint_Expected || bChangeOfEndpoint_Occurred)
             {
