@@ -1209,6 +1209,8 @@ namespace RSCLibraryDLLOperations
             }
 
             //
+            // Anchor Couplet
+            //
             // Be careful of Null values!!
             //
             if (_anchorCouplet != null)
@@ -1225,6 +1227,9 @@ namespace RSCLibraryDLLOperations
                 {
                     int indexOfLeftOrFirst = itemAnchorCouplet_Left.DLL_GetItemIndex_b1();
                     result_struct.AnchorIndexLeft_b1 = indexOfLeftOrFirst; 
+                    // Added 4/14/2025
+                    result_struct.AnchorLeft_isNull = _anchorCouplet.ItemLefthandIsNull(); 
+
                 }
 
                 //if (_anchorCouplet.ItemSecondIsPresent())
@@ -1232,9 +1237,44 @@ namespace RSCLibraryDLLOperations
                 {
                     int indexOfRightOrSecond = itemAnchorCouplet_Right.DLL_GetItemIndex_b1();
                     result_struct.AnchorIndexRight_b1 = indexOfRightOrSecond;
+                    // Added 4/14/2025
+                    result_struct.AnchorRight_isNull = _anchorCouplet.ItemRighthandIsNull();
+
                 }
 
             }
+
+
+            //
+            // Inverse Anchor Pair   (so we can UNDO a DELETE).
+            //
+            if (_inverseAnchorPair_forUndo != null)
+            {
+                result_struct.InverseAnchorIsSpecified = true;
+
+                T_DLLItem? inverseAnchorCouplet_Left = _inverseAnchorPair_forUndo.GetItemLeftOrFirst();
+                T_DLLItem? inverseAnchorCouplet_Right = _inverseAnchorPair_forUndo.GetItemRightOrSecond();
+
+                if (inverseAnchorCouplet_Left != null)
+                {
+                    int indexOfLeftOrFirst = inverseAnchorCouplet_Left.DLL_GetItemIndex_b1();
+                    result_struct.InverseAnchorIndexLeft_b1 = indexOfLeftOrFirst;
+                    // Added 4/14/2025
+                    result_struct.InverseAnchorLeft_isNull = _inverseAnchorPair_forUndo.ItemLefthandIsNull();
+
+                }
+
+                if (inverseAnchorCouplet_Right != null)
+                {
+                    int indexOfRightOrSecond = inverseAnchorCouplet_Right.DLL_GetItemIndex_b1();
+                    result_struct.InverseAnchorIndexRight_b1 = indexOfRightOrSecond;
+                    // Added 4/14/2025
+                    result_struct.InverseAnchorRight_isNull = _inverseAnchorPair_forUndo.ItemRighthandIsNull();
+
+                }
+
+            }
+
 
             return result_struct; 
 

@@ -225,7 +225,8 @@ namespace RSCLibraryDLLOperations
             // Handle the setting of the "mod_next" field
             if (param == null && pbAllowNulls)
             {
-                mod_next = null;
+                //Apr2025  mod_next = null;
+                mod_prior = null;
             }
             else if (param == null && !pbAllowNulls) // Added 12/22/2024
             {
@@ -234,6 +235,9 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
+                //
+                // Set the "prior" placeholder to the parameter.
+                //
                 mod_prior = param;
             }
 
@@ -244,6 +248,10 @@ namespace RSCLibraryDLLOperations
                 if (param != null)
                 {
                     //param.mod_prior = this;
+
+                    //---DIFFICULT & CONFUSING----
+                    //  Set the new prior item to point to the current one. 
+                    //
                     param.DLL_SetItemNext_OfT(mod_current);
                 }
             }

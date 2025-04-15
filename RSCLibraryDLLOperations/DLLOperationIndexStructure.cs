@@ -46,6 +46,10 @@ namespace RSCLibraryDLLOperations
             ArrayToUndoSort = [];  // Added 2/14/2025
             IsInsert_SoMustCreateNewItems = false; //Added 2/14/2025 td
 
+            // Added 4/14/2025
+            InverseAnchorIndexLeft_b1 = -1;
+            InverseAnchorIndexRight_b1 = -1;
+
         }
 
         public bool IsInsert;
@@ -86,6 +90,9 @@ namespace RSCLibraryDLLOperations
         /// This index is 1-based.  (Not zero-based.)
         /// </summary>
         public int AnchorIndexLeft_b1; // = -1;
+        /// <summary>
+        /// This index is 1-based.  (Not zero-based.)
+        /// </summary>
         public int AnchorIndexRight_b1; // = -1;
 
         public bool Sorting;
@@ -93,7 +100,26 @@ namespace RSCLibraryDLLOperations
         public bool SortingDescending;
 
         public bool IsUndoOfSort;
-        public int[] ArrayToUndoSort; 
+        public int[] ArrayToUndoSort;
+
+        // Added 4/14/2025
+        /// <summary>
+        /// This index is 1-based.  (Not zero-based.)
+        /// </summary>
+        public int InverseAnchorIndexLeft_b1; // = -1;
+
+        // Added 4/14/2025
+        /// <summary>
+        /// This index is 1-based.  (Not zero-based.)
+        /// </summary>
+        public int InverseAnchorIndexRight_b1; // = -1;
+
+        // Added 4/14/2025
+        public bool InverseAnchorIsSpecified;
+        public bool AnchorLeft_isNull; // = false;
+        public bool AnchorRight_isNull; // = false;
+        public bool InverseAnchorLeft_isNull; // = false;
+        public bool InverseAnchorRight_isNull; // = false;
 
 
         public override string ToString()

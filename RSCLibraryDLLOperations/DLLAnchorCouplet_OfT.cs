@@ -26,6 +26,10 @@ namespace RSCLibraryDLLOperations
         private TControl? _itemLeft;
         private TControl? _itemRight;
 
+        // Added 4/14/2025  
+        private bool _itemLeft_isNull;
+        private bool _itemRight_isNull;
+
         /// <summary>
         /// For operations which are the (initial) load an empty list. 
         /// </summary>
@@ -40,6 +44,10 @@ namespace RSCLibraryDLLOperations
         {
             _itemLeft = par_itemLeft;  // May be null.
             _itemRight = par_itemRight; // May be null.
+
+            // Added 4/14/2025 
+            _itemLeft_isNull = (par_itemLeft == null);
+            _itemRight_isNull = (par_itemRight == null);
 
         }
 
@@ -63,6 +71,10 @@ namespace RSCLibraryDLLOperations
                 // Added 12/09/2024  
                 _isForEmptyList = true;
 
+                // Added 4/14/2025
+                _itemLeft_isNull = true;
+                _itemRight_isNull = true; 
+
             }
 
             else if (bInsertRangeAfterAnchorItem && par_itemAnchor != null)
@@ -70,11 +82,24 @@ namespace RSCLibraryDLLOperations
                 _itemLeft = par_itemAnchor._anchorItem;  // May be null.
                 _itemRight = par_itemAnchor._anchorItem.DLL_GetItemNext_OfT();  // May be null.
 
+                // Added 4/14/2025 td
+                _itemLeft_isNull = false;
+                _itemRight_isNull = par_itemAnchor._anchorItem.DLL_NotAnyNext();
+
             }
-            else
+            else if (par_itemAnchor != null)
             {
                 _itemLeft = par_itemAnchor._anchorItem.DLL_GetItemPrior_OfT();  // May be null.
                 _itemRight = par_itemAnchor._anchorItem;  // May be null.
+
+                // Added 4/14/2025 td
+                _itemLeft_isNull = par_itemAnchor._anchorItem.DLL_NotAnyPrior();
+                _itemRight_isNull = false;
+
+            }
+            else
+            {
+                System.Diagnostics.Debugger.Break();
             }
 
         }
@@ -89,6 +114,11 @@ namespace RSCLibraryDLLOperations
             {
                 _itemLeft = par_itemLeft;  // May be null.
                 _itemRight = par_itemRight; // May be null.
+
+                // Added 4/14/2025 
+                _itemLeft_isNull = (par_itemLeft == null);
+                _itemRight_isNull = (par_itemRight == null);
+
             }
         }
 
@@ -102,6 +132,11 @@ namespace RSCLibraryDLLOperations
             _itemRight = default(TControl);
             _isForEmptyList = pbIsForEmptyList;
             _isForDeletionOperation = pbIsForDeletionOp;
+
+            // Added 4/14/2025 
+            _itemLeft_isNull = true; // (par_itemLeft == null);
+            _itemRight_isNull = true; // (par_itemRight == null);
+
         }
 
 
@@ -224,9 +259,15 @@ namespace RSCLibraryDLLOperations
         /// <returns></returns>
         public bool ItemLefthandIsNull()
         {
-            //Added 11/8/2024  
+            //Added 4/14/2025 td
+            if (_itemLeft == null && (! _itemLeft_isNull))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
 
+            //Added 11/8/2024  
             return _itemLeft == null;
+
         }
 
 
@@ -238,6 +279,12 @@ namespace RSCLibraryDLLOperations
         /// <returns></returns>
         public bool ItemRighthandIsNull()
         {
+            //Added 4/14/2025 td
+            if (_itemRight == null && (! _itemRight_isNull))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
             //Added 11/8/2024  
             return _itemRight == null;
         }

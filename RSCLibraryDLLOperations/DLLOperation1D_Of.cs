@@ -446,16 +446,63 @@ namespace RSCLibraryDLLOperations
                 {
                     itemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexLeft_b1);
                 }
+                else if (! par_structure.AnchorLeft_isNull)
+                {
+                    System.Diagnostics.Debugger.Break(); // Added 4/14/2025
+                }
 
                 if (0 < par_structure.AnchorIndexRight_b1) // Added 4/08/2025 td
                 {
                     itemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexRight_b1);
+                }
+                else if (!par_structure.AnchorRight_isNull)
+                {
+                    System.Diagnostics.Debugger.Break(); // Added 4/14/2025
                 }
 
                 _anchorCouplet = new DLLAnchorCouplet<T_DLLItem>(itemOfAnchorLeft, itemOfAnchorRight);
                 _anchorItem = _anchorCouplet.GetAnchorItem();
 
             }
+
+            //
+            // Inverse Anchor 
+            //
+            if (par_structure.InverseAnchorIsSpecified || 0 < par_structure.InverseAnchorIndexLeft_b1
+                      || 0 < par_structure.InverseAnchorIndexRight_b1)
+            {
+                //
+                // Added 4/14/2025 
+                //
+                T_DLLItem? inverseItemOfAnchorLeft = null;
+                T_DLLItem? inverseItemOfAnchorRight = null;
+
+                if (0 < par_structure.InverseAnchorIndexLeft_b1) // Added 4/08/2025 td
+                {
+                    inverseItemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.InverseAnchorIndexLeft_b1);
+                }
+                else if (!par_structure.InverseAnchorLeft_isNull)
+                {
+                    System.Diagnostics.Debugger.Break(); // Added 4/14/2025
+                }
+
+                if (0 < par_structure.InverseAnchorIndexRight_b1) // Added 4/08/2025 td
+                {
+                    inverseItemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.InverseAnchorIndexRight_b1);
+                }
+                else if (!par_structure.InverseAnchorRight_isNull)
+                {
+                    System.Diagnostics.Debugger.Break(); // Added 4/14/2025
+                }
+
+                //
+                // Final step!  ---4/14/2025
+                //
+                _inverseAnchorPair_forUndo = new DLLAnchorCouplet<T_DLLItem>(inverseItemOfAnchorLeft, inverseItemOfAnchorRight);
+                _inverseAnchorItem_ForUndo = _inverseAnchorPair_forUndo.GetAnchorItem();
+
+            }
+
 
         }
 
