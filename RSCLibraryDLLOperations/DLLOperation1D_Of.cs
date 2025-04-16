@@ -240,6 +240,44 @@ namespace RSCLibraryDLLOperations
         }
 
 
+
+
+        public DLLOperation1D_Of(DLLOperation1D_Of<T_DLLItem> par_operation1D_Of)
+        {
+            //
+            // Added 4/15/2025 
+            //
+            _range = par_operation1D_Of._range;
+            _isForStartOfList = par_operation1D_Of._isForStartOfList;
+            _isForEndOfList = par_operation1D_Of._isForEndOfList;
+            _isInsert = par_operation1D_Of._isInsert;
+            _isDelete = par_operation1D_Of._isDelete;
+            _isMove = par_operation1D_Of._isMove;
+            _moveType = par_operation1D_Of._moveType;
+            _anchorItem = par_operation1D_Of._anchorItem;
+            _anchorCouplet = par_operation1D_Of._anchorCouplet;
+            mod_opPrior_ForUndo_OfT = par_operation1D_Of.mod_opPrior_ForUndo_OfT;
+            mod_opNext_ForRedo_OfT = par_operation1D_Of.mod_opNext_ForRedo_OfT;
+            _inverseAnchorItem_ForUndo = par_operation1D_Of._inverseAnchorItem_ForUndo;
+            _inverseAnchorPair_forUndo = par_operation1D_Of._inverseAnchorPair_forUndo;
+
+            // Added 4/15/2025 
+            _arrayControls_SortOrderIfUndo = par_operation1D_Of._arrayControls_SortOrderIfUndo;
+            _arrayControls_SortOrderThisOp = par_operation1D_Of._arrayControls_SortOrderThisOp;
+            _arrayIndices_SortOrderIfUndo = par_operation1D_Of._arrayIndices_SortOrderIfUndo;
+            _arrayIndices_SortOrderThisOp = par_operation1D_Of._arrayIndices_SortOrderThisOp;
+            _array_DLLRangesIfUndo = par_operation1D_Of._array_DLLRangesIfUndo;
+
+            // Added 4/15/2025 
+            _itemStart_SortOrderIfUndo = par_operation1D_Of._itemStart_SortOrderIfUndo;
+            _itemStart_SortOrderThisOp = par_operation1D_Of._itemStart_SortOrderThisOp;
+            _itemEnding_SortOrderIfUndo = par_operation1D_Of._itemEnding_SortOrderIfUndo;
+            _itemEnding_SortOrderThisOp = par_operation1D_Of._itemEnding_SortOrderThisOp;
+
+        }
+        
+
+
         public DLLOperation1D_Of(DLLRange<T_DLLItem>? par_range,
               bool par_forStartOfList, bool par_forEndOfList,
               bool par_isInsert, bool par_isDelete, bool par_isMove,

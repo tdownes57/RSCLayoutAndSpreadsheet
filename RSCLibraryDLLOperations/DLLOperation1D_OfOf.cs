@@ -113,19 +113,20 @@ namespace RSCLibraryDLLOperations
 
 
         public DLLOperation1D_OfOf(DLLOperation1D_Of<TBase> par_operation1D_Of)
-                                        : base(par_operation1D_Of._range,
-                                            par_operation1D_Of._isForStartOfList,
-                                            par_operation1D_Of._isForEndOfList,
-                                            par_operation1D_Of._isInsert,
-                                            par_operation1D_Of._isDelete,
-                                            par_operation1D_Of._isMove,
-                                            par_operation1D_Of._moveType,
-                                            par_operation1D_Of._anchorItem,
-                                            par_operation1D_Of._anchorCouplet,
-                                            par_operation1D_Of.mod_opPrior_ForUndo_OfT,
-                                            par_operation1D_Of.mod_opNext_ForRedo_OfT,
-                                            par_operation1D_Of._inverseAnchorItem_ForUndo,
-                                            par_operation1D_Of._inverseAnchorPair_forUndo)
+                                                                  : base(par_operation1D_Of)
+                                        //: base(par_operation1D_Of._range,
+                                        //    par_operation1D_Of._isForStartOfList,
+                                        //    par_operation1D_Of._isForEndOfList,
+                                        //    par_operation1D_Of._isInsert,
+                                        //    par_operation1D_Of._isDelete,
+                                        //    par_operation1D_Of._isMove,
+                                        //    par_operation1D_Of._moveType,
+                                        //    par_operation1D_Of._anchorItem,
+                                        //    par_operation1D_Of._anchorCouplet,
+                                        //    par_operation1D_Of.mod_opPrior_ForUndo_OfT,
+                                        //    par_operation1D_Of.mod_opNext_ForRedo_OfT,
+                                        //    par_operation1D_Of._inverseAnchorItem_ForUndo,
+                                        //    par_operation1D_Of._inverseAnchorPair_forUndo)
         {
             //
             // We simply pass the arguments to the base class.

@@ -1851,15 +1851,39 @@ Public Class FormDemo1DVertical
         mod_firstItemA = mod_listA._itemStart
         mod_lastItemA = mod_listA._itemEnding
 
-        ''Added 11/09/2024 
+        ''''Added 11/09/2024 
+        ''RefreshTheUI_DisplayList()
+
+        ''''Added 11/09/2024
+        ''''buttonRedoOp.Enabled = False
+        ''buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        ''buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+
+        ''''Added 12/04/2024
+        ''buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        ''buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+
+        ''''Added 12/04/2024 
+        ''labelNumOperations.Text = mod_manager.ToString()
+
+        ''Added 4/14/2025 td
+        mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
+        mod_firstItemB2 = mod_listB2.DLL_GetFirstItem_OfT()
+        mod_firstItemB3 = mod_listB3.DLL_GetFirstItem_OfT()
+
+        ''Added 10/27/2024 
         RefreshTheUI_DisplayList()
 
-        ''Added 11/09/2024
-        ''buttonRedoOp.Enabled = False
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        ''Added 4/14/2025 td
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
-        ''Added 12/04/2024
+        ''Added 11/09/2024
+        buttonRedoOp.Enabled = True
+        buttonReDo.Enabled = True
+
+        ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
         buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
