@@ -735,7 +735,8 @@ namespace RSCLibraryDLLOperations
             TControl? itemAfterRange = Item__End().DLL_GetItemNext_OfT();
 
             bool bRangeIsAtStartOfList = (itemPriorToRange == null);
-            bool bRangeIsAtEndingOfList = (itemAfterRange == null);
+            //Apr2025  bool bRangeIsAtEndingOfList = (itemAfterRange == null);
+            bool bRangeIsAtEndingOfList = Item__End().DLL_NotAnyNext();
 
             //
             // Major call!!   Do the top-tier DLL work. 
@@ -750,7 +751,12 @@ namespace RSCLibraryDLLOperations
             //oops!! 12/09/2024  if (bRangeIsAtStartOfList) par_listForAdmin._itemStart = this.ItemStart();
             //oops!! 12/09/2024  if (bRangeIsAtEndingOfList) par_listForAdmin._itemEnding = this.Item__End();
             if (bRangeIsAtStartOfList) par_listForAdmin._itemStart = itemAfterRange; // this.ItemStart();
-            if (bRangeIsAtEndingOfList) par_listForAdmin._itemEnding = itemPriorToRange; // this.Item__End();
+            if (bRangeIsAtEndingOfList)
+            {
+                par_listForAdmin._itemEnding = itemPriorToRange; // this.Item__End();
+                // Added 4/17/2025
+                par_listForAdmin._itemEnding?.DLL_MarkAsEndOfList(); // Added 4/17/2025
+            }
 
             // Reduce the item count of the list, by the number of items in the range. 
             //   (Notice we are using the subtraction -= operator.)

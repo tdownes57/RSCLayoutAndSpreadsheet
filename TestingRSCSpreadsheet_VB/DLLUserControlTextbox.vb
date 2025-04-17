@@ -232,6 +232,14 @@ Public Class DLLUserControlTextbox
     End Sub ''End of ""Public Sub DLL_ClearReferenceNext(...)""
 
 
+    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+        ''Throw New NotImplementedException()
+        ''mod_next = Nothing
+        DLLItem.DLL_MarkAsEndOfList()
+
+    End Sub ''End of ""Public Sub DLL_MarkAsEndOfList(...)""
+
+
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''Throw New NotImplementedException()
         ''Return (mod_next Is Nothing)

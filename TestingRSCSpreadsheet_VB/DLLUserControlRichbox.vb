@@ -233,10 +233,21 @@ Public Class DLLUserControlRichbox
     Public Sub DLL_ClearReferenceNext(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferenceNext
         ''Throw New NotImplementedException()
         ''mod_next = Nothing
-        DLLItem.DLL_ClearReferencePrior(par_typeOp)
+        ''April 2025 ''DLLItem.DLL_ClearReferencePrior(par_typeOp)
+        DLLItem.DLL_ClearReferenceNext(par_typeOp)
 
     End Sub ''End of ""Public Sub DLL_ClearReferenceNext(...)""
 
+
+    ''' <summary>
+    ''' Indicate that this item will serve as the final item in a list.
+    ''' </summary>
+    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+
+        ''Added 4/17/2025  
+        DLLItem.DLL_MarkAsEndOfList()
+
+    End Sub ''End of ""Public Sub DLL_MarkAsEndOfList()""
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''Throw New NotImplementedException()

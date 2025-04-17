@@ -177,6 +177,24 @@ Public Class FormDemo1DVertical
 
         Next indexNewItem
 
+        ''//
+        ''//   Only --AFTER-- looping...
+        ''//
+        ''//   Added 4/17/2025
+        mod_lastItemA = newItemA
+        mod_lastItemB1 = newItemB1
+        mod_lastItemB2 = newItemB2
+        mod_lastItemB3 = newItemB3
+
+        ''//
+        ''//   Only --AFTER-- looping...
+        ''//
+        ''//   Added 4/17/2025
+        mod_lastItemA.DLL_MarkAsEndOfList()
+        mod_lastItemB1.DLL_MarkAsEndOfList()
+        mod_lastItemB2.DLL_MarkAsEndOfList()
+        mod_lastItemB3.DLL_MarkAsEndOfList()
+
         ''
         '' added 12/30/2024 
         ''

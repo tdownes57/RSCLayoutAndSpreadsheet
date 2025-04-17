@@ -26,8 +26,8 @@ Public Class FormTestRSC_Obselete
 
     ''Added 1/01/2024 
     Private mod_intCountOperations = 0
-    Private mod_firstPriorOpV1 As DLL_OperationV1 = Nothing ''Added 1/11/2024
-    Private mod_lastPriorOpV1 As DLL_OperationV1 = Nothing ''par_lastPriorOpV1
+    Private mod_firstPriorOpV1 As DLL_OperationV1_Deprecated = Nothing ''Added 1/11/2024
+    Private mod_lastPriorOpV1 As DLL_OperationV1_Deprecated = Nothing ''par_lastPriorOpV1
     ''DEPRECATED 1/13/24 Private mod_stackOperations As Stack(Of DLL_OperationV1) = New Stack(Of DLL_OperationV1)() ''par_lastPriorOpV1
     Private mod_opRedoMarker As DLL_OperationsRedoMarker
 
@@ -238,7 +238,7 @@ Public Class FormTestRSC_Obselete
                             INITIAL_ITEM_COUNT_30, Nothing,
                                 EnumModeRowsOrColumns.Undetermined, Nothing, True)
         ''added 12/28
-        Dim copyOfOpV1 As DLL_OperationV1
+        Dim copyOfOpV1 As DLL_OperationV1_Deprecated
         Dim copyOfOpV2 As DLL_OperationV2
         Dim bCopyV2_ofCopyV1_match As Boolean ''= False
 
@@ -613,7 +613,7 @@ Public Class FormTestRSC_Obselete
     ''End Sub ''End of "Private Sub ProcessOperation_Insert"
 
 
-    Private Sub DLLOperationCreated_SortAscending(par_operationV1 As DLL_OperationV1, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortAscending
+    Private Sub DLLOperationCreated_SortAscending(par_operationV1 As DLL_OperationV1_Deprecated, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortAscending
         ''
         ''Added 2/12/2024 
         ''
@@ -630,7 +630,7 @@ Public Class FormTestRSC_Obselete
     End Sub ''End of ""DLLOperationCreated_SortAscending""
 
 
-    Private Sub DLLOperationCreated_SortDescending(par_operationV1 As DLL_OperationV1, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortDescending
+    Private Sub DLLOperationCreated_SortDescending(par_operationV1 As DLL_OperationV1_Deprecated, par_isUndoOfSort As Boolean) Handles userControlOperation1.DLLOperationCreated_SortDescending
         ''
         ''Added 2/12/2024 
         ''
@@ -647,7 +647,7 @@ Public Class FormTestRSC_Obselete
     End Sub ''End of ""DLLOperationCreated_SortDescending""
 
 
-    Private Sub ProcessOperation_Sorting(par_operationV1 As DLL_OperationV1,
+    Private Sub ProcessOperation_Sorting(par_operationV1 As DLL_OperationV1_Deprecated,
                                         Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''Added 2/12/2024 
@@ -698,14 +698,14 @@ Public Class FormTestRSC_Obselete
     End Sub ''End of "Private Sub ProcessOperation_Sorting"
 
 
-    Private Sub DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
+    Private Sub DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1_Deprecated,
                                         par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                         par_inverseAnchor_NextToRange As TwoCharacterDLLItem) _
                                         Handles userControlOperation1.DLLOperationCreated_MoveRange
         ''
         ''Added 12/25/2023 
         ''
-        ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
+        ''   Version #1 (DLL_OperationV1_Deprecated) exposes more things than Version #2.
         ''
         ProcessOperation_MoveRange(par_operationV1)
 
@@ -726,7 +726,7 @@ Public Class FormTestRSC_Obselete
     End Sub
 
 
-    Private Sub ProcessOperation_MoveRange(par_operationV1 As DLL_OperationV1,
+    Private Sub ProcessOperation_MoveRange(par_operationV1 As DLL_OperationV1_Deprecated,
                                         Optional par_bIncludePostOpAdmin As Boolean = False)
         ''
         ''   Version #1 (DLL_OperationV1) exposes more things than Version #2.
@@ -811,7 +811,7 @@ Public Class FormTestRSC_Obselete
     End Sub ''ENd of ""Private Sub DLLOperationCreated_MoveRange"
 
 
-    Private Sub RecordNewestOperation(par_newOpV1 As DLL_OperationV1)
+    Private Sub RecordNewestOperation(par_newOpV1 As DLL_OperationV1_Deprecated)
         ''
         ''Added 1/01/2024
         ''
@@ -854,8 +854,8 @@ Public Class FormTestRSC_Obselete
 
             ''---- SLIGHTLY DIFFICULT AND CONFUSING---------------
             ''
-            Dim tempRef_penultimateOpV1 As DLL_OperationV1 ''Penultimate is "next to last". Temporary reference variable.
-            Dim tempRef_ultimateOpV1 As DLL_OperationV1 ''Ultimate is "very last". Temporary reference variable.
+            Dim tempRef_penultimateOpV1 As DLL_OperationV1_Deprecated ''Penultimate is "next to last". Temporary reference variable.
+            Dim tempRef_ultimateOpV1 As DLL_OperationV1_Deprecated ''Ultimate is "very last". Temporary reference variable.
 
             tempRef_penultimateOpV1 = mod_lastPriorOpV1 ''The former last item.
             tempRef_ultimateOpV1 = par_newOpV1 ''The brand-new last item.
@@ -886,7 +886,7 @@ Public Class FormTestRSC_Obselete
     End Sub ''End of ""Private Sub RecordLastPriorOperation()""
 
 
-    Private Sub ProcessOperation_AnyType(parOperation As DLL_OperationV1)
+    Private Sub ProcessOperation_AnyType(parOperation As DLL_OperationV1_Deprecated)
         ''
         ''Added 1/15/2024 
         ''
@@ -913,7 +913,7 @@ Public Class FormTestRSC_Obselete
     End Sub ''ENd of ""Private Sub ProcessOperation_AnyType""
 
 
-    Private Sub UndoOperation_ViaInverseOf(parOperationV1 As DLL_OperationV1)
+    Private Sub UndoOperation_ViaInverseOf(parOperationV1 As DLL_OperationV1_Deprecated)
         ''
         ''Added 1/03/2024 td
         ''
@@ -923,7 +923,7 @@ Public Class FormTestRSC_Obselete
 
         If (ENCAPSULATE) Then
             ''Added 1/15/2024
-            Dim opUndoVersion As DLL_OperationV1 ''Added 11/5/2024
+            Dim opUndoVersion As DLL_OperationV1_Deprecated ''Added 11/5/2024
             opUndoVersion = parOperationV1.GetUndoVersionOfOperation()
             ProcessOperation_AnyType(opUndoVersion)
 
@@ -971,7 +971,7 @@ Public Class FormTestRSC_Obselete
     End Sub
 
 
-    Private Sub DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1,
+    Private Sub DLLOperationCreated_UndoOfInsert(par_operation As DLL_OperationV1_Deprecated,
                                                                        par_isUndoOfInsert As Boolean) _
                                                  Handles userControlOperation1.DLLOperationCreated_UndoOfInsert
         ''
@@ -982,7 +982,7 @@ Public Class FormTestRSC_Obselete
 
     End Sub
 
-    Private Sub DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1,
+    Private Sub DLLOperationCreated_UndoOfDelete(par_operation As DLL_OperationV1_Deprecated,
                                                                        par_isUndoOfDelete As Boolean) _
                                        Handles userControlOperation1.DLLOperationCreated_UndoOfDelete
         ''
@@ -993,7 +993,7 @@ Public Class FormTestRSC_Obselete
 
     End Sub
 
-    Private Sub DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
+    Private Sub DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1_Deprecated,
                                                                      par_isUndoOfMove As Boolean) _
                             Handles userControlOperation1.DLLOperationCreated_UndoOfMove
         ''
@@ -1051,7 +1051,7 @@ Public Class FormTestRSC_Obselete
         Dim bFoundDesiredOperationTypeOnStack As Boolean = False
         ''Dim bNotDone As Boolean = True
         Dim bCompletedWhileLoop As Boolean = False
-        Dim eachOperation As DLL_OperationV1
+        Dim eachOperation As DLL_OperationV1_Deprecated
         Dim each_boolIsOfSpecifiedType As Boolean
 
         If (mod_firstPriorOpV1 Is Nothing) Then
@@ -1135,7 +1135,7 @@ Public Class FormTestRSC_Obselete
         ''Added 1/10/2024 thomas downes
         ''
         Dim intCountFurtherUndos As Integer
-        Dim operationToUndo As DLL_OperationV1
+        Dim operationToUndo As DLL_OperationV1_Deprecated
 
         If (par_opRedoMarker.HasOperationPrior()) Then
             ''
@@ -1179,11 +1179,11 @@ Public Class FormTestRSC_Obselete
     End Sub ''Private Sub UndoOfPriorOperation_AnyType
 
 
-    Private Sub UndoOfPriorOperation_AnyType(par_stackOperations As Stack(Of DLL_OperationV1))
+    Private Sub UndoOfPriorOperation_AnyType(par_stackOperations As Stack(Of DLL_OperationV1_Deprecated))
         ''
         ''Added 1/10/2024 thomas downes
         ''
-        Dim lastOperationV1 As DLL_OperationV1
+        Dim lastOperationV1 As DLL_OperationV1_Deprecated
         Dim intCountOpsInStack As Integer
 
         intCountOpsInStack = par_stackOperations.Count()
@@ -1318,7 +1318,7 @@ Public Class FormTestRSC_Obselete
     Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
 
         ''Added 1/15/2024
-        Dim opReDo As DLL_OperationV1
+        Dim opReDo As DLL_OperationV1_Deprecated
         ''opReDo =
         ''   mod_opRedoMarker.GetMarkersPrior_ShiftPositionLeft()
         opReDo =

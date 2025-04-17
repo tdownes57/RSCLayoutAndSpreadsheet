@@ -12,7 +12,7 @@ Imports System.Xml.XPath
 ''
 ''    ---12/07/2023 thomas dow_nes 
 ''-----------------------------------------------------------
-Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
+Public Class DLL_OperationV1_Deprecated ''11/2/2023 (Of TControl)
     Implements IDoublyLinkedItem ''DLL_GetItemNext, DLL_GetItemPrior
     ''
     ''Added 10/30/2023
@@ -170,8 +170,9 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''
     ''Doubly-Linked List!!!  ---11/14/2023 
     ''
-    Private mod_operationPrior As DLL_OperationV1 ''Added 11/14/2023 
-    Private mod_operationNext As DLL_OperationV1 ''Added 11/14/2023 
+    Private mod_operationPrior As DLL_OperationV1_Deprecated ''Added 11/14/2023 
+    Private mod_operationNext As DLL_OperationV1_Deprecated ''Added 11/14/2023 
+    Private mod_operationNextIsNull As Boolean ''Added 4/2025 td
 
     ''' <summary>
     ''' Default constructor.
@@ -232,12 +233,12 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''' This creates the "Undo" version of the class-object operation.
     ''' </summary>
     ''' <returns></returns>
-    Public Function GetUndoVersionOfOperation(Optional pbTestIdempotence As Boolean = False) As DLL_OperationV1 ''11/2/2023 (Of TControl)
+    Public Function GetUndoVersionOfOperation(Optional pbTestIdempotence As Boolean = False) As DLL_OperationV1_Deprecated ''11/2/2023 (Of TControl)
         ''
         ''Added 10/30/2023
         ''
-        Dim result_newUndoOperation As New DLL_OperationV1() ''11/2/2023 (Of TControl)
-        Dim originalOp As DLL_OperationV1 = Me ''12/30/2023
+        Dim result_newUndoOperation As New DLL_OperationV1_Deprecated() ''11/2/2023 (Of TControl)
+        Dim originalOp As DLL_OperationV1_Deprecated = Me ''12/30/2023
 
         ''The following are Move(M)-related. 
         Dim tempControlLeft_PreCut As IDoublyLinkedItem ''11/2023 TControl ''Added 10/30/2023 td
@@ -874,7 +875,20 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
         ''Throw New NotImplementedException()
         Debugger.Break() ''Shouldn't be needed. 
         mod_operationNext = Nothing
+        mod_operationNextIsNUll = True
+
     End Sub
+
+
+    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+        ''Throw New NotImplementedException()
+        Debugger.Break() ''Shouldn't be needed. 
+        mod_operationNext = Nothing
+        mod_operationNextIsNUll = True
+
+    End Sub
+
+
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''11/2023 Throw New NotImplementedException()
@@ -968,7 +982,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     ''
     ''Important, check for equality.
     ''
-    Private Overloads Function Equals_Redundant(lets_check As DLL_OperationV1) As Boolean ''11/2/2023 (Of TControl)) As Boolean
+    Private Overloads Function Equals_Redundant(lets_check As DLL_OperationV1_Deprecated) As Boolean ''11/2/2023 (Of TControl)) As Boolean
         ''Private Overloads Function Equals_Redundant(lets_check As DLL_OperationV1) As Boolean
         ''Private Function Equals(lets_check As TControl) As Boolean
         ''
@@ -1061,13 +1075,13 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function ''End of Private Function Overrides Equals_Redundant() as Boolean
 
 
-    Private Function Undo2x_IsIdempotent(lets_check As DLL_OperationV1) As Boolean
+    Private Function Undo2x_IsIdempotent(lets_check As DLL_OperationV1_Deprecated) As Boolean
         ''
         ''This will check the Idempotency of a Undo(Undo()), i.e.
         ''   double-Undo.
         ''
-        Dim objUndo_1st As DLL_OperationV1 ''11/2/2023 (Of TControl)
-        Dim objUndo_2nd As DLL_OperationV1 ''11/2/2023 (Of TControl)
+        Dim objUndo_1st As DLL_OperationV1_Deprecated ''11/2/2023 (Of TControl)
+        Dim objUndo_2nd As DLL_OperationV1_Deprecated ''11/2/2023 (Of TControl)
 
         objUndo_1st = lets_check.GetUndoVersionOfOperation()
         objUndo_2nd = objUndo_1st.GetUndoVersionOfOperation()
@@ -1146,7 +1160,7 @@ Public Class DLL_OperationV1 ''11/2/2023 (Of TControl)
     End Function ''end of ""Public Function DLL_UnboxControl()""
 
 
-    Public Overloads Function Equals(lets_check As DLL_OperationV1) As Boolean
+    Public Overloads Function Equals(lets_check As DLL_OperationV1_Deprecated) As Boolean
         ''12/2023 Private Overloads Function Equals(lets_check As DLL_Operation(Of TControl)) As Boolean
         ''   Private Function Equals(lets_check As TControl) As Boolean
         ''

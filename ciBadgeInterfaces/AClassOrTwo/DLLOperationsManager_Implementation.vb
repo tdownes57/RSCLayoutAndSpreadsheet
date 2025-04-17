@@ -54,7 +54,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''    ''.LefthandAnchor = toUseAsAnchor
         ''    .AnchorToPrecedeItemOrRange = toUseAsAnchor
         ''End With
-        mod_operationLastPrior = New DLL_OperationV1("I"c,
+        mod_operationLastPrior = New DLL_OperationV1_Deprecated("I"c,
                    ptoBeInserted, 1, ptoUseAsAnchor, Nothing)
 
     End Sub ''End of ""Public Sub DLL_InsertItemAfter""
@@ -86,7 +86,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''
         ''Modularized! Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023    
 
-        Dim objOperationNew As DLL_OperationV1 '' New DLL_Operation()
+        Dim objOperationNew As DLL_OperationV1_Deprecated '' New DLL_Operation()
         If (ADMIN_FOR_UNDOS) Then
             ''With objOperationNew ''mod_lastPriorOperation
             ''    .InsertSingly = toBeInserted
@@ -95,7 +95,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
             ''End With
             ''mod_operationLastPrior = objOperationNew
 
-            objOperationNew = New DLL_OperationV1("I"c, ptoBeInserted, 1, Nothing, ptoUseAsAnchor)
+            objOperationNew = New DLL_OperationV1_Deprecated("I"c, ptoBeInserted, 1, Nothing, ptoUseAsAnchor)
 
             ''
             ''Record/store this operation. 
@@ -136,7 +136,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''Operations Management 
         ''
         Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
-        Dim objOperationNew As New DLL_OperationV1()
+        Dim objOperationNew As New DLL_OperationV1_Deprecated()
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
             With objOperationNew
@@ -210,7 +210,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         Const ADMIN_FOR_UNDOS As Boolean = True ''Added 11/17/2023
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
-            Dim objOperationNew As New DLL_OperationV1()
+            Dim objOperationNew As New DLL_OperationV1_Deprecated()
             With objOperationNew
                 .ModeColumns_notRows = mod_modeColumnNotRow
                 .ModeRows____notCols = mod_modeRowNotColumn ''Added 4/8/2024 td
@@ -341,7 +341,7 @@ Partial Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''This module is P
         ''
         If (ADMIN_FOR_UNDOS) Then
             ''mod_lastPriorOperation = New DLL_Operation()
-            Dim objOperationNew As New DLL_OperationV1()
+            Dim objOperationNew As New DLL_OperationV1_Deprecated()
             With objOperationNew
                 .OperationType = "D"
 

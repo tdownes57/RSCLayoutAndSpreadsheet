@@ -38,14 +38,14 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     ''Not needed. 11/2023 Private mod_itemNext As IDoublyLinkedItem ''11/2/2023  TControl
     ''Not needed. 11/2023 Private mod_itemPrior As IDoublyLinkedItem ''11/2/2023   TControl
 
-    Private mod_operationLastPrior As DLL_OperationV1
+    Private mod_operationLastPrior As DLL_OperationV1_Deprecated
 
     ''' <summary>
     ''' This is the first operation in the chain, the operation the 
     ''' user performs first (e.g. 45 seconds after opening the 
     ''' spreadsheet).
     ''' </summary>
-    Private mod_operation1stRecord As DLL_OperationV1
+    Private mod_operation1stRecord As DLL_OperationV1_Deprecated
 
     ''---DIFFICULT AND CONFUSING----
     ''Private mod_operationMarkUndoPrior As DLL_Operation
@@ -112,7 +112,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     End Sub
 
 
-    Private Sub ProcessOperation(ByVal param_operation As DLL_OperationV1,
+    Private Sub ProcessOperation(ByVal param_operation As DLL_OperationV1_Deprecated,
                                  ByVal pbForEitherEndpoint As Boolean) ''11/2/2023 TControl))
         ''
         '' Here we "parse" (process) the properties of the DLL_Operation, 
@@ -306,7 +306,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     End Sub ''End of ""Public Sub ProcessOperation""
 
 
-    Public Function GetLastOperation() As DLL_OperationV1
+    Public Function GetLastOperation() As DLL_OperationV1_Deprecated
 
         ''Implemented 12/31/2023 
         Return mod_operationLastPrior
@@ -315,7 +315,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
 
 
 
-    Public Function GetRecentOperation() As DLL_OperationV1
+    Public Function GetRecentOperation() As DLL_OperationV1_Deprecated
         ''
         ''Allow the new operation to be stored on a stack of operations. 
         ''
@@ -351,7 +351,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
     End Sub ''End of ""Public Sub RaiseMessageIfModeNotRefreshed()""
 
 
-    Private Sub ManageNewOperation(par_objOperationNew As DLL_OperationV1)
+    Private Sub ManageNewOperation(par_objOperationNew As DLL_OperationV1_Deprecated)
         ''
         ''Place a new operation in the context of the sequence
         ''  of operations. 11/2023
@@ -381,7 +381,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
             ''A little more challenging, place the new operation at the end of 
             ''  the operations. 
             ''
-            Dim tempLastPrior As DLL_OperationV1 = mod_operationLastPrior
+            Dim tempLastPrior As DLL_OperationV1_Deprecated = mod_operationLastPrior
             ''Make sure we can travel foreward in the sequence of operations!
             mod_operationLastPrior.DLL_SetItemNext(par_objOperationNew)
             ''Make sure we can "start undoing" this & prior operations. 
@@ -404,7 +404,7 @@ Public Class DLL_OperationsManager_SeeCIBadgeDesigner ''11/2/2023 (Of TControl)
             '' don't want to "track" branching-off from a pre-existing sequence.  We want
             '' to replace all "going forward" (i.e. redos forward from the marker) items. 
             ''
-            Dim tempMarkerPrior As DLL_OperationV1 = mod_operationMarker.GetPrior()
+            Dim tempMarkerPrior As DLL_OperationV1_Deprecated = mod_operationMarker.GetPrior()
             mod_operationMarker = Nothing ''Clear the marker!!!!  
             ''---DIFFICULT AND CONFUSING---
             tempMarkerPrior.DLL_ClearReferenceNext("I"c) ''Clear all succeeding operations. We

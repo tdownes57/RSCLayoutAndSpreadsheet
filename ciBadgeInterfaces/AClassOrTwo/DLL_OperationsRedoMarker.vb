@@ -34,16 +34,16 @@ Public Class DLL_OperationsRedoMarker
     ''' If the user hits "Undo", this operation will be 
     ''' inversed and the inverse will be performed. 
     ''' </summary>
-    Private mod_opPrior_ForUndo As DLL_OperationV1
+    Private mod_opPrior_ForUndo As DLL_OperationV1_Deprecated
 
     ''' <summary>
     ''' If the user hits "Redo", this operation will be 
     ''' performed as it is.  (In contrast to "Undo", we
     ''' do NOT need to get the inverse of the operation.) 
     ''' </summary>
-    Private mod_opNext_ForRedo As DLL_OperationV1
+    Private mod_opNext_ForRedo As DLL_OperationV1_Deprecated
 
-    Public Sub New(opPrior As DLL_OperationV1, opNext As DLL_OperationV1)
+    Public Sub New(opPrior As DLL_OperationV1_Deprecated, opNext As DLL_OperationV1_Deprecated)
         ''
         ''----NO LONGER TRUE, AS OF 1/10/2024 & 1/15/2024
         ''----Just like a Tuple, a DLL_OperationMarker is immutable.
@@ -54,7 +54,7 @@ Public Class DLL_OperationsRedoMarker
     End Sub
 
 
-    Public Sub New(opPrior As DLL_OperationV1)
+    Public Sub New(opPrior As DLL_OperationV1_Deprecated)
         ''
         ''----NO LONGER TRUE, AS OF 1/10/2024 & 1/15/2024
         ''Just like a Tuple, a DLL_OperationMarker is immutable.
@@ -62,7 +62,7 @@ Public Class DLL_OperationsRedoMarker
         mod_opPrior_ForUndo = opPrior
         mod_opNext_ForRedo = Nothing
 
-    End Sub ''Public Sub New(opPrior As DLL_OperationV1)
+    End Sub ''Public Sub New(opPrior As DLL_OperationV1_Deprecated)
 
 
     Public Sub Clear()
@@ -74,28 +74,28 @@ Public Class DLL_OperationsRedoMarker
     End Sub ''ENd of ""Public Sub Clear()""
 
 
-    Public Function GetCurrentOp_Undo() As DLL_OperationV1
+    Public Function GetCurrentOp_Undo() As DLL_OperationV1_Deprecated
 
         Return mod_opPrior_ForUndo
 
     End Function
 
 
-    Public Function GetCurrentOp_Redo() As DLL_OperationV1
+    Public Function GetCurrentOp_Redo() As DLL_OperationV1_Deprecated
 
         Return mod_opNext_ForRedo
 
     End Function
 
 
-    Public Function GetPrior() As DLL_OperationV1
+    Public Function GetPrior() As DLL_OperationV1_Deprecated
 
         Return mod_opPrior_ForUndo
 
     End Function
 
 
-    Public Function GetNext() As DLL_OperationV1
+    Public Function GetNext() As DLL_OperationV1_Deprecated
 
         Return mod_opNext_ForRedo
 
@@ -124,7 +124,7 @@ Public Class DLL_OperationsRedoMarker
         ''   it would be, if not for this procedure.  So, I guess it 
         ''   is mutable... unless I comment out this procedure!!!! 1/10/2024
         ''
-        Dim temp_op As DLL_OperationV1
+        Dim temp_op As DLL_OperationV1_Deprecated
         temp_op = mod_opPrior_ForUndo
 
         mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetItemPrior() ''Shift to the Left... to Prior() item.
@@ -139,7 +139,7 @@ Public Class DLL_OperationsRedoMarker
     End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
 
 
-    Public Sub ShiftMarker_DueToNewOperation(par_newOperation As DLL_OperationV1)
+    Public Sub ShiftMarker_DueToNewOperation(par_newOperation As DLL_OperationV1_Deprecated)
         ''
         ''Added 1/15/2024
 
@@ -182,12 +182,12 @@ Public Class DLL_OperationsRedoMarker
     ''' is relative to our location within this queue of recorded operations. 
     ''' </summary>
     ''' <returns></returns>
-    Public Function GetMarkersPrior_ShiftPositionLeft() As DLL_OperationV1
+    Public Function GetMarkersPrior_ShiftPositionLeft() As DLL_OperationV1_Deprecated
         ''
         ''Added 1/15/2024  Thomas Downes  
         ''
-        Dim temp_output As DLL_OperationV1 = Nothing
-        Dim result_operation As DLL_OperationV1 = Nothing
+        Dim temp_output As DLL_OperationV1_Deprecated = Nothing
+        Dim result_operation As DLL_OperationV1_Deprecated = Nothing
 
         If (mod_opPrior_ForUndo Is Nothing) Then
 
@@ -211,15 +211,15 @@ Public Class DLL_OperationsRedoMarker
 
         Return result_operation
 
-    End Function ''end of ""Public Function GetMarkersPrior_ShiftPositionLeft() As DLL_OperationV1""
+    End Function ''end of ""Public Function GetMarkersPrior_ShiftPositionLeft() As DLL_OperationV1_Deprecated""
 
 
-    Public Function GetMarkersNext_ShiftPositionRight() As DLL_OperationV1
+    Public Function GetMarkersNext_ShiftPositionRight() As DLL_OperationV1_Deprecated
         ''
         ''Added 1/18/2024  Thomas Downes  
         ''
-        Dim temp_output As DLL_OperationV1 = Nothing
-        Dim result_operation As DLL_OperationV1 = Nothing
+        Dim temp_output As DLL_OperationV1_Deprecated = Nothing
+        Dim result_operation As DLL_OperationV1_Deprecated = Nothing
 
         If (mod_opNext_ForRedo Is Nothing) Then
 
@@ -243,10 +243,10 @@ Public Class DLL_OperationsRedoMarker
 
         Return result_operation
 
-    End Function ''end of ""Public Function GetMarkersPrior_ShiftPositionLeft() As DLL_OperationV1""
+    End Function ''end of ""Public Function GetMarkersPrior_ShiftPositionLeft() As DLL_OperationV1_Deprecated""
 
 
-    Public Sub ShiftMarker(opCurrentPrior As DLL_OperationV1, opCurrentNext As DLL_OperationV1)
+    Public Sub ShiftMarker(opCurrentPrior As DLL_OperationV1_Deprecated, opCurrentNext As DLL_OperationV1_Deprecated)
         ''
         ''Just like a Tuple, a DLL_OperationMarker is immutable.  Or, 
         ''   it would be, if not for this procedure.  So, I guess it 
@@ -281,7 +281,7 @@ Public Class DLL_OperationsRedoMarker
         ''Added 1/15/2024 td
         ''
         Dim bCompletedWhileLoop As Boolean = False
-        Dim eachPriorOperation As DLL_OperationV1 = mod_opPrior_ForUndo
+        Dim eachPriorOperation As DLL_OperationV1_Deprecated = mod_opPrior_ForUndo
         Dim eachPriorOpType As Char = "?"c
         Dim eachIsOfGivenType As Boolean = False
         Dim bFoundGivenOperationType As Boolean = False

@@ -50,6 +50,7 @@ Public Class DLL_OperationV2
     ''
     Private mod_operationPrior As DLL_OperationV2 ''Added 11/14/2023 
     Private mod_operationNext As DLL_OperationV2 ''Added 11/14/2023 
+    Private mod_operationNextIsNull As Boolean ''Added 4/17/2025 
 
     ''' <summary>
     ''' Anchor items are NOT in the operation range. They help locate the placement of the range.
@@ -209,12 +210,12 @@ Public Class DLL_OperationV2
 
             Else
                 ''Added 12/28/2023
-                Dim copyOfOpV1 As DLL_OperationV1
+                Dim copyOfOpV1 As DLL_OperationV1_Deprecated
                 Const TEST_IDEMPOTENCE As Boolean = True ''Added 2/18/2024  
                 copyOfOpV1 = GetCopyV1()
-                Dim inverseOfOp As DLL_OperationV1
+                Dim inverseOfOp As DLL_OperationV1_Deprecated
                 inverseOfOp = copyOfOpV1.GetUndoVersionOfOperation(TEST_IDEMPOTENCE)
-                Dim double_inverse As DLL_OperationV1
+                Dim double_inverse As DLL_OperationV1_Deprecated
                 double_inverse = inverseOfOp.GetUndoVersionOfOperation(TEST_IDEMPOTENCE)
                 Dim bEqualMatch As Boolean
                 bEqualMatch = double_inverse.Equals(copyOfOpV1)
@@ -406,7 +407,19 @@ Public Class DLL_OperationV2
         ''Throw New NotImplementedException()
         Debugger.Break() ''Shouldn't be needed. 
         mod_operationNext = Nothing
+        mod_operationNextIsNull = True ''Added 4/2025 td
+
     End Sub
+
+
+    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+        ''Added 4/25/2025 td
+        ''Debugger.Break() ''Shouldn't be needed. 
+        mod_operationNext = Nothing
+        mod_operationNextIsNull = True ''Added 4/2025 td
+
+    End Sub
+
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''11/2023 Throw New NotImplementedException()
@@ -570,11 +583,11 @@ Public Class DLL_OperationV2
 
 
 
-    Public Function GetCopyV1() As DLL_OperationV1
+    Public Function GetCopyV1() As DLL_OperationV1_Deprecated
         ''
         ''Added 12/26/2023
         ''
-        Dim result As New DLL_OperationV1
+        Dim result As New DLL_OperationV1_Deprecated
 
         With result
 

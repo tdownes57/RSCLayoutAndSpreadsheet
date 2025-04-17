@@ -202,6 +202,34 @@ namespace RSCLibraryDLLOperations
 
 
 
+        public int DLL_GetOpIndex_b0()
+        {
+            //
+            // Added 4/17/2025
+            //
+            return -1 + DLL_GetOpIndex_b1();
+        }
+
+        public int DLL_GetOpIndex_b1()
+        {
+            //
+            // Added 4/17/2025
+            //
+            int resultIndex = 0;
+            //var temp = mod_current;
+            DLLOperationBase? temp = this;
+
+            while (temp != null)
+            {
+                resultIndex++;
+                temp = temp.DLL_GetOpPrior();
+            }
+            return resultIndex;
+
+        }
+
+
+
     }
 
 }

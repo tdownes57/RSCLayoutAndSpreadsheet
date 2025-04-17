@@ -68,9 +68,9 @@ Friend Class UserOperationOriginal
     ''' </summary>
     ''' <param name="par_operation">Gives detail of operation.</param>
     ''3/2024 td Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1)
-    Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1)
-    Public Event DLLOperationCreated_InsertRow(par_operation As DLL_OperationV1)
-    Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1)
+    Public Event DLLOperationCreated_Insert(par_operation As DLL_OperationV1_Deprecated)
+    Public Event DLLOperationCreated_InsertRow(par_operation As DLL_OperationV1_Deprecated)
+    Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1_Deprecated)
 
     ''Adde 8/4/2024 td
     Public Event DLLOperationV2_Insert(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA),
@@ -78,7 +78,7 @@ Friend Class UserOperationOriginal
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
 
-    Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1)
+    Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1_Deprecated)
 
     ''' <summary>
     ''' This will communicate the details of an INSERT operation, 
@@ -90,7 +90,7 @@ Friend Class UserOperationOriginal
     ''Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1,
     ''                            par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
     ''                            par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
-    Public Event DLLOperationV1_Delete(par_operation As DLL_OperationV1,
+    Public Event DLLOperationV1_Delete(par_operation As DLL_OperationV1_Deprecated,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
@@ -103,22 +103,22 @@ Friend Class UserOperationOriginal
     ''' which the user has requested, and which hasn't yet been performed.
     ''' </summary>
     ''' <param name="par_operation">Gives detail of operation.</param>
-    Public Event DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1,
+    Public Event DLLOperationCreated_MoveRange(par_operationV1 As DLL_OperationV1_Deprecated,
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
     ''Added 1/1/2024 thomas 
-    Public Event DLLOperationCreated_UndoOfInsert(par_operationV1 As DLL_OperationV1,
+    Public Event DLLOperationCreated_UndoOfInsert(par_operationV1 As DLL_OperationV1_Deprecated,
                                 par_isUndoOfInsert As Boolean)
-    Public Event DLLOperationCreated_UndoOfDelete(par_operationV1 As DLL_OperationV1,
+    Public Event DLLOperationCreated_UndoOfDelete(par_operationV1 As DLL_OperationV1_Deprecated,
                                 par_isUndoOfDelete As Boolean)
-    Public Event DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1,
+    Public Event DLLOperationCreated_UndoOfMove(par_operation As DLL_OperationV1_Deprecated,
                                 par_isUndoOfMove As Boolean)
 
     ''Added 2/10/2024 thomas 
-    Public Event DLLOperationCreated_SortAscending(par_operationV1 As DLL_OperationV1,
+    Public Event DLLOperationCreated_SortAscending(par_operationV1 As DLL_OperationV1_Deprecated,
                                 par_isUndoOfSort As Boolean)
-    Public Event DLLOperationCreated_SortDescending(par_operationV1 As DLL_OperationV1,
+    Public Event DLLOperationCreated_SortDescending(par_operationV1 As DLL_OperationV1_Deprecated,
                                 par_isUndoOfSort As Boolean)
 
     ''Added 1/1/2024 thomas 
@@ -1188,7 +1188,7 @@ Friend Class UserOperationOriginal
         '' Let's undo the Insert operation.
         ''
         Dim objLastPriorOpV2 As DLL_OperationV2
-        Dim undoOperationV1 As DLL_OperationV1
+        Dim undoOperationV1 As DLL_OperationV1_Deprecated
         Dim undoOperationV2 As DLL_OperationV2
 
         objLastPriorOpV2 = mod_lastPriorOpV2
@@ -1211,8 +1211,8 @@ Friend Class UserOperationOriginal
         '' Let's undo the Delete operation.
         ''
         Dim objLastPriorOpV2 As DLL_OperationV2
-        Dim objLastPriorOpV1 As DLL_OperationV1
-        Dim undoOperationV1 As DLL_OperationV1
+        Dim objLastPriorOpV1 As DLL_OperationV1_Deprecated
+        Dim undoOperationV1 As DLL_OperationV1_Deprecated
         ''Dim undoOperationV2 As DLL_OperationV2
 
         objLastPriorOpV2 = mod_lastPriorOpV2
@@ -1239,8 +1239,8 @@ Friend Class UserOperationOriginal
         '' Let's undo the Delete operation.
         ''
         Dim objLastPriorOpV2 As DLL_OperationV2
-        Dim objLastPriorOpV1 As DLL_OperationV1
-        Dim undoOperationV1 As DLL_OperationV1
+        Dim objLastPriorOpV1 As DLL_OperationV1_Deprecated
+        Dim undoOperationV1 As DLL_OperationV1_Deprecated
 
         objLastPriorOpV2 = mod_lastPriorOpV2
         objLastPriorOpV1 = objLastPriorOpV2.GetCopyV1()

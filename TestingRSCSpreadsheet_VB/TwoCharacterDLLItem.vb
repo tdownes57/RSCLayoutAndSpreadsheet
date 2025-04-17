@@ -26,8 +26,9 @@ Public Class TwoCharacterDLLItem
 
     Private Const ENFORCE_BIDIRECTIONAL As Boolean = True ''Added 12/08/2024 
 
-    Friend mod_prior As TwoCharacterDLLItem ''Using 'Friend' will allow subclassess to access it.  12/12/2024 Private mod_prior
-    Friend mod_next As TwoCharacterDLLItem ''Using 'Friend' will allow subclassess to access it.  ''12/12/2024 Private mod_next 
+    Friend mod_prior As TwoCharacterDLLItem ''Using 'Friend' will allow sub-classess to access it.  12/12/2024 Private mod_prior
+    Friend mod_next As TwoCharacterDLLItem ''Using 'Friend' will allow sub-classess to access it.  ''12/12/2024 Private mod_next 
+    Friend mod_nextIsNull As Boolean = False ''Added 4/17/2025
 
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
     Friend mod_next_priorSortOrder As TwoCharacterDLLItem ''Added 12/12/2024 TD
@@ -224,6 +225,7 @@ Public Class TwoCharacterDLLItem
     Public Sub DLL_ClearReferencePrior(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferencePrior
         ''Throw New NotImplementedException()
         mod_prior = Nothing
+        mod_nextIsNull = True ''Added 4/17/2025
 
     End Sub ''End of ""Public Sub DLL_ClearReferencePrior(...)""
 
@@ -231,8 +233,21 @@ Public Class TwoCharacterDLLItem
     Public Sub DLL_ClearReferenceNext(par_typeOp As Char) Implements IDoublyLinkedItem.DLL_ClearReferenceNext
         ''Throw New NotImplementedException()
         mod_next = Nothing
+        mod_nextIsNull = True ''Added 4/17/2025
 
     End Sub ''End of ""Public Sub DLL_ClearReferenceNext(...)""
+
+
+    ''' <summary>
+    ''' Indicate that this item will serve as the final item in a list.
+    ''' </summary>
+    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+
+        ''Added 4/17/2025  
+        mod_next = Nothing
+        mod_nextIsNull = True ''Added 4/17/2025
+
+    End Sub ''End of ""Public Sub DLL_MarkAsEndOfList()""
 
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext

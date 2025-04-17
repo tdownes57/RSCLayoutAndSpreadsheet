@@ -13,7 +13,7 @@ Imports System.Xml.XPath
 ''    ---12/07/2023 thomas dow_nes 
 ''-----------------------------------------------------------
 Public Class DLL_OperationV1(Of TControlH, TControlV) ''11/2/2023 (Of TControl)
-    Inherits DLL_OperationV1
+    Inherits DLL_OperationV1_Deprecated
     Implements IDoublyLinkedItem ''DLL_GetItemNext, DLL_GetItemPrior
 
     ''
