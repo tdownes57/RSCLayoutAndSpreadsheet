@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
+    //
+    //  Suffixed "_NotUsed" in April 2025. (I could be wrong.)
+    //  
+    //  Use "DLLOperations1D_OfOf.cs" instead.  ---4/17/2025
+    //
     internal class DLLOperation1DsParallel_NotUsed<T1Primary, T2Parallel>
         where T1Primary : class, IDoublyLinkedItem<T1Primary>
         where T2Parallel : class, IDoublyLinkedItem<T2Parallel>

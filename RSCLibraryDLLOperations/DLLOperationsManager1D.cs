@@ -466,10 +466,12 @@ namespace RSCLibraryDLLOperations
                     //mod_lastPriorOperation1D = parOperation;
                     //Apr2025 mod_firstPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
                     mod_firstPriorOperation1D = operation1D_OfT_OfT;
+                    mod_firstPriorOperation1D.DLL_MarkStartOfList(); // Added 4/18/2025 td
 
                     //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
                     if (mod_lastPriorOperation1D != null) System.Diagnostics.Debugger.Break();
                     mod_lastPriorOperation1D = mod_firstPriorOperation1D; //Normal if there is only one(1) operation.
+                    mod_lastPriorOperation1D.DLL_MarkEndOfList(); // Added 4/18/2025
 
                     // Added 12/04/2024
                     //
@@ -519,6 +521,7 @@ namespace RSCLibraryDLLOperations
                     //April2025  mod_lastPriorOperation1D = parOperation;
                     //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
                     mod_lastPriorOperation1D = operation1D_OfT_OfT;
+                    mod_lastPriorOperation1D.DLL_MarkEndOfList();  // Added 4/18/2025
 
                     //
                     //  Major call!!
@@ -578,7 +581,7 @@ namespace RSCLibraryDLLOperations
             //    out bChangeOfEndpoint_Occurred, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
             ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected,
                 out bChangeOfEndpoint_Occurred, RECORD_OPERATION,
-                opReDo.GetOperationIndexStructure()); // , pbIsHoriz, pbIsVerti);
+                opReDo.GetOperationIndexStructure(false, true)); // , pbIsHoriz, pbIsVerti);
 
         }
 
@@ -970,7 +973,10 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/29/2024 
             //
-            return mod_opUndoRedoMarker.ToString();
+            //---Apr2025---return mod_opUndoRedoMarker.ToString();
+
+            string output_string = mod_opUndoRedoMarker.ToString();
+            return output_string; 
 
         }
 

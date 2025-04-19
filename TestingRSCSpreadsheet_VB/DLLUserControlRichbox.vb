@@ -252,7 +252,7 @@ Public Class DLLUserControlRichbox
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext
         ''Throw New NotImplementedException()
         ''Return (mod_next Is Nothing)
-        Return DLL_NotAnyNext()
+        Return DLLItem.DLL_NotAnyNext()
 
     End Function ''End of ""Public Function DLL_NotAnyNext()""
 

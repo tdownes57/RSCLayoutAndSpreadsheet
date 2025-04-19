@@ -456,16 +456,60 @@ namespace RSCLibraryDLLOperations
                 //int intCountOpsTotal = HowManyOpsExist_Total();
                 int intCountOpsForRedo = HowManyOpsExistForRedo();
                 int intCountOpsForUndo = HowManyOpsExistForUndo();
-                int intCountOpsTotal = (intCountOpsForUndo + intCountOpsForRedo); // Added Jan4 2025 td
+
+                //
+                // Let's make two(2) attempts to find the total number of operations part are
+                //   part of the history queue of operations. 
+                //
+                //  Try #1 of 2 -- Add the Undo & Redo counts. 
+                //
+                int intCountOpsTotal_Try1of2;
+                if (mod_opNext_ForRedo == mod_opPrior_ForUndo)
+                {
+                    intCountOpsTotal_Try1of2 = (-1 + intCountOpsForUndo + intCountOpsForRedo);
+                }
+                else
+                {
+                    intCountOpsTotal_Try1of2 = (intCountOpsForUndo + intCountOpsForRedo); // Added Jan4 2025 td
+
+                }
+
+                //
+                // Try #2 of 2 -- Use a DLL method to find a count of all operations.
+                //
+                int intCountOpsTotal_Final = 0; //Added 4/17/2025
+                int intCountOpsTotal_Try2of2 = 0; //Added 4/17/2025
+
+                if (mod_opNext_ForRedo != null) //Added 4/17/2025
+                {
+                    intCountOpsTotal_Try2of2 = mod_opNext_ForRedo.DLL_CountAllOpsInTheList();
+                }
+                else if (mod_opPrior_ForUndo != null) //Added 4/17/2025
+                {
+                    intCountOpsTotal_Try2of2 = mod_opPrior_ForUndo.DLL_CountAllOpsInTheList();
+                }
+
+                //Added 4/17/2025  
+                bool bTwoCountTriesMatch = (intCountOpsTotal_Try1of2 == intCountOpsTotal_Try2of2);
+                if (bTwoCountTriesMatch)
+                {
+                    intCountOpsTotal_Final = intCountOpsTotal_Try1of2; 
+                }
+                else
+                {
+                    // Added 4/18/2025
+                    System.Diagnostics.Debugger.Break();
+                }
+
 
                 // Added 1/04/2024  thomas d.
                 //
                 if (par_expectedOpCount > -1)
                 {
-                    if (intCountOpsTotal != par_expectedOpCount) Debugger.Break();
+                    if (intCountOpsTotal_Try1of2 != par_expectedOpCount) Debugger.Break();
                 }
 
-                result_describe = string.Format(template, intCountOpsTotal, intCountOpsForRedo, intCountOpsForUndo);
+                result_describe = string.Format(template, intCountOpsTotal_Final, intCountOpsForRedo, intCountOpsForUndo);
                 return result_describe;
             }
             catch (Exception ex_any)

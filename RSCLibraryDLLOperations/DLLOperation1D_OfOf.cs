@@ -273,6 +273,9 @@ namespace RSCLibraryDLLOperations
             //Added 1/04/2024 
             base.mod_opNext_ForRedo_OfT = parOperation;
 
+            // Added 4/18/2025
+            base.mod_opNextIsNull = false;
+
         }
 
 

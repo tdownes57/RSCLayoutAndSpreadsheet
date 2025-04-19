@@ -17,6 +17,8 @@ namespace RSCLibraryDLLOperations
 
         internal DLLOperationBase? mod_opPrior_ForUndo = null;
         internal DLLOperationBase? mod_opNext_ForRedo = null;
+        private bool mod_opNextIsNull = false; // Added 4/18/2025
+        private bool mod_opPriorIsNull = false; // Added 4/18/2025
 
 
         public void OperateOnList<TSpecific>(DLLList<TSpecific> par_list) 
@@ -47,6 +49,9 @@ namespace RSCLibraryDLLOperations
             //---mod_opPrior = par_item;
             mod_opPrior_ForUndo = par_item;
 
+            // Added 4/18/2025 
+            if (par_item != null) mod_opPriorIsNull = false;
+
         }
 
         public void DLL_SetOpNext(DLLOperationBase par_item, bool par_bidirectional)
@@ -59,6 +64,9 @@ namespace RSCLibraryDLLOperations
 
             // Added 12/07/2024
             if (par_bidirectional) par_item.mod_opPrior_ForUndo = this;
+
+            // Added 4/18/2025 
+            if (par_item != null) mod_opNextIsNull = false; 
         
         }
 
@@ -78,29 +86,64 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/23/2024  
             //
+            if (mod_opNext_ForRedo == null)
+            {
+                // Added 4/18/2025 td
+                bool bConfirmedNull = mod_opNextIsNull;
+                if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
+            }
+
             return mod_opNext_ForRedo;
 
         }
 
 
+        /// <summary>
+        /// This contains a confirmation when the return is False.
+        /// </summary>
+        /// <returns></returns>
         public bool DLL_HasOpPrior()
         {
             //
             // Added 11/23/2024  
             //
             //---return mod_opPrior != null; // = par_item;
-            return mod_opPrior_ForUndo != null; // = par_item;
+            //return (mod_opPrior_ForUndo != null); // = par_item;
+
+            if (mod_opPrior_ForUndo == null) //Added 4/18/2025 td
+            {
+                // Added 4/18/2025 td
+                bool bConfirmedNull = mod_opPriorIsNull;
+                if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
+                return false;
+            }
+            else return true;
+
+            // return (mod_opPrior_ForUndo != null); // = par_item;
 
         }
 
 
+        /// <summary>
+        /// This contains a confirmation when the return is False.
+        /// </summary>
+        /// <returns></returns>
         public bool DLL_HasOpNext()
         {
             //
             // Added 11/23/2024  
             //
             //---return mod_opNext != null;
-            return mod_opNext_ForRedo != null;
+            //Apr2025 return (mod_opNext_ForRedo != null);
+
+            if (mod_opNext_ForRedo == null) //Added 4/18/2025 td
+            {
+                // Added 4/18/2025 td
+                bool bConfirmedNull = mod_opNextIsNull;
+                if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
+                return false;
+            }
+            else return true;
 
         }
 
@@ -125,13 +168,45 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public virtual void DLL_MarkEndOfList()
+        {
+            //
+            // Added 01/04/2025  
+            //
+            mod_opNext_ForRedo = null;
+            mod_opNextIsNull = true;
+
+        }
+
+
+        public virtual void DLL_MarkStartOfList()
+        {
+            //
+            // Added 01/04/2025  
+            //
+            mod_opPrior_ForUndo = null;
+            mod_opPriorIsNull = true;
+
+        }
+
+
         public bool DLL_MissingOpPrior()
         {
             //
             // Added 11/23/2024  
             //
             //---return mod_opPrior == null; // = par_item;
-            return mod_opPrior_ForUndo == null; // = par_item;
+            //return mod_opPrior_ForUndo == null; // = par_item;
+
+            if (mod_opPrior_ForUndo == null) //Added 4/18/2025 td
+            {
+                // Added 4/18/2025 td
+                bool bConfirmedNull = mod_opPriorIsNull;
+                if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
+                return true;
+            }
+            else return false;
+
 
         }
 
@@ -142,9 +217,43 @@ namespace RSCLibraryDLLOperations
             // Added 11/23/2024  
             //
             //--return mod_opNext == null;
-            return mod_opNext_ForRedo == null;
+            // April 2025 return mod_opNext_ForRedo == null;
+
+            if (mod_opNext_ForRedo == null) //Added 4/18/2025 td
+            {
+                // Added 4/18/2025 td
+                bool bConfirmedNull = mod_opNextIsNull;
+                if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
+                return true; // yes, missing a "next" object
+            }
+            else return false;
 
         }
+
+
+        public int DLL_CountAllOpsInTheList()
+        {
+            //
+            // Added 04/18/2025  
+            //
+            int result_count = 0;
+
+            //
+            // Please note, "After" and "Next" are synonyms.  
+            //    So, "2 comes after 1" and "2 is the next number after 1"
+            //    means the same thing. 
+            //
+            DLLOperationBase? each_operation = DLL_GetOpFirstInList();
+
+            while (each_operation != null)
+            {
+                result_count++;
+                each_operation = each_operation.DLL_GetOpNext();
+            }
+            return result_count;
+
+        }
+
 
 
         public int DLL_CountOpsAfter()
@@ -169,6 +278,32 @@ namespace RSCLibraryDLLOperations
             return result_count;
 
         }
+
+
+        public DLLOperationBase DLL_GetOpFirstInList()
+        {
+            //
+            // Added 4/18/2025
+            //
+            DLLOperationBase operation_temp1 = this;
+            DLLOperationBase? operation_temp2 = null;
+            DLLOperationBase operation_output = this;
+
+            while (operation_temp1.DLL_HasOpPrior())
+            {
+                operation_temp2 = operation_temp1.DLL_GetOpPrior();
+                bool bIsPriorNotNull = (operation_temp2 != null);  // For the programmer's
+                // edification.   This Boolean will always be true, assuming that
+                // function DLL_HasOpPrior() is well-formed. --4/18/2025
+                if (operation_temp2 != null) operation_temp1 = operation_temp2;
+            }
+
+            operation_output = operation_temp1;
+
+            return operation_output;
+
+        }
+
 
 
         public int DLL_CountOpsBefore()

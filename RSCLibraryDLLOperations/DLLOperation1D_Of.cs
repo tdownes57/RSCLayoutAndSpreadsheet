@@ -74,6 +74,8 @@ namespace RSCLibraryDLLOperations
 
         internal DLLOperation1D_Of<T_DLLItem>? mod_opPrior_ForUndo_OfT;
         internal DLLOperation1D_Of<T_DLLItem>? mod_opNext_ForRedo_OfT;
+        internal bool mod_opNextIsNull = false; //Added 4/18/2025 
+        internal bool mod_opPriorIsNull = false; //Added 4/18/2025 
 
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
@@ -273,6 +275,13 @@ namespace RSCLibraryDLLOperations
             _itemStart_SortOrderThisOp = par_operation1D_Of._itemStart_SortOrderThisOp;
             _itemEnding_SortOrderIfUndo = par_operation1D_Of._itemEnding_SortOrderIfUndo;
             _itemEnding_SortOrderThisOp = par_operation1D_Of._itemEnding_SortOrderThisOp;
+
+            // Added 4/17/2025 td
+            this.ExecutionDate = par_operation1D_Of.ExecutionDate;
+
+            // Added 4/18/2025
+            mod_opNextIsNull = par_operation1D_Of.mod_opNextIsNull;
+            mod_opPriorIsNull = par_operation1D_Of.mod_opPriorIsNull;
 
         }
         
@@ -1684,6 +1693,16 @@ namespace RSCLibraryDLLOperations
                 System.Diagnostics.Debugger.Break();
             }
 
+            // Added 4/18/2025 td
+            if (mod_opPriorIsNull == false && mod_opPrior_ForUndo == null)
+            {
+                // The "Prior is Null" flag has been overlooked (& so, not set to True),
+                //   or the var. mod_opPrior_ForUndo has not been set to a non-Null
+                //   as expected. ---4/18/2025 
+                System.Diagnostics.Debugger.Break();
+            }
+
+
             return mod_opPrior_ForUndo_OfT;
 
         }
@@ -1706,6 +1725,12 @@ namespace RSCLibraryDLLOperations
                 System.Diagnostics.Debugger.Break();
             }
 
+            // Added 4/18/2025 td
+            if (mod_opNextIsNull == false && mod_opNext_ForRedo == null)
+            {
+                System.Diagnostics.Debugger.Break(); 
+            }
+
             return mod_opNext_ForRedo_OfT;
 
         }
@@ -1720,6 +1745,9 @@ namespace RSCLibraryDLLOperations
 
             //Added 1/04/2024 
             mod_opPrior_ForUndo_OfT = parOperation;
+
+            // Added 4/18/2025 td
+            mod_opPriorIsNull = false;  
 
         }
 
@@ -1760,6 +1788,32 @@ namespace RSCLibraryDLLOperations
 
              } // End If ''end of "" If (ENFORCE_BIDIRECTIONAL) Then""
 
+
+        }
+
+
+        public override void DLL_MarkEndOfList()
+        {
+            //
+            // Added 4/18/2025 
+            //
+            base.DLL_MarkEndOfList();
+            mod_opNextIsNull = true;
+            this.mod_opNext_ForRedo_OfT = null;
+            base.mod_opNext_ForRedo = null;
+
+        }
+
+
+        public override void DLL_MarkStartOfList()
+        {
+            //
+            // Added 4/18/2025 
+            //
+            base.DLL_MarkStartOfList();
+            mod_opPriorIsNull = true;
+            this.mod_opPrior_ForUndo_OfT = null;
+            base.mod_opPrior_ForUndo = null;
 
         }
 
@@ -1814,7 +1868,7 @@ namespace RSCLibraryDLLOperations
             //    means the same thing. 
             //
             //---12/03/2024---DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
-            DLLOperation1D_Of<T_DLLItem> operationPriorBefore = DLL_GetOpPrior_OfT();
+            DLLOperation1D_Of<T_DLLItem>? operationPriorBefore = DLL_GetOpPrior_OfT();
 
             while (operationPriorBefore != null)
             {

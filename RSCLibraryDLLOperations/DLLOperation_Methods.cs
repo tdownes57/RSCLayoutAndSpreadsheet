@@ -1126,7 +1126,8 @@ namespace RSCLibraryDLLOperations
         /// (Object references are avoided.)
         /// </summary>
         /// <returns>An index-only description of the operation.</returns>
-        public DLLOperationIndexStructure GetOperationIndexStructure(bool par_overrideTest = false)
+        public DLLOperationIndexStructure GetOperationIndexStructure(bool par_overrideTest = false,
+                                bool par_redoOperation = false)
         {
             //
             // Added 1/11/2025 td
@@ -1142,6 +1143,13 @@ namespace RSCLibraryDLLOperations
             {
                 //
                 // Testing.  ---4/09/2025
+                //
+
+            }
+            else if (par_redoOperation) // added 4/17/2025
+            {
+                //
+                // Redo of Operation.  ---4/17/2025
                 //
 
             }
