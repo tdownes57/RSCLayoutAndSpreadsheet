@@ -260,7 +260,7 @@ namespace RSCLibraryDLLOperations
             // Added 4/11/2025 td (from DLLOperation_Of.cs)
             //
             this.mod_opNext_ForRedo_OfT_OfT = parOperation;
-            this.mod_opPrior_ForUndo_OfT_OfT = parOperation;
+            //-----this.mod_opPrior_ForUndo_OfT_OfT = parOperation;
 
             //
             //  Address the base members.

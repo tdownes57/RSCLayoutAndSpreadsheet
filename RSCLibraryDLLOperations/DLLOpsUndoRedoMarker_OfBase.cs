@@ -212,7 +212,8 @@ namespace RSCLibraryDLLOperations
                 result_operation = mod_opPrior_ForUndo;
 
                 // Prepare for future calls to this function, NOT for the present call....
-                mod_opPrior_ForUndo = temp_output.DLL_GetOpNext() as TOperation;
+                //----mod_opPrior_ForUndo = temp_output.DLL_GetOpNext() as TOperation;
+                mod_opPrior_ForUndo = temp_output.DLL_GetOpPrior() as TOperation;
                 mod_opNext_ForRedo = temp_output;
                 return result_operation;
             }

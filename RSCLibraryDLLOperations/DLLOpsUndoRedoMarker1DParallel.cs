@@ -464,7 +464,7 @@ namespace RSCLibraryDLLOperations
                 //  Try #1 of 2 -- Add the Undo & Redo counts. 
                 //
                 int intCountOpsTotal_Try1of2;
-                if (mod_opNext_ForRedo == mod_opPrior_ForUndo)
+                if (mod_opPrior_ForUndo == mod_opNext_ForRedo)
                 {
                     intCountOpsTotal_Try1of2 = (-1 + intCountOpsForUndo + intCountOpsForRedo);
                 }
@@ -479,8 +479,18 @@ namespace RSCLibraryDLLOperations
                 //
                 int intCountOpsTotal_Final = 0; //Added 4/17/2025
                 int intCountOpsTotal_Try2of2 = 0; //Added 4/17/2025
+                bool bBothOpReferencesAreNull; // Added 4/20/2025
 
-                if (mod_opNext_ForRedo != null) //Added 4/17/2025
+                bBothOpReferencesAreNull = (mod_opNext_ForRedo == null &&
+                                            mod_opPrior_ForUndo == null);
+
+                if (bBothOpReferencesAreNull)
+                {
+                    //
+                    // Added 4/19/2025 td
+                    //
+                }
+                else if (mod_opNext_ForRedo != null) //Added 4/17/2025
                 {
                     intCountOpsTotal_Try2of2 = mod_opNext_ForRedo.DLL_CountAllOpsInTheList();
                 }
@@ -491,7 +501,13 @@ namespace RSCLibraryDLLOperations
 
                 //Added 4/17/2025  
                 bool bTwoCountTriesMatch = (intCountOpsTotal_Try1of2 == intCountOpsTotal_Try2of2);
-                if (bTwoCountTriesMatch)
+
+                if (bBothOpReferencesAreNull) // Added 4/19/2025 td
+                {
+                    // Added 4/19/2025 td
+                    intCountOpsTotal_Final = 0; // intCountOpsTotal_Try1of2;
+                }
+                else if (bTwoCountTriesMatch)
                 {
                     intCountOpsTotal_Final = intCountOpsTotal_Try1of2; 
                 }
