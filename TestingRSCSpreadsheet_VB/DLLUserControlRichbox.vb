@@ -14,6 +14,10 @@ Public Class DLLUserControlRichbox
     ''
     Public DLLItem As DLLItemAndManager(Of DLLUserControlRichbox)
 
+    ''Added 4/12/2025 td
+    Public ColumnLetter As String ''Added 4/12/2025 td
+    Public Event DLLUserClickedControlBox(col_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
+
     ''
     ''Added 1/19/2025 
     ''
@@ -242,10 +246,12 @@ Public Class DLLUserControlRichbox
     ''' <summary>
     ''' Indicate that this item will serve as the final item in a list.
     ''' </summary>
-    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+    Public Sub DLL_MarkAsEndOfList(Optional pleaseRemoveMarkFromPrior As Boolean = True,
+                            Optional pleaseRemoveMarkFromThis As Boolean = False) Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
 
-        ''Added 4/17/2025  
-        DLLItem.DLL_MarkAsEndOfList()
+        ''Added 4/17/2025
+        ''---DLLItem.DLL_MarkAsEndOfList()
+        DLLItem.DLL_MarkAsEndOfList(pleaseRemoveMarkFromPrior, pleaseRemoveMarkFromThis)
 
     End Sub ''End of ""Public Sub DLL_MarkAsEndOfList()""
 
@@ -850,6 +856,12 @@ Public Class DLLUserControlRichbox
 
     End Function ''End of Public Function GetConvertToArray() As UserControlTextbox()
 
+    Private Sub TextBox1_MouseClick(sender As Object, e As MouseEventArgs) Handles TextBox1.MouseClick
+
+        ''Added 4/20/2025 td
+        RaiseEvent DLLUserClickedControlBox(Me.ColumnLetter, Me.DLL_GetItemIndex_b1())
+
+    End Sub
 
 End Class
 

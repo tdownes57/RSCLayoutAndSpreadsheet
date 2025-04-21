@@ -281,7 +281,8 @@ namespace RSCLibraryDLLOperations
         /// This procedure indicates a terminating endpoint to the list.
         /// </summary>
         /// <param name="operation"></param>
-        public void DLL_MarkAsEndOfList()
+        public void DLL_MarkAsEndOfList(bool pleaseRemoveMarkFromPrior = true, 
+                                        bool pleaseRemoveMarkerFromThis = false)
         {
             mod_next = null;
 
@@ -295,6 +296,22 @@ namespace RSCLibraryDLLOperations
             //    ---Added 4/15/2025 td
             //
             mod_nextIsNull = true;
+
+            //Added 4/2025 td
+            if (pleaseRemoveMarkerFromThis) mod_nextIsNull = false;
+
+            // Added 4/2025 td
+            // ---DIFFICULT AND CONFUSING---
+            //   Remove the marker from the prior item. 
+            //
+            if (pleaseRemoveMarkFromPrior && mod_prior != null)
+            {
+                // ---DIFFICULT AND CONFUSING---
+                //   Remove the marker from the prior item. 
+                const bool REMOVE_MARK = true;
+                mod_prior.DLL_MarkAsEndOfList(false, REMOVE_MARK);
+
+            }
 
         }
 

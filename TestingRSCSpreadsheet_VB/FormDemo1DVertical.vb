@@ -160,12 +160,15 @@ Public Class FormDemo1DVertical
 
             ''DLLUserControlRichbox 
             newItemB1 = New DLLUserControlRichbox(strTwoChars)
+            AddHandler newItemB1.DLLUserClickedControlBox, AddressOf DllUserControlRichbox1_Click
             mod_listB1.DLL_InsertItemAtEnd(newItemB1)
 
             newItemB2 = New DLLUserControlRichbox(strTwoChars)
+            AddHandler newItemB2.DLLUserClickedControlBox, AddressOf DllUserControlRichbox1_Click
             mod_listB2.DLL_InsertItemAtEnd(newItemB2)
 
             newItemB3 = New DLLUserControlRichbox(strTwoChars)
+            AddHandler newItemB3.DLLUserClickedControlBox, AddressOf DllUserControlRichbox1_Click
             mod_listB3.DLL_InsertItemAtEnd(newItemB3)
 
             ''Prepare for next iteration.
@@ -203,6 +206,9 @@ Public Class FormDemo1DVertical
 
         mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
                 DLLUserControlRichbox)(mod_firstItemA, mod_listA)
+
+        ''Added 4/08/2025 thomas d.
+        mod_manager.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Display the list. 
@@ -1057,6 +1063,9 @@ Public Class FormDemo1DVertical
         currentMoveType.HowManyItemsIncremental = intHowManyItemsToShift_Iterations
         currentMoveType.IsMoveToAnchor = False ''Added 12/15/2024 
 
+        ''Added 4/08/2025 thomas d.
+        mod_manager.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+
         ''
         '' Added 11/17/2024 thomas downes
         ''
@@ -1072,12 +1081,29 @@ Public Class FormDemo1DVertical
         ''---If bChangeOfEndpoint Then ''Modified 12/15/2024
         If (bChangeOfEndpoint_Expected Or bChangeOfEndpoint_Occurred) Then
             mod_firstItemA = mod_listA._itemStart
+            ''Possibly unneeded. td 4/2025
             mod_lastItemA = mod_listA._itemEnding
+
+            ''Added 4/2025 td
+            mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
+            mod_firstItemB2 = mod_listB2.DLL_GetFirstItem_OfT()
+            mod_firstItemB3 = mod_listB3.DLL_GetFirstItem_OfT()
+
+            ''Possibly unneeded. td 4/2025
+            mod_lastItemB1 = mod_listB1.DLL_GetLastItem_OfT()
+            mod_lastItemB2 = mod_listB2.DLL_GetLastItem_OfT()
+            mod_lastItemB3 = mod_listB3.DLL_GetLastItem_OfT()
+
         End If ''End of ""If (bChangeOfEndpoint) Then""
 
         ''Added 11/17/2024 
         ''---RefreshTheUI_DisplayList()
         RefreshTheUI_DisplayList(mod_listA, mod_firstItemA)
+
+        ''Added 4/2025 td
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -1587,7 +1613,7 @@ Public Class FormDemo1DVertical
 
             ''Added 2/29/2024
             ''//mod_listA.SelectionRange_ProcessList_GetTuple(index_of_item, bShiftingKey)
-            mod_rangeA = mod_listA.GetSelectionRange(index_of_item, bShiftingKey)
+            mod_rangeA = mod_listA.GetSelectionRange_Base1(index_of_item, bShiftingKey)
 
             ''Added 11/14/2024
             ''---objectListItem = mod_listA.DLL_GetItemAtIndex(index_of_item)
@@ -1999,6 +2025,9 @@ Public Class FormDemo1DVertical
         Dim type_is_anchor = New StructureTypeOfMove(True) ''Added 12/11/2024 
         type_is_anchor.IsMoveToAnchor = True ''Added 12/11/2024 
 
+        ''Added 4/08/2025 thomas d.
+        mod_manager.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+
         ''
         '' Added 11/17/2024 thomas downes
         ''
@@ -2338,6 +2367,19 @@ Public Class FormDemo1DVertical
     End Sub
 
     Private Sub FlowRowHeaders_Paint(sender As Object, e As PaintEventArgs)
+
+    End Sub
+
+    Private Sub DllUserControlRichbox1_Click(par_letter As String, par_row_base1 As Integer) Handles DllUserControlRichbox1.DLLUserClickedControlBox
+        ''
+        ''This is a handler for the event. 
+        ''
+        mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_listA, True, par_row_base1, 1)
+
+        ''Added 4/20/2025 thomas downes 
+        numInsertAnchorBenchmark.Value = par_row_base1
+        numDeleteRangeBenchmarkStart.Value = par_row_base1
+        numMoveAnchorBenchmark.Value = par_row_base1
 
     End Sub
 

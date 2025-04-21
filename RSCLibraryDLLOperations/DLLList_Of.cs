@@ -117,16 +117,17 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public TControl Get_ItemAtIndex(int par_index)
+        public TControl Get_ItemAtIndex_base0(int par_index_base0)
         {
             //
-            // Added 4/30/2024 
+             // Added 4/30/2024 
             //
-            TControl result = _itemStart;
+            TControl? result = _itemStart;
 
             if (_itemStart != null)
             {
-                result = _itemStart.DLL_GetItemNext_OfT(par_index);
+                int iterationsOfNext_jumpsForward = par_index_base0;
+                result = _itemStart.DLL_GetItemNext_OfT(iterationsOfNext_jumpsForward);
                 //  .DLL_UnboxControl_OfT();
             }
 
@@ -138,6 +139,16 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+
+        public TControl Get_ItemAtIndex_base1(int par_index_base1)
+        {
+            //
+            // Added 4/20/2025
+            //
+            return Get_ItemAtIndex_base0(par_index_base1 - 1);
+
+        }
 
         public bool DLL_IsEmpty()
         {
@@ -621,13 +632,13 @@ namespace RSCLibraryDLLOperations
         private IDoublyLinkedItem? mod_dllControlFirst_NotUsed;  // Suffixed on 12/09/2024
  
 
-        public DLLRange<TControl> GetSelectionRange(int par_indexClicked,
+        public DLLRange<TControl> GetSelectionRange_Base1(int par_indexClicked_Base1,
                                                     bool par_bShiftKeyPressed)
         {
             //
             // Added 11/15/2024 thomas downes
             //
-            Tuple<int, int> tuple_xy = SelectionRange_ProcessList_GetTuple(par_indexClicked, 
+            Tuple<int, int> tuple_xy = SelectionRange_ProcessList_GetTuple_Base1(par_indexClicked_Base1, 
                 par_bShiftKeyPressed);
 
             DLLRange<TControl> result_range = 
@@ -638,8 +649,8 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public Tuple<int, int> SelectionRange_ProcessList_GetTuple(
-            int par_indexClicked,
+        public Tuple<int, int> SelectionRange_ProcessList_GetTuple_Base1(
+            int par_indexClicked_Base1,
             bool par_bShiftKeyPressed,
             bool par_bDontProcessList = false,
             bool par_bDontCleanPriors = false)
@@ -651,14 +662,14 @@ namespace RSCLibraryDLLOperations
             {
                 if (bShift)
                 {
-                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(PLACEHOLDER, par_indexClicked);
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(PLACEHOLDER, par_indexClicked_Base1);
                 }
                 else
                 {
-                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(par_indexClicked, PLACEHOLDER);
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(par_indexClicked_Base1, PLACEHOLDER);
                 }
 
-                mod_tupSelect_LowToUpper = new Tuple<int, int>(par_indexClicked, par_indexClicked);
+                mod_tupSelect_LowToUpper = new Tuple<int, int>(par_indexClicked_Base1, par_indexClicked_Base1);
             }
             else
             {
@@ -667,11 +678,11 @@ namespace RSCLibraryDLLOperations
 
                 if (bShift)
                 {
-                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(priorUnshifted, par_indexClicked);
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(priorUnshifted, par_indexClicked_Base1);
                 }
                 else
                 {
-                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(par_indexClicked, PLACEHOLDER);
+                    mod_tupSelect_NoShiftToShift = new Tuple<int, int>(par_indexClicked_Base1, PLACEHOLDER);
                 }
 
                 int index_unshifted = mod_tupSelect_NoShiftToShift.Item1;

@@ -63,7 +63,8 @@ Public Interface IDoublyLinkedItem
     Sub DLL_ClearReferencePrior(par_typeOp As Char)
     Sub DLL_ClearReferenceNext(par_typeOp As Char)
 
-    Sub DLL_MarkAsEndOfList() ''Added 4/15/2025 thomas d.
+    Sub DLL_MarkAsEndOfList(Optional pleaseRemoveMarkFromPrior As Boolean = True,
+                            Optional pleaseRemoveMarkFromThis As Boolean = False) ''Added 4/15/2025 thomas d.
 
     ''Added 12/30/2023 
     ''---DIFFICULT AND CONFUSING---

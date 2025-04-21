@@ -25,21 +25,21 @@ Partial Class DLLUserControlRichbox
         TextBox1 = New RichTextBox()
         SuspendLayout()
         ' 
-        ' RichTextBox3
+        ' TextBox1
         ' 
         TextBox1.BorderStyle = BorderStyle.FixedSingle
         TextBox1.Location = New Point(0, 0)
-        TextBox1.Name = "RichTextBox3"
+        TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(22, 23)
         TextBox1.TabIndex = 156
         TextBox1.Text = "01"
         ' 
-        ' UserControlRichbox
+        ' DLLUserControlRichbox
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         Controls.Add(TextBox1)
-        Name = "UserControlRichbox"
+        Name = "DLLUserControlRichbox"
         Size = New Size(22, 23)
         ResumeLayout(False)
     End Sub

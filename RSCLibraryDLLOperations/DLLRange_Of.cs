@@ -122,16 +122,38 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLRange(DLLList<TControl> par_list, Tuple<int, int> par_tuple)
+        public DLLRange(DLLList<TControl> par_list, Tuple<int, int> par_tuple_base1)
         {
             //
             // Added 11/15/2024 thomas downes
             //
-            _StartingItemOfRange = par_list.Get_ItemAtIndex(par_tuple.Item1);
-            _EndingItemOfRange = par_list.Get_ItemAtIndex(par_tuple.Item2);  // Added 11/17/2024   .Item1);
+            _StartingItemOfRange = par_list.Get_ItemAtIndex_base1(par_tuple_base1.Item1);
+            _EndingItemOfRange = par_list.Get_ItemAtIndex_base1(par_tuple_base1.Item2);  // Added 11/17/2024   .Item1);
             //return new DLLRange<TControl>(itemStart, item_Last);
-            _ItemCountOfRange = (1 + par_tuple.Item2 - par_tuple.Item1);
-            _isSingleItem = (par_tuple.Item1 == par_tuple.Item2);
+            _ItemCountOfRange = (1 + par_tuple_base1.Item2 - par_tuple_base1.Item1);
+            _isSingleItem = (par_tuple_base1.Item1 == par_tuple_base1.Item2);
+
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="par_list">List which is the source of range.</param>
+        /// <param name="par_isSingleItem"></param>
+        /// <param name="pStartAtIndex_b1">Index, base 1</param>
+        /// <param name="pNumberOfItems">Count of items in the range</param>
+        public DLLRange(DLLList<TControl> par_list, bool par_isSingleItem, int pStartAtIndex_b1, int pNumberOfItems)
+        {
+            //
+            // Added 04/20/2025 thomas downes
+            //
+            _StartingItemOfRange = par_list.Get_ItemAtIndex_base1(pStartAtIndex_b1);
+            _EndingItemOfRange = par_list.Get_ItemAtIndex_base1(pStartAtIndex_b1 - 1 + pNumberOfItems);  // Added 11/17/2024   .Item1);
+            //return new DLLRange<TControl>(itemStart, item_Last);
+            _ItemCountOfRange = pNumberOfItems; // (1 + par_tuple.Item2 - par_tuple.Item1);
+            _isSingleItem = (pNumberOfItems == 1);
+            if (par_isSingleItem != _isSingleItem) System.Diagnostics.Debugger.Break();
 
         }
 
@@ -997,6 +1019,8 @@ namespace RSCLibraryDLLOperations
                     //     ---12/18/2024
                     par_listForAdmin._itemEnding = this._EndingItemOfRange;
                     if (!pbLikelyChangeOfEndpoint) Debugger.Break();
+                    par_listForAdmin._itemEnding.DLL_MarkAsEndOfList(); //Added 4/2025 td
+
                 }
 
                 // Added 12/18/2024 td 

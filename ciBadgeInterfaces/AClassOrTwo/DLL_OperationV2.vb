@@ -412,13 +412,33 @@ Public Class DLL_OperationV2
     End Sub
 
 
-    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
-        ''Added 4/25/2025 td
-        ''Debugger.Break() ''Shouldn't be needed. 
-        mod_operationNext = Nothing
-        mod_operationNextIsNull = True ''Added 4/2025 td
+    ''April 2025 Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+    ''    ''Added 4/25/2025 td
+    ''    ''Debugger.Break() ''Shouldn't be needed. 
+    ''    mod_operationNext = Nothing
+    ''    mod_operationNextIsNull = True ''Added 4/2025 td
+    ''
+    ''End Sub
 
-    End Sub
+
+    Public Sub DLL_MarkAsEndOfList(Optional pbUndoPrior As Boolean = True,
+                                   Optional pbUndoThis As Boolean = False) Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+        ''Throw New NotImplementedException()
+        Debugger.Break() ''Shouldn't be needed. 
+        mod_operationNext = Nothing
+        mod_operationNextIsNull = True
+
+        ''Added 4/2025
+        If (pbUndoPrior AndAlso mod_operationPrior IsNot Nothing) Then
+
+            mod_operationPrior.DLL_MarkAsEndOfList(False, True)
+
+        End If
+
+        ''Set the current one to False. 4/2025
+        If (pbUndoThis) Then mod_operationNextIsNull = False
+
+    End Sub ''end Public Sub DLL_MarkAsEndOfList
 
 
     Public Function DLL_NotAnyNext() As Boolean Implements IDoublyLinkedItem.DLL_NotAnyNext

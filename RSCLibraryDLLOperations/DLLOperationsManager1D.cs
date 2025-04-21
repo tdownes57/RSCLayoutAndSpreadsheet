@@ -110,8 +110,11 @@ namespace RSCLibraryDLLOperations
             {
                 this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
                 this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
+
+                const bool IS_CONSTRUCTOR = true;
+
                 mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>
-                    (par_firstPriorOperationV1);
+                    (par_firstPriorOperationV1, IS_CONSTRUCTOR);
                 mod_intCountOperations++; // Added 10/26/2024 td 
 
             }
@@ -294,7 +297,7 @@ namespace RSCLibraryDLLOperations
                     mod_lastPriorOperation1D = parOperation;
                     // Added 12/04/2024
                     // April2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
-                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(parOperation, false);
 
                 }
 
@@ -333,7 +336,7 @@ namespace RSCLibraryDLLOperations
                     //  Major call!!
                     //
                     //April2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
-                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(parOperation);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(parOperation, false);
 
                     // Added 12/01/2028
                     //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
@@ -465,6 +468,7 @@ namespace RSCLibraryDLLOperations
                     //mod_firstPriorOperation1D = parOperation;
                     //mod_lastPriorOperation1D = parOperation;
                     //Apr2025 mod_firstPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+                    parOperation.DLL_MarkStartOfList(); // Mark the parameter operation (needed!). --Added 4/18/2025
                     mod_firstPriorOperation1D = operation1D_OfT_OfT;
                     mod_firstPriorOperation1D.DLL_MarkStartOfList(); // Added 4/18/2025 td
 
@@ -472,11 +476,14 @@ namespace RSCLibraryDLLOperations
                     if (mod_lastPriorOperation1D != null) System.Diagnostics.Debugger.Break();
                     mod_lastPriorOperation1D = mod_firstPriorOperation1D; //Normal if there is only one(1) operation.
                     mod_lastPriorOperation1D.DLL_MarkEndOfList(); // Added 4/18/2025
+                    // Somewhat surprisingly, we also have to call the same method
+                    //    on the parameter operation.---4/2025
+                    parOperation.DLL_MarkEndOfList(); // Added 4/18/2025
 
                     // Added 12/04/2024
                     //
                     //April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
-                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(mod_firstPriorOperation1D);
+                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(mod_firstPriorOperation1D, false);
 
                 }
 
@@ -510,6 +517,9 @@ namespace RSCLibraryDLLOperations
                     //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
                     //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
                     operation1D_OfT_OfT.DLL_SetOpPrior_OfT_OfT(mod_lastPriorOperation1D);
+                    // Somewhat surprisingly, we also have to call the same method
+                    //    on the parameter operation.---4/2025
+                    parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D); // Added 4/20/2025
 
                     //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
                     //April 2025  mod_lastPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
@@ -522,13 +532,16 @@ namespace RSCLibraryDLLOperations
                     //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
                     mod_lastPriorOperation1D = operation1D_OfT_OfT;
                     mod_lastPriorOperation1D.DLL_MarkEndOfList();  // Added 4/18/2025
+                    // Somewhat surprisingly, we also have to call the same method
+                    //    on the parameter operation.---4/2025
+                    parOperation.DLL_MarkEndOfList(); // Added 4/20/2025 td
 
                     //
                     //  Major call!!
                     //
                     //April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
                     mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL,
-                        T_DLLParallel>(mod_lastPriorOperation1D);
+                        T_DLLParallel>(mod_lastPriorOperation1D, false);
 
                     // Added 12/01/2028
                     //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
@@ -635,7 +648,10 @@ namespace RSCLibraryDLLOperations
 
                 mod_lastPriorOperation1D?.DLL_ClearOpNext();
                 mod_opUndoRedoMarker.ClearPendingRedoOperation();
-                mod_intCountOperations = (1 + mod_firstPriorOperation1D.DLL_CountOpsAfter());
+
+                if (mod_firstPriorOperation1D == null) mod_intCountOperations = 0;
+                else mod_intCountOperations = 1 + mod_firstPriorOperation1D.DLL_CountOpsAfter();
+
             }
 
         }
@@ -648,7 +664,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_operationByIndex"></param>
         /// <param name="par_changeOfEndpoint_Expected"></param>
         /// <param name="par_changeOfEndpoint_InFact"></param>
-        private void ProcessOperation_ToParallelLists(DLLOperationIndexStructure par_operationByIndex,
+        private void ProcessOperation_ToParallelLists(DLLOperationIndexStructure par_operationStructure,
             bool par_changeOfEndpoint_Expected, ref bool par_changeOfEndpoint_InFact)
         {
             //
@@ -665,12 +681,12 @@ namespace RSCLibraryDLLOperations
             int countOfParallelLists = mod_arrayOfParallelLists.Length;
 
             // Added 4/14/2025 
-            if (par_operationByIndex.IsDelete)
+            if (par_operationStructure.IsDelete)
             {
                 // Added 4/14/2025 
                 mod_arrayOfParallelRangesToDelete = new DLLRange<T_DLLParallel>[countOfParallelLists];
             }
-            else if (par_operationByIndex.IsInsert)
+            else if (par_operationStructure.IsInsert)
             {
                 //Added 4/14/2025 
                 if (mod_arrayOfParallelRangesToInsert == null)
@@ -695,7 +711,7 @@ namespace RSCLibraryDLLOperations
                 //
                 //For INSERT operations (& possibly MOVEs).  Added 04/08/2025 td
                 //
-                if (par_operationByIndex.IsInsert)
+                if (par_operationStructure.IsInsert)
                 {
                     //
                     // For Inserts. (Eventually, we might include MOVE operations.)
@@ -706,7 +722,7 @@ namespace RSCLibraryDLLOperations
                     //Apr2025 each_operation.SetRange_ForInserts(each_range);
 
                     each_operation = new DLLOperation1D_Of<T_DLLParallel>
-                        (par_operationByIndex, each_1stParallelItem, each_range);
+                        (par_operationStructure, each_1stParallelItem, each_range);
 
                 }
 
@@ -716,10 +732,10 @@ namespace RSCLibraryDLLOperations
                     // Non-Insert operations.
                     //
                     each_operation = new DLLOperation1D_Of<T_DLLParallel>
-                         (par_operationByIndex, each_1stParallelItem);
+                         (par_operationStructure, each_1stParallelItem);
 
                     // Added 4/14/2025 
-                    if (each_operation._isDelete)
+                    if (each_operation._isDelete && mod_arrayOfParallelRangesToDelete != null)
                     {
                         // Added 4/14/2025 
                         mod_arrayOfParallelRangesToDelete[arrayIndex] = each_operation.GetRange();
@@ -758,7 +774,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Added 10/25/2024  
                 if (mod_lastPriorOperation1D == null) throw new RSCNoPriorOperationException();
-                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(mod_lastPriorOperation1D);
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(mod_lastPriorOperation1D, false);
 
             }
             else if (mod_opUndoRedoMarker.HasOperationPrior())

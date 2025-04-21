@@ -880,13 +880,24 @@ Public Class DLL_OperationV1_Deprecated ''11/2/2023 (Of TControl)
     End Sub
 
 
-    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+    Public Sub DLL_MarkAsEndOfList(Optional pbUndoPrior As Boolean = True,
+                                   Optional pbUndoThis As Boolean = False) Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
         ''Throw New NotImplementedException()
         Debugger.Break() ''Shouldn't be needed. 
         mod_operationNext = Nothing
-        mod_operationNextIsNUll = True
+        mod_operationNextIsNull = True
 
-    End Sub
+        ''Added 4/2025
+        If (pbUndoPrior AndAlso mod_operationPrior IsNot Nothing) Then
+
+            mod_operationPrior.DLL_MarkAsEndOfList(False, True)
+
+        End If
+
+        ''Set the current one to False. 4/2025
+        If (pbUndoThis) Then mod_operationNextIsNull = False
+
+    End Sub ''end of Public Sub DLL_MarkAsEndOfList 
 
 
 

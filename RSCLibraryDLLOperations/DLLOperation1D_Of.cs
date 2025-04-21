@@ -39,8 +39,8 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isHoriz;
         private readonly bool _isVerti;
 
-        internal readonly bool _isForStartOfList;
-        internal readonly bool _isForEndOfList;
+        internal bool _isForStartOfList; // readonly  4/20/2025 
+        internal bool _isForEndOfList; // readonly  4/20/2025 
         private readonly bool _isForAnchor;
 
         internal readonly bool _isInsert;
@@ -1801,6 +1801,15 @@ namespace RSCLibraryDLLOperations
             mod_opNextIsNull = true;
             this.mod_opNext_ForRedo_OfT = null;
             base.mod_opNext_ForRedo = null;
+            this._isForEndOfList = true;
+
+            // Added 4/18/2025 td
+            //   Indicate that the //PRIOR// operation is //NOW NOT// the end of the list. 
+            if (this.mod_opPrior_ForUndo_OfT != null)
+            {
+                this.mod_opPrior_ForUndo_OfT._isForEndOfList = false;
+                this.mod_opPrior_ForUndo_OfT.mod_opNextIsNull = false;
+            }
 
         }
 
@@ -1814,6 +1823,7 @@ namespace RSCLibraryDLLOperations
             mod_opPriorIsNull = true;
             this.mod_opPrior_ForUndo_OfT = null;
             base.mod_opPrior_ForUndo = null;
+            this._isForStartOfList = true;
 
         }
 

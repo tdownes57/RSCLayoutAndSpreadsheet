@@ -763,7 +763,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
 
             ''Added 2/29/2024
             ''//mod_list.SelectionRange_ProcessList_GetTuple(index_of_item, bShiftingKey)
-            mod_range = mod_list.GetSelectionRange(index_of_item, bShiftingKey)
+            mod_range = mod_list.GetSelectionRange_Base1(index_of_item, bShiftingKey)
 
             ''Added 11/14/2024
             ''---objectListItem = mod_list.DLL_GetItemAtIndex(index_of_item)

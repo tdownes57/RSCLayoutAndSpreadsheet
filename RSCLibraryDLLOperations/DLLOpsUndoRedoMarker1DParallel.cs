@@ -90,7 +90,7 @@ namespace RSCLibraryDLLOperations
 
         //}
 
-        public DLLOpsUndoRedoMarker1DParallel(DLLOperation1D_OfOf<TControl, TParallel> par_1stPrior)
+        public DLLOpsUndoRedoMarker1DParallel(DLLOperation1D_OfOf<TControl, TParallel> par_1stPrior, bool onlyOperationExecutedYet)
         {
             // Added 10/25/2024 
             //
@@ -98,6 +98,11 @@ namespace RSCLibraryDLLOperations
             //mod_opNext_ForRedo = par_1stprior;
             mod_opPrior_ForUndo = par_1stPrior;
             mod_opNext_ForRedo = null;
+
+            //Added 4/20/2025 
+            if (onlyOperationExecutedYet) mod_opPrior_ForUndo.DLL_MarkStartOfList();
+            if (onlyOperationExecutedYet) mod_opPrior_ForUndo.DLL_MarkEndOfList();
+
         }
 
 

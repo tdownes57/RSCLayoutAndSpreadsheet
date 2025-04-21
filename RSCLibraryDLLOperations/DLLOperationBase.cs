@@ -154,6 +154,7 @@ namespace RSCLibraryDLLOperations
             // Added 01/04/2025  
             //
             mod_opPrior_ForUndo = null; // = par_item;
+            mod_opPriorIsNull = true; // Added 4/2025 
 
         }
 
@@ -164,6 +165,7 @@ namespace RSCLibraryDLLOperations
             // Added 01/04/2025  
             //
             mod_opNext_ForRedo = null;
+            mod_opNextIsNull = true; // Added 4/2025 
 
         }
 
@@ -174,8 +176,15 @@ namespace RSCLibraryDLLOperations
             // Added 01/04/2025  
             //
             mod_opNext_ForRedo = null;
-            mod_opNextIsNull = true;
+            mod_opNextIsNull = true; // Added 4/2025 
 
+            // Added 4/18/2025 td
+            //   Indicate that the //PRIOR// operation is //NOW NOT// the end of the list. 
+            //-----this.mod_opPrior_ForUndo._isForEndOfList = false;
+            if (mod_opPrior_ForUndo != null)
+            { 
+                mod_opPrior_ForUndo.mod_opNextIsNull = false;
+            }
         }
 
 
@@ -185,7 +194,8 @@ namespace RSCLibraryDLLOperations
             // Added 01/04/2025  
             //
             mod_opPrior_ForUndo = null;
-            mod_opPriorIsNull = true;
+            mod_opPriorIsNull = true; // Added 4/2025 
+   
 
         }
 

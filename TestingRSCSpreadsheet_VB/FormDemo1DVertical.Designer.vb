@@ -82,6 +82,7 @@ Partial Class FormDemo1DVertical
         TextBox14 = New TextBox()
         TextBox15 = New TextBox()
         richtextItemsDisplay = New RichTextBox()
+        DllUserControlRichbox1 = New DLLUserControlRichbox()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -720,11 +721,25 @@ Partial Class FormDemo1DVertical
         richtextItemsDisplay.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         richtextItemsDisplay.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
+        ' DllUserControlRichbox1
+        ' 
+        DllUserControlRichbox1.HighlightInBlue = False
+        DllUserControlRichbox1.HighlightInCyan = False
+        DllUserControlRichbox1.HighlightInGreen = False
+        DllUserControlRichbox1.HighlightInRed = False
+        DllUserControlRichbox1.Location = New Point(1008, 27)
+        DllUserControlRichbox1.Name = "DllUserControlRichbox1"
+        DllUserControlRichbox1.Selected = False
+        DllUserControlRichbox1.Size = New Size(22, 23)
+        DllUserControlRichbox1.TabIndex = 156
+        DllUserControlRichbox1.Visible = False
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1227, 504)
+        Controls.Add(DllUserControlRichbox1)
         Controls.Add(richtextItemsDisplay)
         Controls.Add(FlowRowNumbersOnly)
         Controls.Add(FlowColumnB2)
@@ -845,4 +860,5 @@ Partial Class FormDemo1DVertical
     Friend WithEvents UserControlRichbox6 As DLLUserControlRichbox
     Friend WithEvents UserControlRichbox9 As DLLUserControlRichbox
     Friend WithEvents richtextItemsDisplay As RichTextBox
+    Friend WithEvents DllUserControlRichbox1 As DLLUserControlRichbox
 End Class
