@@ -431,9 +431,12 @@ Public Class DLL_OperationV2
         ''Added 4/2025
         If (pbUndoPrior AndAlso mod_operationPrior IsNot Nothing) Then
 
-            mod_operationPrior.DLL_MarkAsEndOfList(False, True)
+            ''---mod_operationPrior.DLL_MarkAsEndOfList(False, True)
+            Const UNDO_PRIOR_OF_PRIOR As Boolean = False ''False, we don't want infinite recursion.
+            Const UNDO_PRIOR As Boolean = True ''True, since parameter pbUndoPrior is True.
+            mod_operationPrior.DLL_MarkAsEndOfList(UNDO_PRIOR_OF_PRIOR, UNDO_PRIOR)
 
-        End If
+        End If ''End of ""If (pbUndoPrior AndAlso mod_operationPrior IsNot Nothing) Then""
 
         ''Set the current one to False. 4/2025
         If (pbUndoThis) Then mod_operationNextIsNull = False
@@ -840,5 +843,13 @@ Public Class DLL_OperationV2
         Return "Operation of [unknown]."
 
     End Function ''ENd of Public Overloads Function ToString(par_appendNextToString) As String
+
+
+    Public Sub DLL_DrawColors() Implements IDoublyLinkedItem.DLL_DrawColors
+        ''
+        ''Added 4/21/2024
+        '' 
+
+    End Sub
 
 End Class

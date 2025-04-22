@@ -476,8 +476,8 @@ namespace RSCLibraryDLLOperations
             //---if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
             if (par_structure.RangeIsSpecified_MoveOrDelete) // || 0 < par_structure.RangeSize)
             {
-                T_DLLItem itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeStartingIndex_b1);
-                T_DLLItem itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.RangeEndingIndex_b1);
+                T_DLLItem itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.RangeStartingIndex_b1);
+                T_DLLItem itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.RangeEndingIndex_b1);
 
                 _range = new DLLRange<T_DLLItem>(itemOfRangeFirst, itemOfRange_Last, 
                     par_structure.RangeSize_MoveOrDelete);
@@ -507,7 +507,7 @@ namespace RSCLibraryDLLOperations
 
                 if (0 < par_structure.AnchorIndexLeft_b1) // Added 4/08/2025 td
                 {
-                    itemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexLeft_b1);
+                    itemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.AnchorIndexLeft_b1);
                 }
                 else if (! par_structure.AnchorLeft_isNull)
                 {
@@ -525,7 +525,7 @@ namespace RSCLibraryDLLOperations
 
                 if (0 < par_structure.AnchorIndexRight_b1) // Added 4/08/2025 td
                 {
-                    itemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.AnchorIndexRight_b1);
+                    itemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.AnchorIndexRight_b1);
                 }
                 else if (!par_structure.AnchorRight_isNull)
                 {
@@ -551,7 +551,7 @@ namespace RSCLibraryDLLOperations
 
                 if (0 < par_structure.InverseAnchorIndexLeft_b1) // Added 4/08/2025 td
                 {
-                    inverseItemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.InverseAnchorIndexLeft_b1);
+                    inverseItemOfAnchorLeft = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.InverseAnchorIndexLeft_b1);
                 }
                 else if (!par_structure.InverseAnchorLeft_isNull)
                 {
@@ -560,7 +560,7 @@ namespace RSCLibraryDLLOperations
 
                 if (0 < par_structure.InverseAnchorIndexRight_b1) // Added 4/08/2025 td
                 {
-                    inverseItemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_b1(par_structure.InverseAnchorIndexRight_b1);
+                    inverseItemOfAnchorRight = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.InverseAnchorIndexRight_b1);
                 }
                 else if (!par_structure.InverseAnchorRight_isNull)
                 {

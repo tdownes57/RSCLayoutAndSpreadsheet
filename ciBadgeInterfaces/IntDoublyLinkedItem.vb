@@ -11,6 +11,8 @@ Public Interface IDoublyLinkedItem
     Property HighlightInBlue As Boolean ''Added 11/06/2024 thomas downes
     Property HighlightInCyan As Boolean ''Added 11/10/2024 thomas downes
 
+    Sub DLL_DrawColors() ''Implement highlighting &/or selection indicators.  --Added 4/21/2025 td
+
     Function DLL_NotAnyNext() As Boolean
     Function DLL_NotAnyPrior() As Boolean
 

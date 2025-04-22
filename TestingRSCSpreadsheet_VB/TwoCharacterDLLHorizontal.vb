@@ -227,13 +227,13 @@ Public Class TwoCharacterDLLHorizontal
     ''' Get the 0-based (_b0) index of the current item.
     ''' </summary>
     ''' <returns></returns>
-    Public Function DLL_GetIndexOfItem_b0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex_b0
+    Public Function DLL_GetIndexOfItem_b0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex_base0
         ''
         '' Get the 0-based (_b0) index of the current item.
         ''
         ''Added 11/12/2024 thomas downes
         ''
-        Return MyBase.DLL_GetItemIndex_b0()
+        Return MyBase.DLL_GetItemIndex_base0()
 
     End Function ''Public Function DLL_GetIndexOfItem_b0() As Integer
 
@@ -241,13 +241,13 @@ Public Class TwoCharacterDLLHorizontal
     ''' Get the 1-based (_b1) index of the current item.
     ''' </summary>
     ''' <returns></returns>
-    Public Function DLL_GetIndexOfItem_b1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex_b1
+    Public Function DLL_GetIndexOfItem_b1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemIndex_base1
         ''
         ''Added 11/12/2024 thomas downes
         ''
         '' Get the 1-based (_b1) index of the current item.
         ''
-        Return MyBase.DLL_GetItemIndex_b1()
+        Return MyBase.DLL_GetItemIndex_base1()
 
     End Function ''Public Function DLL_GetIndexOfItem_b1() As Integer
 
@@ -322,17 +322,19 @@ Public Class TwoCharacterDLLHorizontal
 
     End Sub ''End of ""Public Sub DLL_SaveCurrentSortOrder_ToPrior(pbExecuteInCascade As Boolean)""
 
-    Private Function DLL_GetItemAtIndex_b0(paramIndex_b0 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemAtIndex_b0
+
+    Private Function DLL_GetItemAtIndex_base0(paramIndex_b0 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemAtIndex_base0
 
         ''Added 1/07/2025 td
-        Return MyBase.DLL_GetItemAtIndex_b0(paramIndex_b0)
+        Return MyBase.DLL_GetItemAtIndex_base0(paramIndex_b0)
 
     End Function
 
-    Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1(paramIndex_b1 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemAtIndex_b1
+
+    Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_base1(paramIndex_b1 As Integer) As TwoCharacterDLLHorizontal Implements IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).DLL_GetItemAtIndex_base1
 
         ''Added 1/07/2025 td
-        Return MyBase.DLL_GetItemAtIndex_b1(paramIndex_b1)
+        Return MyBase.DLL_GetItemAtIndex_base1(paramIndex_b1)
 
     End Function ''End of Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1
 
@@ -343,9 +345,9 @@ Public Class TwoCharacterDLLHorizontal
         ''Added 1/07/2025 
         ''
         Dim intIndex_b0 As Integer
-        intIndex_b0 = DLL_GetItemIndex_b0()
+        intIndex_b0 = DLL_GetItemIndex_base0()
         firstItem = firstItem.DLL_GetItemFirst()
-        Return firstItem.DLL_GetItemAtIndex_b0(intIndex_b0)
+        Return firstItem.DLL_GetItemAtIndex_base0(intIndex_b0)
 
     End Function ''Public Function GetConvertToGeneric_OfT
 

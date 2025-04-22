@@ -1,6 +1,7 @@
 ﻿
 Imports System.CodeDom
 Imports System.Runtime.Intrinsics
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports ciBadgeInterfaces
 Imports Windows.Win32.UI
 
@@ -241,11 +242,27 @@ Public Class TwoCharacterDLLItem
     ''' <summary>
     ''' Indicate that this item will serve as the final item in a list.
     ''' </summary>
-    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+    Public Sub DLL_MarkAsEndOfList(Optional pbUndoPrior As Boolean = True,
+                                   Optional pbUndoThis As Boolean = False) _
+                                   Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
 
         ''Added 4/17/2025  
         mod_next = Nothing
+
+        ''Set this item as the final item in the list. 
         mod_nextIsNull = True ''Added 4/17/2025
+
+        ''Added 4/2025
+        If (pbUndoPrior AndAlso mod_prior IsNot Nothing) Then
+
+            Const UNDO_PRIOR_OF_PRIOR As Boolean = False ''False, we don't want infinite recursion.
+            Const UNDO_PRIOR As Boolean = True ''True, since parameter pbUndoPrior is True.
+            mod_prior.DLL_MarkAsEndOfList(UNDO_PRIOR_OF_PRIOR, UNDO_PRIOR)
+
+        End If ''End of ""If (pbUndoPrior AndAlso mod_prior IsNot Nothing) Then""
+
+        ''Set the current one to False. 4/2025
+        If (pbUndoThis) Then mod_nextIsNull = False
 
     End Sub ''End of ""Public Sub DLL_MarkAsEndOfList()""
 
@@ -436,7 +453,8 @@ Public Class TwoCharacterDLLItem
     ''' </summary>
     ''' <param name="par_index_b0">This is a 0-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemAtIndex_b0
+    Public Function DLL_GetItemAtIndex_base0(par_index_b0 As Integer) As TwoCharacterDLLItem _
+        Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemAtIndex_base0
         ''
         ''added 1/07/2024
         ''
@@ -451,7 +469,7 @@ Public Class TwoCharacterDLLItem
         ''1/16/2025 Return objFirst
         Return objResult ''Fixed 1/16/2025
 
-    End Function ''End of ""Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As TwoCharacterDLLItem""
+    End Function ''End of ""Public Function DLL_GetItemAtIndex_base0(par_index_b0 As Integer) As TwoCharacterDLLItem""
 
 
     ''' <summary>
@@ -459,15 +477,15 @@ Public Class TwoCharacterDLLItem
     ''' </summary>
     ''' <param name="par_index_b1">This is a 1-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemAtIndex_b1
+    Public Function DLL_GetItemAtIndex_base1(par_index_b1 As Integer) As TwoCharacterDLLItem Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemAtIndex_base1
         ''
         ''added 1/07/2024
         ''
         Dim objResult As TwoCharacterDLLItem
-        objResult = DLL_GetItemAtIndex_b0(-1 + par_index_b1)
+        objResult = DLL_GetItemAtIndex_base0(-1 + par_index_b1)
         Return objResult
 
-    End Function ''End of ""Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As TwoCharacterDLLItem""
+    End Function ''End of ""Public Function DLL_GetItemAtIndex_base1(par_index_b1 As Integer) As TwoCharacterDLLItem""
 
 
     Public Function DLL_UnboxControl() As Control ''Jan24 2025 Implements IDoublyLinkedItem.DLL_UnboxControl
@@ -756,7 +774,7 @@ Public Class TwoCharacterDLLItem
     ''' This index is 1-based, not 0-based. 
     ''' </summary>
     ''' <returns>Returns a positive integer, starting with 1 (1-based).</returns>
-    Public Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex_b1
+    Public Function DLL_GetItemIndex_base1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex_base1
         ''
         ''Added 11/12/2024  
         ''
@@ -774,24 +792,24 @@ Public Class TwoCharacterDLLItem
 
         Return result_index
 
-    End Function ''end of Public Function GetItemIndex_b1() As Integer
+    End Function ''end of Public Function GetItemIndex_base1() As Integer
 
 
     ''' <summary>
     ''' This index is 0-based, not 1-based. 
     ''' </summary>
     ''' <returns>Returns a non-negative integer, starting with 0 (0-based).</returns>
-    Public Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex_b0
+    Public Function DLL_GetItemIndex_base0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).DLL_GetItemIndex_base0
         ''
         ''Added 11/12/2024  
         ''
         '' This index is 1-based, not 0-based. 
         ''
         Dim result_index As Integer = 0
-        result_index = (-1 + DLL_GetItemIndex_b1())
+        result_index = (-1 + DLL_GetItemIndex_base1())
         Return result_index
 
-    End Function ''end of Public Function GetItemIndex_b1() As Integer
+    End Function ''end of Public Function GetItemIndex_base0() As Integer
 
 
     Public Sub DLL_InsertItemToNext(param As TwoCharacterDLLItem, pbDoubleLink As Boolean) _
@@ -987,9 +1005,9 @@ Public Class TwoCharacterDLLItem
         ''Added 1/07/2025 
         ''
         Dim intIndex_b0 As Integer
-        intIndex_b0 = DLL_GetItemIndex_b0()
+        intIndex_b0 = DLL_GetItemIndex_base0()
         firstItem = firstItem.DLL_GetItemFirst()
-        Return firstItem.DLL_GetItemAtIndex_b0(intIndex_b0)
+        Return firstItem.DLL_GetItemAtIndex_base0(intIndex_b0)
 
     End Function ''Public Function GetConvertToGeneric_OfT
 
@@ -1011,6 +1029,17 @@ Public Class TwoCharacterDLLItem
 
     End Function ''End of Public Function GetConvertToArray() As TwoCharacterDLLItem()
 
+
+    Public Sub DLL_DrawColors() Implements IDoublyLinkedItem.DLL_DrawColors
+        ''
+        ''Added 4/21/2024
+        '' 
+        ''//If (Me.Selected) Then TextBox1.BackColor = Color.Yellow
+        ''//If (Not Me.Selected) Then TextBox1.BackColor = Color.White ''Yellow
+        ''---If (Me.Selected) Then Me.BackColor = Color.Yellow
+        ''---If (Not Me.Selected) Then Me.BackColor = Color.White ''Yellow
+
+    End Sub
 
 
 End Class

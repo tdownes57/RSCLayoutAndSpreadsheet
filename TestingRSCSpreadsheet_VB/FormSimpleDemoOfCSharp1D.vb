@@ -386,7 +386,7 @@ Public Class FormSimpleDemoOfCSharp1D
             Exit Sub
         End If ''End of ""If (par_range Is Nothing) Then""
 
-        intRangeFirstIndex_b1 = par_range.GetFirstItemIndex_b1()
+        intRangeFirstIndex_b1 = par_range.GetFirstItemIndex_base1()
         numInsertAnchorBenchmark.Value = intRangeFirstIndex_b1
         numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex_b1
 

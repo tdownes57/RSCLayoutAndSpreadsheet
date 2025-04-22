@@ -232,10 +232,12 @@ Public Class DLLUserControlTextbox
     End Sub ''End of ""Public Sub DLL_ClearReferenceNext(...)""
 
 
-    Public Sub DLL_MarkAsEndOfList() Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
+    Public Sub DLL_MarkAsEndOfList(Optional pbUndoPrior As Boolean = True,
+                                   Optional pbUndoThis As Boolean = False) Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
         ''Throw New NotImplementedException()
-        ''mod_next = Nothing
-        DLLItem.DLL_MarkAsEndOfList()
+        ''mod_next = No thing
+        ''April 2025  DLLItem.DLL_MarkAsEndOfList()
+        DLLItem.DLL_MarkAsEndOfList(pbUndoPrior, pbUndoThis)
 
     End Sub ''End of ""Public Sub DLL_MarkAsEndOfList(...)""
 
@@ -444,7 +446,7 @@ Public Class DLLUserControlTextbox
     ''' </summary>
     ''' <param name="par_index_b0">This is a 0-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemAtIndex_b0
+    Public Function DLL_GetItemAtIndex_base0(par_index_b0 As Integer) As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemAtIndex_base0
         ''
         ''added 1/07/2024
         ''
@@ -460,7 +462,7 @@ Public Class DLLUserControlTextbox
         ''''1/16/2025 Return objFirst
         ''Return objResult ''Fixed 1/16/2025
 
-        Return DLLItem.DLL_GetItemAtIndex_b0(par_index_b0)
+        Return DLLItem.DLL_GetItemAtIndex_base0(par_index_b0)
 
     End Function ''End of ""Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As UserControlTextbox""
 
@@ -470,7 +472,7 @@ Public Class DLLUserControlTextbox
     ''' </summary>
     ''' <param name="par_index_b1">This is a 1-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemAtIndex_b1
+    Public Function DLL_GetItemAtIndex_base1(par_index_b1 As Integer) As DLLUserControlTextbox Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemAtIndex_base1
         ''
         ''added 1/07/2024
         ''
@@ -478,7 +480,7 @@ Public Class DLLUserControlTextbox
         ''objResult = DLL_GetItemAtIndex_b0(-1 + par_index_b1)
         ''Return objResult
 
-        Return DLLItem.DLL_GetItemAtIndex_b1(par_index_b1)
+        Return DLLItem.DLL_GetItemAtIndex_base1(par_index_b1)
 
     End Function ''End of ""Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As UserControlTextbox""
 
@@ -700,22 +702,22 @@ Public Class DLLUserControlTextbox
     ''' This index is 1-based, not 0-based. 
     ''' </summary>
     ''' <returns>Returns a positive integer, starting with 1 (1-based).</returns>
-    Public Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemIndex_b1
+    Public Function DLL_GetItemIndex_base1() As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemIndex_base1
         ''
         ''Added 11/12/2024  
         ''
         '' This index is 1-based, not 0-based. 
         ''
-        Return DLLItem.DLL_GetItemIndex_b1()
+        Return DLLItem.DLL_GetItemIndex_base1()
 
-    End Function ''end of Public Function GetItemIndex_b1() As Integer
+    End Function ''end of Public Function GetItemIndex_base1() As Integer
 
 
     ''' <summary>
     ''' This index is 0-based, not 1-based. 
     ''' </summary>
     ''' <returns>Returns a non-negative integer, starting with 0 (0-based).</returns>
-    Public Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemIndex_b0
+    Public Function DLL_GetItemIndex_base0() As Integer Implements IDoublyLinkedItem(Of DLLUserControlTextbox).DLL_GetItemIndex_base0
         ''
         ''Added 11/12/2024  
         ''
@@ -725,7 +727,7 @@ Public Class DLLUserControlTextbox
         ''result_index = (-1 + DLL_GetItemIndex_b1())
         ''Return result_index
 
-        Return DLLItem.DLL_GetItemIndex_b0()
+        Return DLLItem.DLL_GetItemIndex_base0()
 
     End Function ''end of Public Function GetItemIndex_b1() As Integer
 
@@ -842,7 +844,14 @@ Public Class DLLUserControlTextbox
     End Function ''End of Public Function GetConvertToArray() As UserControlTextbox()
 
 
+    Public Sub DLL_DrawColors() Implements IDoublyLinkedItem.DLL_DrawColors
+        ''
+        ''Added 4/21/2024
+        '' 
+        If (Me.Selected) Then TextBox1.BackColor = Color.Yellow
+        If (Not Me.Selected) Then TextBox1.BackColor = Color.White ''Yellow
 
+    End Sub
 
 End Class
 

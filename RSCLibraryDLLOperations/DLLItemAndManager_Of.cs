@@ -705,7 +705,7 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         /// <param name="par_index"></param>
         /// <returns></returns>
-        public TControl DLL_GetItemAtIndex_b0(int par_index_b0)
+        public TControl DLL_GetItemAtIndex_base0(int par_index_b0)
         {
             TControl itemFirst = DLL_GetItemFirst();
             int iterationsOfNext = par_index_b0;
@@ -718,7 +718,7 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         /// <param name="par_index"></param>
         /// <returns></returns>
-        public TControl DLL_GetItemAtIndex_b1(int par_index_b1)
+        public TControl DLL_GetItemAtIndex_base1(int par_index_b1)
         {
             TControl itemFirst = DLL_GetItemFirst();
             int iterationsOfNext = -1 + par_index_b1;
@@ -726,7 +726,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public int DLL_GetItemIndex_b1()
+        public int DLL_GetItemIndex_base1()
         {
             int resultIndex = 0;
             //var temp = mod_current;
@@ -740,9 +740,9 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public int DLL_GetItemIndex_b0()
+        public int DLL_GetItemIndex_base0()
         {
-            return DLL_GetItemIndex_b1() - 1;
+            return DLL_GetItemIndex_base1() - 1;
         }
 
 
@@ -844,10 +844,10 @@ namespace RSCLibraryDLLOperations
         public T_BaseOrParallel GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem) 
             where T_BaseOrParallel : IDoublyLinkedItem<T_BaseOrParallel>
         {
-            int indexB0 = DLL_GetItemIndex_b0();
+            int indexB0 = DLL_GetItemIndex_base0();
             // Let's make sure we have the first item in the list.
             T_BaseOrParallel firstItem = par_firstItem.DLL_GetItemFirst();
-            T_BaseOrParallel result = firstItem.DLL_GetItemAtIndex_b0(indexB0);
+            T_BaseOrParallel result = firstItem.DLL_GetItemAtIndex_base0(indexB0);
             return result;
         }
 

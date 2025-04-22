@@ -518,12 +518,12 @@ namespace RSCLibraryDLLOperations
         /// This method is used to determine the index-location of the first item in the range, relative to the parent list.  It is 1-based.
         /// </summary>
         /// <returns></returns>
-        public int GetFirstItemIndex_b1()
+        public int GetFirstItemIndex_base1()
         {
             //
             // Added 11/12/2024 td
             // 
-            return _StartingItemOfRange.DLL_GetItemIndex_b1();
+            return _StartingItemOfRange.DLL_GetItemIndex_base1();
 
         }
 
@@ -1193,7 +1193,7 @@ namespace RSCLibraryDLLOperations
         {
 
             // Added 1/10/2025 thomas d.
-            return _StartingItemOfRange.DLL_GetItemIndex_b0();
+            return _StartingItemOfRange.DLL_GetItemIndex_base0();
 
         }
 
@@ -1206,7 +1206,45 @@ namespace RSCLibraryDLLOperations
         {
 
             // Added 1/10/2025 thomas d.
-            return _StartingItemOfRange.DLL_GetItemIndex_b1();
+            return _StartingItemOfRange.DLL_GetItemIndex_base1();
+
+        }
+
+
+        public void UpdateEndpoints_UserClick(int par_row_base1, bool par_wShiftKey, DLLList<TControl> mod_listA)
+        {
+            //
+            // Added 4/05/2025  
+            //
+            int intRangeItemIndexMinimum_base1;
+            int intRangeItemIndexMaximum_base1;
+
+            intRangeItemIndexMinimum_base1 = _StartingItemOfRange.DLL_GetItemIndex_base1();
+            intRangeItemIndexMaximum_base1 = _EndingItemOfRange.DLL_GetItemIndex_base1();
+
+            if (par_wShiftKey && par_row_base1 >= intRangeItemIndexMaximum_base1)
+            {
+                _ItemCountOfRange = (1 + par_row_base1 - intRangeItemIndexMinimum_base1);
+                _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
+            }
+
+            else if (par_wShiftKey && par_row_base1 < intRangeItemIndexMinimum_base1)
+            {
+                _StartingItemOfRange = mod_listA.DLL_GetItemAtIndex_1based(par_row_base1);
+                _ItemCountOfRange = (1 + intRangeItemIndexMinimum_base1 - par_row_base1);
+                if (_StartingItemOfRange != null)
+                {
+                    _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
+                }
+
+            }
+
+            else if (!par_wShiftKey)
+            {
+                _ItemCountOfRange = 1;
+                _StartingItemOfRange = mod_listA.DLL_GetItemAtIndex_1based(par_row_base1);
+                _EndingItemOfRange = _StartingItemOfRange;
+            }
 
         }
 

@@ -16,7 +16,9 @@ Public Class DLLUserControlRichbox
 
     ''Added 4/12/2025 td
     Public ColumnLetter As String ''Added 4/12/2025 td
-    Public Event DLLUserClickedControlBox(col_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
+    ''Apr2025 Public Event DLLUserClickedControlBox(col_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
+    Public Event DLLUserClickedControlBox(isUserPressingShiftKey As Boolean,
+                                          column_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
 
     ''
     ''Added 1/19/2025 
@@ -459,7 +461,7 @@ Public Class DLLUserControlRichbox
     ''' </summary>
     ''' <param name="par_index_b0">This is a 0-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As DLLUserControlRichbox Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemAtIndex_b0
+    Public Function DLL_GetItemAtIndex_base0(par_index_b0 As Integer) As DLLUserControlRichbox Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemAtIndex_base0
         ''
         ''added 1/07/2024
         ''
@@ -475,7 +477,7 @@ Public Class DLLUserControlRichbox
         ''''1/16/2025 Return objFirst
         ''Return objResult ''Fixed 1/16/2025
 
-        Return DLLItem.DLL_GetItemAtIndex_b0(par_index_b0)
+        Return DLLItem.DLL_GetItemAtIndex_base0(par_index_b0)
 
     End Function ''End of ""Public Function DLL_GetItemAtIndex_b0(par_index_b0 As Integer) As UserControlTextbox""
 
@@ -485,7 +487,7 @@ Public Class DLLUserControlRichbox
     ''' </summary>
     ''' <param name="par_index_b1">This is a 1-based index.</param>
     ''' <returns>Returns the item at the specified index.</returns>
-    Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As DLLUserControlRichbox Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemAtIndex_b1
+    Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As DLLUserControlRichbox Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemAtIndex_base1
         ''
         ''added 1/07/2024
         ''
@@ -493,7 +495,7 @@ Public Class DLLUserControlRichbox
         ''objResult = DLL_GetItemAtIndex_b0(-1 + par_index_b1)
         ''Return objResult
 
-        Return DLLItem.DLL_GetItemAtIndex_b1(par_index_b1)
+        Return DLLItem.DLL_GetItemAtIndex_base1(par_index_b1)
 
     End Function ''End of ""Public Function DLL_GetItemAtIndex_b1(par_index_b1 As Integer) As UserControlTextbox""
 
@@ -715,13 +717,13 @@ Public Class DLLUserControlRichbox
     ''' This index is 1-based, not 0-based. 
     ''' </summary>
     ''' <returns>Returns a positive integer, starting with 1 (1-based).</returns>
-    Public Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemIndex_b1
+    Public Function DLL_GetItemIndex_base1() As Integer Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemIndex_base1
         ''
         ''Added 11/12/2024  
         ''
         '' This index is 1-based, not 0-based. 
         ''
-        Return DLLItem.DLL_GetItemIndex_b1()
+        Return DLLItem.DLL_GetItemIndex_base1()
 
     End Function ''end of Public Function GetItemIndex_b1() As Integer
 
@@ -730,7 +732,7 @@ Public Class DLLUserControlRichbox
     ''' This index is 0-based, not 1-based. 
     ''' </summary>
     ''' <returns>Returns a non-negative integer, starting with 0 (0-based).</returns>
-    Public Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemIndex_b0
+    Public Function DLL_GetItemIndex_base0() As Integer Implements IDoublyLinkedItem(Of DLLUserControlRichbox).DLL_GetItemIndex_base0
         ''
         ''Added 11/12/2024  
         ''
@@ -740,7 +742,7 @@ Public Class DLLUserControlRichbox
         ''result_index = (-1 + DLL_GetItemIndex_b1())
         ''Return result_index
 
-        Return DLLItem.DLL_GetItemIndex_b0()
+        Return DLLItem.DLL_GetItemIndex_base0()
 
     End Function ''end of Public Function GetItemIndex_b1() As Integer
 
@@ -856,12 +858,33 @@ Public Class DLLUserControlRichbox
 
     End Function ''End of Public Function GetConvertToArray() As UserControlTextbox()
 
+
     Private Sub TextBox1_MouseClick(sender As Object, e As MouseEventArgs) Handles TextBox1.MouseClick
 
         ''Added 4/20/2025 td
-        RaiseEvent DLLUserClickedControlBox(Me.ColumnLetter, Me.DLL_GetItemIndex_b1())
+        TextBox1.BackColor = Color.Yellow
+        Me.Selected = Not Me.Selected
+        TextBox1.BackColor = IIf(Me.Selected, Color.Yellow, Color.White) ''Color.Transparent)
+
+        ''Added 2/29/2024
+        Dim bShiftingKey As Boolean = Control.ModifierKeys = Keys.Shift
+
+        ''Added 4/20/2025 td
+        ''Apr2025 RaiseEvent DLLUserClickedControlBox(Me.ColumnLetter, Me.DLL_GetItemIndex_b1())
+        RaiseEvent DLLUserClickedControlBox(bShiftingKey, Me.ColumnLetter, Me.DLL_GetItemIndex_base1())
 
     End Sub
+
+
+    Public Sub DLL_DrawColors() Implements IDoublyLinkedItem.DLL_DrawColors
+        ''
+        ''Added 4/21/2024
+        '' 
+        If (Me.Selected) Then TextBox1.BackColor = Color.Yellow
+        If (Not Me.Selected) Then TextBox1.BackColor = Color.White ''Yellow
+
+    End Sub
+
 
 End Class
 

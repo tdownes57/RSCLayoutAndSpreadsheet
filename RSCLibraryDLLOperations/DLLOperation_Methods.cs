@@ -671,14 +671,14 @@ namespace RSCLibraryDLLOperations
 
                     if (bShiftingLeft)
                     {
-                        indexOfRange_b1 = par_range._StartingItemOfRange.DLL_GetItemIndex_b1();
+                        indexOfRange_b1 = par_range._StartingItemOfRange.DLL_GetItemIndex_base1();
                         changeOfEndpoint_Expected = (indexOfRange_b1 <= 2) ||
                             par_range.ContainsEndpoint();
 
                     }
                     else if (bShiftingRight)
                     {
-                        indexOfRange_b1 = par_range._EndingItemOfRange.DLL_GetItemIndex_b1();
+                        indexOfRange_b1 = par_range._EndingItemOfRange.DLL_GetItemIndex_base1();
                         intListItemCount = par_list_forFinalAdmin._itemCount;
                         changeOfEndpoint_Expected = (indexOfRange_b1 >= -1 + intListItemCount) ||
                             par_range.ContainsEndpoint();
@@ -1211,8 +1211,8 @@ namespace RSCLibraryDLLOperations
                 //result_struct.RangeIndex_Ending___b1 = _range.Item__End().DLL_GetItemIndex_b1();
                 //result_struct.RangeSize_ToMoveOrDelete = _range.GetItemCount();
                 result_struct.RangeIsSpecified_MoveOrDelete = true;
-                result_struct.RangeStartingIndex_b1 = _range.ItemStart().DLL_GetItemIndex_b1();
-                result_struct.RangeEndingIndex_b1 = _range.Item__End().DLL_GetItemIndex_b1();
+                result_struct.RangeStartingIndex_b1 = _range.ItemStart().DLL_GetItemIndex_base1();
+                result_struct.RangeEndingIndex_b1 = _range.Item__End().DLL_GetItemIndex_base1();
                 result_struct.RangeSize_MoveOrDelete = _range.GetItemCount();
 
             }
@@ -1240,7 +1240,7 @@ namespace RSCLibraryDLLOperations
                 //if (itemAnchorCouplet_Left != null)
                 else
                 {
-                    int indexOfLeftOrFirst = itemAnchorCouplet_Left.DLL_GetItemIndex_b1();
+                    int indexOfLeftOrFirst = itemAnchorCouplet_Left.DLL_GetItemIndex_base1();
                     result_struct.AnchorIndexLeft_b1 = indexOfLeftOrFirst;
                     // Added 4/14/2025
                     result_struct.AnchorLeft_isNull = _anchorCouplet.ItemLefthandIsNull();
@@ -1255,7 +1255,7 @@ namespace RSCLibraryDLLOperations
                 }
                 else //if (itemAnchorCouplet_Right != null)
                 {
-                    int indexOfRightOrSecond = itemAnchorCouplet_Right.DLL_GetItemIndex_b1();
+                    int indexOfRightOrSecond = itemAnchorCouplet_Right.DLL_GetItemIndex_base1();
                     result_struct.AnchorIndexRight_b1 = indexOfRightOrSecond;
                     // Added 4/14/2025
                     result_struct.AnchorRight_isNull = _anchorCouplet.ItemRighthandIsNull();
@@ -1283,7 +1283,7 @@ namespace RSCLibraryDLLOperations
 
                 else // if (inverseAnchorCouplet_Left != null)
                 {
-                    int indexOfLeftOrFirst = inverseAnchorCouplet_Left.DLL_GetItemIndex_b1();
+                    int indexOfLeftOrFirst = inverseAnchorCouplet_Left.DLL_GetItemIndex_base1();
                     result_struct.InverseAnchorIndexLeft_b1 = indexOfLeftOrFirst;
                     // Added 4/14/2025
                     result_struct.InverseAnchorLeft_isNull = _inverseAnchorPair_forUndo.ItemLefthandIsNull();
@@ -1298,7 +1298,7 @@ namespace RSCLibraryDLLOperations
                 }
                 else // if (inverseAnchorCouplet_Right != null)
                 {
-                    int indexOfRightOrSecond = inverseAnchorCouplet_Right.DLL_GetItemIndex_b1();
+                    int indexOfRightOrSecond = inverseAnchorCouplet_Right.DLL_GetItemIndex_base1();
                     result_struct.InverseAnchorIndexRight_b1 = indexOfRightOrSecond;
                     // Added 4/14/2025
                     result_struct.InverseAnchorRight_isNull = _inverseAnchorPair_forUndo.ItemRighthandIsNull();

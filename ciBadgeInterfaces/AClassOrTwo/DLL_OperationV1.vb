@@ -1533,5 +1533,12 @@ Public Class DLL_OperationV1_Deprecated ''11/2/2023 (Of TControl)
     End Function ''ENd of Public Overloads Function ToString(par_appendNextToString) As String
 
 
+    Public Sub DLL_DrawColors() Implements IDoublyLinkedItem.DLL_DrawColors
+        ''
+        ''Added 4/21/2024
+        '' 
+
+    End Sub
+
 
 End Class

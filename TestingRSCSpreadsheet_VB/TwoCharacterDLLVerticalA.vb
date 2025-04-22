@@ -134,27 +134,27 @@ Public Class TwoCharacterDLLVerticalA
     ''' This gives the 1-based index of the current item.
     ''' </summary>
     ''' <returns>This gives the 1-based index of the current item.</returns>
-    Public Overloads Function DLL_GetItemIndex_b1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemIndex_b1
+    Public Overloads Function DLL_GetItemIndex_base1() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemIndex_base1
         ''
         ''Added 11/12/2024 thomas downes
         ''
-        Return MyBase.DLL_GetItemIndex_b1()
+        Return MyBase.DLL_GetItemIndex_base1()
 
 
-    End Function ''Public Function DLL_GetItemIndex_b1() As Integer
+    End Function ''Public Function DLL_GetItemIndex_base1() As Integer
 
 
-    Private Overloads Function DLL_GetItemAtIndex_b0(paramIndex_b0 As Integer) As TwoCharacterDLLVerticalA Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemAtIndex_b0
+    Private Overloads Function DLL_GetItemAtIndex_base0(paramIndex_b0 As Integer) As TwoCharacterDLLVerticalA Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemAtIndex_base0
 
         ''Added 1/10/2025 & 1/07/2025 td
-        Return MyBase.DLL_GetItemAtIndex_b0(paramIndex_b0)
+        Return MyBase.DLL_GetItemAtIndex_base0(paramIndex_b0)
 
     End Function
 
-    Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1(paramIndex_b1 As Integer) As TwoCharacterDLLVerticalA Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemAtIndex_b1
+    Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_base1(paramIndex_b1 As Integer) As TwoCharacterDLLVerticalA Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemAtIndex_base1
 
         ''Added 1/10/2025 & 1/07/2025 td
-        Return MyBase.DLL_GetItemAtIndex_b1(paramIndex_b1)
+        Return MyBase.DLL_GetItemAtIndex_base1(paramIndex_b1)
 
     End Function ''End of Private Function IDoublyLinkedItem_DLL_GetItemAtIndex_b1
 
@@ -163,13 +163,13 @@ Public Class TwoCharacterDLLVerticalA
     ''' This gives the 0-based index of the current item.
     ''' </summary>
     ''' <returns>This gives the 0-based index of the current item.</returns>
-    Public Overloads Function DLL_GetItemIndex_b0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemIndex_b0
+    Public Overloads Function DLL_GetItemIndex_base0() As Integer Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).DLL_GetItemIndex_base0
         ''
         ''Added 11/12/2024 thomas downes
         ''
-        Return MyBase.DLL_GetItemIndex_b0()
+        Return MyBase.DLL_GetItemIndex_base0()
 
-    End Function ''Public Function DLL_GetItemIndex_b0() As Integer
+    End Function ''Public Function DLL_GetItemIndex_base0() As Integer
 
 
     Public Overloads Sub DLL_InsertItemToNext(param As TwoCharacterDLLVerticalA, pbDoublyLinked As Boolean) _
@@ -292,9 +292,9 @@ Public Class TwoCharacterDLLVerticalA
         ''Added 1/07/2025 
         ''
         Dim intIndex_b0 As Integer
-        intIndex_b0 = DLL_GetItemIndex_b0()
+        intIndex_b0 = DLL_GetItemIndex_base0()
         firstItem = firstItem.DLL_GetItemFirst()
-        Return firstItem.DLL_GetItemAtIndex_b0(intIndex_b0)
+        Return firstItem.DLL_GetItemAtIndex_base0(intIndex_b0)
 
     End Function ''Public Function GetConvertToGeneric_OfT
 

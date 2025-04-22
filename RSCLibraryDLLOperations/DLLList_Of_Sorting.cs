@@ -105,7 +105,7 @@ namespace RSCLibraryDLLOperations
 
                 if (STORE_INDICES_FOR_SORT_UNDO)
                 {
-                    return_arrayIndicesForUndo[index] = par_arrayControls_priorToSort[index].DLL_GetItemIndex_b1();
+                    return_arrayIndicesForUndo[index] = par_arrayControls_priorToSort[index].DLL_GetItemIndex_base1();
                 }
                 if (STORE_INDICES_FOR_SORT_REDO)
                 {

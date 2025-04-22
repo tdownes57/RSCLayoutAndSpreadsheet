@@ -913,7 +913,7 @@ Public Class FormDemo1DVertical
             Exit Sub
         End If ''End of ""If (par_range Is Nothing) Then""
 
-        intRangeFirstIndex_b1 = par_range.GetFirstItemIndex_b1()
+        intRangeFirstIndex_b1 = par_range.GetFirstItemIndex_base1()
         numInsertAnchorBenchmark.Value = intRangeFirstIndex_b1
         numDeleteRangeBenchmarkStart.Value = intRangeFirstIndex_b1
 
@@ -2370,11 +2370,20 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub DllUserControlRichbox1_Click(par_letter As String, par_row_base1 As Integer) Handles DllUserControlRichbox1.DLLUserClickedControlBox
+    Private Sub DllUserControlRichbox1_Click(par_wShiftKey As Boolean, par_letter As String, par_row_base1 As Integer) _
+        Handles DllUserControlRichbox1.DLLUserClickedControlBox
         ''
         ''This is a handler for the event. 
         ''
-        mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_listA, True, par_row_base1, 1)
+        If (mod_rangeA Is Nothing) Then
+            ''Create a new range. 
+            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_listA, True, par_row_base1, 1)
+
+        Else
+            ''Expand or shift single-item (start of) range.
+            mod_rangeA.UpdateEndpoints_UserClick(par_row_base1, par_wShiftKey, mod_listA)
+
+        End If ''End of ""If (mod_rangeA Is Nothing) Then... Else..."
 
         ''Added 4/20/2025 thomas downes 
         numInsertAnchorBenchmark.Value = par_row_base1

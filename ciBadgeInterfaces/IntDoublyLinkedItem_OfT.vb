@@ -96,26 +96,26 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''' Get the 0-based (_b0) index of the current item.
     ''' </summary>
     ''' <returns></returns>
-    Function DLL_GetItemIndex_b0() As Integer
+    Function DLL_GetItemIndex_base0() As Integer
 
     ''' <summary>
     ''' Get the 1-based (_b1) index of the current item.
     ''' </summary>
     ''' <returns></returns>
-    Function DLL_GetItemIndex_b1() As Integer
+    Function DLL_GetItemIndex_base1() As Integer
 
     '' Added 01/06/2025 
     ''' <summary>
     ''' Get the list item at the  0-based (_b0) index specified by parameter.  Return the item.
     ''' </summary>
     ''' <returns></returns>
-    Function DLL_GetItemAtIndex_b0(paramIndex As Integer) As TControl
+    Function DLL_GetItemAtIndex_base0(paramIndex As Integer) As TControl
 
     ''' <summary>
     ''' Get the list item at the 1-based (_b1) index specified by parameter.  Return the item. 
     ''' </summary>
     ''' <returns></returns>
-    Function DLL_GetItemAtIndex_b1(paramIndex As Integer) As TControl
+    Function DLL_GetItemAtIndex_base1(paramIndex As Integer) As TControl
 
     ''
     ''
