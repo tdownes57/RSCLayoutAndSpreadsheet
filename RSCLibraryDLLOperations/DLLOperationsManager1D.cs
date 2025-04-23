@@ -257,8 +257,9 @@ namespace RSCLibraryDLLOperations
         {
             // Added 1/15/2024
 
-            DLLRange<T_DLLParallel>[] array_of_insertRangesParallel;
-            array_of_insertRangesParallel = parOperation.ArrayOfParallelRanges_ToInsert;
+            DLLRange<T_DLLParallel>[]? array_of_insertRangesParallel;
+            //array_of_insertRangesParallel = parOperation.ArrayOfParallelRanges_ToInsert;
+            array_of_insertRangesParallel = parOperation.GetArrayOfParallelRanges_ToInsert();
 
             //
             // Major call!! 
@@ -456,8 +457,10 @@ namespace RSCLibraryDLLOperations
                 bool boolDeleted = parOperation._isDelete;
 
                 //Added 4/14/2025 td
-                if (boolInserted) operation1D_OfT_OfT.ArrayOfParallelRanges_ToInsert = mod_arrayOfParallelRangesToInsert;
-                if (boolDeleted) operation1D_OfT_OfT.ArrayOfParallelRanges_Deleted = mod_arrayOfParallelRangesToDelete;
+                //if (boolInserted) operation1D_OfT_OfT.ArrayOfParallelRanges_ToInsert = mod_arrayOfParallelRangesToInsert;
+                //if (boolDeleted) operation1D_OfT_OfT.ArrayOfParallelRanges_Deleted = mod_arrayOfParallelRangesToDelete;
+                if (boolInserted) operation1D_OfT_OfT.SetArrayOfParallelRanges_ToInsert(mod_arrayOfParallelRangesToInsert);
+                if (boolDeleted) operation1D_OfT_OfT.SetArrayOfParallelRanges_Deleted(mod_arrayOfParallelRangesToDelete);
 
                 //
                 // Record the user's first operation a bit differently from an operation that is following other
@@ -507,10 +510,12 @@ namespace RSCLibraryDLLOperations
                         mod_opUndoRedoMarker.ClearPendingRedoOperation();
 
                     }
-
-                    // Added 4/14/2025 
-                    if (mod_lastPriorOperation1D == null) System.Diagnostics.Debugger.Break();
-                    if (mod_lastPriorOperation1D == null) throw new Exception("There should be a recorded last op.");
+                    else
+                    {
+                        // Added 4/14/2025 
+                        if (mod_lastPriorOperation1D == null) System.Diagnostics.Debugger.Break();
+                        if (mod_lastPriorOperation1D == null) throw new Exception("There should be a recorded last op.");
+                    }
 
                     // Connect the operations in a doubly-linked list. 
                     //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
@@ -577,14 +582,20 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void RedoMarkedOperation() // (bool pbIsHoriz, bool pbIsVerti)
+        public void RedoMarkedOperation(ref bool pbEndpointAffected, bool pbTestingIndexStructure) // (bool pbIsHoriz, bool pbIsVerti)
         {
-            DLLOperation1D_Of<T_DLL>  // <T_DLLHor, T_DLLVer>
-                opReDo = mod_opUndoRedoMarker.GetMarkersNext_ShiftPositionRight();
+            //DLLOperation1D_Of<T_DLL>  // <T_DLLHor, T_DLLVer>
+            //    opReDo_Of = mod_opUndoRedoMarker.GetMarkersNext_ShiftPositionRight();
+            DLLOperation1D_OfOf<T_DLL, T_DLLParallel>  // <T_DLLHor, T_DLLVer>
+                opReDo_OfOf = mod_opUndoRedoMarker.GetCurrentOp_Redo_OfOf();
+
+            //Added 4/23/2025 td
+            mod_arrayOfParallelRangesToDelete = opReDo_OfOf.GetArrayOfParallelRanges_Deleted();
+            mod_arrayOfParallelRangesToInsert = opReDo_OfOf.GetArrayOfParallelRanges_ToInsert();
 
             //Added 5.25.2024
             //bool bIsChangeOfEndpoint = opReDo.IsChangeOfEndpoint();
-            bool bChangeOfEndpoint_Expected = opReDo.IsChangeOfEndpoint();
+            bool bChangeOfEndpoint_Expected = opReDo_OfOf.IsChangeOfEndpoint();
             bool bChangeOfEndpoint_Occurred = false; // Added 12/15/2024 td
 
             const bool RECORD_OPERATION = false; // Not needed for REDO operations
@@ -592,9 +603,13 @@ namespace RSCLibraryDLLOperations
             //opReDo.CreatedAsRedoOperation = true;
             //Mar2025 ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected, 
             //    out bChangeOfEndpoint_Occurred, RECORD_OPERATION); // , pbIsHoriz, pbIsVerti);
-            ProcessOperation_AnyType(opReDo, bChangeOfEndpoint_Expected,
+            ProcessOperation_AnyType(opReDo_OfOf, bChangeOfEndpoint_Expected,
                 out bChangeOfEndpoint_Occurred, RECORD_OPERATION,
-                opReDo.GetOperationIndexStructure(false, true)); // , pbIsHoriz, pbIsVerti);
+                opReDo_OfOf.GetOperationIndexStructure(false, true)); // , pbIsHoriz, pbIsVerti);
+
+            // Added 4/23/2025
+            mod_opUndoRedoMarker.ShiftMarker_AfterRedo_ToNext();
+            pbEndpointAffected = bChangeOfEndpoint_Occurred; // Added 4/23/2025
 
         }
 
@@ -811,7 +826,11 @@ namespace RSCLibraryDLLOperations
                     // We need the array of deleted parallel ranges, so that the 
                     //   operation can be undone for all of the parallel lists. ---4/14/2025 td
                     // mod_arrayOfParallelRangesToDelete = operationToUndo.ArrayOfParallelRanges_Deleted;
-                    mod_arrayOfParallelRangesToDelete = operationToUndo.ArrayOfParallelRanges_ToInsert;
+                    // Apr2025  mod_arrayOfParallelRangesToDelete = operationToUndo.ArrayOfParallelRanges_ToInsert;
+                    mod_arrayOfParallelRangesToDelete = operationToUndo.GetArrayOfParallelRanges_ToInsert();
+                    // Added 4/23/2025 td
+                    mod_arrayOfParallelRangesToInsert = operationToUndo.GetArrayOfParallelRanges_Deleted();
+
                 }
 
                 // Testing the DLLOperationStructure class.  Added 1/14/2025 tfd
@@ -859,7 +878,8 @@ namespace RSCLibraryDLLOperations
             //
             if (opUndoVersion_OfOf._isInsert)
             {
-                mod_arrayOfParallelRangesToInsert = opUndoVersion_OfOf.ArrayOfParallelRanges_ToInsert;
+                //---mod_arrayOfParallelRangesToInsert = opUndoVersion_OfOf.ArrayOfParallelRanges_ToInsert;
+                mod_arrayOfParallelRangesToInsert = opUndoVersion_OfOf.GetArrayOfParallelRanges_ToInsert();
             }
 
             pbEndpointAffected = opUndoVersion_OfOf.IsChangeOfEndpoint();

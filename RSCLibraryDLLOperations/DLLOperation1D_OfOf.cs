@@ -27,17 +27,49 @@ namespace RSCLibraryDLLOperations
         // --------------------- Array of Parallel Ranges ---------------------------------  
         // -------------- This is why I created this derived class!! ----------------------
         // --------------------------------------------------------------------------------
+        //---public DLLRange<TParallel>[]? ArrayOfParallelRanges_ToInsert;
         /// <summary>
         /// A Parallel range is the range which has the same index structure (begin, end)
         /// 
         /// </summary>
-        public DLLRange<TParallel>[]? ArrayOfParallelRanges_ToInsert;
+        private DLLRange<TParallel>[]? ArrayOfParallelRanges_ToInsert;
+
+        //---public DLLRange<TParallel>[]? ArrayOfParallelRanges_Deleted;
         /// <summary>
         /// 
         /// </summary>
-        public DLLRange<TParallel>[]? ArrayOfParallelRanges_Deleted;
+        private DLLRange<TParallel>[]? ArrayOfParallelRanges_Deleted;
         // --------------------- End of IMPORTANT!! ---------------------------------------  
         // --------------------------------------------------------------------------------
+
+        public void SetArrayOfParallelRanges_ToInsert(DLLRange<TParallel>[]? par_array)
+        {
+            // Added 4/23/2025 td
+            ArrayOfParallelRanges_ToInsert = par_array;
+
+        }
+
+        public void SetArrayOfParallelRanges_Deleted(DLLRange<TParallel>[]? par_array)
+        {
+            // Added 4/23/2025 td
+            ArrayOfParallelRanges_Deleted = par_array;
+
+        }
+
+        public DLLRange<TParallel>[]? GetArrayOfParallelRanges_ToInsert()
+        {
+            // Added 4/23/2025 td     
+            return ArrayOfParallelRanges_ToInsert; // = par_array;
+
+        }
+
+        public DLLRange<TParallel>[]? GetArrayOfParallelRanges_Deleted()
+        {
+            // Added 4/23/2025 td
+            return ArrayOfParallelRanges_Deleted; // = par_array;
+
+        }
+
 
         private DLLOperation1D_OfOf<TBase, TParallel>? mod_opPrior_ForUndo_OfT_OfT;
         private DLLOperation1D_OfOf<TBase, TParallel>? mod_opNext_ForRedo_OfT_OfT;
@@ -252,6 +284,30 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+        public DLLOperation1D_OfOf<TBase, TParallel>? DLL_GetOpNext_OfOf()
+        {
+            // Added 4/23/2025 & 4/10/2025 & 12/02/2024 
+            //
+            //  Sanity check. 
+            //
+            if (base.mod_opNext_ForRedo != mod_opNext_ForRedo_OfT?.GetConvertToBaseClass())
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            // Added 12/02/2024 
+            //
+            //  Sanity check.  (Equivalent to above.)  
+            //
+            if (base.mod_opNext_ForRedo != (mod_opNext_ForRedo_OfT as DLLOperationBase))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            return mod_opNext_ForRedo_OfT_OfT;
+
+        }
 
 
         public void DLL_SetOpNext_OfT_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation)

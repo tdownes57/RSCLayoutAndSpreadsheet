@@ -1880,6 +1880,9 @@ Public Class FormDemo1DVertical
         ''
         ''Added 11/09/2024
         ''
+        Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
+        Dim bTestingIndexStructure As Boolean ''Added 1/14/2025 td
+
         If (mod_manager.MarkerHasOperationNext_Redo()) Then
             ''
             ''Fine, this is expected. ---Thomas D.
@@ -1889,10 +1892,14 @@ Public Class FormDemo1DVertical
             Exit Sub
         End If ''End of "If (mod_manager.MarkerHasOperationNext_Redo()) Then... Else ..."
 
+        ''Added 1/14/2025 td
+        bTestingIndexStructure = TestingIndexStructure() ''---2025 checkTestNumericConstructor.Checked
+
         ''
         ''Major call!!
         ''
-        mod_manager.RedoMarkedOperation()
+        ''---mod_manager.RedoMarkedOperation()
+        mod_manager.RedoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
 
         ''Added 12/09/2024 & 11/10/2024 (but only on the buttonUndoLastStep_Click handler)
         mod_firstItemA = mod_listA._itemStart
@@ -1947,8 +1954,10 @@ Public Class FormDemo1DVertical
         Dim tempAnchorItem As TwoCharacterDLLVerticalA ''---DLLAnchorItem(Of TwoCharacterDLLVerticalA)
         Dim tempAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)
         Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
+
         ''12/16/2024 Dim bChangeOfEndpoint = False
         Dim bChangeOfEndpoint_Expected = False
         Dim bChangeOfEndpoint_Occurred = False ''Added 12/16/2024 td
@@ -2047,10 +2056,26 @@ Public Class FormDemo1DVertical
         If bChangeOfEndpoint_Expected Then
             mod_firstItemA = mod_listA._itemStart
             mod_lastItemA = mod_listA._itemEnding
+
+            ''Added 4/23/2025 
+            mod_firstItemB1 = mod_listB1._itemStart
+            mod_firstItemB2 = mod_listB2._itemStart
+            mod_firstItemB3 = mod_listB3._itemStart
+
+            ''Added 4/23/2025 
+            mod_lastItemB1 = mod_listB1._itemEnding
+            mod_lastItemB2 = mod_listB2._itemEnding
+            mod_lastItemB3 = mod_listB3._itemEnding
+
         End If ''End of ""If (bChangeOfEndpoint_Expected) Then""
 
         ''Added 11/17/2024 
         RefreshTheUI_DisplayList()
+
+        ''Added 4/23/2025
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -2392,6 +2417,10 @@ Public Class FormDemo1DVertical
         numInsertAnchorBenchmark.Value = par_row_base1
         numDeleteRangeBenchmarkStart.Value = par_row_base1
         numMoveAnchorBenchmark.Value = par_row_base1
+
+        ''Added 4/22/2025 td
+        numDeleteHowMany.Value = mod_rangeA.GetItemCount()
+        numInsertHowMany.Value = mod_rangeA.GetItemCount()
 
         ''Added 4/22/2025
         mod_listA.SelectAndDrawRange(mod_rangeA)
