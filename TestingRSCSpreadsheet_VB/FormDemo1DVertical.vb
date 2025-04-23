@@ -2390,6 +2390,17 @@ Public Class FormDemo1DVertical
         numDeleteRangeBenchmarkStart.Value = par_row_base1
         numMoveAnchorBenchmark.Value = par_row_base1
 
+        ''Added 4/22/2025
+        mod_listA.SelectAndDrawRange(mod_rangeA)
+
+        ''Added 4/22/2025
+        Dim intFirstIndexInRange = mod_rangeA.GetFirstItemIndex_base1()
+        Dim intCountOfRangeItems = mod_rangeA.GetItemCount()
+        mod_listB1.SelectAndDrawRange(intFirstIndexInRange, intCountOfRangeItems)
+        mod_listB2.SelectAndDrawRange(intFirstIndexInRange, intCountOfRangeItems)
+        mod_listB3.SelectAndDrawRange(intFirstIndexInRange, intCountOfRangeItems)
+
+
     End Sub
 
 

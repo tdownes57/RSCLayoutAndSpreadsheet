@@ -767,46 +767,62 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        //public void SaveCurrentSortOrder_ToPrior()
-        //{
-        //    //
-        //    // Added 12/12/2024 thomas downes 
-        //    //
-        //    _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
-        //
-        //    // Added 12/29/2024 thomas downes
-        //    _itemStart_PriorSortOrder = _itemStart;
-        //    _itemEnding_PriorSortOrder = _itemEnding;
-        //
-        //}
+        public void SelectAndDrawRange(DLLRange<TControl> par_range)
+        {
+            //
+            // Added 4/22/2025
+            //
+            TControl? temp = _itemStart;
 
-        //public void RestorePriorSortOrder(bool pbAlsoClearPriorSortOrder)
-        //{
-        //    //
-        //    // Added 12/12/2024 thomas downes 
-        //    //
-        //    // 12-29-2024 td //_itemStart_PriorSortOrder.DLL_RestorePriorSortOrder();
-        //    // 12-29-2024 td //__itemStart_PriorSortOrder.DLL_RestorePriorSortOrder(_itemCount);
-        //    _itemStart.DLL_RestorePriorSortOrder(_itemCount);
-        //
-        //    _itemStart = _itemStart_PriorSortOrder;
-        //    // 12-29-2024 td //_itemEnding = _itemStart.DLL_GetItemLast();
-        //    _itemEnding = _itemEnding_PriorSortOrder;
-        //    _itemCount = _itemStart.DLL_CountItemsAllInList();
-        //
-        //    // Added 12/12/2024 thomas downes 
-        //    if (pbAlsoClearPriorSortOrder) _itemStart.DLL_ClearPriorSortOrder(true);
-        //
-        //}
+            if (temp == null) return;
 
-        //public void ClearPriorSortOrder()
-        //{
-        //    //
-        //    // Added 12/12/2024 thomas downes 
-        //    //
-        //    _itemStart.DLL_ClearPriorSortOrder(true);
-        //
-        //}
+            bool bWithinRange; // = par_range.ContainsItem(temp);
+            //temp.Selected = bWithinRange;
+            //temp.DLL_DrawColors();
+
+            do  //while (temp.DLL_HasNext())
+            {
+                temp = temp.DLL_GetItemNext_OfT();
+                bWithinRange = par_range.ContainsItem(temp);
+                temp.Selected = bWithinRange;
+                temp.DLL_DrawColors();
+
+
+            } while (temp.DLL_HasNext());
+
+
+        }
+
+
+
+        public void SelectAndDrawRange(int par_indexRangeStart_b1, int par_numberOfItemsInRange)
+        {
+            //
+            // Added 4/22/2025
+            //
+            TControl? temp = _itemStart;
+            int each_index_b1 = 1;
+
+            if (temp == null) return;
+
+            bool bWithinRange; // = par_range.ContainsItem(temp);
+
+            do  //while (temp.DLL_HasNext())
+            {
+                bWithinRange = ((each_index_b1 >= par_indexRangeStart_b1) &&
+                                (each_index_b1 < (par_indexRangeStart_b1 + par_numberOfItemsInRange)));
+
+                temp.Selected = bWithinRange;
+                temp.DLL_DrawColors();
+
+                // Prepare for next iteration of the loop.
+                temp = temp.DLL_GetItemNext_OfT();
+                each_index_b1 ++;
+
+            } while (temp.DLL_HasNext());
+
+
+        }
 
 
         //
