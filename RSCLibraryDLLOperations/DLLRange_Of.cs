@@ -522,7 +522,13 @@ namespace RSCLibraryDLLOperations
         {
             //
             // Added 11/12/2024 td
-            // 
+            //
+            if (_StartingItemOfRange == null)
+            {
+                Debugger.Break();
+                return -1;
+            }
+
             return _StartingItemOfRange.DLL_GetItemIndex_base1();
 
         }
@@ -704,6 +710,10 @@ namespace RSCLibraryDLLOperations
             if (par_item == null)
             {
                 return false;
+            }
+            else if (_StartingItemOfRange == null)
+            {
+                return false; // Added 4/25/2025
             }
 
             int intDistanceToItem = _StartingItemOfRange.DLL_GetDistanceTo(par_item, ref bLocatedItem);
@@ -1211,7 +1221,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void UpdateEndpoints_UserClick(int par_row_base1, bool par_wShiftKey, DLLList<TControl> mod_listA)
+        public void UpdateEndpoints_UserClick(int par_rowClicked_base1, bool par_wShiftKey, DLLList<TControl> mod_listA)
         {
             //
             // Added 4/05/2025  
@@ -1220,21 +1230,48 @@ namespace RSCLibraryDLLOperations
             int intRangeItemIndexMaximum_base1;
 
             intRangeItemIndexMinimum_base1 = _StartingItemOfRange.DLL_GetItemIndex_base1();
-            intRangeItemIndexMaximum_base1 = _EndingItemOfRange.DLL_GetItemIndex_base1();
 
-            if (par_wShiftKey && par_row_base1 >= intRangeItemIndexMaximum_base1)
+            //---intRangeItemIndexMaximum_base1 = _EndingItemOfRange.DLL_GetItemIndex_base1();
+            if (_EndingItemOfRange == null)
             {
-                _ItemCountOfRange = (1 + par_row_base1 - intRangeItemIndexMinimum_base1);
-                _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
+                intRangeItemIndexMaximum_base1 = intRangeItemIndexMinimum_base1 + _ItemCountOfRange - 1;
+            }
+            else
+            {
+                intRangeItemIndexMaximum_base1 = _EndingItemOfRange.DLL_GetItemIndex_base1();
             }
 
-            else if (par_wShiftKey && par_row_base1 < intRangeItemIndexMinimum_base1)
+            //---if (par_wShiftKey && par_row_base1 >= intRangeItemIndexMaximum_base1)
+            if (par_wShiftKey && par_rowClicked_base1 >= intRangeItemIndexMinimum_base1)
             {
-                _StartingItemOfRange = mod_listA.DLL_GetItemAtIndex_1based(par_row_base1);
-                _ItemCountOfRange = (1 + intRangeItemIndexMinimum_base1 - par_row_base1);
-                if (_StartingItemOfRange != null)
+                _ItemCountOfRange = (1 + par_rowClicked_base1 - intRangeItemIndexMinimum_base1);
+                _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
+
+            }
+
+            else if (par_wShiftKey && par_rowClicked_base1 < intRangeItemIndexMinimum_base1)
+            {
+                //
+                // Should we act as if the Shift key is OFF ??  The user has clicked on the 
+                //   lower-index side of the initial, unshifted click.  ----4/25/2025
+                //
+                //_StartingItemOfRange = mod_listA.DLL_GetItemAtIndex_1based(par_row_base1);
+                TControl temp_FormerStart = _StartingItemOfRange;
+                TControl? temp_ShiftClicked = mod_listA.DLL_GetItemAtIndex_1based(par_rowClicked_base1);
+                if (temp_ShiftClicked != null) 
                 {
-                    _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
+                    _ItemCountOfRange = (1 + intRangeItemIndexMinimum_base1 - par_rowClicked_base1);
+                    _StartingItemOfRange = temp_ShiftClicked;  // Added 4/22/2025 td
+                    _EndingItemOfRange = temp_FormerStart;  // Added 4/22/2025 td
+
+                    //intRangeItemIndexMinimum_base1 = par_row_base1;
+                    //intRangeItemIndexMaximum_base1 = _EndingItemOfRange.DLL_GetItemIndex_base1();
+                    //_ItemCountOfRange = (1 + intRangeItemIndexMaximum_base1 - par_row_base1);
+                    //if (_StartingItemOfRange != null)
+                    //{
+                    //    _EndingItemOfRange = _StartingItemOfRange.DLL_GetItemNext_OfT(-1 + _ItemCountOfRange);
+                    //}
+
                 }
 
             }
@@ -1242,8 +1279,15 @@ namespace RSCLibraryDLLOperations
             else if (!par_wShiftKey)
             {
                 _ItemCountOfRange = 1;
-                _StartingItemOfRange = mod_listA.DLL_GetItemAtIndex_1based(par_row_base1);
-                _EndingItemOfRange = _StartingItemOfRange;
+                //_StartingItemOfRange = mod_listA.DLL_GetItemAtIndex_1based(par_rowClicked_base1);
+                //_EndingItemOfRange = _StartingItemOfRange;
+                TControl? temp_ShiftClicked = mod_listA.DLL_GetItemAtIndex_1based(par_rowClicked_base1);
+                if (temp_ShiftClicked != null)
+                {
+                    _StartingItemOfRange = temp_ShiftClicked;
+                    _EndingItemOfRange = temp_ShiftClicked;
+                }
+            
             }
 
         }

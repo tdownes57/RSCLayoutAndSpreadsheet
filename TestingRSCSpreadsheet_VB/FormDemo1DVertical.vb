@@ -160,14 +160,17 @@ Public Class FormDemo1DVertical
 
             ''DLLUserControlRichbox 
             newItemB1 = New DLLUserControlRichbox(strTwoChars)
+            newItemB1.ColumnLetter = "B1"
             AddHandler newItemB1.DLLUserClickedControlBox, AddressOf DllUserControlRichbox1_Click
             mod_listB1.DLL_InsertItemAtEnd(newItemB1)
 
             newItemB2 = New DLLUserControlRichbox(strTwoChars)
+            newItemB2.ColumnLetter = "B2"
             AddHandler newItemB2.DLLUserClickedControlBox, AddressOf DllUserControlRichbox1_Click
             mod_listB2.DLL_InsertItemAtEnd(newItemB2)
 
             newItemB3 = New DLLUserControlRichbox(strTwoChars)
+            newItemB3.ColumnLetter = "B3"
             AddHandler newItemB3.DLLUserClickedControlBox, AddressOf DllUserControlRichbox1_Click
             mod_listB3.DLL_InsertItemAtEnd(newItemB3)
 

@@ -146,7 +146,14 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/20/2025
             //
-            return Get_ItemAtIndex_base0(par_index_base1 - 1);
+            //return Get_ItemAtIndex_base0(par_index_base1 - 1);
+            TControl result = Get_ItemAtIndex_base0(par_index_base1 - 1);
+
+            if (result == null)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+            return result;
 
         }
 
@@ -589,11 +596,11 @@ namespace RSCLibraryDLLOperations
                     throw new Exception("the index exceeds the count of items");
                 }
 
-                for (int loopIndex = 1; loopIndex <= par_index; loopIndex++)
+                //--for (int loopIndex = 1; loopIndex <= par_index; loopIndex++)
+                for (int loopIndex = 1; loopIndex <= par_index - 1; loopIndex++)
                 {
 
                     each_item = each_item.DLL_GetItemNext_OfT();
-
 
                 }
 
@@ -773,6 +780,7 @@ namespace RSCLibraryDLLOperations
             // Added 4/22/2025
             //
             TControl? temp = _itemStart;
+            int countRows = 1;
 
             if (temp == null) return;
 
@@ -786,7 +794,7 @@ namespace RSCLibraryDLLOperations
                 bWithinRange = par_range.ContainsItem(temp);
                 temp.Selected = bWithinRange;
                 temp.DLL_DrawColors();
-
+                countRows++;
 
             } while (temp.DLL_HasNext());
 
@@ -801,6 +809,7 @@ namespace RSCLibraryDLLOperations
             // Added 4/22/2025
             //
             TControl? temp = _itemStart;
+            bool bMissingNext = false;
             int each_index_b1 = 1;
 
             if (temp == null) return;
@@ -816,10 +825,11 @@ namespace RSCLibraryDLLOperations
                 temp.DLL_DrawColors();
 
                 // Prepare for next iteration of the loop.
+                bMissingNext = temp.DLL_NotAnyNext(); // Checks for consistency with the Null marker being true.
                 temp = temp.DLL_GetItemNext_OfT();
-                each_index_b1 ++;
+                each_index_b1++;
 
-            } while (temp.DLL_HasNext());
+            } while (temp != null);   // (temp.DLL_HasNext());
 
 
         }

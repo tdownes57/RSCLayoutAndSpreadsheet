@@ -284,7 +284,25 @@ namespace RSCLibraryDLLOperations
         public void DLL_MarkAsEndOfList(bool pleaseRemoveMarkFromPrior = true, 
                                         bool pleaseRemoveMarkerFromThis = false)
         {
-            mod_next = null;
+            //
+            // Modified April 22, 2025. 
+            //
+            if (pleaseRemoveMarkerFromThis) // By default, this Boolean is FALSE. ---4/22/2025
+            {
+                //
+                // Do --NOT-- set mod_next to Null.  
+                // We are REMOVING the "END OF LIST" marker, 
+                //   --NOT-- adding the marker.
+                // So don't set any object reference to NULL;
+                //
+                // By default, this Boolean ("if (pleaseRemoveMarkerFromThis)") is FALSE.
+                // ---4/22/2025 thomas d.
+                //
+            }
+            else
+            {
+                mod_next = null;
+            }
 
             // The endpoint will be properly marked. 
             //

@@ -243,14 +243,14 @@ Public Class TwoCharacterDLLItem
     ''' Indicate that this item will serve as the final item in a list.
     ''' </summary>
     Public Sub DLL_MarkAsEndOfList(Optional pbUndoPrior As Boolean = True,
-                                   Optional pbUndoThis As Boolean = False) _
+                                   Optional pbUndoThisMarker As Boolean = False) _
                                    Implements IDoublyLinkedItem.DLL_MarkAsEndOfList
 
         ''Added 4/17/2025  
-        mod_next = Nothing
+        ''Apr22 2025 mod_next = Nothing
 
         ''Set this item as the final item in the list. 
-        mod_nextIsNull = True ''Added 4/17/2025
+        ''Apr22 2025 mod_nextIsNull = True ''Added 4/17/2025
 
         ''Added 4/2025
         If (pbUndoPrior AndAlso mod_prior IsNot Nothing) Then
@@ -262,7 +262,14 @@ Public Class TwoCharacterDLLItem
         End If ''End of ""If (pbUndoPrior AndAlso mod_prior IsNot Nothing) Then""
 
         ''Set the current one to False. 4/2025
-        If (pbUndoThis) Then mod_nextIsNull = False
+        If (pbUndoThisMarker) Then
+            ''Undo/Remove/Falsify the Null marker. 
+            mod_nextIsNull = False
+        Else
+            ''Set this item as the final item in the list. 
+            mod_next = Nothing
+            mod_nextIsNull = True
+        End If ''End of ""If (pbUndoThisMarker) Then... Else..."
 
     End Sub ''End of ""Public Sub DLL_MarkAsEndOfList()""
 
