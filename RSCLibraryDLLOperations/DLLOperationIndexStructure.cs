@@ -36,17 +36,18 @@ namespace RSCLibraryDLLOperations
             TypeOfMove = new StructureTypeOfMove();
             TypeOfMove.IsMoveType = false;
             //Sorting = false;
-            Sorting_ByValue = false; // Added 4/23/2025 td
+            Sorting_ByItemValues = false; // Added 4/23/2025 td
             SortingAscending = false;
             SortingDescending = false;
+            Sorting_ByArrayIndexMapping = false; // Added 4/23/2025 td
             IsUndoOfSort = false;
             // Added 2/01/2025 
             IsInsert_SoIgnoreRangeIndex = false;
             IsMoveOrDelete_UseRangeIndices = false;
             // Added 2/14/2025 td
             // Apr2025 ArrayToUndoSort = [];  // Added 2/14/2025
-            ArrayToSort_Undo = [];  // Added 2/14/2025
-            ArrayToSort_Redo = [];  // Added 2/14/2025
+            ArrayOfIndicesToSort_Undo = [];  // Added 2/14/2025
+            ArrayOfIndicesToSort_Redo = [];  // Added 2/14/2025
             
             IsInsert_SoMustCreateNewItems = false; //Added 2/14/2025 td
 
@@ -99,15 +100,16 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         public int AnchorIndexRight_b1; // = -1;
 
-        public bool Sorting_ByValue; // Suffix added 4/23/2025
+        public bool Sorting_ByItemValues; // Suffix added 4/23/2025
         public bool SortingAscending;
         public bool SortingDescending;
 
         public bool IsUndoOfSort;
         // April 2025  public int[] ArrayToUndoSort;
-        public bool Sorting_ByArray; // Added 4/23/2025
-        public int[] ArrayToSort_Undo;
-        public int[] ArrayToSort_Redo;
+        // April 2025  public bool Sorting_ByArray; // Added 4/23/2025
+        public bool Sorting_ByArrayIndexMapping; // Added 4/24/2025
+        public int[] ArrayOfIndicesToSort_Undo; // Added "OfIndices" 4/23/2025
+        public int[] ArrayOfIndicesToSort_Redo; // Added "OfIndices" 4/23/2025 
 
         // Added 4/14/2025
         /// <summary>

@@ -755,19 +755,34 @@ namespace RSCLibraryDLLOperations
             // DIFFICULT & CONFUSING... Let's do a switcheroo!!
             //bool result_isSortAscending = _isSort_Descending; //  _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
             //bool result_isSortDescending =  _isSort_Ascending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
+
+            // Added 4/24/2025 td
+            // const bool SORT_BY_ARRAY_OF_INDICES = true; // Added 4/24/2025  
+            // const bool SORT_BY_VALUE = false; // Added 4/24/2025  
+
+            // Added 4/24/2025 td
+            //bool result_isSortByValue = SORT_BY_VALUE;
+            // bool result_isSortByArrayOfIndices = SORT_BY_ARRAY_OF_INDICES;
+
+            bool result_isSortByItemValues = _isSort_ByItemValues; // Apr2025  _isSort_ByArrayMapping;
             bool result_isSortAscending = _isSort_UndoOfSortAscending; //  _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isSortDescending = _isSort_UndoOfSortDescending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
-            bool result_isUndoOfSort = (_isSort_Ascending || _isSort_Descending); // true; // DIFFICULT & CONFUSING... inverse/opposite.
-            bool result_isUndoOfSortAscending = _isSort_Ascending; //  _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
-            bool result_isUndoOfSortDescending = _isSort_Descending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
+
+            bool result_isSortByArrayMapping = _isSort_ByArrayIndexMapping; // Apr2025  _isSort_ByArrayMapping;
+            bool result_isUndoOfSort = (_isSortByValues_Ascending || _isSortByValues_Descending); // true; // DIFFICULT & CONFUSING... inverse/opposite.
+            bool result_isUndoOfSortAscending = _isSortByValues_Ascending; //  _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
+            bool result_isUndoOfSortDescending = _isSortByValues_Descending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
 
             // Added 12/30/2024 td
             T_DLLItem result_itemStart_SortOrderThisOp = _itemStart_SortOrderIfUndo;
             T_DLLItem result_itemEnding_SortOrderThisOp = _itemEnding_SortOrderIfUndo;
-            T_DLLItem[] result_arrayControls_SortOrderThisOp = _arrayControls_SortOrderIfUndo;
+
+            //Not needed T_DLLItem[] result_arrayControls_SortOrderThisOp = _arrayControls_SortOrderIfUndo;
+            //Not needed T_DLLItem[] result_arrayControls_SortOrderIfUndo = _arrayControls_SortOrderIfUndo;
 
             // Added 1/13/2025 thomas d.
-            int[] result_arrayIndices_SortOrderThisOp = _arrayIndices_SortOrderIfUndo;
+            int[] result_arrayIndices_SortOrderThisOp = _arrayIndices_SortOrderRedoThisOp;
+            int[] result_arrayIndices_SortOrderIfUndo = _arrayIndices_SortOrderIfUndo;
 
             //--- DIFFICULT & CONFUSING ---
             if (_isMove && _isForStartOfList) result_isForStartOfList = false;
@@ -840,6 +855,7 @@ namespace RSCLibraryDLLOperations
             else
             {
                 result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
+                    result_isSortByItemValues,
                     result_isSortAscending,
                     result_isSortDescending,
                     result_isUndoOfSortAscending,
@@ -970,7 +986,7 @@ namespace RSCLibraryDLLOperations
 
                 result =
                     new DLLOperation1D_Of<T_BaseOrParallel>(
-                           _isSort_Ascending, _isSort_Descending,
+                           _isSortByValues_Ascending, _isSortByValues_Descending,
                            _isSort_UndoOfSortAscending,
                            _isSort_UndoOfSortDescending,
                            //_itemStart_SortOrderIfUndo as T_BaseOrParallel,
@@ -1016,8 +1032,8 @@ namespace RSCLibraryDLLOperations
             bool b_06 = _isHoriz == par_op._isHoriz;
             bool b_07 = _isInsert == par_op._isInsert;
             bool b_08 = _isMove == par_op._isMove;
-            bool b_09 = _isSort_Ascending == par_op._isSort_Ascending;
-            bool b_10 = _isSort_Descending == par_op._isSort_Descending;
+            bool b_09 = _isSortByValues_Ascending == par_op._isSortByValues_Ascending;
+            bool b_10 = _isSortByValues_Descending == par_op._isSortByValues_Descending;
             bool b_11 = _isSort_UndoOfSortAscending == par_op._isSort_UndoOfSortAscending;
             bool b_12 = _isSort_UndoOfSortDescending == par_op._isSort_UndoOfSortDescending;
             bool b_13 = _isSort_UndoOfSortEither == par_op._isSort_UndoOfSortEither;
@@ -1178,12 +1194,12 @@ namespace RSCLibraryDLLOperations
             result_struct.IsDelete = _isDelete; 
             result_struct.IsMove = _isMove; 
             result_struct.IsUndoOfSort = _isSort_UndoOfSortEither; 
-            result_struct.SortingAscending = _isSort_Ascending;  
-            result_struct.SortingDescending = _isSort_Descending;
+            result_struct.SortingAscending = _isSortByValues_Ascending;  
+            result_struct.SortingDescending = _isSortByValues_Descending;
 
             //result_struct.Sorting = _isSort_Ascending || _isSort_Descending;
-            result_struct.Sorting_ByValue = _isSort_Ascending || _isSort_Descending;            
-            result_struct.Sorting_ByArray = _isSort_ByArray; // Added 4/23/2025 td
+            result_struct.Sorting_ByValue = _isSort_ByItemValues; // _isSort_Ascending || _isSort_Descending;            
+            result_struct.Sorting_ByArray = _isSort_ByArrayIndexMapping; // Added 4/23/2025 td
 
             result_struct.TypeOfMove = _moveType;
             

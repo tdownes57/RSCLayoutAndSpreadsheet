@@ -48,12 +48,16 @@ namespace RSCLibraryDLLOperations
         internal readonly bool _isMove;
         internal readonly StructureTypeOfMove _moveType;  // Added 12/11/2024 t_homas c. d_ownes
 
-        private readonly bool _isSort_Ascending;
-        private readonly bool _isSort_Descending;
+        //Apr2025 private readonly bool _isSort_Ascending;
+        //Apr2025 private readonly bool _isSort_Descending;
+        private readonly bool _isSort_ByItemValues; // Added 4/25/2025 td
+        private readonly bool _isSortByValues_Ascending;
+        private readonly bool _isSortByValues_Descending;
+
+        private readonly bool _isSort_ByArrayIndexMapping; // Added 4/25/2025 td
         private readonly bool _isSort_UndoOfSortEither; //Added 4/18/2024 
         private readonly bool _isSort_UndoOfSortAscending; //Added 4/18/2024 
         private readonly bool _isSort_UndoOfSortDescending; //Added 4/18/2024 
-        private readonly bool _isSort_ByArray; // Added 4/25/2025 td
 
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
@@ -87,11 +91,11 @@ namespace RSCLibraryDLLOperations
         public T_DLLItem _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
         public T_DLLItem _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
-        public T_DLLItem[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
-        public T_DLLItem[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
- 
+        //not needed Apr2025  public T_DLLItem[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
+        //not needed Apr2025  public T_DLLItem[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
+
+        public int[] _arrayIndices_SortOrderRedoThisOp;  //Added 1/13/2025 td  
         public int[] _arrayIndices_SortOrderIfUndo;  //Added 1/13/2025 td  
-        public int[] _arrayIndices_SortOrderThisOp;  //Added 1/13/2025 td  
 
         //
         // ---------------------END OF SORTING ORDER--------------------12/30/2024--------------
@@ -138,8 +142,10 @@ namespace RSCLibraryDLLOperations
             if (_isInsert) return 'I';
             if (_isDelete) return 'D';
             if (_isMove) return 'M';
-            if (_isSort_Ascending) return 'S';
-            if (_isSort_Descending) return 'S';
+            //if (_isSort_Ascending) return 'S';
+            //if (_isSort_Descending) return 'S';
+            if (_isSortByValues_Ascending) return 'S';
+            if (_isSortByValues_Descending) return 'S';
             return ' ';
 
         }
@@ -205,22 +211,29 @@ namespace RSCLibraryDLLOperations
         //          StructureTypeOfMove par_structMoveType,
         //          DLLAnchorItem<TControl>? par_anchorItem,
         //          DLLAnchorCouplet<TControl>? par_anchorPair,
-        public DLLOperation1D_Of(bool par_isSortAscending,
+        public DLLOperation1D_Of(bool par_isSortByItemValues, 
+                  bool par_isSortAscending,
                   bool par_isSortDescending,
+                  bool par_isSortByArrayIndex,
                   bool par_isUndoOfSortAscending,
                   bool par_isUndoOfSortDescending,
                   T_DLLItem par_itemStart_Sorting, 
                   T_DLLItem par_itemEnding_ForSorting, 
-                  bool pbSortByArrayOfControls,
-                  T_DLLItem[] par_arrayControls_Sorting,
-                  bool pbSortByArrayOfIndices,
-                  int[]? par_arrayIndices_Sorting)
+                  // Apr2025 bool pbSortByArrayOfControls,
+                  // Apr2025 T_DLLItem[] par_arrayControls_Sorting,
+                  // Apr2025 bool pbSortByArrayOfIndices,
+                  int[]? par_arrayIndices_SortRedo,
+                  int[]? par_arrayIndices_SortIfUndo)
         {
             //
             // Added 10/12/2024 thomas downes
             //
-            _isSort_Ascending = par_isSortAscending;
-            _isSort_Descending = par_isSortDescending;
+            //_isSort_Ascending = par_isSortAscending;
+            //_isSort_Descending = par_isSortDescending;
+            _isSort_ByItemValues = (par_isSortAscending || par_isSortDescending); // Added April 2025
+            _isSortByValues_Ascending = par_isSortAscending;
+            _isSortByValues_Descending = par_isSortDescending;
+            _isSort_ByArrayIndexMapping = par_isSortByArrayIndex;  // Added April 2025
 
             //Added 4/18/2024 
             //_isSort_UndoOfSort = par_isSortReversal; // Undoing a sorting operation.
@@ -232,13 +245,13 @@ namespace RSCLibraryDLLOperations
             _itemStart_SortOrderThisOp = par_itemStart_Sorting;
             _itemEnding_SortOrderThisOp = par_itemEnding_ForSorting;
 
-            if (pbSortByArrayOfControls)
-            _arrayControls_SortOrderThisOp = par_arrayControls_Sorting;
+            //Apr2025 if (pbSortByArrayOfControls)
+            //Apr2025   _arrayControls_SortOrderThisOp = par_arrayControls_Sorting;
 
             //---else if (pbSortByArrayOfIndices)
-            if (pbSortByArrayOfIndices)
-                        _arrayIndices_SortOrderThisOp = par_arrayIndices_Sorting;
-
+            //Apr2025 if (pbSortByArrayOfIndices)
+            _arrayIndices_SortOrderThisOp = par_arrayIndices_SortRedo; //  par_arrayIndices_SortRedo;
+            _arrayIndices_SortOrderIfUndo = par_arrayIndices_SortIfUndo; // par_arrayIndices_SortUndo;
 
 
         }
@@ -266,10 +279,10 @@ namespace RSCLibraryDLLOperations
             _inverseAnchorPair_forUndo = par_operation1D_Of._inverseAnchorPair_forUndo;
 
             // Added 4/15/2025 
-            _arrayControls_SortOrderIfUndo = par_operation1D_Of._arrayControls_SortOrderIfUndo;
-            _arrayControls_SortOrderThisOp = par_operation1D_Of._arrayControls_SortOrderThisOp;
-            _arrayIndices_SortOrderIfUndo = par_operation1D_Of._arrayIndices_SortOrderIfUndo;
-            _arrayIndices_SortOrderThisOp = par_operation1D_Of._arrayIndices_SortOrderThisOp;
+            // 4/23/2025 _arrayControls_SortOrderIfUndo = par_operation1D_Of._arrayControls_SortOrderIfUndo;
+            // 4/23/2025 _arrayControls_SortOrderThisOp = par_operation1D_Of._arrayControls_SortOrderThisOp;
+            // Moved below Apr2025  _arrayIndices_SortOrderIfUndo = par_operation1D_Of._arrayIndices_SortOrderIfUndo;
+            // Moved below Apr2025  _arrayIndices_SortOrderThisOp = par_operation1D_Of._arrayIndices_SortOrderThisOp;
             _array_DLLRangesIfUndo = par_operation1D_Of._array_DLLRangesIfUndo;
 
             // Added 4/15/2025 
@@ -286,15 +299,21 @@ namespace RSCLibraryDLLOperations
             mod_opPriorIsNull = par_operation1D_Of.mod_opPriorIsNull;
 
             // Added 4/23/2025 thomas d.
-            _isSort_Ascending = par_operation1D_Of._isSort_Ascending;
-            _isSort_Descending = par_operation1D_Of._isSort_Descending;
+            _isSort_ByItemValues = par_operation1D_Of._isSort_ByItemValues; // Added 4/23/2025
+            _isSortByValues_Ascending = par_operation1D_Of._isSortByValues_Ascending;
+            _isSortByValues_Descending = par_operation1D_Of._isSortByValues_Descending;
+
+            _isSort_ByArrayIndexMapping = par_operation1D_Of._isSort_ByArrayIndexMapping; // Added 4/23/2025
             _isForUndoOperation = par_operation1D_Of._isForUndoOperation;
             _isSort_UndoOfSortAscending = par_operation1D_Of._isSort_UndoOfSortAscending;
             _isSort_UndoOfSortDescending = par_operation1D_Of._isSort_UndoOfSortDescending;
             _isSort_UndoOfSortEither = par_operation1D_Of._isSort_UndoOfSortEither;
+            // Moved from above 4/23/2025
+            _arrayIndices_SortOrderIfUndo = par_operation1D_Of._arrayIndices_SortOrderIfUndo;
+            _arrayIndices_SortOrderThisOp = par_operation1D_Of._arrayIndices_SortOrderThisOp;
 
         }
-        
+
 
 
         public DLLOperation1D_Of(DLLRange<T_DLLItem>? par_range,
@@ -447,8 +466,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/20/2024 
             //
-            if (par_enum == EnumSortTypes.Forward) _isSort_Ascending = true;
-            if (par_enum == EnumSortTypes.Backward) _isSort_Descending = true;
+            if (par_enum == EnumSortTypes.ByValues_Forward) _isSortByValues_Ascending = true;
+            if (par_enum == EnumSortTypes.ByValues_Backward) _isSortByValues_Descending = true;
 
             // Added 12/30/2024 
             if (par_enum == EnumSortTypes.UndoOfSortForward) _isSort_UndoOfSortAscending = true;
@@ -473,18 +492,22 @@ namespace RSCLibraryDLLOperations
             _isInsert = par_structure.IsInsert; // = _isInsert;
             _isDelete = par_structure.IsDelete; // = _isDelete;
             _isMove = par_structure.IsMove; // = _isMove;
-            _isSort_UndoOfSortEither = par_structure.IsUndoOfSort; // = _isSort_UndoOfSortEither;
-            _isSort_Ascending = par_structure.SortingAscending; // = _isSort_Ascending;
-            _isSort_Descending = par_structure.SortingDescending; // = _isSort_Descending;
+
+            _isSort_ByItemValues = par_structure.Sorting_ByItemValues;  // Added 4/23/2025 
+            _isSortByValues_Ascending = par_structure.SortingAscending; // = _isSort_Ascending;
+            _isSortByValues_Descending = par_structure.SortingDescending; // = _isSort_Descending;
             // par_structure.Sorting; // = _isSort_Ascending || _isSort_Descending;
+            _isSort_ByArrayIndexMapping = par_structure.Sorting_ByArrayIndexMapping; // Added 4/23/2023
+            _isSort_UndoOfSortEither = par_structure.IsUndoOfSort; // = _isSort_UndoOfSortEither;
+
             _moveType = par_structure.TypeOfMove; // = _moveType;
 
             _itemEnding_SortOrderThisOp = null;
             _itemStart_SortOrderIfUndo = null;
 
             // Added 4/23/2025 
-            _arrayIndices_SortOrderIfUndo = par_structure.ArrayToSort_Undo;
-            _arrayIndices_SortOrderThisOp = par_structure.ArrayToSort_Redo;
+            _arrayIndices_SortOrderThisOp = par_structure.ArrayOfIndicesToSort_Redo;
+            _arrayIndices_SortOrderIfUndo = par_structure.ArrayOfIndicesToSort_Undo;
 
             //---if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
             if (par_structure.RangeIsSpecified_MoveOrDelete) // || 0 < par_structure.RangeSize)
@@ -639,22 +662,22 @@ namespace RSCLibraryDLLOperations
             T_DLLItem tempStart = par_list._itemStart;
             T_DLLItem temp__End = par_list._itemEnding;
 
-            if (_isSort_Ascending)
+            if (_isSortByValues_Ascending)
             {
                 //
                 // Sort - Ascending
                 //
-                par_list.DLL_SortItems(_isSort_Ascending, false);
+                par_list.DLL_SortItems(_isSortByValues_Ascending, false);
                 //pbChangeOfEndpoint_Occurred = false; // true;
                 pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
             }
-            if (_isSort_Descending)
+            if (_isSortByValues_Descending)
             {
                 //
                 // Sort - Ascending
                 //
-                par_list.DLL_SortItems(false, _isSort_Descending);
+                par_list.DLL_SortItems(false, _isSortByValues_Descending);
                 //pbChangeOfEndpoint_Occurred = false; // true; 
                 pbChangeOfEndpoint_Occurred = par_list.HasChangeOfEndPoint(tempStart, temp__End);
 
@@ -751,7 +774,8 @@ namespace RSCLibraryDLLOperations
             //----bool bChangeOfEndpointOccurred = false;
 
             // Modified 1/13/2025 if (_isSort_Ascending)
-            if (_isSort_Ascending || _isSort_Descending)
+            //if (_isSort_ByItemValues && (_isSort_Ascending || _isSort_Descending))
+            if (_isSort_ByItemValues)
             {
                 // Ascending Sort
                 //----par_list.SaveCurrentSortOrder_ToPrior(this); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
@@ -768,7 +792,7 @@ namespace RSCLibraryDLLOperations
                 // Major work!!
                 //
                 //----par_list.DLL_SortItems(_isSort_Ascending, false);
-                par_list.DLL_SortItems(_isSort_Ascending, _isSort_Descending);
+                par_list.DLL_SortItems(_isSortByValues_Ascending, _isSortByValues_Descending);
 
                 // Save the prior order as an array of indices.
                 this._arrayControls_SortOrderIfUndo = arrayControls_priorToSort;
@@ -824,13 +848,13 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            if (_isSort_Ascending)
+            if (_isSortByValues_Ascending)
             {
                 // Ascending Sort
-                par_list.DLL_SortItems(_isSort_Ascending,false);
+                par_list.DLL_SortItems(_isSortByValues_Ascending,false);
                 pbChangeOfEndpoint_Occurred = true;
             }
-            if (_isSort_Descending)
+            if (_isSortByValues_Descending)
             {
                 // Descending Sort  
                 const bool DESCENDING = true;

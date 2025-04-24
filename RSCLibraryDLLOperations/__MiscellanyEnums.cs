@@ -14,8 +14,9 @@ namespace RSCLibraryDLLOperations
     {
         //  Added 12/20/2024 
         Undetermined,
-        Forward,
-        Backward,
+        ByValues_Forward,  //Apr2025 Forward,
+        ByValues_Backward, //Apr2025 Backward
+        ByArrayOfItemIndices, // Added April 2025 td
         UndoOfSortForward,
         UndoOfSortBackward
 

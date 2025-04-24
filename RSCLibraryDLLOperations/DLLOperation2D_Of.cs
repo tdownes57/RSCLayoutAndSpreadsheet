@@ -33,8 +33,8 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isInsert;
         private readonly bool _isDelete;
         private readonly bool _isMove;
-        private readonly bool _isSort_Ascending;
-        private readonly bool _isSort_Descending;
+        private readonly bool _isSortByValues_Ascending;
+        private readonly bool _isSortByValues_Descending;
         private readonly bool _isSort_UndoOfSort; //Added 4/18/2024 
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
@@ -108,8 +108,8 @@ namespace RSCLibraryDLLOperations
             if (_isInsert) return 'I';
             if (_isDelete) return 'D';
             if (_isMove) return 'M';
-            if (_isSort_Ascending) return 'S';
-            if (_isSort_Descending) return 'S';
+            if (_isSortByValues_Ascending) return 'S';
+            if (_isSortByValues_Descending) return 'S';
             return ' ';
 
         }
@@ -194,8 +194,8 @@ namespace RSCLibraryDLLOperations
             _isInsert = par_isInsert;
             _isDelete = par_isDelete;
             _isMove = par_isMove;
-            _isSort_Ascending = par_isSortAscending;
-            _isSort_Descending = par_isSortDescending;
+            _isSortByValues_Ascending = par_isSortAscending;
+            _isSortByValues_Descending = par_isSortDescending;
 
             //Added 4/18/2024 
             _isSort_UndoOfSort = par_isSortReversal; // Undoing a sorting operation.
@@ -258,8 +258,8 @@ namespace RSCLibraryDLLOperations
             _isInsert = par_isInsert;
             _isDelete = par_isDelete;
             _isMove = par_isMove;
-            _isSort_Ascending = par_isSortAscending;
-            _isSort_Descending = par_isSortDescending;
+            _isSortByValues_Ascending = par_isSortAscending;
+            _isSortByValues_Descending = par_isSortDescending;
 
         }
 
@@ -269,11 +269,11 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            if (_isSort_Ascending)
+            if (_isSortByValues_Ascending)
             {
 
             }
-            if (_isSort_Descending)
+            if (_isSortByValues_Descending)
             {
 
             }
@@ -298,11 +298,11 @@ namespace RSCLibraryDLLOperations
             //
             // Added 6/10/2024
             //
-            if (_isSort_Ascending)
+            if (_isSortByValues_Ascending)
             {
 
             }
-            if (_isSort_Descending)
+            if (_isSortByValues_Descending)
             {
 
             }
@@ -321,11 +321,11 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            if (_isSort_Ascending)
+            if (_isSortByValues_Ascending)
             {
 
             }
-            if (_isSort_Descending)
+            if (_isSortByValues_Descending)
             {
 
             }
@@ -350,11 +350,11 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/17/2024
             //
-            if (_isSort_Ascending)
+            if (_isSortByValues_Ascending)
             {
 
             }
-            if (_isSort_Descending)
+            if (_isSortByValues_Descending)
             {
 
             }
