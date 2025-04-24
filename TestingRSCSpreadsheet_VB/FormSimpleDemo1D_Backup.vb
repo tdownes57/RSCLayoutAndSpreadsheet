@@ -999,7 +999,10 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         ''Added 11/09/2024
         ''
-        mod_manager.RedoMarkedOperation()
+        Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
+        Dim bTestingIndexStructure As Boolean = TestingIndexStructure() ''Added 1/14/2025 td
+
+        mod_manager.RedoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
 
         ''Added 11/09/2024 
         RefreshTheUI_DisplayList()

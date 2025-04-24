@@ -1226,6 +1226,9 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Added 11/09/2024
         ''
+        Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
+        Dim bTestingIndexStructure As Boolean = TestingIndexStructure() ''Added 1/14/2025 td
+
         If (mod_manager.MarkerHasOperationNext_Redo()) Then
             ''
             ''Fine, this is expected. ---Thomas D.
@@ -1238,7 +1241,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         ''Major call!!
         ''
-        mod_manager.RedoMarkedOperation()
+        ''---Apr2025  mod_manager.RedoMarkedOperation()
+        mod_manager.RedoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
 
         ''Added 12/09/2024 & 11/10/2024 (but only on the buttonUndoLastStep_Click handler)
         mod_firstItem = mod_list._itemStart

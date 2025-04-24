@@ -528,7 +528,16 @@ namespace RSCLibraryDLLOperations
 
                     //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
                     //April 2025  mod_lastPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
-                    mod_lastPriorOperation1D.DLL_SetOpNext_OfT_OfT(operation1D_OfT_OfT);
+                    if (mod_lastPriorOperation1D == null)
+                    {
+                        // Added 4/23/2025
+                        mod_lastPriorOperation1D = operation1D_OfT_OfT;
+                        if (mod_firstPriorOperation1D == null) mod_firstPriorOperation1D = operation1D_OfT_OfT;
+                    }
+                    else
+                    {
+                        mod_lastPriorOperation1D.DLL_SetOpNext_OfT_OfT(operation1D_OfT_OfT);
+                    }
 
                     var temp_priorOp = mod_lastPriorOperation1D;
                     //mod_lastPriorOperation1D = parOperation;
@@ -844,8 +853,8 @@ namespace RSCLibraryDLLOperations
                 }
 
                 // Major call!!
-                //UndoOperation_ViaInverseOf(operationToUndo);
-                //April2025  UndoOperation_ViaInverseOf(operationToUndo, ref pbEndpointAffected);
+                //    UndoOperation_ViaInverseOf(operationToUndo);
+                //    April2025  UndoOperation_ViaInverseOf(operationToUndo, ref pbEndpointAffected);
                 UndoOperation_ViaInverse_OfOf(operationToUndo, ref pbEndpointAffected);
 
                 // Major call!! --1/10/2024

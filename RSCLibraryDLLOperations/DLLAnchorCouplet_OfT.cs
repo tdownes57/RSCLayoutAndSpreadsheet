@@ -150,11 +150,17 @@ namespace RSCLibraryDLLOperations
                 _itemLeft = par_item; 
                 _itemRight = par_item.DLL_GetItemNext_OfT(); // May be null.
 
+                // Added 4/23/2025
+                _itemRight_isNull = (_itemRight == null);
+
             }
             else
             {
                 _itemRight = par_item;
                 _itemLeft = par_item.DLL_GetItemPrior_OfT(); // May be null.
+
+                // Added 4/23/2025
+                _itemLeft_isNull = (_itemLeft == null);
 
             }
         }

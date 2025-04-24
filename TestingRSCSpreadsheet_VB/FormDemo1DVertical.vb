@@ -1934,12 +1934,16 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 11/09/2024
-        buttonRedoOp.Enabled = True
-        buttonReDo.Enabled = True
+        ''buttonRedoOp.Enabled = True
+        ''buttonReDo.Enabled = True
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
         buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+
+        ''Added 11/10/2024 
+        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
