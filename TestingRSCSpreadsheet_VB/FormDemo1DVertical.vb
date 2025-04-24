@@ -2350,6 +2350,9 @@ Public Class FormDemo1DVertical
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
+        ''Added 4/23/205 
+        mod_manager.LoadParallelLists(GetParallelLists())
+
         operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Backward)
 
         ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
@@ -2370,7 +2373,19 @@ Public Class FormDemo1DVertical
         ''Administrative.
         mod_firstItemA = mod_listA._itemStart
         mod_lastItemA = mod_listA._itemEnding
+
+        ''Added 4/23/2025 td
+        mod_firstItemB1 = mod_listB1._itemStart
+        mod_firstItemB2 = mod_listB2._itemStart
+        mod_firstItemB3 = mod_listB3._itemStart
+
+        ''Major call!!
         RefreshTheUI_DisplayList()
+
+        ''Added 4/23/2025 td
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''
         ''Added 11/09/2024

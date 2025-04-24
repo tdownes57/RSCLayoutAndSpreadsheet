@@ -1179,8 +1179,12 @@ namespace RSCLibraryDLLOperations
             result_struct.IsMove = _isMove; 
             result_struct.IsUndoOfSort = _isSort_UndoOfSortEither; 
             result_struct.SortingAscending = _isSort_Ascending;  
-            result_struct.SortingDescending = _isSort_Descending;    
-            result_struct.Sorting = _isSort_Ascending || _isSort_Descending;
+            result_struct.SortingDescending = _isSort_Descending;
+
+            //result_struct.Sorting = _isSort_Ascending || _isSort_Descending;
+            result_struct.Sorting_ByValue = _isSort_Ascending || _isSort_Descending;            
+            result_struct.Sorting_ByArray = _isSort_ByArray; // Added 4/23/2025 td
+
             result_struct.TypeOfMove = _moveType;
             
             //

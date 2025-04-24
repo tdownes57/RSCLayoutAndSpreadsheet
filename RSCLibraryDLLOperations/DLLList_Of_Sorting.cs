@@ -85,7 +85,8 @@ namespace RSCLibraryDLLOperations
             // Added 1/13/2025 thomas downes
             //
             int[] return_arrayIndicesForUndo = new int[_itemCount];
-            TControl tempItem = _itemStart;
+            TControl? tempItem = _itemStart;
+            int each_index; // Added 4/23/2025
 
             //
             // Create an array of indices, which will be used to sort the items by index.
@@ -105,7 +106,8 @@ namespace RSCLibraryDLLOperations
 
                 if (STORE_INDICES_FOR_SORT_UNDO)
                 {
-                    return_arrayIndicesForUndo[index] = par_arrayControls_priorToSort[index].DLL_GetItemIndex_base1();
+                    each_index = par_arrayControls_priorToSort[index].DLL_GetItemIndex_base1();
+                    return_arrayIndicesForUndo[index] = each_index;
                 }
                 if (STORE_INDICES_FOR_SORT_REDO)
                 {
@@ -1086,7 +1088,8 @@ namespace RSCLibraryDLLOperations
                 if (mergedList_LastItem != null)
                 {
                     //mergedList_LastItem.DLL_SetItemNext(itemForMerge_Next);
-                    mergedList_LastItem.DLL_SetItemNext_OfT(itemForMerge_Next, true, false);
+                    //Apr2025 mergedList_LastItem.DLL_SetItemNext_OfT(itemForMerge_Next, true, false);
+                    mergedList_LastItem.DLL_SetItemNext_OfT(itemForMerge_Next, false, true);
                 }
             }
 

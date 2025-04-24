@@ -29,6 +29,12 @@ namespace RSCLibraryDLLOperations
             mod_firstItem = par_first;
             this.Count = par_count;
 
+            // Added 4/23/2025 td
+            //    I am getting an error message, 
+            //    "Can't set the Next item to be the same as the Prior item."
+            //    (bNextIsSameAsPrior = Me.DLL_GetItemPrior_OfT() Is param)
+            mod_firstItem.DLL_ClearReferencePrior('S');  // S stands for Sorting.
+
         }
 
         public TControl Peek() //''IDoublyLinkedItem Peek()

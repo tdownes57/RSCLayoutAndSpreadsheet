@@ -53,6 +53,7 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isSort_UndoOfSortEither; //Added 4/18/2024 
         private readonly bool _isSort_UndoOfSortAscending; //Added 4/18/2024 
         private readonly bool _isSort_UndoOfSortDescending; //Added 4/18/2024 
+        private readonly bool _isSort_ByArray; // Added 4/25/2025 td
 
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
@@ -234,8 +235,9 @@ namespace RSCLibraryDLLOperations
             if (pbSortByArrayOfControls)
             _arrayControls_SortOrderThisOp = par_arrayControls_Sorting;
 
-            else if (pbSortByArrayOfIndices)
-                _arrayIndices_SortOrderThisOp = par_arrayIndices_Sorting;
+            //---else if (pbSortByArrayOfIndices)
+            if (pbSortByArrayOfIndices)
+                        _arrayIndices_SortOrderThisOp = par_arrayIndices_Sorting;
 
 
 
@@ -282,6 +284,14 @@ namespace RSCLibraryDLLOperations
             // Added 4/18/2025
             mod_opNextIsNull = par_operation1D_Of.mod_opNextIsNull;
             mod_opPriorIsNull = par_operation1D_Of.mod_opPriorIsNull;
+
+            // Added 4/23/2025 thomas d.
+            _isSort_Ascending = par_operation1D_Of._isSort_Ascending;
+            _isSort_Descending = par_operation1D_Of._isSort_Descending;
+            _isForUndoOperation = par_operation1D_Of._isForUndoOperation;
+            _isSort_UndoOfSortAscending = par_operation1D_Of._isSort_UndoOfSortAscending;
+            _isSort_UndoOfSortDescending = par_operation1D_Of._isSort_UndoOfSortDescending;
+            _isSort_UndoOfSortEither = par_operation1D_Of._isSort_UndoOfSortEither;
 
         }
         
@@ -470,8 +480,11 @@ namespace RSCLibraryDLLOperations
             _moveType = par_structure.TypeOfMove; // = _moveType;
 
             _itemEnding_SortOrderThisOp = null;
-            _itemStart_SortOrderIfUndo = null; 
+            _itemStart_SortOrderIfUndo = null;
 
+            // Added 4/23/2025 
+            _arrayIndices_SortOrderIfUndo = par_structure.ArrayToSort_Undo;
+            _arrayIndices_SortOrderThisOp = par_structure.ArrayToSort_Redo;
 
             //---if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
             if (par_structure.RangeIsSpecified_MoveOrDelete) // || 0 < par_structure.RangeSize)
