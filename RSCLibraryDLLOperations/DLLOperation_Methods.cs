@@ -854,18 +854,29 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
+                //result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
+                //    result_isSortByItemValues,
+                //    result_isSortAscending,
+                //    result_isSortDescending,
+                //    result_isUndoOfSortAscending,
+                //    result_isUndoOfSortDescending,
+                //    result_itemStart_SortOrderThisOp,
+                //    result_itemEnding_SortOrderThisOp,
+                //    true,
+                //    result_arrayControls_SortOrderThisOp, 
+                //    true, 
+                //    result_arrayIndices_SortOrderThisOp);
                 result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
                     result_isSortByItemValues,
                     result_isSortAscending,
                     result_isSortDescending,
                     result_isUndoOfSortAscending,
                     result_isUndoOfSortDescending,
+                    false,
                     result_itemStart_SortOrderThisOp,
                     result_itemEnding_SortOrderThisOp,
-                    true,
-                    result_arrayControls_SortOrderThisOp, 
-                    true, 
-                    result_arrayIndices_SortOrderThisOp);
+                    result_arrayIndices_SortOrderThisOp, 
+                    result_arrayIndices_SortOrderIfUndo);
             }
 
             //
@@ -981,19 +992,21 @@ namespace RSCLibraryDLLOperations
                 // 
                 var itemBaseStart = _itemStart_SortOrderIfUndo.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
                 var itemBaseEnding = _itemEnding_SortOrderIfUndo.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
-                T_BaseOrParallel[] arrayBase_SortOrderIfUndo = GetConvertedArray<T_BaseOrParallel>(
-                        _arrayControls_SortOrderIfUndo, par_firstItem);
+                //T_BaseOrParallel[] arrayBase_SortOrderIfUndo = GetConvertedArray<T_BaseOrParallel>(
+                //         _arrayControls_SortOrderIfUndo, par_firstItem);
 
                 result =
                     new DLLOperation1D_Of<T_BaseOrParallel>(
+                             _isSort_ByItemValues,
                            _isSortByValues_Ascending, _isSortByValues_Descending,
+                           _isSort_ByArrayIndexMapping,
                            _isSort_UndoOfSortAscending,
                            _isSort_UndoOfSortDescending,
                            //_itemStart_SortOrderIfUndo as T_BaseOrParallel,
                            //_itemEnding_SortOrderIfUndo as T_BaseOrParallel,
-                           itemBaseStart, itemBaseEnding, 
-                           true,
-                           arrayBase_SortOrderIfUndo, false, null);
+                           itemBaseStart, itemBaseEnding,
+                           _arrayIndices_SortOrderRedoThisOp,
+                           _arrayIndices_SortOrderIfUndo);
 
             }
 
@@ -1002,6 +1015,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        /// <summary>
+        /// Converts each item of an parameter-supplied array to a different type.
+        /// </summary>
+        /// <typeparam name="T_BaseOrParallel"></typeparam>
+        /// <param name="par_array"></param>
+        /// <param name="par_firstItem"></param>
+        /// <returns></returns>
         private T_BaseOrParallel[] GetConvertedArray<T_BaseOrParallel>(T_DLLItem[] par_array, T_BaseOrParallel par_firstItem)
             where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
@@ -1143,7 +1163,8 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         /// <returns>An index-only description of the operation.</returns>
         public DLLOperationIndexStructure GetOperationIndexStructure(bool par_overrideTest = false,
-                                bool par_redoOperation = false)
+                                bool par_redoOperation = false, 
+                                bool par_sortOnlyByArray_NotByValue = true)
         {
             //
             // Added 1/11/2025 td
@@ -1154,6 +1175,7 @@ namespace RSCLibraryDLLOperations
             // This may be useful for propagating an operation to a set of parallel lists, 
             //    for example, from RSCRowHeaders to RSColumns. 
             //
+            //const bool SORT_BY_ARRAY = true; // Added 4/29/2025
 
             if (par_overrideTest) // added 4/09/2025
             {
@@ -1193,13 +1215,56 @@ namespace RSCLibraryDLLOperations
             result_struct.IsInsert = _isInsert; 
             result_struct.IsDelete = _isDelete; 
             result_struct.IsMove = _isMove; 
-            result_struct.IsUndoOfSort = _isSort_UndoOfSortEither; 
-            result_struct.SortingAscending = _isSortByValues_Ascending;  
-            result_struct.SortingDescending = _isSortByValues_Descending;
+            result_struct.IsUndoOfSort = _isSort_UndoOfSortEither;
 
-            //result_struct.Sorting = _isSort_Ascending || _isSort_Descending;
-            result_struct.Sorting_ByValue = _isSort_ByItemValues; // _isSort_Ascending || _isSort_Descending;            
-            result_struct.Sorting_ByArray = _isSort_ByArrayIndexMapping; // Added 4/23/2025 td
+            // Added 4/29/2025 td
+            //
+            //   Copy sorting arrays (if applicable, i.e. they might be Null of course)
+            //
+            result_struct.ArrayOfIndicesToSort_Redo = _arrayIndices_SortOrderRedoThisOp;
+            result_struct.ArrayOfIndicesToSort_Undo = _arrayIndices_SortOrderIfUndo ;
+
+            // Added 4/29/2025 td
+            //
+            //   Copy Booleans related to Sorting 
+            //
+            if (par_sortOnlyByArray_NotByValue) // Added 4/29/2025  
+            {
+                //
+                //  This indicized operation will only sort by Index Mapping, 
+                //     because sorting by item values requires the object (which 
+                //     contains the value).  Indicized operations don't contain
+                //     any object references, so sorting by item value would be   
+                //         (1) Impossible,
+                //         (2) Contrary to the spirit of indicized operations.
+                //
+                //     Indicized operations emphasize item location (within the parent 
+                //     list), not item values.
+                //     ----Thomas Downes
+                //
+                result_struct.SortingByValues_Ascending = false && _isSortByValues_Ascending;
+                result_struct.SortingByValues_Descending = false && _isSortByValues_Descending;
+
+                //Added 4/29/2025 td
+                if (_isSort_ByItemValues 
+                    || _isSort_ByArrayIndexMapping)
+                {
+                    // We will ONLY sort by array index mapping.
+                    result_struct.Sorting_ByArrayIndexMapping = true; 
+                }
+
+            }
+
+            else
+            {
+                result_struct.SortingByValues_Ascending = _isSortByValues_Ascending;
+                result_struct.SortingByValues_Descending = _isSortByValues_Descending;
+
+                //result_struct.Sorting = _isSort_Ascending || _isSort_Descending;
+                result_struct.Sorting_ByItemValues = _isSort_ByItemValues; // _isSort_Ascending || _isSort_Descending;            
+                result_struct.Sorting_ByArrayIndexMapping = _isSort_ByArrayIndexMapping; // Added 4/23/2025 td
+
+            }
 
             result_struct.TypeOfMove = _moveType;
             

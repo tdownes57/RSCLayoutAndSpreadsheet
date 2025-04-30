@@ -385,13 +385,35 @@ namespace RSCLibraryDLLOperations
 
             //-------------------------------------------------------------------
             //
-            //------------------ Major call!! --------------------------------------
+            //------------- Major call!! (for main/primary list) -------------------
             //
             //-------------------------------------------------------------------
             //
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint_Expected,
                   out par_changeOfEndpoint_Occurred);
 
+            // Administrative work. 
+            //     Needed for sorting to occur on parallel lists (if any).
+            //     ---4/29/2025 td
+            //
+            if (parOperationIndicized.Sorting_ByArrayIndexMapping)
+            {
+                if (parOperationIndicized.ArrayOfIndicesToSort_Redo == null)
+                {
+                    if (parOperation._arrayIndices_SortOrderRedoThisOp != null)
+                    {
+                        // Copy the array of index-mapping (for sorting)
+                        parOperationIndicized.ArrayOfIndicesToSort_Redo =
+                            parOperation._arrayIndices_SortOrderRedoThisOp;
+                    }
+                }
+            }
+
+            //-------------------------------------------------------------------
+            //
+            //------------- Major call!! (for parallel lists) -------------------
+            //
+            //-------------------------------------------------------------------
             //
             //  Propagate operation to parallel lists, if any exist. 
             //

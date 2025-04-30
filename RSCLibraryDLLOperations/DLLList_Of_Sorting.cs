@@ -37,11 +37,12 @@ namespace RSCLibraryDLLOperations
 
         public void SaveCurrentSortOrder_ToPrior(DLLOperation1D_Of<TControl> par_op, 
                  bool pbOutputArrayOfControls, 
-                 out TControl[] par_arrayControls)
+                 out TControl[] out_arrayControls)
         {
             //
             // Added 12/12/2024 thomas downes 
             //
+            TControl[] arrayControls_SortOrderIfUndo;  
             _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
 
             // Added 12/29/2024 thomas downes
@@ -57,19 +58,41 @@ namespace RSCLibraryDLLOperations
             par_op._itemStart_SortOrderIfUndo = _itemStart;
             par_op._itemEnding_SortOrderIfUndo = _itemEnding;
             TControl currentItem = _itemStart;
-            par_op._arrayControls_SortOrderIfUndo = new TControl[_itemCount];
+            arrayControls_SortOrderIfUndo = new TControl[_itemCount];
+
             // Save all of the items, in their current order. 
             for (int index = 0; index < _itemCount; index++)
             {
-                par_op._arrayControls_SortOrderIfUndo[index] = currentItem;
+                arrayControls_SortOrderIfUndo[index] = currentItem;
                 currentItem = currentItem.DLL_GetItemNext_OfT();
             }
 
             // Added 1/13/2025 thomas downes
-            par_arrayControls = par_op._arrayControls_SortOrderIfUndo;
+            out_arrayControls = arrayControls_SortOrderIfUndo;
 
         }
 
+
+        public void SaveCurrentSortOrder_ToControlArray(out TControl[] out_arrayControls)
+        {
+            //
+            // Added 12/12/2024 thomas downes 
+            //
+            TControl[] arrayControls_SortOrderForRedo;
+            TControl currentItem = _itemStart;
+            arrayControls_SortOrderForRedo = new TControl[_itemCount];
+
+            // Save all of the items, in their current order. 
+            for (int index = 0; index < _itemCount; index++)
+            {
+                arrayControls_SortOrderForRedo[index] = currentItem;
+                currentItem = currentItem.DLL_GetItemNext_OfT();
+            }
+
+            // Added 1/13/2025 thomas downes
+            out_arrayControls = arrayControls_SortOrderForRedo;
+
+        }
 
         /// <summary>
         /// Returns a list of indices, which can be used to undo-sort the items by index.
@@ -149,16 +172,17 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void RestorePriorSortOrder_ByOp(DLLOperation1D_Of<TControl> par_op,
+        public void ImplementSortOrder_ByOp_ByArray(DLLOperation1D_Of<TControl> par_op,
                                           bool pbAlsoClearPriorSortOrder)
         {
             //
             // Added 12/30/2024 thomas downes 
             //
-            if (par_op._arrayControls_SortOrderThisOp == null)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
+            //April 2025 if (par_op._arrayControls_SortOrderThisOp == null)
+            //{
+            //    System.Diagnostics.Debugger.Break();
+            //}
+
             if (par_op._itemStart_SortOrderThisOp == null)
             {
                 System.Diagnostics.Debugger.Break();
@@ -176,15 +200,43 @@ namespace RSCLibraryDLLOperations
             _itemStart.DLL_ClearReferencePrior('S'); // Added 12/30/2024 
             TControl? currentItem = null; // _itemStart;
             TControl priorItem = _itemStart;
-            const bool DOUBLY_LINK = true;  
+            TControl each_item = _itemStart;
+            const bool DOUBLY_LINK = true;
+            TControl[] arrayControls_CurrentOrder = new TControl[-1 + _itemCount];
+            TControl[] arrayControls_RestoredOrder = new TControl[-1 + _itemCount];
+            int each_restoredIndex;
 
-            // Restore all of the items, into their correct order
-            //    (per the specified operation). 
             //
-            for (int index = 0 + 1; index < _itemCount; index++)
+            // Step #1 of 3: Build an array of controls as they are currently ordered. 
+            //
+            for (int index = 0; index < _itemCount; index++)
             {
                 // Read the current item from the array which saves all of the items, in order.
-                currentItem = par_op._arrayControls_SortOrderThisOp[index];  // Use the sort order suffixed "ThisOp".
+                //currentItem = par_op._arrayControls_SortOrderThisOp[index];  // Use the sort order suffixed "ThisOp".
+                arrayControls_CurrentOrder[index] = each_item;
+                // Prepare for the next iteration of the loop. --12/30/2024
+                each_item = each_item.DLL_GetItemNext_OfT();
+            }
+
+            //
+            // Step #2 of 3: Change the order of the items in the "RestoredOrder" array,
+            //   using the index pulled from the par_op._arrayIndices_SortOrderIfUndo array.
+            //
+            for (int index = 0; index < _itemCount; index++)
+            {
+                each_item = arrayControls_CurrentOrder[index];
+                //each_restoredIndex = par_op._arrayIndices_SortOrderIfUndo[index];
+                each_restoredIndex = par_op._arrayIndices_SortOrderRedoThisOp[index];
+                arrayControls_RestoredOrder[each_restoredIndex] = each_item;
+            }
+
+            //
+            // Step #3 of 3: Convert the array to a DLL (dynamically linked list). 
+            //
+            for (int index = 0; index < _itemCount; index++)
+            {
+                // Read the current item from the array which saves all of the items, in order.
+                currentItem = arrayControls_RestoredOrder[index];  // Use the sort order suffixed "ThisOp".
                 priorItem.DLL_SetItemNext_OfT(currentItem, false, DOUBLY_LINK);
 
                 // Prepare for the next iteration of the loop. --12/30/2024
@@ -192,7 +244,9 @@ namespace RSCLibraryDLLOperations
             }
 
             currentItem.DLL_ClearReferenceNext('S');
-            _itemEnding = par_op._itemEnding_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
+            _itemStart = arrayControls_RestoredOrder[0];
+            //_itemEnding = par_op._itemEnding_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
+            _itemEnding = currentItem;
 
         }
 
@@ -1310,6 +1364,17 @@ namespace RSCLibraryDLLOperations
         //----------------------------------------------------------------------------------------------------------------
         //
 
+
+        public void DLL_SortByRedoArray(DLLOperation1D_Of<TControl> par_op)
+        {
+            //
+            // Added 04/29/2025  
+            //
+                ImplementSortOrder_ByOp_ByArray(par_op, false);
+
+        }
+
+
         public void DLL_UndoSort(DLLOperation1D_Of<TControl> par_op)
         {
             //
@@ -1321,7 +1386,7 @@ namespace RSCLibraryDLLOperations
             const bool SORT_ORDER_BY_OPERATION = true;
             if (SORT_ORDER_BY_OPERATION)
             {
-                RestorePriorSortOrder_ByOp(par_op, false);
+                ImplementSortOrder_ByOp_ByArray(par_op, false);
             }
             else
             {
@@ -1353,6 +1418,75 @@ namespace RSCLibraryDLLOperations
             bool result_change;
             result_change = (bChangeOfStart || bChangeOfEnding);
             return result_change;
+
+        }
+
+
+        /// <summary>
+        /// This builds the integer arrays which will allow a sorting to be recorded & 
+        /// then reversed to the original, prior sorting (or lack thereof).  And also 
+        /// the integer array which would reverse the sorting.
+        /// </summary>
+        /// <param name="par_arrayOfControlsBeforeSort"></param>
+        /// <param name="par_arrayOfControlsAfterSort"></param>
+        /// <param name="par_arrayOfIndicesForRedo"></param>
+        /// <param name="par_arrayOfIndicesForUndo"></param>
+        public void BuildMapperWithArrayIndices(TControl[] par_arrayOfControlsBeforeSort,
+                                                 TControl[] par_arrayOfControlsAfterSort,
+                                                 out int[] par_arrayOfIndicesForRedo,
+                                                 out int[] par_arrayOfIndicesForUndo)
+        {
+            //
+            // Added 4/24/2025 td
+            //
+            TControl[] array_Before = par_arrayOfControlsBeforeSort;
+            TControl[] array_After = par_arrayOfControlsAfterSort;
+
+            // ----Direction: REDO (Before, After) --------
+            // Build the mapping array of indices for ----REDO----
+            BuildMapperWithArrayIndices(array_Before, array_After,
+                                        out par_arrayOfIndicesForRedo);
+
+            // ----Direction: UNDO (After, Before) --------
+            // Build the mapping array of indices for ----UNDO----
+            BuildMapperWithArrayIndices(array_After, array_Before,
+                            out par_arrayOfIndicesForUndo);
+
+
+        }
+
+
+        private void BuildMapperWithArrayIndices(TControl[] par_arrayOfControlsBeforeSort,
+                                                 TControl[] par_arrayOfControlsAfterSort,
+                                                 out int[] par_arrayOfIndicesToRecordSort)
+        {
+            //
+            // Added 4/24/2025 td
+            //
+            //---int[] result_arrayOfIndices = new int[-1 + par_arrayOfControlsAfterSort.Length];
+            int[] result_arrayOfIndices = new int[par_arrayOfControlsAfterSort.Length];
+            int index_base0 = 0;
+            int each_index_final;
+            TControl[] array_Before = par_arrayOfControlsBeforeSort;
+            TControl[] array_After = par_arrayOfControlsAfterSort;
+
+            foreach (TControl each_control in par_arrayOfControlsBeforeSort)
+            {
+                bool bFound = array_After.Contains(each_control);
+                if (bFound)
+                {
+                    // Major call!!
+                    each_index_final = Array.FindIndex(array_After, item => item == each_control);
+                    result_arrayOfIndices[index_base0] = each_index_final;
+                }
+                else
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
+                index_base0++;
+            }
+
+            par_arrayOfIndicesToRecordSort = result_arrayOfIndices;
 
         }
 

@@ -2302,7 +2302,7 @@ Public Class FormDemo1DVertical
             '' The list cannot be sorted, as it is empty. 
             ''
         Else
-            operationSortForward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Forward)
+            operationSortForward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
@@ -2353,7 +2353,7 @@ Public Class FormDemo1DVertical
         ''Added 4/23/205 
         mod_manager.LoadParallelLists(GetParallelLists())
 
-        operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.Backward)
+        operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Backward)
 
         ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
         If (USE_MANAGER) Then

@@ -1595,7 +1595,7 @@ Public Class FormSimpleDemoOfCSharp1D
             '' The list cannot be sorted, as it is empty. 
             ''
         Else
-            operationSortForward = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(EnumSortTypes.Forward)
+            operationSortForward = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(EnumSortTypes.ByValues_Forward)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
@@ -1643,7 +1643,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
-        operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(EnumSortTypes.Backward)
+        operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(EnumSortTypes.ByValues_Backward)
 
         ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_list, bChangeOfEndpoint_Occurred)
         If (USE_MANAGER) Then

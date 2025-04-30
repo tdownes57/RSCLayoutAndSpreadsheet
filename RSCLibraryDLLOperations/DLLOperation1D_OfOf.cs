@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 //
 // Added 4/09/2025 thomas downes
@@ -96,20 +97,25 @@ namespace RSCLibraryDLLOperations
         //          StructureTypeOfMove par_structMoveType,
         //          DLLAnchorItem<TControl>? par_anchorItem,
         //          DLLAnchorCouplet<TControl>? par_anchorPair,
-        public DLLOperation1D_OfOf(bool par_isSortAscending,
+        public DLLOperation1D_OfOf(bool par_isSortByItemValues, 
+                  bool par_isSortAscending,
                   bool par_isSortDescending,
                   bool par_isUndoOfSortAscending,
                   bool par_isUndoOfSortDescending,
+                  bool par_isSortByArrayIndex,
                   TBase par_itemStart_Sorting,
                   TBase par_itemEnding_ForSorting,
                   bool pbSortByArrayOfControls,
                   TBase[] par_arrayControls_Sorting,
                   bool pbSortByArrayOfIndices,
-                  int[]? par_arrayIndices_Sorting) : base(par_isSortAscending, par_isSortDescending,
+                  int[]? par_arrayIndices_SortRedo, 
+                  int[]? par_arrayIndices_SortUndo) : base(par_isSortByItemValues,
+                                                          par_isSortAscending, par_isSortDescending,
                                                           par_isUndoOfSortAscending, par_isUndoOfSortDescending,
+                                                          par_isSortByArrayIndex,
                                                           par_itemStart_Sorting, par_itemEnding_ForSorting,
-                                                          pbSortByArrayOfControls, par_arrayControls_Sorting,
-                                                          pbSortByArrayOfIndices, par_arrayIndices_Sorting)
+                                                          par_arrayIndices_SortRedo, 
+                                                          par_arrayIndices_SortUndo)
         {
             //
             // We simply pass the arguments to the base class.
@@ -442,6 +448,78 @@ namespace RSCLibraryDLLOperations
             return inverseOp_OfOf;
 
         }
+
+
+
+        /// <summary>
+        /// This builds the integer arrays which will allow a sorting to be recorded & 
+        /// then reversed to the original, prior sorting (or lack thereof).  And also 
+        /// the integer array which would reverse the sorting.
+        /// </summary>
+        /// <param name="par_arrayOfControlsBeforeSort"></param>
+        /// <param name="par_arrayOfControlsAfterSort"></param>
+        /// <param name="par_arrayOfIndicesForRedo"></param>
+        /// <param name="par_arrayOfIndicesForUndo"></param>
+        public static void BuildMapperWithArrayIndices(TParallel[] par_arrayOfControlsBeforeSort, 
+                                                 TParallel[] par_arrayOfControlsAfterSort,
+                                                 out int[] par_arrayOfIndicesForRedo,
+                                                 out int[] par_arrayOfIndicesForUndo)
+        {
+            //
+            // Added 4/24/2025 td
+            //
+            TParallel[] array_Before = par_arrayOfControlsBeforeSort;
+            TParallel[] array_After = par_arrayOfControlsAfterSort;
+
+            // ----Direction: REDO (Before, After) --------
+            // Build the mapping array of indices for ----REDO----
+            BuildMapperWithArrayIndices(array_Before, array_After,
+                                        out par_arrayOfIndicesForRedo);
+
+            // ----Direction: UNDO (After, Before) --------
+            // Build the mapping array of indices for ----UNDO----
+            BuildMapperWithArrayIndices(array_After, array_Before,
+                            out par_arrayOfIndicesForUndo);
+
+
+        }
+
+
+        private static void BuildMapperWithArrayIndices(TParallel[] par_arrayOfControlsBeforeSort,
+                                                 TParallel[] par_arrayOfControlsAfterSort,
+                                                 out int[] par_arrayOfIndicesToRecordSort)
+        {
+            //
+            // Added 4/24/2025 td
+            //
+            int[] result_arrayOfIndices = new int[-1 + par_arrayOfControlsAfterSort.Length];
+            int index_base0 = 0;
+            int each_index_final;
+            TParallel[] array_Before = par_arrayOfControlsBeforeSort;
+            TParallel[] array_After = par_arrayOfControlsAfterSort;
+
+            foreach (TParallel each_control in par_arrayOfControlsBeforeSort)
+            {
+                bool bFound = array_After.Contains(each_control);
+                if (bFound)
+                {
+                    // Major call!!
+                    each_index_final = Array.FindIndex(array_After, item => item == each_control);
+                    result_arrayOfIndices[index_base0] = each_index_final;
+                }
+                else 
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
+                index_base0++;
+            }
+
+            par_arrayOfIndicesToRecordSort = result_arrayOfIndices;
+
+        }
+
+
+
 
 
 

@@ -1006,6 +1006,13 @@ Public Class TwoCharacterDLLItem
     End Sub ''ENd of '"Public Overloads Sub DLL_SetItemNext_OfT""
 
 
+    ''' <summary>
+    ''' Returns an item which is an a parallel (same-indexed) position as the implicit parameter (this item),
+    ''' regardless of the type of the items in the list implied by the "firstItem" parameter.
+    ''' </summary>
+    ''' <typeparam name="T_BaseOrParallel"></typeparam>
+    ''' <param name="firstItem"></param>
+    ''' <returns></returns>
     Public Function GetConvertToGeneric_OfT(Of T_BaseOrParallel As IDoublyLinkedItem(Of T_BaseOrParallel))(firstItem As T_BaseOrParallel) _
               As T_BaseOrParallel Implements IDoublyLinkedItem(Of TwoCharacterDLLItem).GetConvertToGeneric_OfT
         ''

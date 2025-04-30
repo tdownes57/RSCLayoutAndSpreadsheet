@@ -37,8 +37,8 @@ namespace RSCLibraryDLLOperations
             TypeOfMove.IsMoveType = false;
             //Sorting = false;
             Sorting_ByItemValues = false; // Added 4/23/2025 td
-            SortingAscending = false;
-            SortingDescending = false;
+            SortingByValues_Ascending = false;
+            SortingByValues_Descending = false;
             Sorting_ByArrayIndexMapping = false; // Added 4/23/2025 td
             IsUndoOfSort = false;
             // Added 2/01/2025 
@@ -101,8 +101,8 @@ namespace RSCLibraryDLLOperations
         public int AnchorIndexRight_b1; // = -1;
 
         public bool Sorting_ByItemValues; // Suffix added 4/23/2025
-        public bool SortingAscending;
-        public bool SortingDescending;
+        public bool SortingByValues_Ascending;  // SortingAscending
+        public bool SortingByValues_Descending;  // SortingDescending 
 
         public bool IsUndoOfSort;
         // April 2025  public int[] ArrayToUndoSort;
@@ -142,8 +142,8 @@ namespace RSCLibraryDLLOperations
             if (IsMove) return_string += "Move \n";
 
             if (IsUndoOfSort) return_string += "Undo of Sort \n";
-            if (SortingAscending) return_string += "Sort Ascending \n";
-            if (SortingDescending) return_string += "Sort Descending \n";
+            if (SortingByValues_Ascending) return_string += "Sort Ascending \n";
+            if (SortingByValues_Descending) return_string += "Sort Descending \n";
 
             //if (RangeIsSpecified) return_string += "Range: " +
             if (RangeIsSpecified_MoveOrDelete)

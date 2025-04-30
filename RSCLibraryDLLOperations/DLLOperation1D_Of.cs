@@ -250,7 +250,7 @@ namespace RSCLibraryDLLOperations
 
             //---else if (pbSortByArrayOfIndices)
             //Apr2025 if (pbSortByArrayOfIndices)
-            _arrayIndices_SortOrderThisOp = par_arrayIndices_SortRedo; //  par_arrayIndices_SortRedo;
+            _arrayIndices_SortOrderRedoThisOp = par_arrayIndices_SortRedo; //  par_arrayIndices_SortRedo;
             _arrayIndices_SortOrderIfUndo = par_arrayIndices_SortIfUndo; // par_arrayIndices_SortUndo;
 
 
@@ -310,7 +310,7 @@ namespace RSCLibraryDLLOperations
             _isSort_UndoOfSortEither = par_operation1D_Of._isSort_UndoOfSortEither;
             // Moved from above 4/23/2025
             _arrayIndices_SortOrderIfUndo = par_operation1D_Of._arrayIndices_SortOrderIfUndo;
-            _arrayIndices_SortOrderThisOp = par_operation1D_Of._arrayIndices_SortOrderThisOp;
+            _arrayIndices_SortOrderRedoThisOp = par_operation1D_Of._arrayIndices_SortOrderRedoThisOp;
 
         }
 
@@ -469,9 +469,18 @@ namespace RSCLibraryDLLOperations
             if (par_enum == EnumSortTypes.ByValues_Forward) _isSortByValues_Ascending = true;
             if (par_enum == EnumSortTypes.ByValues_Backward) _isSortByValues_Descending = true;
 
+            // Added 4/25/2025 td 
+            if (par_enum == EnumSortTypes.ByValues_Forward ||
+                par_enum == EnumSortTypes.ByValues_Backward)
+                _isSort_ByItemValues = true;  
+
             // Added 12/30/2024 
             if (par_enum == EnumSortTypes.UndoOfSortForward) _isSort_UndoOfSortAscending = true;
             if (par_enum == EnumSortTypes.UndoOfSortBackward) _isSort_UndoOfSortDescending = true;
+
+            // Add 4/25/2025 td
+            if (par_enum == EnumSortTypes.ByArrayOfItemIndices)
+                _isSort_ByArrayIndexMapping = true; 
 
         }
 
@@ -494,8 +503,9 @@ namespace RSCLibraryDLLOperations
             _isMove = par_structure.IsMove; // = _isMove;
 
             _isSort_ByItemValues = par_structure.Sorting_ByItemValues;  // Added 4/23/2025 
-            _isSortByValues_Ascending = par_structure.SortingAscending; // = _isSort_Ascending;
-            _isSortByValues_Descending = par_structure.SortingDescending; // = _isSort_Descending;
+            _isSortByValues_Ascending = par_structure.SortingByValues_Ascending; // = _isSort_Ascending;
+            _isSortByValues_Descending = par_structure.SortingByValues_Descending; // = _isSort_Descending;
+
             // par_structure.Sorting; // = _isSort_Ascending || _isSort_Descending;
             _isSort_ByArrayIndexMapping = par_structure.Sorting_ByArrayIndexMapping; // Added 4/23/2023
             _isSort_UndoOfSortEither = par_structure.IsUndoOfSort; // = _isSort_UndoOfSortEither;
@@ -506,7 +516,7 @@ namespace RSCLibraryDLLOperations
             _itemStart_SortOrderIfUndo = null;
 
             // Added 4/23/2025 
-            _arrayIndices_SortOrderThisOp = par_structure.ArrayOfIndicesToSort_Redo;
+            _arrayIndices_SortOrderRedoThisOp = par_structure.ArrayOfIndicesToSort_Redo;
             _arrayIndices_SortOrderIfUndo = par_structure.ArrayOfIndicesToSort_Undo;
 
             //---if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
@@ -779,7 +789,10 @@ namespace RSCLibraryDLLOperations
             {
                 // Ascending Sort
                 //----par_list.SaveCurrentSortOrder_ToPrior(this); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
+
                 T_DLLItem[] arrayControls_priorToSort;  // Added 1/13/2025 
+                T_DLLItem[] arrayControls_afterSort;  // Added 4/29/2025 
+
                 //int[] arrayIndices_priorToSort;  //Added 1/13/2025
                 const bool OUTPUT_ARRAY = true;  // Added 1/13/2025 
 
@@ -794,17 +807,49 @@ namespace RSCLibraryDLLOperations
                 //----par_list.DLL_SortItems(_isSort_Ascending, false);
                 par_list.DLL_SortItems(_isSortByValues_Ascending, _isSortByValues_Descending);
 
+                //Added 4/29/2025
+                // This will enable Redo & Parallel-List operations.  --Added 12/29/2024 td
+                par_list.SaveCurrentSortOrder_ToControlArray(out arrayControls_afterSort);
+
                 // Save the prior order as an array of indices.
-                this._arrayControls_SortOrderIfUndo = arrayControls_priorToSort;
+                //
+                // Not needed. April 2025 this._arrayControls_SortOrderIfUndo = arrayControls_priorToSort;
+                //April2025 _arrayIndices_SortOrderIfUndo = 
+                //April2025    par_list.GetPriorSortOrderForUndo_ByIndex(arrayControls_priorToSort);  // Added 1/13/2025
 
-                _arrayIndices_SortOrderIfUndo = 
-                    par_list.GetPriorSortOrderForUndo_ByIndex(arrayControls_priorToSort);  // Added 1/13/2025
-                
-
+                //Added 4/29/2025 td
+                par_list.BuildMapperWithArrayIndices(arrayControls_priorToSort, 
+                                                     arrayControls_afterSort,
+                           out _arrayIndices_SortOrderRedoThisOp, 
+                           out _arrayIndices_SortOrderIfUndo);
+                    
                 // Indicate that the endpoints (start & ending) very probably changed. 
                 pbChangeOfEndpoint_Occurred = true;
 
             }
+
+            else if (_isSort_ByArrayIndexMapping)
+            {
+                // Added 04/29/2025 td 
+                //
+                // 12/30/2024 par_list.DLL_UndoSort();
+                const bool CONST_OPTION1 = true;
+                const bool CONST_OPTION2 = false;
+
+                if (CONST_OPTION1)
+                {
+                    par_list.DLL_SortItemsByIndexArray(this._arrayIndices_SortOrderRedoThisOp);
+                }
+                else if (CONST_OPTION2)
+                {
+                    par_list.ImplementSortOrder_ByOp_ByArray(this, true);
+                }
+
+                pbChangeOfEndpoint_Occurred = true;
+
+            }
+
+
             //else if (_isSort_Descending)
             //{
             //    // Descending Sort  
