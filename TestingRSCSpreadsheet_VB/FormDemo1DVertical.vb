@@ -2324,10 +2324,21 @@ Public Class FormDemo1DVertical
         If (True Or bChangeOfEndpoint_Occurred) Then
             mod_firstItemA = mod_listA._itemStart
             mod_lastItemA = mod_listA._itemEnding
+
+            ''Added 4/23/2025 td
+            mod_firstItemB1 = mod_listB1._itemStart
+            mod_firstItemB2 = mod_listB2._itemStart
+            mod_firstItemB3 = mod_listB3._itemStart
+
         End If ''End of ""If (True or bChangeOfEndpoint_Occurred) Then""
 
         ''Display the mutated list. 
         RefreshTheUI_DisplayList()
+
+        ''Added 4/23/2025 td
+        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 12/29/2024 
         labelNumOperations.Text = mod_manager.ToString()

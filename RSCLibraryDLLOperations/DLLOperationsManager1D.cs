@@ -392,9 +392,13 @@ namespace RSCLibraryDLLOperations
             parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint_Expected,
                   out par_changeOfEndpoint_Occurred);
 
+
+            //-------------------------------------------------------------------
+            //
             // Administrative work. 
             //     Needed for sorting to occur on parallel lists (if any).
             //     ---4/29/2025 td
+            //-------------------------------------------------------------------
             //
             if (parOperationIndicized.Sorting_ByArrayIndexMapping)
             {
@@ -405,6 +409,9 @@ namespace RSCLibraryDLLOperations
                         // Copy the array of index-mapping (for sorting)
                         parOperationIndicized.ArrayOfIndicesToSort_Redo =
                             parOperation._arrayIndices_SortOrderRedoThisOp;
+                        // Added 4/30/2025
+                        parOperationIndicized.ArrayOfIndicesToSort_Undo =
+                            parOperation._arrayIndices_SortOrderIfUndo;
                     }
                 }
             }

@@ -183,10 +183,10 @@ namespace RSCLibraryDLLOperations
             //    System.Diagnostics.Debugger.Break();
             //}
 
-            if (par_op._itemStart_SortOrderThisOp == null)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
+            //if (par_op._itemStart_SortOrderThisOp == null)
+            //{
+            //    System.Diagnostics.Debugger.Break();
+            //}
             if (_isEmpty_OrTreatAsEmpty)
             {
                 System.Diagnostics.Debugger.Break();
@@ -195,27 +195,41 @@ namespace RSCLibraryDLLOperations
             {
                 System.Diagnostics.Debugger.Break();
             }
+            if (par_op._arrayIndices_SortOrderRedoThisOp == null)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
 
-            _itemStart = par_op._itemStart_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
-            _itemStart.DLL_ClearReferencePrior('S'); // Added 12/30/2024 
+            // April 2025 _itemStart = par_op._itemStart_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
+            // April 2025 _itemStart.DLL_ClearReferencePrior('S'); // Added 12/30/2024 
             TControl? currentItem = null; // _itemStart;
             TControl priorItem = _itemStart;
             TControl each_item = _itemStart;
             const bool DOUBLY_LINK = true;
-            TControl[] arrayControls_CurrentOrder = new TControl[-1 + _itemCount];
-            TControl[] arrayControls_RestoredOrder = new TControl[-1 + _itemCount];
+            TControl[] arrayControls_CurrentOrder = new TControl[_itemCount];  // new TControl[-1 + _itemCount];
+            TControl[] arrayControls_RestoredOrder = new TControl[_itemCount];  // new TControl[-1 + _itemCount];
             int each_restoredIndex;
+            bool bPrepareForNextIter; 
 
             //
             // Step #1 of 3: Build an array of controls as they are currently ordered. 
             //
             for (int index = 0; index < _itemCount; index++)
             {
-                // Read the current item from the array which saves all of the items, in order.
+                // Read the current item from  the array which saves all of the items, in order.
                 //currentItem = par_op._arrayControls_SortOrderThisOp[index];  // Use the sort order suffixed "ThisOp".
                 arrayControls_CurrentOrder[index] = each_item;
+
                 // Prepare for the next iteration of the loop. --12/30/2024
-                each_item = each_item.DLL_GetItemNext_OfT();
+                bPrepareForNextIter = index < _itemCount - 1;
+                if (bPrepareForNextIter) 
+                {
+                    bool bHasNext = each_item.DLL_HasNext();
+                    if (!bHasNext) System.Diagnostics.Debugger.Break();
+                    each_item = each_item.DLL_GetItemNext_OfT();
+                    // Added 4/30/2025
+                    if (each_item == null) System.Diagnostics.Debugger.Break();
+                }
             }
 
             //
@@ -248,6 +262,10 @@ namespace RSCLibraryDLLOperations
             //_itemEnding = par_op._itemEnding_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
             _itemEnding = currentItem;
 
+            // Added 4/30/2025
+            _itemEnding.DLL_MarkAsEndOfList();
+            _itemStart.DLL_ClearReferencePrior('S');
+
         }
 
         public void ClearPriorSortOrder()
@@ -279,6 +297,8 @@ namespace RSCLibraryDLLOperations
             }
 
             _itemStart = arrayItemsOutput[0];
+            _itemStart.DLL_ClearReferencePrior('S'); //Added 4/30/2025
+
             TControl tempItem = _itemStart;
 
             // foreach (TControl item in arrayItemsOutput.Skip(1))
@@ -292,7 +312,11 @@ namespace RSCLibraryDLLOperations
             //
             // Exit handler.
             //
-            _itemEnding = tempItem; 
+            _itemEnding = tempItem;
+
+            // Added 4/30/2025 td
+            _itemEnding.DLL_ClearReferenceNext('S');
+            _itemEnding.DLL_MarkAsEndOfList();
 
         }
 
