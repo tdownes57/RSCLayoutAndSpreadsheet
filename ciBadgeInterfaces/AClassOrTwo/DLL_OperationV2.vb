@@ -459,6 +459,15 @@ Public Class DLL_OperationV2
     End Function
 
 
+    Public Sub DLL_NotifyOfFocus() Implements IDoublyLinkedItem.DLL_NotifyOfFocus
+        ''
+        '' Added 5/02/2025
+        ''
+        Throw New NotImplementedException()
+
+    End Sub ''End of ""Public Sub DLL_NotifyOfFocus()""
+
+
     Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
 
         ''Added 12/24/2023 td

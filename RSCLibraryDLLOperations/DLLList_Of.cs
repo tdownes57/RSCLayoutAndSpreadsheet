@@ -10,6 +10,9 @@ namespace RSCLibraryDLLOperations
 {
     //  https://www.tutorialsteacher.com/csharp/csharp-event
     public delegate void Notify();  // Added 11/02/2024 thomas downes 
+    public delegate void Notify_ItemInFocus(object sender);  // Added 05/03/2025 thomas downes 
+    public delegate void Notify_ColumnInFocus(object sender, string nameOfColumn);  // Added 04/30/2025 thomas downes 
+    public delegate void Notify_ListInFocus(object sender);  // Added 05/03/2025 thomas downes 
 
     public partial class DLLList<TControl> 
         where TControl : class, IDoublyLinkedItem<TControl>
@@ -33,7 +36,8 @@ namespace RSCLibraryDLLOperations
                                              //   the _itemStart object. The C# compiler might not like that.) 
 
         //  https://www.tutorialsteacher.com/csharp/csharp-event
-        public event Notify? EventListWasModified;  // Added 11/02/2024 thomas downes 
+        public event Notify EventListWasModified;  // Added 11/02/2024 thomas downes 
+        public event Notify_ListInFocus? EventListIsInFocus;  // Added 04/30/2025 thomas downes 
 
         //
         // The Anchor describes the location of the imminent Insert of a Range or Item (Singly). 
@@ -173,6 +177,9 @@ namespace RSCLibraryDLLOperations
             // Alias function.  ---Added 03/22/2025 thomas downes   
             //
             DLL_AddItemAtEnd(par_itemToAdd);
+
+            // Added 5/03/2025 td
+            par_itemToAdd.Notify_InFocus += HandleNotification_ItemInFocus;
 
         }
 
@@ -830,6 +837,17 @@ namespace RSCLibraryDLLOperations
                 each_index_b1++;
 
             } while (temp != null);   // (temp.DLL_HasNext());
+
+
+        }
+
+
+        private void HandleNotification_ItemInFocus(object param)
+        {
+            //
+            // Added 5/03/2025 
+            //
+            EventListIsInFocus?.Invoke(this);
 
 
         }

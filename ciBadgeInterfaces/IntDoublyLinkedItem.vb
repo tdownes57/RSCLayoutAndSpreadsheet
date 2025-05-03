@@ -102,4 +102,7 @@ Public Interface IDoublyLinkedItem
     ''Added Feb2025 thomas downes
     Function ToString(par_appendNextToString As Boolean) As String ''Boolean
 
+    ''Added 5/03/2025 
+    Sub DLL_NotifyOfFocus() ''Added 5/03/2025 tdow
+
 End Interface

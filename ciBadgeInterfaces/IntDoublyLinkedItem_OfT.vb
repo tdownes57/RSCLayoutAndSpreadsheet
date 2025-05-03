@@ -159,6 +159,12 @@ Public Interface IDoublyLinkedItem(Of TControl)
     ''' <returns></returns>
     Function GetConvertToArray() As TControl()
 
+    ''Added 5/03/2025
+    ''
+    '' Focus Event 
+    ''
+    Event Notify_InFocus(param As Object)
+
 
 End Interface
 

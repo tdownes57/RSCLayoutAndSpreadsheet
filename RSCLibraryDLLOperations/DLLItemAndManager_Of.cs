@@ -15,8 +15,10 @@ namespace RSCLibraryDLLOperations
         where TControl : class, ciBadgeInterfaces.IDoublyLinkedItem<TControl>
     {
         // 
-        // Added 01/23/2025 t/h/o/m/a/a d/o/w/n/e/s 
+        // Added 01/23/2025 t/h/o/m/a/s// d/o/w/n/e/s// 
         //
+        public event Notify_ItemInFocus Notify_InFocus;  // Added 5/03/2025 thomas downes
+
         /// <summary>
         /// This won't be in use, as this is an operation vs. a list item. --2/27/2024
         /// </summary>
@@ -388,6 +390,17 @@ namespace RSCLibraryDLLOperations
         {
             return mod_prior == null;
         }
+
+
+        public void DLL_NotifyOfFocus()
+        {
+            // Added 5/03/2025 Thomas Downes  
+            //
+            //---Notify_ItemInFocus?.Invoke(this);  //, EventArgs.Empty);
+            this.Notify_InFocus?.Invoke(this);  //, EventArgs.Empty);
+
+        }
+
 
         public bool DLL_HasNext()
         {

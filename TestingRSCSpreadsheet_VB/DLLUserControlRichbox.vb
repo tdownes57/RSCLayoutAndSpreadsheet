@@ -102,6 +102,13 @@ Public Class DLLUserControlRichbox
     End Property
 
 
+    ''
+    ''Added 5/03/2025
+    ''
+    Public Event Event_NotifyInFocus(param As Object) Implements _
+        IDoublyLinkedItem(Of DLLUserControlRichbox).Notify_InFocus
+
+
     Public Sub New() ''// , par_prior As TwoCharacterDLLItem)
 
         ''Added 2/01/2025 thomas downes 
@@ -271,6 +278,15 @@ Public Class DLLUserControlRichbox
         Return DLLItem.DLL_NotAnyPrior()
 
     End Function ''End of ""Public Function DLL_NotAnyPrior()""
+
+
+    Public Sub DLL_NotifyOfFocus() Implements IDoublyLinkedItem.DLL_NotifyOfFocus
+        ''
+        ''Added 5/03/2025 
+        ''
+        DLLItem.DLL_NotifyOfFocus()
+
+    End Sub ''End of "" Public Sub DLL_NotifyOfFocus()""
 
 
     Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext

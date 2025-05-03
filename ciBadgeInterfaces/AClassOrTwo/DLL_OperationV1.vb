@@ -916,6 +916,15 @@ Public Class DLL_OperationV1_Deprecated ''11/2/2023 (Of TControl)
     End Function
 
 
+    Public Sub DLL_NotifyOfFocus() Implements IDoublyLinkedItem.DLL_NotifyOfFocus
+        ''
+        '' Added 5/02/2025
+        ''
+        Throw New NotImplementedException()
+
+    End Sub
+
+
     Public Function DLL_IsEitherEndpoint() As Boolean Implements IDoublyLinkedItem.DLL_IsEitherEndpoint
         ''12/24/2023 Throw New NotImplementedException()
         Dim bConnectsToNothing As Boolean
