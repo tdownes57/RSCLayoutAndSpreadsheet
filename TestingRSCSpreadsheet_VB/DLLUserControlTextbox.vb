@@ -11,6 +11,15 @@ Public Class DLLUserControlTextbox
     ''
     Public DLLItem As DLLItemAndManager(Of DLLUserControlTextbox)
 
+    ''Added 5/03/2025 thomas downes
+    ''---Public Event Notify_InFocus() Implements IDoublyLinkedItem.Notify_InFocus
+    ''
+    ''Added 5/03/2025
+    ''
+    Public Event NotifyInFocus(param As Object) _
+        Implements _
+        IDoublyLinkedItem(Of DLLUserControlTextbox).Notify_InFocus
+
     ''' <summary>
     ''' This won't be in use, as this is an operation vs. a list item. --2/27/2024
     ''' </summary>
@@ -256,6 +265,15 @@ Public Class DLLUserControlTextbox
         Return DLLItem.DLL_NotAnyPrior()
 
     End Function ''End of ""Public Function DLL_NotAnyPrior()""
+
+
+    Public Sub DLL_NotifyOfFocus() Implements IDoublyLinkedItem.DLL_NotifyOfFocus
+        ''
+        ''Added 5/03/2025 thomas downes  
+        ''
+        DLLItem.DLL_NotifyOfFocus()
+
+    End Sub ''End of "" Public Sub DLL_NotifyInFocus() Implements IDoublyLinkedItem.DLL_NotifyOfFocus""
 
 
     Public Function DLL_HasNext() As Boolean Implements IDoublyLinkedItem.DLL_HasNext

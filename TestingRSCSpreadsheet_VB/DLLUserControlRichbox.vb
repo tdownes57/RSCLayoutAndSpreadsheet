@@ -19,6 +19,11 @@ Public Class DLLUserControlRichbox
     ''Apr2025 Public Event DLLUserClickedControlBox(col_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
     Public Event DLLUserClickedControlBox(isUserPressingShiftKey As Boolean,
                                           column_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
+    ''
+    ''Added 5/03/2025
+    ''
+    Public Event NotifyInFocus(param As Object) Implements _
+        IDoublyLinkedItem(Of DLLUserControlRichbox).Notify_InFocus
 
     ''
     ''Added 1/19/2025 
@@ -105,8 +110,8 @@ Public Class DLLUserControlRichbox
     ''
     ''Added 5/03/2025
     ''
-    Public Event Event_NotifyInFocus(param As Object) Implements _
-        IDoublyLinkedItem(Of DLLUserControlRichbox).Notify_InFocus
+    ''Public Event Event_NotifyInFocus(param As Object) Implements _
+    ''    IDoublyLinkedItem(Of DLLUserControlRichbox).Notify_InFocus
 
 
     Public Sub New() ''// , par_prior As TwoCharacterDLLItem)

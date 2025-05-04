@@ -25,6 +25,11 @@ Public Class TwoCharacterDLLItem
 
     Public Property _Control As Control ''Added 5/3/2024 td
 
+    ''Added 5/03/2025 td 
+    Public Event Notify_InFocus(param As Object) _
+        Implements _
+        IDoublyLinkedItem(Of TwoCharacterDLLItem).Notify_InFocus
+
     Private Const ENFORCE_BIDIRECTIONAL As Boolean = True ''Added 12/08/2024 
 
     Friend mod_prior As TwoCharacterDLLItem ''Using 'Friend' will allow sub-classess to access it.  12/12/2024 Private mod_prior
@@ -37,6 +42,7 @@ Public Class TwoCharacterDLLItem
     ''July2024 Private mod_twoChars As  
     Private mod_char1 As Char ''String
     Private mod_char2 As Char ''String
+
 
     Public Sub New(par_twoChars As String) ''// , par_prior As TwoCharacterDLLItem)
 
@@ -1055,7 +1061,9 @@ Public Class TwoCharacterDLLItem
 
     End Sub
 
-
+    Public Sub DLL_NotifyOfFocus() Implements IDoublyLinkedItem.DLL_NotifyOfFocus
+        Throw New NotImplementedException()
+    End Sub
 End Class
 
 

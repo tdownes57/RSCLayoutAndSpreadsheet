@@ -12,6 +12,11 @@ Public Class TwoCharacterDLLHorizontal
     Dim mod_next As TwoCharacterDLLHorizontal
     Dim mod_prior As TwoCharacterDLLHorizontal
 
+    ''Added 5/03/2025 td
+    Public Event Notify_InFocus(param As Object) _
+        Implements _
+        IDoublyLinkedItem(Of TwoCharacterDLLHorizontal).Notify_InFocus
+
     Public Sub New(par_twoChars As String)
 
         MyBase.New(par_twoChars)

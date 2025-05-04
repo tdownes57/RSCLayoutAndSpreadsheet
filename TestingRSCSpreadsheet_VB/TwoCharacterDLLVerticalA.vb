@@ -15,6 +15,12 @@ Public Class TwoCharacterDLLVerticalA
     ''DIFFICULT AND CONFUSING -- 12/12/2024 TD
     ''Probably not needed. ---12/12/2024  Dim mod_next_priorSortOrder As TwoCharacterDLLVertical ''Added 12/12/2024 td
 
+    ''Added 5/03/2025 td 
+    Public Shadows Event Notify_InFocus(param As Object) _
+        Implements _
+        IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).Notify_InFocus
+
+
     Public Sub New(par_twoChars As String)
 
         MyBase.New(par_twoChars)
@@ -298,6 +304,7 @@ Public Class TwoCharacterDLLVerticalA
 
     End Function ''Public Function GetConvertToGeneric_OfT
 
+    ''----May2025 ----Private Event IDoublyLinkedItem_Notify_InFocus As IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).Notify_InFocusEventHandler Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).Notify_InFocus
 
     Public Function GetConvertToArray() As TwoCharacterDLLVerticalA() Implements IDoublyLinkedItem(Of TwoCharacterDLLVerticalA).GetConvertToArray
 
