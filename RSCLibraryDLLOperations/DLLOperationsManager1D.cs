@@ -230,7 +230,7 @@ namespace RSCLibraryDLLOperations
                            bool par_changeOfEndpoint_Expected,
                            out bool par_changeOfEndpoint_Occurred,
                            bool pbOperationIsNewSoRecordIt,
-                           DLLOperationIndexStructure parOperationIndicized)
+                           DLLOperationIndexStructure parOperationIndexed)
         {
             // Added 1/15/2024
             //
@@ -244,7 +244,7 @@ namespace RSCLibraryDLLOperations
             ProcessOperation_AnyType(parOperation,
                 par_changeOfEndpoint_Expected,
                 out par_changeOfEndpoint_Occurred,
-                pbOperationIsNewSoRecordIt, parOperationIndicized);
+                pbOperationIsNewSoRecordIt, parOperationIndexed);
 
         }
 
@@ -253,7 +253,7 @@ namespace RSCLibraryDLLOperations
                        bool par_changeOfEndpoint_Expected,
                        out bool par_changeOfEndpoint_Occurred,
                        bool pbOperationIsNewSoRecordIt,
-                       DLLOperationIndexStructure parOperationIndicized)
+                       DLLOperationIndexStructure parOperationIndexed)
         {
             // Added 1/15/2024
 
@@ -266,7 +266,7 @@ namespace RSCLibraryDLLOperations
             //
             ProcessOperation_AnyType(parOperation, par_changeOfEndpoint_Expected,
                 out par_changeOfEndpoint_Occurred, pbOperationIsNewSoRecordIt,
-                parOperationIndicized);
+                parOperationIndexed);
 
             // Added 12/03/2024 thomas 
             //    
@@ -372,11 +372,12 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
         public void ProcessOperation_AnyType(DLLOperation1D_Of<T_DLL> parOperation,
                                bool par_changeOfEndpoint_Expected,
                                out bool par_changeOfEndpoint_Occurred,
                                bool pbOperationIsNewSoRecordIt,
-                               DLLOperationIndexStructure parOperationIndicized)
+                               DLLOperationIndexStructure parOperationIndexed)
         {
             // Added 1/15/2024
 
@@ -400,17 +401,17 @@ namespace RSCLibraryDLLOperations
             //     ---4/29/2025 td
             //-------------------------------------------------------------------
             //
-            if (parOperationIndicized.Sorting_ByArrayIndexMapping)
+            if (parOperationIndexed.Sorting_ByArrayIndexMapping)
             {
-                if (parOperationIndicized.ArrayOfIndicesToSort_Redo == null)
+                if (parOperationIndexed.ArrayOfIndicesToSort_Redo == null)
                 {
                     if (parOperation._arrayIndices_SortOrderRedoThisOp != null)
                     {
                         // Copy the array of index-mapping (for sorting)
-                        parOperationIndicized.ArrayOfIndicesToSort_Redo =
+                        parOperationIndexed.ArrayOfIndicesToSort_Redo =
                             parOperation._arrayIndices_SortOrderRedoThisOp;
                         // Added 4/30/2025
-                        parOperationIndicized.ArrayOfIndicesToSort_Undo =
+                        parOperationIndexed.ArrayOfIndicesToSort_Undo =
                             parOperation._arrayIndices_SortOrderIfUndo;
                     }
                 }
@@ -424,7 +425,7 @@ namespace RSCLibraryDLLOperations
             //
             //  Propagate operation to parallel lists, if any exist. 
             //
-            ProcessOperation_ToParallelLists(parOperationIndicized,
+            ProcessOperation_ToArrayOfParallelLists(parOperationIndexed,
                   par_changeOfEndpoint_Expected,
                   ref par_changeOfEndpoint_Occurred);
 
@@ -479,143 +480,296 @@ namespace RSCLibraryDLLOperations
                 //
                 //---mod_lastPriorOperation1D = parOperation;
                 //
-                var operation1D_OfT_OfT = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+                RecordNewestOperation(parOperation);
 
-                //Added 4/14/2025 td
-                bool boolInserted = parOperation._isInsert;
-                bool boolDeleted = parOperation._isDelete;
 
-                //Added 4/14/2025 td
-                //if (boolInserted) operation1D_OfT_OfT.ArrayOfParallelRanges_ToInsert = mod_arrayOfParallelRangesToInsert;
-                //if (boolDeleted) operation1D_OfT_OfT.ArrayOfParallelRanges_Deleted = mod_arrayOfParallelRangesToDelete;
-                if (boolInserted) operation1D_OfT_OfT.SetArrayOfParallelRanges_ToInsert(mod_arrayOfParallelRangesToInsert);
-                if (boolDeleted) operation1D_OfT_OfT.SetArrayOfParallelRanges_Deleted(mod_arrayOfParallelRangesToDelete);
+            } 
+        
+        }
 
-                //
-                // Record the user's first operation a bit differently from an operation that is following other
-                //  operation(s). 
-                //
-                if (mod_firstPriorOperation1D == null)
+
+        /// <summary>
+        /// Process an operation which must take place upon one of the columns of data ("parallel lists")
+        ///   first, prior to executing a parallel operation on the other parallel lists.
+        ///   (To my knowledge, such an operation is a sort-by-item-values operation (i.e. sorting by 
+        ///   the data-cell contents (textbox.text), as the cell values are unique to each 
+        ///   parallel list (i.e. each spreadsheet column.)
+        ///   (Whether or not the operation must be execution upon the primary lists (the spreadsheet's
+        ///   row headers) is another matter.)
+        /// </summary>
+        /// <param name="parOperation"></param>
+        /// <param name="par_listParallel"></param>
+        /// <param name="par_changeOfEndpoint_Expected"></param>
+        /// <param name="par_changeOfEndpoint_Occurred"></param>
+        /// <param name="pbOperationIsNewSoRecordIt"></param>
+        /// <param name="parOperationIndexed"></param>
+        public void ProcessOperation_ToParallelList(DLLList<T_DLLParallel> par_listParallel, 
+                       DLLOperation1D_Of<T_DLLParallel> parOperation,
+                       bool par_changeOfEndpoint_Expected,
+                       out bool par_changeOfEndpoint_Occurred,
+                       bool pbOperationIsNewSoRecordIt,
+                       DLLOperationIndexStructure parOperationIndexed) 
+        {
+            //
+            // For sorting parallel lists.  (Mostly for sorting.)
+            //
+            // Added 5/06/2025 and 1/15/2024
+            //
+
+            //-------------------------------------------------------------------
+            //
+            //------------- Major call!! (for main/primary list) -------------------
+            //
+            //-------------------------------------------------------------------
+            //
+            parOperation.OperateOnList(par_listParallel, true, par_changeOfEndpoint_Expected,
+                  out par_changeOfEndpoint_Occurred);
+
+
+            //-------------------------------------------------------------------
+            //
+            // Administrative work. 
+            //     Needed for sorting to occur on parallel lists (if any).
+            //     ---4/29/2025 td
+            //-------------------------------------------------------------------
+            //
+            if (parOperationIndexed.Sorting_ByArrayIndexMapping)
+            {
+                if (parOperationIndexed.ArrayOfIndicesToSort_Redo == null)
                 {
-                    //mod_firstPriorOperation1D = parOperation;
-                    //mod_lastPriorOperation1D = parOperation;
-                    //Apr2025 mod_firstPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
-                    parOperation.DLL_MarkStartOfList(); // Mark the parameter operation (needed!). --Added 4/18/2025
-                    mod_firstPriorOperation1D = operation1D_OfT_OfT;
-                    mod_firstPriorOperation1D.DLL_MarkStartOfList(); // Added 4/18/2025 td
+                    if (parOperation._arrayIndices_SortOrderRedoThisOp != null)
+                    {
+                        // Copy the array of index-mapping (for sorting)
+                        parOperationIndexed.ArrayOfIndicesToSort_Redo =
+                            parOperation._arrayIndices_SortOrderRedoThisOp;
+                        // Added 4/30/2025
+                        parOperationIndexed.ArrayOfIndicesToSort_Undo =
+                            parOperation._arrayIndices_SortOrderIfUndo;
 
-                    //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
-                    if (mod_lastPriorOperation1D != null) System.Diagnostics.Debugger.Break();
-                    mod_lastPriorOperation1D = mod_firstPriorOperation1D; //Normal if there is only one(1) operation.
-                    mod_lastPriorOperation1D.DLL_MarkEndOfList(); // Added 4/18/2025
-                    // Somewhat surprisingly, we also have to call the same method
-                    //    on the parameter operation.---4/2025
-                    parOperation.DLL_MarkEndOfList(); // Added 4/18/2025
-
-                    // Added 12/04/2024
-                    //
-                    //April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
-                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(mod_firstPriorOperation1D, false);
-
+                    }
                 }
+            }
 
-                else
-                {
-                    // Record the user's 2nd (& 3rd & 57th) operation a bit differently from an operation that is
-                    //   the very first operation(s). 
-                    //
-                    // First, we must clear any pending "Redo" operations. 
-                    //
-                    if (mod_opUndoRedoMarker.HasOperationNext())
-                    {
-                        //
-                        // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
-                        //
-                        //  Logically speaking, any pending Redo operations must be deleted/cleared.
-                        //
-                        //April2025  mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
-                        mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo_OfOf();
-                        mod_lastPriorOperation1D?.DLL_ClearOpNext();
-                        mod_opUndoRedoMarker.ClearPendingRedoOperation();
+            //-------------------------------------------------------------------
+            //
+            //------------- Major call!! (for parallel lists) -------------------
+            //
+            //-------------------------------------------------------------------
+            //
+            var list_whichWasAlreadySorted = par_listParallel;
 
-                    }
-                    else
-                    {
-                        // Added 4/14/2025 
-                        if (mod_lastPriorOperation1D == null) System.Diagnostics.Debugger.Break();
-                        if (mod_lastPriorOperation1D == null) throw new Exception("There should be a recorded last op.");
-                    }
+            //  Propagate operation to parallel lists, if any exist. 
+            //
+            ProcessOperation_ToArrayOfParallelLists(parOperationIndexed,
+                  par_changeOfEndpoint_Expected,
+                  ref par_changeOfEndpoint_Occurred, 
+                  list_whichWasAlreadySorted);
 
-                    // Connect the operations in a doubly-linked list. 
-                    //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
-                    //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
-                    //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
-                    operation1D_OfT_OfT.DLL_SetOpPrior_OfT_OfT(mod_lastPriorOperation1D);
-                    // Somewhat surprisingly, we also have to call the same method
-                    //    on the parameter operation.---4/2025
-                    parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D); // Added 4/20/2025
+            //// Added 4/08/2025 td
+            //foreach (var each_list in mod_arrayOfParallelLists)
+            //{;
+            //    T_DLLParallel each_1stParallelItem = each_list.DLL_GetFirstItem_OfT();
 
-                    //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
-                    //April 2025  mod_lastPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
-                    if (mod_lastPriorOperation1D == null)
-                    {
-                        // Added 4/23/2025
-                        mod_lastPriorOperation1D = operation1D_OfT_OfT;
-                        if (mod_firstPriorOperation1D == null) mod_firstPriorOperation1D = operation1D_OfT_OfT;
-                    }
-                    else
-                    {
-                        mod_lastPriorOperation1D.DLL_SetOpNext_OfT_OfT(operation1D_OfT_OfT);
-                    }
+            //    DLLOperation1D<T_DLLParallel> each_operation = new DLLOperation1D<T_DLLParallel>
+            //        (parOperationIndicized, each_1stParallelItem);
 
-                    var temp_priorOp = mod_lastPriorOperation1D;
-                    //mod_lastPriorOperation1D = parOperation;
-                    //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_DLL>(temp_priorOp, parOperation);
-                    //April2025  mod_lastPriorOperation1D = parOperation;
-                    //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
-                    mod_lastPriorOperation1D = operation1D_OfT_OfT;
-                    mod_lastPriorOperation1D.DLL_MarkEndOfList();  // Added 4/18/2025
-                    // Somewhat surprisingly, we also have to call the same method
-                    //    on the parameter operation.---4/2025
-                    parOperation.DLL_MarkEndOfList(); // Added 4/20/2025 td
+            //    bool bChangeOfEndpointInFact = false;
 
-                    //
-                    //  Major call!!
-                    //
-                    //April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
-                    mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL,
-                        T_DLLParallel>(mod_lastPriorOperation1D, false);
+            //    each_operation.OperateOnList(each_list, true, par_changeOfEndpoint_Expected,
+            //        out bChangeOfEndpointInFact);
 
-                    // Added 12/01/2028
-                    //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
-                    if (temp_priorOp != null)
-                    {
-                        mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
-                    }
+            //    par_changeOfEndpoint_Occurred |= bChangeOfEndpointInFact;
 
-                    //
-                    // DIFFICULT & CONFUSING -- Connect the first operation to this one, if needed.
-                    //
-                    if (mod_firstPriorOperation1D.DLL_MissingOpNext())
-                    {
-                        //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
-                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
-                    }
+            //}
 
-                    //
-                    // Testing!!  
-                    //
-                    int intCountOfPriorOps;
-                    int intCountOfPriorOps_PlusItself;
-                    intCountOfPriorOps = (mod_lastPriorOperation1D.DLL_CountOpsBefore());
-                    intCountOfPriorOps_PlusItself = (intCountOfPriorOps + 1); // We must count the operation itself !!!!!
+            // Added 3/25/2025 td
+            parOperation.ExecutionDate = DateTime.Now;
 
+            //
+            // Administration needed!!
+            //
+            mod_firstItem = mod_list._itemStart;
+            mod_endingItem = mod_list._itemEnding;
 
+            // Added 12/03/2024 thomas 
+            //    
+            bool bUserRequestedUndoOrRedo = (!pbOperationIsNewSoRecordIt); // (!par_bRecordOperation); 
 
-                }
+            //    //     // Added 1/01/2024
+            if (bUserRequestedUndoOrRedo)
+            {
+                //
+                // We've processed the "Undo" or "Redo" already.
+                //
+                // (See "parOperation.OperateOnList(...)" above.) 
+                //
+                // Other than moving the UndoRedo marker one way or another,
+                //   we don't need to play any woodland games with the 
+                //   "branching".
+                //
+
+            }
+            else if (pbOperationIsNewSoRecordIt)
+            {
+                //
+                //  RecordNewestOperation(operation);
+                //
+                //---mod_lastPriorOperation1D = parOperation;
+                //
+                DLLOperation1D_Of<T_DLL> operationT_DLL = new DLLOperation1D_Of<T_DLL>(parOperationIndexed,
+                     mod_list.DLL_GetFirstItem_OfT()); 
+
+                //RecordNewestOperation<T_DLL>(operationT_DLL);
+                RecordNewestOperation(operationT_DLL);
 
             }
 
+        }
+
+
+
+        private void RecordNewestOperation(DLLOperation1D_Of<T_DLL> parOperation)
+        //    private void RecordNewestOperation(DLLOperation1D_Of<T_Control> parOperation)
+        // where TControl: class, IDoublyLinkedItem<TControl>
+        {
+            //
+            // Encapsulated 5/06/2025 Thomas Downes  
+            //
+            //---var operation1D_OfT_OfT = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+            //---var operation1D_OfT_OfT = new DLLOperation1D_OfOf<TControl, T_DLLParallel>(parOperation);
+            var operation1D_OfT_OfT = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+
+            //Added 4/14/2025 td
+            bool boolInserted = parOperation._isInsert;
+            bool boolDeleted = parOperation._isDelete;
+
+            //Added 4/14/2025 td
+            //if (boolInserted) operation1D_OfT_OfT.ArrayOfParallelRanges_ToInsert = mod_arrayOfParallelRangesToInsert;
+            //if (boolDeleted) operation1D_OfT_OfT.ArrayOfParallelRanges_Deleted = mod_arrayOfParallelRangesToDelete;
+            if (boolInserted) operation1D_OfT_OfT.SetArrayOfParallelRanges_ToInsert(mod_arrayOfParallelRangesToInsert);
+            if (boolDeleted) operation1D_OfT_OfT.SetArrayOfParallelRanges_Deleted(mod_arrayOfParallelRangesToDelete);
+
+            //
+            // Record the user's first operation a bit differently from an operation that is following other
+            //  operation(s). 
+            //
+            if (mod_firstPriorOperation1D == null)
+            {
+                //mod_firstPriorOperation1D = parOperation;
+                //mod_lastPriorOperation1D = parOperation;
+                //Apr2025 mod_firstPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+
+                parOperation.DLL_MarkStartOfList(); // Mark the parameter operation (needed!). --Added 4/18/2025
+                mod_firstPriorOperation1D = operation1D_OfT_OfT;
+                mod_firstPriorOperation1D.DLL_MarkStartOfList(); // Added 4/18/2025 td
+
+                //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+                if (mod_lastPriorOperation1D != null) System.Diagnostics.Debugger.Break();
+                mod_lastPriorOperation1D = mod_firstPriorOperation1D; //Normal if there is only one(1) operation.
+                mod_lastPriorOperation1D.DLL_MarkEndOfList(); // Added 4/18/2025
+                // Somewhat surprisingly, we also have to call the same method
+                //    on the parameter operation.---4/2025
+                parOperation.DLL_MarkEndOfList(); // Added 4/18/2025
+
+                // Added 12/04/2024
+                //
+                //April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(mod_firstPriorOperation1D, false);
+
+            }
+
+            else
+            {
+                // Record the user's 2nd (& 3rd & 57th) operation a bit differently from an operation that is
+                //   the very first operation(s). 
+                //
+                // First, we must clear any pending "Redo" operations. 
+                //
+                if (mod_opUndoRedoMarker.HasOperationNext())
+                {
+                    //
+                    // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
+                    //
+                    //  Logically speaking, any pending Redo operations must be deleted/cleared.
+                    //
+                    //April2025  mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
+                    mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo_OfOf();
+                    mod_lastPriorOperation1D?.DLL_ClearOpNext();
+                    mod_opUndoRedoMarker.ClearPendingRedoOperation();
+
+                }
+                else
+                {
+                    // Added 4/14/2025 
+                    if (mod_lastPriorOperation1D == null) System.Diagnostics.Debugger.Break();
+                    if (mod_lastPriorOperation1D == null) throw new Exception("There should be a recorded last op.");
+                }
+
+                // Connect the operations in a doubly-linked list. 
+                //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
+                //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
+                //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
+                operation1D_OfT_OfT.DLL_SetOpPrior_OfT_OfT(mod_lastPriorOperation1D);
+                // Somewhat surprisingly, we also have to call the same method
+                //    on the parameter operation.---4/2025
+                parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D); // Added 4/20/2025
+
+                //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
+                //April 2025  mod_lastPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
+                if (mod_lastPriorOperation1D == null)
+                {
+                    // Added 4/23/2025
+                    mod_lastPriorOperation1D = operation1D_OfT_OfT;
+                    if (mod_firstPriorOperation1D == null) mod_firstPriorOperation1D = operation1D_OfT_OfT;
+                }
+                else
+                {
+                    mod_lastPriorOperation1D.DLL_SetOpNext_OfT_OfT(operation1D_OfT_OfT);
+                }
+
+                var temp_priorOp = mod_lastPriorOperation1D;
+                //mod_lastPriorOperation1D = parOperation;
+                //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_DLL>(temp_priorOp, parOperation);
+                //April2025  mod_lastPriorOperation1D = parOperation;
+                //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+                mod_lastPriorOperation1D = operation1D_OfT_OfT;
+                mod_lastPriorOperation1D.DLL_MarkEndOfList();  // Added 4/18/2025
+                // Somewhat surprisingly, we also have to call the same method
+                //    on the parameter operation.---4/2025
+                parOperation.DLL_MarkEndOfList(); // Added 4/20/2025 td
+
+                //
+                //  Major call!!
+                //
+                //April 2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL,
+                    T_DLLParallel>(mod_lastPriorOperation1D, false);
+
+                // Added 12/01/2028
+                //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
+                if (temp_priorOp != null)
+                {
+                    mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
+                }
+
+                //
+                // DIFFICULT & CONFUSING -- Connect the first operation to this one, if needed.
+                //
+                if (mod_firstPriorOperation1D.DLL_MissingOpNext())
+                {
+                    //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
+                    mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
+                }
+
+                //
+                // Testing!!  
+                //
+                int intCountOfPriorOps;
+                int intCountOfPriorOps_PlusItself;
+                intCountOfPriorOps = (mod_lastPriorOperation1D.DLL_CountOpsBefore());
+                intCountOfPriorOps_PlusItself = (intCountOfPriorOps + 1); // We must count the operation itself !!!!!
+
+            }
 
         }
 
@@ -717,8 +871,10 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_operationByIndex"></param>
         /// <param name="par_changeOfEndpoint_Expected"></param>
         /// <param name="par_changeOfEndpoint_InFact"></param>
-        private void ProcessOperation_ToParallelLists(DLLOperationIndexStructure par_operationStructure,
-            bool par_changeOfEndpoint_Expected, ref bool par_changeOfEndpoint_InFact)
+        private void ProcessOperation_ToArrayOfParallelLists(DLLOperationIndexStructure par_operationStructure,
+            bool par_changeOfEndpoint_Expected, 
+            ref bool par_changeOfEndpoint_InFact,
+            DLLList<T_DLLParallel>? par_listThatWasAlreadySorted = null)
         {
             //
             //This will propagate an operation to the local array of DLLLists,
@@ -728,6 +884,7 @@ namespace RSCLibraryDLLOperations
             //    public void ProcessOperation_AnyType
             //
             if (mod_arrayOfParallelLists == null) return;
+
             int arrayIndex = 0;
             DLLRange<T_DLLParallel> each_range;
             //Added 4/14/2025 td
@@ -750,9 +907,17 @@ namespace RSCLibraryDLLOperations
                 }
             }
 
+            // 
+            //
+            //  Process each parallel list (e.g. column of data cells) in
+            //   turn. ---5/06/2025 
+            //
             // Added 4/08/2025 td
             foreach (var each_list in mod_arrayOfParallelLists)
             {
+                //Added 5/06/2025
+                bool bSkipThisList_IsSorted = (each_list == par_listThatWasAlreadySorted); 
+                if (bSkipThisList_IsSorted) continue;
 
                 T_DLLParallel each_1stParallelItem = each_list.DLL_GetFirstItem_OfT();
 
@@ -769,6 +934,12 @@ namespace RSCLibraryDLLOperations
                     //
                     // For Inserts. (Eventually, we might include MOVE operations.)
                     //
+                    if (mod_arrayOfParallelRangesToInsert == null)
+                    {
+                        System.Diagnostics.Debugger.Break();
+                        throw new Exception("We are missing an array insert-range objects to pair with each list.");
+                    }
+
                     each_range = mod_arrayOfParallelRangesToInsert[arrayIndex];
 
                     //Added 04/08/2025 td

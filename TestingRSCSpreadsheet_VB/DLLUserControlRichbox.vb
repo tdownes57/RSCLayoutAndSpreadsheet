@@ -12,12 +12,13 @@ Public Class DLLUserControlRichbox
     ''
     ''Added 1/24/2025 td
     ''
-    Public DLLItem As DLLItemAndManager(Of DLLUserControlRichbox)
+    Public WithEvents DLLItem As DLLItemAndManager(Of DLLUserControlRichbox)
 
     ''Added 4/12/2025 td
     Public ColumnLetter As String ''Added 4/12/2025 td
     ''Apr2025 Public Event DLLUserClickedControlBox(col_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
-    Public Event DLLUserClickedControlBox(isUserPressingShiftKey As Boolean,
+    Public Event DLLUserClickedControlBox(sender As Object,
+                                          isUserPressingShiftKey As Boolean,
                                           column_name As String, row_number_base1 As Integer) ''Added 4/12/2025 td 
     ''
     ''Added 5/03/2025
@@ -289,7 +290,7 @@ Public Class DLLUserControlRichbox
         ''
         ''Added 5/03/2025 
         ''
-        DLLItem.DLL_NotifyOfFocus()
+        ''---DLLItem.DLL_NotifyOfFocus()
 
     End Sub ''End of "" Public Sub DLL_NotifyOfFocus()""
 
@@ -891,8 +892,9 @@ Public Class DLLUserControlRichbox
         Dim bShiftingKey As Boolean = Control.ModifierKeys = Keys.Shift
 
         ''Added 4/20/2025 td
-        ''Apr2025 RaiseEvent DLLUserClickedControlBox(Me.ColumnLetter, Me.DLL_GetItemIndex_b1())
-        RaiseEvent DLLUserClickedControlBox(bShiftingKey, Me.ColumnLetter, Me.DLL_GetItemIndex_base1())
+        ''Apr2025  RaiseEvent DLLUserClickedControlBox(Me.ColumnLetter, Me.DLL_GetItemIndex_b1())
+        ''May2025  RaiseEvent DLLUserClickedControlBox(bShiftingKey, Me.ColumnLetter, Me.DLL_GetItemIndex_base1())
+        RaiseEvent DLLUserClickedControlBox(Me, bShiftingKey, Me.ColumnLetter, Me.DLL_GetItemIndex_base1())
 
     End Sub
 
@@ -904,8 +906,30 @@ Public Class DLLUserControlRichbox
         If (Me.Selected) Then TextBox1.BackColor = Color.Yellow
         If (Not Me.Selected) Then TextBox1.BackColor = Color.White ''Yellow
 
+        ''Added 05/04/2025 
+        If (Me.HighlightInBlue) Then TextBox1.BackColor = Color.Blue
+        If (Me.HighlightInCyan) Then TextBox1.BackColor = Color.Cyan
+        If (Me.HighlightInGreen) Then TextBox1.BackColor = Color.Green
+        If (Me.HighlightInRed) Then TextBox1.BackColor = Color.Red
+
     End Sub
 
+    Private Sub TextBox1_GotFocus(sender As Object, e As EventArgs) Handles TextBox1.GotFocus
 
+        ''Added 5/04/2025 td
+        ''---RaiseEvent NotifyInFocus(Me)
+        ''---RaiseEvent DLLItem.Notify_ItemInFocus(Me)
+
+        ''---DLLItem.DLL_NotifyOfFocus()
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub DLLItem_Notify_InFocus(sender As Object) Handles DLLItem.Notify_InFocus
+
+        ''Added 5/04/2025 td
+
+
+    End Sub
 End Class
 

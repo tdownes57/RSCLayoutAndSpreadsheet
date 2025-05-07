@@ -12,7 +12,8 @@ namespace RSCLibraryDLLOperations
     public delegate void Notify();  // Added 11/02/2024 thomas downes 
     public delegate void Notify_ItemInFocus(object sender);  // Added 05/03/2025 thomas downes 
     public delegate void Notify_ColumnInFocus(object sender, string nameOfColumn);  // Added 04/30/2025 thomas downes 
-    public delegate void Notify_ListInFocus(object sender);  // Added 05/03/2025 thomas downes 
+    public delegate void Notify_ListInFocus(object param_list, object param_item);  // Added 05/03/2025 thomas downes 
+    //public event Notify_ListInFocus? EventListIsInFocus;  // Added 04/30/2025 thomas downes 
 
     public partial class DLLList<TControl> 
         where TControl : class, IDoublyLinkedItem<TControl>
@@ -786,10 +787,10 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/22/2025
             //
-            TControl? temp = _itemStart;
+            TControl? tempControl = _itemStart;
             int countRows = 1;
 
-            if (temp == null) return;
+            if (tempControl == null) return;
 
             bool bWithinRange; // = par_range.ContainsItem(temp);
             //temp.Selected = bWithinRange;
@@ -797,13 +798,13 @@ namespace RSCLibraryDLLOperations
 
             do  //while (temp.DLL_HasNext())
             {
-                temp = temp.DLL_GetItemNext_OfT();
-                bWithinRange = par_range.ContainsItem(temp);
-                temp.Selected = bWithinRange;
-                temp.DLL_DrawColors();
+                tempControl = tempControl.DLL_GetItemNext_OfT();
+                bWithinRange = par_range.ContainsItem(tempControl);
+                tempControl.Selected = bWithinRange;
+                tempControl.DLL_DrawColors();
                 countRows++;
 
-            } while (temp.DLL_HasNext());
+            } while (tempControl.DLL_HasNext());
 
 
         }
@@ -842,12 +843,12 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void HandleNotification_ItemInFocus(object param)
+        private void HandleNotification_ItemInFocus(object param_item)
         {
             //
             // Added 5/03/2025 
             //
-            EventListIsInFocus?.Invoke(this);
+            EventListIsInFocus?.Invoke(this, param_item);
 
 
         }

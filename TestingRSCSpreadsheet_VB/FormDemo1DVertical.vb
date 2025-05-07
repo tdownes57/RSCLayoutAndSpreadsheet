@@ -6,6 +6,8 @@
 ''Jan2025 Imports System.ComponentModel.Design
 ''Jan2025 Imports System.Diagnostics.Metrics
 Imports System.Text
+Imports ciBadgeInterfaces
+
 ''Jan2025 Imports ciBadgeInterfaces
 Imports ciBadgeSerialize
 Imports RSCLibraryDLLOperations
@@ -32,9 +34,15 @@ Public Class FormDemo1DVertical
 
     ''The second (2nd leftmost) container (off-white background).
     ''Mar2025 Private mod_listB2 As DLLList(Of DLLUserControlRichbox)
-    Private mod_listB1 As DLLList(Of DLLUserControlRichbox)
-    Private mod_listB2 As DLLList(Of DLLUserControlRichbox)
-    Private mod_listB3 As DLLList(Of DLLUserControlRichbox)
+    Private WithEvents mod_listB1 As DLLList(Of DLLUserControlRichbox)
+    Private WithEvents mod_listB2 As DLLList(Of DLLUserControlRichbox)
+    Private WithEvents mod_listB3 As DLLList(Of DLLUserControlRichbox)
+
+    ''Added 5/04/2025 thomas downes
+    Private WithEvents mod_listCurrentWithFocus As DLLList(Of DLLUserControlRichbox)
+    Private WithEvents mod_listPriorWithFocus As DLLList(Of DLLUserControlRichbox)
+    Private mod_priorClickedRichbox As DLLUserControlRichbox ''Added 5/04/2025
+    Private mod_currentClickedRichbox As DLLUserControlRichbox ''Added 5/04/2025
 
     Private WithEvents mod_firstItemB1 As DLLUserControlRichbox
     Private WithEvents mod_lastItemB1 As DLLUserControlRichbox
@@ -2289,7 +2297,9 @@ Public Class FormDemo1DVertical
         ''
         ''Added 12/20/2024 
         ''
-        Dim operationSortForward As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim operationSortForward_Main As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim operationSortForward_Parallel As DLLOperation1D_Of(Of DLLUserControlRichbox) ''Added 5/06/2025
+        Dim listParallelToSortByValue As DLLList(Of DLLUserControlRichbox) ''Added 5/06/2025 
         Dim bChangeOfEndpoint_Occurred As Boolean
         Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
         Const USE_MANAGER As Boolean = True ''Added 12/23/2024
@@ -2297,28 +2307,60 @@ Public Class FormDemo1DVertical
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
-        If (mod_listA._isEmpty_OrTreatAsEmpty) Then
+        ''Added 05/06/2025 
+        listParallelToSortByValue = mod_listCurrentWithFocus
+
+        ''---May2025---If (mod_listA._isEmpty_OrTreatAsEmpty) Then
+        If (mod_listA._isEmpty_OrTreatAsEmpty And
+            listParallelToSortByValue Is Nothing _
+            OrElse listParallelToSortByValue._isEmpty_OrTreatAsEmpty) Then
             ''
-            '' The list cannot be sorted, as it is empty. 
+            '' The list(s) cannot be sorted, as they are empty. 
             ''
+
+        ElseIf (listParallelToSortByValue IsNot Nothing) Then
+            ''
+            ''Added 5/06/2025 thomas downes
+            ''
+            ''  We will sort by the values in the parallel list
+            ''     (versus the values in the main list (i.e. the primary list,
+            ''     not one of the "parallel lists")).   ---05/06/2025 
+            ''
+            ''---operationSortForward_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
+            operationSortForward_Parallel = New DLLOperation1D_Of(Of DLLUserControlRichbox)(EnumSortTypes.ByValues_Forward)
+
+            ''Major call!!
+            ''---May2025---mod_manager.ProcessOperation_AnyType(operationSortForward_Parallel,
+            mod_manager.ProcessOperation_ToParallelList(listParallelToSortByValue,
+                                                        operationSortForward_Parallel,
+                            CHANGE_OF_ENDS_EXPECTED,
+                            bChangeOfEndpoint_Occurred, True,
+                            operationSortForward_Parallel.GetOperationIndexStructure())
+
+
         Else
-            operationSortForward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
+            ''
+            ''Main List
+            ''  (the left-most vertical list, e.g. row-header controls)
+            ''
+            operationSortForward_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
                 ''Added 12/23/2024 t))d))
                 ''March 2025  mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
                 ''              bChangeOfEndpoint_Occurred, True)
-                mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
+                mod_manager.ProcessOperation_AnyType(operationSortForward_Main, CHANGE_OF_ENDS_EXPECTED,
                        bChangeOfEndpoint_Occurred, True,
-                       operationSortForward.GetOperationIndexStructure())
+                       operationSortForward_Main.GetOperationIndexStructure())
 
             Else
-                operationSortForward.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
+                operationSortForward_Main.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
 
             End If ''End of ""If (USE_MANAGER) Then... Else..."
 
         End If ''ENd of ""'If (mod_listA._isEmpty_OrTreatAsEmpty) Then ... Else ..."
+
 
         ''Administrative.
         If (True Or bChangeOfEndpoint_Occurred) Then
@@ -2428,11 +2470,32 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub DllUserControlRichbox1_Click(par_wShiftKey As Boolean, par_letter As String, par_row_base1 As Integer) _
+    ''Added 5/05/2025 thomas 
+    Private Const TRACK_ITEM_CLICKED_VIA_CSHARP As Boolean = True ''False
+    Private Const TRACK_ITEM_CLICKED_VIA_VBNET As Boolean = False
+
+
+    Private Sub DllUserControlRichbox1_Click(param_sender As Object, par_wShiftKey As Boolean, par_letter As String, par_row_base1 As Integer) _
         Handles DllUserControlRichbox1.DLLUserClickedControlBox
         ''
         ''This is a handler for the event. 
         ''
+        If (TRACK_ITEM_CLICKED_VIA_VBNET) Then
+            If (mod_currentClickedRichbox Is Nothing) Then
+                ''Added 5/03/2025 thomas
+                mod_currentClickedRichbox = param_sender
+                mod_currentClickedRichbox.HighlightInCyan = True
+
+            Else
+                ''Added 5/03/2025 thomas
+                mod_priorClickedRichbox = mod_currentClickedRichbox
+                mod_priorClickedRichbox.HighlightInCyan = False
+                mod_currentClickedRichbox = param_sender
+                mod_currentClickedRichbox.HighlightInCyan = True
+
+            End If ''End of ""If (mod_currentClickedRichbox Is Nothing) Then... Else..."
+        End If ''End of ""If (TRACK_ITEM_CLICKED_VIA_VBNET) Then""
+
         If (mod_rangeA Is Nothing) Then
             ''Create a new range. 
             mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_listA, True, par_row_base1, 1)
@@ -2462,6 +2525,59 @@ Public Class FormDemo1DVertical
         mod_listB2.SelectAndDrawRange(intFirstIndexInRange, intCountOfRangeItems)
         mod_listB3.SelectAndDrawRange(intFirstIndexInRange, intCountOfRangeItems)
 
+
+    End Sub
+
+    Private Sub mod_listB1_EventListIsInFocus(param_list As Object, param_item As Object) _
+            Handles mod_listB1.EventListIsInFocus,
+                    mod_listB2.EventListIsInFocus,
+                    mod_listB3.EventListIsInFocus
+
+        Dim intRow_Base1 As Integer ''Added 5/04/2025
+
+        ''Added 5/04/2025 thomas downes
+        ''---mod_listCurrentWithFocus = mod_listCurrentWithFocus
+        mod_listPriorWithFocus = mod_listCurrentWithFocus
+        mod_listCurrentWithFocus = param_list ''sender
+
+        ''Added 5/04/2025 thomas downes
+        If (TRACK_ITEM_CLICKED_VIA_CSHARP) Then
+
+            ''Added 5/04/2025 td
+            ''---intRow_Base1 = CType(param_item, IDoublyLinkedItem(Of DLLUserControlRichbox)).DLL_GetItemIndex_base0()
+            intRow_Base1 = CType(param_item, IDoublyLinkedItem(Of DLLUserControlRichbox)).DLL_GetItemIndex_base1()
+
+            If (mod_currentClickedRichbox Is Nothing) Then
+                ''Added 5/03/2025 thomas
+                mod_currentClickedRichbox = param_item
+                mod_currentClickedRichbox.HighlightInCyan = True
+
+            Else
+                ''Added 5/03/2025 thomas
+                mod_priorClickedRichbox = mod_currentClickedRichbox
+                mod_priorClickedRichbox.HighlightInCyan = False
+                mod_currentClickedRichbox = param_item
+                mod_currentClickedRichbox.HighlightInCyan = True
+
+            End If ''End of ""If (mod_currentClickedRichbox Is Nothing) Then... Else..."
+        End If ''End of ""If (TRACK_ITEM_CLICKED_VIA_CSHARP) Then""
+
+    End Sub
+
+
+    Private Sub mod_listB2_EventListIsInFocus(param_list As Object, param_item As Object) ''Handles mod_listB2.EventListIsInFocus
+
+        ''Added 5/04/2025 thomas downes
+        mod_listCurrentWithFocus = mod_listCurrentWithFocus
+        mod_listCurrentWithFocus = param_list ''sender
+
+    End Sub
+
+    Private Sub mod_listB3_EventListIsInFocus(param_list As Object, param_item As Object) ''Handles mod_listB3.EventListIsInFocus
+
+        ''Added 5/04/2025 thomas downes
+        mod_listCurrentWithFocus = mod_listCurrentWithFocus
+        mod_listCurrentWithFocus = param_list ''sender
 
     End Sub
 

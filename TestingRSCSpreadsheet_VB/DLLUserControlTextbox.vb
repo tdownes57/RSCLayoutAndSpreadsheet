@@ -271,7 +271,7 @@ Public Class DLLUserControlTextbox
         ''
         ''Added 5/03/2025 thomas downes  
         ''
-        DLLItem.DLL_NotifyOfFocus()
+        ''----DLLItem.DLL_NotifyOfFocus()
 
     End Sub ''End of "" Public Sub DLL_NotifyInFocus() Implements IDoublyLinkedItem.DLL_NotifyOfFocus""
 

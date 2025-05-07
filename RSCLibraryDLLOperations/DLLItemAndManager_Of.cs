@@ -53,8 +53,19 @@ namespace RSCLibraryDLLOperations
             // Added 1/24/2025
             //
             mod_current = par_currentMod_current;
+
+            //Added 5/04/2025 td
+            mod_current.Notify_InFocus += HandleNotify_InFocus;
+
         }
 
+        private void HandleNotify_InFocus(object param)
+        {
+            // Added 5/04/2025 td
+            //throw new NotImplementedException();
+            this.Notify_InFocus.Invoke(mod_current);
+
+        }
 
         public void DLL_SetItemNext(TControl param)
         {
@@ -392,14 +403,14 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_NotifyOfFocus()
-        {
-            // Added 5/03/2025 Thomas Downes  
-            //
-            //---Notify_ItemInFocus?.Invoke(this);  //, EventArgs.Empty);
-            this.Notify_InFocus?.Invoke(this);  //, EventArgs.Empty);
-
-        }
+        //public void DLL_NotifyOfFocus()
+        //{
+        //    // Added 5/03/2025 Thomas Downes  
+        //    //
+        //    //---Notify_ItemInFocus?.Invoke(this);  //, EventArgs.Empty);
+        //    this.Notify_InFocus?.Invoke(this);  //, EventArgs.Empty);
+        //
+        //}
 
 
         public bool DLL_HasNext()
