@@ -931,5 +931,23 @@ Public Class DLLUserControlRichbox
 
 
     End Sub
+
+    Private Sub TextBox1_Enter(sender As Object, e As EventArgs) Handles TextBox1.Enter
+
+        ''Added 5/07/2025 td
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub TextBox1_SelectionChanged(sender As Object, e As EventArgs) Handles TextBox1.SelectionChanged
+
+        ''Added 5/07/2025 td
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub TextBox1_MouseHover(sender As Object, e As EventArgs) Handles TextBox1.MouseHover
+
+    End Sub
 End Class
 

@@ -286,14 +286,58 @@ namespace RSCLibraryDLLOperations
             //
             TControl[] arrayItemsInput; // = new TControl[_itemCount];
             TControl[] arrayItemsOutput; // = new TControl[_itemCount];
+
             // arrayItems = _itemStart.DLL_GetConvertToArray_AllItemsInList(_itemCount);
             arrayItemsInput = _itemStart.GetConvertToArray();
             arrayItemsOutput = new TControl[_itemCount];
 
+            // Added 5/07/2025 td
+            const bool PUSH_TO_OUTPUT_ARRAY = true;
+            const bool PULL_FROM_INPUT_ARRAY = false;
+
             // Copy the items, in the order specified by the array of indices.
             for (int index = 0; index < _itemCount; index++)
             {
-                arrayItemsOutput[index] = arrayItemsInput[par_arrayOfIndices[index]];
+                //
+                // Imagine an alien with long arms but short legs
+                //   walking along either one of the control arrays.
+                //   (His short legs are slow and predictable - good for incremental movements;
+                //     his long arms are long & nimble of movement - good for random actions.)
+                //   So, the alien is walking along either array....
+                //
+                //   Option 1) Walking incrementally along the filled boxes of the input array,
+                //        from the start of the array toward the end of the
+                //        same array. (PUSH_TO_OUTPUT_ARRAY)
+                //
+                //   Option 2) Walking incrementally along the empty boxes of the output array,
+                //        from the start of the array toward the end of the
+                //        same array.  (PULL_FROM_INPUT_ARRAY)
+                //
+                //   Now, what are the alien's long arms doing? 
+                //
+                //   -----Option #1) PUSH_TO_OUTPUT_ARRAY-----
+                //   The long-armed alien pushes the input items across to the output array,
+                //      from low-input-index to high-input-index?? 
+                //      (with the output-index being "random"/specified by
+                //      the next integer in the integer array)
+                //
+                //   -----Option #2) PULL_FROM_INPUT_ARRAY-----
+                //   The long-armed alien grabs/pulls the input items into the output boxes, 
+                //       from low-output-index to high-output-index?
+                //      (with the input-index being "random"/specified by
+                //      the next integer in the integer array)
+                //
+                if (PUSH_TO_OUTPUT_ARRAY)
+                {
+                    TControl controlToPush = arrayItemsInput[index];
+                    arrayItemsOutput[par_arrayOfIndices[index]] = controlToPush;
+                }
+                else if (PULL_FROM_INPUT_ARRAY)
+                {
+                    TControl controlToPull = arrayItemsInput[par_arrayOfIndices[index]];
+                    arrayItemsOutput[index] = controlToPull;
+                }
+
             }
 
             _itemStart = arrayItemsOutput[0];

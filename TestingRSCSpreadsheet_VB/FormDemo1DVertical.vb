@@ -2297,8 +2297,18 @@ Public Class FormDemo1DVertical
         ''
         ''Added 12/20/2024 
         ''
-        Dim operationSortForward_Main As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
-        Dim operationSortForward_Parallel As DLLOperation1D_Of(Of DLLUserControlRichbox) ''Added 5/06/2025
+        SortingForwardOrBackward(True, False)
+
+
+    End Sub
+
+
+    Private Sub SortingForwardOrBackward(pbSortForward As Boolean, pbSortBackward As Boolean)
+        ''
+        ''Encapsulated 05/07/2025 td
+        ''
+        Dim operationSorting_Main As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim operationSorting_Parallel As DLLOperation1D_Of(Of DLLUserControlRichbox) ''Added 5/06/2025
         Dim listParallelToSortByValue As DLLList(Of DLLUserControlRichbox) ''Added 5/06/2025 
         Dim bChangeOfEndpoint_Occurred As Boolean
         Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
@@ -2307,13 +2317,16 @@ Public Class FormDemo1DVertical
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
+        ''Added 05/06/2025 & 04/23/205 
+        mod_manager.LoadParallelLists(GetParallelLists())
+
         ''Added 05/06/2025 
         listParallelToSortByValue = mod_listCurrentWithFocus
 
         ''---May2025---If (mod_listA._isEmpty_OrTreatAsEmpty) Then
         If (mod_listA._isEmpty_OrTreatAsEmpty And
-            listParallelToSortByValue Is Nothing _
-            OrElse listParallelToSortByValue._isEmpty_OrTreatAsEmpty) Then
+                 listParallelToSortByValue Is Nothing _
+                 OrElse listParallelToSortByValue._isEmpty_OrTreatAsEmpty) Then
             ''
             '' The list(s) cannot be sorted, as they are empty. 
             ''
@@ -2327,35 +2340,45 @@ Public Class FormDemo1DVertical
             ''     not one of the "parallel lists")).   ---05/06/2025 
             ''
             ''---operationSortForward_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
-            operationSortForward_Parallel = New DLLOperation1D_Of(Of DLLUserControlRichbox)(EnumSortTypes.ByValues_Forward)
+
+            ''Added 5/07/2025 thomas d
+            Dim enumSorting As EnumSortTypes = EnumSortTypes.Undetermined ''Added 5/07/2025 thomas d
+            If (pbSortForward) Then enumSorting = EnumSortTypes.ByValues_Forward
+            If (pbSortBackward) Then enumSorting = EnumSortTypes.ByValues_Backward
+            ''Added 5/07/2025 thomas d
+            If (enumSorting = EnumSortTypes.Undetermined) Then
+                System.Diagnostics.Debugger.Break()
+            End If ''end of ""If (enumSorting = EnumSortTypes.Undetermined) Then
+
+            ''Added 5/07/2025 thomas d
+            operationSorting_Parallel = New DLLOperation1D_Of(Of DLLUserControlRichbox)(enumSorting)
 
             ''Major call!!
             ''---May2025---mod_manager.ProcessOperation_AnyType(operationSortForward_Parallel,
             mod_manager.ProcessOperation_ToParallelList(listParallelToSortByValue,
-                                                        operationSortForward_Parallel,
+                            operationSorting_Parallel,
                             CHANGE_OF_ENDS_EXPECTED,
                             bChangeOfEndpoint_Occurred, True,
-                            operationSortForward_Parallel.GetOperationIndexStructure())
-
+                            operationSorting_Parallel.GetOperationIndexStructure())
 
         Else
             ''
             ''Main List
             ''  (the left-most vertical list, e.g. row-header controls)
             ''
-            operationSortForward_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
+            operationSorting_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
                 ''Added 12/23/2024 t))d))
                 ''March 2025  mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
                 ''              bChangeOfEndpoint_Occurred, True)
-                mod_manager.ProcessOperation_AnyType(operationSortForward_Main, CHANGE_OF_ENDS_EXPECTED,
+                mod_manager.ProcessOperation_AnyType(operationSorting_Main, CHANGE_OF_ENDS_EXPECTED,
                        bChangeOfEndpoint_Occurred, True,
-                       operationSortForward_Main.GetOperationIndexStructure())
+                       operationSorting_Main.GetOperationIndexStructure())
 
             Else
-                operationSortForward_Main.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
+                operationSorting_Main.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
 
             End If ''End of ""If (USE_MANAGER) Then... Else..."
 
@@ -2389,72 +2412,83 @@ Public Class FormDemo1DVertical
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
         buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
-    End Sub
+
+    End Sub ''End of Private Sub SortingForwardOrBackward 
+
 
     Private Sub ButtonSortBackward_Click(sender As Object, e As EventArgs) Handles ButtonSortBackward.Click
         ''
+        ''Encapsulated 05/06/2025
+        ''
+        SortingForwardOrBackward(False, True)
+
         ''Added 12/22/2024 
         ''
-        Dim operationSortBackward As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
-        Dim bChangeOfEndpoint_Occurred As Boolean
-        Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
-        Const USE_MANAGER As Boolean = True
+        ''Dim operationSortBackward_Main As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        ''Dim operationSortBackward_Parallel As DLLOperation1D_Of(Of DLLUserControlRichbox) ''Added 05/07/2025
+        ''Dim listParallelToSortByValue As DLLList(Of DLLUserControlRichbox) ''Added 5/06/2025 
+        ''Dim bChangeOfEndpoint_Occurred As Boolean
+        ''Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
+        ''Const USE_MANAGER As Boolean = True
 
-        ''Added 12/08/2024
-        mod_manager.ClearAnyRedoOperations_IfQueued()
+        ''''Added 12/08/2024
+        ''mod_manager.ClearAnyRedoOperations_IfQueued()
 
-        ''Added 4/23/205 
-        mod_manager.LoadParallelLists(GetParallelLists())
-
-        operationSortBackward = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Backward)
-
-        ''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
-        If (USE_MANAGER) Then
-            ''Added 12/23/2024 t))d))
-            ''Mar2025 mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
-            ''           bChangeOfEndpoint_Occurred, True)
-            ''
-            mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
-                                       bChangeOfEndpoint_Occurred, True,
-                                       operationSortBackward.GetOperationIndexStructure())
-
-        Else
-            operationSortBackward.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
-
-        End If ''End of ""If (USE_MANAGER) Then... Else..."
-
-        ''Administrative.
-        mod_firstItemA = mod_listA._itemStart
-        mod_lastItemA = mod_listA._itemEnding
-
-        ''Added 4/23/2025 td
-        mod_firstItemB1 = mod_listB1._itemStart
-        mod_firstItemB2 = mod_listB2._itemStart
-        mod_firstItemB3 = mod_listB3._itemStart
-
-        ''Major call!!
-        RefreshTheUI_DisplayList()
-
-        ''Added 4/23/2025 td
-        RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
-        RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
-        RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
-
+        ''''Added 4/23/205 
+        ''mod_manager.LoadParallelLists(GetParallelLists())
         ''
-        ''Added 11/09/2024
-        ''  These two(2) lines are probably not needed. 
+        ''''Added 05/06/2025 
+        ''listParallelToSortByValue = mod_listCurrentWithFocus
         ''
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-
-        ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-
-        ''Added 11/29/2024 
-        ''    ---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
-        ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        ''operationSortBackward_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Backward)
+        ''
+        ''''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
+        ''If (USE_MANAGER) Then
+        ''    ''Added 12/23/2024 t))d))
+        ''    ''Mar2025 mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
+        ''    ''           bChangeOfEndpoint_Occurred, True)
+        ''    ''
+        ''    mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
+        ''                               bChangeOfEndpoint_Occurred, True,
+        ''                               operationSortBackward.GetOperationIndexStructure())
+        ''
+        ''Else
+        ''    operationSortBackward.OperateOnParentList(mod_listA, bChangeOfEndpoint_Occurred)
+        ''
+        ''End If ''End of ""If (USE_MANAGER) Then... Else..."
+        ''
+        ''''Administrative.
+        ''mod_firstItemA = mod_listA._itemStart
+        ''mod_lastItemA = mod_listA._itemEnding
+        ''
+        ''''Added 4/23/2025 td
+        ''mod_firstItemB1 = mod_listB1._itemStart
+        ''mod_firstItemB2 = mod_listB2._itemStart
+        ''mod_firstItemB3 = mod_listB3._itemStart
+        ''
+        ''''Major call!!
+        ''RefreshTheUI_DisplayList()
+        ''
+        ''''Added 4/23/2025 td
+        ''RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+        ''RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+        ''RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
+        ''
+        ''''
+        ''''Added 11/09/2024
+        ''''  These two(2) lines are probably not needed. 
+        ''''
+        ''buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        ''buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        ''
+        ''''Added 11/10/2024 
+        ''buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        ''buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        ''
+        ''''Added 11/29/2024 
+        ''''    ---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''''Modified 12/01/2024
+        ''labelNumOperations.Text = mod_manager.ToString()
 
     End Sub
 
