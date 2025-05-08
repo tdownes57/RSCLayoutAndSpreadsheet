@@ -284,6 +284,10 @@ namespace RSCLibraryDLLOperations
             //
             // Added 1/13/2025  by thomas downes
             //
+            // We will re-order the present N-length array of TControl objects, based on an
+            //     array of integers with the values from 0 to (N - 1) [with the 
+            //     integers placed in (apparently) random order.
+            //
             TControl[] arrayItemsInput; // = new TControl[_itemCount];
             TControl[] arrayItemsOutput; // = new TControl[_itemCount];
 
@@ -299,6 +303,13 @@ namespace RSCLibraryDLLOperations
             for (int index = 0; index < _itemCount; index++)
             {
                 //
+                // To re-order an N-length array of TControl objects, based on an
+                //     array of integers with the values from 0 to (N - 1) [with the 
+                //     integers placed in random order], you have two(2) options.
+                //     These options govern how the integer values determine the 
+                //     re-ordering.   These options are not equivalent, because they
+                //     result in two different orderings of the control objects.
+                //
                 // Imagine an alien with long arms but short legs
                 //   walking along either one of the control arrays.
                 //   (His short legs are slow and predictable - good for incremental movements;
@@ -313,19 +324,29 @@ namespace RSCLibraryDLLOperations
                 //        from the start of the array toward the end of the
                 //        same array.  (PULL_FROM_INPUT_ARRAY)
                 //
-                //   Now, what are the alien's long arms doing? 
+                //   The alien has a human boss, who will read out the relevant integers
+                //      from the aforementioned array of integers. Now, what are the alien's
+                //      long arms doing, during this process? 
                 //
                 //   -----Option #1) PUSH_TO_OUTPUT_ARRAY-----
+                //
                 //   The long-armed alien pushes the input items across to the output array,
                 //      from low-input-index to high-input-index?? 
                 //      (with the output-index being "random"/specified by
                 //      the next integer in the integer array)
+                //   The alien will listen to the human boss calling out each of the integers
+                //      from the array, yelling out, "The next OUTPUT index is ___" each time,
+                //      completing his statement with the next integer from the array of integers.
                 //
                 //   -----Option #2) PULL_FROM_INPUT_ARRAY-----
+                //
                 //   The long-armed alien grabs/pulls the input items into the output boxes, 
                 //       from low-output-index to high-output-index?
                 //      (with the input-index being "random"/specified by
                 //      the next integer in the integer array)
+                //   The alien will listen to the human boss calling out each of the integers
+                //      from the array, yelling out, "The next INPUT index is ____" each time,
+                //      completing his statement with the next integer from the array of integers.
                 //
                 if (PUSH_TO_OUTPUT_ARRAY)
                 {
