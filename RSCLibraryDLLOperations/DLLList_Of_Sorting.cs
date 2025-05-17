@@ -1,4 +1,4 @@
-﻿using ciBadgeInterfaces;
+﻿using ciBadgeInterfaces;   // Sample of technical writing -- use lines 282 to 362.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace RSCLibraryDLLOperations
+namespace RSCLibraryDLLOperations    // Sample of technical writing -- use lines 282 to 362.
 {
     // April2025  public partial class DLLList<TControl>
     public partial class DLLList<TControl> //, TControlParallel>
@@ -330,8 +330,8 @@ namespace RSCLibraryDLLOperations
                 //
                 //   -----Option #1) PUSH_TO_OUTPUT_ARRAY-----
                 //
-                //   The long-armed alien pushes the input items across to the output array,
-                //      from low-input-index to high-input-index?? 
+                //   The long-armed alien (whose arms are elastic/stretchy) pushes the input
+                //      items across to the output array, from low-input-index to high-input-index?? 
                 //      (with the output-index being "random"/specified by
                 //      the next integer in the integer array)
                 //   The alien will listen to the human boss calling out each of the integers

@@ -144,13 +144,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool HasOperationNext()
+        public bool HasOperationNext_ForRedo()
         {
             // Added 5/22/2024
             return (mod_opNext_ForRedo != null);
         }
 
-        public bool HasOperationPrior()
+        public bool HasOperationPrior_ForUndo()
         {
             // Added 5/22/2024
             return (mod_opPrior_ForUndo != null);
@@ -453,6 +453,17 @@ namespace RSCLibraryDLLOperations
             //    12/02/2024 th.omas do.wnes 
             //
             mod_opNext_ForRedo = null;
+
+            //Added 5/16/2025 
+            if (mod_opPrior_ForUndo != null)
+            {
+                // Added 5/16/2025 
+                //
+                //   Remove the reference to any "Next" Redo operation.
+                //
+                mod_opPrior_ForUndo.DLL_ClearOpNext();
+            }
+
 
         }
 

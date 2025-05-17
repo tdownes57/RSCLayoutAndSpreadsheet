@@ -419,7 +419,7 @@ namespace RSCLibraryDLLOperations
             //par_operation1D_Of.mod_opPrior_ForUndo_OfT,
             //par_operation1D_Of.mod_opNext_ForRedo_OfT
 
-            DLLOperation1D_Of<TBase> inverseOp_Of = base.GetInverseForUndo_Of(false);
+            // May2025 DLLOperation1D_Of<TBase> inverseOp_Of = base.GetInverseForUndo_Of(false);
 
             //base._range = inverseOp._range;
             //base._isForStartOfList = inverseOp._isForStartOfList;
@@ -433,6 +433,14 @@ namespace RSCLibraryDLLOperations
             //      par_operation1D_Of.mod_opPrior_ForUndo_OfT,
             //      par_operation1D_Of.mod_opNext_ForRedo_OfT
             //
+
+            DLLOperation1D_Of<TBase> inverseOp_Of = base.GetInverseForUndo_Of(false);
+
+            //Added 5/07/2025
+            //  An inverse operation NEVER sorts by values. Reverse index-mapping is used instead.  ---5/06/2025
+            bool bSortByValues = inverseOp_Of.IsSorting_ByItemValues();
+            bool bSortByIndexing = inverseOp_Of.IsSorting_ByIndexMapping();
+            if (bSortByValues) inverseOp_Of.SetToSortingByIndexMapping();
 
             var inverseOp_OfOf = new DLLOperation1D_OfOf<TBase, TParallel>(inverseOp_Of);
 

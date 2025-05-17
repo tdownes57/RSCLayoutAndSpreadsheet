@@ -50,11 +50,11 @@ namespace RSCLibraryDLLOperations
 
         //Apr2025 private readonly bool _isSort_Ascending;
         //Apr2025 private readonly bool _isSort_Descending;
-        private readonly bool _isSort_ByItemValues; // Added 4/25/2025 td
+        private /*readonly*/ bool _isSort_ByItemValues; // Added 4/25/2025 td
         private readonly bool _isSortByValues_Ascending;
         private readonly bool _isSortByValues_Descending;
 
-        private readonly bool _isSort_ByArrayIndexMapping; // Added 4/25/2025 td
+        private /*readonly*/ bool _isSort_ByArrayIndexMapping; // Added 4/25/2025 td
         private readonly bool _isSort_UndoOfSortEither; //Added 4/18/2024 
         private readonly bool _isSort_UndoOfSortAscending; //Added 4/18/2024 
         private readonly bool _isSort_UndoOfSortDescending; //Added 4/18/2024 
@@ -1725,6 +1725,25 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public bool IsSorting_ByIndexMapping()
+        {
+            //
+            // Added 5/07/2025 
+            //
+            return _isSort_ByArrayIndexMapping;
+
+        }
+
+
+        public bool IsSorting_ByItemValues()
+        {
+            //
+            // Added 5/07/2025 
+            //
+            return _isSort_ByItemValues;
+
+        }
+
         public void SetRange_ForInserts(DLLRange<T_DLLItem> par_range)
         {
             // Added 4/08/2025 td
@@ -1784,6 +1803,13 @@ namespace RSCLibraryDLLOperations
                 System.Diagnostics.Debugger.Break();
             }
 
+            // Added 5/16/2025 td
+            if (this == mod_opPrior_ForUndo_OfT)
+            {
+                // Added 5/16/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
 
             return mod_opPrior_ForUndo_OfT;
 
@@ -1829,7 +1855,14 @@ namespace RSCLibraryDLLOperations
             mod_opPrior_ForUndo_OfT = parOperation;
 
             // Added 4/18/2025 td
-            mod_opPriorIsNull = false;  
+            mod_opPriorIsNull = false;
+
+            // Added 5/16/2025 td
+            if (this == mod_opPrior_ForUndo_OfT)
+            {
+                // Added 5/16/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
 
         }
 

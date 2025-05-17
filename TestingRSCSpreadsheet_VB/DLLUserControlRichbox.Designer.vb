@@ -30,7 +30,7 @@ Partial Class DLLUserControlRichbox
         TextBox1.BorderStyle = BorderStyle.FixedSingle
         TextBox1.Location = New Point(0, 0)
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(22, 23)
+        TextBox1.Size = New Size(279, 23)
         TextBox1.TabIndex = 156
         TextBox1.Text = "01"
         ' 

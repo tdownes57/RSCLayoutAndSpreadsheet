@@ -768,7 +768,7 @@ namespace RSCLibraryDLLOperations
             bool result_isSortAscending = _isSort_UndoOfSortAscending; //  _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isSortDescending = _isSort_UndoOfSortDescending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
 
-            bool result_isSortByArrayMapping = _isSort_ByArrayIndexMapping; // Apr2025  _isSort_ByArrayMapping;
+            bool result_isSortByArrayIndexMapping = _isSort_ByArrayIndexMapping; // Apr2025  _isSort_ByArrayMapping;
             bool result_isUndoOfSort = (_isSortByValues_Ascending || _isSortByValues_Descending); // true; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isUndoOfSortAscending = _isSortByValues_Ascending; //  _isSortingDescending; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isUndoOfSortDescending = _isSortByValues_Descending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
@@ -781,8 +781,12 @@ namespace RSCLibraryDLLOperations
             //Not needed T_DLLItem[] result_arrayControls_SortOrderIfUndo = _arrayControls_SortOrderIfUndo;
 
             // Added 1/13/2025 thomas d.
-            int[] result_arrayIndices_SortOrderThisOp = _arrayIndices_SortOrderRedoThisOp;
-            int[] result_arrayIndices_SortOrderIfUndo = _arrayIndices_SortOrderIfUndo;
+            //---May2025---int[] result_arrayIndices_SortOrderThisOp = _arrayIndices_SortOrderRedoThisOp;
+            //---May2025---int[] result_arrayIndices_SortOrderIfUndo = _arrayIndices_SortOrderIfUndo;
+
+            // DIFFICULT & CONFUSING... Let's do a switcheroo!!
+            int[] result_arrayIndices_SortOrderRedoThisOp = _arrayIndices_SortOrderIfUndo;  // DIFFICULT & CONFUSING... inverse/opposite.
+            int[] result_arrayIndices_SortOrderIfUndo = _arrayIndices_SortOrderRedoThisOp;  // DIFFICULT & CONFUSING... inverse/opposite.
 
             //--- DIFFICULT & CONFUSING ---
             if (_isMove && _isForStartOfList) result_isForStartOfList = false;
@@ -866,17 +870,19 @@ namespace RSCLibraryDLLOperations
                 //    result_arrayControls_SortOrderThisOp, 
                 //    true, 
                 //    result_arrayIndices_SortOrderThisOp);
+
                 result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
                     result_isSortByItemValues,
                     result_isSortAscending,
                     result_isSortDescending,
+                    result_isSortByArrayIndexMapping,
                     result_isUndoOfSortAscending,
                     result_isUndoOfSortDescending,
-                    false,
                     result_itemStart_SortOrderThisOp,
                     result_itemEnding_SortOrderThisOp,
-                    result_arrayIndices_SortOrderThisOp, 
+                    result_arrayIndices_SortOrderRedoThisOp, 
                     result_arrayIndices_SortOrderIfUndo);
+
             }
 
             //
@@ -1397,7 +1403,29 @@ namespace RSCLibraryDLLOperations
 
         }
 
+        
 
+        public void SetToSortingByIndexMapping()
+        {
+            //
+            //  Inverse (Undo) operations never sort by values, 
+            //    only by index-mapping.
+            //
+            //  That is because trying to (directly) reverse a value-sort
+            //    is relatively unreliable. 
+            //
+            //Added 5/06/2025
+            if (_isSort_ByItemValues && ! _isSort_ByArrayIndexMapping)
+            {
+                if (_arrayIndices_SortOrderRedoThisOp == null)
+                    System.Diagnostics.Debugger.Break();
+
+                _isSort_ByItemValues = false;
+                _isSort_ByArrayIndexMapping = true; 
+            
+            }
+
+        }
 
 
     }

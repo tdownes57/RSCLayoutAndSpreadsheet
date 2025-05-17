@@ -198,7 +198,8 @@ namespace RSCLibraryDLLOperations
             //
             // Suffixed with _Undo on 12/8/2024 td.
             //
-            bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior();
+            //---May2025---bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior();
+            bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior_ForUndo();
             return result_hasPrior;
         }
 
@@ -209,7 +210,8 @@ namespace RSCLibraryDLLOperations
             // Suffixed with _Redo on 12/8/2024 td.
             //
             //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
-            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
+            //---May2025---bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext_ForRedo();
             return result_hasNext;
 
         }
@@ -307,7 +309,7 @@ namespace RSCLibraryDLLOperations
                     //
                     // First, we must clear any pending "Redo" operations. 
                     //
-                    if (mod_opUndoRedoMarker.HasOperationNext())
+                    if (mod_opUndoRedoMarker.HasOperationNext_ForRedo())
                     {
                         //
                         // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
@@ -685,7 +687,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // First, we must clear any pending "Redo" operations. 
                 //
-                if (mod_opUndoRedoMarker.HasOperationNext())
+                if (mod_opUndoRedoMarker.HasOperationNext_ForRedo())
                 {
                     //
                     // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
@@ -698,7 +700,9 @@ namespace RSCLibraryDLLOperations
                     mod_opUndoRedoMarker.ClearPendingRedoOperation();
 
                 }
-                else
+
+                //---May2025---else 
+                else if (mod_opUndoRedoMarker.HasOperationPrior_ForUndo())
                 {
                     // Added 4/14/2025 
                     if (mod_lastPriorOperation1D == null) System.Diagnostics.Debugger.Break();
@@ -709,10 +713,14 @@ namespace RSCLibraryDLLOperations
                 //---parOperation.DLL_SetOpPrior(mod_lastPriorOperation1D);
                 //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
                 //April2025 parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
-                operation1D_OfT_OfT.DLL_SetOpPrior_OfT_OfT(mod_lastPriorOperation1D);
-                // Somewhat surprisingly, we also have to call the same method
-                //    on the parameter operation.---4/2025
-                parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D); // Added 4/20/2025
+
+                if (mod_lastPriorOperation1D != null) // Added 5/16/2025 td
+                {
+                    operation1D_OfT_OfT.DLL_SetOpPrior_OfT_OfT(mod_lastPriorOperation1D);
+                    // Somewhat surprisingly, we also have to call the same method
+                    //    on the parameter operation.---4/2025
+                    parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D); // Added 4/20/2025
+                }
 
                 //---mod_lastPriorOperation1D.DLL_SetOpNext(parOperation);
                 //April 2025  mod_lastPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
@@ -1001,7 +1009,7 @@ namespace RSCLibraryDLLOperations
                 mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLLParallel>(mod_lastPriorOperation1D, false);
 
             }
-            else if (mod_opUndoRedoMarker.HasOperationPrior())
+            else if (mod_opUndoRedoMarker.HasOperationPrior_ForUndo())
             {
                 // Great, we will be able to do the "Undo" operation.
                 bOperationPriorExists = true;
@@ -1078,6 +1086,11 @@ namespace RSCLibraryDLLOperations
             bool bIsChangeOfEndpoint_Expected = false;
             bool bChangeOfEndpoint_Occurred = false;
             DLLOperation1D_OfOf<T_DLL, T_DLLParallel> opUndoVersion_OfOf; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+
+            //Added 5/07/2025
+            bool bUndoOfSortingByIndexing1 = parOperation.IsSorting_ByIndexMapping(); //Added 5/07/2025
+            bool bUndoOfSortingByValues1 = parOperation.IsSorting_ByItemValues(); //Added 5/07/2025
+
             opUndoVersion_OfOf = parOperation.GetInverseForUndo_OfOf(Testing.AreWeTesting);
 
             //Added 4/12/2025 td
@@ -1107,7 +1120,15 @@ namespace RSCLibraryDLLOperations
             // Added 4/15/2025 td
             var operationIndexStructure = opUndoVersion_OfOf.GetOperationIndexStructure();
 
+            //Added 5/06/2025 thomas 
+            //---int intSortColumnIndex_base1 = opUndoVersion_OfOf 
+            bool bUndoOfSortingByIndexing2 = opUndoVersion_OfOf.IsSorting_ByIndexMapping();
+            bool bUndoOfSortingByValues2 = opUndoVersion_OfOf.IsSorting_ByItemValues(); //Added 5/07/2025
+            //bool bUndoSortingOfParallelList = bUndoOfSorting && intSortingColumnIndex_base1 >= 1;
+
+            //
             //''Major call!!
+            //
             ProcessOperation_AnyType(opUndoVersion_OfOf,
                                      bIsChangeOfEndpoint_Expected,
                                      out bChangeOfEndpoint_Occurred,
