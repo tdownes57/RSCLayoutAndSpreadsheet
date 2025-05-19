@@ -1846,6 +1846,13 @@ namespace RSCLibraryDLLOperations
 
         public void DLL_SetOpPrior_OfT(DLLOperation1D_Of<T_DLLItem> parOperation)
         {
+            // Added 5/16/2025 td
+            if (this == parOperation)
+            {
+                // Added 5/16/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
             mod_opPrior_ForUndo_OfT = parOperation;
 
             //Added 12/02/2024 td
@@ -1857,18 +1864,19 @@ namespace RSCLibraryDLLOperations
             // Added 4/18/2025 td
             mod_opPriorIsNull = false;
 
-            // Added 5/16/2025 td
-            if (this == mod_opPrior_ForUndo_OfT)
-            {
-                // Added 5/16/2025 td
-                System.Diagnostics.Debugger.Break();
-            }
 
         }
 
 
         public void DLL_SetOpNext_OfT(DLLOperation1D_Of<T_DLLItem> parOperation)
         {
+            // Added 5/16/2025 td
+            if (this == parOperation)
+            {
+                // Added 5/16/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
             mod_opNext_ForRedo_OfT = parOperation;
 
             //Added 12/02/2024 td
@@ -1876,6 +1884,7 @@ namespace RSCLibraryDLLOperations
 
             //Added 1/04/2024 
             mod_opNext_ForRedo_OfT = parOperation;
+
 
         }
 
@@ -1920,7 +1929,12 @@ namespace RSCLibraryDLLOperations
 
             // Added 4/18/2025 td
             //   Indicate that the //PRIOR// operation is //NOW NOT// the end of the list. 
-            if (this.mod_opPrior_ForUndo_OfT != null)
+            if (this.mod_opPrior_ForUndo_OfT == this)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            else if (this.mod_opPrior_ForUndo_OfT != null)
             {
                 this.mod_opPrior_ForUndo_OfT._isForEndOfList = false;
                 this.mod_opPrior_ForUndo_OfT.mod_opNextIsNull = false;

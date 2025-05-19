@@ -347,6 +347,14 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/11/2025 & 12/08/2024 td
             //
+            // Added 5/16/2025 td
+            if (this == parOperation)
+            {
+                // Added 5/16/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
+            // Major call!!
             DLL_SetOpNext_OfT_OfT(parOperation);
 
             // Added 12/08/2024 
@@ -375,6 +383,13 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/14/2025 thomas downes
             //
+            // Added 5/16/2025 td
+            if (this == parOperation)
+            {
+                // Added 5/16/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
             this.mod_opPrior_ForUndo_OfT_OfT = parOperation;
 
             //Added 12/02/2024 td

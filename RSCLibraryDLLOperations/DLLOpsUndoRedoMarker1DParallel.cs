@@ -9,6 +9,26 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
+
+    /// <summary>
+    /// If we imagine the marker as a pair of square brackets, then 
+    /// we can write the following as an illustration.
+    /// Imagine a list of executed operations:  
+    ///       Operation1, Operation2, Operation3, Operation4, Operation5
+    /// and the following is the current marker:
+    ///                               [Operation3, Operation4]
+    /// After Operation#2 is reversed using the  [Undo] button, and this 
+    ///    function is called, the marker will be: [Operation2, Operation3]
+    /// Another illustration, before and after:
+    /// Before:
+    ///       Operation1, Operation2, [ Operation3  ,  Operation4  ], Operation5
+    ///                                ^_will Undo_^   ^Prior Undo^   ^Prior Undo^
+    /// After:      
+    ///       Operation1, [Operation2, Operation3]  , Operation4,    Operation5
+    ///                                ^Prior Undo^   ^Prior Undo^   ^Prior Undo^
+    ///                                
+    /// Thus, the marker has shifted left, toward the prior (lower-numbered) operation.                              
+    /// </summary>
     internal class DLLOpsUndoRedoMarker1DParallel<TControl, TParallel>
        where TControl : class, IDoublyLinkedItem<TControl>
        where TParallel : class, IDoublyLinkedItem<TParallel>
@@ -79,6 +99,10 @@ namespace RSCLibraryDLLOperations
         //''' </summary>
         private DLLOperation1D_OfOf<TControl, TParallel>? mod_opNext_ForRedo;
 
+        // Added 5/17/2025 
+        private Tuple<DLLOperation1D_OfOf<TControl, TParallel>?,
+                      DLLOperation1D_OfOf<TControl, TParallel>?> mod_tuplePriorNext;
+
 
         //public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_2ndprior,
         //                                           DLLOperation1D<TControl> par_1stprior)
@@ -102,6 +126,13 @@ namespace RSCLibraryDLLOperations
             //Added 4/20/2025 
             if (onlyOperationExecutedYet) mod_opPrior_ForUndo.DLL_MarkStartOfList();
             if (onlyOperationExecutedYet) mod_opPrior_ForUndo.DLL_MarkEndOfList();
+
+            //
+            //Added 5/17/2025 td
+            //
+            mod_tuplePriorNext = new Tuple<DLLOperation1D_OfOf<TControl, TParallel>?,
+                                           DLLOperation1D_OfOf<TControl, TParallel>?>
+                                           (mod_opPrior_ForUndo, mod_opNext_ForRedo);
 
         }
 
@@ -231,36 +262,85 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ShiftMarker_AfterUndo_ToPrior()
+        /// <summary>
+        /// If we imagine the marker as a pair of square brackets, then 
+        /// we can write the following as an illustration.
+        /// Imagine a list of executed operations:  
+        ///       Operation1, Operation2, Operation3, Operation4, Operation5
+        /// and the following is the current marker:
+        ///                               [Operation3, Operation4]
+        /// After Operation#2 is reversed using the  [Undo] button, and this 
+        ///    function is called, the marker will be:
+        ///                   [Operation2, Operation3]
+        /// Another illustration, before and after:
+        /// Before:
+        ///       Operation1, Operation2, [ Operation3  ,  Operation4  ], Operation5
+        ///                                ^_will Undo_^   ^Prior Undo^   ^Prior Undo^
+        /// After:      
+        ///       Operation1, [Operation2, Operation3]  , Operation4,    Operation5
+        ///                                ^Prior Undo^   ^Prior Undo^   ^Prior Undo^
+        ///                                
+        /// Thus, the marker has shifted left, toward the prior (lower-numbered) operation.                              
+        /// </summary>
+        public void ShiftMarkerLeft_AfterUndo_ToPrior()
         {
             //''
             //''Just like a Tuple, a DLL_OperationMarker is immutable.Or, 
             //''   it would be, if not for this procedure.So, I guess it 
             //''   is mutable...unless I comment out this procedure!!!! 1/10/2024
             //''
-            if (mod_opPrior_ForUndo == null) System.Diagnostics.Debugger.Break();
-            if (mod_opPrior_ForUndo == null) throw new RSCEndpointException();
 
-            DLLOperation1D_OfOf<TControl, TParallel>? temp_op;
-            temp_op = mod_opPrior_ForUndo;
+            // Encapsulated 5/18/2025 
+            GetMarkersPrior_ShiftPositionLeft();
 
-            mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior_OfOf(); //''Shift to the Left...to Prior() item.
 
-            if (mod_opNext_ForRedo == null)  //Then ''Added 1 / 15 / 2024 td
-            {
-                //''Added 1 / 15 / 2024 td
-                mod_opNext_ForRedo = temp_op; //''January 18, 2024 td ''mod_opPrior_ForUndo
-            }
-            else
-            {
-                mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpPrior_OfOf(); // ''Shift to the Left...to Prior() item.
-            } // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
+            //if (mod_opPrior_ForUndo == null) System.Diagnostics.Debugger.Break();
+            //if (mod_opPrior_ForUndo == null) throw new RSCEndpointException();
+            //
+            //DLLOperation1D_OfOf<TControl, TParallel>? temp_op;
+            //temp_op = mod_opPrior_ForUndo;
+            //
+            //mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpPrior_OfOf(); //''Shift to the Left...to Prior() item.
+            //
+            //if (mod_opNext_ForRedo == null)  //Then ''Added 1 / 15 / 2024 td
+            //{
+            //    //''Added 1 / 15 / 2024 td
+            //    mod_opNext_ForRedo = temp_op; //''January 18, 2024 td ''mod_opPrior_ForUndo
+            //}
+            //else
+            //{
+            //    mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpPrior_OfOf(); // ''Shift to the Left...to Prior() item.
+            //
+            //} // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
 
         }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
 
 
 
-        public void ShiftMarker_AfterRedo_ToNext()
+        /// <summary>
+        /// If we imagine the marker as a pair of square brackets, then 
+        /// we can write the following as an illustration.
+        /// Imagine a list of executed operations:  
+        ///       Operation1, Operation2, Operation3, Operation4, Operation5
+        /// and the following is the current marker:
+        ///                   [Operation2, Operation3]
+        /// After Operation#3 is re-executed [Redo] button, and this 
+        ///    function is called, the marker will be shifted one position to right:
+        ///                               [Operation3, Operation4]
+        ///                               
+        /// Another illustration, before and after:
+        /// Before:
+        ///       Operation1, [Operation2, Operation3] , Operation4   , Operation5
+        ///                                ^will Redo^   ^Prior Undo^   ^Prior Undo^
+        /// After:      
+        ///       Operation1, Operation2 , [Operation3 , Operation4 ],    Operation5
+        ///                                              ^Prior Undo^   ^Prior Undo^
+        ///                                
+        /// Thus, the marker has shifted right, toward the next, higher-numbered operation.  
+        /// 
+        /// </summary>
+        /// <exception cref="RSCEndpointException"></exception>
+        public void ShiftMarkerRight_AfterRedo_ToNext()
         {
             //
             // Added 4/23/2025 td
@@ -269,23 +349,27 @@ namespace RSCLibraryDLLOperations
             //''   it would be, if not for this procedure.So, I guess it 
             //''   is mutable...unless I comment out this procedure!!!! 1/10/2024
             //''
-            if (mod_opNext_ForRedo == null) System.Diagnostics.Debugger.Break();
-            if (mod_opNext_ForRedo == null) throw new RSCEndpointException();
 
-            DLLOperation1D_OfOf<TControl, TParallel>? temp_op;
-            temp_op = mod_opNext_ForRedo;
+            // Encapsulated 5/18/2025 
+            GetMarkersNext_ShiftPositionRight();
 
-            mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpNext_OfOf(); //''Shift to the Left...to Prior() item.
-
-            if (mod_opPrior_ForUndo == null)  //Then ''Added 1 / 15 / 2024 td
-            {
-                //''Added 1 / 15 / 2024 td
-                mod_opPrior_ForUndo = temp_op; //''January 18, 2024 td ''mod_opPrior_ForUndo
-            }
-            else
-            {
-                mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpNext_OfOf(); // ''Shift to the Left...to Prior() item.
-            } // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
+            //if (mod_opNext_ForRedo == null) System.Diagnostics.Debugger.Break();
+            //if (mod_opNext_ForRedo == null) throw new RSCEndpointException();
+            //
+            //DLLOperation1D_OfOf<TControl, TParallel>? temp_op;
+            //temp_op = mod_opNext_ForRedo;
+            //
+            //mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpNext_OfOf(); //''Shift to the Left...to Prior() item.
+            //
+            //if (mod_opPrior_ForUndo == null)  //Then ''Added 1 / 15 / 2024 td
+            //{
+            //    //''Added 1 / 15 / 2024 td
+            //    mod_opPrior_ForUndo = temp_op; //''January 18, 2024 td ''mod_opPrior_ForUndo
+            //}
+            //else
+            //{
+            //    mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpNext_OfOf(); // ''Shift to the Left...to Prior() item.
+            //} // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
 
         }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
 
@@ -302,6 +386,12 @@ namespace RSCLibraryDLLOperations
 
         public int GetCurrentIndex_Undo()
         {
+            //''Added 5/18/2025
+            if (mod_opPrior_ForUndo == null)
+            {
+                System.Diagnostics.Debugger.Break();
+                throw new Exception("No Redo operation.");
+            }
 
             //''Added 1/13/2024
             return mod_opPrior_ForUndo.DLL_GetIndex();
@@ -310,6 +400,13 @@ namespace RSCLibraryDLLOperations
 
         public int GetCurrentIndex_Redo()
         {
+            //''Added 5/18/2025
+            if (mod_opNext_ForRedo == null)
+            {
+                System.Diagnostics.Debugger.Break();
+                throw new Exception("No Redo operation.");
+            }
+
             //''Added 7/03/2024 and 1/13/2024
             //
             return mod_opNext_ForRedo.DLL_GetIndex();
@@ -320,7 +417,7 @@ namespace RSCLibraryDLLOperations
         /// Returns the <typeparamref name="TControl"/> version of the Current Undo.
         /// </summary>
         /// <returns>The <typeparamref name="TControl"/> version of the Current Undo.</returns>
-        public DLLOperation1D_Of<TControl> GetCurrentOp_Undo_Of()
+        public DLLOperation1D_Of<TControl>? GetCurrentOp_Undo_Of()
         {
             // Added 7/03/2024 
             return mod_opPrior_ForUndo;
@@ -331,7 +428,7 @@ namespace RSCLibraryDLLOperations
         /// Returns the <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.
         /// </summary>
         /// <returns>The <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.</returns>
-        public DLLOperation1D_OfOf<TControl, TParallel> GetCurrentOp_Undo_OfOf()
+        public DLLOperation1D_OfOf<TControl, TParallel>? GetCurrentOp_Undo_OfOf()
         {
             // Added 7/03/2024 
             return mod_opPrior_ForUndo;

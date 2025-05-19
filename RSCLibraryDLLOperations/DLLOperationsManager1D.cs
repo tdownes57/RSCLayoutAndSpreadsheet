@@ -297,6 +297,8 @@ namespace RSCLibraryDLLOperations
                 if (mod_firstPriorOperation1D == null)
                 {
                     mod_firstPriorOperation1D = parOperation;
+                    mod_firstPriorOperation1D.DLL_MarkStartOfList(); // Added 5/18/2025 thomas d
+
                     mod_lastPriorOperation1D = parOperation;
                     // Added 12/04/2024
                     // April2025  mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(parOperation);
@@ -757,7 +759,11 @@ namespace RSCLibraryDLLOperations
                 //----mod_lastPriorOperation1D.DLL_SetOpPrior(temp_priorOp); // Added 12/01/2024 
                 if (temp_priorOp != null)
                 {
-                    mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
+                    if (mod_lastPriorOperation1D == temp_priorOp) //Added 5/17/2025
+                    {
+                        //System.Diagnostics.Debugger.Break();  //Added 5/17/2025
+                    }
+                    else mod_lastPriorOperation1D.DLL_SetOpPrior_OfT(temp_priorOp); // Added 12/01/2024 
                 }
 
                 //
@@ -766,7 +772,13 @@ namespace RSCLibraryDLLOperations
                 if (mod_firstPriorOperation1D.DLL_MissingOpNext())
                 {
                     //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
-                    mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
+                    //--mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
+                    if (operation1D_OfT_OfT != null && 
+                        operation1D_OfT_OfT != mod_firstPriorOperation1D) //Added 5/17/2025 
+                    {
+                        //Modified 5/17/2025 
+                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT_OfT(operation1D_OfT_OfT);
+                    }
                 }
 
                 //
@@ -808,7 +820,7 @@ namespace RSCLibraryDLLOperations
                 opReDo_OfOf.GetOperationIndexStructure(false, true)); // , pbIsHoriz, pbIsVerti);
 
             // Added 4/23/2025
-            mod_opUndoRedoMarker.ShiftMarker_AfterRedo_ToNext();
+            mod_opUndoRedoMarker.ShiftMarkerRight_AfterRedo_ToNext();
             pbEndpointAffected = bChangeOfEndpoint_Occurred; // Added 4/23/2025
 
         }
@@ -853,19 +865,63 @@ namespace RSCLibraryDLLOperations
             //
             //       o3_OperationInsert, o4_OperationDelete, o5_OperationInsert
             //
-            if (this.MarkerHasOperationNext_Redo())
+            bool bMustRemoveOneOrMoreOpsQueuedForRedo;  // Added 5/18/2025 thomas d.
+            // Added 5/18/2025 thomas d.
+            bMustRemoveOneOrMoreOpsQueuedForRedo = this.MarkerHasOperationNext_Redo();
+
+            // if (this.MarkerHasOperationNext_Redo())
+            if (bMustRemoveOneOrMoreOpsQueuedForRedo)
             {
+                //
+                // Let's remove the operations that are slated for "Redo", so they are
+                //   no longer part of the chain of consecutively executed operations.
+                //
+                //Added 5/18/2025 td 
+                bool bFirstAndLastAreTheSame = (mod_firstPriorOperation1D == mod_lastPriorOperation1D);
+                bool bSetLastPriorToNull; // Added 5/18/2025 thomas d.
+
                 //Apr2025 DLLOperation1D_Of<T_DLL> markersCurrentUndoOperation_willBeLast;
-                DLLOperation1D_OfOf<T_DLL, T_DLLParallel> markersCurrentUndoOperation_willBeLast;
+                DLLOperation1D_OfOf<T_DLL, T_DLLParallel>? markersCurrentUndoOperation_willBeLast;
                 //Apr2025 markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo();
-                markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo_OfOf();
-                mod_lastPriorOperation1D = markersCurrentUndoOperation_willBeLast;
+                if (mod_opUndoRedoMarker.HasOperationPrior_ForUndo())
+                {
+                    markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo_OfOf();
+                    mod_lastPriorOperation1D = markersCurrentUndoOperation_willBeLast;
+                    bSetLastPriorToNull = false; // Added 5/2025
+                }
+                else // Added 5/16/2025 thomas d.
+                {
+                    // No Undo operation exists. All Redo operations are being excised/
+                    //    removed.  So, logically, the "Last Prior" operation must be 
+                    //    set to Null.    ---5/18/2025
+                    mod_lastPriorOperation1D = null;
+                    bSetLastPriorToNull = true; // Added 5/2025
+                }
 
                 mod_lastPriorOperation1D?.DLL_ClearOpNext();
                 mod_opUndoRedoMarker.ClearPendingRedoOperation();
 
                 if (mod_firstPriorOperation1D == null) mod_intCountOperations = 0;
                 else mod_intCountOperations = 1 + mod_firstPriorOperation1D.DLL_CountOpsAfter();
+
+                //Added 5/18/2025 
+                //
+                // Do we need to remove --ALL-- references to the Last-Prior operation? 
+                //
+                //bool bFirstAndLastAreTheSame = (mod_firstPriorOperation1D == mod_lastPriorOperation1D);
+                bool bRemoveAllRefsToTheSingleOperation; //Added 5/18/2025 
+                bRemoveAllRefsToTheSingleOperation = (bFirstAndLastAreTheSame && bSetLastPriorToNull);
+
+                if (bRemoveAllRefsToTheSingleOperation)  //Added 5/18/2025 td
+                {
+                    //Added 5/18/2025 
+                    //  We need to set the "First Prior" reference to Null, 
+                    //  because the "Last Prior" operation and the "First Prior" operation
+                    //  are one and the same operation.
+                    //  --5/18/2025 td
+                    mod_firstPriorOperation1D = null;
+                }
+
 
             }
 
@@ -1066,7 +1122,7 @@ namespace RSCLibraryDLLOperations
                 UndoOperation_ViaInverse_OfOf(operationToUndo, ref pbEndpointAffected);
 
                 // Major call!! --1/10/2024
-                mod_opUndoRedoMarker.ShiftMarker_AfterUndo_ToPrior();
+                mod_opUndoRedoMarker.ShiftMarkerLeft_AfterUndo_ToPrior();
 
                 // Refresh the Display. (Make the Insert visible to the user.)
                 // RefreshTheUI_DisplayList();
