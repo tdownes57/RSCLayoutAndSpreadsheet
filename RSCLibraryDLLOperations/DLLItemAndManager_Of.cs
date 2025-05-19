@@ -17,7 +17,7 @@ namespace RSCLibraryDLLOperations
         // 
         // Added 01/23/2025 t/h/o/m/a/s// d/o/w/n/e/s// 
         //
-        public event Notify_ItemInFocus Notify_InFocus;  // Added 5/03/2025 thomas downes
+        public event Notify_ItemInFocus? Notify_InFocus;  // Added 5/03/2025 thomas downes
 
         /// <summary>
         /// This won't be in use, as this is an operation vs. a list item. --2/27/2024
@@ -63,7 +63,7 @@ namespace RSCLibraryDLLOperations
         {
             // Added 5/04/2025 td
             //throw new NotImplementedException();
-            this.Notify_InFocus.Invoke(mod_current);
+            this.Notify_InFocus?.Invoke(mod_current);
 
         }
 

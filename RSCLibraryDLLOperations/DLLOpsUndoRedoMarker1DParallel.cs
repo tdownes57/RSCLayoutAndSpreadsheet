@@ -132,7 +132,7 @@ namespace RSCLibraryDLLOperations
             //
             mod_tuplePriorNext = new Tuple<DLLOperation1D_OfOf<TControl, TParallel>?,
                                            DLLOperation1D_OfOf<TControl, TParallel>?>
-                                           (mod_opPrior_ForUndo, mod_opNext_ForRedo);
+                                           (par_1stPrior, null);
 
         }
 
@@ -144,6 +144,15 @@ namespace RSCLibraryDLLOperations
             //
             // Added 10/25/2024 
             //
+            bool bBothOpsAreTheSame; //Added 5/18/2025 td
+            //Added 5/18/2025 td
+            bBothOpsAreTheSame = (par_1stPrior == par_2ndPrior);
+            if (bBothOpsAreTheSame)
+            {
+                //Added 5/18/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
             mod_opPrior_ForUndo = par_1stPrior;
             mod_opNext_ForRedo = par_2ndPrior;
 
@@ -170,7 +179,22 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/04/2024
             //
+            //Moved below.  mod_opPrior_ForUndo = par_1stPrior;
+
+            bool bBothOpsAreTheSame; //Added 5/18/2025 td
+            //Added 5/18/2025 td
+            bBothOpsAreTheSame = (par_1stPrior == mod_opNext_ForRedo);
+            if (bBothOpsAreTheSame)
+            {
+                //Added 5/18/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
+            //
+            // Proceed.
+            //
             mod_opPrior_ForUndo = par_1stPrior;
+
 
         }
 
@@ -185,6 +209,25 @@ namespace RSCLibraryDLLOperations
         {
             // Added 5/22/2024
             return (mod_opPrior_ForUndo != null);
+
+        }
+
+
+        public bool BothOperationsAreTheSame_Error()
+        {
+            //
+            // Added 5/18/2025 
+            //
+            bool bBothOpsAreTheSame; //Added 5/18/2025 td
+            //Added 5/18/2025 td
+            bBothOpsAreTheSame = (mod_opPrior_ForUndo == mod_opNext_ForRedo);
+            if (bBothOpsAreTheSame)
+            {
+                //Added 5/18/2025 td
+                System.Diagnostics.Debugger.Break();
+                return true;
+            }
+            else return false;
 
         }
 
@@ -219,6 +262,8 @@ namespace RSCLibraryDLLOperations
                 mod_opPrior_ForUndo = temp_output;
                 return result_operation;
             }
+
+       
 
             // End of "if (mod_opNext_ForRedo == null)... else..."
 
@@ -549,6 +594,15 @@ namespace RSCLibraryDLLOperations
             //    the user's perspective.)
             //    12/02/2024 th.omas do.wnes 
             //
+            bool bBothOpsAreTheSame; //Added 5/18/2025 td
+            //Added 5/18/2025 td
+            bBothOpsAreTheSame = (mod_opPrior_ForUndo == mod_opNext_ForRedo);
+            if (bBothOpsAreTheSame)
+            {
+                //Added 5/18/2025 td
+                System.Diagnostics.Debugger.Break();
+            }
+
             mod_opNext_ForRedo = null;
 
             //Added 5/16/2025 

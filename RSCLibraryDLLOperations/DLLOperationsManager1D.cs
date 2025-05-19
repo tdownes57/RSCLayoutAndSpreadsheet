@@ -255,7 +255,8 @@ namespace RSCLibraryDLLOperations
                        bool par_changeOfEndpoint_Expected,
                        out bool par_changeOfEndpoint_Occurred,
                        bool pbOperationIsNewSoRecordIt,
-                       DLLOperationIndexStructure parOperationIndexed)
+                       DLLOperationIndexStructure parOperationIndexed,
+                       bool pbOnlyExecuteToPrimaryList)
         {
             // Added 1/15/2024
 
@@ -268,7 +269,7 @@ namespace RSCLibraryDLLOperations
             //
             ProcessOperation_AnyType(parOperation, par_changeOfEndpoint_Expected,
                 out par_changeOfEndpoint_Occurred, pbOperationIsNewSoRecordIt,
-                parOperationIndexed);
+                parOperationIndexed, pbOnlyExecuteToPrimaryList);
 
             // Added 12/03/2024 thomas 
             //    
@@ -381,7 +382,8 @@ namespace RSCLibraryDLLOperations
                                bool par_changeOfEndpoint_Expected,
                                out bool par_changeOfEndpoint_Occurred,
                                bool pbOperationIsNewSoRecordIt,
-                               DLLOperationIndexStructure parOperationIndexed)
+                               DLLOperationIndexStructure parOperationIndexed, 
+                               bool pbOnlyExecuteOnPrimaryList = false)
         {
             // Added 1/15/2024
 
@@ -429,9 +431,18 @@ namespace RSCLibraryDLLOperations
             //
             //  Propagate operation to parallel lists, if any exist. 
             //
-            ProcessOperation_ToArrayOfParallelLists(parOperationIndexed,
-                  par_changeOfEndpoint_Expected,
-                  ref par_changeOfEndpoint_Occurred);
+            bool pbProceedToParallelLists = !pbOnlyExecuteOnPrimaryList;
+
+            if (pbProceedToParallelLists)  // Added 5/18/2025 td
+            {
+                //
+                // Process an index-only version of the operation,
+                //   executed to the array of parallel lists. 
+                //
+                ProcessOperation_ToArrayOfParallelLists(parOperationIndexed,
+                      par_changeOfEndpoint_Expected,
+                      ref par_changeOfEndpoint_Occurred);
+            }
 
             //// Added 4/08/2025 td
             //foreach (var each_list in mod_arrayOfParallelLists)
@@ -507,12 +518,13 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_changeOfEndpoint_Occurred"></param>
         /// <param name="pbOperationIsNewSoRecordIt"></param>
         /// <param name="parOperationIndexed"></param>
-        public void ProcessOperation_ToParallelList(DLLList<T_DLLParallel> par_listParallel, 
+        public void ProcessOperation_ToParallelList(DLLList<T_DLLParallel> par_listParallelToProcessFirst, 
                        DLLOperation1D_Of<T_DLLParallel> parOperation,
                        bool par_changeOfEndpoint_Expected,
                        out bool par_changeOfEndpoint_Occurred,
                        bool pbOperationIsNewSoRecordIt,
-                       DLLOperationIndexStructure parOperationIndexed) 
+                       DLLOperationIndexStructure parOperationIndexed, 
+                       bool pbSortPrimaryListAfterParallels) 
         {
             //
             // For sorting parallel lists.  (Mostly for sorting.)
@@ -526,7 +538,8 @@ namespace RSCLibraryDLLOperations
             //
             //-------------------------------------------------------------------
             //
-            parOperation.OperateOnList(par_listParallel, true, par_changeOfEndpoint_Expected,
+            parOperation.OperateOnList(par_listParallelToProcessFirst, true, 
+                  par_changeOfEndpoint_Expected,
                   out par_changeOfEndpoint_Occurred);
 
 
@@ -560,7 +573,7 @@ namespace RSCLibraryDLLOperations
             //
             //-------------------------------------------------------------------
             //
-            var list_whichWasAlreadySorted = par_listParallel;
+            var list_whichWasAlreadySorted = par_listParallelToProcessFirst;
 
             //  Propagate operation to parallel lists, if any exist. 
             //
@@ -568,6 +581,27 @@ namespace RSCLibraryDLLOperations
                   par_changeOfEndpoint_Expected,
                   ref par_changeOfEndpoint_Occurred, 
                   list_whichWasAlreadySorted);
+
+
+            //----------------------------------------------------------------------------
+            //
+            //------------- Major call!! (for primary list) --May2025  -------------------
+            //
+            //----------------------------------------------------------------------------
+            if (pbSortPrimaryListAfterParallels)
+            {
+                //
+                // Added 5/18/2025 td
+                //
+                var operationFromIndex = new DLLOperation1D_Of<T_DLL>(parOperationIndexed, mod_firstItem);
+
+                const bool ONLY_PROCESS_PRIMARY_LIST = true;
+
+                ProcessOperation_AnyType(operationFromIndex, par_changeOfEndpoint_Expected,
+                         out par_changeOfEndpoint_Occurred, false, parOperationIndexed, 
+                         ONLY_PROCESS_PRIMARY_LIST);
+
+            }
 
             //// Added 4/08/2025 td
             //foreach (var each_list in mod_arrayOfParallelLists)

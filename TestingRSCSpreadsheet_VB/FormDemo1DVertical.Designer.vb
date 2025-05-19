@@ -83,6 +83,7 @@ Partial Class FormDemo1DVertical
         TextBox15 = New TextBox()
         richtextItemsDisplay = New RichTextBox()
         DllUserControlRichbox1 = New DLLUserControlRichbox()
+        checkOperateUponListA = New CheckBox()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -734,11 +735,25 @@ Partial Class FormDemo1DVertical
         DllUserControlRichbox1.TabIndex = 156
         DllUserControlRichbox1.Visible = False
         ' 
+        ' checkOperateUponListA
+        ' 
+        checkOperateUponListA.AutoSize = True
+        checkOperateUponListA.Checked = True
+        checkOperateUponListA.CheckState = CheckState.Checked
+        checkOperateUponListA.Font = New Font("Segoe UI", 14F)
+        checkOperateUponListA.Location = New Point(230, 48)
+        checkOperateUponListA.Name = "checkOperateUponListA"
+        checkOperateUponListA.Size = New Size(436, 29)
+        checkOperateUponListA.TabIndex = 157
+        checkOperateUponListA.Text = "Operate / Execute to List A (as well as B1, B2, B3)"
+        checkOperateUponListA.UseVisualStyleBackColor = True
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1227, 504)
+        Controls.Add(checkOperateUponListA)
         Controls.Add(DllUserControlRichbox1)
         Controls.Add(richtextItemsDisplay)
         Controls.Add(FlowRowNumbersOnly)
@@ -861,4 +876,5 @@ Partial Class FormDemo1DVertical
     Friend WithEvents UserControlRichbox9 As DLLUserControlRichbox
     Friend WithEvents richtextItemsDisplay As RichTextBox
     Friend WithEvents DllUserControlRichbox1 As DLLUserControlRichbox
+    Friend WithEvents checkOperateUponListA As CheckBox
 End Class

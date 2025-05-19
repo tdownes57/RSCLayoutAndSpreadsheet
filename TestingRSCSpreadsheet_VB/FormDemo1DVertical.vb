@@ -61,7 +61,7 @@ Public Class FormDemo1DVertical
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
     Private APPLICATION_DOEVENTS As Boolean = False ''---True ''Added 12/18/2024 td
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
-
+    Private SORT_PRIMARY_LIST_AFTER_PARALLELS As Boolean = True ''Added 5/18/2025 td
 
     ''' <summary>
     ''' Puts {mod_listB1, mod_listB2, mod_listB3} into an array of lists.
@@ -2353,13 +2353,16 @@ Public Class FormDemo1DVertical
             ''Added 5/07/2025 thomas d
             operationSorting_Parallel = New DLLOperation1D_Of(Of DLLUserControlRichbox)(enumSorting)
 
-            ''Major call!!
+            ''
+            '' Major call!!
+            ''
             ''---May2025---mod_manager.ProcessOperation_AnyType(operationSortForward_Parallel,
             mod_manager.ProcessOperation_ToParallelList(listParallelToSortByValue,
                             operationSorting_Parallel,
                             CHANGE_OF_ENDS_EXPECTED,
                             bChangeOfEndpoint_Occurred, True,
-                            operationSorting_Parallel.GetOperationIndexStructure())
+                            operationSorting_Parallel.GetOperationIndexStructure(),
+                            SORT_PRIMARY_LIST_AFTER_PARALLELS)
 
         Else
             ''

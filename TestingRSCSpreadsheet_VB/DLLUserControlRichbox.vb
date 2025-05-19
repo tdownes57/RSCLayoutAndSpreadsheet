@@ -946,7 +946,45 @@ Public Class DLLUserControlRichbox
 
     End Sub
 
-    Private Sub TextBox1_MouseHover(sender As Object, e As EventArgs) Handles TextBox1.MouseHover
+    Private Sub TextBox1_MouseEnter(sender As Object, e As EventArgs) Handles TextBox1.MouseEnter
+
+        ''Added 5/18/2025 td
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub DLLUserControlRichbox_Click(sender As Object, e As EventArgs) Handles MyBase.Click
+
+        ''Added 5/18/2025 td
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub DLLUserControlRichbox_Enter(sender As Object, e As EventArgs) Handles MyBase.Enter
+
+        ''Added 5/18/2025 td
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub DLLUserControlRichbox_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
+
+        ''Added 5/18/2025 td
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub TextBox1_Paint(sender As Object, e As PaintEventArgs) Handles TextBox1.Paint
+
+        ''Added 5/18/2025 td
+        RaiseEvent NotifyInFocus(Me)
+
+    End Sub
+
+    Private Sub TextBox1_MouseDown(sender As Object, e As MouseEventArgs) Handles TextBox1.MouseDown
+
+        ''Added 5/18/2025 td
+        RaiseEvent NotifyInFocus(Me)
 
     End Sub
 End Class
