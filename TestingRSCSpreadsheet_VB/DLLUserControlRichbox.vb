@@ -949,7 +949,9 @@ Public Class DLLUserControlRichbox
     Private Sub TextBox1_MouseEnter(sender As Object, e As EventArgs) Handles TextBox1.MouseEnter
 
         ''Added 5/18/2025 td
-        RaiseEvent NotifyInFocus(Me)
+
+        ''---May2025 This causes the wrong list to be sorted, unfortunately.
+        ''---May2025      RaiseEvent NotifyInFocus(Me)
 
     End Sub
 

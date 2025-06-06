@@ -2314,6 +2314,14 @@ Public Class FormDemo1DVertical
         Const CHANGE_OF_ENDS_EXPECTED As Boolean = True ''Added 12/23/2024 
         Const USE_MANAGER As Boolean = True ''Added 12/23/2024
 
+        ''Added 6/6/2025 td
+        If (mod_listB1._isEmpty_OrTreatAsEmpty) Then
+            Dim result As DialogResult
+            result =
+            MessageBoxTD.Show_Statement_OkayCancel("Sorting", "Lists are empty, so cannot be sorted meaningfully.")
+            If (result = DialogResult.OK) Then Exit Sub
+        End If ''End pf ""If (mod_listB1._isEmpty_OrTreatAsEmpty) Then""
+
         ''Added 12/08/2024
         mod_manager.ClearAnyRedoOperations_IfQueued()
 
@@ -2325,8 +2333,8 @@ Public Class FormDemo1DVertical
 
         ''---May2025---If (mod_listA._isEmpty_OrTreatAsEmpty) Then
         If (mod_listA._isEmpty_OrTreatAsEmpty And
-                 listParallelToSortByValue Is Nothing _
-                 OrElse listParallelToSortByValue._isEmpty_OrTreatAsEmpty) Then
+                 (listParallelToSortByValue Is Nothing _
+                 OrElse listParallelToSortByValue._isEmpty_OrTreatAsEmpty)) Then
             ''
             '' The list(s) cannot be sorted, as they are empty. 
             ''

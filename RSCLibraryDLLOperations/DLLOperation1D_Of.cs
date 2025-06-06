@@ -790,6 +790,15 @@ namespace RSCLibraryDLLOperations
                 // Ascending Sort
                 //----par_list.SaveCurrentSortOrder_ToPrior(this); // This will enable Undo-Sort operations.  --Added 12/29/2024 td
 
+                //Added 6/5/2025 thomas d.
+                if (par_list._itemStart == null)
+                {
+                    //Added 6/5/2025 thomas d.
+                    pbChangeOfEndpoint_Occurred = false;
+                    Debugger.Break();
+                    return;
+                } //Added 6/5/2025 thomas d.
+
                 T_DLLItem[] arrayControls_priorToSort;  // Added 1/13/2025 
                 T_DLLItem[] arrayControls_afterSort;  // Added 4/29/2025 
 

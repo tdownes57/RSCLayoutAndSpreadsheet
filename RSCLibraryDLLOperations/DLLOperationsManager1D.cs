@@ -470,6 +470,13 @@ namespace RSCLibraryDLLOperations
             mod_firstItem = mod_list._itemStart;
             mod_endingItem = mod_list._itemEnding;
 
+            // Added 6/5/2025 td
+            if (mod_list._itemStart == null && (! mod_list._isEmpty_OrTreatAsEmpty))
+            {
+                System.Diagnostics.Debugger.Break();
+                mod_list._isEmpty_OrTreatAsEmpty = true;
+            }
+
             // Added 12/03/2024 thomas 
             //    
             bool bUserRequestedUndoOrRedo = (!pbOperationIsNewSoRecordIt); // (!par_bRecordOperation); 
@@ -814,6 +821,12 @@ namespace RSCLibraryDLLOperations
                         mod_firstPriorOperation1D.DLL_SetOpNext_OfT_OfT(operation1D_OfT_OfT);
                     }
                 }
+
+                //
+                // Added 5/21/2025
+                //
+                mod_firstPriorOperation1D.DLL_MarkStartOfList();
+                mod_lastPriorOperation1D.DLL_MarkEndOfList();
 
                 //
                 // Testing!!  

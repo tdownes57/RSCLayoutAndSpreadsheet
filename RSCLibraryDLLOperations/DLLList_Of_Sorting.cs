@@ -42,6 +42,8 @@ namespace RSCLibraryDLLOperations    // Sample of technical writing -- use lines
             //
             // Added 12/12/2024 thomas downes 
             //
+            if (_itemStart == null) System.Diagnostics.Debugger.Break();
+
             TControl[] arrayControls_SortOrderIfUndo;  
             _itemStart.DLL_SaveCurrentSortOrder_ToPrior(true);
 

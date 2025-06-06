@@ -179,6 +179,10 @@ namespace RSCLibraryDLLOperations
             //pbIsChangeOfEndpoint = par_list_administrative
             //    .HasChangeOfEndPoint(tempListStart, tempListEnding);
 
+            // Added 6/05/2025 td
+            bool bEmpty = (null == par_list_administrative._itemStart);
+            par_list_administrative._isEmpty_OrTreatAsEmpty = bEmpty;
+            
             //
             // End of Insertion operation.  
             //
@@ -508,6 +512,9 @@ namespace RSCLibraryDLLOperations
                 }
             }
 
+            // Added 6/05/2025 td
+            bool bEmpty = (null == par_list._itemStart);
+            par_list._isEmpty_OrTreatAsEmpty = bEmpty;
 
         }
 

@@ -14,5 +14,9 @@
     <Folder Include="NewFolder\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Can_Draw_LinearGradientBrush2\Can_Draw_LinearGradientBrush2.vbproj" />
+  </ItemGroup>
+
 
 </Project>
