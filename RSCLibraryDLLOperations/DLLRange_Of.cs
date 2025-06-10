@@ -330,7 +330,7 @@ namespace RSCLibraryDLLOperations
             //}
             //else
             //{
-            //    //+++1/04/2025  DLLRange<TBase56> result = new DLLRange<TBase56>(object56_s, object56_e);
+            //    //+++1/04/2025  DLLRange<THeader56> result = new DLLRange<THeader56>(object56_s, object56_e);
             //    result_range = new DLLRange<T_BaseOrParallel>(object56_s, object56_e, _ItemCountOfRange);
             //}
 

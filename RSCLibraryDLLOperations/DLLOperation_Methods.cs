@@ -24,7 +24,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
         private void OperateOnList_Private(DLLList<T_DLLItem> par_list_administrative,
                                      DLLRange<T_DLLItem> par_range,
-                                     DLLAnchorItem<T_DLLItem>? par_anchorItem,
+                                     DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
                                      DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint_Expected,
@@ -118,7 +118,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
         private void OperateOnList_Insert(DLLList<T_DLLItem> par_list_administrative,
                                              DLLRange<T_DLLItem> par_range,
-                                             DLLAnchorItem<T_DLLItem>? par_anchorItem,
+                                             DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
                                              DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
@@ -246,7 +246,7 @@ namespace RSCLibraryDLLOperations
 
         private void Operate_Insert_ByAnchorItem(DLLList<T_DLLItem> par_list_NotReallyNeeded,
                                      DLLRange<T_DLLItem> par_range,
-                                     DLLAnchorItem<T_DLLItem>? par_anchorItem,
+                                     DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
                              bool pbIsChangeOfEndpoint)
         {
 
@@ -620,7 +620,7 @@ namespace RSCLibraryDLLOperations
         private void OperateOnList_Move(DLLList<T_DLLItem> par_list_forFinalAdmin,
                                              DLLRange<T_DLLItem> par_range,
                                              StructureTypeOfMove par_typeOfMove,
-                                             DLLAnchorItem<T_DLLItem>? par_anchorItem,
+                                             DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
                                              DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint_Expected,
@@ -806,7 +806,7 @@ namespace RSCLibraryDLLOperations
             //---{
 
             DLLRange<T_DLLItem>? result_RangeOfItems = _range;
-            DLLAnchorItem<T_DLLItem>? result_anchorItem = _inverseAnchorItem_ForUndo;  // Use the "forUndo" anchor.
+            DLLAnchorItem_Deprecated<T_DLLItem>? result_anchorItem = _inverseAnchorItem_ForUndo;  // Use the "forUndo" anchor.
 
             // Added 11/08/2024  
             //   "Couplet" and "Pair" mean the same thing. 
@@ -942,7 +942,7 @@ namespace RSCLibraryDLLOperations
                     pbTargetListIsOfBaseClass, pbTargetListIsParallel);
 
             // Added 12/11/2024 td 
-            DLLAnchorItem<T_BaseOrParallel>? objAnchorItem = _anchorItem?.GetConvertToGeneric_OfT<T_BaseOrParallel>(
+            DLLAnchorItem_Deprecated<T_BaseOrParallel>? objAnchorItem = _anchorItem?.GetConvertToGeneric_OfT<T_BaseOrParallel>(
                 par_firstItem, pbTargetListIsOfBaseClass, pbTargetListIsParallel);
 
             //DLLOperation1D<T_Base> result =

@@ -45,16 +45,16 @@ namespace RSCLibraryDLLOperations
         ///private readonly TControl_V? _anchorItem_V;
 
         // Added 4/21/2024 td
-        private readonly DLLAnchorItem<TControl_H>? _anchorItem_H;
-        private readonly DLLAnchorItem<TControl_V>? _anchorItem_V;
+        private readonly DLLAnchorItem_Deprecated<TControl_H>? _anchorItem_H;
+        private readonly DLLAnchorItem_Deprecated<TControl_V>? _anchorItem_V;
 
         // Added 11/08/2024 td
         private readonly DLLAnchorCouplet<TControl_H>? _anchorPair_H;
         private readonly DLLAnchorCouplet<TControl_V>? _anchorPair_V;
 
         //Added 4/18/2024 td 
-        private readonly DLLAnchorItem<TControl_H>? _inverseAnchorItem_forUndo_H;
-        private readonly DLLAnchorItem<TControl_V>? _inverseAnchorItem_forUndo_V;
+        private readonly DLLAnchorItem_Deprecated<TControl_H>? _inverseAnchorItem_forUndo_H;
+        private readonly DLLAnchorItem_Deprecated<TControl_V>? _inverseAnchorItem_forUndo_V;
 
         //Added 4/18/2024 td 
         private readonly DLLAnchorCouplet<TControl_H>? _inverseAnchorPair_forUndo_H;
@@ -170,7 +170,7 @@ namespace RSCLibraryDLLOperations
                   DLLRange<TControl_H>? par_range,
                   bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove,
-                  DLLAnchorItem<TControl_H>? par_anchorItem,
+                  DLLAnchorItem_Deprecated<TControl_H>? par_anchorItem,
                   DLLAnchorCouplet<TControl_H>? par_anchorPair,
                   bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
@@ -240,7 +240,7 @@ namespace RSCLibraryDLLOperations
         public DLLOperation2D(bool pb_isOperationVertical,
             DLLRange<TControl_V>? par_range, bool par_forStartOfList, bool par_forEndOfList,
             bool par_isInsert, bool par_isDelete, bool par_isMove,
-            DLLAnchorItem<TControl_V>? par_anchorItem,
+            DLLAnchorItem_Deprecated<TControl_V>? par_anchorItem,
             DLLAnchorCouplet<TControl_V>? par_anchorPair,
             bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
@@ -383,7 +383,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
         private void OperateOnList<TControl>(DLLList<TControl> par_list,
                                      DLLRange<TControl> par_range,
-                                     DLLAnchorItem<TControl>? par_anchor, 
+                                     DLLAnchorItem_Deprecated<TControl>? par_anchor, 
                                      bool pbEndpointProtection, 
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
@@ -431,7 +431,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_anchor">This is a simple wrapper for the item which provides the location for the insert operation.</param>
         private void OperateOnList_Insert<TControl>(DLLList<TControl> par_list_NotReallyNeeded,
                                              DLLRange<TControl> par_range,
-                                             DLLAnchorItem<TControl>? par_anchor,
+                                             DLLAnchorItem_Deprecated<TControl>? par_anchor,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
@@ -776,7 +776,7 @@ namespace RSCLibraryDLLOperations
             if (_isHoriz)
             {
                 DLLRange<TControl_H>? result_RangeOfItems_H = _range_H;
-                DLLAnchorItem<TControl_H>? result_anchorItem_H = _inverseAnchorItem_forUndo_H;  // Use the "forUndo" anchor.
+                DLLAnchorItem_Deprecated<TControl_H>? result_anchorItem_H = _inverseAnchorItem_forUndo_H;  // Use the "forUndo" anchor.
                 DLLAnchorCouplet<TControl_H>? result_anchorPair_H = _inverseAnchorPair_forUndo_H;  // Use the "forUndo" anchor.
 
                 //
@@ -798,7 +798,7 @@ namespace RSCLibraryDLLOperations
             else //if (_isVerti)
             {
                 DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
-                DLLAnchorItem<TControl_V>? result_anchorItem_V = _inverseAnchorItem_forUndo_V;  // Use the "forUndo" anchor.
+                DLLAnchorItem_Deprecated<TControl_V>? result_anchorItem_V = _inverseAnchorItem_forUndo_V;  // Use the "forUndo" anchor.
                 DLLAnchorCouplet<TControl_V>? result_anchorPair_V = _inverseAnchorPair_forUndo_V;  // Use the "forUndo" anchor.
 
                 //

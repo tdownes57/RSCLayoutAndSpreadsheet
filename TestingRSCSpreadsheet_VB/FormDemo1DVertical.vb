@@ -240,8 +240,8 @@ Public Class FormDemo1DVertical
         '' Added 10/14/2024 thomas c. downes 
         ''
         Dim newItemA As TwoCharacterDLLVerticalA
-        Dim anchorItemForEmptyListA As New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(True, False)
-        Dim anchorItemForListOfOneItemA As DLLAnchorItem(Of TwoCharacterDLLVerticalA) ''(True, False)
+        Dim anchorItemForEmptyListA As New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(True, False)
+        Dim anchorItemForListOfOneItemA As DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA) ''(True, False)
         Dim anchorPairForEmptyListA As New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(True, False)
         Dim anchorPairForListOfOneItemA As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA) ''(True, False)
         ''Nov2024 Dim rangeNew As DLLRange(Of TwoCharacterDLLVerticalA)
@@ -252,22 +252,22 @@ Public Class FormDemo1DVertical
 
         ''Added 1/21/2025 td
         Dim newItemB1 As DLLUserControlRichbox
-        Dim anchorItemForEmptyListB1 As New DLLAnchorItem(Of DLLUserControlRichbox)(True, False)
-        Dim anchorItemForListOfOneItemB1 As DLLAnchorItem(Of DLLUserControlRichbox) ''(True, False)
+        Dim anchorItemForEmptyListB1 As New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(True, False)
+        Dim anchorItemForListOfOneItemB1 As DLLAnchorItem_Deprecated(Of DLLUserControlRichbox) ''(True, False)
         Dim anchorPairForEmptyListB1 As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
         Dim anchorPairForListOfOneItemB1 As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
 
         ''Added 1/21/2025 td
         Dim newItemB2 As DLLUserControlRichbox
-        Dim anchorItemForEmptyListB2 As New DLLAnchorItem(Of DLLUserControlRichbox)(True, False)
-        Dim anchorItemForListOfOneItemB2 As DLLAnchorItem(Of DLLUserControlRichbox) ''(True, False)
+        Dim anchorItemForEmptyListB2 As New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(True, False)
+        Dim anchorItemForListOfOneItemB2 As DLLAnchorItem_Deprecated(Of DLLUserControlRichbox) ''(True, False)
         Dim anchorPairForEmptyListB2 As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
         Dim anchorPairForListOfOneItemB2 As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
 
         ''Added 3/29/2025 td
         Dim newItemB3 As DLLUserControlRichbox
-        Dim anchorItemForEmptyListB3 As New DLLAnchorItem(Of DLLUserControlRichbox)(True, False)
-        Dim anchorItemForListOfOneItemB3 As DLLAnchorItem(Of DLLUserControlRichbox) ''(True, False)
+        Dim anchorItemForEmptyListB3 As New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(True, False)
+        Dim anchorItemForListOfOneItemB3 As DLLAnchorItem_Deprecated(Of DLLUserControlRichbox) ''(True, False)
         Dim anchorPairForEmptyListB3 As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
         Dim anchorPairForListOfOneItemB3 As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
 
@@ -300,12 +300,12 @@ Public Class FormDemo1DVertical
         mod_listB2 = New DLLList(Of DLLUserControlRichbox)(mod_firstItemB2, mod_lastItemB2, 1)
 
         ''//Added 10/21/2024 td
-        anchorItemForListOfOneItemA = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(mod_firstItemA)
+        anchorItemForListOfOneItemA = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(mod_firstItemA)
         ''Added 1/21/2025 td
         ''March 2025 anchorItemForListOfOneItemB1 = New DLLAnchorItem(Of DLLUserControlTextbox)(mod_firstItemB1)
-        anchorItemForListOfOneItemB1 = New DLLAnchorItem(Of DLLUserControlRichbox)(mod_firstItemB1)
-        anchorItemForListOfOneItemB2 = New DLLAnchorItem(Of DLLUserControlRichbox)(mod_firstItemB2)
-        anchorItemForListOfOneItemB3 = New DLLAnchorItem(Of DLLUserControlRichbox)(mod_firstItemB3)
+        anchorItemForListOfOneItemB1 = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(mod_firstItemB1)
+        anchorItemForListOfOneItemB2 = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(mod_firstItemB2)
+        anchorItemForListOfOneItemB3 = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(mod_firstItemB3)
 
         ''//Added 11/08/2024 td
         anchorPairForListOfOneItemA = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(mod_firstItemA, Nothing, True)
@@ -1153,7 +1153,7 @@ Public Class FormDemo1DVertical
         Dim strNewItem As String
         Dim intModulo As Integer
         Dim boolEndpoint As Boolean
-        Dim objAnchor As DLLAnchorItem(Of TwoCharacterDLLVerticalA)
+        Dim objAnchor As DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -1223,11 +1223,11 @@ Public Class FormDemo1DVertical
 
             ''Added 12/23/2024
             Const EMPTY As Boolean = True
-            objAnchor = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(EMPTY, False)
+            objAnchor = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(EMPTY, False)
 
         Else
             tempAnchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
-            objAnchor = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
+            objAnchor = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
 
         End If ''End of ""If (mod_firstItemA Is Nothing) Then... Else..."
 
@@ -1392,7 +1392,7 @@ Public Class FormDemo1DVertical
         ''
         '' Insert range into the list.  
         ''
-        Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLVerticalA)
+        Dim objAnchorItem As DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
         ''Dim boolEndpoint As Boolean
@@ -1438,11 +1438,11 @@ Public Class FormDemo1DVertical
             ''   No items exist in the list.  ---12/09/2024 td  
             boolIsForEmptyList = True ''Added 12/09/2024
             If (mod_listA.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
-            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(boolIsForEmptyList, False) '' (True, False)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(boolIsForEmptyList, False) '' (True, False)
 
         Else
             tempAnchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
-            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
         End If ''End of ""If (mod_firstItemA Is Nothing) Then ... Else ..."
 
         bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1

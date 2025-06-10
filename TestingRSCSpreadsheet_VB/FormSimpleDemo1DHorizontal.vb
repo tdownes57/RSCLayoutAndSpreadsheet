@@ -30,8 +30,8 @@ Public Class FormSimpleDemo1DHorizontal
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
-        Dim anchorItemForEmptyList As New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(True, False)
-        Dim anchorItemForListOfOneItem As DLLAnchorItem(Of TwoCharacterDLLHorizontal) ''(True, False)
+        Dim anchorItemForEmptyList As New DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal)(True, False)
+        Dim anchorItemForListOfOneItem As DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal) ''(True, False)
         Dim anchorPairForEmptyList As New DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)(True, False)
         Dim anchorPairForListOfOneItem As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal) ''(True, False)
         ''Nov2024 Dim rangeNew As DLLRange(Of TwoCharacterDLLHorizontal)
@@ -46,7 +46,7 @@ Public Class FormSimpleDemo1DHorizontal
         mod_list = New DLLList(Of TwoCharacterDLLHorizontal)(mod_firstItem, mod_lastItem, 1)
 
         ''//Added 10/21/2024 td
-        anchorItemForListOfOneItem = New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(mod_firstItem)
+        anchorItemForListOfOneItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal)(mod_firstItem)
 
         ''//Added 11/08/2024 td
         anchorPairForListOfOneItem = New DLLAnchorCouplet(Of TwoCharacterDLLHorizontal)(mod_firstItem, Nothing, True)
@@ -459,7 +459,7 @@ Public Class FormSimpleDemo1DHorizontal
         Dim strNewItem As String
         Dim intModulo As Integer
         Dim boolEndpoint As Boolean
-        Dim objAnchor As DLLAnchorItem(Of TwoCharacterDLLHorizontal)
+        Dim objAnchor As DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal)
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -524,7 +524,7 @@ Public Class FormSimpleDemo1DHorizontal
         ''
         Dim tempAnchorItem As TwoCharacterDLLHorizontal ''Added 10/21/2024 td
         tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-        objAnchor = New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(tempAnchorItem)
+        objAnchor = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal)(tempAnchorItem)
         With objAnchor
             ''._anchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
             ._doInsertRangeAfterThis = listInsertAfterOrBefore.SelectedIndex < 1
@@ -627,7 +627,7 @@ Public Class FormSimpleDemo1DHorizontal
         ''
         '' Insert range into the list.  
         ''
-        Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLHorizontal)
+        Dim objAnchorItem As DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLHorizontal) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
         ''++Dim boolEndpoint As Boolean
@@ -673,11 +673,11 @@ Public Class FormSimpleDemo1DHorizontal
             ''   No items exist in the list.  ---12/09/2024 td  
             boolIsForEmptyList = True ''Added 12/09/2024
             If (mod_list.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
-            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(boolIsForEmptyList, False) '' (True, False)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal)(boolIsForEmptyList, False) '' (True, False)
 
         Else
             tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLHorizontal)(tempAnchorItem)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLHorizontal)(tempAnchorItem)
         End If ''End of ""If (mod_firstItem Is Nothing) Then ... Else ..."
 
         bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1

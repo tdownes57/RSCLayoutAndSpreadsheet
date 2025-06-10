@@ -44,7 +44,7 @@ namespace RSCLibraryDLLOperations
         // The Anchor describes the location of the imminent Insert of a Range or Item (Singly). 
         //    (or Paste, per a Cut-Paste ("Move") action. 
         //
-        private DLLAnchorItem<TControl>? _temp_o_anchorItem;  // o is for object
+        private DLLAnchorItem_Deprecated<TControl>? _temp_o_anchorItem;  // o is for object
         private DLLAnchorCouplet<TControl>? _temp_o_anchorPair;  // o is for object
         //Temporary boolean variables
         private bool _temp_b_anchor_CheckBooleans; // b is for Boolean 
@@ -228,7 +228,7 @@ namespace RSCLibraryDLLOperations
 
 
         public void DLL_InsertRange(DLLRange<TControl> par_range, 
-                                DLLAnchorItem<TControl> par_anchor, 
+                                DLLAnchorItem_Deprecated<TControl> par_anchor, 
                                 bool par_isChangeOfEndpoint)
         {
             //
@@ -336,7 +336,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="pbAnchorWill_FollowRange"></param>
         /// <param name="pbAnchorWill_PrecedeRange"></param>
         /// <param name="pbAnchorWillBeMultiUse"></param>
-        public void DLL_SetAnchor(DLLAnchorItem<TControl> par_anchorItem, 
+        public void DLL_SetAnchor(DLLAnchorItem_Deprecated<TControl> par_anchorItem, 
                                     bool pbAnchorWill_FollowRange, 
                                     bool pbAnchorWill_PrecedeRange, 
                                     bool pbAnchorWillBeMultiUse)
@@ -371,7 +371,7 @@ namespace RSCLibraryDLLOperations
 
 
         public void DLL_InsertItemSingly(TControl par_item,
-                        DLLAnchorItem<TControl> par_anchor,
+                        DLLAnchorItem_Deprecated<TControl> par_anchor,
                         bool par_isChangeOfEndpoint)
         {
             //

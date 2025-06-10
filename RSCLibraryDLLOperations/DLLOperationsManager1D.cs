@@ -42,8 +42,8 @@ namespace RSCLibraryDLLOperations
 
         //private DLLOperation1D<T_DLL> mod_firstPriorOperation1D;
         //private DLLOperation1D<T_DLL> mod_lastPriorOperation1D;
-        private DLLOperation1D_OfOf<T_DLL, T_DLLParallel>? mod_firstPriorOperation1D;
-        private DLLOperation1D_OfOf<T_DLL, T_DLLParallel>? mod_lastPriorOperation1D;
+        private DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel>? mod_firstPriorOperation1D;
+        private DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel>? mod_lastPriorOperation1D;
 
         /// <summary>
         /// Allows an operation to be propagated to an array of parallel lists. For example, if the 
@@ -93,7 +93,7 @@ namespace RSCLibraryDLLOperations
         //
         public DLLOperationsManager1D(T_DLL par_firstItem,
             DLLList<T_DLL> par_list,
-            DLLOperation1D_OfOf<T_DLL, T_DLLParallel>? par_firstPriorOperationV1 = null)
+            DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel>? par_firstPriorOperationV1 = null)
         {
             this.mod_firstItem = par_firstItem;
             this.mod_list = par_list;
@@ -251,7 +251,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ProcessOperation_PrimaryAndParallel(DLLOperation1D_OfOf<T_DLL, T_DLLParallel> parOperation,
+        public void ProcessOperation_PrimaryAndParallel(DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel> parOperation,
                        bool par_changeOfEndpoint_Expected,
                        out bool par_changeOfEndpoint_Occurred,
                        bool pbOperationIsNewSoRecordIt,
@@ -682,7 +682,7 @@ namespace RSCLibraryDLLOperations
             //
             //---var operation1D_OfT_OfT = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
             //---var operation1D_OfT_OfT = new DLLOperation1D_OfOf<TControl, T_DLLParallel>(parOperation);
-            var operation1D_OfT_OfT = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(parOperation);
+            var operation1D_OfT_OfT = new DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel>(parOperation);
 
             //Added 4/14/2025 td
             bool boolInserted = parOperation._isInsert;
@@ -845,7 +845,7 @@ namespace RSCLibraryDLLOperations
         {
             //DLLOperation1D_Of<T_DLL>  // <T_DLLHor, T_DLLVer>
             //    opReDo_Of = mod_opUndoRedoMarker.GetMarkersNext_ShiftPositionRight();
-            DLLOperation1D_OfOf<T_DLL, T_DLLParallel>  // <T_DLLHor, T_DLLVer>
+            DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel>  // <T_DLLHor, T_DLLVer>
                 opReDo_OfOf = mod_opUndoRedoMarker.GetCurrentOp_Redo_OfOf();
 
             //Added 4/23/2025 td
@@ -928,7 +928,7 @@ namespace RSCLibraryDLLOperations
                 bool bSetLastPriorToNull; // Added 5/18/2025 thomas d.
 
                 //Apr2025 DLLOperation1D_Of<T_DLL> markersCurrentUndoOperation_willBeLast;
-                DLLOperation1D_OfOf<T_DLL, T_DLLParallel>? markersCurrentUndoOperation_willBeLast;
+                DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel>? markersCurrentUndoOperation_willBeLast;
                 //Apr2025 markersCurrentUndoOperation_willBeLast = mod_opUndoRedoMarker.GetCurrentOp_Undo();
                 if (mod_opUndoRedoMarker.HasOperationPrior_ForUndo())
                 {
@@ -1101,7 +1101,7 @@ namespace RSCLibraryDLLOperations
             // Added 1/10/2024 thomas downes
             //
             int intCountFurtherUndoOps;
-            DLLOperation1D_OfOf<T_DLL, T_DLLParallel> operationToUndo;
+            DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel> operationToUndo;
             bool bOperationPriorExists = false;
 
             // Added 10/25/2024  
@@ -1159,7 +1159,7 @@ namespace RSCLibraryDLLOperations
                     // Use the operation structure, to create a new, equivalent  operation.
                     DLLOperationIndexStructure opIndexStructure = operationToUndo.GetOperationIndexStructure(true);
                     //Apr2025 operationToUndo = new DLLOperation1D_Of<T_DLL>(opIndexStructure, mod_firstItem);
-                    operationToUndo = new DLLOperation1D_OfOf<T_DLL, T_DLLParallel>(opIndexStructure, mod_firstItem);
+                    operationToUndo = new DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel>(opIndexStructure, mod_firstItem);
 
                 }
 
@@ -1180,7 +1180,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void UndoOperation_ViaInverse_OfOf(DLLOperation1D_OfOf<T_DLL, T_DLLParallel> parOperation, ref bool pbEndpointAffected)
+        private void UndoOperation_ViaInverse_OfOf(DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel> parOperation, ref bool pbEndpointAffected)
         {
             //
             //''Added 4/14/2025 and 7/06/2024 and 1/15/2024
@@ -1188,7 +1188,7 @@ namespace RSCLibraryDLLOperations
             const bool RECORD_UNDO_OPERATION = false; //Not needed for UNDO operations. ''Added 1 / 28 / 2024
             bool bIsChangeOfEndpoint_Expected = false;
             bool bChangeOfEndpoint_Occurred = false;
-            DLLOperation1D_OfOf<T_DLL, T_DLLParallel> opUndoVersion_OfOf; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+            DLLOperation1D_2TypesInParallel<T_DLL, T_DLLParallel> opUndoVersion_OfOf; // As DLL_OperationV1 ''Added 11 / 5 / 2024
 
             //Added 5/07/2025
             bool bUndoOfSortingByIndexing1 = parOperation.IsSorting_ByIndexMapping(); //Added 5/07/2025

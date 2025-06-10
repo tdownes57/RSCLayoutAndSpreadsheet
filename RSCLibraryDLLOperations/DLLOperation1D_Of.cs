@@ -62,7 +62,7 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
         // Added 4/21/2024 td
-        internal readonly DLLAnchorItem<T_DLLItem>? _anchorItem;
+        internal readonly DLLAnchorItem_Deprecated<T_DLLItem>? _anchorItem;
 
         // Added 11/03/2024 td
         //   An Anchor Couplet is a pair of Anchoring Items, which bookend a range
@@ -70,7 +70,7 @@ namespace RSCLibraryDLLOperations
         internal readonly DLLAnchorCouplet<T_DLLItem>? _anchorCouplet;
 
         //Added 4/18/2024 td 
-        internal readonly DLLAnchorItem<T_DLLItem>? _inverseAnchorItem_ForUndo;
+        internal readonly DLLAnchorItem_Deprecated<T_DLLItem>? _inverseAnchorItem_ForUndo;
         internal readonly DLLAnchorCouplet<T_DLLItem>? _inverseAnchorPair_forUndo;
 
         //March 2025 private readonly DLLRange<TControl>? _range;
@@ -320,11 +320,11 @@ namespace RSCLibraryDLLOperations
               bool par_forStartOfList, bool par_forEndOfList,
               bool par_isInsert, bool par_isDelete, bool par_isMove,
               StructureTypeOfMove par_structMoveType,
-              DLLAnchorItem<T_DLLItem>? par_anchorItem,
+              DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
               DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
                   DLLOperation1D_Of<T_DLLItem>? par_operationPrior = null,
                   DLLOperation1D_Of<T_DLLItem>? par_operationNext = null,
-                  DLLAnchorItem<T_DLLItem>? par_inverseAnchorItem = null,
+                  DLLAnchorItem_Deprecated<T_DLLItem>? par_inverseAnchorItem = null,
                   DLLAnchorCouplet<T_DLLItem>? par_inverseAnchorPair = null)
         {
             //
@@ -751,7 +751,7 @@ namespace RSCLibraryDLLOperations
             //==    " operation. Then, execute the operations in any order.");
 
             DLLRange<T2Parallel>? range_parallel = _range?.GetConvertToGenericOfT<T2Parallel>(par_itemFirst, false, PARALLEL);
-            DLLAnchorItem<T2Parallel>? anchorItem_parallel = _anchorItem?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
+            DLLAnchorItem_Deprecated<T2Parallel>? anchorItem_parallel = _anchorItem?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
             DLLAnchorCouplet<T2Parallel>? anchorPair_parallel = _anchorCouplet?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
 
             //Apr2025  var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
@@ -1774,7 +1774,7 @@ namespace RSCLibraryDLLOperations
 
         public DLLOperationBase GetConvertToBaseClass()
         {
-            //---public DLLOperationBase DLL_GetBase()
+            //---public DLLOperationBase DLL_GeTHeader()
             //Added 12 /02/2024 td
             //----return this;
             return (this as DLLOperationBase);

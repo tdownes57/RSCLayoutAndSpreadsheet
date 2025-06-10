@@ -1,0 +1,28 @@
+﻿
+P.S. ""Favor composition over inheritance""--i.e. you should consider modifying an existing class 
+(to include an additional object reference, if needed), before you create a subclass (subclassed 
+from the existing class) which includes the same object reference.
+
+----6/09/2025 thomas downes
+
+https://en.wikipedia.org/wiki/Composition_over_inheritance
+
+Quote from the Gang of Four ("Software Design Patterns")
+
+'Prefer composition over inheritance as it is more malleable / easy to modify later, but do not use 
+a compose-always approach.' 
+
+With composition, it's easy to change behavior on the fly with Dependency Injection / Setters. 
+Inheritance is more rigid as most languages do not allow you to derive from more than
+one type. So the goose is more or less cooked once you derive from TypeA.""
+
+https://stackoverflow.com/questions/49002/prefer-composition-over-inheritance
+
+https://medium.com/@TheAbstractEngineer/object-oriented-programming-the-good-the-bad-and-the-over-engineered-bb132604290d
+
+
+
+
+
+
+

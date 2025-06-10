@@ -81,7 +81,7 @@ namespace RSCLibraryDLLOperations
             const bool BASE_CLASS = true; // Added 1/09/2025 td
 
             //Added 4/12/2025 
-            DLLOperation1D_OfOf<T_Hori, T_Hori>? firstOperationHoriz_OfOf = null;
+            DLLOperation1D_2TypesInParallel<T_Hori, T_Hori>? firstOperationHoriz_OfOf = null;
 
             //Apr 2025 firstOperationHoriz_OfOf = new DLLOperation1D_OfOf<T_Hori, T_Hori>(par_firstOperationHoriz);
             //if (par_firstOperationHoriz != null) //Added 4/14/2025 
@@ -98,7 +98,7 @@ namespace RSCLibraryDLLOperations
                 this.mod_lastPriorOperationBase = par_firstOperationHoriz;
 
                 // Added 4/14/2025 
-                firstOperationHoriz_OfOf = new DLLOperation1D_OfOf<T_Hori, T_Hori>(par_firstOperationHoriz);
+                firstOperationHoriz_OfOf = new DLLOperation1D_2TypesInParallel<T_Hori, T_Hori>(par_firstOperationHoriz);
 
                 mod_numberOfOperationsH++; // Added 10/26/2024 td 
 
@@ -106,14 +106,14 @@ namespace RSCLibraryDLLOperations
                 // this.mod_ mopRedoMarker = mod_opRedoMarker;
                 // this.mod_intCountOperations = mod_intCountOperations;
 
-                //DLLOperationBase firstOperation_base = par_firstOperationHoriz.GetConvertToBaseClass();   //.DLL_GetBase();
-                //DLLOperation1D<T_Base>firstOperation_Tbase = par_firstOperationHoriz.GetConvertToGenericOfT<T_Base>();   //.DLL_GetBase();
+                //DLLOperationBase firstOperation_base = par_firstOperationHoriz.GetConvertToBaseClass();   //.DLL_GeTHeader();
+                //DLLOperation1D<T_Base>firstOperation_THeader = par_firstOperationHoriz.GetConvertToGenericOfT<T_Base>();   //.DLL_GeTHeader();
                 //T_Base firstItemHoriz = (T_Base)par_firstItemHorizontal; // as T_Base;
 
                 T_Base firstItem_Horiz_base = par_listHoriz.DLL_GetFirstItem_OfT();
 
                 DLLOperation1D_Of<T_Base> operation_base_ofT = 
-                    par_firstOperationHoriz.GetConvertToGenericOfT<T_Base>(firstItem_Horiz_base, BASE_CLASS, false);   //.DLL_GetBase();
+                    par_firstOperationHoriz.GetConvertToGenericOfT<T_Base>(firstItem_Horiz_base, BASE_CLASS, false);   //.DLL_GeTHeader();
 
                 //Added 1/4/2025 td
                 mod_managerHoriz = new DLLOperationsManager1D<T_Hori, T_Hori>(par_firstItemHorizontal, 

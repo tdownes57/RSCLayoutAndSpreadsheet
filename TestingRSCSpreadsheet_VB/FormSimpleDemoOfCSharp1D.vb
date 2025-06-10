@@ -28,8 +28,8 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
-        Dim anchorItemForEmptyList As New DLLAnchorItem(Of TwoCharacterDLLItem)(True, False)
-        Dim anchorItemForListOfOneItem As DLLAnchorItem(Of TwoCharacterDLLItem) ''(True, False)
+        Dim anchorItemForEmptyList As New DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)(True, False)
+        Dim anchorItemForListOfOneItem As DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem) ''(True, False)
         Dim anchorPairForEmptyList As New DLLAnchorCouplet(Of TwoCharacterDLLItem)(True, False)
         Dim anchorPairForListOfOneItem As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''(True, False)
         ''Nov2024 Dim rangeNew As DLLRange(Of TwoCharacterDLLItem)
@@ -46,7 +46,7 @@ Public Class FormSimpleDemoOfCSharp1D
         mod_list = New DLLList(Of TwoCharacterDLLItem)(mod_firstItem, mod_lastItem, 1)
 
         ''//Added 10/21/2024 td
-        anchorItemForListOfOneItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(mod_firstItem)
+        anchorItemForListOfOneItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)(mod_firstItem)
 
         ''//Added 11/08/2024 td
         anchorPairForListOfOneItem = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(mod_firstItem, Nothing, True)
@@ -596,7 +596,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim strNewItem As String
         Dim intModulo As Integer
         Dim boolEndpoint As Boolean
-        Dim objAnchor As DLLAnchorItem(Of TwoCharacterDLLItem)
+        Dim objAnchor As DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -665,11 +665,11 @@ Public Class FormSimpleDemoOfCSharp1D
 
             ''Added 12/23/2024
             Const EMPTY As Boolean = True
-            objAnchor = New DLLAnchorItem(Of TwoCharacterDLLItem)(EMPTY, False)
+            objAnchor = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)(EMPTY, False)
 
         Else
             tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-            objAnchor = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
+            objAnchor = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)(tempAnchorItem)
 
         End If ''End of ""If (mod_firstItem Is Nothing) Then... Else..."
 
@@ -796,7 +796,7 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Insert range into the list.  
         ''
-        Dim objAnchorItem As DLLAnchorItem(Of TwoCharacterDLLItem)
+        Dim objAnchorItem As DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)
         Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLItem) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
         ''Dim boolEndpoint As Boolean
@@ -842,11 +842,11 @@ Public Class FormSimpleDemoOfCSharp1D
             ''   No items exist in the list.  ---12/09/2024 td  
             boolIsForEmptyList = True ''Added 12/09/2024
             If (mod_list.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
-            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(boolIsForEmptyList, False) '' (True, False)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)(boolIsForEmptyList, False) '' (True, False)
 
         Else
             tempAnchorItem = mod_firstItem.DLL_GetItemNext(-1 + intAnchorPosition)
-            objAnchorItem = New DLLAnchorItem(Of TwoCharacterDLLItem)(tempAnchorItem)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)(tempAnchorItem)
         End If ''End of ""If (mod_firstItem Is Nothing) Then ... Else ..."
 
         bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1

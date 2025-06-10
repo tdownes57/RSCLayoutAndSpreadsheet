@@ -48,7 +48,11 @@ namespace RSCLibraryDLLOperations
     //}
 
 
-    public class DLLAnchorItem<TControl>
+    /// <summary>
+    /// This class is deprecated June 9, 2025 in favor of DLLAnchorCouplet.
+    /// </summary>
+    /// <typeparam name="TControl"></typeparam>
+    public class DLLAnchorItem_Deprecated<TControl>
          where TControl : class, IDoublyLinkedItem<TControl>
     {
         /// <summary>
@@ -85,7 +89,7 @@ namespace RSCLibraryDLLOperations
         public bool _isForDeletionOperation;
 
 
-        public DLLAnchorItem(bool pbIsForEmptyList, bool pbIsForDeletionOp)
+        public DLLAnchorItem_Deprecated(bool pbIsForEmptyList, bool pbIsForDeletionOp)
         {
             //
             // Added 10/20/2024 
@@ -96,7 +100,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchorItem(TControl par_item)
+        public DLLAnchorItem_Deprecated(TControl par_item)
         {
             //
             // Added 10/20/2024 
@@ -108,7 +112,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchorItem<T_BaseOrParallel> GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem,
+        public DLLAnchorItem_Deprecated<T_BaseOrParallel> GetConvertToGeneric_OfT<T_BaseOrParallel>(T_BaseOrParallel par_firstItem,
                         bool pbTargetListIsOfBaseClass,
                         bool pbTargetListIsParallel)
             where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
@@ -116,7 +120,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/11/2024 
             //
-            DLLAnchorItem<T_BaseOrParallel>? result;
+            DLLAnchorItem_Deprecated<T_BaseOrParallel>? result;
 
             //Added 1/09/2025 thomas d.
             bool bAsExpected = (pbTargetListIsOfBaseClass == (_anchorItem is T_BaseOrParallel));
@@ -127,15 +131,15 @@ namespace RSCLibraryDLLOperations
             //
             // Fancy!!  Suggested by MS Visual Studio...
             //
-            if (_anchorItem is T_BaseOrParallel itemAnchorTBase) // We are declaring a new variable, itemAnchorTBase.
+            if (_anchorItem is T_BaseOrParallel itemAnchorTHeader) // We are declaring a new variable, itemAnchorTHeader.
             {
                 //
-                //  The type (TBaseOrParallel) is a base type (relative to TControl). 
+                //  The type (THeaderOrParallel) is a base type (relative to TControl). 
                 //
                 //  For example, TwoCharacterDLLItem is a base type relative to TwoCharacterDLLHorizontal.
                 //  For example, Control is a base type relative to RSCDataColumn.
                 //
-                result = new DLLAnchorItem<T_BaseOrParallel>(itemAnchorTBase);
+                result = new DLLAnchorItem_Deprecated<T_BaseOrParallel>(itemAnchorTHeader);
                 result._isForEmptyList = _isForEmptyList;
                 result._isForDeletionOperation = _isForDeletionOperation;
                 result._doInsertRangeBeforeThis = _doInsertRangeBeforeThis;
@@ -151,7 +155,7 @@ namespace RSCLibraryDLLOperations
                 //  For example, a list of RSCDataCells is parallel to the list of RSCRowHeaders.
                 //<>
                 var itemAnchorTParallel = _anchorItem.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem);
-                result = new DLLAnchorItem<T_BaseOrParallel>(itemAnchorTParallel);
+                result = new DLLAnchorItem_Deprecated<T_BaseOrParallel>(itemAnchorTParallel);
                 result._isForEmptyList = _isForEmptyList;
                 result._isForDeletionOperation = _isForDeletionOperation;
                 result._doInsertRangeBeforeThis = _doInsertRangeBeforeThis;
@@ -266,7 +270,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool IsEquivalent(DLLAnchorItem<TControl> par_anchor)
+        public bool IsEquivalent(DLLAnchorItem_Deprecated<TControl> par_anchor)
         {
             //
             // Added 12/24/2024 td  
@@ -278,7 +282,7 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public bool Equals(DLLAnchorItem<TControl> par_anchor)
+        public bool Equals(DLLAnchorItem_Deprecated<TControl> par_anchor)
         {
             //
             // Added 12/24/2024 td  

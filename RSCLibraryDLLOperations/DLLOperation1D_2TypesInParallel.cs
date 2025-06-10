@@ -14,8 +14,8 @@ namespace RSCLibraryDLLOperations
     //
     // Added 4/09/2025 thomas downes
     //
-    public class DLLOperation1D_OfOf<TBase, TParallel> : DLLOperation1D_Of<TBase> // :IDoublyLinkedItem
-        where TBase : class, IDoublyLinkedItem<TBase>
+    public class DLLOperation1D_2TypesInParallel<THeader, TParallel> : DLLOperation1D_Of<THeader> // :IDoublyLinkedItem
+        where THeader : class, IDoublyLinkedItem<THeader>
         where TParallel : class, IDoublyLinkedItem<TParallel>
     {
         //
@@ -72,8 +72,8 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private DLLOperation1D_OfOf<TBase, TParallel>? mod_opPrior_ForUndo_OfT_OfT;
-        private DLLOperation1D_OfOf<TBase, TParallel>? mod_opNext_ForRedo_OfT_OfT;
+        private DLLOperation1D_2TypesInParallel<THeader, TParallel>? mod_opPrior_ForUndo_OfT_OfT;
+        private DLLOperation1D_2TypesInParallel<THeader, TParallel>? mod_opNext_ForRedo_OfT_OfT;
 
 
         /// <summary>
@@ -97,16 +97,16 @@ namespace RSCLibraryDLLOperations
         //          StructureTypeOfMove par_structMoveType,
         //          DLLAnchorItem<TControl>? par_anchorItem,
         //          DLLAnchorCouplet<TControl>? par_anchorPair,
-        public DLLOperation1D_OfOf(bool par_isSortByItemValues, 
+        public DLLOperation1D_2TypesInParallel(bool par_isSortByItemValues, 
                   bool par_isSortAscending,
                   bool par_isSortDescending,
                   bool par_isUndoOfSortAscending,
                   bool par_isUndoOfSortDescending,
                   bool par_isSortByArrayIndex,
-                  TBase par_itemStart_Sorting,
-                  TBase par_itemEnding_ForSorting,
+                  THeader par_itemStart_Sorting,
+                  THeader par_itemEnding_ForSorting,
                   bool pbSortByArrayOfControls,
-                  TBase[] par_arrayControls_Sorting,
+                  THeader[] par_arrayControls_Sorting,
                   bool pbSortByArrayOfIndices,
                   int[]? par_arrayIndices_SortRedo, 
                   int[]? par_arrayIndices_SortUndo) : base(par_isSortByItemValues,
@@ -126,14 +126,14 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_OfOf(DLLRange<TBase>? par_range,
+        public DLLOperation1D_2TypesInParallel(DLLRange<THeader>? par_range,
                       bool par_forStartOfList, bool par_forEndOfList,
                       bool par_isInsert, bool par_isDelete, bool par_isMove,
                       StructureTypeOfMove par_structMoveType,
-                      DLLAnchorItem<TBase>? par_anchorItem,
-                      DLLAnchorCouplet<TBase>? par_anchorPair,
-                      DLLOperation1D_Of<TBase>? par_operationPrior = null,
-                      DLLOperation1D_Of<TBase>? par_operationNext = null)
+                      DLLAnchorItem_Deprecated<THeader>? par_anchorItem,
+                      DLLAnchorCouplet<THeader>? par_anchorPair,
+                      DLLOperation1D_Of<THeader>? par_operationPrior = null,
+                      DLLOperation1D_Of<THeader>? par_operationNext = null)
                                         : base(par_range, par_forStartOfList,
                                             par_forEndOfList, par_isInsert,
                                             par_isDelete, par_isMove,
@@ -150,7 +150,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_OfOf(DLLOperation1D_Of<TBase> par_operation1D_Of)
+        public DLLOperation1D_2TypesInParallel(DLLOperation1D_Of<THeader> par_operation1D_Of)
                                                                   : base(par_operation1D_Of)
                                         //: base(par_operation1D_Of._range,
                                         //    par_operation1D_Of._isForStartOfList,
@@ -190,8 +190,8 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_OfOf(DLLRange<TBase> par_range,
-                       DLLAnchorCouplet<TBase>? par_anchorCouplet,
+        public DLLOperation1D_2TypesInParallel(DLLRange<THeader> par_range,
+                       DLLAnchorCouplet<THeader>? par_anchorCouplet,
                        bool par_isInsert, bool par_isMove,
                        StructureTypeOfMove par_typeOfMove)
                         : base(par_range, par_anchorCouplet, par_isInsert, par_isMove, par_typeOfMove)
@@ -210,8 +210,8 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_OfOf(DLLOperationIndexStructure par_structure,
-                          TBase par_firstItem, DLLRange<TBase>? par_range = null)
+        public DLLOperation1D_2TypesInParallel(DLLOperationIndexStructure par_structure,
+                          THeader par_firstItem, DLLRange<THeader>? par_range = null)
                 : base(par_structure, par_firstItem, par_range)
         {
             //
@@ -227,7 +227,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_OfOf(EnumSortTypes par_enum) : base(par_enum)
+        public DLLOperation1D_2TypesInParallel(EnumSortTypes par_enum) : base(par_enum)
         {
             //
             // We simply pass the arguments to the base class.
@@ -243,7 +243,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D_OfOf<TBase, TParallel>? GetPrior_OfOf()
+        public DLLOperation1D_2TypesInParallel<THeader, TParallel>? GetPrior_OfOf()
         {
             //
             // Added 5/25/2024 
@@ -256,7 +256,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D_OfOf<TBase, TParallel>? GetNext_OfOf()
+        public DLLOperation1D_2TypesInParallel<THeader, TParallel>? GetNext_OfOf()
         {
             //
             // Added 5/25/2024 
@@ -266,7 +266,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_OfOf<TBase, TParallel>? DLL_GetOpPrior_OfOf()
+        public DLLOperation1D_2TypesInParallel<THeader, TParallel>? DLL_GetOpPrior_OfOf()
         {
             // Added 4/10/2025 & 12/02/2024 
             //
@@ -291,7 +291,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_OfOf<TBase, TParallel>? DLL_GetOpNext_OfOf()
+        public DLLOperation1D_2TypesInParallel<THeader, TParallel>? DLL_GetOpNext_OfOf()
         {
             // Added 4/23/2025 & 4/10/2025 & 12/02/2024 
             //
@@ -316,7 +316,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpNext_OfT_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation)
+        public void DLL_SetOpNext_OfT_OfT(DLLOperation1D_2TypesInParallel<THeader, TParallel> parOperation)
         {
             //
             // Added 4/11/2025 td (from DLLOperation_Of.cs)
@@ -342,7 +342,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public void DLL_SetOpNext_OfT_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation, bool pbBirectional)
+        public void DLL_SetOpNext_OfT_OfT(DLLOperation1D_2TypesInParallel<THeader, TParallel> parOperation, bool pbBirectional)
         {
             //
             // Added 4/11/2025 & 12/08/2024 td
@@ -378,7 +378,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpPrior_OfT_OfT(DLLOperation1D_OfOf<TBase, TParallel> parOperation)
+        public void DLL_SetOpPrior_OfT_OfT(DLLOperation1D_2TypesInParallel<THeader, TParallel> parOperation)
         {
             //
             // Added 4/14/2025 thomas downes
@@ -406,7 +406,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D_OfOf<TBase, TParallel> // <T_DLLItem_H, T_DLLItem_V>
+        public DLLOperation1D_2TypesInParallel<THeader, TParallel> // <T_DLLItem_H, T_DLLItem_V>
             GetInverseForUndo_OfOf(bool pbTestForIdempotency)
         {
             //
@@ -434,7 +434,7 @@ namespace RSCLibraryDLLOperations
             //par_operation1D_Of.mod_opPrior_ForUndo_OfT,
             //par_operation1D_Of.mod_opNext_ForRedo_OfT
 
-            // May2025 DLLOperation1D_Of<TBase> inverseOp_Of = base.GetInverseForUndo_Of(false);
+            // May2025 DLLOperation1D_Of<THeader> inverseOp_Of = base.GetInverseForUndo_Of(false);
 
             //base._range = inverseOp._range;
             //base._isForStartOfList = inverseOp._isForStartOfList;
@@ -449,7 +449,7 @@ namespace RSCLibraryDLLOperations
             //      par_operation1D_Of.mod_opNext_ForRedo_OfT
             //
 
-            DLLOperation1D_Of<TBase> inverseOp_Of = base.GetInverseForUndo_Of(false);
+            DLLOperation1D_Of<THeader> inverseOp_Of = base.GetInverseForUndo_Of(false);
 
             //Added 5/07/2025
             //  An inverse operation NEVER sorts by values. Reverse index-mapping is used instead.  ---5/06/2025
@@ -457,7 +457,7 @@ namespace RSCLibraryDLLOperations
             bool bSortByIndexing = inverseOp_Of.IsSorting_ByIndexMapping();
             if (bSortByValues) inverseOp_Of.SetToSortingByIndexMapping();
 
-            var inverseOp_OfOf = new DLLOperation1D_OfOf<TBase, TParallel>(inverseOp_Of);
+            var inverseOp_OfOf = new DLLOperation1D_2TypesInParallel<THeader, TParallel>(inverseOp_Of);
 
             //-------------------------------------------------------
             //-----  DIFFICULT & CONFUSING  -------------------------

@@ -90,18 +90,18 @@ namespace RSCLibraryDLLOperations
         //''' If the user hits "Undo", this operation will be 
         //''' inversed and the inverse will be performed. 
         //''' </summary>
-        private DLLOperation1D_OfOf<TControl, TParallel>? mod_opPrior_ForUndo;
+        private DLLOperation1D_2TypesInParallel<TControl, TParallel>? mod_opPrior_ForUndo;
 
         //''' <summary>
         //''' If the user hits "Redo", this operation will be 
         //''' performed as it is.  (In contrast to "Undo", we
         //''' do NOT need to get the inverse of the operation.) 
         //''' </summary>
-        private DLLOperation1D_OfOf<TControl, TParallel>? mod_opNext_ForRedo;
+        private DLLOperation1D_2TypesInParallel<TControl, TParallel>? mod_opNext_ForRedo;
 
         // Added 5/17/2025 
-        private Tuple<DLLOperation1D_OfOf<TControl, TParallel>?,
-                      DLLOperation1D_OfOf<TControl, TParallel>?> mod_tuplePriorNext;
+        private Tuple<DLLOperation1D_2TypesInParallel<TControl, TParallel>?,
+                      DLLOperation1D_2TypesInParallel<TControl, TParallel>?> mod_tuplePriorNext;
 
 
         //public DLLOperationsRedoMarker1D(DLLOperation1D<TControl> par_2ndprior,
@@ -114,7 +114,7 @@ namespace RSCLibraryDLLOperations
 
         //}
 
-        public DLLOpsUndoRedoMarker1DParallel(DLLOperation1D_OfOf<TControl, TParallel> par_1stPrior, bool onlyOperationExecutedYet)
+        public DLLOpsUndoRedoMarker1DParallel(DLLOperation1D_2TypesInParallel<TControl, TParallel> par_1stPrior, bool onlyOperationExecutedYet)
         {
             // Added 10/25/2024 
             //
@@ -130,16 +130,16 @@ namespace RSCLibraryDLLOperations
             //
             //Added 5/17/2025 td
             //
-            mod_tuplePriorNext = new Tuple<DLLOperation1D_OfOf<TControl, TParallel>?,
-                                           DLLOperation1D_OfOf<TControl, TParallel>?>
+            mod_tuplePriorNext = new Tuple<DLLOperation1D_2TypesInParallel<TControl, TParallel>?,
+                                           DLLOperation1D_2TypesInParallel<TControl, TParallel>?>
                                            (par_1stPrior, null);
 
         }
 
 
 
-        public DLLOpsUndoRedoMarker1DParallel(DLLOperation1D_OfOf<TControl, TParallel> par_1stPrior,
-                         DLLOperation1D_OfOf<TControl, TParallel> par_2ndPrior)
+        public DLLOpsUndoRedoMarker1DParallel(DLLOperation1D_2TypesInParallel<TControl, TParallel> par_1stPrior,
+                         DLLOperation1D_2TypesInParallel<TControl, TParallel> par_2ndPrior)
         {
             //
             // Added 10/25/2024 
@@ -174,7 +174,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void SetFirstOperation(DLLOperation1D_OfOf<TControl, TParallel> par_1stPrior)
+        public void SetFirstOperation(DLLOperation1D_2TypesInParallel<TControl, TParallel> par_1stPrior)
         {
             //
             // Added 12/04/2024
@@ -250,8 +250,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                DLLOperation1D_OfOf<TControl, TParallel> temp_output; // = null;
-                DLLOperation1D_OfOf<TControl, TParallel> result_operation; // = null;
+                DLLOperation1D_2TypesInParallel<TControl, TParallel> temp_output; // = null;
+                DLLOperation1D_2TypesInParallel<TControl, TParallel> result_operation; // = null;
                  
                 temp_output = mod_opNext_ForRedo;
                 result_operation = mod_opNext_ForRedo;
@@ -292,8 +292,8 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                DLLOperation1D_OfOf<TControl, TParallel> temp_output; // = null;
-                DLLOperation1D_OfOf<TControl, TParallel> result_operation; // = null;
+                DLLOperation1D_2TypesInParallel<TControl, TParallel> temp_output; // = null;
+                DLLOperation1D_2TypesInParallel<TControl, TParallel> result_operation; // = null;
                 temp_output = mod_opPrior_ForUndo;
                 result_operation = mod_opPrior_ForUndo;
 
@@ -473,7 +473,7 @@ namespace RSCLibraryDLLOperations
         /// Returns the <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.
         /// </summary>
         /// <returns>The <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.</returns>
-        public DLLOperation1D_OfOf<TControl, TParallel>? GetCurrentOp_Undo_OfOf()
+        public DLLOperation1D_2TypesInParallel<TControl, TParallel>? GetCurrentOp_Undo_OfOf()
         {
             // Added 7/03/2024 
             return mod_opPrior_ForUndo;
@@ -496,7 +496,7 @@ namespace RSCLibraryDLLOperations
         /// Returns the <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.
         /// </summary>
         /// <returns>The <<typeparamref name="TControl"/>, TParallel> version of the Current Undo.</returns>
-        public DLLOperation1D_OfOf<TControl, TParallel> GetCurrentOp_Redo_OfOf()
+        public DLLOperation1D_2TypesInParallel<TControl, TParallel> GetCurrentOp_Redo_OfOf()
         {
             // Added 4/08/2025 
             return mod_opNext_ForRedo;

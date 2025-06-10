@@ -52,7 +52,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchorCouplet(DLLAnchorItem<TControl> par_itemAnchor)
+        public DLLAnchorCouplet(DLLAnchorItem_Deprecated<TControl> par_itemAnchor)
         {
             //
             // Added 11/10/2024  
@@ -219,26 +219,26 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLAnchorItem<TControl> GetAnchorItem()
+        public DLLAnchorItem_Deprecated<TControl> GetAnchorItem()
         {
             //
             // Create the Anchor Item which is equivalent to this Anchor Couplet.
             //
-            DLLAnchorItem<TControl> result; 
+            DLLAnchorItem_Deprecated<TControl> result; 
             if (_itemLeft != null)
             {
-                result = new DLLAnchorItem<TControl>(_itemLeft);
+                result = new DLLAnchorItem_Deprecated<TControl>(_itemLeft);
                 result._doInsertRangeAfterThis = true;
             }
             else if (_itemRight != null)
             {
-                result = new DLLAnchorItem<TControl>(_itemRight);
+                result = new DLLAnchorItem_Deprecated<TControl>(_itemRight);
                 result._doInsertRangeBeforeThis = true;
             }
             else
             {
                 // Added 11/11/2024 
-                result = new DLLAnchorItem<TControl>(true, true);
+                result = new DLLAnchorItem_Deprecated<TControl>(true, true);
             }
             return result;
 

@@ -38,12 +38,14 @@ Partial Class FormWhichTesting
         Label1 = New Label()
         Label2 = New Label()
         LinkDemo1DVertical = New LinkLabel()
+        Label3 = New Label()
+        LinkLabel1 = New LinkLabel()
         SuspendLayout()
         ' 
         ' LinkOperationsManager
         ' 
         LinkOperationsManager.AutoSize = True
-        LinkOperationsManager.Location = New Point(214, 389)
+        LinkOperationsManager.Location = New Point(213, 458)
         LinkOperationsManager.Name = "LinkOperationsManager"
         LinkOperationsManager.Size = New Size(472, 15)
         LinkOperationsManager.TabIndex = 0
@@ -53,7 +55,7 @@ Partial Class FormWhichTesting
         ' LinkFormManagesOps
         ' 
         LinkFormManagesOps.AutoSize = True
-        LinkFormManagesOps.Location = New Point(214, 363)
+        LinkFormManagesOps.Location = New Point(213, 432)
         LinkFormManagesOps.Name = "LinkFormManagesOps"
         LinkFormManagesOps.Size = New Size(231, 15)
         LinkFormManagesOps.TabIndex = 1
@@ -63,7 +65,7 @@ Partial Class FormWhichTesting
         ' LinkOpsManagerTwoLists
         ' 
         LinkOpsManagerTwoLists.AutoSize = True
-        LinkOpsManagerTwoLists.Location = New Point(214, 413)
+        LinkOpsManagerTwoLists.Location = New Point(213, 482)
         LinkOpsManagerTwoLists.Name = "LinkOpsManagerTwoLists"
         LinkOpsManagerTwoLists.Size = New Size(325, 15)
         LinkOpsManagerTwoLists.TabIndex = 2
@@ -73,7 +75,7 @@ Partial Class FormWhichTesting
         ' LinkLabelCSharpSimple1D
         ' 
         LinkLabelCSharpSimple1D.AutoSize = True
-        LinkLabelCSharpSimple1D.Location = New Point(23, 111)
+        LinkLabelCSharpSimple1D.Location = New Point(61, 247)
         LinkLabelCSharpSimple1D.Name = "LinkLabelCSharpSimple1D"
         LinkLabelCSharpSimple1D.Size = New Size(476, 15)
         LinkLabelCSharpSimple1D.TabIndex = 3
@@ -85,7 +87,7 @@ Partial Class FormWhichTesting
         ' 
         Label1ProbablyObselete.AutoSize = True
         Label1ProbablyObselete.Font = New Font("Segoe UI", 9F, FontStyle.Underline)
-        Label1ProbablyObselete.Location = New Point(199, 331)
+        Label1ProbablyObselete.Location = New Point(198, 400)
         Label1ProbablyObselete.Name = "Label1ProbablyObselete"
         Label1ProbablyObselete.Size = New Size(369, 15)
         Label1ProbablyObselete.TabIndex = 4
@@ -94,7 +96,7 @@ Partial Class FormWhichTesting
         ' LinkLabelSimpleBackup1D
         ' 
         LinkLabelSimpleBackup1D.AutoSize = True
-        LinkLabelSimpleBackup1D.Location = New Point(62, 193)
+        LinkLabelSimpleBackup1D.Location = New Point(61, 262)
         LinkLabelSimpleBackup1D.Name = "LinkLabelSimpleBackup1D"
         LinkLabelSimpleBackup1D.Size = New Size(479, 15)
         LinkLabelSimpleBackup1D.TabIndex = 5
@@ -105,7 +107,7 @@ Partial Class FormWhichTesting
         ' LinkSimpleDemo1DHorizontal
         ' 
         LinkSimpleDemo1DHorizontal.AutoSize = True
-        LinkSimpleDemo1DHorizontal.Location = New Point(34, 218)
+        LinkSimpleDemo1DHorizontal.Location = New Point(33, 287)
         LinkSimpleDemo1DHorizontal.Name = "LinkSimpleDemo1DHorizontal"
         LinkSimpleDemo1DHorizontal.Size = New Size(534, 15)
         LinkSimpleDemo1DHorizontal.TabIndex = 6
@@ -116,7 +118,7 @@ Partial Class FormWhichTesting
         ' Link1Dmode2Dmanager
         ' 
         Link1Dmode2Dmanager.AutoSize = True
-        Link1Dmode2Dmanager.Location = New Point(34, 247)
+        Link1Dmode2Dmanager.Location = New Point(33, 316)
         Link1Dmode2Dmanager.Name = "Link1Dmode2Dmanager"
         Link1Dmode2Dmanager.Size = New Size(390, 15)
         Link1Dmode2Dmanager.TabIndex = 7
@@ -127,7 +129,7 @@ Partial Class FormWhichTesting
         ' LabelFormSimpleDemoOfCSharp1D
         ' 
         LabelFormSimpleDemoOfCSharp1D.AutoSize = True
-        LabelFormSimpleDemoOfCSharp1D.Location = New Point(519, 111)
+        LabelFormSimpleDemoOfCSharp1D.Location = New Point(543, 247)
         LabelFormSimpleDemoOfCSharp1D.Name = "LabelFormSimpleDemoOfCSharp1D"
         LabelFormSimpleDemoOfCSharp1D.Size = New Size(168, 15)
         LabelFormSimpleDemoOfCSharp1D.TabIndex = 8
@@ -137,7 +139,7 @@ Partial Class FormWhichTesting
         ' LabelFormSimpleDemo1DBackup
         ' 
         LabelFormSimpleDemo1DBackup.AutoSize = True
-        LabelFormSimpleDemo1DBackup.Location = New Point(546, 193)
+        LabelFormSimpleDemo1DBackup.Location = New Point(551, 262)
         LabelFormSimpleDemo1DBackup.Name = "LabelFormSimpleDemo1DBackup"
         LabelFormSimpleDemo1DBackup.Size = New Size(161, 15)
         LabelFormSimpleDemo1DBackup.TabIndex = 9
@@ -147,7 +149,7 @@ Partial Class FormWhichTesting
         ' LabelFormSimpleDemo1DHorizontal
         ' 
         LabelFormSimpleDemo1DHorizontal.AutoSize = True
-        LabelFormSimpleDemo1DHorizontal.Location = New Point(573, 218)
+        LabelFormSimpleDemo1DHorizontal.Location = New Point(578, 287)
         LabelFormSimpleDemo1DHorizontal.Name = "LabelFormSimpleDemo1DHorizontal"
         LabelFormSimpleDemo1DHorizontal.Size = New Size(172, 15)
         LabelFormSimpleDemo1DHorizontal.TabIndex = 10
@@ -157,7 +159,7 @@ Partial Class FormWhichTesting
         ' LabelForm1Dmode2Dmanager
         ' 
         LabelForm1Dmode2Dmanager.AutoSize = True
-        LabelForm1Dmode2Dmanager.Location = New Point(435, 247)
+        LabelForm1Dmode2Dmanager.Location = New Point(440, 316)
         LabelForm1Dmode2Dmanager.Name = "LabelForm1Dmode2Dmanager"
         LabelForm1Dmode2Dmanager.Size = New Size(141, 15)
         LabelForm1Dmode2Dmanager.TabIndex = 11
@@ -179,7 +181,7 @@ Partial Class FormWhichTesting
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI", 16F)
-        Label1.Location = New Point(153, 286)
+        Label1.Location = New Point(152, 355)
         Label1.Name = "Label1"
         Label1.Size = New Size(598, 30)
         Label1.TabIndex = 13
@@ -189,7 +191,7 @@ Partial Class FormWhichTesting
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(562, 135)
+        Label2.Location = New Point(551, 140)
         Label2.Name = "Label2"
         Label2.Size = New Size(119, 15)
         Label2.TabIndex = 15
@@ -200,7 +202,7 @@ Partial Class FormWhichTesting
         ' 
         LinkDemo1DVertical.AutoSize = True
         LinkDemo1DVertical.Font = New Font("Segoe UI", 13F)
-        LinkDemo1DVertical.Location = New Point(23, 135)
+        LinkDemo1DVertical.Location = New Point(23, 134)
         LinkDemo1DVertical.Name = "LinkDemo1DVertical"
         LinkDemo1DVertical.Size = New Size(517, 25)
         LinkDemo1DVertical.TabIndex = 14
@@ -208,11 +210,35 @@ Partial Class FormWhichTesting
         LinkDemo1DVertical.Tag = "FormSimpleDemo1DHorizontal"
         LinkDemo1DVertical.Text = "1-Dimensional version -- Subclassed (Vertical) -- Form1DVertical"
         ' 
+        ' Label3
+        ' 
+        Label3.AutoSize = True
+        Label3.Location = New Point(440, 165)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(85, 15)
+        Label3.TabIndex = 17
+        Label3.Tag = "FormSimple2D"
+        Label3.Text = "FormSimple2D"
+        ' 
+        ' LinkLabel1
+        ' 
+        LinkLabel1.AutoSize = True
+        LinkLabel1.Font = New Font("Segoe UI", 13F)
+        LinkLabel1.Location = New Point(23, 159)
+        LinkLabel1.Name = "LinkLabel1"
+        LinkLabel1.Size = New Size(384, 25)
+        LinkLabel1.TabIndex = 16
+        LinkLabel1.TabStop = True
+        LinkLabel1.Tag = "FormSimpleDemo1DHorizontal"
+        LinkLabel1.Text = "Simple 2-Dimensional version - FormSimple2D"
+        ' 
         ' FormWhichTesting
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(800, 538)
+        Controls.Add(Label3)
+        Controls.Add(LinkLabel1)
         Controls.Add(Label2)
         Controls.Add(LinkDemo1DVertical)
         Controls.Add(Label1)
@@ -251,4 +277,6 @@ Partial Class FormWhichTesting
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents LinkDemo1DVertical As LinkLabel
+    Friend WithEvents Label3 As Label
+    Friend WithEvents LinkLabel1 As LinkLabel
 End Class

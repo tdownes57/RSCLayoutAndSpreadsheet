@@ -27,6 +27,15 @@ namespace RSCLibraryDLLOperations
         //   This manager class will manage the rows & columns (& row headers) of a spreadsheet.---5/16/2025 
         //
 
+        private DLLOperation_2D_Indexed mod_firstPriorOperation;
+        private DLLOperation_2D_Indexed mod_lastPriorOperation;
+
+
+
+
+
+
+
 
 
 
