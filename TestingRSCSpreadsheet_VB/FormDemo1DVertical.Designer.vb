@@ -39,8 +39,8 @@ Partial Class FormDemo1DVertical
         buttonMoveShiftLeft = New Button()
         LinkClearRecordedOps = New LinkLabel()
         labelNumOperations = New Label()
-        buttonUndo = New Button()
-        buttonReDo = New Button()
+        buttonUndoVertical = New Button()
+        buttonRedoVertical = New Button()
         Label5 = New Label()
         Label4 = New Label()
         textboxMoveRange = New TextBox()
@@ -84,6 +84,8 @@ Partial Class FormDemo1DVertical
         richtextItemsDisplay = New RichTextBox()
         DllUserControlRichbox1 = New DLLUserControlRichbox()
         checkOperateUponListA = New CheckBox()
+        buttonUndoAnyOperation = New Button()
+        buttonMoveColumnB = New Button()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -102,11 +104,11 @@ Partial Class FormDemo1DVertical
         ' ButtonSortBackward
         ' 
         ButtonSortBackward.BackColor = Color.Cyan
-        ButtonSortBackward.Location = New Point(1061, 295)
+        ButtonSortBackward.Location = New Point(976, 305)
         ButtonSortBackward.Name = "ButtonSortBackward"
-        ButtonSortBackward.Size = New Size(112, 39)
+        ButtonSortBackward.Size = New Size(172, 39)
         ButtonSortBackward.TabIndex = 141
-        ButtonSortBackward.Text = "Backward"
+        ButtonSortBackward.Text = "Backward Vertical Sort"
         ButtonSortBackward.UseVisualStyleBackColor = False
         ' 
         ' LinkRefreshFirstItem
@@ -142,11 +144,11 @@ Partial Class FormDemo1DVertical
         ' ButtonSortForward
         ' 
         ButtonSortForward.BackColor = Color.Cyan
-        ButtonSortForward.Location = New Point(991, 260)
+        ButtonSortForward.Location = New Point(876, 260)
         ButtonSortForward.Name = "ButtonSortForward"
-        ButtonSortForward.Size = New Size(137, 39)
+        ButtonSortForward.Size = New Size(252, 39)
         ButtonSortForward.TabIndex = 137
-        ButtonSortForward.Text = "Sort Items Forward"
+        ButtonSortForward.Text = "Sort Items Forward (Vertical Sort)"
         ButtonSortForward.UseVisualStyleBackColor = False
         ' 
         ' GroupMoveByAnchor
@@ -258,42 +260,42 @@ Partial Class FormDemo1DVertical
         ' LinkClearRecordedOps
         ' 
         LinkClearRecordedOps.AutoSize = True
-        LinkClearRecordedOps.Location = New Point(1057, 113)
+        LinkClearRecordedOps.Location = New Point(976, 75)
         LinkClearRecordedOps.Name = "LinkClearRecordedOps"
-        LinkClearRecordedOps.Size = New Size(143, 15)
+        LinkClearRecordedOps.Size = New Size(134, 15)
         LinkClearRecordedOps.TabIndex = 134
         LinkClearRecordedOps.TabStop = True
-        LinkClearRecordedOps.Text = "Clear recorded operations"
+        LinkClearRecordedOps.Text = "Clear vertical operations"
         ' 
         ' labelNumOperations
         ' 
         labelNumOperations.BorderStyle = BorderStyle.FixedSingle
-        labelNumOperations.Location = New Point(991, 161)
+        labelNumOperations.Location = New Point(910, 123)
         labelNumOperations.Name = "labelNumOperations"
-        labelNumOperations.Size = New Size(182, 45)
+        labelNumOperations.Size = New Size(254, 21)
         labelNumOperations.TabIndex = 133
         labelNumOperations.Tag = "Number of ops: {0}"
-        labelNumOperations.Text = "Number of ops recorded: 0"
+        labelNumOperations.Text = "Number of vertical ops recorded: 0"
         ' 
-        ' buttonUndo
+        ' buttonUndoVertical
         ' 
-        buttonUndo.Enabled = False
-        buttonUndo.Location = New Point(991, 130)
-        buttonUndo.Name = "buttonUndo"
-        buttonUndo.Size = New Size(114, 27)
-        buttonUndo.TabIndex = 132
-        buttonUndo.Text = "<<< Undo"
-        buttonUndo.UseVisualStyleBackColor = True
+        buttonUndoVertical.Enabled = False
+        buttonUndoVertical.Location = New Point(891, 92)
+        buttonUndoVertical.Name = "buttonUndoVertical"
+        buttonUndoVertical.Size = New Size(133, 28)
+        buttonUndoVertical.TabIndex = 132
+        buttonUndoVertical.Text = "<<< Undo Vertical"
+        buttonUndoVertical.UseVisualStyleBackColor = True
         ' 
-        ' buttonReDo
+        ' buttonRedoVertical
         ' 
-        buttonReDo.Enabled = False
-        buttonReDo.Location = New Point(1111, 131)
-        buttonReDo.Name = "buttonReDo"
-        buttonReDo.Size = New Size(86, 27)
-        buttonReDo.TabIndex = 131
-        buttonReDo.Text = "Re-do >>>"
-        buttonReDo.UseVisualStyleBackColor = True
+        buttonRedoVertical.Enabled = False
+        buttonRedoVertical.Location = New Point(1030, 93)
+        buttonRedoVertical.Name = "buttonRedoVertical"
+        buttonRedoVertical.Size = New Size(134, 27)
+        buttonRedoVertical.TabIndex = 131
+        buttonRedoVertical.Text = "Re-do vertical >>>"
+        buttonRedoVertical.UseVisualStyleBackColor = True
         ' 
         ' Label5
         ' 
@@ -748,11 +750,33 @@ Partial Class FormDemo1DVertical
         checkOperateUponListA.Text = "Operate / Execute to List A (as well as B1, B2, B3)"
         checkOperateUponListA.UseVisualStyleBackColor = True
         ' 
+        ' buttonUndoAnyOperation
+        ' 
+        buttonUndoAnyOperation.Enabled = False
+        buttonUndoAnyOperation.Location = New Point(934, 150)
+        buttonUndoAnyOperation.Name = "buttonUndoAnyOperation"
+        buttonUndoAnyOperation.Size = New Size(214, 28)
+        buttonUndoAnyOperation.TabIndex = 158
+        buttonUndoAnyOperation.Text = "<<< Undo Any Operation"
+        buttonUndoAnyOperation.UseVisualStyleBackColor = True
+        ' 
+        ' buttonMoveColumnB
+        ' 
+        buttonMoveColumnB.BackColor = Color.Cyan
+        buttonMoveColumnB.Location = New Point(662, 306)
+        buttonMoveColumnB.Name = "buttonMoveColumnB"
+        buttonMoveColumnB.Size = New Size(293, 39)
+        buttonMoveColumnB.TabIndex = 159
+        buttonMoveColumnB.Text = "NEW!!  Move first B column to the far right."
+        buttonMoveColumnB.UseVisualStyleBackColor = False
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1227, 504)
+        Controls.Add(buttonMoveColumnB)
+        Controls.Add(buttonUndoAnyOperation)
         Controls.Add(checkOperateUponListA)
         Controls.Add(DllUserControlRichbox1)
         Controls.Add(richtextItemsDisplay)
@@ -771,8 +795,8 @@ Partial Class FormDemo1DVertical
         Controls.Add(GroupMoveByShifting)
         Controls.Add(LinkClearRecordedOps)
         Controls.Add(labelNumOperations)
-        Controls.Add(buttonUndo)
-        Controls.Add(buttonReDo)
+        Controls.Add(buttonUndoVertical)
+        Controls.Add(buttonRedoVertical)
         Controls.Add(Label5)
         Controls.Add(Label4)
         Controls.Add(textboxMoveRange)
@@ -832,8 +856,8 @@ Partial Class FormDemo1DVertical
     Friend WithEvents buttonMoveShiftLeft As Button
     Friend WithEvents LinkClearRecordedOps As LinkLabel
     Friend WithEvents labelNumOperations As Label
-    Friend WithEvents buttonUndo As Button
-    Friend WithEvents buttonReDo As Button
+    Friend WithEvents buttonUndoVertical As Button
+    Friend WithEvents buttonRedoVertical As Button
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents textboxMoveRange As TextBox
@@ -877,4 +901,6 @@ Partial Class FormDemo1DVertical
     Friend WithEvents richtextItemsDisplay As RichTextBox
     Friend WithEvents DllUserControlRichbox1 As DLLUserControlRichbox
     Friend WithEvents checkOperateUponListA As CheckBox
+    Friend WithEvents buttonUndoAnyOperation As Button
+    Friend WithEvents buttonMoveColumnB As Button
 End Class

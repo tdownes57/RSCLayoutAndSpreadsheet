@@ -1125,7 +1125,7 @@ Public Class FormDemo1DVertical
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
         ''Added 11/29/2024 
-        buttonUndo.Enabled = True
+        buttonUndoVertical.Enabled = True
 
 
     End Sub ''eND OF ""Private Sub MoveByShiftingRange""
@@ -1377,7 +1377,7 @@ Public Class FormDemo1DVertical
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
         ''Added 11/29/2024 
-        buttonUndo.Enabled = True
+        buttonUndoVertical.Enabled = True
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -1573,11 +1573,11 @@ Public Class FormDemo1DVertical
         ''Added 11/09/2024
         ''  These two(2) lines are probably not needed. 
         buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonRedoVertical.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -1724,11 +1724,11 @@ Public Class FormDemo1DVertical
 
         ''Added 11/09/2024
         buttonRedoOp.Enabled = True
-        buttonReDo.Enabled = True
+        buttonRedoVertical.Enabled = True
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
@@ -1864,7 +1864,7 @@ Public Class FormDemo1DVertical
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
-        buttonUndo.Enabled = True
+        buttonUndoVertical.Enabled = True
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
@@ -1947,11 +1947,11 @@ Public Class FormDemo1DVertical
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         ''Added 11/10/2024 
         buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonRedoVertical.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_manager.ToString()
@@ -2098,7 +2098,7 @@ Public Class FormDemo1DVertical
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
         ''Added 11/29/2024 
-        buttonUndo.Enabled = True
+        buttonUndoVertical.Enabled = True
 
     End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
 
@@ -2106,7 +2106,7 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonReDo.Click
+    Private Sub buttonReDo_Click(sender As Object, e As EventArgs) Handles buttonRedoVertical.Click
 
         buttonRedoOp.PerformClick()
 
@@ -2117,7 +2117,7 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub buttonUndo_Click(sender As Object, e As EventArgs) Handles buttonUndo.Click
+    Private Sub buttonUndo_Click(sender As Object, e As EventArgs) Handles buttonUndoVertical.Click
 
         buttonUndoLastStep.PerformClick()
 
@@ -2135,10 +2135,10 @@ Public Class FormDemo1DVertical
         mod_manager.ClearAllRecordedOperations()
 
         buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonRedoVertical.Enabled = mod_manager.MarkerHasOperationNext_Redo()
 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
         labelNumOperations.Text = mod_manager.ToString()
 
@@ -2421,7 +2421,7 @@ Public Class FormDemo1DVertical
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
 
 
     End Sub ''End of Private Sub SortingForwardOrBackward 

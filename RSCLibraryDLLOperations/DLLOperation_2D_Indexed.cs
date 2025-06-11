@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
+    /// <summary>
+    /// This operation class is index-only, meaning that it relies on the class DLLOperationIndexStructure.
+    /// </summary>
     internal class DLLOperation_2D_Indexed
     {
 
@@ -15,9 +18,23 @@ namespace RSCLibraryDLLOperations
         private bool mod_bInParallelOrVertical;   // For Row Headers &/or Columns of Data Cells.
         private bool mod_bPerpendicularOrHorizontal;  // For the horizontal arrangement of the Columns. 
 
+        /// <summary>
+        /// What is the operation that occurred prior to the present (this) operation?
+        /// </summary>
         internal DLLOperation_2D_Indexed? mod_opPrior_ForUndo_OfT;
+        /// <summary>
+        /// What is the operation that occurred following the present (this) operation?
+        /// </summary>
         internal DLLOperation_2D_Indexed? mod_opNext_ForRedo_OfT;
+
+        /// <summary>
+        /// This Boolean confirms that there is no following operation, i.e. this operation is the most recent freshly-executed (vs. Undo, Redo) operation.
+        /// </summary>
         internal bool mod_opNextIsNull = false; //Added 4/18/2025 
+
+        /// <summary>
+        /// This  Boolean confirms that there is no prior operation, i.e. this operation is the first of a sequence of operations.
+        /// </summary>
         internal bool mod_opPriorIsNull = false; //Added 4/18/2025 
 
         /// <summary>
