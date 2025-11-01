@@ -253,6 +253,8 @@ namespace RSCLibraryDLLOperations    // Sample of technical writing -- use lines
             {
                 // Read the current item from the array which saves all of the items, in order.
                 currentItem = arrayControls_RestoredOrder[index];  // Use the sort order suffixed "ThisOp".
+                currentItem.DLL_ClearReferenceNext('s');  // Added 11/1/2025
+                currentItem.DLL_ClearReferencePrior('s');  // Added 11/1/2025 
                 priorItem.DLL_SetItemNext_OfT(currentItem, false, DOUBLY_LINK);
 
                 // Prepare for the next iteration of the loop. --12/30/2024

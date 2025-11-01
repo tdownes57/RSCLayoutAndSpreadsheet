@@ -767,7 +767,7 @@ Partial Class FormDemo1DVertical
         buttonMoveColumnB.Name = "buttonMoveColumnB"
         buttonMoveColumnB.Size = New Size(293, 39)
         buttonMoveColumnB.TabIndex = 159
-        buttonMoveColumnB.Text = "NEW!!  Move first B column to the far right."
+        buttonMoveColumnB.Text = "NEW!!  Move leftmost B column to the far right."
         buttonMoveColumnB.UseVisualStyleBackColor = False
         ' 
         ' FormDemo1DVertical

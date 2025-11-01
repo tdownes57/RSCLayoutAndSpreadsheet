@@ -35,8 +35,8 @@ namespace RSCLibraryDLLOperations
         public DLLOperation2D_Composition_NotUsed(DLLOperation1D_Of<TAcross> par_operationAcross)
         {
 
-            mod_operationVertical = par_operationVertical;
-
+            mod_operationAcross = par_operationAcross;
+             
 
         }
 

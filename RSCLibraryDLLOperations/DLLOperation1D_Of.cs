@@ -253,6 +253,12 @@ namespace RSCLibraryDLLOperations
             _arrayIndices_SortOrderRedoThisOp = par_arrayIndices_SortRedo; //  par_arrayIndices_SortRedo;
             _arrayIndices_SortOrderIfUndo = par_arrayIndices_SortIfUndo; // par_arrayIndices_SortUndo;
 
+            // Added 6/24/2025 td
+            this.mod_opNextIsNull = (mod_opNext_ForRedo_OfT == null);
+            this.mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
+            // Added 6/24/2025 td
+            base.mod_opNext_ForRedo = this.mod_opNext_ForRedo;
+            base.mod_opNext_ForRedo = this.mod_opNext_ForRedo;
 
         }
 
@@ -297,6 +303,10 @@ namespace RSCLibraryDLLOperations
             // Added 4/18/2025
             mod_opNextIsNull = par_operation1D_Of.mod_opNextIsNull;
             mod_opPriorIsNull = par_operation1D_Of.mod_opPriorIsNull;
+            
+            // Added 6/24/2025 td
+            //base.mod_opNext_ForRedo = this.mod_opNext_ForRedo;
+            //base.mod_opNext_ForRedo = this.mod_opNext_ForRedo;
 
             // Added 4/23/2025 thomas d.
             _isSort_ByItemValues = par_operation1D_Of._isSort_ByItemValues; // Added 4/23/2025
@@ -414,6 +424,10 @@ namespace RSCLibraryDLLOperations
             mod_opPrior_ForUndo = par_operationPrior;
             mod_opNext_ForRedo = par_operationNext;
 
+            // Added 6/24/2025 td
+            mod_opNextIsNull = (mod_opNext_ForRedo_OfT == null);
+            mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
+
         }
 
 
@@ -458,6 +472,10 @@ namespace RSCLibraryDLLOperations
                 //_anchorCouplet.GetAnchorItem();
             } // end of ""if (_isDelete || _isMove)"" 
 
+            // Added 6/24/2025 td
+            mod_opNextIsNull = (mod_opNext_ForRedo_OfT == null);
+            mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
+
         }
 
 
@@ -480,7 +498,11 @@ namespace RSCLibraryDLLOperations
 
             // Add 4/25/2025 td
             if (par_enum == EnumSortTypes.ByArrayOfItemIndices)
-                _isSort_ByArrayIndexMapping = true; 
+                _isSort_ByArrayIndexMapping = true;
+
+            // Added 6/24/2025 td
+            mod_opNextIsNull = (mod_opNext_ForRedo_OfT == null);
+            mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
 
         }
 
@@ -622,6 +644,9 @@ namespace RSCLibraryDLLOperations
             }
 
 
+            // Added 6/24/2025 td
+            mod_opNextIsNull = (mod_opNext_ForRedo_OfT == null);
+            mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
         }
 
 
@@ -1783,7 +1808,7 @@ namespace RSCLibraryDLLOperations
 
         
 
-        public DLLOperation1D_Of<T_DLLItem> DLL_GetOpPrior_OfT()
+        public DLLOperation1D_Of<T_DLLItem>? DLL_GetOpPrior_OfT()
         {
             // Added 12/02/2024 
             //
@@ -2066,6 +2091,9 @@ namespace RSCLibraryDLLOperations
             //    12/02/2024 th.omas do.wnes 
             //
             mod_opNext_ForRedo_OfT = null;
+
+            // Added 6/24/2025 td
+            mod_opNextIsNull = true; //Added 6/24/2025 td
 
             // Added 12/02/2024
             base.mod_opNext_ForRedo = null;

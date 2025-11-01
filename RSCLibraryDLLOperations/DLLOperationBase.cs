@@ -17,6 +17,7 @@ namespace RSCLibraryDLLOperations
 
         internal DLLOperationBase? mod_opPrior_ForUndo = null;
         internal DLLOperationBase? mod_opNext_ForRedo = null;
+
         private bool mod_opNextIsNull = false; // Added 4/18/2025
         private bool mod_opPriorIsNull = false; // Added 4/18/2025
 
@@ -148,6 +149,21 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_CheckTermination_Prior()
+        {
+            //
+            // Added 11/01/2025 
+            //
+            if (mod_opPrior_ForUndo == null) //Added 4/18/2025 td
+            {
+                // Added 4/18/2025 td
+                bool bConfirmedNull = mod_opPriorIsNull;
+                if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
+                //return false;
+            }
+        }
+
+
         public void DLL_ClearOpPrior()
         {
             //
@@ -241,7 +257,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public int DLL_CountAllOpsInTheList()
+        public virtual int DLL_CountAllOpsInTheList()
         {
             //
             // Added 04/18/2025  

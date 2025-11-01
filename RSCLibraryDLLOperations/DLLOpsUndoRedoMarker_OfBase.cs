@@ -21,6 +21,75 @@ namespace RSCLibraryDLLOperations
         //                                               <----------------||----------------->
         //                                               <---Undo-button--||-- Redo button--->
         //                                               <----------------||----------------->
+        //
+        // User-case illustrations of the moveable, user-controlled undo-redo marker:
+        //
+        // User-Case #1 of 6
+        //       <---------------------------------------------------------->
+        //       <----- Undo-Redo Marker (may be a Null object) ------------>
+        //       <---------------------------------------------------------->
+        //         (No operations have been done. Perhaps the Marker is Null.)
+        //
+        // User-Case #2 of 6  User has executed an initial insert operation, no other
+        //    operations been executed, undone, or redone).
+        //       <----------------------------------->
+        //       <----- Undo-Redo Marker ------------>
+        //       <----------------------------------->
+        //      o1_OperationInsert
+        //       <----------------||----------------->
+        //       <---Undo-button--||-- Redo button--->
+        //       <----------------||----------------->
+        //
+        // User-Case #3 of 6  User has executed two operations, an insert & delete.
+        //                          <----------------------------------->
+        //                          <----- Undo-Redo Marker ------------>
+        //                          <----------------------------------->
+        //      o1_OperationInsert,  o2_OperationDelete
+        //                          <------------------||----------------->
+        //                          <---Undo-button----||-- Redo button--->
+        //                          <------------------||----------------->
+        //
+        // User-Case #4 of 6  User has executed three(3) operations, and pressed
+        //     the Undo button two(2) times.
+        //      <-------------------------------------->
+        //      <-------- Undo-Redo Marker ------------>
+        //      <-------------------------------------->
+        //      o1_OperationInsert,  o2_OperationDelete, o3_OperationMove
+        //      <------------------||------------------>
+        //      <----Undo-button---||--- Redo button--->
+        //      <------------------||------------------>
+        //
+        // User-Case #5 of 6  User has executed one(1) operation, and pressed the Undo 
+        //      button one(1) time.
+        //       <----------------------------------->
+        //       <----- Undo-Redo Marker ------------>
+        //       <----------------------------------->
+        //                          o1_OperationInsert
+        //       <----------------||----------------->
+        //       <---Undo-button--||-- Redo button--->
+        //       <----------------||----------------->
+        //
+        // User-Case #6 of 6  User has executed one(1) operation, pressed the Undo 
+        //      button one(1) time, and lastly has performed a new (& possibly unique)
+        //      insert operation, o2_OperationInsert.
+        //       <----------------------------------->
+        //       <----- Undo-Redo Marker ------------>
+        //       <----------------------------------->
+        //       o2_OperationInsert
+        //       <-----------------||----------------->
+        //       <---Undo-button---||-- Redo button--->
+        //       <-----------------||----------------->
+        //
+        // User-Case #7 of 6  User has executed six(6) operations, and pressed
+        //     the Undo button three(3) times.
+        //                                               <----------------------------------->
+        //                                               <----- Undo-Redo Marker ------------>
+        //  List of recorded operations:                 <----------------------------------->
+        //      o1_OperationInsert,  o2_OperationDelete, o3_OperationMove,  o4_OperationInsert, o5_OperationDelete, o6_OperationInsert
+        //                                               <----------------||----------------->
+        //                                               <---Undo-button--||-- Redo button--->
+        //                                               <----------------||----------------->
+        //
 
         //
 

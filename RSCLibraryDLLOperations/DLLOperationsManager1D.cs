@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Security;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,7 +71,66 @@ namespace RSCLibraryDLLOperations
         private DLLRange<T_DLLParallel>[]? mod_arrayOfParallelRangesToDelete;
 
         //
-        // As illustration of the moveable, user-controlled undo-redo marker:
+        // User-case illustrations of the moveable, user-controlled undo-redo marker:
+        //
+        // User-Case #1 of 6
+        //       <---------------------------------------------------------->
+        //       <----- Undo-Redo Marker (may be a Null object) ------------>
+        //       <---------------------------------------------------------->
+        //         (No operations have been done. Perhaps the Marker is Null.)
+        //
+        // User-Case #2 of 6  User has executed an initial insert operation, no other
+        //    operations been executed, undone, or redone).
+        //       <----------------------------------->
+        //       <----- Undo-Redo Marker ------------>
+        //       <----------------------------------->
+        //      o1_OperationInsert
+        //       <----------------||----------------->
+        //       <---Undo-button--||-- Redo button--->
+        //       <----------------||----------------->
+        //
+        // User-Case #3 of 6  User has executed two operations, an insert & delete.
+        //                          <----------------------------------->
+        //                          <----- Undo-Redo Marker ------------>
+        //                          <----------------------------------->
+        //      o1_OperationInsert,  o2_OperationDelete
+        //                          <------------------||----------------->
+        //                          <---Undo-button----||-- Redo button--->
+        //                          <------------------||----------------->
+        //
+        // User-Case #4 of 6  User has executed three(3) operations, and pressed
+        //     the Undo button two(2) times.
+        //      <-------------------------------------->
+        //      <-------- Undo-Redo Marker ------------>
+        //      <-------------------------------------->
+        //      o1_OperationInsert,  o2_OperationDelete, o3_OperationMove
+        //      <------------------||------------------>
+        //      <----Undo-button---||--- Redo button--->
+        //      <------------------||------------------>
+        //
+        // User-Case #5 of 6  User has executed one(1) operation, and pressed the Undo 
+        //      button one(1) time.
+        //       <----------------------------------->
+        //       <----- Undo-Redo Marker ------------>
+        //       <----------------------------------->
+        //                          o1_OperationInsert
+        //       <----------------||----------------->
+        //       <---Undo-button--||-- Redo button--->
+        //       <----------------||----------------->
+        //
+        // User-Case #6 of 6  User has executed one(1) operation, pressed the Undo 
+        //      button one(1) time, and lastly has performed a new (& possibly unique)
+        //      insert operation, o2_OperationInsert.
+        //       <----------------------------------->
+        //       <----- Undo-Redo Marker ------------>
+        //       <----------------------------------->
+        //       o2_OperationInsert
+        //       <-----------------||----------------->
+        //       <---Undo-button---||-- Redo button--->
+        //       <-----------------||----------------->
+        //
+        // User-Case #7 of 6  User has executed six(6) operations, and pressed
+        //     the Undo button three(3) times.
         //                                               <----------------------------------->
         //                                               <----- Undo-Redo Marker ------------>
         //  List of recorded operations:                 <----------------------------------->
@@ -505,8 +565,13 @@ namespace RSCLibraryDLLOperations
                 RecordNewestOperation(parOperation);
 
 
-            } 
-        
+            }
+
+            //
+            // Check for proper termination.
+            //
+            mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
+
         }
 
 
@@ -669,6 +734,22 @@ namespace RSCLibraryDLLOperations
 
             }
 
+            //
+            // Check for proper termination. ---11/2025 
+            //
+            mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
+
+
+        }
+
+
+        public void CheckTermination()
+        {
+            //
+            // Check for proper termination.---11/2025
+            //
+            mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
+
         }
 
 
@@ -741,6 +822,9 @@ namespace RSCLibraryDLLOperations
                     mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo_OfOf();
                     mod_lastPriorOperation1D?.DLL_ClearOpNext();
                     mod_opUndoRedoMarker.ClearPendingRedoOperation();
+
+                    // Added 11/01/2025 td
+                    mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
 
                 }
 
@@ -827,6 +911,9 @@ namespace RSCLibraryDLLOperations
                 //
                 mod_firstPriorOperation1D.DLL_MarkStartOfList();
                 mod_lastPriorOperation1D.DLL_MarkEndOfList();
+
+                // Added 11/01/2025 
+                mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
 
                 //
                 // Testing!!  
@@ -1354,6 +1441,13 @@ namespace RSCLibraryDLLOperations
             //
             // Added 11/29/2024 
             //
+            // First, if applicable, check that the Redo Marker is at the beginning.--11/1/2025
+            if (mod_opUndoRedoMarker.HasOperationPrior_ForUndo())
+            {
+                // First, check that the Redo Marker is at the beginning.--11/1/2025
+                mod_opUndoRedoMarker.CheckTermination_Prior();
+            }
+
             return mod_opUndoRedoMarker.ToString(par_operation);
 
         }

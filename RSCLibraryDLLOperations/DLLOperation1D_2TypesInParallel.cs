@@ -542,6 +542,31 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public override int DLL_CountAllOpsInTheList()
+        {
+            //
+            // Added 6/24/2025 thomas downes  
+            //
+            int result_count = 0;
+
+            // Please note, "After" and "Next" are synonyms.  
+            //    So, "2 comes after 1" and "2 is the next number after 1"
+            //    means the same thing. 
+            //
+            //DLLOperation1D_2TypesInParallel<THeader, TParallel>? each_operation = DLL_GetOpFirstInList()
+            //    as DLLOperation1D_2TypesInParallel<THeader, TParallel>;
+            DLLOperationBase? each_operation = DLL_GetOpFirstInList()
+                as DLLOperation1D_2TypesInParallel<THeader, TParallel>;
+
+            while (each_operation != null)
+            {
+                result_count++;
+                each_operation = each_operation.DLL_GetOpNext();
+            }
+            return result_count;
+
+
+        }
 
 
 

@@ -16,8 +16,14 @@ Public Class FormDemo1DVertical
     ''
     '' Added 1/18/2025 & 10/14/2024 thomas c. downes 
     ''
-    ''March 2025 Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
-    Private mod_manager As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
+    ''March 2025 Private mod_managerVerticalOps.As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
+    Private mod_managerVerticalOps As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
+
+    ''' <summary>
+    ''' Manager of a list of Operation Index Structures. ---6/11/2025 td
+    ''' </summary>
+    Private mod_managerOperationsByIndexStructures As New DLLOperationsManagerByIndexStructures
+
 
     ''The textbox (versus any of the containers!)
     Private WithEvents mod_listA As DLLList(Of TwoCharacterDLLVerticalA)
@@ -215,11 +221,11 @@ Public Class FormDemo1DVertical
         numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
         numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
 
-        mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
+        mod_managerVerticalOps = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
                 DLLUserControlRichbox)(mod_firstItemA, mod_listA)
 
         ''Added 4/08/2025 thomas d.
-        mod_manager.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Display the list. 
@@ -229,7 +235,7 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
         RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub ''End of ""Private Sub FormSimpleDemoOfCSharp1D_Load""
 
@@ -428,10 +434,10 @@ Public Class FormDemo1DVertical
             operationInitialInsertA.OperateOnParentList(mod_listA, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
-            ''Removed 12/04/2024 mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA,
+            ''Removed 12/04/2024 mod_managerVerticalOps.= New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA,
             ''      mod_listA, operationInitial30)
-            ''March 2025  mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
-            mod_manager = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
+            ''March 2025  mod_managerVerticalOps.= New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
+            mod_managerVerticalOps = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
                 DLLUserControlRichbox)(mod_firstItemA, mod_listA)
 
             ''
@@ -484,7 +490,7 @@ Public Class FormDemo1DVertical
         ''----richtextBenchmark.Text = richtextItemsDisplay.Text
 
         ''Added 12/04/2024 
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub
 
@@ -971,9 +977,9 @@ Public Class FormDemo1DVertical
         ''Added 12/02/2024
         Dim intCountRedos As Integer
         Dim strDialogMessage_Proceed As String
-        intCountRedos = mod_manager.CountOfOperations_QueuedForRedo()
+        intCountRedos = mod_managerVerticalOps.CountOfOperations_QueuedForRedo()
 
-        bManagerHasRedosQueuedUp = mod_manager.AreOneOrMoreOpsToRedo_PerMarker()
+        bManagerHasRedosQueuedUp = mod_managerVerticalOps.AreOneOrMoreOpsToRedo_PerMarker()
 
         If (bManagerHasRedosQueuedUp) Then
 
@@ -1075,7 +1081,7 @@ Public Class FormDemo1DVertical
         currentMoveType.IsMoveToAnchor = False ''Added 12/15/2024 
 
         ''Added 4/08/2025 thomas d.
-        mod_manager.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Added 11/17/2024 thomas downes
@@ -1083,9 +1089,9 @@ Public Class FormDemo1DVertical
         tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, Nothing,
                                False, OPERATION_MOVE, currentMoveType)
         ''operation.OperateOnList(mod_listA)
-        ''Mar2025 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        ''Mar2025 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
         ''   bChangeOfEndpoint_Occurred, True)
-        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
          bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
 
         ''Added 11/18/2024 
@@ -1117,10 +1123,10 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
-        labelNumOperations.Text = mod_manager.ToString(tempOperation)
+        ''Added 12/9/2024  labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString(tempOperation)
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
@@ -1305,17 +1311,21 @@ Public Class FormDemo1DVertical
 
             ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
-            ''Mar2025  mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            ''Mar2025  mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
             ''   bChangeOfEndpoint_PostHoc, True)
 
             ''Added 4/08/2025 thomas d.
-            mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
 
             ''
             '' Major call!!
             ''
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                    bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
+
+            ''Added November 2025 
+            mod_managerVerticalOps.CheckTermination()
+
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
             ''
@@ -1329,13 +1339,13 @@ Public Class FormDemo1DVertical
                                    True, False, null_move)
 
             ''Added 4/08/2025 thomas d.
-            mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
 
             ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
-            ''Mar2025  mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            ''Mar2025  mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
             ''           bChangeOfEndpoint_PostHoc, True)
-            mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                   bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
@@ -1380,10 +1390,10 @@ Public Class FormDemo1DVertical
         buttonUndoVertical.Enabled = True
 
         ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        ''Modified 12/02/2024  labelNumOperations.Text = mod_manager.ToString()
-        labelNumOperations.Text = mod_manager.ToString(operation)
+        ''Modified 12/02/2024  labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString(operation)
 
     End Sub
 
@@ -1420,7 +1430,7 @@ Public Class FormDemo1DVertical
         If (boolUserHasCancelled) Then Exit Sub
 
         ''Added 12/08/2024
-        mod_manager.ClearAnyRedoOperations_IfQueued()
+        mod_managerVerticalOps.ClearAnyRedoOperations_IfQueued()
 
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
         intHowManyInModuleList = mod_listA.DLL_CountAllItems
@@ -1515,10 +1525,10 @@ Public Class FormDemo1DVertical
                                                 stringTwoChars)
 
             ''Added 4/08/2025 thomas d.
-            mod_manager.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
 
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
-            mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+            mod_managerVerticalOps.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_Occurred, True,
                                              operationToInsert_Indices)
 
@@ -1572,17 +1582,17 @@ Public Class FormDemo1DVertical
 
         ''Added 11/09/2024
         ''  These two(2) lines are probably not needed. 
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonRedoVertical.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonRedoOp.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+        buttonRedoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
         ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub ''End of Private Sub buttonInsertSingle_Click() 
 
@@ -1703,7 +1713,7 @@ Public Class FormDemo1DVertical
         bTestingIndexStructure = TestingIndexStructure() ''---2025 checkTestNumericConstructor.Checked
 
         ''Nov10 2024 ''mod_manager.UndoMarkedOperation()
-        mod_manager.UndoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
+        mod_managerVerticalOps.UndoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
 
         ''Added 11/10/2024 
         mod_firstItemA = mod_listA.DLL_GetFirstItem_OfT()
@@ -1727,11 +1737,11 @@ Public Class FormDemo1DVertical
         buttonRedoVertical.Enabled = True
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub
 
@@ -1775,7 +1785,7 @@ Public Class FormDemo1DVertical
         If (boolUserHasCancelled) Then Exit Sub
 
         ''Added 12/08/2024
-        mod_manager.ClearAnyRedoOperations_IfQueued()
+        mod_managerVerticalOps.ClearAnyRedoOperations_IfQueued()
 
         intItemPosition = numDeleteRangeBenchmarkStart.Value
         intHowManyToDelete = numDeleteHowMany.Value
@@ -1830,9 +1840,9 @@ Public Class FormDemo1DVertical
             operationIndicized = operationToDelete.GetOperationIndexStructure()
 
             ''Added 4/08/2025 thomas d.
-            mod_manager.LoadParallelLists(GetParallelLists())
+            mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
 
-            mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
+            mod_managerVerticalOps.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
                                              bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
                                              operationIndicized)
 
@@ -1867,9 +1877,9 @@ Public Class FormDemo1DVertical
         buttonUndoVertical.Enabled = True
 
         ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub ''buttonDelete_Click 
 
@@ -1891,7 +1901,7 @@ Public Class FormDemo1DVertical
         Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
         Dim bTestingIndexStructure As Boolean ''Added 1/14/2025 td
 
-        If (mod_manager.MarkerHasOperationNext_Redo()) Then
+        If (mod_managerVerticalOps.MarkerHasOperationNext_Redo()) Then
             ''
             ''Fine, this is expected. ---Thomas D.
             ''
@@ -1907,7 +1917,7 @@ Public Class FormDemo1DVertical
         ''Major call!!
         ''
         ''---mod_manager.RedoMarkedOperation()
-        mod_manager.RedoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
+        mod_managerVerticalOps.RedoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
 
         ''Added 12/09/2024 & 11/10/2024 (but only on the buttonUndoLastStep_Click handler)
         mod_firstItemA = mod_listA._itemStart
@@ -1918,15 +1928,15 @@ Public Class FormDemo1DVertical
 
         ''''Added 11/09/2024
         ''''buttonRedoOp.Enabled = False
-        ''buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        ''buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        ''buttonRedoOp.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+        ''buttonReDo.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
 
         ''''Added 12/04/2024
-        ''buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        ''buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        ''buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        ''buttonUndo.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
         ''''Added 12/04/2024 
-        ''labelNumOperations.Text = mod_manager.ToString()
+        ''labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
         ''Added 4/14/2025 td
         mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
@@ -1946,15 +1956,15 @@ Public Class FormDemo1DVertical
         ''buttonReDo.Enabled = True
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
         ''Added 11/10/2024 
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonRedoVertical.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonRedoOp.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+        buttonRedoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
 
         ''Added 12/04/2024 
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub
 
@@ -2050,17 +2060,17 @@ Public Class FormDemo1DVertical
         type_is_anchor.IsMoveToAnchor = True ''Added 12/11/2024 
 
         ''Added 4/08/2025 thomas d.
-        mod_manager.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Added 11/17/2024 thomas downes
         ''
         tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
         ''operation.OperateOnList(mod_listA)
-        ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
-        ''03/25/2025 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        ''12/16/2024 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+        ''03/25/2025 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
         ''    bChangeOfEndpoint_Occurred, True)
-        mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+        mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
                                          bChangeOfEndpoint_Occurred, True,
                                          tempOperation.GetOperationIndexStructure())
 
@@ -2090,10 +2100,10 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
-        labelNumOperations.Text = mod_manager.ToString(tempOperation)
+        ''Added 12/9/2024  labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString(tempOperation)
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
@@ -2111,9 +2121,9 @@ Public Class FormDemo1DVertical
         buttonRedoOp.PerformClick()
 
         ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub
 
@@ -2122,9 +2132,9 @@ Public Class FormDemo1DVertical
         buttonUndoLastStep.PerformClick()
 
         ''Added 11/29/2024 
-        ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub
 
@@ -2132,15 +2142,15 @@ Public Class FormDemo1DVertical
         ''
         ''Added 12/4./2024 t..homas d..ownes
         ''
-        mod_manager.ClearAllRecordedOperations()
+        mod_managerVerticalOps.ClearAllRecordedOperations()
 
-        buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        buttonRedoVertical.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        buttonRedoOp.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+        buttonRedoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub
 
@@ -2228,7 +2238,7 @@ Public Class FormDemo1DVertical
     ''    tempOperation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, Nothing,
     ''                                                               False, OPERATION_MOVE, currentMoveType)
     ''    ''operation.OperateOnList(mod_listA)
-    ''    mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
+    ''    mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
     ''
     ''    ''Added 11/18/2024 
     ''    If bChangeOfEndpoint Then
@@ -2240,10 +2250,10 @@ Public Class FormDemo1DVertical
     ''    RefreshTheUI_DisplayList()
     ''
     ''    ''Added 11/29/2024 
-    ''    ''---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+    ''    ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
     ''    ''Modified 12/01/2024
-    ''    ''Added 12/9/2024  labelNumOperations.Text = mod_manager.ToString()
-    ''    labelNumOperations.Text = mod_manager.ToString(tempOperation)
+    ''    ''Added 12/9/2024  labelNumOperations.Text = mod_managerVerticalOps.ToString()
+    ''    labelNumOperations.Text = mod_managerVerticalOps.ToString(tempOperation)
     ''
     ''    ''Added 11/10/2024 
     ''    buttonUndoLastStep.Enabled = True
@@ -2323,10 +2333,10 @@ Public Class FormDemo1DVertical
         End If ''End pf ""If (mod_listB1._isEmpty_OrTreatAsEmpty) Then""
 
         ''Added 12/08/2024
-        mod_manager.ClearAnyRedoOperations_IfQueued()
+        mod_managerVerticalOps.ClearAnyRedoOperations_IfQueued()
 
         ''Added 05/06/2025 & 04/23/205 
-        mod_manager.LoadParallelLists(GetParallelLists())
+        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
 
         ''Added 05/06/2025 
         listParallelToSortByValue = mod_listCurrentWithFocus
@@ -2365,7 +2375,7 @@ Public Class FormDemo1DVertical
             '' Major call!!
             ''
             ''---May2025---mod_manager.ProcessOperation_AnyType(operationSortForward_Parallel,
-            mod_manager.ProcessOperation_ToParallelList(listParallelToSortByValue,
+            mod_managerVerticalOps.ProcessOperation_ToParallelList(listParallelToSortByValue,
                             operationSorting_Parallel,
                             CHANGE_OF_ENDS_EXPECTED,
                             bChangeOfEndpoint_Occurred, True,
@@ -2382,9 +2392,9 @@ Public Class FormDemo1DVertical
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then
                 ''Added 12/23/2024 t))d))
-                ''March 2025  mod_manager.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
+                ''March 2025  mod_managerVerticalOps.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
                 ''              bChangeOfEndpoint_Occurred, True)
-                mod_manager.ProcessOperation_AnyType(operationSorting_Main, CHANGE_OF_ENDS_EXPECTED,
+                mod_managerVerticalOps.ProcessOperation_AnyType(operationSorting_Main, CHANGE_OF_ENDS_EXPECTED,
                        bChangeOfEndpoint_Occurred, True,
                        operationSorting_Main.GetOperationIndexStructure())
 
@@ -2417,11 +2427,11 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 12/29/2024 
-        labelNumOperations.Text = mod_manager.ToString()
+        labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
 
     End Sub ''End of Private Sub SortingForwardOrBackward 
@@ -2456,10 +2466,10 @@ Public Class FormDemo1DVertical
         ''''Added 12/23/2024 t/d/ operationSortBackward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
         ''If (USE_MANAGER) Then
         ''    ''Added 12/23/2024 t))d))
-        ''    ''Mar2025 mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
+        ''    ''Mar2025 mod_managerVerticalOps.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
         ''    ''           bChangeOfEndpoint_Occurred, True)
         ''    ''
-        ''    mod_manager.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
+        ''    mod_managerVerticalOps.ProcessOperation_AnyType(operationSortBackward, CHANGE_OF_ENDS_EXPECTED,
         ''                               bChangeOfEndpoint_Occurred, True,
         ''                               operationSortBackward.GetOperationIndexStructure())
         ''
@@ -2489,17 +2499,17 @@ Public Class FormDemo1DVertical
         ''''Added 11/09/2024
         ''''  These two(2) lines are probably not needed. 
         ''''
-        ''buttonRedoOp.Enabled = mod_manager.MarkerHasOperationNext_Redo()
-        ''buttonReDo.Enabled = mod_manager.MarkerHasOperationNext_Redo()
+        ''buttonRedoOp.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+        ''buttonReDo.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
         ''
         ''''Added 11/10/2024 
-        ''buttonUndoLastStep.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
-        ''buttonUndo.Enabled = mod_manager.MarkerHasOperationPrior_Undo()
+        ''buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        ''buttonUndo.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
         ''
         ''''Added 11/29/2024 
-        ''''    ---labelNumOperations.Text = "Count of operations: " + mod_manager.HowManyOpsAreRecorded()
+        ''''    ---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''''Modified 12/01/2024
-        ''labelNumOperations.Text = mod_manager.ToString()
+        ''labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
     End Sub
 
