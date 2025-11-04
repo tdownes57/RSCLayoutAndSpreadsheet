@@ -36,6 +36,9 @@ namespace RSCLibraryDLLOperations
         //''
         public DateTime ExecutionDate = DateTime.MinValue;  // Added 3/25/2025 
 
+        // Mostly for debugging purposes: 11/2/2025 td
+        public string DescriptionByUser = ""; // Added 11/2/2025 td  
+
         private readonly bool _isHoriz;
         private readonly bool _isVerti;
 

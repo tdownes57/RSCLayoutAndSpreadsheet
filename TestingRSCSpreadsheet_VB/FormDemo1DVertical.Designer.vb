@@ -86,6 +86,7 @@ Partial Class FormDemo1DVertical
         checkOperateUponListA = New CheckBox()
         buttonUndoAnyOperation = New Button()
         buttonMoveColumnB = New Button()
+        chkAddOpDescriptions = New CheckBox()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -272,7 +273,7 @@ Partial Class FormDemo1DVertical
         labelNumOperations.BorderStyle = BorderStyle.FixedSingle
         labelNumOperations.Location = New Point(910, 123)
         labelNumOperations.Name = "labelNumOperations"
-        labelNumOperations.Size = New Size(254, 21)
+        labelNumOperations.Size = New Size(254, 45)
         labelNumOperations.TabIndex = 133
         labelNumOperations.Tag = "Number of ops: {0}"
         labelNumOperations.Text = "Number of vertical ops recorded: 0"
@@ -753,7 +754,7 @@ Partial Class FormDemo1DVertical
         ' buttonUndoAnyOperation
         ' 
         buttonUndoAnyOperation.Enabled = False
-        buttonUndoAnyOperation.Location = New Point(934, 150)
+        buttonUndoAnyOperation.Location = New Point(934, 171)
         buttonUndoAnyOperation.Name = "buttonUndoAnyOperation"
         buttonUndoAnyOperation.Size = New Size(214, 28)
         buttonUndoAnyOperation.TabIndex = 158
@@ -770,11 +771,24 @@ Partial Class FormDemo1DVertical
         buttonMoveColumnB.Text = "NEW!!  Move leftmost B column to the far right."
         buttonMoveColumnB.UseVisualStyleBackColor = False
         ' 
+        ' chkAddOpDescriptions
+        ' 
+        chkAddOpDescriptions.AutoSize = True
+        chkAddOpDescriptions.Checked = True
+        chkAddOpDescriptions.CheckState = CheckState.Checked
+        chkAddOpDescriptions.Location = New Point(984, 475)
+        chkAddOpDescriptions.Name = "chkAddOpDescriptions"
+        chkAddOpDescriptions.Size = New Size(177, 19)
+        chkAddOpDescriptions.TabIndex = 160
+        chkAddOpDescriptions.Text = "Add Op Descriptions by User"
+        chkAddOpDescriptions.UseVisualStyleBackColor = True
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1227, 504)
+        Controls.Add(chkAddOpDescriptions)
         Controls.Add(buttonMoveColumnB)
         Controls.Add(buttonUndoAnyOperation)
         Controls.Add(checkOperateUponListA)
@@ -903,4 +917,5 @@ Partial Class FormDemo1DVertical
     Friend WithEvents checkOperateUponListA As CheckBox
     Friend WithEvents buttonUndoAnyOperation As Button
     Friend WithEvents buttonMoveColumnB As Button
+    Friend WithEvents chkAddOpDescriptions As CheckBox
 End Class

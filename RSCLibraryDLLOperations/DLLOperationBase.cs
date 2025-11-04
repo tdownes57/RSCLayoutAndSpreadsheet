@@ -314,9 +314,11 @@ namespace RSCLibraryDLLOperations
             DLLOperationBase operation_temp1 = this;
             DLLOperationBase? operation_temp2 = null;
             DLLOperationBase operation_output = this;
+            int loopCounter = 0; // Added 11/2/2025
 
             while (operation_temp1.DLL_HasOpPrior())
             {
+                loopCounter++; // Added 11/2/2025
                 operation_temp2 = operation_temp1.DLL_GetOpPrior();
                 bool bIsPriorNotNull = (operation_temp2 != null);  // For the programmer's
                 // edification.   This Boolean will always be true, assuming that

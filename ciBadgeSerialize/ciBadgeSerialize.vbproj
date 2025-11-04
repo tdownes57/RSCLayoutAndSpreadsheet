@@ -70,6 +70,12 @@
     <Compile Include="ClassCycle.vb" />
     <Compile Include="ClassDeserial.vb" />
     <Compile Include="ClassSerial.vb" />
+    <Compile Include="FormInputBox.Designer.vb">
+      <DependentUpon>FormInputBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormInputBox.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SerializableFontByMaxGalkin.vb" />
     <Compile Include="SerializableFontByElad.vb" />
     <Compile Include="FontXmlConverter.vb" />
@@ -91,6 +97,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormInputBox.resx">
+      <DependentUpon>FormInputBox.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>

@@ -24,13 +24,14 @@ namespace RSCLibraryDLLOperations
         //
         // User-case illustrations of the moveable, user-controlled undo-redo marker:
         //
-        // User-Case #1 of 6
+        // User-Case #1 of 8
         //       <---------------------------------------------------------->
         //       <----- Undo-Redo Marker (may be a Null object) ------------>
         //       <---------------------------------------------------------->
         //         (No operations have been done. Perhaps the Marker is Null.)
+        //       <---------------------------------------------------------->
         //
-        // User-Case #2 of 6  User has executed an initial insert operation, no other
+        // User-Case #2 of 8  User has executed an initial insert operation, no other
         //    operations been executed, undone, or redone).
         //       <----------------------------------->
         //       <----- Undo-Redo Marker ------------>
@@ -40,7 +41,17 @@ namespace RSCLibraryDLLOperations
         //       <---Undo-button--||-- Redo button--->
         //       <----------------||----------------->
         //
-        // User-Case #3 of 6  User has executed two operations, an insert & delete.
+        // User-Case #3 of 8  User has executed an initial insert operation, and then
+        //       pressed the "Undo" button.
+        //       <----------------------------------->
+        //       <----- Undo-Redo Marker ------------>
+        //       <----------------------------------->
+        //                          o1_OperationInsert
+        //       <----------------||----------------->
+        //       <---Undo-button--||-- Redo button--->
+        //       <----------------||----------------->
+        //
+        // User-Case #4 of 8  User has executed two operations, an insert & delete.
         //                          <----------------------------------->
         //                          <----- Undo-Redo Marker ------------>
         //                          <----------------------------------->
@@ -49,7 +60,7 @@ namespace RSCLibraryDLLOperations
         //                          <---Undo-button----||-- Redo button--->
         //                          <------------------||----------------->
         //
-        // User-Case #4 of 6  User has executed three(3) operations, and pressed
+        // User-Case #5 of 8  User has executed three(3) operations, and pressed
         //     the Undo button two(2) times.
         //      <-------------------------------------->
         //      <-------- Undo-Redo Marker ------------>
@@ -59,8 +70,8 @@ namespace RSCLibraryDLLOperations
         //      <----Undo-button---||--- Redo button--->
         //      <------------------||------------------>
         //
-        // User-Case #5 of 6  User has executed one(1) operation, and pressed the Undo 
-        //      button one(1) time.
+        // User-Case #6 of 8  User has executed one(1) operation, and pressed the Undo 
+        //      button one(1) time.  Oops, this is a repeat of User-Case #3 of 8.
         //       <----------------------------------->
         //       <----- Undo-Redo Marker ------------>
         //       <----------------------------------->
@@ -69,7 +80,7 @@ namespace RSCLibraryDLLOperations
         //       <---Undo-button--||-- Redo button--->
         //       <----------------||----------------->
         //
-        // User-Case #6 of 6  User has executed one(1) operation, pressed the Undo 
+        // User-Case #7 of 8  User has executed one(1) operation, pressed the Undo 
         //      button one(1) time, and lastly has performed a new (& possibly unique)
         //      insert operation, o2_OperationInsert.
         //       <----------------------------------->
@@ -80,7 +91,7 @@ namespace RSCLibraryDLLOperations
         //       <---Undo-button---||-- Redo button--->
         //       <-----------------||----------------->
         //
-        // User-Case #7 of 6  User has executed six(6) operations, and pressed
+        // User-Case #8 of 8  User has executed six(6) operations, and pressed
         //     the Undo button three(3) times.
         //                                               <----------------------------------->
         //                                               <----- Undo-Redo Marker ------------>
@@ -90,9 +101,6 @@ namespace RSCLibraryDLLOperations
         //                                               <---Undo-button--||-- Redo button--->
         //                                               <----------------||----------------->
         //
-
-        //
-
         //
         //    1D = 1 dimension, simply a list
         //            (versus a 2-dimensional grid)

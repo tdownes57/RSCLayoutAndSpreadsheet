@@ -1445,7 +1445,14 @@ namespace RSCLibraryDLLOperations
             if (mod_opUndoRedoMarker.HasOperationPrior_ForUndo())
             {
                 // First, check that the Redo Marker is at the beginning.--11/1/2025
-                mod_opUndoRedoMarker.CheckTermination_Prior();
+                if (mod_lastPriorOperation1D != null)
+                {
+                    //
+                    // Debugging!!!
+                    //
+                    mod_opUndoRedoMarker.CheckTermination_Prior(mod_lastPriorOperation1D);
+                    mod_opUndoRedoMarker.CheckTermination_Prior();
+                }
             }
 
             return mod_opUndoRedoMarker.ToString(par_operation);

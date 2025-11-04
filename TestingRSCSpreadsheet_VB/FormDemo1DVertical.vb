@@ -1137,6 +1137,20 @@ Public Class FormDemo1DVertical
     End Sub ''eND OF ""Private Sub MoveByShiftingRange""
 
 
+    Private Sub AddDescriptionForOpByUser(param_operation As DLLOperation1D_2TypesInParallel(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox))
+        ''
+        ''Added 11/3/2025 thomas d.
+        ''
+        If (chkAddOpDescriptions.Checked) Then
+
+            param_operation.DescriptionByUser =
+                MessageBoxTD.InputBox("Please enter a description for this Insert-Multiple operation:",
+                                        "User Description for Operation")
+
+        End If
+        ''AddDescriptByUser(operation)
+
+    End Sub ''Private Sub AddDescriptionForOpByUser
 
 
     Private Sub buttonInsertMulti_Click(sender As Object, e As EventArgs) Handles buttonInsertMultiple.Click
@@ -1316,6 +1330,14 @@ Public Class FormDemo1DVertical
 
             ''Added 4/08/2025 thomas d.
             mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+
+            ''Added 11/03/2025 td 
+            ''If (chkAddOpDescriptions.Checked) Then
+            ''    operation.DescriptionByUser =
+            ''        MessageBoxTD.InputBox("Please enter a description for this Insert-Multiple operation:",
+            ''                                "User Description for Operation")
+            ''End If
+            AddDescriptionForOpByUser(operation)
 
             ''
             '' Major call!!
