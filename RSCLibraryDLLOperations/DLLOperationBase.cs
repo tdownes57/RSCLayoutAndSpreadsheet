@@ -15,11 +15,16 @@ namespace RSCLibraryDLLOperations
         //--private DLLOperationBase? mod_opPrior = null;
         //--private DLLOperationBase? mod_opNext = null;
 
+        // Mostly for debugging purposes: 11/2/2025 td
+        public string DescriptionByUser = ""; // Added 11/2/2025 td  
+
         internal DLLOperationBase? mod_opPrior_ForUndo = null;
         internal DLLOperationBase? mod_opNext_ForRedo = null;
 
-        private bool mod_opNextIsNull = false; // Added 4/18/2025
-        private bool mod_opPriorIsNull = false; // Added 4/18/2025
+        //private bool mod_opNextIsNull = false; // Added 4/18/2025
+        //private bool mod_opPriorIsNull = false; // Added 4/18/2025
+        internal bool mod_opNextIsNull = false; // Added 4/18/2025
+        internal bool mod_opPriorIsNull = false; // Added 4/18/2025
 
 
         public void OperateOnList<TSpecific>(DLLList<TSpecific> par_list) 

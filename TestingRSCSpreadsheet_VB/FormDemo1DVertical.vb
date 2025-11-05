@@ -1137,17 +1137,17 @@ Public Class FormDemo1DVertical
     End Sub ''eND OF ""Private Sub MoveByShiftingRange""
 
 
-    Private Sub AddDescriptionForOpByUser(param_operation As DLLOperation1D_2TypesInParallel(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox))
+    Private Sub AddDescriptionForOpByUser(param_operation As DLLOperationBase)
         ''
         ''Added 11/3/2025 thomas d.
         ''
         If (chkAddOpDescriptions.Checked) Then
 
             param_operation.DescriptionByUser =
-                MessageBoxTD.InputBox("Please enter a description for this Insert-Multiple operation:",
-                                        "User Description for Operation")
+                MessageBoxTD.InputBox_Longform("Optional description for operation:",
+                                        "User Description for Operation", 1.0, 1.0)
 
-        End If
+        End If ''ENd of ""If (chkAddOpDescriptions.Checked) Then""
         ''AddDescriptByUser(operation)
 
     End Sub ''Private Sub AddDescriptionForOpByUser
@@ -1363,6 +1363,9 @@ Public Class FormDemo1DVertical
             ''Added 4/08/2025 thomas d.
             mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
 
+            ''Added 11/03/2025 td
+            AddDescriptionForOpByUser(operation)
+
             ''operation.OperateOnList(mod_listA)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             ''Mar2025  mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
@@ -1531,6 +1534,9 @@ Public Class FormDemo1DVertical
                                   objAnchorItem, objAnchorPair)
             ''12/30/2024                          False, False, False, False,
             ''12/30/2024                           Nothing, Nothing, Nothing)
+
+            ''Added 11/5/2025 td
+            AddDescriptionForOpByUser(operationToInsert)
 
             ''Added 3/25/2025
             Dim operationToInsert_Indices = operationToInsert.GetOperationIndexStructure()
@@ -1863,6 +1869,9 @@ Public Class FormDemo1DVertical
 
             ''Added 4/08/2025 thomas d.
             mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
+
+            ''Added 11/03/2025 td
+            AddDescriptionForOpByUser(operationToDelete)
 
             mod_managerVerticalOps.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
                                              bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
@@ -2393,6 +2402,9 @@ Public Class FormDemo1DVertical
             ''Added 5/07/2025 thomas d
             operationSorting_Parallel = New DLLOperation1D_Of(Of DLLUserControlRichbox)(enumSorting)
 
+            ''Added 5/07/2025 thomas d
+            AddDescriptionForOpByUser(operationSorting_Parallel)
+
             ''
             '' Major call!!
             ''
@@ -2410,6 +2422,9 @@ Public Class FormDemo1DVertical
             ''  (the left-most vertical list, e.g. row-header controls)
             ''
             operationSorting_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
+
+            ''Added 5/07/2025 thomas d
+            AddDescriptionForOpByUser(operationSorting_Main)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
             If (USE_MANAGER) Then

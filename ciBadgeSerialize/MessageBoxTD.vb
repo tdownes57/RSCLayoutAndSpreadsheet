@@ -98,10 +98,10 @@ Public Class MessageBoxTD
         formToShow.ShowDialog()
 
         If (formToShow.DialogResult = DialogResult.Cancel) Then
-            prefUserCancelled = True  ''Aded 5/13/2022
+            prefUserCancelled = True  ''Added 5/13/2022
             Return ""
         ElseIf (formToShow.DialogResult <> DialogResult.OK) Then
-            prefUserCancelled = True  ''Aded 5/13/2022
+            prefUserCancelled = True  ''Added 5/13/2022
             Return ""
         End If
 

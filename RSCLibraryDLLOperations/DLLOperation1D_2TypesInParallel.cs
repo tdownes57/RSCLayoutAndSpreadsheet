@@ -152,7 +152,8 @@ namespace RSCLibraryDLLOperations
 
         public DLLOperation1D_2TypesInParallel(DLLOperation1D_Of<THeader> par_operation1D_Of)
                                                                   : base(par_operation1D_Of)
-                                        //: base(par_operation1D_Of._range,
+                                        //: base(par_operation1D_Of.DescriptionByUser,
+                                        //:   par_operation1D_Of._range,
                                         //    par_operation1D_Of._isForStartOfList,
                                         //    par_operation1D_Of._isForEndOfList,
                                         //    par_operation1D_Of._isInsert,
@@ -185,7 +186,7 @@ namespace RSCLibraryDLLOperations
             //                                par_operation1D_Of.mod_opPrior_ForUndo_OfT,
             //                                par_operation1D_Of.mod_opNext_ForRedo_OfT)
             //
-
+            this.DescriptionByUser += " (2 types in parallel)";
 
         }
 

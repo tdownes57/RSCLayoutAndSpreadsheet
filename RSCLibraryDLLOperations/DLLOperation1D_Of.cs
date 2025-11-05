@@ -37,7 +37,7 @@ namespace RSCLibraryDLLOperations
         public DateTime ExecutionDate = DateTime.MinValue;  // Added 3/25/2025 
 
         // Mostly for debugging purposes: 11/2/2025 td
-        public string DescriptionByUser = ""; // Added 11/2/2025 td  
+        //Moved to base.//public string DescriptionByUser = ""; // Added 11/2/2025 td  
 
         private readonly bool _isHoriz;
         private readonly bool _isVerti;
@@ -82,8 +82,9 @@ namespace RSCLibraryDLLOperations
 
         internal DLLOperation1D_Of<T_DLLItem>? mod_opPrior_ForUndo_OfT;
         internal DLLOperation1D_Of<T_DLLItem>? mod_opNext_ForRedo_OfT;
-        internal bool mod_opNextIsNull = false; //Added 4/18/2025 
-        internal bool mod_opPriorIsNull = false; //Added 4/18/2025 
+        
+        //Nov5 2025 internal bool mod_opNextIsNull = false; //Added 4/18/2025 
+        //Nov5 2025 internal bool mod_opPriorIsNull = false; //Added 4/18/2025 
 
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
@@ -273,6 +274,9 @@ namespace RSCLibraryDLLOperations
             //
             // Added 4/15/2025 
             //
+            // Mostly for debugging purposes: 11/5/2025 td
+            this.DescriptionByUser = par_operation1D_Of.DescriptionByUser + " (Copy)";
+
             _range = par_operation1D_Of._range;
             _isForStartOfList = par_operation1D_Of._isForStartOfList;
             _isForEndOfList = par_operation1D_Of._isForEndOfList;
