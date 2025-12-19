@@ -87,6 +87,10 @@ Partial Class FormDemo1DVertical
         buttonUndoAnyOperation = New Button()
         buttonMoveColumnB = New Button()
         chkAddOpDescriptions = New CheckBox()
+        DLLColumnHeaderB1 = New DLLUserControlRichbox()
+        DLLColumnHeaderB2 = New DLLUserControlRichbox()
+        DLLColumnHeaderB3 = New DLLUserControlRichbox()
+        LinkReorderCols = New LinkLabel()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -105,9 +109,10 @@ Partial Class FormDemo1DVertical
         ' ButtonSortBackward
         ' 
         ButtonSortBackward.BackColor = Color.Cyan
-        ButtonSortBackward.Location = New Point(976, 305)
+        ButtonSortBackward.Location = New Point(1255, 427)
+        ButtonSortBackward.Margin = New Padding(4)
         ButtonSortBackward.Name = "ButtonSortBackward"
-        ButtonSortBackward.Size = New Size(172, 39)
+        ButtonSortBackward.Size = New Size(221, 55)
         ButtonSortBackward.TabIndex = 141
         ButtonSortBackward.Text = "Backward Vertical Sort"
         ButtonSortBackward.UseVisualStyleBackColor = False
@@ -115,9 +120,10 @@ Partial Class FormDemo1DVertical
         ' LinkRefreshFirstItem
         ' 
         LinkRefreshFirstItem.AutoSize = True
-        LinkRefreshFirstItem.Location = New Point(443, 104)
+        LinkRefreshFirstItem.Location = New Point(570, 146)
+        LinkRefreshFirstItem.Margin = New Padding(4, 0, 4, 0)
         LinkRefreshFirstItem.Name = "LinkRefreshFirstItem"
-        LinkRefreshFirstItem.Size = New Size(244, 15)
+        LinkRefreshFirstItem.Size = New Size(324, 21)
         LinkRefreshFirstItem.TabIndex = 140
         LinkRefreshFirstItem.TabStop = True
         LinkRefreshFirstItem.Text = "Displaying List should refresh First Item--OFF"
@@ -125,9 +131,10 @@ Partial Class FormDemo1DVertical
         ' LinkApplicationDoevents
         ' 
         LinkApplicationDoevents.AutoSize = True
-        LinkApplicationDoevents.Location = New Point(340, 104)
+        LinkApplicationDoevents.Location = New Point(437, 146)
+        LinkApplicationDoevents.Margin = New Padding(4, 0, 4, 0)
         LinkApplicationDoevents.Name = "LinkApplicationDoevents"
-        LinkApplicationDoevents.Size = New Size(87, 15)
+        LinkApplicationDoevents.Size = New Size(115, 21)
         LinkApplicationDoevents.TabIndex = 139
         LinkApplicationDoevents.TabStop = True
         LinkApplicationDoevents.Text = "DoEvents--OFF"
@@ -135,9 +142,10 @@ Partial Class FormDemo1DVertical
         ' LinkRefreshList
         ' 
         LinkRefreshList.AutoSize = True
-        LinkRefreshList.Location = New Point(250, 104)
+        LinkRefreshList.Location = New Point(321, 146)
+        LinkRefreshList.Margin = New Padding(4, 0, 4, 0)
         LinkRefreshList.Name = "LinkRefreshList"
-        LinkRefreshList.Size = New Size(67, 15)
+        LinkRefreshList.Size = New Size(91, 21)
         LinkRefreshList.TabIndex = 138
         LinkRefreshList.TabStop = True
         LinkRefreshList.Text = "Refresh List"
@@ -145,9 +153,10 @@ Partial Class FormDemo1DVertical
         ' ButtonSortForward
         ' 
         ButtonSortForward.BackColor = Color.Cyan
-        ButtonSortForward.Location = New Point(876, 260)
+        ButtonSortForward.Location = New Point(1126, 364)
+        ButtonSortForward.Margin = New Padding(4)
         ButtonSortForward.Name = "ButtonSortForward"
-        ButtonSortForward.Size = New Size(252, 39)
+        ButtonSortForward.Size = New Size(324, 55)
         ButtonSortForward.TabIndex = 137
         ButtonSortForward.Text = "Sort Items Forward (Vertical Sort)"
         ButtonSortForward.UseVisualStyleBackColor = False
@@ -159,9 +168,11 @@ Partial Class FormDemo1DVertical
         GroupMoveByAnchor.Controls.Add(listMoveAfterOrBefore)
         GroupMoveByAnchor.Controls.Add(LabelMoveBenchmark)
         GroupMoveByAnchor.Controls.Add(numMoveAnchorBenchmark)
-        GroupMoveByAnchor.Location = New Point(230, 379)
+        GroupMoveByAnchor.Location = New Point(296, 531)
+        GroupMoveByAnchor.Margin = New Padding(4)
         GroupMoveByAnchor.Name = "GroupMoveByAnchor"
-        GroupMoveByAnchor.Size = New Size(457, 101)
+        GroupMoveByAnchor.Padding = New Padding(4)
+        GroupMoveByAnchor.Size = New Size(588, 141)
         GroupMoveByAnchor.TabIndex = 136
         GroupMoveByAnchor.TabStop = False
         GroupMoveByAnchor.Text = "Move Range by Destination Anchor"
@@ -169,9 +180,10 @@ Partial Class FormDemo1DVertical
         ' buttonMoveItemsByAnchor
         ' 
         buttonMoveItemsByAnchor.BackColor = Color.Cyan
-        buttonMoveItemsByAnchor.Location = New Point(355, 30)
+        buttonMoveItemsByAnchor.Location = New Point(456, 42)
+        buttonMoveItemsByAnchor.Margin = New Padding(4)
         buttonMoveItemsByAnchor.Name = "buttonMoveItemsByAnchor"
-        buttonMoveItemsByAnchor.Size = New Size(87, 61)
+        buttonMoveItemsByAnchor.Size = New Size(112, 85)
         buttonMoveItemsByAnchor.TabIndex = 94
         buttonMoveItemsByAnchor.Text = "Move Range of Items"
         buttonMoveItemsByAnchor.UseVisualStyleBackColor = False
@@ -179,28 +191,31 @@ Partial Class FormDemo1DVertical
         ' listMoveAfterOrBefore
         ' 
         listMoveAfterOrBefore.FormattingEnabled = True
-        listMoveAfterOrBefore.ItemHeight = 15
+        listMoveAfterOrBefore.ItemHeight = 21
         listMoveAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listMoveAfterOrBefore.Location = New Point(219, 36)
+        listMoveAfterOrBefore.Location = New Point(282, 50)
+        listMoveAfterOrBefore.Margin = New Padding(4)
         listMoveAfterOrBefore.Name = "listMoveAfterOrBefore"
-        listMoveAfterOrBefore.Size = New Size(115, 34)
+        listMoveAfterOrBefore.Size = New Size(147, 46)
         listMoveAfterOrBefore.TabIndex = 93
         ' 
         ' LabelMoveBenchmark
         ' 
-        LabelMoveBenchmark.Location = New Point(-3, 30)
+        LabelMoveBenchmark.Location = New Point(-4, 42)
+        LabelMoveBenchmark.Margin = New Padding(4, 0, 4, 0)
         LabelMoveBenchmark.Name = "LabelMoveBenchmark"
-        LabelMoveBenchmark.Size = New Size(157, 57)
+        LabelMoveBenchmark.Size = New Size(202, 80)
         LabelMoveBenchmark.TabIndex = 92
         LabelMoveBenchmark.Text = "What benchmark position to anchor (attach moved items)?"
         ' 
         ' numMoveAnchorBenchmark
         ' 
         numMoveAnchorBenchmark.Font = New Font("Segoe UI", 12F)
-        numMoveAnchorBenchmark.Location = New Point(157, 36)
+        numMoveAnchorBenchmark.Location = New Point(202, 50)
+        numMoveAnchorBenchmark.Margin = New Padding(4)
         numMoveAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numMoveAnchorBenchmark.Name = "numMoveAnchorBenchmark"
-        numMoveAnchorBenchmark.Size = New Size(56, 29)
+        numMoveAnchorBenchmark.Size = New Size(72, 29)
         numMoveAnchorBenchmark.TabIndex = 91
         numMoveAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
@@ -211,9 +226,11 @@ Partial Class FormDemo1DVertical
         GroupMoveByShifting.Controls.Add(buttonMoveShiftRight)
         GroupMoveByShifting.Controls.Add(numericShiftLeft)
         GroupMoveByShifting.Controls.Add(buttonMoveShiftLeft)
-        GroupMoveByShifting.Location = New Point(729, 379)
+        GroupMoveByShifting.Location = New Point(892, 531)
+        GroupMoveByShifting.Margin = New Padding(4)
         GroupMoveByShifting.Name = "GroupMoveByShifting"
-        GroupMoveByShifting.Size = New Size(236, 101)
+        GroupMoveByShifting.Padding = New Padding(4)
+        GroupMoveByShifting.Size = New Size(365, 141)
         GroupMoveByShifting.TabIndex = 135
         GroupMoveByShifting.TabStop = False
         GroupMoveByShifting.Text = "Move Range by Shifting / Swapping"
@@ -221,49 +238,54 @@ Partial Class FormDemo1DVertical
         ' numericShiftRight
         ' 
         numericShiftRight.Font = New Font("Segoe UI", 12F)
-        numericShiftRight.Location = New Point(115, 58)
+        numericShiftRight.Location = New Point(209, 85)
+        numericShiftRight.Margin = New Padding(4)
         numericShiftRight.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numericShiftRight.Name = "numericShiftRight"
-        numericShiftRight.Size = New Size(56, 29)
+        numericShiftRight.Size = New Size(72, 29)
         numericShiftRight.TabIndex = 104
         numericShiftRight.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
         ' buttonMoveShiftRight
         ' 
         buttonMoveShiftRight.BackColor = Color.Cyan
-        buttonMoveShiftRight.Location = New Point(22, 56)
+        buttonMoveShiftRight.Location = New Point(28, 78)
+        buttonMoveShiftRight.Margin = New Padding(4)
         buttonMoveShiftRight.Name = "buttonMoveShiftRight"
-        buttonMoveShiftRight.Size = New Size(87, 28)
+        buttonMoveShiftRight.Size = New Size(163, 39)
         buttonMoveShiftRight.TabIndex = 103
-        buttonMoveShiftRight.Text = "Move Right"
+        buttonMoveShiftRight.Text = "Move Down [Right]"
         buttonMoveShiftRight.UseVisualStyleBackColor = False
         ' 
         ' numericShiftLeft
         ' 
         numericShiftLeft.Font = New Font("Segoe UI", 12F)
-        numericShiftLeft.Location = New Point(115, 24)
+        numericShiftLeft.Location = New Point(209, 38)
+        numericShiftLeft.Margin = New Padding(4)
         numericShiftLeft.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numericShiftLeft.Name = "numericShiftLeft"
-        numericShiftLeft.Size = New Size(56, 29)
+        numericShiftLeft.Size = New Size(72, 29)
         numericShiftLeft.TabIndex = 102
         numericShiftLeft.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
         ' buttonMoveShiftLeft
         ' 
         buttonMoveShiftLeft.BackColor = Color.Cyan
-        buttonMoveShiftLeft.Location = New Point(22, 22)
+        buttonMoveShiftLeft.Location = New Point(28, 31)
+        buttonMoveShiftLeft.Margin = New Padding(4)
         buttonMoveShiftLeft.Name = "buttonMoveShiftLeft"
-        buttonMoveShiftLeft.Size = New Size(87, 28)
+        buttonMoveShiftLeft.Size = New Size(163, 39)
         buttonMoveShiftLeft.TabIndex = 100
-        buttonMoveShiftLeft.Text = "Move Left"
+        buttonMoveShiftLeft.Text = "Move Up     [Left]"
         buttonMoveShiftLeft.UseVisualStyleBackColor = False
         ' 
         ' LinkClearRecordedOps
         ' 
         LinkClearRecordedOps.AutoSize = True
-        LinkClearRecordedOps.Location = New Point(976, 75)
+        LinkClearRecordedOps.Location = New Point(1255, 105)
+        LinkClearRecordedOps.Margin = New Padding(4, 0, 4, 0)
         LinkClearRecordedOps.Name = "LinkClearRecordedOps"
-        LinkClearRecordedOps.Size = New Size(134, 15)
+        LinkClearRecordedOps.Size = New Size(178, 21)
         LinkClearRecordedOps.TabIndex = 134
         LinkClearRecordedOps.TabStop = True
         LinkClearRecordedOps.Text = "Clear vertical operations"
@@ -271,9 +293,10 @@ Partial Class FormDemo1DVertical
         ' labelNumOperations
         ' 
         labelNumOperations.BorderStyle = BorderStyle.FixedSingle
-        labelNumOperations.Location = New Point(910, 123)
+        labelNumOperations.Location = New Point(1170, 172)
+        labelNumOperations.Margin = New Padding(4, 0, 4, 0)
         labelNumOperations.Name = "labelNumOperations"
-        labelNumOperations.Size = New Size(254, 45)
+        labelNumOperations.Size = New Size(326, 62)
         labelNumOperations.TabIndex = 133
         labelNumOperations.Tag = "Number of ops: {0}"
         labelNumOperations.Text = "Number of vertical ops recorded: 0"
@@ -281,9 +304,10 @@ Partial Class FormDemo1DVertical
         ' buttonUndoVertical
         ' 
         buttonUndoVertical.Enabled = False
-        buttonUndoVertical.Location = New Point(891, 92)
+        buttonUndoVertical.Location = New Point(1146, 129)
+        buttonUndoVertical.Margin = New Padding(4)
         buttonUndoVertical.Name = "buttonUndoVertical"
-        buttonUndoVertical.Size = New Size(133, 28)
+        buttonUndoVertical.Size = New Size(171, 39)
         buttonUndoVertical.TabIndex = 132
         buttonUndoVertical.Text = "<<< Undo Vertical"
         buttonUndoVertical.UseVisualStyleBackColor = True
@@ -291,9 +315,10 @@ Partial Class FormDemo1DVertical
         ' buttonRedoVertical
         ' 
         buttonRedoVertical.Enabled = False
-        buttonRedoVertical.Location = New Point(1030, 93)
+        buttonRedoVertical.Location = New Point(1324, 130)
+        buttonRedoVertical.Margin = New Padding(4)
         buttonRedoVertical.Name = "buttonRedoVertical"
-        buttonRedoVertical.Size = New Size(134, 27)
+        buttonRedoVertical.Size = New Size(172, 38)
         buttonRedoVertical.TabIndex = 131
         buttonRedoVertical.Text = "Re-do vertical >>>"
         buttonRedoVertical.UseVisualStyleBackColor = True
@@ -301,9 +326,10 @@ Partial Class FormDemo1DVertical
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(867, 357)
+        Label5.Location = New Point(1115, 500)
+        Label5.Margin = New Padding(4, 0, 4, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(163, 15)
+        Label5.Size = New Size(215, 21)
         Label5.TabIndex = 130
         Label5.Tag = "Number of items in range: {0)"
         Label5.Text = "Number of items in range: {0)"
@@ -311,9 +337,10 @@ Partial Class FormDemo1DVertical
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(340, 358)
+        Label4.Location = New Point(437, 501)
+        Label4.Margin = New Padding(4, 0, 4, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(245, 15)
+        Label4.Size = New Size(319, 21)
         Label4.TabIndex = 129
         Label4.Text = "Range to move (Click the bottom row items.)"
         ' 
@@ -322,9 +349,10 @@ Partial Class FormDemo1DVertical
         textboxMoveRange.BackColor = SystemColors.InactiveCaption
         textboxMoveRange.BorderStyle = BorderStyle.None
         textboxMoveRange.Font = New Font("Segoe UI", 12F)
-        textboxMoveRange.Location = New Point(591, 351)
+        textboxMoveRange.Location = New Point(760, 491)
+        textboxMoveRange.Margin = New Padding(4)
         textboxMoveRange.Name = "textboxMoveRange"
-        textboxMoveRange.Size = New Size(270, 22)
+        textboxMoveRange.Size = New Size(347, 22)
         textboxMoveRange.TabIndex = 128
         textboxMoveRange.Tag = "00"
         textboxMoveRange.Text = "++"
@@ -333,7 +361,8 @@ Partial Class FormDemo1DVertical
         ' 
         Label7.AutoSize = True
         Label7.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label7.Location = New Point(226, 352)
+        Label7.Location = New Point(291, 493)
+        Label7.Margin = New Padding(4, 0, 4, 0)
         Label7.Name = "Label7"
         Label7.Size = New Size(99, 21)
         Label7.TabIndex = 127
@@ -342,9 +371,10 @@ Partial Class FormDemo1DVertical
         ' buttonRedoOp
         ' 
         buttonRedoOp.Enabled = False
-        buttonRedoOp.Location = New Point(1061, 434)
+        buttonRedoOp.Location = New Point(1364, 608)
+        buttonRedoOp.Margin = New Padding(4)
         buttonRedoOp.Name = "buttonRedoOp"
-        buttonRedoOp.Size = New Size(154, 39)
+        buttonRedoOp.Size = New Size(198, 55)
         buttonRedoOp.TabIndex = 126
         buttonRedoOp.Text = "Redo (if applicable)"
         buttonRedoOp.UseVisualStyleBackColor = True
@@ -352,18 +382,20 @@ Partial Class FormDemo1DVertical
         ' buttonUndoLastStep
         ' 
         buttonUndoLastStep.Enabled = False
-        buttonUndoLastStep.Location = New Point(1049, 389)
+        buttonUndoLastStep.Location = New Point(1349, 545)
+        buttonUndoLastStep.Margin = New Padding(4)
         buttonUndoLastStep.Name = "buttonUndoLastStep"
-        buttonUndoLastStep.Size = New Size(166, 39)
+        buttonUndoLastStep.Size = New Size(213, 55)
         buttonUndoLastStep.TabIndex = 125
         buttonUndoLastStep.Text = "Undo Last Step"
         buttonUndoLastStep.UseVisualStyleBackColor = True
         ' 
         ' buttonInsertSingle
         ' 
-        buttonInsertSingle.Location = New Point(712, 195)
+        buttonInsertSingle.Location = New Point(915, 273)
+        buttonInsertSingle.Margin = New Padding(4)
         buttonInsertSingle.Name = "buttonInsertSingle"
-        buttonInsertSingle.Size = New Size(166, 39)
+        buttonInsertSingle.Size = New Size(213, 55)
         buttonInsertSingle.TabIndex = 124
         buttonInsertSingle.Text = "Insert New Item (Single)"
         buttonInsertSingle.UseVisualStyleBackColor = True
@@ -371,18 +403,20 @@ Partial Class FormDemo1DVertical
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(229, 208)
+        Label6.Location = New Point(294, 291)
+        Label6.Margin = New Padding(4, 0, 4, 0)
         Label6.Name = "Label6"
-        Label6.Size = New Size(324, 15)
+        Label6.Size = New Size(424, 21)
         Label6.TabIndex = 123
         Label6.Text = "List of two-character values, separated by spaces:  (optional)"
         ' 
         ' textInsertListOfValuesCSV
         ' 
         textInsertListOfValuesCSV.BorderStyle = BorderStyle.FixedSingle
-        textInsertListOfValuesCSV.Location = New Point(567, 205)
+        textInsertListOfValuesCSV.Location = New Point(729, 287)
+        textInsertListOfValuesCSV.Margin = New Padding(4)
         textInsertListOfValuesCSV.Name = "textInsertListOfValuesCSV"
-        textInsertListOfValuesCSV.Size = New Size(139, 23)
+        textInsertListOfValuesCSV.Size = New Size(178, 29)
         textInsertListOfValuesCSV.TabIndex = 122
         textInsertListOfValuesCSV.Tag = "00"
         textInsertListOfValuesCSV.Text = "++"
@@ -390,37 +424,41 @@ Partial Class FormDemo1DVertical
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(229, 184)
+        Label2.Location = New Point(294, 258)
+        Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(164, 15)
+        Label2.Size = New Size(214, 21)
         Label2.TabIndex = 121
         Label2.Text = "How many list items? (Count)"
         ' 
         ' numInsertHowMany
         ' 
-        numInsertHowMany.Location = New Point(421, 182)
+        numInsertHowMany.Location = New Point(541, 255)
+        numInsertHowMany.Margin = New Padding(4)
         numInsertHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numInsertHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertHowMany.Name = "numInsertHowMany"
-        numInsertHowMany.Size = New Size(50, 23)
+        numInsertHowMany.Size = New Size(64, 29)
         numInsertHowMany.TabIndex = 120
         numInsertHowMany.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
         ' listInsertAfterOrBefore
         ' 
         listInsertAfterOrBefore.FormattingEnabled = True
-        listInsertAfterOrBefore.ItemHeight = 15
+        listInsertAfterOrBefore.ItemHeight = 21
         listInsertAfterOrBefore.Items.AddRange(New Object() {"Insert After Anchor", """      "" Before Anchor"})
-        listInsertAfterOrBefore.Location = New Point(591, 157)
+        listInsertAfterOrBefore.Location = New Point(760, 220)
+        listInsertAfterOrBefore.Margin = New Padding(4)
         listInsertAfterOrBefore.Name = "listInsertAfterOrBefore"
-        listInsertAfterOrBefore.Size = New Size(115, 34)
+        listInsertAfterOrBefore.Size = New Size(147, 46)
         listInsertAfterOrBefore.TabIndex = 113
         ' 
         ' buttonDelete
         ' 
-        buttonDelete.Location = New Point(490, 272)
+        buttonDelete.Location = New Point(630, 381)
+        buttonDelete.Margin = New Padding(4)
         buttonDelete.Name = "buttonDelete"
-        buttonDelete.Size = New Size(133, 39)
+        buttonDelete.Size = New Size(171, 55)
         buttonDelete.TabIndex = 119
         buttonDelete.Text = "Delete Items"
         buttonDelete.UseVisualStyleBackColor = True
@@ -429,7 +467,8 @@ Partial Class FormDemo1DVertical
         ' 
         Label8.AutoSize = True
         Label8.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        Label8.Location = New Point(229, 253)
+        Label8.Location = New Point(294, 354)
+        Label8.Margin = New Padding(4, 0, 4, 0)
         Label8.Name = "Label8"
         Label8.Size = New Size(106, 21)
         Label8.TabIndex = 118
@@ -438,46 +477,51 @@ Partial Class FormDemo1DVertical
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(229, 313)
+        Label9.Location = New Point(294, 438)
+        Label9.Margin = New Padding(4, 0, 4, 0)
         Label9.Name = "Label9"
-        Label9.Size = New Size(164, 15)
+        Label9.Size = New Size(214, 21)
         Label9.TabIndex = 117
         Label9.Text = "How many list items? (Count)"
         ' 
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(229, 284)
+        Label10.Location = New Point(294, 398)
+        Label10.Margin = New Padding(4, 0, 4, 0)
         Label10.Name = "Label10"
-        Label10.Size = New Size(189, 15)
+        Label10.Size = New Size(249, 21)
         Label10.TabIndex = 116
         Label10.Text = "What benchmark position to start?"
         ' 
         ' numDeleteHowMany
         ' 
-        numDeleteHowMany.Location = New Point(421, 311)
+        numDeleteHowMany.Location = New Point(541, 435)
+        numDeleteHowMany.Margin = New Padding(4)
         numDeleteHowMany.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         numDeleteHowMany.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteHowMany.Name = "numDeleteHowMany"
-        numDeleteHowMany.Size = New Size(50, 23)
+        numDeleteHowMany.Size = New Size(64, 29)
         numDeleteHowMany.TabIndex = 115
         numDeleteHowMany.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
         ' numDeleteRangeBenchmarkStart
         ' 
-        numDeleteRangeBenchmarkStart.Location = New Point(421, 282)
+        numDeleteRangeBenchmarkStart.Location = New Point(541, 395)
+        numDeleteRangeBenchmarkStart.Margin = New Padding(4)
         numDeleteRangeBenchmarkStart.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numDeleteRangeBenchmarkStart.Name = "numDeleteRangeBenchmarkStart"
-        numDeleteRangeBenchmarkStart.Size = New Size(50, 23)
+        numDeleteRangeBenchmarkStart.Size = New Size(64, 29)
         numDeleteRangeBenchmarkStart.TabIndex = 114
         numDeleteRangeBenchmarkStart.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
         ' buttonInsertMultiple
         ' 
         buttonInsertMultiple.BackColor = Color.Cyan
-        buttonInsertMultiple.Location = New Point(712, 150)
+        buttonInsertMultiple.Location = New Point(915, 210)
+        buttonInsertMultiple.Margin = New Padding(4)
         buttonInsertMultiple.Name = "buttonInsertMultiple"
-        buttonInsertMultiple.Size = New Size(166, 39)
+        buttonInsertMultiple.Size = New Size(213, 55)
         buttonInsertMultiple.TabIndex = 112
         buttonInsertMultiple.Text = "Insert New Items (Multiple)"
         buttonInsertMultiple.UseVisualStyleBackColor = False
@@ -486,7 +530,8 @@ Partial Class FormDemo1DVertical
         ' 
         LabelInsertHeader.AutoSize = True
         LabelInsertHeader.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelInsertHeader.Location = New Point(229, 123)
+        LabelInsertHeader.Location = New Point(294, 172)
+        LabelInsertHeader.Margin = New Padding(4, 0, 4, 0)
         LabelInsertHeader.Name = "LabelInsertHeader"
         LabelInsertHeader.Size = New Size(138, 21)
         LabelInsertHeader.TabIndex = 111
@@ -495,18 +540,20 @@ Partial Class FormDemo1DVertical
         ' LabelInsertAnchorHeader
         ' 
         LabelInsertAnchorHeader.AutoSize = True
-        LabelInsertAnchorHeader.Location = New Point(229, 159)
+        LabelInsertAnchorHeader.Location = New Point(294, 223)
+        LabelInsertAnchorHeader.Margin = New Padding(4, 0, 4, 0)
         LabelInsertAnchorHeader.Name = "LabelInsertAnchorHeader"
-        LabelInsertAnchorHeader.Size = New Size(304, 15)
+        LabelInsertAnchorHeader.Size = New Size(397, 21)
         LabelInsertAnchorHeader.TabIndex = 110
         LabelInsertAnchorHeader.Text = "What benchmark position to anchor (attach new items)?"
         ' 
         ' numInsertAnchorBenchmark
         ' 
-        numInsertAnchorBenchmark.Location = New Point(535, 157)
+        numInsertAnchorBenchmark.Location = New Point(688, 220)
+        numInsertAnchorBenchmark.Margin = New Padding(4)
         numInsertAnchorBenchmark.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         numInsertAnchorBenchmark.Name = "numInsertAnchorBenchmark"
-        numInsertAnchorBenchmark.Size = New Size(50, 23)
+        numInsertAnchorBenchmark.Size = New Size(64, 29)
         numInsertAnchorBenchmark.TabIndex = 109
         numInsertAnchorBenchmark.Value = New Decimal(New Integer() {1, 0, 0, 0})
         ' 
@@ -514,17 +561,19 @@ Partial Class FormDemo1DVertical
         ' 
         LabelA_B1_B2_B3.AutoSize = True
         LabelA_B1_B2_B3.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
-        LabelA_B1_B2_B3.Location = New Point(28, 3)
+        LabelA_B1_B2_B3.Location = New Point(36, 4)
+        LabelA_B1_B2_B3.Margin = New Padding(4, 0, 4, 0)
         LabelA_B1_B2_B3.Name = "LabelA_B1_B2_B3"
-        LabelA_B1_B2_B3.Size = New Size(138, 21)
+        LabelA_B1_B2_B3.Size = New Size(170, 21)
         LabelA_B1_B2_B3.TabIndex = 144
-        LabelA_B1_B2_B3.Text = " A      B1    B2    B3"
+        LabelA_B1_B2_B3.Text = " A          B1      B2      B3"
         ' 
         ' LabelHeader1
         ' 
         LabelHeader1.AutoSize = True
         LabelHeader1.Font = New Font("Segoe UI", 17F, FontStyle.Bold)
-        LabelHeader1.Location = New Point(261, 8)
+        LabelHeader1.Location = New Point(291, 39)
+        LabelHeader1.Margin = New Padding(4, 0, 4, 0)
         LabelHeader1.Name = "LabelHeader1"
         LabelHeader1.Size = New Size(630, 31)
         LabelHeader1.TabIndex = 148
@@ -537,46 +586,56 @@ Partial Class FormDemo1DVertical
         FlowColumnB1.Controls.Add(UserControlRichbox1)
         FlowColumnB1.Controls.Add(UserControlRichbox4)
         FlowColumnB1.Controls.Add(UserControlRichbox7)
-        FlowColumnB1.Location = New Point(69, 27)
+        FlowColumnB1.Location = New Point(89, 63)
+        FlowColumnB1.Margin = New Padding(4)
         FlowColumnB1.Name = "FlowColumnB1"
-        FlowColumnB1.Size = New Size(29, 453)
+        FlowColumnB1.Size = New Size(37, 633)
         FlowColumnB1.TabIndex = 150
         ' 
         ' UserControlRichbox1
         ' 
+        UserControlRichbox1.Boldface = False
         UserControlRichbox1.HighlightInBlue = False
         UserControlRichbox1.HighlightInCyan = False
         UserControlRichbox1.HighlightInGreen = False
         UserControlRichbox1.HighlightInRed = False
-        UserControlRichbox1.Location = New Point(3, 3)
+        UserControlRichbox1.Location = New Point(5, 6)
+        UserControlRichbox1.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox1.Name = "UserControlRichbox1"
         UserControlRichbox1.Selected = False
-        UserControlRichbox1.Size = New Size(22, 23)
+        UserControlRichbox1.Size = New Size(28, 32)
         UserControlRichbox1.TabIndex = 155
+        UserControlRichbox1.TextRedux = "01"
         ' 
         ' UserControlRichbox4
         ' 
+        UserControlRichbox4.Boldface = False
         UserControlRichbox4.HighlightInBlue = False
         UserControlRichbox4.HighlightInCyan = False
         UserControlRichbox4.HighlightInGreen = False
         UserControlRichbox4.HighlightInRed = False
-        UserControlRichbox4.Location = New Point(3, 32)
+        UserControlRichbox4.Location = New Point(5, 50)
+        UserControlRichbox4.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox4.Name = "UserControlRichbox4"
         UserControlRichbox4.Selected = False
-        UserControlRichbox4.Size = New Size(22, 23)
+        UserControlRichbox4.Size = New Size(28, 32)
         UserControlRichbox4.TabIndex = 156
+        UserControlRichbox4.TextRedux = "01"
         ' 
         ' UserControlRichbox7
         ' 
+        UserControlRichbox7.Boldface = False
         UserControlRichbox7.HighlightInBlue = False
         UserControlRichbox7.HighlightInCyan = False
         UserControlRichbox7.HighlightInGreen = False
         UserControlRichbox7.HighlightInRed = False
-        UserControlRichbox7.Location = New Point(3, 61)
+        UserControlRichbox7.Location = New Point(5, 94)
+        UserControlRichbox7.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox7.Name = "UserControlRichbox7"
         UserControlRichbox7.Selected = False
-        UserControlRichbox7.Size = New Size(22, 23)
+        UserControlRichbox7.Size = New Size(28, 32)
         UserControlRichbox7.TabIndex = 157
+        UserControlRichbox7.TextRedux = "01"
         ' 
         ' FlowColumnB2
         ' 
@@ -585,46 +644,56 @@ Partial Class FormDemo1DVertical
         FlowColumnB2.Controls.Add(UserControlRichbox2)
         FlowColumnB2.Controls.Add(UserControlRichbox5)
         FlowColumnB2.Controls.Add(UserControlRichbox8)
-        FlowColumnB2.Location = New Point(104, 27)
+        FlowColumnB2.Location = New Point(134, 63)
+        FlowColumnB2.Margin = New Padding(4)
         FlowColumnB2.Name = "FlowColumnB2"
-        FlowColumnB2.Size = New Size(29, 453)
+        FlowColumnB2.Size = New Size(37, 633)
         FlowColumnB2.TabIndex = 151
         ' 
         ' UserControlRichbox2
         ' 
+        UserControlRichbox2.Boldface = False
         UserControlRichbox2.HighlightInBlue = False
         UserControlRichbox2.HighlightInCyan = False
         UserControlRichbox2.HighlightInGreen = False
         UserControlRichbox2.HighlightInRed = False
-        UserControlRichbox2.Location = New Point(3, 3)
+        UserControlRichbox2.Location = New Point(5, 6)
+        UserControlRichbox2.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox2.Name = "UserControlRichbox2"
         UserControlRichbox2.Selected = False
-        UserControlRichbox2.Size = New Size(22, 23)
+        UserControlRichbox2.Size = New Size(28, 32)
         UserControlRichbox2.TabIndex = 156
+        UserControlRichbox2.TextRedux = "01"
         ' 
         ' UserControlRichbox5
         ' 
+        UserControlRichbox5.Boldface = False
         UserControlRichbox5.HighlightInBlue = False
         UserControlRichbox5.HighlightInCyan = False
         UserControlRichbox5.HighlightInGreen = False
         UserControlRichbox5.HighlightInRed = False
-        UserControlRichbox5.Location = New Point(3, 32)
+        UserControlRichbox5.Location = New Point(5, 50)
+        UserControlRichbox5.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox5.Name = "UserControlRichbox5"
         UserControlRichbox5.Selected = False
-        UserControlRichbox5.Size = New Size(22, 23)
+        UserControlRichbox5.Size = New Size(28, 32)
         UserControlRichbox5.TabIndex = 157
+        UserControlRichbox5.TextRedux = "01"
         ' 
         ' UserControlRichbox8
         ' 
+        UserControlRichbox8.Boldface = False
         UserControlRichbox8.HighlightInBlue = False
         UserControlRichbox8.HighlightInCyan = False
         UserControlRichbox8.HighlightInGreen = False
         UserControlRichbox8.HighlightInRed = False
-        UserControlRichbox8.Location = New Point(3, 61)
+        UserControlRichbox8.Location = New Point(5, 94)
+        UserControlRichbox8.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox8.Name = "UserControlRichbox8"
         UserControlRichbox8.Selected = False
-        UserControlRichbox8.Size = New Size(22, 23)
+        UserControlRichbox8.Size = New Size(28, 32)
         UserControlRichbox8.TabIndex = 158
+        UserControlRichbox8.TextRedux = "01"
         ' 
         ' FlowColumnB3
         ' 
@@ -633,46 +702,56 @@ Partial Class FormDemo1DVertical
         FlowColumnB3.Controls.Add(UserControlRichbox3)
         FlowColumnB3.Controls.Add(UserControlRichbox6)
         FlowColumnB3.Controls.Add(UserControlRichbox9)
-        FlowColumnB3.Location = New Point(139, 27)
+        FlowColumnB3.Location = New Point(179, 63)
+        FlowColumnB3.Margin = New Padding(4)
         FlowColumnB3.Name = "FlowColumnB3"
-        FlowColumnB3.Size = New Size(29, 453)
+        FlowColumnB3.Size = New Size(37, 633)
         FlowColumnB3.TabIndex = 151
         ' 
         ' UserControlRichbox3
         ' 
+        UserControlRichbox3.Boldface = False
         UserControlRichbox3.HighlightInBlue = False
         UserControlRichbox3.HighlightInCyan = False
         UserControlRichbox3.HighlightInGreen = False
         UserControlRichbox3.HighlightInRed = False
-        UserControlRichbox3.Location = New Point(3, 3)
+        UserControlRichbox3.Location = New Point(5, 6)
+        UserControlRichbox3.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox3.Name = "UserControlRichbox3"
         UserControlRichbox3.Selected = False
-        UserControlRichbox3.Size = New Size(22, 23)
+        UserControlRichbox3.Size = New Size(28, 32)
         UserControlRichbox3.TabIndex = 156
+        UserControlRichbox3.TextRedux = "01"
         ' 
         ' UserControlRichbox6
         ' 
+        UserControlRichbox6.Boldface = False
         UserControlRichbox6.HighlightInBlue = False
         UserControlRichbox6.HighlightInCyan = False
         UserControlRichbox6.HighlightInGreen = False
         UserControlRichbox6.HighlightInRed = False
-        UserControlRichbox6.Location = New Point(3, 32)
+        UserControlRichbox6.Location = New Point(5, 50)
+        UserControlRichbox6.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox6.Name = "UserControlRichbox6"
         UserControlRichbox6.Selected = False
-        UserControlRichbox6.Size = New Size(22, 23)
+        UserControlRichbox6.Size = New Size(28, 32)
         UserControlRichbox6.TabIndex = 157
+        UserControlRichbox6.TextRedux = "01"
         ' 
         ' UserControlRichbox9
         ' 
+        UserControlRichbox9.Boldface = False
         UserControlRichbox9.HighlightInBlue = False
         UserControlRichbox9.HighlightInCyan = False
         UserControlRichbox9.HighlightInGreen = False
         UserControlRichbox9.HighlightInRed = False
-        UserControlRichbox9.Location = New Point(3, 61)
+        UserControlRichbox9.Location = New Point(5, 94)
+        UserControlRichbox9.Margin = New Padding(5, 6, 5, 6)
         UserControlRichbox9.Name = "UserControlRichbox9"
         UserControlRichbox9.Selected = False
-        UserControlRichbox9.Size = New Size(22, 23)
+        UserControlRichbox9.Size = New Size(28, 32)
         UserControlRichbox9.TabIndex = 158
+        UserControlRichbox9.TextRedux = "01"
         ' 
         ' FlowRowNumbersOnly
         ' 
@@ -681,35 +760,39 @@ Partial Class FormDemo1DVertical
         FlowRowNumbersOnly.Controls.Add(TextBox13)
         FlowRowNumbersOnly.Controls.Add(TextBox14)
         FlowRowNumbersOnly.Controls.Add(TextBox15)
-        FlowRowNumbersOnly.Location = New Point(-3, 29)
+        FlowRowNumbersOnly.Location = New Point(-4, 66)
+        FlowRowNumbersOnly.Margin = New Padding(4)
         FlowRowNumbersOnly.Name = "FlowRowNumbersOnly"
-        FlowRowNumbersOnly.Size = New Size(29, 322)
+        FlowRowNumbersOnly.Size = New Size(37, 450)
         FlowRowNumbersOnly.TabIndex = 152
         ' 
         ' TextBox13
         ' 
-        TextBox13.Location = New Point(3, 3)
+        TextBox13.Location = New Point(4, 4)
+        TextBox13.Margin = New Padding(4)
         TextBox13.Name = "TextBox13"
         TextBox13.ReadOnly = True
-        TextBox13.Size = New Size(22, 23)
+        TextBox13.Size = New Size(27, 29)
         TextBox13.TabIndex = 0
         TextBox13.Text = "01"
         ' 
         ' TextBox14
         ' 
-        TextBox14.Location = New Point(3, 32)
+        TextBox14.Location = New Point(4, 41)
+        TextBox14.Margin = New Padding(4)
         TextBox14.Name = "TextBox14"
         TextBox14.ReadOnly = True
-        TextBox14.Size = New Size(22, 23)
+        TextBox14.Size = New Size(27, 29)
         TextBox14.TabIndex = 1
         TextBox14.Text = "02"
         ' 
         ' TextBox15
         ' 
-        TextBox15.Location = New Point(3, 61)
+        TextBox15.Location = New Point(4, 78)
+        TextBox15.Margin = New Padding(4)
         TextBox15.Name = "TextBox15"
         TextBox15.ReadOnly = True
-        TextBox15.Size = New Size(22, 23)
+        TextBox15.Size = New Size(27, 29)
         TextBox15.TabIndex = 2
         TextBox15.Text = "03"
         ' 
@@ -717,25 +800,29 @@ Partial Class FormDemo1DVertical
         ' 
         richtextItemsDisplay.BorderStyle = BorderStyle.FixedSingle
         richtextItemsDisplay.Font = New Font("Courier New", 9F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        richtextItemsDisplay.Location = New Point(32, 27)
+        richtextItemsDisplay.Location = New Point(41, 63)
+        richtextItemsDisplay.Margin = New Padding(4)
         richtextItemsDisplay.Name = "richtextItemsDisplay"
         richtextItemsDisplay.ScrollBars = RichTextBoxScrollBars.None
-        richtextItemsDisplay.Size = New Size(31, 457)
+        richtextItemsDisplay.Size = New Size(39, 638)
         richtextItemsDisplay.TabIndex = 153
         richtextItemsDisplay.Tag = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         richtextItemsDisplay.Text = "01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30"
         ' 
         ' DllUserControlRichbox1
         ' 
+        DllUserControlRichbox1.Boldface = False
         DllUserControlRichbox1.HighlightInBlue = False
         DllUserControlRichbox1.HighlightInCyan = False
         DllUserControlRichbox1.HighlightInGreen = False
         DllUserControlRichbox1.HighlightInRed = False
-        DllUserControlRichbox1.Location = New Point(1008, 27)
+        DllUserControlRichbox1.Location = New Point(1296, 38)
+        DllUserControlRichbox1.Margin = New Padding(5, 6, 5, 6)
         DllUserControlRichbox1.Name = "DllUserControlRichbox1"
         DllUserControlRichbox1.Selected = False
-        DllUserControlRichbox1.Size = New Size(22, 23)
+        DllUserControlRichbox1.Size = New Size(28, 32)
         DllUserControlRichbox1.TabIndex = 156
+        DllUserControlRichbox1.TextRedux = "01"
         DllUserControlRichbox1.Visible = False
         ' 
         ' checkOperateUponListA
@@ -744,7 +831,8 @@ Partial Class FormDemo1DVertical
         checkOperateUponListA.Checked = True
         checkOperateUponListA.CheckState = CheckState.Checked
         checkOperateUponListA.Font = New Font("Segoe UI", 14F)
-        checkOperateUponListA.Location = New Point(230, 48)
+        checkOperateUponListA.Location = New Point(296, 97)
+        checkOperateUponListA.Margin = New Padding(4)
         checkOperateUponListA.Name = "checkOperateUponListA"
         checkOperateUponListA.Size = New Size(436, 29)
         checkOperateUponListA.TabIndex = 157
@@ -754,9 +842,10 @@ Partial Class FormDemo1DVertical
         ' buttonUndoAnyOperation
         ' 
         buttonUndoAnyOperation.Enabled = False
-        buttonUndoAnyOperation.Location = New Point(934, 171)
+        buttonUndoAnyOperation.Location = New Point(1201, 239)
+        buttonUndoAnyOperation.Margin = New Padding(4)
         buttonUndoAnyOperation.Name = "buttonUndoAnyOperation"
-        buttonUndoAnyOperation.Size = New Size(214, 28)
+        buttonUndoAnyOperation.Size = New Size(275, 39)
         buttonUndoAnyOperation.TabIndex = 158
         buttonUndoAnyOperation.Text = "<<< Undo Any Operation"
         buttonUndoAnyOperation.UseVisualStyleBackColor = True
@@ -764,9 +853,10 @@ Partial Class FormDemo1DVertical
         ' buttonMoveColumnB
         ' 
         buttonMoveColumnB.BackColor = Color.Cyan
-        buttonMoveColumnB.Location = New Point(662, 306)
+        buttonMoveColumnB.Location = New Point(851, 428)
+        buttonMoveColumnB.Margin = New Padding(4)
         buttonMoveColumnB.Name = "buttonMoveColumnB"
-        buttonMoveColumnB.Size = New Size(293, 39)
+        buttonMoveColumnB.Size = New Size(377, 55)
         buttonMoveColumnB.TabIndex = 159
         buttonMoveColumnB.Text = "NEW!!  Move leftmost B column to the far right."
         buttonMoveColumnB.UseVisualStyleBackColor = False
@@ -776,18 +866,79 @@ Partial Class FormDemo1DVertical
         chkAddOpDescriptions.AutoSize = True
         chkAddOpDescriptions.Checked = True
         chkAddOpDescriptions.CheckState = CheckState.Checked
-        chkAddOpDescriptions.Location = New Point(984, 475)
+        chkAddOpDescriptions.Location = New Point(1265, 665)
+        chkAddOpDescriptions.Margin = New Padding(4)
         chkAddOpDescriptions.Name = "chkAddOpDescriptions"
-        chkAddOpDescriptions.Size = New Size(177, 19)
+        chkAddOpDescriptions.Size = New Size(229, 25)
         chkAddOpDescriptions.TabIndex = 160
         chkAddOpDescriptions.Text = "Add Op Descriptions by User"
         chkAddOpDescriptions.UseVisualStyleBackColor = True
         ' 
+        ' DLLColumnHeaderB1
+        ' 
+        DLLColumnHeaderB1.Boldface = True
+        DLLColumnHeaderB1.HighlightInBlue = False
+        DLLColumnHeaderB1.HighlightInCyan = False
+        DLLColumnHeaderB1.HighlightInGreen = False
+        DLLColumnHeaderB1.HighlightInRed = False
+        DLLColumnHeaderB1.Location = New Point(94, 28)
+        DLLColumnHeaderB1.Margin = New Padding(5, 6, 5, 6)
+        DLLColumnHeaderB1.Name = "DLLColumnHeaderB1"
+        DLLColumnHeaderB1.Selected = False
+        DLLColumnHeaderB1.Size = New Size(28, 32)
+        DLLColumnHeaderB1.TabIndex = 161
+        DLLColumnHeaderB1.TextRedux = "B1"
+        ' 
+        ' DLLColumnHeaderB2
+        ' 
+        DLLColumnHeaderB2.Boldface = True
+        DLLColumnHeaderB2.HighlightInBlue = False
+        DLLColumnHeaderB2.HighlightInCyan = False
+        DLLColumnHeaderB2.HighlightInGreen = False
+        DLLColumnHeaderB2.HighlightInRed = False
+        DLLColumnHeaderB2.Location = New Point(134, 27)
+        DLLColumnHeaderB2.Margin = New Padding(5, 6, 5, 6)
+        DLLColumnHeaderB2.Name = "DLLColumnHeaderB2"
+        DLLColumnHeaderB2.Selected = False
+        DLLColumnHeaderB2.Size = New Size(28, 32)
+        DLLColumnHeaderB2.TabIndex = 162
+        DLLColumnHeaderB2.TextRedux = "B2"
+        ' 
+        ' DLLColumnHeaderB3
+        ' 
+        DLLColumnHeaderB3.Boldface = True
+        DLLColumnHeaderB3.HighlightInBlue = False
+        DLLColumnHeaderB3.HighlightInCyan = False
+        DLLColumnHeaderB3.HighlightInGreen = False
+        DLLColumnHeaderB3.HighlightInRed = False
+        DLLColumnHeaderB3.Location = New Point(179, 28)
+        DLLColumnHeaderB3.Margin = New Padding(5, 6, 5, 6)
+        DLLColumnHeaderB3.Name = "DLLColumnHeaderB3"
+        DLLColumnHeaderB3.Selected = False
+        DLLColumnHeaderB3.Size = New Size(28, 32)
+        DLLColumnHeaderB3.TabIndex = 163
+        DLLColumnHeaderB3.TextRedux = "B3"
+        ' 
+        ' LinkReorderCols
+        ' 
+        LinkReorderCols.AutoSize = True
+        LinkReorderCols.Location = New Point(224, 4)
+        LinkReorderCols.Margin = New Padding(4, 0, 4, 0)
+        LinkReorderCols.Name = "LinkReorderCols"
+        LinkReorderCols.Size = New Size(163, 21)
+        LinkReorderCols.TabIndex = 164
+        LinkReorderCols.TabStop = True
+        LinkReorderCols.Text = "Reorder Cols--HUGE!!"
+        ' 
         ' FormDemo1DVertical
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(9F, 21F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1227, 504)
+        ClientSize = New Size(1578, 706)
+        Controls.Add(LinkReorderCols)
+        Controls.Add(DLLColumnHeaderB3)
+        Controls.Add(DLLColumnHeaderB2)
+        Controls.Add(DLLColumnHeaderB1)
         Controls.Add(chkAddOpDescriptions)
         Controls.Add(buttonMoveColumnB)
         Controls.Add(buttonUndoAnyOperation)
@@ -833,6 +984,7 @@ Partial Class FormDemo1DVertical
         Controls.Add(LabelInsertHeader)
         Controls.Add(LabelInsertAnchorHeader)
         Controls.Add(numInsertAnchorBenchmark)
+        Margin = New Padding(4)
         Name = "FormDemo1DVertical"
         Text = "  "
         GroupMoveByAnchor.ResumeLayout(False)
@@ -918,4 +1070,8 @@ Partial Class FormDemo1DVertical
     Friend WithEvents buttonUndoAnyOperation As Button
     Friend WithEvents buttonMoveColumnB As Button
     Friend WithEvents chkAddOpDescriptions As CheckBox
+    Friend WithEvents DLLColumnHeaderB1 As DLLUserControlRichbox
+    Friend WithEvents DLLColumnHeaderB2 As DLLUserControlRichbox
+    Friend WithEvents DLLColumnHeaderB3 As DLLUserControlRichbox
+    Friend WithEvents LinkReorderCols As LinkLabel
 End Class

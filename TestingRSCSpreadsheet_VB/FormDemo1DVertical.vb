@@ -44,9 +44,13 @@ Public Class FormDemo1DVertical
     Private WithEvents mod_listB2 As DLLList(Of DLLUserControlRichbox)
     Private WithEvents mod_listB3 As DLLList(Of DLLUserControlRichbox)
 
+    ''Added 12/19/2025 thoams dwones
+    Private mod_listColumnHeaders As DLLList(Of DLLUserControlRichbox)
+
     ''Added 5/04/2025 thomas downes
     Private WithEvents mod_listCurrentWithFocus As DLLList(Of DLLUserControlRichbox)
     Private WithEvents mod_listPriorWithFocus As DLLList(Of DLLUserControlRichbox)
+
     Private mod_priorClickedRichbox As DLLUserControlRichbox ''Added 5/04/2025
     Private mod_currentClickedRichbox As DLLUserControlRichbox ''Added 5/04/2025
 
@@ -69,23 +73,193 @@ Public Class FormDemo1DVertical
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
     Private SORT_PRIMARY_LIST_AFTER_PARALLELS As Boolean = True ''Added 5/18/2025 td
 
+
     ''' <summary>
     ''' Puts {mod_listB1, mod_listB2, mod_listB3} into an array of lists.
     ''' </summary>
     ''' <returns>An array of DLLLists (Of DLLUserControlRichbox)</returns>
-    Public Function GetParallelLists() As DLLList(Of DLLUserControlRichbox)()
+    Public Function GetArray_ParallelLists() As DLLList(Of DLLUserControlRichbox)()
+        ''
+        ''Called by the following:
 
-        Return New DLLList(Of DLLUserControlRichbox)() _
-            {mod_listB1, mod_listB2, mod_listB3}
+        ''  mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
+        ''   (8 references)  
+        ''
+        Return GetListOf_ParallelLists().ToArray()
 
-    End Function ''End of ""Public Function GetParallelLists()""
+    End Function ''End of ""Public Function GetArray_ParallelLists()
+
+
+    ''' <summary>
+    ''' Puts {DLLControlB1, DLLControlB2, DLLControlB3} into a list of controls.
+    ''' </summary>
+    ''' <returns>An array of DLLLists (Of DLLUserControlRichbox)</returns>
+    Private Function GetDLLListOf_ColumnHeaders_Default() As DLLList(Of DLLUserControlRichbox)
+        ''
+        ''Called by the following:
+        ''
+        ''Created 12/19/2025   
+        ''
+        Dim output As New DLLList(Of DLLUserControlRichbox)()
+        output.DLL_AddItemAtEnd(DLLColumnHeaderB1)
+        output.DLL_AddItemAtEnd(DLLColumnHeaderB2)
+        output.DLL_AddItemAtEnd(DLLColumnHeaderB3)
+        Return output
+
+    End Function ''ENd of ""Private GetDLLListOf_ColumnHeaders_Default""
+
+
+    ''' <summary>
+    ''' Puts {DLLControlB1, DLLControlB2, DLLControlB3} into a newly-rotated list of controls.
+    ''' </summary>
+    ''' <returns>An array of DLLLists (Of DLLUserControlRichbox)</returns>
+    Private Function GetDLLListOf_ColumnHeaders_Rotated(par_value As DLLList(Of DLLUserControlRichbox)) As DLLList(Of DLLUserControlRichbox)
+        ''
+        ''Called by the following:
+        ''
+        ''Created 12/19/2025   
+        ''
+        Dim output As New DLLList(Of DLLUserControlRichbox)()
+        Dim tempControl As DLLUserControlRichbox
+
+        tempControl = par_value.DLL_GetItemAtIndex_1based(3) ''Get #3 first.
+        output.DLL_AddItemAtEnd(tempControl) ''Put #3 first.
+
+        tempControl = par_value.DLL_GetItemAtIndex_1based(1) ''Get #1 second.
+        output.DLL_AddItemAtEnd(tempControl) ''Put #1 second.
+
+        tempControl = par_value.DLL_GetItemAtIndex_1based(2) ''Get #2 last.
+        output.DLL_AddItemAtEnd(tempControl) ''Put #2 last.
+
+        Return output
+
+    End Function ''ENd of ""Private GetDLLListOf_ColumnHeaders_Rotated""
+
+
+    ''' <summary>
+    ''' Puts {mod_listB1, mod_listB2, mod_listB3} into an array of lists.
+    ''' </summary>
+    ''' <returns>An array of DLLLists (Of DLLUserControlRichbox)</returns>
+    Private Function GetListOf_ParallelLists() As List(Of DLLList(Of DLLUserControlRichbox))
+        ''---Public Function GetParallelLists() As DLLList(Of DLLUserControlRichbox)()
+        ''
+        ''Called by the following:
+
+        ''  mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
+        ''   (8 references)  
+        ''
+        Dim boolB1LeftOfB2 As Boolean ''Added 12/19/2025 td
+        Dim boolB2LeftOfB3 As Boolean ''Added 12/19/2025 td
+        Dim boolB1LeftOfB3 As Boolean ''Added 12/19/2025 td
+        Dim boolDefaultOrder As Boolean ''Added 12/19/2025 td
+
+        boolB1LeftOfB2 = (DLLColumnHeaderB1.Left < DLLColumnHeaderB2.Left)
+        boolB1LeftOfB3 = (DLLColumnHeaderB1.Left < DLLColumnHeaderB3.Left)
+        boolB2LeftOfB3 = (DLLColumnHeaderB2.Left < DLLColumnHeaderB3.Left)
+        boolDefaultOrder = (boolB1LeftOfB2 And boolB2LeftOfB3 And boolB1LeftOfB3)
+
+        Select Case True
+            Case (boolDefaultOrder)
+                ''Added 12/19/2025 td  
+                ''---Return New DLLList(Of DLLUserControlRichbox)() _
+                ''---   {mod_listB1, mod_listB2, mod_listB3}
+                Return New List(Of DLLList(Of DLLUserControlRichbox)) _
+                   ({mod_listB1, mod_listB2, mod_listB3})
+
+            Case (boolB1LeftOfB2 And boolB1LeftOfB3)
+                ''Added 12/19/2025 td  
+                ''---Return New DLLList(Of DLLUserControlRichbox)() _
+                ''---   {mod_listB1, mod_listB13, mod_listB2}
+                Return New List(Of DLLList(Of DLLUserControlRichbox)) _
+                   ({mod_listB1, mod_listB3, mod_listB2})
+
+            Case (boolB1LeftOfB2)
+                ''Added 12/19/2025 td  
+                ''---Return New DLLList(Of DLLUserControlRichbox)() _
+                ''---   {mod_listB3, mod_listB1, mod_listB2}
+                Return New List(Of DLLList(Of DLLUserControlRichbox)) _
+                   ({mod_listB3, mod_listB1, mod_listB2})
+
+            Case (boolB2LeftOfB3)
+                ''Added 12/19/2025 td  
+                ''---Return New DLLList(Of DLLUserControlRichbox)() _
+                ''---   {mod_listB2, mod_listB3, mod_listB1}
+                Return New List(Of DLLList(Of DLLUserControlRichbox)) _
+                   ({mod_listB2, mod_listB3, mod_listB1})
+
+            Case (boolB1LeftOfB3)
+                ''Added 12/19/2025 td  
+                Return New List(Of DLLList(Of DLLUserControlRichbox)) _
+                   ({mod_listB2, mod_listB1, mod_listB3})
+
+            Case Else
+                ''Added 12/19/2025 td  
+                Return New List(Of DLLList(Of DLLUserControlRichbox)) _
+                   ({mod_listB3, mod_listB2, mod_listB1})
+
+        End Select ''ENd of "Select Case True"
+
+    End Function ''End of ""Public Function GetListOf_ParallelLists()""
+
+
+    Private Function GetLeftValuesForColumns_Sorted() As List(Of Integer) ''----As Integer()
+        ''
+        ''Added 12/19/2025 td
+        ''
+        Dim output_array As Integer()
+        ReDim output_array(0 To 2)
+        output_array(0) = DLLColumnHeaderB1.Left
+        output_array(1) = DLLColumnHeaderB2.Left
+        output_array(2) = DLLColumnHeaderB3.Left
+
+        Dim output_list As List(Of Integer)
+        output_list = New List(Of Integer)(output_array)
+        output_list.Sort()
+        Return output_list
+
+    End Function ''End of ""Public Function GetLeftValuesForColumns_Sorted()""
+
+
+    Private Sub RedrawColumns_InOrder(par_leftValues As List(Of Integer),
+                   par_headers As DLLList(Of DLLUserControlRichbox))
+        ''
+        ''Added 12/19/2025 td
+        ''
+        '' This overload gets the left values via parameter.
+        ''
+        ''--Dim listLeftValues As List(Of Integer)
+        ''--listLeftValues = GetLeftValuesForColumns_Ordered()
+
+        DLLColumnHeaderB1.Left = par_leftValues(0)
+        DLLColumnHeaderB2.Left = par_leftValues(1)
+        DLLColumnHeaderB3.Left = par_leftValues(2)
+
+        FlowColumnB1.Left = par_leftValues(0)
+        FlowColumnB2.Left = par_leftValues(1)
+        FlowColumnB3.Left = par_leftValues(2)
+
+    End Sub ''End of ""Private Sub RedrawColumns_InOrder()""
+
+
+    Private Sub RedrawColumns_InOrder(par_headers As DLLList(Of DLLUserControlRichbox))
+        ''
+        ''Added 12/19/2025 td
+        ''
+        '' This overload gets the left values internally.
+        ''
+        Dim listLeftValues As List(Of Integer)
+        listLeftValues = GetLeftValuesForColumns_Sorted()
+        RedrawColumns_InOrder(listLeftValues, par_headers)
+
+    End Sub ''End of ""Private Sub RedrawColumns_InOrder()""
 
 
     Public Function GetParallelLists_Count() As Integer
         ''
         ''Added 4/08/2025
         ''
-        Return GetParallelLists().Count()
+        ''---Return GetParallelLists().Count()
+        Return GetListOf_ParallelLists().Count()
 
     End Function ''End of ""Public Function GetParallelLists()""
 
@@ -146,6 +320,11 @@ Public Class FormDemo1DVertical
         mod_listB1 = New DLLList(Of DLLUserControlRichbox)()
         mod_listB2 = New DLLList(Of DLLUserControlRichbox)()
         mod_listB3 = New DLLList(Of DLLUserControlRichbox)()
+
+        ''Added 12/19/2025 thoimas doiwnes  
+        ''---mod_listColumnHeaders = New DLLList(Of DLLUserControlRichbox)()
+        ''---mod_listColumnHeaders = GetListOf_ParallelLists()
+        mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Default()
 
         ''Added 3/05/2025 td
         Dim arrayTwoCharStrings As String()
@@ -225,7 +404,7 @@ Public Class FormDemo1DVertical
                 DLLUserControlRichbox)(mod_firstItemA, mod_listA)
 
         ''Added 4/08/2025 thomas d.
-        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Display the list. 
@@ -1081,7 +1260,10 @@ Public Class FormDemo1DVertical
         currentMoveType.IsMoveToAnchor = False ''Added 12/15/2024 
 
         ''Added 4/08/2025 thomas d.
-        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        ''---12/19/2025--mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        With mod_managerVerticalOps
+            .LoadParallelLists(GetListOf_ParallelLists().ToArray())   ''//, arrayOfParallelRanges)
+        End With
 
         ''
         '' Added 11/17/2024 thomas downes
@@ -1329,7 +1511,8 @@ Public Class FormDemo1DVertical
             ''   bChangeOfEndpoint_PostHoc, True)
 
             ''Added 4/08/2025 thomas d.
-            mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
 
             ''Added 11/03/2025 td 
             ''If (chkAddOpDescriptions.Checked) Then
@@ -1361,7 +1544,8 @@ Public Class FormDemo1DVertical
                                    True, False, null_move)
 
             ''Added 4/08/2025 thomas d.
-            mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
 
             ''Added 11/03/2025 td
             AddDescriptionForOpByUser(operation)
@@ -1553,7 +1737,8 @@ Public Class FormDemo1DVertical
                                                 stringTwoChars)
 
             ''Added 4/08/2025 thomas d.
-            mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
+            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
 
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             mod_managerVerticalOps.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
@@ -1868,7 +2053,8 @@ Public Class FormDemo1DVertical
             operationIndicized = operationToDelete.GetOperationIndexStructure()
 
             ''Added 4/08/2025 thomas d.
-            mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
+            ''12/19/2025 td''mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
+            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())
 
             ''Added 11/03/2025 td
             AddDescriptionForOpByUser(operationToDelete)
@@ -2091,7 +2277,8 @@ Public Class FormDemo1DVertical
         type_is_anchor.IsMoveToAnchor = True ''Added 12/11/2024 
 
         ''Added 4/08/2025 thomas d.
-        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists())   ''//, arrayOfParallelRanges)
+        mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Added 11/17/2024 thomas downes
@@ -2367,7 +2554,8 @@ Public Class FormDemo1DVertical
         mod_managerVerticalOps.ClearAnyRedoOperations_IfQueued()
 
         ''Added 05/06/2025 & 04/23/205 
-        mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
+        ''12/19/2025 td''mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
+        mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())
 
         ''Added 05/06/2025 
         listParallelToSortByValue = mod_listCurrentWithFocus
@@ -2673,7 +2861,23 @@ Public Class FormDemo1DVertical
 
     End Sub
 
+    Private Sub buttonMoveColumnB_Click(sender As Object, e As EventArgs) Handles buttonMoveColumnB.Click
 
+    End Sub
+
+    Private Sub LinkReorderCols_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkReorderCols.LinkClicked
+
+        ''//
+        ''// Added 5/07/2025 thomas downes
+        ''//
+        ''//  Let's reorder the columns (lists B1, B2, B3) horizontally.
+        ''//  So, for example, if the current order is B1, B2, B3,
+        ''//    we can change it to B3, B1, B2. 
+
+        mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
+        RedrawColumns_InOrder(mod_listColumnHeaders)
+
+    End Sub
 End Class
 
 

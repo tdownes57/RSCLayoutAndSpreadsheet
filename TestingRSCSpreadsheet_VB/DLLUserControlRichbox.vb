@@ -108,6 +108,63 @@ Public Class DLLUserControlRichbox
     End Property
 
 
+    Public Property TextRedux() As String
+        ''
+        ''This is an "alias" property, with suffix "Redux".
+        ''Should function the same as the "Text" property.
+        ''   ---12/19/2025 
+        ''
+        Get
+            ''Added 1/19/2025 td
+            Return TextBox1.Text
+        End Get
+        Set(par_value As String)
+            ''Added 1/19/2025 td
+            TextBox1.Text = par_value
+        End Set
+    End Property
+
+
+    Public Property Boldface() As Boolean
+        ''
+        ''  Added 12/19/2025 
+        ''
+        Get
+            ''Added 1/19/2025 td
+            Return TextBox1.Font.Bold
+        End Get
+        Set(par_value As Boolean)
+            ''Added 1/19/2025 td
+            ''---TextBox1.Font.Bold = par_value
+
+            ''Code below is by ChatGPT. 
+            Dim currentFont As Font = TextBox1.Font
+            Dim newStyle As FontStyle
+
+            ''If currentFont.Bold Then
+            ''    ''Reversing to non-bold
+            ''    newStyle = currentFont.Style And Not FontStyle.Bold
+            ''Else
+            ''    ''Reversing to Boldface
+            ''    newStyle = currentFont.Style Or FontStyle.Bold
+            ''End If
+
+            If par_value Then
+                newStyle = currentFont.Style Or FontStyle.Bold
+            Else
+                newStyle = currentFont.Style And Not FontStyle.Bold
+            End If
+
+            TextBox1.Font = New Font(
+                currentFont.FontFamily,
+                currentFont.Size,
+                newStyle
+            )
+
+        End Set
+    End Property
+
+
     ''
     ''Added 5/03/2025
     ''

@@ -205,7 +205,7 @@ namespace RSCLibraryDLLOperations    // Sample of technical writing -- use lines
             // April 2025 _itemStart = par_op._itemStart_SortOrderThisOp;  // Use the sort order suffixed "ThisOp".
             // April 2025 _itemStart.DLL_ClearReferencePrior('S'); // Added 12/30/2024 
             TControl? currentItem = null; // _itemStart;
-            TControl priorItem = _itemStart;
+            TControl? priorItem = _itemStart;
             TControl each_item = _itemStart;
             const bool DOUBLY_LINK = true;
             TControl[] arrayControls_CurrentOrder = new TControl[_itemCount];  // new TControl[-1 + _itemCount];
@@ -249,13 +249,20 @@ namespace RSCLibraryDLLOperations    // Sample of technical writing -- use lines
             //
             // Step #3 of 3: Convert the array to a DLL (dynamically linked list). 
             //
+            priorItem = null; //Added 11/5/2025 td
+
             for (int index = 0; index < _itemCount; index++)
             {
                 // Read the current item from the array which saves all of the items, in order.
                 currentItem = arrayControls_RestoredOrder[index];  // Use the sort order suffixed "ThisOp".
                 currentItem.DLL_ClearReferenceNext('s');  // Added 11/1/2025
-                currentItem.DLL_ClearReferencePrior('s');  // Added 11/1/2025 
-                priorItem.DLL_SetItemNext_OfT(currentItem, false, DOUBLY_LINK);
+                currentItem.DLL_ClearReferencePrior('s');  // Added 11/1/2025
+
+                //----A bit of housekeeping.  11/5/2025 
+                //----if (index == 0) priorItem.DLL_ClearReferencePrior('S');
+
+                // If there is a prior item, link it to the current item.
+                priorItem?.DLL_SetItemNext_OfT(currentItem, false, DOUBLY_LINK);
 
                 // Prepare for the next iteration of the loop. --12/30/2024
                 priorItem = currentItem;

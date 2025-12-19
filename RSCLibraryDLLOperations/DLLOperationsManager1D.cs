@@ -570,7 +570,7 @@ namespace RSCLibraryDLLOperations
             //
             // Check for proper termination.
             //
-            mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
+            mod_firstPriorOperation1D?.DLL_CheckTermination_Prior();
 
         }
 
