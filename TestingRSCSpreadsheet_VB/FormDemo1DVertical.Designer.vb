@@ -91,6 +91,7 @@ Partial Class FormDemo1DVertical
         DLLColumnHeaderB2 = New DLLUserControlRichbox()
         DLLColumnHeaderB3 = New DLLUserControlRichbox()
         LinkReorderCols = New LinkLabel()
+        LinkMove5pixels = New LinkLabel()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -930,11 +931,23 @@ Partial Class FormDemo1DVertical
         LinkReorderCols.TabStop = True
         LinkReorderCols.Text = "Reorder Cols--HUGE!!"
         ' 
+        ' LinkMove5pixels
+        ' 
+        LinkMove5pixels.AutoSize = True
+        LinkMove5pixels.Location = New Point(419, 4)
+        LinkMove5pixels.Margin = New Padding(4, 0, 4, 0)
+        LinkMove5pixels.Name = "LinkMove5pixels"
+        LinkMove5pixels.Size = New Size(179, 21)
+        LinkMove5pixels.TabIndex = 165
+        LinkMove5pixels.TabStop = True
+        LinkMove5pixels.Text = "Move columns +5 pixels"
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(9F, 21F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1578, 706)
+        Controls.Add(LinkMove5pixels)
         Controls.Add(LinkReorderCols)
         Controls.Add(DLLColumnHeaderB3)
         Controls.Add(DLLColumnHeaderB2)
@@ -1074,4 +1087,5 @@ Partial Class FormDemo1DVertical
     Friend WithEvents DLLColumnHeaderB2 As DLLUserControlRichbox
     Friend WithEvents DLLColumnHeaderB3 As DLLUserControlRichbox
     Friend WithEvents LinkReorderCols As LinkLabel
+    Friend WithEvents LinkMove5pixels As LinkLabel
 End Class

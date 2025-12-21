@@ -5,6 +5,7 @@
 ''
 ''Jan2025 Imports System.ComponentModel.Design
 ''Jan2025 Imports System.Diagnostics.Metrics
+Imports System.Reflection.Emit
 Imports System.Text
 Imports ciBadgeInterfaces
 
@@ -120,16 +121,29 @@ Public Class FormDemo1DVertical
         ''Created 12/19/2025   
         ''
         Dim output As New DLLList(Of DLLUserControlRichbox)()
-        Dim tempControl As DLLUserControlRichbox
+        Dim tempControl1 As DLLUserControlRichbox
+        Dim tempControl2 As DLLUserControlRichbox
+        Dim tempControl3 As DLLUserControlRichbox
 
-        tempControl = par_value.DLL_GetItemAtIndex_1based(3) ''Get #3 first.
-        output.DLL_AddItemAtEnd(tempControl) ''Put #3 first.
+        tempControl1 = par_value.DLL_GetItemAtIndex_1based(1) ''Get #1.
+        tempControl2 = par_value.DLL_GetItemAtIndex_1based(2) ''Get #2.
+        tempControl3 = par_value.DLL_GetItemAtIndex_1based(3) ''Get #3.
 
-        tempControl = par_value.DLL_GetItemAtIndex_1based(1) ''Get #1 second.
-        output.DLL_AddItemAtEnd(tempControl) ''Put #1 second.
+        tempControl1.DLL_ClearReferenceNext("r"c)
+        tempControl2.DLL_ClearReferenceNext("r"c)
+        tempControl3.DLL_ClearReferenceNext("r"c)
 
-        tempControl = par_value.DLL_GetItemAtIndex_1based(2) ''Get #2 last.
-        output.DLL_AddItemAtEnd(tempControl) ''Put #2 last.
+        tempControl1.DLL_ClearReferencePrior("r"c)
+        tempControl2.DLL_ClearReferencePrior("r"c)
+        tempControl3.DLL_ClearReferencePrior("r"c)
+
+        output.DLL_AddItemAtEnd(tempControl3) ''Put #3 first.
+        output.DLL_AddItemAtEnd(tempControl1) ''Put #1 second.
+        output.DLL_AddItemAtEnd(tempControl2) ''Put #2 last.
+
+        ''Added 12/20/2025 td 
+        output._itemStart = tempControl3 ''Put #3 first.
+        output._itemEnding = tempControl2 ''Put #2 last.
 
         Return output
 
@@ -230,13 +244,60 @@ Public Class FormDemo1DVertical
         ''--Dim listLeftValues As List(Of Integer)
         ''--listLeftValues = GetLeftValuesForColumns_Ordered()
 
-        DLLColumnHeaderB1.Left = par_leftValues(0)
-        DLLColumnHeaderB2.Left = par_leftValues(1)
-        DLLColumnHeaderB3.Left = par_leftValues(2)
+        Dim intColumnLeft_Left As Integer = par_leftValues(0)
+        Dim intColumnMid_Left As Integer = par_leftValues(1)
+        Dim intColumnRight_Left As Integer = par_leftValues(2)
 
-        FlowColumnB1.Left = par_leftValues(0)
-        FlowColumnB2.Left = par_leftValues(1)
-        FlowColumnB3.Left = par_leftValues(2)
+        Dim tempColumnHeader_NewLeft As DLLUserControlRichbox
+        Dim tempColumnHeader_NewMiddle As DLLUserControlRichbox
+        Dim tempColumnHeader_NewRight As DLLUserControlRichbox
+
+        tempColumnHeader_NewLeft = par_headers.DLL_GetItemAtIndex_1based(1)
+        tempColumnHeader_NewMiddle = par_headers.DLL_GetItemAtIndex_1based(2)
+        tempColumnHeader_NewRight = par_headers.DLL_GetItemAtIndex_1based(3)
+
+        ''Test that we are about to move the column headers, not just reaffirming their
+        ''  current presence (LOL).
+        ''  --12/21/2025 t//d//
+        ''---Debug.Assert(DLLColumnHeaderB1.Left <> intColumn1_Left)
+        ''---Debug.Assert(DLLColumnHeaderB2.Left <> intColumn2_Left)
+        ''---Debug.Assert(DLLColumnHeaderB3.Left <> intColumn3_Left)
+        Debug.Assert(intColumnLeft_Left <> tempColumnHeader_NewLeft.Left)
+        Debug.Assert(intColumnMid_Left <> tempColumnHeader_NewMiddle.Left)
+        Debug.Assert(intColumnRight_Left <> tempColumnHeader_NewRight.Left)
+
+        tempColumnHeader_NewLeft.Left = intColumnLeft_Left '' = par_leftValues(0)
+        tempColumnHeader_NewMiddle.Left = intColumnMid_Left '' = par_leftValues(1)
+        tempColumnHeader_NewRight.Left = intColumnRight_Left '' = par_leftValues(2)
+
+        DLLColumnHeaderB1.Invalidate() ''Force a redraw.
+        DLLColumnHeaderB2.Invalidate() ''Force a redraw.
+        DLLColumnHeaderB3.Invalidate() ''Force a redraw.
+
+        ''Test that we are about to move the columns, not just reaffirming their
+        ''  current presence (LOL).
+        ''  --12/21/2025 t//d//
+        ''
+        ''Debug.Assert(FlowColumnB1.Left <> intColumn1_Left)
+        ''Debug.Assert(FlowColumnB2.Left <> intColumn2_Left)
+        ''Debug.Assert(FlowColumnB3.Left <> intColumn3_Left)
+        ''FlowColumnB1.Left = par_leftValues(0)
+        ''FlowColumnB2.Left = par_leftValues(1)
+        ''FlowColumnB3.Left = par_leftValues(2)
+        ''Me.Refresh()
+
+        ''CType(FlowColumnB1.Tag, DLLUserControlRichbox).Left = intColumnLeft_Left
+        ''CType(FlowColumnB2.Tag, DLLUserControlRichbox).Left = intColumnMid_Left
+        ''CType(FlowColumnB3.Tag, DLLUserControlRichbox).Left = intColumnRight_Left
+
+        CType(DLLColumnHeaderB1.Tag, FlowLayoutPanel).Left = DLLColumnHeaderB1.Left
+        CType(DLLColumnHeaderB2.Tag, FlowLayoutPanel).Left = DLLColumnHeaderB2.Left
+        CType(DLLColumnHeaderB3.Tag, FlowLayoutPanel).Left = DLLColumnHeaderB3.Left
+
+        FlowColumnB1.Invalidate() ''Force a redraw.
+        FlowColumnB2.Invalidate() ''Force a redraw.
+        FlowColumnB3.Invalidate() ''Force a redraw.
+        ''----Me.Refresh()
 
     End Sub ''End of ""Private Sub RedrawColumns_InOrder()""
 
@@ -249,6 +310,7 @@ Public Class FormDemo1DVertical
         ''
         Dim listLeftValues As List(Of Integer)
         listLeftValues = GetLeftValuesForColumns_Sorted()
+        ''Major call.
         RedrawColumns_InOrder(listLeftValues, par_headers)
 
     End Sub ''End of ""Private Sub RedrawColumns_InOrder()""
@@ -415,6 +477,18 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
         labelNumOperations.Text = mod_managerVerticalOps.ToString()
+
+        ''Added 12/21/2015 td 
+        ''  Create an association between each Flow Column and its Column Header.
+        ''FlowColumnB1.Tag = DLLColumnHeaderB1
+        ''FlowColumnB2.Tag = DLLColumnHeaderB2
+        ''FlowColumnB3.Tag = DLLColumnHeaderB3
+
+        ''Added 12/21/2015 td 
+        ''  Create an association between each Flow Column and its Column Header.
+        DLLColumnHeaderB1.Tag = FlowColumnB1
+        DLLColumnHeaderB2.Tag = FlowColumnB2
+        DLLColumnHeaderB3.Tag = FlowColumnB3
 
     End Sub ''End of ""Private Sub FormSimpleDemoOfCSharp1D_Load""
 
@@ -2876,6 +2950,15 @@ Public Class FormDemo1DVertical
 
         mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
         RedrawColumns_InOrder(mod_listColumnHeaders)
+
+    End Sub
+
+    Private Sub LinkMove5pixels_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkMove5pixels.LinkClicked
+
+        ''This is a "control group" test.  Does moving the columns work OK?
+        FlowColumnB1.Left = FlowColumnB1.Left + 5
+        FlowColumnB2.Left = FlowColumnB2.Left + 5
+        FlowColumnB3.Left = FlowColumnB3.Left + 5
 
     End Sub
 End Class
