@@ -756,6 +756,10 @@ namespace RSCLibraryDLLOperations
             bool result_isMove = _isMove;
             StructureTypeOfMove result_MoveType = new StructureTypeOfMove(_isMove);  // Added 12/11/2024  
 
+            // Added 12/22/2025 td
+            bool result_isRotateLeft = _isRotateRight; // DIFFICULT & CONFUSING... inverse/opposite.
+            bool result_isRotateRight = _isRotateLeft; // DIFFICULT & CONFUSING... inverse/opposite.
+
             bool result_isForStartOfList = _isForStartOfList;
             bool result_isForEndOfList = _isForEndOfList;
 

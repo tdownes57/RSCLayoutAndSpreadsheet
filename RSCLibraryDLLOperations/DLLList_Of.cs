@@ -621,6 +621,36 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        public void DLL_RotateLeft()
+        {
+            //
+            // Added 12/22/2025 thomas downes
+            //
+            TControl itemFirst = _itemStart;
+            TControl itemLast = _itemEnding;
+
+            DLL_RemoveItemFromStart();
+            DLL_AddItemAtEnd(itemFirst);
+
+
+        }
+
+
+        public void DLL_RotateRight()
+        {
+            //
+            // Added 12/22/2025 thomas downes
+            //
+            TControl itemFirst = _itemStart;
+            TControl itemLast = _itemEnding;
+
+            DLL_RemoveItemFromEnd();
+            DLL_AddItemAtStart(itemFirst);
+
+
+        }
+
+
         //
         //  Two methods for Selection Range: 
         //

@@ -50,6 +50,8 @@ namespace RSCLibraryDLLOperations
         internal readonly bool _isDelete;
         internal readonly bool _isMove;
         internal readonly StructureTypeOfMove _moveType;  // Added 12/11/2024 t_homas c. d_ownes
+        internal readonly bool _isRotateLeft;    // Added 12/22/2025 td
+        internal readonly bool _isRotateRight;    // Added 12/22/2025 td
 
         //Apr2025 private readonly bool _isSort_Ascending;
         //Apr2025 private readonly bool _isSort_Descending;
@@ -150,6 +152,11 @@ namespace RSCLibraryDLLOperations
             //if (_isSort_Descending) return 'S';
             if (_isSortByValues_Ascending) return 'S';
             if (_isSortByValues_Descending) return 'S';
+            
+            // Added 12/22/2025 td
+            if (_isRotateLeft) return 'R';
+            if (_isRotateRight) return 'R';
+
             return ' ';
 
         }
@@ -205,6 +212,8 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isInsert"></param>
         /// <param name="par_isDelete"></param>
         /// <param name="par_isMove"></param>
+        /// <param name="par_isRotateLeft"></param>
+        /// <param name="par_isRotateRight"></param>
         /// <param name="par_anchorItem"></param>
         /// <param name="par_isSortAscending"></param>
         /// <param name="par_isSortDescending"></param>
@@ -284,6 +293,10 @@ namespace RSCLibraryDLLOperations
             _isDelete = par_operation1D_Of._isDelete;
             _isMove = par_operation1D_Of._isMove;
             _moveType = par_operation1D_Of._moveType;
+            // Added 12/22/2025 
+            _isRotateLeft = par_operation1D_Of._isRotateLeft;
+            _isRotateRight = par_operation1D_Of._isRotateRight;
+
             _anchorItem = par_operation1D_Of._anchorItem;
             _anchorCouplet = par_operation1D_Of._anchorCouplet;
             mod_opPrior_ForUndo_OfT = par_operation1D_Of.mod_opPrior_ForUndo_OfT;
@@ -337,6 +350,8 @@ namespace RSCLibraryDLLOperations
               bool par_forStartOfList, bool par_forEndOfList,
               bool par_isInsert, bool par_isDelete, bool par_isMove,
               StructureTypeOfMove par_structMoveType,
+              bool par_isRotateLeft, 
+              bool par_isRotateRight,
               DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
               DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
                   DLLOperation1D_Of<T_DLLItem>? par_operationPrior = null,
@@ -435,13 +450,20 @@ namespace RSCLibraryDLLOperations
             mod_opNextIsNull = (mod_opNext_ForRedo_OfT == null);
             mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
 
+            // Added 12/22/2025 td
+            _isRotateLeft = par_isRotateLeft;
+            _isRotateRight = par_isRotateRight;
+
+
         }
 
 
         public DLLOperation1D_Of(DLLRange<T_DLLItem> par_range,
                               DLLAnchorCouplet<T_DLLItem>? par_anchorCouplet,
                               bool par_isInsert, bool par_isMove,
-                              StructureTypeOfMove par_typeOfMove)
+                              StructureTypeOfMove par_typeOfMove,
+                              bool par_isRotateLeft, 
+                              bool par_isRotateRight)
         {
             //
             // Added 11/3/2024 
@@ -482,6 +504,10 @@ namespace RSCLibraryDLLOperations
             // Added 6/24/2025 td
             mod_opNextIsNull = (mod_opNext_ForRedo_OfT == null);
             mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
+
+            // Added 12/22/2025 
+            _isRotateLeft = par_isRotateLeft;
+            _isRotateRight = par_isRotateRight;
 
         }
 

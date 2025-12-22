@@ -485,7 +485,7 @@ Public Class FormDemo1DVertical
         ''FlowColumnB3.Tag = DLLColumnHeaderB3
 
         ''Added 12/21/2015 td 
-        ''  Create an association between each Flow Column and its Column Header.
+        ''  Create an association between each Column Header and its Flow Column.
         DLLColumnHeaderB1.Tag = FlowColumnB1
         DLLColumnHeaderB2.Tag = FlowColumnB2
         DLLColumnHeaderB3.Tag = FlowColumnB3
