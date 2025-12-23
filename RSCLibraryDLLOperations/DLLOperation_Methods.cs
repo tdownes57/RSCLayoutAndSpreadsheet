@@ -864,6 +864,8 @@ namespace RSCLibraryDLLOperations
                     result_isDelete,
                     result_isMove,
                     result_MoveType,
+                    result_isRotateLeft, 
+                    result_isRotateRight,
                     result_anchorItem,
                     result_anchorCouplet);
             }
@@ -997,7 +999,9 @@ namespace RSCLibraryDLLOperations
                 // Modified 1/07/2025 td
                 result =
                     new DLLOperation1D_Of<T_BaseOrParallel>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
-                           _isMove, _moveType, objAnchorItem, objAnchorCouplet,
+                           _isMove, _moveType, 
+                           _isRotateLeft, _isRotateRight,
+                           objAnchorItem, objAnchorCouplet,
                            operationBasePrior, operationBaseNext);
                            // mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_Base>());
 

@@ -815,7 +815,9 @@ namespace RSCLibraryDLLOperations
             //Apr2025  var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
             //    _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
             var operationParallel = new DLLOperation1D_Of<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
-                _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
+                _isInsert, _isDelete, _isMove, _moveType, 
+                _isRotateLeft, _isRotateRight,
+                anchorItem_parallel, anchorPair_parallel);
 
             operationParallel.OperateOnList(par_listParallel, true, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);
 

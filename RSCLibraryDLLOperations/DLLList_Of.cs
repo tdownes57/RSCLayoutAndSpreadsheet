@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -626,12 +627,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/22/2025 thomas downes
             //
-            TControl itemFirst = _itemStart;
-            TControl itemLast = _itemEnding;
-
-            DLL_RemoveItemFromStart();
-            DLL_AddItemAtEnd(itemFirst);
-
+            Debug.Assert(false); // Unfinished method.
 
         }
 
@@ -641,12 +637,30 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/22/2025 thomas downes
             //
+            if (_itemStart == null) return;
+            Debug.Assert(_itemEnding != null);
+
             TControl itemFirst = _itemStart;
+            TControl? itemSecond = itemFirst.DLL_GetItemNext_OfT();
             TControl itemLast = _itemEnding;
+            TControl? itemPenultimate = _itemEnding.DLL_GetItemPrior_OfT();
 
-            DLL_RemoveItemFromEnd();
-            DLL_AddItemAtStart(itemFirst);
+            //DLL_RemoveItemFromEnd();
+            //DLL_AddItemAtStart(itemFirst);
 
+            itemPenultimate.DLL_ClearReferenceNext('r');
+            _itemEnding = itemPenultimate;
+            itemLast.DLL_ClearReferencePrior('r');
+            itemLast.DLL_ClearReferenceNext('r');
+            itemFirst.DLL_SetItemPrior_OfT(itemLast);
+
+            // Administrative. 
+            TControl itemFirst_New = itemLast;
+            TControl itemSecond_New = itemFirst;
+            TControl itemLast_New = itemPenultimate;
+            itemFirst_New.DLL_SetItemNext_OfT(itemSecond_New);
+            _itemStart = itemFirst_New;
+            _itemEnding = itemLast_New;
 
         }
 

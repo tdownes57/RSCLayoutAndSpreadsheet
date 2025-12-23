@@ -130,18 +130,23 @@ namespace RSCLibraryDLLOperations
                       bool par_forStartOfList, bool par_forEndOfList,
                       bool par_isInsert, bool par_isDelete, bool par_isMove,
                       StructureTypeOfMove par_structMoveType,
+                      bool pbRotateLeft, bool pbRotateRight,
                       DLLAnchorItem_Deprecated<THeader>? par_anchorItem,
                       DLLAnchorCouplet<THeader>? par_anchorPair,
                       DLLOperation1D_Of<THeader>? par_operationPrior = null,
                       DLLOperation1D_Of<THeader>? par_operationNext = null)
-                                        : base(par_range, par_forStartOfList,
-                                            par_forEndOfList, par_isInsert,
-                                            par_isDelete, par_isMove,
-                                            par_structMoveType, par_anchorItem,
-                                            par_anchorPair, par_operationPrior, par_operationNext)
+
+                    : base(par_range, par_forStartOfList,
+                        par_forEndOfList, par_isInsert,
+                        par_isDelete, par_isMove,
+                        par_structMoveType, pbRotateLeft, pbRotateRight,
+                        par_anchorItem,
+                        par_anchorPair, par_operationPrior, par_operationNext)
         {
+            //  ---12/23/2025  bool par_IsRotateLeft, bool par_isRotateRight,
             //
             // We simply pass the arguments to the base class.
+            //    (Note the base-class constructor call above, ": base(...)".)
             //
             // Added 4/10/2025 thomas downes
             //
@@ -194,11 +199,16 @@ namespace RSCLibraryDLLOperations
         public DLLOperation1D_2TypesInParallel(DLLRange<THeader> par_range,
                        DLLAnchorCouplet<THeader>? par_anchorCouplet,
                        bool par_isInsert, bool par_isMove,
-                       StructureTypeOfMove par_typeOfMove)
-                        : base(par_range, par_anchorCouplet, par_isInsert, par_isMove, par_typeOfMove)
+                       StructureTypeOfMove par_typeOfMove,
+                       bool pbRotateLeft, bool pbRotateRight)
+
+                        : base(par_range, par_anchorCouplet, par_isInsert, 
+                              par_isMove, par_typeOfMove,
+                              pbRotateLeft, pbRotateRight)
         {
             //
             // We simply pass the arguments to the base class.
+            //    (Note the base-class constructor call above, ": base(...)".)
             //
             // Added 4/10/2025 thomas downes
             //
