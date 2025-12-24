@@ -667,7 +667,7 @@ Public Class FormDemo1DVertical
             ''            True, False, False,
             ''            anchorForEmptyList, False, False, False)
             operationInitialInsertA = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, True, False,
-                                                                  True, False, False, type_of_move,
+                                      True, False, False, type_of_move, False, False,
                                       anchorItemForListOfOneItemA,
                                       anchorPairForListOfOneItemA)
             ''12/30/2024                     False, False, False, False,
@@ -1343,7 +1343,7 @@ Public Class FormDemo1DVertical
         '' Added 11/17/2024 thomas downes
         ''
         tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, Nothing,
-                               False, OPERATION_MOVE, currentMoveType)
+                               False, OPERATION_MOVE, currentMoveType, False, False)
         ''operation.OperateOnList(mod_listA)
         ''Mar2025 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
         ''   bChangeOfEndpoint_Occurred, True)
@@ -1558,7 +1558,8 @@ Public Class FormDemo1DVertical
                                         tempAnchorItem.DLL_GetItemNext_OfT,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
             ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, anchor_couple, True, False)
-            operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple, True, False, null_move)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple,
+                                     True, False, null_move, False, False)
 
             ''Added 1/13/2025 td
             ''
@@ -1615,7 +1616,7 @@ Public Class FormDemo1DVertical
                                         tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple,
-                                   True, False, null_move)
+                                   True, False, null_move, False, False)
 
             ''Added 4/08/2025 thomas d.
             ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
@@ -1788,7 +1789,7 @@ Public Class FormDemo1DVertical
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLVerticalA)(newItem, True)
             operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(rangeSingleItem, False, False,
-                                    INSERT_OPERATION, False, False, not_a_moveType,
+                                    INSERT_OPERATION, False, False, not_a_moveType, False, False,
                                   objAnchorItem, objAnchorPair)
             ''12/30/2024                          False, False, False, False,
             ''12/30/2024                           Nothing, Nothing, Nothing)
@@ -2045,6 +2046,8 @@ Public Class FormDemo1DVertical
         Const DIRECT_TO_LIST_Not As Boolean = False ''Added 10/26/2024 thom dow.nes
         Const OPERATION_NotInsert As Boolean = False '' False ''Adde d 10/26/2024 thomas downes
         Const OPERATION_NotMove As Boolean = False '' False ''Added 10/26/2024 thomas downes
+        Const OPERATION_NotRotateL As Boolean = False '' Added 12/24/2025 thomas downes
+        Const OPERATION_NotRotateR As Boolean = False '' Added 12/24/2025 thomas downes
         Const SORT_123 As Boolean = False
         Const SORT_321 As Boolean = False
         Const SORT_UNDO As Boolean = False
@@ -2119,7 +2122,10 @@ Public Class FormDemo1DVertical
                                   bIncludesListStart, bIncludesList__End,
                                   OPERATION_NotInsert,
                                   OPERATION_Delete,
-                                  OPERATION_NotMove, not_a_moveType, Nothing, Nothing)
+                                  OPERATION_NotMove, not_a_moveType,
+                                  OPERATION_NotRotateL,
+                                  OPERATION_NotRotateR,
+                                  Nothing, Nothing)
             ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
             ''12/20/2024                  Nothing, Nothing, Nothing)
 
@@ -2357,7 +2363,8 @@ Public Class FormDemo1DVertical
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair,
+                                  False, OPERATION_MOVE, type_is_anchor, False, False)
         ''operation.OperateOnList(mod_listA)
         ''12/16/2024 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         ''03/25/2025 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,

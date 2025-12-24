@@ -87,10 +87,14 @@ Public Class FormSimpleDemoOfCSharp1D
             ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLItem)(rangeNew, True, False,
             ''            True, False, False,
             ''            anchorForEmptyList, False, False, False)
+
+            Const OP_INSERT As Boolean = True ''Added 12/24/2025 td
+            Const OP_ROTATE As Boolean = False ''Added 12/24/2025 td
             operationInitial30 = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, True, False,
-                                                                      True, False, False, type_of_move,
-                                          anchorItemForListOfOneItem,
-                                          anchorPairForListOfOneItem)
+                        OP_INSERT, False, False, type_of_move,
+                        OP_ROTATE, OP_ROTATE,
+                        anchorItemForListOfOneItem,
+                        anchorPairForListOfOneItem)
             ''12/30/2024                     False, False, False, False,
             ''12/30/2024                     Nothing, Nothing, Nothing)
 
@@ -540,7 +544,7 @@ Public Class FormSimpleDemoOfCSharp1D
         '' Added 11/17/2024 thomas downes
         ''
         tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, Nothing,
-                                   False, OPERATION_MOVE, currentMoveType)
+                                   False, OPERATION_MOVE, currentMoveType, False, False)
         ''operation.OperateOnList(mod_list)
         ''March 2025  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
         ''               bChangeOfEndpoint_Occurred, True)
@@ -597,6 +601,7 @@ Public Class FormSimpleDemoOfCSharp1D
         Dim intModulo As Integer
         Dim boolEndpoint As Boolean
         Dim objAnchor As DLLAnchorItem_Deprecated(Of TwoCharacterDLLItem)
+        Const OP_INSERT As Boolean = True ''Added 12/24/2025 thom dow.nes
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -714,7 +719,8 @@ Public Class FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False)
-            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range,
+                 anchor_couple, OP_INSERT, False, null_move, False, False)
 
             ''Added 1/13/2025 td
             ''
@@ -747,7 +753,10 @@ Public Class FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(
                                             tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, null_move)
+
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple,
+                  OP_INSERT, False, null_move, False, False)
+
             ''operation.OperateOnList(mod_list)
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             ''---April 2025---mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
@@ -899,7 +908,7 @@ Public Class FormSimpleDemoOfCSharp1D
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
             operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
-                                        INSERT_OPERATION, False, False, not_a_moveType,
+                                        INSERT_OPERATION, False, False, not_a_moveType, False, False,
                                       objAnchorItem, objAnchorPair)
             ''12/30/2024          False, False, False, False,
             ''12/30/2024           Nothing, Nothing, Nothing)
@@ -1177,7 +1186,8 @@ Public Class FormSimpleDemoOfCSharp1D
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
-                                      OPERATION_NotMove, not_a_moveType, Nothing, Nothing)
+                                      OPERATION_NotMove, not_a_moveType,
+                                      False, False, Nothing, Nothing)
             ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
             ''12/20/2024                  Nothing, Nothing, Nothing)
 
@@ -1357,7 +1367,9 @@ Public Class FormSimpleDemoOfCSharp1D
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_is_anchor)
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair,
+             False, OPERATION_MOVE, type_is_anchor, False, False)
+
         ''operation.OperateOnList(mod_list)
         ''12/16/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         ''April2025  mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,

@@ -90,6 +90,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
             operationInitial30 = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, True, False,
                                                                       DO_INSERT, False, False,
                                                                       type_moveIsNull,
+                                                                      False, False,
                                                                       anchorItemForListOfOneItem,
                                                                       anchorPairForListOfOneItem)
             '' 12/30/2024                                             False, False, False, False)
@@ -534,7 +535,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple,
-                                       INSERT_OPERATION, False, typeMove_isNull)
+                                       INSERT_OPERATION, False, typeMove_isNull, False, False)
 
             ''operation.OperateOnList(mod_list)
             mod_manager2D.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
@@ -550,7 +551,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                             tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, anchor_couple,
-                                        INSERT_OPERATION, False, typeMove_isNull)
+                                        INSERT_OPERATION, False, typeMove_isNull, False, False)
 
             ''operation.OperateOnList(mod_list)
             ''//mod_manager1D.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
@@ -670,6 +671,8 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         Const DIRECT_TO_LIST = False ''Added 10/26/2024 thom dow.nes
         Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
+        Const ROTATE_L_FALSE As Boolean = False ''Added 12/24/2025
+        Const ROTATE_R_FALSE As Boolean = False ''Added 12/24/2025
         Dim type_MoveFalse As New StructureTypeOfMove(False)
 
         If DIRECT_TO_LIST Then
@@ -683,8 +686,8 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLHorizontal)(newItem, True)
             operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(rangeSingleItem, False, False,
                                       INSERT_OPERATION, False, False, type_MoveFalse,
-                                      objAnchorItem,
-                                      objAnchorPair)
+                                      ROTATE_L_FALSE, ROTATE_R_FALSE,
+                                      objAnchorItem, objAnchorPair)
             ''12/30/2024 False, False, False, False)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
@@ -872,6 +875,8 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
         Const DIRECT_TO_LIST_Not As Boolean = False ''Added 10/26/2024 thom dow.nes
         Const OPERATION_NotInsert As Boolean = False '' False ''Adde d 10/26/2024 thomas downes
         Const OPERATION_NotMove As Boolean = False '' False ''Added 10/26/2024 thomas downes
+        Const OPERATION_NotRotateL As Boolean = False ''Added 12/24/2025 thomas downes
+        Const OPERATION_NotRotateR As Boolean = False ''Added 12/24/2025 thomas downes
         Const SORT_123 As Boolean = False
         Const SORT_321 As Boolean = False
         ''12/24/2024 Const SORT_UNDO As Boolean = False
@@ -944,7 +949,9 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
-                                      OPERATION_NotMove, type_notMove, Nothing, Nothing)
+                                      OPERATION_NotMove, type_notMove,
+                                      OPERATION_NotRotateL, OPERATION_NotRotateR,
+                                      Nothing, Nothing)
             ''12/30/2024                  SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
@@ -1066,7 +1073,9 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_move)
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(mod_range, tempAnchorPair,
+              False, OPERATION_MOVE, type_move, False, False)
+
         ''operation.OperateOnList(mod_list)
         mod_manager2D.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
                                                bChangeOfEndpoint_Occurred, True)

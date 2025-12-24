@@ -82,7 +82,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''                                                          True, False, False,
             ''                                                    anchorForEmptyList, False, False, False)
             operationInitial30 = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, True, False,
-                                                                      LOAD_INSERT, False, False, type_notAMove,
+                                          LOAD_INSERT, False, False, type_notAMove, False, False,
                                           anchorItemForListOfOneItem,
                                           anchorPairForListOfOneItem)
             ''12/30/2024                    False, False, False, False)
@@ -509,7 +509,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         '' Insert range into the list.  
         ''
         Const DIRECT_TO_LIST = False ''Added 10/26/2024 thom dow.nes
-        Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
+        Const OPERATION_INSERT = True '' False ''Added 10/26/2024 thomas downes
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
         Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLItem)
         Dim operation As DLLOperation1D_Of(Of TwoCharacterDLLItem)
@@ -535,7 +535,10 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(tempAnchorItem,
                                             tempAnchorItem.DLL_GetItemNext_OfT,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, type_notMove)
+
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple,
+                   OPERATION_INSERT, False, type_notMove, False, False)
+
             ''operation.OperateOnList(mod_list)
             mod_manager.ProcessOperation_AnyType(operation,
                                                  bChangeOfEndpoint_Expected,
@@ -550,8 +553,10 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLItem)(
                                             tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                             tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple, True, False, type_notMove)
+            operation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, anchor_couple,
+                  OPERATION_INSERT, False, type_notMove, False, False)
             ''operation.OperateOnList(mod_list)
+
             ''12/16/2024 mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                                                  bChangeOfEndpoint_Occurred, True,
@@ -683,7 +688,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             ''
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
             operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
-                                      INSERT_OPERATION, False, False, type_notMove,
+                                      INSERT_OPERATION, False, False,
+                                      type_notMove, False, False,
                                       objAnchorItem,
                                       objAnchorPair)
             ''12/30/2024  False, False, False, False)
@@ -880,10 +886,12 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         Const DIRECT_TO_LIST_Not As Boolean = False ''Added 10/26/2024 thom dow.nes
         Const OPERATION_NotInsert As Boolean = False '' False ''Adde d 10/26/2024 thomas downes
         Const OPERATION_NotMove As Boolean = False '' False ''Added 10/26/2024 thomas downes
-        Const SORT_123 As Boolean = False
-        Const SORT_321 As Boolean = False
-        Const SORT_UNDO_ASCEND As Boolean = False ''Modified 12/24
-        Const SORT_UNDO_DESC As Boolean = False ''Modified 12/24
+        Const OPERATION_RotateL As Boolean = False '' Added 12/24/2025 thomas downes
+        Const OPERATION_RotateR As Boolean = False '' Added 12/24/2025 thomas downes
+        ''Const SORT_123 As Boolean = False
+        ''Const SORT_321 As Boolean = False
+        ''Const SORT_UNDO_ASCEND As Boolean = False ''Modified 12/24
+        ''Const SORT_UNDO_DESC As Boolean = False ''Modified 12/24
 
         Dim intItemPosition As Integer
         Dim intHowManyToDelete As Integer
@@ -950,7 +958,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             operationToDelete = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(rangeToDelete,
                                       bIncludesListStart, bIncludesList__End,
                                       OPERATION_NotInsert, OPERATION_Delete,
-                                      OPERATION_NotMove, type_notMove, Nothing, Nothing)
+                                      OPERATION_NotMove, type_notMove,
+                                      OPERATION_RotateL, OPERATION_RotateR,
+                                      Nothing, Nothing)
             ''12/30/2024   SORT_123, SORT_321, SORT_UNDO_ASCEND, SORT_UNDO_DESC)
 
             ''Dec156 2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
@@ -1077,7 +1087,9 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, tempAnchorPair, False, OPERATION_MOVE, type_move)
+        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range,
+           tempAnchorPair, False, OPERATION_MOVE, type_move, False, False)
+
         ''operation.OperateOnList(mod_list)
         ''12/2024 mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         mod_manager.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
