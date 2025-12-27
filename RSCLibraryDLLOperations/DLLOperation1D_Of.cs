@@ -381,6 +381,10 @@ namespace RSCLibraryDLLOperations
                 _moveType.IsShiftingToRight || _moveType.IsShiftingToLeft);
             bool bMove_ButNotByShift = (_isMove && !bMoveByShifting);
 
+            // Added 12/25/2025 td 
+            bool bRotating = (par_isRotateLeft || par_isRotateRight ||
+                                    _moveType.IsMoveRotation);
+
             //
             //  Preparing for UNDO... Determining an Anchor for a future UNDO operation.
             //
@@ -451,8 +455,8 @@ namespace RSCLibraryDLLOperations
             mod_opPriorIsNull = (mod_opPrior_ForUndo_OfT == null);
 
             // Added 12/22/2025 td
-            _isRotateLeft = par_isRotateLeft;
-            _isRotateRight = par_isRotateRight;
+            _isRotateLeft = par_isRotateLeft || par_structMoveType.IsRotationLeft;
+            _isRotateRight = par_isRotateRight || par_structMoveType.IsRotationRight;
 
 
         }
@@ -486,11 +490,18 @@ namespace RSCLibraryDLLOperations
             {
                 // Added 1/16/2025 td 
                 bool bShifting = (_moveType.IsShiftingToLeft || _moveType.IsShiftingToRight);
+                bool bRotating = (_moveType.IsMoveRotation || _moveType.IsRotationLeft
+                                   || _moveType.IsRotationRight);
 
                 if (bShifting)
                 {
                     //_inverseAnchorPair_forUndo = par_range.GetCoupletWhichEncloses_InverseAnchor();
                     _inverseAnchorPair_forUndo = null;  //Anchors are not needed for shifting operations. --1/16/2025 
+                }
+                else if (bRotating)
+                {
+                    // Added 12/27/2025 td
+                    _inverseAnchorPair_forUndo = null;  //Anchors are not needed for rotating operations. --12/27/2025 
                 }
                 else
                 {

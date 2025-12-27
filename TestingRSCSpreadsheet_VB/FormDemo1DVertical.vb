@@ -19,6 +19,7 @@ Public Class FormDemo1DVertical
     ''
     ''March 2025 Private mod_managerVerticalOps.As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
     Private mod_managerVerticalOps As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
+    Private mod_managerHorizontalOps As DLLOperationsManager1D(Of DLLUserControlRichbox, DLLUserControlRichbox)
 
     ''' <summary>
     ''' Manager of a list of Operation Index Structures. ---6/11/2025 td
@@ -464,6 +465,10 @@ Public Class FormDemo1DVertical
 
         mod_managerVerticalOps = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
                 DLLUserControlRichbox)(mod_firstItemA, mod_listA)
+
+        ''Added 12/25/2025 thomas downes
+        mod_managerHorizontalOps = New DLLOperationsManager1D(Of DLLUserControlRichbox,
+                DLLUserControlRichbox)(DLLColumnHeaderB1, mod_listColumnHeaders)
 
         ''Added 4/08/2025 thomas d.
         mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
@@ -2955,8 +2960,46 @@ Public Class FormDemo1DVertical
         ''//  So, for example, if the current order is B1, B2, B3,
         ''//    we can change it to B3, B1, B2. 
 
-        mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
-        RedrawColumns_InOrder(mod_listColumnHeaders)
+        ''---12/2025 mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
+        ''---12/2025 RedrawColumns_InOrder(mod_listColumnHeaders)
+
+        Const MANAGE_ROTATION As Boolean = True ''False ''Added 12/25/2025
+        Const OPERATION_MOVE As Boolean = True ''Added 12/25/2025 td
+        Const OPERATION_ROTATE_R As Boolean = True ''Added 12/25/2025 td
+
+        If (Not MANAGE_ROTATION) Then ''Added 12/25/2025  
+            ''
+            ''Let's see the rotation of columns in the quickest way possible.
+            ''   (Operation management not included... No "Undo" is possible.)
+            ''
+            mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
+            RedrawColumns_InOrder(mod_listColumnHeaders)
+
+        Else
+            ''
+            ''Create an operation to manage rotation of columns, for the "UNDO" operation.
+            ''
+            Dim currentMoveType As New StructureTypeOfMove(True)
+            Dim tempOperation As DLLOperation1D_Of(Of DLLUserControlRichbox) ''tempOperation
+            Const bChangeOfEndpoint_Expected As Boolean = True
+            Dim bChangeOfEndpoint_Occurred As Boolean
+
+            currentMoveType.IsMoveRotation = True ''Added 12/25/2025
+            currentMoveType.IsRotationRight = True ''Added 12/25/2025
+            currentMoveType.IsMoveIncrementalShift = False
+            currentMoveType.IsMoveToAnchor = False
+
+            tempOperation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(Nothing, Nothing,
+                               False, OPERATION_MOVE, currentMoveType, False,
+                               OPERATION_ROTATE_R)
+
+            mod_managerHorizontalOps.ProcessOperation_AnyType(tempOperation,
+                  bChangeOfEndpoint_Expected,
+                  bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
+
+
+        End If ''End of ""If (Not MANAGE_ROTATION) Then.... Else""
+
 
     End Sub
 

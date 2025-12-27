@@ -59,9 +59,13 @@ namespace RSCLibraryDLLOperations
         public bool IsMoveType;  // = false;
         public bool IsMoveToAnchor;  // = true;
         public bool IsMoveIncrementalShift;  // "Swapping" positions with an adjacent item, especially if the range is a single item.
+        public bool IsMoveRotation; // "Rotating" positions of all items in the list, either left or right.12/25/2025
+
         public bool IsShiftingToLeft;  // "Swapping" positions with a preceding adjacent item, especially if the range is a single item.
         public bool IsShiftingToRight;  // "Swapping" positions with a succeeding adjacent item, especially if the range is a single item.
         public int HowManyItemsIncremental;  // How many items are swapped out, either preceding or succeeding. 
+        public bool IsRotationLeft;  // The very first item is moved to the very last position.  Added 12/24/2025 
+        public bool IsRotationRight; // The very first item is moved to the very last position.  Added 12/24/2025  
 
         public StructureTypeOfMove()
         {
