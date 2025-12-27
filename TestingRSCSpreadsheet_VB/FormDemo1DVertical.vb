@@ -2966,8 +2966,9 @@ Public Class FormDemo1DVertical
         Const MANAGE_ROTATION As Boolean = True ''False ''Added 12/25/2025
         Const OPERATION_MOVE As Boolean = True ''Added 12/25/2025 td
         Const OPERATION_ROTATE_R As Boolean = True ''Added 12/25/2025 td
+        Const NO_MANAGE_ROTATION As Boolean = (Not MANAGE_ROTATION) ''Added 12/27/2025
 
-        If (Not MANAGE_ROTATION) Then ''Added 12/25/2025  
+        If (NO_MANAGE_ROTATION) Then ''Added 12/25/2025  
             ''
             ''Let's see the rotation of columns in the quickest way possible.
             ''   (Operation management not included... No "Undo" is possible.)
@@ -2997,6 +2998,8 @@ Public Class FormDemo1DVertical
                   bChangeOfEndpoint_Expected,
                   bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
 
+            ''Added 12/27/2025 td
+            RedrawColumns_InOrder(mod_listColumnHeaders)
 
         End If ''End of ""If (Not MANAGE_ROTATION) Then.... Else""
 

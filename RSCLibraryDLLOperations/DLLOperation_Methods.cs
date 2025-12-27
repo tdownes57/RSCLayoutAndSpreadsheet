@@ -632,6 +632,7 @@ namespace RSCLibraryDLLOperations
             //;
             bool boolIsByAnchor = par_typeOfMove.IsMoveToAnchor; // true; // false;
             bool boolIsByShifts = par_typeOfMove.IsMoveIncrementalShift; // true; // false;
+            bool boolIsByRotation = par_typeOfMove.IsMoveRotation; //Added 12/27/2025 td
             pbChangeOfEndpoint_Occurred = false; // Default.  Added 12/15/2024 
 
             if (boolIsByAnchor)
@@ -648,6 +649,19 @@ namespace RSCLibraryDLLOperations
                                      par_anchorItem, par_anchorPair,
                                      pbEndpointProtection,
                                      pbIsChangeOfEndpoint_Expected, pbRunOtherChecks);
+
+            }
+
+            else if (boolIsByRotation)
+            {
+                //
+                // Added 12/27/2025 td  
+                //
+                if (par_typeOfMove.IsRotationRight)
+                par_list_forFinalAdmin.DLL_RotateRight();
+
+                else if (par_typeOfMove.IsRotationLeft)
+                    par_list_forFinalAdmin.DLL_RotateLeft();
 
             }
 
