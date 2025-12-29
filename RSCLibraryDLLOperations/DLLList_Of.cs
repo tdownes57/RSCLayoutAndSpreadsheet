@@ -627,7 +627,31 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/22/2025 thomas downes
             //
-            Debug.Assert(false); // Unfinished method.
+            if (_itemStart == null) return;
+            Debug.Assert(_itemEnding != null);
+
+            TControl itemFirst = _itemStart;
+            TControl? itemSecond = itemFirst.DLL_GetItemNext_OfT();
+            TControl itemLast = _itemEnding;
+            TControl? itemPenultimate = _itemEnding.DLL_GetItemPrior_OfT();
+
+            //DLL_RemoveItemFromEnd();
+            //DLL_AddItemAtStart(itemFirst);
+
+            itemSecond.DLL_ClearReferencePrior('r');
+            _itemStart = itemSecond;
+            itemFirst.DLL_ClearReferencePrior('r');
+            itemFirst.DLL_ClearReferenceNext('r');
+            itemLast.DLL_SetItemNext_OfT(itemFirst);
+
+            // Administrative. 
+            TControl itemLast_New = itemFirst;
+            TControl itemPenultimate_New = itemLast;
+            TControl itemFirst_New = itemSecond;
+            itemLast_New.DLL_SetItemPrior_OfT(itemPenultimate_New);
+            itemFirst_New.DLL_ClearReferencePrior('r');
+            _itemStart = itemFirst_New;
+            _itemEnding = itemLast_New;
 
         }
 
@@ -659,6 +683,7 @@ namespace RSCLibraryDLLOperations
             TControl itemSecond_New = itemFirst;
             TControl itemLast_New = itemPenultimate;
             itemFirst_New.DLL_SetItemNext_OfT(itemSecond_New);
+            itemLast_New.DLL_ClearReferenceNext('r');
             _itemStart = itemFirst_New;
             _itemEnding = itemLast_New;
 

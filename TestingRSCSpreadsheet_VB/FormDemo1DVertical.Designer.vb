@@ -92,6 +92,8 @@ Partial Class FormDemo1DVertical
         DLLColumnHeaderB3 = New DLLUserControlRichbox()
         LinkReorderCols = New LinkLabel()
         LinkMove5pixels = New LinkLabel()
+        LinkLabel1 = New LinkLabel()
+        LinkLabel2 = New LinkLabel()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -926,15 +928,15 @@ Partial Class FormDemo1DVertical
         LinkReorderCols.Location = New Point(224, 4)
         LinkReorderCols.Margin = New Padding(4, 0, 4, 0)
         LinkReorderCols.Name = "LinkReorderCols"
-        LinkReorderCols.Size = New Size(163, 21)
+        LinkReorderCols.Size = New Size(100, 21)
         LinkReorderCols.TabIndex = 164
         LinkReorderCols.TabStop = True
-        LinkReorderCols.Text = "Reorder Cols--HUGE!!"
+        LinkReorderCols.Text = "Reorder Cols"
         ' 
         ' LinkMove5pixels
         ' 
         LinkMove5pixels.AutoSize = True
-        LinkMove5pixels.Location = New Point(419, 4)
+        LinkMove5pixels.Location = New Point(760, 4)
         LinkMove5pixels.Margin = New Padding(4, 0, 4, 0)
         LinkMove5pixels.Name = "LinkMove5pixels"
         LinkMove5pixels.Size = New Size(179, 21)
@@ -942,11 +944,35 @@ Partial Class FormDemo1DVertical
         LinkMove5pixels.TabStop = True
         LinkMove5pixels.Text = "Move columns +5 pixels"
         ' 
+        ' LinkLabel1
+        ' 
+        LinkLabel1.AutoSize = True
+        LinkLabel1.Location = New Point(352, 4)
+        LinkLabel1.Margin = New Padding(4, 0, 4, 0)
+        LinkLabel1.Name = "LinkLabel1"
+        LinkLabel1.Size = New Size(174, 21)
+        LinkLabel1.TabIndex = 166
+        LinkLabel1.TabStop = True
+        LinkLabel1.Text = "Undo Last Reorder Cols"
+        ' 
+        ' LinkLabel2
+        ' 
+        LinkLabel2.AutoSize = True
+        LinkLabel2.Location = New Point(551, 4)
+        LinkLabel2.Margin = New Padding(4, 0, 4, 0)
+        LinkLabel2.Name = "LinkLabel2"
+        LinkLabel2.Size = New Size(172, 21)
+        LinkLabel2.TabIndex = 167
+        LinkLabel2.TabStop = True
+        LinkLabel2.Text = "Redo Last Reorder Cols"
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(9F, 21F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1578, 706)
+        Controls.Add(LinkLabel2)
+        Controls.Add(LinkLabel1)
         Controls.Add(LinkMove5pixels)
         Controls.Add(LinkReorderCols)
         Controls.Add(DLLColumnHeaderB3)
@@ -1088,4 +1114,6 @@ Partial Class FormDemo1DVertical
     Friend WithEvents DLLColumnHeaderB3 As DLLUserControlRichbox
     Friend WithEvents LinkReorderCols As LinkLabel
     Friend WithEvents LinkMove5pixels As LinkLabel
+    Friend WithEvents LinkLabel1 As LinkLabel
+    Friend WithEvents LinkLabel2 As LinkLabel
 End Class

@@ -754,9 +754,9 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D_Of<T_DLLItem> // <T_DLLItem_H, T_DLLItem_V>
-            GetInverseForUndo_Of(bool pbTestForIdempotency)
+        public DLLOperation1D_Of<T_DLLItem> GetInverseForUndo_Of(bool pbTestForIdempotency)
         {
+            // public DLLOperation1D_Of<T_DLLItem_H, T_DLLItem_V>
 
             DLLOperation1D_Of<T_DLLItem> result_UNDO;
 
@@ -817,6 +817,10 @@ namespace RSCLibraryDLLOperations
             if (_isMove && _isForStartOfList) result_isForStartOfList = false;
             if (_isMove && _isForEndOfList) result_isForEndOfList = false;
 
+            // Added 12/29/2025 td
+            if (_moveType.IsMoveRotation) result_isForStartOfList = true;
+            if (_moveType.IsMoveRotation) result_isForEndOfList = true;
+
             //
             // Create a new operation.
             //
@@ -858,10 +862,15 @@ namespace RSCLibraryDLLOperations
                 result_MoveType.IsMoveToAnchor = _moveType.IsMoveToAnchor;
                 result_MoveType.IsMoveIncrementalShift = _moveType.IsMoveIncrementalShift;
                 result_MoveType.HowManyItemsIncremental = _moveType.HowManyItemsIncremental;
+                result_MoveType.IsMoveRotation = _moveType.IsMoveRotation; // Added 12/29/2025 td
 
                 // DIFFICULT AND CONFUSING.---12/11/2024
                 result_MoveType.IsShiftingToLeft = _moveType.IsShiftingToRight;
                 result_MoveType.IsShiftingToRight = _moveType.IsShiftingToLeft;
+
+                // DIFFICULT AND CONFUSING.---12/29/2025
+                result_MoveType.IsRotationLeft = _moveType.IsRotationRight;
+                result_MoveType.IsRotationRight = _moveType.IsRotationLeft;
 
             }
 

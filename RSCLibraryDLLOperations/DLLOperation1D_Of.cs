@@ -519,6 +519,9 @@ namespace RSCLibraryDLLOperations
             // Added 12/22/2025 
             _isRotateLeft = par_isRotateLeft;
             _isRotateRight = par_isRotateRight;
+            // Added 12/29/2025 
+            if (par_isRotateLeft || par_isRotateRight) _isForStartOfList = true;
+            if (par_isRotateLeft || par_isRotateRight) _isForEndOfList = true;
 
         }
 

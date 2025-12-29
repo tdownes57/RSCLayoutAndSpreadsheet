@@ -2963,12 +2963,12 @@ Public Class FormDemo1DVertical
         ''---12/2025 mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
         ''---12/2025 RedrawColumns_InOrder(mod_listColumnHeaders)
 
-        Const MANAGE_ROTATION As Boolean = True ''False ''Added 12/25/2025
-        Const OPERATION_MOVE As Boolean = True ''Added 12/25/2025 td
-        Const OPERATION_ROTATE_R As Boolean = True ''Added 12/25/2025 td
-        Const NO_MANAGE_ROTATION As Boolean = (Not MANAGE_ROTATION) ''Added 12/27/2025
+        Const MANAGE_ROTATION = True ''False ''Added 12/25/2025
+        Const OPERATION_MOVE = True ''Added 12/25/2025 td
+        Const OPERATION_ROTATE_R = True ''Added 12/25/2025 td
+        Const NO_MANAGE_ROTATION = Not MANAGE_ROTATION ''Added 12/27/2025
 
-        If (NO_MANAGE_ROTATION) Then ''Added 12/25/2025  
+        If NO_MANAGE_ROTATION Then ''Added 12/25/2025  
             ''
             ''Let's see the rotation of columns in the quickest way possible.
             ''   (Operation management not included... No "Undo" is possible.)
@@ -2982,7 +2982,7 @@ Public Class FormDemo1DVertical
             ''
             Dim currentMoveType As New StructureTypeOfMove(True)
             Dim tempOperation As DLLOperation1D_Of(Of DLLUserControlRichbox) ''tempOperation
-            Const bChangeOfEndpoint_Expected As Boolean = True
+            Const bChangeOfEndpoint_Expected = True
             Dim bChangeOfEndpoint_Occurred As Boolean
 
             currentMoveType.IsMoveRotation = True ''Added 12/25/2025
@@ -2996,10 +2996,13 @@ Public Class FormDemo1DVertical
 
             mod_managerHorizontalOps.ProcessOperation_AnyType(tempOperation,
                   bChangeOfEndpoint_Expected,
-                  bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
+                  bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure)
 
             ''Added 12/27/2025 td
             RedrawColumns_InOrder(mod_listColumnHeaders)
+
+            ''added 12/28/2025  
+            LinkReorderCols.Tag = tempOperation
 
         End If ''End of ""If (Not MANAGE_ROTATION) Then.... Else""
 
@@ -3012,6 +3015,31 @@ Public Class FormDemo1DVertical
         FlowColumnB1.Left = FlowColumnB1.Left + 5
         FlowColumnB2.Left = FlowColumnB2.Left + 5
         FlowColumnB3.Left = FlowColumnB3.Left + 5
+
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+
+        Dim bChangeOfEndpoint_Expected As Boolean
+        Dim bChangeOfEndpoint_Occurred As Boolean
+        Dim objPriorOperation As DLLOperation1D_Of(Of DLLUserControlRichbox)
+        Dim objPriorOp_Inverse As DLLOperation1D_Of(Of DLLUserControlRichbox)
+
+        ''objPrior = mod_managerHorizontalOps._lastPriorOperation
+        objPriorOperation = CType(LinkReorderCols.Tag, DLLOperation1D_Of(Of DLLUserControlRichbox))
+        objPriorOp_Inverse = objPriorOperation.GetInverseForUndo_Of(True)
+
+        mod_managerHorizontalOps.ProcessOperation_AnyType(objPriorOp_Inverse,
+                  bChangeOfEndpoint_Expected,
+                  bChangeOfEndpoint_Occurred, True,
+                  objPriorOp_Inverse.GetOperationIndexStructure)
+
+        ''Added 12/27/2025 td
+        RedrawColumns_InOrder(mod_listColumnHeaders)
+
+        ''added 12/28/2025  
+        LinkReorderCols.Tag = objPriorOp_Inverse
+
 
     End Sub
 End Class
