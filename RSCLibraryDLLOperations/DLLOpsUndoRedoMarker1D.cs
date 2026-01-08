@@ -204,13 +204,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool HasOperationNext()
+        public bool HasOperationNext_ForRedo() // Jan2026 public bool HasOperationNext()
         {
             // Added 5/22/2024
             return (mod_opNext_ForRedo != null);
         }
 
-        public bool HasOperationPrior()
+        public bool HasOperationPrior_ForUndo() // Jan2026 public bool HasOperationPrio()
         {
             // Added 5/22/2024
             return (mod_opPrior_ForUndo != null);

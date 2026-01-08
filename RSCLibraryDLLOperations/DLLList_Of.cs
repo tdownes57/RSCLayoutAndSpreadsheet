@@ -625,6 +625,11 @@ namespace RSCLibraryDLLOperations
         public void DLL_RotateLeft()
         {
             //
+            // Move the first item in the list, & place it at the very end of the list.
+            //
+            // Example: 
+            // Convert the list  A B C D E  to  B C D E A (rotate left; example)
+            //
             // Added 12/22/2025 thomas downes
             //
             if (_itemStart == null) return;
@@ -658,6 +663,11 @@ namespace RSCLibraryDLLOperations
 
         public void DLL_RotateRight()
         {
+            //
+            // Move the last item in the list, & place it at the very start of the list.
+            //
+            // Example: 
+            // Convert the list  A B C D E  to  E A B C D (rotate right; example).
             //
             // Added 12/22/2025 thomas downes
             //

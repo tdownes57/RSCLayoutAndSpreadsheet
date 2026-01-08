@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DLLOperationsManager2x2_Obselete.cs" />
+    <Compile Remove="DLLOperationsRedoMarker2D.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ciBadgeInterfaces\ciBadgeInterfaces.vbproj" />
   </ItemGroup>
 

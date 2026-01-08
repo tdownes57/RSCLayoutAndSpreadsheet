@@ -16,15 +16,14 @@ namespace RSCLibraryDLLOperations
     public enum EnumHorizontalOrVertical { Undetermined, Horizontal,  Vertical };
 
 
-    public class DLLOperation2D<TControl_H, TControl_V> // :IDoublyLinkedItem
-        where TControl_H : class, IDoublyLinkedItem<TControl_H>
-        where TControl_V : class, IDoublyLinkedItem<TControl_V>
+    public class DLLOperation2D<T_DLL> // :IDoublyLinkedItem
+        where T_DLL : class, IDoublyLinkedItem<T_DLL>
     {
         //''
         //''Added 4/17/2024 td
         //''
         private readonly bool _isHoriz;
-        private readonly bool _isVerti;
+        private readonly bool _isVertical;
 
         private readonly bool _isForStartOfList;
         private readonly bool _isForEndOfList;
@@ -41,31 +40,31 @@ namespace RSCLibraryDLLOperations
         //private readonly bool _willInsertRange_PriorToAnchor;
         //private readonly bool _willInsertRange_AfterAnchor;
 
-        //private readonly TControl_H? _anchorItem_H;
-        ///private readonly TControl_V? _anchorItem_V;
+        //private readonly T_DLL? _anchorItem_H;
+        ///private readonly T_DLL? _anchorItem_V;
 
         // Added 4/21/2024 td
-        private readonly DLLAnchorItem_Deprecated<TControl_H>? _anchorItem_H;
-        private readonly DLLAnchorItem_Deprecated<TControl_V>? _anchorItem_V;
+        private readonly DLLAnchorItem_Deprecated<T_DLL>? _anchorItem_H;
+        private readonly DLLAnchorItem_Deprecated<T_DLL>? _anchorItem_V;
 
         // Added 11/08/2024 td
-        private readonly DLLAnchorCouplet<TControl_H>? _anchorPair_H;
-        private readonly DLLAnchorCouplet<TControl_V>? _anchorPair_V;
+        private readonly DLLAnchorCouplet<T_DLL>? _anchorPair_H;
+        private readonly DLLAnchorCouplet<T_DLL>? _anchorPair_V;
 
         //Added 4/18/2024 td 
-        private readonly DLLAnchorItem_Deprecated<TControl_H>? _inverseAnchorItem_forUndo_H;
-        private readonly DLLAnchorItem_Deprecated<TControl_V>? _inverseAnchorItem_forUndo_V;
+        private readonly DLLAnchorItem_Deprecated<T_DLL>? _inverseAnchorItem_forUndo_H;
+        private readonly DLLAnchorItem_Deprecated<T_DLL>? _inverseAnchorItem_forUndo_V;
 
         //Added 4/18/2024 td 
-        private readonly DLLAnchorCouplet<TControl_H>? _inverseAnchorPair_forUndo_H;
-        private readonly DLLAnchorCouplet<TControl_V>? _inverseAnchorPair_forUndo_V;
+        private readonly DLLAnchorCouplet<T_DLL>? _inverseAnchorPair_forUndo_H;
+        private readonly DLLAnchorCouplet<T_DLL>? _inverseAnchorPair_forUndo_V;
 
-        private readonly DLLRange<TControl_H>? _range_H;
-        private readonly DLLRange<TControl_V>? _range_V;
+        private readonly DLLRange<T_DLL>? _range_H;
+        private readonly DLLRange<T_DLL>? _range_V;
 
         //Added 5/25/2024 td 
-        private readonly DLLOperation2D<TControl_H, TControl_V> mod_opPrior_ForUndo;
-        private readonly DLLOperation2D<TControl_H, TControl_V> mod_opNext_ForRedo;
+        private readonly DLLOperation2D<T_DLL> mod_opPrior_ForUndo;
+        private readonly DLLOperation2D<T_DLL> mod_opNext_ForRedo;
 
 
         /// <summary>
@@ -115,7 +114,7 @@ namespace RSCLibraryDLLOperations
         }
 
         public bool IsHorizontal() { return _isHoriz;  }
-        public bool IsVertical() { return _isVerti; }
+        public bool IsVertical() { return _isVertical; }
 
         public bool HasAnchor()
         {
@@ -131,7 +130,7 @@ namespace RSCLibraryDLLOperations
             //
             //----BACKWARDS AND CONFUSING----------------------------
             if (_anchorItem_H != null && _isHoriz) return _anchorItem_H._doInsertRangeAfterThis;
-            if (_anchorItem_V != null && _isVerti) return _anchorItem_V._doInsertRangeAfterThis;
+            if (_anchorItem_V != null && _isVertical) return _anchorItem_V._doInsertRangeAfterThis;
             throw new InvalidOperationException();
 
         }
@@ -144,7 +143,7 @@ namespace RSCLibraryDLLOperations
             //
             //----BACKWARDS AND CONFUSING----------------------------
             if (_anchorItem_H != null && _isHoriz) return _anchorItem_H._doInsertRangeBeforeThis;
-            if (_anchorItem_V != null && _isVerti) return _anchorItem_V._doInsertRangeBeforeThis;
+            if (_anchorItem_V != null && _isVertical) return _anchorItem_V._doInsertRangeBeforeThis;
             throw new InvalidOperationException();
 
         }
@@ -154,7 +153,7 @@ namespace RSCLibraryDLLOperations
         /// <summary>
         /// Constructor overload is for horizontal (column) operations, 
         /// e.g. moving a worksheet column to the extreme left-hand side, 
-        /// with TControl_H = RSDataColumn.  Overloaded.
+        /// with T_DLL = RSDataColumn.  Overloaded.
         /// </summary>
         /// <param name="par_range"></param>
         /// <param name="par_forStartOfList"></param>
@@ -167,11 +166,11 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
         public DLLOperation2D(EnumHorizontalOrVertical par_enum,
-                  DLLRange<TControl_H>? par_range,
+                  DLLRange<T_DLL>? par_range,
                   bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove,
-                  DLLAnchorItem_Deprecated<TControl_H>? par_anchorItem,
-                  DLLAnchorCouplet<TControl_H>? par_anchorPair,
+                  DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
+                  DLLAnchorCouplet<T_DLL>? par_anchorPair,
                   bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
             //
@@ -187,7 +186,7 @@ namespace RSCLibraryDLLOperations
             _isHoriz = true;
             _range_H = par_range;
             _anchorItem_H = par_anchorItem;
-            _isVerti = false; // NOT vertical.
+            _isVertical = false; // NOT vertical.
 
             _isForStartOfList = par_forStartOfList;
             _isForEndOfList = par_forEndOfList;
@@ -209,12 +208,12 @@ namespace RSCLibraryDLLOperations
                                                                 // 
             if (_isDelete && _isForStartOfList)
             {
-                //TControl_H item_afterRange = _range_H._itemEnding.DLL_GetItemNext();
+                //T_DLL item_afterRange = _range_H._itemEnding.DLL_GetItemNext();
                 //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange); 
             }
             else if (_isDelete && _isForEndOfList)
             {
-                //TControl_H item_afterRange = _range_H._itemStart.DLL_GetItemPrior();
+                //T_DLL item_afterRange = _range_H._itemStart.DLL_GetItemPrior();
                 //_anchor_forUndo_H = new DLLAnchor<>(item_afterRange);
             }
 
@@ -224,7 +223,7 @@ namespace RSCLibraryDLLOperations
         /// <summary>
         /// Constructor overload is for vertical (row) operations, 
         /// e.g. moving a worksheet's entire row to the top, 
-        /// with TControl_V = RSDataRowHeader.  Overloaded.
+        /// with T_DLL = RSDataRowHeader.  Overloaded.
         /// </summary>
         /// <param name="pb_isOperationVertical">Must be true.</param>
         /// <param name="par_range"></param>
@@ -238,16 +237,16 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
         public DLLOperation2D(bool pb_isOperationVertical,
-            DLLRange<TControl_V>? par_range, bool par_forStartOfList, bool par_forEndOfList,
+            DLLRange<T_DLL>? par_range, bool par_forStartOfList, bool par_forEndOfList,
             bool par_isInsert, bool par_isDelete, bool par_isMove,
-            DLLAnchorItem_Deprecated<TControl_V>? par_anchorItem,
-            DLLAnchorCouplet<TControl_V>? par_anchorPair,
+            DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
+            DLLAnchorCouplet<T_DLL>? par_anchorPair,
             bool par_isSortAscending, bool par_isSortDescending, bool par_isSortReversal)
         {
             //Added 4/30/2024 td
             if (!pb_isOperationVertical) System.Diagnostics.Debugger.Break();
 
-            _isVerti = true;
+            _isVertical = true;
             _range_V = par_range;
             _anchorItem_V = par_anchorItem;
             _anchorPair_V = par_anchorPair;
@@ -264,7 +263,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnList(DLLList<TControl_H> par_list)
+        public void OperateOnList(DLLList<T_DLL> par_list)
         {
             //
             // Added 4/17/2024
@@ -279,7 +278,7 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                OperateOnList<TControl_H>(par_list, _range_H, _anchorItem_H, false);
+                OperateOnList<T_DLL>(par_list, _range_H, _anchorItem_H, false);
             }
 
         }
@@ -291,7 +290,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_list"></param>
         /// <param name="par_doProtectEndpoints">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
-        public void OperateOnList(DLLList<TControl_H> par_list, 
+        public void OperateOnList_Horizontal(DLLList<T_DLL> par_list, 
                              bool par_doProtectEndpoints, 
                              bool pbIsChangeOfEndpoint = false)
         {
@@ -308,15 +307,15 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                // OperateOnList<TControl_H>(par_list, _range_H, _anchorItem_H);
-                OperateOnList<TControl_H>(par_list, _range_H, _anchorItem_H, 
+                // OperateOnList<T_DLL>(par_list, _range_H, _anchorItem_H);
+                OperateOnList<T_DLL>(par_list, _range_H, _anchorItem_H, 
                     par_doProtectEndpoints, pbIsChangeOfEndpoint);
             }
 
         }
 
 
-        public void OperateOnList(DLLList<TControl_V> par_list)
+        public void OperateOnList_Vertical(DLLList<T_DLL> par_list)
         {
             //
             // Added 4/17/2024
@@ -334,15 +333,15 @@ namespace RSCLibraryDLLOperations
                 //
                 //   Let's leverage a private singly-generic method (Of TControl),
                 //   to obey the DRY principle inside a doubly-generic class 
-                //   (Of TControl_H, TControl_V). 
+                //   (Of T_DLL, T_DLL). 
                 //  
-                OperateOnList<TControl_V>(par_list, _range_V, _anchorItem_V, false);
+                OperateOnList<T_DLL>(par_list, _range_V, _anchorItem_V, false);
             }
 
         }
 
 
-        public void OperateOnList(DLLList<TControl_V> par_list,
+        public void OperateOnList(DLLList<T_DLL> par_list,
                              bool par_doProtectEndpoints,
                              bool pbIsChangeOfEndpoint = false, 
                              bool pbRunOtherChecks = false)
@@ -363,9 +362,9 @@ namespace RSCLibraryDLLOperations
                 //
                 //   Let's leverage a private singly-generic method (Of TControl),
                 //   to obey the DRY principle inside a doubly-generic class 
-                //   (Of TControl_H, TControl_V). 
+                //   (Of T_DLL, T_DLL). 
                 //  
-                OperateOnList<TControl_V>(par_list, _range_V, _anchorItem_V, 
+                OperateOnList<T_DLL>(par_list, _range_V, _anchorItem_V, 
                       par_doProtectEndpoints, pbIsChangeOfEndpoint, pbRunOtherChecks);
             }
 
@@ -394,7 +393,7 @@ namespace RSCLibraryDLLOperations
             //
             //   This is a private singly-generic method (Of TControl),
             //   to obey the DRY principle inside a doubly-generic class 
-            //   (Of TControl_H, TControl_V). 
+            //   (Of T_DLL, T_DLL). 
             //  
             if (_isInsert)
             {
@@ -422,7 +421,7 @@ namespace RSCLibraryDLLOperations
 
 
         /// <summary>
-        /// Perform an insert operation, either for TControl_H or TControl_V.
+        /// Perform an insert operation, either for T_DLL or T_DLL.
         /// If appropriate, we perform some sanity testing prior to the operation.
         /// </summary>
         /// <typeparam name="TControl"></typeparam>
@@ -442,7 +441,7 @@ namespace RSCLibraryDLLOperations
             //
             //   This is a private singly-generic method (Of TControl),
             //   to obey the DRY principle inside a doubly-generic class 
-            //   (Of TControl_H, TControl_V). 
+            //   (Of T_DLL, T_DLL). 
             //  
             // Insertion operation
             //
@@ -647,7 +646,7 @@ namespace RSCLibraryDLLOperations
             //
             //   This is a private singly-generic method (Of TControl),
             //   to obey the DRY principle inside a doubly-generic class 
-            //   (Of TControl_H, TControl_V). 
+            //   (Of T_DLL, T_DLL). 
             //  
             // De-link the item BEFORE the deletion range.
             //
@@ -698,9 +697,9 @@ namespace RSCLibraryDLLOperations
         /****
          * 
          * 
-         * public void OperateOnList(DLLList<TControl_H> par_list)
+         * public void OperateOnList(DLLList<T_DLL> par_list)
         {
-            // public void OperateOnList(LinkedList<TControl_H> par_list)
+            // public void OperateOnList(LinkedList<T_DLL> par_list)
             //
             // Added 4/17/2024
             //
@@ -708,14 +707,14 @@ namespace RSCLibraryDLLOperations
             if (_anchorItem_H != null && _range_H != null 
                 && _anchorItem_H._doInsertRangeAfterThis)
             {
-                OperateOnList_Insert<TControl_H>(par_list, _range_H, _anchorItem_H);
+                OperateOnList_Insert<T_DLL>(par_list, _range_H, _anchorItem_H);
 
-                //foreach (TControl_H each_item in _range_H)
+                //foreach (T_DLL each_item in _range_H)
                 //{
-                //    LinkedListNode<TControl_H> linkedAnchor = new LinkedListNode<TControl_H>(_anchorItem_H);
+                //    LinkedListNode<T_DLL> linkedAnchor = new LinkedListNode<T_DLL>(_anchorItem_H);
                 //    par_list.AddAfter(linkedAnchor, each_item);
                 //}
-                TControl_H? nextAfterAnchor = default(TControl_H); //null;
+                T_DLL? nextAfterAnchor = default(T_DLL); //null;
                 if (_anchorItem_H._anchorItem.DLL_HasNext())
                 {
                     nextAfterAnchor = _anchorItem_H._anchorItem.DLL_GetItemNext().DLL_UnboxControl();
@@ -747,15 +746,15 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation2D<TControl_H, TControl_V>
+        public DLLOperation2D<T_DLL>
             GetInverseForUndo()
         {
 
-            DLLOperation2D<TControl_H, TControl_V> result_UNDO;
-            //DLLRange<TControl_H> result_RangeOfItems_H = _range_H;
-            //DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
-            //TControl_H? result_anchorItem_H = _anchorItem_H;
-            //TControl_V? result_anchorItem_V = _anchorItem_V;
+            DLLOperation2D<T_DLL> result_UNDO;
+            //DLLRange<T_DLL> result_RangeOfItems_H = _range_H;
+            //DLLRange<T_DLL> result_RangeOfItems_V = _range_V;
+            //T_DLL? result_anchorItem_H = _anchorItem_H;
+            //T_DLL? result_anchorItem_V = _anchorItem_V;
 
             bool result_isInsert = _isDelete; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isDelete = _isInsert; // DIFFICULT & CONFUSING... inverse/opposite.
@@ -775,14 +774,14 @@ namespace RSCLibraryDLLOperations
             //
             if (_isHoriz)
             {
-                DLLRange<TControl_H>? result_RangeOfItems_H = _range_H;
-                DLLAnchorItem_Deprecated<TControl_H>? result_anchorItem_H = _inverseAnchorItem_forUndo_H;  // Use the "forUndo" anchor.
-                DLLAnchorCouplet<TControl_H>? result_anchorPair_H = _inverseAnchorPair_forUndo_H;  // Use the "forUndo" anchor.
+                DLLRange<T_DLL>? result_RangeOfItems_H = _range_H;
+                DLLAnchorItem_Deprecated<T_DLL>? result_anchorItem_H = _inverseAnchorItem_forUndo_H;  // Use the "forUndo" anchor.
+                DLLAnchorCouplet<T_DLL>? result_anchorPair_H = _inverseAnchorPair_forUndo_H;  // Use the "forUndo" anchor.
 
                 //
                 // Use the constructor overload for horizontal operations.
                 //
-                result_UNDO = new DLLOperation2D<TControl_H, TControl_V>(EnumHorizontalOrVertical.Horizontal,
+                result_UNDO = new DLLOperation2D<T_DLL>(EnumHorizontalOrVertical.Horizontal,
                     result_RangeOfItems_H,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -795,16 +794,16 @@ namespace RSCLibraryDLLOperations
                     result_isSortDescending,
                     result_isSortUndo);
             }
-            else //if (_isVerti)
+            else //if (_isVertical)
             {
-                DLLRange<TControl_V> result_RangeOfItems_V = _range_V;
-                DLLAnchorItem_Deprecated<TControl_V>? result_anchorItem_V = _inverseAnchorItem_forUndo_V;  // Use the "forUndo" anchor.
-                DLLAnchorCouplet<TControl_V>? result_anchorPair_V = _inverseAnchorPair_forUndo_V;  // Use the "forUndo" anchor.
+                DLLRange<T_DLL> result_RangeOfItems_V = _range_V;
+                DLLAnchorItem_Deprecated<T_DLL>? result_anchorItem_V = _inverseAnchorItem_forUndo_V;  // Use the "forUndo" anchor.
+                DLLAnchorCouplet<T_DLL>? result_anchorPair_V = _inverseAnchorPair_forUndo_V;  // Use the "forUndo" anchor.
 
                 //
                 // Use the constructor overload for vertical operations.
                 //
-                result_UNDO = new DLLOperation2D<TControl_H, TControl_V>(true,
+                result_UNDO = new DLLOperation2D<T_DLL>(true,
                     result_RangeOfItems_V,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -827,7 +826,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation2D<TControl_H, TControl_V>
+        public DLLOperation2D<T_DLL>
             GetPrior()
         {
             //
@@ -841,7 +840,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation2D<TControl_H, TControl_V>
+        public DLLOperation2D<T_DLL>
             GetNext()
         {
             //
@@ -875,18 +874,18 @@ namespace RSCLibraryDLLOperations
         {
             // Added 6/06/2024 td
             if (_isHoriz && _range_H != null) return (IDoublyLinkedItem)(_range_H._StartingItemOfRange);
-            if (_isVerti && _range_V != null) return (IDoublyLinkedItem)(_range_V._StartingItemOfRange);
+            if (_isVertical && _range_V != null) return (IDoublyLinkedItem)(_range_V._StartingItemOfRange);
             return null; 
         }
 
 
-        public DLLRange<TControl_H> GetRange_Horiz()
+        public DLLRange<T_DLL> GetRange_Horiz()
         {
             // Added 6/06/2024 td
             return _range_H;
         }
 
-        public DLLRange<TControl_V> GetRange_Verti()
+        public DLLRange<T_DLL> GetRange_Verti()
         {
             // Added 6/06/2024 td
             return _range_V;
@@ -897,19 +896,19 @@ namespace RSCLibraryDLLOperations
         {
             // Added 6/06/2024 td
             if (_isHoriz && _range_H != null) return _range_H._isSingleItem;
-            if (_isVerti && _range_V != null) return _range_V._isSingleItem;
+            if (_isVertical && _range_V != null) return _range_V._isSingleItem;
             return false;
 
         }
 
 
-        public DLLOperation2D<TControl_H, TControl_V> DLL_GetOpPrior()
+        public DLLOperation2D<T_DLL> DLL_GetOpPrior()
         {
             return mod_opPrior_ForUndo;
 
         }
 
-        public DLLOperation2D<TControl_H, TControl_V> DLL_GetOpNext()
+        public DLLOperation2D<T_DLL> DLL_GetOpNext()
         {
             return mod_opNext_ForRedo;
 
@@ -933,8 +932,8 @@ namespace RSCLibraryDLLOperations
             //
             //  Added 7/07/2024  
             //
-            DLLRange<TControl_H> rangeH = _range_H;
-            DLLRange<TControl_V> rangeV = _range_V;
+            DLLRange<T_DLL> rangeH = _range_H;
+            DLLRange<T_DLL> rangeV = _range_V;
             bool result = false;
 
             //if (_range_H != null) result = _range_H.CheckEndpointsAreClean_PriorToInsert();

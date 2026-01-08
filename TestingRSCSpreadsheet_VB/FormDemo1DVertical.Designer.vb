@@ -928,15 +928,15 @@ Partial Class FormDemo1DVertical
         LinkReorderCols.Location = New Point(224, 4)
         LinkReorderCols.Margin = New Padding(4, 0, 4, 0)
         LinkReorderCols.Name = "LinkReorderCols"
-        LinkReorderCols.Size = New Size(100, 21)
+        LinkReorderCols.Size = New Size(202, 21)
         LinkReorderCols.TabIndex = 164
         LinkReorderCols.TabStop = True
-        LinkReorderCols.Text = "Reorder Cols"
+        LinkReorderCols.Text = "Rotate Columns to the right"
         ' 
         ' LinkMove5pixels
         ' 
         LinkMove5pixels.AutoSize = True
-        LinkMove5pixels.Location = New Point(760, 4)
+        LinkMove5pixels.Location = New Point(855, 4)
         LinkMove5pixels.Margin = New Padding(4, 0, 4, 0)
         LinkMove5pixels.Name = "LinkMove5pixels"
         LinkMove5pixels.Size = New Size(179, 21)
@@ -947,7 +947,7 @@ Partial Class FormDemo1DVertical
         ' LinkLabel1
         ' 
         LinkLabel1.AutoSize = True
-        LinkLabel1.Location = New Point(352, 4)
+        LinkLabel1.Location = New Point(447, 4)
         LinkLabel1.Margin = New Padding(4, 0, 4, 0)
         LinkLabel1.Name = "LinkLabel1"
         LinkLabel1.Size = New Size(174, 21)
@@ -958,7 +958,7 @@ Partial Class FormDemo1DVertical
         ' LinkLabel2
         ' 
         LinkLabel2.AutoSize = True
-        LinkLabel2.Location = New Point(551, 4)
+        LinkLabel2.Location = New Point(646, 4)
         LinkLabel2.Margin = New Padding(4, 0, 4, 0)
         LinkLabel2.Name = "LinkLabel2"
         LinkLabel2.Size = New Size(172, 21)

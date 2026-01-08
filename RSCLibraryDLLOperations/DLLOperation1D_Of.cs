@@ -1,15 +1,13 @@
 ﻿//using System;
 //using System.Collections.Generic;
+//using System.Reflection.Metadata.Ecma335;
+using ciBadgeInterfaces; //Added 6/20/2024
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
-
-
-
-//using System.Reflection.Metadata.Ecma335;
-using ciBadgeInterfaces; //Added 6/20/2024
+using System.Threading.Tasks;
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
@@ -24,8 +22,8 @@ namespace RSCLibraryDLLOperations
     //            (versus a 2-dimensional grid)
     //
 
-    public partial class DLLOperation1D_Of<T_DLLItem> : DLLOperationBase // :IDoublyLinkedItem
-        where T_DLLItem : class, IDoublyLinkedItem<T_DLLItem>
+    public partial class DLLOperation1D_Of<T_DLL> : DLLOperationBase // :IDoublyLinkedItem
+        where T_DLL : class, IDoublyLinkedItem<T_DLL>
     {
         //''
         //''Added 4/17/2024 td
@@ -34,6 +32,56 @@ namespace RSCLibraryDLLOperations
         //            (versus a 2-dimensional grid)
         //
         //''
+        //
+        // --------------------------------------------------------------------------------
+        // ---------------------------- IMPORTANT!! ---------------------------------------  
+        // --------------------- Array of Parallel Ranges ---------------------------------  
+        // -------------- This is why I created this derived class!! ----------------------
+        // --------------------------------------------------------------------------------
+        //---public DLLRange<TParallel>[]? ArrayOfParallelRanges_ToInsert;
+        /// <summary>
+        /// A Parallel range is the range which has the same index structure (begin, end)
+        /// 
+        /// </summary>
+        private DLLRange<T_DLL>[]? ArrayOfParallelRanges_ToInsert;
+
+        //---public DLLRange<TParallel>[]? ArrayOfParallelRanges_Deleted;
+        /// <summary>
+        /// 
+        /// </summary>
+        private DLLRange<T_DLL>[]? ArrayOfParallelRanges_Deleted;
+        // --------------------- End of IMPORTANT!! ---------------------------------------  
+        // --------------------------------------------------------------------------------
+
+        public void SetArrayOfParallelRanges_ToInsert(DLLRange<T_DLL>[]? par_array)
+        {
+            // Added 4/23/2025 td
+            ArrayOfParallelRanges_ToInsert = par_array;
+
+        }
+
+        public void SetArrayOfParallelRanges_Deleted(DLLRange<T_DLL>[]? par_array)
+        {
+            // Added 4/23/2025 td
+            ArrayOfParallelRanges_Deleted = par_array;
+
+        }
+
+        public DLLRange<T_DLL>[]? GetArrayOfParallelRanges_ToInsert()
+        {
+            // Added 4/23/2025 td     
+            return ArrayOfParallelRanges_ToInsert; // = par_array;
+
+        }
+
+        public DLLRange<T_DLL>[]? GetArrayOfParallelRanges_Deleted()
+        {
+            // Added 4/23/2025 td
+            return ArrayOfParallelRanges_Deleted; // = par_array;
+
+        }
+
+
         public DateTime ExecutionDate = DateTime.MinValue;  // Added 3/25/2025 
 
         // Mostly for debugging purposes: 11/2/2025 td
@@ -67,23 +115,23 @@ namespace RSCLibraryDLLOperations
         private readonly bool _isForUndoOperation;  //Added 5/22/2024
 
         // Added 4/21/2024 td
-        internal readonly DLLAnchorItem_Deprecated<T_DLLItem>? _anchorItem;
+        internal readonly DLLAnchorItem_Deprecated<T_DLL>? _anchorItem;
 
         // Added 11/03/2024 td
         //   An Anchor Couplet is a pair of Anchoring Items, which bookend a range
         //   (or more accurately WILL bookend a range). 
-        internal readonly DLLAnchorCouplet<T_DLLItem>? _anchorCouplet;
+        internal readonly DLLAnchorCouplet<T_DLL>? _anchorCouplet;
 
         //Added 4/18/2024 td 
-        internal readonly DLLAnchorItem_Deprecated<T_DLLItem>? _inverseAnchorItem_ForUndo;
-        internal readonly DLLAnchorCouplet<T_DLLItem>? _inverseAnchorPair_forUndo;
+        internal readonly DLLAnchorItem_Deprecated<T_DLL>? _inverseAnchorItem_ForUndo;
+        internal readonly DLLAnchorCouplet<T_DLL>? _inverseAnchorPair_forUndo;
 
         //March 2025 private readonly DLLRange<TControl>? _range;
-        //April 2025 private DLLRange<T_DLLItem>? _range;
-        internal DLLRange<T_DLLItem>? _range;
+        //April 2025 private DLLRange<T_DLL>? _range;
+        internal DLLRange<T_DLL>? _range;
 
-        internal DLLOperation1D_Of<T_DLLItem>? mod_opPrior_ForUndo_OfT;
-        internal DLLOperation1D_Of<T_DLLItem>? mod_opNext_ForRedo_OfT;
+        internal DLLOperation1D_Of<T_DLL>? mod_opPrior_ForUndo_OfT;
+        internal DLLOperation1D_Of<T_DLL>? mod_opNext_ForRedo_OfT;
         
         //Nov5 2025 internal bool mod_opNextIsNull = false; //Added 4/18/2025 
         //Nov5 2025 internal bool mod_opPriorIsNull = false; //Added 4/18/2025 
@@ -91,14 +139,14 @@ namespace RSCLibraryDLLOperations
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
         //
-        public T_DLLItem _itemStart_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
-        public T_DLLItem _itemEnding_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+        public T_DLL _itemStart_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public T_DLL _itemEnding_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
-        public T_DLLItem _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
-        public T_DLLItem _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+        public T_DLL _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public T_DLL _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
-        //not needed Apr2025  public T_DLLItem[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
-        //not needed Apr2025  public T_DLLItem[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
+        //not needed Apr2025  public T_DLL[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
+        //not needed Apr2025  public T_DLL[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
 
         public int[] _arrayIndices_SortOrderRedoThisOp;  //Added 1/13/2025 td  
         public int[] _arrayIndices_SortOrderIfUndo;  //Added 1/13/2025 td  
@@ -106,7 +154,7 @@ namespace RSCLibraryDLLOperations
         //
         // ---------------------END OF SORTING ORDER--------------------12/30/2024--------------
         //
-        public  DLLRange<T_DLLItem>[] _array_DLLRangesIfUndo; //Added 4-08-2025
+        public  DLLRange<T_DLL>[] _array_DLLRangesIfUndo; //Added 4-08-2025
 
         /// <summary>
         /// Indicate whether the ENDPOINTS (outward-facing item references 
@@ -230,10 +278,10 @@ namespace RSCLibraryDLLOperations
                   bool par_isSortByArrayIndex,
                   bool par_isUndoOfSortAscending,
                   bool par_isUndoOfSortDescending,
-                  T_DLLItem par_itemStart_Sorting, 
-                  T_DLLItem par_itemEnding_ForSorting, 
+                  T_DLL par_itemStart_Sorting, 
+                  T_DLL par_itemEnding_ForSorting, 
                   // Apr2025 bool pbSortByArrayOfControls,
-                  // Apr2025 T_DLLItem[] par_arrayControls_Sorting,
+                  // Apr2025 T_DLL[] par_arrayControls_Sorting,
                   // Apr2025 bool pbSortByArrayOfIndices,
                   int[]? par_arrayIndices_SortRedo,
                   int[]? par_arrayIndices_SortIfUndo)
@@ -278,7 +326,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperation1D_Of(DLLOperation1D_Of<T_DLLItem> par_operation1D_Of)
+        public DLLOperation1D_Of(DLLOperation1D_Of<T_DLL> par_operation1D_Of)
         {
             //
             // Added 4/15/2025 
@@ -346,18 +394,18 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperation1D_Of(DLLRange<T_DLLItem>? par_range,
+        public DLLOperation1D_Of(DLLRange<T_DLL>? par_range,
               bool par_forStartOfList, bool par_forEndOfList,
               bool par_isInsert, bool par_isDelete, bool par_isMove,
               StructureTypeOfMove par_structMoveType,
               bool par_isRotateLeft, 
               bool par_isRotateRight,
-              DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
-              DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
-                  DLLOperation1D_Of<T_DLLItem>? par_operationPrior = null,
-                  DLLOperation1D_Of<T_DLLItem>? par_operationNext = null,
-                  DLLAnchorItem_Deprecated<T_DLLItem>? par_inverseAnchorItem = null,
-                  DLLAnchorCouplet<T_DLLItem>? par_inverseAnchorPair = null)
+              DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
+              DLLAnchorCouplet<T_DLL>? par_anchorPair,
+                  DLLOperation1D_Of<T_DLL>? par_operationPrior = null,
+                  DLLOperation1D_Of<T_DLL>? par_operationNext = null,
+                  DLLAnchorItem_Deprecated<T_DLL>? par_inverseAnchorItem = null,
+                  DLLAnchorCouplet<T_DLL>? par_inverseAnchorPair = null)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -435,7 +483,7 @@ namespace RSCLibraryDLLOperations
                     _range._isSingleItem = true;
                     _range._SingleItemInRange = _range._StartingItemOfRange;
 
-                    T_DLLItem tempEnding = _range._EndingItemOfRange;
+                    T_DLL tempEnding = _range._EndingItemOfRange;
                     bool bMatchesStart = (tempEnding == _range._SingleItemInRange);
                     if (bMatchesStart == false) System.Diagnostics.Debugger.Break();
 
@@ -462,8 +510,8 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_Of(DLLRange<T_DLLItem> par_range,
-                              DLLAnchorCouplet<T_DLLItem>? par_anchorCouplet,
+        public DLLOperation1D_Of(DLLRange<T_DLL> par_range,
+                              DLLAnchorCouplet<T_DLL>? par_anchorCouplet,
                               bool par_isInsert, bool par_isMove,
                               StructureTypeOfMove par_typeOfMove,
                               bool par_isRotateLeft, 
@@ -561,8 +609,8 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_structure"></param>
         /// <param name="par_firstItemOfList"></param>
         /// <param name=""></param>
-        public DLLOperation1D_Of(DLLOperationIndexStructure par_structure, T_DLLItem par_firstItemOfList,
-                         DLLRange<T_DLLItem>? par_range = null)
+        public DLLOperation1D_Of(DLLOperationIndexStructure par_structure, T_DLL par_firstItemOfList,
+                         DLLRange<T_DLL>? par_range = null)
         {
             //
             // Added 1/12/2025 thomas downes
@@ -591,10 +639,10 @@ namespace RSCLibraryDLLOperations
             //---if (par_structure.RangeIsSpecified || 0 < par_structure.RangeSize)
             if (par_structure.RangeIsSpecified_MoveOrDelete) // || 0 < par_structure.RangeSize)
             {
-                T_DLLItem itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.RangeStartingIndex_b1);
-                T_DLLItem itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.RangeEndingIndex_b1);
+                T_DLL itemOfRangeFirst = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.RangeStartingIndex_b1);
+                T_DLL itemOfRange_Last = par_firstItemOfList.DLL_GetItemAtIndex_base1(par_structure.RangeEndingIndex_b1);
 
-                _range = new DLLRange<T_DLLItem>(itemOfRangeFirst, itemOfRange_Last, 
+                _range = new DLLRange<T_DLL>(itemOfRangeFirst, itemOfRange_Last, 
                     par_structure.RangeSize_MoveOrDelete);
             }
 
@@ -617,8 +665,8 @@ namespace RSCLibraryDLLOperations
             if (par_structure.AnchorIsSpecified || 0 < par_structure.AnchorIndexLeft_b1
                    || 0 < par_structure.AnchorIndexRight_b1)
             {
-                T_DLLItem? itemOfAnchorLeft = null;
-                T_DLLItem? itemOfAnchorRight = null;
+                T_DLL? itemOfAnchorLeft = null;
+                T_DLL? itemOfAnchorRight = null;
 
                 if (0 < par_structure.AnchorIndexLeft_b1) // Added 4/08/2025 td
                 {
@@ -647,7 +695,7 @@ namespace RSCLibraryDLLOperations
                     System.Diagnostics.Debugger.Break(); // Added 4/14/2025
                 }
 
-                _anchorCouplet = new DLLAnchorCouplet<T_DLLItem>(itemOfAnchorLeft, itemOfAnchorRight);
+                _anchorCouplet = new DLLAnchorCouplet<T_DLL>(itemOfAnchorLeft, itemOfAnchorRight);
                 _anchorItem = _anchorCouplet.GetAnchorItem();
 
             }
@@ -661,8 +709,8 @@ namespace RSCLibraryDLLOperations
                 //
                 // Added 4/14/2025 
                 //
-                T_DLLItem? inverseItemOfAnchorLeft = null;
-                T_DLLItem? inverseItemOfAnchorRight = null;
+                T_DLL? inverseItemOfAnchorLeft = null;
+                T_DLL? inverseItemOfAnchorRight = null;
 
                 if (0 < par_structure.InverseAnchorIndexLeft_b1) // Added 4/08/2025 td
                 {
@@ -685,7 +733,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Final step!  ---4/14/2025
                 //
-                _inverseAnchorPair_forUndo = new DLLAnchorCouplet<T_DLLItem>(inverseItemOfAnchorLeft, inverseItemOfAnchorRight);
+                _inverseAnchorPair_forUndo = new DLLAnchorCouplet<T_DLL>(inverseItemOfAnchorLeft, inverseItemOfAnchorRight);
                 _inverseAnchorItem_ForUndo = _inverseAnchorPair_forUndo.GetAnchorItem();
 
             }
@@ -697,7 +745,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ExecuteOnThisList(DLLList<T_DLLItem> par_list, 
+        public void ExecuteOnThisList(DLLList<T_DLL> par_list, 
                         out bool pbChangeOfEndpoint_Occurred)
         {
             //
@@ -729,7 +777,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnParentList(DLLList<T_DLLItem> par_list, out bool pbChangeOfEndpoint_Occurred)
+        public void OperateOnParentList(DLLList<T_DLL> par_list, out bool pbChangeOfEndpoint_Occurred)
         {
             //
             // Added 4/17/2024
@@ -741,8 +789,8 @@ namespace RSCLibraryDLLOperations
             //
             const bool ENDPOINT_PROTECTION = true; // Added 12/16/2024  
             bool bChangeOfEndpoint_Expected = true;   // Added 12/16/2024 
-            T_DLLItem tempStart = par_list._itemStart;
-            T_DLLItem temp__End = par_list._itemEnding;
+            T_DLL tempStart = par_list._itemStart;
+            T_DLL temp__End = par_list._itemEnding;
 
             if (_isSortByValues_Ascending)
             {
@@ -847,7 +895,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_list"></param>
         /// <param name="par_doProtectEndpoints">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
-        public void OperateOnList(DLLList<T_DLLItem> par_list,
+        public void OperateOnList(DLLList<T_DLL> par_list,
                              bool par_doProtectEndpoints,
                              bool pbIsChangeOfEndpoint,
                              out bool pbChangeOfEndpoint_Occurred)
@@ -873,8 +921,8 @@ namespace RSCLibraryDLLOperations
                     return;
                 } //Added 6/5/2025 thomas d.
 
-                T_DLLItem[] arrayControls_priorToSort;  // Added 1/13/2025 
-                T_DLLItem[] arrayControls_afterSort;  // Added 4/29/2025 
+                T_DLL[] arrayControls_priorToSort;  // Added 1/13/2025 
+                T_DLL[] arrayControls_afterSort;  // Added 4/29/2025 
 
                 //int[] arrayIndices_priorToSort;  //Added 1/13/2025
                 const bool OUTPUT_ARRAY = true;  // Added 1/13/2025 
@@ -967,7 +1015,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void OperateOnList(DLLList<T_DLLItem> par_list,
+        public void OperateOnList(DLLList<T_DLL> par_list,
                              bool par_doProtectEndpoints,
                              bool pbIsChangeOfEndpoint_Expected,
                              out bool pbChangeOfEndpoint_Occurred,
@@ -1737,7 +1785,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D_Of<T_DLLItem> GetPrior()
+        public DLLOperation1D_Of<T_DLL> GetPrior()
         {
             //
             // Added 5/25/2024 
@@ -1750,7 +1798,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D_Of<T_DLLItem> GetNext()
+        public DLLOperation1D_Of<T_DLL> GetNext()
         {
             //
             // Added 5/25/2024 
@@ -1801,7 +1849,7 @@ namespace RSCLibraryDLLOperations
         //    return _range_V;
         //}
 
-        public DLLRange<T_DLLItem> GetRange()
+        public DLLRange<T_DLL> GetRange()
         {
             // Added 6/06/2024 td
             return _range;
@@ -1827,7 +1875,7 @@ namespace RSCLibraryDLLOperations
 
         }
 
-        public void SetRange_ForInserts(DLLRange<T_DLLItem> par_range)
+        public void SetRange_ForInserts(DLLRange<T_DLL> par_range)
         {
             // Added 4/08/2025 td
             _range = par_range;
@@ -1857,7 +1905,7 @@ namespace RSCLibraryDLLOperations
 
         
 
-        public DLLOperation1D_Of<T_DLLItem>? DLL_GetOpPrior_OfT()
+        public DLLOperation1D_Of<T_DLL>? DLL_GetOpPrior_OfT()
         {
             // Added 12/02/2024 
             //
@@ -1899,7 +1947,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_Of<T_DLLItem>? DLL_GetOpNext_OfT()
+        public DLLOperation1D_Of<T_DLL>? DLL_GetOpNext_OfT()
         {
             // Added 12/02/2024 
 
@@ -1927,7 +1975,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpPrior_OfT(DLLOperation1D_Of<T_DLLItem> parOperation)
+        public void DLL_SetOpPrior_OfT(DLLOperation1D_Of<T_DLL> parOperation)
         {
             // Added 5/16/2025 td
             if (this == parOperation)
@@ -1951,7 +1999,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D_Of<T_DLLItem> parOperation)
+        public void DLL_SetOpNext_OfT(DLLOperation1D_Of<T_DLL> parOperation)
         {
             // Added 5/16/2025 td
             if (this == parOperation)
@@ -1973,7 +2021,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public void DLL_SetOpNext_OfT(DLLOperation1D_Of<T_DLLItem> parOperation, bool pbBirectional)
+        public void DLL_SetOpNext_OfT(DLLOperation1D_Of<T_DLL> parOperation, bool pbBirectional)
         {
             //
             //Added 12/08/2024 td
@@ -2065,7 +2113,7 @@ namespace RSCLibraryDLLOperations
             //    So, "2 comes after 1" and "2 is the next number after 1"
             //    means the same thing. 
             //
-            DLLOperation1D_Of<T_DLLItem> operationNextAfter = DLL_GetOpNext_OfT();
+            DLLOperation1D_Of<T_DLL> operationNextAfter = DLL_GetOpNext_OfT();
             
             while (operationNextAfter != null)
             {
@@ -2090,7 +2138,7 @@ namespace RSCLibraryDLLOperations
             //    means the same thing. 
             //
             //---12/03/2024---DLLOperation1D<TControl> tempOperation = DLL_GetOpNext_OfT();
-            DLLOperation1D_Of<T_DLLItem>? operationPriorBefore = DLL_GetOpPrior_OfT();
+            DLLOperation1D_Of<T_DLL>? operationPriorBefore = DLL_GetOpPrior_OfT();
 
             while (operationPriorBefore != null)
             {
@@ -2149,6 +2197,20 @@ namespace RSCLibraryDLLOperations
 
         }
 
+
+        //public DLLRange<T_DLL>[]? GetArrayOfParallelRanges_ToInsert()
+        //{
+        //    // Added 4/23/2025 td     
+        //    return ArrayOfParallelRanges_ToInsert; // = par_array;
+
+        //}
+
+        //public DLLRange<T_DLL>[]? GetArrayOfParallelRanges_Deleted()
+        //{
+        //    // Added 4/23/2025 td
+        //    return ArrayOfParallelRanges_Deleted; // = par_array;
+
+        //}
 
 
 

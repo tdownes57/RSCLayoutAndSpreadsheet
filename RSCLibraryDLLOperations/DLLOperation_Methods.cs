@@ -9,39 +9,39 @@ using System.Threading.Tasks;
 
 namespace RSCLibraryDLLOperations
 {
-    public partial class DLLOperation1D_Of<T_DLLItem>  // April 2025  <T_DLLItem>
+    public partial class DLLOperation1D_Of<T_DLL>  // April 2025  <T_DLL>
     {
 
         /// <summary>
         /// This provides a protected, "encapsulated", non-public (private) method, to perform the operation on a list.
         /// A class should have at least a few private methods, to better enforce the encapsulation principle.
         /// </summary>
-        /// <typeparam name="T_DLLItem"></typeparam>
+        /// <typeparam name="T_DLL"></typeparam>
         /// <param name="par_list"></param>
         /// <param name="par_range"></param>
         /// <param name="par_anchorItem"></param>
         /// <param name="pbEndpointProtection">If True, we will throw Exceptions when the Endpoint is impacted, unless the next Boolean parameter is True.</param>
         /// <param name="pbIsChangeOfEndpoint">Prevents exceptions from being raised when an endpoint is changed.</param>
-        private void OperateOnList_Private(DLLList<T_DLLItem> par_list_administrative,
-                                     DLLRange<T_DLLItem> par_range,
-                                     DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
-                                     DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
+        private void OperateOnList_Private(DLLList<T_DLL> par_list_administrative,
+                                     DLLRange<T_DLL> par_range,
+                                     DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
+                                     DLLAnchorCouplet<T_DLL>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint_Expected,
                                      out bool pbChangeOfEndpoint_Occurred,
                                      bool pbRunOtherChecks = false)
-        // where T_DLLItem : IDoublyLinkedItem<T_DLLItem>
+        // where T_DLL : IDoublyLinkedItem<T_DLL>
         {
             //
             // Added 4/17/2024
             //
-            //   This is a private singly-generic method (Of T_DLLItem),
+            //   This is a private singly-generic method (Of T_DLL),
             //   to obey the DRY principle inside a doubly-generic class 
-            //   (Of T_DLLItem_H, T_DLLItem_V). 
+            //   (Of T_DLL_H, T_DLL_V). 
             //  
             pbChangeOfEndpoint_Occurred = false; //Default.  12/15/2024
-            T_DLLItem tempListStart = par_list_administrative._itemStart;   // Added 12/17/2024 
-            T_DLLItem tempListEnding = par_list_administrative._itemEnding;  // Added 12/17/2024 
+            T_DLL tempListStart = par_list_administrative._itemStart;   // Added 12/17/2024 
+            T_DLL tempListEnding = par_list_administrative._itemEnding;  // Added 12/17/2024 
 
             if (_isInsert)
             {
@@ -109,34 +109,34 @@ namespace RSCLibraryDLLOperations
 
 
         /// <summary>
-        /// Perform an insert operation, either for T_DLLItem_H or T_DLLItem_V.
+        /// Perform an insert operation, either for T_DLL_H or T_DLL_V.
         /// If appropriate, we perform some sanity testing prior to the operation.
         /// </summary>
-        /// <typeparam name="T_DLLItem"></typeparam>
+        /// <typeparam name="T_DLL"></typeparam>
         /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
         /// <param name="par_range">This is the range of items which are being placed into the list.</param>
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
-        private void OperateOnList_Insert(DLLList<T_DLLItem> par_list_administrative,
-                                             DLLRange<T_DLLItem> par_range,
-                                             DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
-                                             DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
+        private void OperateOnList_Insert(DLLList<T_DLL> par_list_administrative,
+                                             DLLRange<T_DLL> par_range,
+                                             DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
+                                             DLLAnchorCouplet<T_DLL>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-        // where T_DLLItem : IDoublyLinkedItem<T_DLLItem>
+        // where T_DLL : IDoublyLinkedItem<T_DLL>
         {
             //
             // Added 12/17/2024 
             //
-            //T_DLLItem tempListStart = par_list_administrative._itemStart;   // Added 12/17/2024 
-            //T_DLLItem tempListEnding = par_list_administrative._itemEnding;  // Added 12/17/2024 
+            //T_DLL tempListStart = par_list_administrative._itemStart;   // Added 12/17/2024 
+            //T_DLL tempListEnding = par_list_administrative._itemEnding;  // Added 12/17/2024 
 
             //
             // Added 4/17/2024
             //
-            //   This is a private singly-generic method (Of T_DLLItem),
+            //   This is a private singly-generic method (Of T_DLL),
             //   to obey the DRY principle inside a doubly-generic class 
-            //   (Of T_DLLItem_H, T_DLLItem_V). 
+            //   (Of T_DLL_H, T_DLL_V). 
             //  
             // Insertion operation
             //
@@ -189,9 +189,9 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void Operate_Insert_ByCouplet(DLLList<T_DLLItem> par_list_NeededForAdmin,
-                             DLLRange<T_DLLItem> par_range,
-                             DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
+        private void Operate_Insert_ByCouplet(DLLList<T_DLL> par_list_NeededForAdmin,
+                             DLLRange<T_DLL> par_range,
+                             DLLAnchorCouplet<T_DLL>? par_anchorPair,
                      bool pbIsChangeOfEndpoint)
         {
             //
@@ -244,9 +244,9 @@ namespace RSCLibraryDLLOperations
 
 
 
-        private void Operate_Insert_ByAnchorItem(DLLList<T_DLLItem> par_list_NotReallyNeeded,
-                                     DLLRange<T_DLLItem> par_range,
-                                     DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
+        private void Operate_Insert_ByAnchorItem(DLLList<T_DLL> par_list_NotReallyNeeded,
+                                     DLLRange<T_DLL> par_range,
+                                     DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
                              bool pbIsChangeOfEndpoint)
         {
 
@@ -289,7 +289,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Insert the range AFTER (FOLLOWING) the anchoring item. 
                 //
-                T_DLLItem? itemOriginallyAfterAnchor = default(T_DLLItem);
+                T_DLL? itemOriginallyAfterAnchor = default(T_DLL);
                 bool bAnchorHasItemAfter;
                 bAnchorHasItemAfter = par_anchorItem._anchorItem.DLL_HasNext();
 
@@ -299,7 +299,7 @@ namespace RSCLibraryDLLOperations
                     // #2a of 3. 
                     //
                     // Get the item AFTER the anchor; and also "unbox" it,
-                    //   i.e. get the T_DLLItem object (vs. an interface).
+                    //   i.e. get the T_DLL object (vs. an interface).
                     itemOriginallyAfterAnchor = par_anchorItem._anchorItem
                         .DLL_GetItemNext_OfT(); // .DLL_UnboxControl_OfT()
 
@@ -394,7 +394,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Insert the range PRIOR (PRECEDING) to the anchoring item.
                 //
-                IDoublyLinkedItem<T_DLLItem>
+                IDoublyLinkedItem<T_DLL>
                     itemOriginallyBeforeAnchor = par_anchorItem._anchorItem.DLL_GetItemPrior_OfT();
 
                 bool bAnchorHasItemBefore;
@@ -454,12 +454,12 @@ namespace RSCLibraryDLLOperations
 
 
 
-        private void OperateOnList_Delete(DLLList<T_DLLItem> par_list,
-                                            DLLRange<T_DLLItem> par_range,
+        private void OperateOnList_Delete(DLLList<T_DLL> par_list,
+                                            DLLRange<T_DLL> par_range,
                                  bool pbEndpointProtection,
                                  bool pbIsChangeOfEndpoint = false,
                                  bool pbRunOtherChecks = false)
-        //  where T_DLLItem : IDoublyLinkedItem<T_DLLItem>
+        //  where T_DLL : IDoublyLinkedItem<T_DLL>
         {
             //
             // Added 11/12/2024
@@ -475,7 +475,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Added 11/12/2024
                 //
-                DLLAnchorCouplet<T_DLLItem> tempInverse = par_range.GetCoupletWhichEncloses_InverseAnchor();
+                DLLAnchorCouplet<T_DLL> tempInverse = par_range.GetCoupletWhichEncloses_InverseAnchor();
 
                 //
                 // Major call!!!
@@ -519,25 +519,25 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void OperateOnList_Delete_OBSELETE(DLLList<T_DLLItem> par_list,
-                                                DLLRange<T_DLLItem> par_range,
+        private void OperateOnList_Delete_OBSELETE(DLLList<T_DLL> par_list,
+                                                DLLRange<T_DLL> par_range,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint = false,
                                      bool pbRunOtherChecks = false)
-        //  where T_DLLItem : IDoublyLinkedItem<T_DLLItem>
+        //  where T_DLL : IDoublyLinkedItem<T_DLL>
         {
             //
             // Added 4/17/2024
             //
-            //   This is a private singly-generic method (Of T_DLLItem),
+            //   This is a private singly-generic method (Of T_DLL),
             //   to obey the DRY principle inside a doubly-generic class 
-            //   (Of T_DLLItem_H, T_DLLItem_V). 
+            //   (Of T_DLL_H, T_DLL_V). 
             //  
             // De-link the item BEFORE the deletion range.
             //
-            //IDoublyLinkedItem<T_DLLItem>
+            //IDoublyLinkedItem<T_DLL>
             //    itemOriginallyBeforeRange = par_range._StartingItem.DLL_GetItemPrior_OfT();
-            T_DLLItem itemOriginallyBeforeRange = par_range.ItemStart().DLL_GetItemPrior_OfT();
+            T_DLL itemOriginallyBeforeRange = par_range.ItemStart().DLL_GetItemPrior_OfT();
 
             if (itemOriginallyBeforeRange != null)
             {
@@ -551,8 +551,8 @@ namespace RSCLibraryDLLOperations
             //
             // De-link the item AFTER the deletion range.
             //
-            //IDoublyLinkedItem<T_DLLItem>
-            T_DLLItem itemOriginallyAfterRange = par_range.Item__End().DLL_GetItemNext_OfT();
+            //IDoublyLinkedItem<T_DLL>
+            T_DLL itemOriginallyAfterRange = par_range.Item__End().DLL_GetItemNext_OfT();
             // itemOriginallyAfterRange = par_range._EndingItem.DLL_GetItemNext_OfT();
 
             if (itemOriginallyAfterRange != null)
@@ -610,18 +610,18 @@ namespace RSCLibraryDLLOperations
 
 
         /// <summary>
-        /// Perform an insert operation, either for T_DLLItem_H or T_DLLItem_V.
+        /// Perform an insert operation, either for T_DLL_H or T_DLL_V.
         /// If appropriate, we perform some sanity testing prior to the operation.
         /// </summary>
-        /// <typeparam name="T_DLLItem"></typeparam>
+        /// <typeparam name="T_DLL"></typeparam>
         /// <param name="par_list_NotReallyNeeded">This parameter provides a sanity check (debugging).</param>
         /// <param name="par_range">This is the range of items which are being placed into the list.</param>
         /// <param name="par_anchorItem">This is a simple wrapper for the item which provides the location for the insert operation.</param>
-        private void OperateOnList_Move(DLLList<T_DLLItem> par_list_forFinalAdmin,
-                                             DLLRange<T_DLLItem> par_range,
+        private void OperateOnList_Move(DLLList<T_DLL> par_list_forFinalAdmin,
+                                             DLLRange<T_DLL> par_range,
                                              StructureTypeOfMove par_typeOfMove,
-                                             DLLAnchorItem_Deprecated<T_DLLItem>? par_anchorItem,
-                                             DLLAnchorCouplet<T_DLLItem>? par_anchorPair,
+                                             DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
+                                             DLLAnchorCouplet<T_DLL>? par_anchorPair,
                                      bool pbEndpointProtection,
                                      bool pbIsChangeOfEndpoint_Expected,
                                      out bool pbChangeOfEndpoint_Occurred,
@@ -731,9 +731,9 @@ namespace RSCLibraryDLLOperations
         /****
          * 
          * 
-         * public void OperateOnList(DLLList<T_DLLItem_H> par_list)
+         * public void OperateOnList(DLLList<T_DLL_H> par_list)
         {
-            // public void OperateOnList(LinkedList<T_DLLItem_H> par_list)
+            // public void OperateOnList(LinkedList<T_DLL_H> par_list)
             //
             // Added 4/17/2024
             //
@@ -754,16 +754,16 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation1D_Of<T_DLLItem> GetInverseForUndo_Of(bool pbTestForIdempotency)
+        public DLLOperation1D_Of<T_DLL> GetInverseForUndo_Of(bool pbTestForIdempotency)
         {
-            // public DLLOperation1D_Of<T_DLLItem_H, T_DLLItem_V>
+            // public DLLOperation1D_Of<T_DLL_H, T_DLL_V>
 
-            DLLOperation1D_Of<T_DLLItem> result_UNDO;
+            DLLOperation1D_Of<T_DLL> result_UNDO;
 
-            //DLLRange<T_DLLItem_H> result_RangeOfItems_H = _range_H;
-            //DLLRange<T_DLLItem_V> result_RangeOfItems_V = _range_V;
-            //T_DLLItem_H? result_anchor_H = _anchor_H;
-            //T_DLLItem_V? result_anchor_V = _anchor_V;
+            //DLLRange<T_DLL_H> result_RangeOfItems_H = _range_H;
+            //DLLRange<T_DLL_V> result_RangeOfItems_V = _range_V;
+            //T_DLL_H? result_anchor_H = _anchor_H;
+            //T_DLL_V? result_anchor_V = _anchor_V;
 
             bool result_isInsert = _isDelete; // DIFFICULT & CONFUSING... inverse/opposite.
             bool result_isDelete = _isInsert; // DIFFICULT & CONFUSING... inverse/opposite.
@@ -799,11 +799,11 @@ namespace RSCLibraryDLLOperations
             bool result_isUndoOfSortDescending = _isSortByValues_Descending; // _isSortingAscending; // DIFFICULT & CONFUSING... inverse/opposite.
 
             // Added 12/30/2024 td
-            T_DLLItem result_itemStart_SortOrderThisOp = _itemStart_SortOrderIfUndo;
-            T_DLLItem result_itemEnding_SortOrderThisOp = _itemEnding_SortOrderIfUndo;
+            T_DLL result_itemStart_SortOrderThisOp = _itemStart_SortOrderIfUndo;
+            T_DLL result_itemEnding_SortOrderThisOp = _itemEnding_SortOrderIfUndo;
 
-            //Not needed T_DLLItem[] result_arrayControls_SortOrderThisOp = _arrayControls_SortOrderIfUndo;
-            //Not needed T_DLLItem[] result_arrayControls_SortOrderIfUndo = _arrayControls_SortOrderIfUndo;
+            //Not needed T_DLL[] result_arrayControls_SortOrderThisOp = _arrayControls_SortOrderIfUndo;
+            //Not needed T_DLL[] result_arrayControls_SortOrderIfUndo = _arrayControls_SortOrderIfUndo;
 
             // Added 1/13/2025 thomas d.
             //---May2025---int[] result_arrayIndices_SortOrderThisOp = _arrayIndices_SortOrderRedoThisOp;
@@ -827,12 +827,12 @@ namespace RSCLibraryDLLOperations
             //---if (_isHoriz)
             //---{
 
-            DLLRange<T_DLLItem>? result_RangeOfItems = _range;
-            DLLAnchorItem_Deprecated<T_DLLItem>? result_anchorItem = _inverseAnchorItem_ForUndo;  // Use the "forUndo" anchor.
+            DLLRange<T_DLL>? result_RangeOfItems = _range;
+            DLLAnchorItem_Deprecated<T_DLL>? result_anchorItem = _inverseAnchorItem_ForUndo;  // Use the "forUndo" anchor.
 
             // Added 11/08/2024  
             //   "Couplet" and "Pair" mean the same thing. 
-            DLLAnchorCouplet<T_DLLItem>? result_anchorCouplet = _inverseAnchorPair_forUndo;  // Use the "forUndo" anchor.
+            DLLAnchorCouplet<T_DLL>? result_anchorCouplet = _inverseAnchorPair_forUndo;  // Use the "forUndo" anchor.
 
             // Added 11/08/2024 
             if (result_anchorItem == null && result_anchorCouplet != null)
@@ -848,7 +848,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Create a AnchorCouplet from the AnchorItem. 
                 //---result_anchorCouplet = result_anchorItem.GetAnchorCouplet();
-                //result_anchorCouplet = result_anchorItem.GetAnchorCouplet<T_DLLItem>();
+                //result_anchorCouplet = result_anchorItem.GetAnchorCouplet<T_DLL>();
                 result_anchorCouplet = result_anchorItem.GetAnchorCouplet();
 
             }
@@ -879,7 +879,7 @@ namespace RSCLibraryDLLOperations
             //
             if (_isInsert || _isDelete || _isMove)
             {
-                result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
+                result_UNDO = new DLLOperation1D_Of<T_DLL>(
                     result_RangeOfItems,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -894,7 +894,7 @@ namespace RSCLibraryDLLOperations
             }
             else
             {
-                //result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
+                //result_UNDO = new DLLOperation1D_Of<T_DLL>(
                 //    result_isSortByItemValues,
                 //    result_isSortAscending,
                 //    result_isSortDescending,
@@ -907,7 +907,7 @@ namespace RSCLibraryDLLOperations
                 //    true, 
                 //    result_arrayIndices_SortOrderThisOp);
 
-                result_UNDO = new DLLOperation1D_Of<T_DLLItem>(
+                result_UNDO = new DLLOperation1D_Of<T_DLL>(
                     result_isSortByItemValues,
                     result_isSortAscending,
                     result_isSortDescending,
@@ -958,7 +958,7 @@ namespace RSCLibraryDLLOperations
             if (_range != null)
             {
                 //Added 1/09/2025 thomas d.
-                T_DLLItem firstRangeItem = _range._StartingItemOfRange;
+                T_DLL firstRangeItem = _range._StartingItemOfRange;
                 bool bAsExpected = (pbTargetListIsOfBaseClass == (firstRangeItem is T_BaseOrParallel));
                 if (!bAsExpected) System.Diagnostics.Debugger.Break();
             }
@@ -1006,7 +1006,7 @@ namespace RSCLibraryDLLOperations
                     if (mod_opPrior_ForUndo != null)
                     {
                         //System.Diagnostics.Debugger.Break();
-                        mod_opPrior_ForUndo_OfT = mod_opPrior_ForUndo as DLLOperation1D_Of<T_DLLItem>;
+                        mod_opPrior_ForUndo_OfT = mod_opPrior_ForUndo as DLLOperation1D_Of<T_DLL>;
                     }
 
                 DLLOperation1D_Of<T_BaseOrParallel>? operationBasePrior; // Added 1/07/2025 td
@@ -1066,7 +1066,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_array"></param>
         /// <param name="par_firstItem"></param>
         /// <returns></returns>
-        private T_BaseOrParallel[] GetConvertedArray<T_BaseOrParallel>(T_DLLItem[] par_array, T_BaseOrParallel par_firstItem)
+        private T_BaseOrParallel[] GetConvertedArray<T_BaseOrParallel>(T_DLL[] par_array, T_BaseOrParallel par_firstItem)
             where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
         {
             //
@@ -1083,7 +1083,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public bool TestForEquivalence(DLLOperation1D_Of<T_DLLItem> par_op)
+        public bool TestForEquivalence(DLLOperation1D_Of<T_DLL> par_op)
         {
             //
             // Added 12/24/2024 td  
@@ -1188,8 +1188,8 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/24/2024 td  
             //
-            DLLOperation1D_Of<T_DLLItem> opInverse1st;
-            DLLOperation1D_Of<T_DLLItem> opInverse2nd;
+            DLLOperation1D_Of<T_DLL> opInverse1st;
+            DLLOperation1D_Of<T_DLL> opInverse2nd;
 
             opInverse1st = GetInverseForUndo_Of(false);
             opInverse2nd = opInverse1st.GetInverseForUndo_Of(false);
@@ -1357,8 +1357,8 @@ namespace RSCLibraryDLLOperations
                 //result_struct.AnchorIndexLeft_b1 = _anchorCouplet.GetItemLeftOrFirst().DLL_GetItemIndex_b1();
                 //result_struct.AnchorIndexRight_b1 = _anchorCouplet.GetItemRightOrSecond().DLL_GetItemIndex_b1();
 
-                T_DLLItem? itemAnchorCouplet_Left = _anchorCouplet.GetItemLeftOrFirst();
-                T_DLLItem? itemAnchorCouplet_Right = _anchorCouplet.GetItemRightOrSecond();
+                T_DLL? itemAnchorCouplet_Left = _anchorCouplet.GetItemLeftOrFirst();
+                T_DLL? itemAnchorCouplet_Right = _anchorCouplet.GetItemRightOrSecond();
 
                 // if (_anchorCouplet.ItemFirstIsPresent())
                 if (itemAnchorCouplet_Left == null)
@@ -1401,8 +1401,8 @@ namespace RSCLibraryDLLOperations
             {
                 result_struct.InverseAnchorIsSpecified = true;
 
-                T_DLLItem? inverseAnchorCouplet_Left = _inverseAnchorPair_forUndo.GetItemLeftOrFirst();
-                T_DLLItem? inverseAnchorCouplet_Right = _inverseAnchorPair_forUndo.GetItemRightOrSecond();
+                T_DLL? inverseAnchorCouplet_Left = _inverseAnchorPair_forUndo.GetItemLeftOrFirst();
+                T_DLL? inverseAnchorCouplet_Right = _inverseAnchorPair_forUndo.GetItemRightOrSecond();
 
                 if (inverseAnchorCouplet_Left == null)
                 {

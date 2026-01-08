@@ -20,6 +20,7 @@ Public Class FormDemo1DVertical
     ''March 2025 Private mod_managerVerticalOps.As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
     Private mod_managerVerticalOps As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
     Private mod_managerHorizontalOps As DLLOperationsManager1D(Of DLLUserControlRichbox, DLLUserControlRichbox)
+    Private mod_managerIntegrated As DLLOperation2D(Of DLLUserControlRichbox)
 
     ''' <summary>
     ''' Manager of a list of Operation Index Structures. ---6/11/2025 td
@@ -470,8 +471,13 @@ Public Class FormDemo1DVertical
         mod_managerHorizontalOps = New DLLOperationsManager1D(Of DLLUserControlRichbox,
                 DLLUserControlRichbox)(DLLColumnHeaderB1, mod_listColumnHeaders)
 
+        ''Added 01/25/2025 thomas downes
+        mod_managerIntegrated = New DLLOperationsManager2D_OneType(Of DLLUserControlRichbox) _
+              (mod_firstItemA, mod_listA,
+               DLLColumnHeaderB1, mod_listColumnHeaders)
+
         ''Added 4/08/2025 thomas d.
-        mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
+        mod_managerVertical.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Display the list. 
@@ -2963,10 +2969,11 @@ Public Class FormDemo1DVertical
         ''---12/2025 mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
         ''---12/2025 RedrawColumns_InOrder(mod_listColumnHeaders)
 
-        Const MANAGE_ROTATION = True ''False ''Added 12/25/2025
+        Const MANAGE_ROTATION_1D = False ''True ''False ''Added 12/25/2025
+        Const MANAGE_ROTATION_2D = True ''False ''Added 12/30/2025
         Const OPERATION_MOVE = True ''Added 12/25/2025 td
         Const OPERATION_ROTATE_R = True ''Added 12/25/2025 td
-        Const NO_MANAGE_ROTATION = Not MANAGE_ROTATION ''Added 12/27/2025
+        Const NO_MANAGE_ROTATION = Not (MANAGE_ROTATION_1D Or MANAGE_ROTATION_2D) ''Added 12/27/2025
 
         If NO_MANAGE_ROTATION Then ''Added 12/25/2025  
             ''
@@ -2976,7 +2983,7 @@ Public Class FormDemo1DVertical
             mod_listColumnHeaders = GetDLLListOf_ColumnHeaders_Rotated(mod_listColumnHeaders)
             RedrawColumns_InOrder(mod_listColumnHeaders)
 
-        Else
+        ElseIf (MANAGE_ROTATION_1D) Then
             ''
             ''Create an operation to manage rotation of columns, for the "UNDO" operation.
             ''
@@ -3003,6 +3010,16 @@ Public Class FormDemo1DVertical
 
             ''added 12/28/2025  
             LinkReorderCols.Tag = tempOperation
+
+
+
+        ElseIf (MANAGE_ROTATION_2D) Then
+            ''
+            ''Create an operation to manage rotation of columns, for the "UNDO" operation.
+            ''
+
+
+
 
         End If ''End of ""If (Not MANAGE_ROTATION) Then.... Else""
 
