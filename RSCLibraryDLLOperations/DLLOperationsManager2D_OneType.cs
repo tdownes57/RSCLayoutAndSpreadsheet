@@ -30,11 +30,30 @@ namespace RSCLibraryDLLOperations
         //    2D = 2-dimensional grid, NOT simply a list
         //            (versus a 1-dimensional list)
         //
-        private T_DLL? mod_firstItem;
-        private T_DLL? mod_endingItem;
-        private DLLList<T_DLL> mod_list;
+        private T_DLL? mod_firstItemHor;  // Horizontal
+        private T_DLL? mod_endingItemHor;   // Horizontal
 
+        private T_DLL? mod_firstItemVer;  // Vertical
+        private T_DLL? mod_endingItemVer;   // Vertical
+
+        private DLLList<T_DLL> mod_listHoriz;  // Horizontal
+        private DLLList<T_DLL> mod_listVerti; // Vertical
+
+        //private T_DLL? mod_firstItemH;
+
+        //Jan2026 private DLLOperation1D_Of<T_DLL>? mod_firstPriorOperation2D;
+        //Jan2026 private DLLOperation1D_Of<T_DLL>? mod_lastPriorOperation2D;
+
+        /// <summary>
+        /// The 1D operations have been retro-fitted to work in a 2D environment, via booleans
+        /// indicating whether the operation is horizontal or vertical.
+        /// </summary>
         private DLLOperation1D_Of<T_DLL>? mod_firstPriorOperation1D;
+
+        /// <summary>
+        /// The 1D operations have been retro-fitted to work in a 2D environment, via booleans
+        /// indicating whether the operation is horizontal or vertical.
+        /// </summary>
         private DLLOperation1D_Of<T_DLL>? mod_lastPriorOperation1D;
 
         /// <summary>
@@ -142,12 +161,15 @@ namespace RSCLibraryDLLOperations
         //
         // Added 10/20/2024 
         //
-        public DLLOperationsManager2D_OneType(T_DLL par_firstItem,
-            DLLList<T_DLL> par_list,
+        public DLLOperationsManager2D_OneType(T_DLL par_firstItemHori, DLLList<T_DLL> par_listHori,
+                                              T_DLL par_firstItemVert, DLLList<T_DLL> par_listVert,
             DLLOperation1D_Of<T_DLL>? par_firstPriorOperationV1 = null)
         {
-            this.mod_firstItem = par_firstItem;
-            this.mod_list = par_list;
+            this.mod_firstItemHor = par_firstItemHori;
+            this.mod_firstItemVer = par_firstItemVert;
+
+            this.mod_listHoriz = par_listHori;
+            this.mod_listVerti = par_listVert;
 
             if (par_firstPriorOperationV1 == null) // Added 4/11/2025 
             {
@@ -166,7 +188,7 @@ namespace RSCLibraryDLLOperations
                 const bool IS_CONSTRUCTOR = true;
 
                 mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>
-                    (par_firstPriorOperationV1, IS_CONSTRUCTOR);
+                    (par_firstPriorOperationV1);  //, IS_CONSTRUCTOR);
                 mod_intCountOperations++; // Added 10/26/2024 td 
 
             }
@@ -181,11 +203,17 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperationsManager2D_OneType(T_DLL par_firstItem,
-                                     DLLList<T_DLL> par_list)
+        public DLLOperationsManager2D_OneType(T_DLL par_firstItemHor,
+                                                DLLList<T_DLL> par_listHoriz, 
+                                     T_DLL par_firstItemVer,
+                                       DLLList<T_DLL> par_listVerti)
         {
-            this.mod_firstItem = par_firstItem;
-            this.mod_list = par_list;
+            this.mod_firstItemHor = par_firstItemHor;
+            this.mod_listHoriz = par_listHoriz;
+
+            // Added 1/21/2026 td 
+            this.mod_firstItemVer = par_firstItemVer;
+            this.mod_listVerti = par_listVerti;
 
             //---this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
             //---this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
@@ -201,9 +229,16 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public T_DLL GetFirstItem()
+        public T_DLL? GetFirstItem_Horizontal()
         {
-            return mod_firstItem;
+            // Modified 1/21/2026 td
+            return mod_firstItemHor;
+        }
+
+        public T_DLL? GetFirstItem_Vertical()
+        {
+            // Modified 1/21/2026 td
+            return mod_firstItemVer;
         }
 
 
@@ -212,7 +247,7 @@ namespace RSCLibraryDLLOperations
             //
             //  Added 10/13/2024 
             //
-            int intCountOps_method1 = mod_firstItem.DLL_CountItemsAllInList();
+            int intCountOps_method1 = mod_firstPriorOperation1D.DLL_CountAllOpsInTheList();
             int intCountOps_method2 = mod_intCountOperations;
             if (intCountOps_method1 != intCountOps_method2)
             {
@@ -412,7 +447,7 @@ namespace RSCLibraryDLLOperations
                     if (mod_firstPriorOperation1D.DLL_MissingOpNext())
                     {
                         //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
-                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT_OfT(parOperation);
+                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
                     }
 
                     //
@@ -442,7 +477,7 @@ namespace RSCLibraryDLLOperations
         {
             // Added 1/15/2024
 
-            //if (parOperation.IsHorizontal()) parOperation.OperateOnList(mod_listHoriz, par_changeOfEndpoint);
+            //if (parOperation.IsHorizontal()) parOperation.OperateOnList(mod_listHoriziz, par_changeOfEndpoint);
             //if (parOperation.IsVertical()) parOperation.OperateOnList(mod_listVerti, par_changeOfEndpoint);
 
             //-------------------------------------------------------------------
@@ -451,9 +486,23 @@ namespace RSCLibraryDLLOperations
             //
             //-------------------------------------------------------------------
             //
-            parOperation.OperateOnList(mod_list, true, par_changeOfEndpoint_Expected,
-                  out par_changeOfEndpoint_Occurred);
-
+            if (parOperation.IsHorizontal())
+            {
+                // Horizontal 
+                parOperation.OperateOnList(mod_listHoriz, true, par_changeOfEndpoint_Expected,
+                      out par_changeOfEndpoint_Occurred);
+            }
+            else if (parOperation.IsVertical())
+            {
+                // Vertical
+                parOperation.OperateOnList(mod_listVerti, true, par_changeOfEndpoint_Expected,
+                      out par_changeOfEndpoint_Occurred);
+            }
+            else
+            {
+                Debugger.Break();
+                throw new Exception();
+            }
 
             //-------------------------------------------------------------------
             //
@@ -522,14 +571,25 @@ namespace RSCLibraryDLLOperations
             //
             // Administration needed!!
             //
-            mod_firstItem = mod_list._itemStart;
-            mod_endingItem = mod_list._itemEnding;
+            // Horizontal
+            mod_firstItemHor = mod_listHoriz._itemStart;
+            mod_endingItemHor = mod_listHoriz._itemEnding;
+            // Vertical 
+            mod_firstItemVer = mod_listVerti._itemStart;
+            mod_endingItemVer = mod_listVerti._itemEnding;
 
             // Added 6/5/2025 td
-            if (mod_list._itemStart == null && (!mod_list._isEmpty_OrTreatAsEmpty))
+            if (mod_listHoriz._itemStart == null && (!mod_listHoriz._isEmpty_OrTreatAsEmpty))
             {
                 System.Diagnostics.Debugger.Break();
-                mod_list._isEmpty_OrTreatAsEmpty = true;
+                mod_listHoriz._isEmpty_OrTreatAsEmpty = true;
+            }
+
+            // Added 6/5/2025 td
+            if (mod_listVerti._itemStart == null && (!mod_listVerti._isEmpty_OrTreatAsEmpty))
+            {
+                System.Diagnostics.Debugger.Break();
+                mod_listVerti._isEmpty_OrTreatAsEmpty = true;
             }
 
             // Added 12/03/2024 thomas 
@@ -660,7 +720,11 @@ namespace RSCLibraryDLLOperations
                 //
                 // Added 5/18/2025 td
                 //
-                var operationFromIndex = new DLLOperation1D_Of<T_DLL>(parOperationIndexed, mod_firstItem);
+                var operationFromIndex = new DLLOperation1D_Of<T_DLL>(parOperationIndexed, mod_firstItemVer);
+
+                //Added 1/21/2026 td
+                if (parOperationIndexed.Is2D_Horizontal)
+                    operationFromIndex = new DLLOperation1D_Of<T_DLL>(parOperationIndexed, mod_firstItemHor);
 
                 const bool ONLY_PROCESS_PRIMARY_LIST = true;
 
@@ -693,8 +757,12 @@ namespace RSCLibraryDLLOperations
             //
             // Administration needed!!
             //
-            mod_firstItem = mod_list._itemStart;
-            mod_endingItem = mod_list._itemEnding;
+            mod_firstItemHor = mod_listHoriz._itemStart;
+            mod_endingItemHor = mod_listHoriz._itemEnding;
+
+            // Added 01/19/2026 thomas downes
+            mod_firstItemVer = mod_listVerti._itemStart;
+            mod_endingItemVer = mod_listVerti._itemEnding;
 
             // Added 12/03/2024 thomas 
             //    
@@ -721,8 +789,22 @@ namespace RSCLibraryDLLOperations
                 //
                 //---mod_lastPriorOperation1D = parOperation;
                 //
-                DLLOperation1D_Of<T_DLL> operationT_DLL = new DLLOperation1D_Of<T_DLL>(parOperationIndexed,
-                     mod_list.DLL_GetFirstItem_OfT());
+                //DLLOperation1D_Of<T_DLL> operationT_DLL = 
+                //    new DLLOperation1D_Of<T_DLL>(parOperationIndexed,
+                //     mod_list.DLL_GetFirstItem_OfT());
+
+                OperationH_or_V op_structH_orV = 
+                    new OperationH_or_V(parOperationIndexed.Is2D_Horizontal,
+                                        parOperationIndexed.Is2D_Vertical);
+
+                mod_firstItemHor = mod_listHoriz.DLL_GetFirstItem_OfT();
+                mod_firstItemVer = mod_listVerti.DLL_GetFirstItem_OfT();
+
+                T_DLL? firstItemInRelevantList = 
+                    (parOperationIndexed.Is2D_Horizontal ? mod_firstItemHor : mod_firstItemVer);
+
+                DLLOperation1D_Of <T_DLL> operationT_DLL =
+                    new DLLOperation1D_Of<T_DLL>(parOperationIndexed, firstItemInRelevantList);
 
                 //RecordNewestOperation<T_DLL>(operationT_DLL);
                 RecordNewestOperation(operationT_DLL);
@@ -743,7 +825,7 @@ namespace RSCLibraryDLLOperations
             //
             // Check for proper termination.---11/2025
             //
-            mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
+            mod_firstPriorOperation1D?.DLL_CheckTermination_Prior();
 
         }
 
@@ -758,8 +840,8 @@ namespace RSCLibraryDLLOperations
             //
             //---var operation1D_OfT_OfT = new DLLOperation1D_OfOf<T_DLL, T_DLL>(parOperation);
             //---var operation1D_OfT_OfT = new DLLOperation1D_OfOf<TControl, T_DLL>(parOperation);
-            //var operation1D_OfT_OfT = new DLLOperation1D_2TypesInParallel<T_DLL, T_DLL>(parOperation);
-            var operation1D_OfT = new DLLOperation1D_Of<T_DLL>(parOperation);
+            //Jan2026 var operation1D_OfT_OfT = new DLLOperation1D_2TypesInParallel<T_DLL, T_DLL>(parOperation);
+            var operation2D_OfT = parOperation; //new DLLOperation2D<T_DLL>(parOperation);
 
             //Added 4/14/2025 td
             bool boolInserted = parOperation._isInsert;
@@ -768,8 +850,8 @@ namespace RSCLibraryDLLOperations
             //Added 4/14/2025 td
             //if (boolInserted) operation1D_OfT_OfT.ArrayOfParallelRanges_ToInsert = mod_arrayOfParallelRangesToInsert;
             //if (boolDeleted) operation1D_OfT_OfT.ArrayOfParallelRanges_Deleted = mod_arrayOfParallelRangesToDelete;
-            if (boolInserted) operation1D_OfT.SetArrayOfParallelRanges_ToInsert(mod_arrayOfParallelRangesToInsert);
-            if (boolDeleted) operation1D_OfT.SetArrayOfParallelRanges_Deleted(mod_arrayOfParallelRangesToDelete);
+            if (boolInserted) operation2D_OfT.SetArrayOfParallelRanges_ToInsert(mod_arrayOfParallelRangesToInsert);
+            if (boolDeleted) operation2D_OfT.SetArrayOfParallelRanges_Deleted(mod_arrayOfParallelRangesToDelete);
 
             //
             // Record the user's first operation a bit differently from an operation that is following other
@@ -782,7 +864,7 @@ namespace RSCLibraryDLLOperations
                 //Apr2025 mod_firstPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLL>(parOperation);
 
                 parOperation.DLL_MarkStartOfList(); // Mark the parameter operation (needed!). --Added 4/18/2025
-                mod_firstPriorOperation1D = operation1D_OfT;
+                mod_firstPriorOperation1D = operation2D_OfT;
                 mod_firstPriorOperation1D.DLL_MarkStartOfList(); // Added 4/18/2025 td
 
                 //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLL>(parOperation);
@@ -816,7 +898,7 @@ namespace RSCLibraryDLLOperations
                     //  Logically speaking, any pending Redo operations must be deleted/cleared.
                     //
                     //April2025  mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
-                    mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo_OfOf();
+                    mod_lastPriorOperation1D = mod_opUndoRedoMarker.GetCurrentOp_Undo();
                     mod_lastPriorOperation1D?.DLL_ClearOpNext();
                     mod_opUndoRedoMarker.ClearPendingRedoOperation();
 
@@ -840,7 +922,7 @@ namespace RSCLibraryDLLOperations
 
                 if (mod_lastPriorOperation1D != null) // Added 5/16/2025 td
                 {
-                    operation1D_OfT.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
+                    operation2D_OfT.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D);
                     // Somewhat surprisingly, we also have to call the same method
                     //    on the parameter operation.---4/2025
                     parOperation.DLL_SetOpPrior_OfT(mod_lastPriorOperation1D); // Added 4/20/2025
@@ -851,12 +933,12 @@ namespace RSCLibraryDLLOperations
                 if (mod_lastPriorOperation1D == null)
                 {
                     // Added 4/23/2025
-                    mod_lastPriorOperation1D = operation1D_OfT;
-                    if (mod_firstPriorOperation1D == null) mod_firstPriorOperation1D = operation1D_OfT;
+                    mod_lastPriorOperation1D = operation2D_OfT;
+                    if (mod_firstPriorOperation1D == null) mod_firstPriorOperation1D = operation2D_OfT;
                 }
                 else
                 {
-                    mod_lastPriorOperation1D.DLL_SetOpNext_OfT(operation1D_OfT);
+                    mod_lastPriorOperation1D.DLL_SetOpNext_OfT(operation2D_OfT);
                 }
 
                 var temp_priorOp = mod_lastPriorOperation1D;
@@ -864,7 +946,7 @@ namespace RSCLibraryDLLOperations
                 //mod_opRedoMarker = new DLLOperationsRedoMarker1D<T_DLL>(temp_priorOp, parOperation);
                 //April2025  mod_lastPriorOperation1D = parOperation;
                 //mod_lastPriorOperation1D = new DLLOperation1D_OfOf<T_DLL, T_DLL>(parOperation);
-                mod_lastPriorOperation1D = operation1D_OfT;
+                mod_lastPriorOperation1D = operation2D_OfT;
                 mod_lastPriorOperation1D.DLL_MarkEndOfList();  // Added 4/18/2025
                 // Somewhat surprisingly, we also have to call the same method
                 //    on the parameter operation.---4/2025
@@ -897,11 +979,11 @@ namespace RSCLibraryDLLOperations
                 {
                     //---mod_firstPriorOperation1D.DLL_SetOpNext(parOperation);
                     //--mod_firstPriorOperation1D.DLL_SetOpNext_OfT(parOperation);
-                    if (operation1D_OfT != null &&
-                        operation1D_OfT != mod_firstPriorOperation1D) //Added 5/17/2025 
+                    if (operation2D_OfT != null &&
+                        operation2D_OfT != mod_firstPriorOperation1D) //Added 5/17/2025 
                     {
                         //Modified 5/17/2025 
-                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT(operation1D_OfT);
+                        mod_firstPriorOperation1D.DLL_SetOpNext_OfT(operation2D_OfT);
                     }
                 }
 
@@ -1191,7 +1273,7 @@ namespace RSCLibraryDLLOperations
             // Added 1/10/2024 thomas downes
             //
             int intCountFurtherUndoOps;
-            DLLOperation1D_2TypesInParallel<T_DLL, T_DLL> operationToUndo;
+            DLLOperation1D_Of<T_DLL> operationToUndo;
             bool bOperationPriorExists = false;
 
             // Added 10/25/2024  
@@ -1199,7 +1281,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Added 10/25/2024  
                 if (mod_lastPriorOperation1D == null) throw new RSCNoPriorOperationException();
-                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1DParallel<T_DLL, T_DLL>(mod_lastPriorOperation1D, false);
+                mod_opUndoRedoMarker = new DLLOpsUndoRedoMarker1D<T_DLL>(mod_lastPriorOperation1D); //, false);
 
             }
             else if (mod_opUndoRedoMarker.HasOperationPrior_ForUndo())
@@ -1228,7 +1310,7 @@ namespace RSCLibraryDLLOperations
             {
                 // Undo the operation which is the RedoMarker's currently-designated Undo operation.
                 //Apr2025 operationToUndo = mod_opUndoRedoMarker.GetCurrentOp_Undo();
-                operationToUndo = mod_opUndoRedoMarker.GetCurrentOp_Undo_OfOf();
+                operationToUndo = mod_opUndoRedoMarker.GetCurrentOp_Undo();
 
                 //Added 4/14/2025 
                 if (operationToUndo._isDelete)
@@ -1249,7 +1331,8 @@ namespace RSCLibraryDLLOperations
                     // Use the operation structure, to create a new, equivalent  operation.
                     DLLOperationIndexStructure opIndexStructure = operationToUndo.GetOperationIndexStructure(true);
                     //Apr2025 operationToUndo = new DLLOperation1D_Of<T_DLL>(opIndexStructure, mod_firstItem);
-                    operationToUndo = new DLLOperation1D_2TypesInParallel<T_DLL, T_DLL>(opIndexStructure, mod_firstItem);
+                    T_DLL firstItem = GetFirstItem_CheckOpOrientation(operationToUndo);
+                    operationToUndo = new DLLOperation1D_2TypesInParallel<T_DLL, T_DLL>(opIndexStructure, firstItem);
 
                 }
 
@@ -1267,6 +1350,29 @@ namespace RSCLibraryDLLOperations
                 // Added 1/03/2024
                 // RefreshTheUI_OperationsCount();
             }
+        }
+
+
+        private T_DLL GetFirstItem_CheckOpOrientation(DLLOperation1D_Of<T_DLL> parOperation)
+        {
+            //
+            // Added 1/22/2026 td
+            //
+            T_DLL firstItem;
+            if (parOperation.IsHorizontal())
+            {
+                firstItem = mod_firstItemHor;
+            }
+            else if (parOperation.IsVertical())
+            {
+                firstItem = mod_firstItemVer;
+            }
+            else
+            {
+                System.Diagnostics.Debugger.Break();
+                throw new Exception("Operation is neither horizontal nor vertical.");
+            }
+            return firstItem;
         }
 
 
@@ -1330,8 +1436,13 @@ namespace RSCLibraryDLLOperations
 
             if (bIsChangeOfEndpoint_Expected || bChangeOfEndpoint_Occurred)
             {
-                mod_firstItem = mod_list.DLL_GetFirstItem_OfT();
-                mod_endingItem = mod_list.DLL_GetLastItem_OfT();
+                // Horizontal
+                mod_firstItemHor = mod_listHoriz.DLL_GetFirstItem_OfT();
+                mod_endingItemHor = mod_listHoriz.DLL_GetLastItem_OfT();
+
+                // Vertical 
+                mod_firstItemVer = mod_listVerti.DLL_GetFirstItem_OfT();
+                mod_endingItemVer = mod_listVerti.DLL_GetLastItem_OfT();
             }
 
         }
@@ -1379,8 +1490,13 @@ namespace RSCLibraryDLLOperations
             //---if (bIsChangeOfEndpoint)
             if (bIsChangeOfEndpoint_Expected || bChangeOfEndpoint_Occurred)
             {
-                mod_firstItem = mod_list.DLL_GetFirstItem_OfT();
-                mod_endingItem = mod_list.DLL_GetLastItem_OfT();
+                // Horizontal
+                mod_firstItemHor = mod_listHoriz.DLL_GetFirstItem_OfT();
+                mod_endingItemHor = mod_listHoriz.DLL_GetLastItem_OfT();
+
+                // Vertical
+                mod_firstItemVer = mod_listVerti.DLL_GetFirstItem_OfT();
+                mod_endingItemVer = mod_listVerti.DLL_GetLastItem_OfT();
             }
 
         }

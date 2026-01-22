@@ -16,7 +16,7 @@ namespace RSCLibraryDLLOperations
     public enum EnumHorizontalOrVertical { Undetermined, Horizontal,  Vertical };
 
 
-    public class DLLOperation2D<T_DLL> // :IDoublyLinkedItem
+    public class DLLOperation2D_Of_Deprecated<T_DLL> // :IDoublyLinkedItem
         where T_DLL : class, IDoublyLinkedItem<T_DLL>
     {
         //''
@@ -63,8 +63,8 @@ namespace RSCLibraryDLLOperations
         private readonly DLLRange<T_DLL>? _range_V;
 
         //Added 5/25/2024 td 
-        private readonly DLLOperation2D<T_DLL> mod_opPrior_ForUndo;
-        private readonly DLLOperation2D<T_DLL> mod_opNext_ForRedo;
+        private readonly DLLOperation2D_Of_Deprecated<T_DLL> mod_opPrior_ForUndo;
+        private readonly DLLOperation2D_Of_Deprecated<T_DLL> mod_opNext_ForRedo;
 
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isSortAscending"></param>
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
-        public DLLOperation2D(EnumHorizontalOrVertical par_enum,
+        public DLLOperation2D_Of_Deprecated(EnumHorizontalOrVertical par_enum,
                   DLLRange<T_DLL>? par_range,
                   bool par_forStartOfList, bool par_forEndOfList,
                   bool par_isInsert, bool par_isDelete, bool par_isMove,
@@ -236,7 +236,7 @@ namespace RSCLibraryDLLOperations
         /// <param name="par_isSortAscending"></param>
         /// <param name="par_isSortDescending"></param>
         /// <param name="par_isSortReversal"></param>
-        public DLLOperation2D(bool pb_isOperationVertical,
+        public DLLOperation2D_Of_Deprecated(bool pb_isOperationVertical,
             DLLRange<T_DLL>? par_range, bool par_forStartOfList, bool par_forEndOfList,
             bool par_isInsert, bool par_isDelete, bool par_isMove,
             DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
@@ -746,11 +746,11 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation2D<T_DLL>
+        public DLLOperation2D_Of_Deprecated<T_DLL>
             GetInverseForUndo()
         {
 
-            DLLOperation2D<T_DLL> result_UNDO;
+            DLLOperation2D_Of_Deprecated<T_DLL> result_UNDO;
             //DLLRange<T_DLL> result_RangeOfItems_H = _range_H;
             //DLLRange<T_DLL> result_RangeOfItems_V = _range_V;
             //T_DLL? result_anchorItem_H = _anchorItem_H;
@@ -781,7 +781,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Use the constructor overload for horizontal operations.
                 //
-                result_UNDO = new DLLOperation2D<T_DLL>(EnumHorizontalOrVertical.Horizontal,
+                result_UNDO = new DLLOperation2D_Of_Deprecated<T_DLL>(EnumHorizontalOrVertical.Horizontal,
                     result_RangeOfItems_H,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -803,7 +803,7 @@ namespace RSCLibraryDLLOperations
                 //
                 // Use the constructor overload for vertical operations.
                 //
-                result_UNDO = new DLLOperation2D<T_DLL>(true,
+                result_UNDO = new DLLOperation2D_Of_Deprecated<T_DLL>(true,
                     result_RangeOfItems_V,
                     result_isForStartOfList,
                     result_isForEndOfList,
@@ -826,7 +826,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation2D<T_DLL>
+        public DLLOperation2D_Of_Deprecated<T_DLL>
             GetPrior()
         {
             //
@@ -840,7 +840,7 @@ namespace RSCLibraryDLLOperations
         /// Create the inverse (Undo) version, created when an "Undo" operation is needed.
         /// </summary>
         /// <returns>Inverse of the present operation</returns>
-        public DLLOperation2D<T_DLL>
+        public DLLOperation2D_Of_Deprecated<T_DLL>
             GetNext()
         {
             //
@@ -902,13 +902,13 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation2D<T_DLL> DLL_GetOpPrior()
+        public DLLOperation2D_Of_Deprecated<T_DLL> DLL_GetOpPrior()
         {
             return mod_opPrior_ForUndo;
 
         }
 
-        public DLLOperation2D<T_DLL> DLL_GetOpNext()
+        public DLLOperation2D_Of_Deprecated<T_DLL> DLL_GetOpNext()
         {
             return mod_opNext_ForRedo;
 

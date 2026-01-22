@@ -50,6 +50,25 @@ namespace RSCLibraryDLLOperations
 
     }
 
+
+    public struct OperationH_or_V // Added 01/21/2026
+    {
+        // Added 01/21/2026
+        public bool IsHorizontal; // = false;
+        public bool IsVertical;  // = true;
+
+        public OperationH_or_V(bool parIsH, bool parIsV)
+        {
+            //
+            // Added 01/21/2026
+            //
+            IsHorizontal = parIsH;
+            IsVertical = parIsV;
+        }
+
+    }
+
+
     public struct StructureTypeOfMove // Added 12/11/2024 thomas c. downes
     {
         //

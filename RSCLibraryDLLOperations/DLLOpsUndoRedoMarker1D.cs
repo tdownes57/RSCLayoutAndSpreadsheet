@@ -316,6 +316,63 @@ namespace RSCLibraryDLLOperations
         }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
 
 
+        /// <summary>
+        /// If we imagine the marker as a pair of square brackets, then 
+        /// we can write the following as an illustration.
+        /// Imagine a list of executed operations:  
+        ///       Operation1, Operation2, Operation3, Operation4, Operation5
+        /// and the following is the current marker:
+        ///                   [Operation2, Operation3]
+        /// After Operation#3 is re-executed [Redo] button, and this 
+        ///    function is called, the marker will be shifted one position to right:
+        ///                               [Operation3, Operation4]
+        ///                               
+        /// Another illustration, before and after:
+        /// Before:
+        ///       Operation1, [Operation2, Operation3] , Operation4   , Operation5
+        ///                                ^will Redo^   ^Prior Undo^   ^Prior Undo^
+        /// After:      
+        ///       Operation1, Operation2 , [Operation3 , Operation4 ],    Operation5
+        ///                                              ^Prior Undo^   ^Prior Undo^
+        ///                                
+        /// Thus, the marker has shifted right, toward the next, higher-numbered operation.  
+        /// 
+        /// </summary>
+        /// <exception cref="RSCEndpointException"></exception>
+        public void ShiftMarkerRight_AfterRedo_ToNext()
+        {
+            //
+            // Added 4/23/2025 td
+            //
+            //''Just like a Tuple, a DLL_OperationMarker is immutable.Or, 
+            //''   it would be, if not for this procedure.So, I guess it 
+            //''   is mutable...unless I comment out this procedure!!!! 1/10/2024
+            //''
+
+            // Encapsulated 5/18/2025 
+            GetMarkersNext_ShiftPositionRight();
+
+            //if (mod_opNext_ForRedo == null) System.Diagnostics.Debugger.Break();
+            //if (mod_opNext_ForRedo == null) throw new RSCEndpointException();
+            //
+            //DLLOperation1D_OfOf<TControl, TParallel>? temp_op;
+            //temp_op = mod_opNext_ForRedo;
+            //
+            //mod_opNext_ForRedo = mod_opNext_ForRedo.DLL_GetOpNext_OfOf(); //''Shift to the Left...to Prior() item.
+            //
+            //if (mod_opPrior_ForUndo == null)  //Then ''Added 1 / 15 / 2024 td
+            //{
+            //    //''Added 1 / 15 / 2024 td
+            //    mod_opPrior_ForUndo = temp_op; //''January 18, 2024 td ''mod_opPrior_ForUndo
+            //}
+            //else
+            //{
+            //    mod_opPrior_ForUndo = mod_opPrior_ForUndo.DLL_GetOpNext_OfOf(); // ''Shift to the Left...to Prior() item.
+            //} // End If ''End of ""If(mod_opNext_ForRedo Is Nothing) Then...Else"
+
+        }  // End Sub ''End of ""Public Sub ShiftMarker_AfterUndo_ToPrior""
+
+
         public void ClearAllOperations()
         {
             //Added 12/04/2024 

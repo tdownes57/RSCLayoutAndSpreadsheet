@@ -1256,6 +1256,10 @@ namespace RSCLibraryDLLOperations
 
             DLLOperationIndexStructure result_struct = new DLLOperationIndexStructure();
 
+            //Added 1/22/2026 td
+            result_struct.Is2D_Horizontal = _isHoriz;
+            result_struct.Is2D_Vertical = _isVerti;
+
             result_struct.IsInsert = _isInsert; 
             result_struct.IsDelete = _isDelete; 
             result_struct.IsMove = _isMove; 

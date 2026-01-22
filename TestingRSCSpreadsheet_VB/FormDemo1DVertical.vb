@@ -18,9 +18,10 @@ Public Class FormDemo1DVertical
     '' Added 1/18/2025 & 10/14/2024 thomas c. downes 
     ''
     ''March 2025 Private mod_managerVerticalOps.As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
-    Private mod_managerVerticalOps As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
+    ''Jan2026 Private mod_managerVerticalOps As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
+    Private mod_managerVerticalOps As DLLOperationsManager1D(Of DLLUserControlRichbox, DLLUserControlRichbox)
     Private mod_managerHorizontalOps As DLLOperationsManager1D(Of DLLUserControlRichbox, DLLUserControlRichbox)
-    Private mod_managerIntegrated As DLLOperation2D(Of DLLUserControlRichbox)
+    Private mod_managerIntegrated As DLLOperationsManager2D_OneType(Of DLLUserControlRichbox)
 
     ''' <summary>
     ''' Manager of a list of Operation Index Structures. ---6/11/2025 td
@@ -29,10 +30,10 @@ Public Class FormDemo1DVertical
 
 
     ''The textbox (versus any of the containers!)
-    Private WithEvents mod_listA As DLLList(Of TwoCharacterDLLVerticalA)
-    Private mod_firstItemA As TwoCharacterDLLVerticalA
-    Private mod_lastItemA As TwoCharacterDLLVerticalA
-    Private mod_rangeA As DLLRange(Of TwoCharacterDLLVerticalA) ''Added 11/14/2024 t.homas d.ownes
+    Private WithEvents mod_listA As DLLList(Of DLLUserControlRichbox) ''(Of TwoCharacterDLLVerticalA)
+    Private mod_firstItemA As DLLUserControlRichbox ''TwoCharacterDLLVerticalA
+    Private mod_lastItemA As DLLUserControlRichbox ''TwoCharacterDLLVerticalA
+    Private mod_rangeA As DLLRange(Of DLLUserControlRichbox) '' TwoCharacterDLLVerticalA) ''Added 11/14/2024 t.homas d.ownes
 
     ''The first (leftmost) container (blue-gray background).
     ''Mar2025 Private mod_listB1 As DLLList(Of DLLUserControlTextbox)
@@ -65,6 +66,9 @@ Public Class FormDemo1DVertical
 
     Private WithEvents mod_firstItemB3 As DLLUserControlRichbox
     Private WithEvents mod_lastItemB3 As DLLUserControlRichbox
+
+    ''Added 1/19/2026 t.homas d.ownes
+    Private WithEvents mod_firstColumnHeader As DLLUserControlRichbox ''Added 1/19/2026 t.d.
 
     Private mod_rangeB1 As DLLRange(Of DLLUserControlRichbox) ''Added 03/28/2025 t.homas d.ownes
     Private mod_rangeB2 As DLLRange(Of DLLUserControlRichbox) ''Added 11/14/2024 t.homas d.ownes
@@ -370,7 +374,7 @@ Public Class FormDemo1DVertical
         ''
         '' Added 03/22/2025 and 10/14/2024 thomas c. downes 
         ''
-        Dim newItemA As TwoCharacterDLLVerticalA
+        Dim newItemA As DLLUserControlRichbox ''Jan2026 TwoCharacterDLLVerticalA
         Dim indexNewItem As Integer
         ''Mar2025 Dim newItemB1 As DLLUserControlTextbox
         Dim newItemB1 As DLLUserControlRichbox
@@ -379,7 +383,8 @@ Public Class FormDemo1DVertical
 
         ''mod_firstItemA = New TwoCharacterDLLVerticalA("01")
         ''mod_lastItemA = mod_firstItemA
-        mod_listA = New DLLList(Of TwoCharacterDLLVerticalA)()
+        ''---mod_listA = New DLLList(Of TwoCharacterDLLVerticalA)()
+        mod_listA = New DLLList(Of DLLUserControlRichbox)()
         ''Mar2025 mod_listB1 = New DLLList(Of DLLUserControlTextbox)()
         mod_listB1 = New DLLList(Of DLLUserControlRichbox)()
         mod_listB2 = New DLLList(Of DLLUserControlRichbox)()
@@ -408,7 +413,8 @@ Public Class FormDemo1DVertical
             arrayTwoCharStrings(index_0based) = strTwoChars
 
             ''TwoCharacterDLLVertical
-            newItemA = New TwoCharacterDLLVerticalA(strTwoChars)
+            ''Jan2026 newItemA = New TwoCharacterDLLVerticalA(strTwoChars)
+            newItemA = New DLLUserControlRichbox(strTwoChars)
             mod_listA.DLL_InsertItemAtEnd(newItemA)
 
             ''DLLUserControlTextbox 
@@ -464,7 +470,7 @@ Public Class FormDemo1DVertical
         numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
         numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
 
-        mod_managerVerticalOps = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
+        mod_managerVerticalOps = New DLLOperationsManager1D(Of DLLUserControlRichbox,
                 DLLUserControlRichbox)(mod_firstItemA, mod_listA)
 
         ''Added 12/25/2025 thomas downes
@@ -474,10 +480,10 @@ Public Class FormDemo1DVertical
         ''Added 01/25/2025 thomas downes
         mod_managerIntegrated = New DLLOperationsManager2D_OneType(Of DLLUserControlRichbox) _
               (mod_firstItemA, mod_listA,
-               DLLColumnHeaderB1, mod_listColumnHeaders)
+               mod_firstColumnHeader, mod_listColumnHeaders)
 
         ''Added 4/08/2025 thomas d.
-        mod_managerVertical.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
+        mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
 
         ''
         '' Display the list. 
@@ -509,14 +515,14 @@ Public Class FormDemo1DVertical
         ''
         '' Added 10/14/2024 thomas c. downes 
         ''
-        Dim newItemA As TwoCharacterDLLVerticalA
-        Dim anchorItemForEmptyListA As New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(True, False)
-        Dim anchorItemForListOfOneItemA As DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA) ''(True, False)
-        Dim anchorPairForEmptyListA As New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(True, False)
-        Dim anchorPairForListOfOneItemA As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA) ''(True, False)
-        ''Nov2024 Dim rangeNew As DLLRange(Of TwoCharacterDLLVerticalA)
+        Dim newItemA As DLLUserControlRichbox
+        Dim anchorItemForEmptyListA As New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(True, False)
+        Dim anchorItemForListOfOneItemA As DLLAnchorItem_Deprecated(Of DLLUserControlRichbox) ''(True, False)
+        Dim anchorPairForEmptyListA As New DLLAnchorCouplet(Of DLLUserControlRichbox)(True, False)
+        Dim anchorPairForListOfOneItemA As DLLAnchorCouplet(Of DLLUserControlRichbox) ''(True, False)
+        ''Nov2024 Dim rangeNew As DLLRange(Of DLLUserControlRichbox)
         Dim indexNewItem As Integer
-        ''Dim priorItem As TwoCharacterDLLVerticalA
+        ''Dim priorItem As DLLUserControlRichbox
         Dim type_of_move As StructureTypeOfMove ''Added 12/11/2024
         type_of_move = New StructureTypeOfMove(False) ''Added 12/11/2024
 
@@ -543,11 +549,13 @@ Public Class FormDemo1DVertical
 
         Dim PERFORM_INITIAL_INSERT_MANUALLY As Boolean = False ''---True
 
-        mod_firstItemA = New TwoCharacterDLLVerticalA("01")
+        ''Jan2026 mod_firstItemA = New DLLUserControlRichbox("01")
+        mod_firstItemA = New DLLUserControlRichbox("01")
         mod_lastItemA = mod_firstItemA
-        mod_listA = New DLLList(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_lastItemA, 1)
+        ''Jan2026  mod_listA = New DLLList(Of DLLUserControlRichbox)(mod_firstItemA, mod_lastItemA, 1)
+        mod_listA = New DLLList(Of DLLUserControlRichbox)(mod_firstItemA, mod_lastItemA, 1)
         ''Added 2/14/2025 thomas downes
-        ''---mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_firstItemA, )
+        ''---mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(mod_firstItemA, )
 
         ''Added 1/21/2025 td
         ''
@@ -570,7 +578,7 @@ Public Class FormDemo1DVertical
         mod_listB2 = New DLLList(Of DLLUserControlRichbox)(mod_firstItemB2, mod_lastItemB2, 1)
 
         ''//Added 10/21/2024 td
-        anchorItemForListOfOneItemA = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(mod_firstItemA)
+        anchorItemForListOfOneItemA = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(mod_firstItemA)
         ''Added 1/21/2025 td
         ''March 2025 anchorItemForListOfOneItemB1 = New DLLAnchorItem(Of DLLUserControlTextbox)(mod_firstItemB1)
         anchorItemForListOfOneItemB1 = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(mod_firstItemB1)
@@ -578,16 +586,16 @@ Public Class FormDemo1DVertical
         anchorItemForListOfOneItemB3 = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(mod_firstItemB3)
 
         ''//Added 11/08/2024 td
-        anchorPairForListOfOneItemA = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(mod_firstItemA, Nothing, True)
+        anchorPairForListOfOneItemA = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemA, Nothing, True)
         ''Added 1/21/2025 td
         anchorPairForListOfOneItemB1 = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemB1, Nothing, True)
         anchorPairForListOfOneItemB2 = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemB2, Nothing, True)
         anchorPairForListOfOneItemB3 = New DLLAnchorCouplet(Of DLLUserControlRichbox)(mod_firstItemB3, Nothing, True)
 
-        ''//rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_firstItemA, True)
+        ''//rangeNew = New DLLRange(Of DLLUserControlRichbox)(mod_firstItemA, True)
         ''//For indexNewItem = 2 To INITIAL_ITEM_COUNT_30 ''---30
-        ''Nov2024 rangeNew = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("02"), True)
-        mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(New TwoCharacterDLLVerticalA("01"), True)
+        ''Nov2024 rangeNew = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("02"), True)
+        mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("01"), True)
         ''Added 1/21/2025 td
         mod_rangeB1 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("01"), True)
         mod_rangeB2 = New DLLRange(Of DLLUserControlRichbox)(New DLLUserControlRichbox("01"), True)
@@ -624,7 +632,7 @@ Public Class FormDemo1DVertical
             arrayTwoCharStrings(index_0based) = strTwoChars
 
             ''TwoCharacterDLLVertical
-            newItemA = New TwoCharacterDLLVerticalA(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
+            newItemA = New DLLUserControlRichbox(strTwoChars) ''Feb2025 (indexNewItem.ToString("00"))
             ''Nov2024 rangeNew.DLL_InsertItemToTheEnd(newItem)
             mod_rangeA.DLL_InsertItemToTheEnd(newItemA)
 
@@ -651,7 +659,7 @@ Public Class FormDemo1DVertical
         numDeleteHowMany.Maximum = INITIAL_ITEM_COUNT_30
         numInsertHowMany.Maximum = INITIAL_ITEM_COUNT_30
 
-        Dim operationInitialInsertA As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim operationInitialInsertA As DLLOperation1D_Of(Of DLLUserControlRichbox)
         ''''Added 1/21/2025  
         ''Dim operationInitialInsertB1 As DLLOperation1D(Of DLLUserControlTextbox)
         ''Dim operationInitialInsertB2 As DLLOperation1D(Of DLLUserControlRichbox)
@@ -673,11 +681,11 @@ Public Class FormDemo1DVertical
             ''
             ''Added 10/20/2024  
             ''
-            ''See above. Dim operationInitialInsertA As DLLOperation1D(Of TwoCharacterDLLVerticalA)
-            ''operationInitial30 = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(rangeNew, True, False,
+            ''See above. Dim operationInitialInsertA As DLLOperation1D(Of DLLUserControlRichbox)
+            ''operationInitial30 = New DLLOperation1D(Of DLLUserControlRichbox)(rangeNew, True, False,
             ''            True, False, False,
             ''            anchorForEmptyList, False, False, False)
-            operationInitialInsertA = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, True, False,
+            operationInitialInsertA = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, True, False,
                                       True, False, False, type_of_move, False, False,
                                       anchorItemForListOfOneItemA,
                                       anchorPairForListOfOneItemA)
@@ -698,10 +706,10 @@ Public Class FormDemo1DVertical
             operationInitialInsertA.OperateOnParentList(mod_listA, byrefChangeOfEndpoint)
 
             ''Added 10/20/2024  
-            ''Removed 12/04/2024 mod_managerVerticalOps.= New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA,
+            ''Removed 12/04/2024 mod_managerVerticalOps.= New DLLOperationsManager1D(Of DLLUserControlRichbox)(mod_firstItemA,
             ''      mod_listA, operationInitial30)
-            ''March 2025  mod_managerVerticalOps.= New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)(mod_firstItemA, mod_listA)
-            mod_managerVerticalOps = New DLLOperationsManager1D(Of TwoCharacterDLLVerticalA,
+            ''March 2025  mod_managerVerticalOps.= New DLLOperationsManager1D(Of DLLUserControlRichbox)(mod_firstItemA, mod_listA)
+            mod_managerVerticalOps = New DLLOperationsManager1D(Of DLLUserControlRichbox,
                 DLLUserControlRichbox)(mod_firstItemA, mod_listA)
 
             ''
@@ -857,7 +865,7 @@ Public Class FormDemo1DVertical
     End Function ''/end of ""Private Function TestingIndexStructure() As Boolean""
 
 
-    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA) = Nothing)
+    Private Sub RefreshTheUI_DisplayList(Optional par_operation As DLLOperation1D_Of(Of DLLUserControlRichbox) = Nothing)
 
         ''Added 12/18/2024  
         ''
@@ -878,9 +886,10 @@ Public Class FormDemo1DVertical
 
     End Sub ''end of ""Private Sub RefreshTheUI_DisplayList""
 
-    Private Sub RefreshTheUI_DisplayList(par_list As DLLList(Of TwoCharacterDLLVerticalA),
-                                     par_firstItem As TwoCharacterDLLVerticalA,
-                                     Optional par_operation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA) = Nothing)
+
+    Private Sub RefreshTheUI_DisplayList(par_list As DLLList(Of DLLUserControlRichbox),
+                                     par_firstItem As DLLUserControlRichbox,
+                                     Optional par_operation As DLLOperation1D_Of(Of DLLUserControlRichbox) = Nothing)
         ''
         ''  This method is overloaded.  
         ''
@@ -906,17 +915,17 @@ Public Class FormDemo1DVertical
         ''  Let's maintain the two(2) linklabels which represent
         ''    the list's endpoint & prior-to-endpoint.
         ''
-        Dim last_item As TwoCharacterDLLVerticalA = Nothing
-        Dim prior_to_last As TwoCharacterDLLVerticalA = Nothing
+        Dim last_item As DLLUserControlRichbox = Nothing
+        Dim prior_to_last As DLLUserControlRichbox = Nothing
 
-        last_item = CType(mod_listA.DLL_GetLastItem_OfT(), TwoCharacterDLLVerticalA)
+        last_item = CType(mod_listA.DLL_GetLastItem_OfT(), DLLUserControlRichbox)
         If (last_item Is Nothing) Then
             ''
             ''The user has elected to delete the entire list. 
             ''
         Else
             ''linkToEndpoint.Text = last_item.ToString()
-            prior_to_last = CType(last_item.DLL_GetItemPrior(), TwoCharacterDLLVerticalA)
+            prior_to_last = CType(last_item.DLL_GetItemPrior(), DLLUserControlRichbox)
             If (prior_to_last IsNot Nothing) Then
                 ''linkToPenultimate.Text = prior_to_last.ToString()
             End If ''End of ""If (prior_to_last IsNot Nothing) Then""
@@ -944,7 +953,7 @@ Public Class FormDemo1DVertical
         ''
         ''Added 12/26/2023  
         ''
-        Dim each_twoChar As TwoCharacterDLLVerticalA
+        Dim each_twoChar As DLLUserControlRichbox
         Dim bDone As Boolean = False
         Dim stringbuilderLinkedItems As New StringBuilder(120)
         Dim intCountLoops As Integer = 0
@@ -1143,7 +1152,7 @@ Public Class FormDemo1DVertical
         ''Added 11/10/2024 thomas d.
         ''
         ''//Dim index As Integer
-        Dim tempItem As TwoCharacterDLLVerticalA
+        Dim tempItem As DLLUserControlRichbox
         Dim boolHighlighting As Boolean
         Dim indexChar As Integer = 0
         Dim colorDefault As Color
@@ -1182,7 +1191,7 @@ Public Class FormDemo1DVertical
     End Sub ''End of ""Private Sub RefreshHighlightingRichText()""
 
 
-    Private Sub AutoPopulateRangeControls(par_range As DLLRange(Of TwoCharacterDLLVerticalA))
+    Private Sub AutoPopulateRangeControls(par_range As DLLRange(Of DLLUserControlRichbox))
         ''
         ''Added 11/12/2024 td
         ''
@@ -1286,7 +1295,7 @@ Public Class FormDemo1DVertical
         ''
         '' Encapsulated 12/11/2024 td  
         ''
-        Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim tempOperation As DLLOperation1D_Of(Of DLLUserControlRichbox)
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
         Dim bChangeOfEndpoint_Expected = False
@@ -1353,7 +1362,7 @@ Public Class FormDemo1DVertical
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, Nothing,
+        tempOperation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, Nothing,
                                False, OPERATION_MOVE, currentMoveType, False, False)
         ''operation.OperateOnList(mod_listA)
         ''Mar2025 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
@@ -1427,11 +1436,11 @@ Public Class FormDemo1DVertical
         Dim intInsertCountOfNewItems As Integer
         Dim intAnchorPosition As Integer
         Dim indexNewItem As Integer
-        ''Nov2024 Dim objectRange As DLLRange(Of TwoCharacterDLLVerticalA)
-        Dim prior_newItem As TwoCharacterDLLVerticalA
-        Dim newItem As TwoCharacterDLLVerticalA
-        Dim first_newItem As TwoCharacterDLLVerticalA
-        Dim last_newItem As TwoCharacterDLLVerticalA
+        ''Nov2024 Dim objectRange As DLLRange(Of DLLUserControlRichbox)
+        Dim prior_newItem As DLLUserControlRichbox
+        Dim newItem As DLLUserControlRichbox
+        Dim first_newItem As DLLUserControlRichbox
+        Dim last_newItem As DLLUserControlRichbox
         Dim intHowManyInModuleList As Integer
         Dim intNewIndexStart As Integer
         Dim intNewIndexEnd As Integer
@@ -1440,7 +1449,7 @@ Public Class FormDemo1DVertical
         Dim strNewItem As String
         Dim intModulo As Integer
         Dim boolEndpoint As Boolean
-        Dim objAnchor As DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)
+        Dim objAnchor As DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)
 
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
@@ -1465,15 +1474,15 @@ Public Class FormDemo1DVertical
             strNewItem = IIf(bUserSpecifiedValues, array_sItemsToInsert(intModulo),
                          indexNewItem.ToString("00"))
             If strNewItem.Length = 1 Then strNewItem = "=" & strNewItem
-            newItem = New TwoCharacterDLLVerticalA(strNewItem)
+            newItem = New DLLUserControlRichbox(strNewItem)
 
             If first_newItem Is Nothing Then
                 first_newItem = newItem
-                mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(True, Nothing, Nothing, first_newItem, 1)
+                mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(True, Nothing, Nothing, first_newItem, 1)
             Else
                 prior_newItem.DLL_SetItemNext(newItem)
                 newItem.DLL_SetItemPrior(prior_newItem)
-                mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(True, Nothing, Nothing, first_newItem, 1)
+                mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(True, Nothing, Nothing, first_newItem, 1)
             End If
 
             ''Prepare for next iteration.
@@ -1490,12 +1499,12 @@ Public Class FormDemo1DVertical
         '' Set the range. 
         ''
         If intInsertCountOfNewItems = 1 Then
-            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(first_newItem, True)
+            mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(first_newItem, True)
         Else
             ''
             '' There are at least two objects in the range. 
             ''
-            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(False, first_newItem,
+            mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(False, first_newItem,
                                                            last_newItem, Nothing,
                                                            intInsertCountOfNewItems)
 
@@ -1504,17 +1513,17 @@ Public Class FormDemo1DVertical
         ''
         ''Set the anchor. 
         ''
-        Dim tempAnchorItem As TwoCharacterDLLVerticalA ''Added 10/21/2024 td
+        Dim tempAnchorItem As DLLUserControlRichbox ''Added 10/21/2024 td
 
         If (mod_firstItemA Is Nothing) Then
 
             ''Added 12/23/2024
             Const EMPTY As Boolean = True
-            objAnchor = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(EMPTY, False)
+            objAnchor = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(EMPTY, False)
 
         Else
             tempAnchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
-            objAnchor = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
+            objAnchor = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(tempAnchorItem)
 
         End If ''End of ""If (mod_firstItemA Is Nothing) Then... Else..."
 
@@ -1534,8 +1543,8 @@ Public Class FormDemo1DVertical
         Const DIRECT_TO_LIST = False ''Added 10/26/2024 thom dow.nes
         ''--Const INSERT_OPERATION = True '' False ''Added 10/26/2024 thomas downes
         Dim USE_OP_MANAGER = Not DIRECT_TO_LIST ''Added 11/06/2024 thom dow.nes
-        Dim anchor_couple As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)
-        Dim operation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim anchor_couple As DLLAnchorCouplet(Of DLLUserControlRichbox)
+        Dim operation As DLLOperation1D_Of(Of DLLUserControlRichbox)
         ''Dim bChangeOfEndpoint As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_Expected As Boolean ''Added 11/06/2024 
         Dim bChangeOfEndpoint_PostHoc As Boolean ''Added 11/06/2024 
@@ -1563,13 +1572,13 @@ Public Class FormDemo1DVertical
             ''Added 11/06/2024 td  
             ''
             ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
-            ''anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(tempAnchorItem,
+            ''anchor_couple = New DLLAnchorCouplet(Of DLLUserControlRichbox)(tempAnchorItem,
             ''  tempAnchorItem.DLL_GetItemNext_OfT(), bChangeOfEndpoint)
-            anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(tempAnchorItem,
+            anchor_couple = New DLLAnchorCouplet(Of DLLUserControlRichbox)(tempAnchorItem,
                                         tempAnchorItem.DLL_GetItemNext_OfT,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
-            ''Added 12/11/2024 operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(mod_range, anchor_couple, True, False)
-            operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple,
+            ''Added 12/11/2024 operation = New DLLOperation1D(Of DLLUserControlRichbox)(mod_range, anchor_couple, True, False)
+            operation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, anchor_couple,
                                      True, False, null_move, False, False)
 
             ''Added 1/13/2025 td
@@ -1582,10 +1591,10 @@ Public Class FormDemo1DVertical
                 ''   we need to create a DLLOperationStructure object, and then pass it to the constructor.
                 ''   ---1/13/2025 td
                 ''
-                Dim op_structure As DLLOperationIndexStructure ''DLLOperation1D(Of TwoCharacterDLLVerticalA)
+                Dim op_structure As DLLOperationIndexStructure ''DLLOperation1D(Of DLLUserControlRichbox)
                 op_structure = operation.GetOperationIndexStructure()
-                ''Feb2025 operation = New DLLOperation1D(Of TwoCharacterDLLVerticalA)(op_structure, mod_listA.DLL_GetFirstItem_OfT())
-                operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(op_structure,
+                ''Feb2025 operation = New DLLOperation1D(Of DLLUserControlRichbox)(op_structure, mod_listA.DLL_GetFirstItem_OfT())
+                operation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(op_structure,
                                                                             mod_listA.DLL_GetFirstItem_OfT(),
                                                                             mod_rangeA)
 
@@ -1623,10 +1632,10 @@ Public Class FormDemo1DVertical
             ''Added 11/06/2024 td  
             ''
             ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
-            anchor_couple = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(
+            anchor_couple = New DLLAnchorCouplet(Of DLLUserControlRichbox)(
                                         tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
-            operation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, anchor_couple,
+            operation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, anchor_couple,
                                    True, False, null_move, False, False)
 
             ''Added 4/08/2025 thomas d.
@@ -1697,8 +1706,8 @@ Public Class FormDemo1DVertical
         ''
         '' Insert range into the list.  
         ''
-        Dim objAnchorItem As DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)
-        Dim objAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA) ''Added 11/08/2024
+        Dim objAnchorItem As DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)
+        Dim objAnchorPair As DLLAnchorCouplet(Of DLLUserControlRichbox) ''Added 11/08/2024
         Dim intAnchorPosition As Integer
         ''Dim boolEndpoint As Boolean
         Dim bChangeOfEndpoint As Boolean
@@ -1708,13 +1717,13 @@ Public Class FormDemo1DVertical
         Dim bUserSpecifiedValues
         Dim strNewItem As String
         Dim intHowManyInModuleList As Integer
-        Dim newItem As TwoCharacterDLLVerticalA
+        Dim newItem As DLLUserControlRichbox
         Const ZERO_INDEX = 0
         Dim bInsertRangeAfterAnchor As Boolean
         Dim bInsertRangeBeforeAnchor As Boolean
-        Dim tempAnchorItem As TwoCharacterDLLVerticalA '''Added 10/21/2024 thomas downes
-        Dim operationToInsert As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA) ''Added 10/26/2024
-        Dim rangeSingleItem As DLLRange(Of TwoCharacterDLLVerticalA) ''Added 10/26/2024 td 
+        Dim tempAnchorItem As DLLUserControlRichbox '''Added 10/21/2024 thomas downes
+        Dim operationToInsert As DLLOperation1D_Of(Of DLLUserControlRichbox) ''Added 10/26/2024
+        Dim rangeSingleItem As DLLRange(Of DLLUserControlRichbox) ''Added 10/26/2024 td 
         Dim boolIsForEmptyList As Boolean ''Added 12/09/2024 thomas d. 
         Dim not_a_moveType As StructureTypeOfMove = New StructureTypeOfMove(False) ''Added 12/11/2024
 
@@ -1736,18 +1745,18 @@ Public Class FormDemo1DVertical
         ''
         ''Set the anchor. 
         ''
-        ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLVerticalA)(False)
+        ''----objAnchor = New DLLAnchor(Of DLLUserControlRichbox)(False)
         ''----objAnchor._anchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
         If (mod_firstItemA Is Nothing) Then
             ''The list is empty. 
             ''   No items exist in the list.  ---12/09/2024 td  
             boolIsForEmptyList = True ''Added 12/09/2024
             If (mod_listA.DLL_IsEmpty() = False) Then System.Diagnostics.Debugger.Break()
-            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(boolIsForEmptyList, False) '' (True, False)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(boolIsForEmptyList, False) '' (True, False)
 
         Else
             tempAnchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
-            objAnchorItem = New DLLAnchorItem_Deprecated(Of TwoCharacterDLLVerticalA)(tempAnchorItem)
+            objAnchorItem = New DLLAnchorItem_Deprecated(Of DLLUserControlRichbox)(tempAnchorItem)
         End If ''End of ""If (mod_firstItemA Is Nothing) Then ... Else ..."
 
         bInsertRangeAfterAnchor = listInsertAfterOrBefore.SelectedIndex < 1
@@ -1773,7 +1782,7 @@ Public Class FormDemo1DVertical
         If strNewItem Is Nothing Then
             strNewItem = "++"
         End If ''End of ""If (strNewItem Is Nothing) Then""
-        newItem = New TwoCharacterDLLVerticalA(strNewItem)
+        newItem = New DLLUserControlRichbox(strNewItem)
 
         ''---mod_listA.DLL_InsertSingly(newItem, objAnchor, boolEndpoint)
         Const KEEP_ANCHOR = True
@@ -1798,8 +1807,8 @@ Public Class FormDemo1DVertical
             ''
             '' Added 10/26/2024 thomas d.
             ''
-            rangeSingleItem = New DLLRange(Of TwoCharacterDLLVerticalA)(newItem, True)
-            operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(rangeSingleItem, False, False,
+            rangeSingleItem = New DLLRange(Of DLLUserControlRichbox)(newItem, True)
+            operationToInsert = New DLLOperation1D_Of(Of DLLUserControlRichbox)(rangeSingleItem, False, False,
                                     INSERT_OPERATION, False, False, not_a_moveType, False, False,
                                   objAnchorItem, objAnchorPair)
             ''12/30/2024                          False, False, False, False,
@@ -1909,10 +1918,10 @@ Public Class FormDemo1DVertical
         Dim constant_b = -0.14 '' -0.2 '' -0.0 '' -1.0
         Dim index_of_item_double As Double
         Dim index_of_item As Integer
-        Dim objectListItem As TwoCharacterDLLVerticalA
+        Dim objectListItem As DLLUserControlRichbox
         Dim bShiftingKey As Boolean ''Added 2/29/2024
         Dim xfactor_a As Double ''Added 2/29/2024
-        ''Now modularized. ''Static s_range As DLLRange(Of TwoCharacterDLLVerticalA)
+        ''Now modularized. ''Static s_range As DLLRange(Of DLLUserControlRichbox)
         Dim intDistance As Integer ''Added 11/12/2024 
 
         xfactor_a = xfactor_a4
@@ -1965,7 +1974,7 @@ Public Class FormDemo1DVertical
             ''
             ''Start a range object. 
             ''
-            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(objectListItem, False)
+            mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(objectListItem, False)
 
         ElseIf mod_rangeA IsNot Nothing And objectListItem.Selected Then
 
@@ -1983,7 +1992,7 @@ Public Class FormDemo1DVertical
                 ''   "righthand" (following/ending) item. 
                 ''
                 Dim tempRangeItem = mod_rangeA.ItemStart
-                mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(objectListItem, tempRangeItem)
+                mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(objectListItem, tempRangeItem)
 
             End If ''ENd of ""If (intDistance > 0) Then ... Else If (intDistance < 0) Then"
 
@@ -2065,10 +2074,10 @@ Public Class FormDemo1DVertical
 
         Dim intItemPosition As Integer
         Dim intHowManyToDelete As Integer
-        Dim itemFirstToDelete As TwoCharacterDLLVerticalA
-        Dim itemLastToDelete As TwoCharacterDLLVerticalA
-        Dim rangeToDelete As DLLRange(Of TwoCharacterDLLVerticalA)
-        Dim operationToDelete As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim itemFirstToDelete As DLLUserControlRichbox
+        Dim itemLastToDelete As DLLUserControlRichbox
+        Dim rangeToDelete As DLLRange(Of DLLUserControlRichbox)
+        Dim operationToDelete As DLLOperation1D_Of(Of DLLUserControlRichbox)
         Dim bIncludesListStart As Boolean ''Added 11/10/2024 
         Dim bIncludesList__End As Boolean ''Added 11/10/2024 
         Dim bAnyEndpointAffected As Boolean ''Added 11/11/2024 td
@@ -2110,7 +2119,7 @@ Public Class FormDemo1DVertical
         ''
         ''Set the anchor. 
         ''
-        ''----objAnchor = New DLLAnchor(Of TwoCharacterDLLVerticalA)(False)
+        ''----objAnchor = New DLLAnchor(Of DLLUserControlRichbox)(False)
         ''----objAnchor._anchorItem = mod_firstItemA.DLL_GetItemNext(-1 + intAnchorPosition)
         itemFirstToDelete = mod_firstItemA.DLL_GetItemNext(-1 + intItemPosition)
         itemLastToDelete = mod_firstItemA.DLL_GetItemNext(-1 + intItemPosition + intHowManyToDelete - 1)
@@ -2119,7 +2128,7 @@ Public Class FormDemo1DVertical
         bAnyEndpointAffected_end = ((intItemPosition + intHowManyToDelete - 1) >= mod_listA._itemCount)
         bAnyEndpointAffected = (bAnyEndpointAffected_start Or bAnyEndpointAffected_end)
 
-        rangeToDelete = New DLLRange(Of TwoCharacterDLLVerticalA)(False, itemFirstToDelete,
+        rangeToDelete = New DLLRange(Of DLLUserControlRichbox)(False, itemFirstToDelete,
                                          itemLastToDelete, Nothing, intHowManyToDelete)
 
         If (DIRECT_TO_LIST_Not) Then
@@ -2129,7 +2138,7 @@ Public Class FormDemo1DVertical
             ''
             '' Added 10/26/2024 thomas d.
             ''
-            operationToDelete = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(rangeToDelete,
+            operationToDelete = New DLLOperation1D_Of(Of DLLUserControlRichbox)(rangeToDelete,
                                   bIncludesListStart, bIncludesList__End,
                                   OPERATION_NotInsert,
                                   OPERATION_Delete,
@@ -2281,9 +2290,9 @@ Public Class FormDemo1DVertical
         ''
         ''Added 11/16/2024 
         ''
-        Dim tempAnchorItem As TwoCharacterDLLVerticalA ''---DLLAnchorItem(Of TwoCharacterDLLVerticalA)
-        Dim tempAnchorPair As DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)
-        Dim tempOperation As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim tempAnchorItem As DLLUserControlRichbox ''---DLLAnchorItem(Of DLLUserControlRichbox)
+        Dim tempAnchorPair As DLLAnchorCouplet(Of DLLUserControlRichbox)
+        Dim tempOperation As DLLOperation1D_Of(Of DLLUserControlRichbox)
 
         Const OPERATION_MOVE = True
         ''Const ALLOW_NULLS As Boolean = True
@@ -2340,7 +2349,7 @@ Public Class FormDemo1DVertical
         bAnchorMoveBefore = listMoveAfterOrBefore.SelectedIndex >= 1
         bChangeOfEndpoint_Expected = mod_rangeA.ContainsEndpoint
 
-        tempAnchorPair = New DLLAnchorCouplet(Of TwoCharacterDLLVerticalA)(tempAnchorItem, bAnchorMoveAfter)
+        tempAnchorPair = New DLLAnchorCouplet(Of DLLUserControlRichbox)(tempAnchorItem, bAnchorMoveAfter)
         ''Added 12/09/2024  bChangeOfEndpoint = tempAnchorPair.ContainsEndpoint()
         bChangeOfEndpoint_Expected = (bChangeOfEndpoint_Expected Or tempAnchorPair.ContainsEndpoint)
 
@@ -2374,7 +2383,7 @@ Public Class FormDemo1DVertical
         ''
         '' Added 11/17/2024 thomas downes
         ''
-        tempOperation = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(mod_rangeA, tempAnchorPair,
+        tempOperation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, tempAnchorPair,
                                   False, OPERATION_MOVE, type_is_anchor, False, False)
         ''operation.OperateOnList(mod_listA)
         ''12/16/2024 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
@@ -2627,7 +2636,7 @@ Public Class FormDemo1DVertical
         ''
         ''Encapsulated 05/07/2025 td
         ''
-        Dim operationSorting_Main As DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)
+        Dim operationSorting_Main As DLLOperation1D_Of(Of DLLUserControlRichbox)
         Dim operationSorting_Parallel As DLLOperation1D_Of(Of DLLUserControlRichbox) ''Added 5/06/2025
         Dim listParallelToSortByValue As DLLList(Of DLLUserControlRichbox) ''Added 5/06/2025 
         Dim bChangeOfEndpoint_Occurred As Boolean
@@ -2668,7 +2677,7 @@ Public Class FormDemo1DVertical
             ''     (versus the values in the main list (i.e. the primary list,
             ''     not one of the "parallel lists")).   ---05/06/2025 
             ''
-            ''---operationSortForward_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
+            ''---operationSortForward_Main = New DLLOperation1D_Of(Of DLLUserControlRichbox)(EnumSortTypes.ByValues_Forward)
 
             ''Added 5/07/2025 thomas d
             Dim enumSorting As EnumSortTypes = EnumSortTypes.Undetermined ''Added 5/07/2025 thomas d
@@ -2701,7 +2710,7 @@ Public Class FormDemo1DVertical
             ''Main List
             ''  (the left-most vertical list, e.g. row-header controls)
             ''
-            operationSorting_Main = New DLLOperation1D_Of(Of TwoCharacterDLLVerticalA)(EnumSortTypes.ByValues_Forward)
+            operationSorting_Main = New DLLOperation1D_Of(Of DLLUserControlRichbox)(EnumSortTypes.ByValues_Forward)
 
             ''Added 5/07/2025 thomas d
             AddDescriptionForOpByUser(operationSorting_Main)
@@ -2870,7 +2879,7 @@ Public Class FormDemo1DVertical
 
         If (mod_rangeA Is Nothing) Then
             ''Create a new range. 
-            mod_rangeA = New DLLRange(Of TwoCharacterDLLVerticalA)(mod_listA, True, par_row_base1, 1)
+            mod_rangeA = New DLLRange(Of DLLUserControlRichbox)(mod_listA, True, par_row_base1, 1)
 
         Else
             ''Expand or shift single-item (start of) range.

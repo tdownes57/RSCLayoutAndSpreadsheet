@@ -23,6 +23,10 @@ namespace RSCLibraryDLLOperations
         //
         public DLLOperationIndexStructure()
         {
+            //Added 1/21/2026 thomas downes
+            Is2D_Horizontal = false; // Jan2026
+            Is2D_Vertical = false; // Jan2026
+
             IsInsert = false;
             IsDelete = false;
             IsMove = false;
@@ -56,6 +60,10 @@ namespace RSCLibraryDLLOperations
             InverseAnchorIndexRight_b1 = -1;
 
         }
+
+        //Added 1/21/2026 thomas downes
+        public bool Is2D_Horizontal = false; // Jan2026
+        public bool Is2D_Vertical = false; // Jan2026
 
         public bool IsInsert;
         public bool IsDelete;
@@ -136,7 +144,12 @@ namespace RSCLibraryDLLOperations
             //
             // Added 1/14/2025 thomas downes
             //
-            string return_string = ""; 
+            string return_string = "";
+
+            // Added 1/21/2026 thomas downes
+            if (Is2D_Horizontal) return_string += "Horiz \n";
+            if (Is2D_Vertical) return_string += "Vertical \n";
+
             if (IsInsert) return_string += "Insert \n";
             if (IsDelete) return_string += "Delete \n";
             if (IsMove) return_string += "Move \n";

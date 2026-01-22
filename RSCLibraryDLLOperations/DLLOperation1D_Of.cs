@@ -31,6 +31,10 @@ namespace RSCLibraryDLLOperations
         //    1D = 1 dimension, simply a list
         //            (versus a 2-dimensional grid)
         //
+        // <summary>
+        // The 1D operations have been retro-fitted to work in a 2D environment, via Booleans
+        // indicating whether the operation is horizontal or vertical.
+        // </summary>
         //''
         //
         // --------------------------------------------------------------------------------
@@ -272,7 +276,8 @@ namespace RSCLibraryDLLOperations
         //          StructureTypeOfMove par_structMoveType,
         //          DLLAnchorItem<TControl>? par_anchorItem,
         //          DLLAnchorCouplet<TControl>? par_anchorPair,
-        public DLLOperation1D_Of(bool par_isSortByItemValues, 
+        public DLLOperation1D_Of(OperationH_or_V par_HV,
+                  bool par_isSortByItemValues, 
                   bool par_isSortAscending,
                   bool par_isSortDescending,
                   bool par_isSortByArrayIndex,
@@ -289,6 +294,9 @@ namespace RSCLibraryDLLOperations
             //
             // Added 10/12/2024 thomas downes
             //
+            _isHoriz = par_HV.IsHorizontal;
+            _isVerti = par_HV.IsVertical;
+
             //_isSort_Ascending = par_isSortAscending;
             //_isSort_Descending = par_isSortDescending;
             _isSort_ByItemValues = (par_isSortAscending || par_isSortDescending); // Added April 2025
@@ -394,7 +402,7 @@ namespace RSCLibraryDLLOperations
 
 
 
-        public DLLOperation1D_Of(DLLRange<T_DLL>? par_range,
+        public DLLOperation1D_Of(DLLRange<T_DLL>? par_range, 
               bool par_forStartOfList, bool par_forEndOfList,
               bool par_isInsert, bool par_isDelete, bool par_isMove,
               StructureTypeOfMove par_structMoveType,
