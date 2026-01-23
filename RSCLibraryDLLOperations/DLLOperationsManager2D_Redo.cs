@@ -240,7 +240,7 @@ namespace RSCLibraryDLLOperations
             //  Added 11/25/2024 
             //
             //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
-            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext_ForRedo();
             return result_hasNext;
 
         }
@@ -250,7 +250,7 @@ namespace RSCLibraryDLLOperations
             //
             //  Added 11/25/2024 ca
             //
-            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext_ForRedo();
             return result_hasNext;
 
         }
@@ -315,7 +315,7 @@ namespace RSCLibraryDLLOperations
                     //
                     // First, we must clear any pending "Redo" operations. 
                     //
-                    if (mod_opUndoRedoMarker.HasOperationNext())
+                    if (mod_opUndoRedoMarker.HasOperationNext_ForRedo())
                     {
                         //
                         // DIFFICULT AND CONFUSING -- We must "clean"/remove any Redo operations.
@@ -481,7 +481,7 @@ namespace RSCLibraryDLLOperations
             //
             // Suffixed with _Undo on 12/8/2024 td.
             //
-            bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior();
+            bool result_hasPrior = mod_opUndoRedoMarker.HasOperationPrior_ForUndo();
             return result_hasPrior;
         }
 
@@ -492,7 +492,7 @@ namespace RSCLibraryDLLOperations
             // Suffixed with _Redo on 12/8/2024 td.
             //
             //bool result_hasNext = mod_opRedoMarker.HasOperationNext();
-            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext();
+            bool result_hasNext = mod_opUndoRedoMarker.HasOperationNext_ForRedo();
             return result_hasNext;
 
         }

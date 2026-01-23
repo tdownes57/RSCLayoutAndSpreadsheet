@@ -758,6 +758,9 @@ namespace RSCLibraryDLLOperations
         {
             // public DLLOperation1D_Of<T_DLL_H, T_DLL_V>
 
+            // Added 1/22/2026 td
+            var opIsHorV = new OperationH_or_V(_isHoriz, _isVerti);
+
             DLLOperation1D_Of<T_DLL> result_UNDO;
 
             //DLLRange<T_DLL_H> result_RangeOfItems_H = _range_H;
@@ -907,7 +910,7 @@ namespace RSCLibraryDLLOperations
                 //    true, 
                 //    result_arrayIndices_SortOrderThisOp);
 
-                result_UNDO = new DLLOperation1D_Of<T_DLL>(
+                result_UNDO = new DLLOperation1D_Of<T_DLL>(opIsHorV,
                     result_isSortByItemValues,
                     result_isSortAscending,
                     result_isSortDescending,
@@ -1039,8 +1042,11 @@ namespace RSCLibraryDLLOperations
                 //T_BaseOrParallel[] arrayBase_SortOrderIfUndo = GetConvertedArray<T_BaseOrParallel>(
                 //         _arrayControls_SortOrderIfUndo, par_firstItem);
 
+                // Added 01/22/2026
+                OperationH_or_V opIsHorV = new OperationH_or_V(false, true);
+
                 result =
-                    new DLLOperation1D_Of<T_BaseOrParallel>(
+                    new DLLOperation1D_Of<T_BaseOrParallel>(opIsHorV,
                              _isSort_ByItemValues,
                            _isSortByValues_Ascending, _isSortByValues_Descending,
                            _isSort_ByArrayIndexMapping,

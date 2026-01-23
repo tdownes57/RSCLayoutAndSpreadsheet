@@ -73,9 +73,9 @@ Friend Class UserOperationOriginal
     Public Event DLLOperationCreated_InsertCol(par_operation As DLL_OperationV1_Deprecated)
 
     ''Adde 8/4/2024 td
-    Public Event DLLOperationV2_Insert(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA),
-                                par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
-                                par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+    ''Jan2026 Public Event DLLOperationV2_Insert(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA),
+    ''//                            par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
+    ''//                            par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
 
     Public Event DLLOperationCreated_Delete(par_operation As DLL_OperationV1_Deprecated)
@@ -94,9 +94,9 @@ Friend Class UserOperationOriginal
                                 par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
                                 par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
-    Public Event DLLOperationV2_Delete(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA),
-                                par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
-                                par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
+    ''Jan2026 Public Event DLLOperationV2_Delete(par_operation As DLLOperation2D(Of TwoCharacterDLLHorizontal, TwoCharacterDLLVerticalA),
+    ''//                            par_inverseAnchor_PriorToRange As TwoCharacterDLLItem,
+    ''//                            par_inverseAnchor_NextToRange As TwoCharacterDLLItem)
 
     ''' <summary>
     ''' This will communicate the details of an INSERT operation, 

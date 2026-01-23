@@ -288,7 +288,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public void ShiftMarker_AfterUndo_ToPrior()
+        public void ShiftMarkerLeft_AfterUndo_ToPrior()
         {
             //''
             //''Just like a Tuple, a DLL_OperationMarker is immutable.Or, 
@@ -563,6 +563,32 @@ namespace RSCLibraryDLLOperations
             
         }
 
+
+        public void CheckTermination_Prior()
+        {
+            //
+            // Added 11/01/2025 Thomas Downes  
+            //
+            mod_opPrior_ForUndo?.DLL_CheckTermination_Prior();
+
+
+        }
+
+
+        public void CheckTermination_Prior(DLLOperation1D_Of<TControl> param)
+        {
+            //
+            // Added 11/01/2025 Thomas Downes  
+            //
+            if (param != mod_opPrior_ForUndo)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
+            mod_opPrior_ForUndo?.DLL_CheckTermination_Prior();
+
+
+        }
 
 
     }

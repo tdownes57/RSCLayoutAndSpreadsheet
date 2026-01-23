@@ -1342,7 +1342,7 @@ namespace RSCLibraryDLLOperations
                 UndoOperation_ViaInverse_Of(operationToUndo, ref pbEndpointAffected);
 
                 // Major call!! --1/10/2024
-                mod_opUndoRedoMarker.ShiftMarker_AfterUndo_ToPrior();
+                mod_opUndoRedoMarker.ShiftMarkerLeft_AfterUndo_ToPrior();
 
                 // Refresh the Display. (Make the Insert visible to the user.)
                 // RefreshTheUI_DisplayList();
@@ -1376,77 +1376,77 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void UndoOperation_ViaInverse_Of(DLLOperation1D_Of<T_DLL> parOperation, ref bool pbEndpointAffected)
-        {
-            //
-            //''Added 4/14/2025 and 7/06/2024 and 1/15/2024
-            //''
-            const bool RECORD_UNDO_OPERATION = false; //Not needed for UNDO operations. ''Added 1 / 28 / 2024
-            bool bIsChangeOfEndpoint_Expected = false;
-            bool bChangeOfEndpoint_Occurred = false;
-            // DLLOperation1D_2TypesInParallel<T_DLL, T_DLL> opUndoVersion_OfOf; // As DLL_OperationV1 ''Added 11 / 5 / 2024
-            DLLOperation1D_Of<T_DLL> opUndoVersion_Of; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+        //private void UndoOperation_ViaInverse_Of(DLLOperation1D_Of<T_DLL> parOperation, ref bool pbEndpointAffected)
+        //{
+        //    //
+        //    //''Added 4/14/2025 and 7/06/2024 and 1/15/2024
+        //    //''
+        //    const bool RECORD_UNDO_OPERATION = false; //Not needed for UNDO operations. ''Added 1 / 28 / 2024
+        //    bool bIsChangeOfEndpoint_Expected = false;
+        //    bool bChangeOfEndpoint_Occurred = false;
+        //    // DLLOperation1D_2TypesInParallel<T_DLL, T_DLL> opUndoVersion_OfOf; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+        //    DLLOperation1D_Of<T_DLL> opUndoVersion_Of; // As DLL_OperationV1 ''Added 11 / 5 / 2024
 
-            //Added 5/07/2025
-            bool bUndoOfSortingByIndexing1 = parOperation.IsSorting_ByIndexMapping(); //Added 5/07/2025
-            bool bUndoOfSortingByValues1 = parOperation.IsSorting_ByItemValues(); //Added 5/07/2025
+        //    //Added 5/07/2025
+        //    bool bUndoOfSortingByIndexing1 = parOperation.IsSorting_ByIndexMapping(); //Added 5/07/2025
+        //    bool bUndoOfSortingByValues1 = parOperation.IsSorting_ByItemValues(); //Added 5/07/2025
 
-            opUndoVersion_Of = parOperation.GetInverseForUndo_Of(Testing.AreWeTesting);
+        //    opUndoVersion_Of = parOperation.GetInverseForUndo_Of(Testing.AreWeTesting);
 
-            //Added 4/12/2025 td
-            //  Capture the INSERT (parallel) ranges, if any.
-            //
-            //    (These INSERT ranges were previously DELETE ranges!!)
-            //
-            if (opUndoVersion_Of._isInsert)
-            {
-                //---mod_arrayOfParallelRangesToInsert = opUndoVersion_OfOf.ArrayOfParallelRanges_ToInsert;
-                mod_arrayOfParallelRangesToInsert = opUndoVersion_Of.GetArrayOfParallelRanges_ToInsert();
-            }
+        //    //Added 4/12/2025 td
+        //    //  Capture the INSERT (parallel) ranges, if any.
+        //    //
+        //    //    (These INSERT ranges were previously DELETE ranges!!)
+        //    //
+        //    if (opUndoVersion_Of._isInsert)
+        //    {
+        //        //---mod_arrayOfParallelRangesToInsert = opUndoVersion_OfOf.ArrayOfParallelRanges_ToInsert;
+        //        mod_arrayOfParallelRangesToInsert = opUndoVersion_Of.GetArrayOfParallelRanges_ToInsert();
+        //    }
 
-            pbEndpointAffected = opUndoVersion_OfOf.IsChangeOfEndpoint();
-            bIsChangeOfEndpoint_Expected = pbEndpointAffected;
+        //    pbEndpointAffected = opUndoVersion_OfOf.IsChangeOfEndpoint();
+        //    bIsChangeOfEndpoint_Expected = pbEndpointAffected;
 
-            //
-            //  Are we undoing a DELETE operation, and so the UNDO OPERATION
-            //   is an INSERT?  
-            //
-            bool bUndoOfDelete = ('D' == parOperation.GetOperationType());
-            if (bUndoOfDelete)
-            {
-                bool bEndpointsAreClean = opUndoVersion_OfOf.CheckEndPointsAreClean_PriorToInsert();
-            }
+        //    //
+        //    //  Are we undoing a DELETE operation, and so the UNDO OPERATION
+        //    //   is an INSERT?  
+        //    //
+        //    bool bUndoOfDelete = ('D' == parOperation.GetOperationType());
+        //    if (bUndoOfDelete)
+        //    {
+        //        bool bEndpointsAreClean = opUndoVersion_OfOf.CheckEndPointsAreClean_PriorToInsert();
+        //    }
 
-            // Added 4/15/2025 td
-            var operationIndexStructure = opUndoVersion_OfOf.GetOperationIndexStructure();
+        //    // Added 4/15/2025 td
+        //    var operationIndexStructure = opUndoVersion_OfOf.GetOperationIndexStructure();
 
-            //Added 5/06/2025 thomas 
-            //---int intSortColumnIndex_base1 = opUndoVersion_OfOf 
-            bool bUndoOfSortingByIndexing2 = opUndoVersion_OfOf.IsSorting_ByIndexMapping();
-            bool bUndoOfSortingByValues2 = opUndoVersion_OfOf.IsSorting_ByItemValues(); //Added 5/07/2025
-            //bool bUndoSortingOfParallelList = bUndoOfSorting && intSortingColumnIndex_base1 >= 1;
+        //    //Added 5/06/2025 thomas 
+        //    //---int intSortColumnIndex_base1 = opUndoVersion_OfOf 
+        //    bool bUndoOfSortingByIndexing2 = opUndoVersion_OfOf.IsSorting_ByIndexMapping();
+        //    bool bUndoOfSortingByValues2 = opUndoVersion_OfOf.IsSorting_ByItemValues(); //Added 5/07/2025
+        //    //bool bUndoSortingOfParallelList = bUndoOfSorting && intSortingColumnIndex_base1 >= 1;
 
-            //
-            //''Major call!!
-            //
-            ProcessOperation_AnyType(opUndoVersion_OfOf,
-                                     bIsChangeOfEndpoint_Expected,
-                                     out bChangeOfEndpoint_Occurred,
-                                     RECORD_UNDO_OPERATION,
-                                     operationIndexStructure);
+        //    //
+        //    //''Major call!!
+        //    //
+        //    ProcessOperation_AnyType(opUndoVersion_OfOf,
+        //                             bIsChangeOfEndpoint_Expected,
+        //                             out bChangeOfEndpoint_Occurred,
+        //                             RECORD_UNDO_OPERATION,
+        //                             operationIndexStructure);
 
-            if (bIsChangeOfEndpoint_Expected || bChangeOfEndpoint_Occurred)
-            {
-                // Horizontal
-                mod_firstItemHor = mod_listHoriz.DLL_GetFirstItem_OfT();
-                mod_endingItemHor = mod_listHoriz.DLL_GetLastItem_OfT();
+        //    if (bIsChangeOfEndpoint_Expected || bChangeOfEndpoint_Occurred)
+        //    {
+        //        // Horizontal
+        //        mod_firstItemHor = mod_listHoriz.DLL_GetFirstItem_OfT();
+        //        mod_endingItemHor = mod_listHoriz.DLL_GetLastItem_OfT();
 
-                // Vertical 
-                mod_firstItemVer = mod_listVerti.DLL_GetFirstItem_OfT();
-                mod_endingItemVer = mod_listVerti.DLL_GetLastItem_OfT();
-            }
+        //        // Vertical 
+        //        mod_firstItemVer = mod_listVerti.DLL_GetFirstItem_OfT();
+        //        mod_endingItemVer = mod_listVerti.DLL_GetLastItem_OfT();
+        //    }
 
-        }
+        //}
 
 
         private void UndoOperation_ViaInverse_Of(DLLOperation1D_Of<T_DLL> parOperation, ref bool pbEndpointAffected)
