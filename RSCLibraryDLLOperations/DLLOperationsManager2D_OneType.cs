@@ -1339,10 +1339,10 @@ namespace RSCLibraryDLLOperations
                 // Major call!!
                 //    UndoOperation_ViaInverseOf(operationToUndo);
                 //    April2025  UndoOperation_ViaInverseOf(operationToUndo, ref pbEndpointAffected);
-                UndoOperation_ViaInverse_OfOf(operationToUndo, ref pbEndpointAffected);
+                UndoOperation_ViaInverse_Of(operationToUndo, ref pbEndpointAffected);
 
                 // Major call!! --1/10/2024
-                mod_opUndoRedoMarker.ShiftMarkerLeft_AfterUndo_ToPrior();
+                mod_opUndoRedoMarker.ShiftMarker_AfterUndo_ToPrior();
 
                 // Refresh the Display. (Make the Insert visible to the user.)
                 // RefreshTheUI_DisplayList();
@@ -1376,7 +1376,7 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        private void UndoOperation_ViaInverse_OfOf(DLLOperation1D_2TypesInParallel<T_DLL, T_DLL> parOperation, ref bool pbEndpointAffected)
+        private void UndoOperation_ViaInverse_Of(DLLOperation1D_Of<T_DLL> parOperation, ref bool pbEndpointAffected)
         {
             //
             //''Added 4/14/2025 and 7/06/2024 and 1/15/2024
@@ -1384,23 +1384,24 @@ namespace RSCLibraryDLLOperations
             const bool RECORD_UNDO_OPERATION = false; //Not needed for UNDO operations. ''Added 1 / 28 / 2024
             bool bIsChangeOfEndpoint_Expected = false;
             bool bChangeOfEndpoint_Occurred = false;
-            DLLOperation1D_2TypesInParallel<T_DLL, T_DLL> opUndoVersion_OfOf; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+            // DLLOperation1D_2TypesInParallel<T_DLL, T_DLL> opUndoVersion_OfOf; // As DLL_OperationV1 ''Added 11 / 5 / 2024
+            DLLOperation1D_Of<T_DLL> opUndoVersion_Of; // As DLL_OperationV1 ''Added 11 / 5 / 2024
 
             //Added 5/07/2025
             bool bUndoOfSortingByIndexing1 = parOperation.IsSorting_ByIndexMapping(); //Added 5/07/2025
             bool bUndoOfSortingByValues1 = parOperation.IsSorting_ByItemValues(); //Added 5/07/2025
 
-            opUndoVersion_OfOf = parOperation.GetInverseForUndo_OfOf(Testing.AreWeTesting);
+            opUndoVersion_Of = parOperation.GetInverseForUndo_Of(Testing.AreWeTesting);
 
             //Added 4/12/2025 td
             //  Capture the INSERT (parallel) ranges, if any.
             //
             //    (These INSERT ranges were previously DELETE ranges!!)
             //
-            if (opUndoVersion_OfOf._isInsert)
+            if (opUndoVersion_Of._isInsert)
             {
                 //---mod_arrayOfParallelRangesToInsert = opUndoVersion_OfOf.ArrayOfParallelRanges_ToInsert;
-                mod_arrayOfParallelRangesToInsert = opUndoVersion_OfOf.GetArrayOfParallelRanges_ToInsert();
+                mod_arrayOfParallelRangesToInsert = opUndoVersion_Of.GetArrayOfParallelRanges_ToInsert();
             }
 
             pbEndpointAffected = opUndoVersion_OfOf.IsChangeOfEndpoint();
