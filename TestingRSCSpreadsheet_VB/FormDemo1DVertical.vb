@@ -2068,7 +2068,13 @@ Public Class FormDemo1DVertical
         bTestingIndexStructure = TestingIndexStructure() ''---2025 checkTestNumericConstructor.Checked
 
         ''Nov10 2024 ''mod_manager.UndoMarkedOperation()
-        mod_managerVerticalOps.UndoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
+        If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+            ''Use the horizontal-vertical integrated manager, which is the more fully featured manager.
+            ''   --Added 2/10/2026
+            mod_managerIntegrated.UndoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
+        Else
+            mod_managerVerticalOps.UndoMarkedOperation(bEndpointAffected, bTestingIndexStructure)
+        End If
 
         ''Added 11/10/2024 
         mod_firstItemA = mod_listA.DLL_GetFirstItem_OfT()
