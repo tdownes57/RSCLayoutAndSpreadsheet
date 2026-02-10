@@ -17,10 +17,12 @@ Public Class FormDemo1DVertical
     ''
     '' Added 1/18/2025 & 10/14/2024 thomas c. downes 
     ''
-    ''March 2025 Private mod_managerVerticalOps.As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
+    ' 'March 2025 Private mod_managerVerticalOps.As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA)
     ''Jan2026 Private mod_managerVerticalOps As DLLOperationsManager1D(Of TwoCharacterDLLVerticalA, DLLUserControlRichbox)
     Private mod_managerVerticalOps As DLLOperationsManager1D(Of DLLUserControlRichbox, DLLUserControlRichbox)
     Private mod_managerHorizontalOps As DLLOperationsManager1D(Of DLLUserControlRichbox, DLLUserControlRichbox)
+    ''Feb2026 Private mod_managerIntegrated As DLLOperationsManager2D_OneType(Of DLLUserControlRichbox)
+    ''Feb2026 Private mod_managerIntegrated As DLLOperationsManager1D(Of DLLUserControlRichbox, DLLUserControlRichbox)
     Private mod_managerIntegrated As DLLOperationsManager2D_OneType(Of DLLUserControlRichbox)
 
     ''' <summary>
@@ -79,7 +81,12 @@ Public Class FormDemo1DVertical
     Private APPLICATION_DOEVENTS As Boolean = False ''---True ''Added 12/18/2024 td
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
     Private SORT_PRIMARY_LIST_AFTER_PARALLELS As Boolean = True ''Added 5/18/2025 td
+    Private _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS As Boolean = False ''Added 2/10/2026 thomas downes
+    Private _USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS As Boolean = False ''Added 2/10/2026 thomas downes
 
+    ''Added 2/09/2026
+    Private _operationIsVertical = New OperationH_or_V(False, True)
+    Private _operationIsHorizontal = New OperationH_or_V(True, False)
 
     ''' <summary>
     ''' Puts {mod_listB1, mod_listB2, mod_listB3} into an array of lists.
@@ -450,6 +457,7 @@ Public Class FormDemo1DVertical
         ''//   Only --AFTER-- looping...
         ''//
         ''//   Added 4/17/2025
+        ''//
         mod_lastItemA = newItemA
         mod_lastItemB1 = newItemB1
         mod_lastItemB2 = newItemB2
@@ -688,9 +696,10 @@ Public Class FormDemo1DVertical
             operationInitialInsertA = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, True, False,
                                       True, False, False, type_of_move, False, False,
                                       anchorItemForListOfOneItemA,
-                                      anchorPairForListOfOneItemA)
-            ''12/30/2024                     False, False, False, False,
-            ''12/30/2024                     Nothing, Nothing, Nothing)
+                                      anchorPairForListOfOneItemA,
+                                      , , , _operationIsVertical)
+            ''12/30/2024        False, False, False, False,
+            ''12/30/2024        Nothing, Nothing, Nothing)
 
             ''Added March 24, 2025
             ''
@@ -1242,19 +1251,24 @@ Public Class FormDemo1DVertical
         ''
         '' Added 12/01/2024 
         ''
-        Dim bManagerHasRedosQueuedUp As Boolean
+        Dim bManagerHasRedosQueuedUp_V As Boolean
+        Dim bManagerHasRedosQueuedUp_HV As Boolean
         Dim boolUserSaysToCancel As Boolean
         Dim boolUserSaysToProceed As Boolean ''Added 12/08/2024
         Dim dialog_1_Proceed As DialogResult
         Dim dialog_2_Cancel As DialogResult
         ''Added 12/02/2024
-        Dim intCountRedos As Integer
+        Dim intCountRedosV As Integer
         Dim strDialogMessage_Proceed As String
-        intCountRedos = mod_managerVerticalOps.CountOfOperations_QueuedForRedo()
+        Dim intCountRedosHV As Integer ''Added 2/10/2026 
 
-        bManagerHasRedosQueuedUp = mod_managerVerticalOps.AreOneOrMoreOpsToRedo_PerMarker()
+        intCountRedosV = mod_managerVerticalOps.CountOfOperations_QueuedForRedo()
+        intCountRedosHV = mod_managerIntegrated.CountOfOperations_QueuedForRedo() ''Added 2/10/2026
 
-        If (bManagerHasRedosQueuedUp) Then
+        bManagerHasRedosQueuedUp_V = mod_managerVerticalOps.AreOneOrMoreOpsToRedo_PerMarker()
+        bManagerHasRedosQueuedUp_HV = mod_managerIntegrated.AreOneOrMoreOpsToRedo_PerMarker() ''Added 2/10/2026
+
+        If (bManagerHasRedosQueuedUp_V) Then
 
             ''//    This is needed if the user has pressed the "Undo" button, " 
             ''//    And now wants to move forward with a "brand new" operation. 
@@ -1266,7 +1280,7 @@ Public Class FormDemo1DVertical
             ''//
             strDialogMessage_Proceed = String.Format("Proceed with {0}?  " +
                                 "This will cancel all {1} pending Redo operations.",
-                                par_wordForOp, intCountRedos)
+                                par_wordForOp, intCountRedosV)
 
             ''//dialog_result = MessageBoxTD.Show_QuestionYesNo("Cancel all pending Redo operations?")
             dialog_1_Proceed = MessageBoxTD.Show_QuestionYesNo(strDialogMessage_Proceed)
@@ -1276,7 +1290,7 @@ Public Class FormDemo1DVertical
 
             If (boolUserSaysToProceed) Then
                 ''Added 12/02/2024
-                dialog_2_Cancel = MessageBoxTD.Show_Statement_OkayCancel(intCountRedos,
+                dialog_2_Cancel = MessageBoxTD.Show_Statement_OkayCancel(intCountRedosV,
                  "This many pending Redo operations will be cancelled: {0}",
                  "(Press Cancel if you desire to cancel the new " + par_wordForOp + " operation.)")
                 boolUserSaysToCancel = (dialog_2_Cancel = DialogResult.Cancel)
@@ -1363,12 +1377,18 @@ Public Class FormDemo1DVertical
         '' Added 11/17/2024 thomas downes
         ''
         tempOperation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, Nothing,
-                               False, OPERATION_MOVE, currentMoveType, False, False)
+                               False, OPERATION_MOVE, currentMoveType, False, False,
+                               _operationIsVertical)
         ''operation.OperateOnList(mod_listA)
         ''Mar2025 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
         ''   bChangeOfEndpoint_Occurred, True)
-        mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
-         bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
+        If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+            mod_managerIntegrated.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+              bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
+        Else ''Added 2/10/2026
+            mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+              bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure())
+        End If
 
         ''Added 11/18/2024 
         ''---If bChangeOfEndpoint Then ''Modified 12/15/2024
@@ -1577,9 +1597,14 @@ Public Class FormDemo1DVertical
             anchor_couple = New DLLAnchorCouplet(Of DLLUserControlRichbox)(tempAnchorItem,
                                         tempAnchorItem.DLL_GetItemNext_OfT,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
+
+            ''Added 2/09/2026
+            ''--Dim operationIsVertical = New OperationH_or_V(False, True)
+
             ''Added 12/11/2024 operation = New DLLOperation1D(Of DLLUserControlRichbox)(mod_range, anchor_couple, True, False)
             operation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, anchor_couple,
-                                     True, False, null_move, False, False)
+                                     True, False, null_move, False, False,
+                                     _operationIsVertical)
 
             ''Added 1/13/2025 td
             ''
@@ -1608,6 +1633,7 @@ Public Class FormDemo1DVertical
             ''Added 4/08/2025 thomas d.
             ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
             mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
+            mod_managerIntegrated.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges) ''Added 2/10/2026
 
             ''Added 11/03/2025 td 
             ''If (chkAddOpDescriptions.Checked) Then
@@ -1620,8 +1646,14 @@ Public Class FormDemo1DVertical
             ''
             '' Major call!!
             ''
-            mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+            If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+                ''Use the horizontal-vertical integrated manager, which is the more fully featured manager.
+                mod_managerIntegrated.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                    bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
+            Else
+                mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+                       bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
+            End If
 
             ''Added November 2025 
             mod_managerVerticalOps.CheckTermination()
@@ -1636,7 +1668,7 @@ Public Class FormDemo1DVertical
                                         tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
             operation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, anchor_couple,
-                                   True, False, null_move, False, False)
+                                   True, False, null_move, False, False, _operationIsVertical)
 
             ''Added 4/08/2025 thomas d.
             ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
@@ -1649,8 +1681,15 @@ Public Class FormDemo1DVertical
             ''//mod_manager.ProcessOperation_AnyType(operation, bChangeOfEndpoint, True)
             ''Mar2025  mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
             ''           bChangeOfEndpoint_PostHoc, True)
-            mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+
+            If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+                ''Added 2/10/2026 
+                mod_managerIntegrated.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                   bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
+            Else
+                mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
+                  bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
+            End If
 
         End If ''End of ""If (DIRECT_TO_LIST) Then... Else..."
 
@@ -1810,7 +1849,8 @@ Public Class FormDemo1DVertical
             rangeSingleItem = New DLLRange(Of DLLUserControlRichbox)(newItem, True)
             operationToInsert = New DLLOperation1D_Of(Of DLLUserControlRichbox)(rangeSingleItem, False, False,
                                     INSERT_OPERATION, False, False, not_a_moveType, False, False,
-                                  objAnchorItem, objAnchorPair)
+                                  objAnchorItem, objAnchorPair,
+                                   , , , , _operationIsVertical)
             ''12/30/2024                          False, False, False, False,
             ''12/30/2024                           Nothing, Nothing, Nothing)
 
@@ -1836,9 +1876,16 @@ Public Class FormDemo1DVertical
             mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
 
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
-            mod_managerVerticalOps.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+            If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+                ''Added 2/10/2026
+                mod_managerIntegrated.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_Occurred, True,
                                              operationToInsert_Indices)
+            Else
+                mod_managerVerticalOps.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
+                                             bChangeOfEndpoint_Occurred, True,
+                                             operationToInsert_Indices)
+            End If
 
             ''
             ''Added 2/27/2025 td
@@ -2145,7 +2192,7 @@ Public Class FormDemo1DVertical
                                   OPERATION_NotMove, not_a_moveType,
                                   OPERATION_NotRotateL,
                                   OPERATION_NotRotateR,
-                                  Nothing, Nothing)
+                                  Nothing, Nothing, , , , , _operationIsVertical)
             ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
             ''12/20/2024                  Nothing, Nothing, Nothing)
 
@@ -2159,9 +2206,16 @@ Public Class FormDemo1DVertical
             ''Added 11/03/2025 td
             AddDescriptionForOpByUser(operationToDelete)
 
-            mod_managerVerticalOps.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
+            If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+                ''Added 2/10/2026 
+                mod_managerIntegrated.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
                                              bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
                                              operationIndicized)
+            Else
+                mod_managerVerticalOps.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected,
+                                             bAnyEndpointAffected_ByRef, RECORD_DEL_OPERATIONS,
+                                             operationIndicized)
+            End If
 
             operationToDelete.ExecutionDate = DateTime.Now ''Added 3/26/2025
 
@@ -2384,14 +2438,23 @@ Public Class FormDemo1DVertical
         '' Added 11/17/2024 thomas downes
         ''
         tempOperation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(mod_rangeA, tempAnchorPair,
-                                  False, OPERATION_MOVE, type_is_anchor, False, False)
+                                  False, OPERATION_MOVE, type_is_anchor, False, False,
+                                  _operationIsVertical)
         ''operation.OperateOnList(mod_listA)
         ''12/16/2024 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint, True)
         ''03/25/2025 mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
         ''    bChangeOfEndpoint_Occurred, True)
-        mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+
+        If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+            ''Added 2/10/2026
+            mod_managerIntegrated.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
                                          bChangeOfEndpoint_Occurred, True,
                                          tempOperation.GetOperationIndexStructure())
+        Else
+            mod_managerVerticalOps.ProcessOperation_AnyType(tempOperation, bChangeOfEndpoint_Expected,
+                                         bChangeOfEndpoint_Occurred, True,
+                                         tempOperation.GetOperationIndexStructure())
+        End If
 
         ''Added 11/18/2024 
         If bChangeOfEndpoint_Expected Then
@@ -2689,7 +2752,8 @@ Public Class FormDemo1DVertical
             End If ''end of ""If (enumSorting = EnumSortTypes.Undetermined) Then
 
             ''Added 5/07/2025 thomas d
-            operationSorting_Parallel = New DLLOperation1D_Of(Of DLLUserControlRichbox)(enumSorting)
+            operationSorting_Parallel = New DLLOperation1D_Of(Of DLLUserControlRichbox)(enumSorting,
+                           _operationIsVertical)
 
             ''Added 5/07/2025 thomas d
             AddDescriptionForOpByUser(operationSorting_Parallel)
@@ -2698,25 +2762,42 @@ Public Class FormDemo1DVertical
             '' Major call!!
             ''
             ''---May2025---mod_manager.ProcessOperation_AnyType(operationSortForward_Parallel,
-            mod_managerVerticalOps.ProcessOperation_ToParallelList(listParallelToSortByValue,
+            If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+                ''Added 2/10/2026 
+                mod_managerIntegrated.ProcessOperation_ToParallelList(listParallelToSortByValue,
                             operationSorting_Parallel,
                             CHANGE_OF_ENDS_EXPECTED,
                             bChangeOfEndpoint_Occurred, True,
                             operationSorting_Parallel.GetOperationIndexStructure(),
                             SORT_PRIMARY_LIST_AFTER_PARALLELS)
+            Else
+                mod_managerVerticalOps.ProcessOperation_ToParallelList(listParallelToSortByValue,
+                            operationSorting_Parallel,
+                            CHANGE_OF_ENDS_EXPECTED,
+                            bChangeOfEndpoint_Occurred, True,
+                            operationSorting_Parallel.GetOperationIndexStructure(),
+                            SORT_PRIMARY_LIST_AFTER_PARALLELS)
+            End If
 
         Else
             ''
             ''Main List
             ''  (the left-most vertical list, e.g. row-header controls)
             ''
-            operationSorting_Main = New DLLOperation1D_Of(Of DLLUserControlRichbox)(EnumSortTypes.ByValues_Forward)
+            operationSorting_Main = New DLLOperation1D_Of(Of DLLUserControlRichbox)(EnumSortTypes.ByValues_Forward,
+                                                                                    _operationIsVertical)
 
             ''Added 5/07/2025 thomas d
             AddDescriptionForOpByUser(operationSorting_Main)
 
             ''12/23/2024 operationSortForward.OperateOnList(mod_listA, bChangeOfEndpoint_Occurred)
-            If (USE_MANAGER) Then
+            If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then ''Added 2/10/2026
+                ''Added 2/10/2026 
+                mod_managerIntegrated.ProcessOperation_AnyType(operationSorting_Main, CHANGE_OF_ENDS_EXPECTED,
+                       bChangeOfEndpoint_Occurred, True,
+                       operationSorting_Main.GetOperationIndexStructure())
+
+            ElseIf (USE_MANAGER) Then
                 ''Added 12/23/2024 t))d))
                 ''March 2025  mod_managerVerticalOps.ProcessOperation_AnyType(operationSortForward, CHANGE_OF_ENDS_EXPECTED,
                 ''              bChangeOfEndpoint_Occurred, True)
@@ -2996,23 +3077,30 @@ Public Class FormDemo1DVertical
             ''
             ''Create an operation to manage rotation of columns, for the "UNDO" operation.
             ''
-            Dim currentMoveType As New StructureTypeOfMove(True)
+            Dim currentMoveType1D As New StructureTypeOfMove(True)
             Dim tempOperation As DLLOperation1D_Of(Of DLLUserControlRichbox) ''tempOperation
             Const bChangeOfEndpoint_Expected = True
             Dim bChangeOfEndpoint_Occurred As Boolean
 
-            currentMoveType.IsMoveRotation = True ''Added 12/25/2025
-            currentMoveType.IsRotationRight = True ''Added 12/25/2025
-            currentMoveType.IsMoveIncrementalShift = False
-            currentMoveType.IsMoveToAnchor = False
+            currentMoveType1D.IsMoveRotation = True ''Added 12/25/2025
+            currentMoveType1D.IsRotationRight = True ''Added 12/25/2025
+            currentMoveType1D.IsMoveIncrementalShift = False
+            currentMoveType1D.IsMoveToAnchor = False
 
             tempOperation = New DLLOperation1D_Of(Of DLLUserControlRichbox)(Nothing, Nothing,
-                               False, OPERATION_MOVE, currentMoveType, False,
-                               OPERATION_ROTATE_R)
+                               False, OPERATION_MOVE, currentMoveType1D, False,
+                               OPERATION_ROTATE_R, _operationIsHorizontal)
 
-            mod_managerHorizontalOps.ProcessOperation_AnyType(tempOperation,
+            If (_USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS) Then ''Added 2/10/2026
+                ''Added 2/10/2026 
+                mod_managerIntegrated.ProcessOperation_AnyType(tempOperation,
                   bChangeOfEndpoint_Expected,
                   bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure)
+            Else
+                mod_managerHorizontalOps.ProcessOperation_AnyType(tempOperation,
+                  bChangeOfEndpoint_Expected,
+                  bChangeOfEndpoint_Occurred, True, tempOperation.GetOperationIndexStructure)
+            End If
 
             ''Added 12/27/2025 td
             RedrawColumns_InOrder(mod_listColumnHeaders)
@@ -3026,8 +3114,41 @@ Public Class FormDemo1DVertical
             ''
             ''Create an operation to manage rotation of columns, for the "UNDO" operation.
             ''
+            Dim currentMoveType2D As New StructureTypeOfMove(True)
+            Dim tempOperationH As DLLOperation1D_Of(Of DLLUserControlRichbox) ''tempOperation
+            Const bChangeOfEndpoint_ExpectedH = True
+            Dim bChangeOfEndpoint_OccurredH As Boolean
 
+            Dim structIsHorizontal As OperationH_or_V = New OperationH_or_V ''Added 12/30/2025 td
+            structIsHorizontal.IsHorizontal = True ''Added 2/09/2026 td
 
+            currentMoveType2D.IsMoveRotation = True ''Added 12/25/2025
+            currentMoveType2D.IsRotationRight = True ''Added 12/25/2025
+            currentMoveType2D.IsMoveIncrementalShift = False
+            currentMoveType2D.IsMoveToAnchor = False
+
+            tempOperationH = New DLLOperation1D_Of(Of DLLUserControlRichbox)(Nothing, Nothing,
+                               False, OPERATION_MOVE, currentMoveType2D, False,
+                               OPERATION_ROTATE_R, structIsHorizontal)
+
+            If (_USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS) Then ''Added 2/10/2026
+                ''Added 2/10/2026 
+                mod_managerIntegrated.ProcessOperation_AnyType(tempOperationH,
+                  bChangeOfEndpoint_ExpectedH,
+                  bChangeOfEndpoint_OccurredH, True,
+                  tempOperationH.GetOperationIndexStructure)
+            Else
+                mod_managerHorizontalOps.ProcessOperation_AnyType(tempOperationH,
+                      bChangeOfEndpoint_ExpectedH,
+                      bChangeOfEndpoint_OccurredH, True,
+                      tempOperationH.GetOperationIndexStructure)
+            End If
+
+            ''Added 12/27/2025 td
+            RedrawColumns_InOrder(mod_listColumnHeaders)
+
+            ''added 12/28/2025  
+            LinkReorderCols.Tag = tempOperationH
 
 
         End If ''End of ""If (Not MANAGE_ROTATION) Then.... Else""
@@ -3044,7 +3165,7 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+    Private Sub LinkLabel1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelUndoCols.LinkClicked
 
         Dim bChangeOfEndpoint_Expected As Boolean
         Dim bChangeOfEndpoint_Occurred As Boolean
@@ -3055,10 +3176,18 @@ Public Class FormDemo1DVertical
         objPriorOperation = CType(LinkReorderCols.Tag, DLLOperation1D_Of(Of DLLUserControlRichbox))
         objPriorOp_Inverse = objPriorOperation.GetInverseForUndo_Of(True)
 
-        mod_managerHorizontalOps.ProcessOperation_AnyType(objPriorOp_Inverse,
+        If (_USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS) Then ''Added 2/10/2026
+            ''Added 2/10/2026 
+            mod_managerIntegrated.ProcessOperation_AnyType(objPriorOp_Inverse,
                   bChangeOfEndpoint_Expected,
                   bChangeOfEndpoint_Occurred, True,
                   objPriorOp_Inverse.GetOperationIndexStructure)
+        Else
+            mod_managerHorizontalOps.ProcessOperation_AnyType(objPriorOp_Inverse,
+                  bChangeOfEndpoint_Expected,
+                  bChangeOfEndpoint_Occurred, True,
+                  objPriorOp_Inverse.GetOperationIndexStructure)
+        End If
 
         ''Added 12/27/2025 td
         RedrawColumns_InOrder(mod_listColumnHeaders)

@@ -143,17 +143,17 @@ namespace RSCLibraryDLLOperations
         //
         // ---------------------SORTING ORDER, IF APPLICABLE-----------12/30/2024--------------
         //
-        public T_DLL _itemStart_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
-        public T_DLL _itemEnding_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+        public T_DLL? _itemStart_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public T_DLL? _itemEnding_SortOrderIfUndo;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
-        public T_DLL _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
-        public T_DLL _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
+        public T_DLL? _itemStart_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/12/2024 td
+        public T_DLL? _itemEnding_SortOrderThisOp;  //Moved to this module 12/30/2024 --Added 12/29/2024 td
 
         //not needed Apr2025  public T_DLL[] _arrayControls_SortOrderIfUndo;  //Added 12/30/2024 td  
         //not needed Apr2025  public T_DLL[] _arrayControls_SortOrderThisOp;  //Added 12/30/2024 td  
 
-        public int[] _arrayIndices_SortOrderRedoThisOp;  //Added 1/13/2025 td  
-        public int[] _arrayIndices_SortOrderIfUndo;  //Added 1/13/2025 td  
+        public int[]? _arrayIndices_SortOrderRedoThisOp;  //Added 1/13/2025 td  
+        public int[]? _arrayIndices_SortOrderIfUndo;  //Added 1/13/2025 td  
 
         //
         // ---------------------END OF SORTING ORDER--------------------12/30/2024--------------
@@ -413,7 +413,8 @@ namespace RSCLibraryDLLOperations
                   DLLOperation1D_Of<T_DLL>? par_operationPrior = null,
                   DLLOperation1D_Of<T_DLL>? par_operationNext = null,
                   DLLAnchorItem_Deprecated<T_DLL>? par_inverseAnchorItem = null,
-                  DLLAnchorCouplet<T_DLL>? par_inverseAnchorPair = null)
+                  DLLAnchorCouplet<T_DLL>? par_inverseAnchorPair = null, 
+                  OperationH_or_V par_opIsHV = default)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -424,6 +425,10 @@ namespace RSCLibraryDLLOperations
             _anchorItem = par_anchorItem;
             _anchorCouplet = par_anchorPair;  //Added 11/08/2024
             //---_isVerti = false; // NOT vertical.
+
+            // Added 2/09/2026 td
+            _isHoriz = par_opIsHV.IsHorizontal;
+            _isVerti = par_opIsHV.IsVertical;
 
             _isForStartOfList = par_forStartOfList;
             _isForEndOfList = par_forEndOfList;
@@ -523,7 +528,8 @@ namespace RSCLibraryDLLOperations
                               bool par_isInsert, bool par_isMove,
                               StructureTypeOfMove par_typeOfMove,
                               bool par_isRotateLeft, 
-                              bool par_isRotateRight)
+                              bool par_isRotateRight, 
+                              OperationH_or_V par_opIsHV = default)
         {
             //
             // Added 11/3/2024 
@@ -539,6 +545,10 @@ namespace RSCLibraryDLLOperations
 
             // Added 12/11/2024 td
             _moveType = par_typeOfMove;
+
+            // Added 2/09/2026 td
+            _isHoriz = par_opIsHV.IsHorizontal;
+            _isVerti = par_opIsHV.IsVertical;
 
             // Added 12/09/2024  
             //
@@ -582,13 +592,18 @@ namespace RSCLibraryDLLOperations
         }
 
 
-        public DLLOperation1D_Of(EnumSortTypes par_enum)
+        public DLLOperation1D_Of(EnumSortTypes par_enum, 
+                   OperationH_or_V parOpIsHV = default)
         {
             //
             // Added 12/20/2024 
             //
             if (par_enum == EnumSortTypes.ByValues_Forward) _isSortByValues_Ascending = true;
             if (par_enum == EnumSortTypes.ByValues_Backward) _isSortByValues_Descending = true;
+
+            //Added 2/09/2026
+            _isHoriz = parOpIsHV.IsHorizontal;
+            _isVerti = parOpIsHV.IsVertical;
 
             // Added 4/25/2025 td 
             if (par_enum == EnumSortTypes.ByValues_Forward ||

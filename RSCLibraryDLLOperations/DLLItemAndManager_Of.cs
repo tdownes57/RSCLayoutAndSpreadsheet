@@ -57,6 +57,10 @@ namespace RSCLibraryDLLOperations
             //Added 5/04/2025 td
             mod_current.Notify_InFocus += HandleNotify_InFocus;
 
+            //Added 1/25/2-26
+            //  if (mod_prior == null) mod_priorIsNull = true;
+            if (mod_next == null) mod_nextIsNull = true;
+
         }
 
         private void HandleNotify_InFocus(object param)
