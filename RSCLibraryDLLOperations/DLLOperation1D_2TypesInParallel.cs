@@ -135,14 +135,17 @@ namespace RSCLibraryDLLOperations
                       DLLAnchorItem_Deprecated<THeader>? par_anchorItem,
                       DLLAnchorCouplet<THeader>? par_anchorPair,
                       DLLOperation1D_Of<THeader>? par_operationPrior = null,
-                      DLLOperation1D_Of<THeader>? par_operationNext = null)
+                      DLLOperation1D_Of<THeader>? par_operationNext = null,
+                      OperationH_or_V par_HoriVert = default)
 
                     : base(par_range, par_forStartOfList,
                         par_forEndOfList, par_isInsert,
                         par_isDelete, par_isMove,
                         par_structMoveType, pbRotateLeft, pbRotateRight,
                         par_anchorItem,
-                        par_anchorPair, par_operationPrior, par_operationNext)
+                        par_anchorPair, 
+                        par_HoriVert, 
+                        par_operationPrior, par_operationNext)
         {
             //  ---12/23/2025  bool par_IsRotateLeft, bool par_isRotateRight,
             //

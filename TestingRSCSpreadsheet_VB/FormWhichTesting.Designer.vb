@@ -45,9 +45,10 @@ Partial Class FormWhichTesting
         ' LinkOperationsManager
         ' 
         LinkOperationsManager.AutoSize = True
-        LinkOperationsManager.Location = New Point(213, 458)
+        LinkOperationsManager.Location = New Point(274, 641)
+        LinkOperationsManager.Margin = New Padding(4, 0, 4, 0)
         LinkOperationsManager.Name = "LinkOperationsManager"
-        LinkOperationsManager.Size = New Size(472, 15)
+        LinkOperationsManager.Size = New Size(614, 21)
         LinkOperationsManager.TabIndex = 0
         LinkOperationsManager.TabStop = True
         LinkOperationsManager.Text = "Testing the MVC approach... Operations Manager --REMOVED FROM THE APPLICATION"
@@ -55,9 +56,10 @@ Partial Class FormWhichTesting
         ' LinkFormManagesOps
         ' 
         LinkFormManagesOps.AutoSize = True
-        LinkFormManagesOps.Location = New Point(213, 432)
+        LinkFormManagesOps.Location = New Point(274, 605)
+        LinkFormManagesOps.Margin = New Padding(4, 0, 4, 0)
         LinkFormManagesOps.Name = "LinkFormManagesOps"
-        LinkFormManagesOps.Size = New Size(231, 15)
+        LinkFormManagesOps.Size = New Size(307, 21)
         LinkFormManagesOps.TabIndex = 1
         LinkFormManagesOps.TabStop = True
         LinkFormManagesOps.Text = "Works well!  Form manages the operations"
@@ -65,9 +67,10 @@ Partial Class FormWhichTesting
         ' LinkOpsManagerTwoLists
         ' 
         LinkOpsManagerTwoLists.AutoSize = True
-        LinkOpsManagerTwoLists.Location = New Point(213, 482)
+        LinkOpsManagerTwoLists.Location = New Point(274, 675)
+        LinkOpsManagerTwoLists.Margin = New Padding(4, 0, 4, 0)
         LinkOpsManagerTwoLists.Name = "LinkOpsManagerTwoLists"
-        LinkOpsManagerTwoLists.Size = New Size(325, 15)
+        LinkOpsManagerTwoLists.Size = New Size(424, 21)
         LinkOpsManagerTwoLists.TabIndex = 2
         LinkOpsManagerTwoLists.TabStop = True
         LinkOpsManagerTwoLists.Text = "Testing the Two-List Operations Manager (Cyan && Magenta)"
@@ -75,9 +78,10 @@ Partial Class FormWhichTesting
         ' LinkLabelCSharpSimple1D
         ' 
         LinkLabelCSharpSimple1D.AutoSize = True
-        LinkLabelCSharpSimple1D.Location = New Point(61, 247)
+        LinkLabelCSharpSimple1D.Location = New Point(78, 346)
+        LinkLabelCSharpSimple1D.Margin = New Padding(4, 0, 4, 0)
         LinkLabelCSharpSimple1D.Name = "LinkLabelCSharpSimple1D"
-        LinkLabelCSharpSimple1D.Size = New Size(476, 15)
+        LinkLabelCSharpSimple1D.Size = New Size(630, 21)
         LinkLabelCSharpSimple1D.TabIndex = 3
         LinkLabelCSharpSimple1D.TabStop = True
         LinkLabelCSharpSimple1D.Tag = "FormSimpleDemoOfCSharp1D"
@@ -87,7 +91,8 @@ Partial Class FormWhichTesting
         ' 
         Label1ProbablyObselete.AutoSize = True
         Label1ProbablyObselete.Font = New Font("Segoe UI", 9F, FontStyle.Underline)
-        Label1ProbablyObselete.Location = New Point(198, 400)
+        Label1ProbablyObselete.Location = New Point(255, 560)
+        Label1ProbablyObselete.Margin = New Padding(4, 0, 4, 0)
         Label1ProbablyObselete.Name = "Label1ProbablyObselete"
         Label1ProbablyObselete.Size = New Size(369, 15)
         Label1ProbablyObselete.TabIndex = 4
@@ -96,9 +101,10 @@ Partial Class FormWhichTesting
         ' LinkLabelSimpleBackup1D
         ' 
         LinkLabelSimpleBackup1D.AutoSize = True
-        LinkLabelSimpleBackup1D.Location = New Point(61, 262)
+        LinkLabelSimpleBackup1D.Location = New Point(78, 367)
+        LinkLabelSimpleBackup1D.Margin = New Padding(4, 0, 4, 0)
         LinkLabelSimpleBackup1D.Name = "LinkLabelSimpleBackup1D"
-        LinkLabelSimpleBackup1D.Size = New Size(479, 15)
+        LinkLabelSimpleBackup1D.Size = New Size(629, 21)
         LinkLabelSimpleBackup1D.TabIndex = 5
         LinkLabelSimpleBackup1D.TabStop = True
         LinkLabelSimpleBackup1D.Tag = "FormSimpleDemo1D_Backup"
@@ -107,9 +113,10 @@ Partial Class FormWhichTesting
         ' LinkSimpleDemo1DHorizontal
         ' 
         LinkSimpleDemo1DHorizontal.AutoSize = True
-        LinkSimpleDemo1DHorizontal.Location = New Point(33, 287)
+        LinkSimpleDemo1DHorizontal.Location = New Point(42, 402)
+        LinkSimpleDemo1DHorizontal.Margin = New Padding(4, 0, 4, 0)
         LinkSimpleDemo1DHorizontal.Name = "LinkSimpleDemo1DHorizontal"
-        LinkSimpleDemo1DHorizontal.Size = New Size(534, 15)
+        LinkSimpleDemo1DHorizontal.Size = New Size(703, 21)
         LinkSimpleDemo1DHorizontal.TabIndex = 6
         LinkSimpleDemo1DHorizontal.TabStop = True
         LinkSimpleDemo1DHorizontal.Tag = "FormSimpleDemo1DHorizontal"
@@ -118,9 +125,10 @@ Partial Class FormWhichTesting
         ' Link1Dmode2Dmanager
         ' 
         Link1Dmode2Dmanager.AutoSize = True
-        Link1Dmode2Dmanager.Location = New Point(33, 316)
+        Link1Dmode2Dmanager.Location = New Point(42, 442)
+        Link1Dmode2Dmanager.Margin = New Padding(4, 0, 4, 0)
         Link1Dmode2Dmanager.Name = "Link1Dmode2Dmanager"
-        Link1Dmode2Dmanager.Size = New Size(390, 15)
+        Link1Dmode2Dmanager.Size = New Size(515, 21)
         Link1Dmode2Dmanager.TabIndex = 7
         Link1Dmode2Dmanager.TabStop = True
         Link1Dmode2Dmanager.Tag = "Form1Dmode2Dmanager"
@@ -129,9 +137,10 @@ Partial Class FormWhichTesting
         ' LabelFormSimpleDemoOfCSharp1D
         ' 
         LabelFormSimpleDemoOfCSharp1D.AutoSize = True
-        LabelFormSimpleDemoOfCSharp1D.Location = New Point(543, 247)
+        LabelFormSimpleDemoOfCSharp1D.Location = New Point(698, 346)
+        LabelFormSimpleDemoOfCSharp1D.Margin = New Padding(4, 0, 4, 0)
         LabelFormSimpleDemoOfCSharp1D.Name = "LabelFormSimpleDemoOfCSharp1D"
-        LabelFormSimpleDemoOfCSharp1D.Size = New Size(168, 15)
+        LabelFormSimpleDemoOfCSharp1D.Size = New Size(225, 21)
         LabelFormSimpleDemoOfCSharp1D.TabIndex = 8
         LabelFormSimpleDemoOfCSharp1D.Tag = "FormSimpleDemoOfCSharp1D"
         LabelFormSimpleDemoOfCSharp1D.Text = "FormSimpleDemoOfCSharp1D"
@@ -139,9 +148,10 @@ Partial Class FormWhichTesting
         ' LabelFormSimpleDemo1DBackup
         ' 
         LabelFormSimpleDemo1DBackup.AutoSize = True
-        LabelFormSimpleDemo1DBackup.Location = New Point(551, 262)
+        LabelFormSimpleDemo1DBackup.Location = New Point(708, 367)
+        LabelFormSimpleDemo1DBackup.Margin = New Padding(4, 0, 4, 0)
         LabelFormSimpleDemo1DBackup.Name = "LabelFormSimpleDemo1DBackup"
-        LabelFormSimpleDemo1DBackup.Size = New Size(161, 15)
+        LabelFormSimpleDemo1DBackup.Size = New Size(214, 21)
         LabelFormSimpleDemo1DBackup.TabIndex = 9
         LabelFormSimpleDemo1DBackup.Tag = "FormSimpleDemo1D_Backup"
         LabelFormSimpleDemo1DBackup.Text = "FormSimpleDemo1D_Backup"
@@ -149,9 +159,10 @@ Partial Class FormWhichTesting
         ' LabelFormSimpleDemo1DHorizontal
         ' 
         LabelFormSimpleDemo1DHorizontal.AutoSize = True
-        LabelFormSimpleDemo1DHorizontal.Location = New Point(578, 287)
+        LabelFormSimpleDemo1DHorizontal.Location = New Point(743, 402)
+        LabelFormSimpleDemo1DHorizontal.Margin = New Padding(4, 0, 4, 0)
         LabelFormSimpleDemo1DHorizontal.Name = "LabelFormSimpleDemo1DHorizontal"
-        LabelFormSimpleDemo1DHorizontal.Size = New Size(172, 15)
+        LabelFormSimpleDemo1DHorizontal.Size = New Size(229, 21)
         LabelFormSimpleDemo1DHorizontal.TabIndex = 10
         LabelFormSimpleDemo1DHorizontal.Tag = "FormSimpleDemo1DHorizontal"
         LabelFormSimpleDemo1DHorizontal.Text = "FormSimpleDemo1DHorizontal"
@@ -159,9 +170,10 @@ Partial Class FormWhichTesting
         ' LabelForm1Dmode2Dmanager
         ' 
         LabelForm1Dmode2Dmanager.AutoSize = True
-        LabelForm1Dmode2Dmanager.Location = New Point(440, 316)
+        LabelForm1Dmode2Dmanager.Location = New Point(566, 442)
+        LabelForm1Dmode2Dmanager.Margin = New Padding(4, 0, 4, 0)
         LabelForm1Dmode2Dmanager.Name = "LabelForm1Dmode2Dmanager"
-        LabelForm1Dmode2Dmanager.Size = New Size(141, 15)
+        LabelForm1Dmode2Dmanager.Size = New Size(189, 21)
         LabelForm1Dmode2Dmanager.TabIndex = 11
         LabelForm1Dmode2Dmanager.Tag = "FormDemo1Dmode2Dmanager"
         LabelForm1Dmode2Dmanager.Text = "Form1Dmode2Dmanager"
@@ -170,7 +182,8 @@ Partial Class FormWhichTesting
         ' 
         LabelTestingCSharpHeader.AutoSize = True
         LabelTestingCSharpHeader.Font = New Font("Segoe UI", 16F)
-        LabelTestingCSharpHeader.Location = New Point(23, 64)
+        LabelTestingCSharpHeader.Location = New Point(30, 90)
+        LabelTestingCSharpHeader.Margin = New Padding(4, 0, 4, 0)
         LabelTestingCSharpHeader.Name = "LabelTestingCSharpHeader"
         LabelTestingCSharpHeader.Size = New Size(466, 30)
         LabelTestingCSharpHeader.TabIndex = 12
@@ -181,7 +194,8 @@ Partial Class FormWhichTesting
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI", 16F)
-        Label1.Location = New Point(152, 355)
+        Label1.Location = New Point(195, 497)
+        Label1.Margin = New Padding(4, 0, 4, 0)
         Label1.Name = "Label1"
         Label1.Size = New Size(598, 30)
         Label1.TabIndex = 13
@@ -191,9 +205,10 @@ Partial Class FormWhichTesting
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(551, 140)
+        Label2.Location = New Point(708, 196)
+        Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
-        Label2.Size = New Size(119, 15)
+        Label2.Size = New Size(160, 21)
         Label2.TabIndex = 15
         Label2.Tag = "FormDemo1DVertical"
         Label2.Text = "FormDemo1DVertical"
@@ -202,7 +217,8 @@ Partial Class FormWhichTesting
         ' 
         LinkDemo1DVertical.AutoSize = True
         LinkDemo1DVertical.Font = New Font("Segoe UI", 13F)
-        LinkDemo1DVertical.Location = New Point(23, 134)
+        LinkDemo1DVertical.Location = New Point(30, 188)
+        LinkDemo1DVertical.Margin = New Padding(4, 0, 4, 0)
         LinkDemo1DVertical.Name = "LinkDemo1DVertical"
         LinkDemo1DVertical.Size = New Size(517, 25)
         LinkDemo1DVertical.TabIndex = 14
@@ -213,9 +229,10 @@ Partial Class FormWhichTesting
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(440, 165)
+        Label3.Location = New Point(566, 231)
+        Label3.Margin = New Padding(4, 0, 4, 0)
         Label3.Name = "Label3"
-        Label3.Size = New Size(85, 15)
+        Label3.Size = New Size(115, 21)
         Label3.TabIndex = 17
         Label3.Tag = "FormSimple2D"
         Label3.Text = "FormSimple2D"
@@ -224,7 +241,8 @@ Partial Class FormWhichTesting
         ' 
         LinkLabel1.AutoSize = True
         LinkLabel1.Font = New Font("Segoe UI", 13F)
-        LinkLabel1.Location = New Point(23, 159)
+        LinkLabel1.Location = New Point(30, 223)
+        LinkLabel1.Margin = New Padding(4, 0, 4, 0)
         LinkLabel1.Name = "LinkLabel1"
         LinkLabel1.Size = New Size(384, 25)
         LinkLabel1.TabIndex = 16
@@ -234,9 +252,9 @@ Partial Class FormWhichTesting
         ' 
         ' FormWhichTesting
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(9F, 21F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 538)
+        ClientSize = New Size(1029, 753)
         Controls.Add(Label3)
         Controls.Add(LinkLabel1)
         Controls.Add(Label2)
@@ -255,6 +273,7 @@ Partial Class FormWhichTesting
         Controls.Add(LinkOpsManagerTwoLists)
         Controls.Add(LinkFormManagesOps)
         Controls.Add(LinkOperationsManager)
+        Margin = New Padding(4, 4, 4, 4)
         Name = "FormWhichTesting"
         Text = " "
         ResumeLayout(False)

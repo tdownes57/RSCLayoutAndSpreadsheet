@@ -51,19 +51,24 @@ namespace RSCLibraryDLLOperations
     }
 
 
+    /// <summary>
+    /// H is for Horizontal operations, V is for Vertical operations.  This struct is used in the Operations Manager 
+    /// to determine whether the Operation is a H(orizontal) or V(ertical) operation, and therefore which 
+    /// list of items is being operated on.  Added 01/21/2026 thomas c. downes
+    /// </summary>
     public struct OperationH_or_V // Added 01/21/2026
     {
         // Added 01/21/2026
         public bool IsHorizontal; // = false;
         public bool IsVertical;  // = true;
 
-        public OperationH_or_V(bool parIsH, bool parIsV)
+        public OperationH_or_V(bool parIsHorizontal, bool parIsVertical) // (bool parIsH, bool parIsV)
         {
             //
             // Added 01/21/2026
             //
-            IsHorizontal = parIsH;
-            IsVertical = parIsV;
+            IsHorizontal = parIsHorizontal;  // parIsH;
+            IsVertical = parIsVertical;  // parIsV;
         }
 
     }

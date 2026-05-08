@@ -90,4 +90,8 @@ Public Class FormWhichTesting
         objFormToShow.ShowDialog(Me)
 
     End Sub
+
+    Private Sub LinkLabel1_LinkClicked_2(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+
+    End Sub
 End Class

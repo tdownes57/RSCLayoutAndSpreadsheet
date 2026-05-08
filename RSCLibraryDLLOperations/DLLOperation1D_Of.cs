@@ -410,11 +410,11 @@ namespace RSCLibraryDLLOperations
               bool par_isRotateRight,
               DLLAnchorItem_Deprecated<T_DLL>? par_anchorItem,
               DLLAnchorCouplet<T_DLL>? par_anchorPair,
+              OperationH_or_V par_opIsHV,
                   DLLOperation1D_Of<T_DLL>? par_operationPrior = null,
                   DLLOperation1D_Of<T_DLL>? par_operationNext = null,
                   DLLAnchorItem_Deprecated<T_DLL>? par_inverseAnchorItem = null,
-                  DLLAnchorCouplet<T_DLL>? par_inverseAnchorPair = null, 
-                  OperationH_or_V par_opIsHV = default)
+                  DLLAnchorCouplet<T_DLL>? par_inverseAnchorPair = null)
         {
             //
             // Added 10/12/2024 thomas downes
@@ -897,12 +897,16 @@ namespace RSCLibraryDLLOperations
             DLLAnchorItem_Deprecated<T2Parallel>? anchorItem_parallel = _anchorItem?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
             DLLAnchorCouplet<T2Parallel>? anchorPair_parallel = _anchorCouplet?.GetConvertToGeneric_OfT<T2Parallel>(par_itemFirst, false, PARALLEL);
 
+            // Added 4/30/2026 td
+            OperationH_or_V opIsHoriOrVert = new OperationH_or_V(_isHoriz, _isVerti); // Added 4/30/2026 td
+
             //Apr2025  var operationParallel = new DLLOperation1D<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
             //    _isInsert, _isDelete, _isMove, _moveType, anchorItem_parallel, anchorPair_parallel);
             var operationParallel = new DLLOperation1D_Of<T2Parallel>(range_parallel, _isForStartOfList, _isForEndOfList,
                 _isInsert, _isDelete, _isMove, _moveType, 
                 _isRotateLeft, _isRotateRight,
-                anchorItem_parallel, anchorPair_parallel);
+                anchorItem_parallel, anchorPair_parallel, 
+                opIsHoriOrVert);
 
             operationParallel.OperateOnList(par_listParallel, true, pbChangeOfEndpoint_Expected, out pbChangeOfEndpoint_Occurred);
 

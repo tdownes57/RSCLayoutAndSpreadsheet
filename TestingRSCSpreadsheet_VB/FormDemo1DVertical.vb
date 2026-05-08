@@ -697,7 +697,7 @@ Public Class FormDemo1DVertical
                                       True, False, False, type_of_move, False, False,
                                       anchorItemForListOfOneItemA,
                                       anchorPairForListOfOneItemA,
-                                      , , , _operationIsVertical)
+                                      _operationIsVertical)
             ''12/30/2024        False, False, False, False,
             ''12/30/2024        Nothing, Nothing, Nothing)
 
@@ -1850,7 +1850,7 @@ Public Class FormDemo1DVertical
             operationToInsert = New DLLOperation1D_Of(Of DLLUserControlRichbox)(rangeSingleItem, False, False,
                                     INSERT_OPERATION, False, False, not_a_moveType, False, False,
                                   objAnchorItem, objAnchorPair,
-                                   , , , , _operationIsVertical)
+                                   _operationIsVertical)
             ''12/30/2024                          False, False, False, False,
             ''12/30/2024                           Nothing, Nothing, Nothing)
 
@@ -2198,7 +2198,7 @@ Public Class FormDemo1DVertical
                                   OPERATION_NotMove, not_a_moveType,
                                   OPERATION_NotRotateL,
                                   OPERATION_NotRotateR,
-                                  Nothing, Nothing, , , , , _operationIsVertical)
+                                  Nothing, Nothing, _operationIsVertical)
             ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
             ''12/20/2024                  Nothing, Nothing, Nothing)
 

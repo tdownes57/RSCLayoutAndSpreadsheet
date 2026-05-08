@@ -23,6 +23,9 @@ Public Class FormSimpleDemoOfCSharp1D
     Private APPLICATION_DOEVENTS As Boolean = False ''---True ''Added 12/18/2024 td
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
 
+    Private OPERATION_HORIZONTAL As New OperationH_or_V(True, False) ''Added 05/07/2026 
+    Private OP_IS_HORIZONTAL As New OperationH_or_V(True, False) ''Added 05/07/2026 
+
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -94,7 +97,7 @@ Public Class FormSimpleDemoOfCSharp1D
                         OP_INSERT, False, False, type_of_move,
                         OP_ROTATE, OP_ROTATE,
                         anchorItemForListOfOneItem,
-                        anchorPairForListOfOneItem)
+                        anchorPairForListOfOneItem, OP_IS_HORIZONTAL)
             ''12/30/2024                     False, False, False, False,
             ''12/30/2024                     Nothing, Nothing, Nothing)
 
@@ -909,7 +912,7 @@ Public Class FormSimpleDemoOfCSharp1D
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLItem)(newItem, True)
             operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(rangeSingleItem, False, False,
                                         INSERT_OPERATION, False, False, not_a_moveType, False, False,
-                                      objAnchorItem, objAnchorPair)
+                                      objAnchorItem, objAnchorPair, OP_IS_HORIZONTAL)
             ''12/30/2024          False, False, False, False,
             ''12/30/2024           Nothing, Nothing, Nothing)
 
@@ -1187,7 +1190,7 @@ Public Class FormSimpleDemoOfCSharp1D
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
                                       OPERATION_NotMove, not_a_moveType,
-                                      False, False, Nothing, Nothing)
+                                      False, False, Nothing, Nothing, OP_IS_HORIZONTAL)
             ''12/20/2024                  SORT_123, SORT_321, SORT_UNDO, SORT_UNDO,
             ''12/20/2024                  Nothing, Nothing, Nothing)
 

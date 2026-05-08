@@ -893,7 +893,8 @@ namespace RSCLibraryDLLOperations
                     result_isRotateLeft, 
                     result_isRotateRight,
                     result_anchorItem,
-                    result_anchorCouplet);
+                    result_anchorCouplet,
+                    opIsHorV);
             }
             else
             {
@@ -984,6 +985,9 @@ namespace RSCLibraryDLLOperations
 
             DLLOperation1D_Of<T_BaseOrParallel> result; // = null;
 
+            // Added 01/22/2026
+            OperationH_or_V opIsHorV = new OperationH_or_V(_isHoriz, _isVerti); //Moved 4/30/2026 td
+
             // Modified 12/11/2024 
             if (_isInsert || _isDelete || _isMove)
             {
@@ -1028,6 +1032,7 @@ namespace RSCLibraryDLLOperations
                            _isMove, _moveType, 
                            _isRotateLeft, _isRotateRight,
                            objAnchorItem, objAnchorCouplet,
+                           opIsHorV,
                            operationBasePrior, operationBaseNext);
                            // mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_Base>());
 
@@ -1043,7 +1048,7 @@ namespace RSCLibraryDLLOperations
                 //         _arrayControls_SortOrderIfUndo, par_firstItem);
 
                 // Added 01/22/2026
-                OperationH_or_V opIsHorV = new OperationH_or_V(false, true);
+                // OperationH_or_V opIsHorV = new OperationH_or_V(false, true);
 
                 result =
                     new DLLOperation1D_Of<T_BaseOrParallel>(opIsHorV,

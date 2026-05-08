@@ -28,6 +28,10 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
 
+    ''Added 5/07/2026
+    Private OP_IS_HORIZONTAL As OperationH_or_V = New OperationH_or_V(True, False)
+    Private OP_IS_VERTICAL As OperationH_or_V = New OperationH_or_V(False, True)
+
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -66,6 +70,11 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
             mod_range.DLL_InsertItemToTheEnd(newItem)
         Next indexNewItem
 
+        ''Added 5/07/2026
+        Const IS_VERTICAL As Boolean = True
+        ''Added 5/07/2026
+        Dim operationIsHoriOrVert As OperationH_or_V = New OperationH_or_V(False, IS_VERTICAL)
+
         ''
         '' Create the operation, or simply insert the range
         ''   without an operation.
@@ -92,7 +101,8 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                                                       type_moveIsNull,
                                                                       False, False,
                                                                       anchorItemForListOfOneItem,
-                                                                      anchorPairForListOfOneItem)
+                                                                      anchorPairForListOfOneItem,
+                                                                      operationIsHoriOrVert)
             '' 12/30/2024                                             False, False, False, False)
 
             ''---operationInitial30.OperateOnList(mod_list)
@@ -687,7 +697,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
             operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(rangeSingleItem, False, False,
                                       INSERT_OPERATION, False, False, type_MoveFalse,
                                       ROTATE_L_FALSE, ROTATE_R_FALSE,
-                                      objAnchorItem, objAnchorPair)
+                                      objAnchorItem, objAnchorPair, OP_IS_VERTICAL)
             ''12/30/2024 False, False, False, False)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
@@ -951,7 +961,7 @@ Public Class Form1Dmode2Dmanager ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       OPERATION_Delete,
                                       OPERATION_NotMove, type_notMove,
                                       OPERATION_NotRotateL, OPERATION_NotRotateR,
-                                      Nothing, Nothing)
+                                      Nothing, Nothing, OP_IS_VERTICAL)
             ''12/30/2024                  SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
 
             ''//mod_manager1D.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)

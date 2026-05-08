@@ -25,6 +25,9 @@ Public Class FormSimpleDemo1DHorizontal
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 5 ''---Added 12/9/2024--- 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
 
+    ''Added 05/07/2026
+    Private OPERATION_HORIZONTAL As New OperationH_or_V(True, False)
+    Private OP_IS_HORIZONTAL As New OperationH_or_V(True, False)
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ''
@@ -90,7 +93,8 @@ Public Class FormSimpleDemo1DHorizontal
                    LOAD_INSERT, False, False, type_notAMove,
                    NOT_ROTA_L, NOT_ROTA_R,
                                           anchorItemForListOfOneItem,
-                                          anchorPairForListOfOneItem)
+                                          anchorPairForListOfOneItem,
+                                          New OperationH_or_V(True, False))
             ''12/30/2024                    False, False, False, False)
 
             ''12/16/2024 operationInitial30.OperateOnList(mod_list)
@@ -738,7 +742,9 @@ Public Class FormSimpleDemo1DHorizontal
             rangeSingleItem = New DLLRange(Of TwoCharacterDLLHorizontal)(newItem, True)
             operationToInsert = New DLLOperation1D_Of(Of TwoCharacterDLLHorizontal)(rangeSingleItem, False, False,
                          INSERT_OPERATION, False, False, type_notMove,
-                         False, False, objAnchorItem, objAnchorPair)
+                         False, False, objAnchorItem, objAnchorPair,
+                         New OperationH_or_V(True, False))
+
             ''12/30/2024                  False, False, False, False)
 
             ''12/17/2024  mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
@@ -1004,7 +1010,8 @@ Public Class FormSimpleDemo1DHorizontal
                                       OPERATION_NotInsert,
                                       OPERATION_Delete,
                                       OPERATION_NotMove, type_notMove,
-                                      False, False, Nothing, Nothing)
+                                      False, False, Nothing, Nothing,
+                                      OP_IS_HORIZONTAL)
             ''12/30/2024              SORT_123, SORT_321, UNDO_SORT_ASCENDING, UNDO_SORT_DESCENDING)
 
             ''12/17/2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)

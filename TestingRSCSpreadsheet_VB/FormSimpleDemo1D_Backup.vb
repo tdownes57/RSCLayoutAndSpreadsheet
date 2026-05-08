@@ -21,6 +21,8 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
 
     Private Const INITIAL_ITEM_COUNT_30 As Integer = 30
     Private ReadOnly ARRAY_OF_DELIMITERS = New Char() {","c, " "c}
+    Private OPERATION_HORIZONTAL As New OperationH_or_V(True, False) ''Added 05/07/2026 
+    Private OP_IS_HORIZONTAL As New OperationH_or_V(True, False) ''Added 05/07/2026 
 
 
     Private Sub FormSimpleDemoOfCSharp1D_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -84,7 +86,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
             operationInitial30 = New DLLOperation1D_Of(Of TwoCharacterDLLItem)(mod_range, True, False,
                                           LOAD_INSERT, False, False, type_notAMove, False, False,
                                           anchorItemForListOfOneItem,
-                                          anchorPairForListOfOneItem)
+                                          anchorPairForListOfOneItem, OP_IS_HORIZONTAL)
             ''12/30/2024                    False, False, False, False)
 
             ''12/16/2024 operationInitial30.OperateOnList(mod_list)
@@ -691,7 +693,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       INSERT_OPERATION, False, False,
                                       type_notMove, False, False,
                                       objAnchorItem,
-                                      objAnchorPair)
+                                      objAnchorPair, OP_IS_HORIZONTAL)
             ''12/30/2024  False, False, False, False)
 
             ''12/16/2024 mod_manager.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint, True)
@@ -960,7 +962,7 @@ Public Class FormSimpleDemo1D_Backup ''12/04/2024  FormSimpleDemoOfCSharp1D
                                       OPERATION_NotInsert, OPERATION_Delete,
                                       OPERATION_NotMove, type_notMove,
                                       OPERATION_RotateL, OPERATION_RotateR,
-                                      Nothing, Nothing)
+                                      Nothing, Nothing, OP_IS_HORIZONTAL)
             ''12/30/2024   SORT_123, SORT_321, SORT_UNDO_ASCEND, SORT_UNDO_DESC)
 
             ''Dec156 2024 mod_manager.ProcessOperation_AnyType(operationToDelete, bAnyEndpointAffected, RECORD_DEL_OPERATIONS)
