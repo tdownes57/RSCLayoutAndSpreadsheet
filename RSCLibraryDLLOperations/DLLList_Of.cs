@@ -538,6 +538,16 @@ namespace RSCLibraryDLLOperations
 
         }
 
+        public int Count()
+        {
+            //
+            // Added 5/21/2026 thomas downes
+            //
+            return DLL_CountAllItems();
+
+
+        }
+
 
         public IDoublyLinkedItem DLL_GetFirstItem()
         {

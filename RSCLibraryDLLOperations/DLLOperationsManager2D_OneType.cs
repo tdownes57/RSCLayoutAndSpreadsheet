@@ -215,6 +215,16 @@ namespace RSCLibraryDLLOperations
             this.mod_firstItemVer = par_firstItemVer;
             this.mod_listVerti = par_listVerti;
 
+            // Added 5/21/2026 Thomas Downes
+            //   
+            const bool CHECK_MORE_VERTI_ITEMS_THAN_HORI = true;
+            if (CHECK_MORE_VERTI_ITEMS_THAN_HORI)
+            {
+                bool bMoreVertiItemsThanHori = par_listVerti.DLL_CountAllItems() >
+                    par_listHoriz.DLL_CountAllItems();
+                Debug.Assert(bMoreVertiItemsThanHori);
+            }
+
             //---this.mod_firstPriorOperation1D = par_firstPriorOperationV1;
             //---this.mod_lastPriorOperation1D = par_firstPriorOperationV1;
             //---mod_intCountOperations++; // Added 10/26/2024 td 
@@ -624,8 +634,10 @@ namespace RSCLibraryDLLOperations
 
             //
             // Check for proper termination.
+            //    (Debug_Assert in the method "DLL_CheckTermination_Prior" will fail if termination is not proper.)
             //
             mod_firstPriorOperation1D?.DLL_CheckTermination_Prior();
+            mod_firstPriorOperation1D?.Debug_Assert();
 
         }
 
@@ -1552,6 +1564,30 @@ namespace RSCLibraryDLLOperations
             //---Apr2025---return mod_opUndoRedoMarker.ToString();
 
             string output_string = mod_opUndoRedoMarker.ToString();
+            return output_string;
+
+        }
+
+
+        public string ToString_OrientationsHorVer()
+        {
+            //
+            // Added 05/15/2026 
+            //
+            DLLOperation1D_Of<T_DLL>? tempOp;
+            tempOp = mod_firstPriorOperation1D;
+            if (tempOp == null) return "(No recorded operations.)";
+
+            string output_string = "";
+
+            for (int i = 0; i < 100 && tempOp != null; i++)
+            {
+                //output_string += tempOp.ToString_HVVH() + Environment.NewLine;
+                output_string += tempOp.ToString_OrientationHorVer() + ", ";
+                tempOp = tempOp.DLL_GetOpNext_OfT();
+
+            }
+
             return output_string;
 
         }

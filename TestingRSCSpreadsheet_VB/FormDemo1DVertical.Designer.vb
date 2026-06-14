@@ -92,8 +92,10 @@ Partial Class FormDemo1DVertical
         DLLColumnHeaderB3 = New DLLUserControlRichbox()
         LinkReorderCols = New LinkLabel()
         LinkMove5pixels = New LinkLabel()
-        Me.LinkLabelUndoCols = New LinkLabel()
+        LinkLabelUndoCols = New LinkLabel()
         LinkLabelRedoCols = New LinkLabel()
+        lblListOfOperationsHorV = New Label()
+        LabelListOfHVs = New Label()
         GroupMoveByAnchor.SuspendLayout()
         CType(numMoveAnchorBenchmark, ComponentModel.ISupportInitialize).BeginInit()
         GroupMoveByShifting.SuspendLayout()
@@ -946,14 +948,14 @@ Partial Class FormDemo1DVertical
         ' 
         ' LinkLabelUndoCols
         ' 
-        Me.LinkLabelUndoCols.AutoSize = True
-        Me.LinkLabelUndoCols.Location = New Point(447, 4)
-        Me.LinkLabelUndoCols.Margin = New Padding(4, 0, 4, 0)
-        Me.LinkLabelUndoCols.Name = "LinkLabelUndoCols"
-        Me.LinkLabelUndoCols.Size = New Size(174, 21)
-        Me.LinkLabelUndoCols.TabIndex = 166
-        Me.LinkLabelUndoCols.TabStop = True
-        Me.LinkLabelUndoCols.Text = "Undo Last Reorder Cols"
+        LinkLabelUndoCols.AutoSize = True
+        LinkLabelUndoCols.Location = New Point(447, 4)
+        LinkLabelUndoCols.Margin = New Padding(4, 0, 4, 0)
+        LinkLabelUndoCols.Name = "LinkLabelUndoCols"
+        LinkLabelUndoCols.Size = New Size(174, 21)
+        LinkLabelUndoCols.TabIndex = 166
+        LinkLabelUndoCols.TabStop = True
+        LinkLabelUndoCols.Text = "Undo Last Reorder Cols"
         ' 
         ' LinkLabelRedoCols
         ' 
@@ -966,13 +968,38 @@ Partial Class FormDemo1DVertical
         LinkLabelRedoCols.TabStop = True
         LinkLabelRedoCols.Text = "Redo Last Reorder Cols"
         ' 
+        ' lblListOfOperationsHorV
+        ' 
+        lblListOfOperationsHorV.AutoSize = True
+        lblListOfOperationsHorV.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        lblListOfOperationsHorV.Location = New Point(769, 81)
+        lblListOfOperationsHorV.Margin = New Padding(4, 0, 4, 0)
+        lblListOfOperationsHorV.Name = "lblListOfOperationsHorV"
+        lblListOfOperationsHorV.Size = New Size(277, 21)
+        lblListOfOperationsHorV.TabIndex = 168
+        lblListOfOperationsHorV.Text = "List of operations (e.g. Hor,Ver, Ver)"
+        ' 
+        ' LabelListOfHVs
+        ' 
+        LabelListOfHVs.AutoSize = True
+        LabelListOfHVs.BorderStyle = BorderStyle.FixedSingle
+        LabelListOfHVs.Font = New Font("Segoe UI", 12F, FontStyle.Bold)
+        LabelListOfHVs.Location = New Point(1054, 81)
+        LabelListOfHVs.Margin = New Padding(4, 0, 4, 0)
+        LabelListOfHVs.Name = "LabelListOfHVs"
+        LabelListOfHVs.Size = New Size(83, 23)
+        LabelListOfHVs.TabIndex = 169
+        LabelListOfHVs.Text = "e.g. H,V,V"
+        ' 
         ' FormDemo1DVertical
         ' 
         AutoScaleDimensions = New SizeF(9F, 21F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1578, 706)
+        Controls.Add(LabelListOfHVs)
+        Controls.Add(lblListOfOperationsHorV)
         Controls.Add(LinkLabelRedoCols)
-        Controls.Add(Me.LinkLabelUndoCols)
+        Controls.Add(LinkLabelUndoCols)
         Controls.Add(LinkMove5pixels)
         Controls.Add(LinkReorderCols)
         Controls.Add(DLLColumnHeaderB3)
@@ -1116,4 +1143,6 @@ Partial Class FormDemo1DVertical
     Friend WithEvents LinkMove5pixels As LinkLabel
     Friend WithEvents LinkLabelUndoCols As LinkLabel
     Friend WithEvents LinkLabelRedoCols As LinkLabel
+    Friend WithEvents lblListOfOperationsHorV As Label
+    Friend WithEvents LabelListOfHVs As Label
 End Class

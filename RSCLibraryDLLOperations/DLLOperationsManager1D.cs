@@ -743,10 +743,27 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        /// <summary>
+        /// Check whether a semi-redundant Boolean member of an operation is properly set, so 
+        /// that it accurately tracks whether the operation is linked to a "Prior" operation or not.  
+        /// This is needed for proper "termination" (initialization) of the list of operations.  
+        /// We want to make sure that there are no "dangling" operations.  Somehow I decided that 
+        /// an operation should have a Boolean member which (semi-redundantly) indicates whether 
+        /// its "Prior Op" member is a Null value or not.  This is a "design smell" according 
+        /// to ChatGPT.  ---Added 11/2025 thomas downes.
+        /// </summary>
         public void CheckTermination()
         {
             //
-            // Check for proper termination.---11/2025
+            // Check for proper termination for "Prior" or "Undo" commands, so that a Boolean
+            //   which tracks whether an operation is linked to a "Prior" operation is
+            //   accurate.---11/2025
+            //
+            //   (Termination of what?  The initialization (beginning) of the list of operations.
+            //   We want to make sure that there are no "dangling" operations.
+            //   Somehow I decided that an operation should have a Boolean member
+            //   which (semi-redundantly) indicates whether its "Prior Op" member is
+            //   a Null value or not.)
             //
             mod_firstPriorOperation1D.DLL_CheckTermination_Prior();
 

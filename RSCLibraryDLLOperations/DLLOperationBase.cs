@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -154,18 +155,52 @@ namespace RSCLibraryDLLOperations
         }
 
 
+        /// <summary>
+        /// This is a Debug.Assert() or Debugger.Break() operation.
+        /// </summary>
         public void DLL_CheckTermination_Prior()
         {
             //
             // Added 11/01/2025 
             //
-            if (mod_opPrior_ForUndo == null) //Added 4/18/2025 td
-            {
-                // Added 4/18/2025 td
-                bool bConfirmedNull = mod_opPriorIsNull;
-                if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
-                //return false;
-            }
+            //  Compare to similar: public void Debug_Assert()
+            //
+            //if (mod_opPrior_ForUndo == null) //Added 4/18/2025 td
+            //{
+            //    // Added 4/18/2025 td
+            //    bool bConfirmedNull = mod_opPriorIsNull;
+            //    if (!bConfirmedNull) System.Diagnostics.Debugger.Break();
+            //    //return false;
+            //}
+            Debug.Assert(mod_opPriorIsNull == (mod_opPrior_ForUndo == null));
+
+        }
+
+
+        public void Debug_Assert()
+        {
+            //
+            // Added 05/17/2026 td
+            //
+            //  Compare to similar: public void DLL_CheckTermination_Prior()
+            //
+            //  This is a Debug.Assert() or Debugger.Break() operation. 
+            //  Confirm that the the class is working properly, by confirming
+            //  that the Boolean variables
+            //  that indicate whether the "prior" and "next" objects are null,
+            //  are consistent with the actual null-ness of those objects.
+            //
+            //  The variable mod_opPriorIsNull might have been called "ItemIsStartOfList"
+            //  or "ItemHasNoPrior", but I wanted to keep the name the prefix similar to
+            //  that of the object member.
+            //
+            //  The variable mod_opPriorIsNull might have been called "ItemIsEndOfList"
+            //  or "ItemHasNoNext", but I wanted to keep the name the prefix similar to
+            //  that of the object member.
+            //
+            Debug.Assert(mod_opPriorIsNull == (mod_opPrior_ForUndo == null));
+            Debug.Assert(mod_opNextIsNull == (mod_opNext_ForRedo == null));
+
         }
 
 

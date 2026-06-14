@@ -182,7 +182,7 @@ namespace RSCLibraryDLLOperations
             // Added 6/05/2025 td
             bool bEmpty = (null == par_list_administrative._itemStart);
             par_list_administrative._isEmpty_OrTreatAsEmpty = bEmpty;
-            
+
             //
             // End of Insertion operation.  
             //
@@ -658,7 +658,7 @@ namespace RSCLibraryDLLOperations
                 // Added 12/27/2025 td  
                 //
                 if (par_typeOfMove.IsRotationRight)
-                par_list_forFinalAdmin.DLL_RotateRight();
+                    par_list_forFinalAdmin.DLL_RotateRight();
 
                 else if (par_typeOfMove.IsRotationLeft)
                     par_list_forFinalAdmin.DLL_RotateLeft();
@@ -890,7 +890,7 @@ namespace RSCLibraryDLLOperations
                     result_isDelete,
                     result_isMove,
                     result_MoveType,
-                    result_isRotateLeft, 
+                    result_isRotateLeft,
                     result_isRotateRight,
                     result_anchorItem,
                     result_anchorCouplet,
@@ -920,7 +920,7 @@ namespace RSCLibraryDLLOperations
                     result_isUndoOfSortDescending,
                     result_itemStart_SortOrderThisOp,
                     result_itemEnding_SortOrderThisOp,
-                    result_arrayIndices_SortOrderRedoThisOp, 
+                    result_arrayIndices_SortOrderRedoThisOp,
                     result_arrayIndices_SortOrderIfUndo);
 
             }
@@ -935,7 +935,7 @@ namespace RSCLibraryDLLOperations
                 //
                 var test_idempotent = result_UNDO.GetInverseForUndo_Of(false);
                 bool bEquivalent = this.TestForEquivalence(test_idempotent);
-                if (! bEquivalent) System.Diagnostics.Debugger.Break();
+                if (!bEquivalent) System.Diagnostics.Debugger.Break();
 
             }
 
@@ -949,7 +949,7 @@ namespace RSCLibraryDLLOperations
 
 
         public DLLOperation1D_Of<T_BaseOrParallel> GetConvertToGenericOfT<T_BaseOrParallel>
-                   (T_BaseOrParallel par_firstItem, 
+                   (T_BaseOrParallel par_firstItem,
                         bool pbTargetListIsOfBaseClass,
                         bool pbTargetListIsParallel)
                    where T_BaseOrParallel : class, IDoublyLinkedItem<T_BaseOrParallel>
@@ -967,11 +967,11 @@ namespace RSCLibraryDLLOperations
                 if (!bAsExpected) System.Diagnostics.Debugger.Break();
             }
 
-            DLLRange<T_BaseOrParallel>? objRange = _range?.GetConvertToGenericOfT<T_BaseOrParallel>(par_firstItem, 
+            DLLRange<T_BaseOrParallel>? objRange = _range?.GetConvertToGenericOfT<T_BaseOrParallel>(par_firstItem,
                 pbTargetListIsOfBaseClass,
                 pbTargetListIsParallel);
 
-            DLLAnchorCouplet<T_BaseOrParallel>? objAnchorCouplet = _anchorCouplet?.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem, 
+            DLLAnchorCouplet<T_BaseOrParallel>? objAnchorCouplet = _anchorCouplet?.GetConvertToGeneric_OfT<T_BaseOrParallel>(par_firstItem,
                     pbTargetListIsOfBaseClass, pbTargetListIsParallel);
 
             // Added 12/11/2024 td 
@@ -1029,12 +1029,12 @@ namespace RSCLibraryDLLOperations
                 // Modified 1/07/2025 td
                 result =
                     new DLLOperation1D_Of<T_BaseOrParallel>(objRange, _isForStartOfList, _isForEndOfList, _isInsert, _isDelete,
-                           _isMove, _moveType, 
+                           _isMove, _moveType,
                            _isRotateLeft, _isRotateRight,
                            objAnchorItem, objAnchorCouplet,
                            opIsHorV,
                            operationBasePrior, operationBaseNext);
-                           // mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_Base>());
+                // mod_opNext_ForRedo_OfT?.GetConvertToGenericOfT<T_Base>());
 
             }
             else
@@ -1099,7 +1099,7 @@ namespace RSCLibraryDLLOperations
             //
             // Added 12/24/2024 td  
             //
-            bool b_01 = _isDelete == par_op._isDelete;                  
+            bool b_01 = _isDelete == par_op._isDelete;
             bool b_02 = _isForAnchor == par_op._isForAnchor;
             bool b_03 = _isForEndOfList == par_op._isForEndOfList;
             bool b_04 = _isForStartOfList == par_op._isForStartOfList;
@@ -1218,7 +1218,7 @@ namespace RSCLibraryDLLOperations
         /// </summary>
         /// <returns>An index-only description of the operation.</returns>
         public DLLOperationIndexStructure GetOperationIndexStructure(bool par_overrideTest = false,
-                                bool par_redoOperation = false, 
+                                bool par_redoOperation = false,
                                 bool par_sortOnlyByArray_NotByValue = true)
         {
             //
@@ -1271,9 +1271,9 @@ namespace RSCLibraryDLLOperations
             result_struct.Is2D_Horizontal = _isHoriz;
             result_struct.Is2D_Vertical = _isVerti;
 
-            result_struct.IsInsert = _isInsert; 
-            result_struct.IsDelete = _isDelete; 
-            result_struct.IsMove = _isMove; 
+            result_struct.IsInsert = _isInsert;
+            result_struct.IsDelete = _isDelete;
+            result_struct.IsMove = _isMove;
             result_struct.IsUndoOfSort = _isSort_UndoOfSortEither;
 
             // Added 4/29/2025 td
@@ -1281,7 +1281,7 @@ namespace RSCLibraryDLLOperations
             //   Copy sorting arrays (if applicable, i.e. they might be Null of course)
             //
             result_struct.ArrayOfIndicesToSort_Redo = _arrayIndices_SortOrderRedoThisOp;
-            result_struct.ArrayOfIndicesToSort_Undo = _arrayIndices_SortOrderIfUndo ;
+            result_struct.ArrayOfIndicesToSort_Undo = _arrayIndices_SortOrderIfUndo;
 
             // Added 4/29/2025 td
             //
@@ -1305,11 +1305,11 @@ namespace RSCLibraryDLLOperations
                 result_struct.SortingByValues_Descending = false && _isSortByValues_Descending;
 
                 //Added 4/29/2025 td
-                if (_isSort_ByItemValues 
+                if (_isSort_ByItemValues
                     || _isSort_ByArrayIndexMapping)
                 {
                     // We will ONLY sort by array index mapping.
-                    result_struct.Sorting_ByArrayIndexMapping = true; 
+                    result_struct.Sorting_ByArrayIndexMapping = true;
                 }
 
             }
@@ -1326,7 +1326,7 @@ namespace RSCLibraryDLLOperations
             }
 
             result_struct.TypeOfMove = _moveType;
-            
+
             //
             // Be careful of Null values!!
             //
@@ -1368,7 +1368,7 @@ namespace RSCLibraryDLLOperations
             //
             if (_anchorCouplet != null)
             {
-                result_struct.AnchorIsSpecified = true; 
+                result_struct.AnchorIsSpecified = true;
                 //result_struct.AnchorIndexLeft_b1 = _anchorCouplet.GetItemLeftOrFirst().DLL_GetItemIndex_b1();
                 //result_struct.AnchorIndexRight_b1 = _anchorCouplet.GetItemRightOrSecond().DLL_GetItemIndex_b1();
 
@@ -1422,7 +1422,7 @@ namespace RSCLibraryDLLOperations
                 if (inverseAnchorCouplet_Left == null)
                 {
                     // Added 4/15/2025 td
-                    result_struct.InverseAnchorLeft_isNull = true; 
+                    result_struct.InverseAnchorLeft_isNull = true;
                 }
 
                 else // if (inverseAnchorCouplet_Left != null)
@@ -1452,11 +1452,11 @@ namespace RSCLibraryDLLOperations
             }
 
 
-            return result_struct; 
+            return result_struct;
 
         }
 
-        
+
 
         public void SetToSortingByIndexMapping()
         {
@@ -1468,18 +1468,41 @@ namespace RSCLibraryDLLOperations
             //    is relatively unreliable. 
             //
             //Added 5/06/2025
-            if (_isSort_ByItemValues && ! _isSort_ByArrayIndexMapping)
+            if (_isSort_ByItemValues && !_isSort_ByArrayIndexMapping)
             {
                 if (_arrayIndices_SortOrderRedoThisOp == null)
                     System.Diagnostics.Debugger.Break();
 
                 _isSort_ByItemValues = false;
-                _isSort_ByArrayIndexMapping = true; 
-            
+                _isSort_ByArrayIndexMapping = true;
+
             }
 
         }
 
+
+        public string ToString_OrientationHV()
+        {
+            //
+            //Added 05/15/2026 td
+            //
+            if (_isHoriz) return "H";
+            else if (_isVerti) return "V";
+            else return "?";
+
+        }
+
+
+        public string ToString_OrientationHorVer()
+        {
+            //
+            //Added 05/15/2026 td
+            //
+            if (_isHoriz) return "Hor";
+            else if (_isVerti) return "Ver";
+            else return "?";
+
+        }
 
     }
 }

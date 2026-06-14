@@ -81,8 +81,8 @@ Public Class FormDemo1DVertical
     Private APPLICATION_DOEVENTS As Boolean = False ''---True ''Added 12/18/2024 td
     Private REFRESH_FIRST_ITEM As Boolean = False ''---True ''Added 12/18/2024 td
     Private SORT_PRIMARY_LIST_AFTER_PARALLELS As Boolean = True ''Added 5/18/2025 td
-    Private _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS As Boolean = False ''Added 2/10/2026 thomas downes
-    Private _USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS As Boolean = False ''Added 2/10/2026 thomas downes
+    Private _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS As Boolean = True ''Added 2/10/2026 thomas downes
+    Private _USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS As Boolean = True ''Added 2/10/2026 thomas downes
 
     ''Added 2/09/2026
     Private _operationIsVertical = New OperationH_or_V(False, True)
@@ -486,9 +486,12 @@ Public Class FormDemo1DVertical
                 DLLUserControlRichbox)(DLLColumnHeaderB1, mod_listColumnHeaders)
 
         ''Added 01/25/2025 thomas downes
+        ''---mod_managerIntegrated = New DLLOperationsManager2D_OneType(Of DLLUserControlRichbox) _
+        ''---      (mod_firstItemA, mod_listA,
+        ''----mod_firstColumnHeader, mod_listColumnHeaders)
         mod_managerIntegrated = New DLLOperationsManager2D_OneType(Of DLLUserControlRichbox) _
-              (mod_firstItemA, mod_listA,
-               mod_firstColumnHeader, mod_listColumnHeaders)
+              (mod_firstColumnHeader, mod_listColumnHeaders,
+               mod_firstItemA, mod_listA)
 
         ''Added 4/08/2025 thomas d.
         mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
@@ -1011,7 +1014,7 @@ Public Class FormDemo1DVertical
                     End If ''ENd of ""If (each_twoChar.Selected) Then""
 
                 ElseIf (each_twoChar.HighlightInCyan Or
-                each_twoChar.HighlightInGreen) Then
+                         each_twoChar.HighlightInGreen) Then
                     ''
                     ''The item has been highlighted.
                     ''
@@ -1053,6 +1056,9 @@ Public Class FormDemo1DVertical
                 ''If (int CountLoops > 2 * 30) Then Debugger.Break()
                 If (intCountLoops > 5 * INITIAL_ITEM_COUNT_30) Then Debugger.Break()
 
+                ''Added 6/14/2028
+                stringbuilderLinkedItems.AppendLine()
+
             Loop ''End of ""Do Until bDone""
             ''Next each_twoChar
 
@@ -1093,6 +1099,26 @@ Public Class FormDemo1DVertical
     ''    RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2, par_operation)
     ''
     ''End Sub
+
+    ''' <summary>
+    ''' This will display the list of operations in the "Operations Performed" section of the UI.
+    ''' For example, "Ver,Ver,Hor,Ver,Hor,Hor" etc.
+    ''' </summary>
+    Private Sub RefreshTheUI_DisplayHVVH()
+        ''
+        ''Added 05/15/2026 thomas downes
+        ''
+        Dim strListOfOperationsHVs As String
+
+        ''For Each operation As DLLOperation1D_Of(Of DLLUserControlRichbox) In mod_managerIntegrated
+        ''    listOfOperations += operation.ToString() + Environment.NewLine
+        ''Next operation
+
+        strListOfOperationsHVs = mod_managerIntegrated.ToString_OrientationsHorVer()
+
+        LabelListOfHVs.Text = strListOfOperationsHVs
+
+    End Sub ''Private Sub RefreshTheUI_DisplayHVVH()
 
 
     Private Sub RefreshTheUI_DisplayList_B1(par_list As DLLList(Of DLLUserControlRichbox),
@@ -1429,6 +1455,8 @@ Public Class FormDemo1DVertical
         ''Added 11/29/2024 
         buttonUndoVertical.Enabled = True
 
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
 
     End Sub ''eND OF ""Private Sub MoveByShiftingRange""
 
@@ -1653,10 +1681,12 @@ Public Class FormDemo1DVertical
             Else
                 mod_managerVerticalOps.ProcessOperation_AnyType(operation, bChangeOfEndpoint_Expected,
                        bChangeOfEndpoint_PostHoc, True, operation.GetOperationIndexStructure())
+
+                ''Added November 2025 
+                mod_managerVerticalOps.CheckTermination()
+
             End If
 
-            ''Added November 2025 
-            mod_managerVerticalOps.CheckTermination()
 
 
         ElseIf USE_OP_MANAGER And listInsertAfterOrBefore.SelectedIndex >= 1 Then
@@ -1697,6 +1727,7 @@ Public Class FormDemo1DVertical
         '' Added 11/11/2024 
         ''
         ''//If bChangeOfEndpoint Then
+        bChangeOfEndpoint_Expected = True ''For testing, 6/14/2025 thomas d.
         If bChangeOfEndpoint_Expected Or bChangeOfEndpoint_PostHoc Then
 
             mod_firstItemA = mod_listA._itemStart
@@ -1736,7 +1767,23 @@ Public Class FormDemo1DVertical
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
         ''Modified 12/02/2024  labelNumOperations.Text = mod_managerVerticalOps.ToString()
-        labelNumOperations.Text = mod_managerVerticalOps.ToString(operation)
+
+        If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then
+            ''Added 5/17/2026 thomas
+            If (operation IsNot Nothing) Then
+                labelNumOperations.Text = mod_managerIntegrated.ToString(operation)
+            Else
+                labelNumOperations.Text = "No operation #1."
+            End If
+
+        ElseIf (operation IsNot Nothing) Then
+            labelNumOperations.Text = mod_managerVerticalOps.ToString(operation)
+        Else
+            labelNumOperations.Text = "No operation #2."
+        End If
+
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
 
     End Sub
 
@@ -1773,7 +1820,20 @@ Public Class FormDemo1DVertical
         If (boolUserHasCancelled) Then Exit Sub
 
         ''Added 12/08/2024
-        mod_managerVerticalOps.ClearAnyRedoOperations_IfQueued()
+        If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then
+            ''Added 6/04/2026
+            If (mod_managerIntegrated.AreOneOrMoreOpsToRedo_PerMarker()) Then
+                MessageBoxTD.Show_Statement("There are pending Redo operations in the manager.  " +
+                                    "If you proceed with this Insert-Single operation, all those pending Redo operations will be permanently discarded.")
+                mod_managerIntegrated.ClearAnyRedoOperations_IfQueued()
+            End If ''End of ""If (mod_managerIntegrated.AreOneOrMoreOpsToRedo_PerMarker()) Then""
+            mod_managerIntegrated.ClearAnyRedoOperations_IfQueued() ''Added 12/09/2024
+
+        ElseIf (mod_managerVerticalOps.AreOneOrMoreOpsToRedo_PerMarker()) Then
+            MessageBoxTD.Show_Statement("There are pending Redo operations in the manager.  " +
+                                "If you proceed with this Insert-Single operation, all those pending Redo operations will be permanently discarded.")
+            mod_managerVerticalOps.ClearAnyRedoOperations_IfQueued()
+        End If ''End of ""If (mod_managerVerticalOps.AreOneOrMoreOpsToRedo_PerMarker()) Then""
 
         array_sItemsToInsert = textInsertListOfValuesCSV.Text.Split(ARRAY_OF_DELIMITERS)
         intHowManyInModuleList = mod_listA.DLL_CountAllItems
@@ -1873,7 +1933,7 @@ Public Class FormDemo1DVertical
 
             ''Added 4/08/2025 thomas d.
             ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
-            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
+            ''06/04/2025 mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
 
             ''mod_manager.ProcessOperation_AnyType(operationToInsert, boolEndpoint, True)
             If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
@@ -1882,6 +1942,7 @@ Public Class FormDemo1DVertical
                                              bChangeOfEndpoint_Occurred, True,
                                              operationToInsert_Indices)
             Else
+                mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
                 mod_managerVerticalOps.ProcessOperation_AnyType(operationToInsert, bChangeOfEndpoint_Expected,
                                              bChangeOfEndpoint_Occurred, True,
                                              operationToInsert_Indices)
@@ -1948,6 +2009,9 @@ Public Class FormDemo1DVertical
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
         labelNumOperations.Text = mod_managerVerticalOps.ToString()
+
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
 
     End Sub ''End of Private Sub buttonInsertSingle_Click() 
 
@@ -2104,6 +2168,9 @@ Public Class FormDemo1DVertical
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
+
     End Sub
 
 
@@ -2258,6 +2325,9 @@ Public Class FormDemo1DVertical
         ''Modified 12/01/2024
         labelNumOperations.Text = mod_managerVerticalOps.ToString()
 
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
+
     End Sub ''buttonDelete_Click 
 
 
@@ -2342,6 +2412,9 @@ Public Class FormDemo1DVertical
 
         ''Added 12/04/2024 
         labelNumOperations.Text = mod_managerVerticalOps.ToString()
+
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
 
     End Sub
 
@@ -2497,6 +2570,9 @@ Public Class FormDemo1DVertical
         buttonUndoLastStep.Enabled = True
         ''Added 11/29/2024 
         buttonUndoVertical.Enabled = True
+
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
 
     End Sub ''ENd of ""Private Sub ButtonMoveItems_Click""
 
@@ -2846,6 +2922,8 @@ Public Class FormDemo1DVertical
         buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
         buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
+        ''Added 05/15/2026 td
+        RefreshTheUI_DisplayHVVH()
 
     End Sub ''End of Private Sub SortingForwardOrBackward 
 
@@ -3121,7 +3199,7 @@ Public Class FormDemo1DVertical
             ''Create an operation to manage rotation of columns, for the "UNDO" operation.
             ''
             Dim currentMoveType2D As New StructureTypeOfMove(True)
-            Dim tempOperationH As DLLOperation1D_Of(Of DLLUserControlRichbox) ''tempOperation
+            Dim tempOperationH_Cols As DLLOperation1D_Of(Of DLLUserControlRichbox) ''tempOperation
             Const bChangeOfEndpoint_ExpectedH = True
             Dim bChangeOfEndpoint_OccurredH As Boolean
 
@@ -3133,31 +3211,60 @@ Public Class FormDemo1DVertical
             currentMoveType2D.IsMoveIncrementalShift = False
             currentMoveType2D.IsMoveToAnchor = False
 
-            tempOperationH = New DLLOperation1D_Of(Of DLLUserControlRichbox)(Nothing, Nothing,
+            tempOperationH_Cols = New DLLOperation1D_Of(Of DLLUserControlRichbox)(Nothing, Nothing,
                                False, OPERATION_MOVE, currentMoveType2D, False,
                                OPERATION_ROTATE_R, structIsHorizontal)
 
             If (_USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS) Then ''Added 2/10/2026
                 ''Added 2/10/2026 
-                mod_managerIntegrated.ProcessOperation_AnyType(tempOperationH,
+                mod_managerIntegrated.ProcessOperation_AnyType(tempOperationH_Cols,
                   bChangeOfEndpoint_ExpectedH,
                   bChangeOfEndpoint_OccurredH, True,
-                  tempOperationH.GetOperationIndexStructure)
+                  tempOperationH_Cols.GetOperationIndexStructure)
             Else
-                mod_managerHorizontalOps.ProcessOperation_AnyType(tempOperationH,
+                '' The following manager is for horizontal operations ONLY.
+                ''    It is obselete as of 5/17/2026.---5/17/2026 td
+                mod_managerHorizontalOps.ProcessOperation_AnyType(tempOperationH_Cols,
                       bChangeOfEndpoint_ExpectedH,
                       bChangeOfEndpoint_OccurredH, True,
-                      tempOperationH.GetOperationIndexStructure)
+                      tempOperationH_Cols.GetOperationIndexStructure)
             End If
 
             ''Added 12/27/2025 td
             RedrawColumns_InOrder(mod_listColumnHeaders)
 
             ''added 12/28/2025  
-            LinkReorderCols.Tag = tempOperationH
+            LinkReorderCols.Tag = tempOperationH_Cols
 
 
         End If ''End of ""If (Not MANAGE_ROTATION) Then.... Else""
+
+        ''Added 05/15/2026 td
+        ''
+        ''  Refresh the label box which has "Ver, Hor, Ver, ..." (for example).
+        ''
+        RefreshTheUI_DisplayHVVH()
+
+        ''
+        '' Testing a difficult bug, in which the rotation of columns 
+        ''   inadvertently causes a rotation of the __rows__ as well.
+        ''   (The accidental rotation of the rows doesn't happen to the 
+        ''    row headers, so look at the data cells to watch the row rotation.)
+        ''   ---Added 6/14/2026 td
+        ''
+        If (Testing.TestingByDefault) Then
+            ''---RefreshTheUI_DisplayList() '' (operation)
+
+            ''Added 6/14/2026 td
+            mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
+            mod_firstItemB2 = mod_listB2.DLL_GetFirstItem_OfT()
+            mod_firstItemB3 = mod_listB3.DLL_GetFirstItem_OfT()
+
+            RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
+            RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
+            RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
+
+        End If ''End of ""If (Testing.TestingByDefault) Then""
 
 
     End Sub
@@ -3171,8 +3278,10 @@ Public Class FormDemo1DVertical
 
     End Sub
 
-    Private Sub LinkLabel1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelUndoCols.LinkClicked
-
+    Private Sub LinkLabelUndoColsClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabelUndoCols.LinkClicked
+        ''
+        ''Added 02/10/2026 td
+        ''
         Dim bChangeOfEndpoint_Expected As Boolean
         Dim bChangeOfEndpoint_Occurred As Boolean
         Dim objPriorOperation As DLLOperation1D_Of(Of DLLUserControlRichbox)
@@ -3202,6 +3311,12 @@ Public Class FormDemo1DVertical
         LinkReorderCols.Tag = objPriorOp_Inverse
 
 
+    End Sub
+
+    Private Sub LinkReorderCols_Click(sender As Object, e As EventArgs) Handles LinkReorderCols.Click
+        ''
+        '' See the _LinkClicked event. 
+        ''
     End Sub
 End Class
 
