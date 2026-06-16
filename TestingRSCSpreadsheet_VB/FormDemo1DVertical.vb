@@ -504,7 +504,14 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B1(mod_listB1, mod_firstItemB1)
         RefreshTheUI_DisplayList_B2(mod_listB2, mod_firstItemB2)
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+
+        ''If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then
+        ''    ''Use the "INTEGRATED" (both vertical and horizontal) manager for counting the operations.
+        ''    labelNumOperations.Text = mod_managerIntegrated.ToString()
+        ''Else
+        ''    labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        ''End If
+        RefreshTheUI_CountOfOperations() ''Added 6/2026 thomas downes
 
         ''Added 12/21/2015 td 
         ''  Create an association between each Flow Column and its Column Header.
@@ -1343,6 +1350,13 @@ Public Class FormDemo1DVertical
         Dim intHowManyToMove_RangeCount As Integer ''Added 12/10/2024 td
         Dim bCannotMoveThatMany As Boolean ''Added 12/10/2024 td 
 
+        ''Added 06/15/2026 td
+        If mod_rangeA Is Nothing Then
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_Statement("The selected range is empty, so select a range.")
+            Exit Sub
+        End If ''End of ""If mod_rangeA Is Nothing Then""
+
         ''Added 12/01/2024 
         ''   Inform the user of any pending issues, prior to any operations. 
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
@@ -1448,7 +1462,8 @@ Public Class FormDemo1DVertical
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
         ''Added 12/9/2024  labelNumOperations.Text = mod_managerVerticalOps.ToString()
-        labelNumOperations.Text = mod_managerVerticalOps.ToString(tempOperation)
+        ''6142026 td''labelNumOperations.Text = mod_managerVerticalOps.ToString(tempOperation)
+        RefreshTheUI_CountOfOperations()
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
@@ -1459,6 +1474,21 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayHVVH()
 
     End Sub ''eND OF ""Private Sub MoveByShiftingRange""
+
+
+    Private Sub RefreshTheUI_CountOfOperations()
+        ''
+        ''This updates the box which displays the count of operations performed,
+        ''in the "Operations Performed" section of the UI.---6/14/2026
+        ''
+        If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then
+            ''Use the "INTEGRATED" (both vertical and horizontal) manager for counting the operations.
+            labelNumOperations.Text = mod_managerIntegrated.ToString()
+        Else
+            labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        End If
+
+    End Sub ''End of ""Private Sub RefreshTheUI_CountOfOperations()""
 
 
     Private Sub AddDescriptionForOpByUser(param_operation As DLLOperationBase)
@@ -1785,6 +1815,9 @@ Public Class FormDemo1DVertical
         ''Added 05/15/2026 td
         RefreshTheUI_DisplayHVVH()
 
+        ''Added 6/14/2026 td
+        ''Not needed here, see code above.---RefreshTheUI_CountOfOperations()
+
     End Sub
 
     Private Sub buttonInsertSingle_Click(sender As Object, e As EventArgs) Handles buttonInsertSingle.Click
@@ -2008,7 +2041,8 @@ Public Class FormDemo1DVertical
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        ''---6/14/2026 td--labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        RefreshTheUI_CountOfOperations()
 
         ''Added 05/15/2026 td
         RefreshTheUI_DisplayHVVH()
@@ -2166,7 +2200,8 @@ Public Class FormDemo1DVertical
         buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
 
         ''Added 12/04/2024 
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        ''6/24/2026 ''labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        RefreshTheUI_CountOfOperations()
 
         ''Added 05/15/2026 td
         RefreshTheUI_DisplayHVVH()
@@ -2323,7 +2358,8 @@ Public Class FormDemo1DVertical
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        ''--6/2026 --labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        RefreshTheUI_CountOfOperations()
 
         ''Added 05/15/2026 td
         RefreshTheUI_DisplayHVVH()
@@ -2347,15 +2383,28 @@ Public Class FormDemo1DVertical
         ''
         Dim bEndpointAffected As Boolean ''Added 11/10/2024 td
         Dim bTestingIndexStructure As Boolean ''Added 1/14/2025 td
+        Dim bThereAreRedoOps As Boolean ''Added 06/14/2026 td
 
-        If (mod_managerVerticalOps.MarkerHasOperationNext_Redo()) Then
+        ''Check to see if there are REDO operations in the queue.
+        ''  If not, inform the user and exit the sub.---6/14/2026 td
+        If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then
+            bThereAreRedoOps = mod_managerIntegrated.MarkerHasOperationNext_Redo()
+
+        Else
+            bThereAreRedoOps = mod_managerVerticalOps.MarkerHasOperationNext_Redo
+        End If
+
+        ''
+        ''Check the Boolean variable and, if needed, inform the user and exit the sub.
+        ''
+        If (bThereAreRedoOps) Then ''If mod_managerVerticalOps.MarkerHasOperationNext_Redo()) Then
             ''
             ''Fine, this is expected. ---Thomas D.
             ''
         Else
             MessageBoxTD.Show_Statement("Sorry, there are no Redo operations in the queue.")
             Exit Sub
-        End If ''End of "If (mod_manager.MarkerHasOperationNext_Redo()) Then... Else ..."
+        End If ''End of "If (bThereAreRedoOps) Then... Else ..."
 
         ''Added 1/14/2025 td
         bTestingIndexStructure = TestingIndexStructure() ''---2025 checkTestNumericConstructor.Checked
@@ -2384,6 +2433,7 @@ Public Class FormDemo1DVertical
 
         ''''Added 12/04/2024 
         ''labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        RefreshTheUI_CountOfOperations() ''Add 6/2026 td
 
         ''Added 4/14/2025 td
         mod_firstItemB1 = mod_listB1.DLL_GetFirstItem_OfT()
@@ -2446,6 +2496,13 @@ Public Class FormDemo1DVertical
         Dim boolUserHasCancelled As Boolean ''Added 12/01/2024
         AdminToDoPriorToAnyOperation("Move", boolUserHasCancelled)
         If boolUserHasCancelled Then Exit Sub
+
+        ''Added 06/15/2026 td
+        If mod_rangeA Is Nothing Then
+            ''Added 11/11/2024 td
+            MessageBoxTD.Show_Statement("The selected range is empty, so select a range.")
+            Exit Sub
+        End If ''End of ""If mod_rangeA Is Nothing Then""
 
         ''Added 12/10/2024 td 
         intHowManyToMove = mod_rangeA.GetItemCount
@@ -2564,7 +2621,8 @@ Public Class FormDemo1DVertical
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
         ''Added 12/9/2024  labelNumOperations.Text = mod_managerVerticalOps.ToString()
-        labelNumOperations.Text = mod_managerVerticalOps.ToString(tempOperation)
+        ''6/2026 td//labelNumOperations.Text = mod_managerVerticalOps.ToString(tempOperation)
+        RefreshTheUI_CountOfOperations()
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = True
@@ -2587,7 +2645,8 @@ Public Class FormDemo1DVertical
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        ''-----labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        RefreshTheUI_CountOfOperations() ''Added 6/2026 td
 
     End Sub
 
@@ -2598,7 +2657,8 @@ Public Class FormDemo1DVertical
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
         ''Modified 12/01/2024
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        ''-----labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        RefreshTheUI_CountOfOperations() ''Added 6/2026 td
 
     End Sub
 
@@ -2606,15 +2666,32 @@ Public Class FormDemo1DVertical
         ''
         ''Added 12/4./2024 t..homas d..ownes
         ''
-        mod_managerVerticalOps.ClearAllRecordedOperations()
+        If (_USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS) Then ''Added 2/10/2026
+            ''Use the horizontal-vertical integrated manager, which is the more fully featured manager.
+            ''   --Added 2/10/2026
+            mod_managerIntegrated.ClearAllRecordedOperations()
 
-        buttonRedoOp.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
-        buttonRedoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+            buttonRedoOp.Enabled = mod_managerIntegrated.MarkerHasOperationNext_Redo()
+            buttonRedoVertical.Enabled = mod_managerIntegrated.MarkerHasOperationNext_Redo()
 
-        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+            buttonUndoLastStep.Enabled = mod_managerIntegrated.MarkerHasOperationPrior_Undo()
+            buttonUndoVertical.Enabled = mod_managerIntegrated.MarkerHasOperationPrior_Undo()
 
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        Else
+
+            mod_managerVerticalOps.ClearAllRecordedOperations()
+
+            buttonRedoOp.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+            buttonRedoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
+
+            buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+            buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+
+            ''labelNumOperations.Text = mod_managerVerticalOps.ToString()
+
+        End If
+
+        RefreshTheUI_CountOfOperations() ''Added 6/2026 td
 
     End Sub
 
@@ -2916,7 +2993,8 @@ Public Class FormDemo1DVertical
         RefreshTheUI_DisplayList_B3(mod_listB3, mod_firstItemB3)
 
         ''Added 12/29/2024 
-        labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        ''6/2026 td''labelNumOperations.Text = mod_managerVerticalOps.ToString()
+        RefreshTheUI_CountOfOperations() ''Added 6/2026 td
 
         ''Added 11/10/2024 
         buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
