@@ -494,7 +494,12 @@ Public Class FormDemo1DVertical
                mod_firstItemA, mod_listA)
 
         ''Added 4/08/2025 thomas d.
-        mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
+        If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then
+            ''Added 6/16/2026 td
+            mod_managerIntegrated.LoadParallelLists_Vertical(GetArray_ParallelLists())   ''//, arrayOfParallelRanges)
+        Else
+            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())
+        End If
 
         ''
         '' Display the list. 
@@ -1652,6 +1657,13 @@ Public Class FormDemo1DVertical
             ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
             ''anchor_couple = New DLLAnchorCouplet(Of DLLUserControlRichbox)(tempAnchorItem,
             ''  tempAnchorItem.DLL_GetItemNext_OfT(), bChangeOfEndpoint)
+
+            ''Added 6/16/2026 td
+            If (tempAnchorItem Is Nothing) Then
+                MessageBoxTD.Show_Statement("No anchor is found / available.")
+                Exit Sub
+            End If ''End of ""If (tempAnchorItem Is Nothing) Then"
+
             anchor_couple = New DLLAnchorCouplet(Of DLLUserControlRichbox)(tempAnchorItem,
                                         tempAnchorItem.DLL_GetItemNext_OfT,
                                         tempAnchorItem.DLL_IsEitherEndpoint)
@@ -1690,8 +1702,18 @@ Public Class FormDemo1DVertical
 
             ''Added 4/08/2025 thomas d.
             ''12/19/2025 mod_managerVerticalOps.LoadParallelLists(GetParallelLists(), arrayOfParallelRanges)
-            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
-            mod_managerIntegrated.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges) ''Added 2/10/2026
+
+            If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then
+                ''
+                '' This is a vertical operation.
+                ''
+                mod_managerIntegrated.LoadParallelLists_Vertical(GetArray_ParallelLists(), arrayOfParallelRanges) ''Added 2/10/2026
+
+            Else
+                ''Obselete!!   Non-integrated manager. ---6/16/2026 td
+                mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists(), arrayOfParallelRanges)
+
+            End If
 
             ''Added 11/03/2025 td 
             ''If (chkAddOpDescriptions.Checked) Then
@@ -1723,6 +1745,12 @@ Public Class FormDemo1DVertical
             ''
             ''Added 11/06/2024 td  
             ''
+            ''Added 6/16/2026 td
+            If (tempAnchorItem Is Nothing) Then
+                MessageBoxTD.Show_Statement("No anchor is found / available.")
+                Exit Sub
+            End If ''End of ""If (tempAnchorItem Is Nothing) Then"
+
             ''---bChangeOfEndpoint = objectRange.ContainsEndpoint()
             anchor_couple = New DLLAnchorCouplet(Of DLLUserControlRichbox)(
                                         tempAnchorItem.DLL_GetItemPrior_OfT, tempAnchorItem,
@@ -2035,8 +2063,14 @@ Public Class FormDemo1DVertical
         buttonRedoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationNext_Redo()
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        If _USE_INTEGRATED_MANAGER_FOR_VERTICAL_OPS Then
+            ''Added 6/04/2026
+            buttonUndoLastStep.Enabled = mod_managerIntegrated.MarkerHasOperationPrior_Undo()
+            buttonUndoVertical.Enabled = mod_managerIntegrated.MarkerHasOperationPrior_Undo()
+        Else
+            buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+            buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        End If
 
         ''Added 11/29/2024 
         ''---labelNumOperations.Text = "Count of operations: " + mod_managerVerticalOps.HowManyOpsAreRecorded()
@@ -2309,7 +2343,7 @@ Public Class FormDemo1DVertical
 
             ''Added 4/08/2025 thomas d.
             ''12/19/2025 td''mod_managerVerticalOps.LoadParallelLists(GetParallelLists())
-            mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())
+            ''Obselete....6/2026 mod_managerVerticalOps.LoadParallelLists(GetArray_ParallelLists())
 
             ''Added 11/03/2025 td
             AddDescriptionForOpByUser(operationToDelete)
@@ -2997,8 +3031,13 @@ Public Class FormDemo1DVertical
         RefreshTheUI_CountOfOperations() ''Added 6/2026 td
 
         ''Added 11/10/2024 
-        buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
-        buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        If (_USE_INTEGRATED_MANAGER_FOR_HORIZONTAL_OPS) Then
+            buttonUndoLastStep.Enabled = mod_managerIntegrated.MarkerHasOperationPrior_Undo()
+            buttonUndoVertical.Enabled = mod_managerIntegrated.MarkerHasOperationPrior_Undo()
+        Else
+            buttonUndoLastStep.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+            buttonUndoVertical.Enabled = mod_managerVerticalOps.MarkerHasOperationPrior_Undo()
+        End If
 
         ''Added 05/15/2026 td
         RefreshTheUI_DisplayHVVH()

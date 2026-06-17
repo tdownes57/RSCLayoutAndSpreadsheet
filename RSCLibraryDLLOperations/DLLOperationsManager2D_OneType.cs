@@ -1229,14 +1229,22 @@ namespace RSCLibraryDLLOperations
             // 
             //
             //  Process each parallel list (e.g. column of data cells) in
-            //   turn. ---5/06/2025 
+            //   turn, so that the lists stay "in sync" with the correct
+            //   primary list. ---5/06/2025 
             //
             // Added 6/15/2026 td
-            if (boolSyncForVerticalOps)
+            if (boolSyncForVerticalOps || boolSyncForHorizontalOps)
             {
+                //
+                // Reference the appropriate array of parallel lists to be synced.
+                //
+                DLLList<T_DLL>[] array_ofListsToSync =
+                    (boolSyncForVerticalOps ?
+                       mod_arrayOfParallelLists_SyncVerticalOps :
+                       mod_arrayOfParallelLists_SyncHorizontalOps);
 
                 // Added 4/08/2025 td
-                foreach (var each_list in mod_arrayOfParallelLists_SyncVerticalOps)
+                foreach (var each_list in array_ofListsToSync) // mod_arrayOfParallelLists_SyncVerticalOps)
                 {
                     //Added 5/06/2025
                     bool bSkipThisList_IsSorted = (each_list == par_listThatWasAlreadySorted);
